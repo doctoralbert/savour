@@ -1,5 +1,7 @@
 {
   "rewrites": [
-    { "source": "/r/:slug", "destination": "/index.html" }
+    { "source": "/r/:slug", "destination": "/index.html" },
+    { "source": "/join/:public_key", "destination": "/index.html" },
+    { "source": "/admin", "destination": "/index.html" }
   ]
 }
