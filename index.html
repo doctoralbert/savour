@@ -260,8 +260,8 @@ body.savour-light,body.savour-light .public-shell{background:#f5f4ef!important;c
 /* ================= SAVOUR v54 ================= */
 /* Approved SAVOUR identity */
 .brand img{object-fit:contain;object-position:left center;width:190px;height:auto;filter:drop-shadow(0 4px 14px #000)}
-.landing-logo-wordmark{width:150px;height:38px;display:flex;align-items:center}.landing-logo-wordmark img{display:block;width:100%;height:100%;object-fit:cover;object-position:center center}
-.mobile-brand{width:88px!important;height:34px!important;padding:0!important;border:0!important;background:url('/assets/savour-approved-wordmark.png') center center/cover no-repeat!important;font-size:0!important;letter-spacing:0!important;color:transparent!important;display:block!important;flex:0 0 auto}
+.landing-logo-wordmark{width:150px;height:38px;display:flex;align-items:center;background:#000;overflow:hidden}.landing-logo-wordmark img{display:block;width:100%;height:100%;object-fit:contain;object-position:center center}
+.mobile-brand{width:88px!important;height:34px!important;padding:0!important;border:0!important;background:url('/assets/savour-approved-wordmark.png') center center/contain no-repeat!important;font-size:0!important;letter-spacing:0!important;color:transparent!important;display:block!important;flex:0 0 auto}
 
 /* The mobile search sits farther right, directly before the account actions. */
 @media(max-width:760px){
@@ -318,7 +318,7 @@ body.savour-light,body.savour-light .public-shell{background:#f5f4ef!important;c
    User content remains protected by the explicit protected selector. */
 
 /* v54 phone identity */
-.phone-brand{height:26px;width:94px;background:url('/assets/savour-approved-wordmark.png') center center/cover no-repeat;font-size:0;margin-bottom:10px}
+.phone-brand{height:26px;width:94px;background:url('/assets/savour-approved-wordmark.png') center center/contain no-repeat;font-size:0;margin-bottom:10px}
 /* Prevent accidental horizontal page overflow from any legacy child. */
 html,body{max-width:100%;overflow-x:hidden}
 
@@ -371,9 +371,9 @@ html,body{max-width:100%;overflow-x:hidden}
 }
 
 /* SAVOUR v56 identity, light theme hardening, activation and bug reporting */
-.brand img,.landing-logo-wordmark img,.public-info-brand img,.activation-logo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center center}
+.brand img,.landing-logo-wordmark img,.public-info-brand img,.activation-logo img{display:block;width:100%;height:100%;object-fit:contain;object-position:center center}
 .brand img{width:190px;max-height:44px;object-position:left center}
-.landing-logo-wordmark{width:190px;height:48px;display:flex;align-items:center}.landing-logo-wordmark img{max-height:none;object-position:center center}
+.landing-logo-wordmark{width:190px;height:48px;display:flex;align-items:center;background:#000;overflow:hidden}.landing-logo-wordmark img{max-height:48px;object-position:center center}
 .public-info-brand{width:175px;height:38px;display:flex;align-items:center}.public-info-brand img{max-height:38px;object-position:left center}
 .activation-shell{min-height:100vh;background:radial-gradient(circle at 70% 0,#17221f 0,#060a0b 38%,#030506 100%);color:var(--text);display:flex;align-items:center;justify-content:center;padding:30px}.activation-main{width:100%;max-width:720px}.activation-card{position:relative;text-align:center;padding:64px 54px;border:1px solid #313b3a;border-radius:14px;background:linear-gradient(145deg,#0d1516,#081011);box-shadow:0 30px 100px #0009;overflow:hidden}.activation-card:after{content:"";position:absolute;width:420px;height:420px;border:1px solid #8e774a2b;border-radius:50%;right:-190px;top:-180px;box-shadow:0 0 0 48px #8e774a08,0 0 0 96px #8e774a05;pointer-events:none}.activation-logo{width:min(290px,72%);margin:0 auto 38px;position:relative;z-index:1}.activation-kicker{font-size:10px;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;position:relative;z-index:1}.activation-card h1{font-family:'Playfair Display';font-size:46px;line-height:1.05;margin:12px 0 14px;position:relative;z-index:1}.activation-card p{max-width:540px;margin:0 auto;color:#c4c8c2;line-height:1.7;position:relative;z-index:1}.activation-card p+p{margin-top:8px}.activation-button{margin-top:28px;position:relative;z-index:1}.activation-tagline{margin-top:34px;color:#7f8985;font-family:'Playfair Display';font-style:italic;font-size:13px;position:relative;z-index:1}.bug-form{margin-top:26px}.bug-status{font-size:12px;color:var(--gold);align-self:center}
 .savour-light .activation-shell{background:#f5f4ef;color:#111}.savour-light .activation-card{background:#fff;border-color:#d8d7d0;box-shadow:0 20px 70px #0000000b}.savour-light .activation-card p{color:#000}.savour-light .activation-tagline{color:#555}.savour-light .activation-card:after{border-color:#9b835444;box-shadow:0 0 0 48px #9b835412,0 0 0 96px #9b835408}
@@ -393,7 +393,7 @@ html,body{max-width:100%;overflow-x:hidden}
 .savour-light .shared-main-head,.savour-light .shared-main-head *{border-color:#d2d0c8}.savour-light .shared-main-head p,.savour-light .shared-main-head small{color:#111!important}
 .savour-light .detail-actions .btn{background:#fff!important;color:#111!important;border-color:#c9c7be!important}.savour-light .detail-actions .btn.delete-recipe{color:#111!important;border-color:#c9c7be!important}
 .savour-light .public-shell{background:#f5f4ef!important;color:#111!important}.savour-light .public-shell-header{background:#fff!important;border-color:#d9d8d0}.savour-light .public-info-view h1,.savour-light .public-info-view h2,.savour-light .public-info-view p,.savour-light .public-info-view strong{color:#111!important}
-@media(max-width:760px){.activation-shell{padding:16px}.activation-card{padding:42px 22px}.activation-card h1{font-size:34px}.activation-logo{width:220px;margin-bottom:30px}.public-info-brand{width:145px;height:32px}.brand img{width:150px;height:36px;object-fit:cover;object-position:center center}}
+@media(max-width:760px){.activation-shell{padding:16px}.activation-card{padding:42px 22px}.activation-card h1{font-size:34px}.activation-logo{width:220px;margin-bottom:30px}.public-info-brand{width:145px;height:32px}.brand img{width:150px;height:36px;object-fit:contain;object-position:center center}}
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8120664667405598" crossorigin="anonymous"></script>
@@ -1760,12 +1760,31 @@ function applyCurrentLanguage(root=null){const lang=currentLang();document.docum
 
 /* v57: translate only newly rendered subtrees instead of rescanning the complete page. */
 if(!window.__savourV57Observer){
-  window.__savourV57Observer=new MutationObserver((mutations)=>{
-    const lang=currentLang();let translated=false;
-    for(const mutation of mutations){for(const n of mutation.addedNodes){if(n.nodeType===Node.ELEMENT_NODE){translateUi(lang,n);translated=true}else if(n.nodeType===Node.TEXT_NODE&&n.parentElement){translateUi(lang,n.parentElement);translated=true}}}
-    if(translated)syncCriticalLanguageUi(lang);
+  let translating=false;
+  const observer=new MutationObserver((mutations)=>{
+    if(translating)return;
+    const lang=currentLang();
+    const roots=[];
+    for(const mutation of mutations){
+      for(const n of mutation.addedNodes){
+        if(n.nodeType===Node.ELEMENT_NODE)roots.push(n);
+        else if(n.nodeType===Node.TEXT_NODE&&n.parentElement)roots.push(n.parentElement);
+      }
+    }
+    if(!roots.length)return;
+    translating=true;
+    observer.disconnect();
+    try{
+      const unique=[...new Set(roots)];
+      unique.forEach(root=>translateUi(lang,root));
+      syncCriticalLanguageUi(lang);
+    }finally{
+      translating=false;
+      observer.observe(document.body,{childList:true,subtree:true});
+    }
   });
-  window.__savourV57Observer.observe(document.body,{childList:true,subtree:true});
+  window.__savourV57Observer=observer;
+  observer.observe(document.body,{childList:true,subtree:true});
 }
 
 // Default is Dutch on a first visit; a user-selected language is retained afterwards.
