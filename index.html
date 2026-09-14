@@ -502,7 +502,7 @@ html,body{max-width:100%;overflow-x:hidden}
 <div class="modal" id="scaleModal"><div class="modalbox"><h2>Recept omrekenen</h2><p class="muted" id="scaleBaseText"></p><div class="formgrid"><div class="field"><label>Nieuwe opbrengst</label><input id="scaleTarget" placeholder="Bijv. 5 liter"></div></div><p class="scale-note">De oorspronkelijke receptuur blijft ongewijzigd. De hoeveelheden hieronder zijn alleen voor deze berekening.</p><div id="scaleResult" class="panel" style="margin-top:14px;max-height:45vh;overflow:auto"></div><div class="actions"><button class="btn gold" onclick="calculateScale()">Omrekenen</button><button class="btn" onclick="closeScale()">Sluiten</button></div></div></div><div class="modal" id="newFolderModal"><div class="modalbox"><h2>Nieuwe receptenmap</h2><div class="field"><label>Naam van de map</label><input id="newFolderName" placeholder="Bijv. Sauzen, Garde of A t/m Z"></div><div class="actions"><button class="btn gold" onclick="createFolder()">Map maken</button><button class="btn" onclick="closeNewFolder()">Annuleren</button></div></div></div>
 <div class="modal" id="sharedChooserModal"><div class="modalbox shared-chooser-box"><div class="row"><h2 style="margin:0">Gedeelde map openen</h2><button class="btn" onclick="closeSharedChooser()">Sluiten</button></div><p class="muted">Kies de gedeelde map die je wilt openen.</p><div id="sharedChooserList" class="shared-chooser-list"></div><button class="btn gold" style="width:100%;margin-top:12px" onclick="closeSharedChooser();newSharedMap()">＋ Nieuwe gedeelde map</button></div></div><div class="modal" id="newSharedModal"><div class="modalbox"><h2>Gedeelde map toevoegen</h2><p class="muted">Maak een map die je met je keukenteam kunt delen.</p><div class="field"><label>Naam van de gedeelde map</label><input id="newSharedName" placeholder="Bijv. Garde, Patisserie of Keuken algemeen"></div><div class="actions"><button class="btn gold" onclick="createSharedMap()">Gedeelde map maken</button><button class="btn" onclick="closeNewShared()">Annuleren</button></div></div></div>
 <div class="modal" id="inviteModal"><div class="modalbox invite-modal-box"><h2>Keukenteam toevoegen</h2><p class="muted">Deel deze uitnodigingslink via WhatsApp, Telegram of e-mail. Nadat iemand een account heeft gemaakt, kun je de rechten aanpassen.</p><div class="sharelink" id="inviteLink"></div><div class="invite-channel-grid"><button class="btn gold" onclick="shareInviteWhatsApp()">WhatsApp</button><button class="btn" onclick="shareInviteTelegram()">Telegram</button><button class="btn" onclick="shareInviteEmail()">E-mail</button><button class="btn" onclick="copyInvite()">Link kopiëren</button></div><div class="actions"><button class="btn" onclick="closeInvite()">Sluiten</button></div></div></div>
-<div class="modal" id="memberModal"><div class="modalbox"><h2>Persoon toevoegen</h2><p class="muted">Voeg hier iemand toe nadat die persoon via de openbare link een account heeft aangemaakt.</p><div class="formgrid"><div class="field"><label>Naam</label><input id="memberName" placeholder="Naam"></div><div class="field"><label>E-mail</label><input id="memberEmail" placeholder="naam@keuken.nl"></div><div class="field full"><label>Rechten</label><select id="memberRole"><option value="viewer">viewer — alleen bekijken</option><option value="editor">editor — recepten toevoegen en bewerken</option><option value="owner">owner — map beheren</option></select></div></div><div class="actions"><button class="btn gold" onclick="createMember()">Persoon toevoegen</button><button class="btn" onclick="closeMember()">Annuleren</button></div></div></div><div class="modal" id="newSharedFolderModal"><div class="modalbox"><h2>Nieuwe map in gedeelde map</h2><p class="muted">Bepaal zelf hoe deze gedeelde map wordt georganiseerd.</p><div class="field"><label>Naam van de map</label><input id="newSharedFolderName" placeholder="Bijv. Parties, Garde of Patisserie"></div><div class="actions"><button class="btn gold" onclick="createSharedFolder()">Map maken</button><button class="btn" onclick="closeSharedFolderModal()">Annuleren</button></div></div></div><div class="modal auth-modal" id="authModal" aria-hidden="true"><form class="modalbox" id="authForm" autocomplete="on" method="post" onsubmit="event.preventDefault();submitAuth()"><div class="eyebrow" id="authEyebrow">Savour</div><h2 id="authTitle">Inloggen</h2><p class="muted" id="authIntro">Log in om je receptenbibliotheek te openen.</p><div class="formgrid" id="authNameField" style="display:none"><div class="field"><label>Voornaam</label><input id="authFirstName" placeholder="Voornaam" autocomplete="given-name"></div><div class="field"><label>Achternaam</label><input id="authLastName" placeholder="Achternaam" autocomplete="family-name"></div></div><div class="field" id="authEmailField" style="margin-top:10px"><label id="authLoginLabel">Volledige naam/E-mailadres</label><input id="authEmail" name="username" type="text" placeholder="John Doe of chef@keuken.nl" autocomplete="username" autocapitalize="none" spellcheck="false"></div><div class="field" style="margin-top:10px"><label>Wachtwoord</label><input id="authPassword" name="password" type="password" placeholder="••••••••" autocomplete="current-password"></div><div id="loginOptions" class="login-options" style="display:none"><div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><label class="remember-check"><input id="rememberMe" type="checkbox" checked> <span>Aangemeld blijven</span></label><label class="remember-check"><input id="rememberPassword" type="checkbox" checked> <span>E-mail en wachtwoord onthouden</span></label></div><button type="button" class="text-link" onclick="forgotPassword()">Wachtwoord vergeten?</button></div><div class="actions"><button class="btn gold" id="authSubmit" type="submit">Inloggen</button><button class="btn" type="button" onclick="closeAuth()">Annuleren</button></div><div class="auth-note">Echte accounts en beveiligde sessies via Supabase. Je persoonlijke receptenbibliotheek is gekoppeld aan je eigen account.</div></form></div><div class="toast" id="toast"></div>
+<div class="modal" id="memberModal"><div class="modalbox"><h2>Persoon toevoegen</h2><p class="muted">Voeg hier iemand toe nadat die persoon via de openbare link een account heeft aangemaakt.</p><div class="formgrid"><div class="field"><label>Naam</label><input id="memberName" placeholder="Naam"></div><div class="field"><label>E-mail</label><input id="memberEmail" placeholder="naam@keuken.nl"></div><div class="field full"><label>Rechten</label><select id="memberRole"><option value="viewer">viewer — alleen bekijken</option><option value="editor">editor — recepten toevoegen en bewerken</option><option value="owner">owner — map beheren</option></select></div></div><div class="actions"><button class="btn gold" onclick="createMember()">Persoon toevoegen</button><button class="btn" onclick="closeMember()">Annuleren</button></div></div></div><div class="modal" id="newSharedFolderModal"><div class="modalbox"><h2>Nieuwe map in gedeelde map</h2><p class="muted">Bepaal zelf hoe deze gedeelde map wordt georganiseerd.</p><div class="field"><label>Naam van de map</label><input id="newSharedFolderName" placeholder="Bijv. Parties, Garde of Patisserie"></div><div class="actions"><button class="btn gold" onclick="createSharedFolder()">Map maken</button><button class="btn" onclick="closeSharedFolderModal()">Annuleren</button></div></div></div><div class="modal auth-modal" id="authModal"><form class="modalbox" id="authForm" autocomplete="on" method="post" onsubmit="event.preventDefault();submitAuth()"><div class="eyebrow" id="authEyebrow">Savour</div><h2 id="authTitle">Inloggen</h2><p class="muted" id="authIntro">Log in om je receptenbibliotheek te openen.</p><div class="formgrid" id="authNameField" style="display:none"><div class="field"><label>Voornaam</label><input id="authFirstName" placeholder="Voornaam" autocomplete="given-name"></div><div class="field"><label>Achternaam</label><input id="authLastName" placeholder="Achternaam" autocomplete="family-name"></div></div><div class="field" id="authEmailField" style="margin-top:10px"><label id="authLoginLabel">Volledige naam/E-mailadres</label><input id="authEmail" name="username" type="text" placeholder="John Doe of chef@keuken.nl" autocomplete="username" autocapitalize="none" spellcheck="false"></div><div class="field" style="margin-top:10px"><label>Wachtwoord</label><input id="authPassword" name="password" type="password" placeholder="••••••••" autocomplete="current-password"></div><div id="loginOptions" class="login-options" style="display:none"><div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><label class="remember-check"><input id="rememberMe" type="checkbox" checked> <span>Aangemeld blijven</span></label><label class="remember-check"><input id="rememberPassword" type="checkbox" checked> <span>E-mail en wachtwoord onthouden</span></label></div><button type="button" class="text-link" onclick="forgotPassword()">Wachtwoord vergeten?</button></div><div class="actions"><button class="btn gold" id="authSubmit" type="submit">Inloggen</button><button class="btn" type="button" onclick="closeAuth()">Annuleren</button></div><div class="auth-note">Echte accounts en beveiligde sessies via Supabase. Je persoonlijke receptenbibliotheek is gekoppeld aan je eigen account.</div></form></div><div class="toast" id="toast"></div>
 <script src="https://unpkg.com/mammoth@1.6.0/mammoth.browser.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL="https://qmzfqfmpylkgcnxsedse.supabase.co";
@@ -1406,36 +1406,17 @@ function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&l
 // Extend folder modal save for shared maps without changing the regular folder flow.
 async function deleteAccount(){if(!currentUser)return;const ok=confirm('Weet je zeker dat je je account definitief wilt verwijderen?\n\nJe persoonlijke recepten, mappen, favorieten en profielgegevens worden verwijderd. Deze actie kan niet ongedaan worden gemaakt.');if(!ok)return;try{const {error}=await supabaseClient.rpc('delete_my_account');if(error)throw error;await supabaseClient.auth.signOut();currentUser=null;recipes=[];folders=[];favorites=[];sharedMaps=[];account={name:'',role:'Chef-kok',email:'',password:'',photo:''};showLanding();toast('Account verwijderd')}catch(e){console.error(e);toast(e.message||'Account kon niet worden verwijderd')}}
 function openAuth(mode){
-  authMode=mode;
-  const modal=$('authModal');
-  if(!modal)return;
-  modal.classList.add('open');
-  modal.style.display='flex';
-  modal.setAttribute('aria-hidden','false');
-  $('authEmail').value=(mode==='login'&&localStorage.getItem('savour_login_email'))||'';$('authPassword').value='';
+  authMode=mode;$('authModal').classList.add('open');$('authEmail').value=(mode==='login'&&localStorage.getItem('savour_login_email'))||'';$('authPassword').value='';
   if($('authFirstName'))$('authFirstName').value='';if($('authLastName'))$('authLastName').value='';
   $('authNameField').style.display=mode==='signup'?'grid':'none';if($('loginOptions'))$('loginOptions').style.display=mode==='login'?'flex':'none';
   if($('rememberMe'))$('rememberMe').checked=localStorage.getItem('savour_remember_me')!=='0';if($('rememberPassword'))$('rememberPassword').checked=localStorage.getItem('savour_remember_password')!=='0';
   $('authEmail').setAttribute('autocomplete',mode==='signup'?'email':'username');$('authPassword').setAttribute('autocomplete',mode==='signup'?'new-password':'current-password');
   $('authEmail').type=mode==='signup'?'email':'text';$('authEmail').placeholder=mode==='signup'?'chef@keuken.nl':'John Doe of chef@keuken.nl';$('authLoginLabel').textContent=mode==='signup'?'E-mailadres':'Volledige naam/E-mailadres';
   $('authSubmit').textContent=mode==='signup'?'Account aanmaken':'Inloggen';$('authTitle').textContent=mode==='signup'?'Account aanmaken':'Inloggen';
-  $('authIntro').textContent=mode==='signup'?'Maak een account aan om je persoonlijke receptenbibliotheek te openen.':'Log in om je persoonlijke receptenbibliotheek te openen';$('authEyebrow').textContent=mode==='signup'?'Nieuw bij Savour':'Welkom terug bij Savour';
-  try{const activeLang=currentLang(); if(activeLang==='en'){ $('authTitle').textContent=mode==='signup'?'Create account':'Log in'; $('authSubmit').textContent=mode==='signup'?'Create account':'Log in'; $('authIntro').textContent=mode==='signup'?'Create an account to open your personal recipe library.':'Log in to open your personal recipe library.'; $('authEyebrow').textContent=mode==='signup'?'New to Savour':'Welcome back to Savour'; }}catch(e){console.warn('Auth taalweergave overgeslagen',e)}
-  setTimeout(()=>{$('authEmail')?.focus();},30);
+  $('authIntro').textContent=mode==='signup'?'Maak een account aan om je persoonlijke receptenbibliotheek te openen.':'Log in om je persoonlijke receptenbibliotheek te openen';$('authEyebrow').textContent=mode==='signup'?'Nieuw bij Savour':'Welkom terug bij Savour';applyCurrentLanguage();
 }
 
-function closeAuth(){const modal=$('authModal');if(!modal)return;modal.classList.remove('open');modal.style.display='none';modal.setAttribute('aria-hidden','true')}
-// v58 login hardening: direct listeners remain functional even if inline handlers or language UI fail.
-document.addEventListener('click',e=>{
-  const login=e.target.closest?.('[data-savour-auth="login"]');
-  const signup=e.target.closest?.('[data-savour-auth="signup"]');
-  if(login){e.preventDefault();openAuth('login');}
-  else if(signup){e.preventDefault();openAuth('signup');}
-});
-document.addEventListener('submit',e=>{
-  if(e.target?.id==='authForm'){e.preventDefault();submitAuth();}
-});
-
+function closeAuth(){$('authModal').classList.remove('open')}
 async function resolveLoginEmail(loginValue){
   const value=String(loginValue||'').trim();
   if(!value)return '';
@@ -1469,68 +1450,25 @@ async function rememberBrowserCredential(email,password){
 }
 
 async function submitAuth(){
-  const first=$('authFirstName')?.value.trim()||'';
-  const last=$('authLastName')?.value.trim()||'';
-  const name=[first,last].filter(Boolean).join(' ');
-  const loginValue=$('authEmail').value.trim();
-  const password=$('authPassword').value;
-  if(authMode==='signup'&&(!first||!last)){toast(t('Vul voornaam en achternaam in'));return}
-  if(!loginValue||!password){toast(t('Vul je e-mailadres/naam en wachtwoord in'));return}
-  const button=$('authSubmit');
-  if(button.disabled)return;
-  button.disabled=true;button.textContent=t('Bezig...');
+  let first=$('authFirstName')?.value.trim()||'';let last=$('authLastName')?.value.trim()||'';let name=[first,last].filter(Boolean).join(' ');let loginValue=$('authEmail').value.trim();let password=$('authPassword').value;
+  if(authMode==='signup'&&(!first||!last)){toast(t('Vul voornaam en achternaam in'));return}if(!loginValue||!password){toast(t('Vul je volledige naam/e-mailadres en wachtwoord in'));return}
+  $('authSubmit').disabled=true;$('authSubmit').textContent=t('Bezig...');
   try{
     if(authMode==='signup'){
       if(!loginValue.includes('@')){toast(t('Gebruik bij het aanmaken van een account een e-mailadres'));return}
-      const {data,error}=await supabaseClient.auth.signUp({email:loginValue.toLowerCase(),password,data:{name,first_name:first,last_name:last,function_title:'Chef-kok'},options:{emailRedirectTo:`${window.location.origin}/`}});
-      if(error)throw error;
-      if(data.session){
-        localStorage.setItem('savour_remember_me','1');sessionStorage.setItem('savour_session_active','1');
-        closeAuth();
-        const ok=await startDatabaseSession(data.user);
-        toast(ok?authWelcome(account.name||name||data.user.email):t('Account aangemaakt. Je bibliotheek kon nog niet worden geladen.'));
-      }else{
-        sessionStorage.setItem('savour_session_active','1');closeAuth();toast(t('Account aangemaakt — controleer je e-mail om te bevestigen'));
-      }
+      const {data,error}=await supabaseClient.auth.signUp({email:loginValue,password,data:{name,function_title:'Chef-kok'}});if(error)throw error;
+      if(data.session){localStorage.setItem('savour_remember_me','1');sessionStorage.setItem('savour_session_active','1');const ok=await startDatabaseSession(data.user);closeAuth();if(ok)toast(authWelcome(account.name||name||data.user.email))}
+      else{sessionStorage.setItem('savour_session_active','1');closeAuth();toast(t('Account aangemaakt — controleer je e-mail om te bevestigen'))}
     }else{
-      // E-mailadres: rechtstreeks naar Supabase. Alleen bij een naam proberen we de optionele lookup RPC.
-      let email=loginValue.toLowerCase();
-      if(!email.includes('@')){
-        try{email=await resolveLoginEmail(loginValue)}catch(e){console.warn('Naam-lookup niet beschikbaar; gebruik e-mailadres om in te loggen.',e);email=''}
-      }
-      if(!email){toast(t('Gebruik het e-mailadres waarmee je account is aangemaakt.'));return}
-      const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
-      if(error)throw error;
-      if(!data?.user){throw new Error('Inloggen is gelukt, maar er is geen gebruikerssessie ontvangen.')}
-      const remember=$('rememberMe')?.checked!==false;
-      localStorage.setItem('savour_remember_me',remember?'1':'0');
-      localStorage.setItem('savour_remember_password',$('rememberPassword')?.checked===false?'0':'1');
-      if($('rememberPassword')?.checked!==false)localStorage.setItem('savour_login_email',email);else localStorage.removeItem('savour_login_email');
-      sessionStorage.setItem('savour_session_active','1');
-      await rememberBrowserCredential(email,password);
-      closeAuth();
-      const ok=await startDatabaseSession(data.user);
-      if(ok)toast(authWelcome(account.name||data.user.user_metadata?.name||email));
+      const email=await resolveLoginEmail(loginValue);if(!email){toast(t('Geen account gevonden met deze naam of dit e-mailadres'));return}
+      const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)throw error;const remember=$('rememberMe')?.checked!==false;
+      localStorage.setItem('savour_remember_me',remember?'1':'0');localStorage.setItem('savour_remember_password',$('rememberPassword')?.checked===false?'0':'1');if($('rememberPassword')?.checked!==false)localStorage.setItem('savour_login_email',email);else localStorage.removeItem('savour_login_email');sessionStorage.setItem('savour_session_active','1');await rememberBrowserCredential(email,password);closeAuth();const ok=await startDatabaseSession(data.user);if(ok)toast(authWelcome(account.name||data.user.user_metadata?.name||email));
     }
-  }catch(e){
-    console.error('Savour authenticatie fout:',e);
-    let msg=e?.message||t('Inloggen is mislukt');
-    if(/invalid login credentials/i.test(msg))msg=t('E-mailadres of wachtwoord is onjuist.');
-    else if(/email not confirmed/i.test(msg))msg=t('Bevestig eerst je e-mailadres via de bevestigingsmail.');
-    else if(/rate limit|email rate limit/i.test(msg))msg=t('Er zijn tijdelijk te veel e-mails aangevraagd. Probeer het later opnieuw.');
-    toast(msg);
-  }finally{button.disabled=false;button.textContent=authMode==='signup'?t('Account aanmaken'):t('Inloggen')}
+  }catch(e){console.error(e);let msg=e.message||t('Inloggen is mislukt');if(/rate limit|email rate limit/i.test(msg))msg=t('Er zijn tijdelijk te veel registratie-e-mails aangevraagd. Probeer het later opnieuw.');toast(msg)}finally{$('authSubmit').disabled=false;$('authSubmit').textContent=authMode==='signup'?t('Account aanmaken'):t('Inloggen')}
 }
 
-// Zorg dat Enter in beide loginvelden altijd hetzelfde formulierpad gebruikt.
-document.addEventListener('keydown',e=>{
-  if(e.key!=='Enter'||e.isComposing)return;
-  const target=e.target;
-  if(target?.id==='authEmail'||target?.id==='authPassword'){e.preventDefault();$('authForm')?.requestSubmit();}
-});
-
 document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;const open=document.querySelector('.modal.open');if(!open)return;if(open.id==='folderModal')closeFolderModal();else if(open.id==='authModal')closeAuth();else if(open.id==='shareModal')closeShare();else if(open.id==='newSharedModal')closeNewShared();else if(open.id==='sharedChooserModal')closeSharedChooser();else if(open.id==='inviteModal')closeInvite();else if(open.id==='memberModal')closeMember();else if(open.id==='newSharedFolderModal')closeSharedFolderModal();else if(open.id==='cropModal')closeCrop();else open.classList.remove('open')});
-function renderActiveView(id){if(id==='home')renderHome();else if(id==='recipes')renderRecipes();else if(id==='favorites')renderFavorites();else if(id==='folders')renderFolders();else if(id==='categories')renderCategories();else if(id==='folderDetail')renderFolderDetail();else if(id==='shared')renderShared(currentShared);else if(id==='sharedFolderDetail')renderSharedFolderDetail();else if(id==='settings')renderSettings();else if(['about','faq','terms','privacy','contact','bug'].includes(id))renderInfoLanguage(currentLang())}
+function renderActiveView(id){if(id==='home')renderHome();else if(id==='recipes')renderRecipes();else if(id==='favorites')renderFavorites();else if(id==='folders')renderFolders();else if(id==='categories')renderCategories();else if(id==='folderDetail')renderFolderDetail();else if(id==='shared')renderShared(currentShared);else if(id==='sharedFolderDetail')renderSharedFolderDetail();else if(id==='settings')renderSettings();else if(['about','faq','terms','privacy','contact'].includes(id))renderInfoLanguage(currentLang())}
 async function openPublicRecipeBySlug(slug){
   try{
     const {data,error}=await supabaseClient.rpc('get_public_recipe_by_slug',{_slug:slug});
@@ -1543,52 +1481,11 @@ async function openPublicRecipeBySlug(slug){
     applyCurrentLanguage();
   }catch(e){console.error('Publiek recept laden mislukt',e);$('landingView').style.display='none';$('appShell').style.display='none';$('publicInfoShell').style.display='none';$('publicRecipeShell').style.display='flex';$('publicRecipeContent').innerHTML='<div class="empty"><h2>Recept niet beschikbaar</h2><p>De openbare receptpagina kon niet worden geladen.</p></div>'}
 }
-async function openPublicInvite(key){try{const {data,error}=await supabaseClient.rpc('get_public_shared_map_invite',{_public_key:key});if(error)throw error;$('landingView').style.display='none';$('appShell').style.display='none';$('publicInfoShell').style.display='none';$('publicRecipeShell').style.display='none';$('publicInviteShell').style.display='flex';if(!data){$('publicInviteContent').innerHTML='<div class="empty"><h2>Uitnodiging niet gevonden</h2><p>Deze gedeelde-mapuitnodiging bestaat niet meer.</p></div>';return}$('publicInviteContent').innerHTML=`<div class="eyebrow">Savour · Gedeelde map</div><h1>Uitnodiging voor ${esc(data.name||'Gedeelde map')}</h1><p class="info-lead">Je bent uitgenodigd om mee te werken in een gedeelde receptenmap van Savour.</p><div class="panel" style="margin-top:24px"><h2 style="font-family:'Playfair Display';margin-top:0">${esc(data.name||'Gedeelde map')}</h2><p class="muted">Maak een Savour-account of log in om verder te gaan. Na het inloggen kan de eigenaar je rechten instellen.</p><div class="actions"><button class="btn gold" onclick="openAuth('signup')" data-savour-auth="signup">Account aanmaken</button><button class="btn" onclick="openAuth('login')" data-savour-auth="login">Inloggen</button></div></div>`}catch(e){console.error(e);$('landingView').style.display='none';$('appShell').style.display='none';$('publicInfoShell').style.display='none';$('publicRecipeShell').style.display='none';$('publicInviteShell').style.display='flex';$('publicInviteContent').innerHTML='<div class="empty"><h2>Uitnodiging niet beschikbaar</h2><p>De uitnodiging kon niet worden geladen.</p></div>'}}
+async function openPublicInvite(key){try{const {data,error}=await supabaseClient.rpc('get_public_shared_map_invite',{_public_key:key});if(error)throw error;$('landingView').style.display='none';$('appShell').style.display='none';$('publicInfoShell').style.display='none';$('publicRecipeShell').style.display='none';$('publicInviteShell').style.display='flex';if(!data){$('publicInviteContent').innerHTML='<div class="empty"><h2>Uitnodiging niet gevonden</h2><p>Deze gedeelde-mapuitnodiging bestaat niet meer.</p></div>';return}$('publicInviteContent').innerHTML=`<div class="eyebrow">Savour · Gedeelde map</div><h1>Uitnodiging voor ${esc(data.name||'Gedeelde map')}</h1><p class="info-lead">Je bent uitgenodigd om mee te werken in een gedeelde receptenmap van Savour.</p><div class="panel" style="margin-top:24px"><h2 style="font-family:'Playfair Display';margin-top:0">${esc(data.name||'Gedeelde map')}</h2><p class="muted">Maak een Savour-account of log in om verder te gaan. Na het inloggen kan de eigenaar je rechten instellen.</p><div class="actions"><button class="btn gold" onclick="openAuth('signup')">Account aanmaken</button><button class="btn" onclick="openAuth('login')">Inloggen</button></div></div>`}catch(e){console.error(e);$('landingView').style.display='none';$('appShell').style.display='none';$('publicInfoShell').style.display='none';$('publicRecipeShell').style.display='none';$('publicInviteShell').style.display='flex';$('publicInviteContent').innerHTML='<div class="empty"><h2>Uitnodiging niet beschikbaar</h2><p>De uitnodiging kon niet worden geladen.</p></div>'}}
 function showApp(viewId='home'){$('landingView').style.display='none';$('publicInfoShell').style.display='none';$('publicRecipeShell').style.display='none';if($('publicInviteShell'))$('publicInviteShell').style.display='none';$('appShell').style.display='grid';$('appShell').classList.remove('public-info-mode');activateView(viewId);renderActiveView(viewId);renderSharedNav();updateProfileHeader();applyCurrentLanguage()}
 function activateView(id){document.querySelectorAll('#appShell .view').forEach(v=>v.classList.remove('active'));const view=$(id)||$('home');if(view)view.classList.add('active');document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===view?.id))}
 function showDatabaseError(error){$('landingView').style.display='none';$('publicInfoShell').style.display='none';$('publicRecipeShell').style.display='none';if($('publicInviteShell'))$('publicInviteShell').style.display='none';$('appShell').style.display='grid';$('appShell').classList.remove('public-info-mode');activateView('home');$('homeCards').innerHTML=`<div class="empty" style="grid-column:1/-1"><strong>${esc(t('De receptenbibliotheek kan momenteel niet worden geladen.'))}</strong><br><span class="muted">${esc(t('De lokale prototype-recepten zijn bewust niet gebruikt. Controleer de Supabase-instellingen voordat we verdergaan.'))}</span><br><button class="btn" style="margin-top:14px" onclick="retryDatabaseSession()">${esc(t('Opnieuw proberen'))}</button></div>`;console.error('Database:',error)}
 async function retryDatabaseSession(){if(!currentUser)return;const ok=await startDatabaseSession(currentUser);if(ok)toast(t('Bibliotheek geladen'))}
-
-let activationUser=null;
-function showActivation(user){
-  activationUser=user||null;
-  const meta=user?.user_metadata||{};
-  const full=String(meta.name||[meta.first_name,meta.last_name].filter(Boolean).join(' ')||'').trim();
-  const first=String(meta.first_name||full.split(/\s+/)[0]||'').trim();
-  const lang=currentLang();
-  const titleMap={nl:'Welkom bij Savour',en:'Welcome to Savour',de:'Willkommen bei Savour',it:'Benvenuto in Savour',es:'Bienvenido a Savour'};
-  const title=first ? `${titleMap[lang]||titleMap.nl}, ${first}.` : `${titleMap[lang]||titleMap.nl}.`;
-  $('activationTitle').textContent=title;
-  $('activationLead').textContent=t('Je account is succesvol geactiveerd.');
-  $('activationBody').textContent=t('Je bent klaar om je recepten te organiseren, nieuwe recepturen toe te voegen en Savour in te richten zoals jouw keuken werkt.');
-  $('activationContinue').textContent=t('Naar Savour →');
-  $('activationShell').style.display='flex';$('landingView').style.display='none';$('appShell').style.display='none';$('publicInfoShell').style.display='none';$('publicRecipeShell').style.display='none';if($('publicInviteShell'))$('publicInviteShell').style.display='none';
-  document.body.classList.remove('auth-booting');applyCurrentLanguage();
-}
-async function continueFromActivation(){
-  $('activationShell').style.display='none';
-  if(activationUser){
-    sessionStorage.setItem('savour_session_active','1');
-    const ok=await startDatabaseSession(activationUser);
-    if(ok) showApp('home'); else showLanding();
-  } else showLanding();
-}
-async function handleAuthCallback(){
-  const url=new URL(location.href);
-  const code=url.searchParams.get('code');
-  const hash=new URLSearchParams(location.hash.replace(/^#/,'').replace(/^\?/,'').replace(/&/g,'&'));
-  let session=null;
-  try{
-    if(code){
-      const {data,error}=await supabaseClient.auth.exchangeCodeForSession(code);if(error)throw error;session=data.session||null;
-    }else if(hash.get('access_token')&&hash.get('refresh_token')){
-      const {data,error}=await supabaseClient.auth.setSession({access_token:hash.get('access_token'),refresh_token:hash.get('refresh_token')});if(error)throw error;session=data.session||null;
-    }
-  }catch(e){console.error('Auth callback failed',e);showLanding();return true;}
-  if(session?.user){history.replaceState({},'', '/');showActivation(session.user);return true;}
-  return false;
-}
-
 async function logout(){const name=account.name||currentUser?.user_metadata?.name||currentUser?.email||'bij Savour';sessionStorage.removeItem('savour_session_active');localStorage.setItem('savour_remember_me','0');await supabaseClient.auth.signOut();currentUser=null;$('appShell').style.display='none';$('publicInfoShell').style.display='none';$('publicRecipeShell').style.display='none';if($('publicInviteShell'))$('publicInviteShell').style.display='none';$('landingView').style.display='block';applyCurrentLanguage();toast(authGoodbye(name));window.scrollTo({top:0,behavior:'smooth'})}
 $('appShell').style.display='none';$('publicInfoShell').style.display='none';$('publicRecipeShell').style.display='none';$('landingView').style.display='block';
 const publicRecipeMatch=location.pathname.match(/^\/r\/([^/]+)\/?$/);const publicInviteMatch=location.pathname.match(/^\/join\/([^/]+)\/?$/);
