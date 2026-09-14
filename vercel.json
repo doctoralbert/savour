@@ -2,6 +2,16 @@
   "rewrites": [
     { "source": "/r/:slug", "destination": "/index.html" },
     { "source": "/join/:public_key", "destination": "/index.html" },
-    { "source": "/admin", "destination": "/index.html" }
+    { "source": "/admin", "destination": "/index.html" },
+    { "source": "/nl", "destination": "/index.html" },
+    { "source": "/nld", "destination": "/index.html" },
+    { "source": "/en", "destination": "/index.html" },
+    { "source": "/eng", "destination": "/index.html" },
+    { "source": "/de", "destination": "/index.html" },
+    { "source": "/deu", "destination": "/index.html" },
+    { "source": "/it", "destination": "/index.html" },
+    { "source": "/ita", "destination": "/index.html" },
+    { "source": "/es", "destination": "/index.html" },
+    { "source": "/esp", "destination": "/index.html" }
   ]
 }
