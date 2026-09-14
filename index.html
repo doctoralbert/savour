@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="canonical" href="https://savour.page/"><link rel="icon" type="image/png" href="/assets/logo.png"><link rel="apple-touch-icon" href="/assets/logo.png"><title>Savour — professioneel receptbeheer</title>
+<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="canonical" href="https://savour.page/"><link rel="icon" type="image/png" href="/assets/savour-favicon.png"><link rel="apple-touch-icon" href="/assets/savour-favicon.png"><title>Savour — professioneel receptbeheer</title><!-- SAVOUR v54 -->
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet"><style>
 :root{--bg:#05090a;--panel:#0b1213;--panel2:#0f1718;--line:#263032;--gold:#e8ca8d;--gold2:#c9a96b;--text:#f2eee4;--muted:#99a09b;--green:#718879;--shadow:0 20px 60px #0008}
 .brand-wordmark,.landing-logo-wordmark{font-family:Georgia,'Times New Roman',serif;letter-spacing:.28em;font-weight:400;color:#e9e5dc;text-transform:uppercase}.brand-wordmark{font-size:26px;padding:4px 10px 8px}.landing-logo-wordmark{font-size:29px}.landing-logo{height:auto}
@@ -256,16 +256,84 @@
 /* Light Savour theme */
 body.savour-light,body.savour-light .public-shell{background:#f5f4ef!important;color:#151716!important}.savour-light .app,.savour-light .main,.savour-light .content{background:#f5f4ef!important}.savour-light .sidebar{background:#fff!important;border-color:#d9d8d0}.savour-light .topbar{background:#ffffffed!important;border-color:#deddd6}.savour-light .nav button{color:#262925}.savour-light .nav button:hover,.savour-light .nav button.active{background:#f0eee7;color:#111}.savour-light .side-quote{color:#626861;border-color:#deddd6}.savour-light .hero{background:linear-gradient(135deg,#fff,#f1efe7)!important}.savour-light .hero p,.savour-light .detail .lead,.savour-light .muted,.savour-light .mini,.savour-light .q span,.savour-light .folder small,.savour-light .activity small{color:#5f665f}.savour-light .hero h1,.savour-light .section-head h2,.savour-light .detail h1,.savour-light .block h3,.savour-light .panel h3,.savour-light .card h3,.savour-light .folder b{color:#171918}.savour-light .stat,.savour-light .panel,.savour-light .card,.savour-light .folder,.savour-light .quick .q,.savour-light .detail-hero{background:#fff!important;border-color:#dddcd5;box-shadow:0 10px 30px #0000000d}.savour-light .field input,.savour-light .field textarea,.savour-light .field select,.savour-light .search input{background:#fff;color:#171918;border-color:#cbc9c0}.savour-light .btn{background:#fff;color:#171918;border-color:#c4b99e}.savour-light .btn.gold{background:#171918;color:#fff;border-color:#171918}.savour-light .mobile-search-btn,.savour-light .mobile-menu,.savour-light .mobile-favorite-btn,.savour-light .mobile-logout-btn{background:#fff!important;color:#171918!important;border-color:#d0cec5!important}.savour-light .site-footer{border-color:#d9d8d0}.savour-light .site-footer a,.savour-light .site-footer-left,.savour-light .footer-language{color:#3f443f}.savour-light .mobile-bottom-nav{background:#fff!important;border-color:#d8d7d0!important}.savour-light .mobile-bottom-nav small{color:#333}.savour-light .mobile-bottom-nav span{color:#8a6f3e}
 @media(max-width:760px){.landing-platform-section{grid-template-columns:1fr;gap:34px;padding:44px 18px}.landing-platform-section h2{font-size:31px}.landing-platform-points{grid-template-columns:1fr}.landing-phone{width:250px;height:500px}.mobile-top-actions{display:flex!important;align-items:center;gap:2px}.mobile-search-btn{order:1!important}.mobile-top-actions{order:2!important}.mobile-favorite-btn{order:1}.mobile-logout-btn{order:2}.mobile-brand{order:0}.topbar>.search{display:none!important}.shared-main-head{display:block!important}.shared-main-head .shared-map-actions{margin-top:10px;display:flex;flex-wrap:nowrap;overflow-x:auto;padding-bottom:3px;gap:5px}.shared-main-head .shared-map-actions .compact-action{height:31px!important;padding:6px 8px!important;font-size:10px!important}.compact-shared-cover{min-height:125px!important;max-height:145px!important}.shared-folder-grid{grid-template-columns:1fr 1fr!important;gap:7px!important}.shared-folder{min-height:76px!important;padding:10px!important}.shared-folder b{font-size:12px!important}.shared-folder small{font-size:8px!important}.shared-folder .ico{font-size:17px!important}.shared-main-head h1{font-size:28px!important;margin:5px 0!important}.shared-main-head p{font-size:9px!important}.shared .cards,.sharedFolderDetail .cards{gap:7px!important}.shared .card,.sharedFolderDetail .card{min-height:118px!important}.shared .card-body,.sharedFolderDetail .card-body{padding:10px!important}.shared .card h3,.sharedFolderDetail .card h3{font-size:14px!important}.settings-theme .theme-choice-row{grid-template-columns:1fr!important}}
+
+/* ================= SAVOUR v54 ================= */
+/* Approved SAVOUR identity */
+.brand img{content:url('/assets/savour-logo-transparent.png');object-fit:contain;object-position:left center;width:190px;height:auto;filter:drop-shadow(0 4px 14px #000)}
+.landing-logo-wordmark{width:126px;height:34px;background:url('/assets/savour-logo-transparent.png') center/contain no-repeat;font-size:0;letter-spacing:0;color:transparent}
+.mobile-brand{width:88px!important;height:34px!important;padding:0!important;border:0!important;background:url('/assets/savour-logo-transparent.png') left center/contain no-repeat!important;font-size:0!important;letter-spacing:0!important;color:transparent!important;display:block!important;flex:0 0 auto}
+
+/* The mobile search sits farther right, directly before the account actions. */
+@media(max-width:760px){
+  .topbar{display:flex!important;align-items:center!important;gap:0!important;padding:0 10px!important}
+  .mobile-brand{margin-right:auto!important}
+  .mobile-search-btn{order:2!important;margin-left:8px!important;margin-right:2px!important;flex:0 0 34px!important}
+  .mobile-top-actions{order:3!important;margin-left:0!important;gap:2px!important;display:flex!important;flex:0 0 auto!important}
+  .mobile-favorite-btn,.mobile-logout-btn{flex:0 0 34px!important}
+}
+
+/* Shared-map page: no horizontal overflow on small screens. */
+#shared,#shared .content,#shared #sharedWrap{width:100%;max-width:100%;min-width:0;overflow-x:hidden}
+#shared .layout{min-width:0}
+#shared .layout>div,#shared .rightcol{min-width:0;max-width:100%}
+.shared-main-head{min-width:0;max-width:100%}
+.shared-map-actions{min-width:0;max-width:100%}
+.compact-shared-cover{width:100%;max-width:100%;overflow:hidden}
+@media(max-width:760px){
+  #shared .content{padding-left:10px!important;padding-right:10px!important}
+  #shared .layout{display:block!important;width:100%!important;max-width:100%!important}
+  #shared .layout>div{width:100%!important;max-width:100%!important}
+  #shared .rightcol{width:100%!important;max-width:100%!important;margin-top:14px}
+  #shared .panel{width:100%;max-width:100%;min-width:0;overflow:hidden}
+  #shared .section-head{min-width:0;max-width:100%;gap:8px}
+  #shared .section-head h2{min-width:0}
+  #shared .shared-main-head h1{overflow-wrap:anywhere;word-break:break-word}
+  #shared .shared-map-actions{width:100%!important;max-width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;justify-content:flex-start!important;scrollbar-width:none}
+  #shared .shared-map-actions::-webkit-scrollbar{display:none}
+  #shared .shared-folder-grid{width:100%!important;max-width:100%!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #shared .cards{width:100%!important;max-width:100%!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #shared .card{min-width:0!important;max-width:100%!important;overflow:hidden}
+  #shared .card h3{overflow-wrap:anywhere;word-break:break-word}
+  #shared .shared-cover-body{min-width:0;flex-wrap:wrap}
+  #shared .sharelink{max-width:100%;overflow-wrap:anywhere}
+}
+
+/* Homepage v54: the platform section is now part of the first impression. */
+.landing-hero{grid-template-columns:1fr!important;max-width:1180px!important}
+.landing-hero>div:first-child{max-width:780px}
+.landing-visual{display:none!important}
+.landing-platform-section{margin-top:0!important;padding-top:42px!important}
+.landing-section{padding-top:74px!important}
+@media(min-width:761px){
+  .landing-hero{padding-bottom:42px!important}
+  .landing-platform-section{padding-bottom:70px!important}
+}
+@media(max-width:760px){
+  .landing-hero{padding-top:42px!important;padding-bottom:28px!important}
+  .landing-platform-section{padding-top:30px!important}
+  .landing-section{padding-top:52px!important}
+}
+
+/* Central language engine v54: translate newly-rendered UI as well as initial markup.
+   User content remains protected by the explicit protected selector. */
+
+/* v54 phone identity */
+.phone-brand{height:26px;width:94px;background:url('/assets/savour-logo-transparent.png') left center/contain no-repeat;font-size:0;margin-bottom:10px}
+/* Prevent accidental horizontal page overflow from any legacy child. */
+html,body{max-width:100%;overflow-x:hidden}
+
+/* v54 translation hardening */
+[data-i18n]{visibility:visible}
 </style>
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8120664667405598" crossorigin="anonymous"></script>
 </head><body class="auth-booting">
 <div id="bootSplash" class="boot-splash" aria-hidden="true"><div class="boot-mark">SAVOUR</div><div class="boot-line"></div></div>
 <div class="landing" id="landingView">
-<header class="landing-top"><div class="landing-logo-wordmark">SAVOUR</div><div class="landing-actions"><button class="btn" onclick="openAuth('login')">Inloggen</button><button class="btn gold" onclick="openAuth('signup')">Account aanmaken</button></div></header>
-<section class="landing-hero"><div><div class="landing-kicker">Professioneel receptbeheer · gebouwd voor chefs</div><h1>Van kladje naar <em>een recept dat klopt.</em></h1><p>Savour is het professionele receptplatform voor chefs en keukenteams. Breng bestaande recepturen samen, laat handgeschreven kladjes met AI structureren, organiseer alles zoals jouw keuken werkt en deel recepten veilig met je team.</p><p class="landing-subline">Minder zoeken. Minder opnieuw uitwerken. Meer tijd voor koken.</p><div class="actions"><button class="btn gold" onclick="openAuth('signup')">Account aanmaken</button><button class="btn" onclick="openAuth('login')">Inloggen</button></div></div><div class="landing-visual"><div class="v51-hero-card"><div class="mini-brand">SAVOUR</div><h3>Professionele receptuur,<br>helder georganiseerd.</h3><p>Je eigen bibliotheek. Je eigen mappen. Je eigen manier van werken.</p><div class="v51-hero-lines"><span></span><span></span><span></span><span></span></div></div></div></section>
+<header class="landing-top"><div class="landing-logo-wordmark" aria-label="SAVOUR"></div><div class="landing-actions"><button class="btn" onclick="openAuth('login')">Inloggen</button><button class="btn gold" onclick="openAuth('signup')">Account aanmaken</button></div></header>
+<section class="landing-hero"><div><div class="landing-kicker">Professioneel receptbeheer · gebouwd voor chefs</div><h1>Van kladje naar <em>een recept dat klopt.</em></h1><p>Savour is het professionele receptplatform voor chefs en keukenteams. Breng bestaande recepturen samen, laat handgeschreven kladjes met AI structureren, organiseer alles zoals jouw keuken werkt en deel recepten veilig met je team.</p><p class="landing-subline">Minder zoeken. Minder opnieuw uitwerken. Meer tijd voor koken.</p><div class="actions"><button class="btn gold" onclick="openAuth('signup')">Account aanmaken</button><button class="btn" onclick="openAuth('login')">Inloggen</button></div></div></section><section class="landing-platform-section"><div class="landing-platform-copy"><div class="landing-kicker">Overal beschikbaar</div><h2>Één platform. Computer, mobiel en app.</h2><p>Savour werkt op je computer én op je telefoon. Gebruik Savour in de mobiele browser of in de native app — met dezelfde recepten, mappen, gedeelde mappen en account. Je workflow blijft overal gesynchroniseerd.</p><p>Je kunt dus op kantoor een recept organiseren, in de keuken op je telefoon werken en later in de app verdergaan.</p><div class="landing-platform-points"><span>✓ Desktop browser</span><span>✓ Mobiele browser</span><span>✓ Native app</span><span>✓ Eén account · één omgeving</span></div></div><div class="landing-phone"><div class="landing-phone-notch"></div><div class="landing-phone-screen"><div class="phone-brand" aria-label="SAVOUR"></div><div class="phone-search">⌕ <span>Zoek in al je recepten...</span></div><div class="phone-card"><b>Alle recepten</b><small>Bekijk en beheer je recepten</small><strong>›</strong></div><div class="phone-card"><b>Recepten mappen</b><small>Organiseer je eigen recepten</small><strong>›</strong></div><div class="phone-card"><b>Gedeelde mappen</b><small>Samenwerken met je keukenteam</small><strong>›</strong></div><div class="phone-bottom"><span>◈<small>Recepten</small></span><span>▱<small>Mappen</small></span><span>＋<small>Toevoegen</small></span><span>♧<small>Gedeeld</small></span><span>♙<small>Account</small></span></div></div></div></section>
 <div class="partner-banner"><div class="partner-slot"><small>Partnerpositie</small><b>Bereik professionele keukens op het moment dat ze werken met recepten.</b><span>Geschikt voor leveranciers van ingrediënten, keukenapparatuur, wijn, servies en andere horeca-oplossingen.</span></div></div>
-<section class="landing-section"><div class="landing-kicker">Waarom Savour</div><h2>Gebouwd voor de keuken</h2><div class="landing-grid"><div class="landing-card"><span class="ico">⇧</span><h3>Importeer je bron</h3><p>Upload Word, PDF, foto’s of handgeschreven recepten en gebruik AI als controleerbare start.</p></div><div class="landing-card"><span class="ico">▱</span><h3>Organiseer zoals jij werkt</h3><p>Maak je eigen recepten mappen. Van A t/m Z tot Garde, Patisserie of je eigen werkwijze.</p></div><div class="landing-card"><span class="ico">♧</span><h3>Werk samen</h3><p>Deel recepten en mappen met je keukenteam en bepaal per persoon de rechten.</p></div></div></section><section class="landing-platform-section"><div class="landing-platform-copy"><div class="landing-kicker">Overal beschikbaar</div><h2>Één platform. Computer, mobiel en app.</h2><p>Savour werkt op je computer én op je telefoon. Gebruik Savour in de mobiele browser of in de native app — met dezelfde recepten, mappen, gedeelde mappen en account. Je workflow blijft overal gesynchroniseerd.</p><p>Je kunt dus op kantoor een recept organiseren, in de keuken op je telefoon werken en later in de app verdergaan.</p><div class="landing-platform-points"><span>✓ Desktop browser</span><span>✓ Mobiele browser</span><span>✓ Native app</span><span>✓ Eén account · één omgeving</span></div></div><div class="landing-phone"><div class="landing-phone-notch"></div><div class="landing-phone-screen"><div class="phone-brand">SAVOUR</div><div class="phone-search">⌕ <span>Zoek in al je recepten...</span></div><div class="phone-card"><b>Alle recepten</b><small>Bekijk en beheer je recepten</small><strong>›</strong></div><div class="phone-card"><b>Recepten mappen</b><small>Organiseer je eigen recepten</small><strong>›</strong></div><div class="phone-card"><b>Gedeelde mappen</b><small>Samenwerken met je keukenteam</small><strong>›</strong></div><div class="phone-bottom"><span>◈<small>Recepten</small></span><span>▱<small>Mappen</small></span><span>＋<small>Toevoegen</small></span><span>♧<small>Gedeeld</small></span><span>♙<small>Account</small></span></div></div></div></section>
+<section class="landing-section"><div class="landing-kicker">Waarom Savour</div><h2>Gebouwd voor de keuken</h2><div class="landing-grid"><div class="landing-card"><span class="ico">⇧</span><h3>Importeer je bron</h3><p>Upload Word, PDF, foto’s of handgeschreven recepten en gebruik AI als controleerbare start.</p></div><div class="landing-card"><span class="ico">▱</span><h3>Organiseer zoals jij werkt</h3><p>Maak je eigen recepten mappen. Van A t/m Z tot Garde, Patisserie of je eigen werkwijze.</p></div><div class="landing-card"><span class="ico">♧</span><h3>Werk samen</h3><p>Deel recepten en mappen met je keukenteam en bepaal per persoon de rechten.</p></div></div></section>
 <footer class="site-footer landing-site-footer" id="landingFooter"><div class="site-footer-left"><span id="landingFooterCopyright">© 2026 Savour</span><a onclick="openPublicInfo('about')" id="landingFooterAbout">Over Savour</a><a onclick="openPublicInfo('faq')" id="landingFooterFaq">Veelgestelde vragen</a><a onclick="openPublicInfo('terms')" id="landingFooterTerms">Algemene voorwaarden</a><a onclick="openPublicInfo('privacy')" id="landingFooterPrivacy">Privacybeleid</a><a onclick="openPublicInfo('contact')" id="landingFooterContact">Contact</a><a onclick="openPublicInfo('support')" id="landingFooterSupport" class="support-hidden">Steun Savour</a></div><select id="landingFooterLanguage" class="footer-language" onchange="setSiteLanguage(this.value)" aria-label="Taal"><option value="nl">NL</option><option value="en">EN</option><option value="de">DE</option><option value="it">IT</option><option value="es">ES</option></select></footer>
 </div>
 <div id="publicInfoShell" class="public-shell" style="display:none"><header class="public-shell-header"><div class="public-info-brand">SAVOUR</div><div class="public-info-nav"><button class="btn" onclick="showLanding()" id="publicBackBtn">Terug</button><button class="btn gold" onclick="openAuth('login')" id="publicLoginBtn">Inloggen</button></div></header><main class="public-shell-main"><div class="public-info-view"><div class="eyebrow">Savour</div><h1 id="publicInfoTitle">Over Savour</h1><p class="info-lead" id="publicInfoLead"></p><p class="lang-note" id="publicInfoNote"></p><div id="publicInfoBody"></div></div></main><footer class="site-footer public-shell-footer"><div class="site-footer-left"><span id="publicFooterCopyright">© 2026 Savour</span><a onclick="openPublicInfo('about')" id="publicFooterAbout">Over Savour</a><a onclick="openPublicInfo('faq')" id="publicFooterFaq">Veelgestelde vragen</a><a onclick="openPublicInfo('terms')" id="publicFooterTerms">Algemene voorwaarden</a><a onclick="openPublicInfo('privacy')" id="publicFooterPrivacy">Privacybeleid</a><a onclick="openPublicInfo('contact')" id="publicFooterContact">Contact</a><a onclick="openPublicInfo('support')" id="publicFooterSupport" class="support-hidden">Steun Savour</a></div><select id="publicFooterLanguage" class="footer-language" onchange="setSiteLanguage(this.value)" aria-label="Taal"><option value="nl">NL</option><option value="en">EN</option><option value="de">DE</option><option value="it">IT</option><option value="es">ES</option></select></footer></div>
@@ -1256,7 +1324,7 @@ function openPublicInfo(id){window.currentPublicInfo=id;if(currentUser){$('landi
 function showLanding(){if($('appShell')){$('appShell').classList.remove('public-info-mode');$('appShell').style.display='none'}if($('publicInfoShell'))$('publicInfoShell').style.display='none';if($('publicRecipeShell'))$('publicRecipeShell').style.display='none';if($('publicInviteShell'))$('publicInviteShell').style.display='none';if($('landingView'))$('landingView').style.display='block';document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));applyCurrentLanguage();window.scrollTo({top:0,behavior:'smooth'})}
 function languageFromPath(){const p=location.pathname.replace(/\/+$/,'').toLowerCase();const map={'/nl':'nl','/nld':'nl','/en':'en','/eng':'en','/de':'de','/deu':'de','/it':'it','/ita':'it','/es':'es','/esp':'es'};return map[p]||null}
 function languagePath(lang){return ({nl:'/nl',en:'/eng',de:'/deu',it:'/ita',es:'/esp'}[lang]||'/')}
-function setSiteLanguage(lang){const allowed=['nl','en','de','it','es'];if(!allowed.includes(lang))lang='nl';localStorage.setItem('savour_language',lang);if(!currentUser && ['landingView','publicInfoShell','publicRecipeShell','publicInviteShell'].some(id=>$(id)?.style.display!=='none')){const target=languagePath(lang);if(location.pathname!==target)history.replaceState({},'',target)}applyCurrentLanguage();if(currentUser){const active=document.querySelector('#appShell .view.active')?.id;if(active&&['home','recipes','favorites','folders','categories','folderDetail','shared','sharedFolderDetail','settings'].includes(active)){if(active==='home')renderHome();else if(active==='recipes')renderRecipes();else if(active==='favorites')renderFavorites();else if(active==='folders')renderFolders();else if(active==='categories')renderCategories();else if(active==='folderDetail')renderFolderDetail();else if(active==='shared')renderShared(currentShared);else if(active==='sharedFolderDetail')renderSharedFolderDetail();else if(active==='settings')renderSettings();}applyCurrentLanguage();}}
+function setSiteLanguage(lang){v54SetLanguage(lang);if(currentUser){const active=document.querySelector('#appShell .view.active')?.id;if(active&&['home','recipes','favorites','folders','categories','folderDetail','shared','sharedFolderDetail','settings'].includes(active)){if(active==='home')renderHome();else if(active==='recipes')renderRecipes();else if(active==='favorites')renderFavorites();else if(active==='folders')renderFolders();else if(active==='categories')renderCategories();else if(active==='folderDetail')renderFolderDetail();else if(active==='shared')renderShared(currentShared);else if(active==='sharedFolderDetail')renderSharedFolderDetail();else if(active==='settings')renderSettings();}applyCurrentLanguage();}}
 
 /* Savour v40 — one central UI language system. The Dutch source text is the stable key.
    Recipe names, folder names and user-entered content are never translated unless they
@@ -1324,6 +1392,32 @@ const CENTRAL_UI_CONTENT={
  es:{'Savour — professioneel receptbeheer':'Savour — gestión profesional de recetas','Upload Word, PDF, foto’s of handgeschreven recepten en gebruik AI als controleerbare start.':'Sube Word, PDF, fotos o recetas manuscritas y usa IA como punto de partida verificable.','Maak je eigen recepten mappen. Van A t/m Z tot Garde, Patisserie of je eigen werkwijze.':'Crea tus propias carpetas de recetas: de A–Z a Garde, Patisserie o tu propio método.','Deel recepten en mappen met je keukenteam en bepaal per persoon de rechten.':'Comparte recetas y carpetas con tu equipo de cocina y define los permisos de cada persona.','De basis van een goed recept begint bij een heldere bron en een goede organisatie.':'Una buena receta empieza con una fuente clara y una buena organización.','Savour · professioneel werken met recepten':'Savour · trabajo profesional con recetas','Beheer je recepten, organiseer je mappen en werk samen via gedeelde mappen. Alles voor een efficiënte en inspirerende keuken.':'Gestiona tus recetas, organiza tus carpetas y colabora mediante carpetas compartidas. Todo para una cocina eficiente.','Een relevante horecapartner, precies naast je workflow.':'Un socio de hostelería relevante, justo junto a tu flujo de trabajo.','Bijvoorbeeld een leverancier van ingrediënten, apparatuur of keukenservices.':'Por ejemplo, un proveedor de ingredientes, equipamiento o servicios de cocina.','Kies welke van je recepten mappen in het menu verschijnen. Sleep ze naar de volgorde die jij prettig vindt. Nieuwe mappen worden standaard toegevoegd.':'Elige qué carpetas de recetas aparecen en el menú y arrástralas al orden que prefieras. Las nuevas carpetas se seleccionan por defecto.','Kies hoe je een recept wilt toevoegen. Je kunt op elk moment wisselen tussen importeren en zelf invoeren.':'Elige cómo añadir una receta. Puedes cambiar entre importar e introducir manualmente en cualquier momento.','PDF':'PDF','Na het importeren blijft het recept eerst controleerbaar en bewerkbaar. Bij een bron met meerdere recepten opent Savour automatisch een batchcontrole.':'Tras importar, la receta sigue siendo revisable y editable. Con varias recetas, Savour abre automáticamente una revisión por lotes.','Savour herkent in één bron meerdere losse recepten, maakt per recept een controleerbaar concept en laat je ze daarna in één keer opslaan.':'Savour reconoce varias recetas en una fuente, crea un borrador revisable para cada una y permite guardarlas juntas.','Foto-import gebruikt de Savour AI-laag. Tekst-, Word- en PDF-import worden eerst lokaal uitgelezen; controleer elk geïmporteerd recept vóór het opslaan.':'En este prototipo el reconocimiento se realiza localmente. Más adelante, la verdadera capa de IA podrá estructurar y revisar todo el lote de una vez.','Verwijder je account en je persoonlijke recepten, mappen, favorieten en profielgegevens. Deze actie kan niet ongedaan worden gemaakt.':'Elimina tu cuenta y tus recetas, carpetas, favoritos y datos de perfil personales. Esta acción no se puede deshacer.','Savour is een professionele omgeving voor het beheren, organiseren en delen van recepten.':'Savour es un entorno profesional para gestionar, organizar y compartir recetas.','Concepttekst voor de huidige prototypefase. Laat deze voorwaarden juridisch controleren voordat Savour commercieel wordt gelanceerd.':'Texto provisional para la fase de prototipo. Revisa legalmente estos términos antes del lanzamiento comercial.','Concepttekst voor de huidige prototypefase. Laat dit privacybeleid controleren en aanvullen met de definitieve bedrijfs- en verwerkingsgegevens vóór livegang.':'Texto provisional para la fase de prototipo. Revisa y completa esta política antes del lanzamiento.','Deel de openbare uitnodigingslink. Nadat iemand een account heeft gemaakt, kun je de rechten aanpassen.':'Comparte el enlace público de invitación. Después de crear una cuenta, puedes ajustar los permisos.','Echte accounts en beveiligde sessies via Supabase. Je persoonlijke receptenbibliotheek is gekoppeld aan je eigen account.':'Cuentas reales y sesiones seguras mediante Supabase. Tu biblioteca personal de recetas está vinculada a tu cuenta.'}
 };
 for(const lang of ['nl','en','de','it','es']) CENTRAL_UI[lang]={...(CENTRAL_UI[lang]||{}),...(CENTRAL_UI_CONTENT[lang]||{})};
+const V54_TRANSLATIONS={
+ en:{
+  'Professioneel receptbeheer · gebouwd voor chefs':'Professional recipe management · built for chefs',
+  'Van kladje naar':'From a rough note to',
+  'een recept dat klopt.':'a recipe that works.',
+  'Savour is het professionele receptplatform voor chefs en keukenteams. Breng bestaande recepturen samen, laat handgeschreven kladjes met AI structureren, organiseer alles zoals jouw keuken werkt en deel recepten veilig met je team.':'Savour is the professional recipe platform for chefs and kitchen teams. Bring existing recipes together, let AI structure handwritten notes, organise everything around your kitchen and share recipes securely with your team.',
+  'Minder zoeken. Minder opnieuw uitwerken. Meer tijd voor koken.':'Less searching. Less repeated work. More time for cooking.',
+  'Overal beschikbaar':'Available everywhere',
+  'Één platform. Computer, mobiel en app.':'One platform. Computer, mobile and app.',
+  'Savour werkt op je computer én op je telefoon. Gebruik Savour in de mobiele browser of in de native app — met dezelfde recepten, mappen, gedeelde mappen en account. Je workflow blijft overal gesynchroniseerd.':'Savour works on your computer and your phone. Use Savour in the mobile browser or in the native app — with the same recipes, folders, shared folders and account. Your workflow stays synchronised everywhere.',
+  'Je kunt dus op kantoor een recept organiseren, in de keuken op je telefoon werken en later in de app verdergaan.':'Organise a recipe at your desk, work in the kitchen on your phone and continue later in the app.',
+  '✓ Mobiele browser':'✓ Mobile browser','✓ Eén account · één omgeving':'✓ One account · one environment','Zoek in al je recepten...':'Search all your recipes...',
+  'Gedeelde map':'Shared map','Mappen':'Folders','Alle gedeelde recepten':'All shared recipes','Foto van deze gedeelde map':'Photo of this shared map','Foto wijzigen':'Change photo','Foto toevoegen':'Add photo','Team uitnodigen':'Invite team','Naam wijzigen':'Rename','Verwijderen':'Delete','Openbare uitnodigingslink':'Public invitation link','Link delen':'Share link','Keukenteam':'Kitchen team','Rechten':'Permissions','Owner beheert de map. Editor kan recepten toevoegen en bewerken. Viewer kan recepten bekijken.':'Owner manages the map. Editor can add and edit recipes. Viewer can view recipes.','Persoon toevoegen':'Add person','Account actief':'Account active','Uitgenodigd':'Invited','Print map':'Print folder','Nieuwe map':'New folder','Recept toevoegen':'Add recipe','Alle recepten':'All recipes'
+ },
+ de:{
+  'Professioneel receptbeheer · gebouwd voor chefs':'Professionelles Rezeptmanagement · für Köche entwickelt','Van kladje naar':'Von der Notiz zu','een recept dat klopt.':'einem Rezept, das funktioniert.','Minder zoeken. Minder opnieuw uitwerken. Meer tijd voor koken.':'Weniger suchen. Weniger doppelte Arbeit. Mehr Zeit zum Kochen.','Overal beschikbaar':'Überall verfügbar','Één platform. Computer, mobiel en app.':'Eine Plattform. Computer, mobil und App.','Zoek in al je recepten...':'Alle Rezepte durchsuchen...','Gedeelde map':'Geteilter Ordner','Mappen':'Ordner','Alle gedeelde recepten':'Alle geteilten Rezepte','Foto wijzigen':'Foto ändern','Foto toevoegen':'Foto hinzufügen','Team uitnodigen':'Team einladen','Naam wijzigen':'Umbenennen','Verwijderen':'Löschen','Openbare uitnodigingslink':'Öffentlicher Einladungslink','Link delen':'Link teilen','Keukenteam':'Küchenteam','Persoon toevoegen':'Person hinzufügen','Account actief':'Konto aktiv','Uitgenodigd':'Eingeladen','Print map':'Ordner drucken','Nieuwe map':'Neuer Ordner','Recept toevoegen':'Rezept hinzufügen'
+ },
+ it:{
+  'Professioneel receptbeheer · gebouwd voor chefs':'Gestione professionale delle ricette · creato per chef','Van kladje naar':'Da una nota a','een recept dat klopt.':'una ricetta che funziona.','Minder zoeken. Minder opnieuw uitwerken. Meer tijd voor koken.':'Meno ricerche. Meno lavoro ripetuto. Più tempo per cucinare.','Overal beschikbaar':'Disponibile ovunque','Één platform. Computer, mobiel en app.':'Un’unica piattaforma. Computer, mobile e app.','Zoek in al je recepten...':'Cerca tra tutte le ricette...','Gedeelde map':'Cartella condivisa','Mappen':'Cartelle','Alle gedeelde recepten':'Tutte le ricette condivise','Foto wijzigen':'Modifica foto','Foto toevoegen':'Aggiungi foto','Team uitnodigen':'Invita il team','Naam wijzigen':'Rinomina','Verwijderen':'Elimina','Openbare uitnodigingslink':'Link pubblico di invito','Link delen':'Condividi link','Keukenteam':'Team di cucina','Persoon toevoegen':'Aggiungi persona','Account actief':'Account attivo','Uitgenodigd':'Invitato','Print map':'Stampa cartella','Nieuwe map':'Nuova cartella','Recept toevoegen':'Aggiungi ricetta'
+ },
+ es:{
+  'Professioneel receptbeheer · gebouwd voor chefs':'Gestión profesional de recetas · creada para chefs','Van kladje naar':'De una nota a','een recept dat klopt.':'una receta que funciona.','Minder zoeken. Minder opnieuw uitwerken. Meer tijd voor koken.':'Menos búsquedas. Menos trabajo repetido. Más tiempo para cocinar.','Overal beschikbaar':'Disponible en cualquier lugar','Één platform. Computer, mobiel en app.':'Una plataforma. Ordenador, móvil y app.','Zoek in al je recepten...':'Buscar entre todas tus recetas...','Gedeelde map':'Carpeta compartida','Mappen':'Carpetas','Alle gedeelde recepten':'Todas las recetas compartidas','Foto wijzigen':'Cambiar foto','Foto toevoegen':'Añadir foto','Team uitnodigen':'Invitar al equipo','Naam wijzigen':'Renombrar','Verwijderen':'Eliminar','Openbare uitnodigingslink':'Enlace público de invitación','Link delen':'Compartir enlace','Keukenteam':'Equipo de cocina','Persoon toevoegen':'Añadir persona','Account actief':'Cuenta activa','Uitgenodigd':'Invitado','Print map':'Imprimir carpeta','Nieuwe map':'Nueva carpeta','Recept toevoegen':'Añadir receta'
+ }
+};
+for(const [lang,map] of Object.entries(V54_TRANSLATIONS)) CENTRAL_UI[lang]={...(CENTRAL_UI[lang]||{}),...map};
+
 
 
 Object.assign(CENTRAL_UI.de,{'De receptenbibliotheek kan momenteel niet worden geladen.':'Die Rezeptbibliothek konnte derzeit nicht geladen werden.','De lokale prototype-recepten zijn bewust niet gebruikt. Controleer de Supabase-instellingen voordat we verdergaan.':'Die lokalen Prototyp-Rezepte wurden bewusst nicht verwendet. Prüfe die Supabase-Einstellungen.','Opnieuw proberen':'Erneut versuchen','Bibliotheek geladen':'Bibliothek geladen'});
@@ -1368,13 +1462,41 @@ Object.assign(CENTRAL_UI.it,{
 Object.assign(CENTRAL_UI.es,{
   'Overal beschikbaar':'Disponible en cualquier lugar','Één platform. Computer, mobiel en app.':'Una plataforma. Ordenador, móvil y app.','Savour werkt op je computer én op je telefoon. Gebruik Savour in de mobiele browser of in de native app — met dezelfde recepten, mappen, gedeelde mappen en account. Je workflow blijft overal gesynchroniseerd.':'Savour funciona en tu ordenador y en tu teléfono. Usa Savour en el navegador móvil o en la app nativa, con las mismas recetas, carpetas, carpetas compartidas y cuenta. Tu flujo de trabajo queda sincronizado en todos tus dispositivos.','Je kunt dus op kantoor een recept organiseren, in de keuken op je telefoon werken en later in de app verdergaan.':'Organiza una receta en el ordenador, trabaja con ella en la cocina desde el móvil y continúa más tarde en la app.','✓ Desktop browser':'✓ Navegador de escritorio','✓ Mobiele browser':'✓ Navegador móvil','✓ Native app':'✓ App nativa','✓ Eén account · één omgeving':'✓ Una cuenta · un entorno','Zoek in al je recepten...':'Buscar entre todas tus recetas...'
 });
+
+/* Savour v54 language hardening.
+   The URL language is authoritative on public pages; selected language is retained in storage.
+   A MutationObserver re-applies translations to newly rendered UI, preventing mixed-language screens
+   after navigation or dynamic innerHTML rendering. */
+const V54_LANG_PATHS={nl:'/nl',en:'/eng',de:'/deu',it:'/ita',es:'/esp'};
+function v54PathLanguage(){
+  const p=location.pathname.replace(/\/+$/,'').toLowerCase();
+  for(const [lang,path] of Object.entries(V54_LANG_PATHS)) if(p===path)return lang;
+  return null;
+}
+const v54PathLang=v54PathLanguage();
+if(v54PathLang) localStorage.setItem('savour_language',v54PathLang);
+function v54CurrentLanguage(){
+  const allowed=['nl','en','de','it','es'];
+  const saved=localStorage.getItem('savour_language');
+  return allowed.includes(saved)?saved:'nl';
+}
+function v54SetLanguage(lang){
+  const allowed=['nl','en','de','it','es'];
+  if(!allowed.includes(lang))lang='nl';
+  localStorage.setItem('savour_language',lang);
+  if(!currentUser && ['landingView','publicInfoShell','publicRecipeShell','publicInviteShell'].some(id=>$(id)?.style.display!=='none')){
+    const target=V54_LANG_PATHS[lang]||'/';
+    if(location.pathname!==target)history.replaceState({},'',target);
+  }
+  if(typeof applyCurrentLanguage==='function') applyCurrentLanguage();
+}
 /* Central Savour UI translation engine. All interface copy is keyed by stable Dutch source text.
    User content (recipe titles, ingredients, methods, folder names, category names and profile data)
    is protected and is never translated by this UI layer. New interface copy should use t('Dutch source'). */
 const textOriginals=new WeakMap();
 const attrOriginals=new WeakMap();
 const ALLOWED_LANGS=['nl','en','de','it','es'];
-function currentLang(){const saved=localStorage.getItem('savour_language');return ALLOWED_LANGS.includes(saved)?saved:'nl'}
+function currentLang(){const pathLang=v54PathLanguage();if(pathLang)return pathLang;const saved=localStorage.getItem('savour_language');return ALLOWED_LANGS.includes(saved)?saved:'nl'}
 function allUiMaps(){return Object.fromEntries(ALLOWED_LANGS.map(lang=>[lang,{...(I18N[lang]||{}),...(CENTRAL_UI[lang]||{})}]))}
 function canonicalUiText(value){const text=String(value??'').trim();if(!text)return '';const maps=allUiMaps();if(maps.nl[text]!==undefined||text in maps.nl)return text;const lang=currentLang();const preferred=maps[lang]||{};for(const [source,target] of Object.entries(preferred)){if(String(target).trim()===text)return source}for(const other of ALLOWED_LANGS){if(other===lang)continue;for(const [source,target] of Object.entries(maps[other]||{})){if(String(target).trim()===text && (maps.nl[source]!==undefined || source in maps.nl))return source}}return text}
 function t(text){const source=canonicalUiText(text);const lang=currentLang();return (CENTRAL_UI[lang]&&CENTRAL_UI[lang][source])||(I18N[lang]&&I18N[lang][source])||source}
@@ -1411,7 +1533,20 @@ function translateUi(lang=currentLang()){
   document.querySelectorAll('option').forEach(el=>{const source=canonicalUiText(el.textContent||'');el.textContent=map[source]||source});
   ['landingFooterLanguage','footerLanguage','publicFooterLanguage','publicRecipeLanguage'].forEach(id=>{if($(id))$(id).value=lang});document.documentElement.lang=lang;
 }
-function applyCurrentLanguage(){const lang=currentLang();translateUi(lang);renderInfoLanguage(lang);['landingFooterLanguage','footerLanguage','publicFooterLanguage','publicRecipeLanguage'].forEach(id=>{if($(id))$(id).value=lang})}
+function applyCurrentLanguage(){const lang=currentLang();document.documentElement.lang=lang;translateUi(lang);renderInfoLanguage(lang);['landingFooterLanguage','footerLanguage','publicFooterLanguage','publicRecipeLanguage'].forEach(id=>{if($(id))$(id).value=lang})}
+
+/* Keep dynamically rendered views in the selected language without translating user content. */
+if(!window.__savourV54Observer){
+  window.__savourV54Observer=new MutationObserver((mutations)=>{
+    const hasAdded=mutations.some(m=>m.type==='childList'&&Array.from(m.addedNodes).some(n=>n.nodeType===Node.ELEMENT_NODE));
+    if(!hasAdded||window.__savourV54Translating)return;
+    window.__savourV54Translating=true;
+    window.__savourV54Observer.disconnect();
+    try{translateUi(currentLang())}finally{window.__savourV54Observer.observe(document.body,{childList:true,subtree:true});window.__savourV54Translating=false}
+  });
+  window.__savourV54Observer.observe(document.body,{childList:true,subtree:true});
+}
+
 // Default is Dutch on a first visit; a user-selected language is retained afterwards.
 const pathLang=languageFromPath();if(pathLang)localStorage.setItem('savour_language',pathLang);else if(!localStorage.getItem('savour_language'))localStorage.setItem('savour_language','nl');applyTheme(localStorage.getItem('savour_theme')||'dark');
 setTimeout(()=>applyCurrentLanguage(),0);
