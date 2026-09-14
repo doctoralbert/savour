@@ -1,0 +1,12 @@
+-- SAVOUR v56 setup notes
+-- 1) In Supabase Dashboard -> Authentication -> URL Configuration,
+--    set Site URL to https://savour.page and add https://savour.page to Redirect URLs.
+-- 2) For the confirmation email, use the companion template file:
+--    SUPABASE_V56_CONFIRMATION_EMAIL.html
+-- 3) Test account requested for this build:
+--    username: test
+--    password: test
+--    The existing Savour login resolves a username through lookup_login_email.
+--    Create the test user in Supabase Auth as test@savour.page (or another controlled
+--    test email) with display/profile name "test" and email confirmed.
+--    For security, the test password should only be used in a non-production test setup.
