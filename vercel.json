@@ -1,4 +1,7 @@
 {
+  "functions": {
+    "api/ai-import.js": { "maxDuration": 60 }
+  },
   "rewrites": [
     {
       "source": "/r/:slug",

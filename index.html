@@ -1176,14 +1176,51 @@ async function readImageAsDataUrl(file){
   const reader=new FileReader();
   return await new Promise((resolve,reject)=>{reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file)});
 }
-async function importImageFile(file){
-  const dataUrl=await readImageAsDataUrl(file);
-  const response=await fetch('/api/ai-import',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:dataUrl,filename:file.name,categories:categories.slice()})});
+// Verkleint een foto tot max. 2000px en JPEG, zodat hij onder de uploadlimiet van Vercel (4,5 MB) blijft.
+async function compressImageForImport(file){
+  const url=URL.createObjectURL(file);
+  try{
+    const img=await new Promise((resolve,reject)=>{const i=new Image();i.onload=()=>resolve(i);i.onerror=()=>reject(new Error('Deze foto kan niet worden gelezen. Gebruik JPG, PNG of WEBP.'));i.src=url});
+    const scale=Math.min(1,2000/Math.max(img.naturalWidth,img.naturalHeight));
+    const canvas=document.createElement('canvas');
+    canvas.width=Math.round(img.naturalWidth*scale);canvas.height=Math.round(img.naturalHeight*scale);
+    canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+    return canvas.toDataURL('image/jpeg',0.85);
+  }finally{URL.revokeObjectURL(url)}
+}
+// Roept de AI-import aan met het sessietoken van de ingelogde gebruiker.
+async function callAiImport(body){
+  const {data}=await supabaseClient.auth.getSession();
+  const token=data?.session?.access_token;
+  if(!token)throw new Error('Log in om recepten met AI te importeren.');
+  const response=await fetch('/api/ai-import',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify({...body,categories:categories.slice()})});
   const result=await response.json().catch(()=>({}));
-  if(!response.ok)throw new Error(result?.error||'AI-import mislukt.');
-  const aiRecipes=Array.isArray(result?.recipes)?result.recipes:[];
+  if(!response.ok)throw new Error(result?.error||(response.status===413?'Het bestand is te groot.':'AI-import mislukt.'));
+  return Array.isArray(result?.recipes)?result.recipes:[];
+}
+function normalizeAiRecipe(r,extra){
+  return {title:String(r.title||'Onbenoemd recept').trim(),ingredients:Array.isArray(r.ingredients)?r.ingredients.map(String).filter(Boolean):[],steps:Array.isArray(r.steps)?r.steps.map(String).filter(Boolean):[],yield:String(r.yield||'').trim(),category:String(r.category||'Eigen recepten').trim(),_needsReview:Boolean(r.needs_review),...extra};
+}
+// Knipt lange teksten in stukken van max. ~20.000 tekens, bij voorkeur op een receptkop, anders op een witregel.
+const AI_IMPORT_CHUNK_CHARS=20000;
+function chunkImportText(text){
+  const lines=String(text||'').replace(/\r/g,'').split('\n');
+  const chunks=[];let current=[];let size=0;
+  for(let i=0;i<lines.length;i++){
+    const line=lines[i];
+    const isBoundary=looksLikeRecipeHeading(line,lines[i+1])||!line.trim();
+    if(size>=AI_IMPORT_CHUNK_CHARS*0.75&&isBoundary&&current.length){chunks.push(current.join('\n'));current=[];size=0}
+    if(size+line.length>AI_IMPORT_CHUNK_CHARS&&current.length){chunks.push(current.join('\n'));current=[];size=0}
+    current.push(line);size+=line.length+1;
+  }
+  if(current.join('').trim())chunks.push(current.join('\n'));
+  return chunks.filter(c=>c.trim());
+}
+async function importImageFile(file){
+  const dataUrl=await compressImageForImport(file);
+  const aiRecipes=await callAiImport({image:dataUrl,filename:file.name});
   if(!aiRecipes.length)throw new Error('Geen recept uit de foto herkend.');
-  return aiRecipes.map(r=>({title:String(r.title||'Onbenoemd recept').trim(),ingredients:Array.isArray(r.ingredients)?r.ingredients.map(String).filter(Boolean):[],steps:Array.isArray(r.steps)?r.steps.map(String).filter(Boolean):[],yield:String(r.yield||'').trim(),category:String(r.category||'Eigen recepten').trim(),photo:dataUrl,sourceFile:file.name}));
+  return aiRecipes.map(r=>normalizeAiRecipe(r,{photo:dataUrl,sourceFile:file.name}));
 }
 async function importTextFile(file){
   const sourceText=await extractImportText(file);
@@ -1191,12 +1228,16 @@ async function importTextFile(file){
     const base=(file?.name||'Geïmporteerd recept').replace(/\.[^.]+$/,'').replace(/[_-]+/g,' ').trim();
     return [{title:base||'Geïmporteerd recept',ingredients:['Bron bevat geen uitleesbare tekst.'],steps:['Controleer de bron handmatig.'],yield:'',category:'Eigen recepten',sourceFile:file.name,_needsReview:true}];
   }
-  const response=await fetch('/api/ai-import',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:sourceText,filename:file.name,categories:categories.slice()})});
-  const result=await response.json().catch(()=>({}));
-  if(!response.ok)throw new Error(result?.error||'AI-import mislukt.');
-  const aiRecipes=Array.isArray(result?.recipes)?result.recipes:[];
-  if(!aiRecipes.length)return splitRecipeText(sourceText).map(r=>({...r,sourceFile:file.name,_needsReview:true}));
-  return aiRecipes.map(r=>({title:String(r.title||'Onbenoemd recept').trim(),ingredients:Array.isArray(r.ingredients)?r.ingredients.map(String).filter(Boolean):[],steps:Array.isArray(r.steps)?r.steps.map(String).filter(Boolean):[],yield:String(r.yield||'').trim(),category:String(r.category||'Eigen recepten').trim(),sourceFile:file.name,_needsReview:Boolean(r.needs_review)}));
+  const chunks=chunkImportText(sourceText);
+  const drafts=[];
+  for(let i=0;i<chunks.length;i++){
+    if(chunks.length>1)$('importStatus').textContent=`${file.name}: deel ${i+1} van ${chunks.length} wordt verwerkt…`;
+    const aiRecipes=await callAiImport({text:chunks[i],filename:file.name});
+    // Herkent de AI niets in dit deel, dan valt het terug op de eenvoudige tekstsplitser (te controleren).
+    if(aiRecipes.length)drafts.push(...aiRecipes.map(r=>normalizeAiRecipe(r,{sourceFile:file.name})));
+    else drafts.push(...splitRecipeText(chunks[i]).map(r=>({...r,sourceFile:file.name,_needsReview:true})));
+  }
+  return drafts;
 }
 function updateImportProgress(done,total,label='') { const wrap=$('importProgressWrap'),bar=$('importProgressBar'),txt=$('importProgressText'); if(!wrap||!bar)return; wrap.style.display='block'; const pct=total?Math.round(done/total*100):0; bar.style.width=pct+'%'; if(txt)txt.textContent=label||`${done} / ${total} bestanden verwerkt · ${pct}%`; }
 async function processImportFiles(files){
@@ -1546,7 +1587,7 @@ async function submitBugReport(event){
       const reader=new FileReader();
       attachment=await new Promise((resolve,reject)=>{reader.onload=()=>resolve(String(reader.result||''));reader.onerror=reject;reader.readAsDataURL(file)});
     }
-    const payload={name:$('bugName').value.trim(),email:$('bugEmail').value.trim(),subject:$('bugSubject').value.trim(),message:$('bugMessage').value.trim(),screenshot:attachment||null,screenshotName:file?.name||null,page:location.href};
+    const payload={name:$('bugName').value.trim(),email:$('bugEmail').value.trim(),subject:$('bugSubject').value.trim(),message:$('bugMessage').value.trim(),screenshot:attachment||null,screenshotName:file?.name||null,page:location.href,language:document.documentElement.lang||''};
     const r=await fetch('/api/bug-report',{method:'POST',headers:{'Content-Type':'application/json'},cache:'no-store',body:JSON.stringify(payload)});
     const data=await r.json().catch(()=>({}));
     if(r.status===413)throw new Error(t('De screenshot is te groot. Kies een kleinere afbeelding.'));

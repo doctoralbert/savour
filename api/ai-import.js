@@ -1,7 +1,23 @@
+import { getUserFromRequest } from './_lib/auth.js';
+
+// De Responses API levert output_text alleen via de SDK; via REST lezen we de tekst uit output[].content[].
+function extractOutputText(data) {
+  if (typeof data?.output_text === 'string' && data.output_text) return data.output_text;
+  const parts = [];
+  for (const item of data?.output || []) {
+    for (const part of item?.content || []) {
+      if (part?.type === 'output_text' && typeof part.text === 'string') parts.push(part.text);
+    }
+  }
+  return parts.join('');
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const key = process.env.OPENAI_API_KEY;
   if (!key) return res.status(500).json({ error: 'OPENAI_API_KEY ontbreekt in Vercel Environment Variables.' });
+  const user = await getUserFromRequest(req);
+  if (!user) return res.status(401).json({ error: 'Log opnieuw in om recepten te importeren.' });
   try {
     const { image, text, filename, categories } = req.body || {};
     const hasImage = typeof image === 'string' && image.startsWith('data:image/');
@@ -66,7 +82,7 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
     });
     const data = await response.json();
     if (!response.ok) return res.status(response.status).json({ error: data?.error?.message || 'AI-import mislukt.' });
-    const output = data.output_text || '';
+    const output = extractOutputText(data);
     let parsed;
     try { parsed = JSON.parse(output); } catch { return res.status(502).json({ error: 'De AI gaf geen geldig receptresultaat terug.' }); }
     return res.status(200).json(parsed);
