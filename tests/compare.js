@@ -1,15 +1,13 @@
-// Draait de regressietest en vergelijkt elke stap met de opgeslagen nulmeting (localStorage '__regBase').
-// Bij een verschil toont hij het eerste stukje waar de schermen uit elkaar lopen.
+// Draait de regressietest en vergelijkt elke stap met tests/expected.json (de vastgelegde nulmeting).
+// Verschilt een stap, dan staat de volledige schermtekst in window.__regression[stapnaam] om te onderzoeken.
 (async () => {
   const out = await eval(await (await fetch('/tests/regression.js', { cache: 'no-store' })).text());
-  const base = JSON.parse(localStorage.getItem('__regBase') || '{}');
-  const now = window.__regression || {};
-  const diffs = {};
-  for (const k of Object.keys(base)) {
-    const a = base[k] || '', b = now[k] || '';
-    if (a === b) continue;
-    let i = 0; while (i < a.length && a[i] === b[i]) i++;
-    diffs[k] = { at: i, before: a.slice(Math.max(0, i - 120), i + 200), after: b.slice(Math.max(0, i - 120), i + 200) };
-  }
-  return { errors: out.errors, same: Object.keys(base).length - Object.keys(diffs).length, total: Object.keys(base).length, diffs };
+  const expected = await (await fetch('/tests/expected.json', { cache: 'no-store' })).json();
+  const changed = Object.keys(expected).filter(k => expected[k] !== out.results[k]);
+  return {
+    errors: out.errors,
+    same: Object.keys(expected).length - changed.length,
+    total: Object.keys(expected).length,
+    changed: Object.fromEntries(changed.map(k => [k, { expected: expected[k], now: out.results[k] }]))
+  };
 })();

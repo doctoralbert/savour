@@ -36,30 +36,37 @@ for (const name of ['ai-import', 'bug-report', 'admin-reset']) {
 
 function mime(file) {
   const ext = path.extname(file).toLowerCase();
-  return {
-    '.html': 'text/html; charset=utf-8',
-    '.js': 'text/javascript; charset=utf-8',
-    '.css': 'text/css; charset=utf-8',
-    '.json': 'application/json; charset=utf-8',
-    '.svg': 'image/svg+xml',
-    '.png': 'image/png',
-    '.jpg': 'image/jpeg',
-    '.jpeg': 'image/jpeg',
-    '.webp': 'image/webp',
-    '.ico': 'image/x-icon',
-    '.txt': 'text/plain; charset=utf-8',
-    '.pdf': 'application/pdf'
-  }[ext] || 'application/octet-stream';
+  return (
+    {
+      '.html': 'text/html; charset=utf-8',
+      '.js': 'text/javascript; charset=utf-8',
+      '.css': 'text/css; charset=utf-8',
+      '.json': 'application/json; charset=utf-8',
+      '.svg': 'image/svg+xml',
+      '.png': 'image/png',
+      '.jpg': 'image/jpeg',
+      '.jpeg': 'image/jpeg',
+      '.webp': 'image/webp',
+      '.ico': 'image/x-icon',
+      '.txt': 'text/plain; charset=utf-8',
+      '.pdf': 'application/pdf'
+    }[ext] || 'application/octet-stream'
+  );
 }
 
 function createResponse(res) {
   return {
-    status(code) { res.statusCode = code; return this; },
+    status(code) {
+      res.statusCode = code;
+      return this;
+    },
     json(value) {
       if (!res.headersSent) res.setHeader('Content-Type', 'application/json; charset=utf-8');
       res.end(JSON.stringify(value));
     },
-    send(value) { res.end(value); }
+    send(value) {
+      res.end(value);
+    }
   };
 }
 

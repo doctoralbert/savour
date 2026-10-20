@@ -1,23 +1,133 @@
 /* v14: remove the old grid constraint from the recipe host. */
-#recipes .content{width:100%;max-width:none;box-sizing:border-box}
-#recipeGrid.cards{display:block!important;grid-template-columns:none!important;gap:0!important;width:100%!important;max-width:none!important}
-#recipeGrid .savour-v14-list{display:flex!important;flex-direction:column!important;width:100%!important;max-width:none!important}
-.savour-v14-row{display:grid;grid-template-columns:38px minmax(0,1fr) 24px;align-items:center;width:100%;box-sizing:border-box;min-height:39px;padding:0 12px;border-bottom:1px solid rgba(128,143,137,.18);background:transparent;color:#eee9de;cursor:pointer;transition:background .16s ease,border-color .16s ease,padding-left .16s ease}
-.savour-v14-row:first-child{border-top:1px solid rgba(128,143,137,.18)}
-.savour-v14-row:hover{background:rgba(232,202,141,.055);border-bottom-color:rgba(232,202,141,.36);padding-left:16px}
-.savour-v14-row .v14-index{font:10px/1 Inter,Arial,sans-serif;color:#7f8b84;font-variant-numeric:tabular-nums;letter-spacing:.04em}
-.savour-v14-row .v14-name{min-width:0;font-family:Inter,Arial,sans-serif;font-size:14px;font-weight:500;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.savour-v14-row .v14-arrow{font:17px/1 Arial,sans-serif;color:#8f9b92;text-align:right;transition:transform .16s ease,color .16s ease}
-.savour-v14-row:hover .v14-arrow{transform:translateX(3px);color:var(--gold)}
-.savour-v14-bulk-row{display:grid;grid-template-columns:28px 38px minmax(0,1fr);align-items:center;width:100%;box-sizing:border-box;min-height:37px;padding:0 12px;border-bottom:1px solid rgba(128,143,137,.18);cursor:pointer}
-.savour-v14-bulk-row:hover{background:rgba(232,202,141,.055)}
-.savour-v14-bulk-row input{width:15px;height:15px;accent-color:#e8ca8d}
-.savour-v14-bulk-row .v14-index{font:10px/1 Inter,Arial,sans-serif;color:#7f8b84;font-variant-numeric:tabular-nums}
-.savour-v14-bulk-row .v14-name{font-family:Inter,Arial,sans-serif;font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-@media(max-width:700px){
-  .savour-v14-row{grid-template-columns:30px minmax(0,1fr) 20px;min-height:36px;padding:0 8px}
-  .savour-v14-row:hover{padding-left:10px}
-  .savour-v14-row .v14-name{font-size:13px}
-  .savour-v14-bulk-row{grid-template-columns:24px 30px minmax(0,1fr);min-height:35px;padding:0 8px}
-  .savour-v14-bulk-row .v14-name{font-size:13px}
+#recipes .content {
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+}
+#recipeGrid.cards {
+  display: block !important;
+  grid-template-columns: none !important;
+  gap: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+#recipeGrid .savour-v14-list {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+.savour-v14-row {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) 24px;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 39px;
+  padding: 0 12px;
+  border-bottom: 1px solid rgba(128, 143, 137, 0.18);
+  background: transparent;
+  color: #eee9de;
+  cursor: pointer;
+  transition:
+    background 0.16s ease,
+    border-color 0.16s ease,
+    padding-left 0.16s ease;
+}
+.savour-v14-row:first-child {
+  border-top: 1px solid rgba(128, 143, 137, 0.18);
+}
+.savour-v14-row:hover {
+  background: rgba(232, 202, 141, 0.055);
+  border-bottom-color: rgba(232, 202, 141, 0.36);
+  padding-left: 16px;
+}
+.savour-v14-row .v14-index {
+  font:
+    10px/1 Inter,
+    Arial,
+    sans-serif;
+  color: #7f8b84;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+.savour-v14-row .v14-name {
+  min-width: 0;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.savour-v14-row .v14-arrow {
+  font:
+    17px/1 Arial,
+    sans-serif;
+  color: #8f9b92;
+  text-align: right;
+  transition:
+    transform 0.16s ease,
+    color 0.16s ease;
+}
+.savour-v14-row:hover .v14-arrow {
+  transform: translateX(3px);
+  color: var(--gold);
+}
+.savour-v14-bulk-row {
+  display: grid;
+  grid-template-columns: 28px 38px minmax(0, 1fr);
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 37px;
+  padding: 0 12px;
+  border-bottom: 1px solid rgba(128, 143, 137, 0.18);
+  cursor: pointer;
+}
+.savour-v14-bulk-row:hover {
+  background: rgba(232, 202, 141, 0.055);
+}
+.savour-v14-bulk-row input {
+  width: 15px;
+  height: 15px;
+  accent-color: #e8ca8d;
+}
+.savour-v14-bulk-row .v14-index {
+  font:
+    10px/1 Inter,
+    Arial,
+    sans-serif;
+  color: #7f8b84;
+  font-variant-numeric: tabular-nums;
+}
+.savour-v14-bulk-row .v14-name {
+  font-family: Inter, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 700px) {
+  .savour-v14-row {
+    grid-template-columns: 30px minmax(0, 1fr) 20px;
+    min-height: 36px;
+    padding: 0 8px;
+  }
+  .savour-v14-row:hover {
+    padding-left: 10px;
+  }
+  .savour-v14-row .v14-name {
+    font-size: 13px;
+  }
+  .savour-v14-bulk-row {
+    grid-template-columns: 24px 30px minmax(0, 1fr);
+    min-height: 35px;
+    padding: 0 8px;
+  }
+  .savour-v14-bulk-row .v14-name {
+    font-size: 13px;
+  }
 }

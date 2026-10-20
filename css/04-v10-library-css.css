@@ -1,19 +1,142 @@
 /* v10: wide, readable library rows; no recipe cards */
-.recipe-library-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:12px 0 10px}
-.recipe-library-list{width:100%;border-top:1px solid #d9dfda;background:transparent}
-.recipe-library-row{display:flex;align-items:center;gap:14px;width:100%;min-height:48px;padding:11px 14px;border-bottom:1px solid #d9dfda;background:transparent;color:#17221f;cursor:pointer;transition:background .14s,border-color .14s;box-sizing:border-box}
-.recipe-library-row:hover{background:#edf1ed;border-bottom-color:#b7c4bb}
-.recipe-library-name{flex:1;min-width:0;font-family:'Playfair Display',serif;font-size:17px;line-height:1.35;overflow-wrap:anywhere}
-.recipe-library-arrow{flex:0 0 auto;font-size:23px;color:#738078;line-height:1}
-.bulk-check{display:flex;align-items:center;gap:7px;flex:0 0 auto;font-family:inherit;font-size:11px;color:#58655e;cursor:pointer}
-.bulk-check input{width:16px;height:16px;accent-color:#173f30}
-.bulk-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 0;margin:8px 0;border-bottom:1px solid #cbd5cd}
-.bulk-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.bulk-filter{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px}
-.bulk-filter input{min-width:220px;flex:1;background:#fff;border:1px solid #c5d0c8;border-radius:6px;padding:10px 12px;color:#18231f}
-.bulk-hint{font-size:11px;color:#6a776f;margin:4px 0 12px}
-#recipeAlphabet{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0 14px}
-#recipeAlphabet button{min-width:25px;padding:6px 7px;border:1px solid #c9d2cb;border-radius:5px;background:transparent;color:#59675f;font-size:11px;cursor:pointer}
-#recipeAlphabet button.active{background:#173f30;color:#fff;border-color:#173f30}
-#recipeGrid{width:100%;min-width:0}
-@media(max-width:700px){.recipe-library-row{min-height:52px;padding:12px 8px;gap:9px}.recipe-library-name{font-size:16px}.recipe-library-arrow{font-size:21px}.bulk-filter input{min-width:150px;width:100%}}
+.recipe-library-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 12px 0 10px;
+}
+.recipe-library-list {
+  width: 100%;
+  border-top: 1px solid #d9dfda;
+  background: transparent;
+}
+.recipe-library-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 48px;
+  padding: 11px 14px;
+  border-bottom: 1px solid #d9dfda;
+  background: transparent;
+  color: #17221f;
+  cursor: pointer;
+  transition:
+    background 0.14s,
+    border-color 0.14s;
+  box-sizing: border-box;
+}
+.recipe-library-row:hover {
+  background: #edf1ed;
+  border-bottom-color: #b7c4bb;
+}
+.recipe-library-name {
+  flex: 1;
+  min-width: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.recipe-library-arrow {
+  flex: 0 0 auto;
+  font-size: 23px;
+  color: #738078;
+  line-height: 1;
+}
+.bulk-check {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  font-family: inherit;
+  font-size: 11px;
+  color: #58655e;
+  cursor: pointer;
+}
+.bulk-check input {
+  width: 16px;
+  height: 16px;
+  accent-color: #173f30;
+}
+.bulk-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 0;
+  margin: 8px 0;
+  border-bottom: 1px solid #cbd5cd;
+}
+.bulk-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.bulk-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 12px;
+}
+.bulk-filter input {
+  min-width: 220px;
+  flex: 1;
+  background: #fff;
+  border: 1px solid #c5d0c8;
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: #18231f;
+}
+.bulk-hint {
+  font-size: 11px;
+  color: #6a776f;
+  margin: 4px 0 12px;
+}
+#recipeAlphabet {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 10px 0 14px;
+}
+#recipeAlphabet button {
+  min-width: 25px;
+  padding: 6px 7px;
+  border: 1px solid #c9d2cb;
+  border-radius: 5px;
+  background: transparent;
+  color: #59675f;
+  font-size: 11px;
+  cursor: pointer;
+}
+#recipeAlphabet button.active {
+  background: #173f30;
+  color: #fff;
+  border-color: #173f30;
+}
+#recipeGrid {
+  width: 100%;
+  min-width: 0;
+}
+@media (max-width: 700px) {
+  .recipe-library-row {
+    min-height: 52px;
+    padding: 12px 8px;
+    gap: 9px;
+  }
+  .recipe-library-name {
+    font-size: 16px;
+  }
+  .recipe-library-arrow {
+    font-size: 21px;
+  }
+  .bulk-filter input {
+    min-width: 150px;
+    width: 100%;
+  }
+}

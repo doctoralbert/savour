@@ -1,5 +1,8 @@
 {
   "name": "savour-local",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "prettier": "3.3.3"
+  }
 }

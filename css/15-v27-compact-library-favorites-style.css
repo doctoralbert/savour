@@ -1,7 +1,53 @@
-#recipeGrid.savour-v27-list,#favoriteGrid.savour-v27-list{width:100%!important;display:flex!important;flex-direction:column!important;gap:0!important;margin:0!important;border-top:1px solid rgba(128,143,137,.22)!important;background:transparent!important;border-radius:0!important;overflow:visible!important}
-.savour-v27-row{grid-template-columns:42px minmax(0,1fr) 28px 24px!important;min-height:36px!important;padding:0 12px!important;transition:background .15s ease,border-color .15s ease,padding-left .15s ease!important}
-.savour-v27-row:hover{background:rgba(232,202,141,.055)!important;border-bottom-color:rgba(232,202,141,.38)!important;padding-left:16px!important}
-.savour-v27-favorite{border:0;background:transparent;color:var(--gold);font-size:18px;line-height:1;padding:2px 3px;cursor:pointer}
-.savour-v27-favorite:hover{color:#fff;transform:scale(1.08)}
-.savour-v27-row:hover .savour-v13-arrow{transform:translateX(3px);color:var(--gold)}
-@media(max-width:700px){.savour-v27-row{grid-template-columns:32px minmax(0,1fr) 26px 20px!important;min-height:34px!important;padding:0 8px!important}.savour-v27-row:hover{padding-left:11px!important}}
+#recipeGrid.savour-v27-list,
+#favoriteGrid.savour-v27-list {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  margin: 0 !important;
+  border-top: 1px solid rgba(128, 143, 137, 0.22) !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+.savour-v27-row {
+  grid-template-columns: 42px minmax(0, 1fr) 28px 24px !important;
+  min-height: 36px !important;
+  padding: 0 12px !important;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    padding-left 0.15s ease !important;
+}
+.savour-v27-row:hover {
+  background: rgba(232, 202, 141, 0.055) !important;
+  border-bottom-color: rgba(232, 202, 141, 0.38) !important;
+  padding-left: 16px !important;
+}
+.savour-v27-favorite {
+  border: 0;
+  background: transparent;
+  color: var(--gold);
+  font-size: 18px;
+  line-height: 1;
+  padding: 2px 3px;
+  cursor: pointer;
+}
+.savour-v27-favorite:hover {
+  color: #fff;
+  transform: scale(1.08);
+}
+.savour-v27-row:hover .savour-v13-arrow {
+  transform: translateX(3px);
+  color: var(--gold);
+}
+@media (max-width: 700px) {
+  .savour-v27-row {
+    grid-template-columns: 32px minmax(0, 1fr) 26px 20px !important;
+    min-height: 34px !important;
+    padding: 0 8px !important;
+  }
+  .savour-v27-row:hover {
+    padding-left: 11px !important;
+  }
+}

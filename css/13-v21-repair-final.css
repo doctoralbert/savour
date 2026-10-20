@@ -1,10 +1,112 @@
 /* Final repair: one background and compact list actions */
-html,body,#landingView,#appShell,#appShell .main,#appShell .view,#appShell .content,
-#recipes,#favorites,#folders,#folderManage,#sharedManage,#shared,#sharedFolderDetail,
-.public-shell,.public-shell-main,.public-info-view{background:radial-gradient(circle at 75% 0,#1a2521 0,#060a0b 38%,#030506 100%)!important;background-attachment:fixed!important}
-.savour-repair-list{display:block!important;border:1px solid #263031;border-radius:10px;overflow:hidden;background:rgba(5,10,11,.25)}
-.savour-repair-row{display:grid;grid-template-columns:38px minmax(0,1fr) auto auto 24px;align-items:center;gap:10px;width:100%;padding:11px 13px;border-bottom:1px solid #263031;background:transparent;color:#eee8dc;cursor:pointer}
-.savour-repair-row:last-child{border-bottom:0}.savour-repair-row:hover{background:rgba(35,49,43,.55)}
-.savour-repair-number{color:#8f9893;font-size:11px}.savour-repair-name{min-width:0;font-size:14px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.savour-repair-action{border:0;background:transparent;color:#d8c38e;font-size:21px;line-height:1;padding:3px 4px;cursor:pointer}.savour-repair-action.delete{color:#d5a2a2}.savour-repair-arrow{color:#9d9f96;font-size:19px}
-.savour-public-links{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 0;padding-top:20px;border-top:1px solid #293536}.savour-public-links button{border:0;background:transparent;color:#d8c38e;cursor:pointer;padding:0;font-size:12px}.shared-permission-note{font-size:11px;color:#aeb4ae;line-height:1.5;margin-top:8px}
-@media(max-width:650px){.savour-repair-row{grid-template-columns:27px minmax(0,1fr) auto auto 18px;gap:6px;padding:11px 9px}.savour-repair-name{font-size:12px}.savour-repair-action{font-size:19px}.savour-repair-arrow{font-size:16px}}
+html,
+body,
+#landingView,
+#appShell,
+#appShell .main,
+#appShell .view,
+#appShell .content,
+#recipes,
+#favorites,
+#folders,
+#folderManage,
+#sharedManage,
+#shared,
+#sharedFolderDetail,
+.public-shell,
+.public-shell-main,
+.public-info-view {
+  background: radial-gradient(circle at 75% 0, #1a2521 0, #060a0b 38%, #030506 100%) !important;
+  background-attachment: fixed !important;
+}
+.savour-repair-list {
+  display: block !important;
+  border: 1px solid #263031;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(5, 10, 11, 0.25);
+}
+.savour-repair-row {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto auto 24px;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 13px;
+  border-bottom: 1px solid #263031;
+  background: transparent;
+  color: #eee8dc;
+  cursor: pointer;
+}
+.savour-repair-row:last-child {
+  border-bottom: 0;
+}
+.savour-repair-row:hover {
+  background: rgba(35, 49, 43, 0.55);
+}
+.savour-repair-number {
+  color: #8f9893;
+  font-size: 11px;
+}
+.savour-repair-name {
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.savour-repair-action {
+  border: 0;
+  background: transparent;
+  color: #d8c38e;
+  font-size: 21px;
+  line-height: 1;
+  padding: 3px 4px;
+  cursor: pointer;
+}
+.savour-repair-action.delete {
+  color: #d5a2a2;
+}
+.savour-repair-arrow {
+  color: #9d9f96;
+  font-size: 19px;
+}
+.savour-public-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 26px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid #293536;
+}
+.savour-public-links button {
+  border: 0;
+  background: transparent;
+  color: #d8c38e;
+  cursor: pointer;
+  padding: 0;
+  font-size: 12px;
+}
+.shared-permission-note {
+  font-size: 11px;
+  color: #aeb4ae;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+@media (max-width: 650px) {
+  .savour-repair-row {
+    grid-template-columns: 27px minmax(0, 1fr) auto auto 18px;
+    gap: 6px;
+    padding: 11px 9px;
+  }
+  .savour-repair-name {
+    font-size: 12px;
+  }
+  .savour-repair-action {
+    font-size: 19px;
+  }
+  .savour-repair-arrow {
+    font-size: 16px;
+  }
+}

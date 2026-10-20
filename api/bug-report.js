@@ -3,7 +3,10 @@ export default async function handler(req, res) {
   try {
     const { name, email, subject, message, screenshot, screenshotName, page, language } = req.body || {};
     const clean = v => String(v ?? '').trim();
-    const n = clean(name), e = clean(email), s = clean(subject), m = clean(message);
+    const n = clean(name),
+      e = clean(email),
+      s = clean(subject),
+      m = clean(message);
     if (!n || !e || !s || !m) return res.status(400).json({ error: 'Vul alle verplichte velden in.' });
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) return res.status(400).json({ error: 'Vul een geldig e-mailadres in.' });
     if (s.length > 180 || m.length > 12000 || n.length > 120 || e.length > 240) {
@@ -66,7 +69,15 @@ export default async function handler(req, res) {
 }
 
 function esc(v) {
-  return String(v ?? '').replace(/[&<>"']/g, c => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
-  }[c]));
+  return String(v ?? '').replace(
+    /[&<>"']/g,
+    c =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      })[c]
+  );
 }

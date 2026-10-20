@@ -1,12 +1,12 @@
 /* Savour 3.0 v15 final consistency layer */
-(function(){
-  const $id=id=>document.getElementById(id);
-  document.documentElement.lang='nl';
+(function () {
+  const $id = id => document.getElementById(id);
+  document.documentElement.lang = 'nl';
 
   // Make the compact category controls match the existing Savour buttons.
-  const style=document.createElement('style');
-  style.id='savour-v15-consistency-style';
-  style.textContent=`
+  const style = document.createElement('style');
+  style.id = 'savour-v15-consistency-style';
+  style.textContent = `
     #recipes .content,#recipes #recipeGrid,#recipes .recipe-library-shell,#recipes .savour-v14-list,#recipes .savour-v13-list{width:100%!important;max-width:none!important;min-width:0!important}
     #recipes #recipeGrid{display:block!important}
     #recipes .savour-v14-row,#recipes .savour-v14-bulk-row{width:100%!important;max-width:none!important;min-height:34px!important;padding:0 10px!important}
@@ -26,24 +26,42 @@
   document.head.appendChild(style);
 
   // Expand the public copy while keeping one shared source for the Dutch public pages.
-  try{
-    if(typeof siteCopy!=='undefined'){
-      siteCopy.nl.about += '<h2>Een centrale plek voor de keuken</h2><p>Van losse notities en oude documenten tot gecontroleerde recepturen: Savour brengt informatie samen in een overzichtelijke werkomgeving. Je bepaalt zelf hoe je categorieën en mappen indeelt, zodat de structuur aansluit op jouw keuken.</p><h2>Samenwerken met een team</h2><p>Gedeelde mappen maken het mogelijk om recepten gecontroleerd beschikbaar te stellen aan collega’s. Gebruik persoonlijke bibliotheken voor eigen werk en gedeelde mappen voor samenwerking, overdracht en vaste werkafspraken.</p>';
-      siteCopy.nl.faq += '<h2>Kan ik mijn eigen structuur bepalen?</h2><p>Ja. Categorieën, persoonlijke mappen en gedeelde mappen zijn bedoeld om aan te sluiten op jouw manier van werken. Houd de bibliotheek compact en gebruik de detailpagina voor de volledige receptuur.</p><h2>Wat moet ik controleren bij AI-import?</h2><p>Controleer altijd titel, hoeveelheden, eenheden, opbrengst en bereidingsstappen voordat je een geïmporteerd recept in de professionele praktijk gebruikt.</p>';
-      siteCopy.nl.contact += '<h2>Feedback en samenwerking</h2><p>Feedback over de interface, importkwaliteit, mappenstructuur en samenwerking helpt om Savour verder te ontwikkelen. Vermeld bij een melding bij voorkeur de pagina en de stappen waarmee het probleem ontstaat.</p>';
+  try {
+    if (typeof siteCopy !== 'undefined') {
+      siteCopy.nl.about +=
+        '<h2>Een centrale plek voor de keuken</h2><p>Van losse notities en oude documenten tot gecontroleerde recepturen: Savour brengt informatie samen in een overzichtelijke werkomgeving. Je bepaalt zelf hoe je categorieën en mappen indeelt, zodat de structuur aansluit op jouw keuken.</p><h2>Samenwerken met een team</h2><p>Gedeelde mappen maken het mogelijk om recepten gecontroleerd beschikbaar te stellen aan collega’s. Gebruik persoonlijke bibliotheken voor eigen werk en gedeelde mappen voor samenwerking, overdracht en vaste werkafspraken.</p>';
+      siteCopy.nl.faq +=
+        '<h2>Kan ik mijn eigen structuur bepalen?</h2><p>Ja. Categorieën, persoonlijke mappen en gedeelde mappen zijn bedoeld om aan te sluiten op jouw manier van werken. Houd de bibliotheek compact en gebruik de detailpagina voor de volledige receptuur.</p><h2>Wat moet ik controleren bij AI-import?</h2><p>Controleer altijd titel, hoeveelheden, eenheden, opbrengst en bereidingsstappen voordat je een geïmporteerd recept in de professionele praktijk gebruikt.</p>';
+      siteCopy.nl.contact +=
+        '<h2>Feedback en samenwerking</h2><p>Feedback over de interface, importkwaliteit, mappenstructuur en samenwerking helpt om Savour verder te ontwikkelen. Vermeld bij een melding bij voorkeur de pagina en de stappen waarmee het probleem ontstaat.</p>';
     }
-  }catch(e){console.warn('Savour v15 public copy expansion skipped',e)}
+  } catch (e) {
+    console.warn('Savour v15 public copy expansion skipped', e);
+  }
 
   // Public pages: always offer direct navigation to every public page.
-  const publicItems=[['about','Over Savour'],['faq','Veelgestelde vragen'],['contact','Contact'],['terms','Algemene voorwaarden'],['privacy','Privacybeleid']];
-  function ensurePublicNav(){
-    const shell=$id('publicInfoShell');if(!shell)return;
-    let nav=shell.querySelector('.savour-v15-public-nav');
-    if(!nav){nav=document.createElement('nav');nav.className='savour-v15-public-nav';shell.prepend(nav);}
-    nav.innerHTML=publicItems.map(([id,nl])=>`<button type="button" onclick="openPublicInfo('${id}')">${nl}</button>`).join('');
+  const publicItems = [
+    ['about', 'Over Savour'],
+    ['faq', 'Veelgestelde vragen'],
+    ['contact', 'Contact'],
+    ['terms', 'Algemene voorwaarden'],
+    ['privacy', 'Privacybeleid']
+  ];
+  function ensurePublicNav() {
+    const shell = $id('publicInfoShell');
+    if (!shell) return;
+    let nav = shell.querySelector('.savour-v15-public-nav');
+    if (!nav) {
+      nav = document.createElement('nav');
+      nav.className = 'savour-v15-public-nav';
+      shell.prepend(nav);
+    }
+    nav.innerHTML = publicItems
+      .map(([id, nl]) => `<button type="button" onclick="openPublicInfo('${id}')">${nl}</button>`)
+      .join('');
   }
 
   // Ensure the public navigation is present after first paint and route changes.
-  document.addEventListener('DOMContentLoaded',ensurePublicNav,{once:true});
-  setTimeout(ensurePublicNav,250);
+  document.addEventListener('DOMContentLoaded', ensurePublicNav, { once: true });
+  setTimeout(ensurePublicNav, 250);
 })();

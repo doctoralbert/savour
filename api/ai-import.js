@@ -23,12 +23,19 @@ export default async function handler(req, res) {
     const hasImage = typeof image === 'string' && image.startsWith('data:image/');
     const hasText = typeof text === 'string' && text.trim().length > 0;
     if (!hasImage && !hasText) return res.status(400).json({ error: 'Geen receptbron ontvangen.' });
-    if (hasImage && image.length > 12_000_000) return res.status(413).json({ error: 'De foto is te groot. Gebruik een kleinere foto.' });
-    if (hasText && text.length > 120_000) return res.status(413).json({ error: 'Het document bevat te veel tekst om in één keer te verwerken.' });
+    if (hasImage && image.length > 12_000_000)
+      return res.status(413).json({ error: 'De foto is te groot. Gebruik een kleinere foto.' });
+    if (hasText && text.length > 120_000)
+      return res.status(413).json({ error: 'Het document bevat te veel tekst om in één keer te verwerken.' });
 
-    const categoryList = Array.isArray(categories) ? categories.map(String).map(x=>x.trim()).filter(Boolean) : [];
+    const categoryList = Array.isArray(categories)
+      ? categories
+          .map(String)
+          .map(x => x.trim())
+          .filter(Boolean)
+      : [];
     const categoryInstruction = categoryList.length
-      ? `\nBESCHIKBARE CATEGORIEËN VAN DE GEBRUIKER:\n${categoryList.map((c,i)=>`${i+1}. ${c}`).join('\n')}\n- Kies per recept uitsluitend één categorie uit deze lijst wanneer de bron voldoende aanwijzingen geeft.\n- Gebruik de categorie Patisserie voor duidelijk patisserie-/dessert-/gebak-/chocolade-/ijs-/zoetwarenrecepten wanneer die categorie beschikbaar is. Let daarbij op titel, productnamen, ingrediënten én bereidingswijze.\n- Verzin nooit een nieuwe categorie.\n- Als geen categorie met voldoende zekerheid past, geef category als lege string.`
+      ? `\nBESCHIKBARE CATEGORIEËN VAN DE GEBRUIKER:\n${categoryList.map((c, i) => `${i + 1}. ${c}`).join('\n')}\n- Kies per recept uitsluitend één categorie uit deze lijst wanneer de bron voldoende aanwijzingen geeft.\n- Gebruik de categorie Patisserie voor duidelijk patisserie-/dessert-/gebak-/chocolade-/ijs-/zoetwarenrecepten wanneer die categorie beschikbaar is. Let daarbij op titel, productnamen, ingrediënten én bereidingswijze.\n- Verzin nooit een nieuwe categorie.\n- Als geen categorie met voldoende zekerheid past, geef category als lege string.`
       : '\nEr zijn geen gebruikerscategorieën beschikbaar. Geef category als lege string.';
 
     const instruction = `Je bent de recept-structureringslaag van Savour, een professioneel receptplatform voor chefs.
@@ -64,27 +71,52 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
     const payload = {
       model: 'gpt-5.6-luna',
       input: [{ role: 'user', content }],
-      text: { format: { type: 'json_schema', name: 'recipe_import', strict: true, schema: {
-        type: 'object', additionalProperties: false,
-        properties: { recipes: { type: 'array', items: { type: 'object', additionalProperties: false,
-          properties: {
-            title: { type: 'string' }, yield: { type: 'string' },
-            ingredients: { type: 'array', items: { type: 'string' } },
-            steps: { type: 'array', items: { type: 'string' } },
-            category: { type: 'string' }, needs_review: { type: 'boolean' }
-          }, required: ['title','yield','ingredients','steps','category','needs_review']
-        } } }, required: ['recipes']
-      } } }
+      text: {
+        format: {
+          type: 'json_schema',
+          name: 'recipe_import',
+          strict: true,
+          schema: {
+            type: 'object',
+            additionalProperties: false,
+            properties: {
+              recipes: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  additionalProperties: false,
+                  properties: {
+                    title: { type: 'string' },
+                    yield: { type: 'string' },
+                    ingredients: { type: 'array', items: { type: 'string' } },
+                    steps: { type: 'array', items: { type: 'string' } },
+                    category: { type: 'string' },
+                    needs_review: { type: 'boolean' }
+                  },
+                  required: ['title', 'yield', 'ingredients', 'steps', 'category', 'needs_review']
+                }
+              }
+            },
+            required: ['recipes']
+          }
+        }
+      }
     };
 
     const response = await fetch('https://api.openai.com/v1/responses', {
-      method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
     const data = await response.json();
     if (!response.ok) return res.status(response.status).json({ error: data?.error?.message || 'AI-import mislukt.' });
     const output = extractOutputText(data);
     let parsed;
-    try { parsed = JSON.parse(output); } catch { return res.status(502).json({ error: 'De AI gaf geen geldig receptresultaat terug.' }); }
+    try {
+      parsed = JSON.parse(output);
+    } catch {
+      return res.status(502).json({ error: 'De AI gaf geen geldig receptresultaat terug.' });
+    }
     return res.status(200).json(parsed);
   } catch (error) {
     console.error(error);
