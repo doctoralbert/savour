@@ -11,7 +11,7 @@ delen met je keukenteam.
 3. Dubbelklik `start_savour.bat`, of typ in deze map: `npm start`.
 4. Open http://localhost:3000.
 
-De knop "Demo" op de landingspagina laadt 40 proefrecepten zonder iets op te slaan. Handig om snel iets te testen.
+De knop "Bekijk de demo" op de landingspagina laadt 40 proefrecepten zonder iets op te slaan. Handig om snel iets te testen.
 
 ## Mappenstructuur
 
