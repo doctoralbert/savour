@@ -100,6 +100,7 @@ function logout() {
     favorites = [];
     categories = [];
     sharedMaps = [];
+    sharedRecipes = [];
     showLanding();
     return;
   }

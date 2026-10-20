@@ -31,7 +31,7 @@ function openPrintBundle(list) {
 }
 
 function printRecipe(id) {
-  let r = recipes.find(x => x.id === id);
+  let r = findRecipe(id);
   if (!r) return;
   openPrintBundle([r]);
 }
@@ -61,7 +61,7 @@ function printFolder(id) {
 function printSharedMap(id) {
   let m = sharedMaps.find(x => x.id === id);
   if (!m) return;
-  let list = m.recipeIds.map(rid => recipes.find(r => r.id === rid)).filter(Boolean);
+  let list = m.recipeIds.map(rid => findRecipe(rid)).filter(Boolean);
   if (!list.length) {
     toast('Deze gedeelde map bevat nog geen recepten');
     return;
@@ -73,9 +73,7 @@ function printSharedFolder(mapId, folderId) {
   let m = sharedMaps.find(x => x.id === mapId);
   let f = m?.folders?.find(x => x.id === folderId);
   if (!m || !f) return;
-  let list = (f.system && f.name === 'A t/m Z' ? m.recipeIds : f.recipeIds)
-    .map(rid => recipes.find(r => r.id === rid))
-    .filter(Boolean);
+  let list = (f.system && f.name === 'A t/m Z' ? m.recipeIds : f.recipeIds).map(rid => findRecipe(rid)).filter(Boolean);
   if (!list.length) {
     toast('Deze gedeelde map bevat nog geen recepten');
     return;

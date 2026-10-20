@@ -45,6 +45,20 @@ function formatNumber(n) {
     : String(Math.round(n * 1000) / 1000).replace('.', ',');
 }
 
+// Zoekt een recept in de eigen bibliotheek én in de gedeelde recepten van teamleden.
+function findRecipe(id) {
+  return (
+    (recipes || []).find(r => String(r.id) === String(id)) ||
+    (sharedRecipes || []).find(r => String(r.id) === String(id)) ||
+    null
+  );
+}
+
+// Is dit recept van de ingelogde gebruiker zelf (en dus te bewerken)?
+function isOwnRecipe(r) {
+  return !!r && !r.shared;
+}
+
 function isUuid(value) {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value || ''));
 }

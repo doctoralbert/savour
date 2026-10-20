@@ -154,7 +154,7 @@ async function openPublicInvite(key) {
       return;
     }
     $('publicInviteContent').innerHTML =
-      `<div class="eyebrow">Savour · Gedeelde map</div><h1>Uitnodiging voor ${esc(data.name || 'Gedeelde map')}</h1><p class="info-lead">Je bent uitgenodigd om mee te werken in een gedeelde receptenmap van Savour.</p><div class="panel" style="margin-top:24px"><h2 style="font-family:'Playfair Display';margin-top:0">${esc(data.name || 'Gedeelde map')}</h2><p class="muted">Maak een Savour-account of log in om verder te gaan. Na het inloggen kan de eigenaar je rechten instellen.</p><div class="actions"><button class="btn gold" onclick="openAuth('signup')">Account aanmaken</button><button class="btn" onclick="openAuth('login')">Inloggen</button></div></div>`;
+      `<div class="eyebrow">Savour · Gedeelde map</div><h1>Uitnodiging voor ${esc(data.name || 'Gedeelde map')}</h1><p class="info-lead">Je bent uitgenodigd om mee te werken in een gedeelde receptenmap van Savour.</p><div class="panel" style="margin-top:24px"><h2 style="font-family:'Playfair Display';margin-top:0">${esc(data.name || 'Gedeelde map')}</h2><p class="muted">Maak een Savour-account of log in om verder te gaan. Na het inloggen word je lid als viewer: je kunt de recepten bekijken, printen en omrekenen. De eigenaar kan je daarna ook laten toevoegen.</p><div class="actions"><button class="btn gold" onclick="openAuth('signup')">Account aanmaken</button><button class="btn" onclick="openAuth('login')">Inloggen</button></div></div>`;
   } catch (e) {
     console.error('Uitnodiging laden mislukt', e);
     $('landingView').style.display = 'none';

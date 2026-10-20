@@ -40,14 +40,30 @@ function startDemo() {
     { id: 'demo-ent', name: 'Entremetier', recipeIds: recipes.slice(24, 32).map(r => r.id), system: false }
   ];
   favorites = recipes.slice(0, 3).map(r => r.id);
+  // Een collega met eigen recepten in de gedeelde map, om samenwerken te laten zien.
+  sharedRecipes = ['Bouillabaisse', 'Crème brûlée', 'Gepocheerde peer'].map((title, i) => ({
+    id: 'demo-anna-' + i,
+    title,
+    description: '',
+    yield: '10 porties',
+    ingredients: ['500 gram basis', '2 deciliter room', 'zout naar smaak'],
+    steps: ['Bereid volgens de werkwijze van de sectie.', 'Proef en werk af.'],
+    category: 'Gedeeld door Chef Anna',
+    photo: '',
+    shared: true,
+    ownerId: 'demo-anna'
+  }));
   sharedMaps = [
     {
       id: 'demo-shared',
       name: 'Demo keukenteam',
-      recipeIds: recipes.slice(0, 12).map(r => r.id),
+      recipeIds: [...recipes.slice(0, 12).map(r => r.id), ...sharedRecipes.map(r => r.id)],
       folders: [],
       photo: '',
-      members: [{ name: 'Jij', role: 'owner', userId: 'demo-user' }],
+      members: [
+        { name: 'Jij', role: 'owner', userId: 'demo-user' },
+        { name: 'Chef Anna', role: 'editor', userId: 'demo-anna' }
+      ],
       ownerId: 'demo-user'
     }
   ];

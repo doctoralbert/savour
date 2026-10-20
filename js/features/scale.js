@@ -1,7 +1,7 @@
 // Recept omrekenen naar een andere opbrengst.
 
 function openScale(id) {
-  let r = recipes.find(x => x.id === id);
+  let r = findRecipe(id);
   if (!r) return;
   let y = parseYield(r.yield);
   if (!y) {
@@ -39,7 +39,7 @@ function parseYield(text) {
 
 // Rekent het open recept om: factor = nieuwe opbrengst / oorspronkelijke opbrengst. De eenheid telt niet mee.
 function calculateScale() {
-  const r = (recipes || []).find(x => String(x.id) === String(currentId));
+  const r = findRecipe(currentId);
   const base = parseYield(r && r.yield),
     raw = String($('scaleTarget')?.value || '').trim(),
     target = parseYield(raw);

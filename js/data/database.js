@@ -156,102 +156,12 @@ async function loadDatabaseState() {
     applyTheme(prof.theme || currentTheme());
   }
   try {
-    const [smsRes, smrRes, smfRes, smfrRes, smmRes] = await Promise.all([
-      selectAllRows('shared_maps', 'id,owner_id,name,photo_url,public_key,created_at', q => q.order('name')),
-      selectAllRows('shared_map_recipes', 'shared_map_id,recipe_id'),
-      selectAllRows('shared_folders', 'id,shared_map_id,name'),
-      selectAllRows('shared_folder_recipes', 'shared_folder_id,recipe_id'),
-      selectAllRows('shared_map_members', 'shared_map_id,user_id,role')
-    ]);
-    const optionalErr = smsRes.error || smrRes.error || smfRes.error || smfrRes.error || smmRes.error;
-    if (optionalErr) {
-      console.error('Savour shared-map load warning:', optionalErr);
-      const ownedFallback = (smsRes.data || []).filter(m => m.owner_id === currentUser.id);
-      sharedMaps = ownedFallback.map(m => ({
-        id: m.id,
-        name: m.name,
-        recipeIds: [],
-        folders: [],
-        photo: m.photo_url || '',
-        members: [
-          { name: 'Jij', email: currentUser.email || '', role: 'owner', account: true, userId: currentUser.id }
-        ],
-        publicKey: m.public_key,
-        ownerId: m.owner_id
-      }));
-      toast(t('Gedeelde mappen konden gedeeltelijk niet worden geladen.'));
-    } else {
-      const sms = smsRes.data || [],
-        smr = smrRes.data || [],
-        smf = smfRes.data || [],
-        smfr = smfrRes.data || [],
-        memberRows = smmRes.data || [];
-      const ownedMaps = sms.filter(m => m.owner_id === currentUser.id);
-      let memberRowsFresh = memberRows;
-      const missingOwnerMemberships = ownedMaps.filter(
-        map => !memberRows.some(x => x.shared_map_id === map.id && x.user_id === currentUser.id)
-      );
-      if (missingOwnerMemberships.length) {
-        for (const map of missingOwnerMemberships) {
-          const { error } = await supabaseClient
-            .from('shared_map_members')
-            .upsert(
-              { shared_map_id: map.id, user_id: currentUser.id, role: 'owner' },
-              { onConflict: 'shared_map_id,user_id' }
-            );
-          if (error) console.warn('Owner membership kon niet automatisch worden hersteld:', error);
-        }
-        const fresh = await selectAllRows('shared_map_members', 'shared_map_id,user_id,role');
-        if (fresh.data) memberRowsFresh = fresh.data;
-      }
-      sharedMaps = sms
-        .filter(
-          m =>
-            m.owner_id === currentUser.id ||
-            memberRowsFresh.some(x => x.shared_map_id === m.id && x.user_id === currentUser.id)
-        )
-        .map(m => {
-          const memberList = memberRowsFresh
-            .filter(x => x.shared_map_id === m.id)
-            .map(x => ({
-              name: x.user_id === currentUser.id ? 'Jij' : 'Teamlid',
-              email: '',
-              role: x.role,
-              account: true,
-              userId: x.user_id
-            }));
-          if (!memberList.some(x => x.userId === currentUser.id))
-            memberList.unshift({
-              name: 'Jij',
-              email: currentUser.email || '',
-              role: 'owner',
-              account: true,
-              userId: currentUser.id
-            });
-          const mapRecipeIds = smr.filter(x => x.shared_map_id === m.id).map(x => x.recipe_id);
-          const sf = smf
-            .filter(x => x.shared_map_id === m.id && x.name !== 'A t/m Z')
-            .map(f => ({
-              id: f.id,
-              name: f.name,
-              recipeIds: smfr.filter(x => x.shared_folder_id === f.id).map(x => x.recipe_id),
-              system: false
-            }));
-          return {
-            id: m.id,
-            name: m.name,
-            recipeIds: mapRecipeIds,
-            folders: sf,
-            photo: m.photo_url || '',
-            members: memberList,
-            publicKey: m.public_key,
-            ownerId: m.owner_id
-          };
-        });
-    }
+    await loadSharedMapsState();
   } catch (e) {
     console.error('Savour shared-map load warning:', e);
     sharedMaps = [];
+    sharedRecipes = [];
+    toast(t('Gedeelde mappen konden niet worden geladen.'));
   }
   renderCategoryNav();
   renderSharedNav();
@@ -286,6 +196,7 @@ async function startDatabaseSession(user) {
     folders = [];
     favorites = [];
     sharedMaps = [];
+    sharedRecipes = [];
     categories = [];
     account = {
       name: user?.user_metadata?.name || '',
@@ -301,6 +212,8 @@ async function startDatabaseSession(user) {
       showApp('home');
       renderHome();
       updateProfileHeader();
+      // Kwam de gebruiker binnen via een uitnodigingslink? Dan nu lid worden en de map openen.
+      await acceptPendingInvite();
       return true;
     } catch (error) {
       console.error('Savour sessie kon niet worden opgebouwd:', error);
@@ -317,4 +230,126 @@ async function retryDatabaseSession() {
   if (!currentUser) return;
   const ok = await startDatabaseSession(currentUser);
   if (ok) toast(t('Bibliotheek geladen'));
+}
+
+// Laadt de gedeelde mappen waar de gebruiker eigenaar of lid van is, met submappen, leden (met naam)
+// en de recepten die teamleden erin hebben gezet.
+async function loadSharedMapsState() {
+  const [smsRes, smrRes, smfRes, smfrRes, smmRes] = await Promise.all([
+    selectAllRows('shared_maps', 'id,owner_id,name,photo_url,public_key,created_at', q => q.order('name')),
+    selectAllRows('shared_map_recipes', 'shared_map_id,recipe_id'),
+    selectAllRows('shared_folders', 'id,shared_map_id,name'),
+    selectAllRows('shared_folder_recipes', 'shared_folder_id,recipe_id'),
+    selectAllRows('shared_map_members', 'shared_map_id,user_id,role')
+  ]);
+  const loadError = smsRes.error || smrRes.error || smfRes.error || smfrRes.error || smmRes.error;
+  if (loadError) throw loadError;
+  const sms = smsRes.data || [],
+    smr = smrRes.data || [],
+    smf = smfRes.data || [],
+    smfr = smfrRes.data || [];
+  let memberRows = smmRes.data || [];
+
+  // Eigenaars horen zelf ook als lid in de ledentabel te staan; herstel dat waar het ontbreekt.
+  const missingOwner = sms.filter(
+    m =>
+      m.owner_id === currentUser.id && !memberRows.some(x => x.shared_map_id === m.id && x.user_id === currentUser.id)
+  );
+  for (const map of missingOwner) {
+    const { error } = await supabaseClient
+      .from('shared_map_members')
+      .upsert(
+        { shared_map_id: map.id, user_id: currentUser.id, role: 'owner' },
+        { onConflict: 'shared_map_id,user_id' }
+      );
+    if (error) console.warn('Eigenaar kon niet als lid worden hersteld:', error);
+    else memberRows = [...memberRows, { shared_map_id: map.id, user_id: currentUser.id, role: 'owner' }];
+  }
+
+  // Volledige ledenlijst met namen (een gewoon lid ziet via de tabel alleen zichzelf).
+  const { data: namedMembers, error: membersError } = await supabaseClient.rpc('get_my_shared_map_members');
+  if (membersError) console.warn('Ledenlijst met namen niet beschikbaar:', membersError);
+  const allMembers = membersError ? memberRows : namedMembers || [];
+
+  const visibleMaps = sms.filter(
+    m => m.owner_id === currentUser.id || memberRows.some(x => x.shared_map_id === m.id && x.user_id === currentUser.id)
+  );
+  sharedMaps = visibleMaps.map(m => {
+    const members = allMembers
+      .filter(x => x.shared_map_id === m.id)
+      .map(x => ({
+        name: x.user_id === currentUser.id ? 'Jij' : x.name || 'Teamlid',
+        email: x.email || '',
+        role: x.user_id === m.owner_id ? 'owner' : x.role,
+        account: true,
+        userId: x.user_id
+      }))
+      // Eigenaar bovenaan, daarna op naam.
+      .sort((a, b) => (a.role === 'owner' ? -1 : b.role === 'owner' ? 1 : a.name.localeCompare(b.name, 'nl')));
+    if (!members.some(x => x.userId === currentUser.id))
+      members.unshift({
+        name: 'Jij',
+        email: currentUser.email || '',
+        role: m.owner_id === currentUser.id ? 'owner' : 'viewer',
+        account: true,
+        userId: currentUser.id
+      });
+    return {
+      id: m.id,
+      name: m.name,
+      recipeIds: smr.filter(x => x.shared_map_id === m.id).map(x => x.recipe_id),
+      folders: smf
+        .filter(x => x.shared_map_id === m.id && x.name !== 'A t/m Z')
+        .map(f => ({
+          id: f.id,
+          name: f.name,
+          recipeIds: smfr.filter(x => x.shared_folder_id === f.id).map(x => x.recipe_id),
+          system: false
+        })),
+      photo: m.photo_url || '',
+      members,
+      publicKey: m.public_key,
+      ownerId: m.owner_id
+    };
+  });
+  await loadSharedRecipes();
+}
+
+// Haalt recepten van teamleden op die in gedeelde mappen staan (alleen-lezen voor de gebruiker).
+async function loadSharedRecipes() {
+  const own = new Set(recipes.map(r => String(r.id)));
+  const ids = [
+    ...new Set(sharedMaps.flatMap(m => [...m.recipeIds, ...m.folders.flatMap(f => f.recipeIds)]).map(String))
+  ].filter(id => !own.has(id));
+  const rows = [];
+  for (let i = 0; i < ids.length; i += 100) {
+    const { data, error } = await supabaseClient
+      .from('recipes')
+      .select('id,user_id,title,description,yield_text,ingredients,steps,photo_url')
+      .in('id', ids.slice(i, i + 100));
+    if (error) {
+      console.warn('Gedeelde recepten konden niet worden geladen:', error);
+      break;
+    }
+    rows.push(...(data || []));
+  }
+  const authorName = userId => {
+    for (const m of sharedMaps) {
+      const member = m.members.find(x => String(x.userId) === String(userId));
+      if (member && member.name !== 'Jij') return member.name;
+    }
+    return 'Teamlid';
+  };
+  sharedRecipes = rows.map(r => ({
+    id: r.id,
+    title: r.title,
+    description: r.description || '',
+    yield: r.yield_text || '',
+    ingredients: Array.isArray(r.ingredients) ? r.ingredients : [],
+    steps: Array.isArray(r.steps) ? r.steps : [],
+    category: 'Gedeeld door ' + authorName(r.user_id),
+    photo: r.photo_url || '',
+    shared: true,
+    ownerId: r.user_id
+  }));
 }

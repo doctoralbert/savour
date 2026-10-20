@@ -15,6 +15,9 @@ let favorites = [];
 
 let sharedMaps = [];
 
+// Recepten van teamleden uit gedeelde mappen (alleen-lezen; niet in de eigen bibliotheek).
+let sharedRecipes = [];
+
 let activeCat = '';
 
 let categories = ['Sauzen & componenten', 'Groenten & garnituren', 'Vis & zeevruchten', 'Vlees', 'Patisserie'];

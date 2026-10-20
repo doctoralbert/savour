@@ -855,3 +855,28 @@ body.savour-light #appShell .savour-v13-arrow,
 body.savour-light #appShell .drag-handle {
   color: #6f746d !important;
 }
+
+/* ===== Ledenlijst in gedeelde mappen ===== */
+.member .member-sub {
+  display: block;
+  margin-top: 2px;
+}
+.member-role {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.member-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.shared-recipe-note {
+  margin: 10px 0 0;
+  font-size: 13px;
+}
+body.savour-light .member-role {
+  color: #5f665f;
+}

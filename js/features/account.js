@@ -245,6 +245,7 @@ async function deleteAccount() {
     folders = [];
     favorites = [];
     sharedMaps = [];
+    sharedRecipes = [];
     account = { name: '', role: 'Chef-kok', email: '', password: '', photo: '' };
     showLanding();
     toast('Account verwijderd');

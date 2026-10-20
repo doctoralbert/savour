@@ -60,9 +60,14 @@ if (publicInviteMatch) window.__publicInviteRoute = decodeURIComponent(publicInv
       return;
     }
     if (window.__publicInviteRoute) {
-      document.body.classList.remove('auth-booting');
-      await openPublicInvite(window.__publicInviteRoute);
-      return;
+      // Uitnodiging onthouden. Al ingelogd? Dan gewoon doorgaan: na het laden wordt de gebruiker lid.
+      rememberInvite(window.__publicInviteRoute);
+      const { data: existing } = await supabaseClient.auth.getSession();
+      if (!existing?.session?.user) {
+        document.body.classList.remove('auth-booting');
+        await openPublicInvite(window.__publicInviteRoute);
+        return;
+      }
     }
     // Teruggekomen via een link uit een e-mail (account bevestigen of wachtwoord herstellen)?
     const authRedirect = readAuthRedirect();

@@ -39,7 +39,7 @@ Start de app lokaal, open de browserconsole (F12) en plak:
 await eval(await (await fetch('/tests/compare.js')).text())
 ```
 
-`same` moet gelijk zijn aan `total`, en `errors` moet leeg zijn. Is een verschil bedoeld (je hebt een scherm
+`same` moet gelijk zijn aan `total`, en `errors` moet leeg zijn. De opmaakmetingen (`#stijl`) gelden voor de venstergrootte in `_venster` (1118×870); bij een ander formaat kunnen alleen die afwijken. Is een verschil bedoeld (je hebt een scherm
 bewust veranderd)? Werk dan `tests/expected.json` bij en leg in de commit uit waarom.
 
 ## Code netjes houden

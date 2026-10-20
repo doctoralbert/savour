@@ -189,7 +189,7 @@ function renderShared(id) {
   const canManage = canManageShared(m);
   const isOwner = isSharedMapOwner(m);
   const mid = escJs(m.id);
-  const list = (m.recipeIds || []).map(rid => recipes.find(r => String(r.id) === String(rid))).filter(Boolean);
+  const list = (m.recipeIds || []).map(rid => findRecipe(rid)).filter(Boolean);
   $('sharedTitle').textContent = m.name;
   const photoInput = `<input type="file" accept="image/*" onchange="saveSharedPhoto('${mid}',this)" style="display:none">`;
   const photo = m.photo
@@ -217,9 +217,12 @@ function renderShared(id) {
   const members = (m.members || [])
     .map(
       (x, i) =>
-        `<div class="member"><div><b>${esc(x.name)}</b><small class="muted">${x.account ? 'Account actief' : 'Uitgenodigd'}</small></div><select ${canManage ? '' : 'disabled'} onchange="changeMemberRole('${mid}',${i},this.value)"><option ${x.role === 'owner' ? 'selected' : ''}>owner</option><option ${x.role === 'editor' ? 'selected' : ''}>editor</option><option ${x.role === 'viewer' ? 'selected' : ''}>viewer</option></select></div>`
+        `<div class="member"><div><b>${esc(x.name)}</b><small class="muted member-sub">${esc(x.email || memberRoleLabel(m, x))}</small></div>${memberRoleControl(m, x, i)}</div>`
     )
     .join('');
+  const teamButton = canManage
+    ? `<button class="btn" style="width:100%;margin-top:12px" onclick="inviteShared('${mid}')">＋ Teamlid uitnodigen</button>`
+    : `<button class="btn" style="width:100%;margin-top:12px" onclick="leaveSharedMap('${mid}')">Map verlaten</button>`;
   $('sharedWrap').innerHTML =
     photo +
     `<div class="layout"><div><div class="panel"><div class="folder-detail-head shared-main-head"><div><div class="eyebrow">Gedeelde map</div><h1>${esc(m.name)}</h1><p class="muted">${list.length} recepten · ${m.members.length} leden</p></div><div class="shared-map-actions">${actions}</div></div></div>` +
@@ -230,8 +233,8 @@ function renderShared(id) {
     recipeBlock +
     `</div><aside class="rightcol"><div class="partner-slot"><small>Partnerpositie</small><b>Adverteer hier richting professionele keukens.</b><span>Een rustige positie naast de dagelijkse workflow, zonder de recepten te onderbreken.</span></div>` +
     `<div class="panel"><h3>Openbare uitnodigingslink</h3><div class="sharelink">https://savour.page/join/${esc(m.publicKey)}</div><button class="btn" style="width:100%;margin-top:10px" onclick="inviteShared('${mid}')">Link delen</button></div>` +
-    `<div class="panel"><h3>Keukenteam</h3>${members}${canManage ? `<button class="btn" style="width:100%;margin-top:12px" onclick="openMember('${mid}')">＋ Persoon toevoegen</button>` : ''}</div>` +
-    `<div class="panel"><h3>Rechten</h3><p class="muted" style="line-height:1.5;margin:0">Owner beheert de map. Editor kan recepten toevoegen en bewerken. Viewer kan recepten bekijken.</p></div></aside></div>`;
+    `<div class="panel"><h3>Keukenteam</h3>${members}${teamButton}</div>` +
+    `<div class="panel"><h3>Rechten</h3><p class="muted" style="line-height:1.5;margin:0">${SHARED_RIGHTS_TEXT}</p></div></aside></div>`;
 }
 
 function openSharedMapManage(id) {
@@ -247,7 +250,7 @@ function renderSharedFolderDetail() {
     go('shared');
     return;
   }
-  const list = (f.recipeIds || []).map(id => recipes.find(r => String(r.id) === String(id))).filter(Boolean);
+  const list = (f.recipeIds || []).map(id => findRecipe(id)).filter(Boolean);
   const filtered = filterRecipesByLetter(list, window.sharedFolderAlphabet);
   const body = filtered.length
     ? '<div class="savour-v13-list">' + contextRecipeRowsHtml(filtered, 'sharedFolder') + '</div>'
@@ -458,36 +461,36 @@ function renderSharedMapManage(id) {
     mid +
     '\')">Delen / uitnodigen</button><button class="btn" onclick="navigator.clipboard?.writeText(\'' +
     escJs(shareUrl) +
-    '\').then(()=>toast(\'Link gekopieerd\'))">Link kopiëren</button></div></div></div><div class="savour-v30-manage-card"><h3>Leden & rechten</h3><p class="muted" style="font-size:12px;line-height:1.5">Owner beheert de map. Editor kan recepten toevoegen en bewerken. Viewer kan recepten bekijken.</p><div>' +
+    '\').then(()=>toast(\'Link gekopieerd\'))">Link kopiëren</button></div></div></div><div class="savour-v30-manage-card"><h3>Leden & rechten</h3><p class="muted" style="font-size:12px;line-height:1.5">' +
+    SHARED_RIGHTS_TEXT +
+    '</p><div>' +
     members
       .map(
         (x, i) =>
           '<div class="savour-v30-member"><div><b>' +
           esc(x.name || 'Teamlid') +
           '</b><small class="muted" style="display:block">' +
-          esc(x.email || '') +
-          (x.account ? ' · account actief' : '') +
-          '</small></div><select ' +
-          (!own ? 'disabled' : '') +
-          ' onchange="changeMemberRole(\'' +
-          mid +
-          "'," +
-          i +
-          ',this.value)"><option value="owner" ' +
-          (x.role === 'owner' ? 'selected' : '') +
-          '>Owner</option><option value="editor" ' +
-          (x.role === 'editor' ? 'selected' : '') +
-          '>Editor</option><option value="viewer" ' +
-          (x.role === 'viewer' ? 'selected' : '') +
-          '>Viewer</option></select></div>'
+          esc(x.email || memberRoleLabel(m, x)) +
+          '</small></div><div class="member-actions">' +
+          memberRoleControl(m, x, i) +
+          (own && String(x.userId) !== String(m.ownerId)
+            ? '<button class="btn small" onclick="removeSharedMember(\'' +
+              mid +
+              "','" +
+              escJs(x.userId) +
+              '\')">Verwijderen</button>'
+            : '') +
+          '</div></div>'
       )
       .join('') +
     '</div>' +
     (own
-      ? '<button class="btn" style="margin-top:12px;width:100%" onclick="openMember(\'' +
+      ? '<button class="btn" style="margin-top:12px;width:100%" onclick="inviteShared(\'' +
         mid +
-        '\')">＋ Lid toevoegen</button>'
-      : '') +
+        '\')">＋ Teamlid uitnodigen</button>'
+      : '<button class="btn" style="margin-top:12px;width:100%" onclick="leaveSharedMap(\'' +
+        mid +
+        '\')">Map verlaten</button>') +
     '</div></div>';
 }
 
@@ -730,34 +733,14 @@ function shareInviteEmail() {
     encodeURIComponent('Je bent uitgenodigd voor de gedeelde map ' + activeInviteTitle + ' in Savour.\n\n' + u);
 }
 
-function openMember(id) {
-  currentShared = id;
-  $('memberName').value = '';
-  $('memberEmail').value = '';
-  $('memberRole').value = 'viewer';
-  $('memberModal').classList.add('open');
-}
-
-function closeMember() {
-  $('memberModal').classList.remove('open');
-}
-
-async function createMember() {
-  const m = sharedMaps.find(x => x.id === currentShared);
-  let name = $('memberName').value.trim();
-  let email = $('memberEmail').value.trim();
-  let role = $('memberRole').value;
-  if (!m || !name || !email) return;
-  toast('Het koppelen van teamleden aan echte accounts doen we in de volgende stap.');
-  closeMember();
-}
-
 async function changeMemberRole(id, index, role) {
-  const m = sharedMaps.find(x => x.id === id);
-  if (!m) return;
+  const m = findSharedMap(id);
+  if (!m || !canManageShared(m) || !['editor', 'viewer'].includes(role)) return;
   const member = m.members[index];
-  if (!member?.userId) {
-    toast('Dit teamlid heeft nog geen gekoppeld account');
+  if (!member?.userId || String(member.userId) === String(m.ownerId)) return;
+  if (demoMode) {
+    member.role = role;
+    toast('Rechten aangepast');
     return;
   }
   const { error } = await supabaseClient
@@ -771,6 +754,119 @@ async function changeMemberRole(id, index, role) {
     return;
   }
   await loadDatabaseState();
-  renderShared(id);
+  if ($('sharedMapManage')?.classList.contains('active')) renderSharedMapManage(id);
+  else renderShared(id);
   toast('Rechten aangepast');
+}
+
+// ---- Lid worden via een uitnodigingslink (/join/<sleutel>) ----
+// De sleutel wordt bewaard tot de gebruiker is ingelogd. Dat kan ook na het aanmaken en bevestigen van een
+// nieuw account in een ander tabblad; daarom localStorage, en hooguit 7 dagen geldig.
+const PENDING_INVITE_KEY = 'savour_pending_invite';
+
+function rememberInvite(key) {
+  try {
+    localStorage.setItem(PENDING_INVITE_KEY, JSON.stringify({ key, at: Date.now() }));
+  } catch (e) {}
+}
+
+function takePendingInvite() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(PENDING_INVITE_KEY) || 'null');
+    localStorage.removeItem(PENDING_INVITE_KEY);
+    if (saved?.key && Date.now() - Number(saved.at || 0) < 7 * 24 * 60 * 60 * 1000) return String(saved.key);
+  } catch (e) {}
+  return '';
+}
+
+// Voegt de ingelogde gebruiker toe aan de gedeelde map uit de bewaarde uitnodiging (als viewer).
+async function acceptPendingInvite() {
+  const key = takePendingInvite();
+  if (!key || demoMode || !currentUser) return false;
+  const { data, error } = await supabaseClient.rpc('join_shared_map', { _public_key: key });
+  if (location.pathname.startsWith('/join/')) history.replaceState(null, '', '/');
+  if (error || !data?.id) {
+    console.error('Lid worden mislukt:', error);
+    toast('Je kon niet aan de gedeelde map worden toegevoegd. Vraag een nieuwe uitnodigingslink.');
+    return false;
+  }
+  await loadDatabaseState();
+  await openShared(data.id);
+  const m = findSharedMap(data.id);
+  toast(
+    m && isSharedMapOwner(m)
+      ? 'Dit is je eigen gedeelde map.'
+      : `Je bent lid van ${data.name}. De eigenaar bepaalt of je ook recepten mag toevoegen.`
+  );
+  return true;
+}
+
+// ---- Leden beheren ----
+
+async function removeSharedMember(mapId, userId) {
+  const m = findSharedMap(mapId);
+  if (!m || !isSharedMapOwner(m) || String(userId) === String(m.ownerId)) return;
+  const member = m.members.find(x => String(x.userId) === String(userId));
+  if (
+    !confirm(
+      `${member?.name || 'Dit teamlid'} verwijderen uit “${m.name}”?\n\nDe recepten van dit teamlid verdwijnen uit de gedeelde map.`
+    )
+  )
+    return;
+  if (demoMode) {
+    m.members = m.members.filter(x => String(x.userId) !== String(userId));
+    renderSharedMapManage(mapId);
+    return;
+  }
+  const { error } = await supabaseClient
+    .from('shared_map_members')
+    .delete()
+    .eq('shared_map_id', mapId)
+    .eq('user_id', userId);
+  if (error) {
+    console.error(error);
+    toast('Teamlid kon niet worden verwijderd');
+    return;
+  }
+  await loadDatabaseState();
+  renderSharedMapManage(mapId);
+  toast('Teamlid verwijderd');
+}
+
+async function leaveSharedMap(mapId) {
+  const m = findSharedMap(mapId);
+  if (!m || !currentUser || isSharedMapOwner(m)) return;
+  if (!confirm(`Weet je zeker dat je “${m.name}” wilt verlaten?\n\nJe eigen recepten blijven in je bibliotheek.`))
+    return;
+  if (!demoMode) {
+    const { error } = await supabaseClient
+      .from('shared_map_members')
+      .delete()
+      .eq('shared_map_id', mapId)
+      .eq('user_id', currentUser.id);
+    if (error) {
+      console.error(error);
+      toast('Je kon de gedeelde map niet verlaten');
+      return;
+    }
+    await loadDatabaseState();
+  } else sharedMaps = sharedMaps.filter(x => String(x.id) !== String(mapId));
+  currentShared = null;
+  renderSharedNav();
+  go('sharedManage');
+  toast('Je hebt de gedeelde map verlaten');
+}
+const SHARED_RIGHTS_TEXT =
+  'Owner beheert de map en de leden. Editor kan recepten en mappen toevoegen en uit de map halen. Viewer kan recepten bekijken, printen en omrekenen. Alleen de maker van een recept kan het zelf bewerken.';
+
+function memberRoleLabel(m, x) {
+  if (x.role === 'owner' || String(x.userId) === String(m.ownerId)) return 'Eigenaar';
+  return x.role === 'editor' ? 'Editor' : 'Viewer';
+}
+
+// Rolkeuze voor één teamlid. Alleen de eigenaar kiest, en de eigenaar zelf heeft geen keuze.
+function memberRoleControl(m, x, i) {
+  const isMapOwner = x.role === 'owner' || String(x.userId) === String(m.ownerId);
+  if (isMapOwner || !canManageShared(m)) return `<span class="member-role">${memberRoleLabel(m, x)}</span>`;
+  return `<select onchange="changeMemberRole('${escJs(m.id)}',${i},this.value)"><option value="editor" ${x.role === 'editor' ? 'selected' : ''}>Editor</option><option value="viewer" ${x.role !== 'editor' ? 'selected' : ''}>Viewer</option></select>`;
 }

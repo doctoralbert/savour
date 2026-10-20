@@ -87,6 +87,8 @@
     window.__regressionStyle[name] = css;
     results[name + ' #stijl'] = hash(css) + ':' + css.length;
   };
+  // Wacht tot de lettertypen geladen zijn: anders verschillen breedtes en daarmee de opmaakmeting.
+  await document.fonts.ready;
   // Een open inlogvenster bij het starten hangt af van timing; begin altijd met alle vensters dicht.
   document.querySelectorAll('.modal.open').forEach(m => m.classList.remove('open'));
   await step('01-landing', () => {});
@@ -125,6 +127,8 @@
   });
   await step('15-folder-detail', () => openFolder('demo-garde'));
   await step('16-shared', () => openShared('demo-shared'));
+  await step('16b-shared-recipe-of-colleague', () => openRecipe('demo-anna-0', 'shared'));
+  await step('16c-back-to-shared', () => openShared('demo-shared'));
   await step('17-shared-manage', () => go('sharedMapManage'));
   await step('18-folder-manage', () => go('folderManage'));
   await step('19-shared-list-manage', () => go('sharedManage'));
