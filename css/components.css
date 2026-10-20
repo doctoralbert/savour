@@ -1,0 +1,792 @@
+/* Savour componenten: receptenlijsten, mappen, gedeelde mappen, omrekenen en publieke pagina's. Volgorde is belangrijk: latere regels winnen. */
+
+/* ===== Bulkvenster, gedeelde mappen en partnerruimte ===== */
+.recipe-page-head {
+  align-items: flex-end;
+  gap: 18px;
+}
+.recipe-page-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.recipe-page-actions .btn {
+  white-space: nowrap;
+}
+.savour-bulk-modal .modalbox {
+  width: min(900px, 100%);
+}
+.bulk-modal-list {
+  display: grid;
+  gap: 7px;
+  max-height: 55vh;
+  overflow: auto;
+  margin: 15px 0;
+}
+.bulk-modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.bulk-modal-actions > div {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.manage-list {
+  display: grid;
+  gap: 8px;
+}
+.manage-item {
+  display: grid;
+  grid-template-columns: auto 28px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 13px;
+  border: 1px solid #293536;
+  background: #091011;
+  border-radius: 8px;
+  transition: 0.15s;
+}
+.manage-item:hover {
+  border-color: #746344;
+}
+.manage-item.dragging {
+  opacity: 0.5;
+}
+.manage-item .drag-handle {
+  cursor: grab;
+  color: #8f9893;
+  font-size: 17px;
+  line-height: 1;
+}
+.manage-item .drag-handle:active {
+  cursor: grabbing;
+}
+.manage-name {
+  min-width: 0;
+  cursor: pointer;
+}
+.manage-name b {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.manage-name small {
+  display: block;
+  color: #77817c;
+  margin-top: 3px;
+}
+.manage-actions {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.manage-actions .btn {
+  white-space: nowrap;
+}
+@media (max-width: 680px) {
+  .recipe-page-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .recipe-page-actions {
+    width: 100%;
+  }
+  .recipe-page-actions .btn {
+    flex: 1;
+  }
+  .manage-item {
+    grid-template-columns: auto 24px minmax(0, 1fr);
+  }
+  .manage-actions {
+    grid-column: 3;
+    justify-content: flex-start;
+  }
+  .manage-actions .btn {
+    font-size: 10px;
+    padding: 7px 9px;
+  }
+  .recipe-page-actions {
+    gap: 6px;
+  }
+}
+
+/* ===== Receptenbibliotheek ===== */
+#recipeAlphabet {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 10px 0 14px;
+}
+#recipeAlphabet button {
+  min-width: 25px;
+  padding: 6px 7px;
+  border: 1px solid #c9d2cb;
+  border-radius: 5px;
+  background: transparent;
+  color: #59675f;
+  font-size: 11px;
+  cursor: pointer;
+}
+#recipeAlphabet button.active {
+  background: #173f30;
+  color: #fff;
+  border-color: #173f30;
+}
+#recipeGrid {
+  width: 100%;
+  min-width: 0;
+}
+
+/* ===== Receptenpagina en publieke navigatie ===== */
+#recipes .content,
+#recipes #recipeGrid,
+#recipes .savour-v13-list {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+}
+#recipes #recipeGrid {
+  display: block !important;
+}
+#recipes #categoryBar {
+  gap: 6px !important;
+}
+#recipes #categoryBar .btn {
+  font-size: 11px !important;
+  padding: 7px 12px !important;
+  border-radius: 6px !important;
+  line-height: 1.1 !important;
+}
+#recipes .savour-v13-alphabet {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px !important;
+  align-items: center;
+}
+#recipes .savour-v13-alphabet button {
+  min-width: 24px !important;
+  height: 24px !important;
+  padding: 0 5px !important;
+  font-size: 10px !important;
+  border-radius: 4px !important;
+}
+.savour-v15-public-nav {
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 14px 0 18px;
+  border-bottom: 1px solid #273334;
+  margin-bottom: 24px;
+}
+.savour-v15-public-nav button {
+  background: none;
+  border: 0;
+  color: #c9c6ba;
+  padding: 0;
+  font-size: 12px;
+  cursor: pointer;
+}
+.savour-v15-public-nav button:hover {
+  color: var(--gold);
+}
+
+/* ===== Bulkselectie en receptrijen ===== */
+.recipe-page-head {
+  margin-bottom: 10px !important;
+}
+.recipe-alphabet {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 3px !important;
+  padding: 4px 0 13px !important;
+  border-bottom: 1px solid rgba(128, 143, 137, 0.22) !important;
+  overflow-x: auto !important;
+}
+.recipe-alphabet button {
+  min-width: 25px !important;
+  height: 25px !important;
+  padding: 0 5px !important;
+  border: 1px solid transparent !important;
+  border-radius: 4px !important;
+  background: transparent !important;
+  color: #9ea9a2 !important;
+  font-size: 11px !important;
+  cursor: pointer !important;
+}
+.recipe-alphabet button:hover {
+  border-color: #806f4b !important;
+  color: #fff !important;
+  background: rgba(232, 202, 141, 0.06) !important;
+}
+.recipe-alphabet button.active {
+  background: var(--gold) !important;
+  color: #101615 !important;
+  border-color: var(--gold) !important;
+  font-weight: 700 !important;
+}
+.savour-v12-bulk-row {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  align-items: center;
+  min-height: 39px;
+  padding: 0 10px;
+  border-bottom: 1px solid rgba(128, 143, 137, 0.18);
+  cursor: pointer;
+}
+.savour-v12-bulk-row:hover {
+  background: rgba(232, 202, 141, 0.06);
+}
+.savour-v12-bulk-row input {
+  width: 16px;
+  height: 16px;
+  accent-color: #e8ca8d;
+}
+.savour-v12-bulk-row b {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+@media (max-width: 700px) {
+  .recipe-alphabet {
+    gap: 1px !important;
+    padding-bottom: 9px !important;
+  }
+  .recipe-alphabet button {
+    min-width: 22px !important;
+    height: 23px !important;
+    font-size: 10px !important;
+  }
+}
+
+/* ===== Lijsten binnen mappen en alfabetbalk ===== */
+.savour-v13-list {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  margin: 0 !important;
+  border-top: 1px solid rgba(128, 143, 137, 0.22) !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+.savour-v13-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 24px;
+  align-items: center;
+  width: 100%;
+  min-height: 36px;
+  padding: 0 12px;
+  border-bottom: 1px solid rgba(128, 143, 137, 0.17);
+  color: #eee9de;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    padding-left 0.15s ease;
+}
+.savour-v13-row:hover {
+  background: rgba(232, 202, 141, 0.055);
+  border-bottom-color: rgba(232, 202, 141, 0.38);
+  padding-left: 16px;
+}
+.savour-v13-number {
+  font-family: Inter, Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: #7f8b84;
+  font-variant-numeric: tabular-nums;
+}
+.savour-v13-name {
+  font-family: Inter, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.005em;
+}
+.savour-v13-arrow {
+  font-family: Arial, sans-serif;
+  text-align: right;
+  color: #8f9b92;
+  font-size: 17px;
+  transition:
+    transform 0.15s ease,
+    color 0.15s ease;
+}
+.savour-v13-row:hover .savour-v13-arrow {
+  transform: translateX(3px);
+  color: var(--gold);
+}
+.savour-v13-alphabet {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 3px;
+  width: 100%;
+  overflow-x: auto;
+  padding: 4px 0 12px;
+  border-bottom: 1px solid rgba(128, 143, 137, 0.22);
+  scrollbar-width: thin;
+}
+.savour-v13-alphabet button {
+  flex: 0 0 auto;
+  min-width: 24px;
+  height: 25px;
+  padding: 0 5px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: #9ea9a2;
+  font-size: 11px;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+.savour-v13-alphabet button:hover {
+  border-color: #806f4b;
+  color: #fff;
+  background: rgba(232, 202, 141, 0.06);
+}
+.savour-v13-alphabet button.active {
+  background: var(--gold);
+  color: #101615;
+  border-color: var(--gold);
+  font-weight: 700;
+}
+.savour-v13-context-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 10px 0 8px;
+}
+.savour-v13-context-tools .mini {
+  font-size: 11px;
+}
+@media (max-width: 700px) {
+  .savour-v13-row {
+    grid-template-columns: 32px minmax(0, 1fr) 20px;
+    padding: 0 8px;
+  }
+  .savour-v13-row:hover {
+    padding-left: 11px;
+  }
+  .savour-v13-name {
+    font-size: 13px;
+  }
+  .savour-v13-alphabet {
+    gap: 1px;
+  }
+  .savour-v13-alphabet button {
+    min-width: 22px;
+    height: 23px;
+    font-size: 10px;
+  }
+}
+
+/* ===== Receptenlijst breedte ===== */
+#recipes .content {
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+}
+#recipeGrid.cards {
+  display: block !important;
+  grid-template-columns: none !important;
+  gap: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* ===== Consistente knoppen en koppen ===== */
+html,
+body,
+#appShell,
+#appShell .main,
+#appShell .view,
+#recipes,
+#recipes .content,
+#folderDetail,
+#shared,
+#sharedFolderDetail {
+  background: transparent !important;
+}
+#appShell .main {
+  min-width: 0;
+}
+#categoryBar {
+  gap: 5px !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+}
+#categoryBar .btn {
+  font-size: 10px !important;
+  line-height: 1.1 !important;
+  padding: 6px 10px !important;
+  border-radius: 5px !important;
+  min-height: 28px !important;
+}
+#categoryBar .btn.gold {
+  font-weight: 600 !important;
+}
+.savour-v13-alphabet,
+.recipe-alphabet {
+  gap: 2px !important;
+}
+.savour-v13-alphabet button,
+.recipe-alphabet button {
+  min-width: 23px !important;
+  height: 24px !important;
+  font-size: 10px !important;
+  padding: 0 5px !important;
+  border-radius: 4px !important;
+}
+.savour-v13-row {
+  background: transparent !important;
+}
+@media (max-width: 700px) {
+  #categoryBar .btn {
+    font-size: 10px !important;
+    padding: 6px 9px !important;
+  }
+  .savour-v13-row {
+    min-height: 34px !important;
+  }
+}
+
+/* ===== Consistente details ===== */
+:root {
+  color-scheme: dark !important;
+}
+html,
+body,
+#landingView,
+#appShell,
+#appShell .main,
+#appShell .view,
+.public-shell,
+#publicInfoShell,
+#publicRecipeShell,
+#publicInviteShell {
+  background: radial-gradient(circle at 72% 0, #16201d 0, #05090a 35%, #030607 100%) !important;
+  color: var(--text, #eee8dc) !important;
+}
+body.savour-light,
+body.savour-light * {
+  color-scheme: dark !important;
+}
+body.savour-light,
+body.savour-light .app,
+body.savour-light .main,
+body.savour-light .content,
+body.savour-light .public-shell,
+body.savour-light .public-shell-header,
+body.savour-light .public-shell-main {
+  background: radial-gradient(circle at 72% 0, #16201d 0, #05090a 35%, #030607 100%) !important;
+  color: var(--text, #eee8dc) !important;
+}
+body.savour-light .sidebar {
+  background: linear-gradient(180deg, #071011, #030707) !important;
+  border-color: #20292a !important;
+}
+body.savour-light .topbar,
+.savour-light .public-shell-header {
+  background: #05090ad9 !important;
+  border-color: #1d2728 !important;
+}
+body.savour-light .panel,
+body.savour-light .card,
+body.savour-light .folder,
+body.savour-light .stat,
+body.savour-light .quick .q,
+body.savour-light .detail-hero,
+body.savour-light .field input,
+body.savour-light .field textarea,
+body.savour-light .field select {
+  background: linear-gradient(145deg, #0d1516, #081011) !important;
+  color: #eee8dc !important;
+  border-color: #293536 !important;
+}
+body.savour-light .btn {
+  background: #0b1213 !important;
+  color: #f2eee4 !important;
+  border-color: #806f4b !important;
+}
+body.savour-light .btn.gold {
+  background: var(--gold) !important;
+  color: #17140f !important;
+  border-color: var(--gold) !important;
+}
+body.savour-light .public-info-view p,
+body.savour-light .public-info-view h1,
+body.savour-light .public-info-view h2,
+body.savour-light .public-info-view h3,
+body.savour-light .public-info-view strong {
+  color: inherit !important;
+}
+
+/* ===== Publieke pagina's ===== */
+/* Public pages use the footer for navigation; no duplicate top-left menu. */
+.savour-v15-public-nav {
+  display: none !important;
+}
+
+/* ===== Detailpagina en omrekenen ===== */
+:root {
+  --savour-v21-bg: radial-gradient(circle at 75% 0, #1a2521 0, #060a0b 38%, #030506 100%);
+}
+html,
+body,
+#landingView,
+#appShell,
+.app,
+.main,
+.content,
+#publicInfoShell,
+#publicRecipeShell,
+#publicInviteShell {
+  background: var(--savour-v21-bg) !important;
+  background-attachment: fixed !important;
+}
+
+/* ===== Publieke links en rechten ===== */
+/* Final repair: one background and compact list actions */
+html,
+body,
+#landingView,
+#appShell,
+#appShell .main,
+#appShell .view,
+#appShell .content,
+#recipes,
+#favorites,
+#folders,
+#folderManage,
+#sharedManage,
+#shared,
+#sharedFolderDetail,
+.public-shell,
+.public-shell-main,
+.public-info-view {
+  background: radial-gradient(circle at 75% 0, #1a2521 0, #060a0b 38%, #030506 100%) !important;
+  background-attachment: fixed !important;
+}
+.savour-public-links {
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 26px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid #293536;
+}
+.savour-public-links button {
+  border: 0;
+  background: transparent;
+  color: #d8c38e;
+  cursor: pointer;
+  padding: 0;
+  font-size: 12px;
+}
+
+/* ===== Alfabetbalk in huisstijl ===== */
+.recipe-alphabet {
+  margin: 0 0 14px;
+}
+.recipe-alphabet button:hover,
+.recipe-alphabet button.active {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: #17140f;
+}
+@media (max-width: 650px) {
+  .recipe-alphabet {
+    padding-bottom: 6px;
+  }
+  .recipe-alphabet button {
+    flex: 0 0 auto;
+    min-height: 32px;
+  }
+}
+
+/* ===== Genummerde receptrijen en favorieten ===== */
+#recipeGrid.savour-v27-list,
+#favoriteGrid.savour-v27-list {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  margin: 0 !important;
+  border-top: 1px solid rgba(128, 143, 137, 0.22) !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+.savour-v27-row {
+  grid-template-columns: 42px minmax(0, 1fr) 28px 24px !important;
+  min-height: 36px !important;
+  padding: 0 12px !important;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    padding-left 0.15s ease !important;
+}
+.savour-v27-row:hover {
+  background: rgba(232, 202, 141, 0.055) !important;
+  border-bottom-color: rgba(232, 202, 141, 0.38) !important;
+  padding-left: 16px !important;
+}
+.savour-v27-favorite {
+  border: 0;
+  background: transparent;
+  color: var(--gold);
+  font-size: 18px;
+  line-height: 1;
+  padding: 2px 3px;
+  cursor: pointer;
+}
+.savour-v27-favorite:hover {
+  color: #fff;
+  transform: scale(1.08);
+}
+.savour-v27-row:hover .savour-v13-arrow {
+  transform: translateX(3px);
+  color: var(--gold);
+}
+@media (max-width: 700px) {
+  .savour-v27-row {
+    grid-template-columns: 32px minmax(0, 1fr) 26px 20px !important;
+    min-height: 34px !important;
+    padding: 0 8px !important;
+  }
+  .savour-v27-row:hover {
+    padding-left: 11px !important;
+  }
+}
+
+/* ===== Beheer gedeelde map en snelknoppen ===== */
+.savour-public-links {
+  display: none !important;
+}
+@media (max-width: 700px) {
+  #scalePrintButton {
+    width: 100%;
+    margin: 8px 0 0;
+  }
+}
+.savour-v30-manage-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
+  gap: 14px;
+}
+.savour-v30-manage-card {
+  background: linear-gradient(145deg, #0d1516, #081011);
+  border: 1px solid #293536;
+  border-radius: 10px;
+  padding: 18px;
+}
+.savour-v30-manage-card h3 {
+  font-family: 'Playfair Display';
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+.savour-v30-manage-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.savour-v30-member {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 130px;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #1e2829;
+}
+.savour-v30-member:last-child {
+  border-bottom: 0;
+}
+.savour-v30-member select {
+  width: 100%;
+  background: #081011;
+  border: 1px solid #2b3637;
+  color: #fff;
+  border-radius: 7px;
+  padding: 9px;
+}
+.savour-v30-cover {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #293536;
+  display: block;
+  margin-bottom: 12px;
+}
+.savour-v30-cover-empty {
+  height: 190px;
+  border: 1px dashed #4b514d;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: #8f9893;
+  margin-bottom: 12px;
+}
+.savour-v30-quick-add {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: calc(100% - 24px) !important;
+  margin: 7px 12px 10px !important;
+  padding: 8px 10px !important;
+  border: 1px solid #5b503b !important;
+  border-radius: 6px !important;
+  background: #0b1213 !important;
+  color: #d8c38e !important;
+  font-size: 11px !important;
+  text-align: left !important;
+  cursor: pointer !important;
+}
+.savour-v30-quick-add:hover {
+  border-color: #e8ca8d !important;
+  background: #111a1a !important;
+}
+.savour-v30-quick-add .ico {
+  font-size: 14px;
+}
+@media (max-width: 760px) {
+  .savour-v30-manage-grid {
+    grid-template-columns: 1fr;
+  }
+  .savour-v30-manage-card {
+    padding: 14px;
+  }
+  .savour-v30-cover,
+  .savour-v30-cover-empty {
+    height: 145px;
+  }
+  .savour-v30-member {
+    grid-template-columns: minmax(0, 1fr) 105px;
+    gap: 7px;
+  }
+  .savour-v30-manage-actions .btn {
+    flex: 1 1 auto;
+    min-height: 38px;
+  }
+  #sharedMapManage .content {
+    padding: 18px 12px 90px !important;
+  }
+  #sharedMapManage h1 {
+    font-size: 30px !important;
+  }
+}

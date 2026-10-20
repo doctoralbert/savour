@@ -1,14 +1,9 @@
 <!doctype html>
 <html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="canonical" href="https://savour.page/"><link rel="icon" type="image/png" href="/assets/savour-favicon.png?v=56"><link rel="apple-touch-icon" href="/assets/savour-favicon.png?v=56"><title>Savour — professioneel receptbeheer</title><!-- SAVOUR 3.0 v1 — organisation and simplified two-language interface -->
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/01-base.css">
-<!-- Savour 3.0 v4 -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/base.css"><link rel="stylesheet" href="/css/components.css"><!-- Savour 3.0 v4 -->
 <!-- Google AdSense -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8120664667405598" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="/css/02-v6-css.css"><link rel="stylesheet" href="/css/03-library-list-v9.css">
-<link rel="stylesheet" href="/css/04-v10-library-css.css">
 
-<link rel="stylesheet" href="/css/05-v11-library-css.css">
-<link rel="stylesheet" href="/css/05b-v15-consistency.css">
 </head><body class="auth-booting">
 <div id="bootSplash" class="boot-splash" aria-hidden="true"><div class="boot-mark">SAVOUR</div><div class="boot-line"></div></div><script>
 let demoMode=false;
@@ -102,17 +97,6 @@ setTimeout(()=>document.body.classList.remove('auth-booting'),2500);</script>
 <div class="modal" id="inviteModal"><div class="modalbox invite-modal-box"><h2>Keukenteam toevoegen</h2><p class="muted">Deel deze uitnodigingslink via WhatsApp, Telegram of e-mail. Nadat iemand een account heeft gemaakt, kun je de rechten aanpassen.</p><div class="sharelink" id="inviteLink"></div><div class="invite-channel-grid"><button class="btn gold" onclick="shareInviteWhatsApp()">WhatsApp</button><button class="btn" onclick="shareInviteTelegram()">Telegram</button><button class="btn" onclick="shareInviteEmail()">E-mail</button><button class="btn" onclick="copyInvite()">Link kopiëren</button></div><div class="actions"><button class="btn" onclick="closeInvite()">Sluiten</button></div></div></div>
 <div class="modal" id="memberModal"><div class="modalbox"><h2>Persoon toevoegen</h2><p class="muted">Voeg hier iemand toe nadat die persoon via de openbare link een account heeft aangemaakt.</p><div class="formgrid"><div class="field"><label>Naam</label><input id="memberName" placeholder="Naam"></div><div class="field"><label>E-mail</label><input id="memberEmail" placeholder="naam@keuken.nl"></div><div class="field full"><label>Rechten</label><select id="memberRole"><option value="viewer">viewer — alleen bekijken</option><option value="editor">editor — recepten toevoegen en bewerken</option><option value="owner">owner — map beheren</option></select></div></div><div class="actions"><button class="btn gold" onclick="createMember()">Persoon toevoegen</button><button class="btn" onclick="closeMember()">Annuleren</button></div></div></div><div class="modal" id="newSharedFolderModal"><div class="modalbox"><h2>Nieuwe map in gedeelde map</h2><p class="muted">Bepaal zelf hoe deze gedeelde map wordt georganiseerd.</p><div class="field"><label>Naam van de map</label><input id="newSharedFolderName" placeholder="Bijv. Parties, Garde of Patisserie"></div><div class="actions"><button class="btn gold" onclick="createSharedFolder()">Map maken</button><button class="btn" onclick="closeSharedFolderModal()">Annuleren</button></div></div></div><div class="modal auth-modal" id="authModal"><form class="modalbox" id="authForm" autocomplete="on" method="post" onsubmit="event.preventDefault();submitAuth()"><div class="eyebrow" id="authEyebrow">Savour</div><h2 id="authTitle">Inloggen</h2><p class="muted" id="authIntro">Log in om je persoonlijke receptenbibliotheek te openen.</p><div class="formgrid" id="authNameField" style="display:none"><div class="field"><label>Voornaam</label><input id="authFirstName" placeholder="Voornaam" autocomplete="given-name"></div><div class="field"><label>Achternaam</label><input id="authLastName" placeholder="Achternaam" autocomplete="family-name"></div></div><div class="field" id="authEmailField" style="margin-top:10px"><label id="authLoginLabel">E-mailadres</label><input id="authEmail" name="email" type="email" placeholder="chef@keuken.nl" autocomplete="email" autocapitalize="none" spellcheck="false" required></div><div class="field" style="margin-top:10px"><label>Wachtwoord</label><input id="authPassword" name="password" type="password" placeholder="••••••••" autocomplete="current-password" required></div><div class="actions"><button class="btn gold" id="authSubmit" type="submit">Inloggen</button><button class="btn" type="button" onclick="closeAuth()">Annuleren</button></div><button type="button" class="text-link" onclick="forgotPassword()">Wachtwoord vergeten?</button><div class="auth-note">Veilig inloggen met je Savour-account via Supabase.</div></form></div><div class="toast" id="toast"></div>
 <script src="https://unpkg.com/mammoth@1.6.0/mammoth.browser.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<link rel="stylesheet" href="/css/06-v12-library-layout.css">
-<link rel="stylesheet" href="/css/07-v13-unified-library-style.css">
-<link rel="stylesheet" href="/css/08-v14-library-fix.css">
-<link rel="stylesheet" href="/css/09-v16-global-consistency-style.css">
-<link rel="stylesheet" href="/css/10-v17-final-consistency.css">
-<link rel="stylesheet" href="/css/11-v17-public-cleanup.css">
-<link rel="stylesheet" href="/css/12-v21-final-overrides.css">
-<link rel="stylesheet" href="/css/13-v21-repair-final.css">
-<link rel="stylesheet" href="/css/14-v23-alphabet-house-style.css">
-<link rel="stylesheet" href="/css/15-v27-compact-library-favorites-style.css">
-<link rel="stylesheet" href="/css/16-v29-final-style.css">
 
 <!-- App-code: eerst de basis, dan de onderdelen, als laatste het opstarten. -->
 <script src="/js/core/config.js"></script>

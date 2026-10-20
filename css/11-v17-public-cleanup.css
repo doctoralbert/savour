@@ -1,4 +1,0 @@
-/* Public pages use the footer for navigation; no duplicate top-left menu. */
-.savour-v15-public-nav {
-  display: none !important;
-}
