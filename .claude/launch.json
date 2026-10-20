@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "savour", "runtimeExecutable": "node", "runtimeArgs": ["local-server.mjs"], "port": 3000 }
+  ]
+}
