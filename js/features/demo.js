@@ -1,0 +1,61 @@
+// Demo-account met proefrecepten (er wordt niets opgeslagen).
+
+function startDemo() {
+  demoMode = true;
+  currentUser = { id: 'demo-user', email: 'demo@savour.local' };
+  account = { name: 'Demo', role: 'Demo account', email: 'demo@savour.local', photo: '' };
+  categories = ['Basisbereidingen', 'Sauzen', 'Garde', 'Patisserie', 'Vis', 'Vlees'];
+  const letters = recipeLetters();
+  const extras = [
+    'Beurre blanc',
+    'Bloemkool crème',
+    'Citroen gel',
+    'Dashi vinaigrette',
+    'Eendenjus',
+    'Fermentatie basis',
+    'Garnalen bisque',
+    'Hollandaise',
+    'IJs van karnemelk',
+    'Jus de veau',
+    'Kruidenolie',
+    'Limoen gel',
+    'Miso glaze',
+    'Noisette boter'
+  ];
+  const titles = [...letters.map(l => `Demo ${l} · basisrecept`), ...extras];
+  recipes = titles.slice(0, 40).map((title, i) => ({
+    id: 'demo-r' + i,
+    title,
+    description: '',
+    yield: i % 3 === 0 ? '1 liter' : '',
+    ingredients: [`${100 + i * 5} gram basisingrediënt`, `20 gram smaakmaker`],
+    steps: [`Bereid de basis zorgvuldig voor.`, `Werk af en controleer de structuur.`],
+    category: categories[i % categories.length],
+    photo: ''
+  }));
+  folders = [
+    { id: 'demo-garde', name: 'Garde', recipeIds: recipes.slice(0, 8).map(r => r.id), system: false },
+    { id: 'demo-pat', name: 'Patisserie', recipeIds: recipes.slice(8, 16).map(r => r.id), system: false },
+    { id: 'demo-rot', name: 'Rotisserie', recipeIds: recipes.slice(16, 24).map(r => r.id), system: false },
+    { id: 'demo-ent', name: 'Entremetier', recipeIds: recipes.slice(24, 32).map(r => r.id), system: false }
+  ];
+  favorites = recipes.slice(0, 3).map(r => r.id);
+  sharedMaps = [
+    {
+      id: 'demo-shared',
+      name: 'Demo keukenteam',
+      recipeIds: recipes.slice(0, 12).map(r => r.id),
+      folders: [],
+      photo: '',
+      members: [{ name: 'Jij', role: 'owner', userId: 'demo-user' }],
+      ownerId: 'demo-user'
+    }
+  ];
+  showApp('recipes');
+  document.getElementById('demoBadge')?.remove();
+  document.body.insertAdjacentHTML(
+    'beforeend',
+    '<div id="demoBadge" class="demo-mode-badge">Demo account · niets wordt opgeslagen</div>'
+  );
+  toast('Demo geladen · 40 proefrecepten');
+}
