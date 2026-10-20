@@ -118,7 +118,6 @@ function syncMobileSearch(v) {
 }
 
 function searchAll(v) {
-  activeRecipeLetter = '';
   if ($('recipes').classList.contains('active')) renderRecipes();
   else if (v.length > 1) {
     activeCat = '';

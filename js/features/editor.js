@@ -31,7 +31,7 @@ function mountEditorInline() {
 function renderEditorCategories(selected) {
   let vals = [...new Set(['Eigen recepten', ...categories])];
   $('fCategory').innerHTML = vals
-    .map(c => `<option value="${escAttr(c)}" ${c === selected ? 'selected' : ''}>${esc(c)}</option>`)
+    .map(c => `<option value="${esc(c)}" ${c === selected ? 'selected' : ''}>${esc(c)}</option>`)
     .join('');
 }
 
@@ -52,7 +52,7 @@ function renderEditorRows(ingredients = [], steps = []) {
   $('ingredientEditor').innerHTML = ing
     .map(
       (x, i) =>
-        `<div class="structured-row"><input data-ingredient-row="${i}" value="${escAttr(x)}" placeholder="Ingrediënt ${i + 1}" onkeydown="editorRowKey(event,'ingredient',${i})" oninput="syncStructuredEditor()"><button type="button" class="structured-remove" title="Ingrediënt verwijderen" onclick="removeIngredientRow(${i})">×</button></div>`
+        `<div class="structured-row"><input data-ingredient-row="${i}" value="${esc(x)}" placeholder="Ingrediënt ${i + 1}" onkeydown="editorRowKey(event,'ingredient',${i})" oninput="syncStructuredEditor()"><button type="button" class="structured-remove" title="Ingrediënt verwijderen" onclick="removeIngredientRow(${i})">×</button></div>`
     )
     .join('');
   $('stepEditor').innerHTML = st
@@ -284,11 +284,9 @@ function persistRecipe() {
         if (result.error) throw result.error;
         return currentId || result.data?.id;
       };
-      let savedId;
-      if (file) {
-        photo = await readImageAsDataUrl(file);
-        savedId = await save();
-      } else savedId = await save();
+      // Een nieuwe foto wordt verkleind voordat hij in de database komt.
+      if (file) photo = await compressPhoto(file, 1600);
+      const savedId = await save();
       window.__aiImportedPhoto = '';
       await loadDatabaseState();
       done();

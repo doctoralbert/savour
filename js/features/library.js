@@ -42,7 +42,7 @@ function setSavourAlphabet(kind, letter) {
 // ---- Receptenlijst (genummerde rijen met favorietster) ----
 
 function recipeRowHtml(r, i, context) {
-  const id = escAttr(r.id),
+  const id = escJs(r.id),
     title = String(r?.title || ''),
     fav = Array.isArray(favorites) && favorites.includes(r.id);
   return (
@@ -91,6 +91,12 @@ function renderRecipeList(list, hostId, countId, context) {
 function renderRecipes() {
   drawAlphabet('recipeAlphabet', 'library');
   if (!currentUser) return;
+  renderCategoryBar();
+  renderRecipeList(filteredLibraryRecipes(), 'recipeGrid', 'recipeCount', 'library');
+}
+
+// Bibliotheek gefilterd op zoekterm (titel, ingrediënten, bereiding), gekozen map, categorie en beginletter.
+function filteredLibraryRecipes() {
   const text = v => String(v ?? '');
   const q = (
     document.getElementById('mobileRecipeSearch')?.value ||
@@ -116,8 +122,7 @@ function renderRecipes() {
     );
   }
   if (activeCat) list = list.filter(r => r.category === activeCat);
-  list = filterByAlphabet(list, 'library');
-  renderRecipeList(list, 'recipeGrid', 'recipeCount', 'library');
+  return filterByAlphabet(list, 'library');
 }
 
 function renderFavorites() {
@@ -129,62 +134,29 @@ function renderFavorites() {
   renderRecipeList(list, 'favoriteGrid', 'favoriteCount', 'favorite');
 }
 
-// Recepten die passen bij zoekterm, categorie, map en beginletter; gebruikt voor selecteren in bulk.
+// De recepten die nu in "Alle recepten" zichtbaar zijn, alfabetisch gesorteerd.
 function visibleRecipeList() {
-  const titleOf = r => String(r?.title || 'Ongetiteld');
-  const q = String(
-    (document.getElementById('mobileRecipeSearch')?.value || document.getElementById('globalSearch')?.value) ?? ''
-  )
-    .toLocaleLowerCase('nl')
-    .trim();
-  const list = (recipes || []).filter(r => {
-    const title = titleOf(r),
-      first = title.trim().charAt(0).toUpperCase();
-    const catOk = !activeCat || r.category === activeCat;
-    const letterOk = !activeRecipeLetter || first === activeRecipeLetter;
-    const folderOk =
-      !activeFolderCategory ||
-      folders.some(
-        f =>
-          String(f.id) === String(activeFolderCategory) && (f.recipeIds || []).some(id => String(id) === String(r.id))
-      );
-    const qOk = !q || title.toLocaleLowerCase('nl').includes(q);
-    return catOk && letterOk && folderOk && qOk;
-  });
-  return list.slice().sort((a, b) => titleOf(a).localeCompare(titleOf(b), 'nl', { sensitivity: 'base' }));
+  const title = r => String(r?.title || '');
+  return filteredLibraryRecipes()
+    .slice()
+    .sort((a, b) => title(a).localeCompare(title(b), 'nl', { sensitivity: 'base' }));
 }
 
 // ---- Meerdere recepten tegelijk verwijderen ----
 
-function toggleBulkDeleteMode() {
-  bulkDeleteMode = !bulkDeleteMode;
+// Opent het verwijdervenster met de recepten die nu in de lijst zichtbaar zijn.
+function openBulkDeleteModal() {
   bulkSelectedIds.clear();
-  window.bulkManageQuery = '';
-  renderRecipes();
-}
-
-function selectVisibleBulk() {
-  visibleRecipeList().forEach(r => bulkSelectedIds.add(String(r.id)));
-  renderRecipes();
-}
-
-function toggleBulkRecipe(id) {
-  const k = String(id);
-  if (bulkSelectedIds.has(k)) bulkSelectedIds.delete(k);
-  else bulkSelectedIds.add(k);
-  renderRecipes();
-}
-
-function clearBulkSelection() {
-  bulkSelectedIds.clear();
-  renderRecipes();
+  window.bulkLastIndex = null;
+  bulkDeleteModal().classList.add('open');
+  renderBulkDeleteList();
 }
 
 // Verwijdervenster met selectievakjes (Shift-klik selecteert een reeks).
 function bulkDeleteRowsHtml(list) {
   return list
     .map((r, i) => {
-      const id = escAttr(r.id);
+      const id = escJs(r.id);
       return `<label class="savour-v12-bulk-row"><input type="checkbox" data-bulk-id="${id}" ${bulkSelectedIds.has(String(r.id)) ? 'checked' : ''} onclick="event.stopPropagation();bulkShiftSelect(event,${i},'${id}')"><span><b>${esc(r.title || 'Zonder titel')}</b></span></label>`;
     })
     .join('');
@@ -230,7 +202,7 @@ function bulkModalClear() {
   renderBulkDeleteList();
 }
 
-// 2) Bulk management lives in a modal, so the recipe overview stays clean.
+// Maakt het verwijdervenster één keer aan en geeft het terug.
 function bulkDeleteModal() {
   let m = document.getElementById('bulkDeleteDialog');
   if (m) return m;
@@ -245,11 +217,6 @@ function bulkDeleteModal() {
 
 function closeBulkDeleteModal() {
   document.getElementById('bulkDeleteDialog')?.classList.remove('open');
-}
-
-function syncBulkCheckbox(id, checked) {
-  if (checked) bulkSelectedIds.add(String(id));
-  else bulkSelectedIds.delete(String(id));
 }
 
 async function deleteBulkModalSelection() {
@@ -273,25 +240,13 @@ async function deleteBulkModalSelection() {
     renderHome();
     return;
   }
-  // Remove relations first so deletion is consistent even when FK cascades are not configured.
+  const recipeIds = list.map(r => r.id);
+  // Eerst de koppelingen (mappen, favorieten, gedeelde mappen), zodat er geen losse verwijzingen achterblijven.
   for (const table of ['folder_recipes', 'favorites', 'shared_map_recipes', 'shared_folder_recipes']) {
-    const key = 'recipe_id';
-    await supabaseClient
-      .from(table)
-      .delete()
-      .in(
-        key,
-        list.map(r => r.id)
-      );
+    const { error } = await supabaseClient.from(table).delete().in('recipe_id', recipeIds);
+    if (error) console.warn(`Koppelingen in ${table} konden niet worden verwijderd`, error);
   }
-  const { error } = await supabaseClient
-    .from('recipes')
-    .delete()
-    .in(
-      'id',
-      list.map(r => r.id)
-    )
-    .eq('user_id', currentUser.id);
+  const { error } = await supabaseClient.from('recipes').delete().in('id', recipeIds).eq('user_id', currentUser.id);
   if (error) {
     console.error(error);
     toast('Recepten konden niet worden verwijderd: ' + error.message);
@@ -305,44 +260,12 @@ async function deleteBulkModalSelection() {
   toast(`${list.length} recepten verwijderd`);
 }
 
-async function deleteBulkSelected() {
-  if (!currentUser || !bulkSelectedIds.size) return;
-  const list = visibleRecipeList().filter(r => bulkSelectedIds.has(String(r.id)));
-  if (!list.length) return;
-  const ok = confirm(
-    `${list.length} recepten verwijderen?\n\nDeze recepten worden definitief uit je persoonlijke bibliotheek verwijderd. Recepten in mappen worden daarmee ook uit die persoonlijke bibliotheek verwijderd.`
-  );
-  if (!ok) return;
-  if (demoMode) {
-    recipes = recipes.filter(r => !bulkSelectedIds.has(String(r.id)));
-    favorites = favorites.filter(id => !bulkSelectedIds.has(String(id)));
-    folders.forEach(f => (f.recipeIds = f.recipeIds.filter(id => !bulkSelectedIds.has(String(id)))));
-    bulkSelectedIds.clear();
-    renderRecipes();
-    renderHome();
-    toast(`${list.length} recepten verwijderd`);
-    return;
-  }
-  const ids = list.map(r => r.id);
-  const { error } = await supabaseClient.from('recipes').delete().in('id', ids).eq('user_id', currentUser.id);
-  if (error) {
-    console.error(error);
-    toast('Recepten konden niet worden verwijderd: ' + error.message);
-    return;
-  }
-  bulkSelectedIds.clear();
-  await loadDatabaseState();
-  renderRecipes();
-  renderHome();
-  toast(`${list.length} recepten verwijderd`);
-}
-
 function renderCategoryBar() {
   let all = ['Alles', ...categories];
   $('categoryBar').innerHTML = all
     .map(
       c =>
-        `<button class="btn ${(c === 'Alles' && activeCat === '') || c === activeCat ? 'gold' : ''}" onclick="filterCat('${escAttr(c === 'Alles' ? '' : c)}')">${esc(c)}</button>`
+        `<button class="btn ${(c === 'Alles' && activeCat === '') || c === activeCat ? 'gold' : ''}" onclick="filterCat('${escJs(c === 'Alles' ? '' : c)}')">${esc(c)}</button>`
     )
     .join('');
 }
@@ -350,7 +273,6 @@ function renderCategoryBar() {
 function filterCat(c) {
   activeCat = c;
   activeFolderCategory = '';
-  activeRecipeLetter = '';
   go('recipes');
 }
 

@@ -38,7 +38,7 @@ function contextAlphabetHtml(selected, handler) {
 function contextRecipeRowsHtml(list, context) {
   return sortRecipesByTitle(list)
     .map((r, i) => {
-      const id = escAttr(r.id);
+      const id = escJs(r.id);
       return (
         '<div class="savour-v13-row" role="button" tabindex="0" onclick="openRecipe(\'' +
         id +

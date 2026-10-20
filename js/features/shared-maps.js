@@ -146,38 +146,35 @@ async function saveSharedPhoto(mapId, input) {
     toast(t('Je hebt geen rechten om de foto te wijzigen'));
     return;
   }
-  const file = input.files[0];
-  if (file.size > 3 * 1024 * 1024) {
-    toast(t('De foto is te groot. Maximum 3 MB.'));
+  // Verkleind tot max. 2000px JPEG, zodat de foto de database niet onnodig zwaar maakt.
+  let photo;
+  try {
+    photo = await compressPhoto(input.files[0], 1600);
+  } catch {
+    toast(t('Foto kon niet worden gelezen'));
     input.value = '';
     return;
   }
-  const reader = new FileReader();
-  reader.onload = async () => {
-    const photo = String(reader.result || '');
-    const { error } = await supabaseClient
-      .from('shared_maps')
-      .update({ photo_url: photo })
-      .eq('id', mapId)
-      .eq('owner_id', currentUser.id);
-    if (error) {
-      console.error('saveSharedPhoto', error);
-      toast(error.message || t('Foto kon niet worden opgeslagen'));
-      return;
-    }
-    await loadDatabaseState();
-    currentShared = String(mapId);
-    renderShared(mapId);
-    toast(t('Foto opgeslagen'));
-  };
-  reader.onerror = () => toast(t('Foto kon niet worden gelezen'));
-  reader.readAsDataURL(file);
+  const { error } = await supabaseClient
+    .from('shared_maps')
+    .update({ photo_url: photo })
+    .eq('id', mapId)
+    .eq('owner_id', currentUser.id);
+  if (error) {
+    console.error('saveSharedPhoto', error);
+    toast(error.message || t('Foto kon niet worden opgeslagen'));
+    return;
+  }
+  await loadDatabaseState();
+  currentShared = String(mapId);
+  renderShared(mapId);
+  toast(t('Foto opgeslagen'));
 }
 
 function openSharedFolder(mapId, folderId) {
   currentShared = mapId;
   currentFolder = 'sharedfolder:' + folderId;
-  window.sharedAlphabetLetter = '';
+  window.sharedFolderAlphabet = '';
   go('sharedFolderDetail');
 }
 
@@ -191,12 +188,12 @@ function renderShared(id) {
   const canEdit = canEditShared(m);
   const canManage = canManageShared(m);
   const isOwner = isSharedMapOwner(m);
-  const mid = escAttr(m.id);
+  const mid = escJs(m.id);
   const list = (m.recipeIds || []).map(rid => recipes.find(r => String(r.id) === String(rid))).filter(Boolean);
   $('sharedTitle').textContent = m.name;
   const photoInput = `<input type="file" accept="image/*" onchange="saveSharedPhoto('${mid}',this)" style="display:none">`;
   const photo = m.photo
-    ? `<div class="shared-cover compact-shared-cover"><img src="${m.photo}" alt="Foto van ${esc(m.name)}"><div class="shared-cover-body"><label class="btn compact-action">✎<span>Foto wijzigen</span>${photoInput}</label></div></div>`
+    ? `<div class="shared-cover compact-shared-cover"><img src="${esc(m.photo)}" alt="Foto van ${esc(m.name)}"><div class="shared-cover-body"><label class="btn compact-action">✎<span>Foto wijzigen</span>${photoInput}</label></div></div>`
     : `<div class="shared-cover compact-shared-cover"><div class="shared-cover-empty"><label class="btn compact-action">＋<span>Foto toevoegen</span>${photoInput}</label></div></div>`;
   const foldersHtml = (m.folders || []).map(f => sharedFolderCard(m, f)).join('');
   const filtered = filterRecipesByLetter(list, window.sharedAlphabet);
@@ -265,17 +262,17 @@ function renderSharedFolderDetail() {
     ' recepten</span></div><div class="folder-map-actions">' +
     (list.length
       ? '<button class="btn compact-action" onclick="printSharedFolder(\'' +
-        escAttr(m.id) +
+        escJs(m.id) +
         "','" +
-        escAttr(f.id) +
+        escJs(f.id) +
         '\')">⎙<span>Print map</span></button>'
       : '') +
     (f.system
       ? ''
       : '<button class="btn gold compact-action" onclick="openSharedFolderRecipePicker(\'' +
-        escAttr(m.id) +
+        escJs(m.id) +
         "','" +
-        escAttr(f.id) +
+        escJs(f.id) +
         '\')">＋<span>Recept toevoegen</span></button>') +
     '</div></div><div style="margin-top:18px">' +
     contextAlphabetHtml(window.sharedFolderAlphabet, 'filterSharedFolderAlphabet') +
@@ -404,7 +401,7 @@ function renderSharedNav() {
   el.innerHTML = chosen
     .map(
       m =>
-        `<button class="sub" onclick="openShared('${escAttr(m.id)}')"><span class="ico">▱</span>${esc(m.name)}</button>`
+        `<button class="sub" onclick="openShared('${escJs(m.id)}')"><span class="ico">▱</span>${esc(m.name)}</button>`
     )
     .join('');
   addQuickButton('sharedNav', 'Gedeelde map toevoegen', () => newSharedMap());
@@ -435,9 +432,9 @@ function renderSharedMapManage(id) {
   }
   const own = isSharedMapOwner(m),
     members = m.members || [],
-    mid = escAttr(m.id),
+    mid = escJs(m.id),
     cover = m.photo
-      ? '<img class="savour-v30-cover" src="' + escAttr(m.photo) + '" alt="Foto van ' + esc(m.name) + '">'
+      ? '<img class="savour-v30-cover" src="' + esc(m.photo) + '" alt="Foto van ' + esc(m.name) + '">'
       : '<div class="savour-v30-cover-empty">Nog geen foto voor deze gedeelde map.</div>',
     shareUrl = 'https://savour.page/join/' + encodeURIComponent(m.publicKey || m.id);
   host.innerHTML =
@@ -464,7 +461,7 @@ function renderSharedMapManage(id) {
     '</div><div class="savour-v30-manage-actions" style="margin-top:10px"><button class="btn gold" onclick="inviteShared(\'' +
     mid +
     '\')">Delen / uitnodigen</button><button class="btn" onclick="navigator.clipboard?.writeText(\'' +
-    escAttr(shareUrl) +
+    escJs(shareUrl) +
     '\').then(()=>toast(\'Link gekopieerd\'))">Link kopiëren</button></div></div></div><div class="savour-v30-manage-card"><h3>Leden & rechten</h3><p class="muted" style="font-size:12px;line-height:1.5">Owner beheert de map. Editor kan recepten toevoegen en bewerken. Viewer kan recepten bekijken.</p><div>' +
     members
       .map(

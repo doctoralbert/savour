@@ -3,7 +3,7 @@
 // 4) Canonical management pages + consistent drag/drop and delete behaviour.
 function managerItemHtml(type, item, checked) {
   const count = type === 'personal' ? folderCount(item) : item.recipeIds.length;
-  const id = escAttr(item.id);
+  const id = escJs(item.id);
   const open = type === 'personal' ? `openFolder('${id}')` : `openShared('${id}')`;
   const actions =
     type === 'personal'

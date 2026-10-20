@@ -4,6 +4,7 @@ function $(id) {
   return document.getElementById(id);
 }
 
+// Maakt tekst veilig voor HTML: als inhoud én als waarde van een attribuut (value="...", src="...").
 function esc(s) {
   return String(s ?? '').replace(
     /[&<>"']/g,
@@ -11,8 +12,21 @@ function esc(s) {
   );
 }
 
-function escAttr(s) {
-  return String(s ?? '').replace(/'/g, "'");
+// Maakt tekst veilig als argument tussen enkele aanhalingstekens in een onclick="fn('...')".
+// Eerst als JavaScript-tekst, daarna voor het HTML-attribuut eromheen.
+function escJs(s) {
+  return (
+    String(s ?? '')
+      .replace(/\\/g, '\\\\')
+      .replace(/'/g, "\\'")
+      .replace(/\r/g, '\\r')
+      .replace(/\n/g, '\\n')
+      // Unicode-regeleinden (U+2028/U+2029) zijn in JavaScript-tekst niet toegestaan.
+      .replace(new RegExp('[' + String.fromCharCode(0x2028, 0x2029) + ']', 'g'), c =>
+        c.charCodeAt(0) === 0x2028 ? '\\u2028' : '\\u2029'
+      )
+      .replace(/[&<>"]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[m])
+  );
 }
 
 function toast(t) {
@@ -51,4 +65,26 @@ function orderedByStoredIds(items, key) {
 
 function saveStoredOrder(items, key) {
   localStorage.setItem(key, JSON.stringify(items.map(x => String(x.id))));
+}
+
+// Verkleint een foto tot maximaal maxSize pixels (langste zijde) en zet hem om naar JPEG.
+// Zo blijft een telefoonfoto onder de uploadlimiet van Vercel (4,5 MB) en wordt de database niet onnodig zwaar.
+async function compressPhoto(file, maxSize = 2000) {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((resolve, reject) => {
+      const i = new Image();
+      i.onload = () => resolve(i);
+      i.onerror = () => reject(new Error('Deze foto kan niet worden gelezen. Gebruik JPG, PNG of WEBP.'));
+      i.src = url;
+    });
+    const scale = Math.min(1, maxSize / Math.max(img.naturalWidth, img.naturalHeight));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(img.naturalWidth * scale);
+    canvas.height = Math.round(img.naturalHeight * scale);
+    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL('image/jpeg', 0.85);
+  } finally {
+    URL.revokeObjectURL(url);
+  }
 }

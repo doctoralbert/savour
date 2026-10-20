@@ -41,7 +41,7 @@ function printBundleHtml(list) {
     .map(r => {
       const ingredients = r.ingredients?.length ? r.ingredients : [];
       const steps = r.steps?.length ? r.steps : [];
-      return `<article class="print-bundle-recipe">${r.photo ? `<img class="print-photo" src="${r.photo}" alt="">` : ''}<h1>${esc(r.title)}</h1>${r.yield ? `<div class="print-yield">Opbrengst · ${esc(r.yield)}</div>` : ''}<div class="print-bundle-columns"><div><h3>Ingrediënten</h3>${ingredients.length ? ingredients.map(x => `<div class="ingredient">${esc(x)}</div>`).join('') : `<div class="muted">Geen ingrediënten vastgelegd.</div>`}</div>${steps.length ? `<div><h3>Bereiding</h3>${steps.map((x, i) => `<div class="step"><b>${i + 1}.</b> ${esc(x)}</div>`).join('')}</div>` : ''}</div><div class="print-bundle-footer">Savour</div></article>`;
+      return `<article class="print-bundle-recipe">${r.photo ? `<img class="print-photo" src="${esc(r.photo)}" alt="">` : ''}<h1>${esc(r.title)}</h1>${r.yield ? `<div class="print-yield">Opbrengst · ${esc(r.yield)}</div>` : ''}<div class="print-bundle-columns"><div><h3>Ingrediënten</h3>${ingredients.length ? ingredients.map(x => `<div class="ingredient">${esc(x)}</div>`).join('') : `<div class="muted">Geen ingrediënten vastgelegd.</div>`}</div>${steps.length ? `<div><h3>Bereiding</h3>${steps.map((x, i) => `<div class="step"><b>${i + 1}.</b> ${esc(x)}</div>`).join('')}</div>` : ''}</div><div class="print-bundle-footer">Savour</div></article>`;
     })
     .join('');
 }

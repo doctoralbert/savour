@@ -79,7 +79,7 @@ async function changePassword() {
 function updateProfileHeader() {
   let a = document.querySelector('.profile .avatar');
   a.innerHTML = account.photo
-    ? `<img src="${account.photo}" alt="Profielfoto">`
+    ? `<img src="${esc(account.photo)}" alt="Profielfoto">`
     : (account.name || 'M').charAt(0).toUpperCase();
   document.querySelector('.profile b').textContent = account.name || 'Mijn account';
   document.querySelector('.profile small').textContent = account.role || 'Mijn account';
@@ -212,12 +212,12 @@ function renderSettings() {
   $('accountEmail').value = account.email || '';
   $('accountPassword').value = account.password || '';
   $('accountAvatar').innerHTML = account.photo
-    ? `<img src="${account.photo}" alt="Profielfoto">`
+    ? `<img src="${esc(account.photo)}" alt="Profielfoto">`
     : (account.name || 'M').charAt(0).toUpperCase();
   $('settingsCategories').innerHTML = categories
     .map(
       c =>
-        `<div class="member"><div><b>${esc(c)}</b><small class="muted">Eigen categorie</small></div><div style="display:flex;gap:7px;justify-content:flex-end"><button class="btn small" onclick="renameCategory('${escAttr(c)}')">Naam wijzigen</button><button class="btn small" onclick="removeCategory('${escAttr(c)}')">Verwijderen</button></div></div>`
+        `<div class="member"><div><b>${esc(c)}</b><small class="muted">Eigen categorie</small></div><div style="display:flex;gap:7px;justify-content:flex-end"><button class="btn small" onclick="renameCategory('${escJs(c)}')">Naam wijzigen</button><button class="btn small" onclick="removeCategory('${escJs(c)}')">Verwijderen</button></div></div>`
     )
     .join('');
 }

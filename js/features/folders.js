@@ -18,7 +18,7 @@ function renderFolders() {
 
 function openFolder(id) {
   currentFolder = id;
-  window.personalAlphabetLetter = '';
+  window.folderAlphabet = '';
   go('folderDetail');
 }
 
@@ -131,15 +131,15 @@ function renderFolderDetail() {
     ' recepten</span></div><div class="folder-map-actions">' +
     (list.length
       ? '<button class="btn compact-action" onclick="printFolder(\'' +
-        escAttr(f.id) +
+        escJs(f.id) +
         '\')">⎙<span>Print map</span></button>'
       : '') +
     '<button class="btn compact-action" onclick="renameFolder(\'' +
-    escAttr(f.id) +
+    escJs(f.id) +
     '\')">✎<span>Naam wijzigen</span></button><button class="btn compact-action" onclick="deleteFolder(\'' +
-    escAttr(f.id) +
+    escJs(f.id) +
     '\')">×<span>Verwijderen</span></button><button class="btn compact-action" onclick="openRecipePickerForFolder(\'' +
-    escAttr(f.id) +
+    escJs(f.id) +
     '\')">＋<span>Recept toevoegen</span></button></div></div><div style="margin-top:18px">' +
     contextAlphabetHtml(window.folderAlphabet, 'filterFolderAlphabet') +
     '</div><div class="savour-v13-context-tools"><span class="mini">' +
@@ -208,7 +208,7 @@ function renderCategoryNav() {
     ? chosen
         .map(
           f =>
-            `<button onclick="filterFolderCategory('${escAttr(f.id)}')"><span class="ico">•</span>${esc(f.name)}</button>`
+            `<button onclick="filterFolderCategory('${escJs(f.id)}')"><span class="ico">•</span>${esc(f.name)}</button>`
         )
         .join('')
     : `<div class="category-empty">Geen recepten mappen gekozen</div>`;

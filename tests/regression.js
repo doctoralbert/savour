@@ -132,16 +132,26 @@
   await step('21-home', () => go('home'));
   await step('22-settings', () => go('settings'));
   await step('23-import', () => go('import'));
-  await step('24-bulk-on', () => {
+  await step('24-bulk-open', () => {
     go('recipes');
-    toggleBulkDeleteMode();
+    openBulkDeleteModal();
   });
-  await step('25-bulk-select', () => selectVisibleBulk());
-  await step('26-bulk-off', () => {
-    clearBulkSelection();
-    toggleBulkDeleteMode();
+  await step('25-bulk-select', () => bulkModalSelectAll());
+  await step('26-bulk-delete-two', async () => {
+    bulkModalClear();
+    bulkSelectedIds.add('demo-r0');
+    bulkSelectedIds.add('demo-r1');
+    const realConfirm = window.confirm;
+    window.confirm = () => true;
+    try {
+      await deleteBulkModalSelection();
+    } finally {
+      window.confirm = realConfirm;
+    }
   });
   await step('27-about-loggedin', () => openPublicInfo('about'));
   await step('28-back-recipes', () => go('recipes'));
+  await step('29-category-filter', () => filterCat('Patisserie'));
+  await step('30-category-all', () => filterCat(''));
   return { results, errors };
 })();

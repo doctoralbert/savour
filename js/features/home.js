@@ -32,7 +32,7 @@ function renderHome() {
       .slice(0, 6)
       .map(
         f =>
-          `<div onclick="openFolder('${escAttr(f.id)}')" style="cursor:pointer"><b>${esc(f.name)}</b><small>${folderCount(f)} recepten</small></div>`
+          `<div onclick="openFolder('${escJs(f.id)}')" style="cursor:pointer"><b>${esc(f.name)}</b><small>${folderCount(f)} recepten</small></div>`
       )
       .join('') || `<div class="muted">Nog geen mappen.</div>`;
   $('sideFavorites').innerHTML =
@@ -42,7 +42,7 @@ function renderHome() {
       .filter(Boolean)
       .map(
         r =>
-          `<div onclick="openRecipe('${escAttr(r.id)}')" style="cursor:pointer"><b>${esc(r.title)}</b><small>${esc(r.category || 'Eigen recepten')}</small></div>`
+          `<div onclick="openRecipe('${escJs(r.id)}')" style="cursor:pointer"><b>${esc(r.title)}</b><small>${esc(r.category || 'Eigen recepten')}</small></div>`
       )
       .join('') || `<div class="muted">Nog geen favorieten.</div>`;
   $('sideShared').innerHTML =
@@ -50,7 +50,7 @@ function renderHome() {
       .slice(0, 5)
       .map(
         m =>
-          `<div onclick="openShared('${escAttr(m.id)}')" style="cursor:pointer"><b>${esc(m.name)}</b><small>${m.recipeIds.length} recepten · ${m.members.length} leden</small></div>`
+          `<div onclick="openShared('${escJs(m.id)}')" style="cursor:pointer"><b>${esc(m.name)}</b><small>${m.recipeIds.length} recepten · ${m.members.length} leden</small></div>`
       )
       .join('') || `<div class="muted">Nog geen gedeelde mappen.</div>`;
   renderSharedNav();

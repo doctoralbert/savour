@@ -60,10 +60,7 @@ let activeShareTitle = '';
 
 let activeInviteTitle = '';
 
-let activeRecipeLetter = '';
-
-let bulkDeleteMode = false;
-
+// Recepten die in het verwijdervenster zijn aangevinkt.
 let bulkSelectedIds = new Set();
 
 // Gekozen beginletter per lijst (bibliotheek en favorieten); '' betekent alles.

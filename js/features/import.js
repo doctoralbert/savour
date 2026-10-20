@@ -233,36 +233,6 @@ function removeBatchDraft(index) {
     : 'Geen recepten meer in deze batch.';
 }
 
-async function readImageAsDataUrl(file) {
-  const reader = new FileReader();
-  return await new Promise((resolve, reject) => {
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-
-// Verkleint een foto tot max. 2000px en JPEG, zodat hij onder de uploadlimiet van Vercel (4,5 MB) blijft.
-async function compressImageForImport(file) {
-  const url = URL.createObjectURL(file);
-  try {
-    const img = await new Promise((resolve, reject) => {
-      const i = new Image();
-      i.onload = () => resolve(i);
-      i.onerror = () => reject(new Error('Deze foto kan niet worden gelezen. Gebruik JPG, PNG of WEBP.'));
-      i.src = url;
-    });
-    const scale = Math.min(1, 2000 / Math.max(img.naturalWidth, img.naturalHeight));
-    const canvas = document.createElement('canvas');
-    canvas.width = Math.round(img.naturalWidth * scale);
-    canvas.height = Math.round(img.naturalHeight * scale);
-    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-    return canvas.toDataURL('image/jpeg', 0.85);
-  } finally {
-    URL.revokeObjectURL(url);
-  }
-}
-
 // Roept de AI-import aan met het sessietoken van de ingelogde gebruiker.
 async function callAiImport(body) {
   const { data } = await supabaseClient.auth.getSession();
@@ -322,7 +292,7 @@ function chunkImportText(text) {
 }
 
 async function importImageFile(file) {
-  const dataUrl = await compressImageForImport(file);
+  const dataUrl = await compressPhoto(file);
   const aiRecipes = await callAiImport({ image: dataUrl, filename: file.name });
   if (!aiRecipes.length) throw new Error('Geen recept uit de foto herkend.');
   return aiRecipes.map(r => normalizeAiRecipe(r, { photo: dataUrl, sourceFile: file.name }));
@@ -494,7 +464,7 @@ function renderBatchDrafts() {
     batchDrafts
       .map(
         (r, i) =>
-          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span><h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img src="${r.photo}" alt="" style="width:100%;max-height:150px;object-fit:cover;border-radius:7px;margin:10px 0">` : ''}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small><div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${escAttr(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${escAttr(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}">${catOptions.map(c => `<option value="${escAttr(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
+          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span><h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img src="${esc(r.photo)}" alt="" style="width:100%;max-height:150px;object-fit:cover;border-radius:7px;margin:10px 0">` : ''}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small><div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
       )
       .join('') || `<div class="empty" style="grid-column:1/-1">Geen afzonderlijke recepten herkend.</div>`;
 }

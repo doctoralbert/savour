@@ -28,21 +28,21 @@ function openRecipe(id, context = 'library') {
   const ingredients = r.ingredients?.length ? r.ingredients : [];
   const steps = r.steps?.length ? r.steps : [];
   const photo = r.photo
-    ? `<div style="margin-bottom:18px"><img src="${r.photo}" style="width:100%;max-height:420px;object-fit:cover;border-radius:8px;border:1px solid #293536"></div>`
+    ? `<div style="margin-bottom:18px"><img src="${esc(r.photo)}" style="width:100%;max-height:420px;object-fit:cover;border-radius:8px;border:1px solid #293536"></div>`
     : '';
   const ctx = context;
   const removeButton =
     ctx === 'shared'
-      ? `<button class="btn delete-recipe" onclick="removeRecipeFromShared('${escAttr(r.id)}')">Uit gedeelde map verwijderen</button>`
+      ? `<button class="btn delete-recipe" onclick="removeRecipeFromShared('${escJs(r.id)}')">Uit gedeelde map verwijderen</button>`
       : ctx === 'sharedFolder'
-        ? `<button class="btn delete-recipe" onclick="removeRecipeFromSharedFolder('${escAttr(r.id)}')">Uit map verwijderen</button>`
+        ? `<button class="btn delete-recipe" onclick="removeRecipeFromSharedFolder('${escJs(r.id)}')">Uit map verwijderen</button>`
         : ctx === 'folder'
-          ? `<button class="btn delete-recipe" onclick="removeRecipeFromFolder('${escAttr(r.id)}')">Uit map verwijderen</button>`
+          ? `<button class="btn delete-recipe" onclick="removeRecipeFromFolder('${escJs(r.id)}')">Uit map verwijderen</button>`
           : ctx === 'favorite'
-            ? `<button class="btn delete-recipe" onclick="toggleFavorite('${escAttr(r.id)}')">Verwijderen uit favorieten</button>`
-            : `<button class="btn delete-recipe" onclick="deleteRecipe('${escAttr(r.id)}')">Verwijderen uit bibliotheek</button>`;
+            ? `<button class="btn delete-recipe" onclick="toggleFavorite('${escJs(r.id)}')">Verwijderen uit favorieten</button>`
+            : `<button class="btn delete-recipe" onclick="deleteRecipe('${escJs(r.id)}')">Verwijderen uit bibliotheek</button>`;
   $('detailWrap').innerHTML =
-    `<div class="detail"><div class="detail-hero"><div class="detail-main">${photo}<div class="eyebrow">${esc(r.category || 'Eigen recepten')}</div><div class="row" style="align-items:flex-start"><h1>${esc(r.title)}</h1><button class="fav" onclick="toggleFavorite('${escAttr(r.id)}')">${favorites.includes(r.id) ? '★' : '☆'}</button></div>${r.yield ? `<div class="yield" style="font-size:14px;margin-top:8px">Opbrengst · ${esc(r.yield)}</div>` : ''}</div></div><div class="panel"><div class="columns"><div class="block"><h3>Ingrediënten</h3>${ingredients.length ? ingredients.map(x => `<div class="ingredient">${esc(x)}</div>`).join('') : `<div class="muted">Geen ingrediënten vastgelegd.</div>`}</div>${steps.length ? `<div class="block"><h3>Bereiding</h3>${steps.map((x, i) => `<div class="step"><span class="num">${i + 1}</span><span>${esc(x)}</span></div>`).join('')}</div>` : `<div class="block"><h3>Bereiding</h3><div class="muted">Geen bereiding in de bron.</div></div>`}</div></div><div class="detail-actions"><button class="btn gold" onclick="editRecipe('${escAttr(r.id)}')">Bewerken</button><button class="btn" onclick="shareRecipe('${escAttr(r.id)}')">Delen</button><button class="btn" onclick="openFolderModal('${escAttr(r.id)}')">＋ Toevoegen aan map</button><button class="btn" onclick="printRecipe('${escAttr(r.id)}')">Printen</button>${r.yield ? `<button class="btn" onclick="openScale('${escAttr(r.id)}')">Recept omrekenen</button>` : ''}${removeButton}</div></div>`;
+    `<div class="detail"><div class="detail-hero"><div class="detail-main">${photo}<div class="eyebrow">${esc(r.category || 'Eigen recepten')}</div><div class="row" style="align-items:flex-start"><h1>${esc(r.title)}</h1><button class="fav" onclick="toggleFavorite('${escJs(r.id)}')">${favorites.includes(r.id) ? '★' : '☆'}</button></div>${r.yield ? `<div class="yield" style="font-size:14px;margin-top:8px">Opbrengst · ${esc(r.yield)}</div>` : ''}</div></div><div class="panel"><div class="columns"><div class="block"><h3>Ingrediënten</h3>${ingredients.length ? ingredients.map(x => `<div class="ingredient">${esc(x)}</div>`).join('') : `<div class="muted">Geen ingrediënten vastgelegd.</div>`}</div>${steps.length ? `<div class="block"><h3>Bereiding</h3>${steps.map((x, i) => `<div class="step"><span class="num">${i + 1}</span><span>${esc(x)}</span></div>`).join('')}</div>` : `<div class="block"><h3>Bereiding</h3><div class="muted">Geen bereiding in de bron.</div></div>`}</div></div><div class="detail-actions"><button class="btn gold" onclick="editRecipe('${escJs(r.id)}')">Bewerken</button><button class="btn" onclick="shareRecipe('${escJs(r.id)}')">Delen</button><button class="btn" onclick="openFolderModal('${escJs(r.id)}')">＋ Toevoegen aan map</button><button class="btn" onclick="printRecipe('${escJs(r.id)}')">Printen</button>${r.yield ? `<button class="btn" onclick="openScale('${escJs(r.id)}')">Recept omrekenen</button>` : ''}${removeButton}</div></div>`;
   go('detail');
 }
 
