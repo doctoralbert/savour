@@ -1,15 +1,51 @@
-#recipes .content,#recipes #recipeGrid,#recipes .recipe-library-shell,#recipes .savour-v14-list,#recipes .savour-v13-list{width:100%!important;max-width:none!important;min-width:0!important}
-#recipes #recipeGrid{display:block!important}
-#recipes .savour-v14-row,#recipes .savour-v14-bulk-row{width:100%!important;max-width:none!important;min-height:34px!important;padding:0 10px!important}
-#recipes .savour-v14-row .v14-name,#recipes .savour-v14-bulk-row .v14-name{font-family:Inter,Arial,sans-serif!important;font-size:13px!important;font-weight:500!important;letter-spacing:-.01em}
-#recipes .savour-v14-row:hover{padding-left:14px!important}
-#recipes #categoryBar{gap:6px!important}
-#recipes #categoryBar .btn{font-size:11px!important;padding:7px 12px!important;border-radius:6px!important;line-height:1.1!important}
-#recipes .savour-v13-alphabet{display:flex;flex-wrap:wrap;gap:3px!important;align-items:center}
-#recipes .savour-v13-alphabet button{min-width:24px!important;height:24px!important;padding:0 5px!important;font-size:10px!important;border-radius:4px!important}
-#recipes .recipe-library-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:8px 0 10px}
-#recipes .recipe-library-tools .btn{flex:0 0 auto}
-.savour-v15-public-nav{display:flex;flex-wrap:wrap;gap:14px;padding:14px 0 18px;border-bottom:1px solid #273334;margin-bottom:24px}
-.savour-v15-public-nav button{background:none;border:0;color:#c9c6ba;padding:0;font-size:12px;cursor:pointer}
-.savour-v15-public-nav button:hover{color:var(--gold)}
-@media(max-width:700px){#recipes .savour-v14-row .v14-name,#recipes .savour-v14-bulk-row .v14-name{font-size:12px!important}#recipes .savour-v14-row{grid-template-columns:30px minmax(0,1fr) 18px!important}}
+#recipes .content,
+#recipes #recipeGrid,
+#recipes .savour-v13-list {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+}
+#recipes #recipeGrid {
+  display: block !important;
+}
+#recipes #categoryBar {
+  gap: 6px !important;
+}
+#recipes #categoryBar .btn {
+  font-size: 11px !important;
+  padding: 7px 12px !important;
+  border-radius: 6px !important;
+  line-height: 1.1 !important;
+}
+#recipes .savour-v13-alphabet {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px !important;
+  align-items: center;
+}
+#recipes .savour-v13-alphabet button {
+  min-width: 24px !important;
+  height: 24px !important;
+  padding: 0 5px !important;
+  font-size: 10px !important;
+  border-radius: 4px !important;
+}
+.savour-v15-public-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 14px 0 18px;
+  border-bottom: 1px solid #273334;
+  margin-bottom: 24px;
+}
+.savour-v15-public-nav button {
+  background: none;
+  border: 0;
+  color: #c9c6ba;
+  padding: 0;
+  font-size: 12px;
+  cursor: pointer;
+}
+.savour-v15-public-nav button:hover {
+  color: var(--gold);
+}

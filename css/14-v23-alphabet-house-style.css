@@ -20,22 +20,6 @@
   background: var(--gold);
   color: #17140f;
 }
-.savour-repair-action.delete {
-  color: #8f9893 !important;
-  font-size: 18px !important;
-  transition:
-    color 0.15s,
-    border-color 0.15s,
-    background 0.15s;
-}
-.savour-repair-action.delete:hover {
-  color: #e8ca8d !important;
-  background: rgba(232, 202, 141, 0.08) !important;
-}
-.savour-repair-row .savour-repair-action {
-  font-family: inherit;
-  font-weight: 400;
-}
 @media (max-width: 650px) {
   .recipe-alphabet {
     flex-wrap: nowrap;

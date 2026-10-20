@@ -41,8 +41,7 @@ body,
   padding: 0 5px !important;
   border-radius: 4px !important;
 }
-.savour-v13-row,
-.savour-v14-row {
+.savour-v13-row {
   background: transparent !important;
 }
 @media (max-width: 700px) {
@@ -50,8 +49,7 @@ body,
     font-size: 10px !important;
     padding: 6px 9px !important;
   }
-  .savour-v13-row,
-  .savour-v14-row {
+  .savour-v13-row {
     min-height: 34px !important;
   }
 }

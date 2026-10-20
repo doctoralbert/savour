@@ -1,87 +1,4 @@
 /* Savour v12: restrained, full-width library rows. Existing palette/background stays untouched. */
-.recipe-grid-v6,
-.savour-v12-list {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 0 !important;
-  width: 100% !important;
-  margin: 0 !important;
-}
-.savour-v12-row {
-  display: grid;
-  grid-template-columns: 34px minmax(0, 1fr) 28px;
-  align-items: center;
-  min-height: 43px;
-  padding: 0 14px;
-  border-top: 1px solid rgba(128, 143, 137, 0.18);
-  background: transparent;
-  cursor: pointer;
-  transition:
-    background 0.16s ease,
-    border-color 0.16s ease;
-}
-.savour-v12-row:last-child {
-  border-bottom: 1px solid rgba(128, 143, 137, 0.18);
-}
-.savour-v12-row:hover {
-  background: rgba(232, 202, 141, 0.055);
-  border-color: rgba(232, 202, 141, 0.34);
-}
-.savour-v12-row .savour-v12-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 16px;
-  line-height: 1.25;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #eee9de;
-}
-.savour-v12-row .savour-v12-arrow {
-  color: #a99a78;
-  font-size: 17px;
-  text-align: right;
-  transition:
-    transform 0.16s ease,
-    color 0.16s ease;
-}
-.savour-v12-row:hover .savour-v12-arrow {
-  transform: translateX(3px);
-  color: var(--gold);
-}
-.savour-v12-row .savour-v12-star {
-  font-size: 16px;
-  color: var(--gold);
-  opacity: 0.8;
-  background: transparent;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-}
-.savour-v12-row .savour-v12-check {
-  width: 16px;
-  height: 16px;
-  accent-color: #e8ca8d;
-  cursor: pointer;
-}
-.recipe-grid-v6 .card,
-.savour-v12-list .card {
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  min-height: 0 !important;
-  box-shadow: none !important;
-  transform: none !important;
-}
-.recipe-grid-v6 .card-body {
-  padding: 0 !important;
-}
-.recipe-grid-v6 .cat,
-.recipe-grid-v12 .cat,
-.recipe-grid-v6 .yield,
-.recipe-grid-v6 .compact-meta,
-.recipe-grid-v6 .compact-card-actions {
-  display: none !important;
-}
 .recipe-page-head {
   margin-bottom: 10px !important;
 }
@@ -138,21 +55,7 @@
   font-size: 15px;
   font-weight: 500;
 }
-.savour-v12-bulk-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 14px;
-}
 @media (max-width: 700px) {
-  .savour-v12-row {
-    grid-template-columns: 26px minmax(0, 1fr) 24px;
-    min-height: 38px;
-    padding: 0 9px;
-  }
-  .savour-v12-row .savour-v12-name {
-    font-size: 14px;
-  }
   .recipe-alphabet {
     gap: 1px !important;
     padding-bottom: 9px !important;
