@@ -11,7 +11,7 @@ function folderCard(f) {
 // Savour 3.0 v4 final behaviour overrides
 function renderFolders() {
   if (!currentUser) return;
-  const pf = getOrderedPersonalFolders30().filter(f => !f.system);
+  const pf = getOrderedPersonalFolders().filter(f => !f.system);
   $('folderOverview').innerHTML =
     `<div class="panel" style="margin-bottom:14px"><p class="muted" style="margin:0;line-height:1.6">Organiseer je eigen recepten in mappen zoals jij werkt. De alfabetische A–Z-weergave vind je rechtstreeks in Alle recepten.</p></div><div class="folders">${pf.map(folderCard).join('')}</div>`;
 }
@@ -119,7 +119,7 @@ function renderFolderDetail() {
     .toLocaleLowerCase('nl')
     .trim();
   if (q) list = list.filter(r => recipeTitleOf(r).toLocaleLowerCase('nl').includes(q));
-  const filtered = filterRecipesByLetter(list, window.v13FolderAlphabet);
+  const filtered = filterRecipesByLetter(list, window.folderAlphabet);
   const body = filtered.length
     ? '<div class="savour-v13-list">' + contextRecipeRowsHtml(filtered, 'folder') + '</div>'
     : '<div class="empty">Deze map bevat geen recepten voor deze selectie.</div>';
@@ -141,11 +141,11 @@ function renderFolderDetail() {
     '\')">×<span>Verwijderen</span></button><button class="btn compact-action" onclick="openRecipePickerForFolder(\'' +
     escAttr(f.id) +
     '\')">＋<span>Recept toevoegen</span></button></div></div><div style="margin-top:18px">' +
-    contextAlphabetHtml(window.v13FolderAlphabet, 'filterV13FolderAlphabet') +
+    contextAlphabetHtml(window.folderAlphabet, 'filterFolderAlphabet') +
     '</div><div class="savour-v13-context-tools"><span class="mini">' +
     filtered.length +
     ' recepten' +
-    (window.v13FolderAlphabet ? ' · ' + window.v13FolderAlphabet : '') +
+    (window.folderAlphabet ? ' · ' + window.folderAlphabet : '') +
     '</span></div>' +
     body;
 }
@@ -198,7 +198,7 @@ function renderCategoryNav() {
   const el = $('categoryNav');
   if (!el) return;
   const settings = getCategorySettings();
-  const ordered = getOrderedPersonalFolders30();
+  const ordered = getOrderedPersonalFolders();
   const byId = new Map(ordered.map(f => [String(f.id), f]));
   const chosen = settings.order
     .map(id => byId.get(String(id)))
@@ -219,10 +219,10 @@ function renderFolderManage() {
   if (!currentUser) return;
   const host = $('managePersonalFolders');
   if (!host) return;
-  const list = getOrderedPersonalFolders30().filter(f => !f.system && f.name !== 'A t/m Z');
+  const list = getOrderedPersonalFolders().filter(f => !f.system && f.name !== 'A t/m Z');
   host.innerHTML = list.length
     ? list
-        .map(f => v6ManagerItem('personal', f, (getCategorySettings()?.selected || []).includes(String(f.id))))
+        .map(f => managerItemHtml('personal', f, (getCategorySettings()?.selected || []).includes(String(f.id))))
         .join('')
     : '<div class="empty">Nog geen recepten mappen. Maak je eerste map aan.</div>';
 }
@@ -545,7 +545,7 @@ function saveCategorySettings(selected, order) {
   );
 }
 
-function getOrderedPersonalFolders30() {
+function getOrderedPersonalFolders() {
   return orderedByStoredIds(folders, `savour_personal_folder_order_${currentUser?.id || 'local'}`);
 }
 

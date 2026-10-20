@@ -260,7 +260,7 @@ async function fetchDatabaseState() {
 // Laadt de bibliotheek en ruimt daarna exact dubbele recepten op (zie duplicates.js).
 async function loadDatabaseState() {
   const result = await fetchDatabaseState();
-  const cleaned = await v6CleanupExactDuplicates();
+  const cleaned = await removeExactDuplicateRecipes();
   if (cleaned) await fetchDatabaseState();
   return result;
 }

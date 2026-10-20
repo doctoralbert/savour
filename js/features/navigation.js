@@ -46,12 +46,12 @@ function go(id) {
 function addQuickButton(hostId, text, handler) {
   const host = $(hostId);
   if (!host) return;
-  const old = host.parentElement?.querySelector('[data-savour-v30-quick="' + hostId + '"]');
+  const old = host.parentElement?.querySelector('[data-quick-add="' + hostId + '"]');
   if (old) return;
   const b = document.createElement('button');
   b.type = 'button';
   b.className = 'savour-v30-quick-add';
-  b.dataset.savourV30Quick = hostId;
+  b.dataset.quickAdd = hostId;
   b.innerHTML = '<span class="ico">＋</span>' + text;
   b.onclick = handler;
   host.insertAdjacentElement('afterend', b);

@@ -520,11 +520,11 @@ function syncBatchDrafts() {
 async function saveBatchRecipes() {
   syncBatchDrafts();
   if (!currentUser || !batchDrafts.length) return persistBatchRecipes();
-  const existing = new Map(recipes.map(r => [v6Fingerprint(r), r]));
+  const existing = new Map(recipes.map(r => [recipeFingerprint(r), r]));
   const seen = new Set();
   const filtered = [];
   for (const r of batchDrafts) {
-    const fp = v6Fingerprint(r);
+    const fp = recipeFingerprint(r);
     if (existing.has(fp) || seen.has(fp)) continue;
     seen.add(fp);
     filtered.push(r);

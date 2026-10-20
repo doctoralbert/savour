@@ -199,7 +199,7 @@ function renderShared(id) {
     ? `<div class="shared-cover compact-shared-cover"><img src="${m.photo}" alt="Foto van ${esc(m.name)}"><div class="shared-cover-body"><label class="btn compact-action">✎<span>Foto wijzigen</span>${photoInput}</label></div></div>`
     : `<div class="shared-cover compact-shared-cover"><div class="shared-cover-empty"><label class="btn compact-action">＋<span>Foto toevoegen</span>${photoInput}</label></div></div>`;
   const foldersHtml = (m.folders || []).map(f => sharedFolderCard(m, f)).join('');
-  const filtered = filterRecipesByLetter(list, window.v13SharedAlphabet);
+  const filtered = filterRecipesByLetter(list, window.sharedAlphabet);
   const recipeBlock = filtered.length
     ? '<div class="savour-v13-list">' + contextRecipeRowsHtml(filtered, 'shared') + '</div>'
     : '<div class="empty">Geen gedeelde recepten voor deze selectie.</div>';
@@ -228,8 +228,8 @@ function renderShared(id) {
     `<div class="layout"><div><div class="panel"><div class="folder-detail-head shared-main-head"><div><div class="eyebrow">Gedeelde map</div><h1>${esc(m.name)}</h1><p class="muted">${list.length} recepten · ${m.members.length} leden</p></div><div class="shared-map-actions">${actions}</div></div></div>` +
     `<div class="section-head"><h2>Mappen</h2>${canEdit ? `<button class="btn compact-action" onclick="newSharedFolder('${mid}')">＋<span>Nieuwe map</span></button>` : ''}</div><div class="shared-folder-grid">${foldersHtml}</div>` +
     `<div class="section-head" style="margin-top:30px"><h2>Alle gedeelde recepten</h2><span class="mini">${list.length} recepten</span></div>` +
-    contextAlphabetHtml(window.v13SharedAlphabet, 'filterV13SharedAlphabet') +
-    `<div class="savour-v13-context-tools"><span class="mini">${filtered.length} recepten${window.v13SharedAlphabet ? ' · ' + window.v13SharedAlphabet : ''}</span></div>` +
+    contextAlphabetHtml(window.sharedAlphabet, 'filterSharedAlphabet') +
+    `<div class="savour-v13-context-tools"><span class="mini">${filtered.length} recepten${window.sharedAlphabet ? ' · ' + window.sharedAlphabet : ''}</span></div>` +
     recipeBlock +
     `</div><aside class="rightcol"><div class="partner-slot"><small>Partnerpositie</small><b>Adverteer hier richting professionele keukens.</b><span>Een rustige positie naast de dagelijkse workflow, zonder de recepten te onderbreken.</span></div>` +
     `<div class="panel"><h3>Openbare uitnodigingslink</h3><div class="sharelink">https://savour.page/join/${esc(m.publicKey)}</div><button class="btn" style="width:100%;margin-top:10px" onclick="inviteShared('${mid}')">Link delen</button></div>` +
@@ -251,7 +251,7 @@ function renderSharedFolderDetail() {
     return;
   }
   const list = (f.recipeIds || []).map(id => recipes.find(r => String(r.id) === String(id))).filter(Boolean);
-  const filtered = filterRecipesByLetter(list, window.v13SharedFolderAlphabet);
+  const filtered = filterRecipesByLetter(list, window.sharedFolderAlphabet);
   const body = filtered.length
     ? '<div class="savour-v13-list">' + contextRecipeRowsHtml(filtered, 'sharedFolder') + '</div>'
     : '<div class="empty">Deze gedeelde map bevat geen recepten voor deze selectie.</div>';
@@ -278,11 +278,11 @@ function renderSharedFolderDetail() {
         escAttr(f.id) +
         '\')">＋<span>Recept toevoegen</span></button>') +
     '</div></div><div style="margin-top:18px">' +
-    contextAlphabetHtml(window.v13SharedFolderAlphabet, 'filterV13SharedFolderAlphabet') +
+    contextAlphabetHtml(window.sharedFolderAlphabet, 'filterSharedFolderAlphabet') +
     '</div><div class="savour-v13-context-tools"><span class="mini">' +
     filtered.length +
     ' recepten' +
-    (window.v13SharedFolderAlphabet ? ' · ' + window.v13SharedFolderAlphabet : '') +
+    (window.sharedFolderAlphabet ? ' · ' + window.sharedFolderAlphabet : '') +
     '</span></div>' +
     body;
 }
@@ -395,7 +395,7 @@ async function saveSharedFolderSelection() {
 function renderSharedNav() {
   const el = $('sharedNav');
   if (!el) return;
-  const s = getSharedMenuSettings30();
+  const s = getSharedMenuSettings();
   const map = new Map(sharedMaps.map(m => [String(m.id), m]));
   const chosen = s.order
     .map(id => map.get(id))
@@ -414,10 +414,10 @@ function renderSharedManage() {
   if (!currentUser) return;
   const host = $('manageSharedMaps');
   if (!host) return;
-  const list = getOrderedSharedMaps30();
+  const list = getOrderedSharedMaps();
   host.innerHTML = list.length
     ? list
-        .map(m => v6ManagerItem('shared', m, (getSharedMenuSettings30()?.selected || []).includes(String(m.id))))
+        .map(m => managerItemHtml('shared', m, (getSharedMenuSettings()?.selected || []).includes(String(m.id))))
         .join('')
     : '<div class="empty">Nog geen gedeelde mappen. Maak je eerste map aan.</div>';
 }
@@ -648,13 +648,13 @@ async function deleteSharedMap(id) {
   toast('Gedeelde map verwijderd');
 }
 
-const SAVOUR30_SHARED_ORDER_KEY = () => `savour_shared_map_order_${currentUser?.id || 'local'}`;
+const sharedOrderStorageKey = () => `savour_shared_map_order_${currentUser?.id || 'local'}`;
 
-function getOrderedSharedMaps30() {
-  return orderedByStoredIds(sharedMaps, SAVOUR30_SHARED_ORDER_KEY());
+function getOrderedSharedMaps() {
+  return orderedByStoredIds(sharedMaps, sharedOrderStorageKey());
 }
 
-function getSharedMenuSettings30() {
+function getSharedMenuSettings() {
   const ids = sharedMaps.map(x => String(x.id));
   let saved = null;
   try {
@@ -674,7 +674,7 @@ function getSharedMenuSettings30() {
   return { selected: [...new Set(selected)], order };
 }
 
-function saveSharedMenuSettings30(selected, order) {
+function saveSharedMenuSettings(selected, order) {
   const ids = sharedMaps.map(x => String(x.id));
   const valid = new Set(ids);
   const cleanOrder = [...new Set((order || ids).map(String).filter(id => valid.has(id)))];

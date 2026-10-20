@@ -1,7 +1,7 @@
 // Beheerpagina's voor mappen: volgorde slepen, kiezen wat in de zijbalk staat, hernoemen en verwijderen.
 
 // 4) Canonical management pages + consistent drag/drop and delete behaviour.
-function v6ManagerItem(type, item, checked) {
+function managerItemHtml(type, item, checked) {
   const count = type === 'personal' ? folderCount(item) : item.recipeIds.length;
   const id = escAttr(item.id);
   const open = type === 'personal' ? `openFolder('${id}')` : `openShared('${id}')`;
@@ -32,10 +32,10 @@ function saveSharedManagerChanges() {
   if (!currentUser) return;
   const order = managerIds('shared'),
     selected = managerSelected('shared');
-  saveSharedMenuSettings30(selected, order);
+  saveSharedMenuSettings(selected, order);
   saveStoredOrder(
     order.map(id => sharedMaps.find(m => String(m.id) === String(id))).filter(Boolean),
-    SAVOUR30_SHARED_ORDER_KEY()
+    sharedOrderStorageKey()
   );
   renderSharedNav();
   renderSharedManage();

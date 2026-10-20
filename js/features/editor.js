@@ -186,7 +186,7 @@ async function saveRecipe() {
     .map(x => x.trim())
     .filter(Boolean);
   const yieldText = $('fYield').value.trim();
-  const duplicate = v6FindDuplicate(title, ingredients, steps, yieldText, currentId);
+  const duplicate = findDuplicateRecipe(title, ingredients, steps, yieldText, currentId);
   if (duplicate) {
     toast(`Dit recept bestaat al: “${duplicate.title}”`);
     return;

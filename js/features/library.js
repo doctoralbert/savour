@@ -41,7 +41,7 @@ function setSavourAlphabet(kind, letter) {
 
 // ---- Receptenlijst (genummerde rijen met favorietster) ----
 
-function v27Row(r, i, context) {
+function recipeRowHtml(r, i, context) {
   const id = escAttr(r.id),
     title = String(r?.title || ''),
     fav = Array.isArray(favorites) && favorites.includes(r.id);
@@ -72,7 +72,7 @@ function v27Row(r, i, context) {
   );
 }
 
-function v27Render(list, hostId, countId, context) {
+function renderRecipeList(list, hostId, countId, context) {
   const host = $(hostId);
   if (!host) return;
   const title = r => String(r?.title || '');
@@ -80,7 +80,7 @@ function v27Render(list, hostId, countId, context) {
   if ($(countId)) $(countId).textContent = sorted.length + ' ' + (context === 'favorite' ? 'favorieten' : 'recepten');
   host.className = 'savour-v13-list savour-v27-list';
   host.innerHTML = sorted.length
-    ? sorted.map((r, i) => v27Row(r, i, context)).join('')
+    ? sorted.map((r, i) => recipeRowHtml(r, i, context)).join('')
     : '<div class="empty">' +
       (context === 'favorite'
         ? 'Je hebt nog geen favorieten. Klik op ☆ bij een recept om het toe te voegen.'
@@ -117,7 +117,7 @@ function renderRecipes() {
   }
   if (activeCat) list = list.filter(r => r.category === activeCat);
   list = filterByAlphabet(list, 'library');
-  v27Render(list, 'recipeGrid', 'recipeCount', 'library');
+  renderRecipeList(list, 'recipeGrid', 'recipeCount', 'library');
 }
 
 function renderFavorites() {
@@ -126,7 +126,7 @@ function renderFavorites() {
     (favorites || []).map(id => (recipes || []).find(r => String(r.id) === String(id))).filter(Boolean),
     'favorite'
   );
-  v27Render(list, 'favoriteGrid', 'favoriteCount', 'favorite');
+  renderRecipeList(list, 'favoriteGrid', 'favoriteCount', 'favorite');
 }
 
 // Recepten die passen bij zoekterm, categorie, map en beginletter; gebruikt voor selecteren in bulk.
@@ -181,22 +181,22 @@ function clearBulkSelection() {
 }
 
 // Verwijdervenster met selectievakjes (Shift-klik selecteert een reeks).
-function savourV12ListRows(list) {
+function bulkDeleteRowsHtml(list) {
   return list
     .map((r, i) => {
       const id = escAttr(r.id);
-      return `<label class="savour-v12-bulk-row"><input type="checkbox" data-v12-bulk="${id}" ${bulkSelectedIds.has(String(r.id)) ? 'checked' : ''} onclick="event.stopPropagation();savourV12ShiftSelect(event,${i},'${id}')"><span><b>${esc(r.title || 'Zonder titel')}</b></span></label>`;
+      return `<label class="savour-v12-bulk-row"><input type="checkbox" data-bulk-id="${id}" ${bulkSelectedIds.has(String(r.id)) ? 'checked' : ''} onclick="event.stopPropagation();bulkShiftSelect(event,${i},'${id}')"><span><b>${esc(r.title || 'Zonder titel')}</b></span></label>`;
     })
     .join('');
 }
 
-function savourV12ShiftSelect(event, index, id) {
+function bulkShiftSelect(event, index, id) {
   const list = visibleRecipeList();
   const key = String(id);
   const checked = event.currentTarget.checked;
-  if (event.shiftKey && Number.isInteger(window.savourV12LastBulkIndex)) {
-    const start = Math.min(window.savourV12LastBulkIndex, index);
-    const end = Math.max(window.savourV12LastBulkIndex, index);
+  if (event.shiftKey && Number.isInteger(window.bulkLastIndex)) {
+    const start = Math.min(window.bulkLastIndex, index);
+    const end = Math.max(window.bulkLastIndex, index);
     for (let i = start; i <= end; i++) {
       if (checked) bulkSelectedIds.add(String(list[i].id));
       else bulkSelectedIds.delete(String(list[i].id));
@@ -205,54 +205,54 @@ function savourV12ShiftSelect(event, index, id) {
     if (checked) bulkSelectedIds.add(key);
     else bulkSelectedIds.delete(key);
   }
-  window.savourV12LastBulkIndex = index;
-  renderV6BulkList();
+  window.bulkLastIndex = index;
+  renderBulkDeleteList();
 }
 
-function renderV6BulkList() {
+function renderBulkDeleteList() {
   const list = visibleRecipeList();
-  const host = document.getElementById('v6BulkList');
+  const host = document.getElementById('bulkDeleteList');
   if (!host) return;
   host.innerHTML = list.length
-    ? `<div class="savour-v12-bulk-list">${savourV12ListRows(list)}</div>`
+    ? `<div class="savour-v12-bulk-list">${bulkDeleteRowsHtml(list)}</div>`
     : '<div class="empty">Geen recepten gevonden.</div>';
 }
 
-function v6BulkSelectAll() {
+function bulkModalSelectAll() {
   visibleRecipeList().forEach(r => bulkSelectedIds.add(String(r.id)));
-  window.savourV12LastBulkIndex = null;
-  renderV6BulkList();
+  window.bulkLastIndex = null;
+  renderBulkDeleteList();
 }
 
-function v6BulkClear() {
+function bulkModalClear() {
   bulkSelectedIds.clear();
-  window.savourV12LastBulkIndex = null;
-  renderV6BulkList();
+  window.bulkLastIndex = null;
+  renderBulkDeleteList();
 }
 
 // 2) Bulk management lives in a modal, so the recipe overview stays clean.
-function v6BulkModal() {
-  let m = document.getElementById('savourV6BulkModal');
+function bulkDeleteModal() {
+  let m = document.getElementById('bulkDeleteDialog');
   if (m) return m;
   m = document.createElement('div');
-  m.id = 'savourV6BulkModal';
+  m.id = 'bulkDeleteDialog';
   m.className = 'modal savour-bulk-modal';
   m.innerHTML =
-    '<div class="modalbox"><div class="section-head"><div><h2>Verwijder recepten</h2><p class="muted" style="margin:4px 0 0">Selecteer recepten die je definitief uit je persoonlijke bibliotheek wilt verwijderen.</p></div><button class="btn" onclick="closeV6BulkModal()">Sluiten</button></div><div class="bulk-modal-list" id="v6BulkList"></div><div class="bulk-modal-actions"><div><button class="btn small" onclick="v6BulkSelectAll()">Alles selecteren</button><button class="btn small" onclick="v6BulkClear()">Selectie wissen</button></div><button class="btn small delete-recipe" onclick="v6BulkDelete()">Selectie verwijderen</button></div></div>';
+    '<div class="modalbox"><div class="section-head"><div><h2>Verwijder recepten</h2><p class="muted" style="margin:4px 0 0">Selecteer recepten die je definitief uit je persoonlijke bibliotheek wilt verwijderen.</p></div><button class="btn" onclick="closeBulkDeleteModal()">Sluiten</button></div><div class="bulk-modal-list" id="bulkDeleteList"></div><div class="bulk-modal-actions"><div><button class="btn small" onclick="bulkModalSelectAll()">Alles selecteren</button><button class="btn small" onclick="bulkModalClear()">Selectie wissen</button></div><button class="btn small delete-recipe" onclick="deleteBulkModalSelection()">Selectie verwijderen</button></div></div>';
   document.body.appendChild(m);
   return m;
 }
 
-function closeV6BulkModal() {
-  document.getElementById('savourV6BulkModal')?.classList.remove('open');
+function closeBulkDeleteModal() {
+  document.getElementById('bulkDeleteDialog')?.classList.remove('open');
 }
 
-function v6SyncBulkCheckbox(id, checked) {
+function syncBulkCheckbox(id, checked) {
   if (checked) bulkSelectedIds.add(String(id));
   else bulkSelectedIds.delete(String(id));
 }
 
-async function v6BulkDelete() {
+async function deleteBulkModalSelection() {
   if (!currentUser || !bulkSelectedIds.size) return;
   const ids = [...bulkSelectedIds];
   const list = recipes.filter(r => ids.includes(String(r.id)));
@@ -268,7 +268,7 @@ async function v6BulkDelete() {
     favorites = favorites.filter(id => !ids.includes(String(id)));
     folders.forEach(f => (f.recipeIds = f.recipeIds.filter(id => !ids.includes(String(id)))));
     bulkSelectedIds.clear();
-    closeV6BulkModal();
+    closeBulkDeleteModal();
     renderRecipes();
     renderHome();
     return;
@@ -298,7 +298,7 @@ async function v6BulkDelete() {
     return;
   }
   bulkSelectedIds.clear();
-  closeV6BulkModal();
+  closeBulkDeleteModal();
   await loadDatabaseState();
   renderRecipes();
   renderHome();

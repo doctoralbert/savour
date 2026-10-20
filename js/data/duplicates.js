@@ -2,34 +2,34 @@
 
 // ================= SAVOUR 3.0 v6 =================
 // 1) Exact duplicate protection + cleanup
-function v6Norm(value) {
+function normalizeForCompare(value) {
   return String(value ?? '')
     .trim()
     .toLowerCase()
     .replace(/\s+/g, ' ');
 }
 
-function v6Fingerprint(r) {
+function recipeFingerprint(r) {
   return [
-    v6Norm(r.title),
-    v6Norm(r.yield),
-    ...(Array.isArray(r.ingredients) ? r.ingredients : []).map(v6Norm),
+    normalizeForCompare(r.title),
+    normalizeForCompare(r.yield),
+    ...(Array.isArray(r.ingredients) ? r.ingredients : []).map(normalizeForCompare),
     '§',
-    ...(Array.isArray(r.steps) ? r.steps : []).map(v6Norm)
+    ...(Array.isArray(r.steps) ? r.steps : []).map(normalizeForCompare)
   ].join('|');
 }
 
-function v6FindDuplicate(title, ingredients, steps, yieldText, excludeId = null) {
-  const fp = v6Fingerprint({ title, ingredients, steps, yield: yieldText });
-  return recipes.find(r => String(r.id) !== String(excludeId ?? '') && v6Fingerprint(r) === fp) || null;
+function findDuplicateRecipe(title, ingredients, steps, yieldText, excludeId = null) {
+  const fp = recipeFingerprint({ title, ingredients, steps, yield: yieldText });
+  return recipes.find(r => String(r.id) !== String(excludeId ?? '') && recipeFingerprint(r) === fp) || null;
 }
 
-async function v6CleanupExactDuplicates() {
+async function removeExactDuplicateRecipes() {
   if (!currentUser || demoMode || !Array.isArray(recipes) || recipes.length < 2) return false;
   const seen = new Map(),
     duplicates = [];
   for (const r of recipes) {
-    const fp = v6Fingerprint(r);
+    const fp = recipeFingerprint(r);
     if (!fp) continue;
     if (seen.has(fp)) duplicates.push({ dup: r, keep: seen.get(fp) });
     else seen.set(fp, r);

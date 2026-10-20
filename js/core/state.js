@@ -69,8 +69,8 @@ let bulkSelectedIds = new Set();
 // Gekozen beginletter per lijst (bibliotheek en favorieten); '' betekent alles.
 window.savourAlphabet = { library: '', favorite: '' };
 // Gekozen beginletter binnen een persoonlijke map, gedeelde map en map binnen een gedeelde map.
-window.v13FolderAlphabet = '';
-window.v13SharedAlphabet = '';
-window.v13SharedFolderAlphabet = '';
+window.folderAlphabet = '';
+window.sharedAlphabet = '';
+window.sharedFolderAlphabet = '';
 // Laatst aangeklikte rij in het verwijdervenster, voor selecteren met Shift.
-window.savourV12LastBulkIndex = null;
+window.bulkLastIndex = null;

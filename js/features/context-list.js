@@ -62,17 +62,17 @@ function filterRecipesByLetter(list, letter) {
   return (list || []).filter(r => !letter || recipeTitleOf(r).charAt(0).toUpperCase() === letter);
 }
 
-function filterV13FolderAlphabet(letter) {
-  window.v13FolderAlphabet = String(letter || '').toUpperCase();
+function filterFolderAlphabet(letter) {
+  window.folderAlphabet = String(letter || '').toUpperCase();
   renderFolderDetail();
 }
 
-function filterV13SharedAlphabet(letter) {
-  window.v13SharedAlphabet = String(letter || '').toUpperCase();
+function filterSharedAlphabet(letter) {
+  window.sharedAlphabet = String(letter || '').toUpperCase();
   renderShared(currentShared);
 }
 
-function filterV13SharedFolderAlphabet(letter) {
-  window.v13SharedFolderAlphabet = String(letter || '').toUpperCase();
+function filterSharedFolderAlphabet(letter) {
+  window.sharedFolderAlphabet = String(letter || '').toUpperCase();
   renderSharedFolderDetail();
 }

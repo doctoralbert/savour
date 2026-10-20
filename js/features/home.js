@@ -19,8 +19,8 @@ function card(r, context = 'library') {
 
 function renderHome() {
   if (!currentUser) return;
-  const pf = getOrderedPersonalFolders30(),
-    sm = getOrderedSharedMaps30();
+  const pf = getOrderedPersonalFolders(),
+    sm = getOrderedSharedMaps();
   $('countStat').textContent = recipes.length;
   $('folderStat').textContent = pf.length;
   $('favoriteStat').textContent = favorites.filter(id => recipes.some(r => r.id === id)).length;
