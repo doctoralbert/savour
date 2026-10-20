@@ -47,7 +47,7 @@
   padding: 12px 13px;
   border: 1px solid #293536;
   background: #091011;
-  border-radius: 8px;
+  border-radius: var(--sv-radius);
   transition: 0.15s;
 }
 .manage-item:hover {
@@ -59,7 +59,7 @@
 .manage-item .drag-handle {
   cursor: grab;
   color: #8f9893;
-  font-size: 17px;
+  font-size: var(--sv-fs-lg);
   line-height: 1;
 }
 .manage-item .drag-handle:active {
@@ -108,7 +108,7 @@
     justify-content: flex-start;
   }
   .manage-actions .btn {
-    font-size: 10px;
+    font-size: var(--sv-fs-xs);
     padding: 7px 9px;
   }
   .recipe-page-actions {
@@ -127,10 +127,10 @@
   min-width: 25px;
   padding: 6px 7px;
   border: 1px solid #c9d2cb;
-  border-radius: 5px;
+  border-radius: var(--sv-radius-sm);
   background: transparent;
   color: #59675f;
-  font-size: 11px;
+  font-size: var(--sv-fs-xs);
   cursor: pointer;
 }
 #recipeAlphabet button.active {
@@ -158,9 +158,9 @@
   gap: 6px !important;
 }
 #recipes #categoryBar .btn {
-  font-size: 11px !important;
+  font-size: var(--sv-fs-xs) !important;
   padding: 7px 12px !important;
-  border-radius: 6px !important;
+  border-radius: var(--sv-radius) !important;
   line-height: 1.1 !important;
 }
 #recipes .savour-v13-alphabet {
@@ -173,8 +173,8 @@
   min-width: 24px !important;
   height: 24px !important;
   padding: 0 5px !important;
-  font-size: 10px !important;
-  border-radius: 4px !important;
+  font-size: var(--sv-fs-xs) !important;
+  border-radius: var(--sv-radius-sm) !important;
 }
 
 /* ===== Bulkselectie en receptrijen ===== */
@@ -195,10 +195,10 @@
   height: 25px !important;
   padding: 0 5px !important;
   border: 1px solid transparent !important;
-  border-radius: 4px !important;
+  border-radius: var(--sv-radius-sm) !important;
   background: transparent !important;
   color: #9ea9a2 !important;
-  font-size: 11px !important;
+  font-size: var(--sv-fs-xs) !important;
   cursor: pointer !important;
 }
 .recipe-alphabet button:hover {
@@ -230,8 +230,8 @@
   accent-color: #e8ca8d;
 }
 .savour-v12-bulk-row b {
-  font-family: 'Playfair Display', serif;
-  font-size: 15px;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-base);
   font-weight: 500;
 }
 @media (max-width: 700px) {
@@ -242,7 +242,7 @@
   .recipe-alphabet button {
     min-width: 22px !important;
     height: 23px !important;
-    font-size: 10px !important;
+    font-size: var(--sv-fs-xs) !important;
   }
 }
 
@@ -279,15 +279,15 @@
   padding-left: 16px;
 }
 .savour-v13-number {
-  font-family: Inter, Arial, sans-serif;
-  font-size: 10px;
+  font-family: var(--sv-font);
+  font-size: var(--sv-fs-xs);
   letter-spacing: 0.04em;
   color: #7f8b84;
   font-variant-numeric: tabular-nums;
 }
 .savour-v13-name {
-  font-family: Inter, Arial, sans-serif;
-  font-size: 14px;
+  font-family: var(--sv-font);
+  font-size: var(--sv-fs-md);
   font-weight: 500;
   line-height: 1.25;
   white-space: nowrap;
@@ -296,10 +296,10 @@
   letter-spacing: 0.005em;
 }
 .savour-v13-arrow {
-  font-family: Arial, sans-serif;
+  font-family: var(--sv-font);
   text-align: right;
   color: #8f9b92;
-  font-size: 17px;
+  font-size: var(--sv-fs-lg);
   transition:
     transform 0.15s ease,
     color 0.15s ease;
@@ -325,10 +325,10 @@
   height: 25px;
   padding: 0 5px;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: var(--sv-radius-sm);
   background: transparent;
   color: #9ea9a2;
-  font-size: 11px;
+  font-size: var(--sv-fs-xs);
   cursor: pointer;
   transition:
     background 0.15s,
@@ -355,7 +355,7 @@
   margin: 10px 0 8px;
 }
 .savour-v13-context-tools .mini {
-  font-size: 11px;
+  font-size: var(--sv-fs-xs);
 }
 @media (max-width: 700px) {
   .savour-v13-row {
@@ -366,7 +366,7 @@
     padding-left: 11px;
   }
   .savour-v13-name {
-    font-size: 13px;
+    font-size: var(--sv-fs-sm);
   }
   .savour-v13-alphabet {
     gap: 1px;
@@ -374,7 +374,7 @@
   .savour-v13-alphabet button {
     min-width: 22px;
     height: 23px;
-    font-size: 10px;
+    font-size: var(--sv-fs-xs);
   }
 }
 
@@ -414,10 +414,10 @@ body,
   flex-wrap: wrap !important;
 }
 #categoryBar .btn {
-  font-size: 10px !important;
+  font-size: var(--sv-fs-xs) !important;
   line-height: 1.1 !important;
   padding: 6px 10px !important;
-  border-radius: 5px !important;
+  border-radius: var(--sv-radius-sm) !important;
   min-height: 28px !important;
 }
 #categoryBar .btn.gold {
@@ -431,16 +431,16 @@ body,
 .recipe-alphabet button {
   min-width: 23px !important;
   height: 24px !important;
-  font-size: 10px !important;
+  font-size: var(--sv-fs-xs) !important;
   padding: 0 5px !important;
-  border-radius: 4px !important;
+  border-radius: var(--sv-radius-sm) !important;
 }
 .savour-v13-row {
   background: transparent !important;
 }
 @media (max-width: 700px) {
   #categoryBar .btn {
-    font-size: 10px !important;
+    font-size: var(--sv-fs-xs) !important;
     padding: 6px 9px !important;
   }
   .savour-v13-row {
@@ -519,7 +519,7 @@ body,
   color: #d8c38e;
   cursor: pointer;
   padding: 0;
-  font-size: 12px;
+  font-size: var(--sv-fs-sm);
 }
 
 /* ===== Alfabetbalk in huisstijl ===== */
@@ -573,7 +573,7 @@ body,
   border: 0;
   background: transparent;
   color: var(--gold);
-  font-size: 18px;
+  font-size: var(--sv-fs-lg);
   line-height: 1;
   padding: 2px 3px;
   cursor: pointer;
@@ -615,13 +615,13 @@ body,
 .savour-v30-manage-card {
   background: linear-gradient(145deg, #0d1516, #081011);
   border: 1px solid #293536;
-  border-radius: 10px;
+  border-radius: var(--sv-radius-lg);
   padding: 18px;
 }
 .savour-v30-manage-card h3 {
-  font-family: 'Playfair Display';
+  font-family: var(--sv-font-display);
   margin: 0 0 10px;
-  font-size: 20px;
+  font-size: var(--sv-fs-lg);
 }
 .savour-v30-manage-actions {
   display: flex;
@@ -644,14 +644,14 @@ body,
   background: #081011;
   border: 1px solid #2b3637;
   color: #fff;
-  border-radius: 7px;
+  border-radius: var(--sv-radius);
   padding: 9px;
 }
 .savour-v30-cover {
   width: 100%;
   height: 190px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: var(--sv-radius);
   border: 1px solid #293536;
   display: block;
   margin-bottom: 12px;
@@ -659,7 +659,7 @@ body,
 .savour-v30-cover-empty {
   height: 190px;
   border: 1px dashed #4b514d;
-  border-radius: 8px;
+  border-radius: var(--sv-radius);
   display: grid;
   place-items: center;
   color: #8f9893;
@@ -673,10 +673,10 @@ body,
   margin: 7px 12px 10px !important;
   padding: 8px 10px !important;
   border: 1px solid #5b503b !important;
-  border-radius: 6px !important;
+  border-radius: var(--sv-radius) !important;
   background: #0b1213 !important;
   color: #d8c38e !important;
-  font-size: 11px !important;
+  font-size: var(--sv-fs-xs) !important;
   text-align: left !important;
   cursor: pointer !important;
 }
@@ -685,7 +685,7 @@ body,
   background: #111a1a !important;
 }
 .savour-v30-quick-add .ico {
-  font-size: 14px;
+  font-size: var(--sv-fs-md);
 }
 @media (max-width: 760px) {
   .savour-v30-manage-grid {
@@ -710,7 +710,7 @@ body,
     padding: 18px 12px 90px !important;
   }
   #sharedMapManage h1 {
-    font-size: 30px !important;
+    font-size: var(--sv-fs-2xl) !important;
   }
 }
 
@@ -727,9 +727,9 @@ body,
   gap: 9px;
   padding: 11px 18px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--sv-radius);
   cursor: pointer;
-  font-size: 13px;
+  font-size: var(--sv-fs-sm);
   min-height: 44px;
 }
 .theme-option input {
@@ -862,7 +862,7 @@ body.savour-light #appShell .drag-handle {
   margin-top: 2px;
 }
 .member-role {
-  font-size: 12px;
+  font-size: var(--sv-fs-sm);
   color: var(--muted);
   white-space: nowrap;
 }
@@ -875,7 +875,7 @@ body.savour-light #appShell .drag-handle {
 }
 .shared-recipe-note {
   margin: 10px 0 0;
-  font-size: 13px;
+  font-size: var(--sv-fs-sm);
 }
 body.savour-light .member-role {
   color: #5f665f;

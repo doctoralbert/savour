@@ -1,0 +1,125 @@
+/* Savour basisonderdelen: knoppen, invoervelden en kleine teksten, overal hetzelfde.
+   Dit bestand wordt als laatste geladen. De oudere opmaak zet veel met !important; zolang die niet is
+   opgeruimd, gebruikt dit bestand op een paar plekken ook !important om consequent te winnen. */
+
+/* ---- Knoppen ----
+   Drie soorten: .btn (gewoon), .btn.gold (hoofdactie, één per scherm) en .btn-quiet (alleen tekst).
+   Formaten: standaard (44px hoog) en .small / .compact-action (36px). */
+:is(#appShell, .modal, .public-shell, #landingView) .btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center;
+  gap: var(--sv-space-2) !important;
+  min-height: var(--sv-control-h) !important;
+  padding: 0 var(--sv-space-4) !important;
+  border: 1px solid var(--sv-line-strong) !important;
+  border-radius: var(--sv-radius) !important;
+  background: var(--sv-surface-2) !important;
+  color: var(--sv-text) !important;
+  font-family: var(--sv-font) !important;
+  font-size: var(--sv-fs-md) !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s,
+    color 0.15s;
+}
+:is(#appShell, .modal, .public-shell, #landingView) .btn:hover {
+  border-color: var(--sv-gold) !important;
+}
+:is(#appShell, .modal, .public-shell, #landingView) .btn:focus-visible {
+  outline: none;
+  box-shadow: var(--sv-focus) !important;
+}
+:is(#appShell, .modal, .public-shell, #landingView) .btn.gold {
+  background: var(--sv-gold) !important;
+  border-color: var(--sv-gold) !important;
+  color: var(--sv-on-gold) !important;
+  font-weight: 600 !important;
+}
+body.savour-light :is(#appShell, .modal) .btn.gold {
+  background: var(--sv-gold-strong) !important;
+  border-color: var(--sv-gold-strong) !important;
+}
+:is(#appShell, .modal, .public-shell, #landingView) .btn.gold:hover {
+  background: var(--sv-gold-strong) !important;
+  border-color: var(--sv-gold-strong) !important;
+}
+:is(#appShell, .modal, .public-shell, #landingView) :is(.btn.small, .compact-action) {
+  min-height: var(--sv-control-h-sm) !important;
+  padding: 0 var(--sv-space-3) !important;
+  font-size: var(--sv-fs-sm) !important;
+}
+:is(#appShell, .modal) :is(.delete-recipe, .danger-action) {
+  color: var(--sv-danger) !important;
+  border-color: var(--sv-danger-line) !important;
+  background: transparent !important;
+}
+:is(#appShell, .modal) .btn-quiet {
+  border: 0;
+  background: none;
+  color: var(--sv-text-2);
+  font: inherit;
+  font-size: var(--sv-fs-md);
+  padding: var(--sv-space-2);
+  border-radius: var(--sv-radius-sm);
+  cursor: pointer;
+}
+:is(#appShell, .modal) .btn-quiet:hover {
+  color: var(--sv-text);
+}
+
+/* ---- Invoervelden ---- */
+:is(#appShell, .modal) :is(.field input, .field select, .field textarea) {
+  min-height: var(--sv-control-h);
+  border-radius: var(--sv-radius) !important;
+  font-family: var(--sv-font) !important;
+  font-size: var(--sv-fs-base) !important;
+}
+:is(#appShell, .modal) .field label {
+  font-size: var(--sv-fs-sm) !important;
+  color: var(--sv-text-2) !important;
+  margin-bottom: var(--sv-space-1);
+}
+
+/* ---- Kleine teksten ---- */
+#appShell .eyebrow {
+  font-size: var(--sv-fs-xs) !important;
+  letter-spacing: 0.16em !important;
+  font-weight: 600;
+}
+#appShell :is(.mini, .muted) {
+  font-size: inherit;
+}
+#appShell .mini {
+  font-size: var(--sv-fs-sm) !important;
+  color: var(--sv-text-3) !important;
+}
+#appShell .muted {
+  color: var(--sv-text-2);
+}
+
+/* ---- Koppen ---- */
+#appShell .section-head h2 {
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-2xl) !important;
+  line-height: 1.15;
+}
+
+/* Filterknoppen (categorieën) zijn compact: ze filteren, het zijn geen hoofdacties. */
+#appShell #categoryBar .btn {
+  min-height: 32px !important;
+  padding: 0 var(--sv-space-3) !important;
+  font-size: var(--sv-fs-sm) !important;
+  border-radius: 999px !important;
+}
+#appShell #categoryBar {
+  gap: var(--sv-space-2) !important;
+  padding: var(--sv-space-3) var(--sv-space-4) !important;
+}

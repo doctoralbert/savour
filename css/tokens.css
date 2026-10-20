@@ -1,0 +1,71 @@
+/* Savour huisstijl: de vaste waarden waar alle opmaak op bouwt.
+   Pas hier iets aan (kleur, maat, afronding) en het verandert overal tegelijk. */
+
+:root {
+  /* Lettertypen: DM Sans voor tekst, Playfair Display voor titels. */
+  --sv-font: 'DM Sans', system-ui, sans-serif;
+  --sv-font-display: 'Playfair Display', Georgia, serif;
+
+  /* Tekstgroottes. Kleiner dan 12px gebruiken we niet: in de keuken moet alles leesbaar blijven. */
+  --sv-fs-xs: 12px; /* labels, kopjes boven titels */
+  --sv-fs-sm: 13px; /* kleine tekst, knoppen klein */
+  --sv-fs-md: 14px; /* knoppen, lijsten */
+  --sv-fs-base: 15px; /* gewone tekst */
+  --sv-fs-lg: 18px; /* tussenkoppen */
+  --sv-fs-xl: 22px;
+  --sv-fs-2xl: 30px;
+  --sv-fs-3xl: 40px; /* paginatitels */
+  --sv-fs-4xl: 52px; /* grote koppen */
+
+  /* Afstanden: altijd een veelvoud van 4. */
+  --sv-space-1: 4px;
+  --sv-space-2: 8px;
+  --sv-space-3: 12px;
+  --sv-space-4: 16px;
+  --sv-space-5: 24px;
+  --sv-space-6: 32px;
+  --sv-space-7: 48px;
+
+  /* Afrondingen. */
+  --sv-radius-sm: 6px;
+  --sv-radius: 8px;
+  --sv-radius-lg: 12px;
+  --sv-radius-xl: 18px;
+
+  /* Kleuren (donker thema, standaard). */
+  --sv-bg: #070b0c;
+  --sv-surface: #0d1415;
+  --sv-surface-2: #131c1d;
+  --sv-line: #243031;
+  --sv-line-strong: #3a4645;
+  --sv-text: #f2eee4;
+  --sv-text-2: #b9beb7;
+  --sv-text-3: #8b938d;
+  --sv-gold: #e8ca8d;
+  --sv-gold-strong: #d9b46a;
+  --sv-on-gold: #17140f;
+  --sv-danger: #e0a497;
+  --sv-danger-line: #6a4038;
+  --sv-focus: 0 0 0 3px #e8ca8d55;
+
+  /* Hoogtes van bedieningselementen (44px = prettig met vingers). */
+  --sv-control-h: 44px;
+  --sv-control-h-sm: 36px;
+}
+
+body.savour-light {
+  --sv-bg: #f5f4ef;
+  --sv-surface: #ffffff;
+  --sv-surface-2: #f0eee7;
+  --sv-line: #e2dfd6;
+  --sv-line-strong: #c9c5b9;
+  --sv-text: #151716;
+  --sv-text-2: #4f554f;
+  --sv-text-3: #6f746d;
+  --sv-gold: #8a6a22;
+  --sv-gold-strong: #171918;
+  --sv-on-gold: #ffffff;
+  --sv-danger: #a4473a;
+  --sv-danger-line: #e2c3bc;
+  --sv-focus: 0 0 0 3px #8a6a2240;
+}
