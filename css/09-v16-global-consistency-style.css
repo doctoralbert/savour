@@ -1,0 +1,10 @@
+/* v16: one consistent Savour surface across demo, personal and shared views. */
+html,body,#appShell,#appShell .main,#appShell .view,#recipes,#recipes .content,#folderDetail,#shared,#sharedFolderDetail{background:transparent!important}
+#appShell .main{min-width:0}
+#categoryBar{gap:5px!important;align-items:center!important;flex-wrap:wrap!important}
+#categoryBar .btn{font-size:10px!important;line-height:1.1!important;padding:6px 10px!important;border-radius:5px!important;min-height:28px!important}
+#categoryBar .btn.gold{font-weight:600!important}
+.savour-v13-alphabet,.recipe-alphabet{gap:2px!important}
+.savour-v13-alphabet button,.recipe-alphabet button{min-width:23px!important;height:24px!important;font-size:10px!important;padding:0 5px!important;border-radius:4px!important}
+.savour-v13-row,.savour-v14-row{background:transparent!important}
+@media(max-width:700px){#categoryBar .btn{font-size:10px!important;padding:6px 9px!important}.savour-v13-row,.savour-v14-row{min-height:34px!important}}

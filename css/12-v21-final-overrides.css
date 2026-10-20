@@ -1,0 +1,18 @@
+/* v21: consistent dark surface and compact professional recipe rows */
+:root{--savour-v21-bg:radial-gradient(circle at 75% 0,#1a2521 0,#060a0b 38%,#030506 100%)}
+html,body,#landingView,#appShell,.app,.main,.content,#publicInfoShell,#publicRecipeShell,#publicInviteShell{background:var(--savour-v21-bg)!important;background-attachment:fixed!important}
+.compact-recipe-card{background:transparent!important;border:0!important;border-bottom:1px solid #263031!important;border-radius:0!important;box-shadow:none!important;cursor:pointer}
+.compact-recipe-card .card-body{padding:12px 4px!important}
+.compact-recipe-card .cat,.compact-recipe-card .yield,.compact-recipe-card .compact-meta,.compact-recipe-card .bulk-check{display:none!important}
+.compact-recipe-card .row{display:flex;align-items:center;gap:10px;margin:0!important}
+.compact-recipe-card h3{font-family:inherit!important;font-size:14px!important;font-weight:500!important;letter-spacing:.01em;margin:0!important;flex:1;color:#e7e3d9!important}
+.compact-recipe-card .row:after{content:'›';color:#7f8985;font-size:20px;margin-left:4px}
+.compact-recipe-card .fav{order:2;background:transparent;border:0;color:var(--gold);font-size:18px;line-height:1;padding:0 3px;cursor:pointer}
+.compact-recipe-card .compact-card-actions{display:flex!important;gap:8px!important;align-items:center!important;margin:0!important}
+.compact-recipe-card .compact-card-actions .btn:first-child{display:none!important}
+.compact-recipe-card .compact-card-actions .delete-recipe{display:inline-flex!important;background:transparent!important;border:0!important;color:#8f9893!important;font-size:20px!important;line-height:1!important;padding:0 3px!important;min-width:22px!important}
+.compact-recipe-card .compact-card-actions .delete-recipe{font-size:0!important}
+.compact-recipe-card .compact-card-actions .delete-recipe:after{content:'×';font-size:20px}
+.compact-recipe-card .card-body{display:flex;align-items:center;gap:10px}
+.compact-recipe-card .row{flex:1;min-width:0}
+@media(max-width:760px){.compact-recipe-card .card-body{padding:11px 2px!important}.compact-recipe-card h3{font-size:13px!important}.compact-recipe-card .fav{font-size:17px!important}}

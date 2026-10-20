@@ -1,0 +1,12 @@
+/* Savour v9: full-width, single-page recipe library */
+.recipe-library-list{width:100%;border-top:1px solid #293536;background:rgba(5,12,13,.28);border-radius:8px;overflow:hidden}
+.recipe-library-row{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:54px;padding:0 16px;border-bottom:1px solid #202d2d;background:transparent;color:#f1eee5;cursor:pointer;transition:background .15s,border-color .15s}
+.recipe-library-row:last-child{border-bottom:0}
+.recipe-library-row:hover{background:linear-gradient(90deg,#15231f,#0b1515);border-color:#806f4b}
+.recipe-library-name{font-family:'Playfair Display',serif;font-size:17px;line-height:1.35;white-space:normal;overflow-wrap:anywhere;flex:1;min-width:0}
+.recipe-library-arrow{font-size:18px;color:var(--gold);flex:0 0 auto}
+.recipe-library-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:12px 0 14px;flex-wrap:wrap}
+.recipe-library-tools .mini{font-size:11px;color:var(--muted)}
+.recipe-library-list .bulk-check{display:flex;align-items:center;gap:8px;flex:0 0 auto;margin-right:8px;font-size:11px;color:var(--muted)}
+.recipe-library-row.bulk-active .recipe-library-name{padding-left:0}
+@media(max-width:700px){.recipe-library-row{min-height:50px;padding:0 12px;gap:10px}.recipe-library-name{font-size:16px}.recipe-library-arrow{font-size:16px}.recipe-library-tools{margin-top:10px}}

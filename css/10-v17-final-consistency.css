@@ -1,0 +1,11 @@
+/* v17 final: one dark Savour surface in every account, demo and public view. */
+:root{color-scheme:dark!important}
+html,body,#landingView,#appShell,#appShell .main,#appShell .view,.public-shell,#publicInfoShell,#publicRecipeShell,#publicInviteShell{background:radial-gradient(circle at 72% 0,#16201d 0,#05090a 35%,#030607 100%)!important;color:var(--text,#eee8dc)!important}
+body.savour-light,body.savour-light *{color-scheme:dark!important}
+body.savour-light,body.savour-light .app,body.savour-light .main,body.savour-light .content,body.savour-light .public-shell,body.savour-light .public-shell-header,body.savour-light .public-shell-main{background:radial-gradient(circle at 72% 0,#16201d 0,#05090a 35%,#030607 100%)!important;color:var(--text,#eee8dc)!important}
+body.savour-light .sidebar{background:linear-gradient(180deg,#071011,#030707)!important;border-color:#20292a!important}
+body.savour-light .topbar,.savour-light .public-shell-header{background:#05090ad9!important;border-color:#1d2728!important}
+body.savour-light .panel,body.savour-light .card,body.savour-light .folder,body.savour-light .stat,body.savour-light .quick .q,body.savour-light .detail-hero,body.savour-light .field input,body.savour-light .field textarea,body.savour-light .field select{background:linear-gradient(145deg,#0d1516,#081011)!important;color:#eee8dc!important;border-color:#293536!important}
+body.savour-light .btn{background:#0b1213!important;color:#f2eee4!important;border-color:#806f4b!important}
+body.savour-light .btn.gold{background:var(--gold)!important;color:#17140f!important;border-color:var(--gold)!important}
+body.savour-light .public-info-view p,body.savour-light .public-info-view h1,body.savour-light .public-info-view h2,body.savour-light .public-info-view h3,body.savour-light .public-info-view strong{color:inherit!important}
