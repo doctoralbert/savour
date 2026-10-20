@@ -1,0 +1,77 @@
+export default async function handler(req, res) {
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  const key = process.env.OPENAI_API_KEY;
+  if (!key) return res.status(500).json({ error: 'OPENAI_API_KEY ontbreekt in Vercel Environment Variables.' });
+  try {
+    const { image, text, filename, categories } = req.body || {};
+    const hasImage = typeof image === 'string' && image.startsWith('data:image/');
+    const hasText = typeof text === 'string' && text.trim().length > 0;
+    if (!hasImage && !hasText) return res.status(400).json({ error: 'Geen receptbron ontvangen.' });
+    if (hasImage && image.length > 12_000_000) return res.status(413).json({ error: 'De foto is te groot. Gebruik een kleinere foto.' });
+    if (hasText && text.length > 120_000) return res.status(413).json({ error: 'Het document bevat te veel tekst om in één keer te verwerken.' });
+
+    const categoryList = Array.isArray(categories) ? categories.map(String).map(x=>x.trim()).filter(Boolean) : [];
+    const categoryInstruction = categoryList.length
+      ? `\nBESCHIKBARE CATEGORIEËN VAN DE GEBRUIKER:\n${categoryList.map((c,i)=>`${i+1}. ${c}`).join('\n')}\n- Kies per recept uitsluitend één categorie uit deze lijst wanneer de bron voldoende aanwijzingen geeft.\n- Gebruik de categorie Patisserie voor duidelijk patisserie-/dessert-/gebak-/chocolade-/ijs-/zoetwarenrecepten wanneer die categorie beschikbaar is. Let daarbij op titel, productnamen, ingrediënten én bereidingswijze.\n- Verzin nooit een nieuwe categorie.\n- Als geen categorie met voldoende zekerheid past, geef category als lege string.`
+      : '\nEr zijn geen gebruikerscategorieën beschikbaar. Geef category als lege string.';
+
+    const instruction = `Je bent de recept-structureringslaag van Savour, een professioneel receptplatform voor chefs.
+Analyseer de bron zeer nauwkeurig en maak er één of meerdere controleerbare recepten van.
+
+ABSOLUTE REGELS:
+- Lees alleen wat daadwerkelijk in de bron staat. Verzin nooit ontbrekende hoeveelheden, ingrediënten, technieken, temperaturen, tijden, opbrengsten of stappen.
+- Behoud de oorspronkelijke Nederlandse vaktermen, productnamen, merknamen en eenheden.
+- Maak strikt onderscheid tussen titel, opbrengst, ingrediënten en bereidingsstappen.
+- Een ingrediënt blijft een ingrediënt, ook als het bijvoorbeeld een vanillestokje, ei, boter of suiker is. Zet een ingrediënt nooit in steps.
+- Een regel met een hoeveelheid hoort bij ingrediënten als het product zelf wordt genoemd. Bijvoorbeeld "1 vanillestokje" is een ingrediënt.
+- Een bereidingshandeling hoort alleen bij steps als de bron daadwerkelijk een handeling beschrijft, zoals mengen, verwarmen, garen, koken, bakken, zeven of marineren.
+- Als de bron géén bereidingswijze bevat, geef steps als een lege array. Maak nooit zelf een bereiding uit de laatste ingrediëntenregel(s).
+- Een ingrediënt dat op een nieuwe regel staat blijft een ingrediënt; gebruik de volgorde van de bron.
+- Behoud kwalitatieve hoeveelheden letterlijk, zoals 'naar smaak', 'scheutje', 'snuf', 'mespunt', 'naar behoefte' en 'eventueel'.
+- Corrigeer alleen duidelijke OCR-/uitleesfouten wanneer de bedoelde tekst met hoge zekerheid uit de context blijkt. Bij twijfel: behoud de bron en zet needs_review op true.
+- Verwijder geen inhoud omdat die ongebruikelijk lijkt.
+- Splits meerdere recepten alleen als de bron daar duidelijke aanwijzingen voor geeft.
+- Houd de volgorde van ingrediënten en stappen zoveel mogelijk aan.
+- Voeg geen tips, eigen interpretaties, voedingsinformatie of extra uitleg toe.
+- Als een onderdeel ontbreekt, geef een lege array terug.
+- Zet needs_review op true als er twijfel, onleesbare tekst, vreemde OCR, een onvolledige passage of een mogelijk samengevoegde sectie is.
+- Geef per ingrediënt bij voorkeur één regel met hoeveelheid + eenheid + ingrediënt, maar verander de inhoud niet.
+- Gebruik bestandsnaam en recepttitel als context voor categorieherkenning, maar laat de daadwerkelijke receptinhoud zwaarder wegen.
+${categoryInstruction}
+
+De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbestand: ${filename || 'receptbron'}.`;
+
+    const content = [{ type: 'input_text', text: instruction }];
+    if (hasText) content.push({ type: 'input_text', text: `\nBRONTEKST:\n${text}` });
+    if (hasImage) content.push({ type: 'input_image', image_url: image });
+
+    const payload = {
+      model: 'gpt-5.6-luna',
+      input: [{ role: 'user', content }],
+      text: { format: { type: 'json_schema', name: 'recipe_import', strict: true, schema: {
+        type: 'object', additionalProperties: false,
+        properties: { recipes: { type: 'array', items: { type: 'object', additionalProperties: false,
+          properties: {
+            title: { type: 'string' }, yield: { type: 'string' },
+            ingredients: { type: 'array', items: { type: 'string' } },
+            steps: { type: 'array', items: { type: 'string' } },
+            category: { type: 'string' }, needs_review: { type: 'boolean' }
+          }, required: ['title','yield','ingredients','steps','category','needs_review']
+        } } }, required: ['recipes']
+      } } }
+    };
+
+    const response = await fetch('https://api.openai.com/v1/responses', {
+      method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+    });
+    const data = await response.json();
+    if (!response.ok) return res.status(response.status).json({ error: data?.error?.message || 'AI-import mislukt.' });
+    const output = data.output_text || '';
+    let parsed;
+    try { parsed = JSON.parse(output); } catch { return res.status(502).json({ error: 'De AI gaf geen geldig receptresultaat terug.' }); }
+    return res.status(200).json(parsed);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: error?.message || 'AI-import mislukt.' });
+  }
+}
