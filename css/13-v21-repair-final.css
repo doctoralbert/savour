@@ -20,7 +20,6 @@ body,
   background-attachment: fixed !important;
 }
 .savour-public-links {
-  display: flex;
   flex-wrap: wrap;
   gap: 12px;
   margin: 26px 0 0;
