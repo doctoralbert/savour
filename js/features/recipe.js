@@ -27,39 +27,112 @@ function openRecipe(id, context = 'library') {
   }
   const ingredients = r.ingredients?.length ? r.ingredients : [];
   const steps = r.steps?.length ? r.steps : [];
-  const photo = r.photo
-    ? `<div style="margin-bottom:18px"><img src="${esc(r.photo)}" style="width:100%;max-height:420px;object-fit:cover;border-radius:8px;border:1px solid #293536"></div>`
-    : '';
-  const ctx = context;
+  const rid = escJs(r.id);
   // Een recept van een teamlid is alleen-lezen: bekijken, printen en omrekenen.
   const own = isOwnRecipe(r);
-  const inShared = ctx === 'shared' || ctx === 'sharedFolder';
+  const inShared = context === 'shared' || context === 'sharedFolder';
   const mayRemoveFromShared = !inShared || canEditShared(findSharedMap(currentShared));
-  const removeButton = !mayRemoveFromShared
-    ? ''
-    : ctx === 'shared'
-      ? `<button class="btn delete-recipe" onclick="removeRecipeFromShared('${escJs(r.id)}')">Uit gedeelde map verwijderen</button>`
-      : ctx === 'sharedFolder'
-        ? `<button class="btn delete-recipe" onclick="removeRecipeFromSharedFolder('${escJs(r.id)}')">Uit map verwijderen</button>`
-        : ctx === 'folder'
-          ? `<button class="btn delete-recipe" onclick="removeRecipeFromFolder('${escJs(r.id)}')">Uit map verwijderen</button>`
-          : ctx === 'favorite'
-            ? `<button class="btn delete-recipe" onclick="toggleFavorite('${escJs(r.id)}')">Verwijderen uit favorieten</button>`
-            : own
-              ? `<button class="btn delete-recipe" onclick="deleteRecipe('${escJs(r.id)}')">Verwijderen uit bibliotheek</button>`
-              : '';
-  const favButton = own
-    ? `<button class="fav" onclick="toggleFavorite('${escJs(r.id)}')">${favorites.includes(r.id) ? '★' : '☆'}</button>`
+  const removeAction = !mayRemoveFromShared
+    ? null
+    : context === 'shared'
+      ? { label: 'Uit gedeelde map halen', fn: `removeRecipeFromShared('${rid}')` }
+      : context === 'sharedFolder'
+        ? { label: 'Uit map halen', fn: `removeRecipeFromSharedFolder('${rid}')` }
+        : context === 'folder'
+          ? { label: 'Uit map halen', fn: `removeRecipeFromFolder('${rid}')` }
+          : own
+            ? { label: 'Verwijderen uit bibliotheek', fn: `deleteRecipe('${rid}')` }
+            : null;
+  const menuItems = [
+    own && `<button type="button" onclick="shareRecipe('${rid}')">${icon('share')}Openbare link delen</button>`,
+    own && `<button type="button" onclick="openFolderModal('${rid}')">${icon('folderPlus')}Toevoegen aan map</button>`,
+    removeAction &&
+      `<button type="button" class="rp-menu-danger" onclick="${removeAction.fn}">${icon('trash')}${removeAction.label}</button>`
+  ].filter(Boolean);
+  const isFav = favorites.includes(r.id);
+  const base = parseYield(r.yield);
+  const meta = [
+    r.yield && !base ? `Opbrengst ${esc(r.yield)}` : '',
+    ingredients.length ? `${ingredients.length} ingrediënten` : '',
+    steps.length ? `${steps.length} stappen` : ''
+  ].filter(Boolean);
+  const yieldControl = base
+    ? `<div class="rp-yield" role="group" aria-label="Opbrengst omrekenen"><span class="rp-yield-label">Opbrengst</span><div class="rp-stepper"><button type="button" class="rp-step" onclick="stepRecipeYield(-1)" aria-label="Minder">${icon('minus')}</button><input id="rpYieldInput" inputmode="decimal" value="${esc(formatNumber(base.value))}" oninput="setRecipeYield(this.value)" aria-label="Nieuwe opbrengst"><span class="rp-yield-unit">${esc(base.unit)}</span><button type="button" class="rp-step" onclick="stepRecipeYield(1)" aria-label="Meer">${icon('plus')}</button></div><span id="rpFactor" class="rp-factor"></span><button type="button" id="rpYieldReset" class="btn-quiet" onclick="resetRecipeYield()" hidden>${icon('undo', { size: 16 })} Origineel</button></div>`
     : '';
-  const ownActions = own
-    ? `<button class="btn gold" onclick="editRecipe('${escJs(r.id)}')">Bewerken</button><button class="btn" onclick="shareRecipe('${escJs(r.id)}')">Delen</button><button class="btn" onclick="openFolderModal('${escJs(r.id)}')">＋ Toevoegen aan map</button>`
-    : '';
-  const sharedNote = own
-    ? ''
-    : `<p class="muted shared-recipe-note">Gedeeld recept van een teamlid. Alleen de maker kan het bewerken.</p>`;
-  $('detailWrap').innerHTML =
-    `<div class="detail"><div class="detail-hero"><div class="detail-main">${photo}<div class="eyebrow">${esc(r.category || 'Eigen recepten')}</div><div class="row" style="align-items:flex-start"><h1>${esc(r.title)}</h1>${favButton}</div>${r.yield ? `<div class="yield" style="font-size:14px;margin-top:8px">Opbrengst · ${esc(r.yield)}</div>` : ''}${sharedNote}</div></div><div class="panel"><div class="columns"><div class="block"><h3>Ingrediënten</h3>${ingredients.length ? ingredients.map(x => `<div class="ingredient">${esc(x)}</div>`).join('') : `<div class="muted">Geen ingrediënten vastgelegd.</div>`}</div>${steps.length ? `<div class="block"><h3>Bereiding</h3>${steps.map((x, i) => `<div class="step"><span class="num">${i + 1}</span><span>${esc(x)}</span></div>`).join('')}</div>` : `<div class="block"><h3>Bereiding</h3><div class="muted">Geen bereiding in de bron.</div></div>`}</div></div><div class="detail-actions">${ownActions}<button class="btn" onclick="printRecipe('${escJs(r.id)}')">Printen</button>${r.yield ? `<button class="btn" onclick="openScale('${escJs(r.id)}')">Recept omrekenen</button>` : ''}${removeButton}</div></div>`;
+  window._savourScaled = null;
+  $('detailWrap').innerHTML = `<article class="rp">
+    ${r.photo ? `<img class="rp-photo" src="${esc(r.photo)}" alt="">` : ''}
+    <header class="rp-head">
+      <div class="eyebrow">${esc(r.category || 'Eigen recepten')}</div>
+      <h1 class="rp-title">${esc(r.title)}</h1>
+      ${meta.length ? `<p class="rp-meta">${meta.join(' · ')}</p>` : ''}
+      ${own ? '' : `<p class="rp-note">Gedeeld recept van een teamlid. Alleen de maker kan het bewerken.</p>`}
+      <div class="rp-actions">
+        <button type="button" class="btn gold" onclick="toggleCookMode()">${icon('cook')}Kookmodus</button>
+        ${own ? `<button type="button" class="btn" onclick="editRecipe('${rid}')">${icon('edit')}Bewerken</button>` : ''}
+        <button type="button" class="btn" onclick="printCurrentRecipe()">${icon('print')}Printen</button>
+        ${own ? `<button type="button" class="btn rp-icon-btn${isFav ? ' is-on' : ''}" id="rpFavorite" onclick="toggleRecipePageFavorite('${rid}')" aria-pressed="${isFav}" aria-label="Favoriet" title="Favoriet">${icon('star', { filled: isFav })}</button>` : ''}
+        ${menuItems.length ? `<details class="rp-more"><summary class="btn rp-icon-btn" aria-label="Meer acties" title="Meer acties">${icon('more')}</summary><div class="rp-menu">${menuItems.join('')}</div></details>` : ''}
+      </div>
+      ${yieldControl}
+    </header>
+    <div class="rp-body">
+      <section class="rp-section">
+        <h2>Ingrediënten</h2>
+        ${
+          ingredients.length
+            ? `<ul class="rp-ingredients" id="rpIngredients">${ingredients.map((x, i) => `<li data-ing="${i}"><label><input type="checkbox"><span class="rp-ing-line">${ingredientHtml(x)}</span></label></li>`).join('')}</ul>`
+            : '<p class="muted">Geen ingrediënten vastgelegd.</p>'
+        }
+      </section>
+      <section class="rp-section">
+        <h2>Bereiding</h2>
+        ${
+          steps.length
+            ? `<ol class="rp-steps">${steps.map((x, i) => `<li><label><input type="checkbox"><span class="rp-step-num">${i + 1}</span><span class="rp-step-text">${esc(x)}</span></label></li>`).join('')}</ol>`
+            : '<p class="muted">Geen bereiding in de bron.</p>'
+        }
+      </section>
+    </div>
+  </article>`;
   go('detail');
+}
+
+// Ster op de receptpagina: favoriet aan/uit en de knop direct bijwerken.
+async function toggleRecipePageFavorite(id) {
+  await toggleFavorite(id);
+  const btn = $('rpFavorite');
+  if (!btn) return;
+  const on = favorites.includes(id) || favorites.some(x => String(x) === String(id));
+  btn.classList.toggle('is-on', on);
+  btn.setAttribute('aria-pressed', String(on));
+  btn.innerHTML = icon('star', { filled: on });
+}
+
+// Kookmodus: alleen het recept in grote letters, en het scherm blijft aan (waar de browser dat toestaat).
+let cookWakeLock = null;
+async function toggleCookMode(force) {
+  const on = typeof force === 'boolean' ? force : !document.body.classList.contains('cook-mode');
+  document.body.classList.toggle('cook-mode', on);
+  if (on) {
+    if (!$('cookModeExit'))
+      document.body.insertAdjacentHTML(
+        'beforeend',
+        `<button type="button" id="cookModeExit" class="cook-exit" onclick="toggleCookMode(false)">${icon('close')}Kookmodus sluiten</button>`
+      );
+    window.scrollTo(0, 0);
+    try {
+      cookWakeLock = await navigator.wakeLock?.request('screen');
+    } catch (e) {
+      cookWakeLock = null;
+    }
+  } else {
+    $('cookModeExit')?.remove();
+    try {
+      await cookWakeLock?.release();
+    } catch (e) {}
+    cookWakeLock = null;
+  }
 }
 
 async function deleteRecipe(id) {

@@ -12,6 +12,7 @@ function go(id) {
   }
   // "Alle recepten" toont altijd de volledige bibliotheek, zonder mapfilter.
   if (id === 'recipes') activeFolderCategory = '';
+  if (id !== 'detail' && document.body.classList.contains('cook-mode')) toggleCookMode(false);
   if (id !== 'import' && id !== 'editor') restoreEditorView();
   if ($('appShell')) $('appShell').classList.remove('public-info-mode');
   document.querySelectorAll('#appShell .view').forEach(v => v.classList.remove('active'));

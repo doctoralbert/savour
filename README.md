@@ -33,7 +33,7 @@ docs/                 E-mailsjabloon voor Supabase.
 De regressietest loopt in demomodus langs 30 schermen en vergelijkt van elk scherm de inhoud en de opmaak met
 de vastgelegde meting in `tests/expected.json`. Zo zie je direct of een wijziging iets anders kapotmaakt.
 
-Start de app lokaal, open de browserconsole (F12) en plak:
+Start de app lokaal en open **http://127.0.0.1:3000** (niet localhost: zo test je uitgelogd, los van je eigen account). Open de browserconsole (F12) en plak:
 
 ```js
 await eval(await (await fetch('/tests/compare.js')).text())

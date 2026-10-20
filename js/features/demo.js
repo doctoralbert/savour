@@ -39,6 +39,28 @@ function startDemo() {
     { id: 'demo-rot', name: 'Rotisserie', recipeIds: recipes.slice(16, 24).map(r => r.id), system: false },
     { id: 'demo-ent', name: 'Entremetier', recipeIds: recipes.slice(24, 32).map(r => r.id), system: false }
   ];
+  // Eén volledig uitgewerkt recept, zodat de demo laat zien hoe een echt recept eruitziet.
+  Object.assign(
+    recipes.find(r => r.title === 'Beurre blanc'),
+    {
+      category: 'Sauzen',
+      yield: '4 personen',
+      ingredients: [
+        '2 sjalotten, fijngesnipperd',
+        '1 deciliter droge witte wijn',
+        '5 eetlepels witte wijnazijn',
+        '250 gram koude roomboter, in blokjes',
+        'zout naar smaak',
+        'witte peper naar smaak'
+      ],
+      steps: [
+        'Breng sjalot, wijn en azijn aan de kook en laat inkoken tot er ongeveer 2 eetlepels vocht over is.',
+        'Zet het vuur laag en klop de boter blokje voor blokje erdoor, tot de saus gebonden en glanzend is.',
+        'Laat de saus niet meer koken. Passeer door een fijne zeef en breng op smaak met zout en peper.',
+        'Direct serveren of maximaal een uur au bain-marie warm houden.'
+      ]
+    }
+  );
   favorites = recipes.slice(0, 3).map(r => r.id);
   // Een collega met eigen recepten in de gedeelde map, om samenwerken te laten zien.
   sharedRecipes = ['Bouillabaisse', 'Crème brûlée', 'Gepocheerde peer'].map((title, i) => ({

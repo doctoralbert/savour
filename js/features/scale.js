@@ -37,6 +37,111 @@ function parseYield(text) {
   return { value, unit: (m[2] || '').trim().toLocaleLowerCase('nl-NL') };
 }
 
+// Kwalitatieve hoeveelheden ("naar smaak", "snuf") worden bewust niet omgerekend.
+const QUALITATIVE_AMOUNT = /naar smaak|naar behoefte|scheut|snuf|mespunt|eventueel|evt\.?/i;
+
+// Woorden die we als eenheid achter een hoeveelheid herkennen (voor vetgedrukte weergave).
+const QUANTITY_UNITS = new Set(
+  'g gr gram gram. kg kilo mg l liter dl deciliter cl centiliter ml milliliter el eetlepel eetlepels tl theelepel theelepels st stuk stuks takje takjes teen teentjes blad blaadjes bos bosje bosjes plak plakken vel vellen blik pak zakje snuf mespunt scheut'.split(
+    ' '
+  )
+);
+
+function parseAmount(text) {
+  const t = String(text).replace(/\s+/g, '');
+  if (t.includes('/')) {
+    const [a, b] = t.split('/').map(Number);
+    return b ? a / b : NaN;
+  }
+  return Number(t.replace(',', '.'));
+}
+
+// Splitst "100 gram boter" in { amount: '100', unit: 'gram', rest: 'boter', value: 100 }; null zonder hoeveelheid.
+function splitQuantity(line) {
+  const s = String(line || '');
+  const m = s.match(/^(\s*)(\d+(?:[.,]\d+)?(?:\s*\/\s*\d+)?)(\s*)([^\s\d][^\s]*)?/);
+  if (!m) return null;
+  const unitWord = m[4] || '';
+  const isUnit = QUANTITY_UNITS.has(unitWord.toLowerCase().replace(/[.,]$/, ''));
+  const used = m[1].length + m[2].length + (isUnit ? m[3].length + unitWord.length : 0);
+  return { amount: m[2], unit: isUnit ? unitWord : '', rest: s.slice(used).trim(), value: parseAmount(m[2]) };
+}
+
+// Ingrediëntregel omgerekend met een factor, als veilige tekst (voor het omrekenvenster en print).
+function scaleIngredientLine(line, factor) {
+  const s = String(line || '');
+  if (QUALITATIVE_AMOUNT.test(s)) return esc(s) + ' <span class="scale-note">(niet automatisch omgerekend)</span>';
+  const m = s.match(/^\s*([0-9]+(?:[.,][0-9]+)?)/);
+  if (!m) return esc(s);
+  const n = Number(m[1].replace(',', '.'));
+  return esc(s.replace(m[1], formatNumber(n * factor)));
+}
+
+// Ingrediëntregel voor de receptpagina: hoeveelheid + eenheid vet, omgerekend als factor ≠ 1.
+function ingredientHtml(line, factor = 1) {
+  const s = String(line || '');
+  const q = splitQuantity(s);
+  if (!q || !Number.isFinite(q.value)) return `<span class="rp-ing-text">${esc(s)}</span>`;
+  const qualitative = QUALITATIVE_AMOUNT.test(s);
+  const amount = factor === 1 || qualitative ? q.amount : formatNumber(q.value * factor);
+  const note = factor !== 1 && qualitative ? ' <span class="scale-note">(niet omgerekend)</span>' : '';
+  return `<strong class="rp-qty">${esc(amount)}${q.unit ? ' ' + esc(q.unit) : ''}</strong> <span class="rp-ing-text">${esc(q.rest)}</span>${note}`;
+}
+
+// ---- Omrekenen direct op de receptpagina ----
+
+function recipePageYield() {
+  const r = findRecipe(currentId);
+  return { r, base: parseYield(r?.yield) };
+}
+
+function setRecipeYield(value) {
+  const { r, base } = recipePageYield();
+  if (!r || !base) return;
+  const target = parseAmount(value);
+  if (!Number.isFinite(target) || target <= 0) return;
+  const factor = target / base.value;
+  const list = $('rpIngredients');
+  if (list)
+    list.querySelectorAll('[data-ing]').forEach(li => {
+      const line = r.ingredients[Number(li.dataset.ing)];
+      li.querySelector('.rp-ing-line').innerHTML = ingredientHtml(line, factor);
+    });
+  const label = $('rpFactor');
+  if (label) label.textContent = factor === 1 ? '' : `× ${formatNumber(factor)}`;
+  $('rpYieldReset')?.toggleAttribute('hidden', factor === 1);
+  const raw = `${formatNumber(target)}${base.unit ? ' ' + base.unit : ''}`;
+  window._savourScaled =
+    factor === 1
+      ? null
+      : { recipe: r, rawTarget: raw, factor, format: formatNumber, scaleLine: l => scaleIngredientLine(l, factor) };
+}
+
+function stepRecipeYield(direction) {
+  const { base } = recipePageYield();
+  const input = $('rpYieldInput');
+  if (!base || !input) return;
+  const step = base.value >= 2 ? 1 : 0.5;
+  const current = parseAmount(input.value) || base.value;
+  const next = Math.max(step, Math.round((current + direction * step) / step) * step);
+  input.value = formatNumber(next);
+  setRecipeYield(input.value);
+}
+
+function resetRecipeYield() {
+  const { base } = recipePageYield();
+  const input = $('rpYieldInput');
+  if (!base || !input) return;
+  input.value = formatNumber(base.value);
+  setRecipeYield(input.value);
+}
+
+// Print het recept zoals het op het scherm staat: omgerekend als er een andere opbrengst is gekozen.
+function printCurrentRecipe() {
+  if (window._savourScaled && String(window._savourScaled.recipe.id) === String(currentId)) printScaledRecipe();
+  else printRecipe(currentId);
+}
+
 // Rekent het open recept om: factor = nieuwe opbrengst / oorspronkelijke opbrengst. De eenheid telt niet mee.
 function calculateScale() {
   const r = findRecipe(currentId);
@@ -49,16 +154,7 @@ function calculateScale() {
   }
   const factor = target.value / base.value,
     fmt = formatNumber;
-  // Kwalitatieve hoeveelheden ("naar smaak", "snuf") worden bewust niet omgerekend.
-  function scaleLine(line) {
-    const s = String(line || '');
-    if (/naar smaak|naar behoefte|scheut|snuf|mespunt|eventueel|evt\.?/i.test(s))
-      return esc(s) + ' <span class="scale-note">(niet automatisch omgerekend)</span>';
-    const m = s.match(/^\s*([0-9]+(?:[.,][0-9]+)?)/);
-    if (!m) return esc(s);
-    const n = Number(m[1].replace(',', '.'));
-    return esc(s.replace(m[1], fmt(n * factor)));
-  }
+  const scaleLine = line => scaleIngredientLine(line, factor);
   const result = $('scaleResult');
   if (!result) return;
   result.innerHTML =
