@@ -88,27 +88,6 @@ function openPublicInfo(id) {
   window.scrollTo(0, 0);
 }
 
-// Navigatiebalk bovenaan de publieke informatiepagina's.
-function ensurePublicNav() {
-  const shell = $('publicInfoShell');
-  if (!shell) return;
-  let nav = shell.querySelector('.savour-v15-public-nav');
-  if (!nav) {
-    nav = document.createElement('nav');
-    nav.className = 'savour-v15-public-nav';
-    shell.prepend(nav);
-  }
-  nav.innerHTML = [
-    ['about', 'Over Savour'],
-    ['faq', 'Veelgestelde vragen'],
-    ['contact', 'Contact'],
-    ['terms', 'Algemene voorwaarden'],
-    ['privacy', 'Privacybeleid']
-  ]
-    .map(([id, label]) => `<button type="button" onclick="openPublicInfo('${id}')">${label}</button>`)
-    .join('');
-}
-
 // Linklijst onder de eerste publieke pagina die bij het laden zichtbaar is.
 function ensurePublicFooter() {
   const shell = $('publicInfoShell');

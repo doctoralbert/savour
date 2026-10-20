@@ -1,1 +1,0 @@
-Savour v29 gebaseerd op v27; requested UI, scaling, sharing and footer changes.

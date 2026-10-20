@@ -1,7 +1,11 @@
 {
-  "name": "savour-local",
+  "name": "savour",
   "private": true,
   "type": "module",
+  "scripts": {
+    "start": "node local-server.mjs",
+    "format": "prettier --write \"js/**/*.js\" \"css/*.css\" \"api/**/*.js\" local-server.mjs tests/*.js"
+  },
   "devDependencies": {
     "prettier": "3.3.3"
   }

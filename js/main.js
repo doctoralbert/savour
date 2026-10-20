@@ -7,6 +7,8 @@ applyTheme('dark');
 setupCropControls();
 setupImportDropZone();
 
+// Beheeromgeving op /admin. (Bezoekersstatistieken staan uit tot de tabel site_visits is gecontroleerd,
+// daarom wordt logSavourVisit() nog nergens aangeroepen.)
 if (IS_ADMIN_PATH) {
   setTimeout(async () => {
     adminRenderLogin();
@@ -16,20 +18,16 @@ if (IS_ADMIN_PATH) {
     if (session && sessionStorage.getItem('savour_admin_session') === '1' && (await adminIsAllowed()))
       adminShowDashboard(session.user);
   }, 0);
-} else {
-  /* Analytics disabled until the site_visits schema is verified. */
 }
 
-// Apply the refresh-safe language and header button after DOM is ready.
+// Terug/vooruit in de browser: de actieve weergave opnieuw tekenen.
 window.addEventListener('popstate', () => {
   document.documentElement.lang = 'nl';
   const active = document.querySelector('#appShell .view.active')?.id;
   if (currentUser && active) renderActiveView(active);
 });
 
-// Zodra de pagina is opgebouwd: publieke navigatie, alfabetbalken en zijbalkmenu's tekenen.
-document.addEventListener('DOMContentLoaded', ensurePublicNav, { once: true });
-setTimeout(ensurePublicNav, 250);
+// Zodra de pagina is opgebouwd: linklijst op publieke pagina's, alfabetbalken en zijbalkmenu's tekenen.
 document.addEventListener('DOMContentLoaded', ensurePublicFooter);
 setTimeout(ensurePublicFooter, 300);
 document.addEventListener('DOMContentLoaded', () => {
@@ -47,19 +45,13 @@ document.addEventListener('DOMContentLoaded', () =>
   }, 50)
 );
 
-// Savour startup: run only after all auth, database and language declarations exist.
+// Openbare links: /r/<slug> toont een gedeeld recept, /join/<sleutel> een uitnodiging voor een gedeelde map.
 const publicRecipeMatch = location.pathname.match(/^\/r\/([^/]+)\/?$/);
-
 const publicInviteMatch = location.pathname.match(/^\/join\/([^/]+)\/?$/);
+if (publicRecipeMatch) window.__publicRecipeRoute = decodeURIComponent(publicRecipeMatch[1]);
+if (publicInviteMatch) window.__publicInviteRoute = decodeURIComponent(publicInviteMatch[1]);
 
-if (publicRecipeMatch) {
-  window.__publicRecipeRoute = decodeURIComponent(publicRecipeMatch[1]);
-}
-
-if (publicInviteMatch) {
-  window.__publicInviteRoute = decodeURIComponent(publicInviteMatch[1]);
-}
-
+// Bestaande sessie herstellen, of de landingspagina tonen.
 (async () => {
   try {
     if (window.__publicRecipeRoute) {
@@ -97,6 +89,7 @@ if (publicInviteMatch) {
   }
 })();
 
+// Inloggen en uitloggen (ook vanuit een ander tabblad).
 supabaseClient.auth.onAuthStateChange(async (event, session) => {
   if (
     event === 'SIGNED_IN' &&
