@@ -1,4 +1,4 @@
-// ReceptcategorieÃ«n beheren.
+// Receptcategorieën beheren.
 
 function renderCategories() {
   if (!currentUser) return;

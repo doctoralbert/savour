@@ -111,10 +111,84 @@ function showLanding() {
     demoMode = false;
     document.getElementById('demoBadge')?.remove();
   }
+  // Publieke pagina's zijn altijd donker.
+  document.body.classList.remove('savour-light');
   $('appShell').style.display = 'none';
   $('landingView').style.display = 'block';
   $('publicInfoShell').style.display = 'none';
   $('publicRecipeShell').style.display = 'none';
   $('publicInviteShell').style.display = 'none';
   document.querySelectorAll('#appShell .view').forEach(v => v.classList.remove('active'));
+}
+
+// ---- Links uit e-mails (account bevestigen, wachtwoord herstellen) ----
+// Supabase stuurt de gebruiker terug met inloggegevens achter het #-teken in de link.
+// De Supabase-client leest die niet automatisch (detectSessionInUrl staat uit), dus dat doet Savour hier zelf.
+
+function readAuthRedirect() {
+  const hash = location.hash.startsWith('#') ? location.hash.slice(1) : '';
+  if (!hash) return null;
+  const p = new URLSearchParams(hash);
+  if (p.get('error') || p.get('error_code')) return { error: p.get('error_description') || p.get('error') };
+  const access_token = p.get('access_token'),
+    refresh_token = p.get('refresh_token');
+  if (!access_token || !refresh_token) return null;
+  return { access_token, refresh_token, type: p.get('type') || '' };
+}
+
+// Geeft true terug als de link is afgehandeld; anders gaat het opstarten gewoon verder.
+async function handleAuthRedirect(redirect) {
+  // De inloggegevens direct uit de adresbalk halen, zodat ze niet in de geschiedenis blijven staan.
+  history.replaceState(null, '', location.pathname + location.search);
+  if (redirect.error) {
+    console.warn('Link uit e-mail niet geldig:', redirect.error);
+    toast(t('Deze link is ongeldig of verlopen. Vraag een nieuwe aan.'));
+    return false;
+  }
+  const { data, error } = await supabaseClient.auth.setSession({
+    access_token: redirect.access_token,
+    refresh_token: redirect.refresh_token
+  });
+  if (error || !data?.session?.user) {
+    console.error('Sessie uit e-maillink mislukt:', error);
+    toast(t('Deze link is ongeldig of verlopen. Vraag een nieuwe aan.'));
+    return false;
+  }
+  if (redirect.type === 'recovery') {
+    const ok = await startDatabaseSession(data.session.user);
+    if (ok) {
+      go('settings');
+      toast(t('Kies hieronder een nieuw wachtwoord'));
+      $('accountPassword')?.focus();
+    }
+    return true;
+  }
+  showActivation(data.session.user);
+  return true;
+}
+
+// Welkomstscherm na het bevestigen van het e-mailadres.
+function showActivation(user) {
+  window.__activationUser = user;
+  ['landingView', 'appShell', 'publicInfoShell', 'publicRecipeShell', 'publicInviteShell'].forEach(id => {
+    if ($(id)) $(id).style.display = 'none';
+  });
+  const first = String(user?.user_metadata?.name || '')
+    .trim()
+    .split(/\s+/)[0];
+  $('activationTitle').textContent = first ? `Welkom bij Savour, ${first}.` : 'Welkom bij Savour.';
+  $('activationShell').style.display = 'flex';
+}
+
+async function continueFromActivation() {
+  const btn = $('activationContinue');
+  if (btn) btn.disabled = true;
+  const user = window.__activationUser || (await supabaseClient.auth.getUser()).data?.user;
+  $('activationShell').style.display = 'none';
+  if (btn) btn.disabled = false;
+  if (!user) {
+    showLanding();
+    return;
+  }
+  await startDatabaseSession(user);
 }

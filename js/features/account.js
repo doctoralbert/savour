@@ -1,5 +1,11 @@
 // Account en instellingen: profiel, profielfoto, wachtwoord, thema en account verwijderen.
 
+// Het gekozen thema ('dark' of 'light'); standaard donker.
+function currentTheme() {
+  return localStorage.getItem('savour_theme') === 'light' ? 'light' : 'dark';
+}
+
+// Past het thema toe. Het lichte thema geldt alleen binnen de app (ingelogd); publieke pagina's blijven donker.
 function applyTheme(theme) {
   const value = theme === 'light' ? 'light' : 'dark';
   document.documentElement.dataset.savourTheme = value;
@@ -7,12 +13,16 @@ function applyTheme(theme) {
   localStorage.setItem('savour_theme', value);
 }
 
+// Keuze uit Instellingen: direct toepassen en in het profiel bewaren (niet in de demo).
 async function setTheme(theme) {
   const value = theme === 'light' ? 'light' : 'dark';
   applyTheme(value);
-  if (currentUser) {
+  if (currentUser && !demoMode) {
     const { error } = await supabaseClient.from('profiles').update({ theme: value }).eq('id', currentUser.id);
-    if (error) console.error('Thema opslaan mislukt:', error);
+    if (error) {
+      console.error('Thema opslaan mislukt:', error);
+      toast(t('Weergave kon niet worden bewaard'));
+    }
   }
 }
 
@@ -203,10 +213,7 @@ async function saveCrop() {
 
 function renderSettings() {
   if (!currentUser) return;
-  applyTheme('dark');
-  document
-    .querySelectorAll('input[name="savourTheme"]')
-    .forEach(x => (x.checked = x.value === (localStorage.getItem('savour_theme') || 'dark')));
+  document.querySelectorAll('input[name="savourTheme"]').forEach(x => (x.checked = x.value === currentTheme()));
   $('accountName').value = account.name || '';
   $('accountRole').value = account.role || '';
   $('accountEmail').value = account.email || '';

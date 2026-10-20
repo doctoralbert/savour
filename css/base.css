@@ -1676,10 +1676,11 @@ button {
     left: -310px;
     width: 300px;
     padding: 18px 14px;
-    box-shadow: 20px 0 60px #000b;
   }
+  /* Schaduw alleen als het menu open is; anders valt hij als donkere rand in beeld. */
   .sidebar.open {
     left: 0;
+    box-shadow: 20px 0 60px #000b;
   }
   .sidebar .brand {
     margin-bottom: 6px;

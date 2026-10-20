@@ -10,7 +10,7 @@ Savour is een receptbeheer-app voor professionele koks (Nederlands). Lees eerst 
 3. **Op elk apparaat**: laptop/desktop (importeren, beheren, printen) én telefoon/tablet in de keuken zijn even belangrijk.
 4. **Snel in de keuken**: weinig klikken, grote leesbare tekst bij het raadplegen.
 5. **Samenwerken**: gedeelde mappen met rollen owner (beheert), editor (voegt toe en bewerkt) en viewer (bekijkt).
-6. **Premium uitstraling**: donker, goud (#e8ca8d), Playfair Display voor koppen.
+6. **Premium uitstraling**: standaard donker met goud (#e8ca8d), Playfair Display voor koppen. Een licht thema is optioneel (Instellingen); lichte varianten staan onderaan `css/components.css` onder `body.savour-light`. Controleer nieuwe schermen in beide thema's.
 
 Verdienmodel: gratis basis + betaald pro (nog niet gebouwd).
 
@@ -25,6 +25,8 @@ Verdienmodel: gratis basis + betaald pro (nog niet gebouwd).
 - Rechten in de interface (`canEditShared` e.d.) zijn alleen gemak; de echte beveiliging moet in Supabase RLS zitten.
 - API-routes in `api/` controleren het Supabase-token via `api/_lib/auth.js` als ze iets kosten of gegevens raken.
 - Teksten in de interface en code-commentaar zijn Nederlands.
+- Savour verwijdert nooit zelf gegevens zonder dat de gebruiker daarom vraagt (zie `js/data/duplicates.js`).
+- Links uit e-mails (bevestigen, wachtwoord herstellen) worden afgehandeld in `readAuthRedirect`/`handleAuthRedirect` (`js/features/auth.js`).
 
 ## Werkwijze bij elke wijziging
 

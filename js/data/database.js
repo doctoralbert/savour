@@ -85,7 +85,9 @@ async function selectAllRows(table, select = '*', build = q => q, pageSize = 100
   return { data: all, error: null };
 }
 
-async function fetchDatabaseState() {
+// Laadt de volledige bibliotheek van de ingelogde gebruiker: recepten, categorieën, mappen, favorieten,
+// profiel en gedeelde mappen.
+async function loadDatabaseState() {
   if (!currentUser) throw new Error('Geen ingelogde gebruiker');
   const [recipesRes, categoriesRes, foldersRes, folderRecipesRes, favoritesRes, profileRes] = await Promise.all([
     selectAllRows('recipes', 'id,title,description,yield_text,ingredients,steps,photo_url,category_id,created_at', q =>
@@ -151,8 +153,7 @@ async function fetchDatabaseState() {
       email: prof.email || currentUser.email || '',
       photo: prof.avatar_url || ''
     };
-    if (prof.theme) localStorage.setItem('savour_theme', prof.theme);
-    applyTheme('dark');
+    applyTheme(prof.theme || currentTheme());
   }
   try {
     const [smsRes, smrRes, smfRes, smfrRes, smmRes] = await Promise.all([
@@ -255,14 +256,6 @@ async function fetchDatabaseState() {
   renderCategoryNav();
   renderSharedNav();
   return true;
-}
-
-// Laadt de bibliotheek en ruimt daarna exact dubbele recepten op (zie duplicates.js).
-async function loadDatabaseState() {
-  const result = await fetchDatabaseState();
-  const cleaned = await removeExactDuplicateRecipes();
-  if (cleaned) await fetchDatabaseState();
-  return result;
 }
 
 window.showDatabaseError = function showDatabaseError(error) {

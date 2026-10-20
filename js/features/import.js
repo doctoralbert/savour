@@ -1,4 +1,4 @@
-// Recepten importeren: tekst, documenten en foto's, met AI-structurering en controle vÃ³Ã³r opslaan.
+// Recepten importeren: tekst, documenten en foto's, met AI-structurering en controle vóór opslaan.
 
 function showImportPanel() {
   if ($('inlineEditorHost')) $('inlineEditorHost').style.display = 'none';

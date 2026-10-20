@@ -1,8 +1,8 @@
 // Opstarten van Savour. Dit bestand wordt als laatste geladen, zodat alle functies al bestaan.
 
-// Nederlands is de vaste taal; de app gebruikt altijd het donkere thema.
+// Nederlands is de vaste taal. Het thema (donker/licht) kiest de gebruiker in Instellingen.
 document.documentElement.lang = 'nl';
-applyTheme('dark');
+applyTheme(currentTheme());
 
 setupCropControls();
 setupImportDropZone();
@@ -64,6 +64,9 @@ if (publicInviteMatch) window.__publicInviteRoute = decodeURIComponent(publicInv
       await openPublicInvite(window.__publicInviteRoute);
       return;
     }
+    // Teruggekomen via een link uit een e-mail (account bevestigen of wachtwoord herstellen)?
+    const authRedirect = readAuthRedirect();
+    if (authRedirect && (await handleAuthRedirect(authRedirect))) return;
     const { data, error } = await supabaseClient.auth.getSession();
     if (error) throw error;
     if (data.session?.user) {
@@ -106,6 +109,7 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
   if (event === 'SIGNED_OUT') {
     sessionStorage.removeItem('savour_session_active');
     currentUser = null;
+    document.body.classList.remove('savour-light');
     $('appShell').style.display = 'none';
     $('publicInfoShell').style.display = 'none';
     $('publicRecipeShell').style.display = 'none';

@@ -318,13 +318,9 @@ function openSharedFolderRecipePicker(mapId, folderId) {
 
 async function createSharedFolder() {
   const m = findSharedMap(currentShared);
-  if (!canEditShared(m)) {
-    toast('Alleen een beheerder of editor kan een gedeelde map aanmaken');
-    return;
-  }
-  if (!currentUser) return;
-  if (!m || String(m.ownerId) !== String(currentUser.id)) {
-    toast(t('Je hebt geen rechten om een map toe te voegen'));
+  // Owner en editor mogen submappen maken.
+  if (!currentUser || !m || !canEditShared(m)) {
+    toast('Alleen de eigenaar of een editor kan een map aanmaken');
     return;
   }
   const name = $('newSharedFolderName').value.trim();

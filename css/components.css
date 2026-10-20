@@ -465,59 +465,6 @@ body,
   background: radial-gradient(circle at 72% 0, #16201d 0, #05090a 35%, #030607 100%) !important;
   color: var(--text, #eee8dc) !important;
 }
-body.savour-light,
-body.savour-light * {
-  color-scheme: dark !important;
-}
-body.savour-light,
-body.savour-light .app,
-body.savour-light .main,
-body.savour-light .content,
-body.savour-light .public-shell,
-body.savour-light .public-shell-header,
-body.savour-light .public-shell-main {
-  background: radial-gradient(circle at 72% 0, #16201d 0, #05090a 35%, #030607 100%) !important;
-  color: var(--text, #eee8dc) !important;
-}
-body.savour-light .sidebar {
-  background: linear-gradient(180deg, #071011, #030707) !important;
-  border-color: #20292a !important;
-}
-body.savour-light .topbar,
-.savour-light .public-shell-header {
-  background: #05090ad9 !important;
-  border-color: #1d2728 !important;
-}
-body.savour-light .panel,
-body.savour-light .card,
-body.savour-light .folder,
-body.savour-light .stat,
-body.savour-light .quick .q,
-body.savour-light .detail-hero,
-body.savour-light .field input,
-body.savour-light .field textarea,
-body.savour-light .field select {
-  background: linear-gradient(145deg, #0d1516, #081011) !important;
-  color: #eee8dc !important;
-  border-color: #293536 !important;
-}
-body.savour-light .btn {
-  background: #0b1213 !important;
-  color: #f2eee4 !important;
-  border-color: #806f4b !important;
-}
-body.savour-light .btn.gold {
-  background: var(--gold) !important;
-  color: #17140f !important;
-  border-color: var(--gold) !important;
-}
-body.savour-light .public-info-view p,
-body.savour-light .public-info-view h1,
-body.savour-light .public-info-view h2,
-body.savour-light .public-info-view h3,
-body.savour-light .public-info-view strong {
-  color: inherit !important;
-}
 
 /* ===== Detailpagina en omrekenen ===== */
 :root {
@@ -765,4 +712,146 @@ body,
   #sharedMapManage h1 {
     font-size: 30px !important;
   }
+}
+
+/* ===== Weergave-keuze in Instellingen ===== */
+.theme-choice {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.theme-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  min-height: 44px;
+}
+.theme-option input {
+  accent-color: var(--gold);
+  margin: 0;
+}
+.theme-option:has(input:checked) {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+body.savour-light .theme-option {
+  border-color: #d9d6cf;
+}
+body.savour-light .theme-option:has(input:checked) {
+  border-color: #111;
+  color: #111;
+}
+
+/* ===== Licht thema (keuze in Instellingen) =====
+   De donkere basis zet achtergronden met #appShell en !important; daarom staan de lichte varianten hier,
+   met minstens hetzelfde gewicht. Publieke pagina's blijven altijd donker. */
+html:has(body.savour-light),
+body.savour-light,
+body.savour-light #appShell,
+body.savour-light #appShell .main,
+body.savour-light #appShell .view,
+body.savour-light #appShell .content {
+  background: #f5f4ef !important;
+  color: #151716 !important;
+}
+body.savour-light,
+body.savour-light * {
+  color-scheme: light;
+}
+body.savour-light #appShell .sidebar {
+  background: #fff !important;
+  border-color: #dedcd4 !important;
+}
+body.savour-light #appShell .topbar {
+  background: #ffffffed !important;
+  border-color: #dedcd4 !important;
+}
+body.savour-light #appShell .panel,
+body.savour-light #appShell .card,
+body.savour-light #appShell .folder,
+body.savour-light #appShell .stat,
+body.savour-light #appShell .quick .q,
+body.savour-light #appShell .detail-hero,
+body.savour-light .modal .modalbox {
+  background: #fff !important;
+  color: #151716 !important;
+  border-color: #dedcd4 !important;
+  box-shadow: 0 10px 30px #0000000d !important;
+}
+body.savour-light #appShell .field input,
+body.savour-light #appShell .field textarea,
+body.savour-light #appShell .field select,
+body.savour-light .modal input,
+body.savour-light .modal textarea,
+body.savour-light .modal select {
+  background: #fff !important;
+  color: #151716 !important;
+  border-color: #cbc9c0 !important;
+}
+body.savour-light #appShell .btn,
+body.savour-light .modal .btn {
+  background: #fff !important;
+  color: #171918 !important;
+  border-color: #c4b99e !important;
+}
+body.savour-light #appShell .btn.gold,
+body.savour-light .modal .btn.gold {
+  background: #171918 !important;
+  color: #fff !important;
+  border-color: #171918 !important;
+}
+body.savour-light .savour-v13-row {
+  color: #171918 !important;
+  border-color: #e6e3db !important;
+}
+body.savour-light .savour-v13-row:hover {
+  background: #f3f1ea !important;
+}
+body.savour-light .savour-v13-number {
+  color: #8a8f88 !important;
+}
+body.savour-light .savour-v13-arrow {
+  color: #8a8f88 !important;
+}
+body.savour-light .savour-v27-favorite {
+  color: #9c7a2c !important;
+}
+body.savour-light .recipe-alphabet button:not(.active),
+body.savour-light .savour-v13-alphabet button:not(.active) {
+  color: #3c403b !important;
+  border-color: #dedcd4 !important;
+}
+body.savour-light .savour-v30-quick-add {
+  background: #fff !important;
+  color: #171918 !important;
+  border-color: #d9d6cf !important;
+}
+body.savour-light #appShell .step,
+body.savour-light #appShell .step span {
+  color: #171918 !important;
+}
+body.savour-light #appShell .manage-item {
+  background: #fff !important;
+  color: #171918 !important;
+  border-color: #dedcd4 !important;
+}
+body.savour-light #appShell .manage-item small {
+  color: #6b7069 !important;
+} /* Goud als tekstkleur is op wit te licht; in het lichte thema een donkerder goud. */
+body.savour-light #appShell .eyebrow,
+body.savour-light #appShell .stat strong,
+body.savour-light #appShell .side-quote small,
+body.savour-light #appShell .card .cat {
+  color: #8a6a22 !important;
+}
+body.savour-light #appShell .savour-v13-number,
+body.savour-light #appShell .savour-v13-arrow,
+body.savour-light #appShell .drag-handle {
+  color: #6f746d !important;
 }
