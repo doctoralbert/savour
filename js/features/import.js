@@ -502,6 +502,7 @@ async function importTextFile(file) {
   }
   return drafts;
 }
+// done mag een kommagetal zijn: een foto die half gelezen is, telt als 0,5.
 function updateImportProgress(done, total, label = '') {
   const wrap = $('importProgressWrap'),
     bar = $('importProgressBar'),
@@ -510,7 +511,19 @@ function updateImportProgress(done, total, label = '') {
   wrap.style.display = 'block';
   const pct = total ? Math.round((done / total) * 100) : 0;
   bar.style.width = pct + '%';
-  if (txt) txt.textContent = label || `${done} / ${total} bestanden verwerkt · ${pct}%`;
+  if (txt) txt.textContent = label || `${Math.floor(done)} / ${total} bestanden verwerkt · ${pct}%`;
+}
+
+// Bestanden die nu worden gelezen, met hoe lang dat ongeveer duurt. Zo loopt de voortgangsbalk ook
+// tijdens het lezen van één foto (± 20 seconden) rustig vol in plaats van stil te staan.
+const importInFlight = new Map();
+const IMPORT_EXPECTED_MS = { photo: 22000, file: 8000 };
+
+function importInFlightFraction() {
+  let sum = 0;
+  for (const f of importInFlight.values())
+    sum += Math.min(0.95, 1 - Math.exp(-(Date.now() - f.start) / (f.expected / 2)));
+  return sum;
 }
 
 // Recepten die de AI als onvolledig zag; de chef kan ze met "Toch importeren" alsnog controleren.
@@ -570,13 +583,26 @@ async function processImportFiles(files) {
   const failures = [];
   let done = 0;
   const queue = [...valid];
+  const progressLabel = () =>
+    `${done} / ${valid.length} bestanden verwerkt${failures.length ? ` · ${failures.length} mislukt` : ''} · ${Math.round(((done + importInFlightFraction()) / valid.length) * 100)}%`;
+  importInFlight.clear();
+  const ticker = setInterval(
+    () => updateImportProgress(done + importInFlightFraction(), valid.length, progressLabel()),
+    250
+  );
   const worker = async () => {
     while (queue.length) {
       const file = queue.shift();
+      const isPhoto = /\.(jpe?g|png|webp)$/i.test(file.name || '');
+      importInFlight.set(file, {
+        start: Date.now(),
+        expected: isPhoto ? IMPORT_EXPECTED_MS.photo : IMPORT_EXPECTED_MS.file
+      });
+      if (isPhoto) $('importStatus').textContent = `${file.name} wordt gelezen (twee keer, voor de zekerheid)…`;
       try {
         const name = (file.name || '').toLowerCase();
         let drafts;
-        if (/\.(jpe?g|png|webp)$/i.test(name)) drafts = await importImageFile(file);
+        if (isPhoto) drafts = await importImageFile(file);
         else if (/\.doc$/i.test(name))
           throw new Error(
             'Oud .doc-formaat wordt nog niet rechtstreeks uitgelezen. Sla het document op als .docx en probeer opnieuw.'
@@ -587,19 +613,17 @@ async function processImportFiles(files) {
         console.error('Bulk import', file.name, e);
         failures.push({ name: file.name, error: e?.message || 'Import mislukt.', pro: e?.code === 'pro_required' });
       } finally {
+        importInFlight.delete(file);
         done++;
         $('importStatus').textContent =
           `${done} / ${valid.length} bestanden verwerkt${failures.length ? ` · ${failures.length} mislukt` : ''}…`;
-        updateImportProgress(
-          done,
-          valid.length,
-          `${done} / ${valid.length} bestanden verwerkt${failures.length ? ` · ${failures.length} mislukt` : ''} · ${Math.round((done / valid.length) * 100)}%`
-        );
+        updateImportProgress(done + importInFlightFraction(), valid.length, progressLabel());
       }
     }
   };
   const workers = Array.from({ length: Math.min(3, valid.length) }, () => worker());
   await Promise.all(workers);
+  clearInterval(ticker);
   // Onvolledige recepten (bijv. afgesneden op de foto) niet importeren, maar wel melden. Vergist de AI
   // zich, dan kan de chef ze met "Toch importeren" alsnog controleren: er gaat nooit iets verloren.
   skippedIncomplete = batchDrafts.filter(r => r._incomplete);

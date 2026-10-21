@@ -2852,6 +2852,7 @@ export const patterns = [
     'Du hast diesen Monat alle $1 KI-Importe genutzt.',
     'Has usado las $1 importaciones con IA de este mes.'
   ],
+  ['^(.+) wordt gelezen \\(twee keer, voor de zekerheid\\)…$', 'Reading $1 (twice, to be sure)…', '$1 wird gelesen (zweimal, zur Sicherheit)…', 'Leyendo $1 (dos veces, para asegurarnos)…'],
   [
     '^(.+): pagina (\\d+) van (\\d+) wordt gelezen…$',
     '$1: reading page $2 of $3…',
