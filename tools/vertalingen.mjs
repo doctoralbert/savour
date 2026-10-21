@@ -1020,6 +1020,7 @@ export const strings = [
     'Die KI ist auf diesem Server nicht eingerichtet.',
     'La IA no está configurada en este servidor.'
   ],
+  ['Het OpenAI-tegoed is op.', 'The OpenAI credit has run out.', 'Das OpenAI-Guthaben ist aufgebraucht.', 'El saldo de OpenAI se ha agotado.'],
   ['Zonder AI · controleren', 'Without AI · check', 'Ohne KI · prüfen', 'Sin IA · revisar'],
   [
     '). Controleer titel, ingrediënten en bereiding extra goed.',

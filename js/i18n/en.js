@@ -351,6 +351,7 @@ window.SAVOUR_I18N.en = {
     "Aanpassen": "Apply",
     "Standaardlijst": "Default list",
     "De AI is op deze server niet ingesteld.": "AI is not set up on this server.",
+    "Het OpenAI-tegoed is op.": "The OpenAI credit has run out.",
     "Zonder AI · controleren": "Without AI · check",
     "). Controleer titel, ingrediënten en bereiding extra goed.": "). Check the title, ingredients and method carefully.",
     "Geen recepten verwerkt.": "No recipes processed.",

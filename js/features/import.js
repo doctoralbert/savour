@@ -257,10 +257,15 @@ async function callAiImport(body) {
   });
   const result = await response.json().catch(() => ({}));
   if (!response.ok) {
-    const message = /OPENAI_API_KEY/.test(result?.error || '')
+    const raw = result?.error || '';
+    // Tegoed op geeft ook 429, maar opnieuw proberen heeft dan geen zin.
+    const noCredit = /quota|billing|credit/i.test(raw);
+    const message = /OPENAI_API_KEY/.test(raw)
       ? 'De AI is op deze server niet ingesteld.'
-      : result?.error || (response.status === 413 ? 'Het bestand is te groot.' : 'AI-import mislukt.');
-    throw Object.assign(new Error(message), { status: response.status });
+      : noCredit
+        ? 'Het OpenAI-tegoed is op.'
+        : raw || (response.status === 413 ? 'Het bestand is te groot.' : 'AI-import mislukt.');
+    throw Object.assign(new Error(message), { status: response.status, final: noCredit });
   }
   return Array.isArray(result?.recipes) ? result.recipes : [];
 }
@@ -273,7 +278,8 @@ async function callAiImportWithRetry(body) {
     try {
       return await callAiImport(body);
     } catch (e) {
-      const temporary = e.status === 429 || (e.status >= 502 && e.status <= 504) || e instanceof TypeError;
+      const temporary =
+        !e.final && (e.status === 429 || (e.status >= 502 && e.status <= 504) || e instanceof TypeError);
       if (!temporary || attempt >= waits.length) throw e;
       await new Promise(r => setTimeout(r, waits[attempt]));
     }

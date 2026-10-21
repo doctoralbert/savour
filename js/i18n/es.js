@@ -351,6 +351,7 @@ window.SAVOUR_I18N.es = {
     "Aanpassen": "Aplicar",
     "Standaardlijst": "Lista estándar",
     "De AI is op deze server niet ingesteld.": "La IA no está configurada en este servidor.",
+    "Het OpenAI-tegoed is op.": "El saldo de OpenAI se ha agotado.",
     "Zonder AI · controleren": "Sin IA · revisar",
     "). Controleer titel, ingrediënten en bereiding extra goed.": "). Revisa con atención el título, los ingredientes y la preparación.",
     "Geen recepten verwerkt.": "No se procesó ninguna receta.",

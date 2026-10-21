@@ -351,6 +351,7 @@ window.SAVOUR_I18N.de = {
     "Aanpassen": "Übernehmen",
     "Standaardlijst": "Standardliste",
     "De AI is op deze server niet ingesteld.": "Die KI ist auf diesem Server nicht eingerichtet.",
+    "Het OpenAI-tegoed is op.": "Das OpenAI-Guthaben ist aufgebraucht.",
     "Zonder AI · controleren": "Ohne KI · prüfen",
     "). Controleer titel, ingrediënten en bereiding extra goed.": "). Prüfe Titel, Zutaten und Zubereitung besonders gründlich.",
     "Geen recepten verwerkt.": "Keine Rezepte verarbeitet.",
