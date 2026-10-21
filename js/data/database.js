@@ -229,6 +229,8 @@ async function startDatabaseSession(user) {
       await migrateLegacySharedMaps();
       await loadDatabaseState();
       await loadPlanState();
+      renderProNav();
+      renderAdminNav();
       if (window.__proRoute) openPublicInfo('pro');
       else showApp('recipes');
       refreshSidebar();

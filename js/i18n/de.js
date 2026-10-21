@@ -476,6 +476,7 @@ window.SAVOUR_I18N.de = {
     'Savour Pro · gratis proefperiode': 'Savour Pro · kostenlose Testphase',
     'Savour Pro · proefperiode': 'Savour Pro · Testphase',
     'Je team': 'Dein Team',
+    'Mijn abonnement': 'Mein Abo',
     'Teamlid · Savour Pro': 'Teammitglied · Savour Pro',
     'Plek vrijgeven': 'Platz freigeben',
     'Alle plekken zijn bezet. Een groter team kies je via Abonnement beheren.':

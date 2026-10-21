@@ -250,9 +250,40 @@ function renderProPage(host) {
     <p><strong>Hoe zeg ik op?</strong><br>In Mijn account → Abonnement → Abonnement beheren. Daar wijzig je ook je betaalmethode en download je facturen.</p>`;
 }
 
+// ---- Zijbalk: "Savour Pro" (upgraden) of "Mijn abonnement" (al Pro), en Admin voor beheerders ----
+
+function hasOwnPro() {
+  return ['subscription', 'gift', 'team_owner', 'team_member'].includes(savourPlan.source);
+}
+
+function renderProNav() {
+  const label = $('navProLabel');
+  if (label) label.textContent = hasOwnPro() ? 'Mijn abonnement' : 'Savour Pro';
+}
+
+function openProNav() {
+  if (!hasOwnPro()) return go('pro');
+  go('settings');
+  setTimeout(() => $('settingsPlan')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120);
+}
+
+// De server (api/admin.js, ADMIN_EMAILS) beslist of iemand beheerder is; de knop is alleen een snelkoppeling.
+async function renderAdminNav() {
+  const btn = $('navAdmin');
+  if (!btn) return;
+  btn.style.display = 'none';
+  if (!currentUser || demoMode) return;
+  try {
+    if ((await adminApi('whoami')).admin) btn.style.display = '';
+  } catch {
+    // Geen beheerder of server niet bereikbaar: knop blijft verborgen.
+  }
+}
+
 // ---- Abonnement en team in Instellingen ----
 
 function renderPlanSettings() {
+  renderProNav();
   const host = $('settingsPlan');
   if (!host) return;
   const s = savourPlan;

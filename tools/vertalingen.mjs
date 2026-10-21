@@ -1270,6 +1270,7 @@ export const strings = [
   ['Savour Pro · gratis proefperiode', 'Savour Pro · free trial', 'Savour Pro · kostenlose Testphase', 'Savour Pro · prueba gratuita'],
   ['Savour Pro · proefperiode', 'Savour Pro · trial', 'Savour Pro · Testphase', 'Savour Pro · prueba'],
   ['Je team', 'Your team', 'Dein Team', 'Tu equipo'],
+  ['Mijn abonnement', 'My subscription', 'Mein Abo', 'Mi suscripción'],
   ['Teamlid · Savour Pro', 'Team member · Savour Pro', 'Teammitglied · Savour Pro', 'Miembro del equipo · Savour Pro'],
   ['Plek vrijgeven', 'Free up seat', 'Platz freigeben', 'Liberar plaza'],
   [
