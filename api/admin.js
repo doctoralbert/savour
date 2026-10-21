@@ -28,7 +28,7 @@ function accountType(user, sub, ownOrg, memberOrg) {
   if (running(ownOrg))
     return { type: 'team', label: `Team ${ownOrg.seats} · eigenaar`, until: ownOrg.current_period_end };
   if (running(memberOrg)) return { type: 'team', label: `Team · ${memberOrg.name}` };
-  const trialEnd = new Date(new Date(user.created_at).getTime() + 14 * 86400000);
+  const trialEnd = new Date(new Date(user.created_at).getTime() + 7 * 86400000);
   if (trialEnd > new Date()) return { type: 'trial', label: 'Proef', until: trialEnd.toISOString() };
   return { type: 'free', label: 'Gratis' };
 }

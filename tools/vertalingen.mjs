@@ -1177,10 +1177,10 @@ export const strings = [
   ['Je probeert Savour Pro gratis.', 'You are trying Savour Pro for free.', 'Du testest Savour Pro kostenlos.', 'Estás probando Savour Pro gratis.'],
   ['Nieuw bij Savour?', 'New to Savour?', 'Neu bei Savour?', '¿Nuevo en Savour?'],
   [
-    'Je krijgt 14 dagen Savour Pro gratis, zonder betaalgegevens.',
-    'You get 14 days of Savour Pro free, no payment details needed.',
-    'Du bekommst 14 Tage Savour Pro kostenlos, ohne Zahlungsdaten.',
-    'Recibes 14 días de Savour Pro gratis, sin datos de pago.'
+    'Je probeert Savour Pro 7 dagen gratis, zonder betaalgegevens: AI-import en gedeelde mappen, tot 100 recepten.',
+    'Try Savour Pro free for 7 days, no payment details needed: AI import and shared folders, up to 100 recipes.',
+    'Teste Savour Pro 7 Tage kostenlos, ohne Zahlungsdaten: KI-Import und geteilte Ordner, bis zu 100 Rezepte.',
+    'Prueba Savour Pro 7 días gratis, sin datos de pago: importación con IA y carpetas compartidas, hasta 100 recetas.'
   ],
   ['Savour voor je hele team', 'Savour for your whole team', 'Savour für dein ganzes Team', 'Savour para todo tu equipo'],
   [
@@ -1256,10 +1256,10 @@ export const strings = [
   ],
   ['Gratis beginnen. Pro voor je hele keuken.', 'Start for free. Pro for your whole kitchen.', 'Kostenlos starten. Pro für deine ganze Küche.', 'Empieza gratis. Pro para toda tu cocina.'],
   [
-    "Gratis bewaar je tot 100 recepten en importeer je Word, PDF en tekst met de Savour-lezer. Met Savour Pro bewaar je onbeperkt, maak je gedeelde mappen voor je team en leest de AI foto's van handgeschreven recepten en gescande pagina's. Nieuw bij Savour? Je krijgt 14 dagen Pro gratis.",
-    'For free you store up to 100 recipes and import Word, PDF and text with the Savour reader. With Savour Pro you store unlimited recipes, create shared folders for your team and the AI reads photos of handwritten recipes and scanned pages. New to Savour? You get 14 days of Pro free.',
-    'Kostenlos speicherst du bis zu 100 Rezepte und importierst Word, PDF und Text mit dem Savour-Leser. Mit Savour Pro speicherst du unbegrenzt, erstellst geteilte Ordner für dein Team und die KI liest Fotos handschriftlicher Rezepte und gescannte Seiten. Neu bei Savour? Du bekommst 14 Tage Pro kostenlos.',
-    'Gratis guardas hasta 100 recetas e importas Word, PDF y texto con el lector de Savour. Con Savour Pro guardas sin límite, creas carpetas compartidas para tu equipo y la IA lee fotos de recetas manuscritas y páginas escaneadas. ¿Nuevo en Savour? Tienes 14 días de Pro gratis.'
+    "Gratis bewaar je tot 100 recepten en importeer je Word, PDF en tekst met de Savour-lezer. Met Savour Pro bewaar je onbeperkt, maak je gedeelde mappen voor je team en leest de AI foto's van handgeschreven recepten en gescande pagina's. Nieuw bij Savour? Je probeert Pro 7 dagen gratis.",
+    'For free you store up to 100 recipes and import Word, PDF and text with the Savour reader. With Savour Pro you store unlimited recipes, create shared folders for your team and the AI reads photos of handwritten recipes and scanned pages. New to Savour? Try Pro free for 7 days.',
+    'Kostenlos speicherst du bis zu 100 Rezepte und importierst Word, PDF und Text mit dem Savour-Leser. Mit Savour Pro speicherst du unbegrenzt, erstellst geteilte Ordner für dein Team und die KI liest Fotos handschriftlicher Rezepte und gescannte Seiten. Neu bei Savour? Teste Pro 7 Tage kostenlos.',
+    'Gratis guardas hasta 100 recetas e importas Word, PDF y texto con el lector de Savour. Con Savour Pro guardas sin límite, creas carpetas compartidas para tu equipo y la IA lee fotos de recetas manuscritas y páginas escaneadas. ¿Nuevo en Savour? Prueba Pro 7 días gratis.'
   ],
   [
     'of €29 per jaar · teams vanaf €1,20 per persoon',
@@ -1372,10 +1372,10 @@ export const strings = [
   ],
   ['8. Gratis account en Savour Pro', '8. Free account and Savour Pro', '8. Kostenloses Konto und Savour Pro', '8. Cuenta gratuita y Savour Pro'],
   [
-    'Een gratis account bevat tot 100 recepten. Nieuwe accounts krijgen eenmalig 14 dagen Savour Pro zonder kosten; daarna gaat het account vanzelf terug naar gratis, zonder dat er iets wordt afgeschreven. Savour Pro is een betaald abonnement per maand of per jaar, voor één persoon of als teamabonnement met een vast aantal plekken, dat automatisch wordt verlengd tot je het opzegt. Opzeggen kan op elk moment via Mijn account; je houdt Savour Pro tot het einde van de betaalde periode. Na afloop blijven al je recepten en gedeelde mappen bewaard. Savour Pro bevat maximaal 500 AI-imports per persoon per maand. Betalingen worden verwerkt door Stripe.',
-    'A free account includes up to 100 recipes. New accounts get a one-time 14 days of Savour Pro free of charge; after that the account automatically returns to free, without any charge. Savour Pro is a paid monthly or yearly subscription, for one person or as a team subscription with a fixed number of seats, which renews automatically until you cancel. You can cancel at any time via My account; you keep Savour Pro until the end of the paid period. Afterwards all your recipes and shared folders are kept. Savour Pro includes up to 500 AI imports per person per month. Payments are processed by Stripe.',
-    'Ein kostenloses Konto umfasst bis zu 100 Rezepte. Neue Konten erhalten einmalig 14 Tage Savour Pro kostenlos; danach wechselt das Konto automatisch zurück zu kostenlos, ohne dass etwas abgebucht wird. Savour Pro ist ein kostenpflichtiges Monats- oder Jahresabo, für eine Person oder als Team-Abo mit einer festen Anzahl Plätze, das sich automatisch verlängert, bis du kündigst. Kündigen kannst du jederzeit über Mein Konto; Savour Pro bleibt bis zum Ende des bezahlten Zeitraums aktiv. Danach bleiben alle Rezepte und geteilten Ordner erhalten. Savour Pro umfasst bis zu 500 KI-Importe pro Person und Monat. Zahlungen werden von Stripe abgewickelt.',
-    'Una cuenta gratuita incluye hasta 100 recetas. Las cuentas nuevas reciben una sola vez 14 días de Savour Pro sin coste; después la cuenta vuelve automáticamente al plan gratuito, sin ningún cargo. Savour Pro es una suscripción de pago mensual o anual, para una persona o como suscripción de equipo con un número fijo de plazas, que se renueva automáticamente hasta que la canceles. Puedes cancelar en cualquier momento desde Mi cuenta; mantienes Savour Pro hasta el final del periodo pagado. Después se conservan todas tus recetas y carpetas compartidas. Savour Pro incluye hasta 500 importaciones con IA por persona al mes. Los pagos los procesa Stripe.'
+    'Een gratis account bevat tot 100 recepten. Nieuwe accounts krijgen eenmalig 7 dagen Savour Pro zonder kosten, met ook dan maximaal 100 recepten; daarna gaat het account vanzelf terug naar gratis, zonder dat er iets wordt afgeschreven. Savour Pro is een betaald abonnement per maand of per jaar, voor één persoon of als teamabonnement met een vast aantal plekken, dat automatisch wordt verlengd tot je het opzegt. Opzeggen kan op elk moment via Mijn account; je houdt Savour Pro tot het einde van de betaalde periode. Na afloop blijven al je recepten en gedeelde mappen bewaard. Savour Pro bevat maximaal 500 AI-imports per persoon per maand. Betalingen worden verwerkt door Stripe.',
+    'A free account includes up to 100 recipes. New accounts get a one-time 7 days of Savour Pro free of charge, also limited to 100 recipes; after that the account automatically returns to free, without any charge. Savour Pro is a paid monthly or yearly subscription, for one person or as a team subscription with a fixed number of seats, which renews automatically until you cancel. You can cancel at any time via My account; you keep Savour Pro until the end of the paid period. Afterwards all your recipes and shared folders are kept. Savour Pro includes up to 500 AI imports per person per month. Payments are processed by Stripe.',
+    'Ein kostenloses Konto umfasst bis zu 100 Rezepte. Neue Konten erhalten einmalig 7 Tage Savour Pro kostenlos, auch dann mit höchstens 100 Rezepten; danach wechselt das Konto automatisch zurück zu kostenlos, ohne dass etwas abgebucht wird. Savour Pro ist ein kostenpflichtiges Monats- oder Jahresabo, für eine Person oder als Team-Abo mit einer festen Anzahl Plätze, das sich automatisch verlängert, bis du kündigst. Kündigen kannst du jederzeit über Mein Konto; Savour Pro bleibt bis zum Ende des bezahlten Zeitraums aktiv. Danach bleiben alle Rezepte und geteilten Ordner erhalten. Savour Pro umfasst bis zu 500 KI-Importe pro Person und Monat. Zahlungen werden von Stripe abgewickelt.',
+    'Una cuenta gratuita incluye hasta 100 recetas. Las cuentas nuevas reciben una sola vez 7 días de Savour Pro sin coste, también con un máximo de 100 recetas; después la cuenta vuelve automáticamente al plan gratuito, sin ningún cargo. Savour Pro es una suscripción de pago mensual o anual, para una persona o como suscripción de equipo con un número fijo de plazas, que se renueva automáticamente hasta que la canceles. Puedes cancelar en cualquier momento desde Mi cuenta; mantienes Savour Pro hasta el final del periodo pagado. Después se conservan todas tus recetas y carpetas compartidas. Savour Pro incluye hasta 500 importaciones con IA por persona al mes. Los pagos los procesa Stripe.'
   ],
   ['9. Over de aanbieder', '9. About the provider', '9. Über den Anbieter', '9. Sobre el proveedor'],
   [
@@ -3251,7 +3251,26 @@ export const patterns = [
     'Word, PDF und Text liest du kostenlos ein (noch $1 von $2 Rezepten in deinem kostenlosen Konto). Fotos, handschriftliche und gescannte Rezepte liest die KI: nur in Savour Pro.',
     'Importas Word, PDF y texto gratis (te quedan $1 de $2 recetas en tu cuenta gratuita). Las fotos y recetas manuscritas o escaneadas las lee la IA: solo en Savour Pro.'
   ],
-  ['^Je gratis account zit aan (\\d+) recepten$', 'Your free account has reached $1 recipes', 'Dein kostenloses Konto hat $1 Rezepte erreicht', 'Tu cuenta gratuita ha llegado a $1 recetas'],
+  ['^Je gratis account bewaart tot (\\d+) recepten$', 'Your free account stores up to $1 recipes', 'Dein kostenloses Konto speichert bis zu $1 Rezepte', 'Tu cuenta gratuita guarda hasta $1 recetas'],
+  ['^In de proefperiode bewaar je tot (\\d+) recepten$', 'During the trial you store up to $1 recipes', 'In der Testphase speicherst du bis zu $1 Rezepte', 'Durante la prueba guardas hasta $1 recetas'],
+  [
+    '^Tot (.+), met maximaal (\\d+) recepten\\. Daarna ga je vanzelf terug naar gratis; je betaalt niets zonder dat je zelf kiest\\.$',
+    'Until $1, with up to $2 recipes. After that you automatically go back to free; you never pay unless you choose to.',
+    'Bis $1, mit höchstens $2 Rezepten. Danach wechselst du automatisch zurück zu kostenlos; du zahlst nichts, ohne es selbst zu wählen.',
+    'Hasta el $1, con un máximo de $2 recetas. Después vuelves automáticamente al plan gratuito; nunca pagas sin elegirlo tú.'
+  ],
+  [
+    '^Tot (.+)\\. (\\d+) van (\\d+) recepten; onbeperkt bewaren kan met Savour Pro\\. Daarna ga je vanzelf terug naar gratis, tenzij je zelf Pro kiest\\.$',
+    'Until $1. $2 of $3 recipes; unlimited storage comes with Savour Pro. After that you automatically go back to free, unless you choose Pro.',
+    'Bis $1. $2 von $3 Rezepten; unbegrenzt speichern geht mit Savour Pro. Danach wechselst du automatisch zurück zu kostenlos, außer du wählst Pro.',
+    'Hasta el $1. $2 de $3 recetas; guardar sin límite es con Savour Pro. Después vuelves automáticamente al plan gratuito, salvo que elijas Pro.'
+  ],
+  [
+    '^(\\d+) van (\\d+) AI-imports gebruikt deze maand\\. Eerst leest de Savour-lezer alles, gratis\\. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee\\. In de proefperiode bewaar je tot (\\d+) recepten \\(nog (\\d+)\\)\\.$',
+    '$1 of $2 AI imports used this month. The Savour reader reads everything first, for free. Only where it is unsure does the AI check automatically: only that counts. During the trial you store up to $3 recipes ($4 left).',
+    '$1 von $2 KI-Importen diesen Monat genutzt. Zuerst liest der Savour-Leser alles, kostenlos. Nur wo er unsicher ist, liest die KI automatisch nach: nur das zählt. In der Testphase speicherst du bis zu $3 Rezepte (noch $4).',
+    '$1 de $2 importaciones con IA usadas este mes. Primero el lector de Savour lo lee todo, gratis. Solo donde duda, la IA revisa automáticamente: solo eso cuenta. Durante la prueba guardas hasta $3 recetas (quedan $4).'
+  ],
   [
     '^Met Savour Pro bewaar je onbeperkt recepten \\(vanaf (€[\\d,]+) per maand\\)\\. Je bestaande recepten blijven altijd gewoon staan\\.$',
     'With Savour Pro you store unlimited recipes (from $1 per month). Your existing recipes always stay.',

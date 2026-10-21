@@ -14,7 +14,8 @@ Savour is een receptbeheer-app voor professionele koks (Nederlands). Lees eerst 
 
 Verdienmodel: gratis basis + Savour Pro (€2,99 p/m of €29 p/j, via Stripe) + teams (5/10/25 plekken,
 €8,99/€14,99/€29,99 p/m). Gratis = tot 100 recepten, Savour-lezer, lid van gedeelde mappen. Pro = onbeperkt
-recepten, zelf gedeelde mappen maken, AI-import (max. 500 per maand). Nieuwe accounts: 14 dagen Pro gratis.
+recepten, zelf gedeelde mappen maken, AI-import (max. 500 per maand). Nieuwe accounts: 7 dagen Pro gratis, maar ook dan tot 100 recepten
+(`supabase/2026-10-23-proef-7-dagen.sql`: savour_paid_pro voor onbeperkt bewaren).
 Wie stopt met Pro houdt altijd alles; alleen toevoegen boven de grens kan niet. Regels in de database:
 `supabase/2026-10-22-gratis-pro-teams.sql` (savour_is_pro, savour_my_plan). Beheer: /admin (api/admin.js). Importeren gaat altijd eerst via de eigen lezer
 (`js/features/recipe-reader.js`, test: `npm run test:lezer`); alleen bij twijfel en met Pro naar de AI.

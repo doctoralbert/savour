@@ -91,9 +91,13 @@ vervang in Vercel de vier Stripe-waarden door de live-waarden.
 
 - gratis accounts maximaal 100 eigen recepten (bestaande recepten blijven altijd staan);
 - een gedeelde map maken is Pro (lid zijn van andermans map blijft gratis);
-- nieuwe accounts 14 dagen Pro gratis, zonder betaalgegevens;
+- nieuwe accounts Pro gratis om te proberen, zonder betaalgegevens;
 - teams (organisaties) met een pakket plekken;
 - de organisatie in het profiel.
+
+Voer daarna `supabase/2026-10-23-proef-7-dagen.sql` uit: de proefperiode duurt dan 7 dagen, en ook tijdens de
+proef blijft de grens van 100 recepten gelden. Onbeperkt bewaren kan alleen met een betaald abonnement,
+cadeau of teamplek.
 
 Let op: met deze regels is ook het account van de eigenaar "gratis" zodra de proefperiode voorbij is. Geef
 jezelf in het beheerscherm **Pro geven → Onbeperkt**, anders kun je boven de 100 recepten niets toevoegen.

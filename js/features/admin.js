@@ -220,7 +220,7 @@ async function loadAdminOverview() {
         ['Accounts', t.accounts, `${t.new_7_days} nieuw deze week`],
         ['Niet bevestigd', t.unconfirmed, 'e-mail nog niet geverifieerd'],
         ['Gratis', t.free, 'accounts zonder Pro'],
-        ['Proefperiode', t.trial, '14 dagen Pro'],
+        ['Proefperiode', t.trial, '7 dagen Pro'],
         ['Pro betaald', t.pro, 'eigen abonnement'],
         ['Teams', t.teams, `${t.team_members} teamleden met Pro`],
         ['Pro cadeau', t.gift, 'door jou gegeven'],

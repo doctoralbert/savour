@@ -2,8 +2,10 @@
 // importeren.
 // Gratis: tot 100 eigen recepten, de Savour-lezer, lid zijn van gedeelde mappen.
 // Pro: onbeperkt recepten, zelf gedeelde mappen maken en je team uitnodigen, AI-import (500 per maand).
-// Nieuwe accounts: 14 dagen Pro gratis. Teams: een pakket plekken voor een organisatie.
-// De echte controle zit in de database (supabase/2026-10-22-gratis-pro-teams.sql) en op de server.
+// Nieuwe accounts: 7 dagen Pro gratis, maar ook dan tot 100 recepten (onbeperkt bewaren is alleen betaald).
+// Teams: een pakket plekken voor een organisatie.
+// De echte controle zit in de database (supabase/2026-10-22-gratis-pro-teams.sql en 2026-10-23-proef-7-dagen.sql)
+// en op de server.
 
 const PRO_PRICES = { month: '€2,99', year: '€29' };
 const FREE_RECIPE_LIMIT = 100;
@@ -15,8 +17,11 @@ const TEAM_PLANS = [
 ];
 const PRO_INTENT_KEY = 'savour_pro_intent';
 
+const TRIAL_DAYS = 7;
+
 const EMPTY_PLAN = {
   pro: false,
+  unlimited: false,
   source: 'free',
   status: '',
   plan: '',
@@ -36,18 +41,19 @@ function isPro() {
   return !!savourPlan.pro;
 }
 
-// Hoeveel eigen recepten mag deze gebruiker nog toevoegen? Infinity met Pro.
+// Hoeveel eigen recepten mag deze gebruiker nog toevoegen? Infinity met betaald Pro (niet in de proefperiode).
 function recipeRoomLeft() {
-  return isPro() || demoMode ? Infinity : Math.max(0, savourPlan.recipeLimit - recipes.length);
+  return savourPlan.unlimited || demoMode ? Infinity : Math.max(0, savourPlan.recipeLimit - recipes.length);
 }
 
-// Melding als een gratis account aan de 100 recepten zit. Geeft true als er nog ruimte is.
+// Melding als een gratis account (of proefperiode) aan de 100 recepten zit. Geeft true als er nog ruimte is.
 async function checkRecipeRoom(count = 1) {
   const left = recipeRoomLeft();
   if (left >= count) return true;
+  const who = savourPlan.source === 'trial' ? 'In de proefperiode bewaar je' : 'Je gratis account bewaart';
   if (
     await askConfirm(
-      `Je gratis account zit aan ${FREE_RECIPE_LIMIT} recepten\n\nMet Savour Pro bewaar je onbeperkt recepten (vanaf ${PRO_PRICES.month} per maand). Je bestaande recepten blijven altijd gewoon staan.`,
+      `${who} tot ${FREE_RECIPE_LIMIT} recepten\n\nMet Savour Pro bewaar je onbeperkt recepten (vanaf ${PRO_PRICES.month} per maand). Je bestaande recepten blijven altijd gewoon staan.`,
       { confirmLabel: 'Bekijk Savour Pro' }
     )
   )
@@ -65,6 +71,8 @@ async function loadPlanState() {
     savourPlan = {
       ...EMPTY_PLAN,
       pro: !!p.pro,
+      // Oude SQL zonder 'unlimited': toen gaf elke vorm van Pro onbeperkt recepten.
+      unlimited: p.unlimited ?? !!p.pro,
       source: p.source || 'free',
       status: p.status || '',
       plan: p.plan || '',
@@ -92,6 +100,7 @@ async function loadPlanState() {
     savourPlan = {
       ...EMPTY_PLAN,
       pro: !!s && ['active', 'trialing', 'past_due', 'canceled'].includes(s.status) && running,
+      unlimited: true,
       // Zonder de nieuwe SQL bestaat de recepten-limiet nog niet in de database; dan ook niet in de app.
       recipeLimit: Infinity,
       status: s?.status || '',
@@ -240,13 +249,13 @@ function renderProPage(host) {
   const teamCards = TEAM_PLANS.map(teamCard).join('');
   const current =
     savourPlan.source === 'trial'
-      ? `<div class="pro-current"><b>Je probeert Savour Pro gratis.</b> <span>Tot ${esc(formatProDate(savourPlan.trialEnd))}. Daarna ga je vanzelf terug naar gratis; je betaalt niets zonder dat je zelf kiest.</span></div>`
+      ? `<div class="pro-current"><b>Je probeert Savour Pro gratis.</b> <span>Tot ${esc(formatProDate(savourPlan.trialEnd))}, met maximaal ${FREE_RECIPE_LIMIT} recepten. Daarna ga je vanzelf terug naar gratis; je betaalt niets zonder dat je zelf kiest.</span></div>`
       : isPro()
         ? `<div class="pro-current"><b>Je hebt Savour Pro.</b> <span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt deze maand.</span></div>`
         : '';
   host.innerHTML =
     current +
-    `<p class="pro-trial-note"><strong>Nieuw bij Savour?</strong> Je krijgt 14 dagen Savour Pro gratis, zonder betaalgegevens.</p>
+    `<p class="pro-trial-note"><strong>Nieuw bij Savour?</strong> Je probeert Savour Pro ${TRIAL_DAYS} dagen gratis, zonder betaalgegevens: AI-import en gedeelde mappen, tot ${FREE_RECIPE_LIMIT} recepten.</p>
     <div class="pro-prices">${card('month', PRO_PRICES.month, 'per maand', 'Maandelijks opzegbaar.', false)}${card('year', PRO_PRICES.year, 'per jaar', 'Twee maanden gratis ten opzichte van maandelijks.', true)}</div>
     <p class="pro-pay muted">Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Er wordt geen btw gerekend (kleineondernemersregeling). Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.</p>
     ${
@@ -336,7 +345,7 @@ function renderPlanSettings() {
     row = `<b>Savour Pro · Team ${esc(s.team.seats)}</b><small>${esc(s.team.name)}${s.team.cancel_at_period_end ? ` · opgezegd, loopt tot ${esc(formatProDate(new Date(s.team.period_end)))}` : ''}</small>${ai}`;
   else if (s.source === 'team_member') row = `<b>Savour Pro</b><small>Via je team: ${esc(s.team.name)}.</small>${ai}`;
   else if (s.source === 'trial')
-    row = `<b>Savour Pro · gratis proefperiode</b><small>Tot ${esc(formatProDate(s.trialEnd))}. Daarna ga je vanzelf terug naar gratis, tenzij je zelf Pro kiest.</small>${ai}`;
+    row = `<b>Savour Pro · gratis proefperiode</b><small>Tot ${esc(formatProDate(s.trialEnd))}. ${recipes.length} van ${s.recipeLimit} recepten; onbeperkt bewaren kan met Savour Pro. Daarna ga je vanzelf terug naar gratis, tenzij je zelf Pro kiest.</small>${ai}`;
   else
     row = `<b>Gratis</b><small>${recipes.length} van ${s.recipeLimit === Infinity ? '∞' : s.recipeLimit} recepten. Met Savour Pro onbeperkt recepten, je eigen gedeelde mappen en AI-import.</small>`;
   const button = ['subscription', 'team_owner'].includes(s.source) || s.source === 'gift' ? manage : more;
@@ -401,7 +410,7 @@ function renderImportPlanNotice() {
   if (!host) return;
   const left = recipeRoomLeft();
   host.innerHTML = isPro()
-    ? `<div class="import-plan is-pro"><b>Savour Pro${savourPlan.source === 'trial' ? ' · proefperiode' : ''}</b><span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt deze maand. Eerst leest de Savour-lezer alles, gratis. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee.</span></div>`
+    ? `<div class="import-plan is-pro"><b>Savour Pro${savourPlan.source === 'trial' ? ' · proefperiode' : ''}</b><span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt deze maand. Eerst leest de Savour-lezer alles, gratis. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee.${left === Infinity ? '' : ` In de proefperiode bewaar je tot ${savourPlan.recipeLimit} recepten (nog ${left}).`}</span></div>`
     : `<div class="import-plan"><b>Je importeert met de Savour-lezer</b><span>Word, PDF en tekst lees je gratis in${left === Infinity ? '' : ` (nog ${left} van ${savourPlan.recipeLimit} recepten in je gratis account)`}. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro.</span><button class="btn small gold" onclick="openPublicInfo('pro')">Bekijk Savour Pro</button></div>`;
   document.querySelectorAll('[data-pro-only]').forEach(el => el.classList.toggle('is-locked', !isPro()));
 }
