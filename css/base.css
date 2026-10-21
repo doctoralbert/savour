@@ -10,16 +10,6 @@
   --green: #718879;
   --shadow: 0 20px 60px #0008;
 }
-.landing-logo-wordmark {
-  font-family: Georgia, 'Times New Roman', serif;
-  letter-spacing: 0.28em;
-  font-weight: 400;
-  color: #e9e5dc;
-  text-transform: uppercase;
-}
-.landing-logo-wordmark {
-  font-size: var(--sv-fs-2xl);
-}
 * {
   box-sizing: border-box;
 }
@@ -53,9 +43,6 @@ button {
   padding: 20px 16px;
   display: flex;
   flex-direction: column;
-}
-.brand img {
-  display: block;
 }
 .nav {
   margin-top: 18px;
@@ -1969,8 +1956,6 @@ button {
   color: #eee8dc;
 }
 .boot-mark {
-  font-family: var(--sv-font-display);
-  letter-spacing: 0.34em;
   font-size: var(--sv-fs-2xl);
 }
 .boot-line {
@@ -2050,11 +2035,6 @@ button {
   textarea,
   select {
     font-size: var(--sv-fs-base) !important;
-  }
-  .mobile-brand {
-    font-family: Georgia, 'Times New Roman', serif;
-    text-align: left;
-    cursor: pointer;
   }
   #recipes .section-head {
     margin-top: 2px;
@@ -3662,30 +3642,6 @@ body.savour-light .public-shell {
 }
 
 /* ================= SAVOUR v54 ================= */
-/* Approved SAVOUR identity */
-.brand img {
-  object-fit: contain;
-  height: auto;
-  filter: drop-shadow(0 4px 14px #000);
-}
-.landing-logo-wordmark img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-.mobile-brand {
-  width: 88px !important;
-  height: 34px !important;
-  padding: 0 !important;
-  border: 0 !important;
-  background: url('/assets/savour-approved-wordmark-transparent.png') center center/contain no-repeat !important;
-  font-size: 0 !important;
-  letter-spacing: 0 !important;
-  color: transparent !important;
-  display: block !important;
-  flex: 0 0 auto;
-}
 
 /* The mobile search sits farther right, directly before the account actions. */
 @media (max-width: 760px) {
@@ -3860,14 +3816,6 @@ body.savour-light .public-shell {
   }
 }
 
-/* v54 phone identity */
-.phone-brand {
-  height: 26px;
-  width: 94px;
-  background: url('/assets/savour-approved-wordmark-transparent.png') center center/contain no-repeat;
-  font-size: 0;
-  margin-bottom: 10px;
-}
 /* Prevent accidental horizontal page overflow from any legacy child. */
 html,
 body {
@@ -3877,9 +3825,6 @@ body {
 
 /* ================= SAVOUR v55 ================= */
 /* Homepage v55: refined story flow and approved logo. */
-.landing-logo-wordmark img {
-  filter: drop-shadow(0 4px 14px #000);
-}
 .landing-hero-v55 {
   min-height: 360px;
 }
@@ -4078,30 +4023,11 @@ body {
 }
 
 /* SAVOUR v56 identity, light theme hardening, activation and bug reporting */
-.brand img,
-.landing-logo-wordmark img,
-.public-info-brand img,
-.activation-logo img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center center;
-}
-.brand img {
-  width: 190px;
-  max-height: 44px;
-  object-position: left center;
-}
 .landing-logo-wordmark {
   width: 190px;
   height: 48px;
   display: flex;
   align-items: center;
-}
-.landing-logo-wordmark img {
-  max-height: none;
-  object-position: center center;
 }
 .public-info-brand {
   width: 175px;
@@ -4300,12 +4226,6 @@ body {
 .savour-light .mobile-bottom-nav small {
   color: #111 !important;
 }
-.savour-light .sidebar .brand img,
-.savour-light .landing-logo-wordmark img,
-.savour-light .public-info-brand img,
-.savour-light .mobile-brand {
-  filter: brightness(0);
-}
 .savour-light .topbar .search span {
   color: #111 !important;
 }
@@ -4367,12 +4287,6 @@ body {
   .public-info-brand {
     width: 145px;
     height: 32px;
-  }
-  .brand img {
-    width: 150px;
-    height: 36px;
-    object-fit: contain;
-    object-position: center center;
   }
 }
 
