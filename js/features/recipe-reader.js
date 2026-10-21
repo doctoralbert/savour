@@ -30,8 +30,9 @@ const READER_BULLET = /^[-–•*·▪◦●]\s*/;
 const READER_STEP_NUMBER = /^(?:stap\s*\d+\s*[:.)-]?|\d+\s*[.)]\s+(?=\D))\s*/i;
 const READER_STARTS_WITH_TIME =
   /^\d+(?:[.,]\d+)?\s*(?:minuten|minuut|min\.?|uur|uren|seconden|sec\.?|dagen|dag|nachten|nacht|weken)\b/i;
-// Genummerde receptnaam zonder spatie, zoals koks die in een receptenboek zetten: "211.Aardappel crème".
-const READER_NUMBERED_TITLE = /^\d{1,4}\.(?=\p{L})/u;
+// Genummerde receptnaam zonder spatie, zoals koks die in een receptenboek zetten: "211.Aardappel crème",
+// of zelfs zonder punt: "465Gado gado saus" (minstens twee cijfers en een hoofdletter erna).
+const READER_NUMBERED_TITLE = /^(?:\d{1,4}\.(?=\p{L})|\d{2,4}(?=\p{Lu}\p{Ll}))/u;
 // "Zachte" kop uit Word (vetgedrukt of kop 2/3): een receptnaam óf een onderdeel ("Deel 1", "Deeg").
 // splitRecipeText beslist welke van de twee; daarna verdwijnt het teken.
 const READER_SOFT_HEADING = /^#b\s+/;
@@ -142,9 +143,9 @@ function readerYieldFrom(line) {
   return '';
 }
 
-// Nummer uit een receptenboek vóór de naam: "10.Asperges koken", "131. Witlof", "7) Saus", "12 - Jus".
-// Niet: "12-uurs varkensbuik", "1.5 kg …" of "3 kruiden".
-const READER_TITLE_NUMBER = /^\d{1,4}\s*[.)]\s*(?=\D)|^\d{1,4}\s+[-–]\s+/;
+// Nummer uit een receptenboek vóór de naam: "10.Asperges koken", "131. Witlof", "7) Saus", "12 - Jus",
+// "465Gado gado saus". Niet: "12-uurs varkensbuik", "1.5 kg …", "3 kruiden" of "7Up".
+const READER_TITLE_NUMBER = /^\d{1,4}\s*[.)]\s*(?=\D)|^\d{1,4}\s+[-–]\s+|^\d{2,4}(?=\p{Lu}\p{Ll})/u;
 
 function stripTitleNumber(t) {
   const x = String(t || '').trim();
