@@ -74,6 +74,8 @@ ABSOLUTE REGELS:
 - Een ingrediënt dat op een nieuwe regel staat blijft een ingrediënt; gebruik de volgorde van de bron.
 - Behoud kwalitatieve hoeveelheden letterlijk, zoals 'naar smaak', 'scheutje', 'snuf', 'mespunt', 'naar behoefte' en 'eventueel'.
 - Corrigeer alleen duidelijke OCR-/uitleesfouten wanneer de bedoelde tekst met hoge zekerheid uit de context blijkt. Bij twijfel: behoud de bron en zet needs_review op true.
+- Lees onduidelijk handschrift met professionele keukenkennis: denk aan kruiden (zoals lavas, kervel, dragon), technieken en producten die in een recept voor de hand liggen. Verzin nooit een woord dat er niet staat; twijfel je, zet dan needs_review op true.
+- Staan er bij de ingrediënten meerdere kolommen met hoeveelheden voor verschillende batchgroottes (bijvoorbeeld een basiskolom en een kolom onder "6x"), controleer dan of elke waarde in de extra kolom precies de basiswaarde maal dezelfde factor is. Zo ja: gebruik alleen de basiskolom als ingrediënt (met eenheid) en zet de factor in yield, bijvoorbeeld "1× (in de bron ook voor 6×)". Zo nee: behoud beide hoeveelheden letterlijk in de ingrediëntregel en zet needs_review op true.
 - Verwijder geen inhoud omdat die ongebruikelijk lijkt.
 - Splits meerdere recepten alleen als de bron daar duidelijke aanwijzingen voor geeft.
 - Houd de volgorde van ingrediënten en stappen zoveel mogelijk aan.
