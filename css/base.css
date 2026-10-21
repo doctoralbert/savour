@@ -2221,20 +2221,20 @@ button {
   text-align: left;
   gap: 10px;
   padding: 11px;
-  border: 1px solid #293536;
-  background: #081011;
-  color: var(--text);
+  border: 1px solid var(--sv-line);
+  background: var(--sv-surface);
+  color: var(--sv-text);
   border-radius: var(--sv-radius);
 }
 .shared-chooser-item:hover {
-  border-color: #806f4b;
+  border-color: var(--sv-gold);
 }
 .shared-chooser-item b {
   display: block;
 }
 .shared-chooser-item small {
   display: block;
-  color: var(--muted);
+  color: var(--sv-text-2);
   margin-top: 2px;
   font-size: var(--sv-fs-xs);
 }

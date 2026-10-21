@@ -26,7 +26,8 @@ function getSavedLanguage() {
 // Vertaalt één tekst; geeft null als er geen vertaling is.
 function translateText(text) {
   if (!i18nDictionary || currentLanguage === 'nl') return null;
-  const key = String(text).replace(/\s+/g, ' ').trim();
+  // Een zacht afbreekstreepje (&shy;) hoort niet bij de tekst zelf.
+  const key = String(text).replace(/­/g, '').replace(/\s+/g, ' ').trim();
   if (!key) return null;
   const direct = i18nDictionary.strings.get(key);
   if (direct) return direct;
