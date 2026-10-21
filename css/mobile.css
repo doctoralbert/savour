@@ -379,3 +379,6 @@
   font-family: var(--sv-font);
   white-space: pre-wrap;
 }
+.batch-rotate {
+  margin: calc(var(--sv-space-2) * -1) 0 var(--sv-space-3);
+}

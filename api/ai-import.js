@@ -88,6 +88,51 @@ export default async function handler(req, res) {
     if (hasText && text.length > 120_000)
       return res.status(413).json({ error: 'Het document bevat te veel tekst om in één keer te verwerken.' });
 
+    // Snelle eerste stap voor foto's: aan welke rand zit de bovenkant van de tekst? Savour zet de foto
+    // daarmee rechtop vóór het echte lezen. Licht model, lage resolutie, telt niet als AI-import.
+    if (req.body?.mode === 'orient') {
+      if (!hasImage) return res.status(400).json({ error: 'Geen foto ontvangen.' });
+      const orientResponse = await fetch('https://api.openai.com/v1/responses', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'gpt-5.6-luna',
+          input: [
+            {
+              role: 'user',
+              content: [
+                {
+                  type: 'input_text',
+                  text: 'Op deze foto staat geschreven of gedrukte tekst. Kijk naar de letters: aan welke rand van de afbeelding zit de BOVENKANT van de letters? "top" als de tekst gewoon rechtop staat, "bottom" als hij ondersteboven staat, "left" als de bovenkant van de letters naar de linkerrand wijst (tekst loopt van onder naar boven), "right" als de bovenkant naar de rechterrand wijst (tekst loopt van boven naar onder).'
+                },
+                { type: 'input_image', image_url: image, detail: 'low' }
+              ]
+            }
+          ],
+          text: {
+            format: {
+              type: 'json_schema',
+              name: 'orientation',
+              strict: true,
+              schema: {
+                type: 'object',
+                additionalProperties: false,
+                properties: { top_edge: { type: 'string', enum: ['top', 'right', 'bottom', 'left'] } },
+                required: ['top_edge']
+              }
+            }
+          }
+        })
+      });
+      const orientData = await orientResponse.json();
+      if (!orientResponse.ok) return res.status(200).json({ top_edge: 'top' });
+      try {
+        return res.status(200).json({ top_edge: JSON.parse(extractOutputText(orientData)).top_edge || 'top' });
+      } catch {
+        return res.status(200).json({ top_edge: 'top' });
+      }
+    }
+
     const categoryList = Array.isArray(categories)
       ? categories
           .map(String)
@@ -121,7 +166,7 @@ ABSOLUTE REGELS:
 - Lees onduidelijk handschrift met professionele keukenkennis: denk aan kruiden (zoals lavas, kervel, dragon), technieken en producten die in een recept voor de hand liggen. Verzin nooit een woord dat er niet staat.
 - Zet in unclear elk stuk tekst dat je niet met zekerheid kunt lezen, precies zoals je het nu leest (bijvoorbeeld "zeven in liddes"), zodat de chef het kan controleren. Zet er géén gewone, goed leesbare woorden of vaktermen in (zoals "kloppen" of "pâte à bombe"): alleen echte twijfel. Neem die tekst ook gewoon op in de ingrediënten of stappen. Laat unclear leeg als alles goed leesbaar is.
 - Staan er bij de ingrediënten meerdere kolommen met hoeveelheden voor verschillende batchgroottes (bijvoorbeeld een basiskolom en een kolom onder "6x"), controleer dan of elke waarde in de extra kolom precies de basiswaarde maal dezelfde factor is. Zo ja: gebruik alleen de basiskolom en laat de extra kolom helemaal weg (Savour rekent zelf om); zet de factor niet in yield. Zo nee: behoud beide hoeveelheden letterlijk in de ingrediëntregel en zet needs_review op true.
-- Een foto kan gedraaid zijn (op zijn kant of ondersteboven); lees de tekst in de juiste richting. Geef in rotation hoeveel graden de afbeelding met de klok mee gedraaid moet worden om de tekst rechtop te lezen (0, 90, 180 of 270). Bij een tekstbron zonder afbeelding: 0. Werkwijze kan ook in de kantlijn, naast accolades of met pijlen bij de ingrediënten staan: neem die op als stappen.
+- Een foto kan gedraaid zijn (op zijn kant of ondersteboven); lees de tekst in de juiste richting. Werkwijze kan ook in de kantlijn, naast accolades of met pijlen bij de ingrediënten staan: neem die op als stappen.
 - Zet incomplete: true alleen als de tekst van dát recept zelf zichtbaar doorloopt buiten de bron: een regel die is afgesneden aan de rand van de foto of pagina, of een ingrediëntenlijst die halverwege ophoudt. Neem op wat leesbaar is. Twijfel je, zet dan incomplete: false en needs_review: true.
 - Een recept is níet incomplete omdat er geen bereiding is, omdat het kort is, of omdat er daarna een nieuw kopje volgt. Een kopje zonder ingrediënten of stappen eronder is geen recept: neem het niet op.
 - Verwijder geen inhoud omdat die ongebruikelijk lijkt.
@@ -152,8 +197,6 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
             type: 'object',
             additionalProperties: false,
             properties: {
-              // Hoeveel graden (met de klok mee) de afbeelding moet draaien om de tekst rechtop te krijgen.
-              rotation: { type: 'integer', enum: [0, 90, 180, 270] },
               recipes: {
                 type: 'array',
                 items: {
@@ -185,7 +228,7 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
                 }
               }
             },
-            required: ['rotation', 'recipes']
+            required: ['recipes']
           }
         }
       }

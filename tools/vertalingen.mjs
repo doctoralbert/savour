@@ -1304,6 +1304,7 @@ export const strings = [
   ['Ja, opslaan', 'Yes, save', 'Ja, speichern', 'Sí, guardar'],
   ['Zo las de AI het', 'How the AI read it', 'So hat die KI es gelesen', 'Así lo leyó la IA'],
   ['Gelezen met', 'Read with', 'Gelesen mit', 'Leído con'],
+  ['↻ Draai foto', '↻ Rotate photo', '↻ Foto drehen', '↻ Girar foto'],
   ['Toch importeren', 'Import anyway', 'Trotzdem importieren', 'Importar de todos modos'],
   [
     'Toegevoegd als "Mogelijk onvolledig": controleer of er niets ontbreekt.',
@@ -2852,7 +2853,12 @@ export const patterns = [
     'Du hast diesen Monat alle $1 KI-Importe genutzt.',
     'Has usado las $1 importaciones con IA de este mes.'
   ],
-  ['^(.+) wordt gelezen \\(twee keer, voor de zekerheid\\)…$', 'Reading $1 (twice, to be sure)…', '$1 wird gelesen (zweimal, zur Sicherheit)…', 'Leyendo $1 (dos veces, para asegurarnos)…'],
+  [
+    '^(.+) wordt rechtgezet en twee keer gelezen…$',
+    'Straightening and reading $1 twice…',
+    '$1 wird ausgerichtet und zweimal gelesen…',
+    'Enderezando y leyendo $1 dos veces…'
+  ],
   [
     '^(.+): pagina (\\d+) van (\\d+) wordt gelezen…$',
     '$1: reading page $2 of $3…',

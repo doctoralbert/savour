@@ -326,9 +326,7 @@ async function callAiImport(body) {
         : raw || (response.status === 413 ? 'Het bestand is te groot.' : 'AI-import mislukt.');
     throw Object.assign(new Error(message), { status: response.status, final, code: result?.code });
   }
-  return Array.isArray(result?.recipes)
-    ? result.recipes.map(r => ({ ...r, model: result.model || '', rotation: Number(result.rotation) || 0 }))
-    : [];
+  return Array.isArray(result?.recipes) ? result.recipes.map(r => ({ ...r, model: result.model || '' })) : [];
 }
 
 // Bij veel bestanden tegelijk kan de AI tijdelijk "te druk" zijn (429) of even storen (502–504):
@@ -414,11 +412,54 @@ function proRequiredError(what) {
 async function importImageFile(file) {
   if (!isPro()) throw proRequiredError("Foto's");
   const dataUrl = await compressPhoto(file);
-  const aiRecipes = await callAiImportWithRetry({ image: dataUrl, filename: file.name });
+  // 1. Rechtop zetten: de AI leest handschrift veel beter als het rechtop staat (en de chef vergelijkt makkelijker).
+  const edge = await callAiOrient(dataUrl).catch(() => 'top');
+  const upright = await rotateDataUrl(dataUrl, { left: 90, right: 270, bottom: 180 }[edge] || 0);
+  // 2. Lezen van een kopie in grijstinten met meer contrast; het recept bewaart de gewone foto.
+  const forReading = await enhanceForReading(upright);
+  const aiRecipes = await callAiImportWithRetry({ image: forReading, filename: file.name });
   if (!aiRecipes.length) throw new Error('Geen recept uit de foto herkend.');
-  // Lag de foto op zijn kant of ondersteboven? Rechtop zetten, zodat de chef hem makkelijk vergelijkt.
-  const photo = await rotateDataUrl(dataUrl, aiRecipes[0].rotation);
-  return aiRecipes.map(r => normalizeAiRecipe(r, { photo, sourceFile: file.name }));
+  return aiRecipes.map(r => normalizeAiRecipe(r, { photo: upright, sourceFile: file.name }));
+}
+
+// Vraagt de AI aan welke rand de bovenkant van de tekst zit (top/right/bottom/left). Telt niet als AI-import.
+async function callAiOrient(image) {
+  const { data } = await supabaseClient.auth.getSession();
+  const token = data?.session?.access_token;
+  if (!token) return 'top';
+  const response = await fetch('/api/ai-import', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ image, mode: 'orient' })
+  });
+  const result = await response.json().catch(() => ({}));
+  return response.ok && ['top', 'right', 'bottom', 'left'].includes(result.top_edge) ? result.top_edge : 'top';
+}
+
+// Kopie in grijstinten met wat meer contrast en licht: donkere keukenfoto's worden zo beter leesbaar.
+async function enhanceForReading(dataUrl) {
+  const img = await new Promise((resolve, reject) => {
+    const i = new Image();
+    i.onload = () => resolve(i);
+    i.onerror = reject;
+    i.src = dataUrl;
+  });
+  const canvas = document.createElement('canvas');
+  canvas.width = img.width;
+  canvas.height = img.height;
+  const ctx = canvas.getContext('2d');
+  ctx.filter = 'grayscale(1) contrast(1.35) brightness(1.1)';
+  ctx.drawImage(img, 0, 0);
+  return canvas.toDataURL('image/jpeg', 0.9);
+}
+
+// Knop "Draai foto" bij een recept: een kwartslag met de klok mee.
+async function rotateBatchPhoto(index) {
+  syncBatchDrafts();
+  const r = batchDrafts[index];
+  if (!r?.photo) return;
+  r.photo = await rotateDataUrl(r.photo, 90);
+  renderBatchDrafts();
 }
 
 // Draait een afbeelding (data-URL) een kwart, half of driekwart slag met de klok mee.
@@ -517,7 +558,7 @@ function updateImportProgress(done, total, label = '') {
 // Bestanden die nu worden gelezen, met hoe lang dat ongeveer duurt. Zo loopt de voortgangsbalk ook
 // tijdens het lezen van één foto (± 20 seconden) rustig vol in plaats van stil te staan.
 const importInFlight = new Map();
-const IMPORT_EXPECTED_MS = { photo: 22000, file: 8000 };
+const IMPORT_EXPECTED_MS = { photo: 27000, file: 8000 };
 
 function importInFlightFraction() {
   let sum = 0;
@@ -598,7 +639,7 @@ async function processImportFiles(files) {
         start: Date.now(),
         expected: isPhoto ? IMPORT_EXPECTED_MS.photo : IMPORT_EXPECTED_MS.file
       });
-      if (isPhoto) $('importStatus').textContent = `${file.name} wordt gelezen (twee keer, voor de zekerheid)…`;
+      if (isPhoto) $('importStatus').textContent = `${file.name} wordt rechtgezet en twee keer gelezen…`;
       try {
         const name = (file.name || '').toLowerCase();
         let drafts;
@@ -709,7 +750,7 @@ function renderBatchDrafts() {
     batchDrafts
       .map(
         (r, i) =>
-          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${r._maybeIncomplete ? ' <span class="batch-chip batch-chip-warn">Mogelijk onvolledig</span>' : r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : r._needsReview || r._unclear?.length ? ' <span class="batch-chip batch-chip-warn">Controleren</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img class="batch-photo" src="${esc(r.photo)}" alt="">` : ''}${r._unclear?.length ? `<div class="batch-unclear"><b>Niet goed leesbaar, controleer:</b><ul translate="no">${r._unclear.map(u => `<li>${esc(u)}</li>`).join('')}</ul></div>` : ''}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small>${r._transcription?.length ? `<details class="batch-transcript"><summary>Zo las de AI het</summary><pre translate="no">${esc(r._transcription.join('\n'))}</pre>${r._model ? `<small>Gelezen met <span translate="no">${esc(r._model)}</span></small>` : ''}</details>` : ''}<div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea class="batch-text" rows="${batchRows(r.ingredients)}" data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea class="batch-text" rows="${batchRows(r.steps)}" data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
+          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${r._maybeIncomplete ? ' <span class="batch-chip batch-chip-warn">Mogelijk onvolledig</span>' : r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : r._needsReview || r._unclear?.length ? ' <span class="batch-chip batch-chip-warn">Controleren</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img class="batch-photo" src="${esc(r.photo)}" alt=""><button type="button" class="btn small batch-rotate" onclick="rotateBatchPhoto(${i})">↻ Draai foto</button>` : ''}${r._unclear?.length ? `<div class="batch-unclear"><b>Niet goed leesbaar, controleer:</b><ul translate="no">${r._unclear.map(u => `<li>${esc(u)}</li>`).join('')}</ul></div>` : ''}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small>${r._transcription?.length ? `<details class="batch-transcript"><summary>Zo las de AI het</summary><pre translate="no">${esc(r._transcription.join('\n'))}</pre>${r._model ? `<small>Gelezen met <span translate="no">${esc(r._model)}</span></small>` : ''}</details>` : ''}<div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea class="batch-text" rows="${batchRows(r.ingredients)}" data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea class="batch-text" rows="${batchRows(r.steps)}" data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
       )
       .join('') || `<div class="empty" style="grid-column:1/-1">Geen afzonderlijke recepten herkend.</div>`;
 }
