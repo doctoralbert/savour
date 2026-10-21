@@ -339,3 +339,26 @@
 .batch-warning {
   color: var(--sv-gold);
 }
+
+/* ---- Recepten controleren na import ---- */
+.batch-photo {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+  margin: var(--sv-space-3) 0;
+  object-fit: contain;
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface-2);
+}
+.batch-unclear {
+  margin: var(--sv-space-2) 0 var(--sv-space-3);
+  padding: var(--sv-space-3) var(--sv-space-4);
+  border: 1px solid var(--sv-gold);
+  border-radius: var(--sv-radius);
+  background: color-mix(in srgb, var(--sv-gold) 12%, transparent);
+  font-size: var(--sv-fs-sm);
+}
+.batch-unclear ul {
+  margin: var(--sv-space-1) 0 0;
+  padding-left: 1.2em;
+}

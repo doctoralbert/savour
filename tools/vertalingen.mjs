@@ -1277,6 +1277,31 @@ export const strings = [
   ['Log eerst in.', 'Log in first.', 'Melde dich zuerst an.', 'Inicia sesión primero.'],
   ['Er ging iets mis.', 'Something went wrong.', 'Etwas ist schiefgelaufen.', 'Algo salió mal.'],
   ['Controleren', 'Check', 'Prüfen', 'Revisar'],
+  [
+    'Niet goed leesbaar, controleer:',
+    'Not clearly readable, please check:',
+    'Nicht gut lesbar, bitte prüfen:',
+    'No se lee bien, revisa:'
+  ],
+  [
+    'Niet volledig in de bron en daarom overgeslagen:',
+    'Not complete in the source and therefore skipped:',
+    'In der Quelle unvollständig und daher übersprungen:',
+    'Incompleta en la fuente y por eso omitida:'
+  ],
+  [
+    '. Maak een foto of bestand van het hele recept om het te importeren.',
+    '. Take a photo or file of the whole recipe to import it.',
+    '. Mache ein Foto oder eine Datei vom ganzen Rezept, um es zu importieren.',
+    '. Haz una foto o un archivo de la receta completa para importarla.'
+  ],
+  [
+    'Onleesbare stukken nagekeken?',
+    'Checked the unclear parts?',
+    'Unleserliche Stellen geprüft?',
+    '¿Has revisado las partes ilegibles?'
+  ],
+  ['Ja, opslaan', 'Yes, save', 'Ja, speichern', 'Sí, guardar'],
   ['8. Savour Pro', '8. Savour Pro', '8. Savour Pro', '8. Savour Pro'],
   [
     'Savour Pro is een betaald abonnement per maand of per jaar dat automatisch wordt verlengd tot je het opzegt. Opzeggen kan op elk moment via Mijn account; je houdt Savour Pro tot het einde van de betaalde periode. Savour Pro bevat maximaal 500 AI-imports per maand. Betalingen worden verwerkt door Stripe.',
@@ -2822,6 +2847,30 @@ export const patterns = [
     '$1: reading page $2 of $3…',
     '$1: Seite $2 von $3 wird gelesen…',
     '$1: leyendo página $2 de $3…'
+  ],
+  [
+    '^1 recept bevat stukken die niet goed leesbaar waren\\. Ze staan geel gemarkeerd: controleer en verbeter ze\\.$',
+    '1 recipe contains parts that were not clearly readable. They are highlighted in yellow: please check and correct them.',
+    '1 Rezept enthält Stellen, die nicht gut lesbar waren. Sie sind gelb markiert: bitte prüfen und korrigieren.',
+    '1 receta contiene partes que no se leían bien. Están marcadas en amarillo: revísalas y corrígelas.'
+  ],
+  [
+    '^(\\d+) recepten bevatten stukken die niet goed leesbaar waren\\. Ze staan geel gemarkeerd: controleer en verbeter ze\\.$',
+    '$1 recipes contain parts that were not clearly readable. They are highlighted in yellow: please check and correct them.',
+    '$1 Rezepte enthalten Stellen, die nicht gut lesbar waren. Sie sind gelb markiert: bitte prüfen und korrigieren.',
+    '$1 recetas contienen partes que no se leían bien. Están marcadas en amarillo: revísalas y corrígelas.'
+  ],
+  [
+    '^In 1 recept stond tekst die de AI niet zeker kon lezen \\(geel gemarkeerd\\)\\. Heb je die gecontroleerd en waar nodig verbeterd\\?$',
+    'One recipe contained text the AI could not read with certainty (highlighted in yellow). Have you checked it and corrected it where needed?',
+    'Ein Rezept enthielt Text, den die KI nicht sicher lesen konnte (gelb markiert). Hast du ihn geprüft und wo nötig korrigiert?',
+    'Una receta contenía texto que la IA no pudo leer con seguridad (marcado en amarillo). ¿Lo has revisado y corregido donde hacía falta?'
+  ],
+  [
+    '^In (\\d+) recepten stond tekst die de AI niet zeker kon lezen \\(geel gemarkeerd\\)\\. Heb je die gecontroleerd en waar nodig verbeterd\\?$',
+    '$1 recipes contained text the AI could not read with certainty (highlighted in yellow). Have you checked it and corrected it where needed?',
+    '$1 Rezepte enthielten Text, den die KI nicht sicher lesen konnte (gelb markiert). Hast du ihn geprüft und wo nötig korrigiert?',
+    '$1 recetas contenían texto que la IA no pudo leer con seguridad (marcado en amarillo). ¿Lo has revisado y corregido donde hacía falta?'
   ],
   ['^Trefwoorden voor (.+)$', 'Keywords for $1', 'Stichwörter für $1', 'Palabras clave de $1'],
   [

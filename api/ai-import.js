@@ -74,8 +74,10 @@ ABSOLUTE REGELS:
 - Een ingrediënt dat op een nieuwe regel staat blijft een ingrediënt; gebruik de volgorde van de bron.
 - Behoud kwalitatieve hoeveelheden letterlijk, zoals 'naar smaak', 'scheutje', 'snuf', 'mespunt', 'naar behoefte' en 'eventueel'.
 - Corrigeer alleen duidelijke OCR-/uitleesfouten wanneer de bedoelde tekst met hoge zekerheid uit de context blijkt. Bij twijfel: behoud de bron en zet needs_review op true.
-- Lees onduidelijk handschrift met professionele keukenkennis: denk aan kruiden (zoals lavas, kervel, dragon), technieken en producten die in een recept voor de hand liggen. Verzin nooit een woord dat er niet staat; twijfel je, zet dan needs_review op true.
-- Staan er bij de ingrediënten meerdere kolommen met hoeveelheden voor verschillende batchgroottes (bijvoorbeeld een basiskolom en een kolom onder "6x"), controleer dan of elke waarde in de extra kolom precies de basiswaarde maal dezelfde factor is. Zo ja: gebruik alleen de basiskolom als ingrediënt (met eenheid) en zet de factor in yield, bijvoorbeeld "1× (in de bron ook voor 6×)". Zo nee: behoud beide hoeveelheden letterlijk in de ingrediëntregel en zet needs_review op true.
+- Lees onduidelijk handschrift met professionele keukenkennis: denk aan kruiden (zoals lavas, kervel, dragon), technieken en producten die in een recept voor de hand liggen. Verzin nooit een woord dat er niet staat.
+- Zet in unclear elk stuk tekst dat je niet met zekerheid kunt lezen, precies zoals je het nu leest (bijvoorbeeld "zeven in liddes"), zodat de chef het kan controleren. Neem die tekst ook gewoon op in de ingrediënten of stappen. Laat unclear leeg als alles goed leesbaar is.
+- Staan er bij de ingrediënten meerdere kolommen met hoeveelheden voor verschillende batchgroottes (bijvoorbeeld een basiskolom en een kolom onder "6x"), controleer dan of elke waarde in de extra kolom precies de basiswaarde maal dezelfde factor is. Zo ja: gebruik alleen de basiskolom en laat de extra kolom helemaal weg (Savour rekent zelf om); zet de factor niet in yield. Zo nee: behoud beide hoeveelheden letterlijk in de ingrediëntregel en zet needs_review op true.
+- Staat een recept niet volledig in de bron (afgesneden aan de rand van de foto of pagina, of halverwege afgebroken), geef het dan terug met incomplete: true en neem op wat leesbaar is. Een volledig recept dat gewoon geen bereiding heeft, is niet incomplete.
 - Verwijder geen inhoud omdat die ongebruikelijk lijkt.
 - Splits meerdere recepten alleen als de bron daar duidelijke aanwijzingen voor geeft.
 - Houd de volgorde van ingrediënten en stappen zoveel mogelijk aan.
@@ -115,9 +117,20 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
                     ingredients: { type: 'array', items: { type: 'string' } },
                     steps: { type: 'array', items: { type: 'string' } },
                     category: { type: 'string' },
-                    needs_review: { type: 'boolean' }
+                    needs_review: { type: 'boolean' },
+                    unclear: { type: 'array', items: { type: 'string' } },
+                    incomplete: { type: 'boolean' }
                   },
-                  required: ['title', 'yield', 'ingredients', 'steps', 'category', 'needs_review']
+                  required: [
+                    'title',
+                    'yield',
+                    'ingredients',
+                    'steps',
+                    'category',
+                    'needs_review',
+                    'unclear',
+                    'incomplete'
+                  ]
                 }
               }
             },

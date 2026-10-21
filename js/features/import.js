@@ -363,6 +363,10 @@ function normalizeAiRecipe(r, extra) {
     yield: String(r.yield || '').trim(),
     category: importCategory(title, r.category),
     _needsReview: Boolean(r.needs_review),
+    // Wat de AI niet zeker kon lezen: de chef controleert dit vóór opslaan.
+    _unclear: Array.isArray(r.unclear) ? r.unclear.map(String).filter(Boolean) : [],
+    // Niet volledig in de bron (bijv. afgesneden op de foto): wordt overgeslagen, met melding.
+    _incomplete: Boolean(r.incomplete),
     ...extra
   };
 }
@@ -550,9 +554,17 @@ async function processImportFiles(files) {
   };
   const workers = Array.from({ length: Math.min(3, valid.length) }, () => worker());
   await Promise.all(workers);
+  // Onvolledige recepten (bijv. afgesneden op de foto) niet importeren, maar wel melden.
+  const incomplete = batchDrafts.filter(r => r._incomplete);
+  batchDrafts = batchDrafts.filter(r => !r._incomplete);
+  const incompleteNote = incomplete.length
+    ? `<span class="batch-warning">Niet volledig in de bron en daarom overgeslagen: <span translate="no">${esc(incomplete.map(r => r.title).join(', '))}</span>. Maak een foto of bestand van het hele recept om het te importeren.</span>`
+    : '';
   if (!batchDrafts.length) {
     $('importStatus').innerHTML =
-      'Geen recepten verwerkt.' + (failures.length ? `<br>${importFailureSummary(failures)}` : '');
+      'Geen recepten verwerkt.' +
+      (incompleteNote ? `<br>${incompleteNote}` : '') +
+      (failures.length ? `<br>${importFailureSummary(failures)}` : '');
     updateImportProgress(valid.length, valid.length, 'Geen recepten verwerkt');
     return;
   }
@@ -563,6 +575,12 @@ async function processImportFiles(files) {
   if (withoutAi.length)
     notes.push(
       `<span class="batch-warning">${withoutAi.length} recept${withoutAi.length === 1 ? ' is' : 'en zijn'} zonder AI uitgelezen (<span>${esc(withoutAi[0]._withoutAi)}</span>). Controleer titel, ingrediënten en bereiding extra goed.</span>`
+    );
+  if (incompleteNote) notes.push(incompleteNote);
+  const unclearCount = batchDrafts.filter(r => r._unclear?.length).length;
+  if (unclearCount)
+    notes.push(
+      `<span class="batch-warning">${unclearCount} recept${unclearCount === 1 ? ' bevat' : 'en bevatten'} stukken die niet goed leesbaar waren. Ze staan geel gemarkeerd: controleer en verbeter ze.</span>`
     );
   if (failures.length) notes.push(importFailureSummary(failures));
   $('batchStatus').innerHTML = esc(successText) + notes.map(n => `<br>${n}`).join('');
@@ -608,6 +626,11 @@ async function processImport() {
   }
 }
 
+// Invulvak zo hoog als de inhoud (minimaal 8 regels), zodat je een recept zonder scrollen controleert.
+function batchRows(lines) {
+  return Math.max(8, lines.length + 1);
+}
+
 function renderBatchDrafts() {
   $('batchCount').textContent = batchDrafts.length ? `${batchDrafts.length} recepten herkend` : '';
   const catOptions = ['Eigen recepten', ...categories];
@@ -615,7 +638,7 @@ function renderBatchDrafts() {
     batchDrafts
       .map(
         (r, i) =>
-          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : r._needsReview ? ' <span class="batch-chip batch-chip-warn">Controleren</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img src="${esc(r.photo)}" alt="" style="width:100%;max-height:150px;object-fit:cover;border-radius:7px;margin:10px 0">` : ''}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small><div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
+          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : r._needsReview || r._unclear?.length ? ' <span class="batch-chip batch-chip-warn">Controleren</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img class="batch-photo" src="${esc(r.photo)}" alt="">` : ''}${r._unclear?.length ? `<div class="batch-unclear"><b>Niet goed leesbaar, controleer:</b><ul translate="no">${r._unclear.map(u => `<li>${esc(u)}</li>`).join('')}</ul></div>` : ''}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small><div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea class="batch-text" rows="${batchRows(r.ingredients)}" data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea class="batch-text" rows="${batchRows(r.steps)}" data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
       )
       .join('') || `<div class="empty" style="grid-column:1/-1">Geen afzonderlijke recepten herkend.</div>`;
 }
@@ -656,6 +679,18 @@ async function saveBatchRecipes() {
     renderBatchDrafts();
     toast(`${skipped} dubbel recept${skipped === 1 ? '' : 'en'} overgeslagen`);
     if (!batchDrafts.length) return;
+  }
+  // Stonden er onleesbare stukken in? Eerst vragen of de chef ze heeft nagekeken.
+  const unclear = batchDrafts.filter(r => r._unclear?.length);
+  if (unclear.length) {
+    const ok = await askConfirm(
+      `Onleesbare stukken nagekeken?\n\nIn ${unclear.length === 1 ? '1 recept' : `${unclear.length} recepten`} stond tekst die de AI niet zeker kon lezen (geel gemarkeerd). Heb je die gecontroleerd en waar nodig verbeterd?`,
+      { confirmLabel: 'Ja, opslaan' }
+    );
+    if (!ok) {
+      document.querySelector('.batch-unclear')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
   }
   // Twijfelgevallen: de chef kiest per recept zelf, tenzij hij de categorie al aanpaste.
   for (const r of batchDrafts) {

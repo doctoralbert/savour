@@ -704,10 +704,12 @@ button {
 }
 .batch-recipe textarea {
   width: 100%;
-  min-height: 100px;
-  background: #081011;
-  border: 1px solid #2b3637;
-  color: #fff;
+  min-height: 12em;
+  field-sizing: content;
+  line-height: 1.5;
+  background: var(--sv-surface);
+  border: 1px solid var(--sv-line);
+  color: var(--sv-text);
   border-radius: var(--sv-radius);
   padding: 10px;
   resize: vertical;
