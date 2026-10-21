@@ -388,3 +388,33 @@
 .batch-rotate {
   margin: calc(var(--sv-space-2) * -1) 0 var(--sv-space-3);
 }
+
+/* Startpagina (uitgelogd) op de telefoon: logo, taal, Inloggen en Account aanmaken passen op één regel. */
+@media (max-width: 480px) {
+  .landing-top {
+    gap: 6px;
+    padding: 14px 12px;
+  }
+  .landing-actions .lang-switch {
+    margin-right: 2px;
+  }
+  .landing-logo-wordmark {
+    width: auto;
+    flex: 0 0 auto;
+  }
+  .landing-logo-wordmark .sv-wordmark {
+    font-size: 15px;
+    letter-spacing: 0.22em;
+  }
+  .landing-actions {
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  /* foundation.css zet knoppen met !important; hier bewust kleiner voor deze ene balk. */
+  #landingView .landing-actions .btn {
+    padding: 0 9px !important;
+    min-height: 34px !important;
+    font-size: 12px !important;
+    white-space: nowrap;
+  }
+}

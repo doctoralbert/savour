@@ -3401,68 +3401,111 @@ button {
   padding: 35px 14px 10px;
   position: relative;
 }
+/* Telefoon op de startpagina: een verkleinde kopie van "Alle recepten" op de telefoon. */
 .phone-brand {
   font-family: Georgia, serif;
   letter-spacing: 0.28em;
-  color: #e8ca8d;
+  color: #eee8dc;
+}
+.phone-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.phone-icons {
+  display: flex;
+  gap: 10px;
+  color: #eee8dc;
+}
+.phone-icons svg {
+  width: 15px;
+  height: 15px;
+}
+.phone-title {
+  margin-top: 4px;
+  font-family: var(--sv-font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: #eee8dc;
+}
+.phone-count {
+  font-size: 10px;
+  color: #87918b;
+}
+.phone-letters {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  margin: 10px 0 8px;
+  font-size: 10px;
+  color: #87918b;
+}
+.phone-letters .on {
+  padding: 3px 6px;
+  border-radius: 6px;
+  background: #e8ca8d;
+  color: #111;
+  font-weight: 600;
 }
 .phone-search {
   border: 1px solid #34403f;
-  border-radius: var(--sv-radius-xl);
-  padding: 9px 10px;
+  border-radius: var(--sv-radius);
+  padding: 7px 10px;
   color: #e8ca8d;
-  font-size: var(--sv-fs-md);
+  font-size: var(--sv-fs-sm);
 }
 .phone-search span {
   color: #7f8985;
-  font-size: var(--sv-fs-xs);
+  font-size: 10px;
   margin-left: 5px;
 }
-.phone-card {
-  position: relative;
-  border: 1px solid #273333;
-  background: #0a1112;
-  border-radius: var(--sv-radius);
-  padding: 14px 28px 14px 12px;
-  margin-top: 10px;
+.phone-list {
+  margin-top: 6px;
 }
-.phone-card b {
-  display: block;
-  font-family: var(--sv-font-display);
-  font-size: var(--sv-fs-sm);
-  color: #eee8dc;
+.phone-row {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  padding: 7px 2px;
+  border-bottom: 1px solid #1c2526;
+  font-size: 10px;
 }
-.phone-card small {
-  display: block;
+.phone-row span {
   color: #87918b;
-  font-size: var(--sv-fs-xs);
-  margin-top: 4px;
 }
-.phone-card strong {
-  position: absolute;
-  right: 11px;
-  top: 18px;
+.phone-row b {
+  color: #eee8dc;
+  font-weight: 600;
+}
+.phone-row i {
+  font-style: normal;
   color: #e8ca8d;
 }
 .phone-bottom {
   position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   border-top: 1px solid #202a2a;
-  padding-top: 8px;
-  display: flex;
-  justify-content: space-around;
-  color: #e8ca8d;
-  font-size: var(--sv-fs-md);
+  padding: 8px 6px 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #0a1011;
+  color: #eee8dc;
 }
 .phone-bottom span {
   display: grid;
   justify-items: center;
-  gap: 2px;
+  gap: 3px;
+  text-align: center;
+}
+.phone-bottom svg {
+  width: 15px;
+  height: 15px;
 }
 .phone-bottom small {
-  font-size: var(--sv-fs-xs);
+  font-size: 8.5px;
+  line-height: 1.15;
   color: #8d9690;
 }
 /* Light Savour theme */

@@ -195,9 +195,9 @@ window.showDatabaseError = function showDatabaseError(error) {
     if ($('publicInviteShell')) $('publicInviteShell').style.display = 'none';
     if ($('appShell')) $('appShell').style.display = 'grid';
     if ($('appShell')) $('appShell').classList.remove('public-info-mode');
-    activateView('home');
-    if ($('homeCards')) {
-      $('homeCards').innerHTML =
+    activateView('recipes');
+    if ($('recipeGrid')) {
+      $('recipeGrid').innerHTML =
         `<div class=\"empty\" style=\"grid-column:1/-1\"><strong>Je bent ingelogd, maar je recepten konden niet worden geladen.</strong><br><span class=\"muted\">Controleer de verbinding met je receptenbibliotheek en probeer het opnieuw.</span><br><button class=\"btn\" style=\"margin-top:14px\" onclick=\"retryDatabaseSession()\">Opnieuw proberen</button></div>`;
     }
   } catch (uiError) {
@@ -229,8 +229,8 @@ async function startDatabaseSession(user) {
       await loadDatabaseState();
       await loadPlanState();
       if (window.__proRoute) openPublicInfo('pro');
-      else showApp('home');
-      renderHome();
+      else showApp('recipes');
+      refreshSidebar();
       updateProfileHeader();
       // Kwam de gebruiker binnen via een uitnodigingslink? Dan nu lid worden en de map openen.
       await acceptPendingInvite();

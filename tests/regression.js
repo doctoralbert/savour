@@ -133,7 +133,6 @@
   await step('18-folder-manage', () => go('folderManage'));
   await step('19-shared-list-manage', () => go('sharedManage'));
   await step('20-categories', () => go('categories'));
-  await step('21-home', () => go('home'));
   await step('22-settings', () => go('settings'));
   await step('23-import', () => go('import'));
   await step('24-bulk-open', () => {

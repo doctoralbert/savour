@@ -250,7 +250,7 @@ function persistRecipe() {
     window.__aiImportedPhoto = '';
     done();
     renderRecipes();
-    renderHome();
+    refreshSidebar();
     openRecipe(obj.id);
     toast('Recept opgeslagen');
     return;

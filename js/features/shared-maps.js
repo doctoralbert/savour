@@ -58,7 +58,7 @@ async function createSharedMap() {
   closeNewShared();
   currentShared = m.id;
   renderSharedNav();
-  renderHome();
+  refreshSidebar();
   go('shared');
   toast('Gedeelde map aangemaakt');
 }
@@ -602,7 +602,7 @@ async function renameSharedMap(id) {
     m.name = next;
     renderSharedManage();
     renderSharedNav();
-    renderHome();
+    refreshSidebar();
     return;
   }
   const { error } = await supabaseClient
@@ -618,7 +618,7 @@ async function renameSharedMap(id) {
   currentShared = String(id);
   renderSharedManage();
   renderSharedNav();
-  renderHome();
+  refreshSidebar();
   renderShared(id);
   toast('Gedeelde map hernoemd');
 }
@@ -637,7 +637,7 @@ async function deleteSharedMap(id) {
     sharedMaps = sharedMaps.filter(x => String(x.id) !== String(id));
     if (String(currentShared) === String(id)) currentShared = null;
     renderSharedManage();
-    renderHome();
+    refreshSidebar();
     go('sharedManage');
     return;
   }
@@ -651,7 +651,7 @@ async function deleteSharedMap(id) {
   await loadDatabaseState();
   renderSharedManage();
   renderSharedNav();
-  renderHome();
+  refreshSidebar();
   go('sharedManage');
   toast('Gedeelde map verwijderd');
 }

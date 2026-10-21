@@ -43,7 +43,7 @@ async function createFolder() {
     folders.push({ id: 'demo-f-' + Date.now(), name, recipeIds: [], system: false });
     closeNewFolder();
     renderFolders();
-    renderHome();
+    refreshSidebar();
     renderCategoryNav();
     toast('Receptenmap aangemaakt');
     return;
@@ -58,7 +58,7 @@ async function createFolder() {
   await loadDatabaseState();
   closeNewFolder();
   renderFolders();
-  renderHome();
+  refreshSidebar();
   renderCategoryNav();
   renderCategories();
   toast('Receptenmap aangemaakt');
@@ -80,7 +80,7 @@ async function renameFolder(id) {
     f.name = next;
     renderFolders();
     renderFolderManage();
-    renderHome();
+    refreshSidebar();
     renderCategoryNav();
     if (String(currentFolder) === String(id)) renderFolderDetail();
     toast('Receptenmap hernoemd');
@@ -99,7 +99,7 @@ async function renameFolder(id) {
   await loadDatabaseState();
   renderFolders();
   renderFolderManage();
-  renderHome();
+  refreshSidebar();
   renderCategoryNav();
   renderCategories();
   if (String(currentFolder) === String(f.id)) renderFolderDetail();
@@ -164,7 +164,7 @@ async function deleteFolder(id) {
     folders = folders.filter(x => String(x.id) !== String(id));
     if (String(currentFolder) === String(id)) currentFolder = null;
     renderFolders();
-    renderHome();
+    refreshSidebar();
     renderCategoryNav();
     go('folders');
     toast('Receptenmap verwijderd');
@@ -186,7 +186,7 @@ async function deleteFolder(id) {
   if (String(currentFolder) === String(id)) currentFolder = null;
   await loadDatabaseState();
   renderFolders();
-  renderHome();
+  refreshSidebar();
   renderCategoryNav();
   renderCategories();
   go('folders');
@@ -328,7 +328,7 @@ async function saveFolderSelection() {
     closeFolderModal();
     await loadDatabaseState();
     toast('Mapindeling opgeslagen');
-    renderHome();
+    refreshSidebar();
     return;
   }
   if (currentFolder && String(currentFolder).startsWith('folderpick:')) {
@@ -381,7 +381,7 @@ async function saveFolderSelection() {
     currentFolder = realFolderId;
     toast('Recepten toegevoegd aan map');
     renderFolderDetail();
-    renderHome();
+    refreshSidebar();
     return;
   }
   if (currentFolder && String(currentFolder).startsWith('sharedfolderpick:')) {
@@ -417,7 +417,7 @@ async function removeRecipeFromFolder(id) {
   }
   await loadDatabaseState();
   renderFolderDetail();
-  renderHome();
+  refreshSidebar();
   toast('Recept uit map verwijderd');
 }
 

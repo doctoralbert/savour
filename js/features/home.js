@@ -1,4 +1,5 @@
-// Startscherm.
+// Receptkaart en het verversen van de zijbalk. Er is geen apart startscherm meer: na inloggen opent
+// Savour direct "Alle recepten".
 
 function card(r, context = 'library') {
   let isFav = favorites.includes(r.id);
@@ -17,42 +18,9 @@ function card(r, context = 'library') {
   return `<article class="card" onclick="openRecipe('${r.id}','${context}')"><div class="card-body"><div class="cat">${esc(r.category || 'Eigen recepten')}</div><div class="row"><h3>${esc(r.title)}</h3><button class="fav" title="${isFav ? 'Verwijder uit favorieten' : 'Voeg toe aan favorieten'}" onclick="event.stopPropagation();toggleFavorite('${r.id}')">${isFav ? '★' : '☆'}</button></div>${r.yield ? `<div class="yield">${esc(r.yield)}</div>` : ''}<div class="mini" style="margin-top:9px">${r.ingredients.length} ingrediënten · ${r.steps.length} bereidingsstappen</div><div style="display:flex;justify-content:flex-end;margin-top:12px">${action}</div></div></article>`;
 }
 
-function renderHome() {
+// Na een wijziging (recept, map, gedeelde map) de mappenlijsten in de zijbalk bijwerken.
+function refreshSidebar() {
   if (!currentUser) return;
-  const pf = getOrderedPersonalFolders(),
-    sm = getOrderedSharedMaps();
-  $('countStat').textContent = recipes.length;
-  $('folderStat').textContent = pf.length;
-  $('favoriteStat').textContent = favorites.filter(id => recipes.some(r => r.id === id)).length;
-  $('sharedStat').textContent = sm.length;
-  $('homeCards').innerHTML = recipes.slice(0, 8).map(card).join('');
-  $('folderGrid').innerHTML = pf.map(f => folderCard(f)).join('');
-  $('sideFolders').innerHTML =
-    pf
-      .slice(0, 6)
-      .map(
-        f =>
-          `<div onclick="openFolder('${escJs(f.id)}')" style="cursor:pointer"><b>${esc(f.name)}</b><small>${folderCount(f)} recepten</small></div>`
-      )
-      .join('') || `<div class="muted">Nog geen mappen.</div>`;
-  $('sideFavorites').innerHTML =
-    favorites
-      .slice(0, 5)
-      .map(id => recipes.find(r => r.id === id))
-      .filter(Boolean)
-      .map(
-        r =>
-          `<div onclick="openRecipe('${escJs(r.id)}')" style="cursor:pointer"><b>${esc(r.title)}</b><small>${esc(r.category || 'Eigen recepten')}</small></div>`
-      )
-      .join('') || `<div class="muted">Nog geen favorieten.</div>`;
-  $('sideShared').innerHTML =
-    sm
-      .slice(0, 5)
-      .map(
-        m =>
-          `<div onclick="openShared('${escJs(m.id)}')" style="cursor:pointer"><b>${esc(m.name)}</b><small>${m.recipeIds.length} recepten · ${m.members.length} leden</small></div>`
-      )
-      .join('') || `<div class="muted">Nog geen gedeelde mappen.</div>`;
   renderSharedNav();
   renderCategoryNav();
 }

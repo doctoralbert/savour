@@ -237,7 +237,7 @@ async function deleteBulkModalSelection() {
     bulkSelectedIds.clear();
     closeBulkDeleteModal();
     renderRecipes();
-    renderHome();
+    refreshSidebar();
     return;
   }
   const recipeIds = list.map(r => r.id);
@@ -256,7 +256,7 @@ async function deleteBulkModalSelection() {
   closeBulkDeleteModal();
   await loadDatabaseState();
   renderRecipes();
-  renderHome();
+  refreshSidebar();
   toast(`${list.length} recepten verwijderd`);
 }
 
@@ -280,7 +280,7 @@ async function toggleFavorite(id) {
   if (demoMode) {
     const exists = favorites.includes(id);
     favorites = exists ? favorites.filter(x => String(x) !== String(id)) : [...favorites, id];
-    renderHome();
+    refreshSidebar();
     renderRecipes();
     if ($('favorites').classList.contains('active')) renderFavorites();
     toast(exists ? 'Verwijderd uit favorieten' : 'Toegevoegd aan favorieten');
@@ -298,7 +298,7 @@ async function toggleFavorite(id) {
   }
   await loadDatabaseState();
   toast(exists ? 'Verwijderd uit favorieten' : 'Toegevoegd aan favorieten');
-  renderHome();
+  refreshSidebar();
   if ($('favorites').classList.contains('active')) renderFavorites();
   if ($('recipes').classList.contains('active')) renderRecipes();
   if ($('detail').classList.contains('active')) openRecipe(id);

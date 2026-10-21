@@ -144,7 +144,7 @@ async function deleteRecipe(id) {
     favorites = favorites.filter(x => String(x) !== String(id));
     folders.forEach(f => (f.recipeIds = (f.recipeIds || []).filter(x => String(x) !== String(id))));
     toast('Demo-recept verwijderd');
-    renderHome();
+    refreshSidebar();
     renderRecipes();
     renderFolders();
     go('recipes');
@@ -162,7 +162,7 @@ async function deleteRecipe(id) {
   }
   await loadDatabaseState();
   if (currentId === id) currentId = null;
-  renderHome();
+  refreshSidebar();
   renderRecipes();
   renderFavorites();
   renderFolders();

@@ -21,7 +21,6 @@ function go(id) {
   view.classList.add('active');
   document.querySelectorAll('[data-nav]').forEach(b => b.classList.toggle('active', b.dataset.nav === id));
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  if (id === 'home') renderHome();
   if (id === 'recipes') renderRecipes();
   if (id === 'favorites') renderFavorites();
   if (id === 'folders' || id === 'folderManage') renderFolderManage();
@@ -62,14 +61,13 @@ function addQuickButton(hostId, text, handler) {
 
 function activateView(id) {
   document.querySelectorAll('#appShell .view').forEach(v => v.classList.remove('active'));
-  const view = $(id) || $('home');
+  const view = $(id) || $('recipes');
   if (view) view.classList.add('active');
   document.querySelectorAll('[data-nav]').forEach(b => b.classList.toggle('active', b.dataset.nav === view?.id));
 }
 
 function renderActiveView(id) {
-  if (id === 'home') renderHome();
-  else if (id === 'recipes') renderRecipes();
+  if (id === 'recipes') renderRecipes();
   else if (id === 'favorites') renderFavorites();
   else if (id === 'folders') renderFolders();
   else if (id === 'categories') renderCategories();
@@ -80,7 +78,8 @@ function renderActiveView(id) {
   else if (['about', 'faq', 'terms', 'privacy', 'contact'].includes(id));
 }
 
-function showApp(viewId = 'home') {
+// Savour opent na inloggen direct de receptenbibliotheek ("Alle recepten").
+function showApp(viewId = 'recipes') {
   $('landingView').style.display = 'none';
   $('publicInfoShell').style.display = 'none';
   $('publicRecipeShell').style.display = 'none';
@@ -132,10 +131,8 @@ function searchAll(v) {
 
 function syncRecipeSearch(v) {
   const g = $('globalSearch'),
-    h = $('mobileHomeSearch'),
     m = $('mobileRecipeSearch');
   if (g) g.value = v;
-  if (h && h.value !== v) h.value = v;
   if (m && m.value !== v) m.value = v;
   activeCat = '';
   activeFolderCategory = '';
