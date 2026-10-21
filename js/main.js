@@ -7,8 +7,10 @@ applyTheme(currentTheme());
 setupCropControls();
 setupImportDropZone();
 
-// Beheeromgeving op /admin. (Bezoekersstatistieken staan uit tot de tabel site_visits is gecontroleerd,
-// daarom wordt logSavourVisit() nog nergens aangeroepen.)
+// Bezoek anoniem tellen (willekeurige code in de browser, geen IP-adres) voor de cijfers op /admin.
+if (!IS_ADMIN_PATH) logSavourVisit();
+
+// Beheeromgeving op /admin.
 if (IS_ADMIN_PATH) {
   setTimeout(async () => {
     adminRenderLogin();

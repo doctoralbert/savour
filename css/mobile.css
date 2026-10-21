@@ -480,3 +480,31 @@
     margin-top: 8px;
   }
 }
+
+/* iPhone zoomt in op invulvelden met tekst kleiner dan 16px (bijv. bij inloggen) en blijft dan ingezoomd.
+   Met 16px gebeurt dat niet. */
+@media (max-width: 760px) {
+  input:not([type='checkbox']):not([type='radio']):not([type='range']),
+  select,
+  textarea,
+  body
+    :is(#appShell, .modal, .public-shell, #landingView, #adminShell)
+    :is(input:not([type='checkbox']):not([type='radio']):not([type='range']), select, textarea) {
+    font-size: 16px !important;
+  }
+}
+
+/* Knoppen bovenaan een (gedeelde) map: nooit smaller dan hun tekst. Op een breed scherm gaat de rij
+   desnoods naar een tweede regel; op de telefoon blijft hij horizontaal scrollen. */
+.shared-map-actions .compact-action,
+.folder-map-actions .compact-action {
+  flex-shrink: 0 !important;
+  white-space: nowrap;
+}
+@media (min-width: 761px) {
+  .shared-main-head .shared-map-actions,
+  .folder-map-actions {
+    flex-wrap: wrap !important;
+    justify-content: flex-end;
+  }
+}

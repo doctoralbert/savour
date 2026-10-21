@@ -237,11 +237,44 @@ async function loadAdminOverview() {
         .join('');
     if ($('adminMoneyNote')) $('adminMoneyNote').textContent = `bijgewerkt ${adminFormatDate(new Date())}`;
     renderAdminAccounts();
+    renderAdminGrowth(adminAccounts);
   } catch (error) {
     console.error('Admin overzicht laden mislukt', error);
     if (money)
       money.innerHTML = `<div class="admin-stat"><div class="label">Status</div><div class="value">Fout</div><div class="sub">${adminEscape(error.message)}</div></div>`;
   }
+}
+
+// Nieuwe accounts per week, de laatste 8 weken (week begint op maandag).
+function renderAdminGrowth(accounts) {
+  const host = $('adminGrowth');
+  if (!host) return;
+  const monday = d => {
+    const x = new Date(d);
+    x.setHours(0, 0, 0, 0);
+    x.setDate(x.getDate() - ((x.getDay() + 6) % 7));
+    return x;
+  };
+  const thisWeek = monday(new Date());
+  const weeks = Array.from({ length: 8 }, (_, i) => {
+    const start = new Date(thisWeek);
+    start.setDate(start.getDate() - (7 - i) * 7);
+    return { start, count: 0 };
+  });
+  for (const a of accounts) {
+    const w = monday(a.created_at).getTime();
+    const hit = weeks.find(x => x.start.getTime() === w);
+    if (hit) hit.count++;
+  }
+  const max = Math.max(1, ...weeks.map(w => w.count));
+  const total = weeks.reduce((n, w) => n + w.count, 0);
+  const label = d => d.toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' });
+  host.innerHTML = `<div class="admin-growth-total"><b>${total}</b><span>nieuwe accounts in 8 weken · ${accounts.length} in totaal</span></div><div class="admin-growth-bars">${weeks
+    .map(
+      w =>
+        `<div class="admin-growth-bar" title="Week van ${adminEscape(label(w.start))}: ${w.count} nieuwe accounts"><span class="count">${w.count}</span><span class="bar" style="height:${Math.round((w.count / max) * 100)}%"></span><span class="week">${adminEscape(label(w.start))}</span></div>`
+    )
+    .join('')}</div>`;
 }
 
 function renderAdminAccounts() {
@@ -379,7 +412,8 @@ function savourAnalyticsPlatform() {
 }
 
 async function logSavourVisit() {
-  if (IS_ADMIN_PATH) return;
+  // Alleen echte bezoeken aan savour.page; de testversie en lokaal testen tellen niet mee.
+  if (IS_ADMIN_PATH || !/(^|\.)savour\.page$/.test(location.hostname)) return;
   try {
     const key = 'savour_visit_id';
     let vid = localStorage.getItem(key);

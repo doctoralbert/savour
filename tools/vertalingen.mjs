@@ -1276,10 +1276,10 @@ export const strings = [
   ['Laatst bijgewerkt: 21 oktober 2026.', 'Last updated: 21 October 2026.', 'Zuletzt aktualisiert: 21. Oktober 2026.', 'Última actualización: 21 de octubre de 2026.'],
   ['Waarom Savour bestaat', 'Why Savour exists', 'Warum es Savour gibt', 'Por qué existe Savour'],
   [
-    'In bijna elke keuken liggen recepten verspreid: in een map op kantoor, op losse kladjes bij de pass, in Word-bestanden van een vorige chef en in berichten op telefoons. Wie een recept zoekt, vindt vaak drie versies met andere hoeveelheden. Savour is gemaakt vanuit de keuken, door iemand die daar zelf tegenaan liep, met één doel: één plek waar elk recept staat zoals het bedoeld is.',
-    'In almost every kitchen, recipes are scattered: in a binder in the office, on loose notes at the pass, in Word files from a previous chef and in messages on phones. Anyone looking for a recipe often finds three versions with different quantities. Savour was made from the kitchen, by someone who ran into this first-hand, with one goal: one place where every recipe is exactly as intended.',
-    'In fast jeder Küche sind Rezepte verstreut: in einem Ordner im Büro, auf losen Zetteln am Pass, in Word-Dateien eines früheren Küchenchefs und in Nachrichten auf Handys. Wer ein Rezept sucht, findet oft drei Versionen mit unterschiedlichen Mengen. Savour entstand aus der Küche, von jemandem, der genau das selbst erlebt hat, mit einem Ziel: ein Ort, an dem jedes Rezept so steht, wie es gemeint ist.',
-    'En casi todas las cocinas las recetas están dispersas: en una carpeta en la oficina, en notas sueltas en el pase, en archivos de Word de un chef anterior y en mensajes en el móvil. Quien busca una receta a menudo encuentra tres versiones con cantidades distintas. Savour nació en la cocina, de alguien que lo vivió de primera mano, con un objetivo: un solo lugar donde cada receta esté tal como se pensó.'
+    'In bijna elke keuken liggen recepten verspreid: in een map op kantoor, op losse kladjes bij de pass, in Word-bestanden van een vorige chef en in berichten op telefoons. Wie een recept zoekt, vindt vaak drie versies met andere hoeveelheden. Savour is gemaakt door chefs die daar zelf dagelijks tegenaan lopen, met één doel: één plek waar elk recept staat zoals het bedoeld is.',
+    'In almost every kitchen, recipes are scattered: in a binder in the office, on loose notes at the pass, in Word files from a previous chef and in messages on phones. Anyone looking for a recipe often finds three versions with different quantities. Savour is made by chefs who run into this every day, with one goal: one place where every recipe is exactly as intended.',
+    'In fast jeder Küche sind Rezepte verstreut: in einem Ordner im Büro, auf losen Zetteln am Pass, in Word-Dateien eines früheren Küchenchefs und in Nachrichten auf Handys. Wer ein Rezept sucht, findet oft drei Versionen mit unterschiedlichen Mengen. Savour wird von Köchen gemacht, die genau das täglich erleben, mit einem Ziel: ein Ort, an dem jedes Rezept so steht, wie es gemeint ist.',
+    'En casi todas las cocinas las recetas están dispersas: en una carpeta en la oficina, en notas sueltas en el pase, en archivos de Word de un chef anterior y en mensajes en el móvil. Quien busca una receta a menudo encuentra tres versiones con cantidades distintas. Savour lo hacen chefs que lo viven cada día, con un objetivo: un solo lugar donde cada receta esté tal como se pensó.'
   ],
   ['Van kladje naar recept', 'From scribble to recipe', 'Vom Notizzettel zum Rezept', 'De la nota a la receta'],
   [
@@ -1295,12 +1295,12 @@ export const strings = [
     'Im Büro organisierst du deine Rezepte am Computer, in der Küche nutzt du dieselbe Bibliothek auf Handy oder Tablet. Rezepte auf eine andere Menge umrechnen, eine Kochansicht mit großer Schrift und das Drucken von Rezeptkarten sind inklusive.',
     'En la oficina organizas tus recetas en el ordenador; en la cocina usas la misma biblioteca en el móvil o la tableta. Recalcular recetas a otro rendimiento, una vista de cocina con letra grande e imprimir fichas de receta vienen incluidos.'
   ],
-  ['Wie maakt Savour', 'Who makes Savour', 'Wer Savour macht', 'Quién hace Savour'],
+  ['Door chefs, voor chefs', 'By chefs, for chefs', 'Von Köchen, für Köche', 'De chefs, para chefs'],
   [
-    'Savour wordt gemaakt door Jop Schreurs, oprichter, vanuit Oss. Vragen, ideeën of feedback zijn altijd welkom via de contactpagina.',
-    'Savour is made by Jop Schreurs, founder, based in Oss (the Netherlands). Questions, ideas and feedback are always welcome via the contact page.',
-    'Savour wird von Jop Schreurs, Gründer, aus Oss (Niederlande) entwickelt. Fragen, Ideen und Feedback sind über die Kontaktseite jederzeit willkommen.',
-    'Savour lo desarrolla Jop Schreurs, fundador, desde Oss (Países Bajos). Preguntas, ideas y comentarios siempre son bienvenidos en la página de contacto.'
+    'Savour wordt gemaakt door chefs uit Nederland. We weten uit eigen ervaring waar het in de keuken misgaat: zoekgeraakte recepten, verschillende versies en uren overtypen. Savour is gebouwd omdat we zelf een plek wilden die dat oplost, en die we zelf elke dag gebruiken. Vragen, ideeën of feedback zijn altijd welkom via de contactpagina.',
+    'Savour is made by chefs from the Netherlands. We know from experience where things go wrong in the kitchen: lost recipes, different versions and hours of retyping. Savour was built because we wanted a place that solves this ourselves, and one we use every day. Questions, ideas and feedback are always welcome via the contact page.',
+    'Savour wird von Köchen aus den Niederlanden gemacht. Wir wissen aus eigener Erfahrung, wo es in der Küche hakt: verlorene Rezepte, unterschiedliche Versionen und stundenlanges Abtippen. Savour entstand, weil wir selbst einen Ort wollten, der das löst, und den wir jeden Tag nutzen. Fragen, Ideen und Feedback sind über die Kontaktseite jederzeit willkommen.',
+    'Savour lo hacen chefs de los Países Bajos. Sabemos por experiencia dónde falla la cocina: recetas perdidas, versiones distintas y horas pasando recetas a limpio. Creamos Savour porque queríamos un lugar que lo resolviera, y que usamos a diario. Preguntas, ideas y comentarios siempre son bienvenidos en la página de contacto.'
   ],
   ['Gids', 'Guide', 'Leitfaden', 'Guía'],
   ['Gids: werken met recepten', 'Guide: working with recipes', 'Leitfaden: Arbeiten mit Rezepten', 'Guía: trabajar con recetas'],
@@ -1373,17 +1373,17 @@ export const strings = [
   ],
   ['9. Over de aanbieder', '9. About the provider', '9. Über den Anbieter', '9. Sobre el proveedor'],
   [
-    'Savour is een dienst van Jop Schreurs, gevestigd in Oss (Nederland). Je bereikt ons via contact@savour.page. Op deze voorwaarden is Nederlands recht van toepassing.',
-    'Savour is a service of Jop Schreurs, based in Oss (the Netherlands). You can reach us at contact@savour.page. These terms are governed by Dutch law.',
-    'Savour ist ein Dienst von Jop Schreurs mit Sitz in Oss (Niederlande). Du erreichst uns unter contact@savour.page. Für diese Bedingungen gilt niederländisches Recht.',
-    'Savour es un servicio de Jop Schreurs, con sede en Oss (Países Bajos). Puedes contactarnos en contact@savour.page. Estas condiciones se rigen por la legislación neerlandesa.'
+    'Savour is een Nederlandse onderneming. Je bereikt ons via contact@savour.page. Op deze voorwaarden is Nederlands recht van toepassing.',
+    'Savour is a Dutch company. You can reach us at contact@savour.page. These terms are governed by Dutch law.',
+    'Savour ist ein niederländisches Unternehmen. Du erreichst uns unter contact@savour.page. Für diese Bedingungen gilt niederländisches Recht.',
+    'Savour es una empresa neerlandesa. Puedes contactarnos en contact@savour.page. Estas condiciones se rigen por la legislación neerlandesa.'
   ],
   ['7. Wie is verantwoordelijk', '7. Who is responsible', '7. Wer ist verantwortlich', '7. Quién es el responsable'],
   [
-    'Savour is een dienst van Jop Schreurs, gevestigd in Oss (Nederland). Vragen over privacy of een verzoek om je gegevens in te zien, te wijzigen of te verwijderen stuur je naar',
-    'Savour is a service of Jop Schreurs, based in Oss (the Netherlands). Send questions about privacy or requests to access, correct or delete your data to',
-    'Savour ist ein Dienst von Jop Schreurs mit Sitz in Oss (Niederlande). Fragen zum Datenschutz oder Anfragen zu Auskunft, Berichtigung oder Löschung deiner Daten sendest du an',
-    'Savour es un servicio de Jop Schreurs, con sede en Oss (Países Bajos). Envía tus preguntas sobre privacidad o solicitudes para acceder, corregir o eliminar tus datos a'
+    'Savour is een Nederlandse onderneming en verantwoordelijk voor de verwerking van je gegevens. Vragen over privacy of een verzoek om je gegevens in te zien, te wijzigen of te verwijderen stuur je naar',
+    'Savour is a Dutch company and is responsible for processing your data. Send questions about privacy or requests to access, correct or delete your data to',
+    'Savour ist ein niederländisches Unternehmen und für die Verarbeitung deiner Daten verantwortlich. Fragen zum Datenschutz oder Anfragen zu Auskunft, Berichtigung oder Löschung deiner Daten sendest du an',
+    'Savour es una empresa neerlandesa y responsable del tratamiento de tus datos. Envía tus preguntas sobre privacidad o solicitudes para acceder, corregir o eliminar tus datos a'
   ],
   [
     '. Savour maakt gebruik van de volgende verwerkers: Supabase (database en inloggen), Vercel (hosting van de website), Stripe (betalingen), OpenAI (AI-import, alleen voor Savour Pro), Resend (e-mail) en Google (advertenties). Met deze partijen zijn afspraken gemaakt over de bescherming van je gegevens; sommige verwerken gegevens ook buiten de Europese Unie, op basis van de standaardcontractbepalingen van de Europese Commissie.',

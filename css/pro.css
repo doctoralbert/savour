@@ -267,3 +267,44 @@
   flex: 1;
   min-width: 0;
 }
+
+/* Beheerscherm: groei (nieuwe accounts per week) */
+.admin-growth-total {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 14px;
+  color: #8b958f;
+  font-size: 13px;
+}
+.admin-growth-total b {
+  font-family: var(--sv-font-display);
+  font-size: 28px;
+  color: #eee8dc;
+}
+.admin-growth-bars {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 8px;
+  align-items: end;
+  height: 160px;
+}
+.admin-growth-bar {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+  height: 100%;
+  gap: 4px;
+  font-size: 11px;
+  color: #8b958f;
+}
+.admin-growth-bar .bar {
+  align-self: end;
+  width: 70%;
+  min-height: 2px;
+  border-radius: 6px 6px 2px 2px;
+  background: linear-gradient(180deg, #e8ca8d, #9d8959);
+}
+.admin-growth-bar .count {
+  color: #eee8dc;
+}
