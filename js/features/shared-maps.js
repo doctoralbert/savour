@@ -703,7 +703,54 @@ function inviteShared(id) {
   activeInviteTitle = m.name;
   const base = 'https://savour.page/join/' + encodeURIComponent(m.publicKey || m.id);
   $('inviteLink').textContent = base;
+  $('inviteEmail').value = '';
+  $('inviteRole').value = 'viewer';
   $('inviteModal').classList.add('open');
+}
+
+// Teamlid direct toevoegen op e-mailadres. Bestaat er nog geen account, dan gaat er via het eigen
+// mailprogramma van de eigenaar een uitnodiging met de link (Savour verstuurt zelf niets).
+async function addMemberByEmail() {
+  const m = findSharedMap(currentShared);
+  const email = $('inviteEmail').value.trim();
+  const role = $('inviteRole').value === 'editor' ? 'editor' : 'viewer';
+  if (!m || !isSharedMapOwner(m)) return toast('Alleen de eigenaar kan teamleden toevoegen');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return toast('Vul een geldig e-mailadres in');
+  let result;
+  if (demoMode) {
+    result = { status: 'added', name: email.split('@')[0], role };
+    m.members.push({ name: result.name, role, userId: 'demo-' + Date.now(), email });
+  } else {
+    const { data, error } = await supabaseClient.rpc('add_shared_map_member_by_email', {
+      _map_id: m.id,
+      _email: email,
+      _role: role
+    });
+    if (error) {
+      console.error(error);
+      return toast(
+        /function|schema cache/i.test(error.message || '')
+          ? 'Toevoegen via e-mail is nog niet beschikbaar: voer eerst de Supabase-update uit'
+          : 'Teamlid kon niet worden toegevoegd'
+      );
+    }
+    result = data || {};
+  }
+  if (result.status === 'added') {
+    $('inviteEmail').value = '';
+    if (!demoMode) await loadDatabaseState();
+    if ($('sharedMapManage')?.classList.contains('active')) renderSharedMapManage(m.id);
+    return toast(`${result.name} is toegevoegd als ${result.role === 'editor' ? 'editor' : 'viewer'}`);
+  }
+  if (result.status === 'already') return toast(`${result.name} is al lid van deze map`);
+  if (result.status === 'owner') return toast('Dit is je eigen e-mailadres');
+  if (
+    await askConfirm(
+      `Nog geen Savour-account voor ${email}\n\nStuur een uitnodiging per e-mail? Je eigen mailprogramma opent met de link. Na het aanmaken van een account opent de link de map.`,
+      { confirmLabel: 'Uitnodiging mailen' }
+    )
+  )
+    shareInviteEmail(email);
 }
 
 function closeInvite() {
@@ -736,10 +783,12 @@ function shareInviteTelegram() {
   );
 }
 
-function shareInviteEmail() {
+function shareInviteEmail(to = '') {
   const u = $('inviteLink').textContent;
   window.location.href =
-    'mailto:?subject=' +
+    'mailto:' +
+    String(to).replace(/[^\w.@+-]/g, '') +
+    '?subject=' +
     encodeURIComponent('Uitnodiging voor ' + activeInviteTitle + ' in Savour') +
     '&body=' +
     encodeURIComponent('Je bent uitgenodigd voor de gedeelde map ' + activeInviteTitle + ' in Savour.\n\n' + u);

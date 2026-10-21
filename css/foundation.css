@@ -186,6 +186,41 @@ body.savour-light :is(#appShell, .modal) .btn.gold {
   gap: var(--sv-space-2);
   margin-top: var(--sv-space-5);
 }
+.sv-dialog-choices {
+  display: grid;
+  gap: var(--sv-space-2);
+  margin-top: var(--sv-space-4);
+}
+.sv-dialog-choices[hidden],
+#svDialog .btn[hidden] {
+  display: none !important;
+}
+.sv-dialog-choice {
+  display: block;
+  width: 100%;
+  min-height: var(--sv-control-h);
+  padding: var(--sv-space-2) var(--sv-space-3);
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface);
+  color: var(--sv-text);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.sv-dialog-choice small {
+  display: block;
+  margin-top: 2px;
+  color: var(--sv-text-2);
+  font-weight: 400;
+  font-size: var(--sv-fs-xs);
+}
+.sv-dialog-choice:hover,
+.sv-dialog-choice:focus-visible,
+.sv-dialog-choice.is-primary {
+  border-color: var(--sv-gold);
+}
 #svDialog .btn.sv-danger {
   background: #a4473a !important;
   border-color: #a4473a !important;

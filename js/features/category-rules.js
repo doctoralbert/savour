@@ -36,7 +36,7 @@ function keywordsOf(category) {
 function suggestCategory(title) {
   const name = normalizeForMatch(title);
   if (!name) return null;
-  const head = name.split(/\s(?:van|met|op|in|uit|en|of|a la|au|aux)\s/)[0];
+  const head = name.split(/\s(?:van|met|voor|bij|zonder|op|in|uit|en|of|a la|au|aux)\s/)[0];
   const hits = [];
   for (const category of categories) {
     let best = null;
@@ -48,15 +48,23 @@ function suggestCategory(title) {
       if (inName < 0) continue;
       const score = inHead >= 0 ? 100000 + inHead + k.length : inName + k.length;
       if (!best || score > best.score || (score === best.score && k.length > best.length))
-        best = { category, keyword, score, length: k.length };
+        best = { category, keyword, score, length: k.length, at: inName };
     }
     if (best) hits.push(best);
   }
   if (!hits.length) return null;
   // Gelijke stand: het langste (meest specifieke) trefwoord wint, bijv. "ossenhaas" boven "haas".
   hits.sort((a, b) => b.score - a.score || b.length - a.length);
-  const { category, keyword } = hits[0];
-  return { category, keyword, conflicts: hits.slice(1).map(h => h.category) };
+  const [winner, ...others] = hits;
+  // Valt een ander trefwoord helemaal binnen het winnende (zoals "taart" in "ijstaart"), dan is dat geen twijfel.
+  const inside = h => h.at >= winner.at && h.at + h.length <= winner.at + winner.length;
+  const alternatives = others.filter(h => !inside(h)).map(h => ({ category: h.category, keyword: h.keyword }));
+  return {
+    category: winner.category,
+    keyword: winner.keyword,
+    conflicts: alternatives.map(a => a.category),
+    alternatives
+  };
 }
 
 // ---- Trefwoorden beheren (pagina Categorieën) ----
@@ -155,6 +163,30 @@ function suggestEditorCategory() {
   }
 }
 
+// Twijfelgeval bij opslaan: de chef kiest zelf. Geeft de gekozen categorie, of null bij annuleren.
+async function chooseDoubtfulCategory(title, current) {
+  const s = suggestCategory(title);
+  if (!s || !s.alternatives.length || current !== s.category) return current;
+  return askChoice(
+    `In welke categorie hoort “${title}”?\n\nDe naam past bij meerdere categorieën. Kies zelf waar het recept komt.`,
+    [
+      { value: s.category, label: s.category, hint: `trefwoord “${s.keyword}”`, primary: true },
+      ...s.alternatives.map(a => ({ value: a.category, label: a.category, hint: `trefwoord “${a.keyword}”` }))
+    ]
+  );
+}
+
+// Editor: alleen vragen als Savour de categorie zelf invulde (de chef koos niet).
+async function confirmEditorCategory() {
+  const select = $('fCategory');
+  if (select.dataset.manual === '1') return true;
+  const chosen = await chooseDoubtfulCategory($('fTitle').value.trim(), select.value);
+  if (!chosen) return false;
+  select.value = chosen;
+  markEditorCategoryManual();
+  return true;
+}
+
 function markEditorCategoryManual() {
   $('fCategory').dataset.manual = '1';
   if ($('fCategoryHint')) $('fCategoryHint').hidden = true;
@@ -168,8 +200,11 @@ function openCategorySuggestions() {
   categorySuggestions = recipes
     .map(r => ({ recipe: r, suggestion: suggestCategory(r.title) }))
     .filter(x => x.suggestion && x.suggestion.category !== x.recipe.category)
+    // Twijfelgeval dat al in een van de passende categorieën staat: die keuze heeft de chef al gemaakt.
+    .filter(x => !x.suggestion.conflicts.includes(x.recipe.category))
     .map(x => ({
       ...x,
+      target: x.suggestion.category,
       // Alleen recepten zonder categorie staan standaard aangevinkt; een bestaande keuze wijzigt alleen als de chef dat aanvinkt.
       checked: x.recipe.category === 'Eigen recepten' && !x.suggestion.conflicts.length
     }));
@@ -184,7 +219,16 @@ function renderCategorySuggestions() {
     ? categorySuggestions
         .map(
           (x, i) =>
-            `<label class="cat-suggest-row"><input type="checkbox" ${x.checked ? 'checked' : ''} onchange="categorySuggestions[${i}].checked=this.checked;updateCategorySuggestionButton()"><span><b translate="no">${esc(x.recipe.title)}</b><small><span translate="no">${esc(x.recipe.category)}</span> → <strong translate="no">${esc(x.suggestion.category)}</strong> · <span>trefwoord</span> <span translate="no">“${esc(x.suggestion.keyword)}”</span>${x.suggestion.conflicts.length ? ` · <em>past ook bij</em> <span translate="no">${esc(x.suggestion.conflicts.join(', '))}</span>` : ''}</small></span></label>`
+            `<label class="cat-suggest-row"><input type="checkbox" ${x.checked ? 'checked' : ''} onchange="categorySuggestions[${i}].checked=this.checked;updateCategorySuggestionButton()"><span><b translate="no">${esc(x.recipe.title)}</b><small><span translate="no">${esc(x.recipe.category)}</span> → ${
+              x.suggestion.alternatives.length
+                ? `<select class="cat-suggest-pick" translate="no" onclick="event.stopPropagation()" onchange="categorySuggestions[${i}].target=this.value">${[
+                    x.suggestion.category,
+                    ...x.suggestion.conflicts
+                  ]
+                    .map(c => `<option value="${esc(c)}" ${c === x.target ? 'selected' : ''}>${esc(c)}</option>`)
+                    .join('')}</select> <em>twijfel: kies zelf</em>`
+                : `<strong translate="no">${esc(x.suggestion.category)}</strong> · <span>trefwoord</span> <span translate="no">“${esc(x.suggestion.keyword)}”</span>`
+            }</small></span></label>`
         )
         .join('')
     : '<div class="empty">Geen voorstellen: alle recepten passen al bij hun trefwoorden.</div>';
@@ -245,7 +289,7 @@ async function applyCategorySuggestions() {
     const idByName = Object.fromEntries((cats || []).map(c => [c.name, c.id]));
     // Per categorie één update voor alle gekozen recepten.
     const groups = {};
-    chosen.forEach(x => (groups[x.suggestion.category] ||= []).push(x.recipe.id));
+    chosen.forEach(x => (groups[x.target] ||= []).push(x.recipe.id));
     for (const [name, ids] of Object.entries(groups)) {
       const { error } = await supabaseClient
         .from('recipes')
@@ -261,7 +305,7 @@ async function applyCategorySuggestions() {
     }
     await loadDatabaseState();
   } else {
-    chosen.forEach(x => (x.recipe.category = x.suggestion.category));
+    chosen.forEach(x => (x.recipe.category = x.target));
   }
   closeCategorySuggestions();
   renderCategories();

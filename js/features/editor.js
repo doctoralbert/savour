@@ -196,6 +196,8 @@ async function saveRecipe() {
     toast(`Dit recept bestaat al: “${duplicate.title}”`);
     return;
   }
+  // Past de naam bij meerdere categorieën, dan kiest de chef zelf.
+  if (!(await confirmEditorCategory())) return;
   return persistRecipe();
 }
 

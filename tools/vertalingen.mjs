@@ -1015,6 +1015,63 @@ export const strings = [
   ['Aanpassen', 'Apply', 'Übernehmen', 'Aplicar'],
   ['Standaardlijst', 'Default list', 'Standardliste', 'Lista estándar'],
   [
+    'De naam past bij meerdere categorieën. Kies zelf waar het recept komt.',
+    'The name matches several categories. Choose where the recipe goes.',
+    'Der Name passt zu mehreren Kategorien. Wähle selbst, wohin das Rezept gehört.',
+    'El nombre encaja con varias categorías. Elige dónde va la receta.'
+  ],
+  ['twijfel: kies zelf', 'unsure: choose yourself', 'unklar: selbst wählen', 'duda: elige tú'],
+  [
+    'Toevoegen via e-mailadres',
+    'Add by email address',
+    'Per E-Mail-Adresse hinzufügen',
+    'Añadir por correo electrónico'
+  ],
+  ['naam@restaurant.nl', 'name@restaurant.com', 'name@restaurant.de', 'nombre@restaurante.es'],
+  [
+    'Heeft deze persoon al een Savour-account, dan is hij of zij direct lid. Zo niet, dan stuur je een uitnodiging per e-mail.',
+    'If this person already has a Savour account, they become a member right away. If not, you send an invitation by email.',
+    'Hat diese Person bereits ein Savour-Konto, ist sie sofort Mitglied. Wenn nicht, sendest du eine Einladung per E-Mail.',
+    'Si esta persona ya tiene una cuenta de Savour, será miembro al instante. Si no, le envías una invitación por correo.'
+  ],
+  [
+    'Of deel de uitnodigingslink, bijvoorbeeld via WhatsApp naar een telefoonnummer. Nadat iemand een account heeft gemaakt, kun je de rechten aanpassen.',
+    'Or share the invitation link, for example via WhatsApp to a phone number. Once someone has created an account, you can adjust their permissions.',
+    'Oder teile den Einladungslink, zum Beispiel per WhatsApp an eine Telefonnummer. Sobald jemand ein Konto erstellt hat, kannst du die Rechte anpassen.',
+    'O comparte el enlace de invitación, por ejemplo por WhatsApp a un número de teléfono. Cuando alguien cree una cuenta, podrás ajustar sus permisos.'
+  ],
+  [
+    'Alleen de eigenaar kan teamleden toevoegen',
+    'Only the owner can add team members',
+    'Nur der Eigentümer kann Teammitglieder hinzufügen',
+    'Solo el propietario puede añadir miembros'
+  ],
+  [
+    'Toevoegen via e-mail is nog niet beschikbaar: voer eerst de Supabase-update uit',
+    'Adding by email is not available yet: run the Supabase update first',
+    'Hinzufügen per E-Mail ist noch nicht verfügbar: führe zuerst das Supabase-Update aus',
+    'Añadir por correo aún no está disponible: ejecuta primero la actualización de Supabase'
+  ],
+  [
+    'Teamlid kon niet worden toegevoegd',
+    'Team member could not be added',
+    'Teammitglied konnte nicht hinzugefügt werden',
+    'No se pudo añadir al miembro'
+  ],
+  [
+    'Dit is je eigen e-mailadres',
+    'This is your own email address',
+    'Das ist deine eigene E-Mail-Adresse',
+    'Este es tu propio correo'
+  ],
+  [
+    'Stuur een uitnodiging per e-mail? Je eigen mailprogramma opent met de link. Na het aanmaken van een account opent de link de map.',
+    'Send an invitation by email? Your own email app opens with the link. After creating an account, the link opens the folder.',
+    'Eine Einladung per E-Mail senden? Dein E-Mail-Programm öffnet sich mit dem Link. Nach dem Erstellen eines Kontos öffnet der Link den Ordner.',
+    '¿Enviar una invitación por correo? Se abrirá tu programa de correo con el enlace. Tras crear una cuenta, el enlace abre la carpeta.'
+  ],
+  ['Uitnodiging mailen', 'Email invitation', 'Einladung mailen', 'Enviar invitación'],
+  [
     'Standaardcategorieën toevoegen?',
     'Add default categories?',
     'Standardkategorien hinzufügen?',
@@ -2381,6 +2438,37 @@ export const patterns = [
     'Getting keywords: $1. Your own categories and keywords stay as they are.',
     'Erhalten Stichwörter: $1. Deine eigenen Kategorien und Stichwörter bleiben erhalten.',
     'Reciben palabras clave: $1. Tus propias categorías y palabras clave se mantienen.'
+  ],
+  [
+    '^In welke categorie hoort “(.+)”\\?$',
+    'Which category does “$1” belong in?',
+    'In welche Kategorie gehört „$1“?',
+    '¿En qué categoría va «$1»?'
+  ],
+  ['^trefwoord “(.+)”$', 'keyword “$1”', 'Stichwort „$1“', 'palabra clave «$1»'],
+  [
+    '^(.+) is toegevoegd als editor$',
+    '$1 has been added as editor',
+    '$1 wurde als Bearbeiter hinzugefügt',
+    '$1 se ha añadido como editor'
+  ],
+  [
+    '^(.+) is toegevoegd als viewer$',
+    '$1 has been added as viewer',
+    '$1 wurde als Betrachter hinzugefügt',
+    '$1 se ha añadido como lector'
+  ],
+  [
+    '^(.+) is al lid van deze map$',
+    '$1 is already a member of this folder',
+    '$1 ist bereits Mitglied dieses Ordners',
+    '$1 ya es miembro de esta carpeta'
+  ],
+  [
+    '^Nog geen Savour-account voor (.+)$',
+    'No Savour account yet for $1',
+    'Noch kein Savour-Konto für $1',
+    'Aún no hay cuenta de Savour para $1'
   ],
   ['^Trefwoorden voor (.+)$', 'Keywords for $1', 'Stichwörter für $1', 'Palabras clave de $1'],
   [
