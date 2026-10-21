@@ -29,7 +29,15 @@ loadEnvFile('.env.local');
 loadEnvFile('.env');
 
 const handlers = new Map();
-for (const name of ['ai-import', 'bug-report', 'admin-reset', 'pro-checkout', 'pro-portal', 'stripe-webhook']) {
+for (const name of [
+  'ai-import',
+  'bug-report',
+  'admin',
+  'admin-reset',
+  'pro-checkout',
+  'pro-portal',
+  'stripe-webhook'
+]) {
   const module = await import(pathToFileURL(path.join(ROOT, 'api', `${name}.js`)).href);
   handlers.set(`/api/${name}`, module.default);
 }
@@ -157,7 +165,7 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, () => {
   console.log(`\nSavour local server draait op http://localhost:${PORT}`);
   console.log(
-    'API-routes: /api/ai-import  /api/bug-report  /api/admin-reset  /api/pro-checkout  /api/pro-portal  /api/stripe-webhook'
+    'API-routes: /api/ai-import  /api/bug-report  /api/admin  /api/admin-reset  /api/pro-checkout  /api/pro-portal  /api/stripe-webhook'
   );
   console.log('Stoppen: Ctrl+C\n');
 });

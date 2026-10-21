@@ -3,8 +3,8 @@
 //
 // Instellen in Stripe → Developers → Webhooks → Add endpoint: https://savour.page/api/stripe-webhook
 // met de gebeurtenissen checkout.session.completed en customer.subscription.created/updated/deleted.
-import { stripe, verifyStripeSignature, readRawBody, planForPrice } from './_lib/stripe.js';
-import { upsertSubscription, findSubscriptionByCustomer } from './_lib/supabase-admin.js';
+import { stripe, verifyStripeSignature, readRawBody, planForPrice, TEAM_SEATS } from './_lib/stripe.js';
+import { upsertSubscription, findSubscriptionByCustomer, update } from './_lib/supabase-admin.js';
 
 // De ruwe body is nodig voor de handtekening, dus niet automatisch laten omzetten.
 export const config = { api: { bodyParser: false } };
@@ -16,13 +16,27 @@ async function applySubscription(sub, userId) {
   const periodEnd = sub.current_period_end ?? item?.current_period_end;
   // Opzeggen: oudere Stripe-versies zetten cancel_at_period_end, nieuwere vullen cancel_at (de einddatum).
   const endsAt = sub.cancel_at || (sub.cancel_at_period_end ? periodEnd : null);
+  const until = endsAt || periodEnd ? new Date((endsAt || periodEnd) * 1000).toISOString() : null;
+  // Teamabonnement: het team bijwerken, niet het persoonlijke abonnement.
+  if (sub.metadata?.organization_id) {
+    const plan = planForPrice(item?.price?.id);
+    await update('organizations', `id=eq.${encodeURIComponent(sub.metadata.organization_id)}`, {
+      status: sub.status,
+      ...(plan ? { plan, seats: TEAM_SEATS[plan.split('_')[0]] } : {}),
+      stripe_subscription_id: sub.id,
+      current_period_end: until,
+      cancel_at_period_end: !!endsAt,
+      updated_at: new Date().toISOString()
+    });
+    return;
+  }
   await upsertSubscription({
     user_id: userId,
     status: sub.status,
     plan: planForPrice(item?.price?.id) || 'month',
     stripe_customer_id: sub.customer,
     stripe_subscription_id: sub.id,
-    current_period_end: endsAt || periodEnd ? new Date((endsAt || periodEnd) * 1000).toISOString() : null,
+    current_period_end: until,
     cancel_at_period_end: !!endsAt
   });
 }

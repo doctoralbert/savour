@@ -431,6 +431,60 @@ window.SAVOUR_I18N.de = {
     "Word, PDF en tekst importeer je gratis met de Savour-lezer. Met Savour Pro leest de AI daarnaast foto's van handgeschreven recepten, gescande pagina's en rommelige documenten. Je controleert alles voordat het wordt opgeslagen.":
       'Word, PDF und Text importierst du kostenlos mit dem Savour-Leser. Mit Savour Pro liest die KI zusätzlich Fotos handschriftlicher Rezepte, gescannte Seiten und unordentliche Dokumente. Du prüfst alles vor dem Speichern.',
     'of €29 per jaar': 'oder 29 € pro Jahr',
+    Organisatie: 'Organisation',
+    'Bijv. restaurant, hotel of cateraar': 'Z. B. Restaurant, Hotel oder Caterer',
+    'Vul in bij welke organisatie je werkt': 'Gib an, bei welcher Organisation du arbeitest',
+    'Bij welke organisatie werk je?': 'Bei welcher Organisation arbeitest du?',
+    'Bijvoorbeeld je restaurant, hotel of cateraar.': 'Zum Beispiel dein Restaurant, Hotel oder Caterer.',
+    'Naam van je organisatie': 'Name deiner Organisation',
+    'Deze naam zien je teamleden.': 'Diesen Namen sehen deine Teammitglieder.',
+    'Verder naar betalen': 'Weiter zur Zahlung',
+    'Onbeperkt recepten, je eigen team en AI die je kladjes leest.':
+      'Unbegrenzt Rezepte, dein eigenes Team und KI, die deine Notizen liest.',
+    'Je probeert Savour Pro gratis.': 'Du testest Savour Pro kostenlos.',
+    'Nieuw bij Savour?': 'Neu bei Savour?',
+    'Je krijgt 14 dagen Savour Pro gratis, zonder betaalgegevens.':
+      'Du bekommst 14 Tage Savour Pro kostenlos, ohne Zahlungsdaten.',
+    'Savour voor je hele team': 'Savour für dein ganzes Team',
+    "Met een teamabonnement krijgt iedereen in je keuken Savour Pro. Hoe groter je team, hoe lager de prijs per persoon. Je nodigt je collega's uit op hun e-mailadres en kunt plekken altijd aan iemand anders geven.":
+      'Mit einem Team-Abo bekommt jeder in deiner Küche Savour Pro. Je größer dein Team, desto niedriger der Preis pro Person. Du lädst Kollegen per E-Mail ein und kannst Plätze jederzeit neu vergeben.',
+    'Meest gekozen': 'Am beliebtesten',
+    'Groter dan 25 personen of meerdere vestigingen? Neem contact op voor een prijs op maat.':
+      'Mehr als 25 Personen oder mehrere Standorte? Kontaktiere uns für einen individuellen Preis.',
+    'Recepten bewaren': 'Rezepte speichern',
+    onbeperkt: 'unbegrenzt',
+    'Mappen, categorieën, zoeken en favorieten': 'Ordner, Kategorien, Suche und Favoriten',
+    'Lid zijn van een gedeelde map van een ander': 'Mitglied im geteilten Ordner von jemand anderem sein',
+    'Zelf een gedeelde map maken en je team uitnodigen': 'Eigene geteilte Ordner erstellen und dein Team einladen',
+    "AI leest foto's, handgeschreven en gescande recepten": 'KI liest Fotos, handschriftliche und gescannte Rezepte',
+    ': die leest Word, PDF en tekst direct en gratis in. Met':
+      ': er liest Word, PDF und Text sofort und kostenlos ein. Mit',
+    "leest daarnaast de AI wat de lezer niet zeker weet: foto's, handgeschreven kladjes, gescande pagina's en documenten zonder duidelijke indeling. De AI verzint nooit hoeveelheden of stappen; je controleert elk recept voordat het wordt opgeslagen.":
+      'liest die KI zusätzlich, worüber der Leser unsicher ist: Fotos, handschriftliche Notizen, gescannte Seiten und Dokumente ohne klare Gliederung. Die KI erfindet nie Mengen oder Schritte; du prüfst jedes Rezept vor dem Speichern.',
+    'Wat gebeurt er als ik stop met Pro?': 'Was passiert, wenn ich Pro beende?',
+    'Je houdt al je recepten en gedeelde mappen. Je kunt alleen geen nieuwe recepten meer toevoegen boven de 100 en geen nieuwe gedeelde mappen maken.':
+      'Du behältst alle Rezepte und geteilten Ordner. Du kannst nur keine neuen Rezepte über 100 hinzufügen und keine neuen geteilten Ordner erstellen.',
+    'Moeten mijn teamleden ook betalen?': 'Müssen meine Teammitglieder auch zahlen?',
+    'Nee. Lid zijn van een gedeelde map is gratis. Wil je dat iedereen in je keuken Pro heeft, kies dan een teamabonnement.':
+      'Nein. Mitglied in einem geteilten Ordner zu sein ist kostenlos. Soll jeder in deiner Küche Pro haben, wähle ein Team-Abo.',
+    'Elke foto, gescande pagina of elk deel van een bestand dat de AI leest (ongeveer 8 recepten per deel). Wat de Savour-lezer zelf zeker leest, telt niet mee.':
+      'Jedes Foto, jede gescannte Seite oder jeder Dateiteil, den die KI liest (etwa 8 Rezepte pro Teil). Was der Savour-Leser sicher liest, zählt nicht.',
+    'Gratis beginnen. Pro voor je hele keuken.': 'Kostenlos starten. Pro für deine ganze Küche.',
+    "Gratis bewaar je tot 100 recepten en importeer je Word, PDF en tekst met de Savour-lezer. Met Savour Pro bewaar je onbeperkt, maak je gedeelde mappen voor je team en leest de AI foto's van handgeschreven recepten en gescande pagina's. Nieuw bij Savour? Je krijgt 14 dagen Pro gratis.":
+      'Kostenlos speicherst du bis zu 100 Rezepte und importierst Word, PDF und Text mit dem Savour-Leser. Mit Savour Pro speicherst du unbegrenzt, erstellst geteilte Ordner für dein Team und die KI liest Fotos handschriftlicher Rezepte und gescannte Seiten. Neu bei Savour? Du bekommst 14 Tage Pro kostenlos.',
+    'of €29 per jaar · teams vanaf €1,20 per persoon': 'oder 29 € pro Jahr · Teams ab 1,20 € pro Person',
+    'Savour Pro · gratis proefperiode': 'Savour Pro · kostenlose Testphase',
+    'Savour Pro · proefperiode': 'Savour Pro · Testphase',
+    'Je team': 'Dein Team',
+    'Teamlid · Savour Pro': 'Teammitglied · Savour Pro',
+    'Plek vrijgeven': 'Platz freigeben',
+    'Alle plekken zijn bezet. Een groter team kies je via Abonnement beheren.':
+      'Alle Plätze sind belegt. Ein größeres Team wählst du über Abo verwalten.',
+    'Alle plekken in je team zijn bezet.': 'Alle Plätze in deinem Team sind belegt.',
+    'Vul een geldig e-mailadres in.': 'Gib eine gültige E-Mail-Adresse ein.',
+    'Teamlid kon niet worden toegevoegd.': 'Teammitglied konnte nicht hinzugefügt werden.',
+    'Plek kon niet worden vrijgegeven.': 'Platz konnte nicht freigegeben werden.',
+    'Een gedeelde map maken is Savour Pro': 'Geteilte Ordner erstellen ist Savour Pro',
     'Bekijk Savour Pro': 'Savour Pro ansehen',
     'Savour Pro is voor jou kosteloos geactiveerd.': 'Savour Pro wurde für dich kostenlos aktiviert.',
     "Alles van Savour, met de Savour-lezer voor Word, PDF en tekst. AI-import (foto's, handgeschreven en gescande recepten) zit in Savour Pro.":
@@ -979,6 +1033,64 @@ window.SAVOUR_I18N.de = {
     [
       '^(\\d+) receptnamen aangepast, (\\d+) niet gelukt\\. Probeer het opnieuw\\.$',
       '$1 Rezeptnamen angepasst, $2 fehlgeschlagen. Bitte erneut versuchen.'
+    ],
+    ['^Team (\\d+)$', 'Team $1'],
+    ['^Savour Pro · Team (\\d+)$', 'Savour Pro · Team $1'],
+    ['^(\\d+) personen · (€[\\d,]+) per persoon$', '$1 Personen · $2 pro Person'],
+    ['^of (€[\\d,]+) per jaar$', 'oder $1 pro Jahr'],
+    ['^tot (\\d+)$', 'bis zu $1'],
+    [
+      '^Tot (.+)\\. Daarna ga je vanzelf terug naar gratis; je betaalt niets zonder dat je zelf kiest\\.$',
+      'Bis $1. Danach wechselst du automatisch zurück zu kostenlos; du zahlst nichts, ohne es selbst zu wählen.'
+    ],
+    [
+      '^Tot (.+)\\. Daarna ga je vanzelf terug naar gratis, tenzij je zelf Pro kiest\\.$',
+      'Bis $1. Danach wechselst du automatisch zurück zu kostenlos, außer du wählst Pro.'
+    ],
+    [
+      '^Savour Pro is voor jou kosteloos geactiveerd tot (.+)\\.$',
+      'Savour Pro wurde für dich kostenlos bis $1 aktiviert.'
+    ],
+    ['^Via je team: (.+)\\.$', 'Über dein Team: $1.'],
+    [
+      '^(\\d+) van (\\d+|∞) recepten\\. Met Savour Pro onbeperkt recepten, je eigen gedeelde mappen en AI-import\\.$',
+      '$1 von $2 Rezepten. Mit Savour Pro: unbegrenzt Rezepte, eigene geteilte Ordner und KI-Import.'
+    ],
+    [
+      '^(\\d+) van (\\d+) plekken in gebruik \\(jij telt mee\\)\\. Teamleden hebben Pro zodra ze inloggen met dit e-mailadres\\.$',
+      '$1 von $2 Plätzen belegt (du zählst mit). Teammitglieder haben Pro, sobald sie sich mit dieser E-Mail-Adresse anmelden.'
+    ],
+    ['^(.+) heeft nu Savour Pro via je team$', '$1 hat jetzt Savour Pro über dein Team'],
+    [
+      "^Word, PDF en tekst lees je gratis in \\(nog (\\d+) van (\\d+) recepten in je gratis account\\)\\. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro\\.$",
+      'Word, PDF und Text liest du kostenlos ein (noch $1 von $2 Rezepten in deinem kostenlosen Konto). Fotos, handschriftliche und gescannte Rezepte liest die KI: nur in Savour Pro.'
+    ],
+    ['^Je gratis account zit aan (\\d+) recepten$', 'Dein kostenloses Konto hat $1 Rezepte erreicht'],
+    [
+      '^Met Savour Pro bewaar je onbeperkt recepten \\(vanaf (€[\\d,]+) per maand\\)\\. Je bestaande recepten blijven altijd gewoon staan\\.$',
+      'Mit Savour Pro speicherst du unbegrenzt Rezepte (ab $1 pro Monat). Deine bestehenden Rezepte bleiben immer erhalten.'
+    ],
+    [
+      '^Met Pro maak je gedeelde mappen en nodig je je team uit \\(vanaf (€[\\d,]+) per maand\\)\\. Lid zijn van de gedeelde map van een ander blijft gratis\\.$',
+      'Mit Pro erstellst du geteilte Ordner und lädst dein Team ein (ab $1 pro Monat). Mitglied im Ordner von jemand anderem zu sein bleibt kostenlos.'
+    ],
+    [
+      '^Je gratis account heeft nog ruimte voor (\\d+) recepten$',
+      'Dein kostenloses Konto hat noch Platz für $1 Rezepte'
+    ],
+    [
+      '^Savour slaat de eerste (\\d+) op\\. De andere (\\d+) blijven hier staan; met Savour Pro bewaar je onbeperkt recepten\\.$',
+      'Savour speichert die ersten $1. Die anderen $2 bleiben hier; mit Savour Pro speicherst du unbegrenzt Rezepte.'
+    ],
+    ['^(\\d+) opslaan$', '$1 speichern'],
+    [
+      '^(\\d+) recepten passen niet meer in je gratis account\\. Met Savour Pro sla je ze alsnog op\\.$',
+      '$1 Rezepte passen nicht mehr in dein kostenloses Konto. Mit Savour Pro speicherst du sie trotzdem.'
+    ],
+    ['^Plek van (.+) vrijgeven\\?$', 'Platz von $1 freigeben?'],
+    [
+      '^Diegene houdt al zijn recepten, maar heeft geen Pro meer via je team\\.$',
+      'Die Person behält alle Rezepte, hat aber kein Pro mehr über dein Team.'
     ],
     [
       '^Gelezen door de Savour-lezer: (\\d+) · nagelezen door de AI: (\\d+)$',

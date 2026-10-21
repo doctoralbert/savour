@@ -84,3 +84,37 @@ vervang in Vercel de vier Stripe-waarden door de live-waarden.
   Laat de voorwaarden hierop controleren door een jurist.
 - **Wat Pro bepaalt:** de server controleert bij elke AI-import of iemand Pro is en onder de 500 zit.
   Iets in de browser aanpassen geeft dus geen gratis AI.
+
+## 6. Gratis, proefperiode, teams en beheerscherm (oktober 2026)
+
+**Database:** voer `supabase/2026-10-22-gratis-pro-teams.sql` uit in de SQL Editor. Daarmee:
+
+- gratis accounts maximaal 100 eigen recepten (bestaande recepten blijven altijd staan);
+- een gedeelde map maken is Pro (lid zijn van andermans map blijft gratis);
+- nieuwe accounts 14 dagen Pro gratis, zonder betaalgegevens;
+- teams (organisaties) met een pakket plekken;
+- de organisatie in het profiel.
+
+Let op: met deze regels is ook het account van de eigenaar "gratis" zodra de proefperiode voorbij is. Geef
+jezelf in het beheerscherm **Pro geven → Onbeperkt**, anders kun je boven de 100 recepten niets toevoegen.
+
+**Teamprijzen in Stripe:** maak bij het product Savour Pro zes extra terugkerende prijzen en zet de
+prijs-ID's in Vercel:
+
+| Pakket | Per maand | Per jaar | Vercel (maand / jaar) |
+|---|---|---|---|
+| Team 5 | € 8,99 | € 89 | `STRIPE_PRICE_TEAM5_MONTH` / `STRIPE_PRICE_TEAM5_YEAR` |
+| Team 10 | € 14,99 | € 149 | `STRIPE_PRICE_TEAM10_MONTH` / `STRIPE_PRICE_TEAM10_YEAR` |
+| Team 25 | € 29,99 | € 299 | `STRIPE_PRICE_TEAM25_MONTH` / `STRIPE_PRICE_TEAM25_YEAR` |
+
+Zet in het klantportaal van Stripe (Settings → Billing → Customer portal → Products) ook de teamprijzen
+aan, zodat een eigenaar zelf naar een groter team kan overstappen.
+
+**Beheerscherm:** `/admin` (bijv. https://savour.page/admin). Je logt in met je gewone Savour-account.
+Beheerders staan in Vercel in `ADMIN_EMAILS` (komma-gescheiden; standaard schreurs.jop@gmail.com).
+Daar zie je alle accounts met naam, e-mail, organisatie, soort account (gratis, proef, Pro, cadeau, team),
+aantal recepten en AI-gebruik, en kun je iemand Pro cadeau geven of dat intrekken.
+
+**Echte OpenAI-kosten in het beheerscherm (optioneel):** maak bij OpenAI een *Admin key*
+(platform.openai.com → Settings → Organization → Admin keys) en zet die in Vercel als `OPENAI_ADMIN_KEY`.
+Zonder die sleutel toont het beheerscherm alleen het aantal AI-imports.

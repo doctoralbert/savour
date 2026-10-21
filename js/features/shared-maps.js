@@ -24,6 +24,8 @@ function findSharedMap(id) {
 }
 
 function newSharedMap() {
+  // Zelf een gedeelde map maken is Pro; lid zijn van andermans map blijft gratis.
+  if (!demoMode && !isPro()) return askForProSharedMap();
   $('newSharedName').value = '';
   $('newSharedModal').classList.add('open');
 }
@@ -43,6 +45,10 @@ async function createSharedMap() {
     .single();
   if (error) {
     console.error(error);
+    if (/savour_pro_required/.test(error.message || '')) {
+      closeNewShared();
+      return askForProSharedMap();
+    }
     toast('Gedeelde map kon niet worden aangemaakt');
     return;
   }

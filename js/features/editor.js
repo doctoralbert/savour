@@ -196,6 +196,8 @@ async function saveRecipe() {
     toast(`Dit recept bestaat al: “${duplicate.title}”`);
     return;
   }
+  // Gratis account aan de 100 recepten: een nieuw recept kan niet, bewerken wel.
+  if (!currentId && !(await checkRecipeRoom(1))) return;
   // Past de naam bij meerdere categorieën, dan kiest de chef zelf.
   if (!(await confirmEditorCategory())) return;
   return persistRecipe();
@@ -302,6 +304,8 @@ function persistRecipe() {
     } catch (e) {
       console.error('Savour saveRecipe error', e);
       done();
+      // De database houdt de 100 recepten van een gratis account tegen, ook als de app het niet wist.
+      if (/savour_recipe_limit/.test(e?.message || '')) return checkRecipeRoom(Infinity);
       toast('Recept kon niet worden opgeslagen: ' + (e?.message || 'onbekende fout'));
     }
   })();

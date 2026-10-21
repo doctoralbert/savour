@@ -28,8 +28,8 @@ async function setTheme(theme) {
 
 async function saveAccount() {
   if (!currentUser) return;
-  const name = $('accountName').value.trim() || 'Chef-kok';
-  const role = $('accountRole').value.trim() || 'Chef-kok';
+  const name = $('accountName').value.trim();
+  const organization = $('accountOrganization').value.trim();
   const email = $('accountEmail').value.trim();
   if (!email) {
     toast(t('Vul een geldig e-mailadres in'));
@@ -52,14 +52,14 @@ async function saveAccount() {
   const theme = localStorage.getItem('savour_theme') || 'dark';
   const { error } = await supabaseClient
     .from('profiles')
-    .update({ name, function_title: role, email: currentUser.email, theme })
+    .update({ name, organization, email: currentUser.email, theme })
     .eq('id', currentUser.id);
   if (error) {
     console.error(error);
     toast(t('Account kon niet worden opgeslagen'));
     return;
   }
-  account = { ...account, name, role, email: currentUser.email };
+  account = { ...account, name, organization, email: currentUser.email };
   updateProfileHeader();
   renderSettings();
   toast(t('Account opgeslagen'));
@@ -92,7 +92,25 @@ function updateProfileHeader() {
     ? `<img src="${esc(account.photo)}" alt="Profielfoto">`
     : (account.name || 'M').charAt(0).toUpperCase();
   document.querySelector('.profile b').textContent = account.name || 'Mijn account';
-  document.querySelector('.profile small').textContent = account.role || 'Mijn account';
+  document.querySelector('.profile small').textContent = account.organization || '';
+}
+
+// Bij welke organisatie werk je? Eén keer vragen na inloggen als het nog niet bekend is (overslaan mag).
+async function askOrganizationOnce() {
+  if (!currentUser || demoMode || account.organization) return;
+  try {
+    if (sessionStorage.getItem('savour_org_asked')) return;
+    sessionStorage.setItem('savour_org_asked', '1');
+  } catch (e) {}
+  const value = await askText('Bij welke organisatie werk je?\n\nBijvoorbeeld je restaurant, hotel of cateraar.', '', {
+    confirmLabel: 'Opslaan'
+  });
+  const organization = String(value || '').trim();
+  if (!organization) return;
+  const { error } = await supabaseClient.from('profiles').update({ organization }).eq('id', currentUser.id);
+  if (error) return console.error(error);
+  account.organization = organization;
+  updateProfileHeader();
 }
 
 function startProfilePhoto(input) {
@@ -215,7 +233,7 @@ function renderSettings() {
   if (!currentUser) return;
   document.querySelectorAll('input[name="savourTheme"]').forEach(x => (x.checked = x.value === currentTheme()));
   $('accountName').value = account.name || '';
-  $('accountRole').value = account.role || '';
+  $('accountOrganization').value = account.organization || '';
   $('accountEmail').value = account.email || '';
   $('accountPassword').value = account.password || '';
   $('accountAvatar').innerHTML = account.photo
@@ -313,7 +331,7 @@ async function deleteAccount() {
     favorites = [];
     sharedMaps = [];
     sharedRecipes = [];
-    account = { name: '', role: 'Chef-kok', email: '', password: '', photo: '' };
+    account = { name: '', organization: '', email: '', password: '', photo: '' };
     showLanding();
     toast('Account verwijderd');
   } catch (e) {

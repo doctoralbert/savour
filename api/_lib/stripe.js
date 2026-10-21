@@ -61,13 +61,41 @@ export async function readRawBody(req) {
   return Buffer.concat(chunks).toString('utf8');
 }
 
-// Welke prijs hoort bij maand of jaar (ingesteld in Vercel).
+// Abonnementen en hun prijs-ID in Vercel. Persoonlijk: month, year. Teams: team5/10/25 per maand of jaar,
+// bijv. STRIPE_PRICE_TEAM10_YEAR.
+export const TEAM_SEATS = { team5: 5, team10: 10, team25: 25 };
+const PLAN_ENV = {
+  month: 'STRIPE_PRICE_MONTH',
+  year: 'STRIPE_PRICE_YEAR',
+  ...Object.fromEntries(
+    Object.keys(TEAM_SEATS).flatMap(t => [
+      [`${t}_month`, `STRIPE_PRICE_${t.toUpperCase()}_MONTH`],
+      [`${t}_year`, `STRIPE_PRICE_${t.toUpperCase()}_YEAR`]
+    ])
+  )
+};
+
+export function isPlan(plan) {
+  return Object.hasOwn(PLAN_ENV, plan);
+}
+
 export function priceFor(plan) {
-  return plan === 'year' ? process.env.STRIPE_PRICE_YEAR : process.env.STRIPE_PRICE_MONTH;
+  return process.env[PLAN_ENV[plan]];
 }
 
 export function planForPrice(priceId) {
-  if (priceId && priceId === process.env.STRIPE_PRICE_YEAR) return 'year';
-  if (priceId && priceId === process.env.STRIPE_PRICE_MONTH) return 'month';
-  return null;
+  if (!priceId) return null;
+  return Object.keys(PLAN_ENV).find(plan => process.env[PLAN_ENV[plan]] === priceId) || null;
 }
+
+// Prijs per maand in euro's, voor de omzet in het beheerscherm.
+export const PLAN_MONTHLY_EUR = {
+  month: 2.99,
+  year: 29 / 12,
+  team5_month: 8.99,
+  team5_year: 89 / 12,
+  team10_month: 14.99,
+  team10_year: 149 / 12,
+  team25_month: 29.99,
+  team25_year: 299 / 12
+};

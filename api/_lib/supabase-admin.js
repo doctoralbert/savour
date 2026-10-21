@@ -41,6 +41,41 @@ export async function findSubscriptionByCustomer(customerId) {
   return rows?.[0] || null;
 }
 
+// Algemene tabeltoegang voor de server (beheerscherm, teams).
+export function select(table, query) {
+  return adminFetch(`/rest/v1/${table}?${query}`);
+}
+
+export function update(table, query, values) {
+  return adminFetch(`/rest/v1/${table}?${query}`, { method: 'PATCH', body: values, prefer: 'return=minimal' });
+}
+
+export function remove(table, query) {
+  return adminFetch(`/rest/v1/${table}?${query}`, { method: 'DELETE', prefer: 'return=minimal' });
+}
+
+// Alle accounts (Supabase Auth), per pagina van 1000.
+export async function listUsers() {
+  const users = [];
+  for (let page = 1; page < 50; page++) {
+    const data = await adminFetch(`/auth/v1/admin/users?page=${page}&per_page=1000`);
+    const batch = data?.users || [];
+    users.push(...batch);
+    if (batch.length < 1000) break;
+  }
+  return users;
+}
+
+// Het team van een eigenaar: aanmaken of bijwerken (één team per eigenaar).
+export async function upsertOrganization(row) {
+  const rows = await adminFetch('/rest/v1/organizations?on_conflict=owner_id', {
+    method: 'POST',
+    body: { ...row, updated_at: new Date().toISOString() },
+    prefer: 'resolution=merge-duplicates,return=representation'
+  });
+  return rows?.[0] || null;
+}
+
 // Maakt of werkt de abonnementsregel van een gebruiker bij.
 export function upsertSubscription(row) {
   return adminFetch('/rest/v1/subscriptions?on_conflict=user_id', {

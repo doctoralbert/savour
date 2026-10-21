@@ -1,21 +1,83 @@
 // Savour Pro: abonnement (Stripe), de Pro-pagina, de abonnementsstatus in Instellingen en de melding bij
-// importeren. Gratis: alles behalve AI. Pro: AI-import (foto's, handgeschreven, gescande PDF's en rommelige
-// bestanden), max. 500 per maand. De echte controle gebeurt op de server (api/ai-import.js).
+// importeren.
+// Gratis: tot 100 eigen recepten, de Savour-lezer, lid zijn van gedeelde mappen.
+// Pro: onbeperkt recepten, zelf gedeelde mappen maken en je team uitnodigen, AI-import (500 per maand).
+// Nieuwe accounts: 14 dagen Pro gratis. Teams: een pakket plekken voor een organisatie.
+// De echte controle zit in de database (supabase/2026-10-22-gratis-pro-teams.sql) en op de server.
 
 const PRO_PRICES = { month: '€2,99', year: '€29' };
+const FREE_RECIPE_LIMIT = 100;
+// Teampakketten: hoe groter het team, hoe lager de prijs per persoon. Elke plek krijgt volledig Pro.
+const TEAM_PLANS = [
+  { id: 'team5', seats: 5, month: '€8,99', year: '€89', perPerson: '€1,80' },
+  { id: 'team10', seats: 10, month: '€14,99', year: '€149', perPerson: '€1,50' },
+  { id: 'team25', seats: 25, month: '€29,99', year: '€299', perPerson: '€1,20' }
+];
 const PRO_INTENT_KEY = 'savour_pro_intent';
 
+const EMPTY_PLAN = {
+  pro: false,
+  source: 'free',
+  status: '',
+  plan: '',
+  periodEnd: null,
+  cancelAtEnd: false,
+  trialEnd: null,
+  team: null,
+  recipeLimit: FREE_RECIPE_LIMIT,
+  used: 0,
+  limit: 500
+};
+
 // Status van de ingelogde gebruiker; geladen in loadPlanState().
-let savourPlan = { pro: false, status: '', plan: '', periodEnd: null, cancelAtEnd: false, used: 0, limit: 500 };
+let savourPlan = { ...EMPTY_PLAN };
 
 function isPro() {
   return !!savourPlan.pro;
 }
 
-// Leest abonnement en AI-teller. Bestaan de tabellen nog niet (SQL niet uitgevoerd), dan blijft alles gratis.
+// Hoeveel eigen recepten mag deze gebruiker nog toevoegen? Infinity met Pro.
+function recipeRoomLeft() {
+  return isPro() || demoMode ? Infinity : Math.max(0, savourPlan.recipeLimit - recipes.length);
+}
+
+// Melding als een gratis account aan de 100 recepten zit. Geeft true als er nog ruimte is.
+async function checkRecipeRoom(count = 1) {
+  const left = recipeRoomLeft();
+  if (left >= count) return true;
+  if (
+    await askConfirm(
+      `Je gratis account zit aan ${FREE_RECIPE_LIMIT} recepten\n\nMet Savour Pro bewaar je onbeperkt recepten (vanaf ${PRO_PRICES.month} per maand). Je bestaande recepten blijven altijd gewoon staan.`,
+      { confirmLabel: 'Bekijk Savour Pro' }
+    )
+  )
+    openPublicInfo('pro');
+  return false;
+}
+
+// Leest het abonnement in één keer uit de database (savour_my_plan). Bestaat die functie nog niet (SQL niet
+// uitgevoerd), dan zoals voorheen alleen het eigen abonnement en de AI-teller.
 async function loadPlanState() {
-  savourPlan = { pro: false, status: '', plan: '', periodEnd: null, cancelAtEnd: false, used: 0, limit: 500 };
+  savourPlan = { ...EMPTY_PLAN };
   if (!currentUser || demoMode) return;
+  const { data: p, error } = await supabaseClient.rpc('savour_my_plan');
+  if (!error && p) {
+    savourPlan = {
+      ...EMPTY_PLAN,
+      pro: !!p.pro,
+      source: p.source || 'free',
+      status: p.status || '',
+      plan: p.plan || '',
+      periodEnd: p.period_end ? new Date(p.period_end) : null,
+      cancelAtEnd: !!p.cancel_at_period_end,
+      hasCustomer: !!p.has_customer,
+      trialEnd: p.trial_end ? new Date(p.trial_end) : null,
+      team: p.team || null,
+      recipeLimit: p.recipe_limit || FREE_RECIPE_LIMIT,
+      used: p.used || 0
+    };
+    return;
+  }
   try {
     const month = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Amsterdam', year: 'numeric', month: '2-digit' })
       .format(new Date())
@@ -28,7 +90,10 @@ async function loadPlanState() {
     const periodEnd = s?.current_period_end ? new Date(s.current_period_end) : null;
     const running = !periodEnd || periodEnd > new Date();
     savourPlan = {
+      ...EMPTY_PLAN,
       pro: !!s && ['active', 'trialing', 'past_due', 'canceled'].includes(s.status) && running,
+      // Zonder de nieuwe SQL bestaat de recepten-limiet nog niet in de database; dan ook niet in de app.
+      recipeLimit: Infinity,
       status: s?.status || '',
       plan: s?.plan || '',
       periodEnd,
@@ -56,9 +121,11 @@ async function proApi(path, body = {}) {
   return result;
 }
 
-// Knop "Kies maand/jaar". Niet ingelogd? Eerst een account; daarna gaat het afrekenen vanzelf verder.
+// Knop "Kies maand/jaar" of een teampakket ("team10_month"). Niet ingelogd? Eerst een account; daarna gaat
+// het afrekenen vanzelf verder.
 async function choosePro(plan) {
-  plan = plan === 'year' ? 'year' : 'month';
+  const isTeam = /^team(5|10|25)_(month|year)$/.test(plan);
+  if (!isTeam) plan = plan === 'year' ? 'year' : 'month';
   if (demoMode) return toast('In de demo kun je Savour Pro niet afsluiten.');
   if (!currentUser) {
     try {
@@ -66,10 +133,22 @@ async function choosePro(plan) {
     } catch (e) {}
     return openAuth('signup');
   }
-  if (isPro()) return openProPortal();
+  // Eigen Pro (betaald) beheer je in het Stripe-portaal; een team kun je ook naast een proefperiode nemen.
+  if (!isTeam && ['subscription', 'gift', 'team_owner', 'team_member'].includes(savourPlan.source))
+    return openProPortal();
+  let organization = '';
+  if (isTeam) {
+    if (savourPlan.team?.owner && savourPlan.team.active) return openProPortal();
+    organization = String(
+      (await askText('Naam van je organisatie\n\nDeze naam zien je teamleden.', account.organization || '', {
+        confirmLabel: 'Verder naar betalen'
+      })) || ''
+    ).trim();
+    if (!organization) return;
+  }
   document.querySelectorAll('[data-pro-choose]').forEach(b => (b.disabled = true));
   try {
-    const { url } = await proApi('/api/pro-checkout', { plan });
+    const { url } = await proApi('/api/pro-checkout', { plan, organization });
     location.href = url;
   } catch (e) {
     document.querySelectorAll('[data-pro-choose]').forEach(b => (b.disabled = false));
@@ -94,7 +173,7 @@ async function resumeProIntent() {
     plan = localStorage.getItem(PRO_INTENT_KEY) || '';
     localStorage.removeItem(PRO_INTENT_KEY);
   } catch (e) {}
-  if (plan && currentUser && !isPro()) await choosePro(plan);
+  if (plan && currentUser && (plan.startsWith('team') || !isPro())) await choosePro(plan);
 }
 
 // Terug van Stripe (?pro=success of ?pro=portal). De betaling komt via de webhook binnen; even opnieuw kijken.
@@ -104,11 +183,14 @@ async function handleProReturn() {
   history.replaceState(null, '', location.pathname);
   if (p === 'success') {
     toast('Bedankt! Je abonnement wordt geactiveerd…');
-    for (let i = 0; i < 8 && !isPro(); i++) {
+    // Tijdens de proefperiode is iemand al Pro: wacht op het betaalde abonnement zelf.
+    const paid = () => ['subscription', 'team_owner'].includes(savourPlan.source);
+    for (let i = 0; i < 8 && !paid(); i++) {
       await new Promise(r => setTimeout(r, 2000));
       await loadPlanState();
     }
-    toast(isPro() ? 'Welkom bij Savour Pro.' : 'Je betaling wordt nog verwerkt. Kijk zo nog even in Instellingen.');
+    toast(paid() ? 'Welkom bij Savour Pro.' : 'Je betaling wordt nog verwerkt. Kijk zo nog even in Instellingen.');
+    if (paid() && savourPlan.team?.owner) go('settings');
   } else await loadPlanState();
   renderPlanSettings();
   renderImportPlanNotice();
@@ -124,53 +206,125 @@ function formatProDate(d) {
 
 function renderProPage(host) {
   if (!host) return;
-  const pro = isPro();
+  const paid = ['subscription', 'gift', 'team_owner', 'team_member'].includes(savourPlan.source);
   const card = (plan, price, per, note, primary) =>
-    `<div class="pro-price${primary ? ' is-featured' : ''}">${primary ? '<span class="pro-badge">Voordeligst</span>' : ''}<h3>${plan === 'year' ? 'Jaarlijks' : 'Maandelijks'}</h3><div class="pro-amount"><strong>${price}</strong><span>${per}</span></div><p class="muted">${note}</p><button type="button" class="btn ${primary ? 'gold' : ''}" data-pro-choose onclick="choosePro('${plan}')">${pro ? 'Abonnement beheren' : plan === 'year' ? 'Kies jaarlijks' : 'Kies maandelijks'}</button></div>`;
+    `<div class="pro-price${primary ? ' is-featured' : ''}">${primary ? '<span class="pro-badge">Voordeligst</span>' : ''}<h3>${plan === 'year' ? 'Jaarlijks' : 'Maandelijks'}</h3><div class="pro-amount"><strong>${price}</strong><span>${per}</span></div><p class="muted">${note}</p><button type="button" class="btn ${primary ? 'gold' : ''}" data-pro-choose onclick="choosePro('${plan}')">${paid ? 'Abonnement beheren' : plan === 'year' ? 'Kies jaarlijks' : 'Kies maandelijks'}</button></div>`;
+  const teamCard = t =>
+    `<div class="pro-price pro-team${t.seats === 10 ? ' is-featured' : ''}">${t.seats === 10 ? '<span class="pro-badge">Meest gekozen</span>' : ''}<h3>Team ${t.seats}</h3><div class="pro-amount"><strong>${t.month}</strong><span>per maand</span></div><p class="muted">${t.seats} personen · ${t.perPerson} per persoon<br>of ${t.year} per jaar</p><button type="button" class="btn ${t.seats === 10 ? 'gold' : ''}" data-pro-choose onclick="choosePro('${t.id}_month')">Kies maandelijks</button><button type="button" class="btn pro-year-link" data-pro-choose onclick="choosePro('${t.id}_year')">Kies jaarlijks</button></div>`;
+  const current =
+    savourPlan.source === 'trial'
+      ? `<div class="pro-current"><b>Je probeert Savour Pro gratis.</b> <span>Tot ${esc(formatProDate(savourPlan.trialEnd))}. Daarna ga je vanzelf terug naar gratis; je betaalt niets zonder dat je zelf kiest.</span></div>`
+      : isPro()
+        ? `<div class="pro-current"><b>Je hebt Savour Pro.</b> <span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt deze maand.</span></div>`
+        : '';
   host.innerHTML =
-    (pro
-      ? `<div class="pro-current"><b>Je hebt Savour Pro.</b> <span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt deze maand.</span></div>`
-      : '') +
-    `<div class="pro-prices">${card('month', PRO_PRICES.month, 'per maand', 'Maandelijks opzegbaar.', false)}${card('year', PRO_PRICES.year, 'per jaar', 'Twee maanden gratis ten opzichte van maandelijks.', true)}</div>
+    current +
+    `<p class="pro-trial-note"><strong>Nieuw bij Savour?</strong> Je krijgt 14 dagen Savour Pro gratis, zonder betaalgegevens.</p>
+    <div class="pro-prices">${card('month', PRO_PRICES.month, 'per maand', 'Maandelijks opzegbaar.', false)}${card('year', PRO_PRICES.year, 'per jaar', 'Twee maanden gratis ten opzichte van maandelijks.', true)}</div>
     <p class="pro-pay muted">Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Er wordt geen btw gerekend (kleineondernemersregeling). Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.</p>
+    <h2>Savour voor je hele team</h2>
+    <p>Met een teamabonnement krijgt iedereen in je keuken Savour Pro. Hoe groter je team, hoe lager de prijs per persoon. Je nodigt je collega's uit op hun e-mailadres en kunt plekken altijd aan iemand anders geven.</p>
+    <div class="pro-prices pro-team-prices">${TEAM_PLANS.map(teamCard).join('')}</div>
+    <p class="pro-pay muted">Groter dan 25 personen of meerdere vestigingen? Neem contact op voor een prijs op maat.</p>
     <h2>Wat zit erin?</h2>
     <table class="pro-compare">
       <thead><tr><th></th><th>Gratis</th><th>Pro</th></tr></thead>
       <tbody>
-        <tr><td>Recepten, mappen, categorieën en zoeken</td><td>✓</td><td>✓</td></tr>
-        <tr><td>Gedeelde mappen en samenwerken met je team</td><td>✓</td><td>✓</td></tr>
+        <tr><td>Recepten bewaren</td><td>tot ${FREE_RECIPE_LIMIT}</td><td>onbeperkt</td></tr>
+        <tr><td>Mappen, categorieën, zoeken en favorieten</td><td>✓</td><td>✓</td></tr>
         <tr><td>Omrekenen, printen, kookmodus en delen</td><td>✓</td><td>✓</td></tr>
         <tr><td>Importeren van Word, PDF en tekst met de Savour-lezer</td><td>✓</td><td>✓</td></tr>
-        <tr><td>AI leest foto's en handgeschreven recepten</td><td>–</td><td>✓</td></tr>
-        <tr><td>AI leest gescande PDF's en rommelige documenten</td><td>–</td><td>✓</td></tr>
+        <tr><td>Lid zijn van een gedeelde map van een ander</td><td>✓</td><td>✓</td></tr>
+        <tr><td>Zelf een gedeelde map maken en je team uitnodigen</td><td>–</td><td>✓</td></tr>
+        <tr><td>AI leest foto's, handgeschreven en gescande recepten</td><td>–</td><td>✓</td></tr>
         <tr><td>AI-imports per maand</td><td>–</td><td>500</td></tr>
       </tbody>
     </table>
     <h2>Hoe werkt importeren?</h2>
-    <p>Iedereen gebruikt de <strong>Savour-lezer</strong>: die leest Word, PDF en tekst met duidelijke kopjes (zoals “Ingrediënten” en “Bereiding”) direct en gratis in. Met <strong>Savour Pro</strong> leest daarnaast de AI wat de lezer niet kan: foto's, handgeschreven kladjes, gescande pagina's en documenten zonder duidelijke indeling. De AI verzint nooit hoeveelheden of stappen; je controleert elk recept voordat het wordt opgeslagen.</p>
+    <p>Iedereen gebruikt de <strong>Savour-lezer</strong>: die leest Word, PDF en tekst direct en gratis in. Met <strong>Savour Pro</strong> leest daarnaast de AI wat de lezer niet zeker weet: foto's, handgeschreven kladjes, gescande pagina's en documenten zonder duidelijke indeling. De AI verzint nooit hoeveelheden of stappen; je controleert elk recept voordat het wordt opgeslagen.</p>
     <h2>Vragen</h2>
-    <p><strong>Wat telt als een AI-import?</strong><br>Elke foto, gescande pagina of elk bestand dat de AI leest. Een lang document telt per deel van ongeveer 8 recepten. Bestanden die de Savour-lezer zelf goed leest, tellen niet mee.</p>
+    <p><strong>Wat gebeurt er als ik stop met Pro?</strong><br>Je houdt al je recepten en gedeelde mappen. Je kunt alleen geen nieuwe recepten meer toevoegen boven de ${FREE_RECIPE_LIMIT} en geen nieuwe gedeelde mappen maken.</p>
+    <p><strong>Moeten mijn teamleden ook betalen?</strong><br>Nee. Lid zijn van een gedeelde map is gratis. Wil je dat iedereen in je keuken Pro heeft, kies dan een teamabonnement.</p>
+    <p><strong>Wat telt als een AI-import?</strong><br>Elke foto, gescande pagina of elk deel van een bestand dat de AI leest (ongeveer 8 recepten per deel). Wat de Savour-lezer zelf zeker leest, telt niet mee.</p>
     <p><strong>Wat als ik over de 500 heen ga?</strong><br>Dan leest de Savour-lezer verder en kun je de rest volgende maand met AI doen. Er komen nooit extra kosten bij.</p>
     <p><strong>Hoe zeg ik op?</strong><br>In Mijn account → Abonnement → Abonnement beheren. Daar wijzig je ook je betaalmethode en download je facturen.</p>`;
 }
 
-// ---- Abonnement in Instellingen ----
+// ---- Abonnement en team in Instellingen ----
 
 function renderPlanSettings() {
   const host = $('settingsPlan');
   if (!host) return;
-  if (isPro()) {
-    const until = formatProDate(savourPlan.periodEnd);
-    const line =
-      savourPlan.plan === 'gift'
-        ? 'Savour Pro is voor jou kosteloos geactiveerd.'
-        : savourPlan.cancelAtEnd
-          ? `Opgezegd. Je houdt Pro tot ${until}.`
-          : `${savourPlan.plan === 'year' ? 'Jaarabonnement' : 'Maandabonnement'} · verlengt op ${until}`;
-    host.innerHTML = `<div class="plan-row"><div><b>Savour Pro</b><small>${esc(line)}</small><small>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt deze maand.</small></div>${savourPlan.hasCustomer ? '<button class="btn" onclick="openProPortal()">Abonnement beheren</button>' : ''}</div>`;
-  } else {
-    host.innerHTML = `<div class="plan-row"><div><b>Gratis</b><small>Alles van Savour, met de Savour-lezer voor Word, PDF en tekst. AI-import (foto's, handgeschreven en gescande recepten) zit in Savour Pro.</small></div><button class="btn gold" onclick="openPublicInfo('pro')">Bekijk Savour Pro</button></div>`;
+  const s = savourPlan;
+  const until = formatProDate(s.periodEnd);
+  const ai = `<small>${s.used} van ${s.limit} AI-imports gebruikt deze maand.</small>`;
+  const manage = s.hasCustomer ? '<button class="btn" onclick="openProPortal()">Abonnement beheren</button>' : '';
+  const more = '<button class="btn gold" onclick="openPublicInfo(\'pro\')">Bekijk Savour Pro</button>';
+  let row;
+  if (s.source === 'gift')
+    row = `<b>Savour Pro</b><small>Savour Pro is voor jou kosteloos geactiveerd${s.periodEnd ? ` tot ${esc(until)}` : ''}.</small>${ai}`;
+  else if (s.source === 'subscription')
+    row = `<b>Savour Pro</b><small>${esc(s.cancelAtEnd ? `Opgezegd. Je houdt Pro tot ${until}.` : `${s.plan === 'year' ? 'Jaarabonnement' : 'Maandabonnement'} · verlengt op ${until}`)}</small>${ai}`;
+  else if (s.source === 'team_owner')
+    row = `<b>Savour Pro · Team ${esc(s.team.seats)}</b><small>${esc(s.team.name)}${s.team.cancel_at_period_end ? ` · opgezegd, loopt tot ${esc(formatProDate(new Date(s.team.period_end)))}` : ''}</small>${ai}`;
+  else if (s.source === 'team_member') row = `<b>Savour Pro</b><small>Via je team: ${esc(s.team.name)}.</small>${ai}`;
+  else if (s.source === 'trial')
+    row = `<b>Savour Pro · gratis proefperiode</b><small>Tot ${esc(formatProDate(s.trialEnd))}. Daarna ga je vanzelf terug naar gratis, tenzij je zelf Pro kiest.</small>${ai}`;
+  else
+    row = `<b>Gratis</b><small>${recipes.length} van ${s.recipeLimit === Infinity ? '∞' : s.recipeLimit} recepten. Met Savour Pro onbeperkt recepten, je eigen gedeelde mappen en AI-import.</small>`;
+  const button = ['subscription', 'team_owner'].includes(s.source) || s.source === 'gift' ? manage : more;
+  host.innerHTML = `<div class="plan-row"><div>${row}</div>${button}</div>${s.team?.owner ? renderTeamManager(s.team) : ''}`;
+}
+
+// Teamleden beheren: de eigenaar telt als eerste plek mee.
+function renderTeamManager(team) {
+  const members = team.members || [];
+  const used = members.length + 1;
+  const list = members
+    .map(
+      email =>
+        `<div class="member"><div><b translate="no">${esc(email)}</b><small class="muted">Teamlid · Savour Pro</small></div><button class="btn small" onclick="removeTeamMember('${escJs(email)}')">Plek vrijgeven</button></div>`
+    )
+    .join('');
+  const full = used >= team.seats;
+  return `<div class="team-manager"><h4>Je team</h4><p class="muted">${used} van ${team.seats} plekken in gebruik (jij telt mee). Teamleden hebben Pro zodra ze inloggen met dit e-mailadres.</p><div class="member"><div><b translate="no">${esc(currentUser?.email || '')}</b><small class="muted">Eigenaar</small></div></div>${list}${
+    full
+      ? '<p class="muted">Alle plekken zijn bezet. Een groter team kies je via Abonnement beheren.</p>'
+      : '<div class="team-add"><input id="teamMemberEmail" type="email" placeholder="naam@restaurant.nl" autocomplete="off"><button class="btn gold" onclick="addTeamMember()">Toevoegen</button></div>'
+  }</div>`;
+}
+
+async function addTeamMember() {
+  const email = ($('teamMemberEmail')?.value || '').trim();
+  if (!email) return;
+  const { error } = await supabaseClient.rpc('savour_team_add_member', { _email: email });
+  if (error) {
+    const msg = String(error.message || '');
+    return toast(
+      /team_full/.test(msg)
+        ? 'Alle plekken in je team zijn bezet.'
+        : /bad_email/.test(msg)
+          ? 'Vul een geldig e-mailadres in.'
+          : 'Teamlid kon niet worden toegevoegd.'
+    );
   }
+  await loadPlanState();
+  renderPlanSettings();
+  toast(`${email} heeft nu Savour Pro via je team`);
+}
+
+async function removeTeamMember(email) {
+  if (
+    !(await askConfirm(
+      `Plek van ${email} vrijgeven?\n\nDiegene houdt al zijn recepten, maar heeft geen Pro meer via je team.`,
+      { confirmLabel: 'Plek vrijgeven' }
+    ))
+  )
+    return;
+  const { error } = await supabaseClient.rpc('savour_team_remove_member', { _email: email });
+  if (error) return toast('Plek kon niet worden vrijgegeven.');
+  await loadPlanState();
+  renderPlanSettings();
 }
 
 // ---- Melding bovenaan het importscherm ----
@@ -178,13 +332,14 @@ function renderPlanSettings() {
 function renderImportPlanNotice() {
   const host = $('importPlanNotice');
   if (!host) return;
+  const left = recipeRoomLeft();
   host.innerHTML = isPro()
-    ? `<div class="import-plan is-pro"><b>Savour Pro</b><span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt deze maand. Eerst leest de Savour-lezer alles, gratis. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee.</span></div>`
-    : `<div class="import-plan"><b>Je importeert met de Savour-lezer</b><span>Word, PDF en tekst met duidelijke kopjes (“Ingrediënten”, “Bereiding”) worden direct en gratis ingelezen. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro.</span><button class="btn small gold" onclick="openPublicInfo('pro')">Bekijk Savour Pro</button></div>`;
+    ? `<div class="import-plan is-pro"><b>Savour Pro${savourPlan.source === 'trial' ? ' · proefperiode' : ''}</b><span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt deze maand. Eerst leest de Savour-lezer alles, gratis. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee.</span></div>`
+    : `<div class="import-plan"><b>Je importeert met de Savour-lezer</b><span>Word, PDF en tekst lees je gratis in${left === Infinity ? '' : ` (nog ${left} van ${savourPlan.recipeLimit} recepten in je gratis account)`}. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro.</span><button class="btn small gold" onclick="openPublicInfo('pro')">Bekijk Savour Pro</button></div>`;
   document.querySelectorAll('[data-pro-only]').forEach(el => el.classList.toggle('is-locked', !isPro()));
 }
 
-// Melding wanneer een gratis gebruiker iets kiest dat alleen met AI kan (foto, gescande PDF).
+// Melding wanneer een gratis gebruiker iets kiest dat alleen met Pro kan.
 async function askForPro(what) {
   if (
     await askConfirm(
@@ -192,6 +347,16 @@ async function askForPro(what) {
       {
         confirmLabel: 'Bekijk Savour Pro'
       }
+    )
+  )
+    openPublicInfo('pro');
+}
+
+async function askForProSharedMap() {
+  if (
+    await askConfirm(
+      `Een gedeelde map maken is Savour Pro\n\nMet Pro maak je gedeelde mappen en nodig je je team uit (vanaf ${PRO_PRICES.month} per maand). Lid zijn van de gedeelde map van een ander blijft gratis.`,
+      { confirmLabel: 'Bekijk Savour Pro' }
     )
   )
     openPublicInfo('pro');

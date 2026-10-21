@@ -7,10 +7,11 @@ async function ensureProfile(user) {
   const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', user.id).maybeSingle();
   if (!profile) {
     const name = (meta.name || '').trim() || '';
-    const { error } = await supabaseClient
-      .from('profiles')
-      .insert({ id: user.id, email: user.email || '', name, function_title: meta.function_title || 'Chef-kok' });
+    const { error } = await supabaseClient.from('profiles').insert({ id: user.id, email: user.email || '', name });
     if (error) console.error('Profiel kon niet worden aangemaakt:', error);
+    // Apart, zodat een profiel ook wordt aangemaakt als de kolom organization nog niet bestaat.
+    if (meta.organization)
+      await supabaseClient.from('profiles').update({ organization: meta.organization }).eq('id', user.id);
     // Nieuw account: start met de standaardcategorieën (alleen als er nog geen enkele categorie is).
     try {
       const { data: cats, error: catError } = await loadCategoryRows();
@@ -167,7 +168,7 @@ async function loadDatabaseState() {
     account = {
       ...account,
       name: prof.name || '',
-      role: prof.function_title || 'Chef-kok',
+      organization: prof.organization || '',
       email: prof.email || currentUser.email || '',
       photo: prof.avatar_url || ''
     };
@@ -218,7 +219,7 @@ async function startDatabaseSession(user) {
     categories = [];
     account = {
       name: user?.user_metadata?.name || '',
-      role: user?.user_metadata?.function_title || 'Chef-kok',
+      organization: user?.user_metadata?.organization || '',
       email: user?.email || '',
       password: '',
       photo: ''
@@ -237,6 +238,7 @@ async function startDatabaseSession(user) {
       // Terug van Stripe, of koos de gebruiker Pro vóór het aanmaken van een account?
       await handleProReturn();
       await resumeProIntent();
+      await askOrganizationOnce();
       return true;
     } catch (error) {
       console.error('Savour sessie kon niet worden opgebouwd:', error);

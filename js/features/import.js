@@ -927,6 +927,18 @@ async function persistBatchRecipes() {
     toast('Geen recepten om op te slaan');
     return;
   }
+  // Gratis account: alleen opslaan wat binnen de 100 recepten past; de rest blijft hier staan.
+  const room = recipeRoomLeft();
+  if (room === 0) return checkRecipeRoom(1);
+  if (room < batchDrafts.length) {
+    const ok = await askConfirm(
+      `Je gratis account heeft nog ruimte voor ${room} recepten\n\nSavour slaat de eerste ${room} op. De andere ${batchDrafts.length - room} blijven hier staan; met Savour Pro bewaar je onbeperkt recepten.`,
+      { confirmLabel: `${room} opslaan` }
+    );
+    if (!ok) return;
+  }
+  const later = batchDrafts.slice(room);
+  const queue = batchDrafts.slice(0, room);
   const btn = $('batchSaveBtn');
   btn.disabled = true;
   btn.textContent = 'Opslaan…';
@@ -953,9 +965,9 @@ async function persistBatchRecipes() {
     });
     // In blokken van 50; mislukt een blok, dan per recept, zodat we weten welke het niet haalden.
     const BLOCK = 50;
-    for (let start = 0; start < batchDrafts.length; start += BLOCK) {
-      const block = batchDrafts.slice(start, start + BLOCK);
-      btn.textContent = `Opslaan… ${start} / ${batchDrafts.length}`;
+    for (let start = 0; start < queue.length; start += BLOCK) {
+      const block = queue.slice(start, start + BLOCK);
+      btn.textContent = `Opslaan… ${start} / ${queue.length}`;
       const { error } = await supabaseClient.from('recipes').insert(block.map(rowFor));
       if (!error) {
         saved += block.length;
@@ -972,11 +984,14 @@ async function persistBatchRecipes() {
     }
     await loadDatabaseState();
     // Wat niet is opgeslagen blijft staan, zodat de chef het opnieuw kan proberen.
-    batchDrafts = failedDrafts;
-    if (failures.length) {
-      toast(`${saved} recepten opgeslagen · ${failures.length} niet opgeslagen`);
+    batchDrafts = [...failedDrafts, ...later];
+    if (failures.length || later.length) {
+      toast(`${saved} recepten opgeslagen · ${failures.length + later.length} niet opgeslagen`);
+      const limitNote = later.length
+        ? `<br><span class="batch-warning">${later.length} recepten passen niet meer in je gratis account. Met Savour Pro sla je ze alsnog op.</span> <button type="button" class="btn small gold" onclick="openPublicInfo('pro')">Bekijk Savour Pro</button>`
+        : '';
       $('batchStatus').innerHTML =
-        `${esc(String(saved))} recepten opgeslagen.<br><span class="muted">Niet opgeslagen: ${failures.map(f => esc(f.title)).join(', ')}</span>`;
+        `${esc(String(saved))} recepten opgeslagen.${failures.length ? `<br><span class="muted">Niet opgeslagen: ${failures.map(f => esc(f.title)).join(', ')}</span>` : ''}${limitNote}`;
       renderBatchDrafts();
     } else {
       toast(`${saved} recepten opgeslagen`);

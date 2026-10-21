@@ -48,12 +48,17 @@ async function submitAuth() {
   const first = $('authFirstName')?.value.trim() || '';
   const last = $('authLastName')?.value.trim() || '';
   const name = [first, last].filter(Boolean).join(' ');
+  const organization = $('authOrganization')?.value.trim() || '';
   if (!email || !password) {
     toast(t('Vul e-mailadres en wachtwoord in'));
     return;
   }
   if (authMode === 'signup' && (!first || !last)) {
     toast(t('Vul voornaam en achternaam in'));
+    return;
+  }
+  if (authMode === 'signup' && !organization) {
+    toast(t('Vul in bij welke organisatie je werkt'));
     return;
   }
   $('authSubmit').disabled = true;
@@ -63,7 +68,7 @@ async function submitAuth() {
       const { data, error } = await supabaseClient.auth.signUp({
         email,
         password,
-        data: { name, function_title: 'Chef-kok' }
+        data: { name, organization }
       });
       if (error) throw error;
       closeAuth();

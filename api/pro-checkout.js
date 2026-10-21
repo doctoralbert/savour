@@ -1,8 +1,14 @@
-// Start het afrekenen voor Savour Pro (maand of jaar) via een Stripe-betaalpagina.
-// iDEAL, kaart, Apple Pay/Google Pay en PayPal stel je in het Stripe-dashboard in; Stripe toont ze vanzelf.
+// Start het afrekenen voor Savour Pro (maand of jaar) of een teamabonnement (team5/10/25) via een
+// Stripe-betaalpagina. iDEAL, kaart, Apple Pay/Google Pay en PayPal stel je in het Stripe-dashboard in.
 import { getUserFromRequest } from './_lib/auth.js';
-import { stripe, priceFor, hasStripe } from './_lib/stripe.js';
-import { getSubscription, upsertSubscription, hasServiceRole } from './_lib/supabase-admin.js';
+import { stripe, priceFor, hasStripe, isPlan, TEAM_SEATS } from './_lib/stripe.js';
+import {
+  getSubscription,
+  upsertSubscription,
+  upsertOrganization,
+  select,
+  hasServiceRole
+} from './_lib/supabase-admin.js';
 import { siteOrigin } from './_lib/origin.js';
 
 export default async function handler(req, res) {
@@ -12,13 +18,29 @@ export default async function handler(req, res) {
   const user = await getUserFromRequest(req);
   if (!user) return res.status(401).json({ error: 'Log in om Savour Pro te nemen.' });
   try {
-    const plan = req.body?.plan === 'year' ? 'year' : 'month';
+    const plan = isPlan(req.body?.plan) ? req.body.plan : 'month';
+    const team = plan.split('_')[0];
+    const isTeam = Object.hasOwn(TEAM_SEATS, team);
     const price = priceFor(plan);
     if (!price) return res.status(503).json({ error: 'Betalen is nog niet ingesteld.', code: 'not_configured' });
 
     const sub = await getSubscription(user.id);
-    if (sub?.stripe_subscription_id && ['active', 'trialing', 'past_due'].includes(sub.status))
+    if (!isTeam && sub?.stripe_subscription_id && ['active', 'trialing', 'past_due'].includes(sub.status))
       return res.status(409).json({ error: 'Je hebt Savour Pro al.', code: 'already_pro' });
+
+    // Team: het team bestaat al vóór het betalen (status inactive); de webhook zet het daarna actief.
+    let organizationId = null;
+    if (isTeam) {
+      const [existing] = await select('organizations', `owner_id=eq.${encodeURIComponent(user.id)}&select=*`);
+      if (existing?.stripe_subscription_id && ['active', 'trialing', 'past_due'].includes(existing.status))
+        return res.status(409).json({ error: 'Je hebt al een teamabonnement.', code: 'already_pro' });
+      const name = String(req.body?.organization || '')
+        .trim()
+        .slice(0, 120);
+      if (!name) return res.status(400).json({ error: 'Vul de naam van je organisatie in.' });
+      const org = await upsertOrganization({ owner_id: user.id, name, seats: TEAM_SEATS[team], plan });
+      organizationId = org?.id;
+    }
 
     // Eén Stripe-klant per Savour-gebruiker.
     let customer = sub?.stripe_customer_id;
@@ -34,7 +56,9 @@ export default async function handler(req, res) {
       customer,
       client_reference_id: user.id,
       line_items: [{ price, quantity: 1 }],
-      subscription_data: { metadata: { user_id: user.id } },
+      subscription_data: {
+        metadata: isTeam ? { user_id: user.id, organization_id: organizationId } : { user_id: user.id }
+      },
       allow_promotion_codes: 'true',
       locale: 'nl',
       success_url: `${origin}/?pro=success`,
