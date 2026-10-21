@@ -1305,6 +1305,12 @@ export const strings = [
   ['Zo las de AI het', 'How the AI read it', 'So hat die KI es gelesen', 'Así lo leyó la IA'],
   ['Gelezen met', 'Read with', 'Gelesen mit', 'Leído con'],
   ['↻ Draai foto', '↻ Rotate photo', '↻ Foto drehen', '↻ Girar foto'],
+  [
+    'Savour kiest per recept de meest waarschijnlijke. Je kunt ze daarna nalopen met "Categorieën voorstellen" op de pagina Categorieën.',
+    'Savour picks the most likely one for each recipe. You can review them afterwards with "Suggest categories" on the Categories page.',
+    'Savour wählt für jedes Rezept die wahrscheinlichste. Du kannst sie danach mit „Kategorien vorschlagen“ auf der Seite Kategorien prüfen.',
+    'Savour elige la más probable para cada receta. Después puedes revisarlas con «Sugerir categorías» en la página Categorías.'
+  ],
   ['Toch importeren', 'Import anyway', 'Trotzdem importieren', 'Importar de todos modos'],
   [
     'Toegevoegd als "Mogelijk onvolledig": controleer of er niets ontbreekt.',
@@ -2853,6 +2859,9 @@ export const patterns = [
     'Du hast diesen Monat alle $1 KI-Importe genutzt.',
     'Has usado las $1 importaciones con IA de este mes.'
   ],
+  ['^(\\d+) recepten passen bij meerdere categorieën$', '$1 recipes match several categories', '$1 Rezepte passen zu mehreren Kategorien', '$1 recetas encajan con varias categorías'],
+  ['^(.+): (\\d+) van (\\d+) delen met AI gelezen…$', '$1: $2 of $3 parts read with AI…', '$1: $2 von $3 Teilen mit KI gelesen…', '$1: $2 de $3 partes leídas con IA…'],
+  ['^Opslaan… (\\d+) / (\\d+)$', 'Saving… $1 / $2', 'Speichern… $1 / $2', 'Guardando… $1 / $2'],
   [
     '^(.+) wordt rechtgezet en twee keer gelezen…$',
     'Straightening and reading $1 twice…',

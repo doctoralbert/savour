@@ -515,33 +515,45 @@ async function importTextFile(file) {
     return importScannedPdf(file);
   }
   const local = readRecipesLocally(sourceText, { sourceFile: file.name });
-  const readerIsSure = local.length && local.every(r => r.readerConfidence === 'high');
-  if (readerIsSure || !isPro()) return local;
+  if (!isPro()) return local;
+  // Alleen wat de lezer niet zeker weet gaat naar de AI; zekere recepten blijven direct en gratis.
+  // Vond de lezer niets, dan leest de AI de hele tekst.
+  const sure = local.filter(r => r.readerConfidence === 'high');
+  const unsureText = local.length
+    ? local
+        .filter(r => r.readerConfidence !== 'high')
+        .map(r => r.source)
+        .join('\n\n\n')
+    : sourceText;
+  if (!unsureText.trim()) return local;
 
-  const chunks = chunkImportText(sourceText);
-  const drafts = [];
+  // Drie delen tegelijk; de voortgangsbalk telt de delen binnen dit bestand.
+  const chunks = chunkImportText(unsureText);
+  const results = new Array(chunks.length);
+  let next = 0;
+  let finished = 0;
   let aiError = null;
-  for (let i = 0; i < chunks.length; i++) {
-    if (chunks.length > 1)
-      $('importStatus').textContent = `${file.name}: deel ${i + 1} van ${chunks.length} wordt verwerkt…`;
-    let aiRecipes = [];
-    if (!aiError) {
-      try {
-        aiRecipes = await callAiImportWithRetry({ text: chunks[i], filename: file.name });
-      } catch (e) {
-        aiError = e;
+  const readChunks = async () => {
+    while (next < chunks.length) {
+      const i = next++;
+      let aiRecipes = [];
+      if (!aiError) {
+        try {
+          aiRecipes = await callAiImportWithRetry({ text: chunks[i], filename: file.name });
+        } catch (e) {
+          aiError = e;
+        }
       }
+      results[i] = aiRecipes.length
+        ? aiRecipes.map(r => normalizeAiRecipe(r, { sourceFile: file.name }))
+        : readRecipesLocally(chunks[i], { sourceFile: file.name, _withoutAi: aiError ? aiError.message : '' });
+      finished++;
+      setImportFileProgress(file, finished / chunks.length);
+      $('importStatus').textContent = `${file.name}: ${finished} van ${chunks.length} delen met AI gelezen…`;
     }
-    if (aiRecipes.length) drafts.push(...aiRecipes.map(r => normalizeAiRecipe(r, { sourceFile: file.name })));
-    else
-      drafts.push(
-        ...readRecipesLocally(chunks[i], {
-          sourceFile: file.name,
-          _withoutAi: aiError ? aiError.message : ''
-        })
-      );
-  }
-  return drafts;
+  };
+  await Promise.all(Array.from({ length: Math.min(3, chunks.length) }, readChunks));
+  return [...sure, ...results.flat()];
 }
 // done mag een kommagetal zijn: een foto die half gelezen is, telt als 0,5.
 function updateImportProgress(done, total, label = '') {
@@ -563,8 +575,17 @@ const IMPORT_EXPECTED_MS = { photo: 27000, file: 8000 };
 function importInFlightFraction() {
   let sum = 0;
   for (const f of importInFlight.values())
-    sum += Math.min(0.95, 1 - Math.exp(-(Date.now() - f.start) / (f.expected / 2)));
+    sum +=
+      f.fraction !== undefined
+        ? Math.min(0.99, f.fraction)
+        : Math.min(0.95, 1 - Math.exp(-(Date.now() - f.start) / (f.expected / 2)));
   return sum;
+}
+
+// Een groot bestand dat in delen wordt gelezen, meldt zelf hoe ver het is (0–1).
+function setImportFileProgress(file, fraction) {
+  const f = importInFlight.get(file);
+  if (f) f.fraction = fraction;
 }
 
 // Recepten die de AI als onvolledig zag; de chef kan ze met "Toch importeren" alsnog controleren.
@@ -804,13 +825,24 @@ async function saveBatchRecipes() {
       return;
     }
   }
-  // Twijfelgevallen: de chef kiest per recept zelf, tenzij hij de categorie al aanpaste.
-  for (const r of batchDrafts) {
-    if (r._categoryChosen) continue;
-    const chosen = await chooseDoubtfulCategory(r.title, r.category);
-    if (!chosen) return;
-    r.category = chosen;
-    r._categoryChosen = true;
+  // Twijfelgevallen over de categorie: bij een paar recepten kiest de chef per recept in een venster.
+  // Bij veel recepten (grote import) geen tientallen vensters: één melding, nalopen kan later.
+  const doubtful = batchDrafts.filter(
+    r => !r._categoryChosen && (suggestCategory(r.title)?.alternatives?.length || 0) > 0
+  );
+  if (doubtful.length > 5) {
+    const ok = await askConfirm(
+      `${doubtful.length} recepten passen bij meerdere categorieën\n\nSavour kiest per recept de meest waarschijnlijke. Je kunt ze daarna nalopen met "Categorieën voorstellen" op de pagina Categorieën.`,
+      { confirmLabel: 'Opslaan' }
+    );
+    if (!ok) return;
+  } else {
+    for (const r of doubtful) {
+      const chosen = await chooseDoubtfulCategory(r.title, r.category);
+      if (!chosen) return;
+      r.category = chosen;
+      r._categoryChosen = true;
+    }
   }
   renderBatchDrafts();
   return persistBatchRecipes();
@@ -831,41 +863,47 @@ async function persistBatchRecipes() {
   btn.textContent = 'Opslaan…';
   let saved = 0;
   const failures = [];
+  const failedDrafts = [];
   try {
-    for (const r of batchDrafts) {
-      let categoryId = null;
-      if (r.category && r.category !== 'Eigen recepten') {
-        const { data: cat, error } = await supabaseClient
-          .from('categories')
-          .select('id')
-          .eq('user_id', currentUser.id)
-          .eq('name', r.category)
-          .maybeSingle();
-        if (error) {
-          failures.push({ title: r.title, error: error.message });
-          continue;
-        }
-        categoryId = cat?.id || null;
-      }
-      const { error } = await supabaseClient.from('recipes').insert({
-        user_id: currentUser.id,
-        title: r.title || 'Nieuw recept',
-        description: null,
-        yield_text: r.yield || null,
-        ingredients: r.ingredients || [],
-        steps: r.steps || [],
-        category_id: categoryId,
-        photo_url: r.photo || null
-      });
-      if (error) {
-        console.error('Batch opslaan', r.title, error);
-        failures.push({ title: r.title, error: error.message || 'Opslaan mislukt' });
+    // Categorieën één keer ophalen in plaats van per recept.
+    const { data: cats, error: catError } = await supabaseClient
+      .from('categories')
+      .select('id,name')
+      .eq('user_id', currentUser.id);
+    if (catError) throw catError;
+    const categoryIdByName = new Map((cats || []).map(c => [c.name, c.id]));
+    const rowFor = r => ({
+      user_id: currentUser.id,
+      title: r.title || 'Nieuw recept',
+      description: null,
+      yield_text: r.yield || null,
+      ingredients: r.ingredients || [],
+      steps: r.steps || [],
+      category_id: categoryIdByName.get(r.category) || null,
+      photo_url: r.photo || null
+    });
+    // In blokken van 50; mislukt een blok, dan per recept, zodat we weten welke het niet haalden.
+    const BLOCK = 50;
+    for (let start = 0; start < batchDrafts.length; start += BLOCK) {
+      const block = batchDrafts.slice(start, start + BLOCK);
+      btn.textContent = `Opslaan… ${start} / ${batchDrafts.length}`;
+      const { error } = await supabaseClient.from('recipes').insert(block.map(rowFor));
+      if (!error) {
+        saved += block.length;
         continue;
       }
-      saved++;
+      for (const r of block) {
+        const { error: rowError } = await supabaseClient.from('recipes').insert(rowFor(r));
+        if (rowError) {
+          console.error('Batch opslaan', r.title, rowError);
+          failures.push({ title: r.title, error: rowError.message || 'Opslaan mislukt' });
+          failedDrafts.push(r);
+        } else saved++;
+      }
     }
     await loadDatabaseState();
-    batchDrafts = [];
+    // Wat niet is opgeslagen blijft staan, zodat de chef het opnieuw kan proberen.
+    batchDrafts = failedDrafts;
     if (failures.length) {
       toast(`${saved} recepten opgeslagen · ${failures.length} niet opgeslagen`);
       $('batchStatus').innerHTML =

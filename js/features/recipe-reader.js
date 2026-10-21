@@ -197,7 +197,15 @@ function parseRecipeBlock(block) {
   const name = title || 'Onbenoemd recept';
   const structured = hasIngredientsHeading || hasStepsHeading;
   const confidence = !ingredients.length ? 'low' : structured ? 'high' : allSteps.length ? 'medium' : 'low';
-  return { title: name, ingredients, steps: allSteps, yield: yieldText, readerConfidence: confidence };
+  // source: de oorspronkelijke regels, zodat Savour alleen twijfelgevallen opnieuw (met AI) kan laten lezen.
+  return {
+    title: name,
+    ingredients,
+    steps: allSteps,
+    yield: yieldText,
+    readerConfidence: confidence,
+    source: lines.join('\n')
+  };
 }
 
 // ---- Tekst met mogelijk meerdere recepten ----
