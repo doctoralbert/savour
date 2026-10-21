@@ -669,5 +669,60 @@ for (const c of cases) {
     console.log(`✗ ${c.name}\n   ${problems.join('\n   ')}`);
   } else console.log(`✓ ${c.name}`);
 }
-console.log(`\n${cases.length - failed} van ${cases.length} geslaagd`);
+
+// ---- Automatische tikfout-correcties (readerAutoFix) ----
+// from = tekst zoals in de bron, to = verwacht na correctie, bron = rest van het document (voor regel 3).
+const fixCases = [
+  { name: 'Letter o in temperatuur', from: 'Bakken op 14oc met de klep open.', to: 'Bakken op 140c met de klep open.' },
+  { name: 'Letter o in hoeveelheid', from: '1oo gram suiker', to: '100 gram suiker' },
+  { name: 'Vergeten spatie na eenheid', from: '600 gramkippenfond', to: '600 gram kippenfond' },
+  { name: 'Kilogram blijft kilogram', from: '2 kilogram aardappel', to: '2 kilogram aardappel' },
+  {
+    name: 'Eén letter fout, juiste woord komt vaak voor',
+    from: 'Gepekeld buikspel zonder zwoerd',
+    to: 'Gepekeld buikspek zonder zwoerd',
+    bron: 'buikspek buikspek buikspek'
+  },
+  {
+    name: 'Woord dat zelf vaker voorkomt blijft staan',
+    from: 'proespuma en rapsodie',
+    to: 'proespuma en rapsodie',
+    bron: 'proespuma proespuma rapsodie rapsodie'
+  },
+  { name: 'Kort woord wordt nooit verbeterd', from: 'laten vallen', to: 'laten vallen', bron: 'vullen vullen vullen' },
+  { name: 'Gewone getallen blijven staan', from: '2 ons boter, 10 stuks ei', to: '2 ons boter, 10 stuks ei' }
+];
+fixCases.push(
+  {
+    name: 'Werkwoord in de bereiding blijft staan',
+    step: true,
+    from: 'Deeg uitrekken en vocht opvangen',
+    to: 'Deeg uitrekken en vocht opvangen',
+    bron: 'uitlekken uitlekken uitlekken ophangen ophangen ophangen'
+  },
+  { name: 'Getal in de bereiding wordt wel verbeterd', step: true, from: 'Bakken op 18oc', to: 'Bakken op 180c' },
+  // De woordenlijst komt in import.js alleen uit namen en ingrediënten; hier de bron zoals die daar zou zijn.
+  { name: 'Productnaam blijft staan (elastic)', from: '10 gram elastic', to: '10 gram elastic', bron: '' },
+  {
+    name: 'Werkwoord in een ingrediëntregel blijft staan',
+    from: 'Roodlof plukken',
+    to: 'Roodlof plukken',
+    bron: 'plakken plakken plakken'
+  }
+);
+const { readerAutoFix, readerVocabulary } = ctx;
+for (const c of fixCases) {
+  const vocab = readerVocabulary(`${c.bron || ''} ${c.from}`, []);
+  const fixed = readerAutoFix(
+    { title: 'x', yield: '', ingredients: c.step ? [] : [c.from], steps: c.step ? [c.from] : [] },
+    vocab
+  );
+  const got = c.step ? fixed.steps[0] : fixed.ingredients[0];
+  if (got !== c.to) {
+    failed++;
+    console.log(`✗ ${c.name}\n   kreeg "${got}", verwacht "${c.to}"`);
+  } else console.log(`✓ ${c.name}`);
+}
+const total = cases.length + fixCases.length;
+console.log(`\n${total - failed} van ${total} geslaagd`);
 process.exit(failed ? 1 : 0);

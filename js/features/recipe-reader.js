@@ -231,6 +231,95 @@ function parseRecipeBlock(block) {
   };
 }
 
+// ---- Kleine tikfouten zelf verbeteren ----
+//
+// Alleen fouten die zeker zijn, en altijd zichtbaar voor de chef (r.fixes: [{ from, to }]):
+// 1. letter o in een getal: "14oc" → "140c", "1oo gram" → "100 gram";
+// 2. vergeten spatie na een eenheid: "600 gramkippenfond" → "600 gram kippenfond";
+// 3. alleen in titel en ingrediënten: een woord (7+ letters) dat één letter afwijkt van een woord dat in hetzelfde document vaak voorkomt (of een
+//    bekend keukenwoord is), terwijl het zelf maar één keer voorkomt: "buikspel" → "buikspek".
+
+const READER_O_IN_NUMBER =
+  /\b(\d+[oO][\doO]*)(?=\s*(?:°|c\b|graden|gram|gr\b|g\b|ml\b|cl\b|dl\b|kg\b|kilo|liter|min\b|minuten|sec|%))/gi;
+const READER_GLUED_UNIT =
+  /(\d(?:[.,]\d+)?\s*)(gram|kilo|liter|deciliter|centiliter|milliliter|stuks|eetlepels?|theelepels?|blaadjes|takjes|teentjes)(\p{L}{4,})/giu;
+const READER_UNIT_WORD = new RegExp(`^${READER_UNIT}$`, 'i');
+
+function readerWordsOf(text) {
+  return String(text || '').match(/\p{L}+/gu) || [];
+}
+
+// Eén letter anders (vervangen) of twee buren omgewisseld; hoofdletters tellen niet.
+function readerOneLetterOff(a, b) {
+  if (a.length !== b.length || a === b) return false;
+  const diff = [];
+  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) diff.push(i);
+  if (diff.length === 1) return true;
+  return diff.length === 2 && diff[1] === diff[0] + 1 && a[diff[0]] === b[diff[1]] && a[diff[1]] === b[diff[0]];
+}
+
+// Maakt de woordenlijst voor regel 3: woorden uit de hele bron met hoe vaak ze voorkomen, plus bekende keukenwoorden.
+function readerVocabulary(sourceText, knownWords = []) {
+  const counts = new Map();
+  for (const w of readerWordsOf(sourceText)) {
+    const k = w.toLowerCase();
+    counts.set(k, (counts.get(k) || 0) + 1);
+  }
+  const known = new Set(knownWords.flatMap(readerWordsOf).map(w => w.toLowerCase()));
+  return { counts, known };
+}
+
+// words: false voor de bereiding. Daar staan veel werkwoorden die één letter van elkaar verschillen en
+// allebei kloppen ("uitrekken" / "uitlekken", "opvangen" / "ophangen"); daar verbeteren we alleen getallen.
+function readerFixText(text, vocab, fixes, words = true) {
+  let out = String(text || '');
+  out = out.replace(READER_O_IN_NUMBER, m => {
+    const to = m.replace(/[oO]/g, '0');
+    fixes.push({ from: m, to });
+    return to;
+  });
+  out = out.replace(READER_GLUED_UNIT, (m, qty, unit, rest) => {
+    // "kilogram" is geen vergeten spatie, en een woord dat zo in de bron vaker voorkomt ook niet.
+    if (READER_UNIT_WORD.test(rest) || (vocab.counts.get((unit + rest).toLowerCase()) || 0) > 1) return m;
+    fixes.push({ from: unit + rest, to: `${unit} ${rest}` });
+    return `${qty}${unit} ${rest}`;
+  });
+  if (!words || !vocab.counts.size) return out;
+  // Pas vanaf 7 letters: kortere woorden lijken te vaak op elkaar ("vallen" / "vullen").
+  return out.replace(/\p{L}{7,}/gu, word => {
+    const k = word.toLowerCase();
+    // Woorden op -en zijn meestal werkwoorden of meervouden ("plukken" / "plakken"): die laten we staan.
+    if (k.endsWith('en') || vocab.known.has(k) || (vocab.counts.get(k) || 0) > 1) return word;
+    const candidates = new Set();
+    for (const [w, n] of vocab.counts) if (n >= 3 && readerOneLetterOff(k, w)) candidates.add(w);
+    for (const w of vocab.known) if (readerOneLetterOff(k, w)) candidates.add(w);
+    if (candidates.size !== 1) return word;
+    let to = [...candidates][0];
+    if (word[0] === word[0].toUpperCase()) to = to[0].toUpperCase() + to.slice(1);
+    fixes.push({ from: word, to });
+    return to;
+  });
+}
+
+// Verbetert titel, opbrengst, ingrediënten en bereiding van één recept; geeft een nieuw object terug.
+function readerAutoFix(recipe, vocab) {
+  const fixes = [];
+  const fix = t => readerFixText(t, vocab, fixes);
+  const fixed = {
+    ...recipe,
+    title: fix(recipe.title),
+    yield: fix(recipe.yield),
+    ingredients: (recipe.ingredients || []).map(fix),
+    steps: (recipe.steps || []).map(t => readerFixText(t, vocab, fixes, false))
+  };
+  const seen = new Set();
+  fixed.fixes = fixes.filter(f => {
+    const key = `${f.from}→${f.to}`;
+    return !seen.has(key) && seen.add(key);
+  });
+  return fixed;
+}
+
 // ---- Tekst met mogelijk meerdere recepten ----
 
 // Splitst tekst in recepten. Een nieuw recept begint bij een Word-kop (# ), bij een receptnaam die

@@ -471,6 +471,7 @@ window.SAVOUR_I18N.es = {
     'Onleesbare stukken nagekeken?': '¿Has revisado las partes ilegibles?',
     'Ja, opslaan': 'Sí, guardar',
     'Zo las de AI het': 'Así lo leyó la IA',
+    'Automatisch verbeterd:': 'Corregido automáticamente:',
     'Gelezen met': 'Leído con',
     '↻ Draai foto': '↻ Girar foto',
     'Savour kiest per recept de meest waarschijnlijke. Je kunt ze daarna nalopen met "Categorieën voorstellen" op de pagina Categorieën.':

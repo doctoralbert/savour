@@ -376,7 +376,8 @@ function importCategory(title, aiCategory) {
 }
 
 function normalizeAiRecipe(r, extra) {
-  const title = String(r.title || 'Onbenoemd recept').trim();
+  // "385.Hoender Tom Yam terrine": het nummer uit het receptenboek hoort niet in de naam.
+  const title = cleanBatchTitle(String(r.title || '')) || 'Onbenoemd recept';
   return {
     title,
     ingredients: Array.isArray(r.ingredients) ? r.ingredients.map(String).filter(Boolean) : [],
@@ -535,6 +536,27 @@ async function importTextFile(file) {
     if (!isPro()) throw proRequiredError("Gescande PDF's");
     return importScannedPdf(file);
   }
+  return applyImportFixes(await readTextRecipes(file, sourceText), sourceText);
+}
+
+// Kleine tikfouten zeker verbeteren ("14oc" → "140c", "buikspel" → "buikspek"); de chef ziet per recept
+// wat er is verbeterd. Getypte tekst is altijd leesbaar: wat de AI daaruit als "niet goed leesbaar"
+// noemde terwijl het letterlijk in de bron staat (merknamen als proespuma), of wat nu verbeterd is, vervalt.
+function applyImportFixes(drafts, sourceText) {
+  // Alleen woorden uit namen en ingrediënten tellen mee: uit de bereiding zou "10 gram elastic"
+  // (geleermiddel) "plastic" worden en "3 kroppen kropsla" "3 kloppen".
+  const vocab = readerVocabulary(
+    drafts.map(d => [d.title, ...(d.ingredients || [])].join('\n')).join('\n'),
+    DEFAULT_CATEGORIES.flatMap(c => c.keywords)
+  );
+  return drafts.map(d => {
+    const { fixes, ...fixed } = readerAutoFix(d, vocab);
+    const unclear = (d._unclear || []).filter(u => !fixes.some(f => u.includes(f.from)) && !sourceText.includes(u));
+    return { ...fixed, _fixes: fixes, _unclear: unclear };
+  });
+}
+
+async function readTextRecipes(file, sourceText) {
   const local = readRecipesLocally(sourceText, { sourceFile: file.name });
   if (!isPro()) return local;
   // Alleen wat de lezer niet zeker weet gaat naar de AI; zekere recepten blijven direct en gratis.
@@ -802,7 +824,7 @@ function renderBatchDrafts() {
     batchDrafts
       .map(
         (r, i) =>
-          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${r._maybeIncomplete ? ' <span class="batch-chip batch-chip-warn">Mogelijk onvolledig</span>' : r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : r._needsReview || r._unclear?.length ? ' <span class="batch-chip batch-chip-warn">Controleren</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img class="batch-photo" src="${esc(r.photo)}" alt=""><button type="button" class="btn small batch-rotate" onclick="rotateBatchPhoto(${i})">↻ Draai foto</button>` : ''}${r._unclear?.length ? `<div class="batch-unclear"><b>Niet goed leesbaar, controleer:</b><ul translate="no">${r._unclear.map(u => `<li>${esc(u)}</li>`).join('')}</ul></div>` : ''}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small>${r._transcription?.length ? `<details class="batch-transcript"><summary>Zo las de AI het</summary><pre translate="no">${esc(r._transcription.join('\n'))}</pre>${r._model ? `<small>Gelezen met <span translate="no">${esc(r._model)}</span></small>` : ''}</details>` : ''}<div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea class="batch-text" rows="${batchRows(r.ingredients)}" data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea class="batch-text" rows="${batchRows(r.steps)}" data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
+          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${r._maybeIncomplete ? ' <span class="batch-chip batch-chip-warn">Mogelijk onvolledig</span>' : r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : r._needsReview || r._unclear?.length ? ' <span class="batch-chip batch-chip-warn">Controleren</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img class="batch-photo" src="${esc(r.photo)}" alt=""><button type="button" class="btn small batch-rotate" onclick="rotateBatchPhoto(${i})">↻ Draai foto</button>` : ''}${r._unclear?.length ? `<div class="batch-unclear"><b>Niet goed leesbaar, controleer:</b><ul translate="no">${r._unclear.map(u => `<li>${esc(u)}</li>`).join('')}</ul></div>` : ''}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small>${r._fixes?.length ? `<small class="batch-fixes">Automatisch verbeterd: <span translate="no">${r._fixes.map(f => `${esc(f.from)} → ${esc(f.to)}`).join(' · ')}</span></small>` : ''}${r._transcription?.length ? `<details class="batch-transcript"><summary>Zo las de AI het</summary><pre translate="no">${esc(r._transcription.join('\n'))}</pre>${r._model ? `<small>Gelezen met <span translate="no">${esc(r._model)}</span></small>` : ''}</details>` : ''}<div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea class="batch-text" rows="${batchRows(r.ingredients)}" data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea class="batch-text" rows="${batchRows(r.steps)}" data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
       )
       .join('') || `<div class="empty" style="grid-column:1/-1">Geen afzonderlijke recepten herkend.</div>`;
 }

@@ -1303,6 +1303,7 @@ export const strings = [
   ],
   ['Ja, opslaan', 'Yes, save', 'Ja, speichern', 'Sí, guardar'],
   ['Zo las de AI het', 'How the AI read it', 'So hat die KI es gelesen', 'Así lo leyó la IA'],
+  ['Automatisch verbeterd:', 'Corrected automatically:', 'Automatisch korrigiert:', 'Corregido automáticamente:'],
   ['Gelezen met', 'Read with', 'Gelesen mit', 'Leído con'],
   ['↻ Draai foto', '↻ Rotate photo', '↻ Foto drehen', '↻ Girar foto'],
   [

@@ -474,6 +474,7 @@ window.SAVOUR_I18N.de = {
     'Onleesbare stukken nagekeken?': 'Unleserliche Stellen geprüft?',
     'Ja, opslaan': 'Ja, speichern',
     'Zo las de AI het': 'So hat die KI es gelesen',
+    'Automatisch verbeterd:': 'Automatisch korrigiert:',
     'Gelezen met': 'Gelesen mit',
     '↻ Draai foto': '↻ Foto drehen',
     'Savour kiest per recept de meest waarschijnlijke. Je kunt ze daarna nalopen met "Categorieën voorstellen" op de pagina Categorieën.':
