@@ -1014,13 +1014,295 @@ export const strings = [
   ],
   ['Aanpassen', 'Apply', 'Übernehmen', 'Aplicar'],
   ['Standaardlijst', 'Default list', 'Standardliste', 'Lista estándar'],
+
+  // ---- Savour Pro ----
+  [
+    'Recepten van foto, kladje en scan: gelezen met AI.',
+    'Recipes from photos, notes and scans: read by AI.',
+    'Rezepte von Foto, Notizzettel und Scan: von KI gelesen.',
+    'Recetas de fotos, notas y escaneos: leídas con IA.'
+  ],
+  ['Voordeligst', 'Best value', 'Am günstigsten', 'Más económico'],
+  ['Maandelijks', 'Monthly', 'Monatlich', 'Mensual'],
+  ['Jaarlijks', 'Yearly', 'Jährlich', 'Anual'],
+  ['per maand', 'per month', 'pro Monat', 'al mes'],
+  ['per jaar', 'per year', 'pro Jahr', 'al año'],
+  ['Maandelijks opzegbaar.', 'Cancel any month.', 'Monatlich kündbar.', 'Cancela cuando quieras.'],
+  [
+    'Twee maanden gratis ten opzichte van maandelijks.',
+    'Two months free compared to monthly.',
+    'Zwei Monate gratis im Vergleich zu monatlich.',
+    'Dos meses gratis frente al pago mensual.'
+  ],
+  ['Kies maandelijks', 'Choose monthly', 'Monatlich wählen', 'Elegir mensual'],
+  ['Kies jaarlijks', 'Choose yearly', 'Jährlich wählen', 'Elegir anual'],
+  ['Abonnement beheren', 'Manage subscription', 'Abo verwalten', 'Gestionar suscripción'],
+  ['Abonnement', 'Subscription', 'Abo', 'Suscripción'],
+  ['Je hebt Savour Pro.', 'You have Savour Pro.', 'Du hast Savour Pro.', 'Tienes Savour Pro.'],
+  [
+    'Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Prijzen inclusief btw. Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.',
+    'Pay with iDEAL, credit card, Apple Pay, Google Pay or PayPal. Prices include VAT. Cancel any time; you keep Pro until the end of the paid period.',
+    'Bezahlen mit iDEAL, Kreditkarte, Apple Pay, Google Pay oder PayPal. Preise inklusive MwSt. Jederzeit kündbar; Pro bleibt bis zum Ende des bezahlten Zeitraums aktiv.',
+    'Paga con iDEAL, tarjeta, Apple Pay, Google Pay o PayPal. Precios con IVA incluido. Cancela cuando quieras; mantienes Pro hasta el final del periodo pagado.'
+  ],
+  ['Wat zit erin?', "What's included?", 'Was ist enthalten?', '¿Qué incluye?'],
+  ['Gratis', 'Free', 'Kostenlos', 'Gratis'],
+  [
+    'Recepten, mappen, categorieën en zoeken',
+    'Recipes, folders, categories and search',
+    'Rezepte, Ordner, Kategorien und Suche',
+    'Recetas, carpetas, categorías y búsqueda'
+  ],
+  [
+    'Gedeelde mappen en samenwerken met je team',
+    'Shared folders and working with your team',
+    'Geteilte Ordner und Zusammenarbeit im Team',
+    'Carpetas compartidas y trabajo en equipo'
+  ],
+  [
+    'Omrekenen, printen, kookmodus en delen',
+    'Scaling, printing, cooking mode and sharing',
+    'Umrechnen, Drucken, Kochmodus und Teilen',
+    'Recalcular, imprimir, modo cocina y compartir'
+  ],
+  [
+    'Importeren van Word, PDF en tekst met de Savour-lezer',
+    'Importing Word, PDF and text with the Savour reader',
+    'Import von Word, PDF und Text mit dem Savour-Leser',
+    'Importar Word, PDF y texto con el lector de Savour'
+  ],
+  [
+    "AI leest foto's en handgeschreven recepten",
+    'AI reads photos and handwritten recipes',
+    'KI liest Fotos und handschriftliche Rezepte',
+    'La IA lee fotos y recetas manuscritas'
+  ],
+  [
+    "AI leest gescande PDF's en rommelige documenten",
+    'AI reads scanned PDFs and messy documents',
+    'KI liest gescannte PDFs und unordentliche Dokumente',
+    'La IA lee PDF escaneados y documentos desordenados'
+  ],
+  ['AI-imports per maand', 'AI imports per month', 'KI-Importe pro Monat', 'Importaciones con IA al mes'],
+  [
+    'Hoe werkt importeren?',
+    'How does importing work?',
+    'Wie funktioniert der Import?',
+    '¿Cómo funciona la importación?'
+  ],
+  ['Iedereen gebruikt de', 'Everyone uses the', 'Alle nutzen den', 'Todos usan el'],
+  ['Savour-lezer', 'Savour reader', 'Savour-Leser', 'lector de Savour'],
+  [
+    ': die leest Word, PDF en tekst met duidelijke kopjes (zoals “Ingrediënten” en “Bereiding”) direct en gratis in. Met',
+    ': it reads Word, PDF and text with clear headings (such as “Ingredients” and “Method”) instantly and for free. With',
+    ': er liest Word, PDF und Text mit klaren Überschriften (wie „Zutaten“ und „Zubereitung“) sofort und kostenlos ein. Mit',
+    ': lee al instante y gratis Word, PDF y texto con encabezados claros (como «Ingredientes» y «Preparación»). Con'
+  ],
+  [
+    "leest daarnaast de AI wat de lezer niet kan: foto's, handgeschreven kladjes, gescande pagina's en documenten zonder duidelijke indeling. De AI verzint nooit hoeveelheden of stappen; je controleert elk recept voordat het wordt opgeslagen.",
+    'the AI also reads what the reader cannot: photos, handwritten notes, scanned pages and documents without a clear layout. The AI never invents quantities or steps; you check every recipe before it is saved.',
+    'liest die KI zusätzlich, was der Leser nicht kann: Fotos, handschriftliche Notizen, gescannte Seiten und Dokumente ohne klare Gliederung. Die KI erfindet nie Mengen oder Schritte; du prüfst jedes Rezept vor dem Speichern.',
+    'la IA lee además lo que el lector no puede: fotos, notas manuscritas, páginas escaneadas y documentos sin una estructura clara. La IA nunca inventa cantidades ni pasos; revisas cada receta antes de guardarla.'
+  ],
+  ['Vragen', 'Questions', 'Fragen', 'Preguntas'],
+  [
+    'Wat telt als een AI-import?',
+    'What counts as an AI import?',
+    'Was zählt als KI-Import?',
+    '¿Qué cuenta como importación con IA?'
+  ],
+  [
+    'Elke foto, gescande pagina of elk bestand dat de AI leest. Een lang document telt per deel van ongeveer 8 recepten. Bestanden die de Savour-lezer zelf goed leest, tellen niet mee.',
+    'Every photo, scanned page or file the AI reads. A long document counts per part of about 8 recipes. Files the Savour reader reads well on its own do not count.',
+    'Jedes Foto, jede gescannte Seite oder Datei, die die KI liest. Ein langes Dokument zählt pro Teil von etwa 8 Rezepten. Dateien, die der Savour-Leser selbst gut liest, zählen nicht.',
+    'Cada foto, página escaneada o archivo que lee la IA. Un documento largo cuenta por partes de unas 8 recetas. Los archivos que el lector de Savour lee bien por sí solo no cuentan.'
+  ],
+  ['Wat als ik over de 500 heen ga?', 'What if I go over 500?', 'Was, wenn ich über 500 komme?', '¿Y si paso de 500?'],
+  [
+    'Dan leest de Savour-lezer verder en kun je de rest volgende maand met AI doen. Er komen nooit extra kosten bij.',
+    'Then the Savour reader carries on and you can do the rest with AI next month. There are never extra costs.',
+    'Dann liest der Savour-Leser weiter und du kannst den Rest nächsten Monat mit KI machen. Es kommen nie zusätzliche Kosten hinzu.',
+    'Entonces el lector de Savour sigue y puedes hacer el resto con IA el mes siguiente. Nunca hay costes adicionales.'
+  ],
+  ['Hoe zeg ik op?', 'How do I cancel?', 'Wie kündige ich?', '¿Cómo cancelo?'],
+  [
+    'In Mijn account → Abonnement → Abonnement beheren. Daar wijzig je ook je betaalmethode en download je facturen.',
+    'In My account → Subscription → Manage subscription. There you can also change your payment method and download invoices.',
+    'Unter Mein Konto → Abo → Abo verwalten. Dort änderst du auch die Zahlungsmethode und lädst Rechnungen herunter.',
+    'En Mi cuenta → Suscripción → Gestionar suscripción. Allí también cambias el método de pago y descargas facturas.'
+  ],
+  [
+    "Ook je foto's en kladjes, gelezen met AI.",
+    'Your photos and notes too, read by AI.',
+    'Auch deine Fotos und Notizzettel, von KI gelesen.',
+    'También tus fotos y notas, leídas con IA.'
+  ],
+  [
+    "Word, PDF en tekst importeer je gratis met de Savour-lezer. Met Savour Pro leest de AI daarnaast foto's van handgeschreven recepten, gescande pagina's en rommelige documenten. Je controleert alles voordat het wordt opgeslagen.",
+    'You import Word, PDF and text for free with the Savour reader. With Savour Pro, the AI also reads photos of handwritten recipes, scanned pages and messy documents. You check everything before it is saved.',
+    'Word, PDF und Text importierst du kostenlos mit dem Savour-Leser. Mit Savour Pro liest die KI zusätzlich Fotos handschriftlicher Rezepte, gescannte Seiten und unordentliche Dokumente. Du prüfst alles vor dem Speichern.',
+    'Importas Word, PDF y texto gratis con el lector de Savour. Con Savour Pro, la IA lee además fotos de recetas manuscritas, páginas escaneadas y documentos desordenados. Revisas todo antes de guardarlo.'
+  ],
+  ['of €29 per jaar', 'or €29 per year', 'oder 29 € pro Jahr', 'o 29 € al año'],
+  ['Bekijk Savour Pro', 'View Savour Pro', 'Savour Pro ansehen', 'Ver Savour Pro'],
+  [
+    'Savour Pro is voor jou kosteloos geactiveerd.',
+    'Savour Pro has been activated for you free of charge.',
+    'Savour Pro wurde für dich kostenlos aktiviert.',
+    'Savour Pro se ha activado para ti sin coste.'
+  ],
+  [
+    "Alles van Savour, met de Savour-lezer voor Word, PDF en tekst. AI-import (foto's, handgeschreven en gescande recepten) zit in Savour Pro.",
+    'All of Savour, with the Savour reader for Word, PDF and text. AI import (photos, handwritten and scanned recipes) is part of Savour Pro.',
+    'Alles von Savour, mit dem Savour-Leser für Word, PDF und Text. KI-Import (Fotos, handschriftliche und gescannte Rezepte) ist Teil von Savour Pro.',
+    'Todo Savour, con el lector de Savour para Word, PDF y texto. La importación con IA (fotos, recetas manuscritas y escaneadas) forma parte de Savour Pro.'
+  ],
+  [
+    'Je importeert met de Savour-lezer',
+    'You import with the Savour reader',
+    'Du importierst mit dem Savour-Leser',
+    'Importas con el lector de Savour'
+  ],
+  [
+    "Word, PDF en tekst met duidelijke kopjes (“Ingrediënten”, “Bereiding”) worden direct en gratis ingelezen. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro.",
+    'Word, PDF and text with clear headings (“Ingredients”, “Method”) are read instantly and for free. Photos, handwritten and scanned recipes are read by the AI: only in Savour Pro.',
+    'Word, PDF und Text mit klaren Überschriften („Zutaten“, „Zubereitung“) werden sofort und kostenlos eingelesen. Fotos, handschriftliche und gescannte Rezepte liest die KI: nur in Savour Pro.',
+    'Word, PDF y texto con encabezados claros («Ingredientes», «Preparación») se leen al instante y gratis. Las fotos y recetas manuscritas o escaneadas las lee la IA: solo en Savour Pro.'
+  ],
+  ["Foto's lezen gaat met AI", 'Reading photos uses AI', 'Fotos werden mit KI gelesen', 'Leer fotos usa IA'],
+  [
+    'Dat is onderdeel van Savour Pro (vanaf €2,99 per maand). Met de gratis Savour-lezer importeer je Word, PDF en tekst.',
+    'That is part of Savour Pro (from €2.99 per month). With the free Savour reader you import Word, PDF and text.',
+    'Das ist Teil von Savour Pro (ab 2,99 € pro Monat). Mit dem kostenlosen Savour-Leser importierst du Word, PDF und Text.',
+    'Forma parte de Savour Pro (desde 2,99 € al mes). Con el lector gratuito de Savour importas Word, PDF y texto.'
+  ],
+  [
+    "Foto's lezen gaat met AI: alleen in Savour Pro.",
+    'Reading photos uses AI: only in Savour Pro.',
+    'Fotos werden mit KI gelesen: nur in Savour Pro.',
+    'Leer fotos usa IA: solo en Savour Pro.'
+  ],
+  [
+    "Gescande PDF's lezen gaat met AI: alleen in Savour Pro.",
+    'Reading scanned PDFs uses AI: only in Savour Pro.',
+    'Gescannte PDFs werden mit KI gelesen: nur in Savour Pro.',
+    'Leer PDF escaneados usa IA: solo en Savour Pro.'
+  ],
+  [
+    'AI-import is onderdeel van Savour Pro.',
+    'AI import is part of Savour Pro.',
+    'KI-Import ist Teil von Savour Pro.',
+    'La importación con IA forma parte de Savour Pro.'
+  ],
+  [
+    'Savour Pro is op deze server nog niet ingesteld.',
+    'Savour Pro is not set up on this server yet.',
+    'Savour Pro ist auf diesem Server noch nicht eingerichtet.',
+    'Savour Pro aún no está configurado en este servidor.'
+  ],
+  [
+    'Dit bestand bevat geen leesbare tekst.',
+    'This file contains no readable text.',
+    'Diese Datei enthält keinen lesbaren Text.',
+    'Este archivo no contiene texto legible.'
+  ],
+  [
+    'Pages-bestanden kunnen niet worden gelezen. Exporteer het in Pages als Word (.docx) of PDF.',
+    'Pages files cannot be read. Export it from Pages as Word (.docx) or PDF.',
+    'Pages-Dateien können nicht gelesen werden. Exportiere sie in Pages als Word (.docx) oder PDF.',
+    'Los archivos de Pages no se pueden leer. Expórtalo desde Pages como Word (.docx) o PDF.'
+  ],
+  [
+    'Dit ODT-bestand bevat geen leesbare tekst.',
+    'This ODT file contains no readable text.',
+    'Diese ODT-Datei enthält keinen lesbaren Text.',
+    'Este archivo ODT no contiene texto legible.'
+  ],
+  [
+    'ODT-importmodule kon niet worden geladen.',
+    'The ODT import module could not be loaded.',
+    'Das ODT-Importmodul konnte nicht geladen werden.',
+    'No se pudo cargar el módulo de importación ODT.'
+  ],
+  [
+    'In de demo kun je Savour Pro niet afsluiten.',
+    'You cannot subscribe to Savour Pro in the demo.',
+    'In der Demo kannst du Savour Pro nicht abschließen.',
+    'En la demo no puedes contratar Savour Pro.'
+  ],
+  [
+    'Betalen is nog niet ingesteld. Probeer het later opnieuw.',
+    'Payments are not set up yet. Please try again later.',
+    'Bezahlen ist noch nicht eingerichtet. Versuche es später erneut.',
+    'Los pagos aún no están configurados. Inténtalo más tarde.'
+  ],
+  [
+    'Abonnement beheren is nog niet ingesteld.',
+    'Managing subscriptions is not set up yet.',
+    'Abo-Verwaltung ist noch nicht eingerichtet.',
+    'La gestión de suscripciones aún no está configurada.'
+  ],
+  [
+    'Bedankt! Je abonnement wordt geactiveerd…',
+    'Thank you! Your subscription is being activated…',
+    'Danke! Dein Abo wird aktiviert…',
+    '¡Gracias! Tu suscripción se está activando…'
+  ],
+  ['Welkom bij Savour Pro.', 'Welcome to Savour Pro.', 'Willkommen bei Savour Pro.', 'Bienvenido a Savour Pro.'],
+  [
+    'Je betaling wordt nog verwerkt. Kijk zo nog even in Instellingen.',
+    'Your payment is still being processed. Check Settings again shortly.',
+    'Deine Zahlung wird noch verarbeitet. Schau gleich noch einmal in die Einstellungen.',
+    'Tu pago aún se está procesando. Vuelve a mirar en Ajustes en un momento.'
+  ],
+  ['Je hebt Savour Pro al.', 'You already have Savour Pro.', 'Du hast Savour Pro bereits.', 'Ya tienes Savour Pro.'],
+  [
+    'Afrekenen kon niet worden gestart. Probeer het later opnieuw.',
+    'Checkout could not be started. Please try again later.',
+    'Der Bezahlvorgang konnte nicht gestartet werden. Versuche es später erneut.',
+    'No se pudo iniciar el pago. Inténtalo más tarde.'
+  ],
+  [
+    'Er is nog geen abonnement om te beheren.',
+    'There is no subscription to manage yet.',
+    'Es gibt noch kein Abo zum Verwalten.',
+    'Aún no hay ninguna suscripción que gestionar.'
+  ],
+  [
+    'Abonnement beheren kon niet worden geopend.',
+    'Subscription management could not be opened.',
+    'Die Abo-Verwaltung konnte nicht geöffnet werden.',
+    'No se pudo abrir la gestión de la suscripción.'
+  ],
+  ['Log eerst in.', 'Log in first.', 'Melde dich zuerst an.', 'Inicia sesión primero.'],
+  ['Er ging iets mis.', 'Something went wrong.', 'Etwas ist schiefgelaufen.', 'Algo salió mal.'],
+  ['Controleren', 'Check', 'Prüfen', 'Revisar'],
+  ['8. Savour Pro', '8. Savour Pro', '8. Savour Pro', '8. Savour Pro'],
+  [
+    'Savour Pro is een betaald abonnement per maand of per jaar dat automatisch wordt verlengd tot je het opzegt. Opzeggen kan op elk moment via Mijn account; je houdt Savour Pro tot het einde van de betaalde periode. Savour Pro bevat maximaal 500 AI-imports per maand. Betalingen worden verwerkt door Stripe.',
+    'Savour Pro is a paid monthly or yearly subscription that renews automatically until you cancel it. You can cancel at any time via My account; you keep Savour Pro until the end of the paid period. Savour Pro includes up to 500 AI imports per month. Payments are processed by Stripe.',
+    'Savour Pro ist ein kostenpflichtiges Monats- oder Jahresabo, das sich automatisch verlängert, bis du es kündigst. Du kannst jederzeit über Mein Konto kündigen; Savour Pro bleibt bis zum Ende des bezahlten Zeitraums aktiv. Savour Pro umfasst bis zu 500 KI-Importe pro Monat. Zahlungen werden von Stripe verarbeitet.',
+    'Savour Pro es una suscripción de pago mensual o anual que se renueva automáticamente hasta que la canceles. Puedes cancelarla en cualquier momento desde Mi cuenta; mantienes Savour Pro hasta el final del periodo pagado. Savour Pro incluye hasta 500 importaciones con IA al mes. Los pagos los procesa Stripe.'
+  ],
+  ['8. Betalingen en AI', '8. Payments and AI', '8. Zahlungen und KI', '8. Pagos e IA'],
+  [
+    'Betalingen voor Savour Pro worden verwerkt door Stripe. Savour bewaart geen betaalgegevens zoals kaartnummers, alleen de status van je abonnement. Bij AI-import worden de bronnen die je aanlevert via OpenAI verwerkt om er receptgegevens van te maken.',
+    'Payments for Savour Pro are processed by Stripe. Savour does not store payment details such as card numbers, only the status of your subscription. With AI import, the sources you provide are processed via OpenAI to turn them into recipe data.',
+    'Zahlungen für Savour Pro werden von Stripe verarbeitet. Savour speichert keine Zahlungsdaten wie Kartennummern, nur den Status deines Abos. Beim KI-Import werden die von dir bereitgestellten Quellen über OpenAI verarbeitet, um daraus Rezeptdaten zu erstellen.',
+    'Los pagos de Savour Pro los procesa Stripe. Savour no guarda datos de pago como números de tarjeta, solo el estado de tu suscripción. En la importación con IA, las fuentes que aportas se procesan mediante OpenAI para convertirlas en datos de receta.'
+  ],
   [
     'De AI is op deze server niet ingesteld.',
     'AI is not set up on this server.',
     'Die KI ist auf diesem Server nicht eingerichtet.',
     'La IA no está configurada en este servidor.'
   ],
-  ['Het OpenAI-tegoed is op.', 'The OpenAI credit has run out.', 'Das OpenAI-Guthaben ist aufgebraucht.', 'El saldo de OpenAI se ha agotado.'],
+  [
+    'Het OpenAI-tegoed is op.',
+    'The OpenAI credit has run out.',
+    'Das OpenAI-Guthaben ist aufgebraucht.',
+    'El saldo de OpenAI se ha agotado.'
+  ],
   ['Zonder AI · controleren', 'Without AI · check', 'Ohne KI · prüfen', 'Sin IA · revisar'],
   [
     '). Controleer titel, ingrediënten en bereiding extra goed.',
@@ -2486,9 +2768,61 @@ export const patterns = [
     'Noch kein Savour-Konto für $1',
     'Aún no hay cuenta de Savour para $1'
   ],
-  ['^(\\d+) recept is zonder AI uitgelezen \\($', '$1 recipe was read without AI (', '$1 Rezept wurde ohne KI gelesen (', '$1 receta se leyó sin IA ('],
-  ['^(\\d+) recepten zijn zonder AI uitgelezen \\($', '$1 recipes were read without AI (', '$1 Rezepte wurden ohne KI gelesen (', '$1 recetas se leyeron sin IA ('],
+  [
+    '^(\\d+) recept is zonder AI uitgelezen \\($',
+    '$1 recipe was read without AI (',
+    '$1 Rezept wurde ohne KI gelesen (',
+    '$1 receta se leyó sin IA ('
+  ],
+  [
+    '^(\\d+) recepten zijn zonder AI uitgelezen \\($',
+    '$1 recipes were read without AI (',
+    '$1 Rezepte wurden ohne KI gelesen (',
+    '$1 recetas se leyeron sin IA ('
+  ],
   ['^Niet verwerkt \\((\\d+)\\):$', 'Not processed ($1):', 'Nicht verarbeitet ($1):', 'Sin procesar ($1):'],
+  [
+    '^(\\d+) van (\\d+) AI-imports gebruikt deze maand\\.$',
+    '$1 of $2 AI imports used this month.',
+    '$1 von $2 KI-Importen diesen Monat genutzt.',
+    '$1 de $2 importaciones con IA usadas este mes.'
+  ],
+  [
+    '^(\\d+) van (\\d+) AI-imports gebruikt deze maand\\. Bestanden die de Savour-lezer zelf goed leest, tellen niet mee\\.$',
+    '$1 of $2 AI imports used this month. Files the Savour reader reads well on its own do not count.',
+    '$1 von $2 KI-Importen diesen Monat genutzt. Dateien, die der Savour-Leser selbst gut liest, zählen nicht.',
+    '$1 de $2 importaciones con IA usadas este mes. Los archivos que el lector de Savour lee bien no cuentan.'
+  ],
+  [
+    '^Opgezegd\\. Je houdt Pro tot (.+)\\.$',
+    'Cancelled. You keep Pro until $1.',
+    'Gekündigt. Du behältst Pro bis $1.',
+    'Cancelada. Mantienes Pro hasta el $1.'
+  ],
+  [
+    '^Jaarabonnement · verlengt op (.+)$',
+    'Yearly subscription · renews on $1',
+    'Jahresabo · verlängert sich am $1',
+    'Suscripción anual · se renueva el $1'
+  ],
+  [
+    '^Maandabonnement · verlengt op (.+)$',
+    'Monthly subscription · renews on $1',
+    'Monatsabo · verlängert sich am $1',
+    'Suscripción mensual · se renueva el $1'
+  ],
+  [
+    '^Je hebt deze maand alle (\\d+) AI-imports gebruikt\\.$',
+    'You have used all $1 AI imports this month.',
+    'Du hast diesen Monat alle $1 KI-Importe genutzt.',
+    'Has usado las $1 importaciones con IA de este mes.'
+  ],
+  [
+    '^(.+): pagina (\\d+) van (\\d+) wordt gelezen…$',
+    '$1: reading page $2 of $3…',
+    '$1: Seite $2 von $3 wird gelesen…',
+    '$1: leyendo página $2 de $3…'
+  ],
   ['^Trefwoorden voor (.+)$', 'Keywords for $1', 'Stichwörter für $1', 'Palabras clave de $1'],
   [
     '^Voorgesteld op trefwoord “(.+)”$',

@@ -12,7 +12,10 @@ Savour is een receptbeheer-app voor professionele koks (Nederlands). Lees eerst 
 5. **Samenwerken**: gedeelde mappen met rollen owner (beheert), editor (voegt toe en bewerkt) en viewer (bekijkt).
 6. **Premium uitstraling**: standaard donker met goud (#e8ca8d), Playfair Display voor koppen. Een licht thema is optioneel (Instellingen); lichte varianten staan onderaan `css/components.css` onder `body.savour-light`. Controleer nieuwe schermen in beide thema's.
 
-Verdienmodel: gratis basis + betaald pro (nog niet gebouwd).
+Verdienmodel: gratis basis + Savour Pro (€2,99 p/m of €29 p/j, via Stripe). Gratis = alles behalve AI;
+Pro = AI-import, max. 500 per maand. Importeren gaat altijd eerst via de eigen lezer
+(`js/features/recipe-reader.js`, test: `npm run test:lezer`); alleen bij twijfel en met Pro naar de AI.
+De server (`api/ai-import.js`) controleert Pro en de limiet. Instellen: `docs/savour-pro-instellen.md`.
 
 ## Technische afspraken
 

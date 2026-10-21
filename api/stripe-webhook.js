@@ -1,0 +1,54 @@
+// Stripe meldt hier betalingen en wijzigingen in abonnementen. Alleen meldingen met een geldige
+// handtekening (STRIPE_WEBHOOK_SECRET) worden verwerkt; daarna wordt public.subscriptions bijgewerkt.
+//
+// Instellen in Stripe → Developers → Webhooks → Add endpoint: https://savour.page/api/stripe-webhook
+// met de gebeurtenissen checkout.session.completed en customer.subscription.created/updated/deleted.
+import { stripe, verifyStripeSignature, readRawBody, planForPrice } from './_lib/stripe.js';
+import { upsertSubscription, findSubscriptionByCustomer } from './_lib/supabase-admin.js';
+
+// De ruwe body is nodig voor de handtekening, dus niet automatisch laten omzetten.
+export const config = { api: { bodyParser: false } };
+
+async function applySubscription(sub, userId) {
+  if (!userId) return;
+  const item = sub.items?.data?.[0];
+  // Nieuwere Stripe-versies zetten de periode op het abonnementsitem, oudere op het abonnement zelf.
+  const periodEnd = sub.current_period_end ?? item?.current_period_end;
+  await upsertSubscription({
+    user_id: userId,
+    status: sub.status,
+    plan: planForPrice(item?.price?.id) || 'month',
+    stripe_customer_id: sub.customer,
+    stripe_subscription_id: sub.id,
+    current_period_end: periodEnd ? new Date(periodEnd * 1000).toISOString() : null,
+    cancel_at_period_end: !!sub.cancel_at_period_end
+  });
+}
+
+async function userIdFor(sub) {
+  if (sub.metadata?.user_id) return sub.metadata.user_id;
+  const row = await findSubscriptionByCustomer(sub.customer);
+  return row?.user_id || null;
+}
+
+export default async function handler(req, res) {
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  const raw = await readRawBody(req);
+  if (!verifyStripeSignature(raw, req.headers['stripe-signature'], process.env.STRIPE_WEBHOOK_SECRET))
+    return res.status(400).json({ error: 'Ongeldige handtekening' });
+  try {
+    const event = JSON.parse(raw);
+    const obj = event.data?.object || {};
+    if (event.type === 'checkout.session.completed' && obj.mode === 'subscription' && obj.subscription) {
+      const sub = await stripe(`subscriptions/${obj.subscription}`, null, 'GET');
+      await applySubscription(sub, obj.client_reference_id || (await userIdFor(sub)));
+    } else if (event.type?.startsWith('customer.subscription.')) {
+      await applySubscription(obj, await userIdFor(obj));
+    }
+    return res.status(200).json({ received: true });
+  } catch (error) {
+    console.error('Stripe webhook', error);
+    // 500 laat Stripe het later opnieuw proberen.
+    return res.status(500).json({ error: 'Verwerken mislukt' });
+  }
+}

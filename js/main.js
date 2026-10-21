@@ -61,6 +61,8 @@ const publicRecipeMatch = location.pathname.match(/^\/r\/([^/]+)\/?$/);
 const publicInviteMatch = location.pathname.match(/^\/join\/([^/]+)\/?$/);
 if (publicRecipeMatch) window.__publicRecipeRoute = decodeURIComponent(publicRecipeMatch[1]);
 if (publicInviteMatch) window.__publicInviteRoute = decodeURIComponent(publicInviteMatch[1]);
+// /pro opent de pagina Savour Pro (ingelogd in de app, anders publiek).
+window.__proRoute = /^\/pro\/?$/.test(location.pathname);
 
 // Bestaande sessie herstellen, of de landingspagina tonen.
 (async () => {
@@ -96,6 +98,7 @@ if (publicInviteMatch) window.__publicInviteRoute = decodeURIComponent(publicInv
       sessionStorage.removeItem('savour_session_active');
       currentUser = null;
       showLanding();
+      if (window.__proRoute) openPublicInfo('pro');
     }
   } catch (e) {
     console.error('Sessie kon niet worden hersteld:', e);

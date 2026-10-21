@@ -32,7 +32,9 @@ function go(id) {
   if (id === 'sharedFolderDetail') renderSharedFolderDetail();
   if (id === 'sharedMapManage') renderSharedMapManage(currentShared);
   if (id === 'settings') renderSettings();
+  if (id === 'pro') renderProPage($('proBody'));
   if (id === 'import') {
+    renderImportPlanNotice();
     if ($('addChoiceGrid')?.style.display !== 'none' && $('addModeSwitch')?.style.display === 'none')
       resetImportSource();
     else if ($('addModeSwitch')?.style.display === 'none') {

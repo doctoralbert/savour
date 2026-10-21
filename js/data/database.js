@@ -227,11 +227,16 @@ async function startDatabaseSession(user) {
       await ensureProfile(user);
       await migrateLegacySharedMaps();
       await loadDatabaseState();
-      showApp('home');
+      await loadPlanState();
+      if (window.__proRoute) openPublicInfo('pro');
+      else showApp('home');
       renderHome();
       updateProfileHeader();
       // Kwam de gebruiker binnen via een uitnodigingslink? Dan nu lid worden en de map openen.
       await acceptPendingInvite();
+      // Terug van Stripe, of koos de gebruiker Pro vóór het aanmaken van een account?
+      await handleProReturn();
+      await resumeProIntent();
       return true;
     } catch (error) {
       console.error('Savour sessie kon niet worden opgebouwd:', error);

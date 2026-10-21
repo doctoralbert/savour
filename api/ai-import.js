@@ -1,4 +1,8 @@
 import { getUserFromRequest } from './_lib/auth.js';
+import { rpc, hasServiceRole } from './_lib/supabase-admin.js';
+
+// AI-imports per maand voor Savour Pro. Eén import = één bestand, foto of stuk van een lang document.
+const AI_MONTHLY_LIMIT = 500;
 
 // De Responses API levert output_text alleen via de SDK; via REST lezen we de tekst uit output[].content[].
 function extractOutputText(data) {
@@ -14,10 +18,28 @@ function extractOutputText(data) {
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-  const key = process.env.OPENAI_API_KEY;
-  if (!key) return res.status(500).json({ error: 'OPENAI_API_KEY ontbreekt in Vercel Environment Variables.' });
   const user = await getUserFromRequest(req);
   if (!user) return res.status(401).json({ error: 'Log opnieuw in om recepten te importeren.' });
+  // AI is onderdeel van Savour Pro: eerst controleren of deze gebruiker Pro is en nog AI-imports over heeft.
+  if (!hasServiceRole())
+    return res.status(503).json({ error: 'Savour Pro is op deze server nog niet ingesteld.', code: 'not_configured' });
+  let allowance;
+  try {
+    allowance = await rpc('savour_ai_allowance', { _user: user.id, _limit: AI_MONTHLY_LIMIT });
+  } catch (error) {
+    console.error('Savour Pro-controle', error);
+    return res.status(503).json({ error: 'Savour Pro is op deze server nog niet ingesteld.', code: 'not_configured' });
+  }
+  if (!allowance?.pro)
+    return res.status(402).json({ error: 'AI-import is onderdeel van Savour Pro.', code: 'pro_required' });
+  if (allowance.used >= allowance.limit)
+    return res.status(403).json({
+      error: `Je hebt deze maand alle ${allowance.limit} AI-imports gebruikt.`,
+      code: 'limit_reached',
+      usage: { used: allowance.used, limit: allowance.limit }
+    });
+  const key = process.env.OPENAI_API_KEY;
+  if (!key) return res.status(500).json({ error: 'OPENAI_API_KEY ontbreekt in Vercel Environment Variables.' });
   try {
     const { image, text, filename, categories } = req.body || {};
     const hasImage = typeof image === 'string' && image.startsWith('data:image/');
@@ -117,7 +139,14 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
     } catch {
       return res.status(502).json({ error: 'De AI gaf geen geldig receptresultaat terug.' });
     }
-    return res.status(200).json(parsed);
+    // Pas tellen als de AI echt iets heeft opgeleverd.
+    let used = allowance.used + 1;
+    try {
+      used = (await rpc('savour_record_ai_use', { _user: user.id, _limit: AI_MONTHLY_LIMIT })) ?? used;
+    } catch (error) {
+      console.error('AI-teller', error);
+    }
+    return res.status(200).json({ ...parsed, usage: { used, limit: allowance.limit } });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: error?.message || 'AI-import mislukt.' });

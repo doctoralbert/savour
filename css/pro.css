@@ -1,0 +1,186 @@
+/* Savour Pro: prijspagina, homepage-blok, abonnement in Instellingen en de melding bij importeren. */
+
+/* ---- Prijzen ---- */
+.pro-current {
+  margin: 0 0 var(--sv-space-5);
+  padding: var(--sv-space-3) var(--sv-space-4);
+  border: 1px solid var(--sv-gold);
+  border-radius: var(--sv-radius);
+  color: var(--sv-text);
+}
+.pro-current span {
+  color: var(--sv-text-2);
+}
+.pro-prices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sv-space-4);
+  margin: var(--sv-space-2) 0 var(--sv-space-4);
+}
+.pro-price {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sv-space-2);
+  padding: var(--sv-space-5);
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius-lg);
+  background: var(--sv-surface);
+}
+.pro-price.is-featured {
+  border-color: var(--sv-gold);
+}
+.pro-price h3 {
+  margin: 0;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-lg);
+}
+.pro-price .muted {
+  margin: 0;
+  flex: 1;
+}
+.pro-price .btn {
+  width: 100%;
+  margin-top: var(--sv-space-2);
+}
+.pro-amount strong {
+  font-family: var(--sv-font-display);
+  font-size: 34px;
+  font-weight: 500;
+  color: var(--sv-text);
+}
+.pro-amount span {
+  margin-left: var(--sv-space-2);
+  color: var(--sv-text-2);
+}
+.pro-badge {
+  position: absolute;
+  top: calc(var(--sv-space-3) * -1);
+  right: var(--sv-space-4);
+  padding: 2px var(--sv-space-3);
+  border-radius: 999px;
+  background: var(--sv-gold);
+  color: #1d1b17;
+  font-size: var(--sv-fs-xs);
+  font-weight: 600;
+}
+.pro-pay {
+  font-size: var(--sv-fs-sm);
+}
+.pro-compare {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--sv-space-3) 0 var(--sv-space-5);
+  font-size: var(--sv-fs-md);
+}
+.pro-compare th,
+.pro-compare td {
+  padding: var(--sv-space-3) var(--sv-space-2);
+  border-bottom: 1px solid var(--sv-line);
+  text-align: left;
+}
+.pro-compare th:not(:first-child),
+.pro-compare td:not(:first-child) {
+  width: 64px;
+  text-align: center;
+}
+.pro-compare td:last-child {
+  color: var(--sv-gold);
+  font-weight: 600;
+}
+.pro-compare th {
+  color: var(--sv-text-2);
+  font-weight: 600;
+}
+
+/* ---- Homepage ---- */
+.landing-pro {
+  text-align: center;
+}
+.landing-pro p {
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.landing-pro-price {
+  margin: var(--sv-space-4) 0;
+  color: var(--sv-text-2);
+}
+.landing-pro-price strong {
+  font-family: var(--sv-font-display);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--sv-gold);
+}
+
+/* ---- Instellingen ---- */
+.plan-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sv-space-4);
+}
+.plan-row b {
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-lg);
+}
+.plan-row small {
+  display: block;
+  margin-top: var(--sv-space-1);
+  color: var(--sv-text-2);
+}
+.plan-row .btn {
+  flex: 0 0 auto;
+}
+
+/* ---- Importscherm ---- */
+.import-plan {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sv-space-2) var(--sv-space-4);
+  margin: var(--sv-space-3) 0 var(--sv-space-4);
+  padding: var(--sv-space-3) var(--sv-space-4);
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface);
+}
+.import-plan b {
+  flex: 0 0 100%;
+}
+.import-plan span {
+  flex: 1 1 320px;
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.import-plan.is-pro {
+  border-color: var(--sv-gold);
+}
+.pro-tag {
+  display: inline-block;
+  margin-left: var(--sv-space-1);
+  padding: 0 var(--sv-space-2);
+  border: 1px solid var(--sv-gold);
+  border-radius: 999px;
+  color: var(--sv-gold);
+  font-size: var(--sv-fs-xs);
+  font-weight: 600;
+  vertical-align: middle;
+}
+.import-option.is-locked {
+  opacity: 0.75;
+}
+
+@media (max-width: 760px) {
+  .pro-prices {
+    grid-template-columns: 1fr;
+    gap: var(--sv-space-5);
+  }
+  .plan-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .pro-compare {
+    font-size: var(--sv-fs-sm);
+  }
+}

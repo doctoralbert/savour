@@ -29,7 +29,7 @@ loadEnvFile('.env.local');
 loadEnvFile('.env');
 
 const handlers = new Map();
-for (const name of ['ai-import', 'bug-report', 'admin-reset']) {
+for (const name of ['ai-import', 'bug-report', 'admin-reset', 'pro-checkout', 'pro-portal', 'stripe-webhook']) {
   const module = await import(pathToFileURL(path.join(ROOT, 'api', `${name}.js`)).href);
   handlers.set(`/api/${name}`, module.default);
 }
@@ -80,6 +80,8 @@ async function readBody(req) {
     chunks.push(chunk);
   }
   const raw = Buffer.concat(chunks).toString('utf8');
+  // De Stripe-webhook heeft de ruwe tekst nodig om de handtekening te controleren.
+  req.rawBody = raw;
   if (!raw) return {};
   const contentType = String(req.headers['content-type'] || '').split(';')[0];
   if (contentType === 'application/json') return JSON.parse(raw);
@@ -154,6 +156,8 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, () => {
   console.log(`\nSavour local server draait op http://localhost:${PORT}`);
-  console.log('API-routes: /api/ai-import  /api/bug-report  /api/admin-reset');
+  console.log(
+    'API-routes: /api/ai-import  /api/bug-report  /api/admin-reset  /api/pro-checkout  /api/pro-portal  /api/stripe-webhook'
+  );
   console.log('Stoppen: Ctrl+C\n');
 });

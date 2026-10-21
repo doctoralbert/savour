@@ -221,6 +221,7 @@ function renderSettings() {
   $('accountAvatar').innerHTML = account.photo
     ? `<img src="${esc(account.photo)}" alt="Profielfoto">`
     : (account.name || 'M').charAt(0).toUpperCase();
+  renderPlanSettings();
   $('settingsCategories').innerHTML = categories
     .map(
       c =>

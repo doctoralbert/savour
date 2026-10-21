@@ -8,6 +8,8 @@ function showImportPanel() {
 }
 
 function selectImportSource(type) {
+  // Foto's lezen gaat met AI: zonder Pro meteen uitleggen in plaats van na het uploaden.
+  if (type === 'photo' && !isPro()) return askForPro("Foto's");
   importSource = type;
   importFileData = null;
   document.querySelectorAll('.import-option').forEach(x => x.classList.remove('selected'));
@@ -309,16 +311,20 @@ async function callAiImport(body) {
     body: JSON.stringify({ ...body, categories: categories.slice() })
   });
   const result = await response.json().catch(() => ({}));
+  // De server geeft na elke AI-import de stand van de teller terug.
+  if (result?.usage) Object.assign(savourPlan, { used: result.usage.used, limit: result.usage.limit });
   if (!response.ok) {
     const raw = result?.error || '';
-    // Tegoed op geeft ook 429, maar opnieuw proberen heeft dan geen zin.
+    // Tegoed op geeft ook 429, maar opnieuw proberen heeft dan geen zin; net als bij geen Pro of limiet bereikt.
     const noCredit = /quota|billing|credit/i.test(raw);
+    const final = noCredit || ['pro_required', 'limit_reached', 'not_configured'].includes(result?.code);
+    if (result?.code === 'pro_required') savourPlan.pro = false;
     const message = /OPENAI_API_KEY/.test(raw)
       ? 'De AI is op deze server niet ingesteld.'
       : noCredit
         ? 'Het OpenAI-tegoed is op.'
         : raw || (response.status === 413 ? 'Het bestand is te groot.' : 'AI-import mislukt.');
-    throw Object.assign(new Error(message), { status: response.status, final: noCredit });
+    throw Object.assign(new Error(message), { status: response.status, final, code: result?.code });
   }
   return Array.isArray(result?.recipes) ? result.recipes : [];
 }
@@ -361,8 +367,8 @@ function normalizeAiRecipe(r, extra) {
   };
 }
 
-// Knipt lange teksten in stukken van max. ~20.000 tekens, bij voorkeur op een receptkop, anders op een witregel.
-const AI_IMPORT_CHUNK_CHARS = 20000;
+// Knipt lange teksten in stukken van max. ~8.000 tekens (ruim binnen de tijdslimiet van één AI-verzoek), bij voorkeur op een receptkop, anders op een witregel.
+const AI_IMPORT_CHUNK_CHARS = 8000;
 
 function chunkImportText(text) {
   const lines = String(text || '')
@@ -391,59 +397,79 @@ function chunkImportText(text) {
   return chunks.filter(c => c.trim());
 }
 
+// Melding als iets alleen met AI kan en de gebruiker geen Pro heeft (of de limiet bereikt is).
+function proRequiredError(what) {
+  return Object.assign(new Error(`${what} lezen gaat met AI: alleen in Savour Pro.`), { code: 'pro_required' });
+}
+
 async function importImageFile(file) {
+  if (!isPro()) throw proRequiredError("Foto's");
   const dataUrl = await compressPhoto(file);
   const aiRecipes = await callAiImportWithRetry({ image: dataUrl, filename: file.name });
   if (!aiRecipes.length) throw new Error('Geen recept uit de foto herkend.');
   return aiRecipes.map(r => normalizeAiRecipe(r, { photo: dataUrl, sourceFile: file.name }));
 }
 
+// Een gescande PDF bevat geen tekst maar afbeeldingen: elke pagina (max. 10) gaat als afbeelding naar de AI.
+async function importScannedPdf(file) {
+  const pdfjs = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.min.mjs');
+  pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.worker.min.mjs';
+  const pdf = await pdfjs.getDocument({ data: await file.arrayBuffer() }).promise;
+  const drafts = [];
+  for (let i = 1; i <= Math.min(pdf.numPages, 10); i++) {
+    $('importStatus').textContent = `${file.name}: pagina ${i} van ${Math.min(pdf.numPages, 10)} wordt gelezen…`;
+    const page = await pdf.getPage(i);
+    const viewport = page.getViewport({ scale: 1600 / page.getViewport({ scale: 1 }).width });
+    const canvas = document.createElement('canvas');
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+    const image = canvas.toDataURL('image/jpeg', 0.82);
+    const aiRecipes = await callAiImportWithRetry({ image, filename: `${file.name} (pagina ${i})` });
+    drafts.push(...aiRecipes.map(r => normalizeAiRecipe(r, { sourceFile: file.name })));
+  }
+  return drafts;
+}
+
+// Word, PDF en tekst: eerst de Savour-lezer. Is die bij alle recepten zeker, dan is er geen AI nodig
+// (gratis, telt niet mee). Alleen bij twijfel én met Pro leest de AI het bestand. Lukt de AI niet (storing,
+// limiet bereikt), dan gaat er niets verloren: de Savour-lezer neemt het over, gemarkeerd om te controleren.
 async function importTextFile(file) {
   const sourceText = await extractImportText(file);
   if (!sourceText.trim()) {
-    const base = (file?.name || 'Geïmporteerd recept')
-      .replace(/\.[^.]+$/, '')
-      .replace(/[_-]+/g, ' ')
-      .trim();
-    return [
-      {
-        title: base || 'Geïmporteerd recept',
-        ingredients: ['Bron bevat geen uitleesbare tekst.'],
-        steps: ['Controleer de bron handmatig.'],
-        yield: '',
-        category: 'Eigen recepten',
-        sourceFile: file.name,
-        _needsReview: true
-      }
-    ];
+    if (!/\.pdf$/i.test(file.name)) throw new Error('Dit bestand bevat geen leesbare tekst.');
+    if (!isPro()) throw proRequiredError("Gescande PDF's");
+    return importScannedPdf(file);
   }
+  const local = readRecipesLocally(sourceText, { sourceFile: file.name });
+  const readerIsSure = local.length && local.every(r => r.readerConfidence === 'high');
+  if (readerIsSure || !isPro()) return local;
+
   const chunks = chunkImportText(sourceText);
   const drafts = [];
+  let aiError = null;
   for (let i = 0; i < chunks.length; i++) {
     if (chunks.length > 1)
       $('importStatus').textContent = `${file.name}: deel ${i + 1} van ${chunks.length} wordt verwerkt…`;
-    // Is de AI niet bereikbaar, dan gaat het bestand niet verloren: de tekst is al uitgelezen en gaat
-    // naar de eenvoudige tekstsplitser. Zulke recepten zijn gemarkeerd om extra goed te controleren.
     let aiRecipes = [];
-    let aiError = null;
-    try {
-      aiRecipes = await callAiImportWithRetry({ text: chunks[i], filename: file.name });
-    } catch (e) {
-      aiError = e;
+    if (!aiError) {
+      try {
+        aiRecipes = await callAiImportWithRetry({ text: chunks[i], filename: file.name });
+      } catch (e) {
+        aiError = e;
+      }
     }
     if (aiRecipes.length) drafts.push(...aiRecipes.map(r => normalizeAiRecipe(r, { sourceFile: file.name })));
     else
       drafts.push(
         ...readRecipesLocally(chunks[i], {
           sourceFile: file.name,
-          _needsReview: true,
           _withoutAi: aiError ? aiError.message : ''
         })
       );
   }
   return drafts;
 }
-
 function updateImportProgress(done, total, label = '') {
   const wrap = $('importProgressWrap'),
     bar = $('importProgressBar'),
@@ -464,7 +490,12 @@ function importFailureSummary(failures) {
       ([reason, names]) =>
         `<span class="muted">Niet verwerkt (${names.length}): <span translate="no">${esc(names.slice(0, 5).join(', '))}${names.length > 5 ? ' …' : ''}</span> · <span>${esc(reason)}</span></span>`
     )
-    .join('<br>');
+    .join('<br>')
+    .concat(
+      failures.some(f => f.pro)
+        ? `<br><button type="button" class="btn small gold" onclick="openPublicInfo('pro')">Bekijk Savour Pro</button>`
+        : ''
+    );
 }
 
 async function processImportFiles(files) {
@@ -504,7 +535,7 @@ async function processImportFiles(files) {
         batchDrafts.push(...drafts);
       } catch (e) {
         console.error('Bulk import', file.name, e);
-        failures.push({ name: file.name, error: e?.message || 'Import mislukt.' });
+        failures.push({ name: file.name, error: e?.message || 'Import mislukt.', pro: e?.code === 'pro_required' });
       } finally {
         done++;
         $('importStatus').textContent =
