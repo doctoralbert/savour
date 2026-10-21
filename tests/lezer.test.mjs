@@ -896,6 +896,24 @@ for (const c of fixCases) {
     console.log(`✗ ${c.name}\n   kreeg "${got}", verwacht "${c.to}"`);
   } else console.log(`✓ ${c.name}`);
 }
-const total = cases.length + fixCases.length;
+// ---- Nummer vóór de receptnaam (stripTitleNumber, ook voor "Receptnamen opschonen") ----
+const titleCases = [
+  ['10.Asperges koken', 'Asperges koken'],
+  ['131. Witlof sous vide', 'Witlof sous vide'],
+  ['7) Beurre blanc', 'Beurre blanc'],
+  ['12 - Rode wijn jus', 'Rode wijn jus'],
+  ['12-uurs varkensbuik', '12-uurs varkensbuik'],
+  ['3 kruiden olie', '3 kruiden olie'],
+  ['1.5 kg brood', '1.5 kg brood'],
+  ['Beurre blanc', 'Beurre blanc']
+];
+for (const [from, to] of titleCases) {
+  const got = ctx.stripTitleNumber(from);
+  if (got !== to) {
+    failed++;
+    console.log(`✗ Receptnaam "${from}"\n   kreeg "${got}", verwacht "${to}"`);
+  } else console.log(`✓ Receptnaam "${from}"`);
+}
+const total = cases.length + fixCases.length + titleCases.length;
 console.log(`\n${total - failed} van ${total} geslaagd`);
 process.exit(failed ? 1 : 0);

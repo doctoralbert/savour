@@ -475,6 +475,10 @@ window.SAVOUR_I18N.de = {
     'Ja, opslaan': 'Ja, speichern',
     'Zo las de AI het': 'So hat die KI es gelesen',
     'Automatisch verbeterd:': 'Automatisch korrigiert:',
+    'Receptnamen opschonen': 'Rezeptnamen bereinigen',
+    'Nummers weghalen': 'Nummern entfernen',
+    '1 recept begint met een nummer, bijvoorbeeld': '1 Rezept beginnt mit einer Nummer, zum Beispiel',
+    '. Savour kan die nummers weghalen:': '. Savour kann diese Nummern entfernen:',
     'Gelezen met': 'Gelesen mit',
     '↻ Draai foto': '↻ Foto drehen',
     'Savour kiest per recept de meest waarschijnlijke. Je kunt ze daarna nalopen met "Categorieën voorstellen" op de pagina Categorieën.':
@@ -967,6 +971,14 @@ window.SAVOUR_I18N.de = {
     [
       '^Savour-lezer: (\\d+) zeker, (\\d+) twijfel\\. AI leest de twijfelgevallen na: (\\d+) van (\\d+) delen…$',
       'Savour-Leser: $1 sicher, $2 unsicher. Die KI liest die unsicheren nach: $3 von $4 Teilen…'
+    ],
+    ['^(\\d+) recepten beginnen met een nummer, bijvoorbeeld$', '$1 Rezepte beginnen mit einer Nummer, zum Beispiel'],
+    ['^Nummers weghalen uit (\\d+) receptnamen\\?$', 'Nummern aus $1 Rezeptnamen entfernen?'],
+    ['^Receptnamen aanpassen… (\\d+) / (\\d+)$', 'Rezeptnamen werden angepasst… $1 / $2'],
+    ['^(\\d+) receptnamen aangepast$', '$1 Rezeptnamen angepasst'],
+    [
+      '^(\\d+) receptnamen aangepast, (\\d+) niet gelukt\\. Probeer het opnieuw\\.$',
+      '$1 Rezeptnamen angepasst, $2 fehlgeschlagen. Bitte erneut versuchen.'
     ],
     [
       '^Gelezen door de Savour-lezer: (\\d+) · nagelezen door de AI: (\\d+)$',

@@ -126,12 +126,22 @@ function readerYieldFrom(line) {
   return '';
 }
 
+// Nummer uit een receptenboek vóór de naam: "10.Asperges koken", "131. Witlof", "7) Saus", "12 - Jus".
+// Niet: "12-uurs varkensbuik", "1.5 kg …" of "3 kruiden".
+const READER_TITLE_NUMBER = /^\d{1,4}\s*[.)]\s*(?=\D)|^\d{1,4}\s+[-–]\s+/;
+
+function stripTitleNumber(t) {
+  const x = String(t || '').trim();
+  const stripped = x.replace(READER_TITLE_NUMBER, '').trim();
+  return stripped || x;
+}
+
 // Receptnaam opschonen: "1. Beurre blanc", "# Beurre blanc", "Recept: Beurre blanc".
 function cleanBatchTitle(t) {
   return readerClean(t)
     .replace(/^#{1,3}\s*/, '')
     .replace(/^(?:recept|recipe)\s*[:#-]\s*/i, '')
-    .replace(/^\d+\s*[.)-]\s*/, '')
+    .replace(READER_TITLE_NUMBER, '')
     .replace(/^[-–•*]\s*/, '')
     .replace(/([^.])\.$/, '$1')
     .trim();

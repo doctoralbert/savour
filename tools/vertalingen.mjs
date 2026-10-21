@@ -1304,6 +1304,20 @@ export const strings = [
   ['Ja, opslaan', 'Yes, save', 'Ja, speichern', 'Sí, guardar'],
   ['Zo las de AI het', 'How the AI read it', 'So hat die KI es gelesen', 'Así lo leyó la IA'],
   ['Automatisch verbeterd:', 'Corrected automatically:', 'Automatisch korrigiert:', 'Corregido automáticamente:'],
+  ['Receptnamen opschonen', 'Tidy up recipe names', 'Rezeptnamen bereinigen', 'Limpiar nombres de recetas'],
+  ['Nummers weghalen', 'Remove numbers', 'Nummern entfernen', 'Quitar números'],
+  [
+    '1 recept begint met een nummer, bijvoorbeeld',
+    '1 recipe starts with a number, for example',
+    '1 Rezept beginnt mit einer Nummer, zum Beispiel',
+    '1 receta empieza con un número, por ejemplo'
+  ],
+  [
+    '. Savour kan die nummers weghalen:',
+    '. Savour can remove those numbers:',
+    '. Savour kann diese Nummern entfernen:',
+    '. Savour puede quitar esos números:'
+  ],
   ['Gelezen met', 'Read with', 'Gelesen mit', 'Leído con'],
   ['↻ Draai foto', '↻ Rotate photo', '↻ Foto drehen', '↻ Girar foto'],
   [
@@ -2841,6 +2855,26 @@ export const patterns = [
     'Savour reader: $1 certain, $2 unsure. The AI is rereading the unsure ones: $3 of $4 parts…',
     'Savour-Leser: $1 sicher, $2 unsicher. Die KI liest die unsicheren nach: $3 von $4 Teilen…',
     'Lector de Savour: $1 seguras, $2 con dudas. La IA relee las dudosas: $3 de $4 partes…'
+  ],
+  [
+    '^(\\d+) recepten beginnen met een nummer, bijvoorbeeld$',
+    '$1 recipes start with a number, for example',
+    '$1 Rezepte beginnen mit einer Nummer, zum Beispiel',
+    '$1 recetas empiezan con un número, por ejemplo'
+  ],
+  [
+    '^Nummers weghalen uit (\\d+) receptnamen\\?$',
+    'Remove numbers from $1 recipe names?',
+    'Nummern aus $1 Rezeptnamen entfernen?',
+    '¿Quitar los números de $1 nombres de recetas?'
+  ],
+  ['^Receptnamen aanpassen… (\\d+) / (\\d+)$', 'Updating recipe names… $1 / $2', 'Rezeptnamen werden angepasst… $1 / $2', 'Actualizando nombres… $1 / $2'],
+  ['^(\\d+) receptnamen aangepast$', '$1 recipe names updated', '$1 Rezeptnamen angepasst', '$1 nombres de recetas actualizados'],
+  [
+    '^(\\d+) receptnamen aangepast, (\\d+) niet gelukt\\. Probeer het opnieuw\\.$',
+    '$1 recipe names updated, $2 failed. Please try again.',
+    '$1 Rezeptnamen angepasst, $2 fehlgeschlagen. Bitte erneut versuchen.',
+    '$1 nombres actualizados, $2 fallaron. Inténtalo de nuevo.'
   ],
   [
     '^Gelezen door de Savour-lezer: (\\d+) · nagelezen door de AI: (\\d+)$',

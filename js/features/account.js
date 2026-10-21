@@ -222,12 +222,78 @@ function renderSettings() {
     ? `<img src="${esc(account.photo)}" alt="Profielfoto">`
     : (account.name || 'M').charAt(0).toUpperCase();
   renderPlanSettings();
+  renderTitleCleanup();
   $('settingsCategories').innerHTML = categories
     .map(
       c =>
         `<div class="member"><div><b>${esc(c)}</b><small class="muted">Eigen categorie</small></div><div style="display:flex;gap:7px;justify-content:flex-end"><button class="btn small" onclick="renameCategory('${escJs(c)}')">Naam wijzigen</button><button class="btn small" onclick="removeCategory('${escJs(c)}')">Verwijderen</button></div></div>`
     )
     .join('');
+}
+
+// ---- Receptnamen opschonen: nummers uit een receptenboek ("10.Asperges koken") ----
+// Alleen eigen recepten, en alleen na bevestiging: de chef ziet vooraf wat er verandert.
+
+function recipesWithTitleNumber() {
+  return recipes.filter(r => stripTitleNumber(r.title) !== String(r.title || '').trim());
+}
+
+function renderTitleCleanup() {
+  const panel = $('titleCleanupPanel');
+  if (!panel) return;
+  const found = recipesWithTitleNumber();
+  panel.style.display = found.length ? '' : 'none';
+  if (!found.length) return;
+  const example = found[0];
+  $('titleCleanup').innerHTML = `<p class="muted">${
+    found.length === 1 ? '1 recept begint' : `${found.length} recepten beginnen`
+  } met een nummer, bijvoorbeeld <span translate="no">“${esc(example.title)}”</span>. Savour kan die nummers weghalen: <span translate="no">“${esc(stripTitleNumber(example.title))}”</span>.</p><button class="btn gold" onclick="cleanRecipeTitleNumbers()">Nummers weghalen</button>`;
+}
+
+async function cleanRecipeTitleNumbers() {
+  const found = recipesWithTitleNumber();
+  if (!found.length) return;
+  const examples = found
+    .slice(0, 5)
+    .map(r => `${r.title} → ${stripTitleNumber(r.title)}`)
+    .join('\n');
+  const more = found.length > 5 ? `\n… en nog ${found.length - 5}` : '';
+  const ok = await askConfirm(`Nummers weghalen uit ${found.length} receptnamen?\n\n${examples}${more}`, {
+    confirmLabel: 'Nummers weghalen'
+  });
+  if (!ok) return;
+  let failed = 0;
+  if (demoMode) found.forEach(r => (r.title = stripTitleNumber(r.title)));
+  else {
+    // Tien tegelijk: elke naam is anders, dus per recept één update.
+    let next = 0;
+    let done = 0;
+    const work = async () => {
+      while (next < found.length) {
+        const r = found[next++];
+        const { error } = await supabaseClient
+          .from('recipes')
+          .update({ title: stripTitleNumber(r.title) })
+          .eq('id', r.id)
+          .eq('user_id', currentUser.id);
+        if (error) {
+          console.error(error);
+          failed++;
+        }
+        done++;
+        if (done % 25 === 0) toast(`Receptnamen aanpassen… ${done} / ${found.length}`);
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(10, found.length) }, work));
+    await loadDatabaseState();
+  }
+  renderRecipes();
+  renderSettings();
+  toast(
+    failed
+      ? `${found.length - failed} receptnamen aangepast, ${failed} niet gelukt. Probeer het opnieuw.`
+      : `${found.length} receptnamen aangepast`
+  );
 }
 
 // Extend folder modal save for shared maps without changing the regular folder flow.
