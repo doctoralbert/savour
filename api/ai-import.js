@@ -77,7 +77,9 @@ ABSOLUTE REGELS:
 - Lees onduidelijk handschrift met professionele keukenkennis: denk aan kruiden (zoals lavas, kervel, dragon), technieken en producten die in een recept voor de hand liggen. Verzin nooit een woord dat er niet staat.
 - Zet in unclear elk stuk tekst dat je niet met zekerheid kunt lezen, precies zoals je het nu leest (bijvoorbeeld "zeven in liddes"), zodat de chef het kan controleren. Neem die tekst ook gewoon op in de ingrediënten of stappen. Laat unclear leeg als alles goed leesbaar is.
 - Staan er bij de ingrediënten meerdere kolommen met hoeveelheden voor verschillende batchgroottes (bijvoorbeeld een basiskolom en een kolom onder "6x"), controleer dan of elke waarde in de extra kolom precies de basiswaarde maal dezelfde factor is. Zo ja: gebruik alleen de basiskolom en laat de extra kolom helemaal weg (Savour rekent zelf om); zet de factor niet in yield. Zo nee: behoud beide hoeveelheden letterlijk in de ingrediëntregel en zet needs_review op true.
-- Staat een recept niet volledig in de bron (afgesneden aan de rand van de foto of pagina, of halverwege afgebroken), geef het dan terug met incomplete: true en neem op wat leesbaar is. Een volledig recept dat gewoon geen bereiding heeft, is niet incomplete.
+- Een foto kan gedraaid zijn (op zijn kant of ondersteboven); lees de tekst in de juiste richting. Werkwijze kan ook in de kantlijn, naast accolades of met pijlen bij de ingrediënten staan: neem die op als stappen.
+- Zet incomplete: true alleen als de tekst van dát recept zelf zichtbaar doorloopt buiten de bron: een regel die is afgesneden aan de rand van de foto of pagina, of een ingrediëntenlijst die halverwege ophoudt. Neem op wat leesbaar is. Twijfel je, zet dan incomplete: false en needs_review: true.
+- Een recept is níet incomplete omdat er geen bereiding is, omdat het kort is, of omdat er daarna een nieuw kopje volgt. Een kopje zonder ingrediënten of stappen eronder is geen recept: neem het niet op.
 - Verwijder geen inhoud omdat die ongebruikelijk lijkt.
 - Splits meerdere recepten alleen als de bron daar duidelijke aanwijzingen voor geeft.
 - Houd de volgorde van ingrediënten en stappen zoveel mogelijk aan.

@@ -485,6 +485,24 @@ function updateImportProgress(done, total, label = '') {
   if (txt) txt.textContent = label || `${done} / ${total} bestanden verwerkt · ${pct}%`;
 }
 
+// Recepten die de AI als onvolledig zag; de chef kan ze met "Toch importeren" alsnog controleren.
+let skippedIncomplete = [];
+
+function importSkippedIncomplete() {
+  if (!skippedIncomplete.length) return;
+  if (batchDrafts.length) syncBatchDrafts();
+  batchDrafts = [
+    ...batchDrafts,
+    ...skippedIncomplete.map(r => ({ ...r, _incomplete: false, _needsReview: true, _maybeIncomplete: true }))
+  ];
+  skippedIncomplete = [];
+  document.querySelectorAll('[onclick="importSkippedIncomplete()"]').forEach(b => b.remove());
+  $('batchStatus').innerHTML +=
+    '<br><span class="batch-warning">Toegevoegd als "Mogelijk onvolledig": controleer of er niets ontbreekt.</span>';
+  renderBatchDrafts();
+  go('batchImport');
+}
+
 // Mislukte bestanden, gegroepeerd per reden: "Het bestand is te groot. (2): a.docx, b.docx".
 function importFailureSummary(failures) {
   const byReason = new Map();
@@ -554,11 +572,12 @@ async function processImportFiles(files) {
   };
   const workers = Array.from({ length: Math.min(3, valid.length) }, () => worker());
   await Promise.all(workers);
-  // Onvolledige recepten (bijv. afgesneden op de foto) niet importeren, maar wel melden.
-  const incomplete = batchDrafts.filter(r => r._incomplete);
+  // Onvolledige recepten (bijv. afgesneden op de foto) niet importeren, maar wel melden. Vergist de AI
+  // zich, dan kan de chef ze met "Toch importeren" alsnog controleren: er gaat nooit iets verloren.
+  skippedIncomplete = batchDrafts.filter(r => r._incomplete);
   batchDrafts = batchDrafts.filter(r => !r._incomplete);
-  const incompleteNote = incomplete.length
-    ? `<span class="batch-warning">Niet volledig in de bron en daarom overgeslagen: <span translate="no">${esc(incomplete.map(r => r.title).join(', '))}</span>. Maak een foto of bestand van het hele recept om het te importeren.</span>`
+  const incompleteNote = skippedIncomplete.length
+    ? `<span class="batch-warning">Niet volledig in de bron en daarom overgeslagen: <span translate="no">${esc(skippedIncomplete.map(r => r.title).join(', '))}</span>. Maak een foto of bestand van het hele recept om het te importeren.</span> <button type="button" class="btn small" onclick="importSkippedIncomplete()">Toch importeren</button>`
     : '';
   if (!batchDrafts.length) {
     $('importStatus').innerHTML =
@@ -638,7 +657,7 @@ function renderBatchDrafts() {
     batchDrafts
       .map(
         (r, i) =>
-          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : r._needsReview || r._unclear?.length ? ' <span class="batch-chip batch-chip-warn">Controleren</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img class="batch-photo" src="${esc(r.photo)}" alt="">` : ''}${r._unclear?.length ? `<div class="batch-unclear"><b>Niet goed leesbaar, controleer:</b><ul translate="no">${r._unclear.map(u => `<li>${esc(u)}</li>`).join('')}</ul></div>` : ''}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small><div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea class="batch-text" rows="${batchRows(r.ingredients)}" data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea class="batch-text" rows="${batchRows(r.steps)}" data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
+          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${r._maybeIncomplete ? ' <span class="batch-chip batch-chip-warn">Mogelijk onvolledig</span>' : r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : r._needsReview || r._unclear?.length ? ' <span class="batch-chip batch-chip-warn">Controleren</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img class="batch-photo" src="${esc(r.photo)}" alt="">` : ''}${r._unclear?.length ? `<div class="batch-unclear"><b>Niet goed leesbaar, controleer:</b><ul translate="no">${r._unclear.map(u => `<li>${esc(u)}</li>`).join('')}</ul></div>` : ''}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small><div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea class="batch-text" rows="${batchRows(r.ingredients)}" data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea class="batch-text" rows="${batchRows(r.steps)}" data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
       )
       .join('') || `<div class="empty" style="grid-column:1/-1">Geen afzonderlijke recepten herkend.</div>`;
 }

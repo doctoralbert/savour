@@ -1302,6 +1302,14 @@ export const strings = [
     '¿Has revisado las partes ilegibles?'
   ],
   ['Ja, opslaan', 'Yes, save', 'Ja, speichern', 'Sí, guardar'],
+  ['Toch importeren', 'Import anyway', 'Trotzdem importieren', 'Importar de todos modos'],
+  [
+    'Toegevoegd als "Mogelijk onvolledig": controleer of er niets ontbreekt.',
+    'Added as "Possibly incomplete": check that nothing is missing.',
+    'Als „Möglicherweise unvollständig“ hinzugefügt: prüfe, ob nichts fehlt.',
+    'Añadida como «Posiblemente incompleta»: comprueba que no falte nada.'
+  ],
+  ['Mogelijk onvolledig', 'Possibly incomplete', 'Möglicherweise unvollständig', 'Posiblemente incompleta'],
   ['8. Savour Pro', '8. Savour Pro', '8. Savour Pro', '8. Savour Pro'],
   [
     'Savour Pro is een betaald abonnement per maand of per jaar dat automatisch wordt verlengd tot je het opzegt. Opzeggen kan op elk moment via Mijn account; je houdt Savour Pro tot het einde van de betaalde periode. Savour Pro bevat maximaal 500 AI-imports per maand. Betalingen worden verwerkt door Stripe.',
