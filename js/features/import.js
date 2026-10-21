@@ -156,6 +156,18 @@ function looksLikeRecipeHeading(line, nextLine = '') {
   return !hasUnit && x.length >= 3 && x.length <= 70 && !/[.:;]$/.test(x) && ingredientLike.test(next);
 }
 
+// Eenvoudige lezer zonder AI. Staan er kopjes in de bron ("Ingrediënten", "Bereiding"), dan volgen we die
+// precies. Zonder kopjes: korte regels (vaak met een hoeveelheid) zijn ingrediënten, zinnen zijn stappen.
+// Er wordt nooit iets verzonnen; de chef controleert het resultaat altijd vóór opslaan.
+const INGREDIENTS_HEADING = /^(ingredi[eë]nten|ingredients|benodigdheden|nodig|boodschappen)\s*[:=-]?$/i;
+const STEPS_HEADING = /^(bereiding|bereidingswijze|methode|method|werkwijze|instructies|stap(pen)?|steps?)\s*[:=-]?$/i;
+const YIELD_LINE =
+  /^(opbrengst|yield|porties?|aantal personen)\s*[:=-]\s*|^voor\s+\d+([.,]\d+)?\s*(personen|pers\.?|porties?|stuks?|liter|l|kg|gram|g)\b|^\d+\s*(personen|porties)$/i;
+
+function looksLikeStep(line) {
+  return /[.!]$/.test(line) || line.length > 60;
+}
+
 function parseRecipeBlock(block) {
   const lines = block
     .split(/\r?\n/)
@@ -166,33 +178,32 @@ function parseRecipeBlock(block) {
   let yieldText = '';
   const ingredients = [];
   const steps = [];
+  const hasHeadings = lines.some(l => STEPS_HEADING.test(l));
   let mode = 'ingredients';
   for (let i = 1; i < lines.length; i++) {
     const l = lines[i];
-    if (/^(opbrengst|yield)\s*[:=-]/i.test(l)) {
-      yieldText = l.replace(/^(opbrengst|yield)\s*[:=-]\s*/i, '').trim();
+    if (!yieldText && mode === 'ingredients' && YIELD_LINE.test(l)) {
+      yieldText = l.replace(/^(opbrengst|yield|porties?|aantal personen)\s*[:=-]\s*/i, '').trim();
       continue;
     }
-    if (/^(bereiding|bereidingswijze|methode|method|werkwijze)\s*[:=-]?$/i.test(l)) {
+    if (INGREDIENTS_HEADING.test(l)) {
+      mode = 'ingredients';
+      continue;
+    }
+    if (STEPS_HEADING.test(l)) {
       mode = 'steps';
       continue;
     }
-    if (/^(stap(pen)?|steps?)\s*[:=-]/i.test(l)) {
+    const clean = l.replace(/^[-•*]\s*/, '');
+    if (mode === 'steps') steps.push(clean.replace(/^\d+[.)]\s+/, ''));
+    // Met kopjes: alles vóór "Bereiding" is ingrediënt. Zonder kopjes: een zin is een stap.
+    else if (hasHeadings || !looksLikeStep(clean)) ingredients.push(clean);
+    else {
       mode = 'steps';
-      continue;
+      steps.push(clean);
     }
-    if (mode === 'ingredients' && /^[-•*]\s*/.test(l)) ingredients.push(l.replace(/^[-•*]\s*/, ''));
-    else if (
-      mode === 'ingredients' &&
-      /^[-•*]?\s*\d+(?:[.,]\d+)?\s*(?:g|gr|gram|kg|mg|ml|milliliter|cl|dl|liter|deciliter|milliliter|l|stuks?|st\.?|takjes?|teentjes?|blaadjes?|eieren?|el\.?|tl\.?)\b/i.test(
-        l
-      )
-    )
-      ingredients.push(l);
-    else if (mode === 'ingredients' && ingredients.length === 0 && i < Math.min(lines.length, 8)) ingredients.push(l);
-    else steps.push(l);
   }
-  // No bereiding in de bron? Laat steps leeg. Nooit ingrediënten verzinnen als bereiding.
+  // Geen bereiding in de bron? Dan blijft steps leeg. Nooit ingrediënten als bereiding verzinnen.
   const name = title || 'Onbenoemd recept';
   return { title: name, ingredients, steps, yield: yieldText, category: importCategory(name, '') };
 }
@@ -245,9 +256,28 @@ async function callAiImport(body) {
     body: JSON.stringify({ ...body, categories: categories.slice() })
   });
   const result = await response.json().catch(() => ({}));
-  if (!response.ok)
-    throw new Error(result?.error || (response.status === 413 ? 'Het bestand is te groot.' : 'AI-import mislukt.'));
+  if (!response.ok) {
+    const message = /OPENAI_API_KEY/.test(result?.error || '')
+      ? 'De AI is op deze server niet ingesteld.'
+      : result?.error || (response.status === 413 ? 'Het bestand is te groot.' : 'AI-import mislukt.');
+    throw Object.assign(new Error(message), { status: response.status });
+  }
   return Array.isArray(result?.recipes) ? result.recipes : [];
+}
+
+// Bij veel bestanden tegelijk kan de AI tijdelijk "te druk" zijn (429) of even storen (502–504):
+// dan nog een paar keer proberen, met steeds iets langer wachten.
+async function callAiImportWithRetry(body) {
+  const waits = [2000, 5000, 10000];
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await callAiImport(body);
+    } catch (e) {
+      const temporary = e.status === 429 || (e.status >= 502 && e.status <= 504) || e instanceof TypeError;
+      if (!temporary || attempt >= waits.length) throw e;
+      await new Promise(r => setTimeout(r, waits[attempt]));
+    }
+  }
 }
 
 // Categorie van een geïmporteerd recept: eerst de trefwoorden van de chef, anders de keuze van de AI
@@ -304,7 +334,7 @@ function chunkImportText(text) {
 
 async function importImageFile(file) {
   const dataUrl = await compressPhoto(file);
-  const aiRecipes = await callAiImport({ image: dataUrl, filename: file.name });
+  const aiRecipes = await callAiImportWithRetry({ image: dataUrl, filename: file.name });
   if (!aiRecipes.length) throw new Error('Geen recept uit de foto herkend.');
   return aiRecipes.map(r => normalizeAiRecipe(r, { photo: dataUrl, sourceFile: file.name }));
 }
@@ -333,10 +363,25 @@ async function importTextFile(file) {
   for (let i = 0; i < chunks.length; i++) {
     if (chunks.length > 1)
       $('importStatus').textContent = `${file.name}: deel ${i + 1} van ${chunks.length} wordt verwerkt…`;
-    const aiRecipes = await callAiImport({ text: chunks[i], filename: file.name });
-    // Herkent de AI niets in dit deel, dan valt het terug op de eenvoudige tekstsplitser (te controleren).
+    // Is de AI niet bereikbaar, dan gaat het bestand niet verloren: de tekst is al uitgelezen en gaat
+    // naar de eenvoudige tekstsplitser. Zulke recepten zijn gemarkeerd om extra goed te controleren.
+    let aiRecipes = [];
+    let aiError = null;
+    try {
+      aiRecipes = await callAiImportWithRetry({ text: chunks[i], filename: file.name });
+    } catch (e) {
+      aiError = e;
+    }
     if (aiRecipes.length) drafts.push(...aiRecipes.map(r => normalizeAiRecipe(r, { sourceFile: file.name })));
-    else drafts.push(...splitRecipeText(chunks[i]).map(r => ({ ...r, sourceFile: file.name, _needsReview: true })));
+    else
+      drafts.push(
+        ...splitRecipeText(chunks[i]).map(r => ({
+          ...r,
+          sourceFile: file.name,
+          _needsReview: true,
+          _withoutAi: aiError ? aiError.message : ''
+        }))
+      );
   }
   return drafts;
 }
@@ -350,6 +395,18 @@ function updateImportProgress(done, total, label = '') {
   const pct = total ? Math.round((done / total) * 100) : 0;
   bar.style.width = pct + '%';
   if (txt) txt.textContent = label || `${done} / ${total} bestanden verwerkt · ${pct}%`;
+}
+
+// Mislukte bestanden, gegroepeerd per reden: "Het bestand is te groot. (2): a.docx, b.docx".
+function importFailureSummary(failures) {
+  const byReason = new Map();
+  failures.forEach(f => byReason.set(f.error, [...(byReason.get(f.error) || []), f.name]));
+  return [...byReason]
+    .map(
+      ([reason, names]) =>
+        `<span class="muted">Niet verwerkt (${names.length}): <span translate="no">${esc(names.slice(0, 5).join(', '))}${names.length > 5 ? ' …' : ''}</span> · <span>${esc(reason)}</span></span>`
+    )
+    .join('<br>');
 }
 
 async function processImportFiles(files) {
@@ -405,20 +462,21 @@ async function processImportFiles(files) {
   const workers = Array.from({ length: Math.min(3, valid.length) }, () => worker());
   await Promise.all(workers);
   if (!batchDrafts.length) {
-    $('importStatus').textContent = `Geen recepten verwerkt.${failures.length ? ' Controleer de foutmeldingen.' : ''}`;
+    $('importStatus').innerHTML =
+      'Geen recepten verwerkt.' + (failures.length ? `<br>${importFailureSummary(failures)}` : '');
+    updateImportProgress(valid.length, valid.length, 'Geen recepten verwerkt');
     return;
   }
   batchDrafts = batchDrafts.map((r, i) => ({ ...r, _importIndex: i }));
   const successText = `${batchDrafts.length} recept${batchDrafts.length === 1 ? '' : 'en'} uit ${valid.length - failures.length} bestand${valid.length - failures.length === 1 ? '' : 'en'} verwerkt.`;
-  $('batchStatus').textContent =
-    successText +
-    (failures.length
-      ? ` ${failures.length} bestand${failures.length === 1 ? '' : 'en'} kon${failures.length === 1 ? '' : 'den'} niet worden verwerkt.`
-      : '');
-  if (failures.length) {
-    $('batchStatus').innerHTML =
-      esc(successText) + `<br><span class="muted">Niet verwerkt: ${failures.map(f => esc(f.name)).join(', ')}</span>`;
-  }
+  const withoutAi = batchDrafts.filter(r => r._withoutAi);
+  const notes = [];
+  if (withoutAi.length)
+    notes.push(
+      `<span class="batch-warning">${withoutAi.length} recept${withoutAi.length === 1 ? ' is' : 'en zijn'} zonder AI uitgelezen (<span>${esc(withoutAi[0]._withoutAi)}</span>). Controleer titel, ingrediënten en bereiding extra goed.</span>`
+    );
+  if (failures.length) notes.push(importFailureSummary(failures));
+  $('batchStatus').innerHTML = esc(successText) + notes.map(n => `<br>${n}`).join('');
   renderBatchDrafts();
   $('importStatus').textContent =
     `Klaar · ${batchDrafts.length} recept${batchDrafts.length === 1 ? '' : 'en'} controleerbaar.`;
@@ -475,7 +533,7 @@ function renderBatchDrafts() {
     batchDrafts
       .map(
         (r, i) =>
-          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span><h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img src="${esc(r.photo)}" alt="" style="width:100%;max-height:150px;object-fit:cover;border-radius:7px;margin:10px 0">` : ''}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small><div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
+          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img src="${esc(r.photo)}" alt="" style="width:100%;max-height:150px;object-fit:cover;border-radius:7px;margin:10px 0">` : ''}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small><div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
       )
       .join('') || `<div class="empty" style="grid-column:1/-1">Geen afzonderlijke recepten herkend.</div>`;
 }

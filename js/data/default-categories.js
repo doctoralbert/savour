@@ -128,7 +128,6 @@ const DEFAULT_CATEGORIES = [
       'potage',
       'vichyssoise',
       'borsjtsj',
-      'ramen',
       'laksa',
       'tom kha'
     ]
@@ -184,7 +183,6 @@ const DEFAULT_CATEGORIES = [
       'snoekbaars',
       'snoek',
       'zeeduivel',
-      'lotte',
       'wijting',
       'heek',
       'harder',
@@ -465,7 +463,7 @@ const DEFAULT_CATEGORIES = [
       'tarte',
       'tartelet',
       'cake',
-      'gebak',
+      'gebakje',
       'crème brûlée',
       'crème caramel',
       'crème pâtissière',

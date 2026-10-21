@@ -1015,6 +1015,21 @@ export const strings = [
   ['Aanpassen', 'Apply', 'Übernehmen', 'Aplicar'],
   ['Standaardlijst', 'Default list', 'Standardliste', 'Lista estándar'],
   [
+    'De AI is op deze server niet ingesteld.',
+    'AI is not set up on this server.',
+    'Die KI ist auf diesem Server nicht eingerichtet.',
+    'La IA no está configurada en este servidor.'
+  ],
+  ['Zonder AI · controleren', 'Without AI · check', 'Ohne KI · prüfen', 'Sin IA · revisar'],
+  [
+    '). Controleer titel, ingrediënten en bereiding extra goed.',
+    '). Check the title, ingredients and method carefully.',
+    '). Prüfe Titel, Zutaten und Zubereitung besonders gründlich.',
+    '). Revisa con atención el título, los ingredientes y la preparación.'
+  ],
+  ['Geen recepten verwerkt.', 'No recipes processed.', 'Keine Rezepte verarbeitet.', 'No se procesó ninguna receta.'],
+  ['Geen recepten verwerkt', 'No recipes processed', 'Keine Rezepte verarbeitet', 'No se procesó ninguna receta'],
+  [
     'De naam past bij meerdere categorieën. Kies zelf waar het recept komt.',
     'The name matches several categories. Choose where the recipe goes.',
     'Der Name passt zu mehreren Kategorien. Wähle selbst, wohin das Rezept gehört.',
@@ -2470,6 +2485,9 @@ export const patterns = [
     'Noch kein Savour-Konto für $1',
     'Aún no hay cuenta de Savour para $1'
   ],
+  ['^(\\d+) recept is zonder AI uitgelezen \\($', '$1 recipe was read without AI (', '$1 Rezept wurde ohne KI gelesen (', '$1 receta se leyó sin IA ('],
+  ['^(\\d+) recepten zijn zonder AI uitgelezen \\($', '$1 recipes were read without AI (', '$1 Rezepte wurden ohne KI gelesen (', '$1 recetas se leyeron sin IA ('],
+  ['^Niet verwerkt \\((\\d+)\\):$', 'Not processed ($1):', 'Nicht verarbeitet ($1):', 'Sin procesar ($1):'],
   ['^Trefwoorden voor (.+)$', 'Keywords for $1', 'Stichwörter für $1', 'Palabras clave de $1'],
   [
     '^Voorgesteld op trefwoord “(.+)”$',

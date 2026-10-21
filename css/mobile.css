@@ -330,3 +330,12 @@
     flex: 1;
   }
 }
+
+/* ---- Import zonder AI: extra controleren ---- */
+.batch-chip.batch-chip-warn {
+  border-color: var(--sv-gold) !important;
+  color: var(--sv-gold) !important;
+}
+.batch-warning {
+  color: var(--sv-gold);
+}
