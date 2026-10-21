@@ -1,7 +1,7 @@
 // Navigatie tussen de schermen van de app, zoeken en de zijbalk.
 
 // Pagina's die ook zonder account bereikbaar zijn.
-const PUBLIC_PAGE_IDS = ['about', 'faq', 'terms', 'privacy', 'contact', 'bug', 'support'];
+const PUBLIC_PAGE_IDS = ['about', 'faq', 'guide', 'terms', 'privacy', 'contact', 'bug', 'support'];
 
 // Centrale navigatie: activeert een weergave in de app en tekent de inhoud ervan.
 function go(id) {

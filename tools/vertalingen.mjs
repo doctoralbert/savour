@@ -1272,6 +1272,147 @@ export const strings = [
   ['Je team', 'Your team', 'Dein Team', 'Tu equipo'],
   ['Mijn abonnement', 'My subscription', 'Mein Abo', 'Mi suscripción'],
   ['Stuur ons een bericht', 'Send us a message', 'Schreib uns eine Nachricht', 'Envíanos un mensaje'],
+  // ---- Publieke pagina's: Over Savour, Gids, voorwaarden en privacy (AdSense-klaar, 2026-10-21) ----
+  ['Laatst bijgewerkt: 21 oktober 2026.', 'Last updated: 21 October 2026.', 'Zuletzt aktualisiert: 21. Oktober 2026.', 'Última actualización: 21 de octubre de 2026.'],
+  ['Waarom Savour bestaat', 'Why Savour exists', 'Warum es Savour gibt', 'Por qué existe Savour'],
+  [
+    'In bijna elke keuken liggen recepten verspreid: in een map op kantoor, op losse kladjes bij de pass, in Word-bestanden van een vorige chef en in berichten op telefoons. Wie een recept zoekt, vindt vaak drie versies met andere hoeveelheden. Savour is gemaakt vanuit de keuken, door iemand die daar zelf tegenaan liep, met één doel: één plek waar elk recept staat zoals het bedoeld is.',
+    'In almost every kitchen, recipes are scattered: in a binder in the office, on loose notes at the pass, in Word files from a previous chef and in messages on phones. Anyone looking for a recipe often finds three versions with different quantities. Savour was made from the kitchen, by someone who ran into this first-hand, with one goal: one place where every recipe is exactly as intended.',
+    'In fast jeder Küche sind Rezepte verstreut: in einem Ordner im Büro, auf losen Zetteln am Pass, in Word-Dateien eines früheren Küchenchefs und in Nachrichten auf Handys. Wer ein Rezept sucht, findet oft drei Versionen mit unterschiedlichen Mengen. Savour entstand aus der Küche, von jemandem, der genau das selbst erlebt hat, mit einem Ziel: ein Ort, an dem jedes Rezept so steht, wie es gemeint ist.',
+    'En casi todas las cocinas las recetas están dispersas: en una carpeta en la oficina, en notas sueltas en el pase, en archivos de Word de un chef anterior y en mensajes en el móvil. Quien busca una receta a menudo encuentra tres versiones con cantidades distintas. Savour nació en la cocina, de alguien que lo vivió de primera mano, con un objetivo: un solo lugar donde cada receta esté tal como se pensó.'
+  ],
+  ['Van kladje naar recept', 'From scribble to recipe', 'Vom Notizzettel zum Rezept', 'De la nota a la receta'],
+  [
+    "Bestaande recepten hoef je niet over te typen. De Savour-lezer haalt recepten uit Word-, PDF- en tekstbestanden, ook als er honderden in één document staan. Met Savour Pro leest de AI daarnaast foto's van handgeschreven kladjes en gescande pagina's. Savour verzint nooit hoeveelheden of stappen: wat onzeker is, wordt gemarkeerd zodat je het controleert voordat het wordt opgeslagen.",
+    'You do not have to retype existing recipes. The Savour reader extracts recipes from Word, PDF and text files, even when there are hundreds in one document. With Savour Pro, the AI also reads photos of handwritten notes and scanned pages. Savour never invents quantities or steps: anything uncertain is highlighted so you can check it before it is saved.',
+    'Bestehende Rezepte musst du nicht abtippen. Der Savour-Leser holt Rezepte aus Word-, PDF- und Textdateien, auch wenn Hunderte in einem Dokument stehen. Mit Savour Pro liest die KI außerdem Fotos handschriftlicher Notizen und gescannte Seiten. Savour erfindet nie Mengen oder Schritte: Unsicheres wird markiert, damit du es vor dem Speichern prüfst.',
+    'No tienes que volver a escribir tus recetas. El lector de Savour extrae recetas de archivos Word, PDF y de texto, aunque haya cientos en un mismo documento. Con Savour Pro, la IA lee además fotos de notas manuscritas y páginas escaneadas. Savour nunca inventa cantidades ni pasos: lo dudoso se marca para que lo revises antes de guardarlo.'
+  ],
+  ['Op elk apparaat', 'On every device', 'Auf jedem Gerät', 'En cualquier dispositivo'],
+  [
+    'Op kantoor organiseer je je recepten op de computer, in de keuken gebruik je dezelfde bibliotheek op je telefoon of tablet. Recepten omrekenen naar een andere opbrengst, een kookweergave met grote letters en printen voor de receptkaart zitten er standaard in.',
+    'In the office you organise your recipes on the computer; in the kitchen you use the same library on your phone or tablet. Scaling recipes to a different yield, a cooking view with large text and printing recipe cards are all included.',
+    'Im Büro organisierst du deine Rezepte am Computer, in der Küche nutzt du dieselbe Bibliothek auf Handy oder Tablet. Rezepte auf eine andere Menge umrechnen, eine Kochansicht mit großer Schrift und das Drucken von Rezeptkarten sind inklusive.',
+    'En la oficina organizas tus recetas en el ordenador; en la cocina usas la misma biblioteca en el móvil o la tableta. Recalcular recetas a otro rendimiento, una vista de cocina con letra grande e imprimir fichas de receta vienen incluidos.'
+  ],
+  ['Wie maakt Savour', 'Who makes Savour', 'Wer Savour macht', 'Quién hace Savour'],
+  [
+    'Savour wordt gemaakt door Jop Schreurs, oprichter, vanuit Oss. Vragen, ideeën of feedback zijn altijd welkom via de contactpagina.',
+    'Savour is made by Jop Schreurs, founder, based in Oss (the Netherlands). Questions, ideas and feedback are always welcome via the contact page.',
+    'Savour wird von Jop Schreurs, Gründer, aus Oss (Niederlande) entwickelt. Fragen, Ideen und Feedback sind über die Kontaktseite jederzeit willkommen.',
+    'Savour lo desarrolla Jop Schreurs, fundador, desde Oss (Países Bajos). Preguntas, ideas y comentarios siempre son bienvenidos en la página de contacto.'
+  ],
+  ['Gids', 'Guide', 'Leitfaden', 'Guía'],
+  ['Gids: werken met recepten', 'Guide: working with recipes', 'Leitfaden: Arbeiten mit Rezepten', 'Guía: trabajar con recetas'],
+  [
+    'Praktische tips voor recepten die in elke dienst hetzelfde uitpakken.',
+    'Practical tips for recipes that turn out the same on every shift.',
+    'Praktische Tipps für Rezepte, die in jeder Schicht gleich gelingen.',
+    'Consejos prácticos para recetas que salen igual en cada servicio.'
+  ],
+  ['Een recept dat iedereen hetzelfde maakt', 'A recipe everyone makes the same way', 'Ein Rezept, das jeder gleich zubereitet', 'Una receta que todos preparan igual'],
+  [
+    'Een goed keukenrecept laat geen ruimte voor interpretatie. Begin met een duidelijke naam en de opbrengst: hoeveel liter, hoeveel stuks of voor hoeveel couverts. Zet daaronder alle ingrediënten in de volgorde waarin je ze gebruikt, met de hoeveelheid in gram of milliliter in plaats van in lepels of kopjes. Schrijf de bereiding in korte stappen, één handeling per stap.',
+    'A good kitchen recipe leaves no room for interpretation. Start with a clear name and the yield: how many litres, how many pieces or how many covers. Below that, list all ingredients in the order you use them, with quantities in grams or millilitres rather than spoons or cups. Write the method in short steps, one action per step.',
+    'Ein gutes Küchenrezept lässt keinen Spielraum für Interpretation. Beginne mit einem klaren Namen und der Ausbeute: wie viele Liter, wie viele Stück oder für wie viele Gedecke. Darunter alle Zutaten in der Reihenfolge der Verwendung, mit Mengen in Gramm oder Milliliter statt Löffeln oder Tassen. Schreibe die Zubereitung in kurzen Schritten, ein Arbeitsgang pro Schritt.',
+    'Una buena receta de cocina no deja lugar a interpretaciones. Empieza con un nombre claro y el rendimiento: cuántos litros, cuántas piezas o para cuántos cubiertos. Debajo, todos los ingredientes en el orden en que los usas, con cantidades en gramos o mililitros en lugar de cucharas o tazas. Escribe la preparación en pasos cortos, una acción por paso.'
+  ],
+  [
+    'Noteer altijd de kritische punten: temperaturen, tijden, de gewenste dikte of kleur en waar je op moet letten. "Inkoken tot een derde" of "kerntemperatuur 58 °C" voorkomt meer fouten dan een mooie beschrijving.',
+    'Always note the critical points: temperatures, times, the desired thickness or colour and what to watch out for. "Reduce to a third" or "core temperature 58 °C" prevents more mistakes than a beautiful description.',
+    'Notiere immer die kritischen Punkte: Temperaturen, Zeiten, die gewünschte Dicke oder Farbe und worauf zu achten ist. „Auf ein Drittel reduzieren“ oder „Kerntemperatur 58 °C“ verhindert mehr Fehler als eine schöne Beschreibung.',
+    'Anota siempre los puntos críticos: temperaturas, tiempos, el espesor o color deseado y a qué prestar atención. «Reducir a un tercio» o «temperatura interna 58 °C» evita más errores que una descripción bonita.'
+  ],
+  ['Opschalen zonder fouten', 'Scaling up without mistakes', 'Fehlerfrei hochrechnen', 'Escalar sin errores'],
+  [
+    'Opschalen doe je met een rekenfactor: de gewenste opbrengst gedeeld door de opbrengst van het basisrecept. Heb je een beurre blanc voor 1 liter en heb je 3,5 liter nodig, dan is de factor 3,5 en vermenigvuldig je elk ingrediënt met 3,5. Reken altijd in gewicht; dan is de uitkomst exact.',
+    'You scale with a factor: the desired yield divided by the yield of the base recipe. If your beurre blanc makes 1 litre and you need 3.5 litres, the factor is 3.5 and you multiply every ingredient by 3.5. Always calculate by weight; then the result is exact.',
+    'Hochrechnen funktioniert mit einem Faktor: die gewünschte Menge geteilt durch die Menge des Grundrezepts. Ergibt deine Beurre blanc 1 Liter und du brauchst 3,5 Liter, ist der Faktor 3,5 und du multiplizierst jede Zutat mit 3,5. Rechne immer in Gewicht; dann ist das Ergebnis exakt.',
+    'Para escalar usas un factor: el rendimiento deseado dividido por el de la receta base. Si tu beurre blanc rinde 1 litro y necesitas 3,5 litros, el factor es 3,5 y multiplicas cada ingrediente por 3,5. Calcula siempre por peso; así el resultado es exacto.'
+  ],
+  [
+    'Niet alles schaalt een-op-een mee. Inkooktijden worden langer, omdat een grotere pan relatief minder verdampt. Zout, zuur en specerijen proef je bij grote hoeveelheden opnieuw af. Bij gebak verandert de baktijd als je een andere vorm of een volle oven gebruikt. Geleermiddelen zoals gelatine en agar reken je wel exact mee met de hoeveelheid vocht.',
+    'Not everything scales one-to-one. Reduction times get longer, because a larger pan evaporates relatively less. Taste salt, acidity and spices again in large batches. For baking, the baking time changes when you use a different tin or a full oven. Setting agents such as gelatine and agar do scale exactly with the amount of liquid.',
+    'Nicht alles skaliert eins zu eins. Reduktionszeiten werden länger, weil ein größerer Topf verhältnismäßig weniger verdampft. Salz, Säure und Gewürze schmeckst du bei großen Mengen neu ab. Beim Backen ändert sich die Backzeit, wenn du eine andere Form oder einen vollen Ofen nutzt. Geliermittel wie Gelatine und Agar rechnest du dagegen exakt mit der Flüssigkeitsmenge mit.',
+    'No todo escala de forma lineal. Los tiempos de reducción se alargan, porque una olla más grande evapora proporcionalmente menos. La sal, el ácido y las especias se vuelven a probar en grandes cantidades. En repostería, el tiempo de horneado cambia si usas otro molde o el horno lleno. Los gelificantes como la gelatina y el agar sí se calculan exactamente según el líquido.'
+  ],
+  ['Van kladje naar receptkaart', 'From scribble to recipe card', 'Vom Notizzettel zur Rezeptkarte', 'De la nota a la ficha de receta'],
+  [
+    'Veel recepten beginnen als kladje bij de pass. Maak er zo snel mogelijk een vast recept van, zolang je nog weet wat je bedoelde. Fotografeer een handgeschreven recept bij goed licht, recht van boven en met de hele pagina in beeld. Controleer daarna vooral de getallen: een 3 en een 8 of een 1 en een 7 zijn op een vlekkerig kladje snel verwisseld.',
+    'Many recipes start as a scribble at the pass. Turn them into a fixed recipe as soon as possible, while you still remember what you meant. Photograph a handwritten recipe in good light, straight from above and with the whole page in view. Then check the numbers in particular: a 3 and an 8 or a 1 and a 7 are easily mixed up on a stained note.',
+    'Viele Rezepte beginnen als Notiz am Pass. Mach daraus so schnell wie möglich ein festes Rezept, solange du noch weißt, was gemeint war. Fotografiere ein handschriftliches Rezept bei gutem Licht, gerade von oben und mit der ganzen Seite im Bild. Prüfe danach vor allem die Zahlen: eine 3 und eine 8 oder eine 1 und eine 7 sind auf einem fleckigen Zettel schnell verwechselt.',
+    'Muchas recetas empiezan como una nota en el pase. Conviértelas cuanto antes en una receta fija, mientras aún recuerdas lo que querías decir. Fotografía una receta manuscrita con buena luz, desde arriba y con toda la página a la vista. Después revisa sobre todo los números: un 3 y un 8 o un 1 y un 7 se confunden fácilmente en una nota manchada.'
+  ],
+  ['Organiseren: categorieën en mappen', 'Organising: categories and folders', 'Organisieren: Kategorien und Ordner', 'Organizar: categorías y carpetas'],
+  [
+    'Gebruik categorieën voor wat een recept is, zoals sauzen, garnituren of patisserie, en mappen voor hoe je werkt, zoals de huidige kaart, een evenement of de koude keuken. Zo staat een recept in één categorie, maar kan het in meerdere mappen terugkomen. Houd namen kort en herkenbaar, zodat iedereen in het team het recept met één zoekwoord terugvindt.',
+    'Use categories for what a recipe is, such as sauces, garnishes or pastry, and folders for how you work, such as the current menu, an event or the cold kitchen. That way a recipe sits in one category but can appear in several folders. Keep names short and recognisable so everyone on the team finds a recipe with a single search word.',
+    'Nutze Kategorien dafür, was ein Rezept ist, etwa Saucen, Beilagen oder Patisserie, und Ordner dafür, wie du arbeitest, etwa die aktuelle Karte, ein Event oder die kalte Küche. So steht ein Rezept in einer Kategorie, kann aber in mehreren Ordnern auftauchen. Halte Namen kurz und erkennbar, damit jeder im Team ein Rezept mit einem Suchwort findet.',
+    'Usa las categorías para lo que es una receta, como salsas, guarniciones o pastelería, y las carpetas para cómo trabajas, como la carta actual, un evento o la cocina fría. Así una receta está en una categoría, pero puede aparecer en varias carpetas. Mantén los nombres cortos y reconocibles para que todo el equipo encuentre una receta con una sola palabra.'
+  ],
+  ['Samenwerken met je brigade', 'Working with your brigade', 'Zusammenarbeit mit deiner Brigade', 'Trabajar con tu brigada'],
+  [
+    'Een keuken werkt het best met één bron voor elk recept. Deel recepten via een gedeelde map in plaats van losse foto\'s of berichten. Geef de sous-chef rechten om recepten te bewerken en de rest van het team rechten om ze te bekijken. Pas je een recept aan, dan werkt iedereen meteen met de nieuwe versie, en raakt niemand een oude versie kwijt in een appgroep.',
+    'A kitchen works best with one source for every recipe. Share recipes through a shared folder instead of loose photos or messages. Give the sous-chef rights to edit recipes and the rest of the team rights to view them. When you change a recipe, everyone works with the new version straight away, and no old version gets lost in a group chat.',
+    'Eine Küche funktioniert am besten mit einer Quelle für jedes Rezept. Teile Rezepte über einen geteilten Ordner statt über lose Fotos oder Nachrichten. Gib dem Sous-Chef das Recht, Rezepte zu bearbeiten, und dem restlichen Team das Recht, sie anzusehen. Änderst du ein Rezept, arbeitet jeder sofort mit der neuen Version, und keine alte Version geht in einem Gruppenchat verloren.',
+    'Una cocina funciona mejor con una sola fuente para cada receta. Comparte recetas mediante una carpeta compartida en lugar de fotos o mensajes sueltos. Da al segundo de cocina permiso para editar recetas y al resto del equipo permiso para verlas. Cuando cambias una receta, todos trabajan al instante con la nueva versión y ninguna versión antigua se pierde en un chat de grupo.'
+  ],
+  ['Allergenen en vaste afspraken', 'Allergens and fixed agreements', 'Allergene und feste Absprachen', 'Alérgenos y acuerdos fijos'],
+  [
+    'Zet bij elk recept onderdelen met allergenen duidelijk in de ingrediëntenlijst, ook als ze uit een ander basisrecept komen. Vermeld bij een samengesteld gerecht welke basisrecepten erin zitten, zodat je bij een vraag van een gast snel kunt nagaan wat er precies in zit.',
+    'For every recipe, list components containing allergens clearly in the ingredient list, even when they come from another base recipe. For a composed dish, note which base recipes it contains, so that when a guest asks you can quickly check exactly what is in it.',
+    'Führe bei jedem Rezept Bestandteile mit Allergenen deutlich in der Zutatenliste auf, auch wenn sie aus einem anderen Grundrezept stammen. Vermerke bei einem zusammengesetzten Gericht, welche Grundrezepte enthalten sind, damit du bei einer Gästefrage schnell nachsehen kannst, was genau drin ist.',
+    'En cada receta, indica claramente en la lista de ingredientes los componentes con alérgenos, aunque procedan de otra receta base. En un plato compuesto, anota qué recetas base contiene, para que ante la pregunta de un cliente puedas comprobar rápidamente qué lleva exactamente.'
+  ],
+  ['8. Gratis account en Savour Pro', '8. Free account and Savour Pro', '8. Kostenloses Konto und Savour Pro', '8. Cuenta gratuita y Savour Pro'],
+  [
+    'Een gratis account bevat tot 100 recepten. Nieuwe accounts krijgen eenmalig 14 dagen Savour Pro zonder kosten; daarna gaat het account vanzelf terug naar gratis, zonder dat er iets wordt afgeschreven. Savour Pro is een betaald abonnement per maand of per jaar, voor één persoon of als teamabonnement met een vast aantal plekken, dat automatisch wordt verlengd tot je het opzegt. Opzeggen kan op elk moment via Mijn account; je houdt Savour Pro tot het einde van de betaalde periode. Na afloop blijven al je recepten en gedeelde mappen bewaard. Savour Pro bevat maximaal 500 AI-imports per persoon per maand. Betalingen worden verwerkt door Stripe.',
+    'A free account includes up to 100 recipes. New accounts get a one-time 14 days of Savour Pro free of charge; after that the account automatically returns to free, without any charge. Savour Pro is a paid monthly or yearly subscription, for one person or as a team subscription with a fixed number of seats, which renews automatically until you cancel. You can cancel at any time via My account; you keep Savour Pro until the end of the paid period. Afterwards all your recipes and shared folders are kept. Savour Pro includes up to 500 AI imports per person per month. Payments are processed by Stripe.',
+    'Ein kostenloses Konto umfasst bis zu 100 Rezepte. Neue Konten erhalten einmalig 14 Tage Savour Pro kostenlos; danach wechselt das Konto automatisch zurück zu kostenlos, ohne dass etwas abgebucht wird. Savour Pro ist ein kostenpflichtiges Monats- oder Jahresabo, für eine Person oder als Team-Abo mit einer festen Anzahl Plätze, das sich automatisch verlängert, bis du kündigst. Kündigen kannst du jederzeit über Mein Konto; Savour Pro bleibt bis zum Ende des bezahlten Zeitraums aktiv. Danach bleiben alle Rezepte und geteilten Ordner erhalten. Savour Pro umfasst bis zu 500 KI-Importe pro Person und Monat. Zahlungen werden von Stripe abgewickelt.',
+    'Una cuenta gratuita incluye hasta 100 recetas. Las cuentas nuevas reciben una sola vez 14 días de Savour Pro sin coste; después la cuenta vuelve automáticamente al plan gratuito, sin ningún cargo. Savour Pro es una suscripción de pago mensual o anual, para una persona o como suscripción de equipo con un número fijo de plazas, que se renueva automáticamente hasta que la canceles. Puedes cancelar en cualquier momento desde Mi cuenta; mantienes Savour Pro hasta el final del periodo pagado. Después se conservan todas tus recetas y carpetas compartidas. Savour Pro incluye hasta 500 importaciones con IA por persona al mes. Los pagos los procesa Stripe.'
+  ],
+  ['9. Over de aanbieder', '9. About the provider', '9. Über den Anbieter', '9. Sobre el proveedor'],
+  [
+    'Savour is een dienst van Jop Schreurs, gevestigd in Oss (Nederland). Je bereikt ons via contact@savour.page. Op deze voorwaarden is Nederlands recht van toepassing.',
+    'Savour is a service of Jop Schreurs, based in Oss (the Netherlands). You can reach us at contact@savour.page. These terms are governed by Dutch law.',
+    'Savour ist ein Dienst von Jop Schreurs mit Sitz in Oss (Niederlande). Du erreichst uns unter contact@savour.page. Für diese Bedingungen gilt niederländisches Recht.',
+    'Savour es un servicio de Jop Schreurs, con sede en Oss (Países Bajos). Puedes contactarnos en contact@savour.page. Estas condiciones se rigen por la legislación neerlandesa.'
+  ],
+  ['7. Wie is verantwoordelijk', '7. Who is responsible', '7. Wer ist verantwortlich', '7. Quién es el responsable'],
+  [
+    'Savour is een dienst van Jop Schreurs, gevestigd in Oss (Nederland). Vragen over privacy of een verzoek om je gegevens in te zien, te wijzigen of te verwijderen stuur je naar',
+    'Savour is a service of Jop Schreurs, based in Oss (the Netherlands). Send questions about privacy or requests to access, correct or delete your data to',
+    'Savour ist ein Dienst von Jop Schreurs mit Sitz in Oss (Niederlande). Fragen zum Datenschutz oder Anfragen zu Auskunft, Berichtigung oder Löschung deiner Daten sendest du an',
+    'Savour es un servicio de Jop Schreurs, con sede en Oss (Países Bajos). Envía tus preguntas sobre privacidad o solicitudes para acceder, corregir o eliminar tus datos a'
+  ],
+  [
+    '. Savour maakt gebruik van de volgende verwerkers: Supabase (database en inloggen), Vercel (hosting van de website), Stripe (betalingen), OpenAI (AI-import, alleen voor Savour Pro), Resend (e-mail) en Google (advertenties). Met deze partijen zijn afspraken gemaakt over de bescherming van je gegevens; sommige verwerken gegevens ook buiten de Europese Unie, op basis van de standaardcontractbepalingen van de Europese Commissie.',
+    '. Savour uses the following processors: Supabase (database and login), Vercel (website hosting), Stripe (payments), OpenAI (AI import, Savour Pro only), Resend (email) and Google (advertising). Agreements have been made with these parties to protect your data; some also process data outside the European Union, on the basis of the European Commission’s standard contractual clauses.',
+    '. Savour nutzt folgende Auftragsverarbeiter: Supabase (Datenbank und Anmeldung), Vercel (Hosting der Website), Stripe (Zahlungen), OpenAI (KI-Import, nur Savour Pro), Resend (E-Mail) und Google (Werbung). Mit diesen Partnern bestehen Vereinbarungen zum Schutz deiner Daten; einige verarbeiten Daten auch außerhalb der Europäischen Union, auf Grundlage der Standardvertragsklauseln der Europäischen Kommission.',
+    '. Savour utiliza los siguientes encargados del tratamiento: Supabase (base de datos e inicio de sesión), Vercel (alojamiento web), Stripe (pagos), OpenAI (importación con IA, solo Savour Pro), Resend (correo) y Google (publicidad). Con ellos existen acuerdos para proteger tus datos; algunos los tratan también fuera de la Unión Europea, conforme a las cláusulas contractuales tipo de la Comisión Europea.'
+  ],
+  ['9. Cookies, lokale opslag en advertenties', '9. Cookies, local storage and advertising', '9. Cookies, lokaler Speicher und Werbung', '9. Cookies, almacenamiento local y publicidad'],
+  [
+    'Savour gebruikt functionele opslag in je browser om de dienst te laten werken, bijvoorbeeld om je ingelogd te houden en je taal en weergave (licht of donker) te onthouden. Daarnaast tellen we bezoeken aan de website anoniem, met een willekeurige code in je browser, zodat we zien hoe vaak Savour wordt gebruikt. Daarvoor is geen toestemming nodig.',
+    'Savour uses functional storage in your browser to make the service work, for example to keep you logged in and remember your language and display (light or dark). We also count visits to the website anonymously, with a random code in your browser, so we can see how often Savour is used. No consent is required for this.',
+    'Savour nutzt funktionalen Speicher in deinem Browser, damit der Dienst funktioniert, etwa um dich angemeldet zu halten und Sprache und Darstellung (hell oder dunkel) zu merken. Außerdem zählen wir Besuche der Website anonym mit einem zufälligen Code in deinem Browser, um zu sehen, wie oft Savour genutzt wird. Dafür ist keine Einwilligung nötig.',
+    'Savour utiliza almacenamiento funcional en tu navegador para que el servicio funcione, por ejemplo para mantener tu sesión y recordar tu idioma y tema (claro u oscuro). Además contamos las visitas al sitio de forma anónima, con un código aleatorio en tu navegador, para saber con qué frecuencia se usa Savour. Para ello no se necesita consentimiento.'
+  ],
+  [
+    "Op de openbare pagina's van Savour kunnen advertenties van Google AdSense worden getoond. Google en zijn partners gebruiken daarvoor cookies, onder meer om advertenties te tonen op basis van eerdere bezoeken aan deze en andere websites. Bezoekers uit de Europese Economische Ruimte, het Verenigd Koninkrijk en Zwitserland krijgen eerst een melding waarin ze toestemming kunnen geven of weigeren; zonder toestemming worden alleen niet-gepersonaliseerde advertenties getoond. Je kunt je keuze altijd wijzigen via de privacy-instellingen onderaan de pagina of gepersonaliseerde advertenties uitzetten via",
+    'Ads from Google AdSense may be shown on Savour’s public pages. Google and its partners use cookies for this, among other things to show ads based on previous visits to this and other websites. Visitors from the European Economic Area, the United Kingdom and Switzerland first see a message in which they can give or refuse consent; without consent, only non-personalised ads are shown. You can always change your choice via the privacy settings at the bottom of the page or turn off personalised ads via',
+    'Auf den öffentlichen Seiten von Savour kann Werbung von Google AdSense angezeigt werden. Google und seine Partner verwenden dafür Cookies, unter anderem um Werbung auf Basis früherer Besuche dieser und anderer Websites anzuzeigen. Besucher aus dem Europäischen Wirtschaftsraum, dem Vereinigten Königreich und der Schweiz sehen zuerst eine Meldung, in der sie zustimmen oder ablehnen können; ohne Zustimmung wird nur nicht personalisierte Werbung gezeigt. Du kannst deine Wahl jederzeit über die Datenschutzeinstellungen unten auf der Seite ändern oder personalisierte Werbung abschalten über',
+    'En las páginas públicas de Savour pueden mostrarse anuncios de Google AdSense. Google y sus socios usan cookies para ello, entre otras cosas para mostrar anuncios basados en visitas anteriores a este y otros sitios. Los visitantes del Espacio Económico Europeo, el Reino Unido y Suiza ven primero un aviso en el que pueden dar o rechazar su consentimiento; sin consentimiento solo se muestran anuncios no personalizados. Puedes cambiar tu elección en cualquier momento en la configuración de privacidad al pie de la página o desactivar los anuncios personalizados en'
+  ],
+  ['Google Advertentie-instellingen', 'Google Ad Settings', 'Google-Werbeeinstellungen', 'Configuración de anuncios de Google'],
+  ['. Meer over hoe Google gegevens gebruikt lees je op', '. Read more about how Google uses data at', '. Mehr darüber, wie Google Daten nutzt, liest du unter', '. Más sobre cómo usa Google los datos en'],
+  ['10. Wijzigingen', '10. Changes', '10. Änderungen', '10. Cambios'],
+  [
+    'Als Savour verandert, passen we dit privacybeleid aan. De datum bovenaan laat zien wanneer het voor het laatst is bijgewerkt. Bij belangrijke wijzigingen laten we het je weten.',
+    'When Savour changes, we update this privacy policy. The date at the top shows when it was last updated. We will let you know about important changes.',
+    'Wenn sich Savour ändert, passen wir diese Datenschutzerklärung an. Das Datum oben zeigt, wann sie zuletzt aktualisiert wurde. Über wichtige Änderungen informieren wir dich.',
+    'Cuando Savour cambie, actualizaremos esta política de privacidad. La fecha de arriba indica cuándo se actualizó por última vez. Te avisaremos de los cambios importantes.'
+  ],
   ['Recepten opschonen', 'Tidy up recipes', 'Rezepte bereinigen', 'Limpiar recetas'],
   ['Dubbele recepten opschonen', 'Remove duplicate recipes', 'Doppelte Rezepte bereinigen', 'Limpiar recetas duplicadas'],
   ['Van elk recept blijft er één staan.', 'One copy of each recipe is kept.', 'Von jedem Rezept bleibt eins erhalten.', 'Se conserva una copia de cada receta.'],
