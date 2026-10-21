@@ -421,6 +421,8 @@ window.SAVOUR_I18N.de = {
     ". Maak een foto of bestand van het hele recept om het te importeren.": ". Mache ein Foto oder eine Datei vom ganzen Rezept, um es zu importieren.",
     "Onleesbare stukken nagekeken?": "Unleserliche Stellen geprüft?",
     "Ja, opslaan": "Ja, speichern",
+    "Zo las de AI het": "So hat die KI es gelesen",
+    "Gelezen met": "Gelesen mit",
     "Toch importeren": "Trotzdem importieren",
     "Toegevoegd als \"Mogelijk onvolledig\": controleer of er niets ontbreekt.": "Als „Möglicherweise unvollständig“ hinzugefügt: prüfe, ob nichts fehlt.",
     "Mogelijk onvolledig": "Möglicherweise unvollständig",

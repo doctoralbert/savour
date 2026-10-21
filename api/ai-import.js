@@ -65,7 +65,13 @@ export default async function handler(req, res) {
     const instruction = `Je bent de recept-structureringslaag van Savour, een professioneel receptplatform voor chefs.
 Analyseer de bron zeer nauwkeurig en maak er één of meerdere controleerbare recepten van.
 
+WERKWIJZE PER RECEPT (in deze volgorde):
+1. transcription: schrijf eerst elke regel van dit recept letterlijk over zoals hij in de bron staat, regel voor regel, inclusief cijfers, afkortingen, pijlen (→) en accolades als tekst. Verbeter, vertaal of vul niets aan.
+2. Maak daarna ingredients en steps uitsluitend uit die transcriptie. Elke ingrediëntregel komt uit precies één regel van de transcriptie: splits een regel nooit in meerdere ingrediënten en voeg nooit een product toe dat niet in de transcriptie staat.
+
 ABSOLUTE REGELS:
+- CIJFERS: neem elk getal precies over zoals het er staat. Twijfel je ook maar over één cijfer (bijvoorbeeld 5 of 6, 1 of 7, 3 of 8), zet dan de hele regel in unclear.
+- WOORDEN: neem woorden letterlijk over; vervang ze niet door synoniemen ("geslagen room" blijft "geslagen room", "kloppen" blijft "kloppen"). Laat afkortingen staan zoals ze staan; "bl" bij gelatine betekent blaadjes.
 - Lees alleen wat daadwerkelijk in de bron staat. Verzin nooit ontbrekende hoeveelheden, ingrediënten, technieken, temperaturen, tijden, opbrengsten of stappen.
 - TAAL: schrijf titel, ingrediënten, stappen en opbrengst in de taal van de bron en vertaal NOOIT, ook niet naar het Engels. Bepaal de taal aan de hand van de gewone woorden in de bron (bijvoorbeeld "eigeel", "suiker", "kloppen", "room" = Nederlands); losse Franse of Engelse vaktermen (zoals "pâte à bombe", "sponge") maken de bron niet Frans of Engels. Twijfel je over de taal, gebruik dan ${sourceLanguage}. Behoud de oorspronkelijke vaktermen, productnamen, merknamen en eenheden.
 - Maak strikt onderscheid tussen titel, opbrengst, ingrediënten en bereidingsstappen.
@@ -79,7 +85,7 @@ ABSOLUTE REGELS:
 - Lees onduidelijk handschrift met professionele keukenkennis: denk aan kruiden (zoals lavas, kervel, dragon), technieken en producten die in een recept voor de hand liggen. Verzin nooit een woord dat er niet staat.
 - Zet in unclear elk stuk tekst dat je niet met zekerheid kunt lezen, precies zoals je het nu leest (bijvoorbeeld "zeven in liddes"), zodat de chef het kan controleren. Neem die tekst ook gewoon op in de ingrediënten of stappen. Laat unclear leeg als alles goed leesbaar is.
 - Staan er bij de ingrediënten meerdere kolommen met hoeveelheden voor verschillende batchgroottes (bijvoorbeeld een basiskolom en een kolom onder "6x"), controleer dan of elke waarde in de extra kolom precies de basiswaarde maal dezelfde factor is. Zo ja: gebruik alleen de basiskolom en laat de extra kolom helemaal weg (Savour rekent zelf om); zet de factor niet in yield. Zo nee: behoud beide hoeveelheden letterlijk in de ingrediëntregel en zet needs_review op true.
-- Een foto kan gedraaid zijn (op zijn kant of ondersteboven); lees de tekst in de juiste richting. Werkwijze kan ook in de kantlijn, naast accolades of met pijlen bij de ingrediënten staan: neem die op als stappen.
+- Een foto kan gedraaid zijn (op zijn kant of ondersteboven); lees de tekst in de juiste richting. Geef in rotation hoeveel graden de afbeelding met de klok mee gedraaid moet worden om de tekst rechtop te lezen (0, 90, 180 of 270). Bij een tekstbron zonder afbeelding: 0. Werkwijze kan ook in de kantlijn, naast accolades of met pijlen bij de ingrediënten staan: neem die op als stappen.
 - Zet incomplete: true alleen als de tekst van dát recept zelf zichtbaar doorloopt buiten de bron: een regel die is afgesneden aan de rand van de foto of pagina, of een ingrediëntenlijst die halverwege ophoudt. Neem op wat leesbaar is. Twijfel je, zet dan incomplete: false en needs_review: true.
 - Een recept is níet incomplete omdat er geen bereiding is, omdat het kort is, of omdat er daarna een nieuw kopje volgt. Een kopje zonder ingrediënten of stappen eronder is geen recept: neem het niet op.
 - Verwijder geen inhoud omdat die ongebruikelijk lijkt.
@@ -110,12 +116,16 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
             type: 'object',
             additionalProperties: false,
             properties: {
+              // Hoeveel graden (met de klok mee) de afbeelding moet draaien om de tekst rechtop te krijgen.
+              rotation: { type: 'integer', enum: [0, 90, 180, 270] },
               recipes: {
                 type: 'array',
                 items: {
                   type: 'object',
                   additionalProperties: false,
                   properties: {
+                    // Eerst letterlijk overschrijven, dan pas indelen: de AI leest dan veel trouwer.
+                    transcription: { type: 'array', items: { type: 'string' } },
                     title: { type: 'string' },
                     yield: { type: 'string' },
                     ingredients: { type: 'array', items: { type: 'string' } },
@@ -126,6 +136,7 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
                     incomplete: { type: 'boolean' }
                   },
                   required: [
+                    'transcription',
                     'title',
                     'yield',
                     'ingredients',
@@ -138,7 +149,7 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
                 }
               }
             },
-            required: ['recipes']
+            required: ['rotation', 'recipes']
           }
         }
       }
@@ -179,7 +190,8 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
     } catch (error) {
       console.error('AI-teller', error);
     }
-    return res.status(200).json({ ...parsed, usage: { used, limit: allowance.limit } });
+    // Het gebruikte model gaat mee, zodat de chef (en wij) zien waarmee de foto is gelezen.
+    return res.status(200).json({ ...parsed, model: data?.model || '', usage: { used, limit: allowance.limit } });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: error?.message || 'AI-import mislukt.' });

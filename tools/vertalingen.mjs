@@ -1302,6 +1302,8 @@ export const strings = [
     '¿Has revisado las partes ilegibles?'
   ],
   ['Ja, opslaan', 'Yes, save', 'Ja, speichern', 'Sí, guardar'],
+  ['Zo las de AI het', 'How the AI read it', 'So hat die KI es gelesen', 'Así lo leyó la IA'],
+  ['Gelezen met', 'Read with', 'Gelesen mit', 'Leído con'],
   ['Toch importeren', 'Import anyway', 'Trotzdem importieren', 'Importar de todos modos'],
   [
     'Toegevoegd als "Mogelijk onvolledig": controleer of er niets ontbreekt.',
