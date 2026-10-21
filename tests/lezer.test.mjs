@@ -134,13 +134,173 @@ Was de Roseval en dep deze droog.`,
       { t: 'Roseval gepoft', i: [], s: 1, c: 'low' }
     ]
   },
+  // "#b " = vette regel of Word-kop 2/3 (zie htmlToRecipeText in import.js).
   {
-    name: 'Zonder kopjes: korte stap zonder punt is twijfel, geen zeker ingrediënt',
+    name: 'Echt bestand: vette onderdeelkopjes binnen Ingrediënten zijn geen nieuwe recepten',
+    text: `#b Beurre blanc saus Maurick
+Ingrediënten:
+#b Deel 1
+- 60 l witte wijn
+- 10 kg witte uien
+#b Deel 2
+- 30 L room
+#b Deel 3
+- 15 kg boter
+- Zout naar smaak
+Bereidingswijze
+Kook deel 1 geheel samen in tot 15 liter over is. Voeg dan deel 2 toe.`,
+    expect: [
+      {
+        t: 'Beurre blanc saus Maurick',
+        i: [
+          'Deel 1:',
+          '60 l witte wijn',
+          '10 kg witte uien',
+          'Deel 2:',
+          '30 L room',
+          'Deel 3:',
+          '15 kg boter',
+          'Zout naar smaak'
+        ],
+        s: 1,
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Echt bestand: vette onderdeelkopjes in ingrediënten én bereiding',
+    text: `#b Rode curry mouse
+Ingrediënten:
+#b Boemboe
+- 1 st rode peper
+- 2 l kokos room
+#b Mouse
+- 1600 gr curry massa
+- 20 bl gelatine
+Bereidingswijze
+#b Boemboe
+Doe alles van de boemboe in de thermo blender.
+#b Mouse
+Leg de gelatine in koud water.`,
+    expect: [
+      {
+        t: 'Rode curry mouse',
+        i: ['Boemboe:', '1 st rode peper', '2 l kokos room', 'Mouse:', '1600 gr curry massa', '20 bl gelatine'],
+        s: ['Boemboe:', 'Doe alles van de boemboe in de thermo blender.', 'Mouse:', 'Leg de gelatine in koud water.'],
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Echt bestand: ingrediënt per ongeluk als Word-kop',
+    text: `# Pecan roomijs
+1000 gram melk
+200 gram suiker
+# 380 gram pecannoten
+De suiker karamelliseren, de pecannoten er bij afblussen met melk.`,
+    expect: [{ t: 'Pecan roomijs', i: ['1000 gram melk', '200 gram suiker', '380 gram pecannoten'], s: 1, c: 'high' }]
+  },
+  {
+    name: 'Echt bestand: korte stappen zonder punt',
+    text: `10.Amandel biscuit
+1000 gram ei heel
+1375 gram amandel poeder
+Bakken op 240C
+368.Ananas limoen jus
+1000 gram ananas coulis
+2,5 gram xantana
+Alles opkoken en afbinden met xantana`,
+    expect: [
+      { t: 'Amandel biscuit', i: ['1000 gram ei heel', '1375 gram amandel poeder'], s: ['Bakken op 240C'], c: 'high' },
+      { t: 'Ananas limoen jus', i: ['1000 gram ananas coulis', '2,5 gram xantana'], s: 1, c: 'high' }
+    ]
+  },
+  {
+    name: 'Echt bestand: bereiding tussen de ingrediënten (zin met punt)',
+    text: `20.Banketbakkers room
+1000 gram melk
+220 gram suiker
+Dit opkoken.
+160 gram eidooier
+25 gram zetmeel
+Mengen met de melk en afroeren.`,
+    expect: [
+      {
+        t: 'Banketbakkers room',
+        i: ['1000 gram melk', '220 gram suiker', '160 gram eidooier', '25 gram zetmeel'],
+        s: ['Dit opkoken.', 'Mengen met de melk en afroeren.'],
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Bereiding tussen de ingrediënten zonder punt blijft twijfel',
+    text: `50.Wasabi ijs
+250 gram yoghurt
+60 gram wasabi
+Mengen en koud zetten
+400 gram room
+Bij elkaar en verwarmen`,
+    expect: [{ t: 'Wasabi ijs', c: 'medium' }]
+  },
+  {
+    name: 'Stap die met een tijdwoord begint is geen zeker ingrediënt',
+    text: `Rode wijn jus
+2000 gram rode wijn
+500 gram kalfsfond
+Wanneer ingekookt afmaken met
+50 gram boter`,
+    expect: [{ t: 'Rode wijn jus', c: 'medium' }]
+  },
+  {
+    name: 'Tijd is geen hoeveelheid',
+    text: `Gekookt ei
+4 eieren
+6 minuten koken in water.`,
+    expect: [{ t: 'Gekookt ei', i: ['4 eieren'], s: 1, c: 'high' }]
+  },
+  {
+    name: 'Vette receptnaam na een recept van alleen zinnen',
+    text: `#b 402.Aardpeer
+De aardperen goed wassen. In stukken snijden en garen in de oven op 220c.
+#b 550.Aardpeer wedges
+Aardpeer wassen en in wedges snijden.`,
+    expect: [
+      { t: 'Aardpeer', i: [], s: 1 },
+      { t: 'Aardpeer wedges', i: [], s: 1 }
+    ]
+  },
+  {
+    name: 'Vette receptnamen met kopjes: wél losse recepten',
+    text: `#b Beurre blanc
+Ingrediënten
+200 g boter
+Bereiding
+Monteren.
+#b Hollandaise
+Ingrediënten
+3 eidooiers
+Bereiding
+Kloppen.`,
+    expect: [
+      { t: 'Beurre blanc', i: ['200 g boter'], s: 1, c: 'high' },
+      { t: 'Hollandaise', i: ['3 eidooiers'], s: 1, c: 'high' }
+    ]
+  },
+  {
+    name: 'Zonder kopjes: "Alles ..." zonder punt is een stap, geen ingrediënt',
     text: `Passievrucht coulis
 500 gram passievrucht pulp
 100 gram suiker
 Alles koud mengen`,
-    expect: [{ t: 'Passievrucht coulis', c: 'low' }]
+    expect: [
+      {
+        t: 'Passievrucht coulis',
+        i: ['500 gram passievrucht pulp', '100 gram suiker'],
+        s: ['Alles koud mengen'],
+        c: 'high'
+      }
+    ]
   },
   {
     name: 'Zonder kopjes: lange zin die met een product begint is geen ingrediënt',
@@ -703,6 +863,19 @@ fixCases.push(
   { name: 'Getal in de bereiding wordt wel verbeterd', step: true, from: 'Bakken op 18oc', to: 'Bakken op 180c' },
   // De woordenlijst komt in import.js alleen uit namen en ingrediënten; hier de bron zoals die daar zou zijn.
   { name: 'Productnaam blijft staan (elastic)', from: '10 gram elastic', to: '10 gram elastic', bron: '' },
+  {
+    name: 'Accent wordt nooit weggehaald',
+    from: '100 gram crème fraîche',
+    to: '100 gram crème fraîche',
+    bron: 'fraiche fraiche fraiche'
+  },
+  {
+    name: 'Spellingvariant blijft staan',
+    from: '5 gram albumine',
+    to: '5 gram albumine',
+    bron: 'albumina albumina albumina'
+  },
+  { name: 'Accent toevoegen mag', from: 'Genoise', to: 'Génoise', bron: 'génoise génoise génoise' },
   {
     name: 'Werkwoord in een ingrediëntregel blijft staan',
     from: 'Roodlof plukken',

@@ -28,8 +28,13 @@ const READER_QUALITATIVE =
   /^(?:snufje|snuf|scheutje|scheut|mespunt(?:je)?|handje|handvol|beetje|wat|een paar|enkele|naar smaak|zout|peper|zout en peper|peper en zout|olie|olijfolie|boter|suiker|water|bloem)\b|\b(?:naar smaak|naar behoefte|eventueel|optioneel)\)?\.?$/i;
 const READER_BULLET = /^[-–•*·▪◦●]\s*/;
 const READER_STEP_NUMBER = /^(?:stap\s*\d+\s*[:.)-]?|\d+\s*[.)]\s+(?=\D))\s*/i;
+const READER_STARTS_WITH_TIME =
+  /^\d+(?:[.,]\d+)?\s*(?:minuten|minuut|min\.?|uur|uren|seconden|sec\.?|dagen|dag|nachten|nacht|weken)\b/i;
 // Genummerde receptnaam zonder spatie, zoals koks die in een receptenboek zetten: "211.Aardappel crème".
 const READER_NUMBERED_TITLE = /^\d{1,4}\.(?=\p{L})/u;
+// "Zachte" kop uit Word (vetgedrukt of kop 2/3): een receptnaam óf een onderdeel ("Deel 1", "Deeg").
+// splitRecipeText beslist welke van de twee; daarna verdwijnt het teken.
+const READER_SOFT_HEADING = /^#b\s+/;
 
 // ---- Kleine hulpfuncties ----
 
@@ -75,6 +80,8 @@ function readerLooksLikeSentence(line) {
 function readerIsIngredientLine(line) {
   const x = line.replace(READER_BULLET, '');
   if (!x || READER_STEP_NUMBER.test(line) || READER_NUMBERED_TITLE.test(x)) return false;
+  // "2 minuten doorkoken", "1 nacht marineren": een tijd is geen hoeveelheid.
+  if (READER_STARTS_WITH_TIME.test(x)) return false;
   // Een zin is bereiding ("Boter smelten in een pan."), behalve iets korts als "250 g boter.".
   if (/[.!?]$/.test(x) && !(READER_STARTS_WITH_QTY.test(x) && x.length <= 30)) return false;
   if (READER_BULLET.test(line) || READER_STARTS_WITH_QTY.test(x)) return true;
@@ -86,7 +93,26 @@ function readerIsIngredientLine(line) {
 // "Opkoken tot 116C". Zonder kopjes kan de lezer dan niet zeker zijn dat het een ingrediënt is.
 function readerLooksLikeStepStart(line) {
   const first = line.replace(READER_BULLET, '').split(/\s+/)[0].toLowerCase();
-  return !READER_STARTS_WITH_QTY.test(line) && (first === 'alles' || (first.length >= 5 && /en$/.test(first)));
+  // Ook "Daarna onderstaande toevoegen", "Wanneer ingekookt afmaken met": stappen die met een tijdwoord beginnen.
+  const stepWords = ['alles', 'daarna', 'dan', 'wanneer', 'als', 'eerst', 'vervolgens', 'tot', 'nu', 'zodra'];
+  return !READER_STARTS_WITH_QTY.test(line) && (stepWords.includes(first) || (first.length >= 5 && /en$/.test(first)));
+}
+
+// Zeker een stap, ook zonder punt: begint met "Alles", of noemt een temperatuur of tijd zonder met een
+// hoeveelheid te beginnen ("Bakken op 240C", "Siroop inkoken tot 107C", "Alles in blender").
+function readerIsSureStep(line) {
+  if (READER_STARTS_WITH_QTY.test(line) && !READER_STARTS_WITH_TIME.test(line)) return false;
+  return (
+    /^alles\b/i.test(line) ||
+    READER_STARTS_WITH_TIME.test(line) ||
+    /\d\s*(?:°|’|')?\s*c\b/i.test(line) ||
+    /\b\d+\s*(?:minuten|min|uur|seconden|sec)\b/i.test(line)
+  );
+}
+
+// Waarschijnlijk een stap zonder punt: een werkwoord vooraan en minstens drie woorden ("Mengen en koud zetten").
+function readerLooksLikeStepLine(line) {
+  return readerIsSureStep(line) || (readerLooksLikeStepStart(line) && line.split(/\s+/).length >= 3);
 }
 
 function readerYieldFrom(line) {
@@ -188,6 +214,7 @@ function parseRecipeBlock(block) {
       if (READER_META_LINE.test(l)) return 'meta';
       if (readerIsIngredientLine(l)) return 'ingredient';
       if (READER_STEP_NUMBER.test(l) || readerLooksLikeSentence(l)) return 'step';
+      if (readerLooksLikeStepLine(l)) return 'stepish';
       return 'short';
     });
     let lastIngredient = -1;
@@ -196,15 +223,17 @@ function parseRecipeBlock(block) {
     });
     // Korte regels direct na het laatste ingrediënt ("olijfolie", "zout") horen er nog bij.
     while (kinds[lastIngredient + 1] === 'short') lastIngredient++;
-    // Zeker zonder kopjes: bovenaan alleen ingrediënten, en elke korte regel daartussen is duidelijk
-    // een ingrediënt ("bieslook", "zout en peper"), geen stap zonder punt ("aardappels koken, afgieten").
-    cleanWithoutHeadings = rest.every(
-      (l, i) =>
-        i > lastIngredient ||
-        kinds[i] === 'yield' ||
-        (!readerLooksLikeStepStart(l) &&
-          (kinds[i] === 'ingredient' || (kinds[i] === 'short' && !l.includes(',') && l.split(/\s+/).length <= 4)))
-    );
+    // Zeker zonder kopjes: elke regel tussen de ingrediënten is duidelijk een ingrediënt ("bieslook",
+    // "zout en peper") of duidelijk een stap: een zin met punt ("Dit opkoken.") of een zekere stap
+    // ("Bakken op 240C"). Twijfel bij een stap zonder punt ("Mengen en koud zetten", "aardappels koken, afgieten").
+    cleanWithoutHeadings = rest.every((l, i) => {
+      const k = kinds[i];
+      if (i > lastIngredient || k === 'yield') return true;
+      if (k === 'step') return /[.!?:]$/.test(l) || l.length > 70;
+      if (k === 'stepish') return readerIsSureStep(l);
+      if (readerLooksLikeStepStart(l)) return false;
+      return k === 'ingredient' || (k === 'short' && !l.includes(',') && l.split(/\s+/).length <= 4);
+    });
     rest.forEach((l, i) => {
       const k = kinds[i];
       if (k === 'yield' && !yieldText) yieldText = readerYieldFrom(l);
@@ -250,11 +279,18 @@ function readerWordsOf(text) {
 }
 
 // Eén letter anders (vervangen) of twee buren omgewisseld; hoofdletters tellen niet.
+// Niet: een accent weghalen ("fraîche" → "fraiche") of een klinker aan het eind wisselen
+// ("albumine" / "albumina", "amarene" / "amarena"): dat zijn allebei bestaande spellingen.
 function readerOneLetterOff(a, b) {
   if (a.length !== b.length || a === b) return false;
   const diff = [];
   for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) diff.push(i);
-  if (diff.length === 1) return true;
+  if (diff.length === 1) {
+    const [i] = diff;
+    if (a[i].normalize('NFD')[0] === b[i] && a[i] !== b[i]) return false;
+    if (i === a.length - 1 && /[aeiou]/.test(a[i]) && /[aeiou]/.test(b[i])) return false;
+    return true;
+  }
   return diff.length === 2 && diff[1] === diff[0] + 1 && a[diff[0]] === b[diff[1]] && a[diff[1]] === b[diff[0]];
 }
 
@@ -336,21 +372,46 @@ function splitRecipeText(text) {
   };
   const blocks = [];
   let current = [];
-  let state = { ingredients: 0, steps: 0, inSteps: false };
+  // headings: dit recept heeft een kopje Ingrediënten of Bereiding; openIngredients: na "Ingrediënten",
+  // nog vóór "Bereiding" (een vet kopje daar is een onderdeel, geen nieuw recept).
+  const fresh = () => ({ ingredients: 0, steps: 0, inSteps: false, headings: false, openIngredients: false });
+  let state = fresh();
   let blankBefore = false;
   const start = () => {
     if (current.length) blocks.push(current);
     current = [];
-    state = { ingredients: 0, steps: 0, inSteps: false };
+    state = fresh();
   };
   for (let i = 0; i < lines.length; i++) {
-    const l = lines[i];
+    let l = lines[i];
     if (!l) {
       blankBefore = true;
       continue;
     }
-    const next = nextFilled(i + 1).line;
+    const next = nextFilled(i + 1).line.replace(READER_SOFT_HEADING, '');
     const hasContent = state.ingredients > 0 || state.steps > 0;
+    // Zachte kop ("#b ": vet of Word-kop 2/3): een nieuw recept, of een onderdeel van het huidige
+    // ("Deel 1", "Deeg", "Boemboe"). Een onderdeel staat tussen "Ingrediënten" en "Bereiding", of na
+    // "Bereiding" zonder ingrediënten erachter.
+    if (READER_SOFT_HEADING.test(l)) {
+      l = l.replace(READER_SOFT_HEADING, '');
+      const nextIsIngredients =
+        readerIsIngredientLine(next) || READER_INGREDIENTS_HEADING.test(next) || Boolean(readerYieldFrom(next));
+      const isPart = current.length && (state.openIngredients || (state.headings && !nextIsIngredients));
+      if (isPart) {
+        current.push(/:$/.test(l) ? l : `${l}:`);
+        blankBefore = false;
+        continue;
+      }
+      // Ook na een recept van alleen zinnen ("Aardpeer wassen en in stukken snijden…").
+      if (current.length > 1 || (current.length && nextIsIngredients)) start();
+      current.push(l);
+      blankBefore = false;
+      continue;
+    }
+    // Een Word-kop die eigenlijk een ingrediënt is ("380 gram pecannoten" per ongeluk als Kop 1) is gewoon een regel.
+    if (/^#{1,3}\s+\S/.test(l) && current.length && readerIsIngredientLine(l.replace(/^#{1,3}\s+/, '')))
+      l = l.replace(/^#{1,3}\s+/, '');
     const isDocHeading = /^#{1,3}\s+\S/.test(l) && !readerIsHeading(l.replace(/^#{1,3}\s+/, ''));
     const titleBeforeIngredients = readerLooksLikeTitle(l) && READER_INGREDIENTS_HEADING.test(next);
     const titleAfterMethod =
@@ -375,8 +436,10 @@ function splitRecipeText(text) {
     }
     current.push(l);
     blankBefore = false;
-    if (READER_INGREDIENTS_HEADING.test(l)) state.inSteps = false;
-    else if (READER_STEPS_HEADING.test(l)) state.inSteps = true;
+    if (READER_INGREDIENTS_HEADING.test(l))
+      Object.assign(state, { inSteps: false, headings: true, openIngredients: true });
+    else if (READER_STEPS_HEADING.test(l))
+      Object.assign(state, { inSteps: true, headings: true, openIngredients: false });
     else if (current.length > 1) {
       if (state.inSteps) state.steps++;
       else if (readerIsIngredientLine(l)) state.ingredients++;

@@ -140,8 +140,8 @@ async function extractImportText(file) {
 // ---- Bestanden omzetten naar regels voor de lezer ----
 
 // Word-HTML naar regels: koppen worden "# naam" (receptgrens), tabelrijen één regel, opsommingen "- ".
-// Een volledig vetgedrukte korte regel is in receptenboeken vrijwel altijd een receptnaam en telt ook als kop,
-// behalve kopjes als "Ingrediënten", "Voor de saus" of "Bereiding:".
+// Een volledig vetgedrukte korte regel is een receptnaam of een onderdeelkopje, maar nooit een kopje
+// als "Ingrediënten", "Voor de saus" of "Bereiding:".
 function htmlToRecipeText(html) {
   const doc = new DOMParser().parseFromString(`<div>${html}</div>`, 'text/html');
   const lines = [];
@@ -163,9 +163,12 @@ function htmlToRecipeText(html) {
   const walk = node => {
     for (const el of node.children) {
       const tag = el.tagName.toLowerCase();
-      if (/^h[1-3]$/.test(tag)) lines.push('', `# ${text(el)}`);
+      // Kop 1 is altijd een receptgrens. Kop 2/3 en vette regels zijn "zacht" (#b): een receptnaam
+      // óf een onderdeel als "Deel 1" of "Deeg"; dat beslist de lezer (splitRecipeText).
+      if (tag === 'h1') lines.push('', `# ${text(el)}`);
+      else if (/^h[23]$/.test(tag)) lines.push('', `#b ${text(el)}`);
       else if (/^h[4-6]$/.test(tag)) lines.push(text(el));
-      else if (tag === 'p' && isBoldTitle(el)) lines.push('', `# ${text(el)}`);
+      else if (tag === 'p' && isBoldTitle(el)) lines.push('', `#b ${text(el)}`);
       else if (tag === 'p' && el.querySelector('br')) {
         // Zachte regeleinden (Shift+Enter) zijn echte regels: anders plakken twee recepten aan elkaar.
         el.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
