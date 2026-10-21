@@ -1272,6 +1272,15 @@ export const strings = [
   ['Je team', 'Your team', 'Dein Team', 'Tu equipo'],
   ['Mijn abonnement', 'My subscription', 'Mein Abo', 'Mi suscripción'],
   ['Stuur ons een bericht', 'Send us a message', 'Schreib uns eine Nachricht', 'Envíanos un mensaje'],
+  ['Recepten opschonen', 'Tidy up recipes', 'Rezepte bereinigen', 'Limpiar recetas'],
+  ['Dubbele recepten opschonen', 'Remove duplicate recipes', 'Doppelte Rezepte bereinigen', 'Limpiar recetas duplicadas'],
+  ['Van elk recept blijft er één staan.', 'One copy of each recipe is kept.', 'Von jedem Rezept bleibt eins erhalten.', 'Se conserva una copia de cada receta.'],
+  [
+    'Van elk recept blijft er één staan. Alleen kopieën die precies hetzelfde zijn (naam, opbrengst, ingrediënten en bereiding) worden verwijderd. Mappen, favorieten en gedeelde mappen gaan over naar het recept dat blijft.',
+    'One copy of each recipe is kept. Only copies that are exactly the same (name, yield, ingredients and method) are removed. Folders, favourites and shared folders move to the recipe that stays.',
+    'Von jedem Rezept bleibt eins erhalten. Nur exakt gleiche Kopien (Name, Menge, Zutaten und Zubereitung) werden gelöscht. Ordner, Favoriten und geteilte Ordner gehen auf das verbleibende Rezept über.',
+    'Se conserva una copia de cada receta. Solo se eliminan las copias exactamente iguales (nombre, rendimiento, ingredientes y preparación). Carpetas, favoritos y carpetas compartidas pasan a la receta que queda.'
+  ],
   ['Bericht', 'Message', 'Nachricht', 'Mensaje'],
   ['Waar kunnen we je mee helpen?', 'How can we help you?', 'Wie können wir dir helfen?', '¿En qué podemos ayudarte?'],
   ['Bericht versturen', 'Send message', 'Nachricht senden', 'Enviar mensaje'],
@@ -3020,6 +3029,12 @@ export const patterns = [
     '¿Quitar los números de $1 nombres de recetas?'
   ],
   ['^Receptnamen aanpassen… (\\d+) / (\\d+)$', 'Updating recipe names… $1 / $2', 'Rezeptnamen werden angepasst… $1 / $2', 'Actualizando nombres… $1 / $2'],
+  ['^1 recept staat dubbel in je bibliotheek, bijvoorbeeld$', '1 recipe appears twice in your library, for example', '1 Rezept steht doppelt in deiner Bibliothek, zum Beispiel', '1 receta aparece duplicada en tu biblioteca, por ejemplo'],
+  ['^(\\d+) recepten staan dubbel in je bibliotheek, bijvoorbeeld$', '$1 recipes appear twice in your library, for example', '$1 Rezepte stehen doppelt in deiner Bibliothek, zum Beispiel', '$1 recetas aparecen duplicadas en tu biblioteca, por ejemplo'],
+  ['^\\. Van elk recept blijft er één staan\\.$', '. One copy of each recipe is kept.', '. Von jedem Rezept bleibt eins erhalten.', '. Se conserva una copia de cada receta.'],
+  ['^(\\d+) dubbele recepten verwijderen\\?$', 'Remove $1 duplicate recipes?', '$1 doppelte Rezepte löschen?', '¿Eliminar $1 recetas duplicadas?'],
+  ['^(\\d+) dubbele verwijderen$', 'Remove $1 duplicates', '$1 Duplikate löschen', 'Eliminar $1 duplicados'],
+  ['^(\\d+) dubbele recepten verwijderd$', '$1 duplicate recipes removed', '$1 doppelte Rezepte gelöscht', '$1 recetas duplicadas eliminadas'],
   ['^(\\d+) receptnamen aangepast$', '$1 recipe names updated', '$1 Rezeptnamen angepasst', '$1 nombres de recetas actualizados'],
   [
     '^(\\d+) receptnamen aangepast, (\\d+) niet gelukt\\. Probeer het opnieuw\\.$',

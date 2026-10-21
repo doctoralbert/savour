@@ -147,6 +147,7 @@ async function loadDatabaseState() {
     category: catMap[r.category_id] || 'Eigen recepten',
     categoryId: r.category_id || null,
     photo: r.photo_url || '',
+    createdAt: r.created_at || '',
     dbId: r.id
   }));
   const seenFolderNames = new Set();

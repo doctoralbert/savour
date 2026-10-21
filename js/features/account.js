@@ -256,16 +256,138 @@ function recipesWithTitleNumber() {
   return recipes.filter(r => stripTitleNumber(r.title) !== String(r.title || '').trim());
 }
 
+// Het blok "Recepten opschonen": nummers in namen en dubbele recepten. Alleen zichtbaar als er iets te doen is.
 function renderTitleCleanup() {
   const panel = $('titleCleanupPanel');
   if (!panel) return;
   const found = recipesWithTitleNumber();
-  panel.style.display = found.length ? '' : 'none';
+  const doubles = findDuplicateRecipeGroups();
+  panel.style.display = found.length || doubles.length ? '' : 'none';
+  renderDuplicateCleanup(doubles);
+  $('titleCleanup').innerHTML = '';
   if (!found.length) return;
   const example = found[0];
   $('titleCleanup').innerHTML = `<p class="muted">${
     found.length === 1 ? '1 recept begint' : `${found.length} recepten beginnen`
   } met een nummer, bijvoorbeeld <span translate="no">“${esc(example.title)}”</span>. Savour kan die nummers weghalen: <span translate="no">“${esc(stripTitleNumber(example.title))}”</span>.</p><button class="btn gold" onclick="cleanRecipeTitleNumbers()">Nummers weghalen</button>`;
+}
+
+// ---- Dubbele recepten: precies hetzelfde (naam zonder nummer, opbrengst, ingrediënten, bereiding) ----
+// Recepten met alleen dezelfde naam maar een andere inhoud tellen nooit als dubbel.
+
+function findDuplicateRecipeGroups() {
+  const sharedIds = new Set(
+    sharedMaps.flatMap(m => [...m.recipeIds, ...m.folders.flatMap(f => f.recipeIds)]).map(String)
+  );
+  const folderIds = new Set(folders.flatMap(f => f.recipeIds).map(String));
+  const favIds = new Set(favorites.map(String));
+  // Welk exemplaar blijft: gedeeld, dan favoriet, dan in een map, dan met foto, dan het oudste.
+  const score = r =>
+    (sharedIds.has(String(r.id)) ? 1000 : 0) +
+    (favIds.has(String(r.id)) ? 100 : 0) +
+    (folderIds.has(String(r.id)) ? 10 : 0) +
+    (r.photo ? 1 : 0);
+  const groups = new Map();
+  for (const r of recipes) {
+    const fp = recipeFingerprint({ ...r, title: stripTitleNumber(r.title) });
+    if (!groups.has(fp)) groups.set(fp, []);
+    groups.get(fp).push(r);
+  }
+  return [...groups.values()]
+    .filter(g => g.length > 1)
+    .map(g => {
+      const sorted = [...g].sort(
+        (a, b) => score(b) - score(a) || String(a.createdAt).localeCompare(String(b.createdAt))
+      );
+      return { keep: sorted[0], remove: sorted.slice(1) };
+    });
+}
+
+function renderDuplicateCleanup(groups) {
+  const host = $('duplicateCleanup');
+  if (!host) return;
+  const count = groups.reduce((n, g) => n + g.remove.length, 0);
+  host.innerHTML = count
+    ? `<p class="muted">${count === 1 ? '1 recept staat' : `${count} recepten staan`} dubbel in je bibliotheek, bijvoorbeeld <span translate="no">“${esc(groups[0].keep.title)}”</span>. Van elk recept blijft er één staan.</p><button class="btn gold" onclick="cleanDuplicateRecipes()">Dubbele recepten opschonen</button>`
+    : '';
+}
+
+async function cleanDuplicateRecipes() {
+  const groups = findDuplicateRecipeGroups();
+  const count = groups.reduce((n, g) => n + g.remove.length, 0);
+  if (!count) return;
+  const examples = groups
+    .slice(0, 5)
+    .map(g => `${g.keep.title} (${g.remove.length + 1}×)`)
+    .join('\n');
+  const more = groups.length > 5 ? `\n… en nog ${groups.length - 5}` : '';
+  const ok = await askConfirm(
+    `${count} dubbele recepten verwijderen?\n\nVan elk recept blijft er één staan. Alleen kopieën die precies hetzelfde zijn (naam, opbrengst, ingrediënten en bereiding) worden verwijderd. Mappen, favorieten en gedeelde mappen gaan over naar het recept dat blijft.\n\n${examples}${more}`,
+    { confirmLabel: `${count} dubbele verwijderen` }
+  );
+  if (!ok) return;
+  const removeIds = groups.flatMap(g => g.remove.map(r => r.id));
+  const keeperOf = new Map(groups.flatMap(g => g.remove.map(r => [String(r.id), g.keep.id])));
+  if (demoMode) {
+    const gone = new Set(removeIds.map(String));
+    favorites = [...new Set(favorites.map(id => keeperOf.get(String(id)) || id))];
+    folders.forEach(f => (f.recipeIds = [...new Set(f.recipeIds.map(id => keeperOf.get(String(id)) || id))]));
+    recipes = recipes.filter(r => !gone.has(String(r.id)));
+  } else {
+    // Eerst koppelingen naar het recept dat blijft, dan de kopieën verwijderen (zoals bij Verwijder recepten).
+    const relink = [];
+    folders.forEach(f =>
+      f.recipeIds.forEach(
+        id =>
+          keeperOf.has(String(id)) &&
+          relink.push(['folder_recipes', { folder_id: f.id, recipe_id: keeperOf.get(String(id)) }])
+      )
+    );
+    favorites.forEach(
+      id =>
+        keeperOf.has(String(id)) &&
+        relink.push(['favorites', { user_id: currentUser.id, recipe_id: keeperOf.get(String(id)) }])
+    );
+    sharedMaps.forEach(m =>
+      m.recipeIds.forEach(
+        id =>
+          keeperOf.has(String(id)) &&
+          relink.push(['shared_map_recipes', { shared_map_id: m.id, recipe_id: keeperOf.get(String(id)) }])
+      )
+    );
+    const conflictKey = { folder_recipes: 'folder_id,recipe_id', shared_map_recipes: 'shared_map_id,recipe_id' };
+    for (const [table, row] of relink) {
+      const { error } = conflictKey[table]
+        ? await supabaseClient.from(table).upsert(row, { onConflict: conflictKey[table] })
+        : await supabaseClient.from(table).insert(row);
+      // Bestaat de koppeling al (de bewaarde versie stond er ook), dan is dat prima.
+      if (error && !/duplicate|unique/i.test(error.message || '')) console.warn('Koppeling overzetten', table, error);
+    }
+    let failed = 0;
+    for (let i = 0; i < removeIds.length; i += 100) {
+      const ids = removeIds.slice(i, i + 100);
+      for (const table of ['folder_recipes', 'favorites', 'shared_map_recipes', 'shared_folder_recipes']) {
+        const { error } = await supabaseClient.from(table).delete().in('recipe_id', ids);
+        if (error) console.warn(`Koppelingen in ${table} konden niet worden verwijderd`, error);
+      }
+      const { error } = await supabaseClient.from('recipes').delete().in('id', ids).eq('user_id', currentUser.id);
+      if (error) {
+        console.error(error);
+        failed += ids.length;
+      }
+    }
+    await loadDatabaseState();
+    if (failed) {
+      renderRecipes();
+      refreshSidebar();
+      renderSettings();
+      return toast(`${count - failed} dubbele recepten verwijderd, ${failed} niet gelukt. Probeer het opnieuw.`);
+    }
+  }
+  renderRecipes();
+  refreshSidebar();
+  renderSettings();
+  toast(`${count} dubbele recepten verwijderd`);
 }
 
 async function cleanRecipeTitleNumbers() {

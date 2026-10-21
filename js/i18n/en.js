@@ -475,6 +475,11 @@ window.SAVOUR_I18N.en = {
     'Je team': 'Your team',
     'Mijn abonnement': 'My subscription',
     'Stuur ons een bericht': 'Send us a message',
+    'Recepten opschonen': 'Tidy up recipes',
+    'Dubbele recepten opschonen': 'Remove duplicate recipes',
+    'Van elk recept blijft er één staan.': 'One copy of each recipe is kept.',
+    'Van elk recept blijft er één staan. Alleen kopieën die precies hetzelfde zijn (naam, opbrengst, ingrediënten en bereiding) worden verwijderd. Mappen, favorieten en gedeelde mappen gaan over naar het recept dat blijft.':
+      'One copy of each recipe is kept. Only copies that are exactly the same (name, yield, ingredients and method) are removed. Folders, favourites and shared folders move to the recipe that stays.',
     Bericht: 'Message',
     'Waar kunnen we je mee helpen?': 'How can we help you?',
     'Bericht versturen': 'Send message',
@@ -1022,6 +1027,15 @@ window.SAVOUR_I18N.en = {
     ['^(\\d+) recepten beginnen met een nummer, bijvoorbeeld$', '$1 recipes start with a number, for example'],
     ['^Nummers weghalen uit (\\d+) receptnamen\\?$', 'Remove numbers from $1 recipe names?'],
     ['^Receptnamen aanpassen… (\\d+) / (\\d+)$', 'Updating recipe names… $1 / $2'],
+    ['^1 recept staat dubbel in je bibliotheek, bijvoorbeeld$', '1 recipe appears twice in your library, for example'],
+    [
+      '^(\\d+) recepten staan dubbel in je bibliotheek, bijvoorbeeld$',
+      '$1 recipes appear twice in your library, for example'
+    ],
+    ['^\\. Van elk recept blijft er één staan\\.$', '. One copy of each recipe is kept.'],
+    ['^(\\d+) dubbele recepten verwijderen\\?$', 'Remove $1 duplicate recipes?'],
+    ['^(\\d+) dubbele verwijderen$', 'Remove $1 duplicates'],
+    ['^(\\d+) dubbele recepten verwijderd$', '$1 duplicate recipes removed'],
     ['^(\\d+) receptnamen aangepast$', '$1 recipe names updated'],
     [
       '^(\\d+) receptnamen aangepast, (\\d+) niet gelukt\\. Probeer het opnieuw\\.$',

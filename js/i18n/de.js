@@ -478,6 +478,11 @@ window.SAVOUR_I18N.de = {
     'Je team': 'Dein Team',
     'Mijn abonnement': 'Mein Abo',
     'Stuur ons een bericht': 'Schreib uns eine Nachricht',
+    'Recepten opschonen': 'Rezepte bereinigen',
+    'Dubbele recepten opschonen': 'Doppelte Rezepte bereinigen',
+    'Van elk recept blijft er één staan.': 'Von jedem Rezept bleibt eins erhalten.',
+    'Van elk recept blijft er één staan. Alleen kopieën die precies hetzelfde zijn (naam, opbrengst, ingrediënten en bereiding) worden verwijderd. Mappen, favorieten en gedeelde mappen gaan over naar het recept dat blijft.':
+      'Von jedem Rezept bleibt eins erhalten. Nur exakt gleiche Kopien (Name, Menge, Zutaten und Zubereitung) werden gelöscht. Ordner, Favoriten und geteilte Ordner gehen auf das verbleibende Rezept über.',
     Bericht: 'Nachricht',
     'Waar kunnen we je mee helpen?': 'Wie können wir dir helfen?',
     'Bericht versturen': 'Nachricht senden',
@@ -1037,6 +1042,18 @@ window.SAVOUR_I18N.de = {
     ['^(\\d+) recepten beginnen met een nummer, bijvoorbeeld$', '$1 Rezepte beginnen mit einer Nummer, zum Beispiel'],
     ['^Nummers weghalen uit (\\d+) receptnamen\\?$', 'Nummern aus $1 Rezeptnamen entfernen?'],
     ['^Receptnamen aanpassen… (\\d+) / (\\d+)$', 'Rezeptnamen werden angepasst… $1 / $2'],
+    [
+      '^1 recept staat dubbel in je bibliotheek, bijvoorbeeld$',
+      '1 Rezept steht doppelt in deiner Bibliothek, zum Beispiel'
+    ],
+    [
+      '^(\\d+) recepten staan dubbel in je bibliotheek, bijvoorbeeld$',
+      '$1 Rezepte stehen doppelt in deiner Bibliothek, zum Beispiel'
+    ],
+    ['^\\. Van elk recept blijft er één staan\\.$', '. Von jedem Rezept bleibt eins erhalten.'],
+    ['^(\\d+) dubbele recepten verwijderen\\?$', '$1 doppelte Rezepte löschen?'],
+    ['^(\\d+) dubbele verwijderen$', '$1 Duplikate löschen'],
+    ['^(\\d+) dubbele recepten verwijderd$', '$1 doppelte Rezepte gelöscht'],
     ['^(\\d+) receptnamen aangepast$', '$1 Rezeptnamen angepasst'],
     [
       '^(\\d+) receptnamen aangepast, (\\d+) niet gelukt\\. Probeer het opnieuw\\.$',
