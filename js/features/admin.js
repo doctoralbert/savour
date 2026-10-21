@@ -421,13 +421,20 @@ async function logSavourVisit() {
       vid = crypto.randomUUID();
       localStorage.setItem(key, vid);
     }
-    await supabaseClient.from('site_visits').insert({
+    const visit = {
       visitor_id: vid,
       path: window.location.pathname || '/',
       referrer: document.referrer || null,
       user_agent: navigator.userAgent || null,
       platform: savourAnalyticsPlatform()
-    });
+    };
+    const { error } = await supabaseClient.from('site_visits').insert(visit);
+    // Zonder de kolom platform (supabase/2026-10-23-bezoekers-platform.sql nog niet uitgevoerd) weigert de
+    // database het hele bezoek; dan zonder platform opslaan zodat de teller toch loopt.
+    if (error && /platform/.test(error.message || '')) {
+      delete visit.platform;
+      await supabaseClient.from('site_visits').insert(visit);
+    }
   } catch (e) {
     console.debug('Savour analytics unavailable', e);
   }
