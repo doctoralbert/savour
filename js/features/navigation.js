@@ -164,7 +164,7 @@ function openSharedChooser() {
   list.innerHTML = sharedMaps
     .map(
       m =>
-        `<button class="shared-chooser-item" onclick="closeSharedChooser();openShared('${m.id}')"><span class="chooser-ico">▱</span><span><b>${esc(m.name)}</b><small>${m.recipeIds.length} recepten · ${m.folders.length} mappen</small></span><strong>›</strong></button>`
+        `<button class="shared-chooser-item" onclick="closeSharedChooser();openShared('${escJs(m.id)}')"><span class="chooser-ico">${icon('users')}</span><span><b>${esc(m.name)}</b><small>${m.recipeIds.length} recepten · ${m.folders.length} mappen</small></span><strong>${icon('chevron')}</strong></button>`
     )
     .join('');
   $('sharedChooserModal').classList.add('open');
@@ -172,4 +172,24 @@ function openSharedChooser() {
 
 function closeSharedChooser() {
   $('sharedChooserModal').classList.remove('open');
+}
+
+// Kiezer voor de eigen receptenmappen (onderste menu op de telefoon).
+function openFolderChooser() {
+  const own = getOrderedPersonalFolders().filter(f => !f.system);
+  if (!own.length) {
+    newFolder();
+    return;
+  }
+  $('folderChooserList').innerHTML = own
+    .map(
+      f =>
+        `<button class="shared-chooser-item" onclick="closeFolderChooser();openFolder('${escJs(f.id)}')"><span class="chooser-ico">${icon('folder')}</span><span><b>${esc(f.name)}</b><small>${folderCount(f)} recepten</small></span><strong>${icon('chevron')}</strong></button>`
+    )
+    .join('');
+  $('folderChooserModal').classList.add('open');
+}
+
+function closeFolderChooser() {
+  $('folderChooserModal').classList.remove('open');
 }

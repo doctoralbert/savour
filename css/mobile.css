@@ -1,0 +1,125 @@
+/* Telefoon: bovenbalk, onderste menu en demo-label in de huisstijl. Wordt als laatste geladen. */
+
+/* Tip voor Shift-selectie (alleen zinvol met een toetsenbord). */
+.picker-hint {
+  margin: 0 0 var(--sv-space-2);
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-sm);
+}
+.picker-row {
+  user-select: none;
+}
+@media (max-width: 760px) {
+  .picker-hint {
+    display: none !important;
+  }
+}
+
+/* Iconen in de kiezers voor (gedeelde) mappen. */
+.shared-chooser-item .chooser-ico {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  color: var(--sv-gold);
+}
+.shared-chooser-item strong {
+  display: inline-flex;
+  color: var(--sv-text-3);
+}
+
+@media (max-width: 760px) {
+  /* ---- Bovenbalk ---- */
+  .topbar .mobile-top-actions {
+    display: flex !important;
+    gap: var(--sv-space-1) !important;
+    margin-left: auto !important;
+  }
+  .mobile-top-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--sv-control-h);
+    height: var(--sv-control-h);
+    padding: 0;
+    border: 0;
+    border-radius: var(--sv-radius);
+    background: transparent;
+    color: var(--sv-text);
+    cursor: pointer;
+  }
+  .mobile-top-btn:active {
+    background: var(--sv-surface-2);
+    color: var(--sv-gold);
+  }
+
+  /* ---- Onderste menu ---- */
+  #appShell .mobile-bottom-nav,
+  .mobile-bottom-nav {
+    grid-template-columns: repeat(4, 1fr) !important;
+    height: auto !important;
+    min-height: 64px;
+    padding: var(--sv-space-1) var(--sv-space-1) calc(var(--sv-space-1) + env(safe-area-inset-bottom)) !important;
+    background: var(--sv-bg) !important;
+    border-top: 1px solid var(--sv-line) !important;
+    backdrop-filter: none !important;
+  }
+  .mobile-bottom-nav button {
+    gap: var(--sv-space-1) !important;
+    padding: var(--sv-space-2) 2px !important;
+    color: var(--sv-text-3) !important;
+    border-radius: var(--sv-radius);
+  }
+  .mobile-bottom-nav button small {
+    font-size: var(--sv-fs-xs) !important;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: normal !important;
+    text-align: center;
+    overflow: visible !important;
+  }
+  .mobile-bottom-nav button:active,
+  .mobile-bottom-nav button.is-active {
+    color: var(--sv-gold) !important;
+  }
+
+  /* ---- Demo-label: smalle regel onderaan de bovenbalk, de inhoud schuift mee ---- */
+  #appShell .topbar:has(.demo-mode-badge) {
+    flex-wrap: wrap !important;
+    height: auto !important;
+    row-gap: 0 !important;
+  }
+  .topbar .demo-mode-badge {
+    position: static !important;
+    order: 10;
+    flex: 0 0 100%;
+    margin: 0 0 var(--sv-space-2) !important;
+    padding: var(--sv-space-1) var(--sv-space-3) !important;
+    border: 0 !important;
+    border-radius: var(--sv-radius-sm) !important;
+    background: var(--sv-surface-2) !important;
+    color: var(--sv-text-2) !important;
+    font-size: var(--sv-fs-xs) !important;
+    text-align: center;
+    box-shadow: none !important;
+  }
+}
+
+/* Desktop: klein label in de bovenbalk, tussen zoekbalk en account. */
+@media (min-width: 761px) {
+  .topbar .demo-mode-badge {
+    position: static !important;
+    flex: 0 0 auto;
+    margin: 0 var(--sv-space-2) !important;
+    padding: var(--sv-space-1) var(--sv-space-3) !important;
+    border: 1px solid var(--sv-line-strong) !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+    color: var(--sv-text-2) !important;
+    font-size: var(--sv-fs-xs) !important;
+    box-shadow: none !important;
+    white-space: nowrap;
+  }
+  .topbar .profile {
+    order: 11;
+  }
+}

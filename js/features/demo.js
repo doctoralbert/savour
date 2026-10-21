@@ -91,7 +91,8 @@ function startDemo() {
   ];
   showApp('recipes');
   document.getElementById('demoBadge')?.remove();
-  document.body.insertAdjacentHTML(
+  // In de bovenbalk, zodat het op de telefoon als smalle regel onder het logo staat (niet over de inhoud).
+  (document.querySelector('#appShell .topbar') || document.body).insertAdjacentHTML(
     'beforeend',
     '<div id="demoBadge" class="demo-mode-badge">Demo account · niets wordt opgeslagen</div>'
   );

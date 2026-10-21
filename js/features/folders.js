@@ -285,6 +285,7 @@ async function openRecipePickerForFolder(id) {
 function openFolderModal(recipeId) {
   if (!currentUser) return;
   folderTargetRecipe = recipeId || null;
+  if ($('pickerHint')) $('pickerHint').hidden = true;
   $('folderChecklist').innerHTML =
     folders
       .filter(f => !f.system)
@@ -437,13 +438,27 @@ function renderPickerList(items, type) {
         : type === 'shared'
           ? 'sharedCheck'
           : 'pickerCheck';
+  pickerLastIndex = null;
+  if ($('pickerHint')) $('pickerHint').hidden = items.length < 2;
   $('folderChecklist').innerHTML =
     items
       .map(
-        r =>
-          `<label class="check"><input type="checkbox" ${attr}="${r.id}"> <span>${esc(r.title)}</span><span class="muted" style="margin-left:auto">${esc(r.category || 'Eigen recepten')}</span></label>`
+        (r, i) =>
+          `<label class="check picker-row"><input type="checkbox" ${attr}="${r.id}" onclick="pickerCheckClick(event,${i})"> <span>${esc(r.title)}</span><span class="muted" style="margin-left:auto">${esc(r.category || 'Eigen recepten')}</span></label>`
       )
       .join('') || `<div class="empty">Geen recepten gevonden.</div>`;
+}
+
+// Shift ingedrukt houden selecteert (of deselecteert) alles tussen het vorige en dit vinkje.
+let pickerLastIndex = null;
+function pickerCheckClick(event, index) {
+  const boxes = [...document.querySelectorAll('#folderChecklist input[type="checkbox"]')];
+  if (event.shiftKey && pickerLastIndex !== null) {
+    const from = Math.min(pickerLastIndex, index),
+      to = Math.max(pickerLastIndex, index);
+    for (let i = from; i <= to; i++) boxes[i].checked = event.target.checked;
+  }
+  pickerLastIndex = index;
 }
 
 function filterPicker(q) {

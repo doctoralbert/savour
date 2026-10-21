@@ -1,6 +1,13 @@
 // Lijniconen in de huisstijl (24×24, lijndikte 1.75). Gebruik: icon('print').
 const ICON_PATHS = {
   back: '<path d="M15 18l-6-6 6-6"/>',
+  chevron: '<path d="M9 6l6 6-6 6"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/>',
+  book: '<path d="M5 4.5A1.5 1.5 0 016.5 3H19v16H6.5A1.5 1.5 0 005 20.5v-16z"/><path d="M5 20.5A1.5 1.5 0 016.5 22H19"/><path d="M9 7h6"/>',
+  folder: '<path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>',
+  users:
+    '<circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0111 0"/><path d="M15.5 5.6a3 3 0 010 5.8M17 19a5.2 5.2 0 00-2.2-4.2"/>',
+  user: '<circle cx="12" cy="8.5" r="3.6"/><path d="M5 20a7 7 0 0114 0"/>',
   edit: '<path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M14 6l4 4"/>',
   print: '<path d="M7 8V3h10v5"/><rect x="3" y="8" width="18" height="9" rx="2"/><path d="M7 14h10v7H7z"/>',
   share:
