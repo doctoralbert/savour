@@ -138,6 +138,11 @@ function fillEditor(r, title = 'Nieuw recept') {
   $('fTitle').value = r?.title || '';
   $('fYield').value = r?.yield || '';
   renderEditorCategories(r?.category || 'Eigen recepten');
+  // Trefwoordvoorstel alleen bij een nieuw recept; een bestaand recept houdt zijn categorie.
+  $('fCategory').dataset.manual = r?.id ? '1' : '';
+  $('fCategory').dataset.base = r?.category || 'Eigen recepten';
+  $('fCategoryHint').hidden = true;
+  if (!r?.id) suggestEditorCategory();
   $('fPhoto').value = '';
   $('photoPreview').style.display = r?.photo ? 'block' : 'none';
   $('photoPreview').src = r?.photo || '';

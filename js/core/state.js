@@ -21,6 +21,8 @@ let sharedRecipes = [];
 let activeCat = '';
 
 let categories = ['Sauzen & componenten', 'Groenten & garnituren', 'Vis & zeevruchten', 'Vlees', 'Patisserie'];
+// Trefwoorden per categorie (naam → ['ijs', 'sorbet']); de chef beheert ze op de pagina Categorieën.
+let categoryKeywords = {};
 
 let account = { name: 'Chef-kok', role: 'Chef-kok', email: '', password: '', photo: '' };
 

@@ -85,6 +85,16 @@ async function selectAllRows(table, select = '*', build = q => q, pageSize = 100
   return { data: all, error: null };
 }
 
+// Categorieën met trefwoorden. Is supabase/2026-10-21-categorie-trefwoorden.sql nog niet uitgevoerd,
+// dan bestaat de kolom keywords niet: dan laden we alleen de namen, zodat de app gewoon blijft werken.
+let categoryKeywordsAvailable = true;
+async function loadCategoryRows() {
+  const byUser = q => q.eq('user_id', currentUser.id).order('name');
+  const res = await selectAllRows('categories', 'id,name,keywords', byUser);
+  categoryKeywordsAvailable = !res.error;
+  return res.error ? selectAllRows('categories', 'id,name', byUser) : res;
+}
+
 // Laadt de volledige bibliotheek van de ingelogde gebruiker: recepten, categorieën, mappen, favorieten,
 // profiel en gedeelde mappen.
 async function loadDatabaseState() {
@@ -93,7 +103,7 @@ async function loadDatabaseState() {
     selectAllRows('recipes', 'id,title,description,yield_text,ingredients,steps,photo_url,category_id,created_at', q =>
       q.eq('user_id', currentUser.id).order('title', { ascending: true })
     ),
-    selectAllRows('categories', 'id,name', q => q.eq('user_id', currentUser.id).order('name')),
+    loadCategoryRows(),
     selectAllRows('folders', 'id,name', q => q.eq('user_id', currentUser.id).order('name')),
     selectAllRows('folder_recipes', 'folder_id,recipe_id'),
     selectAllRows('favorites', 'recipe_id', q => q.eq('user_id', currentUser.id)),
@@ -117,6 +127,7 @@ async function loadDatabaseState() {
     favs = favoritesRes.data || [],
     prof = profileRes.data;
   categories = cs.map(c => c.name);
+  categoryKeywords = Object.fromEntries(cs.map(c => [c.name, Array.isArray(c.keywords) ? c.keywords : []]));
   const catMap = Object.fromEntries(cs.map(c => [c.id, c.name]));
   recipes = rs.map(r => ({
     id: r.id,

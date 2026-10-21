@@ -193,7 +193,8 @@ function parseRecipeBlock(block) {
     else steps.push(l);
   }
   // No bereiding in de bron? Laat steps leeg. Nooit ingrediënten verzinnen als bereiding.
-  return { title: title || 'Onbenoemd recept', ingredients, steps, yield: yieldText, category: 'Eigen recepten' };
+  const name = title || 'Onbenoemd recept';
+  return { title: name, ingredients, steps, yield: yieldText, category: importCategory(name, '') };
 }
 
 function splitRecipeText(text) {
@@ -249,13 +250,23 @@ async function callAiImport(body) {
   return Array.isArray(result?.recipes) ? result.recipes : [];
 }
 
+// Categorie van een geïmporteerd recept: eerst de trefwoorden van de chef, anders de keuze van de AI
+// (alleen als die in de eigen lijst staat). De chef ziet het resultaat altijd vóór opslaan.
+function importCategory(title, aiCategory) {
+  const byKeyword = suggestCategory(title);
+  if (byKeyword) return byKeyword.category;
+  const ai = String(aiCategory || '').trim();
+  return categories.includes(ai) ? ai : 'Eigen recepten';
+}
+
 function normalizeAiRecipe(r, extra) {
+  const title = String(r.title || 'Onbenoemd recept').trim();
   return {
-    title: String(r.title || 'Onbenoemd recept').trim(),
+    title,
     ingredients: Array.isArray(r.ingredients) ? r.ingredients.map(String).filter(Boolean) : [],
     steps: Array.isArray(r.steps) ? r.steps.map(String).filter(Boolean) : [],
     yield: String(r.yield || '').trim(),
-    category: String(r.category || 'Eigen recepten').trim(),
+    category: importCategory(title, r.category),
     _needsReview: Boolean(r.needs_review),
     ...extra
   };

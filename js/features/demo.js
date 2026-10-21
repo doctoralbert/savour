@@ -5,6 +5,13 @@ function startDemo() {
   currentUser = { id: 'demo-user', email: 'demo@savour.local' };
   account = { name: 'Demo', role: 'Demo account', email: 'demo@savour.local', photo: '' };
   categories = ['Basisbereidingen', 'Sauzen', 'Garde', 'Patisserie', 'Vis', 'Vlees'];
+  categoryKeywords = {
+    Basisbereidingen: ['fond', 'olie', 'fermentatie', 'gel'],
+    Sauzen: ['saus', 'jus', 'beurre', 'hollandaise', 'vinaigrette', 'glaze'],
+    Patisserie: ['ijs', 'sorbet', 'mousse', 'bavarois', 'crémeux'],
+    Vis: ['vis', 'garnalen', 'bisque', 'dashi'],
+    Vlees: ['eend', 'kalf', 'veau']
+  };
   const letters = recipeLetters();
   const extras = [
     'Beurre blanc',

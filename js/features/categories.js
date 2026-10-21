@@ -8,7 +8,13 @@ function renderCategories() {
     ? categories
         .map(
           c =>
-            `<div class="category-page-item"><div><b>${esc(c)}</b><small>${recipes.filter(r => r.category === c).length} recepten</small></div><div style="display:flex;gap:7px"><button class="btn small" onclick="renameCategory('${escJs(c)}')">Naam wijzigen</button><button class="btn small delete-recipe" onclick="removeCategory('${escJs(c)}')">Verwijderen</button></div></div>`
+            `<div class="category-page-item"><div><b>${esc(c)}</b><small>${recipes.filter(r => r.category === c).length} recepten</small>${
+              keywordsOf(c).length
+                ? `<div class="category-keywords" translate="no">${keywordsOf(c)
+                    .map(k => `<span>${esc(k)}</span>`)
+                    .join('')}</div>`
+                : '<small class="category-keywords-empty">Geen trefwoorden</small>'
+            }</div><div class="category-page-actions"><button class="btn small" onclick="editCategoryKeywords('${escJs(c)}')">Trefwoorden</button><button class="btn small" onclick="renameCategory('${escJs(c)}')">Naam wijzigen</button><button class="btn small delete-recipe" onclick="removeCategory('${escJs(c)}')">Verwijderen</button></div></div>`
         )
         .join('')
     : `<div class="empty">Nog geen categorieën. Voeg je eerste categorie toe.</div>`;
