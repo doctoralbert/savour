@@ -14,14 +14,16 @@ async function applySubscription(sub, userId) {
   const item = sub.items?.data?.[0];
   // Nieuwere Stripe-versies zetten de periode op het abonnementsitem, oudere op het abonnement zelf.
   const periodEnd = sub.current_period_end ?? item?.current_period_end;
+  // Opzeggen: oudere Stripe-versies zetten cancel_at_period_end, nieuwere vullen cancel_at (de einddatum).
+  const endsAt = sub.cancel_at || (sub.cancel_at_period_end ? periodEnd : null);
   await upsertSubscription({
     user_id: userId,
     status: sub.status,
     plan: planForPrice(item?.price?.id) || 'month',
     stripe_customer_id: sub.customer,
     stripe_subscription_id: sub.id,
-    current_period_end: periodEnd ? new Date(periodEnd * 1000).toISOString() : null,
-    cancel_at_period_end: !!sub.cancel_at_period_end
+    current_period_end: endsAt || periodEnd ? new Date((endsAt || periodEnd) * 1000).toISOString() : null,
+    cancel_at_period_end: !!endsAt
   });
 }
 
