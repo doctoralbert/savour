@@ -16,6 +16,42 @@ function extractOutputText(data) {
   return parts.join('');
 }
 
+// Vergelijkt twee losse lezingen van dezelfde foto. Een regel met dezelfde woorden maar andere getallen
+// ("95 eigeel" tegenover "90 eigeel") komt bij unclear, met beide lezingen, zodat de chef kiest.
+const numbersOf = line => (String(line).match(/\d+(?:[.,]\d+)?/g) || []).join(' ');
+const wordsOf = line =>
+  String(line)
+    .toLowerCase()
+    .replace(/\d+(?:[.,]\d+)?/g, '')
+    .replace(/[^a-zà-ÿ]+/g, ' ')
+    .trim();
+
+export function crossCheckNumbers(a, b) {
+  (a?.recipes || []).forEach((ra, i) => {
+    const rb = (b?.recipes || [])[i];
+    if (!rb) return;
+    // Regels met dezelfde woorden (bijv. twee keer "suiker") koppelen we op volgorde.
+    const otherByWords = new Map();
+    for (const o of [...(rb.ingredients || []), ...(rb.steps || [])])
+      otherByWords.set(wordsOf(o), [...(otherByWords.get(wordsOf(o)) || []), o]);
+    const seen = new Map();
+    const doubts = [];
+    for (const line of [...(ra.ingredients || []), ...(ra.steps || [])]) {
+      const key = wordsOf(line);
+      const nth = seen.get(key) || 0;
+      seen.set(key, nth + 1);
+      const numbers = numbersOf(line);
+      if (!numbers) continue;
+      const match = (otherByWords.get(key) || [])[nth];
+      if (match && numbersOf(match) !== numbers) doubts.push(`${line} (of: ${match})`);
+    }
+    if (doubts.length) {
+      ra.unclear = [...new Set([...doubts, ...(ra.unclear || [])])];
+      ra.needs_review = true;
+    }
+  });
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const user = await getUserFromRequest(req);
@@ -83,7 +119,7 @@ ABSOLUTE REGELS:
 - Behoud kwalitatieve hoeveelheden letterlijk, zoals 'naar smaak', 'scheutje', 'snuf', 'mespunt', 'naar behoefte' en 'eventueel'.
 - Corrigeer alleen duidelijke OCR-/uitleesfouten wanneer de bedoelde tekst met hoge zekerheid uit de context blijkt. Bij twijfel: behoud de bron en zet needs_review op true.
 - Lees onduidelijk handschrift met professionele keukenkennis: denk aan kruiden (zoals lavas, kervel, dragon), technieken en producten die in een recept voor de hand liggen. Verzin nooit een woord dat er niet staat.
-- Zet in unclear elk stuk tekst dat je niet met zekerheid kunt lezen, precies zoals je het nu leest (bijvoorbeeld "zeven in liddes"), zodat de chef het kan controleren. Neem die tekst ook gewoon op in de ingrediënten of stappen. Laat unclear leeg als alles goed leesbaar is.
+- Zet in unclear elk stuk tekst dat je niet met zekerheid kunt lezen, precies zoals je het nu leest (bijvoorbeeld "zeven in liddes"), zodat de chef het kan controleren. Zet er géén gewone, goed leesbare woorden of vaktermen in (zoals "kloppen" of "pâte à bombe"): alleen echte twijfel. Neem die tekst ook gewoon op in de ingrediënten of stappen. Laat unclear leeg als alles goed leesbaar is.
 - Staan er bij de ingrediënten meerdere kolommen met hoeveelheden voor verschillende batchgroottes (bijvoorbeeld een basiskolom en een kolom onder "6x"), controleer dan of elke waarde in de extra kolom precies de basiswaarde maal dezelfde factor is. Zo ja: gebruik alleen de basiskolom en laat de extra kolom helemaal weg (Savour rekent zelf om); zet de factor niet in yield. Zo nee: behoud beide hoeveelheden letterlijk in de ingrediëntregel en zet needs_review op true.
 - Een foto kan gedraaid zijn (op zijn kant of ondersteboven); lees de tekst in de juiste richting. Geef in rotation hoeveel graden de afbeelding met de klok mee gedraaid moet worden om de tekst rechtop te lezen (0, 90, 180 of 270). Bij een tekstbron zonder afbeelding: 0. Werkwijze kan ook in de kantlijn, naast accolades of met pijlen bij de ingrediënten staan: neem die op als stappen.
 - Zet incomplete: true alleen als de tekst van dát recept zelf zichtbaar doorloopt buiten de bron: een regel die is afgesneden aan de rand van de foto of pagina, of een ingrediëntenlijst die halverwege ophoudt. Neem op wat leesbaar is. Twijfel je, zet dan incomplete: false en needs_review: true.
@@ -160,29 +196,38 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
     const attempts = hasImage
       ? [{ model: 'gpt-5.6-terra', reasoning: { effort: 'medium' } }, { model: 'gpt-5.6-luna' }]
       : [{ model: 'gpt-5.6-luna' }];
-    let response;
-    let data;
-    for (const attempt of attempts) {
-      response = await fetch('https://api.openai.com/v1/responses', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...attempt, ...payload })
-      });
-      data = await response.json();
-      const modelProblem =
-        !response.ok && /model|reasoning/i.test(data?.error?.message || '') && response.status === 400;
-      const unavailable = !response.ok && (response.status === 404 || modelProblem);
-      if (!unavailable) break;
-      console.warn('AI-model niet beschikbaar, volgende proberen:', attempt.model, data?.error?.message);
-    }
-    if (!response.ok) return res.status(response.status).json({ error: data?.error?.message || 'AI-import mislukt.' });
-    const output = extractOutputText(data);
-    let parsed;
-    try {
-      parsed = JSON.parse(output);
-    } catch {
-      return res.status(502).json({ error: 'De AI gaf geen geldig receptresultaat terug.' });
-    }
+    const readOnce = async () => {
+      let response;
+      let data;
+      for (const attempt of attempts) {
+        response = await fetch('https://api.openai.com/v1/responses', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...attempt, ...payload })
+        });
+        data = await response.json();
+        const modelProblem =
+          !response.ok && /model|reasoning/i.test(data?.error?.message || '') && response.status === 400;
+        const unavailable = !response.ok && (response.status === 404 || modelProblem);
+        if (!unavailable) break;
+        console.warn('AI-model niet beschikbaar, volgende proberen:', attempt.model, data?.error?.message);
+      }
+      if (!response.ok) return { status: response.status, error: data?.error?.message || 'AI-import mislukt.' };
+      try {
+        return { parsed: JSON.parse(extractOutputText(data)), model: data?.model || '' };
+      } catch {
+        return { status: 502, error: 'De AI gaf geen geldig receptresultaat terug.' };
+      }
+    };
+
+    // Foto's worden twee keer los van elkaar gelezen (tegelijk). Lezen ze een getal verschillend, dan komt
+    // die regel bij "niet goed leesbaar": zo vangen we leesfouten die de AI zelf niet opmerkt.
+    const [first, second] = await Promise.all(hasImage ? [readOnce(), readOnce()] : [readOnce()]);
+    const main = first.parsed ? first : second?.parsed ? second : first;
+    if (!main.parsed) return res.status(main.status || 500).json({ error: main.error });
+    const parsed = main.parsed;
+    const check = main === first ? second : first;
+    if (check?.parsed) crossCheckNumbers(parsed, check.parsed);
     // Pas tellen als de AI echt iets heeft opgeleverd.
     let used = allowance.used + 1;
     try {
@@ -191,7 +236,7 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
       console.error('AI-teller', error);
     }
     // Het gebruikte model gaat mee, zodat de chef (en wij) zien waarmee de foto is gelezen.
-    return res.status(200).json({ ...parsed, model: data?.model || '', usage: { used, limit: allowance.limit } });
+    return res.status(200).json({ ...parsed, model: main.model, usage: { used, limit: allowance.limit } });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: error?.message || 'AI-import mislukt.' });
