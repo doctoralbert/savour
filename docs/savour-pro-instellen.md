@@ -29,6 +29,12 @@ Jezelf Pro geven zonder te betalen (als eigenaar, of om te testen): zie de opdra
    - € 29 per jaar (terugkerend)
 
    Noteer van elke prijs het **prijs-ID** (begint met `price_`).
+
+   Testomgeving (sandbox), aangemaakt op 21-10-2026:
+   - maand (€ 2,99): `price_1USwQJFnfKM1E6tPc506WvqG` → `STRIPE_PRICE_MONTH`
+   - jaar (€ 29): `price_1USwQJFnfKM1E6tPTcHR5NMm` → `STRIPE_PRICE_YEAR`
+
+   Bij live gaan maak je de prijzen opnieuw aan in live; die krijgen andere ID's.
 4. **Settings → Payment methods**: zet iDEAL, kaarten, Apple Pay, Google Pay en (optioneel) PayPal aan.
    iDEAL werkt bij een abonnement voor de eerste betaling; daarna incasseert Stripe automatisch via SEPA.
 5. **Settings → Billing → Customer portal**: zet aan dat klanten kunnen opzeggen, hun betaalmethode
