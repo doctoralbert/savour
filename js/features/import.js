@@ -140,16 +140,37 @@ async function extractImportText(file) {
 // ---- Bestanden omzetten naar regels voor de lezer ----
 
 // Word-HTML naar regels: koppen worden "# naam" (receptgrens), tabelrijen één regel, opsommingen "- ".
+// Een volledig vetgedrukte korte regel is in receptenboeken vrijwel altijd een receptnaam en telt ook als kop,
+// behalve kopjes als "Ingrediënten", "Voor de saus" of "Bereiding:".
 function htmlToRecipeText(html) {
   const doc = new DOMParser().parseFromString(`<div>${html}</div>`, 'text/html');
   const lines = [];
   const text = el => el.textContent.replace(/\s+/g, ' ').trim();
+  const isBoldTitle = el => {
+    const t = text(el);
+    // Word knipt vette tekst vaak in stukjes: vergelijk zonder spaties.
+    const bold = [...el.querySelectorAll('strong, b')].map(b => b.textContent).join('');
+    return (
+      t &&
+      bold.replace(/\s+/g, '') === t.replace(/\s+/g, '') &&
+      t.length <= 80 &&
+      (!/[.!?:;,]$/.test(t) || (READER_NUMBERED_TITLE.test(t) && /[^.]\.$/.test(t))) &&
+      !/^voor\s/i.test(t) &&
+      !readerIsHeading(t) &&
+      !readerIsIngredientLine(t)
+    );
+  };
   const walk = node => {
     for (const el of node.children) {
       const tag = el.tagName.toLowerCase();
       if (/^h[1-3]$/.test(tag)) lines.push('', `# ${text(el)}`);
       else if (/^h[4-6]$/.test(tag)) lines.push(text(el));
-      else if (tag === 'p') lines.push(text(el));
+      else if (tag === 'p' && isBoldTitle(el)) lines.push('', `# ${text(el)}`);
+      else if (tag === 'p' && el.querySelector('br')) {
+        // Zachte regeleinden (Shift+Enter) zijn echte regels: anders plakken twee recepten aan elkaar.
+        el.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
+        lines.push(...el.textContent.split('\n').map(l => l.replace(/\s+/g, ' ').trim()));
+      } else if (tag === 'p') lines.push(text(el));
       else if (tag === 'li') lines.push(`- ${text(el)}`);
       else if (tag === 'tr') lines.push([...el.children].map(text).filter(Boolean).join(' '));
       else if (/^(ul|ol|table|thead|tbody|div|blockquote)$/.test(tag)) walk(el);

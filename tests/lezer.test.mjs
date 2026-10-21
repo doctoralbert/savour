@@ -108,7 +108,47 @@ Stap 2: Leg dakpansgewijs in de pan met boter.`,
 olijfolie
 zout
 Pof de sjalotten 40 minuten op 180 graden.`,
-    expect: [{ t: 'Gepofte sjalotten', i: ['8 sjalotten', 'olijfolie', 'zout'], s: 1, c: 'medium' }]
+    expect: [{ t: 'Gepofte sjalotten', i: ['8 sjalotten', 'olijfolie', 'zout'], s: 1, c: 'high' }]
+  },
+  {
+    name: 'Receptenboek: genummerde namen zonder spatie en zonder witregels',
+    text: `2.Aardappel crème
+200 gram bintjes
+2 deciliter room
+1 takje tijm
+aardappels koken, room met kruiden trekken, doorwrijven
+135.Aardappel mousseline
+1000 gram droge aardappelpuree
+100 gram melk
+488.Algenpoeder crumble.
+1 kilo panko
+100 gram algenpoeder
+Panko frituren in olie.
+598.Roseval gepoft
+Was de Roseval en dep deze droog.`,
+    expect: [
+      // Stap zonder punt: de lezer kan die niet zeker van een ingrediënt onderscheiden, dus twijfel.
+      { t: 'Aardappel crème', c: 'low' },
+      { t: 'Aardappel mousseline', i: ['1000 gram droge aardappelpuree', '100 gram melk'], s: 0, c: 'high' },
+      { t: 'Algenpoeder crumble', i: ['1 kilo panko', '100 gram algenpoeder'], s: 1, c: 'high' },
+      { t: 'Roseval gepoft', i: [], s: 1, c: 'low' }
+    ]
+  },
+  {
+    name: 'Zonder kopjes: korte stap zonder punt is twijfel, geen zeker ingrediënt',
+    text: `Passievrucht coulis
+500 gram passievrucht pulp
+100 gram suiker
+Alles koud mengen`,
+    expect: [{ t: 'Passievrucht coulis', c: 'low' }]
+  },
+  {
+    name: 'Zonder kopjes: lange zin die met een product begint is geen ingrediënt',
+    text: `Gemarineerde olijven
+1000 gram olijven
+50 gram knoflook
+Olie kruiden en pepers in robokook draaien. Alles zonder vocht mengen en 1 nacht marineren`,
+    expect: [{ t: 'Gemarineerde olijven', i: ['1000 gram olijven', '50 gram knoflook'], s: 1, c: 'high' }]
   },
   {
     name: 'Zonder kopjes: zin die met een product begint is bereiding',

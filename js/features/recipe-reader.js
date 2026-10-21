@@ -28,6 +28,8 @@ const READER_QUALITATIVE =
   /^(?:snufje|snuf|scheutje|scheut|mespunt(?:je)?|handje|handvol|beetje|wat|een paar|enkele|naar smaak|zout|peper|zout en peper|peper en zout|olie|olijfolie|boter|suiker|water|bloem)\b|\b(?:naar smaak|naar behoefte|eventueel|optioneel)\)?\.?$/i;
 const READER_BULLET = /^[-–•*·▪◦●]\s*/;
 const READER_STEP_NUMBER = /^(?:stap\s*\d+\s*[:.)-]?|\d+\s*[.)]\s+(?=\D))\s*/i;
+// Genummerde receptnaam zonder spatie, zoals koks die in een receptenboek zetten: "211.Aardappel crème".
+const READER_NUMBERED_TITLE = /^\d{1,4}\.(?=\p{L})/u;
 
 // ---- Kleine hulpfuncties ----
 
@@ -72,10 +74,19 @@ function readerLooksLikeSentence(line) {
 // ("zout naar smaak"), en is geen zin.
 function readerIsIngredientLine(line) {
   const x = line.replace(READER_BULLET, '');
-  if (!x || READER_STEP_NUMBER.test(line)) return false;
+  if (!x || READER_STEP_NUMBER.test(line) || READER_NUMBERED_TITLE.test(x)) return false;
   // Een zin is bereiding ("Boter smelten in een pan."), behalve iets korts als "250 g boter.".
   if (/[.!?]$/.test(x) && !(READER_STARTS_WITH_QTY.test(x) && x.length <= 30)) return false;
-  return READER_BULLET.test(line) || READER_STARTS_WITH_QTY.test(x) || READER_QUALITATIVE.test(x);
+  if (READER_BULLET.test(line) || READER_STARTS_WITH_QTY.test(x)) return true;
+  // "Olie kruiden en pepers in robokook draaien. Alles mengen…" begint met een ingrediënt, maar is een stap.
+  return READER_QUALITATIVE.test(x) && x.length <= 50 && !/[.!?]\s/.test(x);
+}
+
+// Regel zonder hoeveelheid die op een werkwoord lijkt: "Alles koud mengen", "Mixen met staafmixer",
+// "Opkoken tot 116C". Zonder kopjes kan de lezer dan niet zeker zijn dat het een ingrediënt is.
+function readerLooksLikeStepStart(line) {
+  const first = line.replace(READER_BULLET, '').split(/\s+/)[0].toLowerCase();
+  return !READER_STARTS_WITH_QTY.test(line) && (first === 'alles' || (first.length >= 5 && /en$/.test(first)));
 }
 
 function readerYieldFrom(line) {
@@ -96,6 +107,7 @@ function cleanBatchTitle(t) {
     .replace(/^(?:recept|recipe)\s*[:#-]\s*/i, '')
     .replace(/^\d+\s*[.)-]\s*/, '')
     .replace(/^[-–•*]\s*/, '')
+    .replace(/([^.])\.$/, '$1')
     .trim();
 }
 
@@ -105,7 +117,8 @@ function readerLooksLikeTitle(line) {
   if (!x || x.length > 80 || x.length < 2) return false;
   if (readerIsHeading(x) || READER_META_LINE.test(x) || readerYieldFrom(x)) return false;
   if (/^#{1,3}\s+\S/.test(x)) return true;
-  if (/[.!?;,:]$/.test(x)) return false;
+  // "488.Algenpoeder crumble." : een genummerde naam met een punt erachter is nog steeds een naam.
+  if (/[.!?;,:]$/.test(x) && !(READER_NUMBERED_TITLE.test(x) && x.length <= 60 && /[^.]\.$/.test(x))) return false;
   return !readerIsIngredientLine(x);
 }
 
@@ -137,6 +150,7 @@ function parseRecipeBlock(block) {
   const intro = [];
   const hasIngredientsHeading = rest.some(l => READER_INGREDIENTS_HEADING.test(l));
   const hasStepsHeading = rest.some(l => READER_STEPS_HEADING.test(l));
+  let cleanWithoutHeadings = false;
 
   if (hasIngredientsHeading || hasStepsHeading) {
     // Met kopjes: de kopjes bepalen waar alles hoort.
@@ -182,6 +196,15 @@ function parseRecipeBlock(block) {
     });
     // Korte regels direct na het laatste ingrediënt ("olijfolie", "zout") horen er nog bij.
     while (kinds[lastIngredient + 1] === 'short') lastIngredient++;
+    // Zeker zonder kopjes: bovenaan alleen ingrediënten, en elke korte regel daartussen is duidelijk
+    // een ingrediënt ("bieslook", "zout en peper"), geen stap zonder punt ("aardappels koken, afgieten").
+    cleanWithoutHeadings = rest.every(
+      (l, i) =>
+        i > lastIngredient ||
+        kinds[i] === 'yield' ||
+        (!readerLooksLikeStepStart(l) &&
+          (kinds[i] === 'ingredient' || (kinds[i] === 'short' && !l.includes(',') && l.split(/\s+/).length <= 4)))
+    );
     rest.forEach((l, i) => {
       const k = kinds[i];
       if (k === 'yield' && !yieldText) yieldText = readerYieldFrom(l);
@@ -195,7 +218,7 @@ function parseRecipeBlock(block) {
   // Inleiding en notities (bijv. "Oven: 180 °C") gaan voorop in de bereiding, zodat niets verloren gaat.
   const allSteps = [...intro, ...steps].filter(Boolean);
   const name = title || 'Onbenoemd recept';
-  const structured = hasIngredientsHeading || hasStepsHeading;
+  const structured = hasIngredientsHeading || hasStepsHeading || cleanWithoutHeadings;
   const confidence = !ingredients.length ? 'low' : structured ? 'high' : allSteps.length ? 'medium' : 'low';
   // source: de oorspronkelijke regels, zodat Savour alleen twijfelgevallen opnieuw (met AI) kan laten lezen.
   return {
@@ -248,8 +271,15 @@ function splitRecipeText(text) {
       readerLooksLikeTitle(l) &&
       (readerIsIngredientLine(next) || readerYieldFrom(next) || READER_INGREDIENTS_HEADING.test(next));
     const repeatedIngredientsHeading = READER_INGREDIENTS_HEADING.test(l) && state.inSteps && state.steps > 0;
+    // Vanaf nummer 10 ook als er direct bereiding volgt ("598.Roseval gepoft" + "Was de Roseval…"):
+    // stappen zonder spatie na het nummer ("1.Snijd de ui") komen zelden zo ver.
+    const numberedTitle =
+      READER_NUMBERED_TITLE.test(l) &&
+      readerLooksLikeTitle(l) &&
+      (readerIsIngredientLine(next) || READER_INGREDIENTS_HEADING.test(next) || (hasContent && parseInt(l, 10) >= 10));
     // Zonder inhoud (bijv. receptnaam + ondertitel vóór "Ingrediënten") splitsen we niet: de eerste regel blijft de naam.
-    if (current.length && (isDocHeading || titleAfterMethod || (titleBeforeIngredients && hasContent))) start();
+    if (current.length && (isDocHeading || numberedTitle || titleAfterMethod || (titleBeforeIngredients && hasContent)))
+      start();
     else if (repeatedIngredientsHeading) {
       start();
       current.push('Onbenoemd recept');
