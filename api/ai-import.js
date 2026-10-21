@@ -96,10 +96,10 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
 
     const content = [{ type: 'input_text', text: instruction }];
     if (hasText) content.push({ type: 'input_text', text: `\nBRONTEKST:\n${text}` });
-    if (hasImage) content.push({ type: 'input_image', image_url: image });
+    // Hoge resolutie: handschrift op een foto leest de AI dan veel beter.
+    if (hasImage) content.push({ type: 'input_image', image_url: image, detail: 'high' });
 
     const payload = {
-      model: 'gpt-5.6-luna',
       input: [{ role: 'user', content }],
       text: {
         format: {
@@ -144,12 +144,26 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
       }
     };
 
-    const response = await fetch('https://api.openai.com/v1/responses', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    const data = await response.json();
+    // Foto's en scans (handschrift, gedraaid, werkwijze in de kantlijn) naar het zwaardere model met meer
+    // denktijd; tekst naar het lichte model. Is een model niet beschikbaar, dan het volgende proberen.
+    const attempts = hasImage
+      ? [{ model: 'gpt-5.6-terra', reasoning: { effort: 'medium' } }, { model: 'gpt-5.6-luna' }]
+      : [{ model: 'gpt-5.6-luna' }];
+    let response;
+    let data;
+    for (const attempt of attempts) {
+      response = await fetch('https://api.openai.com/v1/responses', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...attempt, ...payload })
+      });
+      data = await response.json();
+      const modelProblem =
+        !response.ok && /model|reasoning/i.test(data?.error?.message || '') && response.status === 400;
+      const unavailable = !response.ok && (response.status === 404 || modelProblem);
+      if (!unavailable) break;
+      console.warn('AI-model niet beschikbaar, volgende proberen:', attempt.model, data?.error?.message);
+    }
     if (!response.ok) return res.status(response.status).json({ error: data?.error?.message || 'AI-import mislukt.' });
     const output = extractOutputText(data);
     let parsed;
