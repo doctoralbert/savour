@@ -423,9 +423,29 @@
 .landing-hero.landing-hero-v55 {
   max-width: 1180px !important;
 }
-.landing-platform-section.landing-platform-v55 {
-  grid-template-columns: minmax(0, 1fr) !important;
-  max-width: 860px;
+/* "Overal beschikbaar" staat compact onder de demo-knop, in hetzelfde eerste beeld. */
+.landing-hero-platform {
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 1px solid var(--sv-line);
+}
+.landing-hero-platform h2 {
+  margin: 6px 0 8px;
+  font-family: var(--sv-font-display);
+  font-size: 22px;
+  line-height: 1.2;
+}
+.landing-hero.landing-hero-v55 .landing-hero-platform p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.landing-hero-platform .landing-platform-points {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 18px;
+  margin-top: 12px;
+  font-size: 13px;
 }
 .landing-hero-phone {
   display: flex;
@@ -443,8 +463,12 @@
     margin: 10px 0 18px;
   }
   .landing-hero-v55 p {
-    font-size: 16px;
-    line-height: 1.65;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0 0 10px;
+  }
+  .landing-hero-v55 .landing-demo-cta {
+    margin-top: 14px;
   }
   .landing-hero-v55 .landing-hero-phone .landing-phone {
     width: 280px;
