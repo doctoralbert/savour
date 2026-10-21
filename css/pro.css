@@ -133,6 +133,71 @@
   flex: 0 0 auto;
 }
 
+/* ---- Kleine Pro-melding in Alle recepten ---- */
+.recipe-pro-hint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sv-space-1) var(--sv-space-3);
+  margin: 0 0 var(--sv-space-3);
+  padding: var(--sv-space-2) var(--sv-space-3);
+  border: 1px solid color-mix(in srgb, var(--sv-gold) 45%, transparent);
+  border-radius: var(--sv-radius);
+  background: color-mix(in srgb, var(--sv-gold) 7%, transparent);
+  font-size: var(--sv-fs-sm);
+}
+.recipe-pro-hint b {
+  color: var(--sv-gold);
+  white-space: nowrap;
+}
+.recipe-pro-hint b::before {
+  content: '✦ ';
+}
+.recipe-pro-hint span {
+  flex: 1 1 260px;
+  color: var(--sv-text-2);
+}
+.recipe-pro-hint small {
+  color: var(--sv-text-3, var(--sv-text-2));
+  white-space: nowrap;
+}
+.recipe-pro-hint .btn {
+  flex: 0 0 auto;
+}
+.recipe-pro-hint-close {
+  flex: 0 0 auto;
+  border: 0;
+  background: none;
+  color: var(--sv-text-2);
+  font-size: 20px;
+  line-height: 1;
+  padding: 2px 4px;
+  cursor: pointer;
+}
+.recipe-pro-hint-close:hover {
+  color: var(--sv-text);
+}
+/* Smal scherm: titel en × bovenaan, tekst eronder, dan teller en knop. */
+@media (max-width: 900px) {
+  .recipe-pro-hint b {
+    flex: 1 1 auto;
+  }
+  .recipe-pro-hint-close {
+    order: 1;
+  }
+  .recipe-pro-hint span {
+    order: 2;
+    flex-basis: 100%;
+  }
+  .recipe-pro-hint small {
+    order: 3;
+    flex: 1 1 auto;
+  }
+  .recipe-pro-hint .btn {
+    order: 4;
+  }
+}
+
 /* ---- Importscherm ---- */
 .import-plan {
   display: flex;

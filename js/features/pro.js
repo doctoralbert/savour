@@ -403,6 +403,38 @@ async function removeTeamMember(email) {
   renderPlanSettings();
 }
 
+// ---- Kleine Pro-melding boven het alfabet in Alle recepten (alleen gratis en proefperiode) ----
+// Wegklikken verbergt hem een week (per apparaat).
+
+const PRO_HINT_KEY = 'savour_pro_hint_hidden';
+
+function renderRecipeProHint() {
+  const host = $('recipeProHint');
+  if (!host) return;
+  let hiddenAt = 0;
+  try {
+    hiddenAt = Number(localStorage.getItem(PRO_HINT_KEY)) || 0;
+  } catch {}
+  const show = !demoMode && !savourPlan.unlimited && Date.now() - hiddenAt > 7 * 86400000;
+  if (!show) {
+    host.innerHTML = '';
+    return;
+  }
+  const daysLeft = savourPlan.trialEnd ? Math.max(1, Math.ceil((savourPlan.trialEnd - Date.now()) / 86400000)) : 0;
+  const title =
+    savourPlan.source === 'trial'
+      ? `Savour Pro · nog ${daysLeft} ${daysLeft === 1 ? 'dag' : 'dagen'} gratis`
+      : 'Savour Pro';
+  host.innerHTML = `<div class="recipe-pro-hint"><b>${title}</b><span>Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.</span><small>${recipes.length} van ${savourPlan.recipeLimit} recepten</small><button class="btn small gold" onclick="openPublicInfo('pro')">Bekijk Savour Pro</button><button class="recipe-pro-hint-close" aria-label="Verbergen" title="Verbergen" onclick="hideRecipeProHint()">×</button></div>`;
+}
+
+function hideRecipeProHint() {
+  try {
+    localStorage.setItem(PRO_HINT_KEY, String(Date.now()));
+  } catch {}
+  $('recipeProHint').innerHTML = '';
+}
+
 // ---- Melding bovenaan het importscherm ----
 
 function renderImportPlanNotice() {

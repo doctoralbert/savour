@@ -1466,6 +1466,13 @@ export const strings = [
   ['Een gedeelde map maken is Savour Pro', 'Creating a shared folder is Savour Pro', 'Geteilte Ordner erstellen ist Savour Pro', 'Crear una carpeta compartida es Savour Pro'],
   ['Bekijk Savour Pro', 'View Savour Pro', 'Savour Pro ansehen', 'Ver Savour Pro'],
   [
+    "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.",
+    'Unlimited recipes, AI that reads your notes and photos, and shared folders for your team.',
+    'Unbegrenzt Rezepte, KI, die deine Notizen und Fotos liest, und geteilte Ordner für dein Team.',
+    'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
+  ],
+  ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  [
     'Savour Pro is voor jou kosteloos geactiveerd.',
     'Savour Pro has been activated for you free of charge.',
     'Savour Pro wurde für dich kostenlos aktiviert.',
@@ -3251,6 +3258,9 @@ export const patterns = [
     'Word, PDF und Text liest du kostenlos ein (noch $1 von $2 Rezepten in deinem kostenlosen Konto). Fotos, handschriftliche und gescannte Rezepte liest die KI: nur in Savour Pro.',
     'Importas Word, PDF y texto gratis (te quedan $1 de $2 recetas en tu cuenta gratuita). Las fotos y recetas manuscritas o escaneadas las lee la IA: solo en Savour Pro.'
   ],
+  ['^(\\d+) van (\\d+) recepten$', '$1 of $2 recipes', '$1 von $2 Rezepten', '$1 de $2 recetas'],
+  ['^Savour Pro · nog 1 dag gratis$', 'Savour Pro · 1 free day left', 'Savour Pro · noch 1 Tag kostenlos', 'Savour Pro · queda 1 día gratis'],
+  ['^Savour Pro · nog (\\d+) dagen gratis$', 'Savour Pro · $1 free days left', 'Savour Pro · noch $1 Tage kostenlos', 'Savour Pro · quedan $1 días gratis'],
   ['^Je gratis account bewaart tot (\\d+) recepten$', 'Your free account stores up to $1 recipes', 'Dein kostenloses Konto speichert bis zu $1 Rezepte', 'Tu cuenta gratuita guarda hasta $1 recetas'],
   ['^In de proefperiode bewaar je tot (\\d+) recepten$', 'During the trial you store up to $1 recipes', 'In der Testphase speicherst du bis zu $1 Rezepte', 'Durante la prueba guardas hasta $1 recetas'],
   [

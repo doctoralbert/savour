@@ -566,6 +566,9 @@ window.SAVOUR_I18N.de = {
     'Plek kon niet worden vrijgegeven.': 'Platz konnte nicht freigegeben werden.',
     'Een gedeelde map maken is Savour Pro': 'Geteilte Ordner erstellen ist Savour Pro',
     'Bekijk Savour Pro': 'Savour Pro ansehen',
+    "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
+      'Unbegrenzt Rezepte, KI, die deine Notizen und Fotos liest, und geteilte Ordner für dein Team.',
+    Verbergen: 'Ausblenden',
     'Savour Pro is voor jou kosteloos geactiveerd.': 'Savour Pro wurde für dich kostenlos aktiviert.',
     "Alles van Savour, met de Savour-lezer voor Word, PDF en tekst. AI-import (foto's, handgeschreven en gescande recepten) zit in Savour Pro.":
       'Alles von Savour, mit dem Savour-Leser für Word, PDF und Text. KI-Import (Fotos, handschriftliche und gescannte Rezepte) ist Teil von Savour Pro.',
@@ -1157,6 +1160,9 @@ window.SAVOUR_I18N.de = {
       "^Word, PDF en tekst lees je gratis in \\(nog (\\d+) van (\\d+) recepten in je gratis account\\)\\. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro\\.$",
       'Word, PDF und Text liest du kostenlos ein (noch $1 von $2 Rezepten in deinem kostenlosen Konto). Fotos, handschriftliche und gescannte Rezepte liest die KI: nur in Savour Pro.'
     ],
+    ['^(\\d+) van (\\d+) recepten$', '$1 von $2 Rezepten'],
+    ['^Savour Pro · nog 1 dag gratis$', 'Savour Pro · noch 1 Tag kostenlos'],
+    ['^Savour Pro · nog (\\d+) dagen gratis$', 'Savour Pro · noch $1 Tage kostenlos'],
     ['^Je gratis account bewaart tot (\\d+) recepten$', 'Dein kostenloses Konto speichert bis zu $1 Rezepte'],
     ['^In de proefperiode bewaar je tot (\\d+) recepten$', 'In der Testphase speicherst du bis zu $1 Rezepte'],
     [
