@@ -11,6 +11,13 @@ async function ensureProfile(user) {
       .from('profiles')
       .insert({ id: user.id, email: user.email || '', name, function_title: meta.function_title || 'Chef-kok' });
     if (error) console.error('Profiel kon niet worden aangemaakt:', error);
+    // Nieuw account: start met de standaardcategorieën (alleen als er nog geen enkele categorie is).
+    try {
+      const { data: cats, error: catError } = await loadCategoryRows();
+      if (!catError && !(cats || []).length) await addDefaultCategories([]);
+    } catch (e) {
+      console.error('Standaardcategorieën konden niet worden toegevoegd:', e);
+    }
   }
   // Nieuwe accounts starten leeg. A–Z is een filterfunctie, geen fysieke map.
   // Bestaande oude A t/m Z-mappen blijven in de database staan maar worden in de UI verborgen.

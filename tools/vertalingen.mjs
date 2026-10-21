@@ -1013,6 +1013,31 @@ export const strings = [
     'Según tus palabras clave. Marca lo que quieras cambiar; lo demás se queda como está.'
   ],
   ['Aanpassen', 'Apply', 'Übernehmen', 'Aplicar'],
+  ['Standaardlijst', 'Default list', 'Standardliste', 'Lista estándar'],
+  [
+    'Standaardcategorieën toevoegen?',
+    'Add default categories?',
+    'Standardkategorien hinzufügen?',
+    '¿Añadir categorías estándar?'
+  ],
+  [
+    'Standaardcategorieën toegevoegd',
+    'Default categories added',
+    'Standardkategorien hinzugefügt',
+    'Categorías estándar añadidas'
+  ],
+  [
+    'Standaardcategorieën konden niet worden toegevoegd',
+    'Default categories could not be added',
+    'Standardkategorien konnten nicht hinzugefügt werden',
+    'No se pudieron añadir las categorías estándar'
+  ],
+  [
+    'Je hebt alle standaardcategorieën al',
+    'You already have all default categories',
+    'Du hast bereits alle Standardkategorien',
+    'Ya tienes todas las categorías estándar'
+  ],
   ['Niets geselecteerd', 'Nothing selected', 'Nichts ausgewählt', 'Nada seleccionado'],
   [
     'Geen voorstellen: alle recepten passen al bij hun trefwoorden.',
@@ -2339,6 +2364,24 @@ export const patterns = [
   ['^Recept (\\d+)$', 'Recipe $1', 'Rezept $1', 'Receta $1'],
   ['^Recept (\\d+) verwijderen$', 'Remove recipe $1', 'Rezept $1 entfernen', 'Quitar receta $1'],
   ['^× (.+)$', '× $1', '× $1', '× $1'],
+  [
+    '^Nieuw: (.+?)\\. Krijgen trefwoorden: (.+?)\\. Je eigen categorieën en trefwoorden blijven staan\\.$',
+    'New: $1. Getting keywords: $2. Your own categories and keywords stay as they are.',
+    'Neu: $1. Erhalten Stichwörter: $2. Deine eigenen Kategorien und Stichwörter bleiben erhalten.',
+    'Nuevas: $1. Reciben palabras clave: $2. Tus propias categorías y palabras clave se mantienen.'
+  ],
+  [
+    '^Nieuw: (.+?)\\. Je eigen categorieën en trefwoorden blijven staan\\.$',
+    'New: $1. Your own categories and keywords stay as they are.',
+    'Neu: $1. Deine eigenen Kategorien und Stichwörter bleiben erhalten.',
+    'Nuevas: $1. Tus propias categorías y palabras clave se mantienen.'
+  ],
+  [
+    '^Krijgen trefwoorden: (.+?)\\. Je eigen categorieën en trefwoorden blijven staan\\.$',
+    'Getting keywords: $1. Your own categories and keywords stay as they are.',
+    'Erhalten Stichwörter: $1. Deine eigenen Kategorien und Stichwörter bleiben erhalten.',
+    'Reciben palabras clave: $1. Tus propias categorías y palabras clave se mantienen.'
+  ],
   ['^Trefwoorden voor (.+)$', 'Keywords for $1', 'Stichwörter für $1', 'Palabras clave de $1'],
   [
     '^Voorgesteld op trefwoord “(.+)”$',

@@ -12,6 +12,19 @@ function normalizeForMatch(text) {
     .replace(/[̀-ͯ]/g, '');
 }
 
+// Laatste plek waar het trefwoord echt voorkomt, of -1. Een kort trefwoord (minder dan 5 letters) telt
+// alleen aan het begin of eind van een woord: "ijs" past bij "citroenijs" en "ijstaart", niet bij "rijst".
+function findKeyword(text, keyword) {
+  const isLetter = ch => !!ch && /[a-z0-9]/.test(ch);
+  for (let i = text.lastIndexOf(keyword); i >= 0; i = i ? text.lastIndexOf(keyword, i - 1) : -1) {
+    if (keyword.length >= 5) return i;
+    const atStart = !isLetter(text[i - 1]);
+    const atEnd = !isLetter(text[i + keyword.length]);
+    if (atStart || atEnd) return i;
+  }
+  return -1;
+}
+
 function keywordsOf(category) {
   return (categoryKeywords[category] || []).filter(Boolean);
 }
@@ -28,17 +41,20 @@ function suggestCategory(title) {
   for (const category of categories) {
     let best = null;
     for (const keyword of keywordsOf(category)) {
-      const k = normalizeForMatch(keyword);
-      const inHead = head.lastIndexOf(k);
-      const inName = name.lastIndexOf(k);
+      const k = normalizeForMatch(keyword).trim();
+      if (!k) continue;
+      const inHead = findKeyword(head, k);
+      const inName = findKeyword(name, k);
       if (inName < 0) continue;
       const score = inHead >= 0 ? 100000 + inHead + k.length : inName + k.length;
-      if (!best || score > best.score) best = { category, keyword, score };
+      if (!best || score > best.score || (score === best.score && k.length > best.length))
+        best = { category, keyword, score, length: k.length };
     }
     if (best) hits.push(best);
   }
   if (!hits.length) return null;
-  hits.sort((a, b) => b.score - a.score);
+  // Gelijke stand: het langste (meest specifieke) trefwoord wint, bijv. "ossenhaas" boven "haas".
+  hits.sort((a, b) => b.score - a.score || b.length - a.length);
   const { category, keyword } = hits[0];
   return { category, keyword, conflicts: hits.slice(1).map(h => h.category) };
 }
@@ -81,6 +97,47 @@ async function editCategoryKeywords(category) {
   categoryKeywords[category] = keywords;
   renderCategories();
   toast('Trefwoorden opgeslagen');
+}
+
+// Bestaand account: ontbrekende standaardcategorieën toevoegen, na bevestiging.
+async function offerDefaultCategories() {
+  if (!currentUser) return;
+  const missing = DEFAULT_CATEGORIES.filter(c => !categories.includes(c.name));
+  const emptyKeywords = DEFAULT_CATEGORIES.filter(c => categories.includes(c.name) && !keywordsOf(c.name).length);
+  if (!missing.length && !emptyKeywords.length) {
+    toast('Je hebt alle standaardcategorieën al');
+    return;
+  }
+  const parts = [];
+  if (missing.length) parts.push(`Nieuw: ${missing.map(c => c.name).join(', ')}.`);
+  if (emptyKeywords.length) parts.push(`Krijgen trefwoorden: ${emptyKeywords.map(c => c.name).join(', ')}.`);
+  if (
+    !(await askConfirm(
+      `Standaardcategorieën toevoegen?\n\n${parts.join(' ')} Je eigen categorieën en trefwoorden blijven staan.`,
+      {
+        confirmLabel: 'Toevoegen'
+      }
+    ))
+  )
+    return;
+  if (demoMode) {
+    missing.forEach(c => categories.push(c.name));
+    [...missing, ...emptyKeywords].forEach(c => (categoryKeywords[c.name] = c.keywords.slice()));
+  } else {
+    try {
+      const { data, error } = await loadCategoryRows();
+      if (error) throw error;
+      await addDefaultCategories(data || []);
+      await loadDatabaseState();
+    } catch (e) {
+      console.error(e);
+      toast('Standaardcategorieën konden niet worden toegevoegd');
+      return;
+    }
+  }
+  renderCategories();
+  renderCategoryBar();
+  toast('Standaardcategorieën toegevoegd');
 }
 
 // ---- Nieuw recept: voorstel invullen zolang de chef zelf geen categorie koos ----
