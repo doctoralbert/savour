@@ -106,29 +106,28 @@ async function extractImportText(file) {
   if (name.endsWith('.docx')) {
     if (!window.mammoth) throw new Error('Word-importmodule kon niet worden geladen.');
     const ab = await file.arrayBuffer();
-    const result = await mammoth.extractRawText({ arrayBuffer: ab });
-    return result.value || '';
+    // Via HTML i.p.v. kale tekst: dan blijven koppen, tabellen en opsommingen herkenbaar.
+    const result = await mammoth.convertToHtml({ arrayBuffer: ab });
+    return htmlToRecipeText(result.value || '');
   }
-  if (
-    name.endsWith('.txt') ||
-    name.endsWith('.rtf') ||
-    name.endsWith('.odt') ||
-    name.endsWith('.pages') ||
-    name.endsWith('.csv')
-  )
-    return await file.text();
+  if (name.endsWith('.txt') || name.endsWith('.csv')) return await file.text();
+  if (name.endsWith('.rtf')) return rtfToText(await file.text());
+  if (name.endsWith('.odt')) return await odtToText(file);
+  if (name.endsWith('.pages'))
+    throw new Error('Pages-bestanden kunnen niet worden gelezen. Exporteer het in Pages als Word (.docx) of PDF.');
   if (name.endsWith('.pdf')) {
     try {
       const pdfjs = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.min.mjs');
+      // Zonder worker weigert pdf.js elk bestand.
+      pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.worker.min.mjs';
       const ab = await file.arrayBuffer();
       const pdf = await pdfjs.getDocument({ data: ab }).promise;
-      let out = [];
+      const out = [];
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
-        const tc = await page.getTextContent();
-        out.push(tc.items.map(x => x.str).join(' '));
+        out.push(pdfItemsToLines((await page.getTextContent()).items));
       }
-      return out.join('\n');
+      return out.join('\n\n');
     } catch (e) {
       throw new Error('PDF kon niet als tekst worden uitgelezen.');
     }
@@ -136,105 +135,159 @@ async function extractImportText(file) {
   return '';
 }
 
-function cleanBatchTitle(t) {
-  return String(t || '')
-    .replace(/^\s*\d+[.)-]\s*/, '')
-    .replace(/^\s*[#*-]\s*/, '')
+// ---- Bestanden omzetten naar regels voor de lezer ----
+
+// Word-HTML naar regels: koppen worden "# naam" (receptgrens), tabelrijen één regel, opsommingen "- ".
+function htmlToRecipeText(html) {
+  const doc = new DOMParser().parseFromString(`<div>${html}</div>`, 'text/html');
+  const lines = [];
+  const text = el => el.textContent.replace(/\s+/g, ' ').trim();
+  const walk = node => {
+    for (const el of node.children) {
+      const tag = el.tagName.toLowerCase();
+      if (/^h[1-3]$/.test(tag)) lines.push('', `# ${text(el)}`);
+      else if (/^h[4-6]$/.test(tag)) lines.push(text(el));
+      else if (tag === 'p') lines.push(text(el));
+      else if (tag === 'li') lines.push(`- ${text(el)}`);
+      else if (tag === 'tr') lines.push([...el.children].map(text).filter(Boolean).join(' '));
+      else if (/^(ul|ol|table|thead|tbody|div|blockquote)$/.test(tag)) walk(el);
+      else lines.push(text(el));
+    }
+  };
+  walk(doc.body.firstElementChild);
+  return lines.join('\n');
+}
+
+// PDF-tekststukken naar regels op volgorde van de pagina; een grote verticale witruimte wordt een lege regel.
+function pdfItemsToLines(items) {
+  const rows = [];
+  for (const it of items) {
+    if (!it.str) continue;
+    const y = Math.round(it.transform[5]);
+    const x = it.transform[4];
+    let row = rows.find(r => Math.abs(r.y - y) <= 3);
+    if (!row) rows.push((row = { y, parts: [], height: it.height || 10 }));
+    row.parts.push({ x, str: it.str });
+  }
+  rows.sort((a, b) => b.y - a.y);
+  const out = [];
+  rows.forEach((r, i) => {
+    if (i && rows[i - 1].y - r.y > Math.max(r.height, 10) * 1.9) out.push('');
+    out.push(
+      r.parts
+        .sort((a, b) => a.x - b.x)
+        .map(p => p.str)
+        .join(' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+    );
+  });
+  return out.join('\n');
+}
+
+// RTF naar tekst. Groepen met opmaakgegevens (lettertypes, kleuren, stijlen, afbeeldingen) worden
+// overgeslagen; \par wordt een nieuwe regel, \'e9 wordt é en \u233? wordt é.
+function rtfToText(rtf) {
+  const src = String(rtf || '');
+  const skipDestinations =
+    /^(fonttbl|colortbl|stylesheet|info|pict|object|themedata|colorschememapping|latentstyles|datastore|xmlnstbl|listtable|listoverridetable|rsidtbl|generator|header|footer)$/;
+  const cp1252 = new TextDecoder('windows-1252');
+  const stack = [];
+  let skip = false;
+  let out = '';
+  let ucSkip = 0;
+  for (let i = 0; i < src.length; i++) {
+    const ch = src[i];
+    if (ch === '{') {
+      stack.push(skip);
+      continue;
+    }
+    if (ch === '}') {
+      skip = stack.pop() || false;
+      continue;
+    }
+    if (ch === '\\') {
+      const next = src[i + 1];
+      if (next === '\\' || next === '{' || next === '}') {
+        if (!skip) out += next;
+        i++;
+        continue;
+      }
+      if (next === "'") {
+        if (!skip && !ucSkip) out += cp1252.decode(new Uint8Array([parseInt(src.substr(i + 2, 2), 16)]));
+        if (ucSkip) ucSkip--;
+        i += 3;
+        continue;
+      }
+      if (next === '*') {
+        skip = true;
+        i++;
+        continue;
+      }
+      const m = src.slice(i + 1).match(/^([a-z]+)(-?\d+)? ?/i);
+      if (!m) {
+        i++;
+        continue;
+      }
+      i += m[0].length;
+      const word = m[1];
+      if (skipDestinations.test(word)) skip = true;
+      else if (!skip) {
+        if (word === 'par' || word === 'line') out += '\n';
+        else if (word === 'tab' || word === 'cell') out += ' ';
+        else if (word === 'row') out += '\n';
+        else if (word === 'u' && m[2] !== undefined) {
+          const n = Number(m[2]);
+          out += String.fromCharCode(n < 0 ? n + 65536 : n);
+          ucSkip = 1;
+        }
+      }
+      continue;
+    }
+    if (ch === '\r' || ch === '\n') continue;
+    if (!skip) {
+      if (ucSkip) ucSkip--;
+      else out += ch;
+    }
+  }
+  return out
+    .replace(/[ \t]+\n/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
     .trim();
 }
 
-function looksLikeRecipeHeading(line, nextLine = '') {
-  const x = String(line || '').trim();
-  if (!x || x.length > 110) return false;
-  if (/^\d+[.)-]\s*\S+/.test(x)) return true;
-  if (/^#{1,3}\s+\S+/.test(x)) return true;
-  if (/^(recept|recipe)\s*[:#-]/i.test(x)) return true;
-  const next = String(nextLine || '');
-  const ingredientLike =
-    /^[-•*]?\s*\d+(?:[.,]\d+)?\s*(?:g|gr|gram|kg|mg|ml|milliliter|cl|dl|liter|deciliter|milliliter|l|stuks?|st\.?|takjes?|teentjes?|blaadjes?|eieren?|el\.?|tl\.?)\b/i;
-  const hasUnit = ingredientLike.test(x);
-  return !hasUnit && x.length >= 3 && x.length <= 70 && !/[.:;]$/.test(x) && ingredientLike.test(next);
+// ODT (LibreOffice/OpenOffice) is een zip; de tekst staat in content.xml.
+async function odtToText(file) {
+  if (!window.JSZip)
+    await new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+      s.onload = resolve;
+      s.onerror = () => reject(new Error('ODT-importmodule kon niet worden geladen.'));
+      document.head.appendChild(s);
+    });
+  const zip = await JSZip.loadAsync(await file.arrayBuffer());
+  const xml = await zip.file('content.xml')?.async('string');
+  if (!xml) throw new Error('Dit ODT-bestand bevat geen leesbare tekst.');
+  const doc = new DOMParser().parseFromString(xml, 'application/xml');
+  const lines = [];
+  doc.querySelectorAll('h, p').forEach(el => {
+    const t = el.textContent.replace(/\s+/g, ' ').trim();
+    lines.push(el.localName === 'h' && t ? `# ${t}` : t);
+  });
+  return lines.join('\n');
 }
 
-// Eenvoudige lezer zonder AI. Staan er kopjes in de bron ("Ingrediënten", "Bereiding"), dan volgen we die
-// precies. Zonder kopjes: korte regels (vaak met een hoeveelheid) zijn ingrediënten, zinnen zijn stappen.
-// Er wordt nooit iets verzonnen; de chef controleert het resultaat altijd vóór opslaan.
-const INGREDIENTS_HEADING = /^(ingredi[eë]nten|ingredients|benodigdheden|nodig|boodschappen)\s*[:=-]?$/i;
-const STEPS_HEADING = /^(bereiding|bereidingswijze|methode|method|werkwijze|instructies|stap(pen)?|steps?)\s*[:=-]?$/i;
-const YIELD_LINE =
-  /^(opbrengst|yield|porties?|aantal personen)\s*[:=-]\s*|^voor\s+\d+([.,]\d+)?\s*(personen|pers\.?|porties?|stuks?|liter|l|kg|gram|g)\b|^\d+\s*(personen|porties)$/i;
-
-function looksLikeStep(line) {
-  return /[.!]$/.test(line) || line.length > 60;
+// Recepten uit tekst halen met de eigen lezer (js/features/recipe-reader.js). Categorie via de trefwoorden
+// van de chef; alles wat de lezer niet zeker weet, is gemarkeerd om te controleren.
+function readRecipesLocally(text, extra = {}) {
+  return splitRecipeText(text).map(r => ({
+    ...r,
+    category: importCategory(r.title, ''),
+    _needsReview: r.readerConfidence !== 'high',
+    ...extra
+  }));
 }
-
-function parseRecipeBlock(block) {
-  const lines = block
-    .split(/\r?\n/)
-    .map(x => x.trim())
-    .filter(Boolean);
-  if (!lines.length) return null;
-  const title = cleanBatchTitle(lines[0]);
-  let yieldText = '';
-  const ingredients = [];
-  const steps = [];
-  const hasHeadings = lines.some(l => STEPS_HEADING.test(l));
-  let mode = 'ingredients';
-  for (let i = 1; i < lines.length; i++) {
-    const l = lines[i];
-    if (!yieldText && mode === 'ingredients' && YIELD_LINE.test(l)) {
-      yieldText = l.replace(/^(opbrengst|yield|porties?|aantal personen)\s*[:=-]\s*/i, '').trim();
-      continue;
-    }
-    if (INGREDIENTS_HEADING.test(l)) {
-      mode = 'ingredients';
-      continue;
-    }
-    if (STEPS_HEADING.test(l)) {
-      mode = 'steps';
-      continue;
-    }
-    const clean = l.replace(/^[-•*]\s*/, '');
-    if (mode === 'steps') steps.push(clean.replace(/^\d+[.)]\s+/, ''));
-    // Met kopjes: alles vóór "Bereiding" is ingrediënt. Zonder kopjes: een zin is een stap.
-    else if (hasHeadings || !looksLikeStep(clean)) ingredients.push(clean);
-    else {
-      mode = 'steps';
-      steps.push(clean);
-    }
-  }
-  // Geen bereiding in de bron? Dan blijft steps leeg. Nooit ingrediënten als bereiding verzinnen.
-  const name = title || 'Onbenoemd recept';
-  return { title: name, ingredients, steps, yield: yieldText, category: importCategory(name, '') };
-}
-
-function splitRecipeText(text) {
-  const raw = String(text || '')
-    .replace(/\u00a0/g, ' ')
-    .replace(/\r/g, '')
-    .trim();
-  if (!raw) return [];
-  const lines = raw.split('\n');
-  const starts = [];
-  for (let i = 0; i < lines.length; i++) if (looksLikeRecipeHeading(lines[i], lines[i + 1])) starts.push(i);
-  if (starts.length >= 2) {
-    const blocks = [];
-    for (let i = 0; i < starts.length; i++) {
-      const a = starts[i],
-        b = starts[i + 1] ?? lines.length;
-      const block = lines.slice(a, b).join('\n').trim();
-      if (block) blocks.push(block);
-    }
-    return blocks.map(parseRecipeBlock).filter(Boolean);
-  }
-  const blocks = raw
-    .split(/\n\s*\n\s*\n+/)
-    .map(x => x.trim())
-    .filter(Boolean);
-  if (blocks.length >= 2) return blocks.map(parseRecipeBlock).filter(Boolean);
-  return [parseRecipeBlock(raw)].filter(Boolean);
-}
-
 function removeBatchDraft(index) {
   syncBatchDrafts();
   if (index < 0 || index >= batchDrafts.length) return;
@@ -381,12 +434,11 @@ async function importTextFile(file) {
     if (aiRecipes.length) drafts.push(...aiRecipes.map(r => normalizeAiRecipe(r, { sourceFile: file.name })));
     else
       drafts.push(
-        ...splitRecipeText(chunks[i]).map(r => ({
-          ...r,
+        ...readRecipesLocally(chunks[i], {
           sourceFile: file.name,
           _needsReview: true,
           _withoutAi: aiError ? aiError.message : ''
-        }))
+        })
       );
   }
   return drafts;
@@ -503,23 +555,16 @@ async function processImport() {
   }
   try {
     if (importSource === 'text') {
-      const sourceText = text;
-      batchDrafts = splitRecipeText(sourceText);
+      batchDrafts = readRecipesLocally(text);
       if (batchDrafts.length > 1) {
         $('batchStatus').textContent = `${batchDrafts.length} losse recepten herkend uit de ingevoerde tekst.`;
         renderBatchDrafts();
         go('batchImport');
       } else {
-        currentId = null;
-        $('editorTitle').textContent = 'Import controleren';
+        // Eén recept: rechtstreeks in de editor (met de zichtbare ingrediënt- en stapregels ingevuld).
+        window.__aiImportedPhoto = '';
         const r = batchDrafts[0] || { title: 'Geïmporteerd recept', ingredients: [], steps: [], yield: '' };
-        $('fTitle').value = r.title;
-        $('fYield').value = r.yield || '';
-        renderEditorCategories('Eigen recepten');
-        $('fIngredients').value = r.ingredients.join('\n');
-        $('fSteps').value = r.steps.join('\n');
-        $('fPhoto').value = '';
-        $('photoPreview').style.display = 'none';
+        fillEditor({ ...r, id: null }, 'Import controleren');
         go('editor');
       }
       $('importStatus').textContent = '';
@@ -539,7 +584,7 @@ function renderBatchDrafts() {
     batchDrafts
       .map(
         (r, i) =>
-          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img src="${esc(r.photo)}" alt="" style="width:100%;max-height:150px;object-fit:cover;border-radius:7px;margin:10px 0">` : ''}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small><div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
+          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : r._needsReview ? ' <span class="batch-chip batch-chip-warn">Controleren</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img src="${esc(r.photo)}" alt="" style="width:100%;max-height:150px;object-fit:cover;border-radius:7px;margin:10px 0">` : ''}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small><div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
       )
       .join('') || `<div class="empty" style="grid-column:1/-1">Geen afzonderlijke recepten herkend.</div>`;
 }

@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "start": "node local-server.mjs",
+    "test:lezer": "node tests/lezer.test.mjs",
     "format": "prettier --write \"js/**/*.js\" \"css/*.css\" \"api/**/*.js\" local-server.mjs tests/*.js"
   },
   "devDependencies": {
