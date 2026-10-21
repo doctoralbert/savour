@@ -258,11 +258,16 @@ function hasOwnPro() {
 
 function renderProNav() {
   const label = $('navProLabel');
-  if (label) label.textContent = hasOwnPro() ? 'Mijn abonnement' : 'Savour Pro';
+  if (!label) return;
+  const paid = savourPlan.hasCustomer && ['subscription', 'team_owner'].includes(savourPlan.source);
+  label.textContent = paid ? 'Abonnement beheren' : hasOwnPro() ? 'Mijn abonnement' : 'Savour Pro';
 }
 
+// Betaald (eigen abonnement of team-eigenaar): direct naar "Abonnement beheren" bij Stripe. Cadeau of plek in
+// andermans team: niets te beheren, dus de abonnementsinfo in Instellingen.
 function openProNav() {
   if (!hasOwnPro()) return go('pro');
+  if (savourPlan.hasCustomer && ['subscription', 'team_owner'].includes(savourPlan.source)) return openProPortal();
   go('settings');
   setTimeout(() => $('settingsPlan')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120);
 }

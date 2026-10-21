@@ -418,3 +418,41 @@
     white-space: nowrap;
   }
 }
+
+/* Startpagina: openingstekst en de telefoon (zo ziet Savour eruit) direct naast elkaar in beeld. */
+.landing-hero.landing-hero-v55 {
+  max-width: 1180px !important;
+}
+.landing-platform-section.landing-platform-v55 {
+  grid-template-columns: minmax(0, 1fr) !important;
+  max-width: 860px;
+}
+.landing-hero-phone {
+  display: flex;
+  justify-content: center;
+}
+@media (min-width: 900px) {
+  .landing-hero.landing-hero-v55 {
+    grid-template-columns: minmax(0, 1fr) 300px !important;
+    gap: 64px;
+    padding-top: 56px !important;
+    padding-bottom: 48px !important;
+  }
+  .landing-hero-v55 h1 {
+    font-size: clamp(40px, 4.4vw, 62px);
+    margin: 10px 0 18px;
+  }
+  .landing-hero-v55 p {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .landing-hero-v55 .landing-hero-phone .landing-phone {
+    width: 280px;
+    height: 560px;
+  }
+}
+@media (max-width: 899px) {
+  .landing-hero-phone {
+    margin-top: 8px;
+  }
+}
