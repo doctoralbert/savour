@@ -1,7 +1,10 @@
+// Bugmeldingen én contactberichten (kind: 'contact') van de publieke pagina's, per mail naar contact@savour.page.
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   try {
-    const { name, email, subject, message, screenshot, screenshotName, page, language } = req.body || {};
+    const { name, email, subject, message, screenshot, screenshotName, page, language, kind } = req.body || {};
+    const isContact = kind === 'contact';
+    const label = isContact ? 'contactbericht' : 'bugmelding';
     const clean = v => String(v ?? '').trim();
     const n = clean(name),
       e = clean(email),
@@ -18,7 +21,7 @@ export default async function handler(req, res) {
 
     const resendKey = process.env.RESEND_API_KEY;
     if (!resendKey) {
-      return res.status(500).json({ error: 'De bugmailservice is nog niet geconfigureerd.' });
+      return res.status(500).json({ error: 'De mailservice is nog niet geconfigureerd.' });
     }
 
     const attachments = [];
@@ -32,8 +35,8 @@ export default async function handler(req, res) {
     const from = process.env.BUG_REPORT_FROM || 'Savour <contact@savour.page>';
     const safePage = clean(page) || 'onbekend';
     const safeLanguage = clean(language).slice(0, 10) || 'onbekend';
-    const html = `<h2>Savour bugmelding</h2><p><strong>Naam:</strong> ${esc(n)}</p><p><strong>E-mail:</strong> ${esc(e)}</p><p><strong>Onderwerp:</strong> ${esc(s)}</p><p><strong>Taal:</strong> ${esc(safeLanguage)}</p><p><strong>Pagina:</strong> ${esc(safePage)}</p><hr><p>${esc(m).replace(/\n/g, '<br>')}</p>`;
-    const text = `Savour bugmelding\n\nNaam: ${n}\nE-mail: ${e}\nOnderwerp: ${s}\nTaal: ${safeLanguage}\nPagina: ${safePage}\n\n${m}`;
+    const html = `<h2>Savour ${label}</h2><p><strong>Naam:</strong> ${esc(n)}</p><p><strong>E-mail:</strong> ${esc(e)}</p><p><strong>Onderwerp:</strong> ${esc(s)}</p><p><strong>Taal:</strong> ${esc(safeLanguage)}</p><p><strong>Pagina:</strong> ${esc(safePage)}</p><hr><p>${esc(m).replace(/\n/g, '<br>')}</p>`;
+    const text = `Savour ${label}\n\nNaam: ${n}\nE-mail: ${e}\nOnderwerp: ${s}\nTaal: ${safeLanguage}\nPagina: ${safePage}\n\n${m}`;
 
     const mail = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -45,7 +48,7 @@ export default async function handler(req, res) {
         from,
         to: [to],
         reply_to: e,
-        subject: `Savour bug: ${s}`,
+        subject: `${isContact ? 'Savour contact' : 'Savour bug'}: ${s}`,
         html,
         text,
         attachments
@@ -56,7 +59,7 @@ export default async function handler(req, res) {
     if (!mail.ok) {
       console.error('Resend bug-report error:', { status: mail.status, result });
       return res.status(502).json({
-        error: result.message || result.error || 'Resend kon de bugmelding niet accepteren.',
+        error: result.message || result.error || 'Resend kon het bericht niet accepteren.',
         provider_status: mail.status
       });
     }
@@ -64,7 +67,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: true, id: result.id || null });
   } catch (err) {
     console.error('Bug report function error:', err);
-    return res.status(500).json({ error: 'De bugmelding kon niet worden verwerkt.' });
+    return res.status(500).json({ error: 'Het bericht kon niet worden verwerkt.' });
   }
 }
 

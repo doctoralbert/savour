@@ -474,6 +474,13 @@ window.SAVOUR_I18N.en = {
     'Savour Pro · proefperiode': 'Savour Pro · trial',
     'Je team': 'Your team',
     'Mijn abonnement': 'My subscription',
+    'Stuur ons een bericht': 'Send us a message',
+    Bericht: 'Message',
+    'Waar kunnen we je mee helpen?': 'How can we help you?',
+    'Bericht versturen': 'Send message',
+    'Het bericht kon niet worden verzonden.': 'The message could not be sent.',
+    'Bedankt. Je bericht is verstuurd; we reageren zo snel mogelijk.':
+      'Thank you. Your message has been sent; we will reply as soon as possible.',
     'Teamlid · Savour Pro': 'Team member · Savour Pro',
     'Plek vrijgeven': 'Free up seat',
     'Alle plekken zijn bezet. Een groter team kies je via Abonnement beheren.':

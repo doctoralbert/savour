@@ -1271,6 +1271,17 @@ export const strings = [
   ['Savour Pro · proefperiode', 'Savour Pro · trial', 'Savour Pro · Testphase', 'Savour Pro · prueba'],
   ['Je team', 'Your team', 'Dein Team', 'Tu equipo'],
   ['Mijn abonnement', 'My subscription', 'Mein Abo', 'Mi suscripción'],
+  ['Stuur ons een bericht', 'Send us a message', 'Schreib uns eine Nachricht', 'Envíanos un mensaje'],
+  ['Bericht', 'Message', 'Nachricht', 'Mensaje'],
+  ['Waar kunnen we je mee helpen?', 'How can we help you?', 'Wie können wir dir helfen?', '¿En qué podemos ayudarte?'],
+  ['Bericht versturen', 'Send message', 'Nachricht senden', 'Enviar mensaje'],
+  ['Het bericht kon niet worden verzonden.', 'The message could not be sent.', 'Die Nachricht konnte nicht gesendet werden.', 'No se pudo enviar el mensaje.'],
+  [
+    'Bedankt. Je bericht is verstuurd; we reageren zo snel mogelijk.',
+    'Thank you. Your message has been sent; we will reply as soon as possible.',
+    'Danke. Deine Nachricht wurde gesendet; wir antworten so schnell wie möglich.',
+    'Gracias. Tu mensaje se ha enviado; responderemos lo antes posible.'
+  ],
   ['Teamlid · Savour Pro', 'Team member · Savour Pro', 'Teammitglied · Savour Pro', 'Miembro del equipo · Savour Pro'],
   ['Plek vrijgeven', 'Free up seat', 'Platz freigeben', 'Liberar plaza'],
   [

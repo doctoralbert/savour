@@ -50,7 +50,9 @@ siteCopy.nl.terms +=
 siteCopy.nl.privacy +=
   '<h2>8. Betalingen en AI</h2><p>Betalingen voor Savour Pro worden verwerkt door Stripe. Savour bewaart geen betaalgegevens zoals kaartnummers, alleen de status van je abonnement. Bij AI-import worden de bronnen die je aanlevert via OpenAI verwerkt om er receptgegevens van te maken.</p>';
 siteCopy.nl.contact +=
-  '<h2>Feedback en samenwerking</h2><p>Feedback over de interface, importkwaliteit, mappenstructuur en samenwerking helpt om Savour verder te ontwikkelen. Vermeld bij een melding bij voorkeur de pagina en de stappen waarmee het probleem ontstaat.</p>';
+  '<h2>Feedback en samenwerking</h2><p>Feedback over de interface, importkwaliteit, mappenstructuur en samenwerking helpt om Savour verder te ontwikkelen. Vermeld bij een melding bij voorkeur de pagina en de stappen waarmee het probleem ontstaat.</p>' +
+  // Contactformulier: gaat via dezelfde route als "Bug doorgeven" (api/bug-report.js, kind: 'contact').
+  '<h2>Stuur ons een bericht</h2><form id="contactForm" class="bug-form" onsubmit="submitContactForm(event)"><div class="formgrid"><div class="field"><label>Naam</label><input id="contactName" name="name" autocomplete="name" required></div><div class="field"><label>E-mail</label><input id="contactEmail" name="email" type="email" autocomplete="email" required></div><div class="field full"><label>Onderwerp</label><input id="contactSubject" name="subject" required></div><div class="field full"><label>Bericht</label><textarea id="contactMessage" name="message" required placeholder="Waar kunnen we je mee helpen?"></textarea></div></div><div class="actions"><button class="btn gold" type="submit" id="contactSubmit">Bericht versturen</button><span id="contactStatus" class="bug-status" aria-live="polite"></span></div></form>';
 
 const PUBLIC_PAGE_LABELS = {
   about: 'Over Savour',
@@ -79,6 +81,11 @@ function openPublicInfo(id) {
     if (noteEl) noteEl.textContent = c[id + 'Note'] || '';
     if (bodyEl) bodyEl.innerHTML = c[id] || '<p>Deze pagina wordt voorbereid.</p>';
     if (id === 'pro') renderProPage(bodyEl);
+    // Ingelogd: naam en e-mail alvast invullen in het contactformulier.
+    if (id === 'contact' && $('contactName')) {
+      $('contactName').value = account.name || '';
+      $('contactEmail').value = currentUser.email || '';
+    }
     window.scrollTo(0, 0);
     return;
   }
@@ -224,6 +231,41 @@ async function submitBugReport(event) {
     }
     form.reset();
     status.textContent = t('Bedankt. Je bugmelding is verstuurd.');
+  } catch (e) {
+    console.error(e);
+    status.textContent = e.message || t('Versturen is mislukt.');
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function submitContactForm(event) {
+  event.preventDefault();
+  const form = event.currentTarget,
+    btn = $('contactSubmit'),
+    status = $('contactStatus');
+  if (!form || !btn) return;
+  btn.disabled = true;
+  status.textContent = t('Bezig...');
+  try {
+    const r = await fetch('/api/bug-report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      cache: 'no-store',
+      body: JSON.stringify({
+        kind: 'contact',
+        name: $('contactName').value.trim(),
+        email: $('contactEmail').value.trim(),
+        subject: $('contactSubject').value.trim(),
+        message: $('contactMessage').value.trim(),
+        page: location.href,
+        language: document.documentElement.lang || ''
+      })
+    });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(data.error || t('Het bericht kon niet worden verzonden.'));
+    form.reset();
+    status.textContent = t('Bedankt. Je bericht is verstuurd; we reageren zo snel mogelijk.');
   } catch (e) {
     console.error(e);
     status.textContent = e.message || t('Versturen is mislukt.');
