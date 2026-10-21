@@ -1040,10 +1040,10 @@ export const strings = [
   ['Abonnement', 'Subscription', 'Abo', 'Suscripción'],
   ['Je hebt Savour Pro.', 'You have Savour Pro.', 'Du hast Savour Pro.', 'Tienes Savour Pro.'],
   [
-    'Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Prijzen inclusief btw. Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.',
-    'Pay with iDEAL, credit card, Apple Pay, Google Pay or PayPal. Prices include VAT. Cancel any time; you keep Pro until the end of the paid period.',
-    'Bezahlen mit iDEAL, Kreditkarte, Apple Pay, Google Pay oder PayPal. Preise inklusive MwSt. Jederzeit kündbar; Pro bleibt bis zum Ende des bezahlten Zeitraums aktiv.',
-    'Paga con iDEAL, tarjeta, Apple Pay, Google Pay o PayPal. Precios con IVA incluido. Cancela cuando quieras; mantienes Pro hasta el final del periodo pagado.'
+    'Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Er wordt geen btw gerekend (kleineondernemersregeling). Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.',
+    'Pay with iDEAL, credit card, Apple Pay, Google Pay or PayPal. No VAT is charged (Dutch small business scheme). Cancel any time; you keep Pro until the end of the paid period.',
+    'Bezahlen mit iDEAL, Kreditkarte, Apple Pay, Google Pay oder PayPal. Es wird keine MwSt. berechnet (niederländische Kleinunternehmerregelung). Jederzeit kündbar; Pro bleibt bis zum Ende des bezahlten Zeitraums aktiv.',
+    'Paga con iDEAL, tarjeta, Apple Pay, Google Pay o PayPal. No se cobra IVA (régimen neerlandés de pequeñas empresas). Cancela cuando quieras; mantienes Pro hasta el final del periodo pagado.'
   ],
   ['Wat zit erin?', "What's included?", 'Was ist enthalten?', '¿Qué incluye?'],
   ['Gratis', 'Free', 'Kostenlos', 'Gratis'],

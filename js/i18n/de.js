@@ -363,7 +363,7 @@ window.SAVOUR_I18N.de = {
     "Abonnement beheren": "Abo verwalten",
     "Abonnement": "Abo",
     "Je hebt Savour Pro.": "Du hast Savour Pro.",
-    "Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Prijzen inclusief btw. Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.": "Bezahlen mit iDEAL, Kreditkarte, Apple Pay, Google Pay oder PayPal. Preise inklusive MwSt. Jederzeit kündbar; Pro bleibt bis zum Ende des bezahlten Zeitraums aktiv.",
+    "Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Er wordt geen btw gerekend (kleineondernemersregeling). Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.": "Bezahlen mit iDEAL, Kreditkarte, Apple Pay, Google Pay oder PayPal. Es wird keine MwSt. berechnet (niederländische Kleinunternehmerregelung). Jederzeit kündbar; Pro bleibt bis zum Ende des bezahlten Zeitraums aktiv.",
     "Wat zit erin?": "Was ist enthalten?",
     "Gratis": "Kostenlos",
     "Recepten, mappen, categorieën en zoeken": "Rezepte, Ordner, Kategorien und Suche",

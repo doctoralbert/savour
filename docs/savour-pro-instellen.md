@@ -70,8 +70,10 @@ vervang in Vercel de vier Stripe-waarden door de live-waarden.
 
 ## Goed om te weten
 
-- **Btw:** de prijzen zijn inclusief btw. Met een KvK- en btw-nummer draag je de btw af; Stripe Tax kan
-  dat automatisch berekenen (Settings → Tax).
+- **Btw:** Savour valt onder de kleineondernemersregeling (KOR): er wordt geen btw gerekend. Zet Stripe Tax
+  dus níet aan, en zet in Stripe bij de factuurinstellingen de tekst "Vrijgesteld van btw op grond van de
+  kleineondernemersregeling (KOR)". Kom je boven de omzetgrens van de KOR (€ 20.000 per jaar), of verkoop
+  je voor meer dan € 10.000 per jaar aan particulieren in andere EU-landen, overleg dan met je boekhouder.
 - **Herroepingsrecht:** consumenten hebben bij online abonnementen in principe 14 dagen bedenktijd.
   Laat de voorwaarden hierop controleren door een jurist.
 - **Wat Pro bepaalt:** de server controleert bij elke AI-import of iemand Pro is en onder de 500 zit.

@@ -363,7 +363,7 @@ window.SAVOUR_I18N.es = {
     "Abonnement beheren": "Gestionar suscripción",
     "Abonnement": "Suscripción",
     "Je hebt Savour Pro.": "Tienes Savour Pro.",
-    "Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Prijzen inclusief btw. Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.": "Paga con iDEAL, tarjeta, Apple Pay, Google Pay o PayPal. Precios con IVA incluido. Cancela cuando quieras; mantienes Pro hasta el final del periodo pagado.",
+    "Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Er wordt geen btw gerekend (kleineondernemersregeling). Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.": "Paga con iDEAL, tarjeta, Apple Pay, Google Pay o PayPal. No se cobra IVA (régimen neerlandés de pequeñas empresas). Cancela cuando quieras; mantienes Pro hasta el final del periodo pagado.",
     "Wat zit erin?": "¿Qué incluye?",
     "Gratis": "Gratis",
     "Recepten, mappen, categorieën en zoeken": "Recetas, carpetas, categorías y búsqueda",
