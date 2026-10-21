@@ -15,8 +15,11 @@ const i18nTextState = new WeakMap(); // tekstknoop -> { original, shown }
 
 function getSavedLanguage() {
   try {
-    const fromPath = location.pathname.match(/^\/(en|de|es|nl)\/?$/)?.[1];
-    const saved = fromPath || localStorage.getItem('savour_lang') || 'nl';
+    // savour.page/en of /eng opent direct in het Engels (zo ook /de, /deu, /es, /esp, /nl, /nld).
+    const aliases = { eng: 'en', english: 'en', deu: 'de', esp: 'es', nld: 'nl' };
+    const part = location.pathname.match(/^\/([a-z]{2,7})\/?$/i)?.[1]?.toLowerCase();
+    const fromPath = part && (aliases[part] || part);
+    const saved = (I18N_LANGUAGES[fromPath] && fromPath) || localStorage.getItem('savour_lang') || 'nl';
     return I18N_LANGUAGES[saved] ? saved : 'nl';
   } catch (e) {
     return 'nl';

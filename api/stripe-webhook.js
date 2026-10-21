@@ -4,7 +4,8 @@
 // Instellen in Stripe → Developers → Webhooks → Add endpoint: https://savour.page/api/stripe-webhook
 // met de gebeurtenissen checkout.session.completed en customer.subscription.created/updated/deleted.
 import { stripe, verifyStripeSignature, readRawBody, planForPrice, TEAM_SEATS } from './_lib/stripe.js';
-import { upsertSubscription, findSubscriptionByCustomer, update } from './_lib/supabase-admin.js';
+import { upsertSubscription, findSubscriptionByCustomer, update, select } from './_lib/supabase-admin.js';
+import { sendMail, thankYouMail } from './_lib/mail.js';
 
 // De ruwe body is nodig voor de handtekening, dus niet automatisch laten omzetten.
 export const config = { api: { bodyParser: false } };
@@ -41,6 +42,24 @@ async function applySubscription(sub, userId) {
   });
 }
 
+// Bedankmail na een geslaagde aankoop. Een mislukte mail mag het abonnement nooit tegenhouden.
+async function sendThankYou(session, sub, userId) {
+  try {
+    const to = session.customer_details?.email || session.customer_email;
+    if (!to) return;
+    const plan = planForPrice(sub.items?.data?.[0]?.price?.id) || '';
+    const team = plan.startsWith('team');
+    let name = session.customer_details?.name || '';
+    if (userId) {
+      const [profile] = await select('profiles', `id=eq.${encodeURIComponent(userId)}&select=name`).catch(() => []);
+      name = profile?.name || name;
+    }
+    await sendMail({ to, ...thankYouMail({ name, team, seats: team ? TEAM_SEATS[plan.split('_')[0]] : 0 }) });
+  } catch (error) {
+    console.error('Bedankmail', error);
+  }
+}
+
 async function userIdFor(sub) {
   if (sub.metadata?.user_id) return sub.metadata.user_id;
   const row = await findSubscriptionByCustomer(sub.customer);
@@ -57,7 +76,9 @@ export default async function handler(req, res) {
     const obj = event.data?.object || {};
     if (event.type === 'checkout.session.completed' && obj.mode === 'subscription' && obj.subscription) {
       const sub = await stripe(`subscriptions/${obj.subscription}`, null, 'GET');
-      await applySubscription(sub, obj.client_reference_id || (await userIdFor(sub)));
+      const userId = obj.client_reference_id || (await userIdFor(sub));
+      await applySubscription(sub, userId);
+      await sendThankYou(obj, sub, userId);
     } else if (event.type?.startsWith('customer.subscription.')) {
       // Meldingen kunnen dubbel of in de verkeerde volgorde komen: daarom de actuele stand bij Stripe opvragen.
       const sub = await stripe(`subscriptions/${obj.id}`, null, 'GET').catch(() => obj);

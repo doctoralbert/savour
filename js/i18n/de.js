@@ -525,6 +525,11 @@ window.SAVOUR_I18N.de = {
     '9. Over de aanbieder': '9. Über den Anbieter',
     'Savour is een Nederlandse onderneming. Je bereikt ons via contact@savour.page. Op deze voorwaarden is Nederlands recht van toepassing.':
       'Savour ist ein niederländisches Unternehmen. Du erreichst uns unter contact@savour.page. Für diese Bedingungen gilt niederländisches Recht.',
+    '10. Herroepingsrecht (bedenktijd)': '10. Widerrufsrecht',
+    'Sluit je als consument een abonnement op Savour Pro af, dan heb je 14 dagen bedenktijd. Binnen 14 dagen na je eerste betaling kun je zonder opgave van reden afzien van de aankoop. Stuur daarvoor een e-mail naar contact@savour.page met je naam en het e-mailadres van je account, of zeg op via Mijn account en meld erbij dat je gebruikmaakt van je herroepingsrecht.':
+      'Schließt du als Verbraucher ein Savour-Pro-Abo ab, hast du ein 14-tägiges Widerrufsrecht. Innerhalb von 14 Tagen nach deiner ersten Zahlung kannst du den Kauf ohne Angabe von Gründen widerrufen. Sende dazu eine E-Mail an contact@savour.page mit deinem Namen und der E-Mail-Adresse deines Kontos, oder kündige über Mein Konto und gib an, dass du dein Widerrufsrecht nutzt.',
+    'Je krijgt het betaalde bedrag dan binnen 14 dagen na je melding volledig terug, via dezelfde betaalmethode waarmee je hebt betaald. Je account en recepten blijven gewoon bestaan; je gaat terug naar een gratis account. Na de bedenktijd kun je je abonnement altijd opzeggen tegen het einde van de lopende periode.':
+      'Du erhältst den bezahlten Betrag dann innerhalb von 14 Tagen nach deiner Mitteilung vollständig zurück, über dieselbe Zahlungsmethode. Dein Konto und deine Rezepte bleiben bestehen; du wechselst zurück zu einem kostenlosen Konto. Nach Ablauf der Widerrufsfrist kannst du dein Abo jederzeit zum Ende der laufenden Periode kündigen.',
     '7. Wie is verantwoordelijk': '7. Wer ist verantwortlich',
     'Savour is een Nederlandse onderneming en verantwoordelijk voor de verwerking van je gegevens. Vragen over privacy of een verzoek om je gegevens in te zien, te wijzigen of te verwijderen stuur je naar':
       'Savour ist ein niederländisches Unternehmen und für die Verarbeitung deiner Daten verantwortlich. Fragen zum Datenschutz oder Anfragen zu Auskunft, Berichtigung oder Löschung deiner Daten sendest du an',

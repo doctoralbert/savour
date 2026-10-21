@@ -1384,6 +1384,19 @@ export const strings = [
     'Savour ist ein niederländisches Unternehmen. Du erreichst uns unter contact@savour.page. Für diese Bedingungen gilt niederländisches Recht.',
     'Savour es una empresa neerlandesa. Puedes contactarnos en contact@savour.page. Estas condiciones se rigen por la legislación neerlandesa.'
   ],
+  ['10. Herroepingsrecht (bedenktijd)', '10. Right of withdrawal (cooling-off period)', '10. Widerrufsrecht', '10. Derecho de desistimiento'],
+  [
+    'Sluit je als consument een abonnement op Savour Pro af, dan heb je 14 dagen bedenktijd. Binnen 14 dagen na je eerste betaling kun je zonder opgave van reden afzien van de aankoop. Stuur daarvoor een e-mail naar contact@savour.page met je naam en het e-mailadres van je account, of zeg op via Mijn account en meld erbij dat je gebruikmaakt van je herroepingsrecht.',
+    'If you take out a Savour Pro subscription as a consumer, you have a 14-day cooling-off period. Within 14 days of your first payment you can withdraw from the purchase without giving a reason. To do so, send an email to contact@savour.page with your name and your account email address, or cancel via My account and mention that you are using your right of withdrawal.',
+    'Schließt du als Verbraucher ein Savour-Pro-Abo ab, hast du ein 14-tägiges Widerrufsrecht. Innerhalb von 14 Tagen nach deiner ersten Zahlung kannst du den Kauf ohne Angabe von Gründen widerrufen. Sende dazu eine E-Mail an contact@savour.page mit deinem Namen und der E-Mail-Adresse deines Kontos, oder kündige über Mein Konto und gib an, dass du dein Widerrufsrecht nutzt.',
+    'Si contratas una suscripción a Savour Pro como consumidor, tienes 14 días de desistimiento. En los 14 días siguientes a tu primer pago puedes desistir de la compra sin indicar motivo. Para ello, envía un correo a contact@savour.page con tu nombre y el correo de tu cuenta, o cancela en Mi cuenta indicando que ejerces tu derecho de desistimiento.'
+  ],
+  [
+    'Je krijgt het betaalde bedrag dan binnen 14 dagen na je melding volledig terug, via dezelfde betaalmethode waarmee je hebt betaald. Je account en recepten blijven gewoon bestaan; je gaat terug naar een gratis account. Na de bedenktijd kun je je abonnement altijd opzeggen tegen het einde van de lopende periode.',
+    'You will then receive a full refund within 14 days of your notice, using the same payment method you paid with. Your account and recipes remain; you return to a free account. After the cooling-off period you can always cancel your subscription at the end of the current period.',
+    'Du erhältst den bezahlten Betrag dann innerhalb von 14 Tagen nach deiner Mitteilung vollständig zurück, über dieselbe Zahlungsmethode. Dein Konto und deine Rezepte bleiben bestehen; du wechselst zurück zu einem kostenlosen Konto. Nach Ablauf der Widerrufsfrist kannst du dein Abo jederzeit zum Ende der laufenden Periode kündigen.',
+    'Recibirás el importe pagado íntegro en los 14 días siguientes a tu aviso, por el mismo método de pago. Tu cuenta y tus recetas se conservan; vuelves a una cuenta gratuita. Después del periodo de desistimiento siempre puedes cancelar tu suscripción al final del periodo en curso.'
+  ],
   ['7. Wie is verantwoordelijk', '7. Who is responsible', '7. Wer ist verantwortlich', '7. Quién es el responsable'],
   [
     'Savour is een Nederlandse onderneming en verantwoordelijk voor de verwerking van je gegevens. Vragen over privacy of een verzoek om je gegevens in te zien, te wijzigen of te verwijderen stuur je naar',

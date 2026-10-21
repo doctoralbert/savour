@@ -522,6 +522,11 @@ window.SAVOUR_I18N.en = {
     '9. Over de aanbieder': '9. About the provider',
     'Savour is een Nederlandse onderneming. Je bereikt ons via contact@savour.page. Op deze voorwaarden is Nederlands recht van toepassing.':
       'Savour is a Dutch company. You can reach us at contact@savour.page. These terms are governed by Dutch law.',
+    '10. Herroepingsrecht (bedenktijd)': '10. Right of withdrawal (cooling-off period)',
+    'Sluit je als consument een abonnement op Savour Pro af, dan heb je 14 dagen bedenktijd. Binnen 14 dagen na je eerste betaling kun je zonder opgave van reden afzien van de aankoop. Stuur daarvoor een e-mail naar contact@savour.page met je naam en het e-mailadres van je account, of zeg op via Mijn account en meld erbij dat je gebruikmaakt van je herroepingsrecht.':
+      'If you take out a Savour Pro subscription as a consumer, you have a 14-day cooling-off period. Within 14 days of your first payment you can withdraw from the purchase without giving a reason. To do so, send an email to contact@savour.page with your name and your account email address, or cancel via My account and mention that you are using your right of withdrawal.',
+    'Je krijgt het betaalde bedrag dan binnen 14 dagen na je melding volledig terug, via dezelfde betaalmethode waarmee je hebt betaald. Je account en recepten blijven gewoon bestaan; je gaat terug naar een gratis account. Na de bedenktijd kun je je abonnement altijd opzeggen tegen het einde van de lopende periode.':
+      'You will then receive a full refund within 14 days of your notice, using the same payment method you paid with. Your account and recipes remain; you return to a free account. After the cooling-off period you can always cancel your subscription at the end of the current period.',
     '7. Wie is verantwoordelijk': '7. Who is responsible',
     'Savour is een Nederlandse onderneming en verantwoordelijk voor de verwerking van je gegevens. Vragen over privacy of een verzoek om je gegevens in te zien, te wijzigen of te verwijderen stuur je naar':
       'Savour is a Dutch company and is responsible for processing your data. Send questions about privacy or requests to access, correct or delete your data to',
