@@ -977,6 +977,14 @@ window.SAVOUR_I18N.de = {
       '1 Rezept enthält Stellen, die nicht gut lesbar waren. Sie sind gelb markiert: bitte prüfen und korrigieren.'
     ],
     [
+      '^1 recept kon de Savour-lezer niet met zekerheid indelen\\. Het staat gemarkeerd met ‘Controleren’\\. In Savour Pro leest de AI zulke recepten automatisch na\\.$',
+      '1 Rezept konnte der Savour-Leser nicht sicher gliedern. Es ist mit ‘Prüfen’ markiert. In Savour Pro liest die KI solche Rezepte automatisch nach.'
+    ],
+    [
+      '^(\\d+) recepten kon de Savour-lezer niet met zekerheid indelen\\. Ze staan gemarkeerd met ‘Controleren’\\. In Savour Pro leest de AI zulke recepten automatisch na\\.$',
+      '$1 Rezepte konnte der Savour-Leser nicht sicher gliedern. Sie sind mit ‘Prüfen’ markiert. In Savour Pro liest die KI solche Rezepte automatisch nach.'
+    ],
+    [
       '^(\\d+) recepten bevatten stukken die niet goed leesbaar waren\\. Ze staan geel gemarkeerd: controleer en verbeter ze\\.$',
       '$1 Rezepte enthalten Stellen, die nicht gut lesbar waren. Sie sind gelb markiert: bitte prüfen und korrigieren.'
     ],

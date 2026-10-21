@@ -962,6 +962,14 @@ window.SAVOUR_I18N.es = {
       '1 receta contiene partes que no se leían bien. Están marcadas en amarillo: revísalas y corrígelas.'
     ],
     [
+      '^1 recept kon de Savour-lezer niet met zekerheid indelen\\. Het staat gemarkeerd met ‘Controleren’\\. In Savour Pro leest de AI zulke recepten automatisch na\\.$',
+      'El lector de Savour no pudo estructurar 1 receta con seguridad. Está marcada con ‘Revisar’. En Savour Pro, la IA relee estas recetas automáticamente.'
+    ],
+    [
+      '^(\\d+) recepten kon de Savour-lezer niet met zekerheid indelen\\. Ze staan gemarkeerd met ‘Controleren’\\. In Savour Pro leest de AI zulke recepten automatisch na\\.$',
+      'El lector de Savour no pudo estructurar $1 recetas con seguridad. Están marcadas con ‘Revisar’. En Savour Pro, la IA relee estas recetas automáticamente.'
+    ],
+    [
       '^(\\d+) recepten bevatten stukken die niet goed leesbaar waren\\. Ze staan geel gemarkeerd: controleer en verbeter ze\\.$',
       '$1 recetas contienen partes que no se leían bien. Están marcadas en amarillo: revísalas y corrígelas.'
     ],

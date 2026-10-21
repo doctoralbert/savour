@@ -730,6 +730,16 @@ async function processImportFiles(files) {
     notes.push(
       `<span class="batch-warning">${withoutAi.length} recept${withoutAi.length === 1 ? ' is' : 'en zijn'} zonder AI uitgelezen (<span>${esc(withoutAi[0]._withoutAi)}</span>). Controleer titel, ingrediënten en bereiding extra goed.</span>`
     );
+  // Gratis: twijfelgevallen van de Savour-lezer melden, met de mogelijkheid ze in Pro door de AI te laten nalezen.
+  const doubtful = isPro() ? 0 : batchDrafts.filter(r => r._needsReview && !r._withoutAi).length;
+  if (doubtful)
+    notes.push(
+      `<span class="batch-warning">${
+        doubtful === 1
+          ? '1 recept kon de Savour-lezer niet met zekerheid indelen. Het staat gemarkeerd met ‘Controleren’. In Savour Pro leest de AI zulke recepten automatisch na.'
+          : `${doubtful} recepten kon de Savour-lezer niet met zekerheid indelen. Ze staan gemarkeerd met ‘Controleren’. In Savour Pro leest de AI zulke recepten automatisch na.`
+      }</span> <button type="button" class="btn small gold" onclick="openPublicInfo('pro')">Bekijk Savour Pro</button>`
+    );
   if (incompleteNote) notes.push(incompleteNote);
   const unclearCount = batchDrafts.filter(r => r._unclear?.length).length;
   if (unclearCount)

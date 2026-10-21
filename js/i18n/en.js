@@ -962,6 +962,14 @@ window.SAVOUR_I18N.en = {
       '1 recipe contains parts that were not clearly readable. They are highlighted in yellow: please check and correct them.'
     ],
     [
+      '^1 recept kon de Savour-lezer niet met zekerheid indelen\\. Het staat gemarkeerd met ‘Controleren’\\. In Savour Pro leest de AI zulke recepten automatisch na\\.$',
+      'The Savour reader could not lay out 1 recipe with certainty. It is marked ‘Check’. In Savour Pro the AI rereads such recipes automatically.'
+    ],
+    [
+      '^(\\d+) recepten kon de Savour-lezer niet met zekerheid indelen\\. Ze staan gemarkeerd met ‘Controleren’\\. In Savour Pro leest de AI zulke recepten automatisch na\\.$',
+      'The Savour reader could not lay out $1 recipes with certainty. They are marked ‘Check’. In Savour Pro the AI rereads such recipes automatically.'
+    ],
+    [
       '^(\\d+) recepten bevatten stukken die niet goed leesbaar waren\\. Ze staan geel gemarkeerd: controleer en verbeter ze\\.$',
       '$1 recipes contain parts that were not clearly readable. They are highlighted in yellow: please check and correct them.'
     ],
