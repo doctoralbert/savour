@@ -145,13 +145,11 @@
     bulkModalClear();
     bulkSelectedIds.add('demo-r0');
     bulkSelectedIds.add('demo-r1');
-    const realConfirm = window.confirm;
-    window.confirm = () => true;
-    try {
-      await deleteBulkModalSelection();
-    } finally {
-      window.confirm = realConfirm;
-    }
+    // Verwijderen vraagt eerst om bevestiging in het Savour-venster; de test klikt op "Verwijderen".
+    const done = deleteBulkModalSelection();
+    await wait(50);
+    document.querySelector('#svDialog [data-ok]')?.click();
+    await done;
   });
   await step('27-about-loggedin', () => openPublicInfo('about'));
   await step('28-back-recipes', () => go('recipes'));

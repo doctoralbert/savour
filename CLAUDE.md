@@ -21,6 +21,7 @@ Verdienmodel: gratis basis + betaald pro (nog niet gebouwd).
 - **Nooit een bestaande functie overschrijven** met een nieuwe laag (`window.x = function` of `const old = x`).
   Pas de functie aan waar hij staat. Elke functienaam bestaat precies één keer.
 - Escaping: `esc()` voor HTML-tekst en attributen, `escJs()` voor tekst in `onclick="fn('...')"`.
+- Geen `confirm()`/`prompt()`: gebruik `askConfirm()` en `askText()` uit `js/core/dialog.js` (werken ook in ingebouwde browsers).
 - Foto's altijd via `compressPhoto()` voordat ze worden opgeslagen of naar de AI gaan.
 - Rechten in de interface (`canEditShared` e.d.) zijn alleen gemak; de echte beveiliging moet in Supabase RLS zitten.
 - API-routes in `api/` controleren het Supabase-token via `api/_lib/auth.js` als ze iets kosten of gegevens raken.

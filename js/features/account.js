@@ -232,7 +232,7 @@ function renderSettings() {
 // Extend folder modal save for shared maps without changing the regular folder flow.
 async function deleteAccount() {
   if (!currentUser) return;
-  const ok = confirm(
+  const ok = await askConfirm(
     'Weet je zeker dat je je account definitief wilt verwijderen?\n\nJe persoonlijke recepten, mappen, favorieten en profielgegevens worden verwijderd. Deze actie kan niet ongedaan worden gemaakt.'
   );
   if (!ok) return;

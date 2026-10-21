@@ -225,9 +225,9 @@ async function deleteBulkModalSelection() {
   const list = recipes.filter(r => ids.includes(String(r.id)));
   if (!list.length) return;
   if (
-    !confirm(
+    !(await askConfirm(
       `${list.length} recepten verwijderen?\n\nDeze recepten worden definitief uit je persoonlijke bibliotheek verwijderd.`
-    )
+    ))
   )
     return;
   if (demoMode) {

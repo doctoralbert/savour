@@ -139,7 +139,7 @@ async function deleteRecipe(id) {
   if (demoMode) {
     const r = recipes.find(x => String(x.id) === String(id));
     if (!r) return;
-    if (!confirm(`Weet je zeker dat je “${r.title}” uit de demo wilt verwijderen?`)) return;
+    if (!(await askConfirm(`Weet je zeker dat je “${r.title}” uit de demo wilt verwijderen?`))) return;
     recipes = recipes.filter(x => String(x.id) !== String(id));
     favorites = favorites.filter(x => String(x) !== String(id));
     folders.forEach(f => (f.recipeIds = (f.recipeIds || []).filter(x => String(x) !== String(id))));
@@ -153,7 +153,7 @@ async function deleteRecipe(id) {
   if (!currentUser) return;
   const r = recipes.find(x => x.id === id);
   if (!r) return;
-  if (!confirm(`Weet je zeker dat je ‘${r.title}’ uit je receptenbibliotheek wilt verwijderen?`)) return;
+  if (!(await askConfirm(`Weet je zeker dat je ‘${r.title}’ uit je receptenbibliotheek wilt verwijderen?`))) return;
   const { error } = await supabaseClient.from('recipes').delete().eq('id', id).eq('user_id', currentUser.id);
   if (error) {
     console.error(error);

@@ -497,7 +497,13 @@ function renderSharedMapManage(id) {
 async function removeRecipeFromShared(id) {
   const m = sharedMaps.find(x => x.id === currentShared);
   if (!m || !currentUser) return;
-  if (!confirm('Recept uit deze gedeelde map verwijderen? Het blijft beschikbaar in Alle recepten.')) return;
+  if (
+    !(await askConfirm('Recept uit deze gedeelde map halen?\n\nHet blijft beschikbaar in Alle recepten.', {
+      confirmLabel: 'Uit map halen',
+      danger: false
+    }))
+  )
+    return;
 
   // Alleen de koppeling met deze gedeelde map verwijderen. Het recept zelf
   // wordt hier NOOIT uit public.recipes verwijderd.
@@ -555,7 +561,13 @@ async function removeRecipeFromSharedFolder(id) {
   const m = sharedMaps.find(x => x.id === currentShared);
   const f = m?.folders?.find(x => x.id === String(currentFolder).replace(/^sharedfolder:/, ''));
   if (!m || !f || f.system) return;
-  if (!confirm('Recept uit deze map verwijderen? Het blijft in de gedeelde map en in Alle recepten.')) return;
+  if (
+    !(await askConfirm('Recept uit deze map halen?\n\nHet blijft in de gedeelde map en in Alle recepten.', {
+      confirmLabel: 'Uit map halen',
+      danger: false
+    }))
+  )
+    return;
   const { error } = await supabaseClient
     .from('shared_folder_recipes')
     .delete()
@@ -578,7 +590,7 @@ async function renameSharedMap(id) {
     toast(t('Je hebt geen rechten om deze gedeelde map te wijzigen'));
     return;
   }
-  let next = prompt('Nieuwe naam voor deze gedeelde map', m.name);
+  let next = await askText('Nieuwe naam voor deze gedeelde map', m.name);
   if (next === null) return;
   next = next.trim();
   if (!next || next === m.name) return;
@@ -616,9 +628,9 @@ async function deleteSharedMap(id) {
   const m = sharedMaps.find(x => String(x.id) === String(id));
   if (!m || String(m.ownerId) !== String(currentUser.id)) return;
   if (
-    !confirm(
+    !(await askConfirm(
       `Weet je zeker dat je de gedeelde map “${m.name}” wilt verwijderen?\n\nDe gedeelde map en de indeling worden verwijderd. Je persoonlijke recepten blijven behouden.`
-    )
+    ))
   )
     return;
   if (demoMode) {
@@ -808,9 +820,9 @@ async function removeSharedMember(mapId, userId) {
   if (!m || !isSharedMapOwner(m) || String(userId) === String(m.ownerId)) return;
   const member = m.members.find(x => String(x.userId) === String(userId));
   if (
-    !confirm(
+    !(await askConfirm(
       `${member?.name || 'Dit teamlid'} verwijderen uit “${m.name}”?\n\nDe recepten van dit teamlid verdwijnen uit de gedeelde map.`
-    )
+    ))
   )
     return;
   if (demoMode) {
@@ -836,7 +848,11 @@ async function removeSharedMember(mapId, userId) {
 async function leaveSharedMap(mapId) {
   const m = findSharedMap(mapId);
   if (!m || !currentUser || isSharedMapOwner(m)) return;
-  if (!confirm(`Weet je zeker dat je “${m.name}” wilt verlaten?\n\nJe eigen recepten blijven in je bibliotheek.`))
+  if (
+    !(await askConfirm(
+      `Weet je zeker dat je “${m.name}” wilt verlaten?\n\nJe eigen recepten blijven in je bibliotheek.`
+    ))
+  )
     return;
   if (!demoMode) {
     const { error } = await supabaseClient

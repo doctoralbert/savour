@@ -123,3 +123,88 @@ body.savour-light :is(#appShell, .modal) .btn.gold {
   gap: var(--sv-space-2) !important;
   padding: var(--sv-space-3) var(--sv-space-4) !important;
 }
+
+/* ---- Bevestig- en invulvenster (js/core/dialog.js) ---- */
+.modal.sv-dialog {
+  align-items: center;
+  justify-content: center;
+  padding: var(--sv-space-4);
+  z-index: 1000;
+}
+.sv-dialog-box {
+  width: min(420px, 100%);
+  margin: 0;
+  padding: var(--sv-space-5);
+  background: var(--sv-surface);
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius-lg);
+  box-shadow: 0 24px 60px #00000066;
+  color: var(--sv-text);
+  font-family: var(--sv-font);
+}
+.sv-dialog-title {
+  margin: 0;
+  font-family: var(--sv-font);
+  font-size: var(--sv-fs-lg);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--sv-text);
+}
+.sv-dialog-text {
+  margin: var(--sv-space-2) 0 0;
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-md);
+  line-height: 1.55;
+  white-space: pre-line;
+}
+.sv-dialog-input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: var(--sv-control-h);
+  margin-top: var(--sv-space-4);
+  padding: 0 var(--sv-space-3);
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface-2);
+  color: var(--sv-text);
+  font: inherit;
+  font-size: var(--sv-fs-base);
+}
+.sv-dialog-input:focus {
+  outline: none;
+  border-color: var(--sv-gold);
+  box-shadow: var(--sv-focus);
+}
+.sv-dialog-input[hidden],
+.sv-dialog-text[hidden] {
+  display: none;
+}
+.sv-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sv-space-2);
+  margin-top: var(--sv-space-5);
+}
+#svDialog .btn.sv-danger {
+  background: #a4473a !important;
+  border-color: #a4473a !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+}
+#svDialog .btn.sv-danger:hover {
+  background: #8e3a2f !important;
+  border-color: #8e3a2f !important;
+}
+@media (max-width: 760px) {
+  .modal.sv-dialog {
+    align-items: flex-end;
+  }
+  .sv-dialog-box {
+    border-radius: var(--sv-radius-lg) var(--sv-radius-lg) 0 0;
+    padding-bottom: calc(var(--sv-space-5) + env(safe-area-inset-bottom));
+  }
+  .sv-dialog-actions .btn {
+    flex: 1;
+  }
+}

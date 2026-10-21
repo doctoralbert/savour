@@ -68,7 +68,7 @@ async function renameFolder(id) {
   if (!currentUser) return;
   const f = folders.find(x => String(x.id) === String(id));
   if (!f || f.system) return;
-  const nextRaw = prompt('Nieuwe naam voor deze receptenmap', f.name);
+  const nextRaw = await askText('Nieuwe naam voor deze receptenmap', f.name);
   if (nextRaw === null) return;
   const next = nextRaw.trim();
   if (!next || next === f.name) return;
@@ -155,9 +155,9 @@ async function deleteFolder(id) {
   const f = folders.find(x => String(x.id) === String(id));
   if (!f || f.system) return;
   if (
-    !confirm(
+    !(await askConfirm(
       'Weet je zeker dat je de map “' + f.name + '” wilt verwijderen?\n\nDe recepten blijven in Alle recepten staan.'
-    )
+    ))
   )
     return;
   if (demoMode) {
@@ -401,7 +401,13 @@ function closeFolderModal() {
 async function removeRecipeFromFolder(id) {
   const f = folders.find(x => x.id === currentFolder);
   if (!f || f.system) return;
-  if (!confirm('Recept uit deze map verwijderen? Het blijft beschikbaar in Alle recepten.')) return;
+  if (
+    !(await askConfirm('Recept uit deze map halen?\n\nHet blijft beschikbaar in Alle recepten.', {
+      confirmLabel: 'Uit map halen',
+      danger: false
+    }))
+  )
+    return;
   const { error } = await supabaseClient.from('folder_recipes').delete().eq('folder_id', f.id).eq('recipe_id', id);
   if (error) {
     console.error(error);

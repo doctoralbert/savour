@@ -16,7 +16,7 @@ function renderCategories() {
 
 async function addCategory() {
   if (!currentUser) return;
-  let name = prompt('Naam van de nieuwe categorie');
+  let name = await askText('Naam van de nieuwe categorie', '', { confirmLabel: 'Toevoegen' });
   if (!name) return;
   name = name.trim();
   if (!name) return;
@@ -39,7 +39,7 @@ async function addCategory() {
 
 async function renameCategory(oldName) {
   if (!currentUser) return;
-  let next = prompt('Nieuwe naam voor deze categorie', oldName);
+  let next = await askText('Nieuwe naam voor deze categorie', oldName);
   if (next === null) return;
   next = next.trim();
   if (!next || next === oldName) return;
@@ -77,7 +77,7 @@ async function renameCategory(oldName) {
 
 async function removeCategory(name) {
   if (!currentUser) return;
-  if (!confirm(`Weet je zeker dat je de categorie “${name}” wilt verwijderen?`)) return;
+  if (!(await askConfirm(`Weet je zeker dat je de categorie “${name}” wilt verwijderen?`))) return;
   const { data: cat } = await supabaseClient
     .from('categories')
     .select('id')
