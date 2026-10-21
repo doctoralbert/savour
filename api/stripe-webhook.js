@@ -45,7 +45,9 @@ export default async function handler(req, res) {
       const sub = await stripe(`subscriptions/${obj.subscription}`, null, 'GET');
       await applySubscription(sub, obj.client_reference_id || (await userIdFor(sub)));
     } else if (event.type?.startsWith('customer.subscription.')) {
-      await applySubscription(obj, await userIdFor(obj));
+      // Meldingen kunnen dubbel of in de verkeerde volgorde komen: daarom de actuele stand bij Stripe opvragen.
+      const sub = await stripe(`subscriptions/${obj.id}`, null, 'GET').catch(() => obj);
+      await applySubscription(sub, await userIdFor(sub));
     }
     return res.status(200).json({ received: true });
   } catch (error) {
