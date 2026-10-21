@@ -127,11 +127,17 @@ Panko frituren in olie.
 598.Roseval gepoft
 Was de Roseval en dep deze droog.`,
     expect: [
-      // Stap zonder punt: de lezer kan die niet zeker van een ingrediënt onderscheiden, dus twijfel.
-      { t: 'Aardappel crème', c: 'low' },
+      // Stap zonder punt, herkend aan het keukenwerkwoord ("koken", "trekken").
+      {
+        t: 'Aardappel crème',
+        i: ['200 gram bintjes', '2 deciliter room', '1 takje tijm'],
+        s: ['aardappels koken, room met kruiden trekken, doorwrijven'],
+        c: 'high'
+      },
       { t: 'Aardappel mousseline', i: ['1000 gram droge aardappelpuree', '100 gram melk'], s: 0, c: 'high' },
       { t: 'Algenpoeder crumble', i: ['1 kilo panko', '100 gram algenpoeder'], s: 1, c: 'high' },
-      { t: 'Roseval gepoft', i: [], s: 1, c: 'low' }
+      // Alleen bereiding, in duidelijke zinnen: zeker.
+      { t: 'Roseval gepoft', i: [], s: 1, c: 'high' }
     ]
   },
   // "#b " = vette regel of Word-kop 2/3 (zie htmlToRecipeText in import.js).
@@ -234,14 +240,131 @@ Mengen met de melk en afroeren.`,
     ]
   },
   {
-    name: 'Bereiding tussen de ingrediënten zonder punt blijft twijfel',
+    name: 'Bereiding tussen de ingrediënten zonder punt, met keukenwerkwoord',
     text: `50.Wasabi ijs
 250 gram yoghurt
 60 gram wasabi
 Mengen en koud zetten
 400 gram room
 Bij elkaar en verwarmen`,
-    expect: [{ t: 'Wasabi ijs', c: 'medium' }]
+    expect: [
+      {
+        t: 'Wasabi ijs',
+        i: ['250 gram yoghurt', '60 gram wasabi', '400 gram room'],
+        s: ['Mengen en koud zetten', 'Bij elkaar en verwarmen'],
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Bereiding tussen de ingrediënten zonder werkwoord blijft twijfel',
+    text: `Parfait
+5 stuks eieren
+350 gram suiker
+Room lobbig, rest bij elkaar
+500 gram slagroom`,
+    expect: [{ t: 'Parfait', c: 'low' }]
+  },
+  {
+    name: 'Echt bestand: recept van alleen zinnen is zeker',
+    text: `279.Ananas konfijt
+Batonettes snijden van ananas (1x1x8). Vacümeren met klein beetje geklaarde boter.
+Een uur op 95C 100% in de oven, dan uit vacuüm en droog deppen.`,
+    expect: [{ t: 'Ananas konfijt', i: [], s: 2, c: 'high' }]
+  },
+  {
+    name: 'Echt bestand: werkwoord achteraan en "Recept is voor"',
+    text: `228.Frambozensoep
+1200 gram rode wijn
+150 gram suiker
+18 gram gelatine
+Recept is voor 27 glazen (50 gram per glas)
+267.Dadelcrème
+250 gram dadels zonder pit
+250 gram abrikozen coulis
+Fijn draaien in de cutter en door een zeef`,
+    expect: [
+      {
+        t: 'Frambozensoep',
+        y: '27 glazen (50 gram per glas)',
+        i: ['1200 gram rode wijn', '150 gram suiker', '18 gram gelatine'],
+        s: 0,
+        c: 'high'
+      },
+      {
+        t: 'Dadelcrème',
+        i: ['250 gram dadels zonder pit', '250 gram abrikozen coulis'],
+        s: ['Fijn draaien in de cutter en door een zeef'],
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Echt bestand: ingrediënten per ongeluk onder Bereidingswijze is twijfel',
+    text: `Albufeira saus
+Ingrediënten:
+- 2 L kip jus
+Bereidingswijze
+- 2 L JDV
+- 2 fl witte port
+- 4 kg ui
+- 350 gr boter`,
+    expect: [{ t: 'Albufeira saus', c: 'medium' }]
+  },
+  {
+    name: 'Echt bestand: stap vóór het kopje Werkwijze is geen ingrediënt',
+    text: `347.Doorhaalchocolade
+2400 gram witte chocolade
+1200 gram cacaoboter
+Au bain-marie verwarmen tot max 40c
+Werkwijze
+Doorhaal chocolade er over gieten.`,
+    expect: [
+      {
+        t: 'Doorhaalchocolade',
+        i: ['2400 gram witte chocolade', '1200 gram cacaoboter'],
+        s: ['Au bain-marie verwarmen tot max 40c', 'Doorhaal chocolade er over gieten.'],
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Echt bestand: stap die met een product begint ("Suiker koken tot 121c")',
+    text: `218.IJzerkruid siroop
+50 gram ijzerkruid
+250 gram suiker
+IJzer kruid en ijsklontjes in de blender.
+Suiker koken tot 121c en draaiend er bij gieten`,
+    expect: [
+      {
+        t: 'IJzerkruid siroop',
+        i: ['50 gram ijzerkruid', '250 gram suiker'],
+        s: ['IJzer kruid en ijsklontjes in de blender.', 'Suiker koken tot 121c en draaiend er bij gieten'],
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Echt bestand: lange bereidingszin die met een hoeveelheid begint',
+    text: `Gember crumble
+1000 gram bloem
+600 gram zachte boter
+100 verse gember in de blender met de suiker doordraaien. Vervolgens alles tot een crumble mixen met de hand`,
+    expect: [
+      {
+        t: 'Gember crumble',
+        i: ['1000 gram bloem', '600 gram zachte boter'],
+        s: 1,
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Rommelige omschrijving zonder hoeveelheden blijft twijfel',
+    text: `Saus van oma
+boter wijn en sjalot, ongeveer een halve liter, lekker bij vis en zo
+alles samen even laten pruttelen tot het goed is`,
+    expect: [{ t: 'Saus van oma', c: 'medium' }]
   },
   {
     name: 'Stap die met een tijdwoord begint is geen zeker ingrediënt',

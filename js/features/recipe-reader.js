@@ -14,7 +14,7 @@ const READER_INLINE_HEADING =
 const READER_STEPS_HEADING =
   /^(?:bereiding(?:swijze)?|werkwijze|methode|method|instructies|instructions|directions|preparation|zo maak je het|aan de slag|stappen(?:plan)?|steps?)\s*[:=-]?\s*$/i;
 const READER_YIELD_LABEL =
-  /^(?:opbrengst|yield|porties?|personen|couverts|aantal(?: personen| porties| stuks)?|serves|makes|recept voor|hoeveelheid|voor)\s*[:=-]?\s*(.+)$/i;
+  /^(?:opbrengst|yield|porties?|personen|couverts|aantal(?: personen| porties| stuks)?|serves|makes|recept (?:is )?voor|hoeveelheid|voor)\s*[:=-]?\s*(.+)$/i;
 const READER_YIELD_PLAIN =
   /^\(?\s*(?:voor\s+)?\d+(?:[.,-]\d+)?\s*(?:personen|persoon|pers\.?|porties?|couverts|stuks|st\.?|liter|l|kg|gram|g)\s*\)?\.?$/i;
 const READER_META_LINE =
@@ -70,10 +70,16 @@ function readerCleanStep(line) {
   return line.replace(READER_BULLET, '').replace(READER_STEP_NUMBER, '');
 }
 
-// Een zin (stap) eindigt op een punt of is lang; een ingrediënt is kort en zonder punt.
+// Een zin (stap) eindigt op een punt, bevat twee zinnen ("Opkoken, rest erin oplossen. 50 gram per glas")
+// of is lang; een ingrediënt is kort en zonder punt.
 function readerLooksLikeSentence(line) {
-  return /[.!?]$/.test(line) || line.length > 70;
+  return /[.!?]$/.test(line) || line.length > 70 || (line.length > 30 && /\p{L}[.!?]\s+\S/u.test(line));
 }
+
+// Keukenwerkwoorden. In koksnotities staat het werkwoord vaak achteraan ("Fijn draaien in de cutter",
+// "Room en kardemom laten trekken"); zo herkent de lezer een stap ook zonder punt.
+const READER_KITCHEN_VERB =
+  /\b(?:(?:op|af|in|door|aan|bij|uit|terug|los|fijn|kort|koud)?(?:koken|draaien|mengen|zeven|bakken|braden|garen|roeren|kloppen|spatelen|snijden|schillen|smelten|verwarmen|oplossen|toevoegen|trekken|koelen|vriezen|ontdooien|vacumeren|vacümeren|frituren|cutteren|blenden|mixen|pureren|pocheren|stomen|roosteren|karamelliseren|monteren|binden|afbinden|afblussen|blussen|marineren|wellen|weken|zetten|spuiten|strooien|bestrooien|smeren|insmeren|uitsmeren|steken|uitsteken|vullen|rollen|drogen|laten|brengen|halen|doen|gieten|storten|dresseren|serveren)\b)/i;
 
 // Sterk signaal voor een ingrediënt: opsommingsteken, begint met een hoeveelheid of is kwalitatief
 // ("zout naar smaak"), en is geen zin.
@@ -82,17 +88,26 @@ function readerIsIngredientLine(line) {
   if (!x || READER_STEP_NUMBER.test(line) || READER_NUMBERED_TITLE.test(x)) return false;
   // "2 minuten doorkoken", "1 nacht marineren": een tijd is geen hoeveelheid.
   if (READER_STARTS_WITH_TIME.test(x)) return false;
+  // "100 verse gember in de blender met de suiker doordraaien. Vervolgens alles …": meerdere zinnen of heel
+  // lang is bereiding, ook als de regel met een hoeveelheid begint.
+  if (x.length > 90 || /\p{L}[.!?]\s+\p{L}/u.test(x)) return false;
   // Een zin is bereiding ("Boter smelten in een pan."), behalve iets korts als "250 g boter.".
   if (/[.!?]$/.test(x) && !(READER_STARTS_WITH_QTY.test(x) && x.length <= 30)) return false;
   if (READER_BULLET.test(line) || READER_STARTS_WITH_QTY.test(x)) return true;
-  // "Olie kruiden en pepers in robokook draaien. Alles mengen…" begint met een ingrediënt, maar is een stap.
+  // "Olie kruiden en pepers in robokook draaien. Alles mengen…" en "Suiker koken tot 121c en erbij gieten"
+  // beginnen met een ingrediënt, maar zijn een stap.
+  if (READER_KITCHEN_VERB.test(x) && (/\d/.test(x) || x.split(/\s+/).length >= 5)) return false;
   return READER_QUALITATIVE.test(x) && x.length <= 50 && !/[.!?]\s/.test(x);
 }
 
 // Regel zonder hoeveelheid die op een werkwoord lijkt: "Alles koud mengen", "Mixen met staafmixer",
 // "Opkoken tot 116C". Zonder kopjes kan de lezer dan niet zeker zijn dat het een ingrediënt is.
 function readerLooksLikeStepStart(line) {
-  const first = line.replace(READER_BULLET, '').split(/\s+/)[0].toLowerCase();
+  const first = line
+    .replace(READER_BULLET, '')
+    .split(/\s+/)[0]
+    .toLowerCase()
+    .replace(/[^\p{L}]+$/u, '');
   // Ook "Daarna onderstaande toevoegen", "Wanneer ingekookt afmaken met": stappen die met een tijdwoord beginnen.
   const stepWords = ['alles', 'daarna', 'dan', 'wanneer', 'als', 'eerst', 'vervolgens', 'tot', 'nu', 'zodra'];
   return !READER_STARTS_WITH_QTY.test(line) && (stepWords.includes(first) || (first.length >= 5 && /en$/.test(first)));
@@ -104,6 +119,7 @@ function readerIsSureStep(line) {
   if (READER_STARTS_WITH_QTY.test(line) && !READER_STARTS_WITH_TIME.test(line)) return false;
   return (
     /^alles\b/i.test(line) ||
+    (READER_KITCHEN_VERB.test(line) && line.split(/\s+/).length >= 2) ||
     READER_STARTS_WITH_TIME.test(line) ||
     /\d\s*(?:°|’|')?\s*c\b/i.test(line) ||
     /\b\d+\s*(?:minuten|min|uur|seconden|sec)\b/i.test(line)
@@ -187,6 +203,8 @@ function parseRecipeBlock(block) {
   const hasIngredientsHeading = rest.some(l => READER_INGREDIENTS_HEADING.test(l));
   const hasStepsHeading = rest.some(l => READER_STEPS_HEADING.test(l));
   let cleanWithoutHeadings = false;
+  let onlyClearSteps = false;
+  let headingsLookWrong = false;
 
   if (hasIngredientsHeading || hasStepsHeading) {
     // Met kopjes: de kopjes bepalen waar alles hoort.
@@ -213,9 +231,15 @@ function parseRecipeBlock(block) {
           mode = 'steps';
           steps.push(readerCleanStep(l));
         } else if (READER_META_LINE.test(l)) intro.push(l);
+        // Alleen een kopje "Werkwijze": een duidelijke stap ervóór ("Au bain-marie verwarmen tot 40c") is geen ingrediënt.
+        else if (!hasIngredientsHeading && readerIsSureStep(l) && !readerIsIngredientLine(l)) intro.push(l);
         else ingredients.push(l.replace(READER_BULLET, ''));
       } else steps.push(readerCleanStep(l));
     }
+    // Staan onder "Bereiding" vooral ingrediëntregels ("- 2 L JDV", "- 4 kg ui"), dan klopt het kopje in de
+    // bron waarschijnlijk niet: twijfel, ook al zijn er kopjes.
+    const ingredientLikeSteps = steps.filter(readerIsIngredientLine).length;
+    headingsLookWrong = ingredientLikeSteps >= 2 && ingredientLikeSteps * 2 > steps.length;
   } else {
     // Zonder kopjes: alles tot en met het laatste duidelijke ingrediënt hoort bij de ingrediënten
     // (zinnen daartussen zijn een inleiding), alles daarna is bereiding.
@@ -244,6 +268,14 @@ function parseRecipeBlock(block) {
       if (readerLooksLikeStepStart(l)) return false;
       return k === 'ingredient' || (k === 'short' && !l.includes(',') && l.split(/\s+/).length <= 4);
     });
+    // Recept van alleen bereiding ("Ananas konfijt": de bron heeft geen ingrediëntenlijst): zeker als
+    // elke regel duidelijk een stap is. De lezer laat dan niets weg en verzint niets.
+    onlyClearSteps =
+      lastIngredient === -1 &&
+      rest.length > 0 &&
+      rest.every(
+        (l, i) => ['step', 'meta', 'yield'].includes(kinds[i]) || (kinds[i] === 'stepish' && readerIsSureStep(l))
+      );
     rest.forEach((l, i) => {
       const k = kinds[i];
       if (k === 'yield' && !yieldText) yieldText = readerYieldFrom(l);
@@ -257,8 +289,16 @@ function parseRecipeBlock(block) {
   // Inleiding en notities (bijv. "Oven: 180 °C") gaan voorop in de bereiding, zodat niets verloren gaat.
   const allSteps = [...intro, ...steps].filter(Boolean);
   const name = title || 'Onbenoemd recept';
-  const structured = hasIngredientsHeading || hasStepsHeading || cleanWithoutHeadings;
-  const confidence = !ingredients.length ? 'low' : structured ? 'high' : allSteps.length ? 'medium' : 'low';
+  const structured = ((hasIngredientsHeading || hasStepsHeading) && !headingsLookWrong) || cleanWithoutHeadings;
+  const confidence = onlyClearSteps
+    ? 'high'
+    : !ingredients.length
+      ? 'low'
+      : structured
+        ? 'high'
+        : allSteps.length
+          ? 'medium'
+          : 'low';
   // source: de oorspronkelijke regels, zodat Savour alleen twijfelgevallen opnieuw (met AI) kan laten lezen.
   return {
     title: name,
