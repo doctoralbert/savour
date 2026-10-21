@@ -2831,10 +2831,22 @@ export const patterns = [
     '$1 de $2 importaciones con IA usadas este mes.'
   ],
   [
-    '^(\\d+) van (\\d+) AI-imports gebruikt deze maand\\. Bestanden die de Savour-lezer zelf goed leest, tellen niet mee\\.$',
-    '$1 of $2 AI imports used this month. Files the Savour reader reads well on its own do not count.',
-    '$1 von $2 KI-Importen diesen Monat genutzt. Dateien, die der Savour-Leser selbst gut liest, zählen nicht.',
-    '$1 de $2 importaciones con IA usadas este mes. Los archivos que el lector de Savour lee bien no cuentan.'
+    '^(\\d+) van (\\d+) AI-imports gebruikt deze maand\\. Eerst leest de Savour-lezer alles, gratis\\. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee\\.$',
+    '$1 of $2 AI imports used this month. The Savour reader always reads everything first, for free. Only where it is unsure does the AI automatically reread: only that counts.',
+    '$1 von $2 KI-Importen diesen Monat genutzt. Zuerst liest der Savour-Leser alles, kostenlos. Nur wo er unsicher ist, liest die KI automatisch nach: nur das zählt.',
+    '$1 de $2 importaciones con IA usadas este mes. Primero el lector de Savour lo lee todo, gratis. Solo donde tiene dudas, la IA relee automáticamente: solo eso cuenta.'
+  ],
+  [
+    '^Savour-lezer: (\\d+) zeker, (\\d+) twijfel\\. AI leest de twijfelgevallen na: (\\d+) van (\\d+) delen…$',
+    'Savour reader: $1 certain, $2 unsure. The AI is rereading the unsure ones: $3 of $4 parts…',
+    'Savour-Leser: $1 sicher, $2 unsicher. Die KI liest die unsicheren nach: $3 von $4 Teilen…',
+    'Lector de Savour: $1 seguras, $2 con dudas. La IA relee las dudosas: $3 de $4 partes…'
+  ],
+  [
+    '^Gelezen door de Savour-lezer: (\\d+) · nagelezen door de AI: (\\d+)$',
+    'Read by the Savour reader: $1 · reread by the AI: $2',
+    'Vom Savour-Leser gelesen: $1 · von der KI nachgelesen: $2',
+    'Leídas por el lector de Savour: $1 · releídas por la IA: $2'
   ],
   [
     '^Opgezegd\\. Je houdt Pro tot (.+)\\.$',

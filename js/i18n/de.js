@@ -961,8 +961,16 @@ window.SAVOUR_I18N.de = {
     ['^Niet verwerkt \\((\\d+)\\):$', 'Nicht verarbeitet ($1):'],
     ['^(\\d+) van (\\d+) AI-imports gebruikt deze maand\\.$', '$1 von $2 KI-Importen diesen Monat genutzt.'],
     [
-      '^(\\d+) van (\\d+) AI-imports gebruikt deze maand\\. Bestanden die de Savour-lezer zelf goed leest, tellen niet mee\\.$',
-      '$1 von $2 KI-Importen diesen Monat genutzt. Dateien, die der Savour-Leser selbst gut liest, zählen nicht.'
+      '^(\\d+) van (\\d+) AI-imports gebruikt deze maand\\. Eerst leest de Savour-lezer alles, gratis\\. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee\\.$',
+      '$1 von $2 KI-Importen diesen Monat genutzt. Zuerst liest der Savour-Leser alles, kostenlos. Nur wo er unsicher ist, liest die KI automatisch nach: nur das zählt.'
+    ],
+    [
+      '^Savour-lezer: (\\d+) zeker, (\\d+) twijfel\\. AI leest de twijfelgevallen na: (\\d+) van (\\d+) delen…$',
+      'Savour-Leser: $1 sicher, $2 unsicher. Die KI liest die unsicheren nach: $3 von $4 Teilen…'
+    ],
+    [
+      '^Gelezen door de Savour-lezer: (\\d+) · nagelezen door de AI: (\\d+)$',
+      'Vom Savour-Leser gelesen: $1 · von der KI nachgelesen: $2'
     ],
     ['^Opgezegd\\. Je houdt Pro tot (.+)\\.$', 'Gekündigt. Du behältst Pro bis $1.'],
     ['^Jaarabonnement · verlengt op (.+)$', 'Jahresabo · verlängert sich am $1'],

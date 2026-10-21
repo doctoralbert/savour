@@ -179,7 +179,7 @@ function renderImportPlanNotice() {
   const host = $('importPlanNotice');
   if (!host) return;
   host.innerHTML = isPro()
-    ? `<div class="import-plan is-pro"><b>Savour Pro</b><span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt deze maand. Bestanden die de Savour-lezer zelf goed leest, tellen niet mee.</span></div>`
+    ? `<div class="import-plan is-pro"><b>Savour Pro</b><span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt deze maand. Eerst leest de Savour-lezer alles, gratis. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee.</span></div>`
     : `<div class="import-plan"><b>Je importeert met de Savour-lezer</b><span>Word, PDF en tekst met duidelijke kopjes (“Ingrediënten”, “Bereiding”) worden direct en gratis ingelezen. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro.</span><button class="btn small gold" onclick="openPublicInfo('pro')">Bekijk Savour Pro</button></div>`;
   document.querySelectorAll('[data-pro-only]').forEach(el => el.classList.toggle('is-locked', !isPro()));
 }
