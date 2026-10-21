@@ -13,6 +13,11 @@ export default async function handler(req, res) {
   try {
     const sub = await getSubscription(user.id);
     if (!sub?.stripe_customer_id) return res.status(404).json({ error: 'Er is nog geen abonnement om te beheren.' });
+    // Klantnummer uit de testomgeving: bestaat niet bij de live-sleutel, dus ook geen live-abonnement.
+    const known = await stripe(`customers/${encodeURIComponent(sub.stripe_customer_id)}`, null, 'GET')
+      .then(c => !c.deleted)
+      .catch(() => false);
+    if (!known) return res.status(404).json({ error: 'Er is nog geen abonnement om te beheren.' });
     const session = await stripe('billing_portal/sessions', {
       customer: sub.stripe_customer_id,
       return_url: `${siteOrigin(req)}/?pro=portal`
@@ -20,6 +25,8 @@ export default async function handler(req, res) {
     return res.status(200).json({ url: session.url });
   } catch (error) {
     console.error('Savour Pro portal', error);
-    return res.status(500).json({ error: 'Abonnement beheren kon niet worden geopend.' });
+    return res
+      .status(500)
+      .json({ error: `Abonnement beheren kon niet worden geopend (${error.message || 'onbekende fout'}).` });
   }
 }

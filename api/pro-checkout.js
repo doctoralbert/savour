@@ -44,12 +44,19 @@ export default async function handler(req, res) {
       organizationId = org?.id;
     }
 
-    // Eén Stripe-klant per Savour-gebruiker.
+    // Eén Stripe-klant per Savour-gebruiker. Een klant uit de testomgeving (of een verwijderde) bestaat niet
+    // bij de live-sleutel: dan maken we een nieuwe en vergeten we het oude test-abonnement.
     let customer = sub?.stripe_customer_id;
+    if (customer && !(await customerExists(customer))) customer = null;
     if (!customer) {
       const created = await stripe('customers', { email: user.email, metadata: { user_id: user.id } });
       customer = created.id;
-      await upsertSubscription({ user_id: user.id, stripe_customer_id: customer, status: sub?.status || 'inactive' });
+      await upsertSubscription({
+        user_id: user.id,
+        stripe_customer_id: customer,
+        ...(sub?.stripe_customer_id ? { stripe_subscription_id: null } : {}),
+        status: sub?.status || 'inactive'
+      });
     }
 
     const origin = siteOrigin(req);
@@ -69,6 +76,16 @@ export default async function handler(req, res) {
     return res.status(200).json({ url: session.url });
   } catch (error) {
     console.error('Savour Pro checkout', error);
-    return res.status(500).json({ error: 'Afrekenen kon niet worden gestart. Probeer het later opnieuw.' });
+    // De melding van Stripe (bijv. "No such price") bevat geen geheimen en helpt bij het oplossen.
+    return res.status(500).json({ error: `Afrekenen kon niet worden gestart (${error.message || 'onbekende fout'}).` });
+  }
+}
+
+async function customerExists(id) {
+  try {
+    const c = await stripe(`customers/${encodeURIComponent(id)}`, null, 'GET');
+    return !c.deleted;
+  } catch {
+    return false;
   }
 }
