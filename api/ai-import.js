@@ -41,7 +41,9 @@ export default async function handler(req, res) {
   const key = process.env.OPENAI_API_KEY;
   if (!key) return res.status(500).json({ error: 'OPENAI_API_KEY ontbreekt in Vercel Environment Variables.' });
   try {
-    const { image, text, filename, categories } = req.body || {};
+    const { image, text, filename, categories, language } = req.body || {};
+    // Taal van de chef in de app; geldt alleen als de AI twijfelt over de taal van de bron.
+    const sourceLanguage = { en: 'Engels', de: 'Duits', es: 'Spaans' }[language] || 'Nederlands';
     const hasImage = typeof image === 'string' && image.startsWith('data:image/');
     const hasText = typeof text === 'string' && text.trim().length > 0;
     if (!hasImage && !hasText) return res.status(400).json({ error: 'Geen receptbron ontvangen.' });
@@ -65,7 +67,7 @@ Analyseer de bron zeer nauwkeurig en maak er één of meerdere controleerbare re
 
 ABSOLUTE REGELS:
 - Lees alleen wat daadwerkelijk in de bron staat. Verzin nooit ontbrekende hoeveelheden, ingrediënten, technieken, temperaturen, tijden, opbrengsten of stappen.
-- Schrijf in de taal van de bron en vertaal niets. Behoud de oorspronkelijke vaktermen, productnamen, merknamen en eenheden.
+- TAAL: schrijf titel, ingrediënten, stappen en opbrengst in de taal van de bron en vertaal NOOIT, ook niet naar het Engels. Bepaal de taal aan de hand van de gewone woorden in de bron (bijvoorbeeld "eigeel", "suiker", "kloppen", "room" = Nederlands); losse Franse of Engelse vaktermen (zoals "pâte à bombe", "sponge") maken de bron niet Frans of Engels. Twijfel je over de taal, gebruik dan ${sourceLanguage}. Behoud de oorspronkelijke vaktermen, productnamen, merknamen en eenheden.
 - Maak strikt onderscheid tussen titel, opbrengst, ingrediënten en bereidingsstappen.
 - Een ingrediënt blijft een ingrediënt, ook als het bijvoorbeeld een vanillestokje, ei, boter of suiker is. Zet een ingrediënt nooit in steps.
 - Een regel met een hoeveelheid hoort bij ingrediënten als het product zelf wordt genoemd. Bijvoorbeeld "1 vanillestokje" is een ingrediënt.

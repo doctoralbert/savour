@@ -308,7 +308,7 @@ async function callAiImport(body) {
   const response = await fetch('/api/ai-import', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    body: JSON.stringify({ ...body, categories: categories.slice() })
+    body: JSON.stringify({ ...body, categories: categories.slice(), language: currentLanguage })
   });
   const result = await response.json().catch(() => ({}));
   // De server geeft na elke AI-import de stand van de teller terug.
