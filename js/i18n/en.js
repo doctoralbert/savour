@@ -486,6 +486,8 @@ window.SAVOUR_I18N.en = {
     'Op kantoor organiseer je je recepten op de computer, in de keuken gebruik je dezelfde bibliotheek op je telefoon of tablet. Recepten omrekenen naar een andere opbrengst, een kookweergave met grote letters en printen voor de receptkaart zitten er standaard in.':
       'In the office you organise your recipes on the computer; in the kitchen you use the same library on your phone or tablet. Scaling recipes to a different yield, a cooking view with large text and printing recipe cards are all included.',
     'Door chefs, voor chefs': 'By chefs, for chefs',
+    'Savour · KvK 89674871 · Nederland · contact@savour.page':
+      'Savour · Dutch Chamber of Commerce (KvK) 89674871 · Netherlands · contact@savour.page',
     'Savour wordt gemaakt door chefs uit Nederland. We weten uit eigen ervaring waar het in de keuken misgaat: zoekgeraakte recepten, verschillende versies en uren overtypen. Savour is gebouwd omdat we zelf een plek wilden die dat oplost, en die we zelf elke dag gebruiken. Vragen, ideeën of feedback zijn altijd welkom via de contactpagina.':
       'Savour is made by chefs from the Netherlands. We know from experience where things go wrong in the kitchen: lost recipes, different versions and hours of retyping. Savour was built because we wanted a place that solves this ourselves, and one we use every day. Questions, ideas and feedback are always welcome via the contact page.',
     Gids: 'Guide',

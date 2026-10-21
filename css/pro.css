@@ -308,3 +308,12 @@
 .admin-growth-bar .count {
   color: #eee8dc;
 }
+
+/* Bedrijfsgegevens onderaan contact, privacy en voorwaarden: klein en rustig. */
+.company-line {
+  margin-top: var(--sv-space-6, 32px) !important;
+  padding-top: var(--sv-space-3);
+  border-top: 1px solid var(--sv-line);
+  font-size: 12px !important;
+  color: color-mix(in srgb, var(--sv-text) 50%, transparent) !important;
+}

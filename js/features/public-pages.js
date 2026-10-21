@@ -58,6 +58,9 @@ siteCopy.nl.contact +=
   '<h2>Feedback en samenwerking</h2><p>Feedback over de interface, importkwaliteit, mappenstructuur en samenwerking helpt om Savour verder te ontwikkelen. Vermeld bij een melding bij voorkeur de pagina en de stappen waarmee het probleem ontstaat.</p>' +
   // Contactformulier: gaat via dezelfde route als "Bug doorgeven" (api/bug-report.js, kind: 'contact').
   '<h2>Stuur ons een bericht</h2><form id="contactForm" class="bug-form" onsubmit="submitContactForm(event)"><div class="formgrid"><div class="field"><label>Naam</label><input id="contactName" name="name" autocomplete="name" required></div><div class="field"><label>E-mail</label><input id="contactEmail" name="email" type="email" autocomplete="email" required></div><div class="field full"><label>Onderwerp</label><input id="contactSubject" name="subject" required></div><div class="field full"><label>Bericht</label><textarea id="contactMessage" name="message" required placeholder="Waar kunnen we je mee helpen?"></textarea></div></div><div class="actions"><button class="btn gold" type="submit" id="contactSubmit">Bericht versturen</button><span id="contactStatus" class="bug-status" aria-live="polite"></span></div></form>';
+// Bedrijfsgegevens, klein onderaan contact, privacy en voorwaarden.
+const COMPANY_LINE = '<p class="company-line">Savour · KvK 89674871 · Nederland · contact@savour.page</p>';
+['contact', 'privacy', 'terms'].forEach(page => (siteCopy.nl[page] += COMPANY_LINE));
 
 const PUBLIC_PAGE_LABELS = {
   about: 'Over Savour',

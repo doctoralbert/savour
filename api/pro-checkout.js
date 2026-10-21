@@ -1,7 +1,7 @@
 // Start het afrekenen voor Savour Pro (maand of jaar) of een teamabonnement (team5/10/25) via een
 // Stripe-betaalpagina. iDEAL, kaart, Apple Pay/Google Pay en PayPal stel je in het Stripe-dashboard in.
 import { getUserFromRequest } from './_lib/auth.js';
-import { stripe, priceFor, hasStripe, isPlan, TEAM_SEATS } from './_lib/stripe.js';
+import { stripe, priceFor, hasStripe, isPlan, configuredPlans, TEAM_SEATS } from './_lib/stripe.js';
 import {
   getSubscription,
   upsertSubscription,
@@ -12,6 +12,8 @@ import {
 import { siteOrigin } from './_lib/origin.js';
 
 export default async function handler(req, res) {
+  // GET: welke abonnementen zijn ingesteld? De Pro-pagina toont alleen die (geen sleutels of prijs-ID's).
+  if (req.method === 'GET') return res.status(200).json({ plans: configuredPlans() });
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (!hasStripe() || !hasServiceRole())
     return res.status(503).json({ error: 'Betalen is nog niet ingesteld.', code: 'not_configured' });

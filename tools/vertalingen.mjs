@@ -1297,6 +1297,12 @@ export const strings = [
   ],
   ['Door chefs, voor chefs', 'By chefs, for chefs', 'Von Köchen, für Köche', 'De chefs, para chefs'],
   [
+    'Savour · KvK 89674871 · Nederland · contact@savour.page',
+    'Savour · Dutch Chamber of Commerce (KvK) 89674871 · Netherlands · contact@savour.page',
+    'Savour · Handelsregister (KvK) 89674871 · Niederlande · contact@savour.page',
+    'Savour · Cámara de Comercio (KvK) 89674871 · Países Bajos · contact@savour.page'
+  ],
+  [
     'Savour wordt gemaakt door chefs uit Nederland. We weten uit eigen ervaring waar het in de keuken misgaat: zoekgeraakte recepten, verschillende versies en uren overtypen. Savour is gebouwd omdat we zelf een plek wilden die dat oplost, en die we zelf elke dag gebruiken. Vragen, ideeën of feedback zijn altijd welkom via de contactpagina.',
     'Savour is made by chefs from the Netherlands. We know from experience where things go wrong in the kitchen: lost recipes, different versions and hours of retyping. Savour was built because we wanted a place that solves this ourselves, and one we use every day. Questions, ideas and feedback are always welcome via the contact page.',
     'Savour wird von Köchen aus den Niederlanden gemacht. Wir wissen aus eigener Erfahrung, wo es in der Küche hakt: verlorene Rezepte, unterschiedliche Versionen und stundenlanges Abtippen. Savour entstand, weil wir selbst einen Ort wollten, der das löst, und den wir jeden Tag nutzen. Fragen, Ideen und Feedback sind über die Kontaktseite jederzeit willkommen.',

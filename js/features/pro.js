@@ -204,13 +204,40 @@ function formatProDate(d) {
 
 // ---- Pro-pagina (publiek én in de app) ----
 
+// Welke abonnementen zijn op deze site ingesteld (GET /api/pro-checkout)? null = nog onbekend: dan alles tonen.
+let proAvailablePlans = null;
+
+function proPlanAvailable(plan) {
+  return !proAvailablePlans || proAvailablePlans.includes(plan);
+}
+
 function renderProPage(host) {
   if (!host) return;
+  if (proAvailablePlans === null && !host.dataset.plansRequested) {
+    host.dataset.plansRequested = '1';
+    fetch('/api/pro-checkout', { cache: 'no-store' })
+      .then(r => (r.ok ? r.json() : null))
+      .then(d => {
+        // Lege lijst = Stripe nog helemaal niet ingesteld: dan alles tonen (afrekenen meldt het zelf).
+        if (Array.isArray(d?.plans) && d.plans.length) {
+          proAvailablePlans = d.plans;
+          if (host.isConnected) renderProPage(host);
+        }
+      })
+      .catch(() => {});
+  }
   const paid = ['subscription', 'gift', 'team_owner', 'team_member'].includes(savourPlan.source);
   const card = (plan, price, per, note, primary) =>
-    `<div class="pro-price${primary ? ' is-featured' : ''}">${primary ? '<span class="pro-badge">Voordeligst</span>' : ''}<h3>${plan === 'year' ? 'Jaarlijks' : 'Maandelijks'}</h3><div class="pro-amount"><strong>${price}</strong><span>${per}</span></div><p class="muted">${note}</p><button type="button" class="btn ${primary ? 'gold' : ''}" data-pro-choose onclick="choosePro('${plan}')">${paid ? 'Abonnement beheren' : plan === 'year' ? 'Kies jaarlijks' : 'Kies maandelijks'}</button></div>`;
-  const teamCard = t =>
-    `<div class="pro-price pro-team${t.seats === 10 ? ' is-featured' : ''}">${t.seats === 10 ? '<span class="pro-badge">Meest gekozen</span>' : ''}<h3>Team ${t.seats}</h3><div class="pro-amount"><strong>${t.month}</strong><span>per maand</span></div><p class="muted">${t.seats} personen · ${t.perPerson} per persoon<br>of ${t.year} per jaar</p><button type="button" class="btn ${t.seats === 10 ? 'gold' : ''}" data-pro-choose onclick="choosePro('${t.id}_month')">Kies maandelijks</button><button type="button" class="btn pro-year-link" data-pro-choose onclick="choosePro('${t.id}_year')">Kies jaarlijks</button></div>`;
+    !paid && !proPlanAvailable(plan)
+      ? ''
+      : `<div class="pro-price${primary ? ' is-featured' : ''}">${primary ? '<span class="pro-badge">Voordeligst</span>' : ''}<h3>${plan === 'year' ? 'Jaarlijks' : 'Maandelijks'}</h3><div class="pro-amount"><strong>${price}</strong><span>${per}</span></div><p class="muted">${note}</p><button type="button" class="btn ${primary ? 'gold' : ''}" data-pro-choose onclick="choosePro('${plan}')">${paid ? 'Abonnement beheren' : plan === 'year' ? 'Kies jaarlijks' : 'Kies maandelijks'}</button></div>`;
+  const teamCard = t => {
+    const month = proPlanAvailable(`${t.id}_month`),
+      year = proPlanAvailable(`${t.id}_year`);
+    if (!month && !year) return '';
+    return `<div class="pro-price pro-team${t.seats === 10 ? ' is-featured' : ''}">${t.seats === 10 ? '<span class="pro-badge">Meest gekozen</span>' : ''}<h3>Team ${t.seats}</h3><div class="pro-amount"><strong>${t.month}</strong><span>per maand</span></div><p class="muted">${t.seats} personen · ${t.perPerson} per persoon<br>of ${t.year} per jaar</p>${month ? `<button type="button" class="btn ${t.seats === 10 ? 'gold' : ''}" data-pro-choose onclick="choosePro('${t.id}_month')">Kies maandelijks</button>` : ''}${year ? `<button type="button" class="btn pro-year-link" data-pro-choose onclick="choosePro('${t.id}_year')">Kies jaarlijks</button>` : ''}</div>`;
+  };
+  const teamCards = TEAM_PLANS.map(teamCard).join('');
   const current =
     savourPlan.source === 'trial'
       ? `<div class="pro-current"><b>Je probeert Savour Pro gratis.</b> <span>Tot ${esc(formatProDate(savourPlan.trialEnd))}. Daarna ga je vanzelf terug naar gratis; je betaalt niets zonder dat je zelf kiest.</span></div>`
@@ -222,10 +249,14 @@ function renderProPage(host) {
     `<p class="pro-trial-note"><strong>Nieuw bij Savour?</strong> Je krijgt 14 dagen Savour Pro gratis, zonder betaalgegevens.</p>
     <div class="pro-prices">${card('month', PRO_PRICES.month, 'per maand', 'Maandelijks opzegbaar.', false)}${card('year', PRO_PRICES.year, 'per jaar', 'Twee maanden gratis ten opzichte van maandelijks.', true)}</div>
     <p class="pro-pay muted">Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Er wordt geen btw gerekend (kleineondernemersregeling). Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.</p>
-    <h2>Savour voor je hele team</h2>
+    ${
+      teamCards
+        ? `<h2>Savour voor je hele team</h2>
     <p>Met een teamabonnement krijgt iedereen in je keuken Savour Pro. Hoe groter je team, hoe lager de prijs per persoon. Je nodigt je collega's uit op hun e-mailadres en kunt plekken altijd aan iemand anders geven.</p>
-    <div class="pro-prices pro-team-prices">${TEAM_PLANS.map(teamCard).join('')}</div>
-    <p class="pro-pay muted">Groter dan 25 personen of meerdere vestigingen? Neem contact op voor een prijs op maat.</p>
+    <div class="pro-prices pro-team-prices">${teamCards}</div>
+    <p class="pro-pay muted">Groter dan 25 personen of meerdere vestigingen? Neem contact op voor een prijs op maat.</p>`
+        : ''
+    }
     <h2>Wat zit erin?</h2>
     <table class="pro-compare">
       <thead><tr><th></th><th>Gratis</th><th>Pro</th></tr></thead>

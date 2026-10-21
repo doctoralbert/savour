@@ -244,7 +244,7 @@ function renderSettings() {
   $('settingsCategories').innerHTML = categories
     .map(
       c =>
-        `<div class="member"><div><b>${esc(c)}</b><small class="muted">Eigen categorie</small></div><div style="display:flex;gap:7px;justify-content:flex-end"><button class="btn small" onclick="renameCategory('${escJs(c)}')">Naam wijzigen</button><button class="btn small" onclick="removeCategory('${escJs(c)}')">Verwijderen</button></div></div>`
+        `<div class="member"><div><b>${esc(c)}</b></div><div style="display:flex;gap:7px;justify-content:flex-end"><button class="btn small" onclick="renameCategory('${escJs(c)}')">Naam wijzigen</button><button class="btn small" onclick="removeCategory('${escJs(c)}')">Verwijderen</button></div></div>`
     )
     .join('');
 }

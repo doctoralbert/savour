@@ -83,6 +83,11 @@ export function priceFor(plan) {
   return process.env[PLAN_ENV[plan]];
 }
 
+// Welke abonnementen kunnen nu worden afgerekend (de prijs-ID staat in Vercel)? Alleen namen, geen waarden.
+export function configuredPlans() {
+  return hasStripe() ? Object.keys(PLAN_ENV).filter(plan => !!priceFor(plan)) : [];
+}
+
 export function planForPrice(priceId) {
   if (!priceId) return null;
   return Object.keys(PLAN_ENV).find(plan => process.env[PLAN_ENV[plan]] === priceId) || null;
