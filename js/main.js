@@ -1,7 +1,7 @@
 // Opstarten van Savour. Dit bestand wordt als laatste geladen, zodat alle functies al bestaan.
 
-// Nederlands is de vaste taal. Het thema (donker/licht) kiest de gebruiker in Instellingen.
-document.documentElement.lang = 'nl';
+// Taal: Nederlands, tenzij de gebruiker met de taalknop iets anders koos. Het thema kiest de gebruiker in Instellingen.
+setLanguage(getSavedLanguage());
 applyTheme(currentTheme());
 
 setupCropControls();
@@ -20,10 +20,10 @@ if (IS_ADMIN_PATH) {
   }, 0);
 }
 
-// Een open "⋯"-menu sluit bij een klik ernaast of na het kiezen van een actie.
+// Een open "⋯"-menu of taalmenu sluit bij een klik ernaast of na het kiezen van een actie.
 document.addEventListener('click', e => {
-  document.querySelectorAll('details.rp-more[open]').forEach(d => {
-    if (!d.contains(e.target) || e.target.closest('.rp-menu button')) d.open = false;
+  document.querySelectorAll('details.rp-more[open], details.lang-menu[open]').forEach(d => {
+    if (!d.contains(e.target) || e.target.closest('.rp-menu button, .lang-options button')) d.open = false;
   });
 });
 
@@ -34,7 +34,6 @@ document.addEventListener('keydown', e => {
 
 // Terug/vooruit in de browser: de actieve weergave opnieuw tekenen.
 window.addEventListener('popstate', () => {
-  document.documentElement.lang = 'nl';
   const active = document.querySelector('#appShell .view.active')?.id;
   if (currentUser && active) renderActiveView(active);
 });

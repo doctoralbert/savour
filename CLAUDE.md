@@ -25,7 +25,9 @@ Verdienmodel: gratis basis + betaald pro (nog niet gebouwd).
 - Foto's altijd via `compressPhoto()` voordat ze worden opgeslagen of naar de AI gaan.
 - Rechten in de interface (`canEditShared` e.d.) zijn alleen gemak; de echte beveiliging moet in Supabase RLS zitten.
 - API-routes in `api/` controleren het Supabase-token via `api/_lib/auth.js` als ze iets kosten of gegevens raken.
-- Teksten in de interface en code-commentaar zijn Nederlands.
+- Teksten in de interface en code-commentaar zijn Nederlands. De app is ook in het Engels, Duits en Spaans
+  (taalknop bovenin, `js/core/i18n.js`). Nieuwe interfacetekst? Voeg een regel toe in `tools/vertalingen.mjs`
+  en draai `node tools/build-i18n.mjs`. Recepten en namen van gebruikers worden nooit vertaald.
 - Savour verwijdert nooit zelf gegevens zonder dat de gebruiker daarom vraagt (zie `js/data/duplicates.js`).
 - Links uit e-mails (bevestigen, wachtwoord herstellen) worden afgehandeld in `readAuthRedirect`/`handleAuthRedirect` (`js/features/auth.js`).
 

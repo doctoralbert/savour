@@ -20,6 +20,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/en",
+      "destination": "/index.html"
+    },
+    {
       "source": "/nld",
       "destination": "/index.html"
     },

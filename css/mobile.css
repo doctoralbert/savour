@@ -119,7 +119,101 @@
     box-shadow: none !important;
     white-space: nowrap;
   }
-  .topbar .profile {
+  .topbar .profile,
+  .topbar > .lang-switch {
     order: 11;
+  }
+}
+
+/* ---- Taalknop (NL / EN / DE / ES) ---- */
+.lang-switch {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+.lang-menu {
+  position: relative;
+}
+.lang-menu > summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--sv-control-h);
+  height: var(--sv-control-h);
+  padding: 0 var(--sv-space-2);
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  list-style: none;
+  cursor: pointer;
+}
+.lang-menu > summary::-webkit-details-marker {
+  display: none;
+}
+.lang-menu[open] > summary,
+.lang-menu > summary:hover {
+  border-color: var(--sv-gold);
+  color: var(--sv-gold);
+}
+.lang-options {
+  position: absolute;
+  z-index: 1000;
+  top: calc(100% + var(--sv-space-2));
+  right: 0;
+  min-width: 180px;
+  padding: var(--sv-space-1);
+  background: var(--sv-surface);
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius-lg);
+  box-shadow: 0 18px 40px #0000004d;
+}
+.lang-options button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: var(--sv-space-3);
+  min-height: var(--sv-control-h);
+  padding: 0 var(--sv-space-3);
+  border: 0;
+  border-radius: var(--sv-radius);
+  background: none;
+  color: var(--sv-text);
+  font: inherit;
+  font-size: var(--sv-fs-md);
+  text-align: left;
+  cursor: pointer;
+}
+.lang-options button span {
+  width: 2.2em;
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.lang-options button:hover {
+  background: var(--sv-surface-2);
+}
+.lang-options button.is-on,
+.lang-options button.is-on span {
+  color: var(--sv-gold);
+}
+.topbar > .lang-switch {
+  margin-right: var(--sv-space-2);
+}
+.landing-actions .lang-switch,
+.public-info-nav .lang-switch {
+  margin-right: var(--sv-space-2);
+}
+@media (max-width: 760px) {
+  .topbar > .lang-switch {
+    display: none;
+  }
+  .mobile-top-actions .lang-menu > summary {
+    min-width: 0;
+    height: var(--sv-control-h);
+    border: 0;
+    padding: 0 var(--sv-space-2);
   }
 }

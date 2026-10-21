@@ -43,7 +43,7 @@ Analyseer de bron zeer nauwkeurig en maak er één of meerdere controleerbare re
 
 ABSOLUTE REGELS:
 - Lees alleen wat daadwerkelijk in de bron staat. Verzin nooit ontbrekende hoeveelheden, ingrediënten, technieken, temperaturen, tijden, opbrengsten of stappen.
-- Behoud de oorspronkelijke Nederlandse vaktermen, productnamen, merknamen en eenheden.
+- Schrijf in de taal van de bron en vertaal niets. Behoud de oorspronkelijke vaktermen, productnamen, merknamen en eenheden.
 - Maak strikt onderscheid tussen titel, opbrengst, ingrediënten en bereidingsstappen.
 - Een ingrediënt blijft een ingrediënt, ook als het bijvoorbeeld een vanillestokje, ei, boter of suiker is. Zet een ingrediënt nooit in steps.
 - Een regel met een hoeveelheid hoort bij ingrediënten als het product zelf wordt genoemd. Bijvoorbeeld "1 vanillestokje" is een ingrediënt.
