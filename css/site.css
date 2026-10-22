@@ -1490,3 +1490,102 @@ html[lang='es'] #landingView .site[data-site-lang='es'] {
     gap: 36px;
   }
 }
+
+/* ==== Originele Savour-kleuren: donker met goud (zoals de app). Overschrijft de lichte versie hierboven. ==== */
+.site {
+  --paper: #0a0f10;
+  --paper-2: #101819;
+  --ink: #eee8dc;
+  --ink-2: #b9beb7;
+  --ink-3: #87918b;
+  --line: #243031;
+  --gold: #e8ca8d;
+  --gold-soft: #e8ca8d;
+  --night: #050809;
+  background: radial-gradient(1200px 700px at 80% -10%, #1a2521, transparent 60%), #070b0c;
+}
+#landingView.landing {
+  background: #070b0c;
+  color: #eee8dc;
+}
+.site-header {
+  background: rgba(7, 11, 12, 0.9);
+}
+.site-header.open {
+  background: #070b0c;
+}
+.site-btn.solid {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #111;
+}
+.site-btn.solid:hover {
+  background: #f3dcae;
+  border-color: #f3dcae;
+  color: #111;
+}
+.site-btn:hover {
+  background: var(--ink);
+  color: #0a0f10;
+}
+.site-menucard {
+  background: #0d1415;
+  border-bottom: 1px solid var(--line);
+}
+.kladje-recept {
+  background: #0f1718;
+  border-color: var(--line);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+.kladje-nosteps {
+  background: rgba(232, 202, 141, 0.08);
+  border-color: rgba(232, 202, 141, 0.4);
+  color: var(--gold);
+}
+.kladje-photo img {
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.55);
+}
+.site-ba-before {
+  background: #111819;
+  border: 1px solid var(--line);
+}
+.site-ba-before li::before {
+  border-color: #5b5446;
+  color: #a99878;
+}
+.site .site-ba-before .site-ba-note {
+  border-left-color: #5b5446;
+}
+.site-ba-after {
+  background: radial-gradient(520px 340px at 100% 0%, rgba(232, 202, 141, 0.12), transparent 70%), #0c1314;
+  border: 1px solid rgba(232, 202, 141, 0.35);
+}
+.site-ba-app {
+  background: #070b0c;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.site-ba-search {
+  border-color: var(--line);
+}
+.site-ba-row {
+  border-bottom-color: var(--line);
+}
+.site-ba-pile .site-ba-print {
+  background: var(--gold);
+  color: #111;
+}
+.site-ba-pile img {
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.5);
+}
+.site-section.dark {
+  background: #050809;
+  border-top: 1px solid var(--line);
+}
+.site-prose .pro-current,
+.site-prose .pro-trial-note {
+  background: var(--paper-2);
+}
+.site-strip-grid img {
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+}

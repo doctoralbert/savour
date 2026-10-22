@@ -283,7 +283,7 @@ ${alternates.map(([l, h]) => `<link rel="alternate" hreflang="${l}" href="${h}">
 <meta property="og:image" content="${SITE}/assets/savour-og.png">
 <meta property="og:locale" content="${lang === 'nl' ? 'nl_NL' : 'en_GB'}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#f6f2ea">
+<meta name="theme-color" content="#0d1314">
 <link rel="icon" type="image/png" href="/assets/savour-icon.png?v=57">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
