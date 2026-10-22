@@ -1,0 +1,82 @@
+/* Ingelogde app in dezelfde stijl als de website (2026-10-23): lichtere koppen, minder vet,
+   een groter logo dat goud kleurt en een kleine footer. De knoppen staan in css/foundation.css.
+   De bibliotheek blijft minimalistisch; hier verandert alleen de typografie. */
+
+/* 1. Letters: koppen licht en elegant, minder dikgedrukt */
+#appShell h1,
+#appShell h2,
+#appShell h3,
+.modal h2,
+.modal h3 {
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+#appShell .section-head h2 {
+  font-weight: 400;
+}
+#appShell b,
+#appShell strong {
+  font-weight: 600;
+}
+
+/* 2. Logo: groter, en bij aanwijzen een rustige kleurwissel naar goud (het is de knop naar Alle recepten) */
+.sidebar .brand .sv-wordmark {
+  font-size: 26px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+.sidebar .brand .sv-wordmark:hover,
+.sidebar .brand .sv-wordmark:focus-visible,
+.topbar .mobile-brand.sv-wordmark:hover {
+  color: var(--gold) !important;
+}
+.topbar .mobile-brand.sv-wordmark {
+  transition: color 0.25s ease;
+}
+
+/* 3. Footer: één dunne regel op de computer, geen footer op de telefoon (daar staat de menubalk) */
+.app-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 22px;
+  margin: 24px 28px 0;
+  padding: 18px 0 22px;
+  border-top: 1px solid var(--sv-line);
+  font-size: 13px;
+  color: var(--sv-text-3, var(--sv-text-2));
+}
+.app-foot a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+.app-foot a:hover {
+  color: var(--gold);
+}
+@media (max-width: 760px) {
+  .app-foot {
+    display: none;
+  }
+}
+
+/* 4. Knoppen: staan centraal in css/foundation.css (afgerond, kleurwissel bij aanwijzen). */
+
+/* Camera: foto van een kladje maken (Savour Pro) */
+.camera-box {
+  max-width: 560px;
+}
+.camera-box video {
+  display: block;
+  width: 100%;
+  max-height: 60vh;
+  background: #000;
+  border-radius: 12px;
+  object-fit: cover;
+}
+.camera-box .camera-tip {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--sv-text-2);
+}

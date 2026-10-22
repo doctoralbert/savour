@@ -1503,6 +1503,14 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  // ---- Camera: foto van een kladje (2026-10-23) ----
+  ["Foto van een kladje","Photo of a note","Foto einer Notiz","Foto de una nota"],
+  ["Maak met je camera een foto van een handgeschreven recept. De AI zet het om in een net recept.","Take a photo of a handwritten recipe with your camera. The AI turns it into a clean recipe.","Mach mit deiner Kamera ein Foto eines handgeschriebenen Rezepts. Die KI macht daraus ein sauberes Rezept.","Haz una foto de una receta escrita a mano con tu cámara. La IA la convierte en una receta limpia."],
+  ["Foto van je kladje","Photo of your note","Foto deiner Notiz","Foto de tu nota"],
+  ["Leg het kladje plat, in goed licht, en fotografeer recht van boven.","Lay the note flat, in good light, and photograph it straight from above.","Leg die Notiz flach hin, in gutem Licht, und fotografiere gerade von oben.","Coloca la nota plana, con buena luz, y fotografíala desde arriba."],
+  ["Foto maken","Take photo","Foto aufnehmen","Hacer foto"],
+  ["Bron: foto met je camera","Source: photo from your camera","Quelle: Foto mit deiner Kamera","Fuente: foto con tu cámara"],
+  ["Camera niet beschikbaar. Kies een foto van je kladje.","Camera not available. Choose a photo of your note.","Kamera nicht verfügbar. Wähle ein Foto deiner Notiz.","Cámara no disponible. Elige una foto de tu nota."],
   // ---- Veelgestelde vragen: gratis en Pro (2026-10-22) ----
   [
     '. Je kunt een recept zelf invoeren of een bron importeren. Na import controleer je de herkende gegevens voordat je ze opslaat.',

@@ -293,7 +293,8 @@ const webPage = (lang, title, desc, canonical) => ({
 });
 
 function writePage(slug, html) {
-  const dir = new URL(`${slug}/`, ROOT);
+  // Alle gemaakte pagina's staan in de map site/ (vercel.json en local-server.mjs zetten /slug om naar site/slug/).
+  const dir = new URL(`site/${slug}/`, ROOT);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(new URL('index.html', dir), html, 'utf8');
 }

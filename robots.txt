@@ -7,6 +7,7 @@ Disallow: /admin-reset.html
 Disallow: /api/
 Disallow: /join/
 Disallow: /r/
+Disallow: /site/
 
 # AI-assistenten (ChatGPT, Claude, Perplexity, Gemini, Apple) expliciet toegestaan, met dezelfde uitzonderingen.
 User-agent: GPTBot
@@ -25,5 +26,6 @@ Disallow: /admin-reset.html
 Disallow: /api/
 Disallow: /join/
 Disallow: /r/
+Disallow: /site/
 
 Sitemap: https://savour.page/sitemap.xml

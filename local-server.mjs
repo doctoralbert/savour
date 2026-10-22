@@ -148,6 +148,9 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Losse websitepagina's staan in site/ (zoals de rewrites in vercel.json): /over-savour -> site/over-savour/index.html.
+  if (!fs.existsSync(file) && fs.existsSync(path.join(ROOT, 'site', relative, 'index.html')))
+    file = path.join(ROOT, 'site', relative, 'index.html');
   // Map met index.html (de losse pagina's zoals /over-savour) zoals bij Vercel.
   if (fs.existsSync(file) && fs.statSync(file).isDirectory() && fs.existsSync(path.join(file, 'index.html')))
     file = path.join(file, 'index.html');

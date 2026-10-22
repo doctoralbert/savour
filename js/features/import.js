@@ -43,6 +43,69 @@ function selectImportSource(type) {
   }
 }
 
+// ---- Camera: foto van een kladje maken (Savour Pro; gaat via de AI, net als een foto uit je album) ----
+// Telefoon en tablet: de eigen camera-app (scherper, met scherpstellen). Computer: webcam in een venster.
+let cameraStream = null;
+
+async function openCameraImport() {
+  if (!isPro()) return askForPro("Foto's");
+  const touch = window.matchMedia('(pointer: coarse)').matches;
+  if (touch || !navigator.mediaDevices?.getUserMedia) return $('importCamera').click();
+  try {
+    cameraStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1440 } },
+      audio: false
+    });
+  } catch (e) {
+    // Geen camera of geen toestemming: dan gewoon een foto kiezen.
+    toast('Camera niet beschikbaar. Kies een foto van je kladje.');
+    return $('importCamera').click();
+  }
+  $('cameraVideo').srcObject = cameraStream;
+  $('cameraModal').classList.add('open');
+}
+
+function closeCameraModal() {
+  cameraStream?.getTracks().forEach(t => t.stop());
+  cameraStream = null;
+  $('cameraVideo').srcObject = null;
+  $('cameraModal').classList.remove('open');
+}
+
+async function takeCameraPhoto() {
+  const video = $('cameraVideo');
+  if (!video.videoWidth) return;
+  const canvas = document.createElement('canvas');
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext('2d').drawImage(video, 0, 0);
+  const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.92));
+  closeCameraModal();
+  if (blob) importCameraFile(new File([blob], `kladje-${Date.now()}.jpg`, { type: 'image/jpeg' }));
+}
+
+function handleCameraFile(input) {
+  const file = input.files?.[0];
+  input.value = '';
+  if (!file) return;
+  // Sommige telefoons geven de foto geen extensie; de importroute herkent foto's aan .jpg/.png/.webp.
+  importCameraFile(
+    /\.(jpe?g|png|webp)$/i.test(file.name || '')
+      ? file
+      : new File([file], `kladje-${Date.now()}.jpg`, { type: file.type || 'image/jpeg' })
+  );
+}
+
+// Na de foto meteen verwerken: in de keuken zo min mogelijk klikken. Daarna controleer je het recept zoals altijd.
+function importCameraFile(file) {
+  showImportPanel();
+  selectImportSource('photo');
+  setImportFiles([file]);
+  importSource = 'photo';
+  $('importSourceLabel').textContent = 'Bron: foto met je camera';
+  processImport();
+}
+
 function triggerImportFile() {
   if (!importSource || importSource === 'text') selectImportSource('other');
   $('importFile').click();

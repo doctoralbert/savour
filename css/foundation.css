@@ -13,7 +13,8 @@
   min-height: var(--sv-control-h) !important;
   padding: 0 var(--sv-space-4) !important;
   border: 1px solid var(--sv-line-strong) !important;
-  border-radius: var(--sv-radius) !important;
+  /* Afgerond, zoals de knoppen op de website (2026-10-23). */
+  border-radius: 999px !important;
   background: var(--sv-surface-2) !important;
   color: var(--sv-text) !important;
   font-family: var(--sv-font) !important;
@@ -32,6 +33,7 @@
 }
 :is(#appShell, .modal, .public-shell, #landingView) .btn:hover {
   border-color: var(--sv-gold) !important;
+  color: var(--sv-gold) !important;
 }
 :is(#appShell, .modal, .public-shell, #landingView) .btn:focus-visible {
   outline: none;
@@ -50,6 +52,7 @@ body.savour-light :is(#appShell, .modal) .btn.gold {
 :is(#appShell, .modal, .public-shell, #landingView) .btn.gold:hover {
   background: var(--sv-gold-strong) !important;
   border-color: var(--sv-gold-strong) !important;
+  color: var(--sv-on-gold) !important;
 }
 :is(#appShell, .modal, .public-shell, #landingView) :is(.btn.small, .compact-action) {
   min-height: var(--sv-control-h-sm) !important;

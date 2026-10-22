@@ -613,6 +613,15 @@ window.SAVOUR_I18N.es = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.',
     Verbergen: 'Ocultar',
+    'Foto van een kladje': 'Foto de una nota',
+    'Maak met je camera een foto van een handgeschreven recept. De AI zet het om in een net recept.':
+      'Haz una foto de una receta escrita a mano con tu cámara. La IA la convierte en una receta limpia.',
+    'Foto van je kladje': 'Foto de tu nota',
+    'Leg het kladje plat, in goed licht, en fotografeer recht van boven.':
+      'Coloca la nota plana, con buena luz, y fotografíala desde arriba.',
+    'Foto maken': 'Hacer foto',
+    'Bron: foto met je camera': 'Fuente: foto con tu cámara',
+    'Camera niet beschikbaar. Kies een foto van je kladje.': 'Cámara no disponible. Elige una foto de tu nota.',
     '. Je kunt een recept zelf invoeren of een bron importeren. Na import controleer je de herkende gegevens voordat je ze opslaat.':
       '. Puedes introducir una receta tú mismo o importar una fuente. Después de importar, revisas los datos reconocidos antes de guardarlos.',
     'Wat kan ik gratis?': '¿Qué puedo hacer gratis?',

@@ -1,6 +1,8 @@
 {
   "functions": {
-    "api/ai-import.js": { "maxDuration": 60 }
+    "api/ai-import.js": {
+      "maxDuration": 60
+    }
   },
   "rewrites": [
     {
@@ -62,6 +64,22 @@
     {
       "source": "/esp",
       "destination": "/index.html"
+    },
+    {
+      "source": "/en/blog/:post",
+      "destination": "/site/en/blog/:post/index.html"
+    },
+    {
+      "source": "/en/:page",
+      "destination": "/site/en/:page/index.html"
+    },
+    {
+      "source": "/blog/:post",
+      "destination": "/site/blog/:post/index.html"
+    },
+    {
+      "source": "/:page",
+      "destination": "/site/:page/index.html"
     }
   ]
 }

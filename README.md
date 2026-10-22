@@ -16,17 +16,34 @@ De knop "Bekijk de demo" op de landingspagina laadt 40 proefrecepten zonder iets
 ## Mappenstructuur
 
 ```
-index.html            Alle schermen (HTML). Laadt de CSS en daarna de JavaScript-bestanden in vaste volgorde.
-css/base.css          Basisopmaak: landingspagina, app-indeling, formulieren, admin, mobiel.
+index.html            Alle schermen van de app (HTML) plus de startpagina van de website (blok tussen SITE:START
+                      en SITE:END, gemaakt door tools/build-seo.mjs). Laadt de CSS en daarna de JavaScript.
+css/base.css          Basisopmaak: app-indeling, formulieren, admin, mobiel.
 css/components.css    Receptenlijsten, mappen, gedeelde mappen, omrekenen. Latere regels winnen.
+css/foundation.css    Knoppen, invoervelden en kleine teksten: overal hetzelfde.
+css/app-style.css     De ingelogde app in de stijl van de website (koppen, logo, footer, camera).
+css/site.css          Opmaak van de publieke website (startpagina en de pagina's in site/).
 js/core/              Fundament: Supabase-verbinding, gedeelde toestand, hulpfuncties (esc, toast, compressPhoto).
 js/data/              Bibliotheek laden uit de database, sessie opbouwen, dubbele recepten herkennen.
 js/features/          Eén bestand per onderdeel van de app (bibliotheek, editor, import, mappen, gedeelde mappen, ...).
+js/i18n/              Vertalingen (gemaakt door tools/build-i18n.mjs, niet met de hand aanpassen).
+js/site.js            Kleine scripts voor de website (telefoonmenu, beweging bij scrollen).
 js/main.js            Opstarten. Wordt als laatste geladen.
-api/                  Serverfuncties op Vercel: AI-import, bugmelding, admin-wachtwoordherstel.
-tests/                Automatische regressietest (zie hieronder).
-docs/                 E-mailsjabloon voor Supabase.
+api/                  Serverfuncties op Vercel: AI-import, Stripe, beheer, bugmelding, mail.
+assets/               Afbeeldingen: logo, deelafbeelding, app/ (echte app-schermen), kladjes/ en keuken/ (foto's).
+site/                 GEMAAKT: alle losse websitepagina's (over ons, functies, blog, ...) in NL en EN.
+                      Niet met de hand aanpassen; teksten staan in tools/site-*.mjs. vercel.json en
+                      local-server.mjs laten /over-savour zien vanuit site/over-savour/.
+tools/                Bouwscripts en bronteksten: build-seo.mjs (website), build-i18n.mjs (vertalingen),
+                      site-content*.mjs, site-blog.mjs, site-kladje.mjs (teksten van de website).
+supabase/             SQL-bestanden voor de database (in volgorde uitvoeren in de SQL Editor).
+tests/                Automatische tests (lezer en regressietest, zie hieronder).
+docs/                 Handleidingen en e-mailsjablonen.
+robots.txt, sitemap.xml, llms.txt, ads.txt   Moeten in de hoofdmap staan (zoekmachines, AI, AdSense).
 ```
+
+Afspraak: tijdelijke bestanden (proefjes, schermafbeeldingen) komen nooit in deze map. De test- en
+livesite zijn geen aparte mappen maar twee takken in Git: `savour-3` (testversie) en `main` (savour.page).
 
 ## Testen
 
