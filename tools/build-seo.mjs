@@ -8,6 +8,7 @@ import vm from 'node:vm';
 import { strings, patterns } from './vertalingen.mjs';
 import { UI, KLADJE, FEATURES, AUDIENCES, STORY, HOME, POSTS } from './site-content.mjs';
 import { BEFORE_AFTER, EXTRA_LANGS } from './site-content-extra.mjs';
+import { KLADJE_REAL, PILE } from './site-kladje.mjs';
 
 const ROOT = new URL('../', import.meta.url);
 const SITE = 'https://savour.page';
@@ -178,9 +179,9 @@ function footer(lang, alt, inApp) {
 }
 
 function kladje(lang) {
-  const k = KLADJE[lang];
-  return `<figure class="kladje-demo"><div class="kladje" aria-hidden="true"><b>${esc(k.note[0])}</b>${k.note.slice(1).map(l => `<span>${esc(l)}</span>`).join('')}</div>
-<div class="kladje-recept"><h3>${esc(k.title)}</h3><small>${esc(k.meta)}</small><ul>${k.ingredients.map(i => `<li>${esc(i)}</li>`).join('')}</ul><ol>${k.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol></div>
+  const k = KLADJE_REAL[lang];
+  return `<figure class="kladje-demo"><div class="kladje-photo"><img src="/assets/kladjes/mayonaise.jpg" alt="${esc(k.alt)}" width="640" height="686" loading="lazy"></div>
+<div class="kladje-recept"><h3>${esc(k.title)}</h3><small>${esc(k.meta)}</small><ul>${k.ingredients.map(i => `<li>${esc(i)}</li>`).join('')}</ul><p class="kladje-nosteps">${esc(k.noSteps)}</p></div>
 <figcaption>${esc(k.caption)}</figcaption></figure>`;
 }
 
@@ -201,10 +202,9 @@ function ctaBlock(lang, inApp) {
 // Voor en na: links de chaos van papier, bestanden en berichten, rechts hetzelfde in Savour.
 function beforeAfter(lang) {
   const b = BEFORE_AFTER[lang];
-  const k = KLADJE[lang];
   return `<section class="site-ba"><div class="site-wrap site-ba-grid">
 <div class="site-ba-before reveal"><span class="site-ba-label">${esc(b.beforeLabel)}</span><h2>${esc(b.beforeTitle)}</h2><ul>${b.beforeList.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
-<div class="site-ba-pile" aria-hidden="true"><div class="kladje mini"><b>${esc(k.note[0])}</b>${k.note.slice(1, 4).map(l => `<span>${esc(l)}</span>`).join('')}</div><div class="site-ba-doc"><i>W</i>${esc(b.doc)}</div><div class="site-ba-chat">${esc(b.chat)}</div><div class="site-ba-print">${esc(b.print)}</div></div>
+<div class="site-ba-pile" aria-hidden="true">${PILE.map((p, i) => `<img class="p${i + 1}" src="/assets/kladjes/${p}.jpg" alt="" loading="lazy">`).join('')}<div class="site-ba-print">${esc(b.print)}</div></div>
 <p class="site-ba-note">${esc(b.beforeNote)}</p></div>
 <div class="site-ba-after reveal"><span class="site-ba-label">${esc(b.afterLabel)}</span><h2>${esc(b.afterTitle)}</h2><ul>${b.afterList.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
 <div class="site-ba-app" aria-hidden="true"><div class="site-ba-search">⌕ ${esc(b.search)}</div>${b.rows.map(([t, c], i) => `<div class="site-ba-row"><em>${String(i + 1).padStart(3, '0')}</em><b>${esc(t)}</b><span>${esc(c)}</span></div>`).join('')}</div>

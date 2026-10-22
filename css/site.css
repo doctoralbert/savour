@@ -1315,3 +1315,102 @@ html[lang='es'] #landingView .site[data-site-lang='es'] {
 .site-section.dark .site-rows i {
   color: var(--gold-soft);
 }
+
+/* ---- Echte kladjes (foto's uit de keuken) ---- */
+.kladje-photo {
+  position: relative;
+  transform: rotate(-3deg);
+  transition: transform 0.5s ease;
+}
+.kladje-photo:hover {
+  transform: rotate(-1deg) scale(1.02);
+}
+.kladje-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.05),
+    0 22px 44px rgba(60, 45, 20, 0.22);
+}
+.kladje-nosteps {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #fbf3dc;
+  border: 1px dashed #d9bf7f;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #6d5520;
+}
+/* Stapel echte kladjes bij "Voor Savour" */
+.site-ba-pile {
+  height: 300px;
+}
+.site-ba-pile img {
+  position: absolute;
+  width: 34%;
+  height: auto;
+  border-radius: 3px;
+  box-shadow: 0 12px 26px rgba(60, 45, 20, 0.25);
+  transition: transform 0.4s ease;
+}
+.site-ba-pile img:hover {
+  z-index: 5;
+  transform: rotate(0) scale(1.08) !important;
+}
+.site-ba-pile .p1 {
+  left: 0;
+  top: 18px;
+  transform: rotate(-8deg);
+  z-index: 2;
+}
+.site-ba-pile .p2 {
+  left: 22%;
+  top: 0;
+  transform: rotate(5deg);
+  z-index: 3;
+}
+.site-ba-pile .p3 {
+  left: 46%;
+  top: 22px;
+  transform: rotate(-4deg);
+  z-index: 2;
+}
+.site-ba-pile .p4 {
+  right: 0;
+  top: 4px;
+  width: 26%;
+  transform: rotate(7deg);
+  z-index: 4;
+}
+.site-ba-pile .p5 {
+  left: 10%;
+  top: 130px;
+  width: 30%;
+  transform: rotate(6deg);
+  z-index: 4;
+}
+.site-ba-pile .p6 {
+  left: 52%;
+  top: 140px;
+  width: 30%;
+  transform: rotate(-7deg) scaleY(-1) scaleX(-1);
+  z-index: 3;
+}
+.site-ba-pile .site-ba-print {
+  z-index: 6;
+  left: auto;
+  right: 4%;
+  bottom: 10px;
+}
+@media (max-width: 560px) {
+  .site-ba-pile {
+    height: 250px;
+  }
+  .site-ba-pile .p5,
+  .site-ba-pile .p6 {
+    top: 110px;
+  }
+}
