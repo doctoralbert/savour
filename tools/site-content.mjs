@@ -364,22 +364,43 @@ export const AUDIENCES = [
   }
 ];
 
-// ---- Over ons: het verhaal als tijdlijn (zonder namen) ----
+// ---- Over ons: het verhaal achter Savour (kern van het verhaal van de eigenaar, zonder namen) ----
 export const STORY = {
   nl: {
     slug: 'over-savour',
-    title: 'Over Savour: gemaakt door chefs uit Nederland, voor chefs',
-    desc: 'Het verhaal van Savour: van schriftjes vol vlekken en Word-bestanden van honderden pagina’s naar een receptenapp voor de professionele keuken.',
-    h1: 'Het verhaal van Savour',
-    lead: 'Savour is niet bedacht door een softwarebedrijf dat een kans zag in de horeca. Het is gemaakt door chefs die hun eigen recepten kwijtraakten.',
-    intro: 'We zetten het verhaal hieronder op een rij, zoals het ging: van het eerste schrift tot de app die je nu gebruikt.',
-    timeline: [
-      ['Het eerste schrift', 'Het begint zoals bij bijna elke kok: als leerling schrijf je alles op. Sauzen, garnituren, wat je proeft en wat je anders zou doen. Eén schrift wordt er twee, dan vijf. Die schriften liggen er nog, vergeeld en vol vlekken. Een deel is niet meer te lezen, ook niet door degene die het schreef.'],
-      ['Jaren in de keuken', 'Vijftien jaar koken, van commis tot chef. De recepten verhuizen mee: naar losse vellen, naar foto’s op drie verschillende telefoons, naar berichten in de groepsapp. Alles bestaat ergens, maar nooit op het moment dat je het zoekt.'],
-      ['De printer', 'Als chef zet je uiteindelijk alles in Word. Honderden recepten in losse bestanden. Wanneer de patisserie een nieuwe klapper nodig heeft, print iemand van de bediening ze één voor één, vijftig keer. Daar ontstaat het idee: dit moet anders kunnen.'],
-      ['Savour', 'Na de service en in de weekenden wordt Savour gebouwd. Getest op de eigen recepten, in de eigen keuken: 1.400 recepten uit Word in twee minuten, kladjes met koffievlekken die nette recepten worden, en mappen die de hele brigade kan openen.'],
-      ['Wat nu komt', 'Kostprijs per recept, allergenen, receptkaarten met je eigen logo. We bouwen wat chefs echt nodig hebben, dus we horen graag wat jij mist.']
+    title: 'Over Savour: gebouwd door een chef, niet door een softwarebedrijf',
+    desc: 'Het verhaal achter Savour: vijftien jaar recepten op losse papiertjes, vijftig keer op printen drukken, en een receptenapp die na de service is gebouwd.',
+    h1: 'Het verhaal achter Savour',
+    lead: 'Savour is gebouwd door een chef, niet door een softwarebedrijf. Uit frustratie over recepten die overal lagen, behalve op de plek waar je ze nodig had.',
+    chapters: [
+      ['Vijftien jaar recepten op losse papiertjes', [
+        'De chef achter Savour staat al vijftien jaar in de keuken, de laatste jaren als headchef. In al die tijd waren de recepten een rommeltje: papiertjes met koffievlekken, foto’s op verschillende telefoons, waarvan er een paar kapotgingen voordat de recepten waren veiliggesteld, en Word-documenten verspreid over mappen en laptops.',
+        'Het lastigste was niet eens de rommel zelf, maar dat niets op één plek stond. Op het moment dat je een recept nodig had, midden in de mise-en-place of vlak voor de service, was het nergens te vinden.'
+      ]],
+      ['Vijftig keer op printen drukken', [
+        'Als headchef lever je bijna alle recepten aan je koks. Toen eindelijk alles in losse Word-bestanden stond, kwam het volgende probleem: de bediening moest ze één voor één printen, omdat er geen manier was om er vijftig tegelijk af te drukken.',
+        'Ergens tussen die stapels papier ontstond de vraag waar Savour mee begon: waarom bestaat hier niets voor dat gewoon werkt in een echte keuken?'
+      ]],
+      ['Gebouwd na de service', [
+        'Geen programmeur, wel een chef die precies weet waar het knelt. Savour is stap voor stap gebouwd, maandenlang, in de weekenden en na de service.',
+        'Elke functie is getest op de eigen recepten, in de eigen keuken: honderden Word-recepten tegelijk importeren, foto’s van kladjes met vlekken die er per ongeluk ondersteboven op staan, en mappen die het hele team kan openen. Een chef importeerde zo 1.400 recepten in ongeveer twee minuten.'
+      ]],
+      ['Waarom Savour €2,99 kost', [
+        'Voor de moeilijke gevallen, zoals een foto van een handgeschreven kladje, gebruikt Savour AI. Dat kost per keer geld, en daarom bestaat Savour Pro.',
+        'Maar Savour moest betaalbaar blijven voor elke kok, niet alleen voor grote groepen met een groot budget. €2,99 per maand is ongeveer wat die AI kost. Wat Savour zelf kan lezen, zoals Word en PDF, blijft gratis, net als tot 100 recepten bewaren.'
+      ]],
+      ['Wat Savour nu kan', [
+        'Je hele receptenboek in een paar minuten importeren. Recepten ordenen in mappen, bijvoorbeeld al je ijsrecepten, en die hele map met één druk op de knop printen. Recepten en mappen delen met collega’s, die er zelf weer recepten aan kunnen toevoegen.',
+        'En opschalen: haal je vijftig brownies uit één recept en heb je er duizend nodig, dan rekent Savour het om. Op de computer, de tablet en de telefoon in de keuken.'
+      ]],
+      ['Wat we nog willen bouwen', [
+        'Kostprijs per recept en allergenen in één oogopslag staan bovenaan de lijst. Werkt Savour goed op computer, tablet en telefoon, dan kijken we of een eigen app voor iPhone en Android de investering waard is.',
+        'Dat bepalen we niet achter een bureau, maar samen met de chefs die Savour gebruiken. Mis je iets in je keuken? Laat het ons weten.'
+      ]]
     ],
+    notesCaption: 'Een paar van de kladjes waar Savour mee begon.',
+    appCaption: 'Hetzelfde soort recept, nu in Savour.',
+    roadmapLink: 'Bekijk waar we aan werken',
     values: [
       ['Een recept moet kloppen', 'Savour verzint nooit hoeveelheden of stappen. Bij twijfel zie je het en beslis jij.'],
       ['Je kennis is van jou', 'Stop je ooit met Pro, dan blijven al je recepten gewoon staan.'],
@@ -389,18 +410,39 @@ export const STORY = {
   },
   en: {
     slug: 'en/about',
-    title: 'About Savour: made by chefs from the Netherlands, for chefs',
-    desc: 'The story of Savour: from stained notebooks and Word files hundreds of pages long to a recipe app for professional kitchens.',
-    h1: 'The story of Savour',
-    lead: 'Savour was not dreamt up by a software company that spotted an opportunity in hospitality. It was made by chefs who kept losing their own recipes.',
-    intro: 'Here is the story as it happened: from the first notebook to the app you use today.',
-    timeline: [
-      ['The first notebook', 'It starts like it does for almost every cook: as an apprentice you write everything down. Sauces, garnishes, what you taste and what you would do differently. One notebook becomes two, then five. Those notebooks still exist, yellowed and full of stains. Some pages can no longer be read, not even by the person who wrote them.'],
-      ['Years in the kitchen', 'Fifteen years of cooking, from commis to chef. The recipes move along: to loose sheets, to photos on three different phones, to messages in the group chat. Everything exists somewhere, but never at the moment you need it.'],
-      ['The printer', 'As a chef you eventually put everything in Word. Hundreds of recipes in separate files. When the pastry section needs a new binder, someone from front of house prints them one by one, fifty times. That is where the idea starts: there has to be a better way.'],
-      ['Savour', 'Savour is built after service and at weekends. Tested on our own recipes, in our own kitchen: 1,400 recipes from Word in two minutes, coffee-stained notes that become clean recipes, and folders the whole brigade can open.'],
-      ['What comes next', 'Cost per recipe, allergens, recipe cards with your own logo. We build what chefs actually need, so we would love to hear what you are missing.']
+    title: 'About Savour: built by a chef, not by a software company',
+    desc: 'The story behind Savour: fifteen years of recipes on loose scraps of paper, pressing print fifty times, and a recipe app built after service.',
+    h1: 'The story behind Savour',
+    lead: 'Savour was built by a chef, not by a software company. Out of frustration with recipes that were everywhere, except where you needed them.',
+    chapters: [
+      ['Fifteen years of recipes on loose scraps', [
+        'The chef behind Savour has been in kitchens for fifteen years, the last few as head chef. All that time the recipes were a mess: coffee-stained scraps of paper, photos on different phones, some of which broke before the recipes were saved, and Word documents scattered across folders and laptops.',
+        'The hardest part was not even the mess itself, but that nothing was in one place. The moment you needed a recipe, in the middle of mise en place or just before service, it was nowhere to be found.'
+      ]],
+      ['Pressing print fifty times', [
+        'As head chef you hand almost every recipe to your cooks. When everything was finally in separate Word files, the next problem appeared: front of house had to print them one by one, because there was no way to print fifty at once.',
+        'Somewhere between those piles of paper came the question Savour started with: why is there nothing for this that simply works in a real kitchen?'
+      ]],
+      ['Built after service', [
+        'Not a developer, but a chef who knows exactly where it hurts. Savour was built step by step, for months, at weekends and after service.',
+        'Every feature was tested on our own recipes, in our own kitchen: importing hundreds of Word recipes at once, photos of stained notes that are accidentally upside down, and folders the whole team can open. One chef imported 1,400 recipes this way in about two minutes.'
+      ]],
+      ['Why Savour costs €2.99', [
+        'For the hard cases, such as a photo of a handwritten note, Savour uses AI. That costs money every time, which is why Savour Pro exists.',
+        'But Savour had to stay affordable for every cook, not only for large groups with big budgets. €2.99 a month is roughly what that AI costs. What Savour can read by itself, such as Word and PDF, stays free, as does keeping up to 100 recipes.'
+      ]],
+      ['What Savour does today', [
+        'Import your whole recipe book in a few minutes. Organise recipes in folders, for example all your ice cream recipes, and print that whole folder with one press of a button. Share recipes and folders with colleagues, who can add recipes to them themselves.',
+        'And scale: one recipe makes fifty brownies and you need a thousand? Savour does the maths. On the computer, the tablet and the phone in the kitchen.'
+      ]],
+      ['What we still want to build', [
+        'Cost per recipe and allergens at a glance are at the top of the list. If Savour works well on computer, tablet and phone, we will see whether a separate app for iPhone and Android is worth the investment.',
+        'We do not decide that behind a desk, but together with the chefs who use Savour. Missing something in your kitchen? Let us know.'
+      ]]
     ],
+    notesCaption: 'A few of the notes Savour started with.',
+    appCaption: 'The same kind of recipe, now in Savour.',
+    roadmapLink: 'See what we are working on',
     values: [
       ['A recipe has to be right', 'Savour never invents quantities or steps. When in doubt, you see it and you decide.'],
       ['Your knowledge is yours', 'If you ever stop Pro, all your recipes simply stay.'],

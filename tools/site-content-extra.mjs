@@ -3,6 +3,7 @@
 
 export const BEFORE_AFTER = {
   nl: {
+    shotAlt: 'Het receptenoverzicht van Savour op een telefoon',
     beforeLabel: 'Voor Savour',
     beforeTitle: 'Recepten op tien plekken, en nooit waar je ze zoekt.',
     beforeList: ['Schriften vol vlekken en vervaagd handschrift', 'Word-bestanden van honderden pagina’s', 'Foto’s van recepten in de groepsapp', 'Drie versies van dezelfde saus', 'Vijftig recepten één voor één printen'],
@@ -18,6 +19,7 @@ export const BEFORE_AFTER = {
     rows: [['Beurre blanc', 'Sauzen'], ['Kalfsjus', 'Fonds'], ['Bloemkool crème', 'Garnituren'], ['Frambozen bavarois', 'Patisserie']]
   },
   en: {
+    shotAlt: 'The Savour recipe overview on a phone',
     beforeLabel: 'Before Savour',
     beforeTitle: 'Recipes in ten places, and never where you look.',
     beforeList: ['Stained notebooks and faded handwriting', 'Word files hundreds of pages long', 'Photos of recipes in the group chat', 'Three versions of the same sauce', 'Printing fifty recipes one by one'],
@@ -33,6 +35,7 @@ export const BEFORE_AFTER = {
     rows: [['Beurre blanc', 'Sauces'], ['Veal jus', 'Stocks'], ['Cauliflower cream', 'Garnishes'], ['Raspberry bavarois', 'Pastry']]
   },
   de: {
+    shotAlt: 'Die Rezeptübersicht von Savour auf dem Handy',
     beforeLabel: 'Vor Savour',
     beforeTitle: 'Rezepte an zehn Orten, und nie dort, wo du suchst.',
     beforeList: ['Hefte voller Flecken und verblasste Handschrift', 'Word-Dateien mit Hunderten Seiten', 'Fotos von Rezepten im Gruppenchat', 'Drei Versionen derselben Sauce', 'Fünfzig Rezepte einzeln drucken'],
@@ -48,6 +51,7 @@ export const BEFORE_AFTER = {
     rows: [['Beurre blanc', 'Saucen'], ['Kalbsjus', 'Fonds'], ['Blumenkohlcreme', 'Garnituren'], ['Himbeer-Bavarois', 'Patisserie']]
   },
   es: {
+    shotAlt: 'La lista de recetas de Savour en un móvil',
     beforeLabel: 'Antes de Savour',
     beforeTitle: 'Recetas en diez sitios, y nunca donde las buscas.',
     beforeList: ['Cuadernos llenos de manchas y letra borrosa', 'Archivos de Word de cientos de páginas', 'Fotos de recetas en el grupo de chat', 'Tres versiones de la misma salsa', 'Imprimir cincuenta recetas una a una'],

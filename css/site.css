@@ -1396,44 +1396,6 @@ html[lang='es'] #landingView .site[data-site-lang='es'] {
   }
 }
 
-/* ---- Sfeerfoto's uit de keuken ---- */
-.site-strip {
-  padding: 0 0 72px;
-}
-.site-strip-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.15fr 1fr;
-  gap: 16px;
-  align-items: center;
-}
-.site-strip-grid img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  border-radius: 14px;
-}
-.site-strip-grid img:nth-child(2) {
-  transform: translateY(-18px);
-}
-.site-strip-label {
-  font-size: 13.5px;
-  color: var(--ink-3);
-  text-align: right;
-  margin: 12px 4px 0;
-}
-@media (max-width: 700px) {
-  .site-strip-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  .site-strip-grid img:nth-child(2) {
-    transform: none;
-    grid-row: span 2;
-    aspect-ratio: auto;
-    height: 100%;
-  }
-}
-
 /* Afsluitende uitnodiging met de eend boven het vuur */
 .site-cta.with-photo {
   position: relative;
@@ -1586,6 +1548,113 @@ html[lang='es'] #landingView .site[data-site-lang='es'] {
 .site-prose .pro-trial-note {
   background: var(--paper-2);
 }
-.site-strip-grid img {
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+
+/* Foto's: geen verschuiven of vergroten bij aanwijzen. De stapel kladjes staat gedempt en
+   krijgt bij aanwijzen zijn echte kleur terug, alsof je hem onder de lamp legt. */
+.kladje-photo,
+.kladje-photo:hover {
+  transform: rotate(-2deg);
+  transition: none;
+}
+.site-ba-pile img {
+  transition:
+    filter 0.35s ease,
+    box-shadow 0.35s ease;
+  filter: grayscale(0.45) brightness(0.78) contrast(0.95);
+}
+.site-ba-pile img:hover {
+  transform: none;
+  filter: none;
+  box-shadow:
+    0 0 0 2px var(--gold),
+    0 14px 30px rgba(0, 0, 0, 0.55);
+}
+.site-ba-pile .p1:hover {
+  transform: rotate(-8deg) !important;
+}
+.site-ba-pile .p2:hover {
+  transform: rotate(5deg) !important;
+}
+.site-ba-pile .p3:hover {
+  transform: rotate(-4deg) !important;
+}
+.site-ba-pile .p4:hover {
+  transform: rotate(7deg) !important;
+}
+.site-ba-pile .p5:hover {
+  transform: rotate(6deg) !important;
+}
+.site-ba-pile .p6:hover {
+  transform: rotate(-5deg) !important;
+}
+
+/* Echte schermen van de app (assets/app) */
+.site-ba-shot {
+  height: 330px;
+  overflow: hidden;
+  margin: 0 0 22px;
+  display: flex;
+  justify-content: center;
+}
+.site-ba-shot img {
+  width: 64%;
+  height: auto;
+  align-self: flex-start;
+  border: 6px solid #1b2323;
+  border-bottom: 0;
+  border-radius: 26px 26px 0 0;
+  box-shadow: 0 0 0 1px #6b5a3b;
+}
+.site-phone-frame {
+  width: 290px;
+  border: 9px solid #1b2323;
+  border-radius: 40px;
+  overflow: hidden;
+  background: #030607;
+  box-shadow:
+    0 0 0 1px #6b5a3b,
+    0 40px 80px rgba(0, 0, 0, 0.55);
+  transform: rotate(2deg);
+}
+.site-phone-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Over ons: kladjes en een echt scherm tussen de tekst */
+.site-notes {
+  margin: 34px 0 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: center;
+}
+.site-notes img {
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
+}
+.site-notes img:nth-child(1) {
+  transform: rotate(-3deg);
+}
+.site-notes img:nth-child(2) {
+  transform: rotate(2deg);
+}
+.site-notes img:nth-child(3) {
+  transform: rotate(-1.5deg);
+}
+.site-notes figcaption {
+  grid-column: 1 / -1;
+  font-size: 13.5px;
+  color: var(--ink-3);
+  text-align: center;
+  margin-top: 10px;
+}
+.site-notes.app {
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+.site-notes.app .site-phone-frame {
+  width: 260px;
 }

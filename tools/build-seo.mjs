@@ -9,6 +9,10 @@ import { strings, patterns } from './vertalingen.mjs';
 import { UI, KLADJE, FEATURES, AUDIENCES, STORY, HOME, POSTS } from './site-content.mjs';
 import { BEFORE_AFTER, EXTRA_LANGS } from './site-content-extra.mjs';
 import { KLADJE_REAL, PILE } from './site-kladje.mjs';
+import { BLOG } from './site-blog.mjs';
+
+// Nieuwste blogartikelen eerst.
+POSTS.unshift(...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
 const SITE = 'https://savour.page';
@@ -199,34 +203,17 @@ function ctaBlock(lang, inApp) {
   return `<section class="site-cta with-photo"><div class="site-wrap"><h2 class="reveal">${esc(u.ctaTitle)}</h2><p>${esc(u.ctaText)}</p><div class="site-cta-row"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?demo=1" data-demo>${u.demo}</a></div></div></section>`;
 }
 
-// Sfeer: drie foto's uit de eigen keuken (assets/keuken).
-const STRIP = {
-  nl: ['Uit onze keuken', ['Geglaceerde rode uien', 'Eend boven open vuur', 'Gegrilde, geglaceerde wortel']],
-  en: ['From our kitchen', ['Glazed red onions', 'Duck over an open fire', 'Grilled, glazed carrot']],
-  de: ['Aus unserer Küche', ['Glasierte rote Zwiebeln', 'Ente über offenem Feuer', 'Gegrillte, glasierte Karotte']],
-  es: ['De nuestra cocina', ['Cebollas rojas glaseadas', 'Pato sobre fuego abierto', 'Zanahoria a la brasa glaseada']]
-};
-function photoStrip(lang) {
-  const [label, alts] = STRIP[lang];
-  return `<section class="site-strip"><div class="site-wrap"><div class="site-strip-grid">${['uien', 'eend-vuur', 'wortel']
-    .map((f, i) => `<img class="reveal" src="/assets/keuken/${f}.jpg" alt="${esc(alts[i])}" width="640" height="800" loading="lazy">`)
-    .join('')}</div><p class="site-strip-label">${esc(label)}</p></div></section>`;
-}
-
-// Zo ziet Savour eruit op de telefoon (zelfde opzet als de app; opmaak in css/base.css).
-const PHONE_HTML = "<div class=\"landing-phone\"><div class=\"landing-phone-notch\"></div><div class=\"landing-phone-screen\"><div class=\"phone-top\"><div class=\"phone-brand sv-wordmark\">SAVOUR</div><div class=\"phone-icons\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"6.5\"/><path d=\"M20 20l-4.2-4.2\"/></svg><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z\"/></svg><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8.5\" r=\"3.6\"/><path d=\"M5 20a7 7 0 0114 0\"/></svg></div></div><div class=\"phone-title\">%T%</div><div class=\"phone-count\">%C%</div><div class=\"phone-letters\"><span class=\"on\">%A%</span><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span></div><div class=\"phone-search\">⌕ <span>%S%</span></div><div class=\"phone-list\" translate=\"no\"><div class=\"phone-row\"><span>001</span><b>Beurre blanc</b><i>☆</i></div><div class=\"phone-row\"><span>002</span><b>Bloemkool crème</b><i>★</i></div><div class=\"phone-row\"><span>003</span><b>Citroen gel</b><i>☆</i></div><div class=\"phone-row\"><span>004</span><b>Dashi vinaigrette</b><i>☆</i></div><div class=\"phone-row\"><span>005</span><b>Eendenborst</b><i>★</i></div><div class=\"phone-row\"><span>006</span><b>Frambozen bavarois</b><i>☆</i></div><div class=\"phone-row\"><span>007</span><b>Gado gado saus</b><i>☆</i></div><div class=\"phone-row\"><span>008</span><b>Hollandaise</b><i>☆</i></div><div class=\"phone-row\"><span>009</span><b>Kalfsjus</b><i>☆</i></div></div><div class=\"phone-bottom\"><span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 4.5A1.5 1.5 0 016.5 3H19v16H6.5A1.5 1.5 0 005 20.5v-16z\"/><path d=\"M5 20.5A1.5 1.5 0 016.5 22H19\"/><path d=\"M9 7h6\"/></svg><small>%N1%</small></span><span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z\"/></svg><small>%N2%</small></span><span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"9\" cy=\"8.5\" r=\"3.2\"/><path d=\"M3.5 19a5.5 5.5 0 0111 0\"/><path d=\"M15.5 5.6a3 3 0 010 5.8M17 19a5.2 5.2 0 00-2.2-4.2\"/></svg><small>%N3%</small></span><span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"/></svg><small>%N4%</small></span></div></div></div>";
+// Zo ziet Savour eruit op de telefoon: echte schermafbeelding van de app (assets/app, per taal).
 const PREVIEW = {
-  nl: { t: 'Zo ziet het eruit in de keuken', p: 'Op je telefoon of tablet staan al je recepten van A tot Z. Zoek op titel of ingrediënt, zet je favorieten bovenaan en open met één tik de kookmodus met grote letters. Precies wat je nodig hebt tijdens de service, en niets meer.', l: ['Alle recepten', '1.260 recepten', 'Alle', 'Zoek in al je recepten...', 'Recepten', 'Recepten&shy;mappen', 'Gedeelde mappen', 'Recept toevoegen'] },
-  en: { t: 'This is how it looks in the kitchen', p: 'On your phone or tablet, all your recipes from A to Z. Search by title or ingredient, keep your favourites at hand and open cook mode with large text in one tap. Exactly what you need during service, and nothing more.', l: ['All recipes', '1,260 recipes', 'All', 'Search all your recipes...', 'Recipes', 'Recipe folders', 'Shared folders', 'Add recipe'] },
-  de: { t: 'So sieht es in der Küche aus', p: 'Auf Handy oder Tablet alle deine Rezepte von A bis Z. Suche nach Titel oder Zutat, halte deine Favoriten griffbereit und öffne mit einem Tipp den Kochmodus mit großer Schrift. Genau das, was du im Service brauchst, und nicht mehr.', l: ['Alle Rezepte', '1.260 Rezepte', 'Alle', 'Durchsuche alle Rezepte...', 'Rezepte', 'Rezept&shy;ordner', 'Geteilte Ordner', 'Rezept hinzufügen'] },
-  es: { t: 'Así se ve en la cocina', p: 'En tu móvil o tableta, todas tus recetas de la A a la Z. Busca por título o ingrediente, ten tus favoritas a mano y abre el modo cocina con letra grande con un toque. Justo lo que necesitas durante el servicio, y nada más.', l: ['Todas las recetas', '1.260 recetas', 'Todas', 'Busca en todas tus recetas...', 'Recetas', 'Carpetas', 'Carpetas compartidas', 'Añadir receta'] }
+  nl: { alt: 'Receptscherm in Savour op een telefoon', t: 'Zo ziet het eruit in de keuken', p: 'Op je telefoon of tablet staan al je recepten van A tot Z. Zoek op titel of ingrediënt, zet je favorieten bovenaan en open met één tik de kookmodus met grote letters. Precies wat je nodig hebt tijdens de service, en niets meer.', l: ['Alle recepten', '1.260 recepten', 'Alle', 'Zoek in al je recepten...', 'Recepten', 'Recepten&shy;mappen', 'Gedeelde mappen', 'Recept toevoegen'] },
+  en: { alt: 'Recipe screen in Savour on a phone', t: 'This is how it looks in the kitchen', p: 'On your phone or tablet, all your recipes from A to Z. Search by title or ingredient, keep your favourites at hand and open cook mode with large text in one tap. Exactly what you need during service, and nothing more.', l: ['All recipes', '1,260 recipes', 'All', 'Search all your recipes...', 'Recipes', 'Recipe folders', 'Shared folders', 'Add recipe'] },
+  de: { alt: 'Rezeptansicht in Savour auf dem Handy', t: 'So sieht es in der Küche aus', p: 'Auf Handy oder Tablet alle deine Rezepte von A bis Z. Suche nach Titel oder Zutat, halte deine Favoriten griffbereit und öffne mit einem Tipp den Kochmodus mit großer Schrift. Genau das, was du im Service brauchst, und nicht mehr.', l: ['Alle Rezepte', '1.260 Rezepte', 'Alle', 'Durchsuche alle Rezepte...', 'Rezepte', 'Rezept&shy;ordner', 'Geteilte Ordner', 'Rezept hinzufügen'] },
+  es: { alt: 'Pantalla de receta en Savour en un móvil', t: 'Así se ve en la cocina', p: 'En tu móvil o tableta, todas tus recetas de la A a la Z. Busca por título o ingrediente, ten tus favoritas a mano y abre el modo cocina con letra grande con un toque. Justo lo que necesitas durante el servicio, y nada más.', l: ['Todas las recetas', '1.260 recetas', 'Todas', 'Busca en todas tus recetas...', 'Recetas', 'Carpetas', 'Carpetas compartidas', 'Añadir receta'] }
 };
 function phonePreview(lang) {
   const x = PREVIEW[lang];
-  const keys = ['%T%', '%C%', '%A%', '%S%', '%N1%', '%N2%', '%N3%', '%N4%'];
-  const phone = keys.reduce((h, k, i) => h.replace(k, x.l[i]), PHONE_HTML);
   const q = homePath(lang);
-  return `<section class="site-section tint site-preview"><div class="site-wrap site-preview-grid"><div><h2 class="reveal">${esc(x.t)}</h2><p>${esc(x.p)}</p><p><a class="site-link" href="${q}?demo=1" data-demo>${UI[lang].demo}</a></p></div><div class="site-phone">${phone}</div></div></section>`;
+  return `<section class="site-section tint site-preview"><div class="site-wrap site-preview-grid"><div><h2 class="reveal">${esc(x.t)}</h2><p>${esc(x.p)}</p><p><a class="site-link" href="${q}?demo=1" data-demo>${UI[lang].demo}</a></p></div><div class="site-phone"><div class="site-phone-frame"><img src="/assets/app/recept-${lang}.jpg" alt="${esc(x.alt)}" width="520" height="1125" loading="lazy"></div></div></div></section>`;
 }
 
 // Voor en na: links de chaos van papier, bestanden en berichten, rechts hetzelfde in Savour.
@@ -237,7 +224,7 @@ function beforeAfter(lang) {
 <div class="site-ba-pile" aria-hidden="true">${PILE.map((p, i) => `<img class="p${i + 1}" src="/assets/kladjes/${p}.jpg" alt="" loading="lazy">`).join('')}<div class="site-ba-print">${esc(b.print)}</div></div>
 <p class="site-ba-note">${esc(b.beforeNote)}</p></div>
 <div class="site-ba-after reveal"><span class="site-ba-label">${esc(b.afterLabel)}</span><h2>${esc(b.afterTitle)}</h2><ul>${b.afterList.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
-<div class="site-ba-app" aria-hidden="true"><div class="site-ba-search">⌕ ${esc(b.search)}</div>${b.rows.map(([t, c], i) => `<div class="site-ba-row"><em>${String(i + 1).padStart(3, '0')}</em><b>${esc(t)}</b><span>${esc(c)}</span></div>`).join('')}</div>
+<div class="site-ba-shot"><img src="/assets/app/lijst-${lang}.jpg" alt="${esc(b.shotAlt)}" width="520" height="1125" loading="lazy"></div>
 <p class="site-ba-note gold">${esc(b.afterNote)}</p></div>
 </div></section>`;
 }
@@ -253,7 +240,6 @@ function homeBody(lang, inApp) {
 ${kladje(lang)}
 </div></section>
 <section class="site-section"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.storyTitle)}</h2><div>${h.story.map(p => `<p>${esc(p)}</p>`).join('')}<p><a class="site-link" href="${href(STORY[lang].slug)}">${esc(h.storyLink)}</a></p></div></div></section>
-${photoStrip(lang)}
 ${beforeAfter(lang)}
 ${phonePreview(lang)}
 <section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(h.featuresTitle)}</h2>${rows(FEATURES.filter(f => !f.soon), lang)}</div></section>
@@ -328,6 +314,24 @@ function page({ lang, slugs, title, desc, crumbs, body, schema = [] }) {
   sitemap.push({ loc: canonical, alternates });
 }
 
+// Over ons: hoofdstukken als doorlopend verhaal, met echte kladjes na het eerste en een echt scherm na "wat Savour nu kan".
+function aboutChapters(s, lang) {
+  return s.chapters
+    .map(([t, ps], i) => {
+      let extra = '';
+      if (i === 0)
+        extra = `<figure class="site-notes reveal">${['marshmallow', 'curd', 'basis-mayonaise']
+          .map(n => `<img src="/assets/kladjes/${n}.jpg" alt="" loading="lazy">`)
+          .join('')}<figcaption>${esc(s.notesCaption)}</figcaption></figure>`;
+      if (i === 4)
+        extra = `<figure class="site-notes app reveal"><div class="site-phone-frame"><img src="/assets/app/recept-${lang}.jpg" alt="" loading="lazy"></div><figcaption>${esc(s.appCaption)}</figcaption></figure>`;
+      if (i === s.chapters.length - 1)
+        extra = `<p><a class="site-link" href="${href(FEATURES.find(f => f.soon)[lang].slug)}">${esc(s.roadmapLink)}</a></p>`;
+      return `<h2 class="reveal">${esc(t)}</h2>${ps.map(p => `<p>${esc(p)}</p>`).join('')}${extra}`;
+    })
+    .join('');
+}
+
 const pageTop = (crumbHtml, h1, lead) =>
   `<section class="site-page-head"><div class="site-wrap site-narrow">${crumbHtml}<h1>${esc(h1)}</h1>${lead ? `<p class="site-lead">${esc(lead)}</p>` : ''}</div></section>`;
 const sectionsHtml = sections => sections.map(([t, d]) => `<h2 class="reveal">${esc(t)}</h2><p>${esc(d)}</p>`).join('');
@@ -378,10 +382,7 @@ for (const lang of LANGS) {
       crumbs: [[u.about]],
       body: c =>
         pageTop(c, s.h1, s.lead) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p>${esc(s.intro)}</p>
-<div class="site-figure">${kladje(lang)}</div>
-<div class="site-timeline">${s.timeline.map(([t, d], i) => `<details${i === 0 ? ' open' : ''}><summary><small>${String(i + 1).padStart(2, '0')}</small>${esc(t)}</summary><p>${esc(d)}</p></details>`).join('')}</div>
-</div></article>
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${aboutChapters(s, lang)}</div></article>
 <section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(s.valuesTitle)}</h2><div class="site-values">${s.values.map(([t, d]) => `<div><h3>${esc(t)}</h3><p>${esc(d)}</p></div>`).join('')}</div></div></section>`
     });
   }
