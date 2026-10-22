@@ -64,4 +64,4 @@ export const KLADJE_REAL = {
 };
 
 // Stapel echte kladjes voor "Voor Savour" (assets/kladjes). Handtekening en merklogo zijn weggesneden.
-export const PILE = ['marshmallow', 'curd', 'schetsen', 'huisdressing', 'chocolade', 'sabayon'];
+export const PILE = ['marshmallow', 'curd', 'schetsen', 'huisdressing', 'basis-mayonaise', 'website'];
