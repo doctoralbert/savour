@@ -286,7 +286,7 @@ ${alternates.map(([l, h]) => `<link rel="alternate" hreflang="${l}" href="${h}">
 <meta name="theme-color" content="#f6f2ea">
 <link rel="icon" type="image/png" href="/assets/savour-icon.png?v=57">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/site.css">
 <script type="application/ld+json">${JSON.stringify(schema)}</script>
 <script src="/js/site.js" defer></script>

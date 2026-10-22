@@ -2,7 +2,7 @@
 
 > Savour (https://savour.page) is a professional recipe management platform for chefs and kitchen teams. It turns scattered recipes — Word documents, PDFs, photos of handwritten notes — into one organised, searchable recipe library that works on desktop, tablet and phone, and can be shared with the whole kitchen brigade. Made by chefs from the Netherlands, for chefs. Its core idea: turning coffee-stained handwritten notes and old recipe notebooks into recipes that are right.
 
-Savour is built for professional kitchens, especially fine dining: head chefs, sous-chefs, pastry chefs and the whole kitchen brigade. It is not a consumer recipe site; it is a tool to manage a kitchen's own recipes.
+Savour is built for professional kitchens, especially fine dining. Two audiences: chefs (head chefs, sous-chefs, pastry chefs) and kitchen brigades. It is not a consumer recipe site; it is a tool to manage a kitchen's own recipes.
 
 ## What Savour does
 
@@ -25,7 +25,7 @@ Savour is built for professional kitchens, especially fine dining: head chefs, s
 
 - [Home (Dutch)](https://savour.page/) · [English](https://savour.page/en)
 - Features: [Digitise recipes](https://savour.page/en/digitise-recipes) · [Organise recipes](https://savour.page/en/organise-recipes) · [Share with your brigade](https://savour.page/en/share-recipes) · [Scale recipes](https://savour.page/en/scale-recipes) · [Print recipes and binders](https://savour.page/en/print-recipes) · [Coming soon](https://savour.page/en/roadmap)
-- Who it's for: [Chefs and sous-chefs](https://savour.page/en/for-chefs) · [Pastry chefs](https://savour.page/en/for-pastry-chefs) · [The whole brigade](https://savour.page/en/for-kitchen-brigades)
+- Who it's for: [Chefs, sous-chefs and pastry chefs](https://savour.page/en/for-chefs) · [Kitchen brigades](https://savour.page/en/for-kitchen-brigades)
 - [About Savour](https://savour.page/en/about) · [Pricing](https://savour.page/en/pro) · [Blog](https://savour.page/en/blog) · [FAQ](https://savour.page/en/faq) · [Guide](https://savour.page/en/guide) · [Contact](https://savour.page/en/contact)
 - Dutch versions: [Recepten digitaliseren](https://savour.page/recepten-digitaliseren) · [Recepten organiseren](https://savour.page/recepten-organiseren) · [Over Savour](https://savour.page/over-savour) · [Prijzen](https://savour.page/savour-pro) · [Blog](https://savour.page/blog)
 

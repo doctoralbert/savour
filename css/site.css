@@ -419,11 +419,11 @@
   max-width: 560px;
 }
 .site-proof {
-  font-family: var(--hand);
-  font-size: 25px;
-  line-height: 1.2;
+  font: 500 15px/1.5 var(--sans);
   color: var(--gold);
   margin: 18px 0 28px;
+  padding-left: 14px;
+  border-left: 2px solid var(--gold);
 }
 .site-cta-row {
   display: flex;
@@ -547,8 +547,7 @@
 }
 .kladje-demo figcaption {
   grid-column: 1 / -1;
-  font-family: var(--hand);
-  font-size: 21px;
+  font-size: 13.5px;
   color: var(--ink-3);
   text-align: center;
   margin-top: 8px;
@@ -1083,14 +1082,11 @@ html[lang='es'] #landingView .site[data-site-lang='es'] {
   color: #ece7dc;
 }
 .site-ba-label {
-  display: inline-block;
-  font: 600 25px/1 var(--hand);
+  display: block;
+  font: 600 13px/1 var(--sans);
+  letter-spacing: 0.08em;
   color: var(--gold);
-  padding: 8px 18px;
-  border: 1.5px solid currentColor;
-  border-radius: 50% 46% 52% 44% / 60% 50% 56% 48%;
-  transform: rotate(-3deg);
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
 .site-ba-after .site-ba-label {
   color: var(--gold-soft);
@@ -1421,10 +1417,10 @@ html[lang='es'] #landingView .site[data-site-lang='es'] {
   transform: translateY(-18px);
 }
 .site-strip-label {
-  font: 500 26px/1 var(--hand);
-  color: var(--gold);
+  font-size: 13.5px;
+  color: var(--ink-3);
   text-align: right;
-  margin: 10px 4px 0;
+  margin: 12px 4px 0;
 }
 @media (max-width: 700px) {
   .site-strip-grid {

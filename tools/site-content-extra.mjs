@@ -122,9 +122,8 @@ export const EXTRA_LANGS = {
       scale: ['Rezepte hochrechnen', 'Von 8 Gedecken auf 120, ohne Rechenfehler.'],
       print: ['Drucken und Rezeptordner', 'Ein ganzer Ordner auf einmal zum Drucker, sauber für die Küche.'],
       roadmap: ['Demnächst in Savour', 'Kosten pro Rezept, Allergene, Rezeptkarten mit eigenem Logo.'],
-      chefs: ['Küchenchefs und Sous-Chefs', 'Für den Koch, der die Rezepturen der Küche verantwortet.'],
-      pastry: ['Patissiers', 'Für die Patisserie, wo jedes Gramm zählt.'],
-      brigade: ['Die ganze Brigade', 'Für Chefs de Partie, Commis und Praktikanten.']
+      chefs: ['Köche', 'Für Küchenchefs, Sous-Chefs und Patissiers, die ihre Rezepturen bewahren wollen.'],
+      brigade: ['Küchenbrigaden', 'Für das ganze Team: Chefs de Partie, Commis und Praktikanten.']
     },
     soon: [
       ['Kosten pro Rezept', 'Sieh pro Gericht und Portion, was es kostet, und was passiert, wenn sich ein Preis ändert.'],
@@ -190,9 +189,8 @@ export const EXTRA_LANGS = {
       scale: ['Escalar recetas', 'De 8 cubiertos a 120, sin errores de cálculo.'],
       print: ['Imprimir y carpetas', 'Una carpeta entera a la impresora de una vez, limpia para la cocina.'],
       roadmap: ['Próximamente en Savour', 'Coste por receta, alérgenos, fichas con tu propio logo.'],
-      chefs: ['Jefes de cocina y segundos', 'Para el chef que cuida las recetas de la cocina.'],
-      pastry: ['Pasteleros', 'Para la pastelería, donde cada gramo cuenta.'],
-      brigade: ['Toda la brigada', 'Para jefes de partida, ayudantes y becarios.']
+      chefs: ['Cocineros', 'Para jefes de cocina, segundos y pasteleros que quieren guardar sus recetas.'],
+      brigade: ['Brigadas de cocina', 'Para todo el equipo: jefes de partida, ayudantes y becarios.']
     },
     soon: [
       ['Coste por receta', 'Mira lo que cuesta cada plato y cada ración, y qué pasa cuando cambia un precio.'],

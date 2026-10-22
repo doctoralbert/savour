@@ -299,93 +299,66 @@ export const AUDIENCES = [
   {
     id: 'chefs',
     nl: {
-      slug: 'voor-chefs',
-      menu: 'Chefs en sous-chefs',
-      short: 'Voor de chef die de recepturen van de keuken bewaakt.',
-      title: 'Receptenapp voor chefs en sous-chefs in de fine dining | Savour',
-      desc: 'Savour is gemaakt voor chefs en sous-chefs in de fine dining: al je recepturen op één plek, gedeeld met je brigade, altijd de juiste versie.',
-      h1: 'Voor chefs en sous-chefs',
-      lead: 'Jij bent verantwoordelijk voor elk bord dat de pas verlaat. Dan moet elk recept kloppen, voor iedereen in de keuken.',
+      slug: 'voor-koks',
+      menu: 'Koks',
+      short: 'Voor chefs, sous-chefs en patissiers die hun recepturen willen bewaren.',
+      title: 'Receptenapp voor koks: chefs, sous-chefs en patissiers | Savour',
+      desc: 'Savour is gemaakt voor koks in de professionele keuken: chefs, sous-chefs en patissiers. Al je recepturen op één plek, precies zoals je ze schreef.',
+      h1: 'Voor koks',
+      lead: 'Of je nu de keuken leidt, de sauzen maakt of in de patisserie staat: je recepten moeten kloppen en vindbaar zijn.',
       sections: [
         ['Jouw recepturen, één plek', 'Seizoensmenu’s, proeverijen, basisrecepten van jaren terug. In Savour staat het in één receptenboek, ingedeeld zoals jij werkt.'],
-        ['Het menu verandert, de brigade gaat mee', 'Pas je een saus aan voor het nieuwe menu, dan werkt iedereen in de gedeelde map direct met de nieuwe versie.'],
-        ['Je kennis bewaard', 'Wat je in de loop der jaren hebt opgebouwd, staat niet meer alleen in een schrift of in je hoofd. Het blijft, ook als mensen vertrekken.']
+        ['Precies, tot op de gram', 'In de patisserie is een recept een formule. Savour bewaart je recepten precies zoals je ze schreef en verzint nooit hoeveelheden. Twijfelt de lezer bij een import, dan kijk je het zelf na.'],
+        ['Opschalen op couverts en stuks', 'Van een proeverij voor 8 naar een diner voor 120, of van 50 bonbons naar 800. Savour rekent alles om.'],
+        ['Je kennis bewaard', 'Wat je in de loop der jaren hebt opgebouwd, staat niet meer alleen in een schrift of in je hoofd. Het blijft, ook als je van keuken wisselt.']
       ]
     },
     en: {
       slug: 'en/for-chefs',
-      menu: 'Chefs and sous-chefs',
-      short: 'For the chef who looks after the kitchen’s recipes.',
-      title: 'Recipe app for chefs and sous-chefs in fine dining | Savour',
-      desc: 'Savour is made for chefs and sous-chefs in fine dining: all your recipes in one place, shared with your brigade, always the right version.',
-      h1: 'For chefs and sous-chefs',
-      lead: 'You are responsible for every plate that leaves the pass. So every recipe has to be right, for everyone in the kitchen.',
+      menu: 'Chefs',
+      short: 'For chefs, sous-chefs and pastry chefs who want to keep their recipes.',
+      title: 'Recipe app for chefs, sous-chefs and pastry chefs | Savour',
+      desc: 'Savour is made for cooks in the professional kitchen: chefs, sous-chefs and pastry chefs. All your recipes in one place, exactly as you wrote them.',
+      h1: 'For chefs',
+      lead: 'Whether you run the kitchen, make the sauces or work in pastry: your recipes have to be right and easy to find.',
       sections: [
         ['Your recipes, one place', 'Seasonal menus, tasting menus, base recipes from years ago. In Savour it is all in one recipe book, arranged the way you work.'],
-        ['The menu changes, the brigade follows', 'Adjust a sauce for the new menu and everyone in the shared folder works with the new version straight away.'],
-        ['Your knowledge kept', 'What you have built up over the years no longer lives only in a notebook or in your head. It stays, even when people leave.']
-      ]
-    }
-  },
-  {
-    id: 'pastry',
-    nl: {
-      slug: 'voor-patissiers',
-      menu: 'Patissiers',
-      short: 'Voor de patisserie, waar elke gram telt.',
-      title: 'Receptenapp voor patissiers: precieze recepturen | Savour',
-      desc: 'Savour voor patissiers: precieze recepturen, opschalen op grammen en stuks, en een hele map in één keer printen voor de klapper.',
-      h1: 'Voor patissiers',
-      lead: 'In de patisserie is een recept een formule. Eén verkeerde gram en het gaat mis.',
-      sections: [
-        ['Recepturen die kloppen', 'Savour bewaart je recepten precies zoals je ze schreef en verzint nooit hoeveelheden. Twijfelt de lezer bij een import, dan kijk je het zelf na.'],
-        ['Opschalen op stuks', 'Van één plaat naar twintig, of van 50 bonbons naar 800. Savour rekent alles om.'],
-        ['De klapper altijd actueel', 'Print je hele map met ijs, deeg of glazuren in één keer, zodat er altijd de laatste versie aan de muur hangt.']
-      ]
-    },
-    en: {
-      slug: 'en/for-pastry-chefs',
-      menu: 'Pastry chefs',
-      short: 'For the pastry section, where every gram counts.',
-      title: 'Recipe app for pastry chefs: precise recipes | Savour',
-      desc: 'Savour for pastry chefs: precise recipes, scaling by grams and pieces, and printing a whole folder at once for the binder.',
-      h1: 'For pastry chefs',
-      lead: 'In pastry a recipe is a formula. One wrong gram and it fails.',
-      sections: [
-        ['Recipes that are right', 'Savour keeps your recipes exactly as you wrote them and never invents quantities. If the reader is unsure during an import, you check it yourself.'],
-        ['Scale by pieces', 'From one tray to twenty, or from 50 bonbons to 800. Savour converts everything.'],
-        ['The binder always up to date', 'Print your whole folder of ice creams, doughs or glazes at once, so the latest version is always on the wall.']
+        ['Precise, to the gram', 'In pastry a recipe is a formula. Savour keeps your recipes exactly as you wrote them and never invents quantities. If the reader is unsure during an import, you check it yourself.'],
+        ['Scale by covers and pieces', 'From a tasting for 8 to a dinner for 120, or from 50 bonbons to 800. Savour converts everything.'],
+        ['Your knowledge kept', 'What you have built up over the years no longer lives only in a notebook or in your head. It stays, even when you change kitchens.']
       ]
     }
   },
   {
     id: 'brigade',
     nl: {
-      slug: 'voor-de-brigade',
-      menu: 'De hele brigade',
-      short: 'Voor chef de parties, commis en stagiairs.',
-      title: 'Recepten voor de hele keukenbrigade | Savour',
-      desc: 'Savour voor de keukenbrigade: chef de parties, commis en stagiairs werken met dezelfde recepten, op hun eigen telefoon.',
-      h1: 'Voor de hele brigade',
+      slug: 'voor-keukenbrigades',
+      menu: 'Keukenbrigades',
+      short: 'Voor het hele team: chef de parties, commis en stagiairs.',
+      title: 'Recepten delen met je keukenbrigade | Savour',
+      desc: 'Savour voor keukenbrigades: chef de parties, commis en stagiairs werken met dezelfde recepten, op hun eigen telefoon. Jij bepaalt wie wat mag.',
+      h1: 'Voor keukenbrigades',
       lead: 'Van chef de partie tot stagiair: iedereen kookt van hetzelfde recept.',
       sections: [
+        ['Eén versie voor iedereen', 'Pas je een saus aan voor het nieuwe menu, dan werkt iedereen in de gedeelde map direct met de nieuwe versie.'],
+        ['Rechten per persoon', 'Jij beheert de map. Je sous-chef of chef de partie mag recepten toevoegen en aanpassen. Commis en stagiairs kunnen meekijken, maar niets veranderen.'],
         ['Op je eigen telefoon', 'Geen gedeelde map met vlekken meer. Elk lid van de brigade opent de recepten van de partie op de eigen telefoon, met grote letters in de kookmodus.'],
-        ['Gratis voor teamleden', 'Lid zijn van een gedeelde map is gratis. Met een teamabonnement krijgt iedereen in de keuken Savour Pro.'],
-        ['Leren van de keuken', 'Stagiairs en nieuwe koks lezen hoe het hier gedaan wordt, in plaats van het te moeten vragen tijdens de service.']
+        ['Nieuwe mensen sneller ingewerkt', 'Stagiairs en nieuwe koks lezen hoe het hier gedaan wordt, in plaats van het te moeten vragen tijdens de service. Lid zijn van een gedeelde map is gratis; met een teamabonnement krijgt iedereen Savour Pro.']
       ]
     },
     en: {
       slug: 'en/for-kitchen-brigades',
-      menu: 'The whole brigade',
-      short: 'For chefs de partie, commis and interns.',
-      title: 'Recipes for the whole kitchen brigade | Savour',
-      desc: 'Savour for the kitchen brigade: chefs de partie, commis and interns work from the same recipes, on their own phones.',
-      h1: 'For the whole brigade',
+      menu: 'Kitchen brigades',
+      short: 'For the whole team: chefs de partie, commis and interns.',
+      title: 'Share recipes with your kitchen brigade | Savour',
+      desc: 'Savour for kitchen brigades: chefs de partie, commis and interns work from the same recipes, on their own phones. You decide who can do what.',
+      h1: 'For kitchen brigades',
       lead: 'From chef de partie to intern: everyone cooks from the same recipe.',
       sections: [
+        ['One version for everyone', 'Adjust a sauce for the new menu and everyone in the shared folder works with the new version straight away.'],
+        ['Rights per person', 'You manage the folder. Your sous-chef or chef de partie can add and edit recipes. Commis and interns can view but not change anything.'],
         ['On your own phone', 'No more shared binder full of stains. Every member of the brigade opens the section’s recipes on their own phone, with large text in cook mode.'],
-        ['Free for team members', 'Being a member of a shared folder is free. With a team plan everyone in the kitchen gets Savour Pro.'],
-        ['Learning from the kitchen', 'Interns and new cooks read how things are done here, instead of having to ask during service.']
+        ['New people up to speed faster', 'Interns and new cooks read how things are done here, instead of having to ask during service. Being a member of a shared folder is free; with a team plan everyone gets Savour Pro.']
       ]
     }
   }
