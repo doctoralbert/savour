@@ -3,6 +3,52 @@ window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.es = {
   strings: {
     'Savour — professioneel receptbeheer': 'Savour — gestión profesional de recetas',
+    'Savour — receptenapp voor chefs: recepten organiseren en delen':
+      'Savour — app de recetas para chefs: organiza y comparte recetas',
+    'Receptenapp voor chefs en keukenteams': 'App de recetas para chefs y equipos de cocina',
+    'Savour is een app en website om je recepten te organiseren. Al je recepturen uit Word, PDF en handgeschreven kladjes komen in één receptenboek, voor jou en je hele brigade.':
+      'Savour es una app y web para organizar tus recetas. Todas tus recetas de Word, PDF y notas escritas a mano en un solo recetario, para ti y toda tu brigada.',
+    '1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.':
+      '1.400 recetas importadas de Word en 2 minutos. Probado en nuestra propia cocina.',
+    'Gratis beginnen': 'Empieza gratis',
+    '40 proefrecepten, geen account nodig': '40 recetas de ejemplo, sin cuenta',
+    'Recepten digitaliseren zonder overtypen': 'Digitaliza tus recetas sin volver a escribirlas',
+    "We zijn zelf chefs. Onze recepten lagen jarenlang overal: in Word-bestanden van honderden pagina's, op papiertjes met koffievlekken aan de muur, op foto's in drie verschillende telefoons.":
+      'Somos chefs. Durante años nuestras recetas estaban por todas partes: en archivos de Word de cientos de páginas, en papeles con manchas de café en la pared, en fotos en tres móviles distintos.',
+    'Met Savour zet je dat in één keer om. Sleep je Word-bestand of PDF erin en Savour herkent zelf de titels, ingrediënten en bereiding. Een foto van een handgeschreven recept leest de AI voor je uit. Hoeveelheden worden nooit verzonnen: twijfelt Savour, dan zie je dat meteen en kijk je het zelf na.':
+      'Con Savour lo conviertes todo de una vez. Arrastra tu archivo de Word o PDF y Savour reconoce solo los títulos, ingredientes y elaboración. La IA lee por ti la foto de una receta escrita a mano. Nunca se inventan cantidades: si Savour duda, lo ves enseguida y lo revisas tú.',
+    'Recepten organiseren zoals jouw keuken werkt': 'Organiza las recetas como trabaja tu cocina',
+    'Sauzen, garnituren, patisserie, het lunchmenu: jij bepaalt de mappen en categorieën. Zoek op titel of op ingrediënt, of blader van A tot Z. Je beurre blanc vind je in drie seconden, ook midden in de service.':
+      'Salsas, guarniciones, pastelería, el menú del mediodía: tú decides las carpetas y categorías. Busca por título o ingrediente, o recorre de la A a la Z. Encuentras tu beurre blanc en tres segundos, incluso en pleno servicio.',
+    'Recepturen delen met je keukenteam': 'Comparte recetas con tu equipo de cocina',
+    'Maak een gedeelde map en nodig je koks uit. Jij beheert, je sous-chef mag aanpassen en de rest kan meekijken. Iedereen werkt met dezelfde versie, en een nieuwe kok heeft op de eerste dag alle recepten op de telefoon.':
+      'Crea una carpeta compartida e invita a tus cocineros. Tú la gestionas, tu segundo de cocina puede editar y el resto puede ver. Todos trabajan con la misma versión, y un cocinero nuevo tiene todas las recetas en el móvil desde el primer día.',
+    'Opschalen en printen voor de service': 'Escala e imprime para el servicio',
+    'Haal je 50 brownies uit één recept en heb je er 1.000 nodig? Savour rekent het om. Moeten alle ijsrecepten in de receptenklapper? Print de hele map in één keer, in plaats van 50 bestanden één voor één.':
+      '¿Una receta da 50 brownies y necesitas 1.000? Savour hace la cuenta. ¿Todas las recetas de helado van a la carpeta? Imprime la carpeta entera de una vez, en lugar de 50 archivos uno a uno.',
+    'Op computer, tablet en telefoon': 'En ordenador, tableta y móvil',
+    'Op kantoor importeer en orden je op de computer. In de keuken gebruik je je telefoon of tablet, met grote letters in de kookmodus. Er hoeft niets geïnstalleerd te worden.':
+      'En la oficina importas y ordenas en el ordenador. En la cocina usas el móvil o la tableta, con letra grande en el modo cocina. No hay que instalar nada.',
+    'Voor wie?': '¿Para quién?',
+    'Chef-koks en sous-chefs, patissiers, cateraars, horecaondernemers met meerdere zaken en koksopleidingen. Iedereen die recepturen moet bewaren, delen en terugvinden.':
+      'Jefes de cocina y segundos, pasteleros, empresas de catering, hosteleros con varios locales y escuelas de cocina. Cualquiera que necesite guardar, compartir y encontrar recetas.',
+    'Vragen over Savour': 'Preguntas sobre Savour',
+    'Welke app gebruik ik om recepten te organiseren voor mijn restaurant?':
+      '¿Qué app uso para organizar las recetas de mi restaurante?',
+    'Savour is gemaakt voor professionele keukens: je importeert je bestaande recepten, ordent ze in mappen en deelt ze met je team. Je begint gratis.':
+      'Savour está hecho para cocinas profesionales: importas tus recetas, las ordenas en carpetas y las compartes con tu equipo. Empiezas gratis.',
+    'Hoe digitaliseer ik handgeschreven recepten?': '¿Cómo digitalizo recetas escritas a mano?',
+    'Maak een foto van het recept en upload hem in Savour. De AI zet hem om in een net recept met ingrediënten en bereiding, dat je daarna controleert.':
+      'Haz una foto de la receta y súbela a Savour. La IA la convierte en una receta limpia con ingredientes y elaboración, que luego revisas.',
+    'Kan ik recepten uit Word of PDF importeren?': '¿Puedo importar recetas de Word o PDF?',
+    'Ja. Ook een bestand met honderden recepten tegelijk; Savour splitst ze zelf op.':
+      'Sí. Incluso un archivo con cientos de recetas a la vez; Savour las separa solo.',
+    'Hoe deel ik recepten met mijn keukenteam?': '¿Cómo comparto recetas con mi equipo de cocina?',
+    "Met een gedeelde map. Je nodigt collega's uit en geeft ze rechten om mee te kijken of mee te werken.":
+      'Con una carpeta compartida. Invitas a tus compañeros y les das permiso para ver o colaborar.',
+    'Is Savour ook voor thuiskoks?': '¿Savour también es para cocineros caseros?',
+    'Het kan, maar Savour is gebouwd voor de professionele keuken: grote receptenboeken, teams en de service.':
+      'Puede servir, pero Savour está hecho para la cocina profesional: grandes recetarios, equipos y el servicio.',
     Annuleren: 'Cancelar',
     Opslaan: 'Guardar',
     'Opslaan…': 'Guardando…',

@@ -447,6 +447,64 @@
   margin-top: 12px;
   font-size: 13px;
 }
+/* Startpagina (2026-10-22): bewijsregel, twee knoppen naast elkaar, vier blokken en vragen. */
+.landing-hero.landing-hero-v55 .landing-proof {
+  color: var(--sv-gold);
+  font-size: 14px;
+  margin-top: 4px;
+}
+.landing-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+.landing-hero-actions .btn.gold {
+  padding: 14px 22px;
+  font-size: 16px;
+}
+.landing-hero-actions .demo-cta {
+  min-width: 0;
+  padding: 10px 16px;
+}
+.landing-hero-actions .demo-cta strong {
+  font-size: 16px;
+}
+.landing-story-grid-v55.landing-story-grid-4 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.landing-faq {
+  max-width: 820px;
+}
+.landing-faq h2 {
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-2xl);
+  margin: 0 0 18px;
+}
+.landing-faq article {
+  padding: 16px 0;
+  border-top: 1px solid var(--sv-line);
+}
+.landing-faq h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--sv-text);
+}
+.landing-faq p {
+  margin: 0;
+  color: var(--sv-text-2);
+  line-height: 1.65;
+}
+@media (max-width: 899px) {
+  .landing-story-grid-v55.landing-story-grid-4 {
+    grid-template-columns: 1fr;
+  }
+  .landing-hero-actions > * {
+    flex: 1 1 100%;
+  }
+}
 .landing-hero-phone {
   display: flex;
   justify-content: center;
