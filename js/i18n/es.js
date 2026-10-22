@@ -878,15 +878,15 @@ window.SAVOUR_I18N.es = {
     'Jouw recepten. Jouw manier van werken. Eén professionele plek.':
       'Tus recetas. Tu forma de trabajar. Un lugar profesional.',
     'Overal beschikbaar': 'Disponible en todas partes',
-    'Één platform. Computer, mobiel en app.': 'Una plataforma. Ordenador, móvil y app.',
-    'Savour werkt op je computer én op je telefoon. Gebruik Savour in de mobiele browser of in de native app — met dezelfde recepten, mappen, gedeelde mappen en account. Je workflow blijft overal gesynchroniseerd.':
-      'Savour funciona en tu ordenador y en tu móvil. Úsalo en el navegador móvil o en la app, con las mismas recetas, carpetas, carpetas compartidas y cuenta. Tu trabajo se sincroniza en todas partes.',
+    'Één platform. Computer, tablet en telefoon.': 'Una plataforma. Ordenador, tableta y móvil.',
+    'Savour werkt op je computer, tablet en telefoon, gewoon in de browser. Je hoeft niets te installeren: overal dezelfde recepten, mappen, gedeelde mappen en hetzelfde account. Je workflow blijft overal gesynchroniseerd.':
+      'Savour funciona en tu ordenador, tableta y móvil, directamente en el navegador. Sin instalar nada: las mismas recetas, carpetas, carpetas compartidas y cuenta en todas partes. Tu trabajo se sincroniza en todas partes.',
     '✓ Desktop browser': '✓ Navegador de escritorio',
     '✓ Mobiele browser': '✓ Navegador móvil',
-    '✓ Native app': '✓ App nativa',
+    '✓ Tablet': '✓ Tableta',
     '✓ Eén account · één omgeving': '✓ Una cuenta · un entorno',
-    'Je kunt dus op kantoor een recept organiseren, in de keuken op je telefoon werken en later in de app verdergaan.':
-      'Así puedes organizar una receta en la oficina, trabajar con el móvil en la cocina y seguir después en la app.',
+    'Je kunt dus op kantoor een recept organiseren, in de keuken op je telefoon werken en later op je tablet verdergaan.':
+      'Así puedes organizar una receta en la oficina, trabajar con el móvil en la cocina y seguir después en la tableta.',
     'Voorbeeld receptfoto': 'Foto de ejemplo de receta',
     'Het professionele receptplatform voor chefs en keukenteams.':
       'La plataforma profesional de recetas para chefs y equipos de cocina.',

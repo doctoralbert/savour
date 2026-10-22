@@ -2579,20 +2579,20 @@ export const strings = [
   ],
   ['Overal beschikbaar', 'Available everywhere', 'Überall verfügbar', 'Disponible en todas partes'],
   [
-    'Één platform. Computer, mobiel en app.',
-    'One platform. Computer, mobile and app.',
-    'Eine Plattform. Computer, Handy und App.',
-    'Una plataforma. Ordenador, móvil y app.'
+    'Één platform. Computer, tablet en telefoon.',
+    'One platform. Computer, tablet and phone.',
+    'Eine Plattform. Computer, Tablet und Handy.',
+    'Una plataforma. Ordenador, tableta y móvil.'
   ],
   [
-    'Savour werkt op je computer én op je telefoon. Gebruik Savour in de mobiele browser of in de native app — met dezelfde recepten, mappen, gedeelde mappen en account. Je workflow blijft overal gesynchroniseerd.',
-    'Savour works on your computer and on your phone. Use Savour in the mobile browser or the native app — with the same recipes, folders, shared folders and account. Your workflow stays in sync everywhere.',
-    'Savour funktioniert auf deinem Computer und auf deinem Handy. Nutze Savour im mobilen Browser oder in der App — mit denselben Rezepten, Ordnern, geteilten Ordnern und demselben Konto. Dein Arbeitsablauf bleibt überall synchron.',
-    'Savour funciona en tu ordenador y en tu móvil. Úsalo en el navegador móvil o en la app, con las mismas recetas, carpetas, carpetas compartidas y cuenta. Tu trabajo se sincroniza en todas partes.'
+    'Savour werkt op je computer, tablet en telefoon, gewoon in de browser. Je hoeft niets te installeren: overal dezelfde recepten, mappen, gedeelde mappen en hetzelfde account. Je workflow blijft overal gesynchroniseerd.',
+    'Savour works on your computer, tablet and phone, right in the browser. Nothing to install: the same recipes, folders, shared folders and account everywhere. Your workflow stays in sync everywhere.',
+    'Savour funktioniert auf deinem Computer, Tablet und Handy, direkt im Browser. Nichts zu installieren: überall dieselben Rezepte, Ordner, geteilten Ordner und dasselbe Konto. Dein Arbeitsablauf bleibt überall synchron.',
+    'Savour funciona en tu ordenador, tableta y móvil, directamente en el navegador. Sin instalar nada: las mismas recetas, carpetas, carpetas compartidas y cuenta en todas partes. Tu trabajo se sincroniza en todas partes.'
   ],
   ['✓ Desktop browser', '✓ Desktop browser', '✓ Desktop-Browser', '✓ Navegador de escritorio'],
   ['✓ Mobiele browser', '✓ Mobile browser', '✓ Mobiler Browser', '✓ Navegador móvil'],
-  ['✓ Native app', '✓ Native app', '✓ Native App', '✓ App nativa'],
+  ['✓ Tablet', '✓ Tablet', '✓ Tablet', '✓ Tableta'],
   [
     '✓ Eén account · één omgeving',
     '✓ One account · one workspace',
@@ -2600,10 +2600,10 @@ export const strings = [
     '✓ Una cuenta · un entorno'
   ],
   [
-    'Je kunt dus op kantoor een recept organiseren, in de keuken op je telefoon werken en later in de app verdergaan.',
-    'So you can organise a recipe in the office, work on your phone in the kitchen and continue later in the app.',
-    'So kannst du im Büro ein Rezept organisieren, in der Küche am Handy arbeiten und später in der App weitermachen.',
-    'Así puedes organizar una receta en la oficina, trabajar con el móvil en la cocina y seguir después en la app.'
+    'Je kunt dus op kantoor een recept organiseren, in de keuken op je telefoon werken en later op je tablet verdergaan.',
+    'So you can organise a recipe in the office, work on your phone in the kitchen and continue later on your tablet.',
+    'So kannst du im Büro ein Rezept organisieren, in der Küche am Handy arbeiten und später am Tablet weitermachen.',
+    'Así puedes organizar una receta en la oficina, trabajar con el móvil en la cocina y seguir después en la tableta.'
   ],
   ['Voorbeeld receptfoto', 'Example recipe photo', 'Beispielfoto eines Rezepts', 'Foto de ejemplo de receta'],
   [

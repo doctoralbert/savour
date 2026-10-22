@@ -877,15 +877,15 @@ window.SAVOUR_I18N.en = {
     'Jouw recepten. Jouw manier van werken. Eén professionele plek.':
       'Your recipes. Your way of working. One professional place.',
     'Overal beschikbaar': 'Available everywhere',
-    'Één platform. Computer, mobiel en app.': 'One platform. Computer, mobile and app.',
-    'Savour werkt op je computer én op je telefoon. Gebruik Savour in de mobiele browser of in de native app — met dezelfde recepten, mappen, gedeelde mappen en account. Je workflow blijft overal gesynchroniseerd.':
-      'Savour works on your computer and on your phone. Use Savour in the mobile browser or the native app — with the same recipes, folders, shared folders and account. Your workflow stays in sync everywhere.',
+    'Één platform. Computer, tablet en telefoon.': 'One platform. Computer, tablet and phone.',
+    'Savour werkt op je computer, tablet en telefoon, gewoon in de browser. Je hoeft niets te installeren: overal dezelfde recepten, mappen, gedeelde mappen en hetzelfde account. Je workflow blijft overal gesynchroniseerd.':
+      'Savour works on your computer, tablet and phone, right in the browser. Nothing to install: the same recipes, folders, shared folders and account everywhere. Your workflow stays in sync everywhere.',
     '✓ Desktop browser': '✓ Desktop browser',
     '✓ Mobiele browser': '✓ Mobile browser',
-    '✓ Native app': '✓ Native app',
+    '✓ Tablet': '✓ Tablet',
     '✓ Eén account · één omgeving': '✓ One account · one workspace',
-    'Je kunt dus op kantoor een recept organiseren, in de keuken op je telefoon werken en later in de app verdergaan.':
-      'So you can organise a recipe in the office, work on your phone in the kitchen and continue later in the app.',
+    'Je kunt dus op kantoor een recept organiseren, in de keuken op je telefoon werken en later op je tablet verdergaan.':
+      'So you can organise a recipe in the office, work on your phone in the kitchen and continue later on your tablet.',
     'Voorbeeld receptfoto': 'Example recipe photo',
     'Het professionele receptplatform voor chefs en keukenteams.':
       'The professional recipe platform for chefs and kitchen teams.',
