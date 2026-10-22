@@ -232,9 +232,15 @@ async function startDatabaseSession(user) {
       await loadPlanState();
       renderProNav();
       renderAdminNav();
+      greetTeamMember();
       if (window.__proRoute) openPublicInfo('pro');
       else if (window.__infoRoute) openPublicInfo(window.__infoRoute);
       else showApp('recipes');
+      if (window.__teamRoute) {
+        window.__teamRoute = false;
+        history.replaceState(null, '', location.pathname);
+        openTeamNav();
+      }
       refreshSidebar();
       updateProfileHeader();
       // Kwam de gebruiker binnen via een uitnodigingslink? Dan nu lid worden en de map openen.

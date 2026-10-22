@@ -80,3 +80,20 @@
   font-size: 13px;
   color: var(--sv-text-2);
 }
+
+/* Mijn team: bezetting naast de knop in het menu, en de uitleg in het teamblok */
+.nav-count {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--gold);
+}
+.team-how {
+  margin: 8px 0 16px;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--sv-text-2);
+}
+.team-how li {
+  margin: 2px 0;
+}

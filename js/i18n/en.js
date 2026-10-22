@@ -612,6 +612,19 @@ window.SAVOUR_I18N.en = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Unlimited recipes, AI that reads your notes and photos, and shared folders for your team.',
     Verbergen: 'Hide',
+    'Hoe krijgen mijn teamleden Pro?': 'How do my team members get Pro?',
+    'Je voegt ze toe via Mijn team in het menu, of op je telefoon via Mijn account → Abonnement. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.':
+      'You add them via My team in the menu, or on your phone via My account → Subscription. They get an invitation by email and have Savour Pro as soon as they log in or sign up with exactly that email address. You count as the first seat yourself.',
+    'Mijn team': 'My team',
+    "Collega's toevoegen": 'Add colleagues',
+    'Aan de slag': 'Get started',
+    'Je team staat klaar': 'Your team is ready',
+    'Vul het e-mailadres van een collega in en kies Toevoegen.': 'Enter a colleague’s email address and choose Add.',
+    'Je collega krijgt een uitnodiging van ons per mail.': 'Your colleague gets an invitation from us by email.',
+    'Je collega heeft Savour Pro zodra die inlogt of zich aanmeldt met precies dat e-mailadres. Vertrekt iemand, geef dan de plek vrij voor een ander.':
+      'Your colleague has Savour Pro as soon as they log in or sign up with exactly that email address. If someone leaves, free up the seat for someone else.',
+    'Je hebt Savour Pro via je team: onbeperkt recepten, gedeelde mappen en AI voor handgeschreven kladjes. Je hoeft niets te betalen; dat regelt je team.':
+      'You have Savour Pro through your team: unlimited recipes, shared folders and AI for handwritten notes. You do not have to pay anything; your team takes care of that.',
     'Foto van een kladje': 'Photo of a note',
     'Maak met je camera een foto van een handgeschreven recept. De AI zet het om in een net recept.':
       'Take a photo of a handwritten recipe with your camera. The AI turns it into a clean recipe.',
@@ -1208,6 +1221,28 @@ window.SAVOUR_I18N.en = {
       "^Word, PDF en tekst lees je gratis in \\(nog (\\d+) van (\\d+) recepten in je gratis account\\)\\. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro\\.$",
       'You import Word, PDF and text for free ($1 of $2 recipes left in your free account). Photos, handwritten and scanned recipes are read by AI: only in Savour Pro.'
     ],
+    ['^(\\d+) van (\\d+) plekken in gebruik \\(jij telt mee\\)\\.$', '$1 of $2 seats in use (including you).'],
+    [
+      '^Via je team: (.+)\\. De eigenaar van het team beheert de plekken; je hoeft niets te betalen\\.$',
+      'Through your team: $1. The team owner manages the seats; you do not have to pay anything.'
+    ],
+    [
+      "^1 van (\\d+) plekken in gebruik\\. Voeg je collega's toe: zij krijgen een uitnodiging en hebben direct Savour Pro\\.$",
+      '1 of $1 seats in use. Add your colleagues: they get an invitation and have Savour Pro straight away.'
+    ],
+    [
+      '^(.+) heeft nu Savour Pro\\. We hebben een uitnodiging gestuurd\\.$',
+      '$1 now has Savour Pro. We sent an invitation.'
+    ],
+    [
+      '^(.+) heeft nu Savour Pro\\. De uitnodiging kon niet worden verstuurd; laat het je collega zelf weten\\.$',
+      '$1 now has Savour Pro. The invitation could not be sent; please let your colleague know yourself.'
+    ],
+    [
+      "^Je hebt (\\d+) plekken; jij telt zelf als eerste mee\\. Voeg je collega's toe op hun e-mailadres: zij krijgen een uitnodiging van ons en hebben Savour Pro zodra ze inloggen of zich aanmelden met dat adres\\.$",
+      'You have $1 seats; you count as the first one. Add your colleagues by email: they get an invitation from us and have Savour Pro as soon as they log in or sign up with that address.'
+    ],
+    ['^Welkom bij het team van (.+)$', 'Welcome to the $1 team'],
     ['^(\\d+) van (\\d+) recepten$', '$1 of $2 recipes'],
     ['^Savour Pro · nog 1 dag gratis$', 'Savour Pro · 1 free day left'],
     ['^Savour Pro · nog (\\d+) dagen gratis$', 'Savour Pro · $1 free days left'],

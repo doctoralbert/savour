@@ -73,6 +73,8 @@ window.__authRoute = ['login', 'signup'].includes(new URLSearchParams(location.s
   ? new URLSearchParams(location.search).get('auth')
   : null;
 window.__demoRoute = new URLSearchParams(location.search).get('demo') === '1';
+// ?team=1: link uit de bedankmail na een teamaankoop; na inloggen meteen naar het teamblok.
+window.__teamRoute = new URLSearchParams(location.search).get('team') === '1';
 
 // Bestaande sessie herstellen, of de landingspagina tonen.
 (async () => {
@@ -112,6 +114,7 @@ window.__demoRoute = new URLSearchParams(location.search).get('demo') === '1';
       else if (window.__infoRoute) openPublicInfo(window.__infoRoute);
       else if (window.__authRoute) openAuth(window.__authRoute);
       else if (window.__demoRoute) startDemo();
+      else if (window.__teamRoute) openAuth('login');
       if (window.__authRoute || window.__demoRoute) history.replaceState(null, '', location.pathname);
     }
   } catch (e) {

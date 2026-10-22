@@ -203,7 +203,7 @@ setTimeout(()=>document.body.classList.remove('auth-booting'),2500);</script>
 <div class="nav-section nav-section-link" onclick="go('sharedManage')">Gedeelde mappen</div>
 <div id="sharedNav"></div>
 <div class="nav-section">Tools</div>
-<button id="navPro" data-nav="pro" onclick="openProNav()"><span class="ico">✦</span><span id="navProLabel">Savour Pro</span></button>
+<button id="navTeam" style="display:none" onclick="openTeamNav()"><span class="ico">⚇</span>Mijn team<small id="navTeamCount" class="nav-count"></small></button><button id="navPro" data-nav="pro" onclick="openProNav()"><span class="ico">✦</span><span id="navProLabel">Savour Pro</span></button>
 <button id="navAdmin" onclick="location.href='/admin'" style="display:none"><span class="ico">◆</span>Admin</button>
 <button onclick="go('settings')"><span class="ico">⚙</span>Instellingen</button>
 </nav></aside>
