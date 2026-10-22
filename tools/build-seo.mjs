@@ -196,7 +196,21 @@ const rows = (items, lang) =>
 function ctaBlock(lang, inApp) {
   const u = UI[lang];
   const q = homePath(lang);
-  return `<section class="site-cta"><div class="site-wrap"><h2 class="reveal">${esc(u.ctaTitle)}</h2><p>${esc(u.ctaText)}</p><div class="site-cta-row"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?demo=1" data-demo>${u.demo}</a></div></div></section>`;
+  return `<section class="site-cta with-photo"><div class="site-wrap"><h2 class="reveal">${esc(u.ctaTitle)}</h2><p>${esc(u.ctaText)}</p><div class="site-cta-row"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?demo=1" data-demo>${u.demo}</a></div></div></section>`;
+}
+
+// Sfeer: drie foto's uit de eigen keuken (assets/keuken).
+const STRIP = {
+  nl: ['Uit onze keuken', ['Geglaceerde rode uien', 'Eend boven open vuur', 'Gegrilde, geglaceerde wortel']],
+  en: ['From our kitchen', ['Glazed red onions', 'Duck over an open fire', 'Grilled, glazed carrot']],
+  de: ['Aus unserer Küche', ['Glasierte rote Zwiebeln', 'Ente über offenem Feuer', 'Gegrillte, glasierte Karotte']],
+  es: ['De nuestra cocina', ['Cebollas rojas glaseadas', 'Pato sobre fuego abierto', 'Zanahoria a la brasa glaseada']]
+};
+function photoStrip(lang) {
+  const [label, alts] = STRIP[lang];
+  return `<section class="site-strip"><div class="site-wrap"><div class="site-strip-grid">${['uien', 'eend-vuur', 'wortel']
+    .map((f, i) => `<img class="reveal" src="/assets/keuken/${f}.jpg" alt="${esc(alts[i])}" width="640" height="800" loading="lazy">`)
+    .join('')}</div><p class="site-strip-label">${esc(label)}</p></div></section>`;
 }
 
 // Voor en na: links de chaos van papier, bestanden en berichten, rechts hetzelfde in Savour.
@@ -223,6 +237,7 @@ function homeBody(lang, inApp) {
 ${kladje(lang)}
 </div></section>
 <section class="site-section"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.storyTitle)}</h2><div>${h.story.map(p => `<p>${esc(p)}</p>`).join('')}<p><a class="site-link" href="${href(STORY[lang].slug)}">${esc(h.storyLink)}</a></p></div></div></section>
+${photoStrip(lang)}
 ${beforeAfter(lang)}
 <section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(h.featuresTitle)}</h2>${rows(FEATURES.filter(f => !f.soon), lang)}</div></section>
 <section class="site-section"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.audienceTitle)}</h2>${rows(AUDIENCES, lang)}</div></section>
