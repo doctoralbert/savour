@@ -68,6 +68,11 @@ window.__proRoute = /^\/pro\/?$/.test(location.pathname);
 // ?info=contact (of about, faq, ...) opent die informatiepagina; gebruikt door de losse pagina's van tools/build-seo.mjs.
 window.__infoRoute = new URLSearchParams(location.search).get('info');
 if (!PUBLIC_PAGE_LABELS[window.__infoRoute]) window.__infoRoute = null;
+// ?auth=login / ?auth=signup en ?demo=1: knoppen op de losse pagina's van de website (tools/build-seo.mjs).
+window.__authRoute = ['login', 'signup'].includes(new URLSearchParams(location.search).get('auth'))
+  ? new URLSearchParams(location.search).get('auth')
+  : null;
+window.__demoRoute = new URLSearchParams(location.search).get('demo') === '1';
 
 // Bestaande sessie herstellen, of de landingspagina tonen.
 (async () => {
@@ -105,6 +110,9 @@ if (!PUBLIC_PAGE_LABELS[window.__infoRoute]) window.__infoRoute = null;
       showLanding();
       if (window.__proRoute) openPublicInfo('pro');
       else if (window.__infoRoute) openPublicInfo(window.__infoRoute);
+      else if (window.__authRoute) openAuth(window.__authRoute);
+      else if (window.__demoRoute) startDemo();
+      if (window.__authRoute || window.__demoRoute) history.replaceState(null, '', location.pathname);
     }
   } catch (e) {
     console.error('Sessie kon niet worden hersteld:', e);

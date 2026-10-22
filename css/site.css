@@ -1,0 +1,985 @@
+/* Publieke website (startpagina en de pagina's van tools/build-seo.mjs).
+   Licht en rustig: warm papier, inkt en gedempt goud, een donkere footer. Geen kaartjes, geen schuine accenten.
+   Alles hangt onder .site zodat de app zelf (donker) er niets van merkt. */
+.site {
+  --paper: #f6f2ea;
+  --paper-2: #efe8db;
+  --ink: #1d201e;
+  --ink-2: #4f534d;
+  --ink-3: #7b7d75;
+  --line: #ddd4c3;
+  --gold: #8f6f33;
+  --gold-soft: #e8ca8d;
+  --night: #151917;
+  --night-2: #1d2320;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --hand: 'Caveat', 'Segoe Print', cursive;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.7;
+  min-height: 100vh;
+  -webkit-text-size-adjust: 100%;
+}
+.site *,
+.site *::before,
+.site *::after {
+  box-sizing: border-box;
+}
+.site a {
+  color: inherit;
+}
+.site h1,
+.site h2,
+.site h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.site h1 {
+  font-size: clamp(38px, 5.6vw, 66px);
+}
+.site h2 {
+  font-size: clamp(28px, 3.4vw, 40px);
+}
+.site h3 {
+  font-size: 22px;
+}
+.site p {
+  margin: 0 0 14px;
+  color: var(--ink-2);
+}
+.site-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.site-narrow {
+  max-width: 760px;
+}
+
+/* ---- Knoppen ---- */
+.site-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font: 600 15px/1.2 var(--sans);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+  white-space: nowrap;
+}
+.site-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.site-btn.solid {
+  background: var(--ink);
+  color: var(--paper);
+}
+.site-btn.solid:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.site-btn small {
+  font-weight: 400;
+  opacity: 0.7;
+}
+.site-link {
+  color: var(--gold);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+.site-link:hover {
+  color: var(--ink);
+}
+
+/* ---- Kop met menu ---- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(246, 242, 234, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.site-header .site-wrap {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  height: 72px;
+}
+.site-logo {
+  position: relative;
+}
+.site-logo > a {
+  font-family: var(--serif);
+  letter-spacing: 0.38em;
+  font-size: 19px;
+  text-decoration: none;
+  color: var(--ink);
+}
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+.site-nav > .site-item {
+  position: relative;
+}
+.site-nav > .site-item > a,
+.site-nav > .site-item > button {
+  display: block;
+  padding: 10px 12px;
+  background: none;
+  border: 0;
+  font: 500 15px/1 var(--sans);
+  color: var(--ink);
+  text-decoration: none;
+  cursor: pointer;
+}
+.site-nav > .site-item > button::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 7px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-3px) rotate(45deg);
+}
+.site-nav > .site-item > a:hover,
+.site-nav > .site-item > button:hover {
+  color: var(--gold);
+}
+.site-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.site-actions .site-plain {
+  font-size: 15px;
+  text-decoration: none;
+  color: var(--ink-2);
+}
+.site-actions .site-plain:hover {
+  color: var(--ink);
+}
+.site-actions .site-btn {
+  padding: 10px 18px;
+}
+
+/* Uitklappers (overlay) bij Functies, Voor wie en het logo */
+.site-drop {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: -12px;
+  min-width: 340px;
+  padding: 18px;
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(29, 32, 30, 0.14);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition:
+    opacity 0.18s,
+    transform 0.18s,
+    visibility 0.18s;
+}
+.site-drop::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -12px;
+  height: 12px;
+}
+.site-item:hover > .site-drop,
+.site-item:focus-within > .site-drop,
+.site-logo:hover > .site-drop,
+.site-logo:focus-within > .site-drop {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.site-drop.wide {
+  min-width: 560px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 18px;
+}
+.site-drop a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+.site-drop a:hover {
+  background: var(--paper);
+}
+.site-drop a b {
+  display: block;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+}
+.site-drop a span {
+  display: block;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ink-3);
+  margin-top: 2px;
+}
+.site-drop .soon b::after {
+  content: attr(data-soon);
+  margin-left: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 1px 7px;
+}
+.site-logo .site-drop {
+  min-width: 300px;
+  left: -18px;
+}
+.site-logo .site-drop p {
+  font-size: 14px;
+  margin: 0 12px 10px;
+  color: var(--ink-2);
+}
+.site-logo .site-drop .site-mini-note {
+  margin: 4px 12px 12px;
+}
+
+/* Telefoonmenu */
+.site-burger {
+  display: none;
+  margin-left: auto;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 9px 16px;
+  font: 600 14px/1 var(--sans);
+  color: var(--ink);
+}
+@media (max-width: 980px) {
+  .site-nav,
+  .site-actions {
+    display: none;
+  }
+  .site-burger {
+    display: block;
+  }
+  .site-header.open {
+    height: 100dvh;
+    overflow: auto;
+    background: var(--paper);
+  }
+  .site-header.open .site-wrap {
+    flex-wrap: wrap;
+    height: auto;
+    padding-top: 18px;
+    padding-bottom: 40px;
+    row-gap: 10px;
+  }
+  .site-header.open .site-burger {
+    order: 1;
+  }
+  .site-header.open .site-nav,
+  .site-header.open .site-actions {
+    display: flex;
+    order: 2;
+    flex-direction: column;
+    align-items: stretch;
+    flex-basis: 100%;
+  }
+  .site-header.open .site-nav > .site-item > a,
+  .site-header.open .site-nav > .site-item > button {
+    font: 400 26px/1.2 var(--serif);
+    padding: 12px 0;
+    text-align: left;
+    width: 100%;
+  }
+  .site-header.open .site-nav > .site-item > button::after {
+    display: none;
+  }
+  .site-header.open .site-drop,
+  .site-header.open .site-drop.wide {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: 0;
+    background: none;
+    padding: 0 0 8px;
+    min-width: 0;
+    display: block;
+  }
+  .site-header.open .site-drop a {
+    padding: 6px 0;
+  }
+  .site-header.open .site-drop a span {
+    display: none;
+  }
+  .site-header.open .site-actions {
+    margin-top: 18px;
+    gap: 12px;
+  }
+  .site-header.open .site-actions .site-btn {
+    padding: 14px;
+  }
+  .site-header .site-logo .site-drop {
+    display: none;
+  }
+}
+
+/* ---- Openingsblok ---- */
+.site-hero {
+  padding: 72px 0 64px;
+}
+.site-hero .site-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: center;
+}
+.site-eyebrow {
+  display: block;
+  font-size: 15px;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+.site-hero h1 {
+  margin-bottom: 22px;
+}
+.site-hero .site-lead {
+  font-size: 19px;
+  color: var(--ink-2);
+  max-width: 560px;
+}
+.site-proof {
+  font-family: var(--hand);
+  font-size: 25px;
+  line-height: 1.2;
+  color: var(--gold);
+  margin: 18px 0 28px;
+}
+.site-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .site-hero {
+    padding: 40px 0 48px;
+  }
+  .site-hero .site-wrap {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* ---- Kladje naast het nette recept ---- */
+.kladje-demo {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: center;
+  margin: 0;
+}
+.kladje {
+  position: relative;
+  padding: 26px 22px 30px;
+  background: repeating-linear-gradient(transparent 0 33px, rgba(80, 110, 160, 0.16) 33px 34px),
+    linear-gradient(135deg, #f3ead2, #eadfc2);
+  border-radius: 3px;
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.04),
+    0 18px 40px rgba(60, 45, 20, 0.18);
+  transform: rotate(-4deg);
+  transition: transform 0.5s ease;
+  font-family: var(--hand);
+  color: #2b3550;
+  font-size: 23px;
+  line-height: 34px;
+  overflow: hidden;
+}
+.kladje:hover {
+  transform: rotate(-1deg) scale(1.02);
+}
+.kladje b {
+  display: block;
+  font-weight: 700;
+  font-size: 28px;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+.kladje span {
+  display: block;
+  white-space: nowrap;
+}
+/* Koffievlek: een ring met een vage binnenkant */
+.kladje::after {
+  content: '';
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  right: -26px;
+  bottom: 18px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(140, 90, 40, 0) 52%,
+    rgba(140, 90, 40, 0.16) 58%,
+    rgba(120, 75, 30, 0.34) 63%,
+    rgba(140, 90, 40, 0.08) 68%,
+    rgba(140, 90, 40, 0) 72%
+  );
+  pointer-events: none;
+}
+.kladje::before {
+  content: '';
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  left: 30%;
+  top: 8px;
+  border-radius: 50% 45% 55% 50%;
+  background: rgba(140, 95, 45, 0.13);
+  pointer-events: none;
+}
+.kladje-recept {
+  padding: 24px 22px;
+  background: #fffdf8;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: 0 18px 40px rgba(29, 32, 30, 0.1);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.kladje-recept h3 {
+  font-size: 24px;
+  margin-bottom: 2px;
+}
+.kladje-recept small {
+  display: block;
+  color: var(--gold);
+  font-size: 12.5px;
+  margin-bottom: 12px;
+}
+.kladje-recept ul,
+.kladje-recept ol {
+  margin: 0 0 10px;
+  padding-left: 18px;
+  color: var(--ink-2);
+}
+.kladje-recept ul {
+  list-style: none;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.kladje-recept li {
+  margin: 2px 0;
+}
+.kladje-demo figcaption {
+  grid-column: 1 / -1;
+  font-family: var(--hand);
+  font-size: 21px;
+  color: var(--ink-3);
+  text-align: center;
+  margin-top: 8px;
+}
+/* Beweging: het nette recept verschijnt even na het kladje. */
+.site-motion .kladje-recept {
+  opacity: 0;
+  transform: translateX(-14px);
+  transition:
+    opacity 0.7s ease 0.25s,
+    transform 0.7s ease 0.25s;
+}
+.site-motion .is-visible .kladje-recept,
+.site-motion .is-visible.kladje-recept {
+  opacity: 1;
+  transform: none;
+}
+.site-motion .reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+.site-motion .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-motion .kladje-recept,
+  .site-motion .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .kladje {
+    transition: none;
+  }
+}
+@media (max-width: 560px) {
+  .kladje-demo {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+  .kladje {
+    margin: 0 18px;
+  }
+}
+
+/* ---- Secties ---- */
+.site-section {
+  padding: 84px 0;
+  border-top: 1px solid var(--line);
+}
+.site-section.tint {
+  background: var(--paper-2);
+}
+.site-section h2 {
+  margin-bottom: 18px;
+}
+.site-two {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 56px;
+}
+@media (max-width: 860px) {
+  .site-section {
+    padding: 56px 0;
+  }
+  .site-two {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+/* Lijst met regels (functies, voor wie): zoals een menukaart, geen kaartjes */
+.site-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.site-rows li {
+  border-top: 1px solid var(--line);
+}
+.site-rows li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.site-rows a {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr) 24px;
+  gap: 24px;
+  align-items: baseline;
+  padding: 22px 4px;
+  text-decoration: none;
+  transition: padding 0.2s;
+}
+.site-rows a:hover {
+  padding-left: 12px;
+}
+.site-rows a:hover b {
+  color: var(--gold);
+}
+.site-rows b {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.site-rows span {
+  color: var(--ink-2);
+  font-size: 16px;
+}
+.site-rows i {
+  font-style: normal;
+  color: var(--gold);
+  text-align: right;
+}
+.site-rows .soon-tag {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--gold);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 1px 8px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+@media (max-width: 700px) {
+  .site-rows a {
+    grid-template-columns: 1fr 20px;
+    gap: 4px 12px;
+  }
+  .site-rows span {
+    grid-column: 1;
+  }
+  .site-rows i {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}
+
+/* Vragen */
+.site-faq details {
+  border-top: 1px solid var(--line);
+  padding: 4px 0;
+}
+.site-faq details:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.site-faq summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 18px 36px 18px 0;
+  position: relative;
+  font-weight: 600;
+  font-size: 17px;
+}
+.site-faq summary::-webkit-details-marker {
+  display: none;
+}
+.site-faq summary::after {
+  content: '+';
+  position: absolute;
+  right: 4px;
+  top: 12px;
+  font: 300 28px/1 var(--sans);
+  color: var(--gold);
+}
+.site-faq details[open] summary::after {
+  content: '–';
+}
+.site-faq details p {
+  padding-bottom: 12px;
+}
+
+/* Afsluitende uitnodiging */
+.site-cta {
+  padding: 96px 0;
+  text-align: center;
+  border-top: 1px solid var(--line);
+}
+.site-cta h2 {
+  max-width: 760px;
+  margin: 0 auto 16px;
+}
+.site-cta p {
+  max-width: 560px;
+  margin: 0 auto 28px;
+}
+.site-cta .site-cta-row {
+  justify-content: center;
+}
+
+/* ---- Losse pagina's ---- */
+.site-page-head {
+  padding: 64px 0 36px;
+}
+.site-crumbs {
+  font-size: 14px;
+  color: var(--ink-3);
+  margin-bottom: 18px;
+}
+.site-crumbs a {
+  color: var(--ink-3);
+  text-decoration: none;
+}
+.site-crumbs a:hover {
+  color: var(--gold);
+}
+.site-page-head .site-lead {
+  font-size: 20px;
+  margin-top: 18px;
+  max-width: 700px;
+}
+.site-article {
+  padding: 8px 0 64px;
+}
+.site-article h2 {
+  font-size: 28px;
+  margin: 44px 0 12px;
+}
+.site-article h3 {
+  margin: 28px 0 8px;
+}
+.site-article .site-figure {
+  margin: 40px 0;
+}
+.site-prose a {
+  color: var(--gold);
+}
+.site-prose ul,
+.site-prose ol {
+  color: var(--ink-2);
+}
+.site-related {
+  padding: 48px 0 72px;
+  border-top: 1px solid var(--line);
+}
+.site-related h2 {
+  font-size: 24px;
+  margin-bottom: 14px;
+}
+.site-meta {
+  font-size: 14px;
+  color: var(--ink-3);
+  margin-top: 12px;
+}
+.site-note {
+  font-size: 14px;
+  color: var(--ink-3);
+}
+
+/* Tijdlijn (Over ons) */
+.site-timeline details {
+  border-top: 1px solid var(--line);
+}
+.site-timeline details:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.site-timeline summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 22px 40px 22px 0;
+  position: relative;
+  font: 400 24px/1.25 var(--serif);
+}
+.site-timeline summary::-webkit-details-marker {
+  display: none;
+}
+.site-timeline summary small {
+  display: block;
+  font: 600 13px/1 var(--sans);
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.site-timeline summary::after {
+  content: '+';
+  position: absolute;
+  right: 4px;
+  top: 34px;
+  font: 300 30px/1 var(--sans);
+  color: var(--gold);
+}
+.site-timeline details[open] summary::after {
+  content: '–';
+}
+.site-timeline details p {
+  padding-bottom: 18px;
+  max-width: 680px;
+}
+.site-values {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
+.site-values h3 {
+  margin-bottom: 8px;
+}
+@media (max-width: 760px) {
+  .site-values {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+/* Prijzen en bestaande informatiepagina's (inhoud uit de app) */
+.site-prose .pro-current,
+.site-prose .pro-trial-note {
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fffdf8;
+}
+.site-prose .pro-prices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0;
+  margin: 24px 0;
+  border-top: 1px solid var(--line);
+}
+.site-prose .pro-price {
+  padding: 22px 18px 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+.site-prose .pro-price h3 {
+  font-size: 22px;
+}
+.site-prose .pro-badge {
+  font-size: 13px;
+  color: var(--gold);
+}
+.site-prose .pro-amount strong {
+  font: 400 34px/1.2 var(--serif);
+  color: var(--ink);
+  margin-right: 6px;
+}
+.site-prose .pro-amount span,
+.site-prose .muted {
+  color: var(--ink-3);
+}
+.site-prose .pro-compare {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.site-prose .pro-compare th,
+.site-prose .pro-compare td {
+  padding: 12px 6px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+.site-prose .pro-compare td + td,
+.site-prose .pro-compare th + th {
+  text-align: center;
+  width: 72px;
+}
+.site-prose .company-line {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+/* Blog */
+.site-posts {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.site-posts li {
+  border-top: 1px solid var(--line);
+  padding: 28px 0;
+}
+.site-posts li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.site-posts h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+.site-posts h2 a {
+  text-decoration: none;
+}
+.site-posts h2 a:hover {
+  color: var(--gold);
+}
+
+/* ---- Footer (donker) ---- */
+.site-foot {
+  background: var(--night);
+  color: #c9cbc4;
+  padding: 72px 0 28px;
+}
+.site-foot a {
+  color: #c9cbc4;
+  text-decoration: none;
+}
+.site-foot a:hover {
+  color: var(--gold-soft);
+}
+.site-foot-top {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(4, 1fr);
+  gap: 32px;
+}
+.site-foot .site-foot-brand span {
+  display: block;
+  font-family: var(--serif);
+  letter-spacing: 0.38em;
+  font-size: 19px;
+  color: var(--gold-soft);
+  margin-bottom: 12px;
+}
+.site-foot .site-foot-brand p {
+  color: #a5a89f;
+  font-size: 15px;
+  max-width: 260px;
+}
+.site-foot .site-foot-brand .site-btn {
+  border-color: var(--gold-soft);
+  color: var(--gold-soft);
+  margin-top: 8px;
+}
+.site-foot .site-foot-brand .site-btn:hover {
+  background: var(--gold-soft);
+  color: var(--night);
+}
+.site-foot h4 {
+  margin: 4px 0 14px;
+  font: 600 13px/1 var(--sans);
+  letter-spacing: 0.08em;
+  color: #f1ede4;
+}
+.site-foot ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+}
+.site-foot li {
+  margin: 0 0 9px;
+}
+.site-foot-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-top: 56px;
+  padding-top: 22px;
+  border-top: 1px solid #2c3330;
+  font-size: 13.5px;
+  color: #8e918a;
+}
+.site-foot-bottom nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+@media (max-width: 900px) {
+  .site-foot-top {
+    grid-template-columns: 1fr 1fr;
+  }
+  .site-foot .site-foot-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---- Startpagina in de app (index.html) ---- */
+#landingView.landing {
+  background: #f6f2ea;
+  color: #1d201e;
+}
+/* Beide talen staan in index.html; alleen de juiste is zichtbaar (Duits en Spaans krijgen Engels). */
+html[lang='nl'] #landingView .site[data-site-lang='en'],
+html:not([lang='nl']) #landingView .site[data-site-lang='nl'] {
+  display: none;
+}
