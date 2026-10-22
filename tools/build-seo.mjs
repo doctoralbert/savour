@@ -7,6 +7,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import { strings, patterns } from './vertalingen.mjs';
 import { UI, KLADJE, FEATURES, AUDIENCES, STORY, HOME, POSTS } from './site-content.mjs';
+import { BEFORE_AFTER, EXTRA_LANGS } from './site-content-extra.mjs';
 
 const ROOT = new URL('../', import.meta.url);
 const SITE = 'https://savour.page';
@@ -106,52 +107,73 @@ const legacy = id => LEGACY.find(p => p.id === id);
 const CONTACT_FORM = /<h2>Stuur ons een bericht<\/h2><form[\s\S]*?<\/form>/;
 const blogSlug = { nl: 'blog', en: 'en/blog' };
 
+// Duits en Spaans: startpagina en menu vertaald, dieper liggende pagina's verwijzen naar de Engelse versie.
+const HOME_LANGS = ['nl', 'en', 'de', 'es'];
+for (const lang of ['de', 'es']) {
+  const x = EXTRA_LANGS[lang];
+  UI[lang] = { ...UI.en, ...x.ui };
+  KLADJE[lang] = x.kladje;
+  HOME[lang] = x.home;
+  for (const f of FEATURES)
+    f[lang] = { ...f.en, menu: x.items[f.id][0], short: x.items[f.id][1], ...(f.soon ? { sections: x.soon } : {}) };
+  for (const a of AUDIENCES) a[lang] = { ...a.en, menu: x.items[a.id][0], short: x.items[a.id][1] };
+  STORY[lang] = STORY.en;
+  for (const p of POSTS) p[lang] = p.en;
+  for (const p of LEGACY) p[lang] = p.en;
+  blogSlug[lang] = blogSlug.en;
+}
+const homePath = lang => (lang === 'nl' ? '/' : '/' + lang);
+const LANG_LABEL = { nl: 'NL', en: 'EN', de: 'DE', es: 'ES' };
+// Taalkeuze. In de app wisselt hij zonder herladen; op losse pagina's gaat NL/EN naar dezelfde pagina in de
+// andere taal en DE/ES naar de startpagina in die taal.
+function langSwitch(lang, alts, inApp) {
+  return `<div class="site-langs" translate="no">${HOME_LANGS.map(l => {
+    const target = inApp ? homePath(l) : alts?.[l] || homePath(l);
+    return `<a href="${target}" hreflang="${l}"${inApp ? ` data-set-lang="${l}"` : ''}${l === lang ? ' aria-current="true"' : ''}>${LANG_LABEL[l]}</a>`;
+  }).join('')}</div>`;
+}
+
 // ---- Onderdelen ----
 // inApp: de startpagina in index.html (knoppen openen inloggen/demo direct; taalknop wisselt zonder herladen).
 function header(lang, alt, inApp) {
   const u = UI[lang];
-  const q = lang === 'nl' ? '/' : '/en';
+  const q = homePath(lang);
   const auth = mode => `href="${q}?auth=${mode}" data-auth="${mode}"`;
-  const featureLinks = FEATURES.map(f => {
-    const t = f[lang];
-    return `<a href="${href(t.slug)}"${f.soon ? ` class="soon"` : ''}><b${f.soon ? ` data-soon="${u.soon}"` : ''}>${esc(t.menu)}</b><span>${esc(t.short)}</span></a>`;
-  }).join('');
-  const audienceLinks = AUDIENCES.map(a => `<a href="${href(a[lang].slug)}"><b>${esc(a[lang].menu)}</b><span>${esc(a[lang].short)}</span></a>`).join('');
-  const other = lang === 'nl' ? 'en' : 'nl';
-  const langLink = inApp
-    ? `<a class="site-plain" href="${other === 'nl' ? '/' : '/en'}" data-set-lang="${other}">${u.other}</a>`
-    : `<a class="site-plain" href="${alt}" hreflang="${other}">${u.other}</a>`;
+  // Uitklapper als een menukaart: genummerde "gangen" met korte uitleg, over de volle breedte.
+  const card = (title, intro, items) =>
+    `<div class="site-menucard"><div class="site-wrap"><div class="site-menucard-intro"><span>${esc(title)}</span><p>${esc(intro)}</p></div><ol>${items
+      .map(
+        (x, i) =>
+          `<li><a href="${href(x[lang].slug)}"><em>${String(i + 1).padStart(2, '0')}</em><b>${esc(x[lang].menu)}${x.soon ? `<small>${u.soon}</small>` : ''}</b><span>${esc(x[lang].short)}</span></a></li>`
+      )
+      .join('')}</ol></div></div>`;
   return `<header class="site-header"><div class="site-wrap">
-<div class="site-logo"><a href="${u.home}" translate="no">SAVOUR</a><div class="site-drop"><p>${esc(u.logoLine)}</p><a href="${u.home}"><b>Home</b></a><a href="${href(STORY[lang].slug)}"><b>${u.about}</b></a><a href="${href(blogSlug[lang])}"><b>${u.blog}</b></a><a href="${href(legacy('contact')[lang])}"><b>${u.contact}</b></a></div></div>
+<a class="site-logo" href="${u.home}" translate="no" title="Home">SAVOUR</a>
 <nav class="site-nav" aria-label="Savour">
-<div class="site-item"><button type="button" aria-haspopup="true">${u.features}</button><div class="site-drop wide">${featureLinks}</div></div>
-<div class="site-item"><button type="button" aria-haspopup="true">${u.audience}</button><div class="site-drop">${audienceLinks}</div></div>
+<div class="site-item"><button type="button" aria-haspopup="true">${u.features}</button>${card(u.features, u.featuresIntro, FEATURES)}</div>
+<div class="site-item"><button type="button" aria-haspopup="true">${u.audience}</button>${card(u.audience, u.audienceIntro, AUDIENCES)}</div>
 <div class="site-item"><a href="${href(legacy('pro')[lang])}">${u.pricing}</a></div>
 <div class="site-item"><a href="${href(STORY[lang].slug)}">${u.about}</a></div>
 <div class="site-item"><a href="${href(blogSlug[lang])}">${u.blog}</a></div>
 </nav>
-<div class="site-actions">${langLink}<a class="site-plain" ${auth('login')}>${u.login}</a><a class="site-btn solid" ${auth('signup')}>${u.start}</a></div>
+<div class="site-actions">${langSwitch(lang, alt, inApp)}<a class="site-plain" ${auth('login')}>${u.login}</a><a class="site-btn solid" ${auth('signup')}>${u.start}</a></div>
 <button class="site-burger" type="button" aria-expanded="false" data-open="${u.menu}" data-close="${u.close}">${u.menu}</button>
 </div></header>`;
 }
 
 function footer(lang, alt, inApp) {
   const u = UI[lang];
-  const q = lang === 'nl' ? '/' : '/en';
+  const q = homePath(lang);
   const li = (h, t) => `<li><a href="${h}">${esc(t)}</a></li>`;
-  const other = lang === 'nl' ? 'en' : 'nl';
-  const langLink = inApp
-    ? `<a href="${other === 'nl' ? '/' : '/en'}" data-set-lang="${other}">${u.other}</a>`
-    : `<a href="${alt}" hreflang="${other}">${u.other}</a>`;
   return `<footer class="site-foot"><div class="site-wrap">
 <div class="site-foot-top">
-<div class="site-foot-brand"><span translate="no">SAVOUR</span><p>${esc(u.footerTag)} ${lang === 'nl' ? 'Gemaakt door chefs uit Nederland, voor chefs.' : 'Made by chefs from the Netherlands, for chefs.'}</p><a class="site-btn" href="${q}?auth=signup" data-auth="signup">${u.start}</a></div>
+<div class="site-foot-brand"><span translate="no">SAVOUR</span><p>${esc(u.footerTag)} ${esc(u.madeBy || (lang === 'nl' ? 'Gemaakt door chefs uit Nederland, voor chefs.' : 'Made by chefs from the Netherlands, for chefs.'))}</p><a class="site-btn" href="${q}?auth=signup" data-auth="signup">${u.start}</a></div>
 <div><h4>${u.footerCols.features}</h4><ul>${FEATURES.map(f => li(href(f[lang].slug), f[lang].menu)).join('')}</ul></div>
 <div><h4>${u.footerCols.audience}</h4><ul>${AUDIENCES.map(a => li(href(a[lang].slug), a[lang].menu)).join('')}</ul></div>
 <div><h4>${u.footerCols.company}</h4><ul>${li(href(STORY[lang].slug), u.about)}${li(href(legacy('pro')[lang]), u.pricing)}${li(href(blogSlug[lang]), u.blog)}${li(href(legacy('contact')[lang]), u.contact)}</ul></div>
 <div><h4>${u.footerCols.help}</h4><ul>${li(href(legacy('faq')[lang]), u.faq)}${li(href(legacy('guide')[lang]), u.guide)}${li(`${q}?info=bug`, u.bug)}<li><a href="${q}?auth=login" data-auth="login">${u.login}</a></li></ul></div>
 </div>
-<div class="site-foot-bottom"><span>© 2026 ${esc(u.company)}</span><nav>${`<a href="${href(legacy('terms')[lang])}">${u.terms}</a><a href="${href(legacy('privacy')[lang])}">${u.privacy}</a>`}${langLink}</nav></div>
+<div class="site-foot-bottom"><span>© 2026 ${esc(u.company)}</span><nav>${`<a href="${href(legacy('terms')[lang])}">${u.terms}</a><a href="${href(legacy('privacy')[lang])}">${u.privacy}</a>`}</nav>${langSwitch(lang, alt, inApp)}</div>
 </div></footer>`;
 }
 
@@ -172,24 +194,39 @@ const rows = (items, lang) =>
 
 function ctaBlock(lang, inApp) {
   const u = UI[lang];
-  const q = lang === 'nl' ? '/' : '/en';
+  const q = homePath(lang);
   return `<section class="site-cta"><div class="site-wrap"><h2 class="reveal">${esc(u.ctaTitle)}</h2><p>${esc(u.ctaText)}</p><div class="site-cta-row"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?demo=1" data-demo>${u.demo}</a></div></div></section>`;
+}
+
+// Voor en na: links de chaos van papier, bestanden en berichten, rechts hetzelfde in Savour.
+function beforeAfter(lang) {
+  const b = BEFORE_AFTER[lang];
+  const k = KLADJE[lang];
+  return `<section class="site-ba"><div class="site-wrap site-ba-grid">
+<div class="site-ba-before reveal"><span class="site-ba-label">${esc(b.beforeLabel)}</span><h2>${esc(b.beforeTitle)}</h2><ul>${b.beforeList.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+<div class="site-ba-pile" aria-hidden="true"><div class="kladje mini"><b>${esc(k.note[0])}</b>${k.note.slice(1, 4).map(l => `<span>${esc(l)}</span>`).join('')}</div><div class="site-ba-doc"><i>W</i>${esc(b.doc)}</div><div class="site-ba-chat">${esc(b.chat)}</div><div class="site-ba-print">${esc(b.print)}</div></div>
+<p class="site-ba-note">${esc(b.beforeNote)}</p></div>
+<div class="site-ba-after reveal"><span class="site-ba-label">${esc(b.afterLabel)}</span><h2>${esc(b.afterTitle)}</h2><ul>${b.afterList.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+<div class="site-ba-app" aria-hidden="true"><div class="site-ba-search">⌕ ${esc(b.search)}</div>${b.rows.map(([t, c], i) => `<div class="site-ba-row"><em>${String(i + 1).padStart(3, '0')}</em><b>${esc(t)}</b><span>${esc(c)}</span></div>`).join('')}</div>
+<p class="site-ba-note gold">${esc(b.afterNote)}</p></div>
+</div></section>`;
 }
 
 // ---- Startpagina (ook gebruikt in index.html) ----
 function homeBody(lang, inApp) {
   const h = HOME[lang];
   const u = UI[lang];
-  const q = lang === 'nl' ? '/' : '/en';
+  const q = homePath(lang);
   return `<section class="site-hero"><div class="site-wrap">
 <div><span class="site-eyebrow">${esc(h.eyebrow)}</span><h1>${esc(h.h1)}</h1><p class="site-lead">${esc(h.lead)}</p><p class="site-proof">${esc(h.proof)}</p>
 <div class="site-cta-row"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?demo=1" data-demo>${u.demo}</a></div><p class="site-note" style="margin-top:10px">${esc(u.demoNote)}</p></div>
 ${kladje(lang)}
 </div></section>
 <section class="site-section"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.storyTitle)}</h2><div>${h.story.map(p => `<p>${esc(p)}</p>`).join('')}<p><a class="site-link" href="${href(STORY[lang].slug)}">${esc(h.storyLink)}</a></p></div></div></section>
+${beforeAfter(lang)}
 <section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(h.featuresTitle)}</h2>${rows(FEATURES.filter(f => !f.soon), lang)}</div></section>
 <section class="site-section"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.audienceTitle)}</h2>${rows(AUDIENCES, lang)}</div></section>
-<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.soonTitle)}</h2><div><ul class="site-rows">${FEATURES.find(f => f.soon)[lang].sections.map(([t, d]) => `<li><a href="${href(FEATURES.find(f => f.soon)[lang].slug)}"><b>${esc(t)}</b><span>${esc(d)}</span><i aria-hidden="true">→</i></a></li>`).join('')}</ul></div></div></section>
+<section class="site-section dark"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.soonTitle)}</h2><div><ul class="site-rows">${FEATURES.find(f => f.soon)[lang].sections.map(([t, d]) => `<li><a href="${href(FEATURES.find(f => f.soon)[lang].slug)}"><b>${esc(t)}</b><span>${esc(d)}</span><i aria-hidden="true">→</i></a></li>`).join('')}</ul></div></div></section>
 <section class="site-section"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.priceTitle)}</h2><div><p>${esc(h.price)}</p><p><a class="site-link" href="${href(legacy('pro')[lang])}">${esc(h.priceLink)}</a></p></div></div></section>
 <section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.faqTitle)}</h2><div class="site-faq">${h.faq.map(([qq, a]) => `<details><summary>${esc(qq)}</summary><p>${esc(a)}</p></details>`).join('')}</div></div></section>
 ${ctaBlock(lang, inApp)}`;
@@ -248,8 +285,7 @@ function page({ lang, slugs, title, desc, crumbs, body, schema = [] }) {
   const canonical = url(slugs[lang]);
   const alternates = LANGS.filter(l => slugs[l]).map(l => [l, url(slugs[l])]);
   if (slugs.nl) alternates.push(['x-default', url(slugs.nl)]);
-  const other = lang === 'nl' ? 'en' : 'nl';
-  const alt = slugs[other] ? href(slugs[other]) : UI[other].home;
+  const alt = { nl: slugs.nl ? href(slugs.nl) : '/', en: slugs.en ? href(slugs.en) : '/en' };
   const crumbHtml = crumbs?.length
     ? `<div class="site-crumbs"><a href="${UI[lang].home}">Home</a>${crumbs.map(c => ` / ${c[1] ? `<a href="${c[1]}">${esc(c[0])}</a>` : esc(c[0])}`).join('')}</div>`
     : '';
@@ -402,7 +438,7 @@ for (const lang of LANGS) {
 {
   const file = new URL('index.html', ROOT);
   let h = fs.readFileSync(file, 'utf8');
-  const site = LANGS.map(
+  const site = HOME_LANGS.map(
     lang =>
       `<div class="site" data-site-lang="${lang}" translate="no">${header(lang, null, true)}<main>${homeBody(lang, true)}</main>${footer(lang, null, true)}</div>`
   ).join('\n');
