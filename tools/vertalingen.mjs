@@ -1472,6 +1472,39 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  // ---- Veelgestelde vragen: gratis en Pro (2026-10-22) ----
+  [
+    '. Je kunt een recept zelf invoeren of een bron importeren. Na import controleer je de herkende gegevens voordat je ze opslaat.',
+    '. You can enter a recipe yourself or import a source. After importing, you check the recognised details before saving.',
+    '. Du kannst ein Rezept selbst eingeben oder eine Quelle importieren. Nach dem Import prüfst du die erkannten Angaben, bevor du sie speicherst.',
+    '. Puedes introducir una receta tú mismo o importar una fuente. Después de importar, revisas los datos reconocidos antes de guardarlos.'
+  ],
+  ['Wat kan ik gratis?', 'What can I do for free?', 'Was kann ich kostenlos?', '¿Qué puedo hacer gratis?'],
+  [
+    'Met een gratis account bewaar je tot 100 recepten, importeer je Word, PDF en tekst met de Savour-lezer en ben je lid van de gedeelde mappen van anderen. Nieuwe accounts proberen daarnaast 7 dagen Savour Pro gratis, zonder betaalgegevens; ook dan bewaar je tot 100 recepten.',
+    "With a free account you store up to 100 recipes, import Word, PDF and text with the Savour reader and can be a member of other people's shared folders. New accounts also try Savour Pro free for 7 days, without payment details; during that time you also store up to 100 recipes.",
+    'Mit einem kostenlosen Konto speicherst du bis zu 100 Rezepte, importierst Word, PDF und Text mit dem Savour-Leser und kannst Mitglied in geteilten Ordnern anderer sein. Neue Konten testen außerdem 7 Tage Savour Pro kostenlos, ohne Zahlungsdaten; auch dann speicherst du bis zu 100 Rezepte.',
+    'Con una cuenta gratuita guardas hasta 100 recetas, importas Word, PDF y texto con el lector de Savour y puedes ser miembro de carpetas compartidas de otros. Las cuentas nuevas además prueban Savour Pro 7 días gratis, sin datos de pago; también entonces guardas hasta 100 recetas.'
+  ],
+  ['Wat krijg ik met Savour Pro?', 'What do I get with Savour Pro?', 'Was bekomme ich mit Savour Pro?', '¿Qué obtengo con Savour Pro?'],
+  [
+    "Onbeperkt recepten, zelf gedeelde mappen maken en je team uitnodigen, en AI-import van foto's, handgeschreven en gescande recepten. Voor een hele keuken is er een teamabonnement: hoe groter het team, hoe lager de prijs per persoon.",
+    'Unlimited recipes, creating your own shared folders and inviting your team, and AI import of photos, handwritten and scanned recipes. For a whole kitchen there is a team plan: the bigger the team, the lower the price per person.',
+    'Unbegrenzt Rezepte, eigene geteilte Ordner erstellen und dein Team einladen, und KI-Import von Fotos, handschriftlichen und gescannten Rezepten. Für eine ganze Küche gibt es ein Team-Abo: je größer das Team, desto niedriger der Preis pro Person.',
+    'Recetas ilimitadas, crear tus propias carpetas compartidas e invitar a tu equipo, e importación con IA de fotos y recetas manuscritas o escaneadas. Para una cocina entera hay un plan de equipo: cuanto mayor el equipo, menor el precio por persona.'
+  ],
+  [
+    'Wat gebeurt er met mijn recepten als ik stop met Pro?',
+    'What happens to my recipes if I stop Pro?',
+    'Was passiert mit meinen Rezepten, wenn ich Pro beende?',
+    '¿Qué pasa con mis recetas si dejo Pro?'
+  ],
+  [
+    'Die blijven allemaal staan, net als je gedeelde mappen. Je kunt alleen geen nieuwe recepten boven de 100 toevoegen en geen nieuwe gedeelde mappen maken.',
+    'They all stay, just like your shared folders. You just cannot add new recipes above 100 or create new shared folders.',
+    'Sie bleiben alle erhalten, genau wie deine geteilten Ordner. Du kannst nur keine neuen Rezepte über 100 hinzufügen und keine neuen geteilten Ordner erstellen.',
+    'Se conservan todas, igual que tus carpetas compartidas. Solo no puedes añadir recetas nuevas por encima de 100 ni crear nuevas carpetas compartidas.'
+  ],
   [
     'Savour Pro is voor jou kosteloos geactiveerd.',
     'Savour Pro has been activated for you free of charge.',

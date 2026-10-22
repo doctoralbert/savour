@@ -65,6 +65,9 @@ if (publicRecipeMatch) window.__publicRecipeRoute = decodeURIComponent(publicRec
 if (publicInviteMatch) window.__publicInviteRoute = decodeURIComponent(publicInviteMatch[1]);
 // /pro opent de pagina Savour Pro (ingelogd in de app, anders publiek).
 window.__proRoute = /^\/pro\/?$/.test(location.pathname);
+// ?info=contact (of about, faq, ...) opent die informatiepagina; gebruikt door de losse pagina's van tools/build-seo.mjs.
+window.__infoRoute = new URLSearchParams(location.search).get('info');
+if (!PUBLIC_PAGE_LABELS[window.__infoRoute]) window.__infoRoute = null;
 
 // Bestaande sessie herstellen, of de landingspagina tonen.
 (async () => {
@@ -101,6 +104,7 @@ window.__proRoute = /^\/pro\/?$/.test(location.pathname);
       currentUser = null;
       showLanding();
       if (window.__proRoute) openPublicInfo('pro');
+      else if (window.__infoRoute) openPublicInfo(window.__infoRoute);
     }
   } catch (e) {
     console.error('Sessie kon niet worden hersteld:', e);

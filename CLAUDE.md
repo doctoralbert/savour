@@ -35,6 +35,11 @@ De server (`api/ai-import.js`) controleert Pro en de limiet. Instellen: `docs/sa
 - Teksten in de interface en code-commentaar zijn Nederlands. De app is ook in het Engels, Duits en Spaans
   (taalknop bovenin, `js/core/i18n.js`). Nieuwe interfacetekst? Voeg een regel toe in `tools/vertalingen.mjs`
   en draai `node tools/build-i18n.mjs`. Recepten en namen van gebruikers worden nooit vertaald.
+- Vindbaarheid (zoekmachines en AI): de losse pagina's (`/over-savour`, `/en/about`, ...) en `sitemap.xml` worden
+  gemaakt door `node tools/build-seo.mjs` uit de teksten in `public-pages.js` en de Pro-pagina. Teksten daar
+  aangepast? Draai daarna `node tools/build-i18n.mjs && node tools/build-seo.mjs`. Verder: `robots.txt`, `llms.txt`,
+  de kop van `index.html` (beschrijving, Open Graph, schema.org) en de deelafbeelding `assets/savour-og.png`
+  (`tools/og-image.html`).
 - Savour verwijdert nooit zelf gegevens zonder dat de gebruiker daarom vraagt (zie `js/data/duplicates.js`).
 - Links uit e-mails (bevestigen, wachtwoord herstellen) worden afgehandeld in `readAuthRedirect`/`handleAuthRedirect` (`js/features/auth.js`).
 

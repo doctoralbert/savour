@@ -1,0 +1,198 @@
+/* Losse vindbare pagina's (gemaakt door tools/build-seo.mjs): donker met goud, zoals de app. */
+:root {
+  --gold: #e8ca8d;
+  --text: #eee8dc;
+  --muted: #a3aca6;
+  --line: #243031;
+  --bg: #0b1112;
+  --surface: #111a1b;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  background: radial-gradient(900px 500px at 85% -10%, rgba(232, 202, 141, 0.09), transparent 70%), var(--bg);
+  color: var(--text);
+  font:
+    17px/1.7 'DM Sans',
+    system-ui,
+    sans-serif;
+}
+a {
+  color: var(--gold);
+}
+.sp-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 22px 20px;
+}
+.sp-brand {
+  font-family: 'Playfair Display', Georgia, serif;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 20px;
+}
+.sp-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.sp-lang {
+  color: var(--muted);
+  font-size: 15px;
+}
+.sp-btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+}
+.sp-btn.gold {
+  background: var(--gold);
+  color: #111;
+}
+.sp-main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+}
+h1,
+h2,
+h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  line-height: 1.2;
+}
+h1 {
+  font-size: clamp(34px, 6vw, 52px);
+  margin: 10px 0 14px;
+}
+h2 {
+  font-size: 26px;
+  margin: 38px 0 10px;
+}
+h3 {
+  font-size: 21px;
+  margin: 24px 0 6px;
+}
+.sp-lead {
+  font-size: 20px;
+  color: var(--text);
+}
+.sp-note,
+.company-line {
+  color: var(--muted);
+  font-size: 14px;
+}
+.sp-body p,
+.sp-body li {
+  color: #d9d3c7;
+}
+/* Pro-pagina: prijzen en vergelijking */
+.pro-current,
+.pro-trial-note {
+  padding: 14px 18px;
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  background: rgba(232, 202, 141, 0.08);
+}
+.pro-prices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+.pro-price {
+  position: relative;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.pro-price.is-featured {
+  border-color: var(--gold);
+}
+.pro-price h3 {
+  margin-top: 4px;
+}
+.pro-badge {
+  font-size: 12px;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.pro-amount strong {
+  font-size: 30px;
+  color: var(--gold);
+  margin-right: 6px;
+}
+.pro-amount span,
+.muted {
+  color: var(--muted);
+}
+.pro-compare {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 15px;
+}
+.pro-compare th,
+.pro-compare td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+.pro-compare td + td,
+.pro-compare th + th {
+  text-align: center;
+  width: 70px;
+}
+.sp-cta {
+  margin: 48px 0 0;
+  padding: 26px;
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  background: rgba(232, 202, 141, 0.07);
+}
+.sp-cta h2 {
+  margin-top: 0;
+}
+.sp-footer {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 28px 20px 40px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
+}
+.sp-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-bottom: 10px;
+}
+.sp-footer a {
+  color: var(--muted);
+}
+.sp-footer a[aria-current] {
+  color: var(--gold);
+}
+@media (max-width: 480px) {
+  .sp-lang {
+    display: none;
+  }
+}

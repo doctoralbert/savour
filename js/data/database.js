@@ -233,6 +233,7 @@ async function startDatabaseSession(user) {
       renderProNav();
       renderAdminNav();
       if (window.__proRoute) openPublicInfo('pro');
+      else if (window.__infoRoute) openPublicInfo(window.__infoRoute);
       else showApp('recipes');
       refreshSidebar();
       updateProfileHeader();

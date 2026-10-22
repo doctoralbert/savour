@@ -1,0 +1,36 @@
+# Savour
+
+> Savour (https://savour.page) is a professional recipe management platform for chefs and kitchen teams. It turns scattered recipes — Word documents, PDFs, photos of handwritten notes — into one organised, searchable recipe library that works on desktop, tablet and phone, and can be shared with the whole kitchen brigade. Made by chefs from the Netherlands, for chefs.
+
+Savour is built for professional kitchens: head chefs, sous chefs, pastry chefs, line cooks, catering and culinary schools. It is not a consumer recipe site; it is a tool to manage a kitchen's own recipes.
+
+## What Savour does
+
+- **Import a whole recipe book at once**: Word (.docx), PDF and text files are read by the built-in Savour reader for free. A chef imported 1,400 recipes from Word in about 2 minutes.
+- **AI for difficult sources (Savour Pro)**: photos of handwritten notes, scanned pages and messy documents are read by AI. The AI never invents quantities, ingredients or steps; unclear recipes are flagged for review.
+- **Organise**: folders, categories, A–Z index, favourites and full-text search across titles, ingredients and methods.
+- **Use in the kitchen**: scale any recipe to the yield you need, cook mode with large text on a phone or tablet, print single recipe cards or a whole folder at once.
+- **Collaborate**: shared folders with roles — owner (manages), editor (adds and edits), viewer (reads) — so the whole brigade works from the same recipes.
+- **Languages**: Dutch, English, German and Spanish interface.
+
+## Pricing
+
+- **Free**: up to 100 recipes, Savour reader import (Word, PDF, text), member of other people's shared folders.
+- **Savour Pro**: €2.99 per month or €29 per year — unlimited recipes, AI import (up to 500 per month), create shared folders and invite your team.
+- **Team plans**: 5 people €8.99/month, 10 people €14.99/month, 25 people €29.99/month (or yearly). Everyone on the team gets Pro.
+- New accounts can try Savour Pro free for 7 days, no payment details needed (up to 100 recipes during the trial).
+- Stopping Pro never deletes recipes; everything stays available.
+
+## Pages
+
+- [Home (Dutch)](https://savour.page/) · [English](https://savour.page/en)
+- [About Savour](https://savour.page/en/about) · [Over Savour (NL)](https://savour.page/over-savour)
+- [Savour Pro and pricing](https://savour.page/en/pro) · [Savour Pro (NL)](https://savour.page/savour-pro)
+- [FAQ](https://savour.page/en/faq) · [Veelgestelde vragen (NL)](https://savour.page/veelgestelde-vragen)
+- [Guide: working with recipes](https://savour.page/en/guide) · [Gids (NL)](https://savour.page/gids)
+- [Contact](https://savour.page/en/contact) — contact@savour.page
+- [Terms](https://savour.page/en/terms) · [Privacy](https://savour.page/en/privacy)
+
+## Company
+
+Savour, the Netherlands (KvK 89674871). Contact: contact@savour.page

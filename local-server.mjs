@@ -148,6 +148,9 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Map met index.html (de losse pagina's zoals /over-savour) zoals bij Vercel.
+  if (fs.existsSync(file) && fs.statSync(file).isDirectory() && fs.existsSync(path.join(file, 'index.html')))
+    file = path.join(file, 'index.html');
   // Client-side routes such as /admin, /join/... and /r/... use index.html.
   if (!fs.existsSync(file) || fs.statSync(file).isDirectory()) file = path.join(ROOT, 'index.html');
   try {

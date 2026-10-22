@@ -567,6 +567,17 @@ window.SAVOUR_I18N.es = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.',
     Verbergen: 'Ocultar',
+    '. Je kunt een recept zelf invoeren of een bron importeren. Na import controleer je de herkende gegevens voordat je ze opslaat.':
+      '. Puedes introducir una receta tú mismo o importar una fuente. Después de importar, revisas los datos reconocidos antes de guardarlos.',
+    'Wat kan ik gratis?': '¿Qué puedo hacer gratis?',
+    'Met een gratis account bewaar je tot 100 recepten, importeer je Word, PDF en tekst met de Savour-lezer en ben je lid van de gedeelde mappen van anderen. Nieuwe accounts proberen daarnaast 7 dagen Savour Pro gratis, zonder betaalgegevens; ook dan bewaar je tot 100 recepten.':
+      'Con una cuenta gratuita guardas hasta 100 recetas, importas Word, PDF y texto con el lector de Savour y puedes ser miembro de carpetas compartidas de otros. Las cuentas nuevas además prueban Savour Pro 7 días gratis, sin datos de pago; también entonces guardas hasta 100 recetas.',
+    'Wat krijg ik met Savour Pro?': '¿Qué obtengo con Savour Pro?',
+    "Onbeperkt recepten, zelf gedeelde mappen maken en je team uitnodigen, en AI-import van foto's, handgeschreven en gescande recepten. Voor een hele keuken is er een teamabonnement: hoe groter het team, hoe lager de prijs per persoon.":
+      'Recetas ilimitadas, crear tus propias carpetas compartidas e invitar a tu equipo, e importación con IA de fotos y recetas manuscritas o escaneadas. Para una cocina entera hay un plan de equipo: cuanto mayor el equipo, menor el precio por persona.',
+    'Wat gebeurt er met mijn recepten als ik stop met Pro?': '¿Qué pasa con mis recetas si dejo Pro?',
+    'Die blijven allemaal staan, net als je gedeelde mappen. Je kunt alleen geen nieuwe recepten boven de 100 toevoegen en geen nieuwe gedeelde mappen maken.':
+      'Se conservan todas, igual que tus carpetas compartidas. Solo no puedes añadir recetas nuevas por encima de 100 ni crear nuevas carpetas compartidas.',
     'Savour Pro is voor jou kosteloos geactiveerd.': 'Savour Pro se ha activado para ti sin coste.',
     "Alles van Savour, met de Savour-lezer voor Word, PDF en tekst. AI-import (foto's, handgeschreven en gescande recepten) zit in Savour Pro.":
       'Todo Savour, con el lector de Savour para Word, PDF y texto. La importación con IA (fotos, recetas manuscritas y escaneadas) forma parte de Savour Pro.',

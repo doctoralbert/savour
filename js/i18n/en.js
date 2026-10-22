@@ -566,6 +566,17 @@ window.SAVOUR_I18N.en = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Unlimited recipes, AI that reads your notes and photos, and shared folders for your team.',
     Verbergen: 'Hide',
+    '. Je kunt een recept zelf invoeren of een bron importeren. Na import controleer je de herkende gegevens voordat je ze opslaat.':
+      '. You can enter a recipe yourself or import a source. After importing, you check the recognised details before saving.',
+    'Wat kan ik gratis?': 'What can I do for free?',
+    'Met een gratis account bewaar je tot 100 recepten, importeer je Word, PDF en tekst met de Savour-lezer en ben je lid van de gedeelde mappen van anderen. Nieuwe accounts proberen daarnaast 7 dagen Savour Pro gratis, zonder betaalgegevens; ook dan bewaar je tot 100 recepten.':
+      "With a free account you store up to 100 recipes, import Word, PDF and text with the Savour reader and can be a member of other people's shared folders. New accounts also try Savour Pro free for 7 days, without payment details; during that time you also store up to 100 recipes.",
+    'Wat krijg ik met Savour Pro?': 'What do I get with Savour Pro?',
+    "Onbeperkt recepten, zelf gedeelde mappen maken en je team uitnodigen, en AI-import van foto's, handgeschreven en gescande recepten. Voor een hele keuken is er een teamabonnement: hoe groter het team, hoe lager de prijs per persoon.":
+      'Unlimited recipes, creating your own shared folders and inviting your team, and AI import of photos, handwritten and scanned recipes. For a whole kitchen there is a team plan: the bigger the team, the lower the price per person.',
+    'Wat gebeurt er met mijn recepten als ik stop met Pro?': 'What happens to my recipes if I stop Pro?',
+    'Die blijven allemaal staan, net als je gedeelde mappen. Je kunt alleen geen nieuwe recepten boven de 100 toevoegen en geen nieuwe gedeelde mappen maken.':
+      'They all stay, just like your shared folders. You just cannot add new recipes above 100 or create new shared folders.',
     'Savour Pro is voor jou kosteloos geactiveerd.': 'Savour Pro has been activated for you free of charge.',
     "Alles van Savour, met de Savour-lezer voor Word, PDF en tekst. AI-import (foto's, handgeschreven en gescande recepten) zit in Savour Pro.":
       'All of Savour, with the Savour reader for Word, PDF and text. AI import (photos, handwritten and scanned recipes) is part of Savour Pro.',

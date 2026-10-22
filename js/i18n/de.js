@@ -569,6 +569,17 @@ window.SAVOUR_I18N.de = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Unbegrenzt Rezepte, KI, die deine Notizen und Fotos liest, und geteilte Ordner für dein Team.',
     Verbergen: 'Ausblenden',
+    '. Je kunt een recept zelf invoeren of een bron importeren. Na import controleer je de herkende gegevens voordat je ze opslaat.':
+      '. Du kannst ein Rezept selbst eingeben oder eine Quelle importieren. Nach dem Import prüfst du die erkannten Angaben, bevor du sie speicherst.',
+    'Wat kan ik gratis?': 'Was kann ich kostenlos?',
+    'Met een gratis account bewaar je tot 100 recepten, importeer je Word, PDF en tekst met de Savour-lezer en ben je lid van de gedeelde mappen van anderen. Nieuwe accounts proberen daarnaast 7 dagen Savour Pro gratis, zonder betaalgegevens; ook dan bewaar je tot 100 recepten.':
+      'Mit einem kostenlosen Konto speicherst du bis zu 100 Rezepte, importierst Word, PDF und Text mit dem Savour-Leser und kannst Mitglied in geteilten Ordnern anderer sein. Neue Konten testen außerdem 7 Tage Savour Pro kostenlos, ohne Zahlungsdaten; auch dann speicherst du bis zu 100 Rezepte.',
+    'Wat krijg ik met Savour Pro?': 'Was bekomme ich mit Savour Pro?',
+    "Onbeperkt recepten, zelf gedeelde mappen maken en je team uitnodigen, en AI-import van foto's, handgeschreven en gescande recepten. Voor een hele keuken is er een teamabonnement: hoe groter het team, hoe lager de prijs per persoon.":
+      'Unbegrenzt Rezepte, eigene geteilte Ordner erstellen und dein Team einladen, und KI-Import von Fotos, handschriftlichen und gescannten Rezepten. Für eine ganze Küche gibt es ein Team-Abo: je größer das Team, desto niedriger der Preis pro Person.',
+    'Wat gebeurt er met mijn recepten als ik stop met Pro?': 'Was passiert mit meinen Rezepten, wenn ich Pro beende?',
+    'Die blijven allemaal staan, net als je gedeelde mappen. Je kunt alleen geen nieuwe recepten boven de 100 toevoegen en geen nieuwe gedeelde mappen maken.':
+      'Sie bleiben alle erhalten, genau wie deine geteilten Ordner. Du kannst nur keine neuen Rezepte über 100 hinzufügen und keine neuen geteilten Ordner erstellen.',
     'Savour Pro is voor jou kosteloos geactiveerd.': 'Savour Pro wurde für dich kostenlos aktiviert.',
     "Alles van Savour, met de Savour-lezer voor Word, PDF en tekst. AI-import (foto's, handgeschreven en gescande recepten) zit in Savour Pro.":
       'Alles von Savour, mit dem Savour-Leser für Word, PDF und Text. KI-Import (Fotos, handschriftliche und gescannte Rezepte) ist Teil von Savour Pro.',
