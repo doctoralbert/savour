@@ -223,8 +223,8 @@ async function createAccount({ email, name, organization }, origin) {
   return { id: user?.id, email: clean };
 }
 
-// Account verwijderen met alle gegevens. Nooit je eigen account, en nooit een account met een lopend
-// betaald abonnement of team (dan blijft Stripe afschrijven): eerst opzeggen.
+// Account verwijderen met alle gegevens. Nooit je eigen account, en nooit een account met een betaald
+// abonnement of team dat nog doorloopt (dan blijft Stripe afschrijven): eerst opzeggen.
 async function deleteAccount(userId, adminUser) {
   if (userId === adminUser.id)
     throw Object.assign(new Error('Je kunt je eigen account niet verwijderen.'), { status: 400 });
@@ -235,12 +235,15 @@ async function deleteAccount(userId, adminUser) {
     throw Object.assign(new Error('Een beheerdersaccount kan hier niet worden verwijderd.'), { status: 400 });
   const sub = await getSubscription(userId);
   const [org] = await select('organizations', `owner_id=eq.${encodeURIComponent(userId)}&select=*`);
-  if (
-    (sub?.stripe_subscription_id && running(sub) && sub.status !== 'canceled') ||
-    (org?.stripe_subscription_id && running(org) && org.status !== 'canceled')
-  )
+  // Alleen tegenhouden als Stripe nog gaat afschrijven. Opgezegd (loopt af aan het eind van de periode)
+  // of al beëindigd mag gewoon weg.
+  const stillBilling = row =>
+    row?.stripe_subscription_id && running(row) && row.status !== 'canceled' && !row.cancel_at_period_end;
+  if (stillBilling(sub) || stillBilling(org))
     throw Object.assign(
-      new Error('Dit account heeft een lopend betaald abonnement of team. Zeg dat eerst op in Stripe.'),
+      new Error(
+        'Dit account heeft een betaald abonnement of team dat nog doorloopt. Zeg het eerst op (Stripe of via Abonnement beheren); daarna kun je het account verwijderen.'
+      ),
       {
         status: 409
       }
