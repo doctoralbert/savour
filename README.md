@@ -28,6 +28,8 @@ js/data/              Bibliotheek laden uit de database, sessie opbouwen, dubbel
 js/features/          Eén bestand per onderdeel van de app (bibliotheek, editor, import, mappen, gedeelde mappen, ...).
 js/i18n/              Vertalingen (gemaakt door tools/build-i18n.mjs, niet met de hand aanpassen).
 js/site.js            Kleine scripts voor de website (telefoonmenu, beweging bij scrollen).
+js/data/offline.js    Offline in de keuken: bibliotheek op het toestel bewaren en openen zonder verbinding.
+sw.js, manifest.webmanifest   Service worker (Savour opent ook zonder internet) en installeren op het beginscherm.
 js/main.js            Opstarten. Wordt als laatste geladen.
 api/                  Serverfuncties op Vercel: AI-import, Stripe, beheer, bugmelding, mail.
 assets/               Afbeeldingen: logo, deelafbeelding, app/ (echte app-schermen), kladjes/ en keuken/ (foto's).

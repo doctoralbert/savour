@@ -230,6 +230,8 @@ async function startDatabaseSession(user) {
       await migrateLegacySharedMaps();
       await loadDatabaseState();
       await loadPlanState();
+      await loadRecipeSourceIds();
+      saveOfflineSnapshot();
       renderProNav();
       renderAdminNav();
       // Eerst eventueel het welkom van het team, daarna (bij een lege bibliotheek) het algemene welkom.
@@ -253,6 +255,8 @@ async function startDatabaseSession(user) {
       return true;
     } catch (error) {
       console.error('Savour sessie kon niet worden opgebouwd:', error);
+      // Geen verbinding (bijv. wifi weg in de keuken)? Dan de bewaarde bibliotheek van dit toestel openen.
+      if (looksOffline(error) && (await startOfflineSession(user?.id))) return true;
       window.showDatabaseError(error);
       return false;
     }

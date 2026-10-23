@@ -280,6 +280,7 @@ async function deleteAccount(userId, adminUser) {
   await dropOne('favorites', `user_id=eq.${id}`);
   await dropOne('folders', `user_id=eq.${id}`);
   await dropOne('categories', `user_id=eq.${id}`);
+  await dropOne('recipe_sources', `user_id=eq.${id}`);
   await dropOne('recipes', `user_id=eq.${id}`);
   await dropOne('ai_usage', `user_id=eq.${id}`);
   await dropOne('subscriptions', `user_id=eq.${id}`);

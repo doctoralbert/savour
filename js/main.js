@@ -107,6 +107,8 @@ window.__teamRoute = new URLSearchParams(location.search).get('team') === '1';
       const ok = await startDatabaseSession(data.session.user);
       if (!ok) sessionStorage.setItem('savour_session_active', '1');
     } else {
+      // Geen sessie en geen internet: de bewaarde bibliotheek openen als die er is.
+      if (!navigator.onLine && (await startOfflineSession())) return;
       sessionStorage.removeItem('savour_session_active');
       currentUser = null;
       showLanding();
@@ -119,6 +121,7 @@ window.__teamRoute = new URLSearchParams(location.search).get('team') === '1';
     }
   } catch (e) {
     console.error('Sessie kon niet worden hersteld:', e);
+    if (looksOffline(e) && (await startOfflineSession())) return;
     sessionStorage.removeItem('savour_session_active');
     currentUser = null;
     showLanding();
@@ -153,3 +156,7 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   }
 });
+
+// Offline werken en installeren op het beginscherm (sw.js). Alleen op https of lokaal testen.
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || /^(localhost|127.)/.test(location.hostname)))
+  navigator.serviceWorker.register('/sw.js').catch(e => console.warn('Offline werken niet beschikbaar:', e));

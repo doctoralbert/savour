@@ -160,3 +160,49 @@
   padding: 0 !important;
   box-shadow: none !important;
 }
+
+/* Offline: smalle melding onderaan, boven de menubalk op de telefoon */
+.offline-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 9000;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  max-width: min(640px, calc(100vw - 24px));
+  padding: 10px 16px;
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  background: #0d1314;
+  color: var(--sv-text-2);
+  font-size: 13.5px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+.offline-banner b {
+  color: var(--gold);
+}
+@media (max-width: 760px) {
+  .offline-banner {
+    bottom: 84px;
+  }
+}
+
+/* Origineel kladje bij een recept */
+.rp-source {
+  margin: 4px 0 10px;
+  color: var(--gold) !important;
+}
+.source-box {
+  max-width: 720px;
+}
+.source-box img {
+  display: block;
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #000;
+  margin: 12px 0;
+}

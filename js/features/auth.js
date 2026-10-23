@@ -109,6 +109,7 @@ function logout() {
     showLanding();
     return;
   }
+  clearOfflineSnapshot();
   supabaseClient.auth.signOut();
 }
 

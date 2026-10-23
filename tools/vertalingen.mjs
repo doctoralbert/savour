@@ -1503,6 +1503,11 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Origineel kladje bekijken","View original note","Original-Notiz ansehen","Ver la nota original"],
+  ["Origineel kladje","Original note","Original-Notiz","Nota original"],
+  ["Zo stond het recept op papier, voordat Savour het las.","This is how the recipe looked on paper, before Savour read it.","So stand das Rezept auf Papier, bevor Savour es gelesen hat.","Así estaba la receta en papel, antes de que Savour la leyera."],
+  ["Het origineel kon niet worden geladen.","The original could not be loaded.","Das Original konnte nicht geladen werden.","No se pudo cargar el original."],
+  ["Offline","Offline","Offline","Sin conexión"],
   ["Abonnement en team","Subscription and team","Abo und Team","Suscripción y equipo"],
   ["Opschonen","Clean up","Aufräumen","Limpiar"],
   ["Savour kijkt hier of er nummers voor receptnamen staan, zoals “12. Kalfsjus”, en of recepten dubbel in je bibliotheek staan. Je ziet altijd eerst wat er verandert.","Savour checks here whether recipe names start with numbers, such as “12. Veal jus”, and whether recipes appear twice in your library. You always see what will change first.","Savour prüft hier, ob Rezeptnamen mit Nummern beginnen, wie „12. Kalbsjus“, und ob Rezepte doppelt in deiner Bibliothek stehen. Du siehst immer zuerst, was sich ändert.","Savour comprueba aquí si los nombres empiezan con números, como “12. Jugo de ternera”, y si hay recetas duplicadas en tu biblioteca. Siempre ves primero lo que cambia."],
@@ -3353,6 +3358,7 @@ export const patterns = [
     'Word, PDF und Text liest du kostenlos ein (noch $1 von $2 Rezepten in deinem kostenlosen Konto). Fotos, handschriftliche und gescannte Rezepte liest die KI: nur in Savour Pro.',
     'Importas Word, PDF y texto gratis (te quedan $1 de $2 recetas en tu cuenta gratuita). Las fotos y recetas manuscritas o escaneadas las lee la IA: solo en Savour Pro.'
   ],
+  ["^Je ziet je recepten zoals ze op (.+) op dit toestel stonden. Wijzigen kan weer zodra je verbinding hebt.$","You are seeing your recipes as they were on this device on $1. You can edit again once you are back online.","Du siehst deine Rezepte so, wie sie am $1 auf diesem Gerät waren. Bearbeiten geht wieder, sobald du online bist.","Ves tus recetas tal como estaban en este dispositivo el $1. Podrás editar de nuevo cuando vuelvas a tener conexión."],
   // ---- Teams (2026-10-23) ----
   ["^(\\d+) van (\\d+) plekken in gebruik \\(jij telt mee\\)\\.$","$1 of $2 seats in use (including you).","$1 von $2 Plätzen belegt (du zählst mit).","$1 de $2 plazas en uso (contándote a ti)."],
   ["^Via je team: (.+)\\. De eigenaar van het team beheert de plekken; je hoeft niets te betalen\\.$","Through your team: $1. The team owner manages the seats; you do not have to pay anything.","Über dein Team: $1. Der Team-Inhaber verwaltet die Plätze; du musst nichts bezahlen.","A través de tu equipo: $1. El propietario del equipo gestiona las plazas; no tienes que pagar nada."],

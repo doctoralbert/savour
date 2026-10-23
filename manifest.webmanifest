@@ -1,0 +1,15 @@
+{
+  "name": "Savour — receptenapp voor chefs",
+  "short_name": "Savour",
+  "description": "Je recepten op één plek, ook in de keuken zonder internet.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#070b0c",
+  "theme_color": "#0d1314",
+  "lang": "nl",
+  "icons": [
+    { "src": "/assets/savour-icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/savour-icon.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

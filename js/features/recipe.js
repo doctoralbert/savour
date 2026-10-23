@@ -1,5 +1,29 @@
 // Een recept bekijken, verwijderen en delen.
 
+// Recepten waarvan het originele kladje bewaard is (tabel recipe_sources). Alleen de nummers; de foto zelf
+// wordt pas geladen als je "Origineel kladje bekijken" kiest.
+let recipeSourceIds = new Set();
+
+async function loadRecipeSourceIds() {
+  recipeSourceIds = new Set();
+  if (!currentUser || demoMode) return;
+  const { data, error } = await supabaseClient.from('recipe_sources').select('recipe_id').eq('user_id', currentUser.id);
+  // Tabel bestaat nog niet (SQL niet uitgevoerd): dan is er gewoon geen origineel.
+  if (!error) recipeSourceIds = new Set((data || []).map(r => String(r.recipe_id)));
+}
+
+async function showRecipeSource(id) {
+  const { data, error } = await supabaseClient.from('recipe_sources').select('image').eq('recipe_id', id).maybeSingle();
+  if (error || !data?.image) return toast('Het origineel kon niet worden geladen.');
+  $('sourceImage').src = data.image;
+  $('sourceModal').classList.add('open');
+}
+
+function closeSourceModal() {
+  $('sourceModal').classList.remove('open');
+  $('sourceImage').removeAttribute('src');
+}
+
 function openRecipe(id, context = 'library') {
   currentId = id;
   const r = findRecipe(id);
@@ -67,6 +91,7 @@ function openRecipe(id, context = 'library') {
       <h1 class="rp-title">${esc(r.title)}</h1>
       ${meta.length ? `<p class="rp-meta">${meta.join(' · ')}</p>` : ''}
       ${own ? '' : `<p class="rp-note">Gedeeld recept van een teamlid. Alleen de maker kan het bewerken.</p>`}
+      ${own && recipeSourceIds.has(String(r.id)) ? `<button type="button" class="btn-quiet rp-source" onclick="showRecipeSource('${rid}')">Origineel kladje bekijken</button>` : ''}
       <div class="rp-actions">
         <button type="button" class="btn gold" onclick="toggleCookMode()">${icon('cook')}Kookmodus</button>
         ${own ? `<button type="button" class="btn" onclick="editRecipe('${rid}')">${icon('edit')}Bewerken</button>` : ''}

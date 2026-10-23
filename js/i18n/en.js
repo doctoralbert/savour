@@ -612,6 +612,12 @@ window.SAVOUR_I18N.en = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Unlimited recipes, AI that reads your notes and photos, and shared folders for your team.',
     Verbergen: 'Hide',
+    'Origineel kladje bekijken': 'View original note',
+    'Origineel kladje': 'Original note',
+    'Zo stond het recept op papier, voordat Savour het las.':
+      'This is how the recipe looked on paper, before Savour read it.',
+    'Het origineel kon niet worden geladen.': 'The original could not be loaded.',
+    Offline: 'Offline',
     'Abonnement en team': 'Subscription and team',
     Opschonen: 'Clean up',
     'Savour kijkt hier of er nummers voor receptnamen staan, zoals “12. Kalfsjus”, en of recepten dubbel in je bibliotheek staan. Je ziet altijd eerst wat er verandert.':
@@ -1235,6 +1241,10 @@ window.SAVOUR_I18N.en = {
     [
       "^Word, PDF en tekst lees je gratis in \\(nog (\\d+) van (\\d+) recepten in je gratis account\\)\\. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro\\.$",
       'You import Word, PDF and text for free ($1 of $2 recipes left in your free account). Photos, handwritten and scanned recipes are read by AI: only in Savour Pro.'
+    ],
+    [
+      '^Je ziet je recepten zoals ze op (.+) op dit toestel stonden. Wijzigen kan weer zodra je verbinding hebt.$',
+      'You are seeing your recipes as they were on this device on $1. You can edit again once you are back online.'
     ],
     ['^(\\d+) van (\\d+) plekken in gebruik \\(jij telt mee\\)\\.$', '$1 of $2 seats in use (including you).'],
     [

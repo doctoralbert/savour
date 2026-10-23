@@ -194,11 +194,29 @@ function resetImportSource() {
   document.querySelectorAll('.import-option').forEach(x => x.classList.remove('selected'));
 }
 
+// De Word-lezer (mammoth, ruim 600 KB) pas laden als er echt een Word-bestand wordt geïmporteerd,
+// zodat Savour op de telefoon snel opstart.
+let mammothLoading = null;
+function loadMammoth() {
+  if (window.mammoth) return Promise.resolve();
+  mammothLoading ||= new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://unpkg.com/mammoth@1.6.0/mammoth.browser.min.js';
+    s.onload = () => resolve();
+    s.onerror = () => {
+      mammothLoading = null;
+      reject(new Error('Word-importmodule kon niet worden geladen.'));
+    };
+    document.head.appendChild(s);
+  });
+  return mammothLoading;
+}
+
 async function extractImportText(file) {
   if (!file) return '';
   const name = (file.name || '').toLowerCase();
   if (name.endsWith('.docx')) {
-    if (!window.mammoth) throw new Error('Word-importmodule kon niet worden geladen.');
+    await loadMammoth();
     const ab = await file.arrayBuffer();
     // Via HTML i.p.v. kale tekst: dan blijven koppen, tabellen en opsommingen herkenbaar.
     const result = await mammoth.convertToHtml({ arrayBuffer: ab });
@@ -537,7 +555,7 @@ async function importImageFile(file) {
   const forReading = await enhanceForReading(upright);
   const aiRecipes = await callAiImportWithRetry({ image: forReading, filename: file.name });
   if (!aiRecipes.length) throw new Error('Geen recept uit de foto herkend.');
-  return aiRecipes.map(r => normalizeAiRecipe(r, { photo: upright, sourceFile: file.name }));
+  return aiRecipes.map(r => normalizeAiRecipe(r, { photo: upright, _fromPhoto: true, sourceFile: file.name }));
 }
 
 // Vraagt de AI aan welke rand de bovenkant van de tekst zit (top/right/bottom/left). Telt niet als AI-import.
@@ -1053,25 +1071,30 @@ async function persistBatchRecipes() {
       ingredients: r.ingredients || [],
       steps: r.steps || [],
       category_id: categoryIdByName.get(r.category) || null,
-      photo_url: r.photo || null
+      // Een gefotografeerd kladje wordt geen receptfoto, maar het origineel (zie saveRecipeSources).
+      photo_url: (r._fromPhoto ? null : r.photo) || null
     });
     // In blokken van 50; mislukt een blok, dan per recept, zodat we weten welke het niet haalden.
     const BLOCK = 50;
     for (let start = 0; start < queue.length; start += BLOCK) {
       const block = queue.slice(start, start + BLOCK);
       btn.textContent = `Opslaan… ${start} / ${queue.length}`;
-      const { error } = await supabaseClient.from('recipes').insert(block.map(rowFor));
+      const { data: inserted, error } = await supabaseClient.from('recipes').insert(block.map(rowFor)).select('id');
       if (!error) {
         saved += block.length;
+        await saveRecipeSources(block, inserted);
         continue;
       }
       for (const r of block) {
-        const { error: rowError } = await supabaseClient.from('recipes').insert(rowFor(r));
+        const { data: one, error: rowError } = await supabaseClient.from('recipes').insert(rowFor(r)).select('id');
         if (rowError) {
           console.error('Batch opslaan', r.title, rowError);
           failures.push({ title: r.title, error: rowError.message || 'Opslaan mislukt' });
           failedDrafts.push(r);
-        } else saved++;
+        } else {
+          saved++;
+          await saveRecipeSources([r], one);
+        }
       }
     }
     await loadDatabaseState();
@@ -1096,6 +1119,23 @@ async function persistBatchRecipes() {
     btn.disabled = false;
     btn.textContent = 'Alle recepten opslaan';
   }
+}
+
+// Het originele kladje apart bewaren (tabel recipe_sources), zodat je het terugziet via "Origineel bekijken".
+// Bestaat die tabel nog niet (SQL niet uitgevoerd), dan wordt het kladje zoals vroeger de receptfoto.
+async function saveRecipeSources(drafts, rows) {
+  const pairs = drafts.map((d, i) => [d, rows?.[i]?.id]).filter(([d, id]) => d._fromPhoto && d.photo && id);
+  if (!pairs.length) return;
+  const { error } = await supabaseClient
+    .from('recipe_sources')
+    .insert(pairs.map(([d, id]) => ({ recipe_id: id, user_id: currentUser.id, image: d.photo })));
+  if (!error) {
+    pairs.forEach(([, id]) => recipeSourceIds.add(String(id)));
+    return;
+  }
+  console.warn('Origineel apart bewaren lukte niet; het kladje wordt de receptfoto.', error);
+  for (const [d, id] of pairs)
+    await supabaseClient.from('recipes').update({ photo_url: d.photo }).eq('id', id).eq('user_id', currentUser.id);
 }
 
 // Slepen en neerzetten van bestanden op het importvak.
