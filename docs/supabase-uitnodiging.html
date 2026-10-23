@@ -1,0 +1,17 @@
+<!doctype html><html lang="nl"><body style="margin:0;background:#f5f4ef;font-family:Helvetica,Arial,sans-serif;color:#151716">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f5f4ef;padding:32px 12px"><tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#0d1314;border-radius:14px;overflow:hidden">
+<tr><td style="padding:34px 34px 8px;text-align:center;font-family:Georgia,serif;letter-spacing:.34em;color:#e8ca8d;font-size:20px">SAVOUR</td></tr>
+<tr><td style="padding:8px 34px 30px;color:#eee8dc;font-size:15px;line-height:1.65">
+<h1 style="font-family:Georgia,serif;font-weight:normal;font-size:26px;color:#eee8dc;margin:18px 0 18px">Je Savour-account staat klaar{{ if .Data.name }}, {{ .Data.name }}{{ end }}.</h1>
+<p style="margin:0 0 14px">Er is een Savour-account voor je aangemaakt met het e-mailadres <strong>{{ .Email }}</strong>. Savour is de receptenapp voor de professionele keuken: al je recepturen op één plek, op computer en telefoon, gedeeld met je keukenteam.</p>
+<p style="margin:0 0 10px;color:#e8ca8d;font-size:12px;letter-spacing:.2em;text-transform:uppercase">Zo begin je</p>
+<p style="margin:0 0 10px"><strong style="color:#e8ca8d">1.</strong> <span style="color:#d9d3c6">Klik op de knop hieronder.</span></p>
+<p style="margin:0 0 10px"><strong style="color:#e8ca8d">2.</strong> <span style="color:#d9d3c6">Kies een wachtwoord. Savour opent meteen op de juiste plek.</span></p>
+<p style="margin:0 0 22px"><strong style="color:#e8ca8d">3.</strong> <span style="color:#d9d3c6">Importeer je eerste recepten uit Word, PDF of een foto van een kladje.</span></p>
+<p style="margin:0 0 26px;text-align:center"><a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#e8ca8d;color:#111;text-decoration:none;padding:13px 24px;border-radius:999px;font-weight:bold">Wachtwoord kiezen</a></p>
+<p style="margin:0;color:#b9c0ba;font-size:13px">Werkt de knop niet? Kopieer dan deze link in je browser:<br><span style="color:#e8ca8d;word-break:break-all">{{ .ConfirmationURL }}</span></p>
+<p style="margin:22px 0 0">Veel kookplezier,<br>Het Savour-team</p>
+</td></tr>
+<tr><td style="padding:16px 34px 26px;border-top:1px solid #243031;color:#87918b;font-size:12px;line-height:1.6">Verwachtte je deze mail niet? Dan kun je hem negeren; er gebeurt niets zonder dat je op de knop klikt.<br>Savour · KvK 89674871 · Nederland · contact@savour.page</td></tr>
+</table></td></tr></table></body></html>
