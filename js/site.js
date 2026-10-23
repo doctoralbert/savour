@@ -22,8 +22,9 @@
           function (entries) {
             entries.forEach(function (e) {
               if (e.isIntersecting) {
-                e.target.classList.add('is-visible');
                 io.unobserve(e.target);
+                // Twee frames wachten: dan staat de beginstand eerst op het scherm en is de overgang te zien.
+                requestAnimationFrame(() => requestAnimationFrame(() => e.target.classList.add('is-visible')));
               }
             });
           },

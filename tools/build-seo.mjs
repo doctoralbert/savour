@@ -193,8 +193,8 @@ function footer(lang, alt, inApp) {
 
 function kladje(lang) {
   const k = KLADJE_REAL[lang];
-  return `<figure class="kladje-demo"><div class="kladje-photo"><img src="/assets/kladjes/mayonaise.jpg" alt="${esc(k.alt)}" width="640" height="686" loading="lazy"></div>
-<div class="kladje-recept"><h3>${esc(k.title)}</h3><small>${esc(k.meta)}</small><ul>${k.ingredients.map(i => `<li>${esc(i)}</li>`).join('')}</ul><p class="kladje-nosteps">${esc(k.noSteps)}</p></div>
+  return `<figure class="kladje-demo"><div class="kladje-photo"><img src="/assets/kladjes/mayonaise.jpg" alt="${esc(k.alt)}" width="640" height="686"><span class="kladje-scan" aria-hidden="true"></span></div>
+<div class="kladje-recept"><h3>${esc(k.title)}</h3><small>${esc(k.meta)}</small><ul>${k.ingredients.map((i, n) => `<li style="--i:${n}">${esc(i)}</li>`).join('')}</ul><p class="kladje-nosteps">${esc(k.noSteps)}</p></div>
 <figcaption>${esc(k.caption)}</figcaption></figure>`;
 }
 
