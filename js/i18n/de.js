@@ -615,6 +615,21 @@ window.SAVOUR_I18N.de = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Unbegrenzt Rezepte, KI, die deine Notizen und Fotos liest, und geteilte Ordner für dein Team.',
     Verbergen: 'Ausblenden',
+    'Abonnement en team': 'Abo und Team',
+    Opschonen: 'Aufräumen',
+    'Savour kijkt hier of er nummers voor receptnamen staan, zoals “12. Kalfsjus”, en of recepten dubbel in je bibliotheek staan. Je ziet altijd eerst wat er verandert.':
+      'Savour prüft hier, ob Rezeptnamen mit Nummern beginnen, wie „12. Kalbsjus“, und ob Rezepte doppelt in deiner Bibliothek stehen. Du siehst immer zuerst, was sich ändert.',
+    '✓ Er is niets op te schonen: geen nummers voor receptnamen en geen dubbele recepten.':
+      '✓ Nichts aufzuräumen: keine Nummern vor Rezeptnamen und keine doppelten Rezepte.',
+    'Welkom bij Savour': 'Willkommen bei Savour',
+    'Je receptenboek is nog leeg. Zo vul je het: importeer je Word-bestanden of PDF’s in één keer, maak een foto van een handgeschreven kladje, of voer een recept zelf in. Daarna orden je alles in mappen en deel je het met je keukenteam.':
+      'Dein Rezeptbuch ist noch leer. So füllst du es: Importiere deine Word-Dateien oder PDFs auf einmal, mach ein Foto einer handschriftlichen Notiz oder gib ein Rezept selbst ein. Danach ordnest du alles in Ordnern und teilst es mit deinem Küchenteam.',
+    'Word of PDF importeren': 'Word oder PDF importieren',
+    'Ook honderden recepten tegelijk': 'Auch Hunderte Rezepte auf einmal',
+    'De AI leest het voor je uit (Savour Pro)': 'Die KI liest es für dich aus (Savour Pro)',
+    'Zelf een recept invoeren': 'Rezept selbst eingeben',
+    'Eerst rondkijken': 'Erst umsehen',
+    'Welkom bij Savour. Kies hieronder je wachtwoord': 'Willkommen bei Savour. Wähle unten dein Passwort',
     'Hoe krijgen mijn teamleden Pro?': 'Wie bekommen meine Teammitglieder Pro?',
     'Je voegt ze toe via Mijn team in het menu, of op je telefoon via Mijn account → Abonnement. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.':
       'Du fügst sie über Mein Team im Menü hinzu, oder am Handy über Mein Konto → Abo. Sie bekommen eine Einladung per E-Mail und haben Savour Pro, sobald sie sich mit genau dieser E-Mail-Adresse anmelden oder registrieren. Du selbst zählst als erster Platz.',

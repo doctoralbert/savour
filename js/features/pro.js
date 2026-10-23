@@ -316,7 +316,9 @@ function renderProNav() {
 
 // Naar het teamblok in Instellingen (eigenaar: collega's toevoegen; lid: van welk team je Pro hebt).
 function openTeamNav() {
+  settingsTab = 'plan';
   go('settings');
+  showSettingsTab('plan');
   setTimeout(
     () => ($('teamManager') || $('settingsPlan'))?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
     350
@@ -358,8 +360,9 @@ async function greetTeamMember() {
 function openProNav() {
   if (!hasOwnPro()) return go('pro');
   if (savourPlan.hasCustomer && ['subscription', 'team_owner'].includes(savourPlan.source)) return openProPortal();
+  settingsTab = 'plan';
   go('settings');
-  setTimeout(() => $('settingsPlan')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120);
+  showSettingsTab('plan');
 }
 
 // De server (api/admin.js, ADMIN_EMAILS) beslist of iemand beheerder is; de knop is alleen een snelkoppeling.

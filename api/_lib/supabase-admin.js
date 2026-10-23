@@ -54,6 +54,19 @@ export function remove(table, query) {
   return adminFetch(`/rest/v1/${table}?${query}`, { method: 'DELETE', prefer: 'return=minimal' });
 }
 
+// Nieuw account via een uitnodiging: Supabase mailt een link waarmee de gebruiker zelf een wachtwoord kiest.
+export function inviteUser(email, data, redirectTo) {
+  return adminFetch(`/auth/v1/invite?redirect_to=${encodeURIComponent(redirectTo)}`, {
+    method: 'POST',
+    body: { email, data }
+  });
+}
+
+// Account definitief verwijderen uit Supabase Auth (de gegevens zijn dan al opgeruimd, zie api/admin.js).
+export function deleteAuthUser(userId) {
+  return adminFetch(`/auth/v1/admin/users/${encodeURIComponent(userId)}`, { method: 'DELETE' });
+}
+
 // Alle accounts (Supabase Auth), per pagina van 1000.
 export async function listUsers() {
   const users = [];

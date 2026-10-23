@@ -97,3 +97,66 @@
 .team-how li {
   margin: 2px 0;
 }
+
+/* 5. Instellingen in delen, rustig: tabbladen met een gouden lijntje, geen kaders om de blokken. */
+.settings-tabs {
+  display: flex;
+  gap: 4px;
+  max-width: 900px;
+  margin: 6px 0 26px;
+  border-bottom: 1px solid var(--sv-line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.settings-tabs::-webkit-scrollbar {
+  display: none;
+}
+.settings-tabs button {
+  flex: 0 0 auto;
+  padding: 12px 14px;
+  margin-bottom: -1px;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--sv-text-2);
+  font: 500 15px/1 var(--sv-font);
+  cursor: pointer;
+}
+.settings-tabs button:hover {
+  color: var(--sv-text);
+}
+.settings-tabs button.on {
+  color: var(--sv-text);
+  border-bottom-color: var(--gold);
+}
+#settings .settings-pane .panel {
+  max-width: 900px !important;
+  margin: 0 0 28px !important;
+  padding: 0 !important;
+  background: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+#settings .settings-pane .panel h3 {
+  font-family: var(--sv-font-display);
+  font-weight: 400;
+  font-size: 24px;
+  margin: 0 0 10px;
+}
+#settings .settings-pane .panel.settings-danger {
+  padding-top: 22px !important;
+  border-top: 1px solid #5a3838 !important;
+}
+.settings-ok {
+  color: var(--gold);
+  margin: 6px 0 0;
+}
+
+/* Recept toevoegen: geen kader om het geheel, alleen de keuzes */
+#import .import-shell {
+  background: none !important;
+  border: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}

@@ -160,11 +160,17 @@ async function handleAuthRedirect(redirect) {
     toast(t('Deze link is ongeldig of verlopen. Vraag een nieuwe aan.'));
     return false;
   }
-  if (redirect.type === 'recovery') {
+  // Wachtwoord vergeten, of een account dat de beheerder heeft aangemaakt (uitnodiging): eerst een wachtwoord kiezen.
+  if (redirect.type === 'recovery' || redirect.type === 'invite') {
     const ok = await startDatabaseSession(data.session.user);
     if (ok) {
+      settingsTab = 'account';
       go('settings');
-      toast(t('Kies hieronder een nieuw wachtwoord'));
+      toast(
+        redirect.type === 'invite'
+          ? t('Welkom bij Savour. Kies hieronder je wachtwoord')
+          : t('Kies hieronder een nieuw wachtwoord')
+      );
       $('accountPassword')?.focus();
     }
     return true;

@@ -232,7 +232,8 @@ async function startDatabaseSession(user) {
       await loadPlanState();
       renderProNav();
       renderAdminNav();
-      greetTeamMember();
+      // Eerst eventueel het welkom van het team, daarna (bij een lege bibliotheek) het algemene welkom.
+      greetTeamMember().then(() => setTimeout(welcomeNewUser, 600));
       if (window.__proRoute) openPublicInfo('pro');
       else if (window.__infoRoute) openPublicInfo(window.__infoRoute);
       else showApp('recipes');

@@ -612,6 +612,21 @@ window.SAVOUR_I18N.en = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Unlimited recipes, AI that reads your notes and photos, and shared folders for your team.',
     Verbergen: 'Hide',
+    'Abonnement en team': 'Subscription and team',
+    Opschonen: 'Clean up',
+    'Savour kijkt hier of er nummers voor receptnamen staan, zoals “12. Kalfsjus”, en of recepten dubbel in je bibliotheek staan. Je ziet altijd eerst wat er verandert.':
+      'Savour checks here whether recipe names start with numbers, such as “12. Veal jus”, and whether recipes appear twice in your library. You always see what will change first.',
+    '✓ Er is niets op te schonen: geen nummers voor receptnamen en geen dubbele recepten.':
+      '✓ Nothing to clean up: no numbers before recipe names and no duplicate recipes.',
+    'Welkom bij Savour': 'Welcome to Savour',
+    'Je receptenboek is nog leeg. Zo vul je het: importeer je Word-bestanden of PDF’s in één keer, maak een foto van een handgeschreven kladje, of voer een recept zelf in. Daarna orden je alles in mappen en deel je het met je keukenteam.':
+      'Your recipe book is still empty. Here is how to fill it: import your Word files or PDFs in one go, take a photo of a handwritten note, or enter a recipe yourself. Then organise everything in folders and share it with your kitchen team.',
+    'Word of PDF importeren': 'Import Word or PDF',
+    'Ook honderden recepten tegelijk': 'Even hundreds of recipes at once',
+    'De AI leest het voor je uit (Savour Pro)': 'The AI reads it for you (Savour Pro)',
+    'Zelf een recept invoeren': 'Enter a recipe yourself',
+    'Eerst rondkijken': 'Look around first',
+    'Welkom bij Savour. Kies hieronder je wachtwoord': 'Welcome to Savour. Choose your password below',
     'Hoe krijgen mijn teamleden Pro?': 'How do my team members get Pro?',
     'Je voegt ze toe via Mijn team in het menu, of op je telefoon via Mijn account → Abonnement. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.':
       'You add them via My team in the menu, or on your phone via My account → Subscription. They get an invitation by email and have Savour Pro as soon as they log in or sign up with exactly that email address. You count as the first seat yourself.',

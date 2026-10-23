@@ -229,8 +229,25 @@ async function saveCrop() {
   closeCrop();
 }
 
+// Instellingen in delen: Account · Abonnement en team · Weergave · Categorieën · Opschonen.
+let settingsTab = 'account';
+
+function showSettingsTab(tab) {
+  settingsTab = tab;
+  document.querySelectorAll('#settings [data-settings-tab]').forEach(el => {
+    const on = el.dataset.settingsTab === tab;
+    if (el.classList.contains('settings-pane')) el.hidden = !on;
+    else {
+      el.classList.toggle('on', on);
+      // Op de telefoon schuift de tabbalk mee naar het gekozen tabblad.
+      if (on) el.scrollIntoView({ inline: 'nearest', block: 'nearest' });
+    }
+  });
+}
+
 function renderSettings() {
   if (!currentUser) return;
+  showSettingsTab(settingsTab);
   document.querySelectorAll('input[name="savourTheme"]').forEach(x => (x.checked = x.value === currentTheme()));
   $('accountName').value = account.name || '';
   $('accountOrganization').value = account.organization || '';
@@ -256,15 +273,19 @@ function recipesWithTitleNumber() {
   return recipes.filter(r => stripTitleNumber(r.title) !== String(r.title || '').trim());
 }
 
-// Het blok "Recepten opschonen": nummers in namen en dubbele recepten. Alleen zichtbaar als er iets te doen is.
+// Het blok "Recepten opschonen": nummers in namen en dubbele recepten. Altijd zichtbaar; zonder werk een geruststelling.
 function renderTitleCleanup() {
   const panel = $('titleCleanupPanel');
   if (!panel) return;
   const found = recipesWithTitleNumber();
   const doubles = findDuplicateRecipeGroups();
-  panel.style.display = found.length || doubles.length ? '' : 'none';
   renderDuplicateCleanup(doubles);
   $('titleCleanup').innerHTML = '';
+  if (!found.length && !doubles.length) {
+    $('titleCleanup').innerHTML =
+      '<p class="settings-ok">✓ Er is niets op te schonen: geen nummers voor receptnamen en geen dubbele recepten.</p>';
+    return;
+  }
   if (!found.length) return;
   const example = found[0];
   $('titleCleanup').innerHTML = `<p class="muted">${

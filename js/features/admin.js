@@ -173,7 +173,6 @@ async function loadAdminDashboard() {
       ]
         .map(x => `<div class="traffic-box"><b>${adminEscape(x[1])}</b><span>${adminEscape(x[0])}</span></div>`)
         .join('');
-    renderAdminVisitorChart(d.visitor_growth || []);
     const vb = $('adminVisitsBody');
     const visits = d.recent_visits || [];
     if (vb)
@@ -212,7 +211,9 @@ const adminMoney = v =>
 async function loadAdminOverview() {
   const money = $('adminMoney');
   try {
-    const { accounts, totals: t } = await adminApi('overview');
+    const { accounts, totals: t, visitor_days: visitorDays } = await adminApi('overview');
+    // Bezoekers per dag komt van de server (site_visits), niet meer uit de oude databasefunctie.
+    if (Array.isArray(visitorDays)) renderAdminVisitorChart(visitorDays);
     adminAccounts = accounts || [];
     const openai = t.openai_this_month ? `$ ${t.openai_this_month.usd.toFixed(2)}` : '—';
     if (money)
@@ -306,9 +307,62 @@ function renderAdminAccounts() {
             : a.paid_stripe
               ? ''
               : `<button class="admin-ghost" onclick="adminGiftPro('${a.id}')">Pro geven</button>`;
-        return `<tr><td>${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_this_month)}</td><td>${adminFormatDate(a.created_at)}</td><td>${adminFormatDate(a.last_sign_in_at)}</td><td>${action}</td></tr>`;
+        const remove = `<button class="admin-ghost admin-danger" onclick="adminDeleteAccount('${a.id}')">Verwijderen</button>`;
+        return `<tr><td>${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_this_month)}</td><td>${adminFormatDate(a.created_at)}</td><td>${adminFormatDate(a.last_sign_in_at)}</td><td><div class="admin-actions">${action}${remove}</div></td></tr>`;
       })
       .join('') || '<tr><td colspan="9">Geen accounts gevonden.</td></tr>';
+}
+
+// Nieuw account: uitnodiging per mail, de gebruiker kiest zelf een wachtwoord (api/admin.js).
+async function adminCreateAccount() {
+  const email = (
+    await askText('Nieuw account aanmaken\n\nE-mailadres van de nieuwe gebruiker:', '', { confirmLabel: 'Verder' })
+  )?.trim();
+  if (!email) return;
+  const name = (await askText('Naam (mag leeg blijven):', '', { confirmLabel: 'Verder' })) ?? null;
+  if (name === null) return;
+  const organization = (await askText('Organisatie (mag leeg blijven):', '', { confirmLabel: 'Verder' })) ?? null;
+  if (organization === null) return;
+  if (
+    !(await askConfirm(
+      `Account aanmaken voor ${email}?\n\nSavour stuurt een uitnodiging per mail. Met de link daarin kiest de gebruiker zelf een wachtwoord.`,
+      { confirmLabel: 'Account aanmaken' }
+    ))
+  )
+    return;
+  try {
+    await adminApi('create_account', { email, name: name.trim(), organization: organization.trim() });
+    toast(`Uitnodiging verstuurd naar ${email}`);
+    await loadAdminOverview();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
+}
+
+// Account verwijderen: eerst een duidelijke waarschuwing, daarna het e-mailadres overtypen ter bevestiging.
+async function adminDeleteAccount(userId) {
+  const a = adminAccounts.find(x => x.id === userId);
+  if (!a) return;
+  if (
+    !(await askConfirm(
+      `Account definitief verwijderen?\n\n${a.email}${a.name ? ` (${a.name})` : ''}\n\nAlle ${a.recipes} recepten, mappen, favorieten en gedeelde mappen van dit account worden verwijderd. Dit kan niet ongedaan worden gemaakt.`,
+      { confirmLabel: 'Ja, verwijderen', danger: true }
+    ))
+  )
+    return;
+  const typed = await askText(`Typ ter bevestiging het e-mailadres:\n${a.email}`, '', {
+    confirmLabel: 'Definitief verwijderen'
+  });
+  if (typed === null) return;
+  if (typed.trim().toLowerCase() !== String(a.email).toLowerCase())
+    return alertAdmin('Het e-mailadres klopt niet. Er is niets verwijderd.');
+  try {
+    const r = await adminApi('delete_account', { user_id: userId });
+    toast(`${r.email} is verwijderd`);
+    await loadAdminOverview();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
 }
 
 async function adminGiftPro(userId) {

@@ -382,3 +382,19 @@
   font-size: 12px !important;
   color: color-mix(in srgb, var(--sv-text) 50%, transparent) !important;
 }
+
+/* ---- Beheer: acties per account (Pro geven, verwijderen) ---- */
+.admin-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  white-space: nowrap;
+}
+.admin-ghost.admin-danger {
+  color: #e59a8c;
+  border-color: #5a3a34;
+}
+.admin-ghost.admin-danger:hover {
+  color: #ffb3a5;
+  border-color: #b85c4c;
+}

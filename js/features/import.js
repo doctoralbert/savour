@@ -43,6 +43,35 @@ function selectImportSource(type) {
   }
 }
 
+// ---- Eerste keer inloggen: kort welkom met wat er kan, en meteen een begin maken ----
+// Eén keer per account (per apparaat), alleen als de bibliotheek nog leeg is.
+async function welcomeNewUser() {
+  if (demoMode || !currentUser || recipes.length) return;
+  const key = `savour_welcome_${currentUser.id}`;
+  try {
+    if (localStorage.getItem(key)) return;
+    localStorage.setItem(key, '1');
+  } catch {
+    return;
+  }
+  const choice = await askChoice(
+    'Welkom bij Savour\n\nJe receptenboek is nog leeg. Zo vul je het: importeer je Word-bestanden of PDF’s in één keer, maak een foto van een handgeschreven kladje, of voer een recept zelf in. Daarna orden je alles in mappen en deel je het met je keukenteam.',
+    [
+      { label: 'Word of PDF importeren', hint: 'Ook honderden recepten tegelijk', value: 'file', primary: true },
+      { label: 'Foto van een kladje', hint: 'De AI leest het voor je uit (Savour Pro)', value: 'camera' },
+      { label: 'Zelf een recept invoeren', value: 'new' },
+      { label: 'Eerst rondkijken', value: 'look' }
+    ]
+  );
+  if (choice === 'file') {
+    go('import');
+    showImportPanel();
+  } else if (choice === 'camera') {
+    go('import');
+    openCameraImport();
+  } else if (choice === 'new') newRecipe();
+}
+
 // ---- Camera: foto van een kladje maken (Savour Pro; gaat via de AI, net als een foto uit je album) ----
 // Telefoon en tablet: de eigen camera-app (scherper, met scherpstellen). Computer: webcam in een venster.
 let cameraStream = null;
