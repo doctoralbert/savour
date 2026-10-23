@@ -1746,3 +1746,75 @@
     display: none;
   }
 }
+
+/* ---- Het kladje opgemaakt: warme, gedragen tint, papierstructuur en een stapel kladjes erachter ---- */
+.kladje-stack {
+  padding: 22px 6% 10px;
+}
+.kladje-stack .kladje-back img {
+  position: absolute;
+  width: 70%;
+  height: auto;
+  border-radius: 3px;
+  filter: sepia(0.55) saturate(0.65) brightness(0.62) contrast(1.05);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.55);
+}
+.kladje-stack .kladje-back img:nth-child(1) {
+  left: -2%;
+  top: 0;
+  transform: rotate(-12deg);
+}
+.kladje-stack .kladje-back img:nth-child(2) {
+  right: -4%;
+  top: 6%;
+  transform: rotate(9deg);
+}
+.kladje-front {
+  position: relative;
+  width: 84%;
+  margin: 0 auto;
+}
+.kladje-stack .kladje-front img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+  /* Minder fel wit, de blauwe pen iets verkleurd: een kladje dat al een tijd in de keuken ligt. */
+  filter: sepia(0.42) saturate(0.7) contrast(1.08) brightness(0.93) hue-rotate(-6deg);
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.1),
+    0 26px 50px rgba(0, 0, 0, 0.6);
+}
+/* Donkere randen en een warme gloed, plus een fijne papierstructuur */
+.kladje-front::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.25 0 0 0 0 0.12 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 50% 45%, transparent 52%, rgba(70, 45, 15, 0.38) 100%),
+    linear-gradient(160deg, rgba(255, 228, 170, 0.18), rgba(110, 70, 25, 0.16));
+  mix-blend-mode: multiply;
+}
+.kladje-front .kladje-scan {
+  z-index: 2;
+}
+@media (max-width: 560px) {
+  .kladje-stack {
+    padding: 14px 8% 6px;
+  }
+}
+/* De stapel kladjes krijgt meer ruimte dan het nette recept */
+.site-hero .kladje-demo {
+  grid-template-columns: 1.25fr 0.9fr;
+  gap: 8px;
+}
+.site-hero .kladje-front {
+  width: 90%;
+}
+@media (max-width: 560px) {
+  .site-hero .kladje-demo {
+    grid-template-columns: 1fr;
+  }
+}
