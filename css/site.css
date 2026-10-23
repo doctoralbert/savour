@@ -1018,16 +1018,7 @@
   background: #f6f2ea;
   color: #1d201e;
 }
-/* Alle talen staan in index.html; alleen de gekozen taal is zichtbaar. */
-#landingView .site[data-site-lang] {
-  display: none;
-}
-html[lang='nl'] #landingView .site[data-site-lang='nl'],
-html[lang='en'] #landingView .site[data-site-lang='en'],
-html[lang='de'] #landingView .site[data-site-lang='de'],
-html[lang='es'] #landingView .site[data-site-lang='es'] {
-  display: block;
-}
+/* Elke startpagina (index.html en site/index-en.html enz.) bevat precies één taal. */
 
 /* ---- Taalkeuze ---- */
 .site-langs {

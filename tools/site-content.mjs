@@ -55,7 +55,7 @@ export const UI = {
     company: 'Savour · KvK 89674871 · Nederland · contact@savour.page',
     soon: 'Binnenkort',
     readArticle: 'Lees het artikel',
-    blogLead: 'Praktische stukken over recepten, organisatie en werken in de keuken.'
+    blogLead: 'Praktische artikelen over recepten digitaliseren, receptenmappen indelen, je keukenteam en receptbeheer in de horeca.'
   },
   en: {
     home: '/en',
@@ -89,7 +89,7 @@ export const UI = {
     company: 'Savour · KvK 89674871 · The Netherlands · contact@savour.page',
     soon: 'Coming soon',
     readArticle: 'Read the article',
-    blogLead: 'Practical pieces about recipes, organisation and working in the kitchen.'
+    blogLead: 'Practical articles about digitising recipes, organising recipe folders, your kitchen team and recipe management for restaurants.'
   }
 };
 
@@ -136,12 +136,12 @@ export const FEATURES = [
       slug: 'recepten-organiseren',
       menu: 'Recepten organiseren',
       short: 'Mappen, categorieën en zoeken op ingrediënt. Je beurre blanc in drie seconden.',
-      title: 'Recepten organiseren: je receptenboek in mappen en categorieën | Savour',
-      desc: 'Organiseer al je recepten in één receptenboek: eigen mappen en categorieën, zoeken op titel en ingrediënt, A tot Z en favorieten. Op computer, tablet en telefoon.',
+      title: 'Recepten organiseren en receptbeheer voor restaurants | Savour',
+      desc: 'Receptbeheer voor restaurants en de horeca: al je recepten in één receptenboek, met eigen mappen en categorieën, zoeken op ingrediënt en favorieten.',
       h1: 'Recepten organiseren zoals jouw keuken werkt',
       lead: 'Eén receptenboek voor alles wat je ooit hebt gemaakt, ingedeeld op jouw manier.',
       sections: [
-        ['Jouw indeling', 'Sauzen, fonds, garnituren, patisserie, het proeverijmenu van dit seizoen. Je maakt zelf mappen en categorieën. Een recept kan in meerdere mappen staan, zodat je jus zowel bij de fonds als bij het lammenu hoort.'],
+        ['Jouw indeling', 'Sauzen, fonds, garnituren, patisserie, het proeverijmenu van dit seizoen. Je maakt zelf mappen en categorieën. Een recept kan in meerdere mappen staan, zodat je jus zowel bij de fonds als bij het lammenu hoort. Zo blijft het receptbeheer van je restaurant overzichtelijk, ook met honderden recepturen.'],
         ['Zoeken op wat je weet', 'Weet je alleen nog dat er yuzu in zat? Savour zoekt in titels, ingrediënten en bereiding. Of blader van A tot Z door je hele boek.'],
         ['Rustig en snel', 'Geen overvolle schermen. Een lijst met titels, een ster voor je favorieten en één tik naar het recept. Gemaakt om midden in de service snel iets op te zoeken.'],
         ['Op elk apparaat', 'Op de computer orden en importeer je, in de keuken gebruik je je telefoon of tablet met grote letters in de kookmodus. Er hoeft niets geïnstalleerd te worden.']
@@ -151,8 +151,8 @@ export const FEATURES = [
       slug: 'en/organise-recipes',
       menu: 'Organise recipes',
       short: 'Folders, categories and search by ingredient. Your beurre blanc in three seconds.',
-      title: 'Organise recipes: your recipe book in folders and categories | Savour',
-      desc: 'Organise all your recipes in one recipe book: your own folders and categories, search by title and ingredient, A to Z and favourites. On computer, tablet and phone.',
+      title: 'Organise recipes: recipe management for restaurants | Savour',
+      desc: 'Recipe management for restaurants and hospitality: all your recipes in one recipe book, with your own folders and categories, search by ingredient and favourites.',
       h1: 'Organise recipes the way your kitchen works',
       lead: 'One recipe book for everything you have ever made, arranged your way.',
       sections: [
@@ -170,7 +170,7 @@ export const FEATURES = [
       menu: 'Delen met je brigade',
       short: 'Gedeelde mappen met rechten: jij beheert, je sous-chef past aan, de rest kijkt mee.',
       title: 'Recepturen delen met je keukenteam en brigade | Savour',
-      desc: 'Deel recepturen met je keukenteam via gedeelde mappen met rechten. Iedereen werkt met dezelfde versie, van sous-chef tot stagiair.',
+      desc: 'Deel recepturen met je keukenteam via gedeelde mappen met rechten. Iedereen in je restaurant werkt met dezelfde versie, van sous-chef tot stagiair.',
       h1: 'Recepturen delen met je brigade',
       lead: 'Iedereen in de keuken werkt met dezelfde versie. Geen foto’s van foto’s in de groepsapp meer.',
       sections: [
@@ -303,7 +303,7 @@ export const AUDIENCES = [
       menu: 'Koks',
       short: 'Voor chefs, sous-chefs en patissiers die hun recepturen willen bewaren.',
       title: 'Receptenapp voor koks: chefs, sous-chefs en patissiers | Savour',
-      desc: 'Savour is gemaakt voor koks in de professionele keuken: chefs, sous-chefs en patissiers. Al je recepturen op één plek, precies zoals je ze schreef.',
+      desc: 'Savour is gemaakt voor koks in restaurants en de horeca: chefs, sous-chefs en patissiers. Al je recepturen op één plek, precies zoals je ze schreef.',
       h1: 'Voor koks',
       lead: 'Of je nu de keuken leidt, de sauzen maakt of in de patisserie staat: je recepten moeten kloppen en vindbaar zijn.',
       sections: [
@@ -338,7 +338,7 @@ export const AUDIENCES = [
       title: 'Recepten delen met je keukenbrigade | Savour',
       desc: 'Savour voor keukenbrigades: chef de parties, commis en stagiairs werken met dezelfde recepten, op hun eigen telefoon. Jij bepaalt wie wat mag.',
       h1: 'Voor keukenbrigades',
-      lead: 'Van chef de partie tot stagiair: iedereen kookt van hetzelfde recept.',
+      lead: 'Van chef de partie tot stagiair: je hele keukenteam kookt van hetzelfde recept, in elk restaurant en elke horecazaak waar je werkt.',
       sections: [
         ['Eén versie voor iedereen', 'Pas je een saus aan voor het nieuwe menu, dan werkt iedereen in de gedeelde map direct met de nieuwe versie.'],
         ['Rechten per persoon', 'Jij beheert de map. Je sous-chef of chef de partie mag recepten toevoegen en aanpassen. Commis en stagiairs kunnen meekijken, maar niets veranderen.'],
@@ -353,7 +353,7 @@ export const AUDIENCES = [
       title: 'Share recipes with your kitchen brigade | Savour',
       desc: 'Savour for kitchen brigades: chefs de partie, commis and interns work from the same recipes, on their own phones. You decide who can do what.',
       h1: 'For kitchen brigades',
-      lead: 'From chef de partie to intern: everyone cooks from the same recipe.',
+      lead: 'From chef de partie to intern: your whole kitchen team cooks from the same recipe, in every restaurant you run.',
       sections: [
         ['One version for everyone', 'Adjust a sauce for the new menu and everyone in the shared folder works with the new version straight away.'],
         ['Rights per person', 'You manage the folder. Your sous-chef or chef de partie can add and edit recipes. Commis and interns can view but not change anything.'],
@@ -457,7 +457,7 @@ export const HOME = {
   nl: {
     eyebrow: 'Voor chefs in de fine dining',
     h1: 'Van kladje naar een recept dat klopt.',
-    lead: 'Savour is de receptenapp voor de professionele keuken. Je Word-bestanden, PDF’s en handgeschreven kladjes worden één geordend receptenboek, voor jou en je brigade.',
+    lead: 'Savour is de receptenapp voor receptbeheer in de professionele keuken. Je Word-bestanden, PDF’s en handgeschreven kladjes worden één geordend receptenboek, voor jou en je hele keukenteam.',
     proof: '1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.',
     storyTitle: 'Elk recept begint ergens op papier.',
     story: [
@@ -478,13 +478,14 @@ export const HOME = {
       ['Hoe digitaliseer ik handgeschreven recepten?', 'Maak een foto van het recept en upload hem in Savour. De AI zet hem om in een net recept met ingrediënten en bereiding, dat je daarna controleert.'],
       ['Kan ik recepten uit Word of PDF importeren?', 'Ja. Ook een bestand met honderden recepten tegelijk; Savour splitst ze zelf op.'],
       ['Hoe deel ik recepten met mijn keukenteam?', "Met een gedeelde map. Je nodigt collega's uit en geeft ze rechten om mee te kijken of mee te werken."],
+      ['Is Savour geschikt voor receptbeheer in de horeca?', 'Ja. Savour is gebouwd voor restaurants, hotels en catering: recepturen centraal beheren, delen met je keukenteam en ordenen per partie, menu of vestiging.'],
       ['Is Savour ook voor thuiskoks?', 'Het kan, maar Savour is gebouwd voor de professionele keuken: grote receptenboeken, teams en de service.']
     ]
   },
   en: {
     eyebrow: 'For chefs in fine dining',
     h1: 'From scribbled note to a recipe that works.',
-    lead: 'Savour is the recipe app for professional kitchens. Your Word files, PDFs and handwritten notes become one organised recipe book, for you and your brigade.',
+    lead: 'Savour is the recipe management app for professional kitchens. Your Word files, PDFs and handwritten notes become one organised recipe book, for you and your whole kitchen team.',
     proof: '1,400 recipes imported from Word in 2 minutes. Tested in our own kitchen.',
     storyTitle: 'Every recipe starts somewhere on paper.',
     story: [
@@ -505,6 +506,7 @@ export const HOME = {
       ['How do I digitise handwritten recipes?', 'Take a photo of the recipe and upload it to Savour. The AI turns it into a clean recipe with ingredients and method, which you then check.'],
       ['Can I import recipes from Word or PDF?', 'Yes. Even a file with hundreds of recipes at once; Savour splits them up itself.'],
       ['How do I share recipes with my kitchen team?', 'With a shared folder. You invite colleagues and give them rights to view or to edit.'],
+      ['Is Savour suitable for recipe management in hospitality?', 'Yes. Savour is built for restaurants, hotels and catering: manage recipes centrally, share them with your kitchen team and organise them by section, menu or location.'],
       ['Is Savour for home cooks too?', 'It can be, but Savour is built for the professional kitchen: big recipe books, teams and service.']
     ]
   }
@@ -551,7 +553,7 @@ export const POSTS = [
     date: '2026-10-22',
     nl: {
       slug: 'blog/recepten-organiseren-in-de-keuken',
-      title: 'Recepten organiseren in een fine-dining keuken: een indeling die werkt',
+      title: 'Recepten organiseren in een fine-dining keuken',
       desc: 'Hoe deel je honderden recepturen zo in dat iedereen in de brigade ze snel vindt? Een praktische indeling in mappen en categorieën.',
       h1: 'Recepten organiseren in een fine-dining keuken',
       lead: 'Een keuken met een wisselend menu heeft al snel honderden recepturen. Zonder vaste indeling vindt niemand iets terug, behalve degene die het opschreef.',
@@ -566,7 +568,7 @@ export const POSTS = [
     },
     en: {
       slug: 'en/blog/organising-recipes-in-the-kitchen',
-      title: 'Organising recipes in a fine dining kitchen: a structure that works',
+      title: 'Organising recipes in a fine dining kitchen',
       desc: 'How do you arrange hundreds of recipes so everyone in the brigade finds them quickly? A practical structure in folders and categories.',
       h1: 'Organising recipes in a fine dining kitchen',
       lead: 'A kitchen with a changing menu soon has hundreds of recipes. Without a fixed structure nobody can find anything, except the person who wrote it down.',

@@ -62,8 +62,8 @@ const LEGACY = [
     title: ['Prijzen — Savour Pro en teamabonnementen', 'Pricing — Savour Pro and team plans'],
     h1: ['Prijzen', 'Pricing'],
     desc: [
-      'Gratis beginnen met tot 100 recepten. Savour Pro vanaf €2,99 per maand: onbeperkt recepten, AI-import van foto’s en kladjes, gedeelde mappen. Teamabonnementen voor hele keukens.',
-      'Start free with up to 100 recipes. Savour Pro from €2.99 per month: unlimited recipes, AI import of photos and handwritten notes, shared folders. Team plans for whole kitchens.'
+      'Gratis beginnen met tot 100 recepten. Savour Pro vanaf €2,99 per maand: onbeperkt recepten, AI voor kladjes en gedeelde mappen. Ook teamabonnementen.',
+      'Start free with up to 100 recipes. Savour Pro from €2.99 per month: unlimited recipes, AI for handwritten notes and shared folders. Team plans too.'
     ]
   },
   {
@@ -91,21 +91,30 @@ const LEGACY = [
     nl: 'contact',
     en: 'en/contact',
     title: ['Contact — Savour', 'Contact — Savour'],
-    desc: ['Neem contact op met Savour via contact@savour.page.', 'Get in touch with Savour at contact@savour.page.']
+    desc: [
+      'Vragen over Savour, receptbeheer voor je restaurant of een teamabonnement? Neem contact op via het formulier of contact@savour.page.',
+      'Questions about Savour, recipe management for your restaurant or a team plan? Get in touch via the form or at contact@savour.page.'
+    ]
   },
   {
     id: 'terms',
     nl: 'voorwaarden',
     en: 'en/terms',
     title: ['Algemene voorwaarden — Savour', 'Terms and conditions — Savour'],
-    desc: ['De algemene voorwaarden van Savour.', 'The terms and conditions of Savour.']
+    desc: [
+      'De algemene voorwaarden van Savour: gratis account, Savour Pro, teamabonnementen, opzeggen en herroepingsrecht.',
+      'The terms and conditions of Savour: free account, Savour Pro, team plans, cancelling and the right of withdrawal.'
+    ]
   },
   {
     id: 'privacy',
     nl: 'privacy',
     en: 'en/privacy',
     title: ['Privacybeleid — Savour', 'Privacy policy — Savour'],
-    desc: ['Hoe Savour met je gegevens omgaat.', 'How Savour handles your data.']
+    desc: [
+      'Hoe Savour met je gegevens en recepten omgaat: wat we bewaren, waarvoor, met wie we werken en welke rechten je hebt.',
+      'How Savour handles your data and recipes: what we keep, why, who we work with and what rights you have.'
+    ]
   }
 ];
 const legacy = id => LEGACY.find(p => p.id === id);
@@ -134,7 +143,7 @@ const LANG_LABEL = { nl: 'NL', en: 'EN', de: 'DE', es: 'ES' };
 function langSwitch(lang, alts, inApp) {
   return `<div class="site-langs" translate="no">${HOME_LANGS.map(l => {
     const target = inApp ? homePath(l) : alts?.[l] || homePath(l);
-    return `<a href="${target}" hreflang="${l}"${inApp ? ` data-set-lang="${l}"` : ''}${l === lang ? ' aria-current="true"' : ''}>${LANG_LABEL[l]}</a>`;
+    return `<a href="${target}" hreflang="${l}" data-set-lang="${l}"${l === lang ? ' aria-current="true"' : ''}>${LANG_LABEL[l]}</a>`;
   }).join('')}</div>`;
 }
 
@@ -468,24 +477,96 @@ for (const lang of LANGS) {
   }
 }
 
-// ---- Startpagina in index.html (beide talen; CSS toont de juiste) ----
+// ---- Startpagina per taal ----
+// index.html (savour.page/) krijgt alleen de Nederlandse startpagina. Voor /en, /de en /es maken we een kopie van
+// index.html met de startpagina, titel, beschrijving en vragen in die taal: site/index-en.html enz.
+// vercel.json en local-server.mjs sturen /en, /de en /es daarheen. De app zelf is in alle kopieën gelijk.
+const HOME_META = {
+  en: {
+    title: 'Savour — recipe app for chefs: organise and share recipes',
+    desc: 'Organise all your recipes in one app: import from Word, PDF and handwritten notes, share with your kitchen team and print whole folders. Free to try.',
+    ogTitle: 'Savour — recipe management for professional kitchens',
+    ogDesc: 'From scribbled note to a recipe that works. Your whole recipe book in one place, on computer and phone, shared with your kitchen team.',
+    locale: 'en_GB'
+  },
+  de: {
+    title: 'Savour — Rezept-App für Köche: Rezepte organisieren und teilen',
+    desc: 'Organisiere alle Rezepte in einer App: aus Word, PDF und handschriftlichen Notizen importieren, mit dem Küchenteam teilen und ganze Ordner drucken. Kostenlos testen.',
+    ogTitle: 'Savour — Rezeptverwaltung für Profiküchen',
+    ogDesc: 'Von der Notiz zum Rezept, das stimmt. Dein ganzes Rezeptbuch an einem Ort, auf Computer und Handy, geteilt mit deinem Küchenteam.',
+    locale: 'de_DE'
+  },
+  es: {
+    title: 'Savour — app de recetas para chefs: organiza y comparte recetas',
+    desc: 'Organiza todas tus recetas en una app: importa de Word, PDF y notas a mano, compártelas con tu equipo de cocina e imprime carpetas enteras. Pruébalo gratis.',
+    ogTitle: 'Savour — gestión de recetas para cocinas profesionales',
+    ogDesc: 'De la nota a una receta que funciona. Todo tu recetario en un solo sitio, en ordenador y móvil, compartido con tu equipo de cocina.',
+    locale: 'es_ES'
+  }
+};
 {
   const file = new URL('index.html', ROOT);
   let h = fs.readFileSync(file, 'utf8');
-  const site = HOME_LANGS.map(
-    lang =>
-      `<div class="site" data-site-lang="${lang}" translate="no">${header(lang, null, true)}<main>${homeBody(lang, true)}</main>${footer(lang, null, true)}</div>`
-  ).join('\n');
-  const block = `<!-- SITE:START (gemaakt door tools/build-seo.mjs, niet met de hand aanpassen) -->\n${site}\n<!-- SITE:END -->`;
-  if (h.includes('<!-- SITE:START')) h = h.replace(/<!-- SITE:START[\s\S]*?<!-- SITE:END -->/, () => block);
+  const blockFor = lang =>
+    `<!-- SITE:START (gemaakt door tools/build-seo.mjs, niet met de hand aanpassen) -->\n<div class="site" data-site-lang="${lang}" translate="no">${header(lang, null, true)}<main>${homeBody(lang, true)}</main>${footer(lang, null, true)}</div>\n<!-- SITE:END -->`;
+  // Vragen van de startpagina ook als FAQPage voor zoekmachines, in de taal van de pagina.
+  const withFaq = (html, lang) =>
+    html.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/, (m, json) => {
+      const list = JSON.parse(json);
+      const faq = {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        inLanguage: lang,
+        mainEntity: HOME[lang].faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }))
+      };
+      const i = list.findIndex(x => x['@type'] === 'FAQPage');
+      if (i >= 0) list[i] = faq;
+      else list.push(faq);
+      return `<script type="application/ld+json">${JSON.stringify(list)}</script>`;
+    });
+  if (h.includes('<!-- SITE:START')) h = h.replace(/<!-- SITE:START[\s\S]*?<!-- SITE:END -->/, () => blockFor('nl'));
   else {
     const open = '<div class="landing" id="landingView">';
     const a = h.indexOf(open) + open.length;
     const b = h.indexOf('</div>\n<div id="publicInfoShell"');
     if (a < open.length || b < 0) throw new Error('Startpagina niet gevonden in index.html');
-    h = h.slice(0, a) + '\n' + block + '\n' + h.slice(b);
+    h = h.slice(0, a) + '\n' + blockFor('nl') + '\n' + h.slice(b);
   }
+  h = withFaq(h, 'nl');
   fs.writeFileSync(file, h, 'utf8');
+  for (const lang of ['en', 'de', 'es']) {
+    const m = HOME_META[lang];
+    const home = `${SITE}/${lang}`;
+    const swap = (re, to) => {
+      if (!re.test(x)) throw new Error(`index-${lang}: ${re} niet gevonden`);
+      x = x.replace(re, () => to);
+    };
+    let x = h.replace(/<!-- SITE:START[\s\S]*?<!-- SITE:END -->/, () => blockFor(lang));
+    swap(/<html lang="nl">/, `<html lang="${lang}">`);
+    swap(/<title>[^<]*<\/title>/, `<title>${esc(m.title)}</title>`);
+    swap(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(m.desc)}">`);
+    swap(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${home}">`);
+    swap(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${esc(m.ogTitle)}">`);
+    swap(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${esc(m.ogDesc)}">`);
+    swap(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${home}">`);
+    swap(/<meta property="og:locale" content="[^"]*">/, `<meta property="og:locale" content="${m.locale}">`);
+    x = withFaq(x, lang);
+    x = x.replace('<!doctype html>', `<!doctype html>\n<!-- Gemaakt door tools/build-seo.mjs uit index.html: startpagina in het ${lang.toUpperCase()}. Niet met de hand aanpassen. -->`);
+    fs.writeFileSync(new URL(`site/index-${lang}.html`, ROOT), x, 'utf8');
+  }
+}
+
+// ---- llms.txt: bloglijst voor AI-assistenten bijhouden (rest van het bestand blijft zoals het is) ----
+{
+  const file = new URL('llms.txt', ROOT);
+  let t = fs.readFileSync(file, 'utf8');
+  const blog =
+    '## Blog\n\n' +
+    POSTS.map(p => `- [${p.en.title}](${url(p.en.slug)}) · [NL: ${p.nl.title}](${url(p.nl.slug)})`).join('\n') +
+    '\n\n';
+  if (/## Blog\n[\s\S]*?(?=## )/.test(t)) t = t.replace(/## Blog\n[\s\S]*?(?=## )/, () => blog);
+  else t = t.replace('## Company', () => blog + '## Company');
+  fs.writeFileSync(file, t, 'utf8');
 }
 
 // ---- Sitemap ----

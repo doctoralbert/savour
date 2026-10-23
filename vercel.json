@@ -27,15 +27,15 @@
     },
     {
       "source": "/en",
-      "destination": "/index.html"
+      "destination": "/site/index-en.html"
     },
     {
       "source": "/eng",
-      "destination": "/index.html"
+      "destination": "/site/index-en.html"
     },
     {
       "source": "/english",
-      "destination": "/index.html"
+      "destination": "/site/index-en.html"
     },
     {
       "source": "/nld",
@@ -43,11 +43,11 @@
     },
     {
       "source": "/de",
-      "destination": "/index.html"
+      "destination": "/site/index-de.html"
     },
     {
       "source": "/deu",
-      "destination": "/index.html"
+      "destination": "/site/index-de.html"
     },
     {
       "source": "/it",
@@ -59,11 +59,11 @@
     },
     {
       "source": "/es",
-      "destination": "/index.html"
+      "destination": "/site/index-es.html"
     },
     {
       "source": "/esp",
-      "destination": "/index.html"
+      "destination": "/site/index-es.html"
     },
     {
       "source": "/en/blog/:post",

@@ -1,6 +1,6 @@
 # Savour
 
-> Savour (https://savour.page) is a professional recipe management platform for chefs and kitchen teams. It turns scattered recipes — Word documents, PDFs, photos of handwritten notes — into one organised, searchable recipe library that works on desktop, tablet and phone, and can be shared with the whole kitchen brigade. Made by chefs from the Netherlands, for chefs. Its core idea: turning coffee-stained handwritten notes and old recipe notebooks into recipes that are right.
+> Savour (https://savour.page) is a professional recipe management platform (receptbeheer, receptenapp) for chefs, kitchen teams, restaurants and the hospitality industry (horeca). It turns scattered recipes — Word documents, PDFs, photos of handwritten notes — into one organised, searchable recipe library that works on desktop, tablet and phone, and can be shared with the whole kitchen brigade. Made by chefs from the Netherlands, for chefs. Its core idea: turning coffee-stained handwritten notes and old recipe notebooks into recipes that are right.
 
 Savour is built for professional kitchens, especially fine dining. Two audiences: chefs (head chefs, sous-chefs, pastry chefs) and kitchen brigades. It is not a consumer recipe site; it is a tool to manage a kitchen's own recipes.
 
@@ -28,6 +28,20 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 - Who it's for: [Chefs, sous-chefs and pastry chefs](https://savour.page/en/for-chefs) · [Kitchen brigades](https://savour.page/en/for-kitchen-brigades)
 - [About Savour](https://savour.page/en/about) · [Pricing](https://savour.page/en/pro) · [Blog](https://savour.page/en/blog) · [FAQ](https://savour.page/en/faq) · [Guide](https://savour.page/en/guide) · [Contact](https://savour.page/en/contact)
 - Dutch versions: [Recepten digitaliseren](https://savour.page/recepten-digitaliseren) · [Recepten organiseren](https://savour.page/recepten-organiseren) · [Over Savour](https://savour.page/over-savour) · [Prijzen](https://savour.page/savour-pro) · [Blog](https://savour.page/blog)
+
+## Blog
+
+- [Recipe management for restaurants: where to start](https://savour.page/en/blog/recipe-management-for-restaurants) · [NL: Receptbeheer in de horeca: waar begin je?](https://savour.page/blog/receptbeheer-in-de-horeca)
+- [What a shared recipe book does for your kitchen team](https://savour.page/en/blog/shared-recipe-book-kitchen-team) · [NL: Wat een gedeeld receptenboek doet met je keukenteam](https://savour.page/blog/gedeeld-receptenboek-keukenteam)
+- [Organising recipe folders: five examples from real kitchens](https://savour.page/en/blog/recipe-folder-examples) · [NL: Receptenmappen indelen: vijf voorbeelden uit de praktijk](https://savour.page/blog/receptenmappen-indelen-voorbeelden)
+- [Sharing recipes with your team, without photos of photos](https://savour.page/en/blog/sharing-recipes-with-your-team) · [NL: Recepten delen met je team, zonder foto’s van foto’s](https://savour.page/blog/recepten-delen-met-je-team)
+- [Roadmap: what we are working on in Savour](https://savour.page/en/blog/roadmap) · [NL: Roadmap: waar we aan werken in Savour](https://savour.page/blog/roadmap)
+- [Onboarding a new cook with standard recipes](https://savour.page/en/blog/onboarding-new-cooks) · [NL: Een nieuwe kok inwerken met vaste recepturen](https://savour.page/blog/nieuwe-kok-inwerken)
+- [Scaling recipes without calculation errors](https://savour.page/en/blog/scaling-recipes-without-errors) · [NL: Recepten opschalen zonder rekenfouten](https://savour.page/blog/recepten-opschalen-zonder-fouten)
+- [From Word document to recipe book in a few minutes](https://savour.page/en/blog/from-word-to-recipe-book) · [NL: Van Word-document naar receptenboek in een paar minuten](https://savour.page/blog/van-word-naar-receptenboek)
+- [Why AI should never invent your recipes](https://savour.page/en/blog/ai-should-never-invent-recipes) · [NL: Waarom AI je recepten nooit mag verzinnen](https://savour.page/blog/ai-mag-je-recept-niet-verzinnen)
+- [Digitising old recipe notes: how to save your notebooks](https://savour.page/en/blog/digitise-old-recipe-notes) · [NL: Oude kladjes digitaliseren: zo red je je receptenschriften](https://savour.page/blog/oude-kladjes-digitaliseren)
+- [Organising recipes in a fine dining kitchen](https://savour.page/en/blog/organising-recipes-in-the-kitchen) · [NL: Recepten organiseren in een fine-dining keuken](https://savour.page/blog/recepten-organiseren-in-de-keuken)
 
 ## Company
 

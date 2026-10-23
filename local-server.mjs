@@ -148,6 +148,17 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Startpagina per taal (zoals vercel.json): /en -> site/index-en.html enz.
+  const homeLang = {
+    '/en': 'en',
+    '/eng': 'en',
+    '/english': 'en',
+    '/de': 'de',
+    '/deu': 'de',
+    '/es': 'es',
+    '/esp': 'es'
+  }[pathname.replace(/\/$/, '')];
+  if (homeLang) file = path.join(ROOT, 'site', `index-${homeLang}.html`);
   // Losse websitepagina's staan in site/ (zoals de rewrites in vercel.json): /over-savour -> site/over-savour/index.html.
   if (!fs.existsSync(file) && fs.existsSync(path.join(ROOT, 'site', relative, 'index.html')))
     file = path.join(ROOT, 'site', relative, 'index.html');

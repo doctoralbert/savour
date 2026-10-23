@@ -116,6 +116,7 @@ export const EXTRA_LANGS = {
         ['Wie digitalisiere ich handgeschriebene Rezepte?', 'Mach ein Foto vom Rezept und lade es in Savour hoch. Die KI macht daraus ein sauberes Rezept mit Zutaten und Zubereitung, das du danach prüfst.'],
         ['Kann ich Rezepte aus Word oder PDF importieren?', 'Ja. Auch eine Datei mit Hunderten Rezepten auf einmal; Savour trennt sie selbst auf.'],
         ['Wie teile ich Rezepte mit meinem Küchenteam?', 'Mit einem geteilten Ordner. Du lädst Kollegen ein und gibst ihnen Rechte zum Ansehen oder Mitarbeiten.'],
+        ['Eignet sich Savour für die Rezeptverwaltung in der Gastronomie?', 'Ja. Savour ist für Restaurants, Hotels und Catering gebaut: Rezepturen zentral verwalten, mit dem Küchenteam teilen und nach Posten, Menü oder Standort ordnen.'],
         ['Ist Savour auch für Hobbyköche?', 'Das geht, aber Savour ist für die Profiküche gebaut: große Rezeptbücher, Teams und den Service.']
       ]
     },
@@ -183,6 +184,7 @@ export const EXTRA_LANGS = {
         ['¿Cómo digitalizo recetas escritas a mano?', 'Haz una foto de la receta y súbela a Savour. La IA la convierte en una receta limpia con ingredientes y elaboración, que luego revisas.'],
         ['¿Puedo importar recetas de Word o PDF?', 'Sí. Incluso un archivo con cientos de recetas a la vez; Savour las separa solo.'],
         ['¿Cómo comparto recetas con mi equipo de cocina?', 'Con una carpeta compartida. Invitas a tus compañeros y les das permiso para ver o colaborar.'],
+        ['¿Sirve Savour para la gestión de recetas en hostelería?', 'Sí. Savour está hecho para restaurantes, hoteles y catering: gestionar recetas de forma central, compartirlas con tu equipo de cocina y ordenarlas por partida, menú o local.'],
         ['¿Savour también es para cocineros caseros?', 'Puede servir, pero Savour está hecho para la cocina profesional: grandes recetarios, equipos y el servicio.']
       ]
     },

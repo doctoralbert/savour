@@ -46,11 +46,13 @@
     } else if (a.dataset.demo !== undefined && typeof window.startDemo === 'function') {
       e.preventDefault();
       window.startDemo();
-    } else if (a.dataset.setLang && typeof window.setLanguage === 'function') {
+    } else if (a.dataset.setLang) {
+      // Elke taal heeft een eigen startpagina: keuze onthouden en daarheen gaan.
       e.preventDefault();
-      window.setLanguage(a.dataset.setLang);
-      history.replaceState(null, '', a.dataset.setLang === 'nl' ? '/' : '/' + a.dataset.setLang);
-      window.scrollTo(0, 0);
+      try {
+        localStorage.setItem('savour_lang', a.dataset.setLang);
+      } catch (_) {}
+      location.href = a.getAttribute('href');
     }
   });
 

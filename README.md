@@ -34,6 +34,8 @@ assets/               Afbeeldingen: logo, deelafbeelding, app/ (echte app-scherm
 site/                 GEMAAKT: alle losse websitepagina's (over ons, functies, blog, ...) in NL en EN.
                       Niet met de hand aanpassen; teksten staan in tools/site-*.mjs. vercel.json en
                       local-server.mjs laten /over-savour zien vanuit site/over-savour/.
+                      site/index-en.html, index-de.html, index-es.html: de startpagina (met de app) per taal,
+                      voor /en, /de en /es. index.html zelf is de Nederlandse.
 tools/                Bouwscripts en bronteksten: build-seo.mjs (website), build-i18n.mjs (vertalingen),
                       site-content*.mjs, site-blog.mjs, site-kladje.mjs (teksten van de website).
 supabase/             SQL-bestanden voor de database (in volgorde uitvoeren in de SQL Editor).

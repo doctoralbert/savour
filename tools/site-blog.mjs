@@ -2,6 +2,42 @@
 // Savour wel en (nog) niet kan. tools/build-seo.mjs maakt er pagina's van in het Nederlands en Engels.
 export const BLOG = [
   {
+    id: 'hospitality',
+    date: '2026-10-23',
+    nl: {
+      slug: 'blog/receptbeheer-in-de-horeca',
+      title: 'Receptbeheer in de horeca: waar begin je?',
+      desc: 'Recepten management voor restaurants, hotels en catering: hoe je recepturen centraal beheert, deelt met je keukenteam en actueel houdt.',
+      h1: 'Receptbeheer in de horeca: waar begin je?',
+      lead: 'In de meeste restaurants is receptbeheer geen systeem, maar een verzameling: mappen, bestanden, foto’s en wat de chef onthoudt. Dat werkt, tot iemand vertrekt of het menu wisselt.',
+      sections: [
+        ['Wat is receptbeheer eigenlijk?', 'Receptbeheer, of recepten management, betekent dat elke receptuur van je zaak op één plek staat, in één vaste vorm, en dat iedereen in de keuken dezelfde versie gebruikt. Het gaat niet om een mooi programma, maar om afspraken: waar staat het, wie mag het aanpassen en hoe vind je het terug.'],
+        ['Stap 1: verzamel wat je hebt', 'Begin niet met een leeg systeem. Haal je Word-bestanden, PDF’s en kladjes bij elkaar en importeer ze in één keer. Een receptenapp die zelf recepten herkent, scheelt weken overtypen.'],
+        ['Stap 2: kies een indeling', 'Kies een indeling die past bij je restaurant: per partie, per menu of basis apart van gerechten. Houd het simpel; je kunt later altijd uitbreiden. Voorbeelden staan in ons artikel over receptenmappen indelen.'],
+        ['Stap 3: bepaal wie wat mag', 'Spreek af wie recepturen mag aanpassen, meestal de chef en de sous-chef, en laat de rest van het keukenteam meekijken. Zo voorkom je drie versies van dezelfde saus.'],
+        ['Stap 4: maak het makkelijk in de keuken', 'Receptbeheer werkt alleen als het in de keuken sneller is dan het oude briefje. Recepten moeten op de telefoon openen, met grote letters, en een hele map moet in één keer te printen zijn.'],
+        ['Meerdere zaken of vestigingen', 'Werk je met meerdere restaurants of een cateringtak? Maak per zaak een gedeelde map, met dezelfde basisrecepten erin. Een aanpassing aan de basis staat dan direct overal goed.']
+      ],
+      outro: 'Savour is gebouwd voor receptbeheer in de professionele keuken: importeren, ordenen, delen met je keukenteam en printen.'
+    },
+    en: {
+      slug: 'en/blog/recipe-management-for-restaurants',
+      title: 'Recipe management for restaurants: where to start',
+      desc: 'Recipe management for restaurants, hotels and catering: how to keep recipes in one place, share them with your kitchen team and keep them up to date.',
+      h1: 'Recipe management for restaurants: where to start',
+      lead: 'In most restaurants recipe management is not a system but a collection: binders, files, photos and whatever the chef remembers. That works, until someone leaves or the menu changes.',
+      sections: [
+        ['What is recipe management?', 'Recipe management means every recipe of your restaurant is in one place, in one fixed format, and everyone in the kitchen uses the same version. It is not about fancy software but about agreements: where it is, who may change it and how you find it.'],
+        ['Step 1: gather what you have', 'Do not start with an empty system. Collect your Word files, PDFs and notes and import them in one go. A recipe app that recognises recipes itself saves weeks of retyping.'],
+        ['Step 2: choose a structure', 'Pick a structure that fits your restaurant: by section, by menu, or base recipes separate from dishes. Keep it simple; you can always expand later. Examples are in our article on organising recipe folders.'],
+        ['Step 3: decide who may do what', 'Agree who may change recipes, usually the chef and sous-chef, and let the rest of the kitchen team view. That prevents three versions of the same sauce.'],
+        ['Step 4: make it easy in the kitchen', 'Recipe management only works if it is faster in the kitchen than the old note. Recipes must open on a phone, in large text, and a whole folder must print in one go.'],
+        ['Several restaurants or locations', 'Running several restaurants or a catering arm? Create a shared folder per location, with the same base recipes in it. A change to the base is then right everywhere at once.']
+      ],
+      outro: 'Savour is built for recipe management in professional kitchens: import, organise, share with your kitchen team and print.'
+    }
+  },
+  {
     id: 'team',
     date: '2026-10-23',
     nl: {
@@ -111,7 +147,7 @@ export const BLOG = [
     nl: {
       slug: 'blog/roadmap',
       title: 'Roadmap: waar we aan werken in Savour',
-      desc: 'Kostprijs per recept, allergenen, receptkaarten met je eigen logo en mogelijk een app voor iPhone en Android. Dit staat op de planning, en zo beslissen we wat eerst komt.',
+      desc: 'Kostprijs per recept, allergenen, receptkaarten met je eigen logo en mogelijk een app voor iPhone en Android: dit staat op de planning.',
       h1: 'Roadmap: waar we aan werken',
       lead: 'Savour wordt gebouwd door een chef, voor chefs. Dat betekent ook dat we bouwen wat in de keuken echt nodig is, niet wat leuk klinkt in een presentatie.',
       sections: [
