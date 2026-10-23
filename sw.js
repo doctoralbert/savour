@@ -1,7 +1,7 @@
 // Service worker: Savour blijft openen zonder internet (bijvoorbeeld als de wifi in de keuken wegvalt).
-// Pagina's: eerst het netwerk, anders de laatst bewaarde versie. Opmaak, scripts, lettertypes en afbeeldingen:
-// meteen uit de cache en op de achtergrond bijwerken. API-routes en de database gaan nooit via de cache.
-const CACHE = 'savour-v1';
+// Pagina's, opmaak en scripts van Savour zelf: eerst het netwerk, anders de laatst bewaarde versie (zo past de
+// opmaak altijd bij de pagina). Lettertypes, afbeeldingen en bibliotheken: meteen uit de cache en op de achtergrond bijwerken. API-routes en de database gaan nooit via de cache.
+const CACHE = 'savour-v2';
 
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -29,7 +29,8 @@ self.addEventListener('fetch', event => {
   // Nooit cachen: serverfuncties, de database (Supabase) en betalen.
   if (url.pathname.startsWith('/api/') || /supabase\.co$|stripe\.com$/.test(url.hostname)) return;
 
-  if (req.mode === 'navigate') {
+  const ownCode = url.origin === self.location.origin && /\.(css|js)$/.test(url.pathname);
+  if (req.mode === 'navigate' || ownCode) {
     event.respondWith(
       fetch(req)
         .then(res => {

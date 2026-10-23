@@ -556,6 +556,40 @@ const HOME_META = {
   }
 }
 
+// ---- Versienummer op CSS en JS ----
+// Elke wijziging in css/ of js/ geeft een ander nummer (?v=...) in index.html en alle pagina's. Zo haalt de
+// browser (en de offline-cache in sw.js) altijd de opmaak en scripts die bij de pagina horen.
+{
+  const { createHash } = await import('node:crypto');
+  const hash = createHash('sha1');
+  const walk = dir => {
+    for (const f of fs.readdirSync(new URL(dir, ROOT)).sort()) {
+      const rel = `${dir}${f}`;
+      const st = fs.statSync(new URL(rel, ROOT));
+      if (st.isDirectory()) walk(rel + '/');
+      else if (/\.(css|js)$/.test(f)) hash.update(rel).update(fs.readFileSync(new URL(rel, ROOT)));
+    }
+  };
+  walk('css/');
+  walk('js/');
+  const v = hash.digest('hex').slice(0, 10);
+  const stamp = html => html.replace(/((?:href|src)="\/(?:css|js)\/[^"?]+)(\?v=[^"]*)?"/g, `$1?v=${v}"`);
+  const files = ['index.html'];
+  const walkSite = dir => {
+    for (const f of fs.readdirSync(new URL(dir, ROOT))) {
+      const rel = `${dir}${f}`;
+      if (fs.statSync(new URL(rel, ROOT)).isDirectory()) walkSite(rel + '/');
+      else if (f.endsWith('.html')) files.push(rel);
+    }
+  };
+  walkSite('site/');
+  for (const f of files) {
+    const p = new URL(f, ROOT);
+    fs.writeFileSync(p, stamp(fs.readFileSync(p, 'utf8')), 'utf8');
+  }
+  console.log(`versie ${v} op CSS en JS in ${files.length} bestanden`);
+}
+
 // ---- llms.txt: bloglijst voor AI-assistenten bijhouden (rest van het bestand blijft zoals het is) ----
 {
   const file = new URL('llms.txt', ROOT);
