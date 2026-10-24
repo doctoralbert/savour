@@ -1,6 +1,288 @@
 // Blogartikelen (naast de twee in tools/site-content.mjs). Praktisch, uit de keuken, en eerlijk over wat
-// Savour wel en (nog) niet kan. tools/build-seo.mjs maakt er pagina's van in het Nederlands en Engels.
+// Savour wel en (nog) niet kan. tools/build-seo.mjs maakt er pagina's van in het Nederlands en Engels;
+// de Duitse en Spaanse versies staan in tools/site-pages-de.mjs en tools/site-pages-es.mjs.
 export const BLOG = [
+  {
+    id: "standard",
+    date: "2026-10-24",
+    nl: {
+      slug: "blog/standaardrecepturen-in-de-keuken",
+      title: "Standaardrecepturen: waarom elke keuken ze nodig heeft",
+      desc: "Wat een standaardreceptuur is, wat erin hoort en waarom het in de professionele keuken het verschil maakt voor constantheid, inwerken en kostprijs.",
+      "h1": "Standaardrecepturen: waarom elke keuken ze nodig heeft",
+      lead: "Een standaardreceptuur is niet iets voor de bedrijfskantine. Juist in een keuken met hoge ambities zorgt het ervoor dat elk bord smaakt zoals bedoeld, wie er ook op de partie staat.",
+      sections: [
+        [
+          "Wat een standaardreceptuur is",
+          "Een standaardreceptuur is de vastgelegde versie van een recept waar iedereen mee werkt. Geen spiekbriefje, maar de afspraak van de keuken: zo doen we het hier."
+        ],
+        [
+          "Wat erin hoort",
+          "Minimaal een duidelijke titel, de opbrengst (bijvoorbeeld 2 liter of 40 porties), alle ingrediënten met hoeveelheid en eenheid en de bereiding in stappen. Goed om aan te vullen: kritische punten zoals temperaturen en tijden, en een foto van het eindresultaat."
+        ],
+        [
+          "Constantheid op het bord",
+          "Als iedereen met dezelfde receptuur werkt, smaakt de saus op dinsdag hetzelfde als op zaterdag. Afwijkingen vallen op, omdat er een vaste basis is om mee te vergelijken."
+        ],
+        [
+          "Sneller inwerken",
+          "Nieuwe koks leren de manier van jouw keuken uit de recepturen, in plaats van uit vragen tijdens de service. Dat scheelt de rest van de brigade tijd en zenuwen."
+        ],
+        [
+          "Opschalen en kostprijs",
+          "Met een vaste opbrengst reken je betrouwbaar op en af. En zodra de hoeveelheden kloppen, is de receptuur ook de basis voor de kostprijs per portie."
+        ],
+        [
+          "Zo begin je",
+          "Begin met de basisrecepten die dagelijks gemaakt worden: fonds, sauzen, degen. Leg ze vast in één vaste vorm, op één plek die iedereen kan openen, en spreek af wie ze mag aanpassen."
+        ]
+      ],
+      outro: "In Savour heeft elk recept dezelfde vorm: titel, opbrengst, ingrediënten en bereiding. Deel je recepturen met de brigade in een gedeelde map."
+    },
+    en: {
+      slug: "en/blog/standardised-recipes",
+      title: "Standardised recipes: why every kitchen needs them",
+      desc: "What a standardised recipe is, what goes into it and why it makes the difference for consistency, onboarding and costing in a professional kitchen.",
+      "h1": "Standardised recipes: why every kitchen needs them",
+      lead: "A standardised recipe is not just for canteens. In an ambitious kitchen it makes sure every plate tastes as intended, whoever is on the section.",
+      sections: [
+        [
+          "What a standardised recipe is",
+          "A standardised recipe is the agreed version of a recipe that everyone works from. Not a cheat sheet, but the kitchen’s agreement: this is how we do it here."
+        ],
+        [
+          "What goes into it",
+          "At least a clear title, the yield (for example 2 litres or 40 portions), every ingredient with quantity and unit, and the method in steps. Worth adding: critical points such as temperatures and times, and a photo of the result."
+        ],
+        [
+          "Consistency on the plate",
+          "When everyone works from the same recipe, the sauce on Tuesday tastes the same as on Saturday. Deviations stand out, because there is a fixed base to compare with."
+        ],
+        [
+          "Faster onboarding",
+          "New cooks learn your kitchen’s way from the recipes, instead of from questions during service. That saves the rest of the brigade time and nerves."
+        ],
+        [
+          "Scaling and costing",
+          "With a fixed yield you can scale up and down reliably. And once the quantities are right, the recipe is also the basis for the cost per portion."
+        ],
+        [
+          "How to start",
+          "Start with the base recipes made every day: stocks, sauces, doughs. Put them in one fixed format, in one place everyone can open, and agree who may change them."
+        ]
+      ],
+      outro: "In Savour every recipe has the same shape: title, yield, ingredients and method. Share your recipes with the brigade in a shared folder."
+    }
+  },
+  {
+    id: "logo",
+    date: "2026-10-24",
+    nl: {
+      slug: "blog/receptenboek-met-eigen-logo",
+      title: "Een receptenboek met het logo van je restaurant printen",
+      desc: "Recepten en hele mappen printen met het logo en de naam van je restaurant, op A4 of A5, met printdatum. Voor de klapper in de keuken of voor een opleiding.",
+      "h1": "Een receptenboek met het logo van je restaurant",
+      lead: "Ook met alle recepten op je telefoon blijft papier in veel keukens belangrijk. Dan mag het er ook uitzien als jouw zaak.",
+      sections: [
+        [
+          "Je logo en naam op elke pagina",
+          "Met Savour Pro stel je één keer het logo en de naam van je restaurant in. Daarna staan ze bovenaan elke geprinte pagina: het logo links, de naam in het midden. Voor keukenprinters kun je het logo in zwart-wit laten printen."
+        ],
+        [
+          "Voor je hele team",
+          "Met een teamabonnement geldt het logo van de eigenaar voor iedereen in het team. Iedereen print dus in dezelfde stijl, wie er ook print. Bij een gedeelde map geldt het logo van het restaurant dat de map beheert."
+        ],
+        [
+          "Een hele map als boek",
+          "Print je een map, dan kun je een voorblad toevoegen met het logo, de naam van de map en een inhoudsopgave. Kies A4 voor de klapper in de keuken of A5 voor een kleine map aan de pass."
+        ],
+        [
+          "Altijd te zien of het actueel is",
+          "Onderaan elke pagina staat de printdatum. Zo ziet iedereen in de keuken of een map nog de nieuwste versie is. De kop- en voettekst van de browser vallen weg, zodat de pagina rustig blijft."
+        ],
+        [
+          "Zelf kiezen wat je print",
+          "In een gedeelde map kies je vóór het printen zelf welke recepten je wilt, gegroepeerd per map. Alleen wat nodig is voor die partie of dat evenement."
+        ]
+      ],
+      outro: "Printen met je eigen logo is onderdeel van Savour Pro. Je stelt het in onder Instellingen → Abonnement en team."
+    },
+    en: {
+      slug: "en/blog/recipe-book-with-your-logo",
+      title: "Print a recipe book with your restaurant’s logo",
+      desc: "Print recipes and whole folders with your restaurant’s logo and name, in A4 or A5, with the print date. For the kitchen binder or for training.",
+      "h1": "A recipe book with your restaurant’s logo",
+      lead: "Even with every recipe on your phone, paper still matters in many kitchens. Then it may as well look like your restaurant.",
+      sections: [
+        [
+          "Your logo and name on every page",
+          "With Savour Pro you set your restaurant’s logo and name once. After that they appear at the top of every printed page: the logo on the left, the name in the centre. For kitchen printers you can print the logo in black and white."
+        ],
+        [
+          "For your whole team",
+          "With a team plan the owner’s logo applies to everyone in the team. So everyone prints in the same style, whoever prints. In a shared folder the logo of the restaurant that manages the folder is used."
+        ],
+        [
+          "A whole folder as a book",
+          "When you print a folder, you can add a cover page with the logo, the folder name and a table of contents. Choose A4 for the kitchen binder or A5 for a small folder at the pass."
+        ],
+        [
+          "Always clear whether it is current",
+          "The print date is at the bottom of every page, so everyone in the kitchen can see whether a binder is still the latest version. The browser’s headers and footers are left out, so the page stays calm."
+        ],
+        [
+          "Choose what you print",
+          "In a shared folder you choose which recipes to print before printing, grouped by folder. Only what that section or that event needs."
+        ]
+      ],
+      outro: "Printing with your own logo is part of Savour Pro. You set it up under Settings → Subscription and team."
+    }
+  },
+  {
+    id: "offline",
+    date: "2026-10-24",
+    nl: {
+      slug: "blog/recepten-zonder-wifi",
+      title: "Recepten zonder wifi: offline werken in de keuken",
+      desc: "In de koelcel, de kelder of op een evenement valt de wifi vaak weg. Zo open je je recepten toch, ook zonder internet.",
+      "h1": "Recepten zonder wifi: offline werken in de keuken",
+      lead: "Keukens zijn slecht voor wifi: staal, koelcellen, kelders. En net als je een recept nodig hebt, laadt er niets.",
+      sections: [
+        [
+          "Installeer Savour als app",
+          "Je hebt geen app store nodig. Open savour.page en zet het op je beginscherm: op de iPhone via Delen → Zet op beginscherm, op Android via het menu → App installeren, op de computer via het icoontje in de adresbalk."
+        ],
+        [
+          "Eén keer online openen",
+          "Log één keer in met internet, met “Ingelogd blijven” aangevinkt, en open je recepten. Savour bewaart je bibliotheek dan op het toestel."
+        ],
+        [
+          "Zonder verbinding",
+          "Valt de wifi weg, open Savour dan via het icoon op je beginscherm. Je ziet je laatst bewaarde recepten, met een melding dat je offline bent. Opzoeken en koken gaat gewoon door."
+        ],
+        [
+          "Wat offline niet kan",
+          "Aanpassen en importeren hebben verbinding nodig, zodat iedereen in het team dezelfde versie houdt. Zodra de verbinding terug is, laadt Savour vanzelf opnieuw."
+        ],
+        [
+          "Gedeelde keukencomputers",
+          "Op een computer die meerdere mensen gebruiken, laat je “Ingelogd blijven” uit. Dan bewaart Savour bewust niets op het toestel en ben je uitgelogd zodra het venster dicht gaat."
+        ]
+      ],
+      outro: "Offline werken zit in elk Savour-account, gratis en met Pro."
+    },
+    en: {
+      slug: "en/blog/recipes-without-wifi",
+      title: "Recipes without wifi: working offline in the kitchen",
+      desc: "In the walk-in, the basement or at an event the wifi often drops. This is how you still open your recipes, even without internet.",
+      "h1": "Recipes without wifi: working offline in the kitchen",
+      lead: "Kitchens are bad for wifi: steel, cold rooms, basements. And just when you need a recipe, nothing loads.",
+      sections: [
+        [
+          "Install Savour as an app",
+          "You do not need an app store. Open savour.page and add it to your home screen: on iPhone via Share → Add to Home Screen, on Android via the menu → Install app, on a computer via the icon in the address bar."
+        ],
+        [
+          "Open it online once",
+          "Log in once with internet, with “Stay signed in” ticked, and open your recipes. Savour then keeps your library on the device."
+        ],
+        [
+          "Without a connection",
+          "If the wifi drops, open Savour from the icon on your home screen. You see your last saved recipes, with a notice that you are offline. Looking things up and cooking simply carry on."
+        ],
+        [
+          "What does not work offline",
+          "Editing and importing need a connection, so everyone in the team keeps the same version. As soon as the connection is back, Savour reloads by itself."
+        ],
+        [
+          "Shared kitchen computers",
+          "On a computer several people use, leave “Stay signed in” unticked. Savour then deliberately keeps nothing on the device and you are signed out as soon as the window closes."
+        ]
+      ],
+      outro: "Working offline is included in every Savour account, free and with Pro."
+    }
+  },
+  {
+    id: "choose",
+    date: "2026-10-24",
+    nl: {
+      slug: "blog/recepten-app-kiezen-restaurant",
+      title: "Een recepten-app kiezen voor je restaurant: waar let je op?",
+      desc: "Zeven vragen om een recepten-app voor je restaurant te stellen: importeren, nauwkeurigheid, telefoon, team, printen, offline en wat er met je recepten gebeurt.",
+      "h1": "Een recepten-app kiezen voor je restaurant",
+      lead: "Veel recepten-apps zijn gemaakt voor thuiskoks. In de professionele keuken gelden andere eisen. Deze zeven vragen helpen je kiezen.",
+      sections: [
+        [
+          "1. Krijg je je bestaande recepten erin?",
+          "Een app waarin je alles moet overtypen, gebruikt uiteindelijk niemand. Kijk of je Word, PDF en foto’s van handgeschreven recepten in één keer kunt importeren."
+        ],
+        [
+          "2. Blijft je recept precies zoals het was?",
+          "Vraag wat de app doet als hij twijfelt. Een goede app verzint geen hoeveelheden of stappen, maar laat zien wat je moet controleren."
+        ],
+        [
+          "3. Werkt het op je telefoon in de keuken?",
+          "Grote letters, snel zoeken, te bedienen met natte handen. Probeer het midden in je eigen mise-en-place, niet achter een bureau."
+        ],
+        [
+          "4. Kun je delen met rechten?",
+          "Het team moet kunnen meekijken, maar niet iedereen hoeft alles te kunnen aanpassen. Let op rollen zoals eigenaar, bewerker en kijker."
+        ],
+        [
+          "5. Kun je netjes printen?",
+          "Een hele map in één keer, rustig opgemaakt, het liefst met het logo van je restaurant."
+        ],
+        [
+          "6. Wat gebeurt er zonder internet?",
+          "Koelcellen en kelders hebben zelden goede wifi. Kijk of je je recepten offline kunt openen."
+        ],
+        [
+          "7. Wat gebeurt er met je recepten als je opzegt?",
+          "Je recepten zijn jouw kennis. Lees na of je ze houdt als je stopt met betalen. Bij Savour blijft alles gewoon staan."
+        ]
+      ],
+      outro: "Savour probeer je gratis met tot 100 recepten, met 7 dagen Savour Pro. Geen betaalgegevens nodig."
+    },
+    en: {
+      slug: "en/blog/choosing-a-recipe-app",
+      title: "Choosing a recipe app for your restaurant: what to look for",
+      desc: "Seven questions to ask a recipe app for your restaurant: importing, accuracy, phone, team, printing, offline and what happens to your recipes.",
+      "h1": "Choosing a recipe app for your restaurant",
+      lead: "Many recipe apps are made for home cooks. A professional kitchen has other needs. These seven questions help you choose.",
+      sections: [
+        [
+          "1. Can you get your existing recipes in?",
+          "An app where you have to retype everything ends up unused. Check whether you can import Word, PDF and photos of handwritten recipes in one go."
+        ],
+        [
+          "2. Does your recipe stay exactly as it was?",
+          "Ask what the app does when it is unsure. A good app does not invent quantities or steps, but shows you what to check."
+        ],
+        [
+          "3. Does it work on a phone in the kitchen?",
+          "Large text, quick search, usable with wet hands. Try it in the middle of your own mise en place, not at a desk."
+        ],
+        [
+          "4. Can you share with rights?",
+          "The team needs to be able to read, but not everyone needs to change everything. Look for roles such as owner, editor and viewer."
+        ],
+        [
+          "5. Can you print neatly?",
+          "A whole folder at once, calmly laid out, ideally with your restaurant’s logo."
+        ],
+        [
+          "6. What happens without internet?",
+          "Cold rooms and basements rarely have good wifi. Check whether you can open your recipes offline."
+        ],
+        [
+          "7. What happens to your recipes if you cancel?",
+          "Your recipes are your knowledge. Check whether you keep them when you stop paying. In Savour everything simply stays."
+        ]
+      ],
+      outro: "You can try Savour free with up to 100 recipes, with 7 days of Savour Pro. No payment details needed."
+    }
+  }
+,
   {
     id: 'hospitality',
     date: '2026-10-23',
@@ -147,13 +429,13 @@ export const BLOG = [
     nl: {
       slug: 'blog/roadmap',
       title: 'Roadmap: waar we aan werken in Savour',
-      desc: 'Kostprijs per recept, allergenen, receptkaarten met je eigen logo en mogelijk een app voor iPhone en Android: dit staat op de planning.',
+      desc: 'Kostprijs per recept, allergenen, de geschiedenis van elk recept en mogelijk een app voor iPhone en Android: dit staat op de planning.',
       h1: 'Roadmap: waar we aan werken',
       lead: 'Savour wordt gebouwd door een chef, voor chefs. Dat betekent ook dat we bouwen wat in de keuken echt nodig is, niet wat leuk klinkt in een presentatie.',
       sections: [
         ['Kostprijs per recept', 'Zien wat een gerecht en een portie kost, en wat er gebeurt als de prijs van een product stijgt. Dit is de meest gevraagde functie en staat bovenaan.'],
         ['Allergenen in één oogopslag', 'Per recept en per samengesteld gerecht, zodat je de vraag van een gast aan tafel direct kunt beantwoorden zonder de keuken in te lopen.'],
-        ['Receptkaarten met je eigen logo', 'Geprinte recepten en mappen in de stijl van jouw zaak, voor de klapper in de keuken of voor een opleiding.'],
+        ['Geschiedenis van elk recept', 'Zie wie wat heeft aangepast in een gedeeld recept, en zet zo nodig een eerdere versie terug. Printen met je eigen logo is inmiddels klaar en onderdeel van Savour Pro.'],
         ['Een app voor iPhone en Android', 'Savour werkt nu in de browser op computer, tablet en telefoon, zonder installeren. Een eigen app overwegen we. Of die de investering waard is, hangt af van wat chefs ervan vinden.'],
         ['Hoe we kiezen', 'We kijken naar wat chefs ons vertellen en naar wat de meeste tijd scheelt in de keuken. Heb je een idee of mis je iets? Mail ons op contact@savour.page. We lezen alles.']
       ],
@@ -162,13 +444,13 @@ export const BLOG = [
     en: {
       slug: 'en/blog/roadmap',
       title: 'Roadmap: what we are working on in Savour',
-      desc: 'Cost per recipe, allergens, recipe cards with your own logo and possibly an app for iPhone and Android. What is planned, and how we decide what comes first.',
+      desc: 'Cost per recipe, allergens, the history of every recipe and possibly an app for iPhone and Android. What is planned, and how we decide what comes first.',
       h1: 'Roadmap: what we are working on',
       lead: 'Savour is built by a chef, for chefs. That also means we build what the kitchen really needs, not what sounds good in a presentation.',
       sections: [
         ['Cost per recipe', 'See what a dish and a portion cost, and what happens when the price of a product goes up. This is the most requested feature and sits at the top.'],
         ['Allergens at a glance', 'Per recipe and per composed dish, so you can answer a guest’s question at the table without walking into the kitchen.'],
-        ['Recipe cards with your own logo', 'Printed recipes and folders in the style of your restaurant, for the binder in the kitchen or for training.'],
+        ['History of every recipe', 'See who changed what in a shared recipe, and restore an earlier version when needed. Printing with your own logo is already done and part of Savour Pro.'],
         ['An app for iPhone and Android', 'Savour now works in the browser on computer, tablet and phone, without installing anything. We are considering a separate app. Whether it is worth the investment depends on what chefs think.'],
         ['How we choose', 'We look at what chefs tell us and at what saves the most time in the kitchen. Have an idea or missing something? Email us at contact@savour.page. We read everything.']
       ],

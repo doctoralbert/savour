@@ -1,7 +1,8 @@
 // Bouwt de publieke website: de startpagina (in index.html), de losse pagina's (functies, voor wie, over ons,
-// prijzen, blog, FAQ, gids, contact, voorwaarden, privacy) in het Nederlands en Engels, en sitemap.xml.
+// prijzen, blog, FAQ, gids, contact, voorwaarden, privacy) in het Nederlands, Engels, Duits en Spaans, en sitemap.xml.
 // Zoekmachines en AI-assistenten lezen deze gewone HTML zonder JavaScript.
-// Teksten: tools/site-content.mjs (website) en js/features/public-pages.js + de Pro-pagina (uit de app).
+// Teksten: tools/site-content.mjs en tools/site-blog.mjs (NL en EN), tools/site-pages-de.mjs en -es.mjs (DE en ES),
+// js/features/public-pages.js + de Pro-pagina (uit de app, vertaald via tools/vertalingen.mjs).
 // Draai na het aanpassen van teksten:  node tools/build-i18n.mjs && node tools/build-seo.mjs
 import fs from 'node:fs';
 import vm from 'node:vm';
@@ -10,13 +11,16 @@ import { UI, KLADJE, FEATURES, AUDIENCES, STORY, HOME, POSTS } from './site-cont
 import { EXTRA_LANGS } from './site-content-extra.mjs';
 import { KLADJE_REAL } from './site-kladje.mjs';
 import { BLOG } from './site-blog.mjs';
+import { DE } from './site-pages-de.mjs';
+import { ES } from './site-pages-es.mjs';
+const PAGES = { de: DE, es: ES };
 
 // Nieuwste blogartikelen eerst.
 POSTS.unshift(...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
 const SITE = 'https://savour.page';
-const LANGS = ['nl', 'en'];
+const LANGS = ['nl', 'en', 'de', 'es'];
 const read = p => fs.readFileSync(new URL(p, ROOT), 'utf8');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const url = slug => `${SITE}/${slug}`.replace(/\/$/, '') || SITE;
@@ -34,24 +38,31 @@ ctx.proHost = proHost;
 vm.runInContext('renderProPage(proHost)', ctx);
 const proBody = proHost.innerHTML.replace(/<button[^>]*>[\s\S]*?<\/button>/g, '');
 
-// Engelse vertaling van die app-teksten (zelfde regels als js/core/i18n.js, per stukje tekst tussen tags).
-const dict = new Map(strings.map(r => [r[0].replace(/\s+/g, ' ').trim(), r[1]]));
-const pats = patterns.map(r => [new RegExp(r[0]), r[1]]);
-const missing = new Set();
-function translateText(text) {
-  const key = text.replace(/­/g, '').replace(/\s+/g, ' ').trim();
-  if (!key || !/\p{L}/u.test(key)) return text;
-  const direct = dict.get(key);
-  if (direct) return text.replace(text.trim(), direct);
-  for (const [re, rep] of pats) if (re.test(key)) return text.replace(text.trim(), key.replace(re, rep));
-  missing.add(key);
-  return text;
-}
-const translateHtml = html =>
-  html
-    .split(/(<[^>]+>)/)
-    .map(part => (part.startsWith('<') ? part : translateText(part)))
-    .join('');
+// Vertaling van die app-teksten (zelfde regels als js/core/i18n.js, per stukje tekst tussen tags).
+// Kolommen in tools/vertalingen.mjs: 0 = NL, 1 = EN, 2 = DE, 3 = ES.
+const COLUMN = { en: 1, de: 2, es: 3 };
+const missing = { en: new Set(), de: new Set(), es: new Set() };
+const translators = Object.fromEntries(
+  Object.entries(COLUMN).map(([lang, col]) => {
+    const dict = new Map(strings.filter(r => r[col]).map(r => [r[0].replace(/\s+/g, ' ').trim(), r[col]]));
+    const pats = patterns.filter(r => r[col]).map(r => [new RegExp(r[0]), r[col]]);
+    const text = t => {
+      const key = t.replace(/­/g, '').replace(/\s+/g, ' ').trim();
+      if (!key || !/\p{L}/u.test(key)) return t;
+      const direct = dict.get(key);
+      if (direct) return t.replace(t.trim(), direct);
+      for (const [re, to] of pats) if (re.test(key)) return t.replace(t.trim(), key.replace(re, to));
+      missing[lang].add(key);
+      return t;
+    };
+    const html = h =>
+      h
+        .split(/(<[^>]+>)/)
+        .map(part => (part.startsWith('<') ? part : text(part)))
+        .join('');
+    return [lang, { text, html }];
+  })
+);
 
 // ---- Bestaande informatiepagina's ----
 const LEGACY = [
@@ -90,7 +101,7 @@ const LEGACY = [
     id: 'contact',
     nl: 'contact',
     en: 'en/contact',
-    title: ['Contact — Savour', 'Contact — Savour'],
+    title: ['Contact — Savour', 'Contact us — Savour'],
     desc: [
       'Vragen over Savour, receptbeheer voor je restaurant of een teamabonnement? Neem contact op via het formulier of contact@savour.page.',
       'Questions about Savour, recipe management for your restaurant or a team plan? Get in touch via the form or at contact@savour.page.'
@@ -121,21 +132,44 @@ const legacy = id => LEGACY.find(p => p.id === id);
 const CONTACT_FORM = /<h2>Stuur ons een bericht<\/h2><form[\s\S]*?<\/form>/;
 const blogSlug = { nl: 'blog', en: 'en/blog' };
 
-// Duits en Spaans: startpagina en menu vertaald, dieper liggende pagina's verwijzen naar de Engelse versie.
+// Duits en Spaans: menu en startpagina uit tools/site-content-extra.mjs, alle andere pagina's uit
+// tools/site-pages-de.mjs en tools/site-pages-es.mjs. Ontbreekt er een vertaling, dan stopt het bouwen.
 const HOME_LANGS = ['nl', 'en', 'de', 'es'];
 for (const lang of ['de', 'es']) {
   const x = EXTRA_LANGS[lang];
-  UI[lang] = { ...UI.en, ...x.ui };
+  const P = PAGES[lang];
+  const need = (v, what) => {
+    if (!v) throw new Error(`${lang}: ${what} ontbreekt in tools/site-pages-${lang}.mjs`);
+    return v;
+  };
+  UI[lang] = { ...UI.en, ...x.ui, ...P.ui };
   KLADJE[lang] = x.kladje;
   HOME[lang] = x.home;
   for (const f of FEATURES)
-    f[lang] = { ...f.en, menu: x.items[f.id][0], short: x.items[f.id][1], ...(f.soon ? { sections: x.soon } : {}) };
-  for (const a of AUDIENCES) a[lang] = { ...a.en, menu: x.items[a.id][0], short: x.items[a.id][1] };
-  STORY[lang] = STORY.en;
-  for (const p of POSTS) p[lang] = p.en;
-  for (const p of LEGACY) p[lang] = p.en;
-  blogSlug[lang] = blogSlug.en;
+    f[lang] = { kladje: f.en.kladje, menu: x.items[f.id][0], short: x.items[f.id][1], ...need(P.features[f.id], f.id) };
+  for (const a of AUDIENCES)
+    a[lang] = { menu: x.items[a.id][0], short: x.items[a.id][1], ...need(P.audiences[a.id], a.id) };
+  STORY[lang] = need(P.story, 'story');
+  for (const p of POSTS) p[lang] = need(P.posts[p.en.slug], `blog ${p.en.slug}`);
+  for (const p of LEGACY) p[lang] = need(P.legacy[p.id], p.id).slug;
+  blogSlug[lang] = P.blogSlug;
 }
+// Alle taalversies van een pagina (voor hreflang en de taalknop).
+const slugsOf = item => Object.fromEntries(LANGS.map(l => [l, typeof item[l] === 'string' ? item[l] : item[l].slug]));
+const LOCALE = { nl: 'nl-NL', en: 'en-GB', de: 'de-DE', es: 'es-ES' };
+const BLOG_TITLE = {
+  nl: 'Blog over receptbeheer en de keuken — Savour',
+  en: 'Blog about recipe management and the kitchen — Savour',
+  de: DE.blogTitle,
+  es: ES.blogTitle
+};
+const SOON_MAIL = { nl: 'Wil je meedenken? Mail ons op', en: 'Want to share ideas? Email us at', de: DE.ui.soonMail, es: ES.ui.soonMail };
+const FORM_LINE = {
+  nl: 'Liever een formulier? <a href="/?info=contact">Open het contactformulier</a>.',
+  en: 'Prefer a form? <a href="/en?info=contact">Open the contact form</a>.',
+  de: DE.ui.formLine,
+  es: ES.ui.formLine
+};
 const homePath = lang => (lang === 'nl' ? '/' : '/' + lang);
 const LANG_LABEL = { nl: 'NL', en: 'EN', de: 'DE', es: 'ES' };
 const LANG_NAME = { nl: 'Nederlands', en: 'English', de: 'Deutsch', es: 'Español' };
@@ -295,7 +329,7 @@ function page({ lang, slugs, title, desc, crumbs, body, schema = [] }) {
   const canonical = url(slugs[lang]);
   const alternates = LANGS.filter(l => slugs[l]).map(l => [l, url(slugs[l])]);
   if (slugs.nl) alternates.push(['x-default', url(slugs.nl)]);
-  const alt = { nl: slugs.nl ? href(slugs.nl) : '/', en: slugs.en ? href(slugs.en) : '/en' };
+  const alt = Object.fromEntries(LANGS.map(l => [l, slugs[l] ? href(slugs[l]) : homePath(l)]));
   const crumbHtml = crumbs?.length
     ? `<div class="site-crumbs"><a href="${UI[lang].home}">Home</a>${crumbs.map(c => ` / ${c[1] ? `<a href="${c[1]}">${esc(c[0])}</a>` : esc(c[0])}`).join('')}</div>`
     : '';
@@ -336,14 +370,14 @@ for (const lang of LANGS) {
     const others = FEATURES.filter(x => x !== f && !x.soon);
     page({
       lang,
-      slugs: { nl: f.nl.slug, en: f.en.slug },
+      slugs: slugsOf(f),
       title: t.title,
       desc: t.desc,
       crumbs: [[u.features], [t.menu]],
       body: c =>
         pageTop(c, t.h1, t.lead) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose">${t.kladje ? `<div class="site-figure">${kladje(lang)}</div>` : ''}${sectionsHtml(t.sections)}${
-          f.soon ? `<p class="site-note">${lang === 'nl' ? 'Wil je meedenken? Mail ons op' : 'Want to share ideas? Email us at'} <a href="mailto:contact@savour.page">contact@savour.page</a>.</p>` : ''
+          f.soon ? `<p class="site-note">${SOON_MAIL[lang]} <a href="mailto:contact@savour.page">contact@savour.page</a>.</p>` : ''
         }</div></article>
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.related}</h2>${rows(others.slice(0, 3), lang)}</div></section>`
     });
@@ -353,7 +387,7 @@ for (const lang of LANGS) {
     const t = a[lang];
     page({
       lang,
-      slugs: { nl: a.nl.slug, en: a.en.slug },
+      slugs: slugsOf(a),
       title: t.title,
       desc: t.desc,
       crumbs: [[u.audience], [t.menu]],
@@ -368,7 +402,7 @@ for (const lang of LANGS) {
     const s = STORY[lang];
     page({
       lang,
-      slugs: { nl: STORY.nl.slug, en: STORY.en.slug },
+      slugs: slugsOf(STORY),
       title: s.title,
       desc: s.desc,
       crumbs: [[u.about]],
@@ -382,7 +416,7 @@ for (const lang of LANGS) {
   page({
     lang,
     slugs: blogSlug,
-    title: lang === 'nl' ? 'Blog — Savour' : 'Blog — Savour',
+    title: BLOG_TITLE[lang],
     desc: u.blogLead,
     crumbs: [[u.blog]],
     body: c =>
@@ -393,10 +427,10 @@ for (const lang of LANGS) {
   });
   for (const p of POSTS) {
     const t = p[lang];
-    const date = new Date(p.date).toLocaleDateString(lang === 'nl' ? 'nl-NL' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    const date = new Date(p.date).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' });
     page({
       lang,
-      slugs: { nl: p.nl.slug, en: p.en.slug },
+      slugs: slugsOf(p),
       title: `${t.title} | Savour`,
       desc: t.desc,
       crumbs: [[u.blog, href(blogSlug[lang])]],
@@ -420,23 +454,24 @@ for (const lang of LANGS) {
   }
   // Bestaande informatiepagina's (inhoud uit de app)
   for (const p of LEGACY) {
-    const i = lang === 'nl' ? 0 : 1;
+    // Titel, beschrijving en kop: NL en EN hier in LEGACY, DE en ES in tools/site-pages-*.mjs.
+    const meta =
+      lang === 'nl' || lang === 'en'
+        ? { title: p.title[lang === 'nl' ? 0 : 1], desc: p.desc[lang === 'nl' ? 0 : 1], h1: p.h1?.[lang === 'nl' ? 0 : 1] }
+        : PAGES[lang].legacy[p.id];
     let body = p.id === 'pro' ? proBody : copy[p.id] || '';
-    const formLine =
-      lang === 'nl'
-        ? 'Liever een formulier? <a href="/?info=contact">Open het contactformulier</a>.'
-        : 'Prefer a form? <a href="/en?info=contact">Open the contact form</a>.';
     if (p.id === 'contact') body = body.replace(CONTACT_FORM, '%%FORM%%');
-    let h1 = p.h1 ? p.h1[i] : copy[p.id + 'Title'];
+    let h1 = meta.h1 || copy[p.id + 'Title'];
     let lead = copy[p.id + 'Lead'] || '';
     let note = copy[p.id + 'Note'] || '';
-    if (lang === 'en') {
-      body = translateHtml(body);
-      if (!p.h1) h1 = translateText(h1);
-      lead = lead && translateText(lead);
-      note = note && translateText(note);
+    if (lang !== 'nl') {
+      const tr = translators[lang];
+      body = tr.html(body);
+      if (!meta.h1) h1 = tr.text(h1);
+      lead = lead && tr.text(lead);
+      note = note && tr.text(note);
     }
-    body = body.replace('%%FORM%%', `<p>${formLine}</p>`);
+    body = body.replace('%%FORM%%', `<p>${FORM_LINE[lang]}</p>`);
     const schema = [];
     if (p.id === 'faq')
       schema.push({
@@ -450,9 +485,9 @@ for (const lang of LANGS) {
       });
     page({
       lang,
-      slugs: { nl: p.nl, en: p.en },
-      title: p.title[i],
-      desc: p.desc[i],
+      slugs: slugsOf(p),
+      title: meta.title,
+      desc: meta.desc,
       schema,
       body: c => pageTop(c, h1, lead) + `<article class="site-article"><div class="site-wrap site-narrow site-prose">${note ? `<p class="site-meta">${esc(note)}</p>` : ''}${body}</div></article>`
     });
@@ -578,7 +613,10 @@ const HOME_META = {
   let t = fs.readFileSync(file, 'utf8');
   const blog =
     '## Blog\n\n' +
-    POSTS.map(p => `- [${p.en.title}](${url(p.en.slug)}) · [NL: ${p.nl.title}](${url(p.nl.slug)})`).join('\n') +
+    POSTS.map(
+      p =>
+        `- [${p.en.title}](${url(p.en.slug)}) · [NL](${url(p.nl.slug)}) · [DE](${url(p.de.slug)}) · [ES](${url(p.es.slug)})`
+    ).join('\n') +
     '\n\n';
   if (/## Blog\n[\s\S]*?(?=## )/.test(t)) t = t.replace(/## Blog\n[\s\S]*?(?=## )/, () => blog);
   else t = t.replace('## Company', () => blog + '## Company');
@@ -590,7 +628,7 @@ const today = new Date().toISOString().slice(0, 10);
 const homeAlts = [['nl', SITE + '/'], ['en', SITE + '/en'], ['de', SITE + '/de'], ['es', SITE + '/es'], ['x-default', SITE + '/']];
 const entry = (loc, alts, priority) =>
   `  <url><loc>${loc}</loc>${alts.map(([l, h]) => `<xhtml:link rel="alternate" hreflang="${l}" href="${h}"/>`).join('')}<lastmod>${today}</lastmod><priority>${priority}</priority></url>`;
-const low = /\/(en\/)?(voorwaarden|terms|privacy|contact)$/;
+const low = /\/((en|de|es)\/)?(voorwaarden|terms|privacy|contact|agb|datenschutz|kontakt|terminos|privacidad|contacto)$/;
 const urls = [
   ...homeAlts.slice(0, 4).map(([, h], n) => entry(h, homeAlts, n ? '0.8' : '1.0')),
   ...sitemap.map(s => entry(s.loc, s.alternates, low.test(s.loc) ? '0.3' : '0.7'))
@@ -602,7 +640,8 @@ fs.writeFileSync(
 );
 
 console.log(sitemap.length, "pagina's, startpagina en sitemap.xml gemaakt");
-if (missing.size) {
-  console.log(`\n${missing.size} stukjes zonder Engelse vertaling (blijven Nederlands):`);
-  for (const m of missing) console.log(' -', m.slice(0, 110));
-}
+for (const [lang, set] of Object.entries(missing))
+  if (set.size) {
+    console.log(`\n${set.size} stukjes zonder vertaling in het ${lang.toUpperCase()} (blijven Nederlands):`);
+    for (const m of set) console.log(' -', m.slice(0, 110));
+  }

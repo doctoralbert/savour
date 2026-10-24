@@ -57,16 +57,10 @@ export const EXTRA_LANGS = {
       share: ['Mit der Brigade teilen', 'Geteilte Ordner mit Rechten: Du verwaltest, dein Sous-Chef bearbeitet, der Rest liest mit.'],
       scale: ['Rezepte hochrechnen', 'Von 8 Gedecken auf 120, ohne Rechenfehler.'],
       print: ['Drucken und Rezeptordner', 'Ein ganzer Ordner auf einmal zum Drucker, sauber für die Küche.'],
-      roadmap: ['Demnächst in Savour', 'Kosten pro Rezept, Allergene, Rezeptkarten mit eigenem Logo.'],
+      roadmap: ['Demnächst in Savour', 'Kosten pro Rezept, Allergene und der Verlauf jedes Rezepts.'],
       chefs: ['Köche', 'Für Küchenchefs, Sous-Chefs und Patissiers, die ihre Rezepturen bewahren wollen.'],
       brigade: ['Küchenbrigaden', 'Für das ganze Team: Chefs de Partie, Commis und Praktikanten.']
-    },
-    soon: [
-      ['Kosten pro Rezept', 'Sieh pro Gericht und Portion, was es kostet, und was passiert, wenn sich ein Preis ändert.'],
-      ['Allergene auf einen Blick', 'Pro Rezept und pro Gericht, damit du die Frage eines Gastes sofort beantworten kannst.'],
-      ['Rezeptkarten mit eigenem Logo', 'Gedruckte Rezepte im Stil deines Restaurants.'],
-      ['Eine App für iPhone und Android', 'Savour läuft jetzt im Browser auf jedem Gerät. Eine eigene App ziehen wir in Betracht.']
-    ]
+    }
   },
   es: {
     ui: {
@@ -123,15 +117,9 @@ export const EXTRA_LANGS = {
       share: ['Compartir con tu brigada', 'Carpetas compartidas con permisos: tú gestionas, tu segundo edita, el resto consulta.'],
       scale: ['Escalar recetas', 'De 8 cubiertos a 120, sin errores de cálculo.'],
       print: ['Imprimir y carpetas', 'Una carpeta entera a la impresora de una vez, limpia para la cocina.'],
-      roadmap: ['Próximamente en Savour', 'Coste por receta, alérgenos, fichas con tu propio logo.'],
+      roadmap: ['Próximamente en Savour', 'Coste por receta, alérgenos y el historial de cada receta.'],
       chefs: ['Cocineros', 'Para jefes de cocina, segundos y pasteleros que quieren guardar sus recetas.'],
       brigade: ['Brigadas de cocina', 'Para todo el equipo: jefes de partida, ayudantes y becarios.']
-    },
-    soon: [
-      ['Coste por receta', 'Mira lo que cuesta cada plato y cada ración, y qué pasa cuando cambia un precio.'],
-      ['Alérgenos de un vistazo', 'Por receta y por plato, para responder al momento la pregunta de un cliente.'],
-      ['Fichas con tu propio logo', 'Recetas impresas con el estilo de tu restaurante.'],
-      ['Una app para iPhone y Android', 'Savour funciona ahora en el navegador de cualquier dispositivo. Estamos valorando una app propia.']
-    ]
+    }
   }
 };

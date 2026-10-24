@@ -74,6 +74,22 @@
       "destination": "/site/en/:page/index.html"
     },
     {
+      "source": "/de/blog/:post",
+      "destination": "/site/de/blog/:post/index.html"
+    },
+    {
+      "source": "/de/:page",
+      "destination": "/site/de/:page/index.html"
+    },
+    {
+      "source": "/es/blog/:post",
+      "destination": "/site/es/blog/:post/index.html"
+    },
+    {
+      "source": "/es/:page",
+      "destination": "/site/es/:page/index.html"
+    },
+    {
       "source": "/blog/:post",
       "destination": "/site/blog/:post/index.html"
     },

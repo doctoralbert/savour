@@ -9,9 +9,10 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 - **Import a whole recipe book at once**: Word (.docx), PDF and text files are read by the built-in Savour reader for free. A chef imported 1,400 recipes from Word in about 2 minutes.
 - **AI for difficult sources (Savour Pro)**: photos of handwritten notes, scanned pages and messy documents are read by AI. The AI never invents quantities, ingredients or steps; unclear recipes are flagged for review.
 - **Organise**: folders, categories, A–Z index, favourites and full-text search across titles, ingredients and methods.
-- **Use in the kitchen**: scale any recipe to the yield you need, cook mode with large text on a phone or tablet, print single recipe cards or a whole folder at once.
+- **Use in the kitchen**: scale any recipe to the yield you need, cook mode with large text on a phone or tablet, print single recipe cards or a whole folder at once (A4 or A5, with your restaurant's logo on Savour Pro).
+- **Works offline**: install Savour on the home screen (no app store needed); the recipe library opens without internet, for example in a walk-in or basement.
 - **Collaborate**: shared folders with roles — owner (manages), editor (adds and edits), viewer (reads) — so the whole brigade works from the same recipes.
-- **Languages**: Dutch, English, German and Spanish interface.
+- **Languages**: the app and the website are available in Dutch, English, German and Spanish.
 
 ## Pricing
 
@@ -23,25 +24,31 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 
 ## Pages
 
-- [Home (Dutch)](https://savour.page/) · [English](https://savour.page/en)
-- Features: [Digitise recipes](https://savour.page/en/digitise-recipes) · [Organise recipes](https://savour.page/en/organise-recipes) · [Share with your brigade](https://savour.page/en/share-recipes) · [Scale recipes](https://savour.page/en/scale-recipes) · [Print recipes and binders](https://savour.page/en/print-recipes) · [Coming soon](https://savour.page/en/roadmap)
+- [Home (Dutch)](https://savour.page/) · [English](https://savour.page/en) · [Deutsch](https://savour.page/de) · [Español](https://savour.page/es)
+- Features: [Digitise recipes](https://savour.page/en/digitise-recipes) · [Organise recipes](https://savour.page/en/organise-recipes) · [Share with your brigade](https://savour.page/en/share-recipes) · [Scale recipes](https://savour.page/en/scale-recipes) · [Print recipes, binders and your own logo](https://savour.page/en/print-recipes) · [Coming soon](https://savour.page/en/roadmap)
 - Who it's for: [Chefs, sous-chefs and pastry chefs](https://savour.page/en/for-chefs) · [Kitchen brigades](https://savour.page/en/for-kitchen-brigades)
 - [About Savour](https://savour.page/en/about) · [Pricing](https://savour.page/en/pro) · [Blog](https://savour.page/en/blog) · [FAQ](https://savour.page/en/faq) · [Guide](https://savour.page/en/guide) · [Contact](https://savour.page/en/contact)
 - Dutch versions: [Recepten digitaliseren](https://savour.page/recepten-digitaliseren) · [Recepten organiseren](https://savour.page/recepten-organiseren) · [Over Savour](https://savour.page/over-savour) · [Prijzen](https://savour.page/savour-pro) · [Blog](https://savour.page/blog)
+- German versions (Rezeptverwaltung für die Gastronomie): [Rezepte digitalisieren](https://savour.page/de/rezepte-digitalisieren) · [Rezepte organisieren](https://savour.page/de/rezepte-organisieren) · [Für Köche](https://savour.page/de/fuer-koeche) · [Über Savour](https://savour.page/de/ueber-savour) · [Preise](https://savour.page/de/preise) · [Blog](https://savour.page/de/blog)
+- Spanish versions (gestión de recetas para restaurantes): [Digitalizar recetas](https://savour.page/es/digitalizar-recetas) · [Organizar recetas](https://savour.page/es/organizar-recetas) · [Para cocineros](https://savour.page/es/para-cocineros) · [Sobre Savour](https://savour.page/es/sobre-savour) · [Precios](https://savour.page/es/precios) · [Blog](https://savour.page/es/blog)
 
 ## Blog
 
-- [Recipe management for restaurants: where to start](https://savour.page/en/blog/recipe-management-for-restaurants) · [NL: Receptbeheer in de horeca: waar begin je?](https://savour.page/blog/receptbeheer-in-de-horeca)
-- [What a shared recipe book does for your kitchen team](https://savour.page/en/blog/shared-recipe-book-kitchen-team) · [NL: Wat een gedeeld receptenboek doet met je keukenteam](https://savour.page/blog/gedeeld-receptenboek-keukenteam)
-- [Organising recipe folders: five examples from real kitchens](https://savour.page/en/blog/recipe-folder-examples) · [NL: Receptenmappen indelen: vijf voorbeelden uit de praktijk](https://savour.page/blog/receptenmappen-indelen-voorbeelden)
-- [Sharing recipes with your team, without photos of photos](https://savour.page/en/blog/sharing-recipes-with-your-team) · [NL: Recepten delen met je team, zonder foto’s van foto’s](https://savour.page/blog/recepten-delen-met-je-team)
-- [Roadmap: what we are working on in Savour](https://savour.page/en/blog/roadmap) · [NL: Roadmap: waar we aan werken in Savour](https://savour.page/blog/roadmap)
-- [Onboarding a new cook with standard recipes](https://savour.page/en/blog/onboarding-new-cooks) · [NL: Een nieuwe kok inwerken met vaste recepturen](https://savour.page/blog/nieuwe-kok-inwerken)
-- [Scaling recipes without calculation errors](https://savour.page/en/blog/scaling-recipes-without-errors) · [NL: Recepten opschalen zonder rekenfouten](https://savour.page/blog/recepten-opschalen-zonder-fouten)
-- [From Word document to recipe book in a few minutes](https://savour.page/en/blog/from-word-to-recipe-book) · [NL: Van Word-document naar receptenboek in een paar minuten](https://savour.page/blog/van-word-naar-receptenboek)
-- [Why AI should never invent your recipes](https://savour.page/en/blog/ai-should-never-invent-recipes) · [NL: Waarom AI je recepten nooit mag verzinnen](https://savour.page/blog/ai-mag-je-recept-niet-verzinnen)
-- [Digitising old recipe notes: how to save your notebooks](https://savour.page/en/blog/digitise-old-recipe-notes) · [NL: Oude kladjes digitaliseren: zo red je je receptenschriften](https://savour.page/blog/oude-kladjes-digitaliseren)
-- [Organising recipes in a fine dining kitchen](https://savour.page/en/blog/organising-recipes-in-the-kitchen) · [NL: Recepten organiseren in een fine-dining keuken](https://savour.page/blog/recepten-organiseren-in-de-keuken)
+- [Standardised recipes: why every kitchen needs them](https://savour.page/en/blog/standardised-recipes) · [NL](https://savour.page/blog/standaardrecepturen-in-de-keuken) · [DE](https://savour.page/de/blog/standardrezepturen-gastronomie) · [ES](https://savour.page/es/blog/fichas-tecnicas-de-cocina)
+- [Print a recipe book with your restaurant’s logo](https://savour.page/en/blog/recipe-book-with-your-logo) · [NL](https://savour.page/blog/receptenboek-met-eigen-logo) · [DE](https://savour.page/de/blog/rezeptbuch-mit-eigenem-logo) · [ES](https://savour.page/es/blog/recetario-con-tu-logo)
+- [Recipes without wifi: working offline in the kitchen](https://savour.page/en/blog/recipes-without-wifi) · [NL](https://savour.page/blog/recepten-zonder-wifi) · [DE](https://savour.page/de/blog/rezepte-ohne-wlan) · [ES](https://savour.page/es/blog/recetas-sin-wifi)
+- [Choosing a recipe app for your restaurant: what to look for](https://savour.page/en/blog/choosing-a-recipe-app) · [NL](https://savour.page/blog/recepten-app-kiezen-restaurant) · [DE](https://savour.page/de/blog/rezept-app-gastronomie-waehlen) · [ES](https://savour.page/es/blog/elegir-app-de-recetas-restaurante)
+- [Recipe management for restaurants: where to start](https://savour.page/en/blog/recipe-management-for-restaurants) · [NL](https://savour.page/blog/receptbeheer-in-de-horeca) · [DE](https://savour.page/de/blog/rezeptverwaltung-gastronomie) · [ES](https://savour.page/es/blog/gestion-de-recetas-restaurantes)
+- [What a shared recipe book does for your kitchen team](https://savour.page/en/blog/shared-recipe-book-kitchen-team) · [NL](https://savour.page/blog/gedeeld-receptenboek-keukenteam) · [DE](https://savour.page/de/blog/gemeinsames-rezeptbuch-kuechenteam) · [ES](https://savour.page/es/blog/recetario-compartido-equipo-de-cocina)
+- [Organising recipe folders: five examples from real kitchens](https://savour.page/en/blog/recipe-folder-examples) · [NL](https://savour.page/blog/receptenmappen-indelen-voorbeelden) · [DE](https://savour.page/de/blog/rezeptordner-ordnen-beispiele) · [ES](https://savour.page/es/blog/ordenar-carpetas-de-recetas-ejemplos)
+- [Sharing recipes with your team, without photos of photos](https://savour.page/en/blog/sharing-recipes-with-your-team) · [NL](https://savour.page/blog/recepten-delen-met-je-team) · [DE](https://savour.page/de/blog/rezepte-mit-team-teilen) · [ES](https://savour.page/es/blog/compartir-recetas-con-tu-equipo)
+- [Roadmap: what we are working on in Savour](https://savour.page/en/blog/roadmap) · [NL](https://savour.page/blog/roadmap) · [DE](https://savour.page/de/blog/roadmap) · [ES](https://savour.page/es/blog/hoja-de-ruta)
+- [Onboarding a new cook with standard recipes](https://savour.page/en/blog/onboarding-new-cooks) · [NL](https://savour.page/blog/nieuwe-kok-inwerken) · [DE](https://savour.page/de/blog/neue-koeche-einarbeiten) · [ES](https://savour.page/es/blog/incorporar-cocineros-nuevos)
+- [Scaling recipes without calculation errors](https://savour.page/en/blog/scaling-recipes-without-errors) · [NL](https://savour.page/blog/recepten-opschalen-zonder-fouten) · [DE](https://savour.page/de/blog/rezepte-hochrechnen-ohne-fehler) · [ES](https://savour.page/es/blog/escalar-recetas-sin-errores)
+- [From Word document to recipe book in a few minutes](https://savour.page/en/blog/from-word-to-recipe-book) · [NL](https://savour.page/blog/van-word-naar-receptenboek) · [DE](https://savour.page/de/blog/von-word-zum-rezeptbuch) · [ES](https://savour.page/es/blog/de-word-a-recetario)
+- [Why AI should never invent your recipes](https://savour.page/en/blog/ai-should-never-invent-recipes) · [NL](https://savour.page/blog/ai-mag-je-recept-niet-verzinnen) · [DE](https://savour.page/de/blog/ki-darf-rezepte-nicht-erfinden) · [ES](https://savour.page/es/blog/la-ia-no-debe-inventar-recetas)
+- [Digitising old recipe notes: how to save your notebooks](https://savour.page/en/blog/digitise-old-recipe-notes) · [NL](https://savour.page/blog/oude-kladjes-digitaliseren) · [DE](https://savour.page/de/blog/alte-rezeptnotizen-digitalisieren) · [ES](https://savour.page/es/blog/digitalizar-notas-de-recetas-antiguas)
+- [Organising recipes in a fine dining kitchen](https://savour.page/en/blog/organising-recipes-in-the-kitchen) · [NL](https://savour.page/blog/recepten-organiseren-in-de-keuken) · [DE](https://savour.page/de/blog/rezepte-organisieren-spitzengastronomie) · [ES](https://savour.page/es/blog/organizar-recetas-alta-cocina)
 
 ## Company
 

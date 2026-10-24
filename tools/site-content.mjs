@@ -240,7 +240,8 @@ export const FEATURES = [
       sections: [
         ['Een hele map in één keer', 'Moeten alle ijsrecepten in de klapper voor de patisserie? Print de hele map in één keer, in plaats van vijftig bestanden één voor één.'],
         ['Rustige opmaak', 'Titel, opbrengst, ingrediënten en bereiding, groot en overzichtelijk. Leesbaar op een meter afstand, ook met een vlek erop.'],
-        ['Altijd de laatste versie', 'Omdat je print vanuit Savour, hangt er altijd de versie aan de muur die nu klopt.']
+        ['Altijd de laatste versie', 'Omdat je print vanuit Savour, hangt er altijd de versie aan de muur die nu klopt. Onderaan staat de printdatum, zodat je ziet of een map nog actueel is.'],
+        ['Met het logo van je restaurant', 'Met Savour Pro staat bovenaan elke pagina het logo en de naam van je restaurant. Bij een team geldt het logo voor iedereen. Kies A4 voor de klapper of A5 voor een kleine map aan de pass.']
       ]
     },
     en: {
@@ -254,7 +255,8 @@ export const FEATURES = [
       sections: [
         ['A whole folder at once', 'All the ice cream recipes need to go in the pastry binder? Print the whole folder at once, instead of fifty files one by one.'],
         ['Calm layout', 'Title, yield, ingredients and method, large and clear. Readable from a metre away, even with a stain on it.'],
-        ['Always the latest version', 'Because you print from Savour, the version on the wall is always the one that is right now.']
+        ['Always the latest version', 'Because you print from Savour, the version on the wall is always the one that is right now. The print date is at the bottom, so you can see whether a binder is still up to date.'],
+        ['With your restaurant’s logo', 'With Savour Pro every page carries your restaurant’s logo and name at the top. In a team the logo applies to everyone. Choose A4 for the binder or A5 for a small folder at the pass.']
       ]
     }
   },
@@ -264,30 +266,30 @@ export const FEATURES = [
     nl: {
       slug: 'binnenkort',
       menu: 'Binnenkort in Savour',
-      short: 'Kostprijs per recept, allergenen, receptkaarten met je eigen logo.',
+      short: 'Kostprijs per recept, allergenen en de geschiedenis van elk recept.',
       title: 'Binnenkort in Savour: kostprijs, allergenen en meer',
-      desc: 'Waar we aan werken: kostprijs per recept, allergenen per gerecht, receptkaarten met je eigen logo en een app voor iPhone en Android.',
+      desc: 'Waar we aan werken: kostprijs per recept, allergenen per gerecht, de geschiedenis van elk recept en een app voor iPhone en Android.',
       h1: 'Waar we aan werken',
       lead: 'Savour groeit met de keuken mee. Dit staat op de planning. Mis je iets? Laat het ons weten.',
       sections: [
         ['Kostprijs per recept', 'Zie per gerecht en per portie wat het kost, en wat er gebeurt als de prijs van een product verandert.'],
         ['Allergenen in één oogopslag', 'Per recept en per samengesteld gerecht, zodat je een vraag van een gast aan tafel direct kunt beantwoorden.'],
-        ['Receptkaarten met je eigen logo', 'Geprinte recepten in de stijl van jouw zaak.'],
+        ['Geschiedenis van elk recept', 'Zie wie wat heeft aangepast in een gedeeld recept, en zet zo nodig een eerdere versie terug.'],
         ['Een app voor iPhone en Android', 'Savour werkt nu in de browser op elk apparaat. Een losse app overwegen we, en jouw feedback telt mee.']
       ]
     },
     en: {
       slug: 'en/roadmap',
       menu: 'Coming soon',
-      short: 'Cost per recipe, allergens, recipe cards with your own logo.',
+      short: 'Cost per recipe, allergens and the history of every recipe.',
       title: 'Coming soon to Savour: costing, allergens and more',
-      desc: 'What we are working on: cost per recipe, allergens per dish, recipe cards with your own logo and an app for iPhone and Android.',
+      desc: 'What we are working on: cost per recipe, allergens per dish, the history of every recipe and an app for iPhone and Android.',
       h1: 'What we are working on',
       lead: 'Savour grows with the kitchen. This is on the roadmap. Missing something? Let us know.',
       sections: [
         ['Cost per recipe', 'See what each dish and each portion costs, and what happens when the price of a product changes.'],
         ['Allergens at a glance', 'Per recipe and per composed dish, so you can answer a guest’s question at the table straight away.'],
-        ['Recipe cards with your own logo', 'Printed recipes in the style of your restaurant.'],
+        ['History of every recipe', 'See who changed what in a shared recipe, and restore an earlier version when needed.'],
         ['An app for iPhone and Android', 'Savour now works in the browser on every device. We are considering a separate app, and your feedback counts.']
       ]
     }
