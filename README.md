@@ -31,7 +31,8 @@ js/site.js            Kleine scripts voor de website (telefoonmenu, beweging bij
 js/data/offline.js    Offline in de keuken: bibliotheek op het toestel bewaren en openen zonder verbinding.
 sw.js, manifest.webmanifest   Service worker (Savour opent ook zonder internet) en installeren op het beginscherm.
 js/main.js            Opstarten. Wordt als laatste geladen.
-api/                  Serverfuncties op Vercel: AI-import, Stripe, beheer, bugmelding, mail.
+api/                  Serverfuncties op Vercel: AI-import, Stripe (pro-checkout, pro-portal, stripe-webhook),
+                      beheer (admin), teamuitnodiging, bugmelding. api/_lib/: gedeelde hulp (inlog, mail, Supabase).
 assets/               Afbeeldingen: logo, deelafbeelding, app/ (echte app-schermen), kladjes/ en keuken/ (foto's).
 site/                 GEMAAKT: alle losse websitepagina's (over ons, functies, blog, ...) in NL en EN.
                       Niet met de hand aanpassen; teksten staan in tools/site-*.mjs. vercel.json en
@@ -40,7 +41,7 @@ site/                 GEMAAKT: alle losse websitepagina's (over ons, functies, b
                       voor /en, /de en /es. index.html zelf is de Nederlandse.
 tools/                Bouwscripts en bronteksten: build-seo.mjs (website), build-i18n.mjs (vertalingen),
                       site-content*.mjs, site-blog.mjs, site-kladje.mjs (teksten van de website).
-supabase/             SQL-bestanden voor de database (in volgorde uitvoeren in de SQL Editor).
+supabase/             SQL-bestanden voor de database; overzicht en volgorde in supabase/README.md.
 tests/                Automatische tests (lezer en regressietest, zie hieronder).
 docs/                 Handleidingen en e-mailsjablonen.
 robots.txt, sitemap.xml, llms.txt, ads.txt   Moeten in de hoofdmap staan (zoekmachines, AI, AdSense).

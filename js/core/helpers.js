@@ -83,7 +83,7 @@ function saveStoredOrder(items, key) {
 
 // Verkleint een foto tot maximaal maxSize pixels (langste zijde) en zet hem om naar JPEG.
 // Zo blijft een telefoonfoto onder de uploadlimiet van Vercel (4,5 MB) en wordt de database niet onnodig zwaar.
-async function compressPhoto(file, maxSize = 2000) {
+async function compressPhoto(file, maxSize = 2000, type = 'image/jpeg') {
   const url = URL.createObjectURL(file);
   try {
     const img = await new Promise((resolve, reject) => {
@@ -97,7 +97,7 @@ async function compressPhoto(file, maxSize = 2000) {
     canvas.width = Math.round(img.naturalWidth * scale);
     canvas.height = Math.round(img.naturalHeight * scale);
     canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-    return canvas.toDataURL('image/jpeg', 0.85);
+    return canvas.toDataURL(type, 0.85);
   } finally {
     URL.revokeObjectURL(url);
   }

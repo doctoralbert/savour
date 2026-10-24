@@ -65,6 +65,7 @@ async function checkRecipeRoom(count = 1) {
 // uitgevoerd), dan zoals voorheen alleen het eigen abonnement en de AI-teller.
 async function loadPlanState() {
   savourPlan = { ...EMPTY_PLAN };
+  printBrandOwn = undefined;
   if (!currentUser || demoMode) return;
   const { data: p, error } = await supabaseClient.rpc('savour_my_plan');
   if (!error && p) {
@@ -280,6 +281,7 @@ function renderProPage(host) {
         <tr><td>Lid zijn van een gedeelde map van een ander</td><td>✓</td><td>✓</td></tr>
         <tr><td>Zelf een gedeelde map maken en je team uitnodigen</td><td>–</td><td>✓</td></tr>
         <tr><td>AI leest foto's, handgeschreven en gescande recepten</td><td>–</td><td>✓</td></tr>
+        <tr><td>Printen met het logo van je restaurant</td><td>–</td><td>✓</td></tr>
         <tr><td>AI-imports per maand</td><td>–</td><td>500</td></tr>
       </tbody>
     </table>
@@ -404,6 +406,7 @@ function renderPlanSettings() {
     row = `<b>Gratis</b><small>${recipes.length} van ${s.recipeLimit === Infinity ? '∞' : s.recipeLimit} recepten. Met Savour Pro onbeperkt recepten, je eigen gedeelde mappen en AI-import.</small>`;
   const button = ['subscription', 'team_owner'].includes(s.source) || s.source === 'gift' ? manage : more;
   host.innerHTML = `<div class="plan-row"><div>${row}</div>${button}</div>${s.team?.owner ? renderTeamManager(s.team) : ''}`;
+  renderPrintBrandSettings();
 }
 
 // Teamleden beheren: de eigenaar telt als eerste plek mee.

@@ -206,3 +206,167 @@
   background: #000;
   margin: 12px 0;
 }
+
+/* ---- Printen met logo (js/features/print.js) ---- */
+.print-brand {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  color: #333;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.print-brand img {
+  max-height: 46px;
+  max-width: 170px;
+  object-fit: contain;
+}
+.print-brand.is-bw img,
+.print-cover-logo.is-bw,
+.print-brand-preview.is-bw img {
+  filter: grayscale(1) contrast(1.15);
+}
+.print-bundle-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid #ddd;
+  padding-top: 8px;
+}
+.print-cover {
+  min-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 12vh;
+  break-after: page;
+  color: #151515;
+}
+.print-cover-logo {
+  max-height: 120px;
+  max-width: 300px;
+  object-fit: contain;
+  margin-bottom: 14px;
+}
+.print-cover-name {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #555;
+}
+.print-cover h1 {
+  font-family: Georgia, serif;
+  font-weight: 500;
+  font-size: 40px;
+  margin: 46px 0 6px;
+}
+.print-cover-count {
+  color: #666;
+  font-size: 13px;
+}
+.print-cover-list {
+  margin: 40px auto 0;
+  padding: 0;
+  list-style: decimal inside;
+  text-align: left;
+  columns: 2;
+  column-gap: 36px;
+  font-size: 13px;
+  line-height: 1.9;
+  max-width: 620px;
+  flex: 1;
+}
+.print-cover .print-bundle-footer {
+  width: 100%;
+  margin-top: 30px;
+}
+.print-a5 .print-bundle-recipe h1 {
+  font-size: 22px;
+}
+.print-a5 .print-bundle-columns {
+  grid-template-columns: 1fr !important;
+  gap: 14px;
+}
+.print-a5 .print-photo {
+  max-height: 150px;
+}
+.print-a5 .print-cover-list {
+  columns: 1;
+}
+/* Keuzes vlak voor het printen */
+.print-options .print-option,
+.print-brand-fields .print-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  cursor: pointer;
+}
+.print-options .print-option input,
+.print-brand-fields .print-option input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--gold);
+  flex: none;
+}
+.print-sizes {
+  border-top: 1px solid var(--line, #243031);
+  margin-top: 6px;
+  padding-top: 6px;
+}
+/* Instellingen: voorbeeld van een geprinte pagina */
+.print-brand-setup {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 26px;
+  align-items: start;
+  margin-top: 14px;
+}
+.print-brand-preview {
+  background: #fff;
+  aspect-ratio: 210 / 297;
+  border-radius: 4px;
+  padding: 14px 13px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+.print-brand-preview .pbp-top {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  min-height: 22px;
+  color: #333;
+  font-size: 8px;
+}
+.print-brand-preview .pbp-top img {
+  max-height: 22px;
+  max-width: 80px;
+  object-fit: contain;
+}
+.print-brand-preview .pbp-title {
+  height: 9px;
+  width: 60%;
+  background: #222;
+  margin: 14px 0 12px;
+  border-radius: 2px;
+}
+.print-brand-preview .pbp-line {
+  height: 4px;
+  background: #ddd;
+  margin: 7px 0;
+  border-radius: 2px;
+}
+.print-brand-preview .pbp-line.short {
+  width: 55%;
+}
+@media (max-width: 640px) {
+  .print-brand-setup {
+    grid-template-columns: 1fr;
+  }
+  .print-brand-preview {
+    width: 150px;
+  }
+}
