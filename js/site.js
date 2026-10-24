@@ -1,20 +1,8 @@
-// Publieke website: telefoonmenu, rustige beweging bij scrollen en de knoppen Inloggen / Gratis beginnen / demo.
+// Publieke website: taalkeuze, rustige beweging bij scrollen en de knoppen Inloggen / Gratis beginnen / demo.
 // Wordt geladen op de losse pagina's (tools/build-seo.mjs) én op de startpagina in index.html.
 (function () {
   function setup() {
     document.querySelectorAll('.site').forEach(function (site) {
-      // Telefoonmenu open en dicht.
-      var header = site.querySelector('.site-header');
-      var burger = site.querySelector('.site-burger');
-      if (header && burger && !burger.dataset.ready) {
-        burger.dataset.ready = '1';
-        burger.addEventListener('click', function () {
-          var open = header.classList.toggle('open');
-          burger.textContent = open ? burger.dataset.close : burger.dataset.open;
-          burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-        });
-      }
-
       // Beweging: elementen verschijnen rustig zodra ze in beeld komen.
       if ('IntersectionObserver' in window && !site.classList.contains('site-motion')) {
         site.classList.add('site-motion');
@@ -36,13 +24,6 @@
       }
     });
   }
-
-  // Kladje-schuif: links het echte kladje, rechts hetzelfde recept in Savour.
-  document.addEventListener('input', function (e) {
-    if (!e.target.classList || !e.target.classList.contains('kladje-ba-range')) return;
-    var fig = e.target.closest('.kladje-ba');
-    if (fig) fig.style.setProperty('--pos', e.target.value + '%');
-  });
 
   // Taalkeuze: klik ernaast of Esc sluit het venster.
   document.addEventListener('click', function (e) {

@@ -173,7 +173,6 @@ function header(lang, alt, inApp) {
 <div class="site-item"><a href="${href(blogSlug[lang])}">${u.blog}</a></div>
 </nav>
 <div class="site-actions">${langSwitch(lang, alt, inApp)}<a class="site-plain" ${auth('login')}>${u.login}</a><a class="site-btn solid" ${auth('signup')}>${u.start}</a></div>
-<button class="site-burger" type="button" aria-expanded="false" data-open="${u.menu}" data-close="${u.close}">${u.menu}</button>
 </div></header>`;
 }
 
@@ -193,14 +192,13 @@ function footer(lang, alt, inApp) {
 </div></footer>`;
 }
 
-// Echt kladje met een schuif: links de foto, rechts hetzelfde recept in Savour (js/site.js zet --pos).
+// Het echte kladje (hele foto) naast hetzelfde recept in Savour.
 function kladje(lang) {
   const k = KLADJE_REAL[lang];
-  return `<figure class="kladje-ba" style="--pos:50%"><div class="kladje-ba-stage">
-<div class="kladje-ba-after"><span class="kladje-ba-tag">${esc(k.after)}</span><h3>${esc(k.title)}</h3><small>${esc(k.meta)}</small><h4>${esc(k.ingredientsTitle)}</h4><ul>${k.ingredients.map(i => `<li>${esc(i)}</li>`).join('')}</ul><h4>${esc(k.stepsTitle)}</h4><ol>${k.steps.map(i => `<li>${esc(i)}</li>`).join('')}</ol><p class="kladje-ba-note">${esc(k.stepsNote)}</p></div>
-<div class="kladje-ba-before"><img src="/assets/kladjes/mayonaise.jpg" alt="${esc(k.alt)}" width="640" height="686" loading="lazy"><span class="kladje-ba-tag">${esc(k.before)}</span></div>
-<span class="kladje-ba-line" aria-hidden="true"><i></i></span><input class="kladje-ba-range" type="range" min="0" max="100" value="50" aria-label="${esc(k.slide)}">
-</div><figcaption>${esc(k.caption)}</figcaption></figure>`;
+  return `<figure class="kladje-duo">
+<div class="kladje-duo-photo"><span class="kladje-duo-tag">${esc(k.before)}</span><img src="/assets/kladjes/mayonaise.jpg" alt="${esc(k.alt)}" width="640" height="686" loading="lazy"></div>
+<div class="kladje-duo-card"><span class="kladje-duo-tag gold">${esc(k.after)}</span><h3>${esc(k.title)}</h3><small>${esc(k.meta)}</small><h4>${esc(k.ingredientsTitle)}</h4><ul>${k.ingredients.map(i => `<li>${esc(i)}</li>`).join('')}</ul><h4>${esc(k.stepsTitle)}</h4><ol>${k.steps.map(i => `<li>${esc(i)}</li>`).join('')}</ol><p class="kladje-duo-note">${esc(k.stepsNote)}</p></div>
+<figcaption>${esc(k.caption)}</figcaption></figure>`;
 }
 
 const rows = (items, lang) =>
@@ -234,7 +232,7 @@ function homeBody(lang, inApp) {
 <div class="site-cta-row"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?demo=1" data-demo>${u.demo}</a></div><p class="site-note" style="margin-top:10px">${esc(u.demoNote)}</p></div>
 <div class="hero-shots"><div class="hero-laptop"><img src="/assets/app/bibliotheek-${lang}.jpg" alt="${esc(SHOT_ALT[lang][0])}" width="1440" height="900"></div><div class="hero-phone"><img src="/assets/app/recept-${lang}.jpg" alt="${esc(SHOT_ALT[lang][1])}" width="520" height="1125"></div></div>
 </div></section>
-<section class="site-section"><div class="site-wrap site-story"><div><h2 class="reveal">${esc(KLADJE_REAL[lang].heading)}</h2>${h.story.map(p => `<p>${esc(p)}</p>`).join('')}<p><a class="site-link" href="${href(STORY[lang].slug)}">${esc(h.storyLink)}</a></p></div>${kladje(lang)}</div></section>
+<section class="site-section"><div class="site-wrap"><div class="site-two"><h2 class="reveal">${esc(KLADJE_REAL[lang].heading)}</h2><div>${h.story.map(p => `<p>${esc(p)}</p>`).join('')}<p><a class="site-link" href="${href(STORY[lang].slug)}">${esc(h.storyLink)}</a></p></div></div>${kladje(lang)}</div></section>
 <section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(h.featuresTitle)}</h2>${rows(FEATURES.filter(f => !f.soon), lang)}</div></section>
 <section class="site-section"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.audienceTitle)}</h2>${rows(AUDIENCES, lang)}</div></section>
 <section class="site-section dark"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.soonTitle)}</h2><div><ul class="site-rows">${FEATURES.find(f => f.soon)[lang].sections.map(([t, d]) => `<li><a href="${href(FEATURES.find(f => f.soon)[lang].slug)}"><b>${esc(t)}</b><span>${esc(d)}</span><i aria-hidden="true">→</i></a></li>`).join('')}</ul></div></div></section>

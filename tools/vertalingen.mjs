@@ -1503,6 +1503,8 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Alleen zichtbaar voor beheerders: accounts, abonnementen, omzet en bezoekers.", "Only visible to administrators: accounts, subscriptions, revenue and visitors.", "Nur für Administratoren sichtbar: Konten, Abos, Umsatz und Besucher.", "Solo visible para administradores: cuentas, suscripciones, ingresos y visitas."],
+  ["Naar het beheerscherm", "Go to admin", "Zur Verwaltung", "Ir a administración"],
   ["Ingelogd blijven", "Stay signed in", "Angemeldet bleiben", "Mantener la sesión iniciada"],
   ["Wachtwoord onthouden", "Remember password", "Passwort merken", "Recordar contraseña"],
   ["Recepten printen", "Print recipes", "Rezepte drucken", "Imprimir recetas"],

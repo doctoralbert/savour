@@ -290,24 +290,10 @@
   color: var(--gold-soft);
 }
 
-/* Telefoonmenu */
-.site-burger {
-  display: none;
-  margin-left: auto;
-  background: none;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 10px 18px;
-  font: 600 14px/1 var(--sans);
-  color: var(--ink);
-}
+/* Telefoon en tablet: geen menu bovenaan (alles staat in de footer), wel taal, inloggen en account maken. */
 @media (max-width: 1040px) {
-  .site-nav,
-  .site-actions {
+  .site-nav {
     display: none;
-  }
-  .site-burger {
-    display: block;
   }
   .site-header > .site-wrap {
     height: 72px;
@@ -315,82 +301,29 @@
   .site-logo {
     font-size: 23px;
   }
-  .site-header.open {
-    height: 100dvh;
-    overflow: auto;
-    background: var(--paper);
-  }
-  .site-header.open > .site-wrap {
-    flex-wrap: wrap;
-    height: auto;
-    padding-top: 14px;
-    padding-bottom: 40px;
-    row-gap: 10px;
-  }
-  .site-header.open .site-burger {
-    order: 1;
-  }
-  .site-header.open .site-nav,
-  .site-header.open .site-actions {
-    display: flex;
-    order: 2;
-    flex-direction: column;
-    align-items: stretch;
-    flex-basis: 100%;
-  }
-  .site-header.open .site-nav > .site-item > a,
-  .site-header.open .site-nav > .site-item > button {
-    font: 400 28px/1.2 var(--serif);
-    padding: 12px 0;
-    text-align: left;
-    width: 100%;
-    background: none;
-  }
-  .site-header.open .site-nav > .site-item > button::after {
-    display: none;
-  }
-  .site-header.open .site-menucard {
-    position: static;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    box-shadow: none;
-    background: none;
-    color: var(--ink);
-    padding: 0 0 10px;
-  }
-  .site-header.open .site-menucard .site-wrap {
-    display: block;
-    padding: 0;
-  }
-  .site-header.open .site-menucard-intro {
-    display: none;
-  }
-  .site-header.open .site-menucard ol {
-    display: block;
-  }
-  .site-header.open .site-menucard li {
-    border: 0;
-  }
-  .site-header.open .site-menucard a {
-    padding: 7px 0;
-  }
-  .site-header.open .site-menucard b {
-    font: 500 16px/1.3 var(--sans);
-    color: var(--ink);
-  }
-  .site-header.open .site-menucard em {
-    color: var(--gold);
-  }
-  .site-header.open .site-menucard span {
-    display: none;
-  }
-  .site-header.open .site-actions {
-    margin-top: 18px;
+  .site-actions {
+    margin-left: auto;
     gap: 12px;
   }
-  .site-header.open .site-actions .site-btn {
-    padding: 14px;
+}
+@media (max-width: 480px) {
+  .site-logo {
+    font-size: 18px;
+    letter-spacing: 0.26em;
+  }
+  .site-actions {
+    gap: 8px;
+  }
+  .site-actions .site-plain {
+    font-size: 14px;
+  }
+  .site-actions .site-btn {
+    padding: 9px 13px;
+    font-size: 13px;
+  }
+  .site-lang summary {
+    min-width: 36px;
+    height: 36px;
   }
 }
 
@@ -1021,9 +954,6 @@
 .site-header {
   background: rgba(7, 11, 12, 0.9);
 }
-.site-header.open {
-  background: #070b0c;
-}
 .site-btn.solid {
   background: var(--gold);
   border-color: var(--gold);
@@ -1162,211 +1092,138 @@
   }
 }
 
-/* ---- Het verhaal met het echte kladje en een schuif ---- */
-.site-story {
+/* ---- Het verhaal: het echte kladje (hele foto) naast hetzelfde recept in Savour ---- */
+.kladje-duo {
+  margin: 48px 0 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 56px;
-  align-items: center;
+  gap: 24px;
+  align-items: stretch;
 }
-@media (max-width: 900px) {
-  .site-story {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-}
-.kladje-ba {
-  margin: 0;
-  --pos: 50%;
-}
-.kladje-ba-stage {
+.kladje-duo-photo,
+.kladje-duo-card {
   position: relative;
   border: 1px solid var(--line);
   border-radius: 14px;
   overflow: hidden;
-  background: #0d1314;
-  user-select: none;
 }
-.kladje-ba-after {
-  padding: 52px 32px 28px;
-  color: #eee8dc;
-  min-height: 460px;
-  box-sizing: border-box;
-}
-.kladje-ba-after h3 {
-  font: 400 30px/1.15 var(--serif);
-  margin: 0;
-  color: #eee8dc;
-}
-.kladje-ba-after small {
-  display: block;
-  margin: 4px 0 16px;
-  color: #e8ca8d;
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-.kladje-ba-after h4 {
-  font: 400 17px/1.3 var(--serif);
-  color: #eee8dc;
-  margin: 16px 0 6px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid #243031;
-}
-.kladje-ba-after ul,
-.kladje-ba-after ol {
-  margin: 0;
-  padding: 0;
-  font-size: 15px;
-  line-height: 1.75;
-  color: #d9d3c6;
-}
-.kladje-ba-after ul {
-  list-style: none;
-}
-.kladje-ba-after ol {
-  padding-left: 20px;
-}
-.kladje-ba-note {
-  margin: 14px 0 0;
-  font-size: 12px;
-  line-height: 1.5;
-  color: #9aa39d;
-}
-.kladje-ba-before {
-  position: absolute;
-  inset: 0;
-  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+.kladje-duo-photo {
   background: #e7e2d6;
 }
-.kladje-ba-before img {
+.kladje-duo-photo img {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: 30% center;
-  display: block;
+  object-fit: contain;
 }
-.kladje-ba-tag {
+.kladje-duo-card {
+  background: #0d1314;
+  color: #eee8dc;
+  padding: 56px 36px 30px;
+}
+.kladje-duo-tag {
   position: absolute;
   top: 14px;
+  left: 14px;
   padding: 4px 10px;
   border-radius: 999px;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-.kladje-ba-before .kladje-ba-tag {
-  left: 14px;
   background: rgba(13, 19, 20, 0.78);
   color: #eee8dc;
 }
-.kladje-ba-after .kladje-ba-tag {
-  right: 14px;
+.kladje-duo-tag.gold {
   background: #e8ca8d;
   color: #111;
 }
-.kladje-ba-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: var(--pos);
-  width: 2px;
-  margin-left: -1px;
-  background: #e8ca8d;
-  pointer-events: none;
-}
-.kladje-ba-line i {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 40px;
-  height: 40px;
-  margin: -20px 0 0 -20px;
-  border-radius: 50%;
-  background: #e8ca8d;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
-}
-.kladje-ba-line i::before,
-.kladje-ba-line i::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 0;
-  height: 0;
-  margin-top: -5px;
-  border: 5px solid transparent;
-}
-.kladje-ba-line i::before {
-  left: 8px;
-  border-right-color: #111;
-}
-.kladje-ba-line i::after {
-  right: 8px;
-  border-left-color: #111;
-}
-.kladje-ba-range {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+.kladje-duo-card h3 {
+  font: 400 32px/1.15 var(--serif);
   margin: 0;
-  opacity: 0;
-  cursor: ew-resize;
-  touch-action: pan-y;
+  color: #eee8dc;
 }
-.kladje-ba-range:focus-visible + .kladje-ba-line i,
-.kladje-ba-stage:has(.kladje-ba-range:focus-visible) .kladje-ba-line i {
-  outline: 2px solid #fff;
-  outline-offset: 3px;
+.kladje-duo-card small {
+  display: block;
+  margin: 4px 0 18px;
+  color: #e8ca8d;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
-.kladje-ba figcaption {
-  margin-top: 12px;
+.kladje-duo-card h4 {
+  font: 400 18px/1.3 var(--serif);
+  color: #eee8dc;
+  margin: 18px 0 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #243031;
+}
+.kladje-duo-card ul,
+.kladje-duo-card ol {
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #d9d3c6;
+}
+.kladje-duo-card ul {
+  list-style: none;
+}
+.kladje-duo-card ol {
+  padding-left: 20px;
+}
+.kladje-duo-note {
+  margin: 16px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #9aa39d;
+}
+.kladje-duo figcaption {
+  grid-column: 1 / -1;
   font-size: 13px;
   color: var(--ink-3);
 }
-/* Het recept staat in de rechterhelft: halverwege zie je links het kladje en rechts het hele recept. */
-.kladje-ba-after {
-  padding-left: calc(50% + 26px);
-  position: relative;
-}
-.kladje-ba-after::before {
-  content: 'SAVOUR';
-  position: absolute;
-  left: 25%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font: 400 22px/1 var(--serif);
-  letter-spacing: 0.34em;
-  color: #2a3536;
-}
-.kladje-ba-before img {
-  object-position: left top;
+@media (max-width: 760px) {
+  .kladje-duo {
+    grid-template-columns: 1fr;
+    margin-top: 32px;
+    gap: 16px;
+  }
+  .kladje-duo-photo img {
+    height: auto;
+  }
+  .kladje-duo-card {
+    padding: 52px 22px 24px;
+  }
 }
 .site-hero h1 {
   font-size: clamp(38px, 4.2vw, 58px);
 }
-/* Telefoon: kladje en recept onder elkaar, zonder schuif. */
-@media (max-width: 640px) {
-  .kladje-ba-before {
-    position: relative;
-    clip-path: none;
+/* Smalle telefoons: logo, taal, inloggen en account maken passen naast elkaar. */
+@media (max-width: 480px) {
+  .site-header > .site-wrap {
+    gap: 8px;
   }
-  .kladje-ba-stage {
-    display: flex;
-    flex-direction: column-reverse;
+  .site-logo {
+    font-size: 16px;
+    letter-spacing: 0.2em;
+    flex: none;
   }
-  .kladje-ba-before img {
-    height: auto;
-    aspect-ratio: 640 / 686;
+  .site-actions {
+    gap: 6px;
   }
-  .kladje-ba-after {
-    padding: 52px 22px 24px;
-    min-height: 0;
+  .site-actions .site-plain {
+    font-size: 13px;
+    padding: 0 4px;
   }
-  .kladje-ba-after::before,
-  .kladje-ba-line,
-  .kladje-ba-range {
-    display: none;
+  .site-actions .site-btn {
+    padding: 8px 11px;
+    font-size: 12.5px;
+    white-space: nowrap;
+  }
+  .site-lang summary {
+    min-width: 34px;
+    height: 34px;
+    font-size: 12px;
   }
 }
