@@ -212,15 +212,16 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 10px;
-  margin: 0 0 18px;
-  color: #333;
-  font-size: 12px;
-  letter-spacing: 0.04em;
+  gap: 16px;
+  margin: 0 0 22px;
+  color: #222;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  letter-spacing: 0.02em;
 }
 .print-brand img {
-  max-height: 46px;
-  max-width: 170px;
+  max-height: 80px;
+  max-width: 240px;
   object-fit: contain;
 }
 .print-brand.is-bw img,
@@ -228,12 +229,43 @@
 .print-brand-preview.is-bw img {
   filter: grayscale(1) contrast(1.15);
 }
-.print-bundle-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  border-top: 1px solid #ddd;
-  padding-top: 8px;
+/* Voettekst onderaan elke pagina (alleen bij printen zichtbaar). */
+.print-page-foot {
+  display: none;
+}
+@media print {
+  .print-bundle {
+    padding: 0 16mm !important;
+  }
+  .print-bundle-recipe,
+  .print-cover {
+    padding-top: 14mm !important;
+    padding-bottom: 18mm !important;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    border-bottom: 0 !important;
+  }
+  .print-page-foot {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    left: 16mm;
+    right: 16mm;
+    bottom: 7mm;
+    font-size: 8pt;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #888;
+  }
+  .print-a5 .print-page-foot {
+    left: 10mm;
+    right: 10mm;
+    bottom: 5mm;
+    font-size: 7pt;
+  }
+  .print-a5.print-bundle {
+    padding: 0 10mm !important;
+  }
 }
 .print-cover {
   min-height: 82vh;
@@ -246,16 +278,15 @@
   color: #151515;
 }
 .print-cover-logo {
-  max-height: 120px;
+  max-height: 150px;
   max-width: 300px;
   object-fit: contain;
   margin-bottom: 14px;
 }
 .print-cover-name {
-  font-size: 13px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #555;
+  font-family: Georgia, serif;
+  font-size: 22px;
+  color: #333;
 }
 .print-cover h1 {
   font-family: Georgia, serif;
@@ -278,10 +309,6 @@
   line-height: 1.9;
   max-width: 620px;
   flex: 1;
-}
-.print-cover .print-bundle-footer {
-  width: 100%;
-  margin-top: 30px;
 }
 .print-a5 .print-bundle-recipe h1 {
   font-size: 22px;
@@ -369,4 +396,96 @@
   .print-brand-preview {
     width: 150px;
   }
+}
+
+/* Gedeelde map: recepten kiezen om te printen */
+.print-picker {
+  width: min(560px, calc(100vw - 32px));
+}
+.print-pick-tools {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 4px 0 10px;
+}
+.print-pick-tools input {
+  flex: 1;
+  min-width: 0;
+}
+.print-pick-list {
+  max-height: min(52vh, 460px);
+  overflow-y: auto;
+  border-top: 1px solid var(--line, #243031);
+  border-bottom: 1px solid var(--line, #243031);
+  padding: 4px 2px;
+}
+.print-pick-group + .print-pick-group {
+  margin-top: 8px;
+}
+.print-pick-head,
+.print-pick-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 4px;
+  cursor: pointer;
+}
+.print-pick-head small {
+  margin-left: auto;
+  color: var(--muted);
+}
+.print-pick-row {
+  padding-left: 32px;
+}
+.print-pick-head input,
+.print-pick-row input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--gold);
+  flex: none;
+}
+.print-pick-count {
+  margin-right: auto;
+  color: var(--muted);
+  font-size: 13px;
+  align-self: center;
+}
+
+/* Inloggen: ingelogd blijven en wachtwoord onthouden */
+.auth-checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin-top: 14px;
+}
+.auth-check {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--muted);
+}
+.auth-check input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--gold);
+  flex: none;
+}
+.print-pick-tools input[type='search'] {
+  height: 38px;
+  padding: 0 16px;
+  border: 1px solid var(--line, #243031);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+}
+.print-pick-tools input[type='search']:focus {
+  border-color: var(--gold);
+}
+body.savour-light .print-pick-tools input[type='search'] {
+  border-color: #d8d2c4;
 }

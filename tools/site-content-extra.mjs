@@ -1,72 +1,5 @@
-// Aanvulling op tools/site-content.mjs: het voor-en-na-blok van de startpagina (vier talen) en de Duitse en
-// Spaanse teksten van de startpagina en het menu. Dieper liggende pagina's zijn in het Duits en Spaans (nog) Engels.
-
-export const BEFORE_AFTER = {
-  nl: {
-    shotAlt: 'Het receptenoverzicht van Savour op een telefoon',
-    beforeLabel: 'Voor Savour',
-    beforeTitle: 'Recepten op tien plekken, en nooit waar je ze zoekt.',
-    beforeList: ['Schriften vol vlekken en vervaagd handschrift', 'Word-bestanden van honderden pagina’s', 'Foto’s van recepten in de groepsapp', 'Drie versies van dezelfde saus', 'Vijftig recepten één voor één printen'],
-    beforeNote: 'De kennis van je keuken zit in schriften, mappen en hoofden. Wie vertrekt, neemt een deel mee.',
-    doc: 'recepten_DEF_v3_FINAL.docx',
-    chat: 'Heb je de jus nog? Stuur even een foto',
-    print: 'Afdrukken 1 van 50',
-    afterLabel: 'Met Savour',
-    afterTitle: 'Eén receptenboek. De hele brigade werkt met dezelfde versie.',
-    afterList: ['Kladjes en Word in één keer geïmporteerd', 'Zoeken op titel of ingrediënt', 'Gedeelde mappen met rechten', 'Opschalen naar elke opbrengst', 'Een hele map in één keer printen'],
-    afterNote: 'Je recepten kloppen, zijn overal te vinden en blijven van jou, ook als mensen vertrekken.',
-    search: 'Zoek op titel of ingrediënt',
-    rows: [['Beurre blanc', 'Sauzen'], ['Kalfsjus', 'Fonds'], ['Bloemkool crème', 'Garnituren'], ['Frambozen bavarois', 'Patisserie']]
-  },
-  en: {
-    shotAlt: 'The Savour recipe overview on a phone',
-    beforeLabel: 'Before Savour',
-    beforeTitle: 'Recipes in ten places, and never where you look.',
-    beforeList: ['Stained notebooks and faded handwriting', 'Word files hundreds of pages long', 'Photos of recipes in the group chat', 'Three versions of the same sauce', 'Printing fifty recipes one by one'],
-    beforeNote: 'Your kitchen’s knowledge lives in notebooks, binders and heads. Whoever leaves takes part of it with them.',
-    doc: 'recipes_FINAL_v3_new.docx',
-    chat: 'Do you still have the jus? Send me a photo',
-    print: 'Printing 1 of 50',
-    afterLabel: 'With Savour',
-    afterTitle: 'One recipe book. The whole brigade works from the same version.',
-    afterList: ['Notes and Word imported in one go', 'Search by title or ingredient', 'Shared folders with rights', 'Scale to any yield', 'Print a whole folder at once'],
-    afterNote: 'Your recipes are right, easy to find and stay yours, even when people leave.',
-    search: 'Search by title or ingredient',
-    rows: [['Beurre blanc', 'Sauces'], ['Veal jus', 'Stocks'], ['Cauliflower cream', 'Garnishes'], ['Raspberry bavarois', 'Pastry']]
-  },
-  de: {
-    shotAlt: 'Die Rezeptübersicht von Savour auf dem Handy',
-    beforeLabel: 'Vor Savour',
-    beforeTitle: 'Rezepte an zehn Orten, und nie dort, wo du suchst.',
-    beforeList: ['Hefte voller Flecken und verblasste Handschrift', 'Word-Dateien mit Hunderten Seiten', 'Fotos von Rezepten im Gruppenchat', 'Drei Versionen derselben Sauce', 'Fünfzig Rezepte einzeln drucken'],
-    beforeNote: 'Das Wissen deiner Küche steckt in Heften, Ordnern und Köpfen. Wer geht, nimmt einen Teil davon mit.',
-    doc: 'rezepte_FINAL_v3_neu.docx',
-    chat: 'Hast du die Jus noch? Schick mal ein Foto',
-    print: 'Drucke 1 von 50',
-    afterLabel: 'Mit Savour',
-    afterTitle: 'Ein Rezeptbuch. Die ganze Brigade arbeitet mit derselben Version.',
-    afterList: ['Notizen und Word auf einmal importiert', 'Suche nach Titel oder Zutat', 'Geteilte Ordner mit Rechten', 'Hochrechnen auf jede Ausbeute', 'Einen ganzen Ordner auf einmal drucken'],
-    afterNote: 'Deine Rezepte stimmen, sind überall zu finden und bleiben deine, auch wenn Leute gehen.',
-    search: 'Suche nach Titel oder Zutat',
-    rows: [['Beurre blanc', 'Saucen'], ['Kalbsjus', 'Fonds'], ['Blumenkohlcreme', 'Garnituren'], ['Himbeer-Bavarois', 'Patisserie']]
-  },
-  es: {
-    shotAlt: 'La lista de recetas de Savour en un móvil',
-    beforeLabel: 'Antes de Savour',
-    beforeTitle: 'Recetas en diez sitios, y nunca donde las buscas.',
-    beforeList: ['Cuadernos llenos de manchas y letra borrosa', 'Archivos de Word de cientos de páginas', 'Fotos de recetas en el grupo de chat', 'Tres versiones de la misma salsa', 'Imprimir cincuenta recetas una a una'],
-    beforeNote: 'El conocimiento de tu cocina vive en cuadernos, carpetas y cabezas. Quien se va, se lleva una parte.',
-    doc: 'recetas_FINAL_v3_nuevo.docx',
-    chat: '¿Aún tienes el jugo? Mándame una foto',
-    print: 'Imprimiendo 1 de 50',
-    afterLabel: 'Con Savour',
-    afterTitle: 'Un solo recetario. Toda la brigada trabaja con la misma versión.',
-    afterList: ['Notas y Word importados de una vez', 'Busca por título o ingrediente', 'Carpetas compartidas con permisos', 'Escala a cualquier rendimiento', 'Imprime una carpeta entera de una vez'],
-    afterNote: 'Tus recetas son correctas, fáciles de encontrar y siguen siendo tuyas, aunque la gente se vaya.',
-    search: 'Busca por título o ingrediente',
-    rows: [['Beurre blanc', 'Salsas'], ['Jugo de ternera', 'Fondos'], ['Crema de coliflor', 'Guarniciones'], ['Bavarois de frambuesa', 'Pastelería']]
-  }
-};
+// Aanvulling op tools/site-content.mjs: de Duitse en Spaanse teksten van de startpagina en het menu.
+// Dieper liggende pagina's zijn in het Duits en Spaans (nog) Engels.
 
 export const EXTRA_LANGS = {
   de: {
@@ -93,11 +26,9 @@ export const EXTRA_LANGS = {
       caption: 'Links die Notiz aus der Küche. Rechts dasselbe Rezept in Savour.'
     },
     home: {
-      eyebrow: 'Für Köche in der Spitzengastronomie',
-      h1: 'Von der Notiz zum Rezept, das stimmt.',
+      h1: 'Dein ganzes Rezeptbuch, auf jedem Handy in der Küche.',
       lead: 'Savour ist die Rezept-App für die Profiküche. Deine Word-Dateien, PDFs und handschriftlichen Notizen werden ein geordnetes Rezeptbuch, für dich und deine Brigade.',
       proof: '1.400 Rezepte in 2 Minuten aus Word importiert. Getestet in unserer eigenen Küche.',
-      storyTitle: 'Jedes Rezept beginnt irgendwo auf Papier.',
       story: [
         'Auf der Rückseite eines Bons. In einem Heft, das nach zehn Jahren Service zusammenklebt. Auf einem Foto vom Pass. Diese Notizen sind das Wissen deiner Küche, und sie gehen verloren, verblassen oder sind nur für den lesbar, der sie schrieb.',
         'Savour bewahrt dieses Wissen. Nicht durch Abtippen, sondern indem deine Notizen, Ordner und Dateien in einem Schritt zu Rezepten werden, die stimmen und die deine ganze Brigade lesen kann.'
@@ -161,11 +92,9 @@ export const EXTRA_LANGS = {
       caption: 'A la izquierda, la nota de la cocina. A la derecha, la misma receta en Savour.'
     },
     home: {
-      eyebrow: 'Para chefs de alta cocina',
-      h1: 'De la nota a una receta que funciona.',
+      h1: 'Todo tu recetario, en cada móvil de la cocina.',
       lead: 'Savour es la app de recetas para la cocina profesional. Tus archivos de Word, PDF y notas escritas a mano se convierten en un recetario ordenado, para ti y tu brigada.',
       proof: '1.400 recetas importadas de Word en 2 minutos. Probado en nuestra propia cocina.',
-      storyTitle: 'Toda receta empieza en algún papel.',
       story: [
         'En el reverso de un ticket. En un cuaderno que se pega tras diez años de servicio. En una foto que hiciste en el pase. Esas notas son el conocimiento de tu cocina, y se pierden, se borran o solo las entiende quien las escribió.',
         'Savour está hecho para guardar ese conocimiento. No volviendo a escribirlo todo, sino convirtiendo tus notas, carpetas y archivos de una vez en recetas correctas que toda tu brigada puede leer.'

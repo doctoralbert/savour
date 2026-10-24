@@ -612,6 +612,15 @@ window.SAVOUR_I18N.en = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Unlimited recipes, AI that reads your notes and photos, and shared folders for your team.',
     Verbergen: 'Hide',
+    'Ingelogd blijven': 'Stay signed in',
+    'Wachtwoord onthouden': 'Remember password',
+    'Recepten printen': 'Print recipes',
+    'Welke recepten wil je printen?': 'Which recipes do you want to print?',
+    'Zoek een recept': 'Search a recipe',
+    Niets: 'None',
+    Verder: 'Continue',
+    'Overige recepten': 'Other recipes',
+    'Kies minstens één recept': 'Choose at least one recipe',
     'Printen met het logo van je restaurant': "Printing with your restaurant's logo",
     'Recept printen': 'Print recipe',
     "Met foto's": 'With photos',
@@ -1130,6 +1139,7 @@ window.SAVOUR_I18N.en = {
       'Before Savour goes live, the responsible legal entity, contact details, hosting and processing parties and any international data transfers must be finalised.'
   },
   patterns: [
+    ['^(\\d+) van (\\d+) recepten$', '$1 of $2 recipes'],
     ['^(\\d+) recepten printen$', 'Print $1 recipes'],
     ['^Geprint op (.+)$', 'Printed on $1'],
     [

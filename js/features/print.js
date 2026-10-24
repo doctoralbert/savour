@@ -103,7 +103,9 @@ async function openPrintBundle(list, { title = '', mapId = null } = {}) {
   // Papierformaat voor de printer.
   const page = document.createElement('style');
   page.id = 'printPageSize';
-  page.textContent = `@page { size: ${options.size === 'a5' ? 'A5' : 'A4'}; margin: ${options.size === 'a5' ? '10mm' : '14mm'}; }`;
+  // Marge 0: dan zet de browser er geen eigen kop- en voettekst bij (datum, paginatitel, webadres). De ruimte rond
+  // de tekst komt uit de opmaak (css/app-style.css).
+  page.textContent = `@page { size: ${options.size === 'a5' ? 'A5' : 'A4'}; margin: 0; }`;
   document.head.appendChild(page);
   let cleanup = () => {
     el.remove();
@@ -141,7 +143,8 @@ function printBundleHtml(list, { brand = null, options = {}, title = '' } = {}) 
     month: 'long',
     year: 'numeric'
   });
-  const foot = `<div class="print-bundle-footer"><span>Gemaakt met Savour</span><span>Geprint op ${esc(day)}</span></div>`;
+  // Eén voettekst, die de printer onderaan elke pagina zet.
+  const foot = `<div class="print-page-foot"><span>Gemaakt met Savour</span><span>Geprint op ${esc(day)}</span></div>`;
   const cover =
     options.cover && list.length > 1
       ? `<section class="print-cover">${
@@ -150,9 +153,10 @@ function printBundleHtml(list, { brand = null, options = {}, title = '' } = {}) 
           title || 'Recepten'
         )}</h1><div class="print-cover-count">${list.length} recepten</div><ol class="print-cover-list">${list
           .map(r => `<li translate="no">${esc(r.title)}</li>`)
-          .join('')}</ol>${foot}</section>`
+          .join('')}</ol></section>`
       : '';
   return (
+    foot +
     cover +
     list
       .map(r => {
@@ -160,7 +164,7 @@ function printBundleHtml(list, { brand = null, options = {}, title = '' } = {}) 
         const steps = r.steps?.length ? r.steps : [];
         const photo =
           r.photo && options.photos !== false ? `<img class="print-photo" src="${esc(r.photo)}" alt="">` : '';
-        return `<article class="print-bundle-recipe">${top}${photo}<h1>${esc(r.title)}</h1>${r.yield ? `<div class="print-yield">Opbrengst · ${esc(r.yield)}</div>` : ''}<div class="print-bundle-columns"><div><h3>Ingrediënten</h3>${ingredients.length ? ingredients.map(x => `<div class="ingredient">${esc(x)}</div>`).join('') : `<div class="muted">Geen ingrediënten vastgelegd.</div>`}</div>${steps.length ? `<div><h3>Bereiding</h3>${steps.map((x, i) => `<div class="step"><b>${i + 1}.</b> ${esc(x)}</div>`).join('')}</div>` : ''}</div>${foot}</article>`;
+        return `<article class="print-bundle-recipe">${top}${photo}<h1>${esc(r.title)}</h1>${r.yield ? `<div class="print-yield">Opbrengst · ${esc(r.yield)}</div>` : ''}<div class="print-bundle-columns"><div><h3>Ingrediënten</h3>${ingredients.length ? ingredients.map(x => `<div class="ingredient">${esc(x)}</div>`).join('') : `<div class="muted">Geen ingrediënten vastgelegd.</div>`}</div>${steps.length ? `<div><h3>Bereiding</h3>${steps.map((x, i) => `<div class="step"><b>${i + 1}.</b> ${esc(x)}</div>`).join('')}</div>` : ''}</div></article>`;
       })
       .join('')
   );
@@ -178,7 +182,8 @@ function printFolder(id) {
   openPrintBundle(list, { title: f.name });
 }
 
-function printSharedMap(id) {
+// Gedeelde map: eerst zelf kiezen welke recepten je print, per map gegroepeerd.
+async function printSharedMap(id) {
   let m = sharedMaps.find(x => x.id === id);
   if (!m) return;
   let list = m.recipeIds.map(rid => findRecipe(rid)).filter(Boolean);
@@ -186,7 +191,99 @@ function printSharedMap(id) {
     toast('Deze gedeelde map bevat nog geen recepten');
     return;
   }
-  openPrintBundle(list, { title: m.name, mapId: m.id });
+  const chosen = await pickRecipesToPrint(m, list);
+  if (!chosen?.length) return;
+  openPrintBundle(chosen, { title: m.name, mapId: m.id });
+}
+
+// Venster met alle recepten van een gedeelde map, gegroepeerd per map, met vinkjes. Alles staat aan.
+// Geeft de gekozen recepten in de volgorde van de groepen, of null bij annuleren.
+function pickRecipesToPrint(m, list) {
+  const byId = new Map(list.map(r => [String(r.id), r]));
+  const groups = (m.folders || [])
+    .filter(f => !f.system)
+    .map(f => ({ name: f.name, ids: (f.recipeIds || []).map(String).filter(id => byId.has(id)) }))
+    .filter(g => g.ids.length);
+  const inGroup = new Set(groups.flatMap(g => g.ids));
+  const rest = list.map(r => String(r.id)).filter(id => !inGroup.has(id));
+  if (rest.length) groups.push({ name: groups.length ? 'Overige recepten' : 'Alle recepten', ids: rest });
+  const row = id =>
+    `<label class="print-pick-row"><input type="checkbox" data-pick="${esc(id)}" checked><span translate="no">${esc(byId.get(id).title)}</span></label>`;
+  const html = groups
+    .map(
+      (g, i) =>
+        `<div class="print-pick-group"><label class="print-pick-head"><input type="checkbox" data-pick-group="${i}" checked><b translate="no">${esc(g.name)}</b><small>${g.ids.length}</small></label>${g.ids.map(row).join('')}</div>`
+    )
+    .join('');
+  document.getElementById('printPicker')?.remove();
+  document.body.insertAdjacentHTML(
+    'beforeend',
+    `<div class="modal sv-dialog open" id="printPicker" role="dialog" aria-modal="true" aria-labelledby="printPickerTitle"><form class="sv-dialog-box print-picker" novalidate><h2 id="printPickerTitle" class="sv-dialog-title">Welke recepten wil je printen?</h2><div class="print-pick-tools"><input type="search" placeholder="Zoek een recept" aria-label="Zoek een recept" data-pick-search><button type="button" class="btn small" data-pick-all>Alles</button><button type="button" class="btn small" data-pick-none>Niets</button></div><div class="print-pick-list">${html}</div><div class="sv-dialog-actions"><span class="print-pick-count" data-pick-count></span><button type="button" class="btn" data-cancel>Annuleren</button><button type="submit" class="btn gold">Verder</button></div></form></div>`
+  );
+  const el = document.getElementById('printPicker');
+  const boxes = () => [...el.querySelectorAll('[data-pick]')];
+  const update = () => {
+    const ids = new Set(
+      boxes()
+        .filter(b => b.checked)
+        .map(b => b.dataset.pick)
+    );
+    el.querySelector('[data-pick-count]').textContent = `${ids.size} van ${list.length} recepten`;
+    groups.forEach((g, i) => {
+      const head = el.querySelector(`[data-pick-group="${i}"]`);
+      const on = g.ids.filter(id => ids.has(id)).length;
+      head.checked = on === g.ids.length;
+      head.indeterminate = on > 0 && on < g.ids.length;
+    });
+    return ids;
+  };
+  // Een recept kan in meerdere mappen staan: alle vinkjes van dat recept gaan samen aan of uit.
+  const setRecipe = (id, on) => boxes().forEach(b => b.dataset.pick === id && (b.checked = on));
+  el.addEventListener('change', e => {
+    const t = e.target;
+    if (t.dataset.pick) setRecipe(t.dataset.pick, t.checked);
+    if (t.dataset.pickGroup) groups[t.dataset.pickGroup].ids.forEach(id => setRecipe(id, t.checked));
+    update();
+  });
+  el.querySelector('[data-pick-all]').addEventListener(
+    'click',
+    () => (boxes().forEach(b => (b.checked = true)), update())
+  );
+  el.querySelector('[data-pick-none]').addEventListener(
+    'click',
+    () => (boxes().forEach(b => (b.checked = false)), update())
+  );
+  el.querySelector('[data-pick-search]').addEventListener('input', e => {
+    const q = e.target.value.trim().toLowerCase();
+    el.querySelectorAll('.print-pick-row').forEach(r => (r.hidden = !!q && !r.textContent.toLowerCase().includes(q)));
+    el.querySelectorAll('.print-pick-group').forEach(
+      g => (g.hidden = !!q && !g.querySelector('.print-pick-row:not([hidden])'))
+    );
+  });
+  update();
+  return new Promise(resolve => {
+    const done = value => {
+      el.remove();
+      resolve(value);
+    };
+    el.querySelector('form').addEventListener('submit', e => {
+      e.preventDefault();
+      const ids = update();
+      if (!ids.size) {
+        toast('Kies minstens één recept');
+        return;
+      }
+      const order = [...new Set(groups.flatMap(g => g.ids))].filter(id => ids.has(id));
+      done(order.map(id => byId.get(id)));
+    });
+    el.querySelector('[data-cancel]').addEventListener('click', () => done(null));
+    el.addEventListener('mousedown', e => {
+      if (e.target === el) done(null);
+    });
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Escape') done(null);
+    });
+  });
 }
 
 function printSharedFolder(mapId, folderId) {

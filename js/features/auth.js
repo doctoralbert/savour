@@ -15,6 +15,53 @@ function openAuth(mode) {
       : t('Log in om je persoonlijke receptenbibliotheek te openen.');
   $('authSubmit').textContent = mode === 'signup' ? t('Account aanmaken') : t('Inloggen');
   $('authEmailField').style.marginTop = mode === 'signup' ? '10px' : '0';
+  $('authPassword').autocomplete = mode === 'signup' ? 'new-password' : 'current-password';
+  // Vinkjes zoals de vorige keer; bij inloggen het onthouden e-mailadres en, als de browser het mag, het wachtwoord.
+  $('authStay').checked = staySignedIn();
+  $('authRemember').checked = rememberPassword();
+  if (mode === 'login') fillRememberedLogin();
+}
+
+const REMEMBER_PASSWORD_KEY = 'savour_remember_password';
+const LAST_EMAIL_KEY = 'savour_last_email';
+
+function rememberPassword() {
+  try {
+    return localStorage.getItem(REMEMBER_PASSWORD_KEY) !== '0';
+  } catch (_) {
+    return true;
+  }
+}
+
+// Het wachtwoord bewaart Savour nooit zelf: dat doet de wachtwoordbeheerder van de browser (veilig versleuteld).
+// Savour onthoudt alleen het e-mailadres, en vraagt de browser om het bewaarde wachtwoord in te vullen.
+async function fillRememberedLogin() {
+  if (!rememberPassword()) return;
+  try {
+    const email = localStorage.getItem(LAST_EMAIL_KEY);
+    if (email && !$('authEmail').value) $('authEmail').value = email;
+  } catch (_) {}
+  if (!window.PasswordCredential || !navigator.credentials?.get) return;
+  try {
+    const cred = await navigator.credentials.get({ password: true, mediation: 'optional' });
+    if (cred?.password && $('authModal').classList.contains('open') && authMode === 'login') {
+      $('authEmail').value = cred.id;
+      $('authPassword').value = cred.password;
+    }
+  } catch (_) {}
+}
+
+async function saveLoginChoices(email, password, name) {
+  const remember = $('authRemember').checked;
+  try {
+    localStorage.setItem(REMEMBER_PASSWORD_KEY, remember ? '1' : '0');
+    if (remember) localStorage.setItem(LAST_EMAIL_KEY, email);
+    else localStorage.removeItem(LAST_EMAIL_KEY);
+  } catch (_) {}
+  if (!remember || !window.PasswordCredential || !navigator.credentials?.store) return;
+  try {
+    await navigator.credentials.store(new PasswordCredential({ id: email, password, name: name || email }));
+  } catch (_) {}
 }
 
 function closeAuth() {
@@ -63,6 +110,10 @@ async function submitAuth() {
   }
   $('authSubmit').disabled = true;
   $('authSubmit').textContent = 'Bezig...';
+  // Voor het inloggen vastleggen, zodat de sessie meteen op de goede plek wordt bewaard (zie js/core/config.js).
+  try {
+    localStorage.setItem(STAY_SIGNED_IN_KEY, $('authStay').checked ? '1' : '0');
+  } catch (_) {}
   try {
     if (authMode === 'signup') {
       const { data, error } = await supabaseClient.auth.signUp({
@@ -71,6 +122,7 @@ async function submitAuth() {
         data: { name, organization }
       });
       if (error) throw error;
+      saveLoginChoices(email, password, name);
       closeAuth();
       if (data.session) {
         const ok = await startDatabaseSession(data.user);
@@ -79,6 +131,7 @@ async function submitAuth() {
     } else {
       const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
       if (error) throw error;
+      saveLoginChoices(email, password, data.user?.user_metadata?.name);
       closeAuth();
       const ok = await startDatabaseSession(data.user);
       if (ok) toast(authWelcome(account.name || data.user.user_metadata?.name || email));

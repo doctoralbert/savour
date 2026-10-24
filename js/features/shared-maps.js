@@ -211,7 +211,7 @@ function renderShared(id) {
       ? `<button class="btn gold compact-action" onclick="openSharedRecipePicker('${mid}')">＋<span>Recept toevoegen</span></button>`
       : '') +
     (list.length
-      ? `<button class="btn compact-action" onclick="printSharedMap('${mid}')">⎙<span>Print map</span></button>`
+      ? `<button class="btn compact-action" onclick="printSharedMap('${mid}')">⎙<span>Recepten printen</span></button>`
       : '') +
     `<button class="btn compact-action" onclick="inviteShared('${mid}')">♧<span>Team uitnodigen</span></button>` +
     (m.ownerId === currentUser.id

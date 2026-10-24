@@ -30,12 +30,32 @@
           },
           { threshold: 0.15 }
         );
-        site.querySelectorAll('.reveal, .kladje-demo').forEach(function (el) {
+        site.querySelectorAll('.reveal').forEach(function (el) {
           io.observe(el);
         });
       }
     });
   }
+
+  // Kladje-schuif: links het echte kladje, rechts hetzelfde recept in Savour.
+  document.addEventListener('input', function (e) {
+    if (!e.target.classList || !e.target.classList.contains('kladje-ba-range')) return;
+    var fig = e.target.closest('.kladje-ba');
+    if (fig) fig.style.setProperty('--pos', e.target.value + '%');
+  });
+
+  // Taalkeuze: klik ernaast of Esc sluit het venster.
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('.site-lang[open]').forEach(function (d) {
+      if (!d.contains(e.target)) d.removeAttribute('open');
+    });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape')
+      document.querySelectorAll('.site-lang[open]').forEach(function (d) {
+        d.removeAttribute('open');
+      });
+  });
 
   // In de app (startpagina): inloggen, account maken en de demo openen zonder de pagina te herladen.
   document.addEventListener('click', function (e) {

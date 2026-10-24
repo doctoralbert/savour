@@ -7,8 +7,8 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import { strings, patterns } from './vertalingen.mjs';
 import { UI, KLADJE, FEATURES, AUDIENCES, STORY, HOME, POSTS } from './site-content.mjs';
-import { BEFORE_AFTER, EXTRA_LANGS } from './site-content-extra.mjs';
-import { KLADJE_REAL, PILE } from './site-kladje.mjs';
+import { EXTRA_LANGS } from './site-content-extra.mjs';
+import { KLADJE_REAL } from './site-kladje.mjs';
 import { BLOG } from './site-blog.mjs';
 
 // Nieuwste blogartikelen eerst.
@@ -138,13 +138,15 @@ for (const lang of ['de', 'es']) {
 }
 const homePath = lang => (lang === 'nl' ? '/' : '/' + lang);
 const LANG_LABEL = { nl: 'NL', en: 'EN', de: 'DE', es: 'ES' };
+const LANG_NAME = { nl: 'Nederlands', en: 'English', de: 'Deutsch', es: 'Español' };
 // Taalkeuze. In de app wisselt hij zonder herladen; op losse pagina's gaat NL/EN naar dezelfde pagina in de
 // andere taal en DE/ES naar de startpagina in die taal.
 function langSwitch(lang, alts, inApp) {
-  return `<div class="site-langs" translate="no">${HOME_LANGS.map(l => {
+  // Eén knop met de huidige taal; klikken opent een klein venster met de vier talen (zoals in de app).
+  return `<details class="site-lang" translate="no"><summary aria-label="Taal / Language">${LANG_LABEL[lang]}</summary><div class="site-lang-menu">${HOME_LANGS.map(l => {
     const target = inApp ? homePath(l) : alts?.[l] || homePath(l);
-    return `<a href="${target}" hreflang="${l}" data-set-lang="${l}"${l === lang ? ' aria-current="true"' : ''}>${LANG_LABEL[l]}</a>`;
-  }).join('')}</div>`;
+    return `<a href="${target}" hreflang="${l}" data-set-lang="${l}"${l === lang ? ' aria-current="true"' : ''}><span>${LANG_LABEL[l]}</span>${LANG_NAME[l]}</a>`;
+  }).join('')}</div></details>`;
 }
 
 // ---- Onderdelen ----
@@ -191,11 +193,14 @@ function footer(lang, alt, inApp) {
 </div></footer>`;
 }
 
+// Echt kladje met een schuif: links de foto, rechts hetzelfde recept in Savour (js/site.js zet --pos).
 function kladje(lang) {
   const k = KLADJE_REAL[lang];
-  return `<figure class="kladje-demo"><div class="kladje-photo kladje-stack"><div class="kladje-back" aria-hidden="true"><img src="/assets/kladjes/marshmallow.jpg" alt=""><img src="/assets/kladjes/curd.jpg" alt=""></div><div class="kladje-front"><img src="/assets/kladjes/mayonaise.jpg" alt="${esc(k.alt)}" width="640" height="686"><span class="kladje-scan" aria-hidden="true"></span></div></div>
-<div class="kladje-recept"><h3>${esc(k.title)}</h3><small>${esc(k.meta)}</small><ul>${k.ingredients.map((i, n) => `<li style="--i:${n}">${esc(i)}</li>`).join('')}</ul><p class="kladje-nosteps">${esc(k.noSteps)}</p></div>
-<figcaption>${esc(k.caption)}</figcaption></figure>`;
+  return `<figure class="kladje-ba" style="--pos:50%"><div class="kladje-ba-stage">
+<div class="kladje-ba-after"><span class="kladje-ba-tag">${esc(k.after)}</span><h3>${esc(k.title)}</h3><small>${esc(k.meta)}</small><h4>${esc(k.ingredientsTitle)}</h4><ul>${k.ingredients.map(i => `<li>${esc(i)}</li>`).join('')}</ul><h4>${esc(k.stepsTitle)}</h4><ol>${k.steps.map(i => `<li>${esc(i)}</li>`).join('')}</ol><p class="kladje-ba-note">${esc(k.stepsNote)}</p></div>
+<div class="kladje-ba-before"><img src="/assets/kladjes/mayonaise.jpg" alt="${esc(k.alt)}" width="640" height="686" loading="lazy"><span class="kladje-ba-tag">${esc(k.before)}</span></div>
+<span class="kladje-ba-line" aria-hidden="true"><i></i></span><input class="kladje-ba-range" type="range" min="0" max="100" value="50" aria-label="${esc(k.slide)}">
+</div><figcaption>${esc(k.caption)}</figcaption></figure>`;
 }
 
 const rows = (items, lang) =>
@@ -212,45 +217,24 @@ function ctaBlock(lang, inApp) {
   return `<section class="site-cta with-photo"><div class="site-wrap"><h2 class="reveal">${esc(u.ctaTitle)}</h2><p>${esc(u.ctaText)}</p><div class="site-cta-row"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?demo=1" data-demo>${u.demo}</a></div></div></section>`;
 }
 
-// Zo ziet Savour eruit op de telefoon: echte schermafbeelding van de app (assets/app, per taal).
-const PREVIEW = {
-  nl: { alt: 'Receptscherm in Savour op een telefoon', t: 'Zo ziet het eruit in de keuken', p: 'Op je telefoon of tablet staan al je recepten van A tot Z. Zoek op titel of ingrediënt, zet je favorieten bovenaan en open met één tik de kookmodus met grote letters. Precies wat je nodig hebt tijdens de service, en niets meer.', l: ['Alle recepten', '1.260 recepten', 'Alle', 'Zoek in al je recepten...', 'Recepten', 'Recepten&shy;mappen', 'Gedeelde mappen', 'Recept toevoegen'] },
-  en: { alt: 'Recipe screen in Savour on a phone', t: 'This is how it looks in the kitchen', p: 'On your phone or tablet, all your recipes from A to Z. Search by title or ingredient, keep your favourites at hand and open cook mode with large text in one tap. Exactly what you need during service, and nothing more.', l: ['All recipes', '1,260 recipes', 'All', 'Search all your recipes...', 'Recipes', 'Recipe folders', 'Shared folders', 'Add recipe'] },
-  de: { alt: 'Rezeptansicht in Savour auf dem Handy', t: 'So sieht es in der Küche aus', p: 'Auf Handy oder Tablet alle deine Rezepte von A bis Z. Suche nach Titel oder Zutat, halte deine Favoriten griffbereit und öffne mit einem Tipp den Kochmodus mit großer Schrift. Genau das, was du im Service brauchst, und nicht mehr.', l: ['Alle Rezepte', '1.260 Rezepte', 'Alle', 'Durchsuche alle Rezepte...', 'Rezepte', 'Rezept&shy;ordner', 'Geteilte Ordner', 'Rezept hinzufügen'] },
-  es: { alt: 'Pantalla de receta en Savour en un móvil', t: 'Así se ve en la cocina', p: 'En tu móvil o tableta, todas tus recetas de la A a la Z. Busca por título o ingrediente, ten tus favoritas a mano y abre el modo cocina con letra grande con un toque. Justo lo que necesitas durante el servicio, y nada más.', l: ['Todas las recetas', '1.260 recetas', 'Todas', 'Busca en todas tus recetas...', 'Recetas', 'Carpetas', 'Carpetas compartidas', 'Añadir receta'] }
-};
-function phonePreview(lang) {
-  const x = PREVIEW[lang];
-  const q = homePath(lang);
-  return `<section class="site-section tint site-preview"><div class="site-wrap site-preview-grid"><div><h2 class="reveal">${esc(x.t)}</h2><p>${esc(x.p)}</p><p><a class="site-link" href="${q}?demo=1" data-demo>${UI[lang].demo}</a></p></div><div class="site-phone"><div class="site-phone-frame"><img src="/assets/app/recept-${lang}.jpg" alt="${esc(x.alt)}" width="520" height="1125" loading="lazy"></div></div></div></section>`;
-}
-
-// Voor en na: links de chaos van papier, bestanden en berichten, rechts hetzelfde in Savour.
-function beforeAfter(lang) {
-  const b = BEFORE_AFTER[lang];
-  return `<section class="site-ba"><div class="site-wrap site-ba-grid">
-<div class="site-ba-before reveal"><span class="site-ba-label">${esc(b.beforeLabel)}</span><h2>${esc(b.beforeTitle)}</h2><ul>${b.beforeList.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
-<div class="site-ba-pile" aria-hidden="true">${PILE.map((p, i) => `<img class="p${i + 1}" src="/assets/kladjes/${p}.jpg" alt="" loading="lazy">`).join('')}<div class="site-ba-print">${esc(b.print)}</div></div>
-<p class="site-ba-note">${esc(b.beforeNote)}</p></div>
-<div class="site-ba-after reveal"><span class="site-ba-label">${esc(b.afterLabel)}</span><h2>${esc(b.afterTitle)}</h2><ul>${b.afterList.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
-<div class="site-ba-shot"><img src="/assets/app/lijst-${lang}.jpg" alt="${esc(b.shotAlt)}" width="520" height="1125" loading="lazy"></div>
-<p class="site-ba-note gold">${esc(b.afterNote)}</p></div>
-</div></section>`;
-}
-
 // ---- Startpagina (ook gebruikt in index.html) ----
+// Bovenaan echte schermafbeeldingen van de app (assets/app): bibliotheek op de laptop, recept op de telefoon.
+const SHOT_ALT = {
+  nl: ['Receptenbibliotheek in Savour op een laptop', 'Receptscherm in Savour op een telefoon'],
+  en: ['Recipe library in Savour on a laptop', 'Recipe screen in Savour on a phone'],
+  de: ['Rezeptbibliothek in Savour auf einem Laptop', 'Rezeptansicht in Savour auf dem Handy'],
+  es: ['Biblioteca de recetas en Savour en un portátil', 'Pantalla de receta en Savour en un móvil']
+};
 function homeBody(lang, inApp) {
   const h = HOME[lang];
   const u = UI[lang];
   const q = homePath(lang);
   return `<section class="site-hero"><div class="site-wrap">
-<div><span class="site-eyebrow">${esc(h.eyebrow)}</span><h1>${esc(h.h1)}</h1><p class="site-lead">${esc(h.lead)}</p><p class="site-proof">${esc(h.proof)}</p>
+<div><h1>${esc(h.h1)}</h1><p class="site-lead">${esc(h.lead)}</p><p class="site-proof">${esc(h.proof)}</p>
 <div class="site-cta-row"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?demo=1" data-demo>${u.demo}</a></div><p class="site-note" style="margin-top:10px">${esc(u.demoNote)}</p></div>
-${kladje(lang)}
+<div class="hero-shots"><div class="hero-laptop"><img src="/assets/app/bibliotheek-${lang}.jpg" alt="${esc(SHOT_ALT[lang][0])}" width="1440" height="900"></div><div class="hero-phone"><img src="/assets/app/recept-${lang}.jpg" alt="${esc(SHOT_ALT[lang][1])}" width="520" height="1125"></div></div>
 </div></section>
-<section class="site-section"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.storyTitle)}</h2><div>${h.story.map(p => `<p>${esc(p)}</p>`).join('')}<p><a class="site-link" href="${href(STORY[lang].slug)}">${esc(h.storyLink)}</a></p></div></div></section>
-${beforeAfter(lang)}
-${phonePreview(lang)}
+<section class="site-section"><div class="site-wrap site-story"><div><h2 class="reveal">${esc(KLADJE_REAL[lang].heading)}</h2>${h.story.map(p => `<p>${esc(p)}</p>`).join('')}<p><a class="site-link" href="${href(STORY[lang].slug)}">${esc(h.storyLink)}</a></p></div>${kladje(lang)}</div></section>
 <section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(h.featuresTitle)}</h2>${rows(FEATURES.filter(f => !f.soon), lang)}</div></section>
 <section class="site-section"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.audienceTitle)}</h2>${rows(AUDIENCES, lang)}</div></section>
 <section class="site-section dark"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.soonTitle)}</h2><div><ul class="site-rows">${FEATURES.find(f => f.soon)[lang].sections.map(([t, d]) => `<li><a href="${href(FEATURES.find(f => f.soon)[lang].slug)}"><b>${esc(t)}</b><span>${esc(d)}</span><i aria-hidden="true">→</i></a></li>`).join('')}</ul></div></div></section>

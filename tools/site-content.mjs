@@ -455,11 +455,9 @@ export const STORY = {
 // ---- Startpagina ----
 export const HOME = {
   nl: {
-    eyebrow: 'Voor chefs in de fine dining',
-    h1: 'Van kladje naar een recept dat klopt.',
+    h1: 'Je hele receptenboek, op elke telefoon in de keuken.',
     lead: 'Savour is de receptenapp voor receptbeheer in de professionele keuken. Je Word-bestanden, PDF’s en handgeschreven kladjes worden één geordend receptenboek, voor jou en je hele keukenteam.',
     proof: '1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.',
-    storyTitle: 'Elk recept begint ergens op papier.',
     story: [
       'Op de achterkant van een bon. In een schrift dat na tien jaar service aan elkaar plakt. Op een foto die je ooit bij de pas maakte. Die kladjes zijn de kennis van je keuken, en ze raken kwijt, vervagen of zijn alleen leesbaar voor degene die ze schreef.',
       'Savour is gemaakt om die kennis te bewaren. Niet door alles over te typen, maar door je kladjes, mappen en bestanden in één keer om te zetten in recepten die kloppen en die je hele brigade kan lezen.'
@@ -483,11 +481,9 @@ export const HOME = {
     ]
   },
   en: {
-    eyebrow: 'For chefs in fine dining',
-    h1: 'From scribbled note to a recipe that works.',
+    h1: 'Your whole recipe book, on every phone in the kitchen.',
     lead: 'Savour is the recipe management app for professional kitchens. Your Word files, PDFs and handwritten notes become one organised recipe book, for you and your whole kitchen team.',
     proof: '1,400 recipes imported from Word in 2 minutes. Tested in our own kitchen.',
-    storyTitle: 'Every recipe starts somewhere on paper.',
     story: [
       'On the back of a ticket. In a notebook that sticks together after ten years of service. In a photo you once took at the pass. Those notes are your kitchen’s knowledge, and they get lost, fade, or can only be read by the person who wrote them.',
       'Savour is made to keep that knowledge. Not by retyping everything, but by turning your notes, binders and files into recipes that are right and that your whole brigade can read, in one go.'

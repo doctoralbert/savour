@@ -67,6 +67,14 @@ export function deleteAuthUser(userId) {
   return adminFetch(`/auth/v1/admin/users/${encodeURIComponent(userId)}`, { method: 'DELETE' });
 }
 
+// E-mailadres van een account als bevestigd markeren (beheerder bevestigt handmatig, zie api/admin.js).
+export function confirmAuthUser(userId) {
+  return adminFetch(`/auth/v1/admin/users/${encodeURIComponent(userId)}`, {
+    method: 'PUT',
+    body: { email_confirm: true }
+  });
+}
+
 // Alle accounts (Supabase Auth), per pagina van 1000.
 export async function listUsers() {
   const users = [];

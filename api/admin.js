@@ -11,7 +11,8 @@ import {
   upsertSubscription,
   hasServiceRole,
   inviteUser,
-  deleteAuthUser
+  deleteAuthUser,
+  confirmAuthUser
 } from './_lib/supabase-admin.js';
 import { siteOrigin } from './_lib/origin.js';
 import { stripe, hasStripe, PLAN_MONTHLY_EUR } from './_lib/stripe.js';
@@ -225,6 +226,12 @@ async function createAccount({ email, name, organization }, origin) {
 
 // Account verwijderen met alle gegevens. Nooit je eigen account, en nooit een account met een betaald
 // abonnement of team dat nog doorloopt (dan blijft Stripe afschrijven): eerst opzeggen.
+// Account handmatig bevestigen, bijvoorbeeld als de bevestigingsmail niet aankwam.
+async function confirmAccount(userId) {
+  const user = await confirmAuthUser(userId);
+  return { ok: true, email: user?.email || '' };
+}
+
 async function deleteAccount(userId, adminUser) {
   if (userId === adminUser.id)
     throw Object.assign(new Error('Je kunt je eigen account niet verwijderen.'), { status: 400 });
@@ -309,6 +316,7 @@ export default async function handler(req, res) {
     if (action === 'revoke_gift' && userId) return res.status(200).json(await revokeGift(userId));
     if (action === 'create_account')
       return res.status(200).json(await createAccount({ email, name, organization }, siteOrigin(req)));
+    if (action === 'confirm_account' && userId) return res.status(200).json(await confirmAccount(userId));
     if (action === 'delete_account' && userId) return res.status(200).json(await deleteAccount(userId, user));
     return res.status(400).json({ error: 'Onbekende actie.' });
   } catch (error) {

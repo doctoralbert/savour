@@ -307,8 +307,11 @@ function renderAdminAccounts() {
             : a.paid_stripe
               ? ''
               : `<button class="admin-ghost" onclick="adminGiftPro('${a.id}')">Pro geven</button>`;
+        const confirm = a.confirmed
+          ? ''
+          : `<button class="admin-ghost" onclick="adminConfirmAccount('${a.id}')">Bevestigen</button>`;
         const remove = `<button class="admin-ghost admin-danger" onclick="adminDeleteAccount('${a.id}')">Verwijderen</button>`;
-        return `<tr><td>${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_this_month)}</td><td>${adminFormatDate(a.created_at)}</td><td>${adminFormatDate(a.last_sign_in_at)}</td><td><div class="admin-actions">${action}${remove}</div></td></tr>`;
+        return `<tr><td>${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_this_month)}</td><td>${adminFormatDate(a.created_at)}</td><td>${adminFormatDate(a.last_sign_in_at)}</td><td><div class="admin-actions">${confirm}${action}${remove}</div></td></tr>`;
       })
       .join('') || '<tr><td colspan="9">Geen accounts gevonden.</td></tr>';
 }
@@ -333,6 +336,30 @@ async function adminCreateAccount() {
   try {
     await adminApi('create_account', { email, name: name.trim(), organization: organization.trim() });
     toast(`Uitnodiging verstuurd naar ${email}`);
+    await loadAdminOverview();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
+}
+
+// Account bevestigen zonder dat de gebruiker op de link in de mail klikt (bijv. als die mail niet aankwam).
+async function adminConfirmAccount(userId) {
+  const a = adminAccounts.find(x => x.id === userId);
+  if (!a) return;
+  if (
+    !(await askConfirm(
+      `Account bevestigen?
+
+${a.email}${a.name ? ` (${a.name})` : ''}
+
+Het e-mailadres telt dan als geverifieerd en de gebruiker kan meteen inloggen met het eigen wachtwoord.`,
+      { confirmLabel: 'Bevestigen' }
+    ))
+  )
+    return;
+  try {
+    await adminApi('confirm_account', { user_id: userId });
+    toast(`${a.email} is bevestigd`);
     await loadAdminOverview();
   } catch (e) {
     alertAdmin(e.message);

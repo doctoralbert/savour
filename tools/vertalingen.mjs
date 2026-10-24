@@ -1503,6 +1503,15 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Ingelogd blijven", "Stay signed in", "Angemeldet bleiben", "Mantener la sesión iniciada"],
+  ["Wachtwoord onthouden", "Remember password", "Passwort merken", "Recordar contraseña"],
+  ["Recepten printen", "Print recipes", "Rezepte drucken", "Imprimir recetas"],
+  ["Welke recepten wil je printen?", "Which recipes do you want to print?", "Welche Rezepte möchtest du drucken?", "¿Qué recetas quieres imprimir?"],
+  ["Zoek een recept", "Search a recipe", "Rezept suchen", "Buscar una receta"],
+  ["Niets", "None", "Keine", "Nada"],
+  ["Verder", "Continue", "Weiter", "Continuar"],
+  ["Overige recepten", "Other recipes", "Weitere Rezepte", "Otras recetas"],
+  ["Kies minstens één recept", "Choose at least one recipe", "Wähle mindestens ein Rezept", "Elige al menos una receta"],
   ["Printen met het logo van je restaurant", "Printing with your restaurant's logo", "Drucken mit dem Logo deines Restaurants", "Imprimir con el logo de tu restaurante"],
   ["Recept printen", "Print recipe", "Rezept drucken", "Imprimir receta"],
   ["Met foto's", "With photos", "Mit Fotos", "Con fotos"],
@@ -3079,6 +3088,7 @@ export const strings = [
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
 export const patterns = [
+  ["^(\\d+) van (\\d+) recepten$", "$1 of $2 recipes", "$1 von $2 Rezepten", "$1 de $2 recetas"],
   ["^(\\d+) recepten printen$", "Print $1 recipes", "$1 Rezepte drucken", "Imprimir $1 recetas"],
   ["^Geprint op (.+)$", "Printed on $1", "Gedruckt am $1", "Impreso el $1"],
   ["^Je print met het logo van je team \\((.+)\\)\\. Dat logo stelt de eigenaar van het team in\\.$", "You print with your team's logo ($1). The team owner sets that logo.", "Du druckst mit dem Logo deines Teams ($1). Dieses Logo legt der Team-Inhaber fest.", "Imprimes con el logo de tu equipo ($1). El propietario del equipo configura ese logo."],

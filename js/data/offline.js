@@ -22,6 +22,8 @@ function offlineStore(mode, run) {
 // Na het laden van de bibliotheek: de laatste stand bewaren (per toestel, alleen het eigen account).
 async function saveOfflineSnapshot() {
   if (demoMode || offlineMode || !currentUser || !window.indexedDB) return;
+  // Niet ingelogd blijven (bijv. een gedeelde keukencomputer): dan ook niets op het toestel achterlaten.
+  if (!staySignedIn()) return clearOfflineSnapshot();
   try {
     const snap = {
       userId: currentUser.id,

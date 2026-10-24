@@ -404,12 +404,7 @@
   gap: 56px;
   align-items: center;
 }
-.site-eyebrow {
-  display: block;
-  font-size: 15px;
-  color: var(--gold);
-  margin-bottom: 18px;
-}
+
 .site-hero h1 {
   margin-bottom: 22px;
 }
@@ -441,130 +436,6 @@
   }
 }
 
-/* ---- Kladje naast het nette recept ---- */
-.kladje-demo {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  align-items: center;
-  margin: 0;
-}
-.kladje {
-  position: relative;
-  padding: 26px 22px 30px;
-  background: repeating-linear-gradient(transparent 0 33px, rgba(80, 110, 160, 0.16) 33px 34px),
-    linear-gradient(135deg, #f3ead2, #eadfc2);
-  border-radius: 3px;
-  box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.04),
-    0 18px 40px rgba(60, 45, 20, 0.18);
-  transform: rotate(-4deg);
-  transition: transform 0.5s ease;
-  font-family: var(--hand);
-  color: #2b3550;
-  font-size: 23px;
-  line-height: 34px;
-  overflow: hidden;
-}
-.kladje:hover {
-  transform: rotate(-1deg) scale(1.02);
-}
-.kladje b {
-  display: block;
-  font-weight: 700;
-  font-size: 28px;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-}
-.kladje span {
-  display: block;
-  white-space: nowrap;
-}
-/* Koffievlek: een ring met een vage binnenkant */
-.kladje::after {
-  content: '';
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  right: -26px;
-  bottom: 18px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(140, 90, 40, 0) 52%,
-    rgba(140, 90, 40, 0.16) 58%,
-    rgba(120, 75, 30, 0.34) 63%,
-    rgba(140, 90, 40, 0.08) 68%,
-    rgba(140, 90, 40, 0) 72%
-  );
-  pointer-events: none;
-}
-.kladje::before {
-  content: '';
-  position: absolute;
-  width: 46px;
-  height: 46px;
-  left: 30%;
-  top: 8px;
-  border-radius: 50% 45% 55% 50%;
-  background: rgba(140, 95, 45, 0.13);
-  pointer-events: none;
-}
-.kladje-recept {
-  padding: 24px 22px;
-  background: #fffdf8;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  box-shadow: 0 18px 40px rgba(29, 32, 30, 0.1);
-  font-size: 14px;
-  line-height: 1.5;
-}
-.kladje-recept h3 {
-  font-size: 24px;
-  margin-bottom: 2px;
-}
-.kladje-recept small {
-  display: block;
-  color: var(--gold);
-  font-size: 12.5px;
-  margin-bottom: 12px;
-}
-.kladje-recept ul,
-.kladje-recept ol {
-  margin: 0 0 10px;
-  padding-left: 18px;
-  color: var(--ink-2);
-}
-.kladje-recept ul {
-  list-style: none;
-  padding: 10px 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-.kladje-recept li {
-  margin: 2px 0;
-}
-.kladje-demo figcaption {
-  grid-column: 1 / -1;
-  font-size: 13.5px;
-  color: var(--ink-3);
-  text-align: center;
-  margin-top: 8px;
-}
-/* Beweging: het nette recept verschijnt even na het kladje. */
-.site-motion .kladje-recept {
-  opacity: 0;
-  transform: translateX(-14px);
-  transition:
-    opacity 0.7s ease 0.25s,
-    transform 0.7s ease 0.25s;
-}
-.site-motion .is-visible .kladje-recept,
-.site-motion .is-visible.kladje-recept {
-  opacity: 1;
-  transform: none;
-}
 .site-motion .reveal {
   opacity: 0;
   transform: translateY(14px);
@@ -577,22 +448,9 @@
   transform: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  .site-motion .kladje-recept,
   .site-motion .reveal {
     opacity: 1 !important;
     transform: none !important;
-  }
-  .kladje {
-    transition: none;
-  }
-}
-@media (max-width: 560px) {
-  .kladje-demo {
-    grid-template-columns: 1fr;
-    gap: 26px;
-  }
-  .kladje {
-    margin: 0 18px;
   }
 }
 
@@ -1020,251 +878,73 @@
 }
 /* Elke startpagina (index.html en site/index-en.html enz.) bevat precies één taal. */
 
-/* ---- Taalkeuze ---- */
-.site-langs {
-  display: flex;
-  gap: 2px;
-  font-size: 13px;
-  font-weight: 600;
-}
-.site-langs a {
-  padding: 5px 7px;
-  border-radius: 6px;
-  color: var(--ink-3);
-  text-decoration: none;
-}
-.site-langs a:hover {
-  color: var(--ink);
-}
-.site-langs a[aria-current] {
-  color: var(--ink);
-  background: var(--paper-2);
-}
-.site-foot .site-langs a {
-  color: #8e918a;
-}
-.site-foot .site-langs a[aria-current],
-.site-foot .site-langs a:hover {
-  color: var(--gold-soft);
-  background: #222925;
-}
-
-/* ---- Voor en na ---- */
-.site-ba {
-  padding: 40px 0 96px;
-}
-.site-ba-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 22px;
-}
-.site-ba-before,
-.site-ba-after {
+/* ---- Taalkeuze: één knop, klikken opent de vier talen ---- */
+.site-lang {
   position: relative;
-  border-radius: 22px;
-  padding: 44px 40px 40px;
-  overflow: hidden;
 }
-.site-ba-before {
-  background: radial-gradient(500px 300px at 90% 100%, rgba(140, 95, 45, 0.1), transparent 70%), #e9e1d0;
-}
-.site-ba-after {
-  background: radial-gradient(520px 340px at 100% 0%, rgba(232, 202, 141, 0.16), transparent 70%), var(--night);
-  color: #ece7dc;
-}
-.site-ba-label {
-  display: block;
-  font: 600 13px/1 var(--sans);
-  letter-spacing: 0.08em;
-  color: var(--gold);
-  margin-bottom: 18px;
-}
-.site-ba-after .site-ba-label {
-  color: var(--gold-soft);
-}
-.site .site-ba h2 {
-  font-size: clamp(26px, 2.6vw, 34px);
-  margin-bottom: 22px;
-}
-.site .site-ba-after h2 {
-  color: #f6f2ea;
-}
-.site-ba ul {
+.site-lang summary {
   list-style: none;
-  margin: 0 0 30px;
-  padding: 0;
-}
-.site-ba li {
-  position: relative;
-  padding: 6px 0 6px 34px;
-  font-size: 16.5px;
-}
-.site-ba li::before {
-  position: absolute;
-  left: 0;
-  top: 7px;
-  width: 22px;
-  height: 22px;
+  cursor: pointer;
+  min-width: 40px;
+  height: 40px;
   display: grid;
   place-items: center;
-  border-radius: 6px;
-  font-size: 13px;
-}
-.site-ba-before li {
-  color: var(--ink-2);
-}
-.site-ba-before li::before {
-  content: '✕';
-  border: 1.5px solid #b9a98a;
-  color: #9a7d55;
-}
-.site-ba-after li {
-  color: #dcd7cc;
-}
-.site-ba-after li::before {
-  content: '✓';
-  border: 1.5px solid var(--gold-soft);
-  color: var(--gold-soft);
-}
-/* Stapel: kladje, Word-bestand, appje en printer */
-.site-ba-pile {
-  position: relative;
-  height: 250px;
-  margin-bottom: 22px;
-}
-.site-ba-pile .kladje.mini {
-  position: absolute;
-  left: 4%;
-  top: 6px;
-  width: 54%;
-  font-size: 19px;
-  line-height: 28px;
-  padding: 16px 16px 20px;
-  background: repeating-linear-gradient(transparent 0 27px, rgba(80, 110, 160, 0.16) 27px 28px),
-    linear-gradient(135deg, #f3ead2, #eadfc2);
-  transform: rotate(-6deg);
-}
-.site-ba-pile .kladje.mini b {
-  font-size: 22px;
-}
-.site-ba-doc,
-.site-ba-chat,
-.site-ba-print {
-  position: absolute;
-  font-size: 13.5px;
-  line-height: 1.35;
-  box-shadow: 0 12px 28px rgba(60, 45, 20, 0.16);
-}
-.site-ba-doc {
-  overflow-wrap: anywhere;
-  right: 2%;
-  top: 0;
-  width: 46%;
-  padding: 14px 14px 46px;
-  background: #fff;
-  border-radius: 4px;
-  transform: rotate(4deg);
-  color: var(--ink-2);
-  background-image: repeating-linear-gradient(transparent 0 9px, #e5e1d8 9px 10px);
-  background-position: 0 44px;
-  background-size: 100% 60px;
-  background-repeat: no-repeat;
-}
-.site-ba-doc i {
-  display: inline-grid;
-  place-items: center;
-  width: 20px;
-  height: 20px;
-  margin-right: 6px;
-  border-radius: 4px;
-  background: #2b579a;
-  color: #fff;
-  font: 700 12px/1 var(--sans);
-  vertical-align: middle;
-}
-.site-ba-chat {
-  right: 6%;
-  top: 120px;
-  max-width: 62%;
-  padding: 10px 14px;
-  background: #dcf8c6;
-  color: #1f2a1c;
-  border-radius: 14px 14px 4px 14px;
-  transform: rotate(-2deg);
-}
-.site-ba-print {
-  left: 10%;
-  bottom: 4px;
-  padding: 8px 14px;
-  background: var(--ink);
-  color: #f6f2ea;
-  border-radius: 999px;
-  font-weight: 600;
-  transform: rotate(2deg);
-}
-/* Mini-scherm van Savour */
-.site-ba-app {
-  background: #f6f2ea;
-  color: var(--ink);
-  border-radius: 14px;
-  padding: 16px;
-  margin-bottom: 22px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  height: 250px;
-}
-.site-ba-search {
   border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 9px 12px;
+  border-radius: 999px;
   font-size: 13px;
-  color: var(--ink-3);
-  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--ink);
 }
-.site-ba-row {
-  display: grid;
-  grid-template-columns: 38px 1fr auto;
-  gap: 8px;
-  align-items: baseline;
-  padding: 11px 4px;
-  border-bottom: 1px solid var(--line);
+.site-lang summary::-webkit-details-marker {
+  display: none;
+}
+.site-lang summary:hover,
+.site-lang[open] summary {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.site-lang-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 60;
+  min-width: 190px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+.site-lang-menu a {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: var(--ink-2);
+  text-decoration: none;
   font-size: 14px;
 }
-.site-ba-row:last-child {
-  border-bottom: 0;
-}
-.site-ba-row em {
-  font-style: normal;
+.site-lang-menu a span {
+  width: 22px;
+  font-size: 12px;
+  font-weight: 600;
   color: var(--ink-3);
-  font-size: 12px;
 }
-.site-ba-row span {
-  font-size: 12px;
+.site-lang-menu a:hover {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+.site-lang-menu a[aria-current] {
   color: var(--gold);
 }
-.site-ba-note {
-  margin: 0;
-  font-size: 15.5px;
+.site-lang-menu a[aria-current] span {
+  color: var(--gold);
 }
-.site .site-ba-before .site-ba-note {
-  color: var(--ink-2);
-  border-left: 2px solid #b9a98a;
-  padding-left: 14px;
-}
-.site .site-ba-after .site-ba-note.gold {
-  background: var(--gold-soft);
-  color: var(--night);
-  padding: 16px 18px;
-  border-radius: 12px;
-  font-weight: 500;
-}
-@media (max-width: 900px) {
-  .site-ba-grid {
-    grid-template-columns: 1fr;
-  }
-  .site-ba-before,
-  .site-ba-after {
-    padding: 34px 22px 26px;
-  }
+/* In de footer klapt hij naar boven uit. */
+.site-foot .site-lang-menu {
+  top: auto;
+  bottom: calc(100% + 8px);
 }
 
 /* ---- Meer contrast: "Waar we aan werken" donker ---- */
@@ -1286,105 +966,6 @@
 }
 .site-section.dark .site-rows i {
   color: var(--gold-soft);
-}
-
-/* ---- Echte kladjes (foto's uit de keuken) ---- */
-.kladje-photo {
-  position: relative;
-  transform: rotate(-3deg);
-  transition: transform 0.5s ease;
-}
-.kladje-photo:hover {
-  transform: rotate(-1deg) scale(1.02);
-}
-.kladje-photo img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-  box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.05),
-    0 22px 44px rgba(60, 45, 20, 0.22);
-}
-.kladje-nosteps {
-  margin: 10px 0 0;
-  padding: 10px 12px;
-  border-radius: 8px;
-  background: #fbf3dc;
-  border: 1px dashed #d9bf7f;
-  font-size: 13px;
-  line-height: 1.45;
-  color: #6d5520;
-}
-/* Stapel echte kladjes bij "Voor Savour" */
-.site-ba-pile {
-  height: 300px;
-}
-.site-ba-pile img {
-  position: absolute;
-  width: 34%;
-  height: auto;
-  border-radius: 3px;
-  box-shadow: 0 12px 26px rgba(60, 45, 20, 0.25);
-  transition: transform 0.4s ease;
-}
-.site-ba-pile img:hover {
-  z-index: 5;
-  transform: rotate(0) scale(1.08) !important;
-}
-.site-ba-pile .p1 {
-  left: 0;
-  top: 18px;
-  transform: rotate(-8deg);
-  z-index: 2;
-}
-.site-ba-pile .p2 {
-  left: 22%;
-  top: 0;
-  transform: rotate(5deg);
-  z-index: 3;
-}
-.site-ba-pile .p3 {
-  left: 46%;
-  top: 22px;
-  transform: rotate(-4deg);
-  z-index: 2;
-}
-.site-ba-pile .p4 {
-  right: 0;
-  top: 4px;
-  width: 26%;
-  transform: rotate(7deg);
-  z-index: 4;
-}
-.site-ba-pile .p5 {
-  left: 10%;
-  top: 130px;
-  width: 30%;
-  transform: rotate(6deg);
-  z-index: 4;
-}
-.site-ba-pile .p6 {
-  left: 52%;
-  top: 140px;
-  width: 30%;
-  transform: rotate(-5deg);
-  z-index: 3;
-}
-.site-ba-pile .site-ba-print {
-  z-index: 6;
-  left: auto;
-  right: 4%;
-  bottom: 10px;
-}
-@media (max-width: 560px) {
-  .site-ba-pile {
-    height: 250px;
-  }
-  .site-ba-pile .p5,
-  .site-ba-pile .p6 {
-    top: 110px;
-  }
 }
 
 /* Afsluitende uitnodiging met de eend boven het vuur */
@@ -1418,30 +999,6 @@
 .site-cta.with-photo .site-btn:not(.solid):hover {
   background: #f6f2ea;
   color: var(--night);
-}
-
-/* ---- Telefoon-preview (zelfde scherm als de app; basisopmaak in css/base.css) ---- */
-.site-preview-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 64px;
-  align-items: center;
-}
-.site-phone {
-  display: flex;
-  justify-content: center;
-}
-.site-phone .landing-phone {
-  width: 290px;
-  height: 580px;
-  transform: rotate(2deg);
-  box-shadow: 0 40px 80px rgba(21, 25, 23, 0.35);
-}
-@media (max-width: 860px) {
-  .site-preview-grid {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
 }
 
 /* ==== Originele Savour-kleuren: donker met goud (zoals de app). Overschrijft de lichte versie hierboven. ==== */
@@ -1485,52 +1042,7 @@
   background: #0d1415;
   border-bottom: 1px solid var(--line);
 }
-.kladje-recept {
-  background: #0f1718;
-  border-color: var(--line);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
-}
-.kladje-nosteps {
-  background: rgba(232, 202, 141, 0.08);
-  border-color: rgba(232, 202, 141, 0.4);
-  color: var(--gold);
-}
-.kladje-photo img {
-  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.55);
-}
-.site-ba-before {
-  background: #111819;
-  border: 1px solid var(--line);
-}
-.site-ba-before li::before {
-  border-color: #5b5446;
-  color: #a99878;
-}
-.site .site-ba-before .site-ba-note {
-  border-left-color: #5b5446;
-}
-.site-ba-after {
-  background: radial-gradient(520px 340px at 100% 0%, rgba(232, 202, 141, 0.12), transparent 70%), #0c1314;
-  border: 1px solid rgba(232, 202, 141, 0.35);
-}
-.site-ba-app {
-  background: #070b0c;
-  color: var(--ink);
-  border: 1px solid var(--line);
-}
-.site-ba-search {
-  border-color: var(--line);
-}
-.site-ba-row {
-  border-bottom-color: var(--line);
-}
-.site-ba-pile .site-ba-print {
-  background: var(--gold);
-  color: #111;
-}
-.site-ba-pile img {
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.5);
-}
+
 .site-section.dark {
   background: #050809;
   border-top: 1px solid var(--line);
@@ -1540,62 +1052,6 @@
   background: var(--paper-2);
 }
 
-/* Foto's: geen verschuiven of vergroten bij aanwijzen. De stapel kladjes staat gedempt en
-   krijgt bij aanwijzen zijn echte kleur terug, alsof je hem onder de lamp legt. */
-.kladje-photo,
-.kladje-photo:hover {
-  transform: rotate(-2deg);
-  transition: none;
-}
-.site-ba-pile img {
-  transition:
-    filter 0.35s ease,
-    box-shadow 0.35s ease;
-  filter: grayscale(0.45) brightness(0.78) contrast(0.95);
-}
-.site-ba-pile img:hover {
-  transform: none;
-  filter: none;
-  box-shadow:
-    0 0 0 2px var(--gold),
-    0 14px 30px rgba(0, 0, 0, 0.55);
-}
-.site-ba-pile .p1:hover {
-  transform: rotate(-8deg) !important;
-}
-.site-ba-pile .p2:hover {
-  transform: rotate(5deg) !important;
-}
-.site-ba-pile .p3:hover {
-  transform: rotate(-4deg) !important;
-}
-.site-ba-pile .p4:hover {
-  transform: rotate(7deg) !important;
-}
-.site-ba-pile .p5:hover {
-  transform: rotate(6deg) !important;
-}
-.site-ba-pile .p6:hover {
-  transform: rotate(-5deg) !important;
-}
-
-/* Echte schermen van de app (assets/app) */
-.site-ba-shot {
-  height: 330px;
-  overflow: hidden;
-  margin: 0 0 22px;
-  display: flex;
-  justify-content: center;
-}
-.site-ba-shot img {
-  width: 64%;
-  height: auto;
-  align-self: flex-start;
-  border: 6px solid #1b2323;
-  border-bottom: 0;
-  border-radius: 26px 26px 0 0;
-  box-shadow: 0 0 0 1px #6b5a3b;
-}
 .site-phone-frame {
   width: 290px;
   border: 9px solid #1b2323;
@@ -1650,171 +1106,267 @@
   width: 260px;
 }
 
-/* ---- Het kladje komt tot leven (alleen bij beweging aan; geen effect bij aanwijzen) ----
-   1. De foto landt met een kleine draai op zijn plek.
-   2. Een gouden scanlijn glijdt over het kladje: Savour leest het. Herhaalt rustig.
-   3. De ingrediënten verschijnen één voor één in het nette recept. */
-.kladje-photo {
+/* ---- Bovenaan: echte schermen van de app (laptop met bibliotheek, telefoon met recept) ---- */
+.site-hero .site-wrap {
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.2fr);
+}
+.hero-shots {
   position: relative;
+  padding: 0 7% 9% 0;
 }
-.kladje-scan {
-  position: absolute;
-  left: -3%;
-  right: -3%;
-  top: 0;
-  height: 3px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold-soft) 18%, #fff3d6 50%, var(--gold-soft) 82%, transparent);
-  box-shadow: 0 0 16px 4px rgba(232, 202, 141, 0.55);
-  opacity: 0;
-  pointer-events: none;
+.hero-laptop {
+  background: #050808;
+  border: 1px solid #2a3536;
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
 }
-.kladje-scan::before {
-  content: '';
-  position: absolute;
-  left: 3%;
-  right: 3%;
-  bottom: 2px;
-  height: 70px;
-  background: linear-gradient(to top, rgba(232, 202, 141, 0.22), transparent);
-}
-.site-motion .kladje-demo .kladje-photo {
-  opacity: 0;
-  transform: rotate(-9deg) translate(-10px, -18px) scale(1.04);
-  transition:
-    opacity 0.6s ease,
-    transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.site-motion .kladje-demo.is-visible .kladje-photo {
-  opacity: 1;
-  transform: rotate(-2deg);
-}
-.site-motion .kladje-demo.is-visible .kladje-scan {
-  animation: kladjeScan 7s ease-in-out 0.9s infinite;
-}
-@keyframes kladjeScan {
-  0% {
-    top: 0;
-    opacity: 0;
-  }
-  3% {
-    opacity: 1;
-  }
-  32% {
-    opacity: 1;
-  }
-  35% {
-    top: 100%;
-    opacity: 0;
-  }
-  100% {
-    top: 100%;
-    opacity: 0;
-  }
-}
-.site-motion .kladje-demo .kladje-recept li,
-.site-motion .kladje-demo .kladje-nosteps {
-  opacity: 0;
-  transform: translateY(5px);
-  transition:
-    opacity 0.45s ease,
-    transform 0.45s ease;
-}
-.site-motion .kladje-demo.is-visible .kladje-recept li {
-  opacity: 1;
-  transform: none;
-  transition-delay: calc(1.2s + var(--i, 0) * 0.32s);
-}
-.site-motion .kladje-demo.is-visible .kladje-nosteps {
-  opacity: 1;
-  transform: none;
-  transition-delay: 3.3s;
-}
-@media (prefers-reduced-motion: reduce) {
-  .site-motion .kladje-demo .kladje-photo,
-  .site-motion .kladje-demo .kladje-recept li,
-  .site-motion .kladje-demo .kladje-nosteps {
-    opacity: 1 !important;
-    transform: rotate(-2deg) !important;
-    transition: none !important;
-  }
-  .site-motion .kladje-demo .kladje-recept li,
-  .site-motion .kladje-demo .kladje-nosteps {
-    transform: none !important;
-  }
-  .kladje-scan {
-    display: none;
-  }
-}
-
-/* ---- Het kladje opgemaakt: warme, gedragen tint, papierstructuur en een stapel kladjes erachter ---- */
-.kladje-stack {
-  padding: 22px 6% 10px;
-}
-.kladje-stack .kladje-back img {
-  position: absolute;
-  width: 70%;
-  height: auto;
-  border-radius: 3px;
-  filter: sepia(0.55) saturate(0.65) brightness(0.62) contrast(1.05);
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.55);
-}
-.kladje-stack .kladje-back img:nth-child(1) {
-  left: -2%;
-  top: 0;
-  transform: rotate(-12deg);
-}
-.kladje-stack .kladje-back img:nth-child(2) {
-  right: -4%;
-  top: 6%;
-  transform: rotate(9deg);
-}
-.kladje-front {
-  position: relative;
-  width: 84%;
-  margin: 0 auto;
-}
-.kladje-stack .kladje-front img {
+.hero-laptop img {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 3px;
-  /* Minder fel wit, de blauwe pen iets verkleurd: een kladje dat al een tijd in de keuken ligt. */
-  filter: sepia(0.42) saturate(0.7) contrast(1.08) brightness(0.93) hue-rotate(-6deg);
-  box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.1),
-    0 26px 50px rgba(0, 0, 0, 0.6);
+  border-radius: 6px;
 }
-/* Donkere randen en een warme gloed, plus een fijne papierstructuur */
-.kladje-front::after {
-  content: '';
+.hero-phone {
   position: absolute;
-  inset: 0;
-  border-radius: 3px;
-  pointer-events: none;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.25 0 0 0 0 0.12 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-    radial-gradient(ellipse at 50% 45%, transparent 52%, rgba(70, 45, 15, 0.38) 100%),
-    linear-gradient(160deg, rgba(255, 228, 170, 0.18), rgba(110, 70, 25, 0.16));
-  mix-blend-mode: multiply;
+  right: 0;
+  bottom: 0;
+  width: 29%;
+  background: #1b1f20;
+  border: 1px solid #3a4445;
+  border-radius: 26px;
+  padding: 6px;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.6);
 }
-.kladje-front .kladje-scan {
-  z-index: 2;
+.hero-phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
 }
-@media (max-width: 560px) {
-  .kladje-stack {
-    padding: 14px 8% 6px;
+@media (max-width: 900px) {
+  .site-hero .site-wrap {
+    grid-template-columns: 1fr;
+  }
+  .hero-shots {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+  .hero-laptop {
+    display: none;
+  }
+  .hero-phone {
+    position: static;
+    width: min(260px, 70%);
   }
 }
-/* De stapel kladjes krijgt meer ruimte dan het nette recept */
-.site-hero .kladje-demo {
-  grid-template-columns: 1.25fr 0.9fr;
-  gap: 8px;
+
+/* ---- Het verhaal met het echte kladje en een schuif ---- */
+.site-story {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: center;
 }
-.site-hero .kladje-front {
-  width: 90%;
-}
-@media (max-width: 560px) {
-  .site-hero .kladje-demo {
+@media (max-width: 900px) {
+  .site-story {
     grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+.kladje-ba {
+  margin: 0;
+  --pos: 50%;
+}
+.kladje-ba-stage {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0d1314;
+  user-select: none;
+}
+.kladje-ba-after {
+  padding: 52px 32px 28px;
+  color: #eee8dc;
+  min-height: 460px;
+  box-sizing: border-box;
+}
+.kladje-ba-after h3 {
+  font: 400 30px/1.15 var(--serif);
+  margin: 0;
+  color: #eee8dc;
+}
+.kladje-ba-after small {
+  display: block;
+  margin: 4px 0 16px;
+  color: #e8ca8d;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.kladje-ba-after h4 {
+  font: 400 17px/1.3 var(--serif);
+  color: #eee8dc;
+  margin: 16px 0 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #243031;
+}
+.kladje-ba-after ul,
+.kladje-ba-after ol {
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #d9d3c6;
+}
+.kladje-ba-after ul {
+  list-style: none;
+}
+.kladje-ba-after ol {
+  padding-left: 20px;
+}
+.kladje-ba-note {
+  margin: 14px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #9aa39d;
+}
+.kladje-ba-before {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+  background: #e7e2d6;
+}
+.kladje-ba-before img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 30% center;
+  display: block;
+}
+.kladje-ba-tag {
+  position: absolute;
+  top: 14px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.kladje-ba-before .kladje-ba-tag {
+  left: 14px;
+  background: rgba(13, 19, 20, 0.78);
+  color: #eee8dc;
+}
+.kladje-ba-after .kladje-ba-tag {
+  right: 14px;
+  background: #e8ca8d;
+  color: #111;
+}
+.kladje-ba-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  margin-left: -1px;
+  background: #e8ca8d;
+  pointer-events: none;
+}
+.kladje-ba-line i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-radius: 50%;
+  background: #e8ca8d;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+.kladje-ba-line i::before,
+.kladje-ba-line i::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 0;
+  height: 0;
+  margin-top: -5px;
+  border: 5px solid transparent;
+}
+.kladje-ba-line i::before {
+  left: 8px;
+  border-right-color: #111;
+}
+.kladje-ba-line i::after {
+  right: 8px;
+  border-left-color: #111;
+}
+.kladje-ba-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+.kladje-ba-range:focus-visible + .kladje-ba-line i,
+.kladje-ba-stage:has(.kladje-ba-range:focus-visible) .kladje-ba-line i {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+.kladje-ba figcaption {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--ink-3);
+}
+/* Het recept staat in de rechterhelft: halverwege zie je links het kladje en rechts het hele recept. */
+.kladje-ba-after {
+  padding-left: calc(50% + 26px);
+  position: relative;
+}
+.kladje-ba-after::before {
+  content: 'SAVOUR';
+  position: absolute;
+  left: 25%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font: 400 22px/1 var(--serif);
+  letter-spacing: 0.34em;
+  color: #2a3536;
+}
+.kladje-ba-before img {
+  object-position: left top;
+}
+.site-hero h1 {
+  font-size: clamp(38px, 4.2vw, 58px);
+}
+/* Telefoon: kladje en recept onder elkaar, zonder schuif. */
+@media (max-width: 640px) {
+  .kladje-ba-before {
+    position: relative;
+    clip-path: none;
+  }
+  .kladje-ba-stage {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .kladje-ba-before img {
+    height: auto;
+    aspect-ratio: 640 / 686;
+  }
+  .kladje-ba-after {
+    padding: 52px 22px 24px;
+    min-height: 0;
+  }
+  .kladje-ba-after::before,
+  .kladje-ba-line,
+  .kladje-ba-range {
+    display: none;
   }
 }
