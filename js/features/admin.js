@@ -126,71 +126,75 @@ async function adminLogout() {
   adminRenderLogin();
 }
 
+// Cijfers bovenaan. Bezoekers komen van de server (api/admin.js, uit site_visits); accounts, recepten en mappen
+// uit de databasefunctie get_savour_admin_dashboard. Beide vullen adminDashData aan.
+let adminDashData = {};
+
+function renderAdminStats() {
+  const d = adminDashData;
+  const box = rows =>
+    rows
+      .map(x => `<div class="traffic-box"><b>${adminEscape(x[1] ?? '—')}</b><span>${adminEscape(x[0])}</span></div>`)
+      .join('');
+  const s = $('adminStats');
+  if (s)
+    s.innerHTML = [
+      ['Unieke bezoekers all time', d.visitors_all_time, 'unieke bezoekers'],
+      ['Bezoekers vandaag', d.visits_today, 'unieke bezoekers'],
+      ['Bezoekers deze maand', d.visits_month, 'unieke bezoekers'],
+      ['Accounts', d.accounts, 'geregistreerde gebruikers'],
+      ['App gebruikers', d.app_users, 'unieke native app-gebruikers'],
+      ['Recepten', d.recipes, 'persoonlijke recepten'],
+      ['Receptenmappen', d.folders, 'persoonlijke mappen'],
+      ['Gedeelde mappen', d.shared_maps, 'gedeelde mappen'],
+      ['Bezoekers geregistreerd', d.visit_events, 'bezoekevents']
+    ]
+      .map(
+        x =>
+          `<div class="admin-stat"><div class="label">${adminEscape(x[0])}</div><div class="value">${adminEscape(x[1] ?? '—')}</div><div class="sub">${adminEscape(x[2])}</div></div>`
+      )
+      .join('');
+  if ($('adminTraffic'))
+    $('adminTraffic').innerHTML = box([
+      ['Vandaag', d.visits_today],
+      ['Deze week', d.visits_week],
+      ['Deze maand', d.visits_month],
+      ['All time', d.visitors_all_time]
+    ]);
+  if ($('adminPlatformUsage'))
+    $('adminPlatformUsage').innerHTML = box([
+      ['Desktop', d.platform_desktop],
+      ['Mobiel web', d.platform_mobile],
+      ['Native app', d.platform_app]
+    ]);
+  const vb = $('adminVisitsBody');
+  if (vb)
+    vb.innerHTML =
+      (d.recent_visits || [])
+        .map(
+          v =>
+            `<tr><td>${adminFormatDate(v.visited_at)}</td><td>${adminEscape(v.path || '/')}</td><td>${adminEscape(v.platform === 'native_app' ? 'Native app' : v.platform === 'mobile_web' ? 'Mobiel web' : 'Desktop web')}</td><td>${adminEscape(adminDevice(v.user_agent))}</td><td>${adminEscape(v.referrer || 'Direct')}</td></tr>`
+        )
+        .join('') || '<tr><td colspan="5">Nog geen bezoekers geregistreerd.</td></tr>';
+}
+
 async function loadAdminDashboard() {
   const refresh = $('adminRefreshBtn');
   if (refresh) {
     refresh.disabled = true;
     refresh.textContent = '↻ Verversen…';
   }
+  adminDashData = {};
   try {
     const { data, error } = await supabaseClient.rpc('get_savour_admin_dashboard');
     if (error) throw error;
+    // Alleen de tellingen van accounts, recepten en mappen; bezoekers komen van de server.
     const d = data || {};
-    const s = $('adminStats');
-    if (s)
-      s.innerHTML = [
-        ['Unieke bezoekers all time', d.visitors_all_time || 0, 'unieke bezoekers'],
-        ['Bezoekers vandaag', d.visits_today || 0, 'unieke bezoekers'],
-        ['Bezoekers deze maand', d.visits_month || 0, 'unieke bezoekers'],
-        ['Accounts', d.accounts || 0, 'geregistreerde gebruikers'],
-        ['App gebruikers', d.app_users || 0, 'unieke native app-gebruikers'],
-        ['Recepten', d.recipes || 0, 'persoonlijke recepten'],
-        ['Receptenmappen', d.folders || 0, 'persoonlijke mappen'],
-        ['Gedeelde mappen', d.shared_maps || 0, 'gedeelde mappen'],
-        ['Bezoekers geregistreerd', d.visit_events || 0, 'bezoekevents']
-      ]
-        .map(
-          x =>
-            `<div class="admin-stat"><div class="label">${adminEscape(x[0])}</div><div class="value">${adminEscape(x[1])}</div><div class="sub">${adminEscape(x[2])}</div></div>`
-        )
-        .join('');
-    const t = $('adminTraffic');
-    if (t)
-      t.innerHTML = [
-        ['Vandaag', d.visits_today || 0],
-        ['Deze week', d.visits_week || 0],
-        ['Deze maand', d.visits_month || 0],
-        ['All time', d.visitors_all_time || 0]
-      ]
-        .map(x => `<div class="traffic-box"><b>${adminEscape(x[1])}</b><span>${adminEscape(x[0])}</span></div>`)
-        .join('');
-    const pf = $('adminPlatformUsage');
-    if (pf)
-      pf.innerHTML = [
-        ['Desktop', d.platform_desktop || 0],
-        ['Mobiel web', d.platform_mobile || 0],
-        ['Native app', d.platform_app || 0]
-      ]
-        .map(x => `<div class="traffic-box"><b>${adminEscape(x[1])}</b><span>${adminEscape(x[0])}</span></div>`)
-        .join('');
-    const vb = $('adminVisitsBody');
-    const visits = d.recent_visits || [];
-    if (vb)
-      vb.innerHTML =
-        visits
-          .map(
-            v =>
-              `<tr><td>${adminFormatDate(v.visited_at)}</td><td>${adminEscape(v.path || '/')}</td><td>${adminEscape(v.platform === 'native_app' ? 'Native app' : v.platform === 'mobile_web' ? 'Mobiel web' : 'Desktop web')}</td><td>${adminEscape(adminDevice(v.user_agent))}</td><td>${adminEscape(v.referrer || 'Direct')}</td></tr>`
-          )
-          .join('') || '<tr><td colspan="5">Nog geen bezoekers geregistreerd.</td></tr>';
+    for (const k of ['accounts', 'app_users', 'recipes', 'folders', 'shared_maps']) adminDashData[k] = d[k] || 0;
   } catch (error) {
-    console.error('Admin bezoekerscijfers laden mislukt', error);
-    const s = $('adminStats');
-    if (s)
-      s.innerHTML =
-        '<div class="admin-stat"><div class="label">Bezoekers</div><div class="value">—</div><div class="sub">Bezoekerscijfers zijn niet beschikbaar.</div></div>';
-    if ($('adminVisitorChart')) $('adminVisitorChart').innerHTML = '';
+    console.error('Admin-tellingen laden mislukt', error);
   }
+  renderAdminStats();
   try {
     await loadAdminOverview();
   } finally {
@@ -211,9 +215,19 @@ const adminMoney = v =>
 async function loadAdminOverview() {
   const money = $('adminMoney');
   try {
-    const { accounts, totals: t, visitor_days: visitorDays } = await adminApi('overview');
-    // Bezoekers per dag komt van de server (site_visits), niet meer uit de oude databasefunctie.
+    const {
+      accounts,
+      totals: t,
+      visitor_days: visitorDays,
+      visitor_stats: visitorNumbers
+    } = await adminApi('overview');
+    // Bezoekers (cijfers, per dag, platform en laatste bezoeken) komen van de server, uit site_visits.
     if (Array.isArray(visitorDays)) renderAdminVisitorChart(visitorDays);
+    if (visitorNumbers) {
+      Object.assign(adminDashData, visitorNumbers);
+      adminDashData.accounts ??= (accounts || []).length;
+      renderAdminStats();
+    }
     adminAccounts = accounts || [];
     const openai = t.openai_this_month ? `$ ${t.openai_this_month.usd.toFixed(2)}` : '—';
     if (money)

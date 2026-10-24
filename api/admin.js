@@ -87,32 +87,68 @@ async function stripeRevenue30Days() {
   }
 }
 
-// Unieke bezoekers per dag, de afgelopen 30 dagen (Nederlandse tijd), rechtstreeks uit site_visits.
-async function visitorDays() {
-  const since = new Date(Date.now() - 30 * 86400000);
-  const rows = await select(
-    'site_visits',
-    `visited_at=gte.${since.toISOString()}&select=visited_at,visitor_id&limit=100000`
-  ).catch(() => []);
-  const day = d => new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Amsterdam' }).format(new Date(d));
+// ---- Bezoekers (tabel site_visits) ----
+// De database geeft per aanvraag hooguit 1000 regels; daarom in pagina's ophalen.
+async function allVisits() {
+  const rows = [];
+  for (let page = 0; page < 500; page++) {
+    const batch = await select(
+      'site_visits',
+      `select=visited_at,visitor_id,platform,user_agent&order=visited_at.asc&offset=${page * 1000}&limit=1000`
+    );
+    rows.push(...(batch || []));
+    if (!batch || batch.length < 1000) break;
+  }
+  return rows;
+}
+
+const amsterdamDay = d => new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Amsterdam' }).format(new Date(d));
+
+// Platform van een bezoek: uit de kolom platform, anders afgeleid uit de browser (oude bezoeken).
+const platformOf = v =>
+  v.platform || (/Mobi|Android|iPhone|iPad|iPod/i.test(v.user_agent || '') ? 'mobile_web' : 'desktop_web');
+
+// Unieke bezoekers vandaag, deze week (7 dagen), deze maand en all time, per platform, en per dag (30 dagen).
+async function visitorStats() {
+  const [rows, recent] = await Promise.all([
+    allVisits(),
+    select('site_visits', 'select=visited_at,path,platform,user_agent,referrer&order=visited_at.desc&limit=100')
+  ]);
+  const who = v => v.visitor_id || `${v.user_agent}|${v.visited_at}`;
+  const unique = list => new Set(list.map(who)).size;
+  const today = amsterdamDay(Date.now());
+  const month = today.slice(0, 7);
+  const weekAgo = Date.now() - 7 * 86400000;
   const perDay = new Map();
-  for (const r of rows || []) {
-    const k = day(r.visited_at);
+  for (const v of rows) {
+    const k = amsterdamDay(v.visited_at);
     if (!perDay.has(k)) perDay.set(k, new Set());
-    perDay.get(k).add(r.visitor_id || r.visited_at);
+    perDay.get(k).add(who(v));
   }
   const days = [];
   for (let i = 29; i >= 0; i--) {
     const d = new Date(Date.now() - i * 86400000);
-    const k = day(d);
     days.push({
       label: new Intl.DateTimeFormat('nl-NL', { timeZone: 'Europe/Amsterdam', day: 'numeric', month: 'short' }).format(
         d
       ),
-      count: perDay.get(k)?.size || 0
+      count: perDay.get(amsterdamDay(d))?.size || 0
     });
   }
-  return days;
+  return {
+    days,
+    stats: {
+      visitors_all_time: unique(rows),
+      visits_today: perDay.get(today)?.size || 0,
+      visits_week: unique(rows.filter(v => new Date(v.visited_at) > weekAgo)),
+      visits_month: unique(rows.filter(v => amsterdamDay(v.visited_at).startsWith(month))),
+      visit_events: rows.length,
+      platform_desktop: unique(rows.filter(v => platformOf(v) === 'desktop_web')),
+      platform_mobile: unique(rows.filter(v => platformOf(v) === 'mobile_web')),
+      platform_app: unique(rows.filter(v => platformOf(v) === 'native_app')),
+      recent_visits: (recent || []).map(v => ({ ...v, platform: platformOf(v) }))
+    }
+  };
 }
 
 async function overview() {
@@ -126,7 +162,10 @@ async function overview() {
     openAiCostsThisMonth(),
     stripeRevenue30Days()
   ]);
-  const visitor_days = await visitorDays();
+  const visitors = await visitorStats().catch(e => {
+    console.error('Bezoekers laden mislukt', e);
+    return null;
+  });
   const byId = (rows, key = 'id') => new Map((rows || []).map(r => [r[key], r]));
   const profileOf = byId(profiles);
   const subOf = byId(subs, 'user_id');
@@ -164,7 +203,8 @@ async function overview() {
   const weekAgo = Date.now() - 7 * 86400000;
   return {
     accounts,
-    visitor_days,
+    visitor_days: visitors?.days || null,
+    visitor_stats: visitors?.stats || null,
     totals: {
       accounts: accounts.length,
       new_7_days: accounts.filter(a => new Date(a.created_at) > weekAgo).length,
