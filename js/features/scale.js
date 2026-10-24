@@ -71,10 +71,16 @@ function splitQuantity(line) {
 function scaleIngredientLine(line, factor) {
   const s = String(line || '');
   if (QUALITATIVE_AMOUNT.test(s)) return esc(s) + ' <span class="scale-note">(niet automatisch omgerekend)</span>';
+  return esc(scaleIngredientText(s, factor));
+}
+
+// Zelfde omrekening als gewone tekst (voor printen).
+function scaleIngredientText(line, factor) {
+  const s = String(line || '');
+  if (QUALITATIVE_AMOUNT.test(s)) return s + ' (niet automatisch omgerekend)';
   const m = s.match(/^\s*([0-9]+(?:[.,][0-9]+)?)/);
-  if (!m) return esc(s);
-  const n = Number(m[1].replace(',', '.'));
-  return esc(s.replace(m[1], formatNumber(n * factor)));
+  if (!m) return s;
+  return s.replace(m[1], formatNumber(Number(m[1].replace(',', '.')) * factor));
 }
 
 // Ingrediëntregel voor de receptpagina: hoeveelheid + eenheid vet, omgerekend als factor ≠ 1.
@@ -187,31 +193,12 @@ function printScaledRecipe() {
     toast?.('Reken eerst het recept om.');
     return;
   }
-  const ingredients = (s.recipe.ingredients || []).map(x => '<li>' + s.scaleLine(x) + '</li>').join('');
-  const steps = (s.recipe.steps || []).map(x => '<li>' + esc(x) + '</li>').join('');
-  const doc =
-    '<!doctype html><html lang="nl"><head><meta charset="utf-8"><title>' +
-    esc(s.recipe.title) +
-    '</title><style>body{font-family:Arial,sans-serif;padding:28px;color:#111}li{margin:7px 0}</style></head><body><h1>' +
-    esc(s.recipe.title) +
-    '</h1><p>' +
-    esc(String(s.recipe.yield || '')) +
-    ' → ' +
-    esc(s.rawTarget) +
-    ' · factor ' +
-    s.format(s.factor) +
-    '</p><h2>Ingrediënten</h2><ul>' +
-    ingredients +
-    '</ul><h2>Bereiding</h2><ol>' +
-    steps +
-    '</ol></body></html>';
-  const w = window.open('', '_blank');
-  if (!w) {
-    toast?.('Pop-up blokkering voorkomt printen.');
-    return;
-  }
-  w.document.write(doc);
-  w.document.close();
-  w.focus();
-  w.print();
+  const r = s.recipe;
+  const scaled = {
+    ...r,
+    yield: `${r.yield || ''} → ${s.rawTarget} (factor ${s.format(s.factor)})`,
+    ingredients: (r.ingredients || []).map(x => scaleIngredientText(x, s.factor))
+  };
+  const map = recipes.some(x => x.id === r.id) ? null : sharedMaps.find(m => m.recipeIds.includes(r.id));
+  openPrintBundle([scaled], { mapId: map?.id || null });
 }

@@ -1,6 +1,6 @@
 -- Logo op prints (2026-10-24)
 --
--- Pro en teams kunnen recepten en mappen printen met het logo en de naam van hun restaurant rechtsboven.
+-- Pro en teams kunnen recepten en mappen printen met het logo en de naam van hun restaurant bovenaan.
 -- - Pro: je eigen logo.
 -- - Team: het logo van de team-eigenaar geldt voor iedereen in het team.
 -- - Gedeelde map: het logo van wie de map beheert (of van diens team).

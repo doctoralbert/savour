@@ -209,25 +209,33 @@
 
 /* ---- Printen met logo (js/features/print.js) ---- */
 .print-brand {
-  display: flex;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: 16px;
-  margin: 0 0 22px;
+  margin: 0 0 24px;
   color: #222;
-  font-family: Georgia, serif;
-  font-size: 20px;
-  letter-spacing: 0.02em;
 }
-.print-brand img {
+.print-brand-logo img {
+  display: block;
   max-height: 80px;
-  max-width: 240px;
+  max-width: 100%;
   object-fit: contain;
 }
-.print-brand.is-bw img,
+.print-brand-name {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+.print-brand.is-bw .print-brand-logo img,
 .print-cover-logo.is-bw,
 .print-brand-preview.is-bw img {
   filter: grayscale(1) contrast(1.15);
+}
+/* Geen paginamarge: dan zet de browser geen eigen datum, paginatitel en webadres op de print. */
+@page {
+  margin: 0;
 }
 /* Voettekst onderaan elke pagina (alleen bij printen zichtbaar). */
 .print-page-foot {
@@ -360,13 +368,17 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 .print-brand-preview .pbp-top {
-  display: flex;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: 6px;
-  min-height: 22px;
+  min-height: 24px;
   color: #333;
   font-size: 8px;
+  font-family: Georgia, serif;
+}
+.print-brand-preview .pbp-top i {
+  font-style: normal;
 }
 .print-brand-preview .pbp-top img {
   max-height: 22px;
