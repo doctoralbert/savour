@@ -25,6 +25,8 @@ function closeSourceModal() {
 }
 
 function openRecipe(id, context = 'library') {
+  // Alleen vanuit een lijst onthouden (niet als je van het ene recept naar het andere gaat).
+  if (!$('detail')?.classList.contains('active')) recipeReturnScroll = window.scrollY;
   currentId = id;
   const r = findRecipe(id);
   if (!r) return;

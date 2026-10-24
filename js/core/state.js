@@ -45,6 +45,9 @@ let currentShared = null;
 
 let recipeReturnView = 'recipes';
 
+// Scrollpositie van de lijst waar het recept vandaan kwam: met Terug kom je weer op dezelfde plek.
+let recipeReturnScroll = 0;
+
 let recipeReturnShared = null;
 
 let recipeReturnFolder = null;

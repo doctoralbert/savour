@@ -152,6 +152,9 @@ function backFromRecipe() {
     currentFolder = recipeReturnFolder;
     go('folderDetail');
   } else go(view);
+  // Terug naar dezelfde plek in de lijst (go() springt eerst naar boven).
+  const y = recipeReturnScroll;
+  requestAnimationFrame(() => window.scrollTo({ top: y, behavior: 'instant' }));
 }
 
 function openSharedChooser() {
