@@ -12,7 +12,7 @@ export const KLADJE_REAL = {
       "150 g suiker",
       "25 g glucose",
       "200 g passievruchtjus",
-      "2 blaadjes gelatine"
+      "48 g gelatine"
     ],
     "steps": [
       [
@@ -53,7 +53,7 @@ export const KLADJE_REAL = {
       "150 g sugar",
       "25 g glucose",
       "200 g passion fruit juice",
-      "2 gelatine leaves"
+      "48 g gelatine"
     ],
     "steps": [
       [
@@ -94,7 +94,7 @@ export const KLADJE_REAL = {
       "150 g Zucker",
       "25 g Glukose",
       "200 g Passionsfruchtsaft",
-      "2 Blatt Gelatine"
+      "48 g Gelatine"
     ],
     "steps": [
       [
@@ -135,7 +135,7 @@ export const KLADJE_REAL = {
       "150 g de azúcar",
       "25 g de glucosa",
       "200 g de zumo de maracuyá",
-      "2 hojas de gelatina"
+      "48 g de gelatina"
     ],
     "steps": [
       [

@@ -3112,6 +3112,13 @@ export const patterns = [
   ['^(\\d+) recepten$', '$1 recipes', '$1 Rezepte', '$1 recetas'],
   ['^(\\d+) recept$', '$1 recipe', '$1 Rezept', '$1 receta'],
   ['^(\\d+) favorieten$', '$1 favourites', '$1 Favoriten', '$1 favoritos'],
+  // Specifieker eerst: anders vangt de regel hieronder "· 3 leden" en blijft "leden" Nederlands.
+  [
+    '^(\\d+) recepten · (\\d+) leden$',
+    '$1 recipes · $2 members',
+    '$1 Rezepte · $2 Mitglieder',
+    '$1 recetas · $2 miembros'
+  ],
   ['^(\\d+) recepten · (.+)$', '$1 recipes · $2', '$1 Rezepte · $2', '$1 recetas · $2'],
   ['^(\\d+) ingrediënten$', '$1 ingredients', '$1 Zutaten', '$1 ingredientes'],
   ['^(\\d+) stappen$', '$1 steps', '$1 Schritte', '$1 pasos'],
@@ -3130,12 +3137,6 @@ export const patterns = [
   ['^Opbrengst · (.+)$', 'Yield · $1', 'Ergibt · $1', 'Rendimiento · $1'],
   ['^Opbrengst (.+)$', 'Yield $1', 'Ergibt $1', 'Rendimiento $1'],
   ['^Basis: (.+)$', 'Base: $1', 'Basis: $1', 'Base: $1'],
-  [
-    '^(\\d+) recepten · (\\d+) leden$',
-    '$1 recipes · $2 members',
-    '$1 Rezepte · $2 Mitglieder',
-    '$1 recetas · $2 miembros'
-  ],
   [
     '^(\\d+) leden · (\\d+) recepten$',
     '$1 members · $2 recipes',
