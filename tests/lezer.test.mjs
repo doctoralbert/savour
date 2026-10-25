@@ -197,6 +197,158 @@ Leg de gelatine in koud water.`,
       }
     ]
   },
+  // ---- Uit de receptenmap van Kasteel Maurick (oktober 2026) ----
+  {
+    name: 'Echt bestand: genummerd recept met onderdelen (Deeg, Vulling) blijft één recept',
+    text: `#b 147.Aardappelstrudel
+
+#b Deeg
+250 gram bloem
+125 gram water
+2 stuks eidooier
+20 gram olijfolie
+Alles tot deeg draaien half uur laten rusten en op laken met de hand uitrekken.
+
+#b Vulling
+1000 gram rozeval aardappel brunoise
+500 gram slagroom ingekookt tot 300 gram
+Sjalot en knoflook aanfruiten, aardappel er bij en mee fruiten.
+In spuitzak doen en op deeg spuiten, deeg bestrijken met gesmolten boter en oprollen
+
+#b 402.Aardpeer
+Aardpeer wassen en in stukken snijden.`,
+    expect: [
+      {
+        t: 'Aardappelstrudel',
+        i: [
+          'Deeg:',
+          '250 gram bloem',
+          '125 gram water',
+          '2 stuks eidooier',
+          '20 gram olijfolie',
+          'Vulling:',
+          '1000 gram rozeval aardappel brunoise',
+          '500 gram slagroom ingekookt tot 300 gram'
+        ],
+        s: [
+          'Deeg:',
+          'Alles tot deeg draaien half uur laten rusten en op laken met de hand uitrekken.',
+          'Vulling:',
+          'Sjalot en knoflook aanfruiten, aardappel er bij en mee fruiten.',
+          'In spuitzak doen en op deeg spuiten, deeg bestrijken met gesmolten boter en oprollen'
+        ],
+        c: 'high'
+      },
+      { t: 'Aardpeer', i: [], s: 1, c: 'high' }
+    ]
+  },
+  {
+    name: 'Echt bestand: in Word afgebroken zinnen in de bereiding worden weer één zin',
+    text: `#b 367. Bulgogi diamanthaas
+De diamanthaas schoonmaken. Vacumeren met marinade
+en 1 nacht marineren. In de oven garen op 54c voor
+een half uur. Terug koelen op ijswater.
+Wanneer nodig aanbakken en plakken snijden 70 gram per persoon.
+
+#b 2.Aardappel crème
+200 gram bintjes
+2 deciliter room
+5 gram gelatine
+aardappels koken, crème fraiche met kruiden trekken, aardappels toevoegen en doorwrijven,
+gelatine toevoegen, als koud slagroom doorheen spatelen`,
+    expect: [
+      {
+        t: 'Bulgogi diamanthaas',
+        i: [],
+        s: [
+          'De diamanthaas schoonmaken. Vacumeren met marinade en 1 nacht marineren. In de oven garen op 54c voor een half uur. Terug koelen op ijswater.',
+          'Wanneer nodig aanbakken en plakken snijden 70 gram per persoon.'
+        ],
+        c: 'high'
+      },
+      {
+        t: 'Aardappel crème',
+        i: ['200 gram bintjes', '2 deciliter room', '5 gram gelatine'],
+        s: [
+          'aardappels koken, crème fraiche met kruiden trekken, aardappels toevoegen en doorwrijven, gelatine toevoegen, als koud slagroom doorheen spatelen'
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Echt bestand: eerste stap zonder punt en zonder werkwoord vooraan is geen ingrediënt',
+    text: `#b 41.Gemarineerde zalm met kruiden (per zijde zalm 4/5)
+50 gram grof zeezout
+30 gram suiker
+20 gram watermunt
+Werkbank bekleden met folie hierop zijde zalm leggen
+Alles fijn draaien in de cutter en op de zalm smeren
+Folie dicht vouwen zodat er geen vloeistof uit kan
+24 uur onder druk zetten, marinade er af schrapen en zalm spoelen onder de kraan
+Goed drogen deppen en onafgedekt laten drogen in koeling.`,
+    expect: [
+      {
+        t: 'Gemarineerde zalm met kruiden',
+        y: 'per zijde zalm 4/5',
+        i: ['50 gram grof zeezout', '30 gram suiker', '20 gram watermunt'],
+        s: 5,
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Echt bestand: "afmaken met" gevolgd door nog meer ingrediënten is zeker',
+    text: `#b 291.Rode wijn jus
+4000 gram rode wijn
+250 gram prei
+5 gram laurier
+Groente fijn snijden en alles in koken tot 1000 gram.
+Wanneer ingekookt afmaken met
+75 gram mirin
+10 gram zout`,
+    expect: [
+      {
+        t: 'Rode wijn jus',
+        i: ['4000 gram rode wijn', '250 gram prei', '5 gram laurier', '75 gram mirin', '10 gram zout'],
+        s: ['Groente fijn snijden en alles in koken tot 1000 gram.', 'Wanneer ingekookt afmaken met'],
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Echt bestand: alleen ingrediënten onder "Bereidingswijze" (kopje op de verkeerde plek)',
+    text: `#b Albufeira saus
+Ingrediënten:
+- 2 L kip jus
+Bereidingswijze
+- 2 L JDV
+- 2 fl witte port
+- 4 kg ui
+- 350 gr boter`,
+    expect: [
+      {
+        t: 'Albufeira saus',
+        i: ['2 L kip jus', '2 L JDV', '2 fl witte port', '4 kg ui', '350 gr boter'],
+        s: 0,
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Echt bestand: opbrengst tussen haakjes in de titel',
+    text: `#b 12.Cacaosorbetijs (5 potten)
+1000 gram water
+300 gram suiker
+Alles koken en draaien.
+
+#b 13.Rabarber bavaroise (1 recept = 50 kleine ringen)
+500 gram rabarber
+Rabarber garen en pureren.`,
+    expect: [
+      { t: 'Cacaosorbetijs', y: '5 potten', i: ['1000 gram water', '300 gram suiker'], s: 1 },
+      { t: 'Rabarber bavaroise', y: '1 recept = 50 kleine ringen' }
+    ]
+  },
   {
     name: 'Echt bestand: ingrediënt per ongeluk als Word-kop',
     text: `# Pecan roomijs
@@ -300,7 +452,7 @@ Fijn draaien in de cutter en door een zeef`,
     ]
   },
   {
-    name: 'Echt bestand: ingrediënten per ongeluk onder Bereidingswijze is twijfel',
+    name: 'Echt bestand: alleen ingrediënten onder Bereidingswijze horen bij de ingrediënten',
     text: `Albufeira saus
 Ingrediënten:
 - 2 L kip jus
@@ -309,7 +461,7 @@ Bereidingswijze
 - 2 fl witte port
 - 4 kg ui
 - 350 gr boter`,
-    expect: [{ t: 'Albufeira saus', c: 'medium' }]
+    expect: [{ t: 'Albufeira saus', i: ['2 L kip jus', '2 L JDV', '2 fl witte port', '4 kg ui', '350 gr boter'], s: 0, c: 'high' }]
   },
   {
     name: 'Echt bestand: stap vóór het kopje Werkwijze is geen ingrediënt',
@@ -367,13 +519,13 @@ alles samen even laten pruttelen tot het goed is`,
     expect: [{ t: 'Saus van oma', c: 'medium' }]
   },
   {
-    name: 'Stap die met een tijdwoord begint is geen zeker ingrediënt',
+    name: '"Afmaken met" gevolgd door ingrediënten is duidelijk',
     text: `Rode wijn jus
 2000 gram rode wijn
 500 gram kalfsfond
 Wanneer ingekookt afmaken met
 50 gram boter`,
-    expect: [{ t: 'Rode wijn jus', c: 'medium' }]
+    expect: [{ t: 'Rode wijn jus', i: ['2000 gram rode wijn', '500 gram kalfsfond', '50 gram boter'], s: 1, c: 'high' }]
   },
   {
     name: 'Tijd is geen hoeveelheid',
@@ -986,6 +1138,9 @@ fixCases.push(
   { name: 'Getal in de bereiding wordt wel verbeterd', step: true, from: 'Bakken op 18oc', to: 'Bakken op 180c' },
   // De woordenlijst komt in import.js alleen uit namen en ingrediënten; hier de bron zoals die daar zou zijn.
   { name: 'Productnaam blijft staan (elastic)', from: '10 gram elastic', to: '10 gram elastic', bron: '' },
+  { name: 'Bekende spelfout: vinaigraitte', from: 'Mosterd Vinaigraitte 1 liter', to: 'Mosterd Vinaigrette 1 liter', bron: '' },
+  { name: 'Bekende spelfout in de bereiding', step: true, from: 'In de mouse spuiten', to: 'In de mousse spuiten', bron: '' },
+  { name: 'Langer woord met spelfout erin blijft staan', from: '10 gram mousefilter', to: '10 gram mousefilter', bron: '' },
   {
     name: 'Accent wordt nooit weggehaald',
     from: '100 gram crème fraîche',

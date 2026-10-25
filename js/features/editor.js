@@ -52,13 +52,13 @@ function renderEditorRows(ingredients = [], steps = []) {
   $('ingredientEditor').innerHTML = ing
     .map(
       (x, i) =>
-        `<div class="structured-row"><input data-ingredient-row="${i}" value="${esc(x)}" placeholder="Ingrediënt ${i + 1}" onkeydown="editorRowKey(event,'ingredient',${i})" oninput="syncStructuredEditor()"><button type="button" class="structured-remove" title="Ingrediënt verwijderen" onclick="removeIngredientRow(${i})">×</button></div>`
+        `<div class="structured-row"><input data-ingredient-row="${i}" value="${esc(x)}" placeholder="Ingrediënt ${i + 1}" onkeydown="editorRowKey(event,'ingredient',${i})" oninput="syncStructuredEditor()"><button type="button" class="structured-remove" tabindex="-1" title="Ingrediënt verwijderen" onclick="removeIngredientRow(${i})">×</button></div>`
     )
     .join('');
   $('stepEditor').innerHTML = st
     .map(
       (x, i) =>
-        `<div class="structured-row"><textarea data-step-row="${i}" placeholder="Bereidingsstap ${i + 1}" onkeydown="editorRowKey(event,'step',${i})" oninput="syncStructuredEditor()">${esc(x)}</textarea><button type="button" class="structured-remove" title="Bereidingsstap verwijderen" onclick="removeStepRow(${i})">×</button></div>`
+        `<div class="structured-row"><textarea data-step-row="${i}" placeholder="Bereidingsstap ${i + 1}" onkeydown="editorRowKey(event,'step',${i})" oninput="syncStructuredEditor()">${esc(x)}</textarea><button type="button" class="structured-remove" tabindex="-1" title="Bereidingsstap verwijderen" onclick="removeStepRow(${i})">×</button></div>`
     )
     .join('');
   syncStructuredEditor();
@@ -72,6 +72,21 @@ function syncStructuredEditor() {
 }
 
 function editorRowKey(e, type, index) {
+  // Tab: naar de volgende regel (Shift+Tab: de vorige). Op de laatste regel met tekst komt er een nieuwe bij;
+  // op een lege laatste regel gaat Tab gewoon door naar het volgende veld.
+  if (e.key === 'Tab') {
+    const rows = document.querySelectorAll(type === 'ingredient' ? '[data-ingredient-row]' : '[data-step-row]');
+    const to = e.shiftKey ? index - 1 : index + 1;
+    if (rows[to]) {
+      e.preventDefault();
+      rows[to].focus();
+    } else if (!e.shiftKey && e.target.value.trim()) {
+      e.preventDefault();
+      if (type === 'ingredient') addIngredientRow();
+      else addStepRow();
+    }
+    return;
+  }
   if (e.key !== 'Enter') return;
   if (type === 'ingredient') {
     e.preventDefault();

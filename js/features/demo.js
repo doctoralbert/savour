@@ -97,6 +97,9 @@ function startDemo() {
     }
   ];
   showApp('recipes');
+  // Het menu opnieuw opbouwen met de demomappen; de Admin-knop hoort nooit bij de demo.
+  refreshSidebar();
+  renderAdminNav();
   document.getElementById('demoBadge')?.remove();
   // In de bovenbalk, zodat het op de telefoon als smalle regel onder het logo staat (niet over de inhoud).
   (document.querySelector('#appShell .topbar') || document.body).insertAdjacentHTML(

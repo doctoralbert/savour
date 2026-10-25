@@ -160,17 +160,27 @@ async function submitAuth() {
   }
 }
 
+// Na uitloggen (ook uit de demo) niets van het vorige account laten staan: geen gegevens, geen mappen in
+// het menu en geen Admin-knop. Anders zie je in de demo of in een ander account de mappen van de vorige.
+function clearSessionState() {
+  demoMode = false;
+  document.getElementById('demoBadge')?.remove();
+  currentUser = null;
+  recipes = [];
+  folders = [];
+  favorites = [];
+  categories = [];
+  sharedMaps = [];
+  sharedRecipes = [];
+  ['categoryNav', 'sharedNav'].forEach(id => {
+    if ($(id)) $(id).innerHTML = '';
+  });
+  [$('navAdmin'), $('settingsAdmin')].filter(Boolean).forEach(el => (el.style.display = 'none'));
+}
+
 function logout() {
   if (demoMode) {
-    demoMode = false;
-    document.getElementById('demoBadge')?.remove();
-    currentUser = null;
-    recipes = [];
-    folders = [];
-    favorites = [];
-    categories = [];
-    sharedMaps = [];
-    sharedRecipes = [];
+    clearSessionState();
     showLanding();
     return;
   }

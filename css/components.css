@@ -919,3 +919,23 @@ body.savour-light .export-option small {
     padding: 20px 18px !important;
   }
 }
+
+/* Zijbalk: "Recept toevoegen" als omlijnde snelknop, net als "Recepten map toevoegen". */
+.nav .nav-add-recipe.active {
+  border-color: #e8ca8d !important;
+  color: #e8ca8d !important;
+}
+body.savour-light .nav .nav-add-recipe.active {
+  border-color: #b8975a !important;
+  color: #171918 !important;
+}
+/* "Pro"-label in een importknop: klein label naast de naam, geen balk over de hele breedte. */
+.import-option b .pro-tag {
+  display: inline-block !important;
+  width: auto !important;
+  margin-top: 0 !important;
+  padding: 0 8px !important;
+  line-height: 1.5 !important;
+  font-size: 10px !important;
+  color: #111 !important;
+}

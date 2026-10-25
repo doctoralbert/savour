@@ -7,20 +7,62 @@ function showImportPanel() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// Per importbron: welke bestanden de kiezer toont (accept) en welke de lezer aanneemt (test).
+// "Andere bestanden" is alles wat geen Word, PDF of foto is; "Alle bestanden" neemt alles aan.
+const IMPORT_SOURCES = {
+  word: {
+    option: 'importOptionWord',
+    label: 'Word-bestand',
+    types: 'Word (.doc, .docx)',
+    accept: '.doc,.docx',
+    test: /\.docx?$/i
+  },
+  pdf: {
+    option: 'importOptionPdf',
+    label: 'PDF-bestand',
+    types: 'PDF (.pdf)',
+    accept: '.pdf,application/pdf',
+    test: /\.pdf$/i
+  },
+  photo: {
+    option: 'importOptionPhoto',
+    label: "Foto's",
+    types: "Foto's (.jpg, .png, .webp)",
+    accept: 'image/jpeg,image/png,image/webp',
+    test: /\.(jpe?g|png|webp)$/i
+  },
+  other: {
+    option: 'importOptionOther',
+    label: 'Ander bestand',
+    types: '.txt, .md, .rtf, .odt, .html, .csv en Savour-importbestanden (.json)',
+    accept: '.txt,.md,.rtf,.odt,.html,.htm,.csv,.json,.pages',
+    test: /\.(txt|md|rtf|odt|html?|csv|json|pages)$/i
+  },
+  all: {
+    option: 'importOptionAll',
+    label: 'Alle bestanden door elkaar',
+    types: 'Word, PDF, foto’s en andere tekstbestanden, ook een hele map.',
+    accept: '.doc,.docx,.pdf,.txt,.md,.rtf,.odt,.html,.htm,.csv,.json,.pages,image/jpeg,image/png,image/webp',
+    test: /\.(docx?|pdf|txt|md|rtf|odt|html?|csv|json|pages|jpe?g|png|webp)$/i
+  }
+};
+const IMPORT_ALLOWED = IMPORT_SOURCES.all.test;
+
+// Klik op een bron: tekst opent het tekstvak, een bestandsbron meteen de bestandskiezer met alleen die bestanden.
+function chooseImportSource(type) {
+  if (type === 'photo' && !isPro()) return askForPro("Foto's");
+  selectImportSource(type);
+  if (type !== 'text') $('importFile').click();
+}
+
 function selectImportSource(type) {
   // Foto's lezen gaat met AI: zonder Pro meteen uitleggen in plaats van na het uploaden.
   if (type === 'photo' && !isPro()) return askForPro("Foto's");
   importSource = type;
   importFileData = null;
   document.querySelectorAll('.import-option').forEach(x => x.classList.remove('selected'));
-  const map = {
-    photo: 'importOptionPhoto',
-    text: 'importOptionText',
-    word: 'importOptionWord',
-    pdf: 'importOptionPdf',
-    other: 'importOptionOther'
-  };
-  if (map[type]) $(map[type]).classList.add('selected');
+  const source = IMPORT_SOURCES[type];
+  $(type === 'text' ? 'importOptionText' : source?.option)?.classList.add('selected');
   $('importStatus').textContent = '';
   $('importSourceNote').style.display = 'none';
   if (type === 'text') {
@@ -32,14 +74,11 @@ function selectImportSource(type) {
   } else {
     $('importText').style.display = 'none';
     $('importDrop').style.display = 'block';
-    const labels = {
-      photo: 'Bron: foto uit je fotoalbum',
-      word: 'Bron: Word-bestand',
-      pdf: 'Bron: PDF-bestand',
-      other: 'Bron: ander bestand'
-    };
-    $('importSourceLabel').textContent = labels[type] || '';
+    $('importSourceLabel').textContent = source ? `Bron: ${source.label}` : '';
     $('importFile').value = '';
+    $('importFile').accept = (source || IMPORT_SOURCES.all).accept;
+    $('importDropTitle').textContent = source ? `${source.label} kiezen` : 'Bestanden selecteren';
+    $('importDropTypes').textContent = (source || IMPORT_SOURCES.all).types;
   }
 }
 
@@ -136,12 +175,12 @@ function importCameraFile(file) {
 }
 
 function triggerImportFile() {
-  if (!importSource || importSource === 'text') selectImportSource('other');
+  if (!IMPORT_SOURCES[importSource]) selectImportSource('all');
   $('importFile').click();
 }
 
 function triggerImportFolder() {
-  importSource = 'other';
+  if (!IMPORT_SOURCES[importSource]) selectImportSource('all');
   $('importFile').value = '';
   $('importFolder').click();
 }
@@ -151,14 +190,21 @@ function normalizeImportFiles(list) {
 }
 
 function setImportFiles(files) {
-  const list = normalizeImportFiles(files);
+  const all = normalizeImportFiles(files);
+  // Alleen de bestanden die bij de gekozen bron horen (bij een hele map zitten er vaak andere tussen).
+  if (!IMPORT_SOURCES[importSource]) importSource = 'all';
+  const list = all.filter(f => IMPORT_SOURCES[importSource].test.test(f.name || ''));
+  const skipped = all.length - list.length;
+  if (skipped)
+    toast(
+      `${skipped} bestand${skipped === 1 ? '' : 'en'} overgeslagen: hoort niet bij "${IMPORT_SOURCES[importSource].label}". Kies "Alle bestanden door elkaar" om alles mee te nemen.`
+    );
   importFileData = list;
   if (!list.length) {
     $('importSourceNote').style.display = 'none';
-    $('importStatus').textContent = '';
+    $('importStatus').textContent = skipped ? 'Geen bestanden van dit soort gekozen.' : '';
     return;
   }
-  importSource = 'other';
   $('importSourceLabel').textContent =
     list.length === 1 ? `Bestand: ${list[0].name}` : `${list.length} bestanden geselecteerd`;
   $('importSourceNote').style.display = 'flex';
@@ -222,7 +268,14 @@ async function extractImportText(file) {
     const result = await mammoth.convertToHtml({ arrayBuffer: ab });
     return htmlToRecipeText(result.value || '');
   }
-  if (name.endsWith('.txt') || name.endsWith('.csv')) return await file.text();
+  if (name.endsWith('.doc')) return docToText(await file.arrayBuffer());
+  if (name.endsWith('.txt') || name.endsWith('.csv') || name.endsWith('.md')) return await file.text();
+  // Een opgeslagen webpagina: alleen de inhoud, zonder menu's en scripts.
+  if (name.endsWith('.html') || name.endsWith('.htm')) {
+    const page = new DOMParser().parseFromString(await file.text(), 'text/html');
+    page.querySelectorAll('script, style, nav, header, footer, noscript').forEach(el => el.remove());
+    return htmlToRecipeText(page.body?.innerHTML || '');
+  }
   if (name.endsWith('.rtf')) return rtfToText(await file.text());
   if (name.endsWith('.odt')) return await odtToText(file);
   if (name.endsWith('.pages'))
@@ -248,6 +301,120 @@ async function extractImportText(file) {
 }
 
 // ---- Bestanden omzetten naar regels voor de lezer ----
+
+// Oud Word (.doc, Word 97-2003): een "compound file" met daarin de stroom WordDocument. De tekst staat in
+// stukken (piece table in de stroom 0Table/1Table), elk stuk als Windows-1252 of als UTF-16.
+function docToText(ab) {
+  const fail = () => {
+    throw new Error('Dit .doc-bestand kon niet worden gelezen. Sla het in Word op als .docx en probeer opnieuw.');
+  };
+  const v = new DataView(ab);
+  if (ab.byteLength < 512 || v.getUint32(0, true) !== 0xe011cfd0) fail();
+  const sectorSize = 1 << v.getUint16(0x1e, true);
+  const miniSize = 1 << v.getUint16(0x20, true);
+  const cutoff = v.getUint32(0x38, true);
+  const sectorAt = n => (n + 1) * sectorSize;
+  // Sectortabel (FAT): de eerste 109 verwijzingen staan in de kop, de rest in een keten van DIFAT-sectoren.
+  const fatSectors = [];
+  for (let i = 0; i < 109; i++) fatSectors.push(v.getUint32(0x4c + i * 4, true));
+  for (let s = v.getInt32(0x44, true), k = 0; s >= 0 && k < v.getUint32(0x48, true); k++) {
+    for (let i = 0; i < sectorSize / 4 - 1; i++) fatSectors.push(v.getUint32(sectorAt(s) + i * 4, true));
+    s = v.getInt32(sectorAt(s) + sectorSize - 4, true);
+  }
+  const fat = [];
+  for (const s of fatSectors.slice(0, v.getUint32(0x2c, true)))
+    for (let i = 0; i < sectorSize / 4; i++) fat.push(v.getInt32(sectorAt(s) + i * 4, true));
+  const chain = (start, table) => {
+    const out = [];
+    for (let s = start; s >= 0 && out.length < table.length; s = table[s]) out.push(s);
+    return out;
+  };
+  const readChain = (start, size, table, at, unit, source) => {
+    const out = new Uint8Array(size);
+    let pos = 0;
+    for (const s of chain(start, table)) {
+      const part = new Uint8Array(source, at(s), Math.min(unit, size - pos));
+      out.set(part, pos);
+      if ((pos += part.length) >= size) break;
+    }
+    return out;
+  };
+  const dirBytes = readChain(
+    v.getInt32(0x30, true),
+    chain(v.getInt32(0x30, true), fat).length * sectorSize,
+    fat,
+    sectorAt,
+    sectorSize,
+    ab
+  );
+  const dv = new DataView(dirBytes.buffer);
+  const entries = [];
+  for (let o = 0; o + 128 <= dirBytes.length; o += 128) {
+    const len = dv.getUint16(o + 0x40, true);
+    let entryName = '';
+    for (let i = 0; i + 2 < len; i += 2) entryName += String.fromCharCode(dv.getUint16(o + i, true));
+    entries.push({ name: entryName, start: dv.getInt32(o + 0x74, true), size: dv.getUint32(o + 0x78, true) });
+  }
+  const root = entries[0];
+  const miniFat = [];
+  const miniFatBytes = readChain(
+    v.getInt32(0x3c, true),
+    v.getUint32(0x40, true) * sectorSize,
+    fat,
+    sectorAt,
+    sectorSize,
+    ab
+  );
+  for (let i = 0; i + 4 <= miniFatBytes.length; i += 4)
+    miniFat.push(new DataView(miniFatBytes.buffer).getInt32(i, true));
+  const miniStream = root ? readChain(root.start, root.size, fat, sectorAt, sectorSize, ab).buffer : null;
+  const stream = streamName => {
+    const e = entries.find(x => x.name === streamName);
+    if (!e) return null;
+    if (e.size < cutoff) return readChain(e.start, e.size, miniFat, s => s * miniSize, miniSize, miniStream);
+    return readChain(e.start, e.size, fat, sectorAt, sectorSize, ab);
+  };
+  const word = stream('WordDocument');
+  if (!word || word.length < 0x1aa) fail();
+  const wv = new DataView(word.buffer);
+  if (wv.getUint16(0, true) !== 0xa5ec) fail();
+  const table = stream(wv.getUint16(0x0a, true) & 0x0200 ? '1Table' : '0Table');
+  if (!table) fail();
+  const tv = new DataView(table.buffer);
+  const textLength = wv.getUint32(0x4c, true);
+  // Opmaakblokken overslaan tot de stukkentabel (0x02).
+  let p = wv.getUint32(0x1a2, true);
+  const clxEnd = p + wv.getUint32(0x1a6, true);
+  while (p < clxEnd && table[p] === 0x01) p += 3 + tv.getInt16(p + 1, true);
+  if (table[p] !== 0x02) fail();
+  const lcb = tv.getUint32(p + 1, true);
+  const plc = p + 5;
+  const pieces = (lcb - 4) / 12;
+  const cp1252 = new TextDecoder('windows-1252');
+  const utf16 = new TextDecoder('utf-16le');
+  let text = '';
+  for (let i = 0; i < pieces && text.length < textLength; i++) {
+    const from = tv.getUint32(plc + i * 4, true);
+    const to = tv.getUint32(plc + (i + 1) * 4, true);
+    const fc = tv.getUint32(plc + (pieces + 1) * 4 + i * 8 + 2, true);
+    const compressed = (fc & 0x40000000) !== 0;
+    const at = compressed ? (fc & 0x3fffffff) / 2 : fc;
+    const bytes = word.subarray(at, at + (to - from) * (compressed ? 1 : 2));
+    text += (compressed ? cp1252 : utf16).decode(bytes);
+  }
+  return (
+    text
+      .slice(0, textLength)
+      // Velden: de code (tussen 0x13 en 0x14) weg, het zichtbare resultaat blijft.
+      .replace(/\x13[^\x13\x14\x15]*\x14?/g, '')
+      .replace(/\x15/g, '')
+      .replace(/\x07\x07/g, '\n')
+      .replace(/\x07/g, '\t')
+      .replace(/[\r\x0b\x0c]/g, '\n')
+      .replace(/[\x00-\x08\x0e-\x1f]/g, '')
+      .replace(/\t+\n/g, '\n')
+  );
+}
 
 // Word-HTML naar regels: koppen worden "# naam" (receptgrens), tabelrijen één regel, opsommingen "- ".
 // Een volledig vetgedrukte korte regel is een receptnaam of een onderdeelkopje, maar nooit een kopje
@@ -653,6 +820,41 @@ async function importTextFile(file) {
   return applyImportFixes(await readTextRecipes(file, sourceText), sourceText);
 }
 
+// Savour-importbestand (.json): recepten die al zijn uitgelezen, bijvoorbeeld een archief dat Savour voor je
+// heeft voorbereid. Ze komen in het controlescherm; er wordt pas iets opgeslagen als jij op Opslaan klikt.
+// Vorm: { "savour": "recepten", "recipes": [{ title, ingredients[], steps[], yield, sourceFile, photo, unclear[],
+// needsReview }] }. "photo" is het originele kladje (data:image/...), bewaard als origineel bij het recept.
+async function importSavourFile(file) {
+  let data;
+  try {
+    data = JSON.parse(await file.text());
+  } catch {
+    throw new Error('Dit .json-bestand is geen Savour-importbestand.');
+  }
+  const list = Array.isArray(data) ? data : data?.recipes;
+  if (!Array.isArray(list) || !list.length) throw new Error('Dit .json-bestand bevat geen recepten voor Savour.');
+  const text = v => String(v ?? '').trim();
+  const lines = v => (Array.isArray(v) ? v : text(v).split('\n')).map(text).filter(Boolean);
+  return list
+    .filter(r => r && typeof r === 'object' && text(r.title))
+    .map(r => {
+      const photo = /^data:image\/(jpeg|png|webp);base64,/.test(r.photo || '') ? r.photo : '';
+      const unclear = lines(r.unclear);
+      return {
+        title: text(r.title).slice(0, 200),
+        ingredients: lines(r.ingredients),
+        steps: lines(r.steps),
+        yield: text(r.yield),
+        category: importCategory(text(r.title), text(r.category)),
+        sourceFile: text(r.sourceFile) || file.name,
+        photo,
+        _fromPhoto: Boolean(photo),
+        _unclear: unclear,
+        _needsReview: Boolean(r.needsReview) || unclear.length > 0
+      };
+    });
+}
+
 // Kleine tikfouten zeker verbeteren ("14oc" → "140c", "buikspel" → "buikspek"); de chef ziet per recept
 // wat er is verbeterd. Getypte tekst is altijd leesbaar: wat de AI daaruit als "niet goed leesbaar"
 // noemde terwijl het letterlijk in de bron staat (merknamen als proespuma), of wat nu verbeterd is, vervalt.
@@ -792,8 +994,7 @@ async function processImportFiles(files) {
     $('importStatus').textContent = 'Kies eerst één of meerdere bestanden.';
     return;
   }
-  const allowed = /\.(doc|docx|pdf|txt|rtf|odt|pages|csv|jpe?g|png|webp)$/i;
-  const valid = list.filter(f => allowed.test(f.name));
+  const valid = list.filter(f => IMPORT_ALLOWED.test(f.name));
   if (valid.length !== list.length)
     toast(
       `${list.length - valid.length} bestand${list.length - valid.length === 1 ? '' : 'en'} overgeslagen: type wordt niet ondersteund.`
@@ -828,10 +1029,7 @@ async function processImportFiles(files) {
         const name = (file.name || '').toLowerCase();
         let drafts;
         if (isPhoto) drafts = await importImageFile(file);
-        else if (/\.doc$/i.test(name))
-          throw new Error(
-            'Oud .doc-formaat wordt nog niet rechtstreeks uitgelezen. Sla het document op als .docx en probeer opnieuw.'
-          );
+        else if (/\.json$/i.test(name)) drafts = await importSavourFile(file);
         else drafts = await importTextFile(file);
         batchDrafts.push(...drafts);
       } catch (e) {

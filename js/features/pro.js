@@ -378,7 +378,8 @@ async function renderAdminNav() {
   try {
     // Met het bezoekers-id van dit apparaat: dan telt het niet mee in de bezoekerscijfers (api/admin.js).
     const me = await adminApi('whoami', { own_visitor: adminOwnVisitorId() });
-    if (!me.admin) return;
+    // Intussen uitgelogd of naar de demo? Dan geen Admin-knop meer tonen.
+    if (!me.admin || demoMode || !currentUser) return;
     spots.forEach(el => (el.style.display = ''));
     // Ongelezen berichten (contact en bugs): een gouden teller bij "Admin".
     const nav = $('navAdmin');

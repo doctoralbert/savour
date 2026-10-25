@@ -80,7 +80,7 @@ function readerLooksLikeSentence(line) {
 // Keukenwerkwoorden. In koksnotities staat het werkwoord vaak achteraan ("Fijn draaien in de cutter",
 // "Room en kardemom laten trekken"); zo herkent de lezer een stap ook zonder punt.
 const READER_KITCHEN_VERB =
-  /\b(?:(?:op|af|in|door|aan|bij|uit|terug|los|fijn|kort|koud)?(?:koken|draaien|mengen|zeven|bakken|braden|garen|roeren|kloppen|spatelen|snijden|schillen|smelten|verwarmen|oplossen|toevoegen|trekken|koelen|vriezen|ontdooien|vacumeren|vacümeren|frituren|cutteren|blenden|mixen|pureren|pocheren|stomen|roosteren|karamelliseren|monteren|binden|afbinden|afblussen|blussen|marineren|wellen|weken|zetten|spuiten|strooien|bestrooien|smeren|insmeren|uitsmeren|steken|uitsteken|vullen|rollen|drogen|laten|brengen|halen|doen|gieten|storten|dresseren|serveren)\b)/i;
+  /\b(?:(?:op|af|in|door|aan|bij|uit|terug|los|fijn|kort|koud)?(?:koken|draaien|mengen|zeven|bakken|braden|garen|roeren|kloppen|spatelen|snijden|schillen|smelten|verwarmen|oplossen|toevoegen|trekken|koelen|vriezen|ontdooien|vacumeren|vacümeren|frituren|cutteren|blenden|mixen|pureren|pocheren|stomen|roosteren|karamelliseren|monteren|binden|afbinden|afblussen|blussen|marineren|wellen|weken|zetten|spuiten|strooien|bestrooien|smeren|insmeren|uitsmeren|steken|uitsteken|vullen|rollen|drogen|laten|brengen|halen|doen|gieten|storten|dresseren|serveren|bekleden|leggen|schrapen|spoelen|deppen|vouwen|wassen|schoonmaken|fruiten|raspen|hakken|snipperen|persen|wegen|verdelen|portioneren|bestrijken|oprollen|inpakken|uitrekken|opwarmen|afdekken)\b)/i;
 
 // Sterk signaal voor een ingrediënt: opsommingsteken, begint met een hoeveelheid of is kwalitatief
 // ("zout naar smaak"), en is geen zin.
@@ -127,10 +127,45 @@ function readerIsSureStep(line) {
   );
 }
 
-// Waarschijnlijk een stap zonder punt: een werkwoord vooraan en minstens drie woorden ("Mengen en koud zetten").
+// Waarschijnlijk een stap zonder punt: een werkwoord vooraan en minstens drie woorden ("Mengen en koud zetten"),
+// of een langere regel die op een werkwoord eindigt ("Werkbank bekleden met folie hierop zijde zalm leggen").
 function readerLooksLikeStepLine(line) {
-  return readerIsSureStep(line) || (readerLooksLikeStepStart(line) && line.split(/\s+/).length >= 3);
+  const words = line.split(/\s+/);
+  const last = (words[words.length - 1] || '').toLowerCase().replace(/[^\p{L}]+$/u, '');
+  return (
+    readerIsSureStep(line) ||
+    (readerLooksLikeStepStart(line) && words.length >= 3) ||
+    (!READER_STARTS_WITH_QTY.test(line) &&
+      !line.includes(',') &&
+      words.length >= 5 &&
+      last.length >= 5 &&
+      /en$/.test(last))
+  );
 }
+
+// In Word afgebroken zinnen weer aan elkaar: een stap die niet eindigt op een leesteken en eindigt op een
+// komma of een verbindingswoord ("…garen op 54c voor" + "een half uur."), of waarvan de volgende regel met
+// "en", "tot", … begint ("…met marinade" + "en 1 nacht marineren"). Een onderdeelkopje ("Deeg:") blijft los.
+const READER_JOIN_END =
+  /(?:,|\b(?:met|en|op|in|van|de|het|een|tot|voor|uit|om|te|aan|naar|bij|door|als|of|zodat|totdat|onder|over|zonder|tegen|tijdens))$/i;
+const READER_JOIN_START = /^(?:en|of|tot|totdat|zodat|maar)\b/;
+function readerJoinBrokenSteps(steps) {
+  const out = [];
+  for (const s of steps) {
+    const prev = out[out.length - 1];
+    const canJoin =
+      prev &&
+      !/[.!?;:]$/.test(prev) &&
+      /^[\p{Ll}\d]/u.test(s) &&
+      (READER_JOIN_END.test(prev) || READER_JOIN_START.test(s));
+    if (canJoin) out[out.length - 1] = `${prev} ${s}`;
+    else out.push(s);
+  }
+  return out;
+}
+
+// Onderdeel van een samengesteld recept ("147.Aardappelstrudel" met daaronder "Deeg" en "Vulling"); zie splitRecipeText.
+const READER_PART_MARK = /^#part\s+/;
 
 function readerYieldFrom(line) {
   if (READER_YIELD_PLAIN.test(line)) return line.replace(/^\(|\)\.?$/g, '').trim();
@@ -186,15 +221,68 @@ function looksLikeRecipeHeading(line, nextLine = '') {
 
 // ---- Eén recept uit een blok regels ----
 
+// Opbrengst tussen haakjes achter de naam: "(voor 4 personen)", "(5 potten)", "(per zijde zalm 4/5)",
+// "(1 recept = 50 kleine ringen)". Niet: "(vega versie)" of "(Boiron)" (geen getal).
+function readerTitleYield(inside) {
+  const x = readerClean(inside);
+  if (readerYieldFrom(x)) return readerYieldFrom(x);
+  if (x.length <= 40 && /\d/.test(x) && (/^\d/.test(x) || /^per\s/i.test(x) || /=/.test(x))) return x;
+  return '';
+}
+
+// Samengesteld recept (onderdelen met "#part "): elk onderdeel apart lezen en samenvoegen, met de naam van het
+// onderdeel als kopje boven de ingrediënten en boven de bereiding ("Deeg:", zoals bij "Deel 1:").
+function parseCompositeBlock(lines) {
+  const parts = [];
+  let current = null;
+  for (const l of lines.slice(1)) {
+    if (READER_PART_MARK.test(l)) {
+      current = { name: l.replace(READER_PART_MARK, '').replace(/:$/, '').trim(), lines: [] };
+      parts.push(current);
+    } else {
+      if (!current) {
+        current = { name: '', lines: [] };
+        parts.push(current);
+      }
+      current.lines.push(l);
+    }
+  }
+  const head = parseRecipeBlock([lines[0]]) || { title: cleanBatchTitle(lines[0]), yield: '' };
+  const read = parts.map(p => ({ name: p.name, r: parseRecipeBlock([p.name || head.title, ...p.lines]) }));
+  const ingredients = [];
+  const steps = [];
+  let yieldText = head.yield || '';
+  const rank = { high: 2, medium: 1, low: 0 };
+  let confidence = 'high';
+  for (const { name, r } of read) {
+    if (!r) continue;
+    if (!yieldText && r.yield) yieldText = r.yield;
+    if (r.ingredients.length) ingredients.push(...(name ? [`${name}:`] : []), ...r.ingredients);
+    if (r.steps.length) steps.push(...(name ? [`${name}:`] : []), ...r.steps);
+    // Een onderdeel zonder ingrediënten (alleen bereiding) maakt het geheel niet onzeker.
+    const c = !r.ingredients.length && r.steps.length ? 'high' : r.readerConfidence;
+    if (rank[c] < rank[confidence]) confidence = c;
+  }
+  return {
+    title: head.title,
+    ingredients,
+    steps,
+    yield: yieldText,
+    readerConfidence: ingredients.length || steps.length ? confidence : 'low',
+    source: lines.map(l => l.replace(READER_PART_MARK, '')).join('\n')
+  };
+}
+
 function parseRecipeBlock(block) {
   const lines = readerLines(block).filter(Boolean);
   if (!lines.length) return null;
+  if (lines.some(l => READER_PART_MARK.test(l))) return parseCompositeBlock(lines);
   let title = cleanBatchTitle(lines[0]);
   let yieldText = '';
-  // "Beurre blanc (voor 4 personen)": opbrengst tussen haakjes in de titel.
+  // "Beurre blanc (voor 4 personen)", "Cacaosorbetijs (5 potten)": opbrengst tussen haakjes in de titel.
   const inTitle = title.match(/\s*\(([^)]*\d[^)]*)\)\s*$/);
-  if (inTitle && readerYieldFrom(inTitle[1])) {
-    yieldText = readerYieldFrom(inTitle[1]);
+  if (inTitle && readerTitleYield(inTitle[1])) {
+    yieldText = readerTitleYield(inTitle[1]);
     title = title.slice(0, inTitle.index).trim();
   }
   const rest = lines.slice(1);
@@ -241,6 +329,13 @@ function parseRecipeBlock(block) {
     // bron waarschijnlijk niet: twijfel, ook al zijn er kopjes.
     const ingredientLikeSteps = steps.filter(readerIsIngredientLine).length;
     headingsLookWrong = ingredientLikeSteps >= 2 && ingredientLikeSteps * 2 > steps.length;
+    // Staat er onder "Bereiding" uitsluitend ingrediënten ("Albufeira saus": kopje op de verkeerde plek), dan
+    // horen ze bij de ingrediënten en heeft het recept geen bereiding. Dat is duidelijk, dus geen twijfel.
+    if (headingsLookWrong && ingredientLikeSteps === steps.length) {
+      ingredients.push(...steps.map(s => s.replace(READER_BULLET, '')));
+      steps.length = 0;
+      headingsLookWrong = false;
+    }
   } else {
     // Zonder kopjes: alles tot en met het laatste duidelijke ingrediënt hoort bij de ingrediënten
     // (zinnen daartussen zijn een inleiding), alles daarna is bereiding.
@@ -265,7 +360,8 @@ function parseRecipeBlock(block) {
       const k = kinds[i];
       if (i > lastIngredient || k === 'yield') return true;
       if (k === 'step') return /[.!?:]$/.test(l) || l.length > 70;
-      if (k === 'stepish') return readerIsSureStep(l);
+      // "Wanneer ingekookt afmaken met" (of "Toevoegen:") gevolgd door nog meer ingrediënten: duidelijk.
+      if (k === 'stepish') return readerIsSureStep(l) || (/(?:\bmet|:)$/i.test(l) && kinds[i + 1] === 'ingredient');
       if (readerLooksLikeStepStart(l)) return false;
       return k === 'ingredient' || (k === 'short' && !l.includes(',') && l.split(/\s+/).length <= 4);
     });
@@ -288,7 +384,8 @@ function parseRecipeBlock(block) {
   }
 
   // Inleiding en notities (bijv. "Oven: 180 °C") gaan voorop in de bereiding, zodat niets verloren gaat.
-  const allSteps = [...intro, ...steps].filter(Boolean);
+  // In Word afgebroken zinnen worden weer één stap.
+  const allSteps = readerJoinBrokenSteps([...intro, ...steps].filter(Boolean));
   const name = title || 'Onbenoemd recept';
   const structured = ((hasIngredientsHeading || hasStepsHeading) && !headingsLookWrong) || cleanWithoutHeadings;
   const confidence = onlyClearSteps
@@ -356,10 +453,49 @@ function readerVocabulary(sourceText, knownWords = []) {
   return { counts, known };
 }
 
+// Keukenwoorden die in echte receptbestanden vaak verkeerd geschreven staan. Alleen hele woorden; de
+// hoofdletter blijft zoals de kok hem schreef. Elke verbetering is zichtbaar in de controle (fixes).
+const READER_KNOWN_MISSPELLINGS = {
+  vinaigraitte: 'vinaigrette',
+  vinaigrete: 'vinaigrette',
+  vinaigraite: 'vinaigrette',
+  mousee: 'mousse',
+  mouse: 'mousse',
+  patiserrie: 'patisserie',
+  patisserrie: 'patisserie',
+  patiserie: 'patisserie',
+  bavorois: 'bavarois',
+  baveroise: 'bavaroise',
+  cremeaux: 'crémeux',
+  tuille: 'tuile',
+  tuilles: 'tuiles',
+  duxcelle: 'duxelles',
+  duxelle: 'duxelles',
+  putanesca: 'puttanesca',
+  rozeval: 'roseval',
+  alceto: 'aceto',
+  gastronorn: 'gastronorm',
+  rawitt: 'rawit'
+};
+const READER_MISSPELLING_WORD = new RegExp(
+  `(?<![\\p{L}])(?:${Object.keys(READER_KNOWN_MISSPELLINGS).join('|')})(?![\\p{L}])`,
+  'giu'
+);
+
+function readerFixKnownMisspellings(text, fixes) {
+  return text.replace(READER_MISSPELLING_WORD, word => {
+    let to = READER_KNOWN_MISSPELLINGS[word.toLowerCase()];
+    if (word === word.toUpperCase()) to = to.toUpperCase();
+    else if (word[0] === word[0].toUpperCase()) to = to[0].toUpperCase() + to.slice(1);
+    fixes.push({ from: word, to });
+    return to;
+  });
+}
+
 // words: false voor de bereiding. Daar staan veel werkwoorden die één letter van elkaar verschillen en
 // allebei kloppen ("uitrekken" / "uitlekken", "opvangen" / "ophangen"); daar verbeteren we alleen getallen.
 function readerFixText(text, vocab, fixes, words = true) {
-  let out = String(text || '');
+  let out = readerFixKnownMisspellings(String(text || ''), fixes);
   out = out.replace(READER_O_IN_NUMBER, m => {
     const to = m.replace(/[oO]/g, '0');
     fixes.push({ from: m, to });
@@ -448,6 +584,19 @@ function splitRecipeText(text) {
       l = l.replace(READER_SOFT_HEADING, '');
       const nextIsIngredients =
         readerIsIngredientLine(next) || READER_INGREDIENTS_HEADING.test(next) || Boolean(readerYieldFrom(next));
+      // Genummerd recept met daaronder ongenummerde vette kopjes ("147.Aardappelstrudel", "Deeg", "Vulling"):
+      // de kopjes zijn onderdelen van dat recept, geen losse recepten.
+      if (
+        current.length &&
+        state.numberedTitle &&
+        !READER_NUMBERED_TITLE.test(l) &&
+        (current.length === 1 || state.composite)
+      ) {
+        current.push(`#part ${l}`);
+        state.composite = true;
+        blankBefore = false;
+        continue;
+      }
       const isPart = current.length && (state.openIngredients || (state.headings && !nextIsIngredients));
       if (isPart) {
         current.push(/:$/.test(l) ? l : `${l}:`);
@@ -457,6 +606,7 @@ function splitRecipeText(text) {
       // Ook na een recept van alleen zinnen ("Aardpeer wassen en in stukken snijden…").
       if (current.length > 1 || (current.length && nextIsIngredients)) start();
       current.push(l);
+      if (current.length === 1) state.numberedTitle = READER_NUMBERED_TITLE.test(l);
       blankBefore = false;
       continue;
     }

@@ -60,12 +60,12 @@ const HELP_TOPICS = {
     title: 'Zo voeg je recepten toe',
     sections: [
       [
-        'Word, PDF of tekst',
-        'Importeer een heel bestand in één keer, ook met honderden recepten. De Savour-lezer splitst ze zelf op en herkent titel, opbrengst, ingrediënten en bereiding.'
+        'Word, PDF, tekst of andere bestanden',
+        'Importeer een heel bestand in één keer, ook met honderden recepten. De Savour-lezer splitst ze zelf op en herkent titel, opbrengst, ingrediënten en bereiding. Met "Alle bestanden door elkaar" kies je alles tegelijk, ook een hele map.'
       ],
       [
-        'Foto van een kladje',
-        'Maak een foto van een handgeschreven of gescand recept. De AI leest het voor je uit (Savour Pro, tot 500 per maand). Het originele kladje blijft bewaard bij het recept.'
+        "Foto's",
+        "Upload foto's van handgeschreven of gescande recepten. De AI leest ze voor je uit (Savour Pro, tot 500 per maand). Het originele kladje blijft bewaard bij het recept."
       ],
       ['Zelf invoeren', 'Typ een recept in de recepteditor: titel, categorie, opbrengst, ingrediënten en stappen.'],
       [

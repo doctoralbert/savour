@@ -158,7 +158,7 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
   }
   if (event === 'SIGNED_OUT') {
     sessionStorage.removeItem('savour_session_active');
-    currentUser = null;
+    clearSessionState();
     document.body.classList.remove('savour-light');
     $('appShell').style.display = 'none';
     $('publicInfoShell').style.display = 'none';
