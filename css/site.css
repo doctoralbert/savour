@@ -1565,3 +1565,111 @@
     background: linear-gradient(180deg, rgba(6, 10, 11, 0.82) 0%, rgba(6, 10, 11, 0.92) 60%, rgba(6, 10, 11, 1) 100%);
   }
 }
+
+/* ---- Footer, rustiger (v2): kleinere letters, gouden kopjes, alles op één regel; telefoon 2 × 2 ---- */
+.site-foot {
+  padding: 56px 0 26px;
+}
+.site-foot-top {
+  grid-template-columns: minmax(220px, 1.3fr) repeat(4, minmax(0, 1fr));
+  gap: 28px 36px;
+  align-items: start;
+}
+.site-foot .site-foot-brand span {
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+.site-foot .site-foot-brand p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  max-width: 250px;
+  margin: 0 0 14px;
+}
+.site-foot .site-foot-brand .site-btn {
+  padding: 8px 16px;
+  font-size: 13px;
+  margin-top: 0;
+}
+.site-foot h4 {
+  margin: 2px 0 12px;
+  font: 600 11px/1 var(--sans);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+}
+.site-foot ul {
+  font-size: 14px;
+  line-height: 1.35;
+}
+.site-foot li {
+  margin: 0 0 8px;
+}
+.site-foot li a {
+  white-space: nowrap;
+}
+.site-foot-bottom {
+  align-items: center;
+  margin-top: 40px;
+  padding-top: 18px;
+  font-size: 12.5px;
+}
+.site-foot-bottom nav {
+  gap: 6px 18px;
+  margin-left: auto;
+}
+.site-foot-bottom .site-lang summary {
+  min-width: 30px;
+  height: 30px;
+  font-size: 11px;
+}
+@media (max-width: 1100px) and (min-width: 761px) {
+  .site-foot-top {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .site-foot .site-foot-brand {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .site-foot .site-foot-brand p {
+    margin: 0;
+    max-width: 420px;
+  }
+}
+@media (max-width: 760px) {
+  .site-foot {
+    padding: 40px 0 22px;
+  }
+  .site-foot-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 26px 20px;
+  }
+  .site-foot .site-foot-brand {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+  .site-foot .site-foot-brand p {
+    max-width: none;
+  }
+  .site-foot ul {
+    font-size: 13.5px;
+  }
+  .site-foot li {
+    margin-bottom: 7px;
+  }
+  .site-foot li a {
+    white-space: normal;
+  }
+  .site-foot-bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    margin-top: 30px;
+  }
+  .site-foot-bottom nav {
+    margin-left: 0;
+    justify-content: center;
+  }
+}
