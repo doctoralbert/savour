@@ -849,6 +849,9 @@ async function importSavourFile(file) {
         sourceFile: text(r.sourceFile) || file.name,
         photo,
         _fromPhoto: Boolean(photo),
+        _fixes: (Array.isArray(r.fixes) ? r.fixes : [])
+          .filter(f => f && text(f.from) && text(f.to))
+          .map(f => ({ from: text(f.from), to: text(f.to) })),
         _unclear: unclear,
         _needsReview: Boolean(r.needsReview) || unclear.length > 0
       };
