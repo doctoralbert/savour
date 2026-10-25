@@ -986,21 +986,20 @@
   background: var(--paper-2);
 }
 
+/* Telefoon met een echt scherm (Over ons): recht, met een gelijke rand, zoals bovenaan de startpagina. */
 .site-phone-frame {
   width: 290px;
-  border: 9px solid #1b2323;
-  border-radius: 40px;
-  overflow: hidden;
-  background: #030607;
-  box-shadow:
-    0 0 0 1px #6b5a3b,
-    0 40px 80px rgba(0, 0, 0, 0.55);
-  transform: rotate(2deg);
+  padding: 7px;
+  border: 1px solid #3a4445;
+  border-radius: 34px;
+  background: #1b1f20;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
 }
 .site-phone-frame img {
   display: block;
   width: 100%;
   height: auto;
+  border-radius: 27px;
 }
 
 /* Over ons: kladjes en een echt scherm tussen de tekst */
@@ -1038,6 +1037,10 @@
 }
 .site-notes.app .site-phone-frame {
   width: 260px;
+}
+/* Het scherm in de telefoon niet scheef zetten (dat is alleen voor de foto's van kladjes). */
+.site-notes.app .site-phone-frame img {
+  transform: none;
 }
 
 /* ---- Bovenaan: echte schermen van de app (laptop met bibliotheek, telefoon met recept) ---- */
