@@ -50,10 +50,11 @@ const IMPORT_ALLOWED = IMPORT_SOURCES.all.test;
 
 // Klik op een bron: tekst opent het tekstvak, een bestandsbron meteen de bestandskiezer met alleen die bestanden.
 function chooseImportSource(type) {
+  // Camera: eigen kopje; openCameraImport regelt zelf de Pro-check, de telefooncamera of de webcam.
+  if (type === 'camera') return openCameraImport();
   if (type === 'photo' && !isPro()) return askForPro("Foto's");
   selectImportSource(type);
-  // Foto's: eerst kiezen tussen een foto maken (camera) of foto's uit je album, dus niet meteen de bestandskiezer.
-  if (type !== 'text' && type !== 'photo') $('importFile').click();
+  if (type !== 'text') $('importFile').click();
 }
 
 function selectImportSource(type) {
@@ -80,8 +81,6 @@ function selectImportSource(type) {
     $('importFile').accept = (source || IMPORT_SOURCES.all).accept;
     $('importDropTitle').textContent = source ? `${source.label} kiezen` : 'Bestanden selecteren';
     $('importDropTypes').textContent = (source || IMPORT_SOURCES.all).types;
-    // Camera alleen bij foto's (en alles door elkaar); de knop staat in het bestandenvak, niet als eigen kopje.
-    $('importCameraBtn').style.display = type === 'photo' || type === 'all' ? '' : 'none';
   }
 }
 
@@ -173,6 +172,9 @@ function importCameraFile(file) {
   selectImportSource('photo');
   setImportFiles([file]);
   importSource = 'photo';
+  document
+    .querySelectorAll('.import-option')
+    .forEach(x => x.classList.toggle('selected', x.id === 'importOptionCamera'));
   $('importSourceLabel').textContent = 'Bron: foto met je camera';
   processImport();
 }
@@ -240,7 +242,6 @@ function resetImportSource() {
   $('importDrop').style.display = 'block';
   $('importSourceNote').style.display = 'none';
   $('importStatus').textContent = '';
-  $('importCameraBtn').style.display = 'none';
   document.querySelectorAll('.import-option').forEach(x => x.classList.remove('selected'));
 }
 

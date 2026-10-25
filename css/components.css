@@ -939,3 +939,7 @@ body.savour-light .nav .nav-add-recipe.active {
   font-size: 10px !important;
   color: #111 !important;
 }
+/* Recept importeren: zeven bronnen in twee kolommen; "Andere bestanden" als laatste over de hele breedte. */
+#importOptionOther {
+  grid-column: 1 / -1;
+}
