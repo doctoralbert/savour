@@ -14,8 +14,8 @@ export const EXTRA_LANGS = {
       footerTag: 'Die Rezept-App für die Profiküche.',
       footerCols: { features: 'Funktionen', audience: 'Für wen', company: 'Savour', help: 'Hilfe' },
       faq: 'Häufige Fragen', guide: 'Anleitung', contact: 'Kontakt', terms: 'AGB', privacy: 'Datenschutz', bug: 'Problem melden',
-      company: 'Savour · KvK 89674871 · Niederlande · contact@savour.page', soon: 'Demnächst',
-      madeBy: 'Gemacht von Köchen aus den Niederlanden, für Köche.'
+      company: 'Savour · contact@savour.page', soon: 'Demnächst',
+      madeBy: 'Von Köchen für Köche gemacht.'
     },
     kladje: {
       note: ['Beurre blanc', '2 Schalotten fein', '1 dl Weißwein', '1 dl Essig', 'auf ¼ reduz.', '250 gr Butter kalt!!', 'montieren, Salz, Zitr.'],
@@ -74,8 +74,8 @@ export const EXTRA_LANGS = {
       footerTag: 'La app de recetas para la cocina profesional.',
       footerCols: { features: 'Funciones', audience: 'Para quién', company: 'Savour', help: 'Ayuda' },
       faq: 'Preguntas frecuentes', guide: 'Guía', contact: 'Contacto', terms: 'Condiciones', privacy: 'Privacidad', bug: 'Informar de un problema',
-      company: 'Savour · KvK 89674871 · Países Bajos · contact@savour.page', soon: 'Próximamente',
-      madeBy: 'Hecho por chefs de los Países Bajos, para chefs.'
+      company: 'Savour · contact@savour.page', soon: 'Próximamente',
+      madeBy: 'Hecho por chefs, para chefs.'
     },
     kladje: {
       note: ['Beurre blanc', '2 chalota fina', '1 dl vino blanco', '1 dl vinagre', 'reducir a ¼', '250 gr mantequilla fría!!', 'montar, sal, lim.'],

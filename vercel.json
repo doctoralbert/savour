@@ -9,6 +9,10 @@
   },
   "rewrites": [
     {
+      "source": "/r/:slug/preview.png",
+      "destination": "/api/recept?slug=:slug&img=1"
+    },
+    {
       "source": "/r/:slug",
       "destination": "/api/recept?slug=:slug"
     },

@@ -143,9 +143,9 @@ const server = http.createServer(async (req, res) => {
   }
 
   // Gedeeld recept: zoals vercel.json via api/recept.js (pagina met eigen preview).
-  const shared = pathname.match(/^\/r\/([^/]+)\/?$/);
+  const shared = pathname.match(/^\/r\/([^/]+)(\/preview\.png|\/?)$/);
   if (shared && handlers.has('/api/recept')) {
-    req.url = `/api/recept?slug=${encodeURIComponent(shared[1])}`;
+    req.url = `/api/recept?slug=${encodeURIComponent(shared[1])}${shared[2] === '/preview.png' ? '&img=1' : ''}`;
     await apiRequest(req, res, handlers.get('/api/recept'));
     return;
   }

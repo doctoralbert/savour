@@ -216,12 +216,16 @@ async function ownVisitorIds(user, current) {
   return ids;
 }
 
+// Geen mensen: zoekmachines, linkvoorbeelden (WhatsApp, Facebook, ...) en testbrowsers. Tellen niet mee als bezoeker.
+const NOT_A_VISITOR =
+  /bot\b|bot\/|crawl|spider|slurp|headless|lighthouse|pagespeed|facebookexternalhit|meta-externalagent|preview|python|curl|wget|node-fetch|axios|vercel|uptime|monitor/i;
+
 // Alles in unieke bezoekers (elk apparaat telt één keer): vandaag, deze week (7 dagen), deze maand, all time,
 // per platform en per dag (30 dagen). Plus de laatste unieke bezoekers met hun bezoeken en pagina's.
 async function visitorStats(ownIds = []) {
   const own = new Set(ownIds);
   const all = await allVisits();
-  const rows = all.filter(v => !own.has(v.visitor_id));
+  const rows = all.filter(v => !own.has(v.visitor_id) && !NOT_A_VISITOR.test(v.user_agent || ''));
   const who = v => v.visitor_id || `${v.user_agent}|${v.visited_at}`;
   const unique = list => new Set(list.map(who)).size;
   const today = amsterdamDay(Date.now());
@@ -563,7 +567,11 @@ export default async function handler(req, res) {
   if (!user || !ADMIN_EMAILS.includes(String(user.email || '').toLowerCase()))
     return res.status(403).json({ error: 'Geen beheerdersrechten.' });
   const { action, user_id: userId, days, email, name, organization, own_visitor: ownVisitor } = req.body || {};
-  if (action === 'whoami') return res.status(200).json({ admin: true, email: user.email });
+  // Elk apparaat waarop de beheerder is ingelogd telt als eigen apparaat en niet mee in de bezoekers.
+  if (action === 'whoami') {
+    if (ownVisitor && hasServiceRole()) await ownVisitorIds(user, ownVisitor).catch(() => null);
+    return res.status(200).json({ admin: true, email: user.email });
+  }
   if (!hasServiceRole()) return res.status(503).json({ error: 'SUPABASE_SERVICE_ROLE_KEY ontbreekt in Vercel.' });
   try {
     if (action === 'overview') return res.status(200).json(await overview(user, ownVisitor));

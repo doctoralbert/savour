@@ -85,9 +85,13 @@ if (new URLSearchParams(location.search).get('collega')) {
 (async () => {
   try {
     if (window.__publicRecipeRoute) {
-      document.body.classList.remove('auth-booting');
-      await openPublicRecipeBySlug(window.__publicRecipeRoute);
-      return;
+      // Niet ingelogd: de openbare receptpagina. Wel ingelogd: gewoon de app, en daarna het recept (alleen-lezen).
+      const { data: existing } = await supabaseClient.auth.getSession();
+      if (!existing?.session?.user) {
+        document.body.classList.remove('auth-booting');
+        await openPublicRecipeBySlug(window.__publicRecipeRoute);
+        return;
+      }
     }
     if (window.__publicInviteRoute) {
       // Uitnodiging onthouden. Al ingelogd? Dan gewoon doorgaan: na het laden wordt de gebruiker lid.
@@ -111,6 +115,7 @@ if (new URLSearchParams(location.search).get('collega')) {
       activateView('recipes');
       const ok = await startDatabaseSession(data.session.user);
       if (!ok) sessionStorage.setItem('savour_session_active', '1');
+      else if (window.__publicRecipeRoute) await openLinkRecipe(window.__publicRecipeRoute);
     } else {
       // Geen sessie en geen internet: de bewaarde bibliotheek openen als die er is.
       if (!navigator.onLine && (await startOfflineSession())) return;

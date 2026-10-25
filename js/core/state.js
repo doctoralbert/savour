@@ -17,6 +17,8 @@ let sharedMaps = [];
 
 // Recepten van teamleden uit gedeelde mappen (alleen-lezen; niet in de eigen bibliotheek).
 let sharedRecipes = [];
+// Recepten die je via een gedeelde link (/r/...) opende terwijl je was ingelogd: alleen-lezen (js/features/public-pages.js).
+let linkRecipes = [];
 
 let activeCat = '';
 

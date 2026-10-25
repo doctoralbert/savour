@@ -101,7 +101,9 @@
   // Bezoek tellen op de losse pagina's (hier komen bezoekers van Google vaak binnen). De app zelf (index.html)
   // telt via logSavourVisit in js/features/admin.js; daar staat #appShell, dus hier dan niets doen.
   function logStaticVisit() {
-    if (document.getElementById('appShell') || !/(^|.)savour.page$/.test(location.hostname)) return;
+    if (document.getElementById('appShell') || !/(^|\.)savour\.page$/.test(location.hostname)) return;
+    // Testbrowsers en bots tellen niet mee.
+    if (navigator.webdriver || /bot|crawl|spider|headless|lighthouse/i.test(navigator.userAgent || '')) return;
     try {
       var vid = localStorage.getItem('savour_visit_id');
       if (!vid) {

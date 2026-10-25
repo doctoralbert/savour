@@ -1515,3 +1515,11 @@
 .site-shell .site-page-head + .site-article {
   padding-top: 0;
 }
+
+/* Inloggen als rustig omlijnd knopje naast "Gratis beginnen" (ook op de telefoon). */
+.site-actions .site-btn.site-login {
+  border-color: var(--line-strong, rgba(238, 232, 220, 0.38));
+}
+.site-actions .site-btn.site-login:hover {
+  border-color: var(--ink);
+}

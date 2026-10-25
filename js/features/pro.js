@@ -282,6 +282,7 @@ function renderProPage(host) {
         <tr><td>Zelf een gedeelde map maken en je team uitnodigen</td><td>–</td><td>✓</td></tr>
         <tr><td>AI leest foto's, handgeschreven en gescande recepten</td><td>–</td><td>✓</td></tr>
         <tr><td>Printen met het logo van je restaurant</td><td>–</td><td>✓</td></tr>
+        <tr><td>Alle recepten downloaden naar Word of als back-up</td><td>–</td><td>✓</td></tr>
         <tr><td>AI-imports per maand</td><td>–</td><td>500</td></tr>
       </tbody>
     </table>
@@ -375,7 +376,9 @@ async function renderAdminNav() {
   spots.forEach(el => (el.style.display = 'none'));
   if (!currentUser || demoMode || !spots.length) return;
   try {
-    if ((await adminApi('whoami')).admin) spots.forEach(el => (el.style.display = ''));
+    // Met het bezoekers-id van dit apparaat: dan telt het niet mee in de bezoekerscijfers (api/admin.js).
+    if ((await adminApi('whoami', { own_visitor: adminOwnVisitorId() })).admin)
+      spots.forEach(el => (el.style.display = ''));
   } catch {
     // Geen beheerder of server niet bereikbaar: knop blijft verborgen.
   }

@@ -7,7 +7,7 @@ export const ES = {
     blogLead:
       'Artículos prácticos sobre digitalizar recetas, ordenar carpetas de recetas, tu equipo de cocina y la gestión de recetas en restaurantes.',
     more: 'Leer más',
-    logoLine: 'De la nota a una receta que funciona. Hecho por cocineros de los Países Bajos, para cocineros.',
+    logoLine: 'De la nota a una receta que funciona. Hecho por cocineros, para cocineros.',
     soonMail: '¿Quieres aportar ideas? Escríbenos a'
   },
   blogSlug: 'es/blog',

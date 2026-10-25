@@ -1334,10 +1334,10 @@ export const strings = [
     'Savour · Cámara de Comercio (KvK) 89674871 · Países Bajos · contact@savour.page'
   ],
   [
-    'Savour wordt gemaakt door chefs uit Nederland. We weten uit eigen ervaring waar het in de keuken misgaat: zoekgeraakte recepten, verschillende versies en uren overtypen. Savour is gebouwd omdat we zelf een plek wilden die dat oplost, en die we zelf elke dag gebruiken. Vragen, ideeën of feedback zijn altijd welkom via de contactpagina.',
-    'Savour is made by chefs from the Netherlands. We know from experience where things go wrong in the kitchen: lost recipes, different versions and hours of retyping. Savour was built because we wanted a place that solves this ourselves, and one we use every day. Questions, ideas and feedback are always welcome via the contact page.',
-    'Savour wird von Köchen aus den Niederlanden gemacht. Wir wissen aus eigener Erfahrung, wo es in der Küche hakt: verlorene Rezepte, unterschiedliche Versionen und stundenlanges Abtippen. Savour entstand, weil wir selbst einen Ort wollten, der das löst, und den wir jeden Tag nutzen. Fragen, Ideen und Feedback sind über die Kontaktseite jederzeit willkommen.',
-    'Savour lo hacen chefs de los Países Bajos. Sabemos por experiencia dónde falla la cocina: recetas perdidas, versiones distintas y horas pasando recetas a limpio. Creamos Savour porque queríamos un lugar que lo resolviera, y que usamos a diario. Preguntas, ideas y comentarios siempre son bienvenidos en la página de contacto.'
+    'Savour wordt gemaakt door chefs, voor chefs. We weten uit eigen ervaring waar het in de keuken misgaat: zoekgeraakte recepten, verschillende versies en uren overtypen. Savour is gebouwd omdat we zelf een plek wilden die dat oplost, en die we zelf elke dag gebruiken. Vragen, ideeën of feedback zijn altijd welkom via de contactpagina.',
+    'Savour is made by chefs, for chefs. We know from experience where things go wrong in the kitchen: lost recipes, different versions and hours of retyping. Savour was built because we wanted a place that solves this ourselves, and one we use every day. Questions, ideas and feedback are always welcome via the contact page.',
+    'Savour wird von Köchen für Köche gemacht. Wir wissen aus eigener Erfahrung, wo es in der Küche hakt: verlorene Rezepte, unterschiedliche Versionen und stundenlanges Abtippen. Savour entstand, weil wir selbst einen Ort wollten, der das löst, und den wir jeden Tag nutzen. Fragen, Ideen und Feedback sind über die Kontaktseite jederzeit willkommen.',
+    'Savour lo hacen chefs, para chefs. Sabemos por experiencia dónde falla la cocina: recetas perdidas, versiones distintas y horas pasando recetas a limpio. Creamos Savour porque queríamos un lugar que lo resolviera, y que usamos a diario. Preguntas, ideas y comentarios siempre son bienvenidos en la página de contacto.'
   ],
   ['Gids', 'Guide', 'Leitfaden', 'Guía'],
   ['Gids: werken met recepten', 'Guide: working with recipes', 'Leitfaden: Arbeiten mit Rezepten', 'Guía: trabajar con recetas'],
@@ -1503,6 +1503,10 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Alle recepten downloaden naar Word of als back-up", "Download all recipes to Word or as a backup", "Alle Rezepte als Word oder Backup herunterladen", "Descargar todas las recetas en Word o como copia de seguridad"],
+  ["Gedeeld recept. Je kunt het bekijken, omrekenen en printen; alleen de maker kan het aanpassen.", "Shared recipe. You can view, scale and print it; only the creator can change it.", "Geteiltes Rezept. Du kannst es ansehen, umrechnen und drucken; nur der Ersteller kann es ändern.", "Receta compartida. Puedes verla, escalarla e imprimirla; solo su autor puede modificarla."],
+  ["Dit gedeelde recept bestaat niet meer", "This shared recipe no longer exists", "Dieses geteilte Rezept existiert nicht mehr", "Esta receta compartida ya no existe"],
+  ["Dit gedeelde recept kon niet worden geladen", "This shared recipe could not be loaded", "Dieses geteilte Rezept konnte nicht geladen werden", "No se pudo cargar esta receta compartida"],
   ["Gedeeld recept", "Shared recipe", "Geteiltes Rezept", "Receta compartida"],
   ["Ook je eigen recepten zo overzichtelijk?", "Want your own recipes this clear?", "Deine eigenen Rezepte auch so übersichtlich?", "¿Quieres tus propias recetas así de claras?"],
   ["Savour zet je Word-bestanden, PDF's en kladjes om in één receptenboek, op computer en telefoon, voor je hele keuken.", "Savour turns your Word files, PDFs and handwritten notes into one recipe book, on computer and phone, for your whole kitchen.", "Savour macht aus deinen Word-Dateien, PDFs und Notizzetteln ein Rezeptbuch, auf Computer und Handy, für deine ganze Küche.", "Savour convierte tus archivos de Word, PDF y notas en un solo recetario, en ordenador y móvil, para toda tu cocina."],

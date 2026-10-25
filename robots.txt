@@ -28,4 +28,27 @@ Disallow: /join/
 Disallow: /r/
 Disallow: /site/
 
+# Apps die een voorbeeld maken van een gedeelde link (WhatsApp, Facebook, Telegram, iMessage, ...): die mogen
+# een gedeeld recept en het voorbeeldplaatje (api/recept.js) ophalen. Zoekmachines blijven ze overslaan.
+User-agent: facebookexternalhit
+User-agent: Facebot
+User-agent: meta-externalagent
+User-agent: WhatsApp
+User-agent: TelegramBot
+User-agent: Twitterbot
+User-agent: LinkedInBot
+User-agent: Slackbot
+User-agent: Slackbot-LinkExpanding
+User-agent: Discordbot
+User-agent: SkypeUriPreview
+User-agent: Pinterestbot
+User-agent: Applebot
+Allow: /r/
+Allow: /api/recept
+Disallow: /admin
+Disallow: /admin-reset.html
+Disallow: /api/
+Disallow: /join/
+Disallow: /site/
+
 Sitemap: https://savour.page/sitemap.xml

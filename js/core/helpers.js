@@ -50,6 +50,7 @@ function findRecipe(id) {
   return (
     (recipes || []).find(r => String(r.id) === String(id)) ||
     (sharedRecipes || []).find(r => String(r.id) === String(id)) ||
+    (linkRecipes || []).find(r => String(r.id) === String(id)) ||
     null
   );
 }

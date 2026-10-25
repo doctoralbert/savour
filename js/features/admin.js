@@ -638,6 +638,8 @@ function savourVisitSourceQuery() {
 async function logSavourVisit() {
   // Alleen echte bezoeken aan savour.page; de testversie en lokaal testen tellen niet mee.
   if (IS_ADMIN_PATH || !/(^|\.)savour\.page$/.test(location.hostname)) return;
+  // Testbrowsers en bots tellen niet mee.
+  if (navigator.webdriver || /bot|crawl|spider|headless|lighthouse/i.test(navigator.userAgent || '')) return;
   try {
     const key = 'savour_visit_id';
     let vid = localStorage.getItem(key);

@@ -2,11 +2,10 @@
 // een eigen voorbeeldplaatje in de kop. WhatsApp, Telegram, iMessage en e-mail lezen die kop en tonen zo een
 // preview van het recept zelf in plaats van de algemene Savour-afbeelding.
 //   /api/recept?slug=...         → index.html met titel, beschrijving en og:image van dit recept
-//   /api/recept?slug=...&img=1   → het voorbeeldplaatje (PNG, 1200 × 630) in de huisstijl
+//   /api/recept?slug=...&img=1   → het voorbeeldplaatje (PNG, 1200 × 630) in de huisstijl, ook als /r/<slug>/preview.png
 // Alleen recepten die de eigenaar zelf openbaar heeft gedeeld (get_public_recipe_by_slug); niets anders.
 import fs from 'node:fs';
 import path from 'node:path';
-import { ImageResponse } from '@vercel/og';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://qmzfqfmpylkgcnxsedse.supabase.co';
 const SUPABASE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_R8DGUuglOC3aFz5qv4xOgw_UGdQUyiD';
@@ -61,7 +60,7 @@ function pageHtml(recipe, slug) {
   const desc = recipe
     ? `${parts.join(' · ')}${parts.length ? '. ' : ''}Gedeeld via Savour, receptbeheer voor de professionele keuken.`
     : 'Een gedeeld recept in Savour.';
-  const image = `${SITE}/api/recept?slug=${encodeURIComponent(slug)}&img=1`;
+  const image = `${SITE}/r/${encodeURIComponent(slug)}/preview.png`;
   const set = (re, to) => {
     html = html.replace(re, () => to);
   };
@@ -71,7 +70,10 @@ function pageHtml(recipe, slug) {
   set(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${esc(title)}">`);
   set(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${esc(desc)}">`);
   set(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${esc(url)}">`);
-  set(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${esc(image)}">`);
+  set(
+    /<meta property="og:image" content="[^"]*">/,
+    `<meta property="og:image" content="${esc(image)}"><meta property="og:image:secure_url" content="${esc(image)}"><meta property="og:image:type" content="image/png"><meta property="og:image:alt" content="${esc(title)}"><meta name="twitter:image" content="${esc(image)}">`
+  );
   set(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${esc(url)}">`);
   // Een gedeeld recept hoort niet in zoekmachines (het is van de kok, niet van Savour).
   html = html.replace('</head>', '<meta name="robots" content="noindex">\n</head>');
@@ -198,6 +200,8 @@ async function imagePng(recipe) {
     { name: 'DM Sans', data: file('assets/fonts/dmsans-700.ttf'), weight: 700, style: 'normal' },
     { name: 'Playfair Display', data: file('assets/fonts/playfair-700.ttf'), weight: 700, style: 'normal' }
   ];
+  // Pas hier laden: de pagina zelf (die WhatsApp eerst ophaalt) blijft zo snel.
+  const { ImageResponse } = await import('@vercel/og');
   const response = new ImageResponse(previewImage(recipe), { width: 1200, height: 630, fonts });
   return Buffer.from(await response.arrayBuffer());
 }

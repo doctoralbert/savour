@@ -7,7 +7,7 @@ export const DE = {
     blogLead:
       'Praktische Artikel über das Digitalisieren von Rezepten, das Ordnen von Rezeptordnern, dein Küchenteam und Rezeptverwaltung in der Gastronomie.',
     more: 'Mehr lesen',
-    logoLine: 'Von der Notiz zum Rezept, das stimmt. Gemacht von Köchen aus den Niederlanden, für Köche.',
+    logoLine: 'Von der Notiz zum Rezept, das stimmt. Von Köchen für Köche gemacht.',
     soonMail: 'Möchtest du mitdenken? Schreib uns an'
   },
   blogSlug: 'de/blog',

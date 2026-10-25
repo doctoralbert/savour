@@ -9,7 +9,7 @@ const siteCopy = {
     privacyTitle: 'Privacybeleid',
     termsNote: 'Laatst bijgewerkt: 21 oktober 2026.',
     privacyNote: 'Laatst bijgewerkt: 21 oktober 2026.',
-    about: `<h2>Wat is Savour?</h2><p>Savour is ontwikkeld voor professionele keukens en keukenteams. Het doel is eenvoudig: recepten helder opslaan, terugvinden, organiseren en delen zonder onnodige informatie.</p><h2>Waarom Savour bestaat</h2><p>In bijna elke keuken liggen recepten verspreid: in een map op kantoor, op losse kladjes bij de pass, in Word-bestanden van een vorige chef en in berichten op telefoons. Wie een recept zoekt, vindt vaak drie versies met andere hoeveelheden. Savour is gemaakt door chefs die daar zelf dagelijks tegenaan lopen, met één doel: één plek waar elk recept staat zoals het bedoeld is.</p><h2>Recepten beheren</h2><p>Je kunt recepten zelf invoeren of bestaande recepten importeren. Je eigen receptenbibliotheek blijft centraal staan en recepten kunnen worden georganiseerd in persoonlijke mappen en gedeelde mappen.</p><h2>Van kladje naar recept</h2><p>Bestaande recepten hoef je niet over te typen. De Savour-lezer haalt recepten uit Word-, PDF- en tekstbestanden, ook als er honderden in één document staan. Met Savour Pro leest de AI daarnaast foto's van handgeschreven kladjes en gescande pagina's. Savour verzint nooit hoeveelheden of stappen: wat onzeker is, wordt gemarkeerd zodat je het controleert voordat het wordt opgeslagen.</p><h2>Op elk apparaat</h2><p>Op kantoor organiseer je je recepten op de computer, in de keuken gebruik je dezelfde bibliotheek op je telefoon of tablet. Recepten omrekenen naar een andere opbrengst, een kookweergave met grote letters en printen voor de receptkaart zitten er standaard in.</p><h2>Voor professionals</h2><p>Savour is ontworpen vanuit de dagelijkse praktijk van chefs en professionele keukens. De interface legt de nadruk op receptuur, organisatie en samenwerking.</p><h2>Door chefs, voor chefs</h2><p>Savour wordt gemaakt door chefs uit Nederland. We weten uit eigen ervaring waar het in de keuken misgaat: zoekgeraakte recepten, verschillende versies en uren overtypen. Savour is gebouwd omdat we zelf een plek wilden die dat oplost, en die we zelf elke dag gebruiken. Vragen, ideeën of feedback zijn altijd welkom via de contactpagina.</p>`,
+    about: `<h2>Wat is Savour?</h2><p>Savour is ontwikkeld voor professionele keukens en keukenteams. Het doel is eenvoudig: recepten helder opslaan, terugvinden, organiseren en delen zonder onnodige informatie.</p><h2>Waarom Savour bestaat</h2><p>In bijna elke keuken liggen recepten verspreid: in een map op kantoor, op losse kladjes bij de pass, in Word-bestanden van een vorige chef en in berichten op telefoons. Wie een recept zoekt, vindt vaak drie versies met andere hoeveelheden. Savour is gemaakt door chefs die daar zelf dagelijks tegenaan lopen, met één doel: één plek waar elk recept staat zoals het bedoeld is.</p><h2>Recepten beheren</h2><p>Je kunt recepten zelf invoeren of bestaande recepten importeren. Je eigen receptenbibliotheek blijft centraal staan en recepten kunnen worden georganiseerd in persoonlijke mappen en gedeelde mappen.</p><h2>Van kladje naar recept</h2><p>Bestaande recepten hoef je niet over te typen. De Savour-lezer haalt recepten uit Word-, PDF- en tekstbestanden, ook als er honderden in één document staan. Met Savour Pro leest de AI daarnaast foto's van handgeschreven kladjes en gescande pagina's. Savour verzint nooit hoeveelheden of stappen: wat onzeker is, wordt gemarkeerd zodat je het controleert voordat het wordt opgeslagen.</p><h2>Op elk apparaat</h2><p>Op kantoor organiseer je je recepten op de computer, in de keuken gebruik je dezelfde bibliotheek op je telefoon of tablet. Recepten omrekenen naar een andere opbrengst, een kookweergave met grote letters en printen voor de receptkaart zitten er standaard in.</p><h2>Voor professionals</h2><p>Savour is ontworpen vanuit de dagelijkse praktijk van chefs en professionele keukens. De interface legt de nadruk op receptuur, organisatie en samenwerking.</p><h2>Door chefs, voor chefs</h2><p>Savour wordt gemaakt door chefs, voor chefs. We weten uit eigen ervaring waar het in de keuken misgaat: zoekgeraakte recepten, verschillende versies en uren overtypen. Savour is gebouwd omdat we zelf een plek wilden die dat oplost, en die we zelf elke dag gebruiken. Vragen, ideeën of feedback zijn altijd welkom via de contactpagina.</p>`,
     faq: `<h2>Hoe voeg ik een recept toe?</h2><p>Ga naar <strong>Recept toevoegen</strong>. Je kunt een recept zelf invoeren of een bron importeren. Na import controleer je de herkende gegevens voordat je ze opslaat.</p><h2>Waar worden mijn recepten opgeslagen?</h2><p>Je persoonlijke recepten horen bij je eigen account. Een recept dat je uit een map verwijdert, wordt daarmee niet automatisch uit je persoonlijke bibliotheek verwijderd.</p><h2>Kan ik recepten delen?</h2><p>Ja. Met een gedeelde map kun je recepten met andere gebruikers delen en, afhankelijk van de ingestelde rechten, samenwerken.</p><h2>Kan ik mijn mappen aanpassen?</h2><p>Ja. Je kunt persoonlijke recepten mappen aanmaken, hernoemen en verwijderen. In <strong>Recepten mappen bijwerken</strong> bepaal je welke mappen in het menu verschijnen en in welke volgorde.</p><h2>Hoe werkt importeren?</h2><p>Je kunt verschillende bronbestanden en tekst gebruiken. Geïmporteerde recepten moeten altijd vóór het opslaan worden gecontroleerd.</p>`,
     terms: `<h2>1. Gebruik van Savour</h2><p>Savour is een dienst voor het beheren, organiseren en delen van recepten. Je gebruikt de dienst op eigen verantwoordelijkheid en bent verantwoordelijk voor de inhoud die je toevoegt.</p><h2>2. Account</h2><p>Voor bepaalde functies is een account nodig. Je bent verantwoordelijk voor het vertrouwelijk houden van je inloggegevens en voor de activiteiten die via je account plaatsvinden.</p><h2>3. Receptinhoud</h2><p>Je behoudt de rechten op de recepten en andere inhoud die je zelf aan Savour toevoegt, voor zover die rechten bij jou liggen. Je geeft Savour alleen de toestemming die nodig is om de dienst te leveren.</p><h2>4. Import en AI</h2><p>Automatische verwerking kan fouten bevatten. Controleer geïmporteerde of automatisch gestructureerde recepten voordat je ze professioneel gebruikt. Savour garandeert niet dat automatisch herkende inhoud volledig of foutloos is.</p><h2>5. Beschikbaarheid</h2><p>Savour kan worden gewijzigd, onderhouden of tijdelijk niet beschikbaar zijn. We streven naar een betrouwbare dienst, maar kunnen geen ononderbroken beschikbaarheid garanderen.</p><h2>6. Beëindiging</h2><p>Je kunt je account beëindigen via de beschikbare accountfunctie. Gegevens die volgens de wet moeten worden bewaard, vallen onder de toepasselijke bewaarplichten.</p><h2>7. Wijzigingen</h2><p>Deze voorwaarden kunnen worden aangepast wanneer Savour of de toepasselijke regelgeving verandert.</p>`,
     guideTitle: 'Gids: werken met recepten',
@@ -185,6 +185,41 @@ async function openPublicRecipeBySlug(slug) {
       'Recept niet beschikbaar',
       'De openbare receptpagina kon niet worden geladen.'
     );
+  }
+}
+
+// Gedeeld recept openen terwijl je bent ingelogd: in je eigen app, alleen-lezen. Je kunt het bekijken, omrekenen
+// en printen; bewerken en verder delen kan alleen de maker.
+async function openLinkRecipe(slug) {
+  try {
+    const { data, error } = await supabaseClient.rpc('get_public_recipe_by_slug', { _slug: slug });
+    if (error) throw error;
+    if (!data) {
+      toast('Dit gedeelde recept bestaat niet meer');
+      return;
+    }
+    // Je eigen recept: dan gewoon zoals altijd.
+    if (recipes.some(r => String(r.id) === String(data.id))) {
+      openRecipe(data.id);
+      return;
+    }
+    const recipe = {
+      id: data.id,
+      title: data.title || 'Recept',
+      yield: data.yield_text || '',
+      description: data.description || '',
+      ingredients: Array.isArray(data.ingredients) ? data.ingredients.map(String) : [],
+      steps: Array.isArray(data.steps) ? data.steps.map(String) : [],
+      photo: data.photo_url || '',
+      category: 'Gedeeld recept',
+      shared: true,
+      linkSlug: slug
+    };
+    linkRecipes = [recipe, ...linkRecipes.filter(r => String(r.id) !== String(recipe.id))];
+    openRecipe(recipe.id, 'link');
+  } catch (e) {
+    console.error('Gedeeld recept openen mislukt', e);
+    toast('Dit gedeelde recept kon niet worden geladen');
   }
 }
 

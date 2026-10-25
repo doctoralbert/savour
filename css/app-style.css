@@ -792,3 +792,17 @@ body.savour-light .print-sheet-frame {
 .admin-sources .admin-source-name {
   padding-left: 22px;
 }
+
+/* Gedeeld recept via een link, geopend terwijl je bent ingelogd */
+.rp-note-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--sv-line);
+  border-radius: 14px;
+  color: var(--gold);
+}
+.rp-note-link span {
+  color: var(--sv-text-2);
+}
