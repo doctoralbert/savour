@@ -147,62 +147,6 @@ function sharedFoldersHtml(m) {
   );
 }
 
-// ---- Uitleg: wat kan er allemaal in een gedeelde map (info-knop) ----
-const SHARED_HELP = [
-  [
-    'Eén receptenboek voor je team',
-    'Een gedeelde map is het receptenboek van je keuken. Iedereen die lid is, ziet dezelfde recepten op zijn eigen telefoon, tablet of computer. Past de maker een recept aan, dan ziet iedereen meteen de nieuwe versie.'
-  ],
-  [
-    'Rollen',
-    'Eigenaar: beheert de map, de leden en hun rol. Editor: voegt recepten en mappen toe, haalt ze uit de map en beheert de mappen. Viewer: bekijkt, print en rekent om. Een recept bewerken kan altijd alleen de maker van dat recept.'
-  ],
-  [
-    'Recepten toevoegen',
-    'Kies “Recept toevoegen” en vink recepten uit je eigen bibliotheek aan. Het recept blijft van jou: het staat in de gedeelde map en in je eigen recepten.'
-  ],
-  [
-    'Mappen (receptenklappers)',
-    'Deel de gedeelde map op in mappen, bijvoorbeeld per partie of per menu. Met “Mappen beheren” wijzig je de naam, zet je de mappen in jouw volgorde en archiveer je mappen die je niet meer gebruikt. Recepten in een gearchiveerde map blijven bewaard en staan onderaan onder “Archief”.'
-  ],
-  [
-    'Team uitnodigen',
-    'Nodig collega’s uit via WhatsApp, Telegram, e-mail of de uitnodigingslink. Na het inloggen worden ze lid als viewer; de eigenaar kan daarna hun rol aanpassen. Lid zijn van een gedeelde map is gratis.'
-  ],
-  [
-    'Printen',
-    'Print de hele gedeelde map, één map of een eigen selectie in één keer: met een inhoudsopgave, het nummer van elk recept onderaan de pagina en, met Savour Pro, het logo van je restaurant.'
-  ],
-  [
-    'Omrekenen en kookmodus',
-    'Reken elk recept om naar een andere opbrengst. De kookmodus toont alleen het recept in grote letters en houdt je scherm aan; vink ingrediënten en stappen af terwijl je werkt.'
-  ],
-  [
-    'Recept overnemen',
-    'Heeft de maker het toegestaan, dan zie je bij een recept “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie die je zelf kunt aanpassen.'
-  ],
-  [
-    'Zonder internet',
-    'Recepten die je hebt geopend, blijven op je apparaat beschikbaar, ook in een keuken zonder wifi.'
-  ],
-  [
-    'Map verlaten of verwijderen',
-    'Een lid kan een gedeelde map altijd verlaten. Alleen de eigenaar kan de map verwijderen; de recepten zelf blijven dan in de bibliotheek van hun maker.'
-  ]
-];
-
-function openSharedHelp() {
-  let modal = $('sharedHelpModal');
-  if (!modal) {
-    document.body.insertAdjacentHTML(
-      'beforeend',
-      `<div class="modal" id="sharedHelpModal" onclick="if(event.target===this)this.classList.remove('open')"><div class="modalbox shared-help-box"><div class="eyebrow">${t('Gedeelde map')}</div><h2>${t('Zo werkt een gedeelde map')}</h2><div class="shared-help">${SHARED_HELP.map(([h, p]) => `<section><h3>${esc(t(h))}</h3><p>${esc(t(p))}</p></section>`).join('')}</div><div class="actions"><a class="btn" href="${{ nl: '/blog/gedeelde-mappen-uitgelegd', en: '/en/blog/shared-folders-explained', de: '/de/blog/geteilte-ordner-erklaert', es: '/es/blog/carpetas-compartidas-explicadas' }[currentLanguage] || '/blog/gedeelde-mappen-uitgelegd'}" target="_blank" rel="noopener">${t('Lees het hele artikel')}</a><button class="btn gold" onclick="$('sharedHelpModal').classList.remove('open')">${t('Begrepen')}</button></div></div></div>`
-    );
-    modal = $('sharedHelpModal');
-  }
-  modal.classList.add('open');
-}
-
 // ---- Mappen beheren: hernoemen, volgorde en archief (eigenaar en editors) ----
 function openSharedFolderManage(mapId) {
   const m = findSharedMap(mapId);
@@ -398,7 +342,7 @@ function renderShared(id) {
     : `<button class="btn" style="width:100%;margin-top:12px" onclick="leaveSharedMap('${mid}')">Map verlaten</button>`;
   $('sharedWrap').innerHTML =
     photo +
-    `<div class="layout"><div><div class="panel"><div class="folder-detail-head shared-main-head"><div><div class="eyebrow shared-eyebrow">Gedeelde map <button type="button" class="shared-help-btn" onclick="openSharedHelp()" aria-label="Uitleg over gedeelde mappen" title="Hoe werkt een gedeelde map?">i</button></div><h1>${esc(m.name)}</h1><p class="muted">${list.length} recepten · ${m.members.length} leden</p></div><div class="shared-map-actions">${actions}</div></div></div>` +
+    `<div class="layout"><div><div class="panel"><div class="folder-detail-head shared-main-head"><div><div class="eyebrow shared-eyebrow">Gedeelde map ${helpButton('shared')}</div><h1>${esc(m.name)}</h1><p class="muted">${list.length} recepten · ${m.members.length} leden</p></div><div class="shared-map-actions">${actions}</div></div></div>` +
     `<div class="section-head"><h2>Mappen</h2><div class="shared-folder-tools">${canEdit ? `<button class="btn compact-action" onclick="newSharedFolder('${mid}')">＋<span>Nieuwe map</span></button>` : ''}${canEdit && (m.folders || []).length ? `<button class="btn compact-action" onclick="openSharedFolderManage('${mid}')">⚙<span>Mappen beheren</span></button>` : ''}</div></div>${foldersHtml}` +
     `<div class="section-head" style="margin-top:30px"><h2>Alle gedeelde recepten</h2><span class="mini">${list.length} recepten</span></div>` +
     contextAlphabetHtml(window.sharedAlphabet, 'filterSharedAlphabet') +

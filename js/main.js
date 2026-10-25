@@ -33,6 +33,7 @@ document.addEventListener('click', e => {
 // Escape sluit de kookmodus.
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && document.body.classList.contains('cook-mode')) toggleCookMode(false);
+  if (e.key === 'Escape') closeHelp();
 });
 
 // Terug/vooruit in de browser: de actieve weergave opnieuw tekenen.

@@ -1547,9 +1547,9 @@
 .site-hero.has-photo::before {
   content: '';
   position: absolute;
-  inset: -24px;
+  inset: 0;
   background: var(--hero-photo) center / cover no-repeat;
-  filter: blur(3px) saturate(0.95);
+  filter: saturate(0.95);
   z-index: -2;
 }
 .site-hero.has-photo::after {

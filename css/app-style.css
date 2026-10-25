@@ -1026,7 +1026,7 @@ body.savour-light .share-copy-periods button.is-on {
   align-items: center;
   gap: 8px;
 }
-.shared-help-btn {
+.help-btn {
   width: 22px;
   height: 22px;
   border-radius: 50%;
@@ -1041,7 +1041,7 @@ body.savour-light .share-copy-periods button.is-on {
   padding: 0;
   letter-spacing: 0;
 }
-.shared-help-btn:hover {
+.help-btn:hover {
   background: var(--gold);
   color: #111;
 }
@@ -1176,4 +1176,63 @@ body.savour-light .share-copy-periods button.is-on {
 .admin-tabs button.is-on .admin-tab-badge-gold {
   background: #111 !important;
   color: var(--gold, #e8ca8d) !important;
+}
+
+/* Uitleg per scherm (js/features/help.js) */
+.has-help {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+h2.has-help .help-btn {
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  flex: none;
+}
+.help-box {
+  position: relative;
+  width: min(680px, calc(100vw - 32px));
+  max-height: 86vh;
+  overflow-y: auto;
+}
+.help-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--sv-line);
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.help-close:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.help-box h2 {
+  padding-right: 44px;
+}
+.help-sections {
+  display: grid;
+  gap: 4px;
+  margin: 10px 0 18px;
+}
+.help-sections section {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--sv-line);
+}
+.help-sections h3 {
+  margin: 0 0 4px;
+  font-family: var(--sv-font-display);
+  font-size: 18px;
+}
+.help-sections p {
+  margin: 0;
+  color: var(--sv-text-2);
+  line-height: 1.55;
 }
