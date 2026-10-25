@@ -1,3 +1,5 @@
+import { insert, hasServiceRole } from './_lib/supabase-admin.js';
+
 // Bugmeldingen én contactberichten (kind: 'contact') van de publieke pagina's, per mail naar contact@savour.page.
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -20,6 +22,20 @@ export default async function handler(req, res) {
     if (screenshot && String(screenshot).length > 4_200_000) {
       return res.status(400).json({ error: 'De screenshot is te groot. Maximum 3 MB.' });
     }
+
+    // Ook bewaren voor /admin → Berichten (supabase/2026-10-25-berichten.sql). Lukt dat niet, dan gaat de mail
+    // gewoon door: het bericht mag nooit verloren gaan.
+    if (hasServiceRole())
+      await insert('contact_messages', {
+        kind: isContact ? 'contact' : 'bug',
+        name: n,
+        email: e,
+        subject: s,
+        message: m,
+        page: clean(page).slice(0, 500) || null,
+        language: clean(language).slice(0, 10) || null,
+        has_screenshot: !!screenshot
+      }).catch(err => console.error('Bericht bewaren mislukt', err));
 
     const resendKey = process.env.RESEND_API_KEY;
     if (!resendKey) {

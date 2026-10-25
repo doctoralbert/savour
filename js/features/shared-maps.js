@@ -415,6 +415,12 @@ function openSharedMapManage(id) {
   go('sharedMapManage');
 }
 
+// Terug uit een map naar de gedeelde map waar die in zit (bijv. "← Kasteel Maurick").
+function backToSharedMap() {
+  if (currentShared && findSharedMap(currentShared)) openShared(currentShared);
+  else go('sharedManage');
+}
+
 function renderSharedFolderDetail() {
   if (!currentUser) return;
   const m = findSharedMap(currentShared);
@@ -423,6 +429,7 @@ function renderSharedFolderDetail() {
     go('shared');
     return;
   }
+  if ($('sharedFolderBack')) $('sharedFolderBack').textContent = `← ${m.name}`;
   const list = (f.recipeIds || []).map(id => findRecipe(id)).filter(Boolean);
   const filtered = filterRecipesByLetter(list, window.sharedFolderAlphabet);
   const body = filtered.length

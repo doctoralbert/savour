@@ -46,6 +46,10 @@ export function select(table, query) {
   return adminFetch(`/rest/v1/${table}?${query}`);
 }
 
+export function insert(table, row) {
+  return adminFetch(`/rest/v1/${table}`, { method: 'POST', body: row, prefer: 'return=minimal' });
+}
+
 export function update(table, query, values) {
   return adminFetch(`/rest/v1/${table}?${query}`, { method: 'PATCH', body: values, prefer: 'return=minimal' });
 }

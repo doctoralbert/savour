@@ -22,7 +22,8 @@ POSTS.unshift(...BLOG);
 const ROOT = new URL('../', import.meta.url);
 // Achtergrondfoto achter de bovenkant van de homepage. Alleen als het bestand bestaat; zonder bestand is de
 // homepage zoals eerst (terugdraaien = assets/keuken/hero-keuken.jpg weghalen en opnieuw bouwen).
-const HERO_PHOTO = fs.existsSync(new URL('assets/keuken/hero-keuken.jpg', ROOT)) ? '/assets/keuken/hero-keuken.jpg' : '';
+const HERO_FILE = new URL('assets/keuken/hero-keuken.jpg', ROOT);
+const HERO_PHOTO = fs.existsSync(HERO_FILE) ? `/assets/keuken/hero-keuken.jpg?v=${fs.statSync(HERO_FILE).size}` : '';
 const SITE = 'https://savour.page';
 const LANGS = ['nl', 'en', 'de', 'es'];
 const read = p => fs.readFileSync(new URL(p, ROOT), 'utf8');

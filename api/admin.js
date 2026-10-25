@@ -4,6 +4,7 @@
 import { getUserFromRequest } from './_lib/auth.js';
 import {
   select,
+  update,
   remove,
   rpc,
   listUsers,
@@ -365,6 +366,30 @@ async function errorGroups() {
   };
 }
 
+// Berichten (contactformulier en bugmeldingen), nieuwste eerst, met het aantal ongelezen.
+async function contactMessages() {
+  const rows = await select(
+    'contact_messages',
+    'select=id,created_at,kind,name,email,subject,message,page,language,has_screenshot,read_at&order=created_at.desc&limit=300'
+  );
+  return { messages: rows || [], unread: (rows || []).filter(r => !r.read_at).length };
+}
+
+async function unreadMessages() {
+  try {
+    const rows = await select('contact_messages', 'select=id&read_at=is.null&limit=1000');
+    return (rows || []).length;
+  } catch {
+    return 0;
+  }
+}
+
+async function markMessage(id, read) {
+  const query = id === 'all' ? 'read_at=is.null' : `id=eq.${Number(id)}`;
+  await update('contact_messages', query, { read_at: read ? new Date().toISOString() : null });
+  return { ok: true };
+}
+
 async function clearErrors() {
   await remove('app_errors', 'id=gt.0');
   return { ok: true };
@@ -570,7 +595,9 @@ export default async function handler(req, res) {
   // Elk apparaat waarop de beheerder is ingelogd telt als eigen apparaat en niet mee in de bezoekers.
   if (action === 'whoami') {
     if (ownVisitor && hasServiceRole()) await ownVisitorIds(user, ownVisitor).catch(() => null);
-    return res.status(200).json({ admin: true, email: user.email });
+    // Aantal ongelezen berichten, voor het signaal bij "Admin" in de app.
+    const unread = hasServiceRole() ? await unreadMessages() : 0;
+    return res.status(200).json({ admin: true, email: user.email, unread_messages: unread });
   }
   if (!hasServiceRole()) return res.status(503).json({ error: 'SUPABASE_SERVICE_ROLE_KEY ontbreekt in Vercel.' });
   try {
@@ -580,6 +607,9 @@ export default async function handler(req, res) {
     if (action === 'create_account')
       return res.status(200).json(await createAccount({ email, name, organization }, siteOrigin(req)));
     if (action === 'errors') return res.status(200).json(await errorGroups());
+    if (action === 'messages') return res.status(200).json(await contactMessages());
+    if (action === 'mark_message')
+      return res.status(200).json(await markMessage(req.body?.id, req.body?.read !== false));
     if (action === 'clear_errors') return res.status(200).json(await clearErrors());
     if (action === 'confirm_account' && userId) return res.status(200).json(await confirmAccount(userId));
     if (action === 'delete_account' && userId) return res.status(200).json(await deleteAccount(userId, user));

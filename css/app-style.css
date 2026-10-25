@@ -921,12 +921,12 @@ body.savour-light .share-copy-periods button.is-on {
 .shared-folder-row:hover {
   border-color: var(--gold);
 }
+/* De hele naam van de map is belangrijk: niet afkappen, maar doorlopen op de volgende regel. */
 .shared-folder-row b {
   flex: 1;
   min-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
+  line-height: 1.3;
   font-weight: 600;
 }
 .shared-folder-row small {
@@ -1068,4 +1068,112 @@ body.savour-light .share-copy-periods button.is-on {
   margin: 0;
   color: var(--sv-text-2);
   line-height: 1.55;
+}
+
+/* Admin → Berichten */
+.admin-tab-badge-gold {
+  background: var(--gold, #e8ca8d) !important;
+  color: #111 !important;
+}
+.admin-messages {
+  display: grid;
+  gap: 8px;
+}
+.admin-message {
+  border: 1px solid var(--sv-line, #243031);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.admin-message summary {
+  display: grid;
+  grid-template-columns: 10px auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  list-style: none;
+}
+.admin-message summary::-webkit-details-marker {
+  display: none;
+}
+.admin-message-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: transparent;
+}
+.admin-message.is-unread .admin-message-dot {
+  background: var(--gold, #e8ca8d);
+}
+.admin-message.is-unread summary b {
+  color: var(--gold, #e8ca8d);
+}
+.admin-message summary b {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 600;
+}
+.admin-message-kind {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--sv-line, #243031);
+  color: var(--sv-text-2, #a9aaa3);
+}
+.admin-message-kind.is-bug {
+  border-color: #6b3f3a;
+  color: #e3a79c;
+}
+.admin-message-from,
+.admin-message time {
+  color: var(--sv-text-2, #a9aaa3);
+  font-size: 13px;
+  white-space: nowrap;
+}
+.admin-message-body {
+  padding: 0 16px 16px 38px;
+}
+.admin-message-meta {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--sv-text-2, #a9aaa3);
+}
+.admin-message-meta a {
+  color: var(--gold, #e8ca8d);
+}
+.admin-message-text {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+.admin-message-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+.nav-count-alert {
+  background: var(--gold, #e8ca8d);
+  color: #111;
+  border-radius: 999px;
+  padding: 1px 7px;
+  margin-left: auto;
+  font-weight: 700;
+}
+@media (max-width: 760px) {
+  .admin-message summary {
+    grid-template-columns: 10px auto minmax(0, 1fr);
+  }
+  .admin-message-from,
+  .admin-message time {
+    grid-column: 3;
+  }
+  .admin-message-body {
+    padding-left: 16px;
+  }
+}
+.admin-tabs button.is-on .admin-tab-badge-gold {
+  background: #111 !important;
+  color: var(--gold, #e8ca8d) !important;
 }

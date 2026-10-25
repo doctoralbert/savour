@@ -248,6 +248,7 @@ async function loadAdminDashboard() {
   }
   renderAdminStats();
   loadAdminErrors();
+  loadAdminMessages();
   try {
     await loadAdminOverview();
   } finally {
@@ -270,6 +271,70 @@ function adminOwnVisitorId() {
     return vid;
   } catch (_) {
     return '';
+  }
+}
+
+// ---- Berichten: contactformulier en bugmeldingen (api/admin.js, tabel contact_messages) ----
+
+let adminMessages = [];
+
+function renderAdminMessageBadge(unread) {
+  const badge = $('adminMessageBadge');
+  if (badge) {
+    badge.hidden = !unread;
+    badge.textContent = unread;
+    badge.title = `${unread} ongelezen berichten`;
+  }
+  if ($('adminMessageCount'))
+    $('adminMessageCount').textContent = `${adminMessages.length} berichten${unread ? ` · ${unread} ongelezen` : ''}`;
+}
+
+async function loadAdminMessages() {
+  const host = $('adminMessages');
+  if (!host) return;
+  try {
+    const d = await adminApi('messages');
+    adminMessages = d.messages || [];
+    renderAdminMessages();
+  } catch (e) {
+    host.innerHTML = `<p class="admin-panel-note">Berichten konden niet worden geladen: ${adminEscape(e.message)}. Is supabase/2026-10-25-berichten.sql uitgevoerd?</p>`;
+  }
+}
+
+function renderAdminMessages() {
+  const host = $('adminMessages');
+  if (!host) return;
+  renderAdminMessageBadge(adminMessages.filter(m => !m.read_at).length);
+  host.innerHTML =
+    adminMessages
+      .map(
+        m => `<details class="admin-message${m.read_at ? '' : ' is-unread'}" ontoggle="if(this.open)adminMarkMessage(${Number(m.id)}, true)">
+  <summary><span class="admin-message-dot" aria-hidden="true"></span><span class="admin-message-kind ${m.kind === 'bug' ? 'is-bug' : ''}">${m.kind === 'bug' ? 'Bug' : 'Contact'}</span><b>${adminEscape(m.subject || '(geen onderwerp)')}</b><span class="admin-message-from">${adminEscape(m.name || '')}</span><time>${adminFormatDate(m.created_at)}</time></summary>
+  <div class="admin-message-body"><p class="admin-message-meta"><a href="mailto:${adminEscape(m.email)}?subject=${encodeURIComponent('Re: ' + (m.subject || ''))}">${adminEscape(m.email)}</a>${m.page ? ` · ${adminEscape(m.page)}` : ''}${m.has_screenshot ? ' · screenshot in de mail' : ''}</p><div class="admin-message-text">${adminEscape(m.message)}</div><div class="admin-message-actions"><a class="admin-ghost" href="mailto:${adminEscape(m.email)}?subject=${encodeURIComponent('Re: ' + (m.subject || ''))}">Beantwoorden</a>${m.read_at ? `<button class="admin-ghost" onclick="adminMarkMessage(${Number(m.id)}, false)">Markeer als ongelezen</button>` : ''}</div></div>
+</details>`
+      )
+      .join('') || '<p class="admin-panel-note">Nog geen berichten.</p>';
+}
+
+async function adminMarkMessage(id, read) {
+  const before = adminMessages.map(m => ({ ...m }));
+  const now = new Date().toISOString();
+  adminMessages = adminMessages.map(m =>
+    id === 'all' || m.id === id ? { ...m, read_at: read ? m.read_at || now : null } : m
+  );
+  if (id === 'all' || !read) renderAdminMessages();
+  else {
+    const el = [...document.querySelectorAll('.admin-message')].find(d =>
+      d.getAttribute('ontoggle').includes(`(${id},`)
+    );
+    el?.classList.remove('is-unread');
+    renderAdminMessageBadge(adminMessages.filter(m => !m.read_at).length);
+  }
+  try {
+    await adminApi('mark_message', { id, read });
+  } catch (e) {
+    adminMessages = before;
+    renderAdminMessages();
   }
 }
 

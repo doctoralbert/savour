@@ -377,8 +377,19 @@ async function renderAdminNav() {
   if (!currentUser || demoMode || !spots.length) return;
   try {
     // Met het bezoekers-id van dit apparaat: dan telt het niet mee in de bezoekerscijfers (api/admin.js).
-    if ((await adminApi('whoami', { own_visitor: adminOwnVisitorId() })).admin)
-      spots.forEach(el => (el.style.display = ''));
+    const me = await adminApi('whoami', { own_visitor: adminOwnVisitorId() });
+    if (!me.admin) return;
+    spots.forEach(el => (el.style.display = ''));
+    // Ongelezen berichten (contact en bugs): een gouden teller bij "Admin".
+    const nav = $('navAdmin');
+    if (nav) {
+      nav.querySelector('.nav-count')?.remove();
+      if (me.unread_messages)
+        nav.insertAdjacentHTML(
+          'beforeend',
+          `<small class="nav-count nav-count-alert" title="Ongelezen berichten">${Number(me.unread_messages)}</small>`
+        );
+    }
   } catch {
     // Geen beheerder of server niet bereikbaar: knop blijft verborgen.
   }
