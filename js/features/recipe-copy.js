@@ -2,41 +2,91 @@
 // toe te voegen (tabel recipe_share_settings, supabase/2026-10-25-recept-overnemen.sql). De ontvanger krijgt een
 // eigen kopie die hij zelf kan aanpassen; het origineel blijft van de maker.
 
-// Mag dit recept worden overgenomen? true/false, of null als de tabel er nog niet is (SQL niet uitgevoerd).
-async function recipeAllowsCopy(recipeId) {
+// Instelling voor overnemen van één recept: { allowed, until } of null als de tabel er nog niet is (SQL niet
+// uitgevoerd). allowed is alleen true zolang de gekozen periode loopt; until leeg = onbeperkt.
+async function recipeCopySetting(recipeId) {
   try {
     const { data, error } = await supabaseClient
       .from('recipe_share_settings')
-      .select('allow_copy')
+      .select('allow_copy, allow_copy_until')
       .eq('recipe_id', recipeId)
       .maybeSingle();
     if (error) return null;
-    return !!data?.allow_copy;
+    const until = data?.allow_copy_until ? new Date(data.allow_copy_until) : null;
+    return { allowed: !!data?.allow_copy && (!until || until > new Date()), until };
   } catch (_) {
     return null;
   }
 }
 
-// Schakelaar in het deelvenster ("Recept delen") voor je eigen recept.
+// Mag dit recept nu worden overgenomen? true/false, of null zonder tabel.
+async function recipeAllowsCopy(recipeId) {
+  const setting = await recipeCopySetting(recipeId);
+  return setting ? setting.allowed : null;
+}
+
+// Hoelang ontvangers het recept mogen overnemen (in dagen; 0 = onbeperkt).
+const COPY_PERIODS = [
+  { days: 1, label: '24 uur' },
+  { days: 7, label: '7 dagen' },
+  { days: 30, label: '30 dagen' },
+  { days: 0, label: 'Onbeperkt' }
+];
+
+function copyUntilText(until) {
+  if (!until) return t('Overnemen kan onbeperkt, tot je het uitzet.');
+  const when = until.toLocaleString(currentLanguage === 'nl' ? 'nl-NL' : currentLanguage, {
+    day: 'numeric',
+    month: 'long',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+  return `${t('Overnemen kan tot')} ${when}.`;
+}
+
+// Schakelaar in het deelvenster ("Recept delen") voor je eigen recept, met daaronder de periode.
 async function renderShareCopyToggle(recipeId) {
   const box = $('shareCopy');
   if (!box) return;
   box.hidden = true;
-  const allowed = await recipeAllowsCopy(recipeId);
-  if (allowed === null) return;
+  const setting = await recipeCopySetting(recipeId);
+  if (!setting) return;
+  const rid = escJs(recipeId);
+  const current = setting.allowed && setting.until ? (setting.until - Date.now()) / 86400000 : 0;
+  // Bij een lopende periode: de kortste keuze die er nog in past; anders onbeperkt.
+  const selected =
+    setting.allowed && setting.until ? (COPY_PERIODS.find(x => x.days && current <= x.days)?.days ?? 30) : 0;
   box.hidden = false;
-  box.innerHTML = `<label class="share-copy-toggle"><input type="checkbox" id="shareCopyInput"${allowed ? ' checked' : ''} onchange="setRecipeAllowsCopy('${escJs(recipeId)}', this.checked)"><span><b>Ontvangers mogen dit recept overnemen</b><small>Wie is ingelogd, kan het dan toevoegen aan de eigen recepten. Jouw recept blijft van jou.</small></span></label>`;
+  box.innerHTML = `<label class="share-copy-toggle"><input type="checkbox" id="shareCopyInput"${setting.allowed ? ' checked' : ''} onchange="setRecipeAllowsCopy('${rid}')"><span><b>Ontvangers mogen dit recept overnemen</b><small>Wie is ingelogd, kan het dan toevoegen aan de eigen recepten. Jouw recept blijft van jou.</small></span></label><div class="share-copy-time" id="shareCopyTime"${setting.allowed ? '' : ' hidden'}><span>Hoelang?</span><div class="share-copy-periods" role="group" aria-label="Hoelang?">${COPY_PERIODS.map(
+    x =>
+      `<button type="button" class="${x.days === selected ? 'is-on' : ''}" data-days="${x.days}" onclick="setRecipeAllowsCopy('${rid}', ${x.days})">${x.label}</button>`
+  ).join(
+    ''
+  )}</div><small id="shareCopyUntil">${setting.allowed ? esc(copyUntilText(setting.until)) : ''}</small></div>`;
 }
 
-async function setRecipeAllowsCopy(recipeId, on) {
-  const { error } = await supabaseClient
-    .from('recipe_share_settings')
-    .upsert({ recipe_id: recipeId, owner_id: currentUser.id, allow_copy: !!on, updated_at: new Date().toISOString() });
+// Aan/uit (de schakelaar) of een andere periode kiezen (days). Zonder days: de gekozen periode houden.
+async function setRecipeAllowsCopy(recipeId, days) {
+  const on = !!$('shareCopyInput')?.checked;
+  if (days === undefined) days = +($('shareCopyTime')?.querySelector('.is-on')?.dataset.days || 0);
+  const until = on && days ? new Date(Date.now() + days * 86400000) : null;
+  const { error } = await supabaseClient.from('recipe_share_settings').upsert({
+    recipe_id: recipeId,
+    owner_id: currentUser.id,
+    allow_copy: on,
+    allow_copy_until: until ? until.toISOString() : null,
+    updated_at: new Date().toISOString()
+  });
   if (error) {
     console.warn('Overnemen instellen mislukt', error);
     toast('Instelling kon niet worden opgeslagen');
-    if ($('shareCopyInput')) $('shareCopyInput').checked = !on;
-    return;
+    return renderShareCopyToggle(recipeId);
+  }
+  const time = $('shareCopyTime');
+  if (time) {
+    time.hidden = !on;
+    time.querySelectorAll('button').forEach(b => b.classList.toggle('is-on', +b.dataset.days === days));
+    $('shareCopyUntil').textContent = on ? copyUntilText(until) : '';
   }
   toast(on ? 'Ontvangers kunnen dit recept nu overnemen' : 'Overnemen staat uit');
 }

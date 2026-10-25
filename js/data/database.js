@@ -256,7 +256,6 @@ async function startDatabaseSession(user) {
       // Terug van Stripe, of koos de gebruiker Pro vóór het aanmaken van een account?
       await handleProReturn();
       await resumeProIntent();
-      await askOrganizationOnce();
       return true;
     } catch (error) {
       console.error('Savour sessie kon niet worden opgebouwd:', error);

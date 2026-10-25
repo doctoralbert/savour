@@ -95,24 +95,6 @@ function updateProfileHeader() {
   document.querySelector('.profile small').textContent = account.organization || '';
 }
 
-// Bij welke organisatie werk je? Eén keer vragen na inloggen als het nog niet bekend is (overslaan mag).
-async function askOrganizationOnce() {
-  if (!currentUser || demoMode || account.organization) return;
-  try {
-    if (sessionStorage.getItem('savour_org_asked')) return;
-    sessionStorage.setItem('savour_org_asked', '1');
-  } catch (e) {}
-  const value = await askText('Bij welke organisatie werk je?\n\nBijvoorbeeld je restaurant, hotel of cateraar.', '', {
-    confirmLabel: 'Opslaan'
-  });
-  const organization = String(value || '').trim();
-  if (!organization) return;
-  const { error } = await supabaseClient.from('profiles').update({ organization }).eq('id', currentUser.id);
-  if (error) return console.error(error);
-  account.organization = organization;
-  updateProfileHeader();
-}
-
 function startProfilePhoto(input) {
   let f = input.files[0];
   if (!f) return;

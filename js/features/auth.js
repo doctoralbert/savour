@@ -119,10 +119,6 @@ async function submitAuth() {
     toast(t('Vul voornaam en achternaam in'));
     return;
   }
-  if (authMode === 'signup' && !organization) {
-    toast(t('Vul in bij welke organisatie je werkt'));
-    return;
-  }
   $('authSubmit').disabled = true;
   $('authSubmit').textContent = 'Bezig...';
   // Voor het inloggen vastleggen, zodat de sessie meteen op de goede plek wordt bewaard (zie js/core/config.js).

@@ -1503,6 +1503,13 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Hoelang?", "For how long?", "Wie lange?", "¿Durante cuánto tiempo?"],
+  ["24 uur", "24 hours", "24 Stunden", "24 horas"],
+  ["7 dagen", "7 days", "7 Tage", "7 días"],
+  ["30 dagen", "30 days", "30 Tage", "30 días"],
+  ["Onbeperkt", "Unlimited", "Unbegrenzt", "Sin límite"],
+  ["Overnemen kan onbeperkt, tot je het uitzet.", "Copying is possible until you turn it off.", "Übernehmen ist möglich, bis du es ausschaltest.", "Se puede copiar hasta que lo desactives."],
+  ["Overnemen kan tot", "Copying is possible until", "Übernehmen ist möglich bis", "Se puede copiar hasta el"],
   ["Ontvangers mogen dit recept overnemen", "Recipients may copy this recipe", "Empfänger dürfen dieses Rezept übernehmen", "Los destinatarios pueden copiar esta receta"],
   ["Wie is ingelogd, kan het dan toevoegen aan de eigen recepten. Jouw recept blijft van jou.", "Anyone logged in can then add it to their own recipes. Your recipe stays yours.", "Wer angemeldet ist, kann es dann zu den eigenen Rezepten hinzufügen. Dein Rezept bleibt deins.", "Quien haya iniciado sesión puede añadirla a sus propias recetas. Tu receta sigue siendo tuya."],
   ["Ontvangers kunnen dit recept nu overnemen", "Recipients can now copy this recipe", "Empfänger können dieses Rezept jetzt übernehmen", "Los destinatarios ya pueden copiar esta receta"],

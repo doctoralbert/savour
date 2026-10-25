@@ -17,8 +17,9 @@ if (IS_ADMIN_PATH) {
     const {
       data: { session }
     } = await supabaseClient.auth.getSession();
-    if (session && sessionStorage.getItem('savour_admin_session') === '1' && (await adminIsAllowed()))
-      adminShowDashboard(session.user);
+    // Al ingelogd in de app als beheerder: meteen het dashboard, zonder opnieuw inloggen. De server controleert
+    // bij elke beheeractie zelf of dit account beheerder is (ADMIN_EMAILS in api/admin.js).
+    if (session && (await adminIsAllowed())) adminShowDashboard(session.user);
   }, 0);
 }
 

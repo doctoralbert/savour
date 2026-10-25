@@ -70,7 +70,6 @@ function openRecipe(id, context = 'library') {
             ? { label: 'Verwijderen uit bibliotheek', fn: `deleteRecipe('${rid}')` }
             : null;
   const menuItems = [
-    own && `<button type="button" onclick="shareRecipe('${rid}')">${icon('share')}Openbare link delen</button>`,
     own && `<button type="button" onclick="openFolderModal('${rid}')">${icon('folderPlus')}Toevoegen aan map</button>`,
     removeAction &&
       `<button type="button" class="rp-menu-danger" onclick="${removeAction.fn}">${icon('trash')}${removeAction.label}</button>`
@@ -99,6 +98,7 @@ function openRecipe(id, context = 'library') {
         ${own ? `<button type="button" class="btn" onclick="editRecipe('${rid}')">${icon('edit')}Bewerken</button>` : ''}
         ${r.linkSlug && r.allowCopy ? `<button type="button" class="btn" onclick="copyLinkRecipe('${rid}')">${icon('plus')}Toevoegen aan mijn recepten</button>` : ''}
         <button type="button" class="btn" onclick="printCurrentRecipe()">${icon('print')}Printen</button>
+        ${own ? `<button type="button" class="btn" onclick="shareRecipe('${rid}')">${icon('share')}Delen</button>` : ''}
         ${own ? `<button type="button" class="btn rp-icon-btn${isFav ? ' is-on' : ''}" id="rpFavorite" onclick="toggleRecipePageFavorite('${rid}')" aria-pressed="${isFav}" aria-label="Favoriet" title="Favoriet">${icon('star', { filled: isFav })}</button>` : ''}
         ${menuItems.length ? `<details class="rp-more"><summary class="btn rp-icon-btn" aria-label="Meer acties" title="Meer acties">${icon('more')}</summary><div class="rp-menu">${menuItems.join('')}</div></details>` : ''}
       </div>

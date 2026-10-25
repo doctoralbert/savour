@@ -4,6 +4,7 @@
 -- voegen. De ontvanger krijgt dan een eigen kopie die hij zelf kan aanpassen; het origineel blijft van de maker.
 -- Deze tabel bewaart per recept alleen of overnemen mag. Alleen de maker van het recept kan dat aan- of uitzetten.
 -- Iedereen mag lezen óf het mag (dat staat bij de openbare link); de inhoud van het recept zit hier niet in.
+-- De maker kiest hoelang: 24 uur, 7 dagen, 30 dagen of onbeperkt (allow_copy_until leeg).
 -- Het kopiëren zelf is een gewoon nieuw recept van de ontvanger: de limiet van 100 recepten zonder Pro geldt.
 --
 -- Uitvoeren: Supabase-dashboard → SQL Editor → dit hele bestand plakken → Run. Veilig om vaker uit te voeren.
@@ -16,6 +17,9 @@ create table if not exists public.recipe_share_settings (
   allow_copy boolean not null default false,
   updated_at timestamptz not null default now()
 );
+
+-- Tot wanneer overnemen mag (bijv. 24 uur of 7 dagen). Leeg = onbeperkt.
+alter table public.recipe_share_settings add column if not exists allow_copy_until timestamptz;
 
 alter table public.recipe_share_settings enable row level security;
 
