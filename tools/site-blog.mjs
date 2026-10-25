@@ -42,7 +42,7 @@ export const BLOG = [
         ],
         [
           "Een recept overnemen",
-          "Heeft de maker het toegestaan, dan zie je bij een recept “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie die je zelf kunt aanpassen, terwijl het origineel van de maker blijft."
+          "Bij elk recept van een collega in de gedeelde map zie je “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie die je zelf kunt aanpassen, terwijl het origineel van de maker blijft."
         ],
         [
           "Ook zonder internet",
@@ -92,7 +92,7 @@ export const BLOG = [
         ],
         [
           "Copying a recipe",
-          "If the creator allows it, you see “Add to my recipes” on a recipe. You get your own copy to change, while the original stays with its creator."
+          "On every colleague’s recipe in the shared folder you see “Add to my recipes”. You get your own copy to change, while the original stays with its creator."
         ],
         [
           "Also without internet",

@@ -91,21 +91,6 @@ async function setRecipeAllowsCopy(recipeId, days) {
   toast(on ? 'Ontvangers kunnen dit recept nu overnemen' : 'Overnemen staat uit');
 }
 
-// Recept van een ander in een gedeelde map: staat overnemen aan, dan de knop alsnog naast Printen zetten.
-async function addCopyButtonForShared(r) {
-  if (!r || isOwnRecipe(r) || r.linkSlug || demoMode) return;
-  if ((await recipeAllowsCopy(r.id)) !== true) return;
-  r.allowCopy = true;
-  if (String(currentId) !== String(r.id) || document.querySelector('[data-copy-recipe]')) return;
-  const print = [...document.querySelectorAll('.rp-actions button')].find(b =>
-    /printCurrentRecipe/.test(b.getAttribute('onclick') || '')
-  );
-  print?.insertAdjacentHTML(
-    'beforebegin',
-    `<button type="button" class="btn" data-copy-recipe onclick="copyLinkRecipe('${escJs(r.id)}')">${icon('plus')}${esc(t('Toevoegen aan mijn recepten'))}</button>`
-  );
-}
-
 // Kopie maken in de eigen bibliotheek van de ingelogde gebruiker.
 async function copyLinkRecipe(id) {
   const r = findRecipe(id);

@@ -166,7 +166,7 @@ const HELP_TOPICS = {
       ],
       [
         'Recept overnemen',
-        'Heeft de maker het toegestaan, dan zie je bij een recept “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie die je zelf kunt aanpassen.'
+        'Bij elk recept van een collega in de gedeelde map zie je “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie in je bibliotheek die je zelf kunt aanpassen; het origineel blijft van de maker.'
       ],
       [
         'Zonder internet',

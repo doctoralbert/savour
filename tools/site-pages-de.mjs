@@ -215,7 +215,7 @@ export const DE = {
         ],
         [
           "Ein Rezept übernehmen",
-          "Wenn der Ersteller es erlaubt, siehst du bei einem Rezept „Zu meinen Rezepten hinzufügen“. Du bekommst eine eigene Kopie zum Anpassen, das Original bleibt beim Ersteller."
+          "Bei jedem Rezept eines Kollegen im geteilten Ordner siehst du „Zu meinen Rezepten hinzufügen“. Du bekommst eine eigene Kopie zum Anpassen, das Original bleibt beim Ersteller."
         ],
         [
           "Auch ohne Internet",

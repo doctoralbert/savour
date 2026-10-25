@@ -215,7 +215,7 @@ export const ES = {
         ],
         [
           "Copiar una receta",
-          "Si el autor lo permite, verás «Añadir a mis recetas» en una receta. Obtienes tu propia copia para modificarla, mientras el original sigue siendo de su autor."
+          "En cada receta de un compañero en la carpeta compartida verás «Añadir a mis recetas». Obtienes tu propia copia para modificarla, mientras el original sigue siendo de su autor."
         ],
         [
           "También sin internet",

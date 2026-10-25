@@ -56,6 +56,9 @@ function openRecipe(id, context = 'library') {
   const rid = escJs(r.id);
   // Een recept van een teamlid is alleen-lezen: bekijken, printen en omrekenen.
   const own = isOwnRecipe(r);
+  // Recept van een collega in een gedeelde map: altijd toe te voegen aan je eigen recepten (eigen kopie).
+  // Via een openbare link alleen als de maker dat heeft toegestaan (js/features/recipe-copy.js).
+  if (!own && !r.linkSlug) r.allowCopy = true;
   const inShared = context === 'shared' || context === 'sharedFolder';
   const mayRemoveFromShared = !inShared || canEditShared(findSharedMap(currentShared));
   const removeAction = !mayRemoveFromShared
@@ -88,7 +91,7 @@ function openRecipe(id, context = 'library') {
   $('detailWrap').innerHTML = `<article class="rp">
     ${r.photo ? `<img class="rp-photo" src="${esc(r.photo)}" alt="">` : ''}
     <header class="rp-head">
-      <div class="eyebrow">${esc(r.category || 'Eigen recepten')}</div>
+      <div class="eyebrow">${esc(r.category || (own ? 'Eigen recepten' : 'Gedeeld recept'))}</div>
       <h1 class="rp-title">${esc(r.title)}</h1>
       ${meta.length ? `<p class="rp-meta">${meta.join(' · ')}</p>` : ''}
       ${own ? '' : r.linkSlug ? `<p class="rp-note rp-note-link">${icon('share', { size: 16 })}<span>${r.allowCopy ? 'Gedeeld recept. Voeg het toe aan je eigen recepten om het aan te passen.' : 'Gedeeld recept. Je kunt het bekijken, omrekenen en printen; alleen de maker kan het aanpassen.'}</span></p>` : `<p class="rp-note">Gedeeld door een gebruiker. Alleen de maker van het recept kan het bewerken.</p>`}
@@ -96,7 +99,7 @@ function openRecipe(id, context = 'library') {
       <div class="rp-actions">
         <button type="button" class="btn gold" onclick="toggleCookMode()">${icon('cook')}Kookmodus</button>
         ${own ? `<button type="button" class="btn" onclick="editRecipe('${rid}')">${icon('edit')}Bewerken</button>` : ''}
-        ${r.linkSlug && r.allowCopy ? `<button type="button" class="btn" onclick="copyLinkRecipe('${rid}')">${icon('plus')}Toevoegen aan mijn recepten</button>` : ''}
+        ${r.allowCopy ? `<button type="button" class="btn" onclick="copyLinkRecipe('${rid}')">${icon('plus')}Toevoegen aan mijn recepten</button>` : ''}
         <button type="button" class="btn" onclick="printCurrentRecipe()">${icon('print')}Printen</button>
         ${own ? `<button type="button" class="btn" onclick="shareRecipe('${rid}')">${icon('share')}Delen</button>` : ''}
         ${own ? `<button type="button" class="btn rp-icon-btn${isFav ? ' is-on' : ''}" id="rpFavorite" onclick="toggleRecipePageFavorite('${rid}')" aria-pressed="${isFav}" aria-label="Favoriet" title="Favoriet">${icon('star', { filled: isFav })}</button>` : ''}
@@ -124,8 +127,6 @@ function openRecipe(id, context = 'library') {
     </div>
   </article>`;
   go('detail');
-  // Recept van een ander in een gedeelde map: mag het worden overgenomen? (js/features/recipe-copy.js)
-  if (!own && !r.linkSlug) addCopyButtonForShared(r);
 }
 
 // Ster op de receptpagina: favoriet aan/uit en de knop direct bijwerken.
