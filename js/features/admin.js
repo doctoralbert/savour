@@ -187,16 +187,34 @@ function renderAdminStats() {
       ['Mobiel web', d.platform_mobile],
       ['Native app', d.platform_app]
     ]);
-  // Herkomst: per bron het aantal unieke bezoekers, met een balkje ten opzichte van de grootste bron.
+  // Herkomst: per groep (direct, gedeelde links, social media, ...) de bronnen, met een balkje ten opzichte van de
+  // grootste bron. De groep met de meeste bezoekers bovenaan.
   const sb = $('adminSourcesBody');
   if (sb) {
     const sources = d.sources || [];
     const max = Math.max(1, ...sources.map(x => x.all));
+    const groups = new Map();
+    for (const x of sources) {
+      const g = groups.get(x.group || 'Overig') || { name: x.group || 'Overig', all: 0, month: 0, week: 0, rows: [] };
+      g.all += x.all;
+      g.month += x.month;
+      g.week += x.week;
+      g.rows.push(x);
+      groups.set(g.name, g);
+    }
     sb.innerHTML =
-      sources
+      [...groups.values()]
+        .sort((a, b) => b.all - a.all)
         .map(
-          x =>
-            `<tr><td>${adminEscape(x.name)}</td><td class="admin-source-bar"><i style="width:${Math.round((x.all / max) * 100)}%"></i></td><td>${adminEscape(x.week)}</td><td>${adminEscape(x.month)}</td><td><b>${adminEscape(x.all)}</b></td></tr>`
+          g =>
+            `<tr class="admin-source-group"><td colspan="2">${adminEscape(g.name)}</td><td>${adminEscape(g.week)}</td><td>${adminEscape(g.month)}</td><td><b>${adminEscape(g.all)}</b></td></tr>` +
+            g.rows
+              .sort((a, b) => b.all - a.all)
+              .map(
+                x =>
+                  `<tr><td class="admin-source-name">${adminEscape(x.name)}</td><td class="admin-source-bar"><i style="width:${Math.round((x.all / max) * 100)}%"></i></td><td>${adminEscape(x.week)}</td><td>${adminEscape(x.month)}</td><td>${adminEscape(x.all)}</td></tr>`
+              )
+              .join('')
         )
         .join('') || '<tr><td colspan="5">Nog geen bezoekers.</td></tr>';
   }
@@ -601,6 +619,11 @@ function savourAnalyticsPlatform() {
 
 // Herkomst uit de link (bijv. savour.page/?bron=reddit, utm_source, een collega-uitnodiging of een advertentieklik).
 // Alleen deze vaste namen en nooit een id of iets persoonlijks; de server leest er de bron uit (api/admin.js).
+// Een link met een kenmerk van waar hij gedeeld is (bijv. ?bron=whatsapp), voor de deelknoppen in Savour zelf.
+function linkWithSource(url, source) {
+  return `${url}${String(url).includes('?') ? '&' : '?'}bron=${encodeURIComponent(source)}`;
+}
+
 function savourVisitSourceQuery() {
   const q = new URLSearchParams(location.search);
   const out = [];

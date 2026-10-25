@@ -771,7 +771,8 @@ function copyInvite() {
 function shareInviteWhatsApp() {
   const u = $('inviteLink').textContent;
   window.open(
-    'https://wa.me/?text=' + encodeURIComponent('Uitnodiging voor ' + activeInviteTitle + ' in Savour: ' + u),
+    'https://wa.me/?text=' +
+      encodeURIComponent('Uitnodiging voor ' + activeInviteTitle + ' in Savour: ' + linkWithSource(u, 'whatsapp')),
     '_blank',
     'noopener'
   );
@@ -781,7 +782,7 @@ function shareInviteTelegram() {
   const u = $('inviteLink').textContent;
   window.open(
     'https://t.me/share/url?url=' +
-      encodeURIComponent(u) +
+      encodeURIComponent(linkWithSource(u, 'telegram')) +
       '&text=' +
       encodeURIComponent('Uitnodiging voor ' + activeInviteTitle + ' in Savour'),
     '_blank',
@@ -797,7 +798,9 @@ function shareInviteEmail(to = '') {
     '?subject=' +
     encodeURIComponent('Uitnodiging voor ' + activeInviteTitle + ' in Savour') +
     '&body=' +
-    encodeURIComponent('Je bent uitgenodigd voor de gedeelde map ' + activeInviteTitle + ' in Savour.\n\n' + u);
+    encodeURIComponent(
+      'Je bent uitgenodigd voor de gedeelde map ' + activeInviteTitle + ' in Savour.\n\n' + linkWithSource(u, 'email')
+    );
 }
 
 async function changeMemberRole(id, index, role) {

@@ -220,7 +220,7 @@ async function shareRecipe(id) {
 function shareWhatsApp() {
   if (!activeShareUrl) return;
   window.open(
-    'https://wa.me/?text=' + encodeURIComponent(activeShareTitle + ' — ' + activeShareUrl),
+    'https://wa.me/?text=' + encodeURIComponent(activeShareTitle + ' — ' + linkWithSource(activeShareUrl, 'whatsapp')),
     '_blank',
     'noopener'
   );
@@ -230,7 +230,7 @@ function shareTelegram() {
   if (!activeShareUrl) return;
   window.open(
     'https://t.me/share/url?url=' +
-      encodeURIComponent(activeShareUrl) +
+      encodeURIComponent(linkWithSource(activeShareUrl, 'telegram')) +
       '&text=' +
       encodeURIComponent(activeShareTitle),
     '_blank',
@@ -244,7 +244,7 @@ function shareEmail() {
     'mailto:?subject=' +
     encodeURIComponent('Savour · ' + activeShareTitle) +
     '&body=' +
-    encodeURIComponent('Bekijk dit recept in Savour:\n\n' + activeShareUrl);
+    encodeURIComponent('Bekijk dit recept in Savour:\n\n' + linkWithSource(activeShareUrl, 'email'));
 }
 
 function closeShare() {

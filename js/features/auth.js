@@ -14,9 +14,7 @@ function openAuth(mode) {
   $('authTitle').textContent = mode === 'signup' ? t('Account aanmaken') : t('Inloggen');
   $('authIntro').textContent =
     mode === 'signup' && invitedBy()
-      ? t(
-          'Je bent uitgenodigd door een collega: na het bevestigen van je e-mailadres krijgen jullie allebei een maand Savour Pro cadeau.'
-        )
+      ? t('Je bent uitgenodigd door een collega. Maak een account aan en probeer Savour Pro 7 dagen gratis.')
       : mode === 'signup'
         ? t('Maak een account aan om je persoonlijke receptenbibliotheek te openen.')
         : t('Log in om je persoonlijke receptenbibliotheek te openen.');

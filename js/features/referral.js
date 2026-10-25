@@ -1,5 +1,5 @@
 // Nodig een collega uit: een persoonlijke link (savour.page/?collega=<id>). Maakt een collega daarmee een account
-// en bevestigt die het e-mailadres, dan krijgen jullie allebei een maand Savour Pro cadeau (api/referral.js).
+// en bevestigt die het e-mailadres, dan krijgt de uitnodiger een maand Savour Pro cadeau (api/referral.js).
 const REFERRAL_KEY = 'savour_collega';
 const REFERRAL_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -30,13 +30,13 @@ async function inviteColleague() {
     return;
   }
   const link = referralLink();
-  const message = `${t('Ik bewaar mijn recepten in Savour. Maak via deze link een account, dan krijgen we allebei een maand Savour Pro cadeau:')} ${link}`;
+  const message = `${t('Ik bewaar mijn recepten in Savour, handig in de keuken. Probeer het via deze link, je krijgt 7 dagen Savour Pro gratis:')} ${link}`;
   const count = Number(currentUser.app_metadata?.referral_rewards) || 0;
   const options = [{ label: 'Link kopiëren', value: 'copy', primary: true }];
   options.push({ label: 'Delen via WhatsApp', value: 'whatsapp' });
   if (navigator.share) options.push({ label: 'Delen via…', hint: 'Mail, berichten of een andere app', value: 'share' });
   const choice = await askChoice(
-    `${t('Nodig een collega uit')}\n\n${t('Stuur je persoonlijke link naar een collega. Maakt die een account aan en bevestigt die het e-mailadres, dan krijgen jullie allebei een maand Savour Pro cadeau.')}\n\n${link}${count ? `\n\n${t('Collega’s uitgenodigd:')} ${count}` : ''}`,
+    `${t('Nodig een collega uit')}\n\n${t('Stuur je persoonlijke link naar een collega. Maakt die een account aan en bevestigt die het e-mailadres, dan krijg jij een maand Savour Pro cadeau.')}\n\n${link}${count ? `\n\n${t('Collega’s uitgenodigd:')} ${count}` : ''}`,
     options
   );
   if (choice === 'copy') {
@@ -47,10 +47,14 @@ async function inviteColleague() {
       await askText(t('Kopieer deze link'), link, { confirmLabel: 'Klaar' });
     }
   } else if (choice === 'whatsapp') {
-    window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
+    window.open(
+      `https://wa.me/?text=${encodeURIComponent(message.replace(link, linkWithSource(link, 'whatsapp')))}`,
+      '_blank',
+      'noopener'
+    );
   } else if (choice === 'share') {
     try {
-      await navigator.share({ title: 'Savour', text: message });
+      await navigator.share({ title: 'Savour', text: message.replace(link, linkWithSource(link, 'gedeeld')) });
     } catch (_) {}
   }
 }
@@ -68,17 +72,39 @@ async function claimReferral() {
       body: JSON.stringify({ action: 'claim' })
     });
     const result = await response.json().catch(() => ({}));
-    if (result.status !== 'claimed') return;
-    try {
-      localStorage.removeItem(REFERRAL_KEY);
-    } catch (_) {}
+    if (result.status === 'claimed' || result.status === 'already') {
+      try {
+        localStorage.removeItem(REFERRAL_KEY);
+      } catch (_) {}
+    }
+  } catch (e) {
+    console.warn('Collega-uitnodiging niet doorgegeven', e);
+  }
+}
+
+// Voor wie uitnodigt: is er sinds de vorige keer een collega bijgekomen, dan een bedankje met de maand Pro.
+async function greetReferralRewards() {
+  if (demoMode || !currentUser) return;
+  const key = `savour_collega_seen_${currentUser.id}`;
+  try {
+    const { data } = await supabaseClient.auth.getSession();
+    const response = await fetch('/api/referral', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${data?.session?.access_token || ''}` },
+      body: JSON.stringify({ action: 'stats' })
+    });
+    if (!response.ok) return;
+    const { rewards = 0 } = await response.json();
+    const seen = Number(localStorage.getItem(key)) || 0;
+    localStorage.setItem(key, String(rewards));
+    if (rewards <= seen) return;
     await loadPlanState();
     renderProNav();
     await askConfirm(
-      `${t('Een maand Savour Pro cadeau')}\n\n${t('Je bent uitgenodigd door een collega. Jullie krijgen allebei een maand Savour Pro: onbeperkt recepten, gedeelde mappen maken en AI-import.')}`,
+      `${t('Een maand Savour Pro cadeau')}\n\n${t('Een collega heeft via jouw link een account gemaakt. Bedankt! Je krijgt er een maand Savour Pro bij.')}`,
       { confirmLabel: 'Mooi' }
     );
   } catch (e) {
-    console.warn('Cadeau van de collega-uitnodiging niet opgehaald', e);
+    console.warn('Collega-beloning niet opgehaald', e);
   }
 }

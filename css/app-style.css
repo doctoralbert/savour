@@ -783,3 +783,12 @@ body.savour-light .print-sheet-frame {
   color: var(--gold);
   font-size: 12px;
 }
+.admin-sources .admin-source-group td {
+  padding-top: 16px;
+  color: var(--gold);
+  font-weight: 600;
+  border-bottom: 1px solid var(--sv-line);
+}
+.admin-sources .admin-source-name {
+  padding-left: 22px;
+}

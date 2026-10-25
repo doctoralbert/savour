@@ -237,6 +237,7 @@ async function startDatabaseSession(user) {
       // Eerst eventueel het welkom van het team, daarna (bij een lege bibliotheek) het algemene welkom.
       greetTeamMember()
         .then(claimReferral)
+        .then(greetReferralRewards)
         .then(() => setTimeout(welcomeNewUser, 600));
       if (window.__proRoute) openPublicInfo('pro');
       else if (window.__infoRoute) openPublicInfo(window.__infoRoute);

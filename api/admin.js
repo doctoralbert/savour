@@ -109,59 +109,100 @@ const amsterdamDay = d => new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/A
 const platformOf = v =>
   v.platform || (/Mobi|Android|iPhone|iPad|iPod/i.test(v.user_agent || '') ? 'mobile_web' : 'desktop_web');
 
-// Waar een bezoeker vandaan kwam. Volgorde: de link zelf (?bron=, utm_source, collega-uitnodiging, advertentieklik),
-// dan de app waarin de link openging (Instagram, Facebook, LinkedIn), dan de site ervoor (referrer).
-// Geen referrer = direct: getypt, bladwijzer, of een link uit WhatsApp, mail of een andere app.
-const SOURCE_NAMES = [
-  [/google./, 'Google'],
-  [/bing.com|msn.com/, 'Bing'],
-  [/duckduckgo/, 'DuckDuckGo'],
-  [/ecosia/, 'Ecosia'],
-  [/yahoo./, 'Yahoo'],
-  [/reddit/, 'Reddit'],
-  [/instagram/, 'Instagram'],
-  [/facebook|fb.com|fb.me/, 'Facebook'],
-  [/(^|.)t.co$|twitter|(^|.)x.com$/, 'X / Twitter'],
-  [/linkedin|lnkd.in/, 'LinkedIn'],
-  [/whatsapp|wa.me/, 'WhatsApp'],
-  [/tiktok/, 'TikTok'],
-  [/youtube|youtu.be/, 'YouTube'],
-  [/pinterest/, 'Pinterest'],
-  [/chatgpt|openai/, 'ChatGPT'],
-  [/perplexity/, 'Perplexity'],
-  [/claude.ai/, 'Claude'],
-  [/gemini.google|bard.google/, 'Gemini'],
-  [/copilot/, 'Copilot'],
-  [/capterra|g2.com|getapp|alternativeto|producthunt/, 'Softwaresites'],
-  [/mail.|outlook|gmail/, 'E-mail']
+// Waar een bezoeker vandaan kwam, als [groep, bron]. Volgorde: een kenmerk in de link (?bron=, utm_source,
+// collega-uitnodiging, advertentieklik), dan de app waarin de link openging (herkenbaar aan de browserregel of,
+// op Android, aan een referrer als android-app://com.whatsapp), dan de website ervoor (referrer).
+// Geen enkele herkomst: op de startpagina is dat "direct" (getypt of bladwijzer); op een dieper adres (een
+// gedeeld recept, map-uitnodiging of blog) is het vrijwel altijd een gedeelde link uit een app die niets doorgeeft.
+const SEARCH = 'Zoekmachines';
+const SOCIAL = 'Social media';
+const SHARED = 'Gedeelde links';
+const MAIL = 'E-mail';
+const AI = 'AI-assistenten';
+const SITES = 'Andere websites';
+const DIRECT_GROUP = 'Direct';
+const SOURCES = [
+  // Berichten-apps en mail eerst: hun adressen lijken soms op die van social media (bijv. Messenger).
+  [/whatsapp|wa\.me/, SHARED, 'WhatsApp'],
+  [/telegram|(^|\.)t\.me$|challegram/, SHARED, 'Telegram'],
+  [/messenger|facebook\.orca/, SHARED, 'Messenger'],
+  [/signal|securesms/, SHARED, 'Signal'],
+  [/apps\.messaging|(^|\W)sms(\W|$)|imessage/, SHARED, 'Sms / Berichten'],
+  [/discord/, SHARED, 'Discord'],
+  [/slack/, SHARED, 'Slack'],
+  [/teams\.microsoft|microsoft\.teams/, SHARED, 'Microsoft Teams'],
+  [/snapchat/, SHARED, 'Snapchat'],
+  [/wechat|micromessenger/, SHARED, 'WeChat'],
+  [/(^|\W)line(\W|$)|naver\.line/, SHARED, 'LINE'],
+  [/gedeeld/, SHARED, 'Gedeeld via de telefoon (app onbekend)'],
+  [/android\.gm|mail\.google|gmail/, MAIL, 'Gmail'],
+  [/outlook|office\.outlook|hotmail|live\.com/, MAIL, 'Outlook'],
+  [/(^|\W)e-?mail|mail\./, MAIL, 'E-mail'],
+  [/chatgpt|openai/, AI, 'ChatGPT'],
+  [/perplexity/, AI, 'Perplexity'],
+  [/claude\.ai|anthropic/, AI, 'Claude'],
+  [/gemini\.google|bard\.google/, AI, 'Gemini'],
+  [/copilot/, AI, 'Copilot'],
+  [/googleadservices|gclid|google-ads/, SEARCH, 'Google (advertentie)'],
+  [/google|googlequicksearchbox/, SEARCH, 'Google'],
+  [/bing\.com|msn\.com/, SEARCH, 'Bing'],
+  [/duckduckgo/, SEARCH, 'DuckDuckGo'],
+  [/ecosia/, SEARCH, 'Ecosia'],
+  [/yahoo\./, SEARCH, 'Yahoo'],
+  [/reddit/, SOCIAL, 'Reddit'],
+  [/instagram/, SOCIAL, 'Instagram'],
+  [/threads\.net/, SOCIAL, 'Threads'],
+  [/facebook|fb\.com|fb\.me|katana/, SOCIAL, 'Facebook'],
+  [/(^|\.)t\.co$|twitter|(^|\.)x\.com$/, SOCIAL, 'X / Twitter'],
+  [/linkedin|lnkd\.in/, SOCIAL, 'LinkedIn'],
+  [/tiktok|musically|musical_ly|bytedance/, SOCIAL, 'TikTok'],
+  [/youtube|youtu\.be/, SOCIAL, 'YouTube'],
+  [/pinterest/, SOCIAL, 'Pinterest'],
+  [/capterra|g2\.com|getapp|alternativeto|producthunt/, SITES, 'Softwaresites']
 ];
-const DIRECT = 'Direct of gedeelde link (WhatsApp, mail)';
-function sourceName(text) {
+// Apps die links in hun eigen ingebouwde browser openen, herkenbaar aan de browserregel.
+const IN_APP = [
+  [/Instagram/i, SOCIAL, 'Instagram'],
+  [/MessengerForiOS|Orca-Android|FB_IAB\/MESSENGER/i, SHARED, 'Messenger'],
+  [/FBAN|FBAV|FB_IAB|FBIOS/i, SOCIAL, 'Facebook'],
+  [/LinkedInApp/i, SOCIAL, 'LinkedIn'],
+  [/Snapchat/i, SHARED, 'Snapchat'],
+  [/musical_ly|BytedanceWebview|TikTok/i, SOCIAL, 'TikTok'],
+  [/Pinterest/i, SOCIAL, 'Pinterest'],
+  [/Twitter/i, SOCIAL, 'X / Twitter'],
+  [/MicroMessenger/i, SHARED, 'WeChat'],
+  [/\bLine\//, SHARED, 'LINE'],
+  [/Telegram/i, SHARED, 'Telegram']
+];
+function lookup(text) {
   const t = String(text || '').toLowerCase();
-  for (const [re, name] of SOURCE_NAMES) if (re.test(t)) return name;
-  return '';
+  for (const [re, group, name] of SOURCES) if (re.test(t)) return [group, name];
+  return null;
 }
 function sourceOf(v) {
-  const query = new URLSearchParams(String(v.path || '').split('?')[1] || '');
+  const [path, search = ''] = String(v.path || '/').split('?');
+  const query = new URLSearchParams(search);
   const tag = query.get('bron') || query.get('utm_source');
-  if (tag) return sourceName(tag) || tag.slice(0, 30).toLowerCase();
-  if (query.has('collega')) return 'Collega-uitnodiging';
-  if (query.has('gclid')) return 'Google (advertentie)';
+  if (query.has('collega'))
+    return ['Collega-uitnodiging', tag ? `Collega-uitnodiging via ${lookup(tag)?.[1] || tag}` : 'Collega-uitnodiging'];
+  if (tag) return lookup(tag) || ['Eigen links (?bron=)', tag.slice(0, 30).toLowerCase()];
+  if (query.has('gclid')) return [SEARCH, 'Google (advertentie)'];
   const ua = v.user_agent || '';
-  if (/Instagram/i.test(ua)) return 'Instagram';
-  if (/FBAN|FBAV|FB_IAB/i.test(ua)) return 'Facebook';
-  if (/LinkedInApp/i.test(ua)) return 'LinkedIn';
-  if (query.has('fbclid')) return 'Facebook / Instagram';
+  for (const [re, group, name] of IN_APP) if (re.test(ua)) return [group, name];
+  if (query.has('fbclid')) return [SOCIAL, 'Facebook / Instagram'];
   let host = '';
   try {
-    host = new URL(v.referrer).hostname.replace(/^www./, '');
+    host = new URL(v.referrer).hostname.replace(/^www\./, '');
   } catch {
-    return DIRECT;
+    host = '';
   }
   // Van savour.page zelf (of de testversie) is doorklikken, geen nieuwe bron.
-  if (!host || /(^|.)savour.page$|vercel.app$|localhost|127.0.0/.test(host)) return DIRECT;
-  return sourceName(host) || host;
+  if (host && !/(^|\.)savour\.page$|vercel\.app$|localhost|127\.0\.0/.test(host)) return lookup(host) || [SITES, host];
+  if (/^\/(r|join)\//.test(path)) return [SHARED, 'Gedeeld recept of map (app onbekend)'];
+  if (path && path !== '/' && path !== '/index.html') return [SHARED, 'Gedeelde link (app onbekend)'];
+  return [DIRECT_GROUP, 'Direct (getypt of bladwijzer)'];
 }
+const isDirect = s => s[0] === DIRECT_GROUP;
 
 // Apparaten van de beheerder zelf: bij elk bezoek aan /admin stuurt de browser zijn bezoekers-id mee. Die ids
 // staan in app_metadata van het beheerdersaccount en tellen niet mee in de cijfers (max. 20 apparaten).
@@ -213,7 +254,7 @@ async function visitorStats(ownIds = []) {
     p.platform = platformOf(v);
     if (!p.referrer && v.referrer) p.referrer = v.referrer;
     // De eerste echte bron telt; een later direct bezoek verandert die niet.
-    if (p.source === DIRECT) p.source = sourceOf(v);
+    if (isDirect(p.source)) p.source = sourceOf(v);
     const path = v.path || '/';
     p.pages = [path, ...p.pages.filter(x => x !== path)].slice(0, 4);
   }
@@ -230,11 +271,12 @@ async function visitorStats(ownIds = []) {
   // Bronnen: unieke bezoekers per bron, all time, deze maand en deze week (op hun laatste bezoek).
   const bySource = new Map();
   for (const p of people.values()) {
-    const row = bySource.get(p.source) || { name: p.source, all: 0, month: 0, week: 0 };
+    const [group, name] = p.source;
+    const row = bySource.get(name) || { group, name, all: 0, month: 0, week: 0 };
     row.all++;
     if (amsterdamDay(p.last).startsWith(month)) row.month++;
     if (new Date(p.last) > weekAgo) row.week++;
-    bySource.set(p.source, row);
+    bySource.set(name, row);
   }
   return {
     days,
@@ -248,7 +290,10 @@ async function visitorStats(ownIds = []) {
       platform_mobile: unique(rows.filter(v => platformOf(v) === 'mobile_web')),
       platform_app: unique(rows.filter(v => platformOf(v) === 'native_app')),
       own_devices: own.size,
-      recent_people: [...people.values()].sort((a, b) => (a.last < b.last ? 1 : -1)).slice(0, 100)
+      recent_people: [...people.values()]
+        .sort((a, b) => (a.last < b.last ? 1 : -1))
+        .slice(0, 100)
+        .map(p => ({ ...p, source: p.source[1], source_group: p.source[0] }))
     }
   };
 }

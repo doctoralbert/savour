@@ -78,8 +78,13 @@ async function exportRecipes(kind) {
     downloadFile(exportFileName('json'), JSON.stringify(data, null, 2), 'application/json');
   } else if (kind === 'zip') {
     // Eén Word-bestand per recept, in de printopmaak, samen in een zip. Dubbele namen krijgen (2), (3)...
+    // De lettertypes zitten in elk bestand (tot 300 recepten, anders wordt de zip te groot) én los in de map
+    // Lettertypes, om één keer te installeren.
+    const fonts = await loadDocxFonts();
+    const embed = list.length <= 300 ? fonts : [];
     const used = new Map();
     const files = {};
+    for (const f of fonts) files[`Lettertypes/${f.file}`] = f.bytes;
     for (const r of list) {
       const base =
         String(r.title || 'Recept')
@@ -89,13 +94,15 @@ async function exportRecipes(kind) {
           .slice(0, 80) || 'Recept';
       const n = (used.get(base.toLowerCase()) || 0) + 1;
       used.set(base.toLowerCase(), n);
-      files[`${n > 1 ? `${base} (${n})` : base}.docx`] = zipBytes(docxFiles(styledRecipeBody(r), docxStyles()));
+      files[`${n > 1 ? `${base} (${n})` : base}.docx`] = zipBytes(docxFiles(styledRecipeBody(r), docxStyles(), embed));
     }
     downloadFile(exportFileName('zip'), new Blob([zipBytes(files)], { type: 'application/zip' }));
   } else {
     downloadFile(
       exportFileName('docx'),
-      new Blob([zipBytes(docxFiles(simpleRecipesBody(list), docxStyles()))], { type: DOCX_TYPE })
+      new Blob([zipBytes(docxFiles(simpleRecipesBody(list), docxStyles(), await loadDocxFonts()))], {
+        type: DOCX_TYPE
+      })
     );
   }
   toast(`${list.length} recepten gedownload`);
@@ -199,13 +206,94 @@ function docxStyles() {
   ].join('')}`;
 }
 
-function docxFiles(bodyXml, stylesXml) {
+// Lettertypes die in het Word-bestand meegaan (assets/fonts, vrije OFL-licentie). Zo ziet het document er in Word
+// en LibreOffice uit zoals bedoeld, ook op een computer zonder DM Sans en Playfair Display.
+// (WordPad kan dit niet: dat toont alleen lettertypes die op de computer zelf zijn geïnstalleerd.)
+const DOCX_FONTS = [
+  { name: 'DM Sans', embed: 'embedRegular', file: 'DMSans-Regular.ttf', src: '/assets/fonts/dmsans-400.ttf' },
+  { name: 'DM Sans', embed: 'embedBold', file: 'DMSans-Bold.ttf', src: '/assets/fonts/dmsans-700.ttf' },
+  {
+    name: 'Playfair Display',
+    embed: 'embedBold',
+    file: 'PlayfairDisplay-Bold.ttf',
+    src: '/assets/fonts/playfair-700.ttf'
+  }
+];
+let docxFontCache = null;
+
+async function loadDocxFonts() {
+  if (docxFontCache) return docxFontCache;
+  try {
+    docxFontCache = await Promise.all(
+      DOCX_FONTS.map(async f => {
+        const res = await fetch(f.src);
+        if (!res.ok) throw new Error(f.src);
+        return { ...f, bytes: new Uint8Array(await res.arrayBuffer()) };
+      })
+    );
+  } catch (e) {
+    // Zonder lettertypes (bijv. offline) gewoon een document dat om DM Sans vraagt.
+    console.warn('Lettertypes voor Word niet geladen', e);
+    return [];
+  }
+  return docxFontCache;
+}
+
+// Word bewaart ingesloten lettertypes afgeschermd (.odttf): de eerste 32 bytes XOR met de sleutel uit de GUID.
+function obfuscatedFont(bytes, fontKey) {
+  const key = [35, 33, 31, 29, 27, 25, 22, 20, 17, 15, 12, 10, 7, 5, 3, 1].map(i =>
+    parseInt(fontKey.slice(i, i + 2), 16)
+  );
+  const out = bytes.slice();
+  for (let i = 0; i < 16; i++) {
+    out[i] ^= key[i];
+    out[i + 16] ^= key[i];
+  }
+  return out;
+}
+
+// De onderdelen van het lettertype-pakket in een .docx (alleen als er lettertypes mee moeten).
+function docxFontParts(fonts, W, rel) {
+  if (!fonts.length) return { files: {}, types: '', rels: '' };
+  const R = 'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"';
+  const files = {};
+  const fontRels = [];
+  const byName = new Map();
+  fonts.forEach((f, i) => {
+    const key = `{${crypto.randomUUID().toUpperCase()}}`;
+    files[`word/fonts/font${i + 1}.odttf`] = obfuscatedFont(f.bytes, key);
+    fontRels.push(`<Relationship Id="rIdF${i + 1}" Type="${rel}/font" Target="fonts/font${i + 1}.odttf"/>`);
+    byName.set(f.name, (byName.get(f.name) || '') + `<w:${f.embed} r:id="rIdF${i + 1}" w:fontKey="${key}"/>`);
+  });
+  const fontXml = [...byName]
+    .map(
+      ([name, embeds]) =>
+        `<w:font w:name="${name}"><w:charset w:val="00"/><w:family w:val="auto"/><w:pitch w:val="variable"/>${embeds}</w:font>`
+    )
+    .join('');
+  files['word/fontTable.xml'] =
+    `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:fonts ${W} ${R}>${fontXml}</w:fonts>`;
+  files['word/_rels/fontTable.xml.rels'] =
+    `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${fontRels.join('')}</Relationships>`;
+  files['word/settings.xml'] =
+    `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:settings ${W}><w:embedTrueTypeFonts/></w:settings>`;
+  return {
+    files,
+    types:
+      '<Default Extension="odttf" ContentType="application/vnd.openxmlformats-officedocument.obfuscatedFont"/><Override PartName="/word/fontTable.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml"/><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/>',
+    rels: `<Relationship Id="rId2" Type="${rel}/fontTable" Target="fontTable.xml"/><Relationship Id="rId3" Type="${rel}/settings" Target="settings.xml"/>`
+  };
+}
+
+function docxFiles(bodyXml, stylesXml, fonts = []) {
   const W = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"';
   const rel = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships';
+  const embedded = docxFontParts(fonts, W, rel);
   return {
-    '[Content_Types].xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>`,
+    ...embedded.files,
+    '[Content_Types].xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/>${embedded.types}<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>`,
     '_rels/.rels': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="${rel}/officeDocument" Target="word/document.xml"/></Relationships>`,
-    'word/_rels/document.xml.rels': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="${rel}/styles" Target="styles.xml"/></Relationships>`,
+    'word/_rels/document.xml.rels': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="${rel}/styles" Target="styles.xml"/>${embedded.rels}</Relationships>`,
     'word/document.xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ${W}><w:body>${bodyXml}<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr></w:body></w:document>`,
     'word/styles.xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles ${W}>${stylesXml}</w:styles>`
   };
