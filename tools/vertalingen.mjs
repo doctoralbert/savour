@@ -1503,6 +1503,9 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Recept uit deze gedeelde map halen?", "Remove this recipe from the shared folder?", "Rezept aus diesem geteilten Ordner entfernen?", "¿Quitar esta receta de la carpeta compartida?"],
+  ["Het blijft gewoon in de eigen recepten van de maker.", "It simply stays in the creator’s own recipes.", "Es bleibt einfach in den eigenen Rezepten des Erstellers.", "Sigue estando en las recetas propias de su autor."],
+  ["Recept uit gedeelde map gehaald; de maker houdt het in de eigen recepten", "Recipe removed from the shared folder; the creator keeps it in their own recipes", "Rezept aus dem geteilten Ordner entfernt; der Ersteller behält es in seinen eigenen Rezepten", "Receta quitada de la carpeta compartida; su autor la conserva en sus recetas"],
   ["Recept uit deze map gehaald", "Recipe removed from this folder", "Rezept aus diesem Ordner entfernt", "Receta quitada de esta carpeta"],
   ["Uit deze map halen", "Remove from this folder", "Aus diesem Ordner entfernen", "Quitar de esta carpeta"],
   ["Uitleg", "Explanation", "Erklärung", "Explicación"],

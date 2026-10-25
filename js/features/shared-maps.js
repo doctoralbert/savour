@@ -315,7 +315,9 @@ function renderShared(id) {
   const foldersHtml = sharedFoldersHtml(m);
   const filtered = filterRecipesByLetter(list, window.sharedAlphabet);
   const recipeBlock = filtered.length
-    ? '<div class="savour-v13-list">' + contextRecipeRowsHtml(filtered, 'shared') + '</div>'
+    ? '<div class="savour-v13-list">' +
+      contextRecipeRowsHtml(filtered, 'shared', canEdit ? 'removeRecipeFromShared' : '') +
+      '</div>'
     : '<div class="empty">Geen gedeelde recepten voor deze selectie.</div>';
   const actions =
     (canEdit
@@ -626,12 +628,16 @@ function renderSharedMapManage(id) {
 
 async function removeRecipeFromShared(id) {
   const m = sharedMaps.find(x => x.id === currentShared);
-  if (!m || !currentUser) return;
+  if (!m || !currentUser || !canEditShared(m)) return;
+  // Eigen recept of dat van een collega: het verdwijnt alleen uit deze gedeelde map, nooit uit de bibliotheek van de maker.
+  const own = recipes.some(r => String(r.id) === String(id));
   if (
-    !(await askConfirm('Recept uit deze gedeelde map halen?\n\nHet blijft beschikbaar in Alle recepten.', {
-      confirmLabel: 'Uit map halen',
-      danger: false
-    }))
+    !(await askConfirm(
+      own
+        ? 'Recept uit deze gedeelde map halen?\n\nHet blijft beschikbaar in Alle recepten.'
+        : 'Recept uit deze gedeelde map halen?\n\nHet blijft gewoon in de eigen recepten van de maker.',
+      { confirmLabel: 'Uit map halen', danger: false }
+    ))
   )
     return;
 
@@ -663,7 +669,13 @@ async function removeRecipeFromShared(id) {
     }
   }
 
-  // Extra veiligheidscontrole: het persoonlijke recept moet nog bestaan.
+  // Extra veiligheidscontrole (alleen bij je eigen recept): het persoonlijke recept moet nog bestaan.
+  if (!own) {
+    await loadDatabaseState();
+    renderShared(m.id);
+    toast('Recept uit gedeelde map gehaald; de maker houdt het in de eigen recepten');
+    return;
+  }
   const { data: stillThere, error: checkError } = await supabaseClient
     .from('recipes')
     .select('id')
