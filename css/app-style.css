@@ -1236,3 +1236,38 @@ h2.has-help .help-btn {
   color: var(--sv-text-2);
   line-height: 1.55;
 }
+
+/* Categorieën: de drie knoppen strak onder elkaar in een vaste kolom rechts, allemaal even breed. */
+.category-page-item {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 170px;
+  gap: 24px;
+  align-items: start;
+}
+.category-page-actions {
+  display: flex !important;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  width: 170px;
+}
+.category-page-actions .btn {
+  width: 100%;
+  justify-content: center;
+  margin: 0 !important;
+}
+@media (max-width: 560px) {
+  .category-page-item {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .category-page-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
+  }
+  .category-page-actions .btn {
+    width: auto;
+    flex: 1 1 auto;
+  }
+}
