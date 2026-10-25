@@ -1503,6 +1503,8 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Maak een foto met je camera of kies foto’s van handgeschreven recepten. De AI leest ze uit.","Take a photo with your camera or choose photos of handwritten recipes. The AI reads them.","Mach ein Foto mit deiner Kamera oder wähle Fotos von handgeschriebenen Rezepten. Die KI liest sie aus.","Haz una foto con tu cámara o elige fotos de recetas escritas a mano. La IA las lee."],
+  ["◉ Foto maken","◉ Take photo","◉ Foto aufnehmen","◉ Hacer foto"],
   ["Uit Word, PDF, tekst, een foto of een ander bestand. Ook honderden recepten tegelijk.","From Word, PDF, text, a photo or another file. Even hundreds of recipes at once.","Aus Word, PDF, Text, einem Foto oder einer anderen Datei. Auch Hunderte Rezepte auf einmal.","Desde Word, PDF, texto, una foto u otro archivo. Incluso cientos de recetas a la vez."],
   ["Typ of plak tekst met één of meer recepten.","Type or paste text with one or more recipes.","Tippe oder füge Text mit einem oder mehreren Rezepten ein.","Escribe o pega texto con una o varias recetas."],
   ["Alle bestanden door elkaar","All files mixed","Alle Dateien gemischt","Todos los archivos mezclados"],

@@ -52,7 +52,8 @@ const IMPORT_ALLOWED = IMPORT_SOURCES.all.test;
 function chooseImportSource(type) {
   if (type === 'photo' && !isPro()) return askForPro("Foto's");
   selectImportSource(type);
-  if (type !== 'text') $('importFile').click();
+  // Foto's: eerst kiezen tussen een foto maken (camera) of foto's uit je album, dus niet meteen de bestandskiezer.
+  if (type !== 'text' && type !== 'photo') $('importFile').click();
 }
 
 function selectImportSource(type) {
@@ -79,6 +80,8 @@ function selectImportSource(type) {
     $('importFile').accept = (source || IMPORT_SOURCES.all).accept;
     $('importDropTitle').textContent = source ? `${source.label} kiezen` : 'Bestanden selecteren';
     $('importDropTypes').textContent = (source || IMPORT_SOURCES.all).types;
+    // Camera alleen bij foto's (en alles door elkaar); de knop staat in het bestandenvak, niet als eigen kopje.
+    $('importCameraBtn').style.display = type === 'photo' || type === 'all' ? '' : 'none';
   }
 }
 
@@ -237,6 +240,7 @@ function resetImportSource() {
   $('importDrop').style.display = 'block';
   $('importSourceNote').style.display = 'none';
   $('importStatus').textContent = '';
+  $('importCameraBtn').style.display = 'none';
   document.querySelectorAll('.import-option').forEach(x => x.classList.remove('selected'));
 }
 

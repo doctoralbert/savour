@@ -1673,3 +1673,69 @@
     justify-content: center;
   }
 }
+
+/* Losse pagina's: keukenfoto als band achter de kop (tools/build-seo.mjs, PAGE_PHOTO). Donker verloop zodat de
+   tekst altijd leesbaar blijft en de band naadloos overgaat in de pagina. */
+.site-page-head.has-photo {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 104px 0 64px;
+  margin-bottom: 36px;
+}
+.site-page-head.has-photo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--page-photo) no-repeat;
+  background-size: cover;
+  background-position: var(--page-photo-pos, center);
+  z-index: -2;
+}
+.site-page-head.has-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(6, 10, 11, 0.9) 0%, rgba(6, 10, 11, 0.66) 50%, rgba(6, 10, 11, 0.38) 100%),
+    linear-gradient(0deg, rgba(6, 10, 11, 1) 0%, rgba(6, 10, 11, 0) 45%),
+    linear-gradient(180deg, rgba(6, 10, 11, 0.55) 0%, rgba(6, 10, 11, 0) 30%);
+  z-index: -1;
+}
+.site-page-head.has-photo h1 {
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+.site-page-head.has-photo .site-lead,
+.site-page-head.has-photo .site-crumbs,
+.site-page-head.has-photo .site-crumbs a {
+  color: rgba(238, 232, 220, 0.88);
+}
+.site-photo-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 40px 0 8px;
+}
+.site-photo-duo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid rgba(238, 232, 220, 0.1);
+}
+@media (max-width: 760px) {
+  .site-page-head.has-photo {
+    padding: 72px 0 40px;
+    margin-bottom: 20px;
+  }
+  .site-page-head.has-photo::after {
+    background: linear-gradient(180deg, rgba(6, 10, 11, 0.7) 0%, rgba(6, 10, 11, 0.78) 55%, rgba(6, 10, 11, 1) 100%);
+  }
+  .site-photo-duo {
+    gap: 10px;
+    margin-top: 32px;
+  }
+  .site-photo-duo img {
+    border-radius: 10px;
+  }
+}

@@ -615,6 +615,9 @@ window.SAVOUR_I18N.de = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Unbegrenzt Rezepte, KI, die deine Notizen und Fotos liest, und geteilte Ordner für dein Team.',
     Verbergen: 'Ausblenden',
+    'Maak een foto met je camera of kies foto’s van handgeschreven recepten. De AI leest ze uit.':
+      'Mach ein Foto mit deiner Kamera oder wähle Fotos von handgeschriebenen Rezepten. Die KI liest sie aus.',
+    '◉ Foto maken': '◉ Foto aufnehmen',
     'Uit Word, PDF, tekst, een foto of een ander bestand. Ook honderden recepten tegelijk.':
       'Aus Word, PDF, Text, einem Foto oder einer anderen Datei. Auch Hunderte Rezepte auf einmal.',
     'Typ of plak tekst met één of meer recepten.': 'Tippe oder füge Text mit einem oder mehreren Rezepten ein.',

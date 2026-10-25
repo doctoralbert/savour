@@ -370,8 +370,47 @@ function aboutChapters(s, lang) {
     .join('');
 }
 
-const pageTop = (crumbHtml, h1, lead) =>
-  `<section class="site-page-head"><div class="site-wrap site-narrow">${crumbHtml}<h1>${esc(h1)}</h1>${lead ? `<p class="site-lead">${esc(lead)}</p>` : ''}</div></section>`;
+// Keukenfoto's van de eigenaar (assets/keuken) als band bovenaan de losse pagina's. Per pagina (Nederlandse slug)
+// welke foto en welk deel van de foto in beeld blijft. Voorwaarden en privacy blijven rustig zonder foto.
+const PHOTOS = {
+  brigade: ['brigade.jpg', 'center 35%'],
+  keuken: ['ingredienten-keuken.jpg', 'center 60%'],
+  hout: ['ingredienten-hout.jpg', 'center 55%'],
+  eend: ['eend-vuur.jpg', 'center 45%'],
+  wortels: ['wortels.jpg', 'center 50%'],
+  uien: ['uien.jpg', 'center 50%']
+};
+const PAGE_PHOTO = {
+  'recepten-digitaliseren': 'hout',
+  'recepten-organiseren': 'keuken',
+  'recepten-delen': 'brigade',
+  'recepten-opschalen': 'wortels',
+  'recepten-printen': 'hout',
+  binnenkort: 'keuken',
+  'voor-koks': 'hout',
+  'voor-keukenbrigades': 'brigade',
+  'over-savour': 'keuken',
+  blog: 'hout',
+  'app-downloaden': 'wortels',
+  'savour-pro': 'brigade',
+  'veelgestelde-vragen': 'keuken',
+  gids: 'hout',
+  contact: 'wortels'
+};
+// Staande foto's (eend, uien) alleen in de fotoduo's: in een brede band worden ze te ver uitvergroot.
+const BLOG_PHOTOS = ['wortels', 'keuken', 'brigade', 'hout'];
+const photoFile = key => {
+  const [file] = PHOTOS[key];
+  return `/assets/keuken/${file}?v=${fs.statSync(new URL(`assets/keuken/${file}`, ROOT)).size}`;
+};
+const pageTop = (crumbHtml, h1, lead, photo) => {
+  const p = photo && PHOTOS[photo];
+  const style = p ? ` style="--page-photo:url('${photoFile(photo)}');--page-photo-pos:${p[1]}"` : '';
+  return `<section class="site-page-head${p ? ' has-photo' : ''}"${style}><div class="site-wrap site-narrow">${crumbHtml}<h1>${esc(h1)}</h1>${lead ? `<p class="site-lead">${esc(lead)}</p>` : ''}</div></section>`;
+};
+// Twee staande foto's naast elkaar midden in de tekst (Voor wie-pagina's).
+const photoDuo = (a, b) =>
+  `<figure class="site-photo-duo reveal">${[a, b].map(k => `<img src="${photoFile(k)}" alt="" loading="lazy" style="object-position:${PHOTOS[k][1]}">`).join('')}</figure>`;
 const sectionsHtml = sections => sections.map(([t, d]) => `<h2 class="reveal">${esc(t)}</h2><p>${esc(d)}</p>`).join('');
 
 for (const lang of LANGS) {
@@ -387,7 +426,7 @@ for (const lang of LANGS) {
       desc: t.desc,
       crumbs: [[u.features], [t.menu]],
       body: c =>
-        pageTop(c, t.h1, t.lead) +
+        pageTop(c, t.h1, t.lead, PAGE_PHOTO[f.nl.slug]) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose">${t.kladje ? `<div class="site-figure">${kladje(lang)}</div>` : ''}${sectionsHtml(t.sections)}${
           f.soon ? `<p class="site-note">${SOON_MAIL[lang]} <a href="mailto:contact@savour.page">contact@savour.page</a>.</p>` : ''
         }</div></article>
@@ -404,8 +443,8 @@ for (const lang of LANGS) {
       desc: t.desc,
       crumbs: [[u.audience], [t.menu]],
       body: c =>
-        pageTop(c, t.h1, t.lead) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections)}</div></article>
+        pageTop(c, t.h1, t.lead, PAGE_PHOTO[a.nl.slug]) +
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${photoDuo(...(a.nl.slug === 'voor-koks' ? ['eend', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.features}</h2>${rows(FEATURES.filter(x => !x.soon), lang)}</div></section>`
     });
   }
@@ -419,7 +458,7 @@ for (const lang of LANGS) {
       desc: s.desc,
       crumbs: [[u.about]],
       body: c =>
-        pageTop(c, s.h1, s.lead) +
+        pageTop(c, s.h1, s.lead, PAGE_PHOTO[STORY.nl.slug]) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose">${aboutChapters(s, lang)}</div></article>
 <section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(s.valuesTitle)}</h2><div class="site-values">${s.values.map(([t, d]) => `<div><h3>${esc(t)}</h3><p>${esc(d)}</p></div>`).join('')}</div></div></section>`
     });
@@ -432,12 +471,12 @@ for (const lang of LANGS) {
     desc: u.blogLead,
     crumbs: [[u.blog]],
     body: c =>
-      pageTop(c, u.blog, u.blogLead) +
+      pageTop(c, u.blog, u.blogLead, PAGE_PHOTO.blog) +
       `<article class="site-article"><div class="site-wrap site-narrow"><ul class="site-posts">${POSTS.map(
         p => `<li><h2><a href="${href(p[lang].slug)}">${esc(p[lang].title)}</a></h2><p>${esc(p[lang].desc)}</p><a class="site-link" href="${href(p[lang].slug)}">${u.readArticle}</a></li>`
       ).join('')}</ul></div></article>`
   });
-  for (const p of POSTS) {
+  for (const [n, p] of POSTS.entries()) {
     const t = p[lang];
     const date = new Date(p.date).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' });
     page({
@@ -460,7 +499,7 @@ for (const lang of LANGS) {
         }
       ],
       body: c =>
-        pageTop(c, t.h1, t.lead) +
+        pageTop(c, t.h1, t.lead, BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}</p>${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p></div></article>`
     });
   }
@@ -474,7 +513,7 @@ for (const lang of LANGS) {
       desc: t.desc,
       crumbs: [[t.menu]],
       body: c =>
-        pageTop(c, t.h1, t.lead) +
+        pageTop(c, t.h1, t.lead, PAGE_PHOTO[slugsOf(APP_PAGE).nl]) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections)}<p><a class="site-btn solid" href="${homePath(lang)}">${esc(t.open)}</a></p></div></article>`
     });
   }
@@ -515,7 +554,7 @@ for (const lang of LANGS) {
       title: meta.title,
       desc: meta.desc,
       schema,
-      body: c => pageTop(c, h1, lead) + `<article class="site-article"><div class="site-wrap site-narrow site-prose">${note ? `<p class="site-meta">${esc(note)}</p>` : ''}${body}</div></article>`
+      body: c => pageTop(c, h1, lead, PAGE_PHOTO[p.nl]) + `<article class="site-article"><div class="site-wrap site-narrow site-prose">${note ? `<p class="site-meta">${esc(note)}</p>` : ''}${body}</div></article>`
     });
   }
 }
