@@ -113,3 +113,12 @@ export function upsertSubscription(row) {
     prefer: 'resolution=merge-duplicates,return=minimal'
   });
 }
+
+// Eén account opvragen (Supabase Auth), bijv. degene die een collega uitnodigde.
+export async function getAuthUser(userId) {
+  try {
+    return await adminFetch(`/auth/v1/admin/users/${encodeURIComponent(userId)}`);
+  } catch {
+    return null;
+  }
+}

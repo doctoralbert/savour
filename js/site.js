@@ -98,6 +98,50 @@
     }
   });
 
+  // Bezoek tellen op de losse pagina's (hier komen bezoekers van Google vaak binnen). De app zelf (index.html)
+  // telt via logSavourVisit in js/features/admin.js; daar staat #appShell, dus hier dan niets doen.
+  function logStaticVisit() {
+    if (document.getElementById('appShell') || !/(^|.)savour.page$/.test(location.hostname)) return;
+    try {
+      var vid = localStorage.getItem('savour_visit_id');
+      if (!vid) {
+        vid = crypto.randomUUID();
+        localStorage.setItem('savour_visit_id', vid);
+      }
+      var key = 'sb_publishable_R8DGUuglOC3aFz5qv4xOgw_UGdQUyiD';
+      fetch('https://qmzfqfmpylkgcnxsedse.supabase.co/rest/v1/site_visits', {
+        method: 'POST',
+        keepalive: true,
+        headers: {
+          apikey: key,
+          Authorization: 'Bearer ' + key,
+          'Content-Type': 'application/json',
+          Prefer: 'return=minimal'
+        },
+        body: JSON.stringify({
+          visitor_id: vid,
+          path: location.pathname + visitSourceQuery(),
+          referrer: document.referrer || null,
+          user_agent: navigator.userAgent || null
+        })
+      }).catch(function () {});
+    } catch (_) {}
+  }
+  // Zelfde als savourVisitSourceQuery in js/features/admin.js: alleen de herkomst uit de link, nooit iets persoonlijks.
+  function visitSourceQuery() {
+    var q = new URLSearchParams(location.search);
+    var out = [];
+    ['bron', 'utm_source', 'utm_medium', 'utm_campaign'].forEach(function (k) {
+      var v = (q.get(k) || '').trim().slice(0, 40);
+      if (v) out.push(k + '=' + encodeURIComponent(v));
+    });
+    ['collega', 'gclid', 'fbclid'].forEach(function (k) {
+      if (q.has(k)) out.push(k);
+    });
+    return out.length ? '?' + out.join('&') : '';
+  }
+
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup);
   else setup();
+  logStaticVisit();
 })();

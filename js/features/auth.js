@@ -13,9 +13,13 @@ function openAuth(mode) {
   $('authNameField').style.display = mode === 'signup' ? 'grid' : 'none';
   $('authTitle').textContent = mode === 'signup' ? t('Account aanmaken') : t('Inloggen');
   $('authIntro').textContent =
-    mode === 'signup'
-      ? t('Maak een account aan om je persoonlijke receptenbibliotheek te openen.')
-      : t('Log in om je persoonlijke receptenbibliotheek te openen.');
+    mode === 'signup' && invitedBy()
+      ? t(
+          'Je bent uitgenodigd door een collega: na het bevestigen van je e-mailadres krijgen jullie allebei een maand Savour Pro cadeau.'
+        )
+      : mode === 'signup'
+        ? t('Maak een account aan om je persoonlijke receptenbibliotheek te openen.')
+        : t('Log in om je persoonlijke receptenbibliotheek te openen.');
   $('authSubmit').textContent = mode === 'signup' ? t('Account aanmaken') : t('Inloggen');
   $('authEmailField').style.marginTop = mode === 'signup' ? '10px' : '0';
   $('authPassword').autocomplete = mode === 'signup' ? 'new-password' : 'current-password';
@@ -132,7 +136,8 @@ async function submitAuth() {
       const { data, error } = await supabaseClient.auth.signUp({
         email,
         password,
-        data: { name, organization }
+        // Via de link van een collega? Dan staat dat bij het account (cadeau: js/features/referral.js).
+        data: invitedBy() ? { name, organization, invited_by: invitedBy() } : { name, organization }
       });
       if (error) throw error;
       saveLoginChoices(email, password, name);

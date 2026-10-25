@@ -880,3 +880,42 @@ body.savour-light #appShell .drag-handle {
 body.savour-light .member-role {
   color: #5f665f;
 }
+
+/* Licht thema, Instellingen: elk blok een rustige witte kaart op de crème achtergrond. */
+body.savour-light #settings .settings-pane .panel {
+  padding: 26px 28px !important;
+  background: #fff !important;
+  border: 1px solid #e6e2d8 !important;
+  border-radius: 16px !important;
+  box-shadow:
+    0 1px 2px #0000000a,
+    0 8px 24px #00000008 !important;
+  margin-bottom: 18px !important;
+}
+body.savour-light #settings .settings-pane .panel.settings-danger {
+  padding-top: 26px !important;
+  border: 1px solid #ecd4d0 !important;
+}
+body.savour-light .settings-tabs button.on {
+  border-bottom-color: #a8843f;
+}
+body.savour-light .export-option {
+  background: #faf8f3;
+  border-color: #e6e2d8;
+}
+body.savour-light .export-option:hover {
+  border-color: #a8843f;
+  background: #fff;
+}
+body.savour-light .export-option b,
+body.savour-light .settings-ok {
+  color: #8a6a2f;
+}
+body.savour-light .export-option small {
+  color: #6b6a64;
+}
+@media (max-width: 760px) {
+  body.savour-light #settings .settings-pane .panel {
+    padding: 20px 18px !important;
+  }
+}

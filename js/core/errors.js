@@ -62,6 +62,8 @@ window.addEventListener(
       )
     )
       return;
+    // Geen internet (bijv. telefoon in de kelder) of de pagina wordt al verlaten: dan breekt het laden af zonder fout van Savour.
+    if (failed && (navigator.onLine === false || window.__savourLeaving)) return;
     if (failed) reportError(`Bestand kon niet laden: ${failed.replace(location.origin, '')}`);
     else reportError(e.message, { source: e.filename, line: e.lineno, col: e.colno, stack: e.error?.stack });
   },
@@ -71,3 +73,6 @@ window.addEventListener('unhandledrejection', e => {
   const r = e.reason;
   reportError(r?.message || String(r || 'Onbekende fout'), { stack: r?.stack });
 });
+
+// Onthouden dat de pagina wordt verlaten: scripts die dan nog laden breken af, dat is geen fout.
+window.addEventListener('pagehide', () => (window.__savourLeaving = true));

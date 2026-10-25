@@ -36,7 +36,8 @@ for (const name of [
   'admin-reset',
   'pro-checkout',
   'pro-portal',
-  'stripe-webhook'
+  'stripe-webhook',
+  'referral'
 ]) {
   const module = await import(pathToFileURL(path.join(ROOT, 'api', `${name}.js`)).href);
   handlers.set(`/api/${name}`, module.default);

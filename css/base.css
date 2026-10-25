@@ -3866,6 +3866,8 @@ html,
 body {
   max-width: 100%;
   overflow-x: hidden;
+  /* clip in plaats van hidden: anders wordt body een scrollvlak en blijft het menu niet staan (sticky). */
+  overflow-x: clip;
 }
 
 /* ================= SAVOUR v55 ================= */

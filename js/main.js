@@ -75,6 +75,11 @@ window.__authRoute = ['login', 'signup'].includes(new URLSearchParams(location.s
 window.__demoRoute = new URLSearchParams(location.search).get('demo') === '1';
 // ?team=1: link uit de bedankmail na een teamaankoop; na inloggen meteen naar het teamblok.
 window.__teamRoute = new URLSearchParams(location.search).get('team') === '1';
+// ?collega=<id>: uitnodiging van een collega (js/features/referral.js). Niet ingelogd? Dan meteen 'Account aanmaken'.
+if (new URLSearchParams(location.search).get('collega')) {
+  rememberReferral(new URLSearchParams(location.search).get('collega'));
+  if (invitedBy() && !window.__authRoute) window.__authRoute = 'signup';
+}
 
 // Bestaande sessie herstellen, of de landingspagina tonen.
 (async () => {

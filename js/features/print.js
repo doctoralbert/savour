@@ -155,19 +155,21 @@ function printBundleHtml(list, { brand = null, options = {}, title = '' } = {}) 
         }${brand?.name ? `<div class="print-cover-name" translate="no">${esc(brand.name)}</div>` : ''}<h1 translate="no">${esc(
           title || 'Recepten'
         )}</h1><div class="print-cover-count">${list.length} recepten</div><ol class="print-cover-list">${list
-          .map(r => `<li translate="no">${esc(r.title)}</li>`)
+          .map((r, i) => `<li><b>${i + 1}</b><span translate="no">${esc(r.title)}</span></li>`)
           .join('')}</ol></section>`
       : '';
   return (
     foot +
     cover +
     list
-      .map(r => {
+      .map((r, index) => {
         const ingredients = r.ingredients?.length ? r.ingredients : [];
         const steps = r.steps?.length ? r.steps : [];
         const photo =
           r.photo && options.photos !== false ? `<img class="print-photo" src="${esc(r.photo)}" alt="">` : '';
-        return `<article class="print-bundle-recipe">${top}${photo}<h1>${esc(r.title)}</h1>${r.yield ? `<div class="print-yield"><span>Opbrengst</span> · <b>${esc(r.yield)}</b></div>` : ''}<div class="print-bundle-columns"><div><h3>Ingrediënten</h3>${
+        // Met inhoudsopgave: het nummer uit de inhoudsopgave onderaan de pagina, om snel te zoeken.
+        const number = cover ? `<div class="print-recipe-number">${index + 1}</div>` : '';
+        return `<article class="print-bundle-recipe${cover ? ' has-number' : ''}">${number}${top}${photo}<h1>${esc(r.title)}</h1>${r.yield ? `<div class="print-yield"><span>Opbrengst</span> · <b>${esc(r.yield)}</b></div>` : ''}<div class="print-bundle-columns"><div><h3>Ingrediënten</h3>${
           ingredients.length
             ? ingredients
                 .map(x => {
@@ -346,7 +348,7 @@ async function renderPrintBrandSettings() {
   }
   const b = printBrandOwn || {};
   const name = b.name ?? (account?.organization || s.team?.name || '');
-  host.innerHTML = `<p class="muted">${s.source === 'team_owner' ? 'Dit logo staat op de prints van iedereen in je team.' : 'Dit logo staat bovenaan elke pagina die je print: het logo links, de naam in het midden.'}</p><div class="print-brand-setup"><div class="print-brand-preview${b.bw ? ' is-bw' : ''}" id="printBrandPreview" aria-label="Voorbeeld van een geprinte pagina"><div class="pbp-top"><i>${b.logo ? `<img src="${esc(b.logo)}" alt="">` : ''}</i><span translate="no">${esc(name)}</span></div><div class="pbp-title"></div><div class="pbp-line"></div><div class="pbp-line"></div><div class="pbp-line short"></div></div><div class="print-brand-fields"><div class="field"><label>Naam op de print</label><input id="printBrandName" value="${esc(name)}" placeholder="Bijv. Restaurant De Zwaan" maxlength="120" autocomplete="organization" oninput="previewPrintBrand()"></div><div class="actions"><label class="btn">${b.logo ? 'Ander logo kiezen' : 'Logo kiezen'}<input type="file" id="printBrandFile" accept="image/png,image/jpeg,image/webp" onchange="choosePrintLogo(this)" style="display:none"></label>${b.logo ? '<button class="btn" onclick="removePrintLogo()">Logo weghalen</button>' : ''}</div><label class="print-option"><input type="checkbox" id="printBrandBw"${b.bw ? ' checked' : ''} onchange="previewPrintBrand()"><span>Logo in zwart-wit printen (beter op een keukenprinter)</span></label><div class="actions"><button class="btn gold" onclick="savePrintBrand()">Opslaan</button></div></div></div>`;
+  host.innerHTML = `<p class="muted">${s.source === 'team_owner' ? 'Dit logo staat op de prints van iedereen in je team.' : 'Dit logo staat bovenaan elke pagina die je print: het logo links, de naam in het midden.'}</p><div class="print-brand-setup"><div class="print-sheet-frame" id="printBrandPreview" aria-label="Voorbeeld van een geprinte pagina">${printSheetHtml({ name, logo: b.logo, bw: b.bw })}</div><div class="print-brand-fields"><div class="field"><label>Naam op de print</label><input id="printBrandName" value="${esc(name)}" placeholder="Bijv. Restaurant De Zwaan" maxlength="120" autocomplete="organization" oninput="previewPrintBrand()"></div><div class="actions"><label class="btn">${b.logo ? 'Ander logo kiezen' : 'Logo kiezen'}<input type="file" id="printBrandFile" accept="image/png,image/jpeg,image/webp" onchange="choosePrintLogo(this)" style="display:none"></label>${b.logo ? '<button class="btn" onclick="removePrintLogo()">Logo weghalen</button>' : ''}</div><label class="print-option"><input type="checkbox" id="printBrandBw"${b.bw ? ' checked' : ''} onchange="previewPrintBrand()"><span>Logo in zwart-wit printen (beter op een keukenprinter)</span></label><div class="actions"><button class="btn gold" onclick="savePrintBrand()">Opslaan</button></div></div></div>`;
 }
 
 // Nieuw gekozen logo, nog niet opgeslagen.
@@ -368,13 +370,35 @@ async function choosePrintLogo(input) {
   }
 }
 
+// Echt voorbeeld van een geprinte pagina: een A4 in de printopmaak, verkleind. Met een eigen recept als dat er is.
+function printSheetHtml(brand) {
+  const sample = recipes.find(r => r.ingredients?.length >= 3 && r.steps?.length) || {
+    title: 'Aalbessenroomijs',
+    yield: '3 liter',
+    ingredients: [
+      '1000 gram slagroom',
+      '1000 gram aalbessenpuree',
+      '650 gram suiker',
+      '50 gram glucose',
+      '350 gram eidooier'
+    ],
+    steps: [
+      'Alles in de thermomix draaien tot 85 graden.',
+      'Door een zeef halen.',
+      'Een nacht laten rijpen en draaien.'
+    ]
+  };
+  return `<div class="print-bundle print-sheet">${printBundleHtml([sample], { brand, options: { photos: false } })}</div>`;
+}
+
 function previewPrintBrand() {
   const box = $('printBrandPreview');
   if (!box) return;
-  const logo = printLogoDraft || printBrandOwn?.logo || '';
-  box.classList.toggle('is-bw', !!$('printBrandBw')?.checked);
-  box.querySelector('.pbp-top').innerHTML =
-    `<i>${logo ? `<img src="${esc(logo)}" alt="">` : ''}</i><span translate="no">${esc($('printBrandName')?.value || '')}</span>`;
+  box.innerHTML = printSheetHtml({
+    name: $('printBrandName')?.value || '',
+    logo: printLogoDraft || printBrandOwn?.logo || '',
+    bw: !!$('printBrandBw')?.checked
+  });
 }
 
 async function savePrintBrand(removeLogo = false) {

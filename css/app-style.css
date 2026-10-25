@@ -618,3 +618,168 @@ body.savour-light .print-pick-tools input[type='search'] {
   color: var(--muted);
   line-height: 1.4;
 }
+
+/* Desktop: de lijn boven de footer loopt door tot aan de menulijn. */
+@media (min-width: 761px) {
+  .app-foot {
+    margin: 24px 0 0;
+    padding: 18px 28px 22px;
+  }
+}
+
+/* Alle recepten printen: compacte inhoudsopgave (3 kolommen, klein) en het receptnummer onderaan elke receptpagina. */
+.print-cover {
+  display: block;
+  min-height: 0;
+  padding-top: 0;
+  text-align: center;
+}
+.print-cover h1 {
+  margin: 18px 0 4px;
+}
+.print-cover-list {
+  max-width: none;
+  margin: 22px 0 0;
+  columns: 3;
+  column-gap: 7mm;
+  column-rule: 0.5px solid #ddd;
+  list-style: none;
+  font-size: 8pt;
+  line-height: 1.32;
+  text-align: left;
+}
+.print-cover-list li {
+  display: flex;
+  gap: 5px;
+  break-inside: avoid;
+  padding: 0.6px 0;
+}
+.print-cover-list li b {
+  flex: 0 0 auto;
+  min-width: 3.2em;
+  text-align: right;
+  color: #111;
+  font-variant-numeric: tabular-nums;
+}
+.print-cover-list li span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #222;
+}
+.print-a5 .print-cover-list {
+  columns: 2;
+  font-size: 7pt;
+}
+.print-recipe-number {
+  display: none;
+}
+@media print {
+  .print-bundle-recipe.has-number {
+    position: relative;
+    box-sizing: border-box;
+    min-height: 99.5vh;
+  }
+  .print-recipe-number {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5mm;
+    text-align: center;
+    font:
+      700 15pt/1 'DM Sans',
+      Arial,
+      sans-serif;
+    color: #111;
+    font-variant-numeric: tabular-nums;
+  }
+  .print-a5 .print-recipe-number {
+    bottom: 3.5mm;
+    font-size: 12pt;
+  }
+}
+
+/* Logo op prints: echt voorbeeld van een geprinte A4 (794 × 1123 px), verkleind tot de breedte van het kader. */
+.print-brand-setup {
+  grid-template-columns: 260px minmax(0, 1fr);
+}
+.print-sheet-frame {
+  --sheet: 260;
+  width: calc(var(--sheet) * 1px);
+  aspect-ratio: 210 / 297;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+.print-sheet-frame .print-sheet {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 794px;
+  height: 1123px;
+  padding: 0 16mm;
+  box-sizing: border-box;
+  background: #fff;
+  color: #111;
+  transform: scale(calc(var(--sheet) / 794));
+  transform-origin: top left;
+  pointer-events: none;
+}
+.print-sheet .print-bundle-recipe {
+  padding-top: 14mm;
+  border-bottom: 0;
+}
+.print-sheet .print-bundle-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.print-sheet .print-page-foot {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  left: 16mm;
+  right: 16mm;
+  bottom: 7mm;
+  font-size: 8pt;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #888;
+}
+body.savour-light .print-sheet-frame {
+  box-shadow:
+    0 1px 2px #0000001a,
+    0 10px 28px #00000014;
+  border: 1px solid #e6e2d8;
+}
+@media (max-width: 640px) {
+  .print-sheet-frame {
+    --sheet: 220;
+  }
+}
+
+/* Admin → Bezoekers: waar komen bezoekers vandaan */
+.admin-sources .admin-source-bar {
+  width: 40%;
+}
+.admin-source-bar i {
+  display: block;
+  height: 8px;
+  min-width: 3px;
+  border-radius: 4px;
+  background: var(--gold);
+  opacity: 0.85;
+}
+.admin-note {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.admin-note code {
+  color: var(--gold);
+  font-size: 12px;
+}

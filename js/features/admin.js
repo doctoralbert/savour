@@ -187,6 +187,19 @@ function renderAdminStats() {
       ['Mobiel web', d.platform_mobile],
       ['Native app', d.platform_app]
     ]);
+  // Herkomst: per bron het aantal unieke bezoekers, met een balkje ten opzichte van de grootste bron.
+  const sb = $('adminSourcesBody');
+  if (sb) {
+    const sources = d.sources || [];
+    const max = Math.max(1, ...sources.map(x => x.all));
+    sb.innerHTML =
+      sources
+        .map(
+          x =>
+            `<tr><td>${adminEscape(x.name)}</td><td class="admin-source-bar"><i style="width:${Math.round((x.all / max) * 100)}%"></i></td><td>${adminEscape(x.week)}</td><td>${adminEscape(x.month)}</td><td><b>${adminEscape(x.all)}</b></td></tr>`
+        )
+        .join('') || '<tr><td colspan="5">Nog geen bezoekers.</td></tr>';
+  }
   // Laatste unieke bezoekers: één regel per apparaat, met hoe vaak en welke pagina's.
   const vb = $('adminVisitsBody');
   if (vb)
@@ -194,7 +207,7 @@ function renderAdminStats() {
       (d.recent_people || [])
         .map(
           v =>
-            `<tr><td>${adminFormatDate(v.last)}</td><td>${adminEscape(v.visits)}</td><td>${v.pages.map(adminEscape).join('<br>')}</td><td>${adminEscape(v.platform === 'native_app' ? 'Native app' : v.platform === 'mobile_web' ? 'Mobiel web' : 'Desktop web')}</td><td>${adminEscape(adminDevice(v.user_agent))}</td><td>${adminEscape(v.referrer || 'Direct')}</td></tr>`
+            `<tr><td>${adminFormatDate(v.last)}</td><td>${adminEscape(v.visits)}</td><td>${v.pages.map(adminEscape).join('<br>')}</td><td>${adminEscape(v.platform === 'native_app' ? 'Native app' : v.platform === 'mobile_web' ? 'Mobiel web' : 'Desktop web')}</td><td>${adminEscape(adminDevice(v.user_agent))}</td><td title="${adminEscape(v.referrer || '')}">${adminEscape(v.source || v.referrer || 'Direct')}</td></tr>`
         )
         .join('') || '<tr><td colspan="6">Nog geen bezoekers.</td></tr>';
 }
@@ -586,6 +599,19 @@ function savourAnalyticsPlatform() {
   return 'desktop_web';
 }
 
+// Herkomst uit de link (bijv. savour.page/?bron=reddit, utm_source, een collega-uitnodiging of een advertentieklik).
+// Alleen deze vaste namen en nooit een id of iets persoonlijks; de server leest er de bron uit (api/admin.js).
+function savourVisitSourceQuery() {
+  const q = new URLSearchParams(location.search);
+  const out = [];
+  for (const k of ['bron', 'utm_source', 'utm_medium', 'utm_campaign']) {
+    const v = (q.get(k) || '').trim().slice(0, 40);
+    if (v) out.push(`${k}=${encodeURIComponent(v)}`);
+  }
+  for (const k of ['collega', 'gclid', 'fbclid']) if (q.has(k)) out.push(k);
+  return out.length ? `?${out.join('&')}` : '';
+}
+
 async function logSavourVisit() {
   // Alleen echte bezoeken aan savour.page; de testversie en lokaal testen tellen niet mee.
   if (IS_ADMIN_PATH || !/(^|\.)savour\.page$/.test(location.hostname)) return;
@@ -598,7 +624,7 @@ async function logSavourVisit() {
     }
     const visit = {
       visitor_id: vid,
-      path: window.location.pathname || '/',
+      path: (window.location.pathname || '/') + savourVisitSourceQuery(),
       referrer: document.referrer || null,
       user_agent: navigator.userAgent || null,
       platform: savourAnalyticsPlatform()

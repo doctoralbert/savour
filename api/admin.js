@@ -109,6 +109,60 @@ const amsterdamDay = d => new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/A
 const platformOf = v =>
   v.platform || (/Mobi|Android|iPhone|iPad|iPod/i.test(v.user_agent || '') ? 'mobile_web' : 'desktop_web');
 
+// Waar een bezoeker vandaan kwam. Volgorde: de link zelf (?bron=, utm_source, collega-uitnodiging, advertentieklik),
+// dan de app waarin de link openging (Instagram, Facebook, LinkedIn), dan de site ervoor (referrer).
+// Geen referrer = direct: getypt, bladwijzer, of een link uit WhatsApp, mail of een andere app.
+const SOURCE_NAMES = [
+  [/google./, 'Google'],
+  [/bing.com|msn.com/, 'Bing'],
+  [/duckduckgo/, 'DuckDuckGo'],
+  [/ecosia/, 'Ecosia'],
+  [/yahoo./, 'Yahoo'],
+  [/reddit/, 'Reddit'],
+  [/instagram/, 'Instagram'],
+  [/facebook|fb.com|fb.me/, 'Facebook'],
+  [/(^|.)t.co$|twitter|(^|.)x.com$/, 'X / Twitter'],
+  [/linkedin|lnkd.in/, 'LinkedIn'],
+  [/whatsapp|wa.me/, 'WhatsApp'],
+  [/tiktok/, 'TikTok'],
+  [/youtube|youtu.be/, 'YouTube'],
+  [/pinterest/, 'Pinterest'],
+  [/chatgpt|openai/, 'ChatGPT'],
+  [/perplexity/, 'Perplexity'],
+  [/claude.ai/, 'Claude'],
+  [/gemini.google|bard.google/, 'Gemini'],
+  [/copilot/, 'Copilot'],
+  [/capterra|g2.com|getapp|alternativeto|producthunt/, 'Softwaresites'],
+  [/mail.|outlook|gmail/, 'E-mail']
+];
+const DIRECT = 'Direct of gedeelde link (WhatsApp, mail)';
+function sourceName(text) {
+  const t = String(text || '').toLowerCase();
+  for (const [re, name] of SOURCE_NAMES) if (re.test(t)) return name;
+  return '';
+}
+function sourceOf(v) {
+  const query = new URLSearchParams(String(v.path || '').split('?')[1] || '');
+  const tag = query.get('bron') || query.get('utm_source');
+  if (tag) return sourceName(tag) || tag.slice(0, 30).toLowerCase();
+  if (query.has('collega')) return 'Collega-uitnodiging';
+  if (query.has('gclid')) return 'Google (advertentie)';
+  const ua = v.user_agent || '';
+  if (/Instagram/i.test(ua)) return 'Instagram';
+  if (/FBAN|FBAV|FB_IAB/i.test(ua)) return 'Facebook';
+  if (/LinkedInApp/i.test(ua)) return 'LinkedIn';
+  if (query.has('fbclid')) return 'Facebook / Instagram';
+  let host = '';
+  try {
+    host = new URL(v.referrer).hostname.replace(/^www./, '');
+  } catch {
+    return DIRECT;
+  }
+  // Van savour.page zelf (of de testversie) is doorklikken, geen nieuwe bron.
+  if (!host || /(^|.)savour.page$|vercel.app$|localhost|127.0.0/.test(host)) return DIRECT;
+  return sourceName(host) || host;
+}
+
 // Apparaten van de beheerder zelf: bij elk bezoek aan /admin stuurt de browser zijn bezoekers-id mee. Die ids
 // staan in app_metadata van het beheerdersaccount en tellen niet mee in de cijfers (max. 20 apparaten).
 async function ownVisitorIds(user, current) {
@@ -147,6 +201,7 @@ async function visitorStats(ownIds = []) {
         visits: 0,
         pages: [],
         referrer: v.referrer || '',
+        source: sourceOf(v),
         user_agent: v.user_agent,
         platform: platformOf(v)
       };
@@ -157,6 +212,8 @@ async function visitorStats(ownIds = []) {
     p.user_agent = v.user_agent || p.user_agent;
     p.platform = platformOf(v);
     if (!p.referrer && v.referrer) p.referrer = v.referrer;
+    // De eerste echte bron telt; een later direct bezoek verandert die niet.
+    if (p.source === DIRECT) p.source = sourceOf(v);
     const path = v.path || '/';
     p.pages = [path, ...p.pages.filter(x => x !== path)].slice(0, 4);
   }
@@ -170,9 +227,19 @@ async function visitorStats(ownIds = []) {
       count: perDay.get(amsterdamDay(d))?.size || 0
     });
   }
+  // Bronnen: unieke bezoekers per bron, all time, deze maand en deze week (op hun laatste bezoek).
+  const bySource = new Map();
+  for (const p of people.values()) {
+    const row = bySource.get(p.source) || { name: p.source, all: 0, month: 0, week: 0 };
+    row.all++;
+    if (amsterdamDay(p.last).startsWith(month)) row.month++;
+    if (new Date(p.last) > weekAgo) row.week++;
+    bySource.set(p.source, row);
+  }
   return {
     days,
     stats: {
+      sources: [...bySource.values()].sort((a, b) => b.all - a.all || b.month - a.month),
       visitors_all_time: unique(rows),
       visits_today: perDay.get(today)?.size || 0,
       visits_week: unique(rows.filter(v => new Date(v.visited_at) > weekAgo)),

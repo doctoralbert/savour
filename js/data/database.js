@@ -235,7 +235,9 @@ async function startDatabaseSession(user) {
       renderProNav();
       renderAdminNav();
       // Eerst eventueel het welkom van het team, daarna (bij een lege bibliotheek) het algemene welkom.
-      greetTeamMember().then(() => setTimeout(welcomeNewUser, 600));
+      greetTeamMember()
+        .then(claimReferral)
+        .then(() => setTimeout(welcomeNewUser, 600));
       if (window.__proRoute) openPublicInfo('pro');
       else if (window.__infoRoute) openPublicInfo(window.__infoRoute);
       else showApp('recipes');
