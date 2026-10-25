@@ -376,7 +376,7 @@ export const STORY = {
     lead: 'Savour is gebouwd door een chef, niet door een softwarebedrijf. Uit frustratie over recepten die overal lagen, behalve op de plek waar je ze nodig had.',
     chapters: [
       ['Vijftien jaar recepten op losse papiertjes', [
-        'De chef achter Savour staat al vijftien jaar in de keuken, de laatste jaren als headchef. In al die tijd waren de recepten een rommeltje: papiertjes met koffievlekken, foto’s op verschillende telefoons, waarvan er een paar kapotgingen voordat de recepten waren veiliggesteld, en Word-documenten verspreid over mappen en laptops.',
+        'De chef achter Savour staat al vijftien jaar in de keuken. In al die tijd waren de recepten een rommeltje: papiertjes met koffievlekken, foto’s op verschillende telefoons, waarvan er een paar kapotgingen voordat de recepten waren veiliggesteld, en Word-documenten verspreid over mappen en laptops.',
         'Het lastigste was niet eens de rommel zelf, maar dat niets op één plek stond. Op het moment dat je een recept nodig had, midden in de mise-en-place of vlak voor de service, was het nergens te vinden.'
       ]],
       ['Vijftig keer op printen drukken', [
@@ -418,7 +418,7 @@ export const STORY = {
     lead: 'Savour was built by a chef, not by a software company. Out of frustration with recipes that were everywhere, except where you needed them.',
     chapters: [
       ['Fifteen years of recipes on loose scraps', [
-        'The chef behind Savour has been in kitchens for fifteen years, the last few as head chef. All that time the recipes were a mess: coffee-stained scraps of paper, photos on different phones, some of which broke before the recipes were saved, and Word documents scattered across folders and laptops.',
+        'The chef behind Savour has been in kitchens for fifteen years. All that time the recipes were a mess: coffee-stained scraps of paper, photos on different phones, some of which broke before the recipes were saved, and Word documents scattered across folders and laptops.',
         'The hardest part was not even the mess itself, but that nothing was in one place. The moment you needed a recipe, in the middle of mise en place or just before service, it was nowhere to be found.'
       ]],
       ['Pressing print fifty times', [
