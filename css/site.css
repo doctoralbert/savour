@@ -1312,3 +1312,45 @@
   font-size: 14px;
   color: var(--gold);
 }
+
+/* Prijzenpagina: elke prijs in een eigen kader; de aanbevolen keuze met een gouden rand en label op de rand. */
+.site-prose .pro-prices {
+  gap: 16px;
+  border-top: 0;
+  margin: 30px 0;
+}
+.site-prose .pro-price {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 26px 22px 22px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.02);
+}
+.site-prose .pro-price.is-featured {
+  border-color: var(--gold);
+  background: rgba(232, 202, 141, 0.05);
+}
+.site-prose .pro-price h3 {
+  margin: 0;
+}
+.site-prose .pro-price .pro-badge {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #111;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.site-prose .pro-price .muted {
+  margin: 0;
+}
+.site-prose .pro-amount span {
+  white-space: nowrap;
+}
