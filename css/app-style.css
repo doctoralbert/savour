@@ -521,3 +521,100 @@ body.savour-light .print-pick-tools input[type='search'] {
   font-weight: 700;
   letter-spacing: 0.06em;
 }
+
+/* ---- Printopmaak: titels in Playfair Display vet, tekst in DM Sans, hoeveelheden vet ---- */
+.print-bundle {
+  font-family: 'DM Sans', Arial, sans-serif;
+}
+.print-bundle-recipe h1 {
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-weight: 700 !important;
+  font-size: 34px !important;
+  line-height: 1.1;
+  color: #111 !important;
+}
+.print-bundle-recipe .print-yield {
+  font-size: 14px;
+  color: #555;
+  margin: 6px 0 22px;
+}
+.print-bundle-recipe .print-yield b {
+  color: #111;
+}
+.print-bundle-columns {
+  gap: 30px !important;
+}
+.print-bundle-columns h3 {
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-weight: 700 !important;
+  font-size: 18px !important;
+  color: #111 !important;
+  border-bottom: 1.5px solid #222 !important;
+  padding-bottom: 6px;
+  margin: 0 0 6px;
+}
+.print-bundle .ingredient {
+  font-size: 15px !important;
+  line-height: 1.45;
+  padding: 7px 0 !important;
+  border-bottom: 0.5px solid #ddd !important;
+  color: #111 !important;
+}
+.print-bundle .ingredient b {
+  font-weight: 700;
+}
+.print-bundle .step {
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+  padding: 7px 0;
+  margin: 0 !important;
+  color: #111 !important;
+}
+.print-cover h1,
+.print-brand-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+}
+/* A5: alles iets kleiner */
+.print-a5 .print-bundle-recipe h1 {
+  font-size: 24px !important;
+}
+.print-a5 .ingredient,
+.print-a5 .step {
+  font-size: 13px !important;
+  padding: 5px 0 !important;
+}
+
+/* Instellingen → Account: keuzes om te downloaden */
+.export-subhead {
+  margin: 22px 0 10px;
+  font-size: 15px;
+}
+.export-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+}
+.export-option {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  padding: 14px 16px;
+  border: 1px solid var(--line, #243031);
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.export-option:hover {
+  border-color: var(--gold);
+}
+.export-option b {
+  color: var(--gold);
+}
+.export-option small {
+  color: var(--muted);
+  line-height: 1.4;
+}

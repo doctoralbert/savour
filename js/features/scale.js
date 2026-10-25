@@ -67,6 +67,18 @@ function splitQuantity(line) {
   return { amount: m[2], unit: isUnit ? unitWord : '', rest: s.slice(used).trim(), value: parseAmount(m[2]) };
 }
 
+// Splitst een ingrediëntregel in [hoeveelheid met eenheid, rest], precies zoals de tekst er staat (ook de spaties),
+// zodat de hoeveelheid vet kan. Zonder hoeveelheid: ['', hele regel].
+function quantityParts(line) {
+  const s = String(line || '');
+  const m = s.match(/^(\s*)(\d+(?:[.,]\d+)?(?:\s*\/\s*\d+)?)(\s*)([^\s\d][^\s]*)?/);
+  if (!m) return ['', s];
+  const unitWord = m[4] || '';
+  const isUnit = QUANTITY_UNITS.has(unitWord.toLowerCase().replace(/[.,]$/, ''));
+  const used = m[1].length + m[2].length + (isUnit ? m[3].length + unitWord.length : 0);
+  return [s.slice(0, used), s.slice(used)];
+}
+
 // Ingrediëntregel omgerekend met een factor, als veilige tekst (voor het omrekenvenster en print).
 function scaleIngredientLine(line, factor) {
   const s = String(line || '');
