@@ -390,6 +390,12 @@ async function markMessage(id, read) {
   return { ok: true };
 }
 
+async function deleteMessage(id) {
+  if (!Number.isInteger(Number(id))) throw Object.assign(new Error('Onbekend bericht.'), { status: 400 });
+  await remove('contact_messages', `id=eq.${Number(id)}`);
+  return { ok: true };
+}
+
 async function clearErrors() {
   await remove('app_errors', 'id=gt.0');
   return { ok: true };
@@ -608,6 +614,7 @@ export default async function handler(req, res) {
       return res.status(200).json(await createAccount({ email, name, organization }, siteOrigin(req)));
     if (action === 'errors') return res.status(200).json(await errorGroups());
     if (action === 'messages') return res.status(200).json(await contactMessages());
+    if (action === 'delete_message') return res.status(200).json(await deleteMessage(req.body?.id));
     if (action === 'mark_message')
       return res.status(200).json(await markMessage(req.body?.id, req.body?.read !== false));
     if (action === 'clear_errors') return res.status(200).json(await clearErrors());

@@ -343,7 +343,7 @@ function renderShared(id) {
   $('sharedWrap').innerHTML =
     photo +
     `<div class="layout"><div><div class="panel"><div class="folder-detail-head shared-main-head"><div><div class="eyebrow shared-eyebrow">Gedeelde map ${helpButton('shared')}</div><h1>${esc(m.name)}</h1><p class="muted">${list.length} recepten · ${m.members.length} leden</p></div><div class="shared-map-actions">${actions}</div></div></div>` +
-    `<div class="section-head"><h2>Mappen</h2><div class="shared-folder-tools">${canEdit ? `<button class="btn compact-action" onclick="newSharedFolder('${mid}')">＋<span>Nieuwe map</span></button>` : ''}${canEdit && (m.folders || []).length ? `<button class="btn compact-action" onclick="openSharedFolderManage('${mid}')">⚙<span>Mappen beheren</span></button>` : ''}</div></div>${foldersHtml}` +
+    `<div class="section-head shared-folders-head"><h2>Mappen</h2><div class="shared-folder-tools">${canEdit ? `<button class="btn compact-action" onclick="newSharedFolder('${mid}')">＋<span>Nieuwe map</span></button>` : ''}${canEdit && (m.folders || []).length ? `<button class="btn compact-action" onclick="openSharedFolderManage('${mid}')">⚙<span>Mappen beheren</span></button>` : ''}</div></div>${foldersHtml}` +
     `<div class="section-head" style="margin-top:30px"><h2>Alle gedeelde recepten</h2><span class="mini">${list.length} recepten</span></div>` +
     contextAlphabetHtml(window.sharedAlphabet, 'filterSharedAlphabet') +
     `<div class="savour-v13-context-tools"><span class="mini">${filtered.length} recepten${window.sharedAlphabet ? ' · ' + window.sharedAlphabet : ''}</span></div>` +

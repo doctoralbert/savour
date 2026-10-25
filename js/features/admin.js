@@ -310,10 +310,30 @@ function renderAdminMessages() {
       .map(
         m => `<details class="admin-message${m.read_at ? '' : ' is-unread'}" ontoggle="if(this.open)adminMarkMessage(${Number(m.id)}, true)">
   <summary><span class="admin-message-dot" aria-hidden="true"></span><span class="admin-message-kind ${m.kind === 'bug' ? 'is-bug' : ''}">${m.kind === 'bug' ? 'Bug' : 'Contact'}</span><b>${adminEscape(m.subject || '(geen onderwerp)')}</b><span class="admin-message-from">${adminEscape(m.name || '')}</span><time>${adminFormatDate(m.created_at)}</time></summary>
-  <div class="admin-message-body"><p class="admin-message-meta"><a href="mailto:${adminEscape(m.email)}?subject=${encodeURIComponent('Re: ' + (m.subject || ''))}">${adminEscape(m.email)}</a>${m.page ? ` · ${adminEscape(m.page)}` : ''}${m.has_screenshot ? ' · screenshot in de mail' : ''}</p><div class="admin-message-text">${adminEscape(m.message)}</div><div class="admin-message-actions"><a class="admin-ghost" href="mailto:${adminEscape(m.email)}?subject=${encodeURIComponent('Re: ' + (m.subject || ''))}">Beantwoorden</a>${m.read_at ? `<button class="admin-ghost" onclick="adminMarkMessage(${Number(m.id)}, false)">Markeer als ongelezen</button>` : ''}</div></div>
+  <div class="admin-message-body"><p class="admin-message-meta"><a href="mailto:${adminEscape(m.email)}?subject=${encodeURIComponent('Re: ' + (m.subject || ''))}">${adminEscape(m.email)}</a>${m.page ? ` · ${adminEscape(m.page)}` : ''}${m.has_screenshot ? ' · screenshot in de mail' : ''}</p><div class="admin-message-text">${adminEscape(m.message)}</div><div class="admin-message-actions"><a class="admin-ghost" href="mailto:${adminEscape(m.email)}?subject=${encodeURIComponent('Re: ' + (m.subject || ''))}">Beantwoorden</a>${m.read_at ? `<button class="admin-ghost" onclick="adminMarkMessage(${Number(m.id)}, false)">Markeer als ongelezen</button>` : ''}<button class="admin-ghost admin-danger" onclick="adminDeleteMessage(${Number(m.id)})">Verwijderen</button></div></div>
 </details>`
       )
       .join('') || '<p class="admin-panel-note">Nog geen berichten.</p>';
+}
+
+// Bericht definitief verwijderen (alleen uit /admin; de mail in contact@savour.page blijft staan).
+async function adminDeleteMessage(id) {
+  const m = adminMessages.find(x => x.id === id);
+  if (!m) return;
+  if (
+    !(await askConfirm(
+      `Bericht verwijderen?\n\n“${m.subject || '(geen onderwerp)'}” van ${m.name || m.email} wordt uit admin verwijderd. De mail in contact@savour.page blijft staan.`,
+      { confirmLabel: 'Verwijderen', danger: true }
+    ))
+  )
+    return;
+  try {
+    await adminApi('delete_message', { id });
+    adminMessages = adminMessages.filter(x => x.id !== id);
+    renderAdminMessages();
+  } catch (e) {
+    toast(e.message || 'Het bericht kon niet worden verwijderd');
+  }
 }
 
 async function adminMarkMessage(id, read) {

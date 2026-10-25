@@ -1271,3 +1271,34 @@ h2.has-help .help-btn {
     flex: 1 1 auto;
   }
 }
+
+/* Gedeelde map op de telefoon: "Mappen" op een eigen regel, de knoppen eronder naast elkaar en even breed. */
+@media (max-width: 760px) {
+  .shared-folders-head {
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 12px;
+  }
+  .shared-folders-head h2 {
+    margin: 0;
+  }
+  .shared-folders-head .shared-folder-tools {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .shared-folders-head .shared-folder-tools .btn {
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+  }
+}
+@media (max-width: 760px) {
+  #sharedWrap .section-head:not(.shared-folders-head) {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 4px;
+  }
+}
