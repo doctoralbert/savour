@@ -54,6 +54,14 @@ window.addEventListener(
     // Alleen scripts en stylesheets: een kapotte receptfoto is geen fout in de app.
     const t = e.target;
     const failed = t && t !== window && /^(SCRIPT|LINK)$/.test(t.tagName || '') ? t.src || t.href : '';
+    // Advertenties en statistieken van Google worden vaak door een adblocker tegengehouden: geen fout van Savour.
+    if (
+      failed &&
+      /googlesyndication|doubleclick|googletagservices|googletagmanager|google-analytics|adservice|fundingchoices/i.test(
+        failed
+      )
+    )
+      return;
     if (failed) reportError(`Bestand kon niet laden: ${failed.replace(location.origin, '')}`);
     else reportError(e.message, { source: e.filename, line: e.lineno, col: e.colno, stack: e.error?.stack });
   },
