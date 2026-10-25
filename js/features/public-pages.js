@@ -19,9 +19,6 @@ const siteCopy = {
     proLead: 'Onbeperkt recepten, je eigen team en AI die je kladjes leest.',
     contactTitle: 'Contact',
     contactLead: 'Neem contact op met Savour.',
-    supportTitle: 'Steun Savour',
-    supportLead: 'Help mee om Savour verder te bouwen.',
-    support: `<h2>Een platform vanuit de keuken</h2><p>Savour wordt ontwikkeld vanuit de praktijk van professionele keukens. Als je vindt dat dit platform waarde heeft, kun je vrijwillig bijdragen aan de verdere ontwikkeling.</p><div class="v51-support"><div class="v51-support-card"><div class="v51-qr-placeholder">PayPal<br>QR-code<br>wordt toegevoegd</div><div><h3>Steun Savour</h3><p>Een kleine bijdrage helpt bij hosting, AI-verwerking en verdere ontwikkeling van het platform.</p></div></div></div>`,
     contactTitle: 'Contact',
     contactLead: 'Neem contact op met Savour.',
     contactNote: '',
@@ -71,7 +68,6 @@ const PUBLIC_PAGE_LABELS = {
   privacy: 'Privacybeleid',
   contact: 'Contact',
   bug: 'Bug doorgeven',
-  support: 'Steun Savour',
   pro: 'Savour Pro'
 };
 
@@ -123,8 +119,7 @@ function ensurePublicFooter() {
     ['contact', 'Contact'],
     ['bug', 'Bug doorgeven'],
     ['terms', 'Algemene voorwaarden'],
-    ['privacy', 'Privacybeleid'],
-    ['support', 'Steun Savour']
+    ['privacy', 'Privacybeleid']
   ]
     .map(([id, label]) => `<button type="button" onclick="openPublicInfo('${id}')">${label}</button>`)
     .join('');

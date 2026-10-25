@@ -806,3 +806,22 @@ body.savour-light .print-sheet-frame {
 .rp-note-link span {
   color: var(--sv-text-2);
 }
+
+/* Ingelogd op desktop: dezelfde footer als de website (tools/build-seo.mjs), zonder inloggen en gratis beginnen. */
+.app-site-foot {
+  display: none;
+}
+@media (min-width: 761px) {
+  #appShell .app-foot {
+    display: none;
+  }
+  #appShell .app-site-foot {
+    display: block;
+    margin-top: 40px;
+    background: transparent;
+  }
+  .app-site-foot .site-foot-brand .site-btn,
+  .app-site-foot li:has(> a[data-auth]) {
+    display: none;
+  }
+}
