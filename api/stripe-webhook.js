@@ -6,6 +6,7 @@
 import { stripe, verifyStripeSignature, readRawBody, planForPrice, TEAM_SEATS } from './_lib/stripe.js';
 import { upsertSubscription, findSubscriptionByCustomer, update, select } from './_lib/supabase-admin.js';
 import { sendMail, thankYouMail } from './_lib/mail.js';
+import { applyPendingReferralDays } from './_lib/referral-reward.js';
 
 // De ruwe body is nodig voor de handtekening, dus niet automatisch laten omzetten.
 export const config = { api: { bodyParser: false } };
@@ -82,7 +83,11 @@ export default async function handler(req, res) {
     } else if (event.type?.startsWith('customer.subscription.')) {
       // Meldingen kunnen dubbel of in de verkeerde volgorde komen: daarom de actuele stand bij Stripe opvragen.
       const sub = await stripe(`subscriptions/${obj.id}`, null, 'GET').catch(() => obj);
-      await applySubscription(sub, await userIdFor(sub));
+      const userId = await userIdFor(sub);
+      await applySubscription(sub, userId);
+      // Abonnement afgelopen: bewaarde cadeau-dagen voor het uitnodigen van collega's laten ingaan.
+      if (sub.status === 'canceled' && userId && !sub.metadata?.organization_id)
+        await applyPendingReferralDays(userId).catch(e => console.error('Cadeau-dagen collega', e));
     }
     return res.status(200).json({ received: true });
   } catch (error) {

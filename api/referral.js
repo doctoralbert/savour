@@ -4,7 +4,8 @@
 // mag Pro geven. Grenzen: alleen nieuwe accounts (max. 30 dagen oud), één keer per account, nooit jezelf,
 // en per uitnodiger hooguit MAX_REWARDS maanden.
 import { getUserFromRequest } from './_lib/auth.js';
-import { getSubscription, upsertSubscription, getAuthUser, updateAppMetadata } from './_lib/supabase-admin.js';
+import { getSubscription, getAuthUser, updateAppMetadata } from './_lib/supabase-admin.js';
+import { extendGift } from './_lib/referral-reward.js';
 import { stripe, hasStripe, PLAN_MONTHLY_EUR } from './_lib/stripe.js';
 
 const DAY = 86400000;
@@ -15,24 +16,15 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 const paid = sub => !!sub?.stripe_subscription_id && ['active', 'trialing', 'past_due'].includes(sub.status);
 
-// Cadeau-Pro verlengen: na de lopende cadeau-periode komen er dagen bij.
-async function extendGift(userId, days) {
-  const sub = await getSubscription(userId);
-  const runningGift =
-    sub?.plan === 'gift' && sub.status === 'active' && sub.current_period_end
-      ? new Date(sub.current_period_end).getTime()
-      : 0;
-  const start = Math.max(Date.now(), runningGift);
-  const until = new Date(start + days * DAY).toISOString();
-  await upsertSubscription({ user_id: userId, status: 'active', plan: 'gift', current_period_end: until });
-  return until;
-}
-
-// Betaalt de uitnodiger al? Dan een maand tegoed op de volgende Stripe-factuur in plaats van cadeau-Pro.
+// De maand voor de uitnodiger:
+// - betaalt die en loopt het abonnement door: een maand tegoed op de volgende Stripe-factuur;
+// - betaalt die maar heeft opgezegd: de dagen worden bewaard en gaan in zodra het betaalde abonnement afloopt
+//   (api/stripe-webhook.js → applyPendingReferralDays);
+// - anders: 30 dagen cadeau-Pro, na wat er nu nog loopt.
 async function rewardInviter(inviterId) {
   const sub = await getSubscription(inviterId);
   if (paid(sub)) {
-    if (!hasStripe() || !sub.stripe_customer_id) return { type: 'none' };
+    if (sub.cancel_at_period_end || !hasStripe() || !sub.stripe_customer_id) return { type: 'pending' };
     await stripe(`customers/${encodeURIComponent(sub.stripe_customer_id)}/balance_transactions`, {
       amount: -Math.round(PLAN_MONTHLY_EUR.month * 100),
       currency: 'eur',
@@ -69,7 +61,12 @@ async function claim(user) {
   let reward = { type: 'max' };
   if (count < MAX_REWARDS) {
     reward = await rewardInviter(inviterId);
-    await updateAppMetadata(inviterId, { ...inviterMeta, referral_rewards: count + 1 });
+    const pending = (Number(inviterMeta.referral_pending_days) || 0) + (reward.type === 'pending' ? GIFT_DAYS : 0);
+    await updateAppMetadata(inviterId, {
+      ...inviterMeta,
+      referral_rewards: count + 1,
+      ...(pending ? { referral_pending_days: pending } : {})
+    });
   }
   return { status: 'claimed', inviter: reward.type };
 }
