@@ -12,7 +12,8 @@ import {
   hasServiceRole,
   inviteUser,
   deleteAuthUser,
-  confirmAuthUser
+  confirmAuthUser,
+  updateAppMetadata
 } from './_lib/supabase-admin.js';
 import { siteOrigin } from './_lib/origin.js';
 import { stripe, hasStripe, PLAN_MONTHLY_EUR } from './_lib/stripe.js';
@@ -94,7 +95,7 @@ async function allVisits() {
   for (let page = 0; page < 500; page++) {
     const batch = await select(
       'site_visits',
-      `select=visited_at,visitor_id,platform,user_agent&order=visited_at.asc&offset=${page * 1000}&limit=1000`
+      `select=visited_at,visitor_id,path,referrer,platform,user_agent&order=visited_at.asc&offset=${page * 1000}&limit=1000`
     );
     rows.push(...(batch || []));
     if (!batch || batch.length < 1000) break;
@@ -108,22 +109,56 @@ const amsterdamDay = d => new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/A
 const platformOf = v =>
   v.platform || (/Mobi|Android|iPhone|iPad|iPod/i.test(v.user_agent || '') ? 'mobile_web' : 'desktop_web');
 
-// Unieke bezoekers vandaag, deze week (7 dagen), deze maand en all time, per platform, en per dag (30 dagen).
-async function visitorStats() {
-  const [rows, recent] = await Promise.all([
-    allVisits(),
-    select('site_visits', 'select=visited_at,path,platform,user_agent,referrer&order=visited_at.desc&limit=100')
-  ]);
+// Apparaten van de beheerder zelf: bij elk bezoek aan /admin stuurt de browser zijn bezoekers-id mee. Die ids
+// staan in app_metadata van het beheerdersaccount en tellen niet mee in de cijfers (max. 20 apparaten).
+async function ownVisitorIds(user, current) {
+  const ids = Array.isArray(user?.app_metadata?.own_visitor_ids) ? user.app_metadata.own_visitor_ids : [];
+  if (current && /^[\w-]{8,64}$/.test(current) && !ids.includes(current)) {
+    const next = [current, ...ids].slice(0, 20);
+    await updateAppMetadata(user.id, { ...(user.app_metadata || {}), own_visitor_ids: next }).catch(() => null);
+    return next;
+  }
+  return ids;
+}
+
+// Alles in unieke bezoekers (elk apparaat telt één keer): vandaag, deze week (7 dagen), deze maand, all time,
+// per platform en per dag (30 dagen). Plus de laatste unieke bezoekers met hun bezoeken en pagina's.
+async function visitorStats(ownIds = []) {
+  const own = new Set(ownIds);
+  const all = await allVisits();
+  const rows = all.filter(v => !own.has(v.visitor_id));
   const who = v => v.visitor_id || `${v.user_agent}|${v.visited_at}`;
   const unique = list => new Set(list.map(who)).size;
   const today = amsterdamDay(Date.now());
   const month = today.slice(0, 7);
   const weekAgo = Date.now() - 7 * 86400000;
   const perDay = new Map();
+  const people = new Map();
   for (const v of rows) {
     const k = amsterdamDay(v.visited_at);
     if (!perDay.has(k)) perDay.set(k, new Set());
     perDay.get(k).add(who(v));
+    const id = who(v);
+    let p = people.get(id);
+    if (!p) {
+      p = {
+        first: v.visited_at,
+        last: v.visited_at,
+        visits: 0,
+        pages: [],
+        referrer: v.referrer || '',
+        user_agent: v.user_agent,
+        platform: platformOf(v)
+      };
+      people.set(id, p);
+    }
+    p.visits++;
+    p.last = v.visited_at;
+    p.user_agent = v.user_agent || p.user_agent;
+    p.platform = platformOf(v);
+    if (!p.referrer && v.referrer) p.referrer = v.referrer;
+    const path = v.path || '/';
+    p.pages = [path, ...p.pages.filter(x => x !== path)].slice(0, 4);
   }
   const days = [];
   for (let i = 29; i >= 0; i--) {
@@ -142,11 +177,11 @@ async function visitorStats() {
       visits_today: perDay.get(today)?.size || 0,
       visits_week: unique(rows.filter(v => new Date(v.visited_at) > weekAgo)),
       visits_month: unique(rows.filter(v => amsterdamDay(v.visited_at).startsWith(month))),
-      visit_events: rows.length,
       platform_desktop: unique(rows.filter(v => platformOf(v) === 'desktop_web')),
       platform_mobile: unique(rows.filter(v => platformOf(v) === 'mobile_web')),
       platform_app: unique(rows.filter(v => platformOf(v) === 'native_app')),
-      recent_visits: (recent || []).map(v => ({ ...v, platform: platformOf(v) }))
+      own_devices: own.size,
+      recent_people: [...people.values()].sort((a, b) => (a.last < b.last ? 1 : -1)).slice(0, 100)
     }
   };
 }
@@ -219,7 +254,7 @@ async function clearErrors() {
   return { ok: true };
 }
 
-async function overview() {
+async function overview(user, ownVisitor) {
   const [users, profiles, subs, orgs, members, stats, aiCost, revenue] = await Promise.all([
     listUsers(),
     select('profiles', 'select=id,name,organization'),
@@ -230,7 +265,7 @@ async function overview() {
     openAiCostsThisMonth(),
     stripeRevenue30Days()
   ]);
-  const visitors = await visitorStats().catch(e => {
+  const visitors = await visitorStats(await ownVisitorIds(user, ownVisitor)).catch(e => {
     console.error('Bezoekers laden mislukt', e);
     return null;
   });
@@ -415,11 +450,11 @@ export default async function handler(req, res) {
   const user = await getUserFromRequest(req);
   if (!user || !ADMIN_EMAILS.includes(String(user.email || '').toLowerCase()))
     return res.status(403).json({ error: 'Geen beheerdersrechten.' });
-  const { action, user_id: userId, days, email, name, organization } = req.body || {};
+  const { action, user_id: userId, days, email, name, organization, own_visitor: ownVisitor } = req.body || {};
   if (action === 'whoami') return res.status(200).json({ admin: true, email: user.email });
   if (!hasServiceRole()) return res.status(503).json({ error: 'SUPABASE_SERVICE_ROLE_KEY ontbreekt in Vercel.' });
   try {
-    if (action === 'overview') return res.status(200).json(await overview());
+    if (action === 'overview') return res.status(200).json(await overview(user, ownVisitor));
     if (action === 'gift' && userId) return res.status(200).json(await giftPro(userId, days));
     if (action === 'revoke_gift' && userId) return res.status(200).json(await revokeGift(userId));
     if (action === 'create_account')

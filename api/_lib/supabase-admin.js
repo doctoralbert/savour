@@ -75,6 +75,14 @@ export function confirmAuthUser(userId) {
   });
 }
 
+// Instellingen van een account die alleen de server mag zetten (app_metadata), bijv. de eigen apparaten van de beheerder.
+export function updateAppMetadata(userId, appMetadata) {
+  return adminFetch(`/auth/v1/admin/users/${encodeURIComponent(userId)}`, {
+    method: 'PUT',
+    body: { app_metadata: appMetadata }
+  });
+}
+
 // Alle accounts (Supabase Auth), per pagina van 1000.
 export async function listUsers() {
   const users = [];

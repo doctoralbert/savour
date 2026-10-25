@@ -155,15 +155,19 @@ function renderAdminStats() {
   const s = $('adminStats');
   if (s)
     s.innerHTML = [
-      ['Unieke bezoekers all time', d.visitors_all_time, 'unieke bezoekers'],
-      ['Bezoekers vandaag', d.visits_today, 'unieke bezoekers'],
-      ['Bezoekers deze maand', d.visits_month, 'unieke bezoekers'],
+      ['Unieke bezoekers vandaag', d.visits_today, 'elk apparaat telt één keer'],
+      ['Unieke bezoekers deze week', d.visits_week, 'laatste 7 dagen'],
+      ['Unieke bezoekers deze maand', d.visits_month, 'deze kalendermaand'],
+      [
+        'Unieke bezoekers all time',
+        d.visitors_all_time,
+        d.own_devices ? `zonder jouw ${d.own_devices} apparaat/apparaten` : 'sinds de start'
+      ],
       ['Accounts', d.accounts, 'geregistreerde gebruikers'],
       ['App gebruikers', d.app_users, 'unieke native app-gebruikers'],
       ['Recepten', d.recipes, 'persoonlijke recepten'],
       ['Receptenmappen', d.folders, 'persoonlijke mappen'],
-      ['Gedeelde mappen', d.shared_maps, 'gedeelde mappen'],
-      ['Bezoekers geregistreerd', d.visit_events, 'bezoekevents']
+      ['Gedeelde mappen', d.shared_maps, 'gedeelde mappen']
     ]
       .map(
         x =>
@@ -183,15 +187,16 @@ function renderAdminStats() {
       ['Mobiel web', d.platform_mobile],
       ['Native app', d.platform_app]
     ]);
+  // Laatste unieke bezoekers: één regel per apparaat, met hoe vaak en welke pagina's.
   const vb = $('adminVisitsBody');
   if (vb)
     vb.innerHTML =
-      (d.recent_visits || [])
+      (d.recent_people || [])
         .map(
           v =>
-            `<tr><td>${adminFormatDate(v.visited_at)}</td><td>${adminEscape(v.path || '/')}</td><td>${adminEscape(v.platform === 'native_app' ? 'Native app' : v.platform === 'mobile_web' ? 'Mobiel web' : 'Desktop web')}</td><td>${adminEscape(adminDevice(v.user_agent))}</td><td>${adminEscape(v.referrer || 'Direct')}</td></tr>`
+            `<tr><td>${adminFormatDate(v.last)}</td><td>${adminEscape(v.visits)}</td><td>${v.pages.map(adminEscape).join('<br>')}</td><td>${adminEscape(v.platform === 'native_app' ? 'Native app' : v.platform === 'mobile_web' ? 'Mobiel web' : 'Desktop web')}</td><td>${adminEscape(adminDevice(v.user_agent))}</td><td>${adminEscape(v.referrer || 'Direct')}</td></tr>`
         )
-        .join('') || '<tr><td colspan="5">Nog geen bezoekers geregistreerd.</td></tr>';
+        .join('') || '<tr><td colspan="6">Nog geen bezoekers.</td></tr>';
 }
 
 async function loadAdminDashboard() {
@@ -219,6 +224,21 @@ async function loadAdminDashboard() {
       refresh.disabled = false;
       refresh.textContent = '↻ Vernieuwen';
     }
+  }
+}
+
+// Bezoekers-id van dit apparaat (zelfde sleutel als logSavourVisit). De server onthoudt hem als "eigen apparaat",
+// zodat je eigen bezoeken niet meetellen. Open /admin één keer op elk apparaat dat je gebruikt.
+function adminOwnVisitorId() {
+  try {
+    let vid = localStorage.getItem('savour_visit_id');
+    if (!vid) {
+      vid = crypto.randomUUID();
+      localStorage.setItem('savour_visit_id', vid);
+    }
+    return vid;
+  } catch (_) {
+    return '';
   }
 }
 
@@ -280,7 +300,7 @@ async function loadAdminOverview() {
       totals: t,
       visitor_days: visitorDays,
       visitor_stats: visitorNumbers
-    } = await adminApi('overview');
+    } = await adminApi('overview', { own_visitor: adminOwnVisitorId() });
     // Bezoekers (cijfers, per dag, platform en laatste bezoeken) komen van de server, uit site_visits.
     if (Array.isArray(visitorDays)) renderAdminVisitorChart(visitorDays);
     if (visitorNumbers) {
