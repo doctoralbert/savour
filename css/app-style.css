@@ -501,3 +501,8 @@
 body.savour-light .print-pick-tools input[type='search'] {
   border-color: #d8d2c4;
 }
+
+/* Stappen in een venster (bijv. App installeren) elk op een eigen regel. */
+.sv-dialog-text {
+  white-space: pre-line;
+}

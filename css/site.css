@@ -1,6 +1,10 @@
 /* Publieke website (startpagina en de pagina's van tools/build-seo.mjs).
    Licht en rustig: warm papier, inkt en gedempt goud, een donkere footer. Geen kaartjes, geen schuine accenten.
    Alles hangt onder .site zodat de app zelf (donker) er niets van merkt. */
+/* Teken dat de opmaak geladen is (zelfherstel in index.html kijkt hiernaar). */
+:root {
+  --savour-css: 1;
+}
 .site {
   --paper: #f6f2ea;
   --paper-2: #efe8db;

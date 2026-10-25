@@ -160,3 +160,16 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
 // Offline werken en installeren op het beginscherm (sw.js). Alleen op https of lokaal testen.
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || /^(localhost|127.)/.test(location.hostname)))
   navigator.serviceWorker.register('/sw.js').catch(e => console.warn('Offline werken niet beschikbaar:', e));
+
+// App installeren (js/features/install.js): de browser meldt wanneer installeren kan; de knop gebruikt dat moment.
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  installPrompt = e;
+  renderInstallButtons();
+});
+window.addEventListener('appinstalled', () => {
+  installPrompt = null;
+  renderInstallButtons();
+  toast('Savour staat nu op je beginscherm');
+});
+renderInstallButtons();

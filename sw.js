@@ -1,7 +1,9 @@
 // Service worker: Savour blijft openen zonder internet (bijvoorbeeld als de wifi in de keuken wegvalt).
 // Pagina's, opmaak en scripts van Savour zelf: eerst het netwerk, anders de laatst bewaarde versie (zo past de
-// opmaak altijd bij de pagina). Lettertypes, afbeeldingen en bibliotheken: meteen uit de cache en op de achtergrond bijwerken. API-routes en de database gaan nooit via de cache.
-const CACHE = 'savour-v2';
+// opmaak altijd bij de pagina). Lettertypes, afbeeldingen en bibliotheken: meteen uit de cache en op de achtergrond
+// bijwerken. API-routes en de database gaan nooit via de cache.
+// Let op: een stylesheet of script krijgt nooit een pagina (HTML) als vervanging; dan zou de site zonder opmaak laden.
+const CACHE = 'savour-v3';
 
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -22,29 +24,43 @@ self.addEventListener('activate', event => {
   );
 });
 
+// Eerst het netwerk; lukt dat niet, dan de bewaarde versie. Alleen goede antwoorden worden bewaard.
+function networkFirst(req, fallback) {
+  return fetch(req)
+    .then(res => {
+      if (res.ok) {
+        const copy = res.clone();
+        caches.open(CACHE).then(c => c.put(req, copy));
+      }
+      return res;
+    })
+    .catch(() => caches.match(req).then(hit => hit || fallback()));
+}
+
 self.addEventListener('fetch', event => {
   const req = event.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   // Nooit cachen: serverfuncties, de database (Supabase) en betalen.
   if (url.pathname.startsWith('/api/') || /supabase\.co$|stripe\.com$/.test(url.hostname)) return;
+  const sameOrigin = url.origin === self.location.origin;
 
-  const ownCode = url.origin === self.location.origin && /\.(css|js)$/.test(url.pathname);
-  if (req.mode === 'navigate' || ownCode) {
+  if (req.mode === 'navigate') {
+    // Offline en deze pagina nog nooit geopend: de app (index.html) opent met de bewaarde bibliotheek.
+    event.respondWith(networkFirst(req, () => caches.match('/index.html').then(hit => hit || Response.error())));
+    return;
+  }
+  if (sameOrigin && /\.(css|js)$/.test(url.pathname)) {
+    // Offline: dezelfde opmaak of hetzelfde script van een eerdere versie (ander ?v=) is beter dan niets.
     event.respondWith(
-      fetch(req)
-        .then(res => {
-          const copy = res.clone();
-          if (res.ok) caches.open(CACHE).then(c => c.put(req, copy));
-          return res;
-        })
-        .catch(() => caches.match(req).then(hit => hit || caches.match('/index.html')))
+      networkFirst(req, () => caches.match(req, { ignoreSearch: true }).then(hit => hit || Response.error()))
     );
     return;
   }
 
-  const sameOrigin = url.origin === self.location.origin;
-  const trustedCdn = /^(cdn\.jsdelivr\.net|unpkg\.com|fonts\.googleapis\.com|fonts\.gstatic\.com|cdnjs\.cloudflare\.com)$/.test(url.hostname);
+  const trustedCdn = /^(cdn\.jsdelivr\.net|unpkg\.com|fonts\.googleapis\.com|fonts\.gstatic\.com|cdnjs\.cloudflare\.com)$/.test(
+    url.hostname
+  );
   if (!sameOrigin && !trustedCdn) return;
   event.respondWith(
     caches.match(req).then(hit => {
@@ -56,7 +72,7 @@ self.addEventListener('fetch', event => {
           }
           return res;
         })
-        .catch(() => hit);
+        .catch(() => hit || Response.error());
       return hit || fresh;
     })
   );
