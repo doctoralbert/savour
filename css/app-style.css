@@ -806,3 +806,34 @@ body.savour-light .print-sheet-frame {
 .rp-note-link span {
   color: var(--sv-text-2);
 }
+
+/* Recept delen: schakelaar "ontvangers mogen dit recept overnemen" */
+.share-copy {
+  margin: 14px 0 4px;
+}
+.share-copy-toggle {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border: 1px solid var(--sv-line);
+  border-radius: 12px;
+  cursor: pointer;
+}
+.share-copy-toggle input {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--gold);
+  flex: none;
+}
+.share-copy-toggle b {
+  display: block;
+  font-weight: 600;
+}
+.share-copy-toggle small {
+  display: block;
+  color: var(--sv-text-2);
+  line-height: 1.45;
+  margin-top: 3px;
+}

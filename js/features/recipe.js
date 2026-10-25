@@ -92,11 +92,12 @@ function openRecipe(id, context = 'library') {
       <div class="eyebrow">${esc(r.category || 'Eigen recepten')}</div>
       <h1 class="rp-title">${esc(r.title)}</h1>
       ${meta.length ? `<p class="rp-meta">${meta.join(' · ')}</p>` : ''}
-      ${own ? '' : r.linkSlug ? `<p class="rp-note rp-note-link">${icon('share', { size: 16 })}<span>Gedeeld recept. Je kunt het bekijken, omrekenen en printen; alleen de maker kan het aanpassen.</span></p>` : `<p class="rp-note">Gedeeld recept van een teamlid. Alleen de maker kan het bewerken.</p>`}
+      ${own ? '' : r.linkSlug ? `<p class="rp-note rp-note-link">${icon('share', { size: 16 })}<span>${r.allowCopy ? 'Gedeeld recept. Voeg het toe aan je eigen recepten om het aan te passen.' : 'Gedeeld recept. Je kunt het bekijken, omrekenen en printen; alleen de maker kan het aanpassen.'}</span></p>` : `<p class="rp-note">Gedeeld recept van een teamlid. Alleen de maker kan het bewerken.</p>`}
       ${own && recipeSourceIds.has(String(r.id)) ? `<button type="button" class="btn-quiet rp-source" onclick="showRecipeSource('${rid}')">Origineel kladje bekijken</button>` : ''}
       <div class="rp-actions">
         <button type="button" class="btn gold" onclick="toggleCookMode()">${icon('cook')}Kookmodus</button>
         ${own ? `<button type="button" class="btn" onclick="editRecipe('${rid}')">${icon('edit')}Bewerken</button>` : ''}
+        ${r.linkSlug && r.allowCopy ? `<button type="button" class="btn" onclick="copyLinkRecipe('${rid}')">${icon('plus')}Toevoegen aan mijn recepten</button>` : ''}
         <button type="button" class="btn" onclick="printCurrentRecipe()">${icon('print')}Printen</button>
         ${own ? `<button type="button" class="btn rp-icon-btn${isFav ? ' is-on' : ''}" id="rpFavorite" onclick="toggleRecipePageFavorite('${rid}')" aria-pressed="${isFav}" aria-label="Favoriet" title="Favoriet">${icon('star', { filled: isFav })}</button>` : ''}
         ${menuItems.length ? `<details class="rp-more"><summary class="btn rp-icon-btn" aria-label="Meer acties" title="Meer acties">${icon('more')}</summary><div class="rp-menu">${menuItems.join('')}</div></details>` : ''}
@@ -215,6 +216,7 @@ async function shareRecipe(id) {
   activeShareUrl = location.origin + '/r/' + encodeURIComponent(slug);
   $('shareLink').textContent = activeShareUrl;
   $('shareModal').classList.add('open');
+  renderShareCopyToggle(r.id);
 }
 
 function shareWhatsApp() {

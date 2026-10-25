@@ -249,6 +249,8 @@ async function startDatabaseSession(user) {
       }
       refreshSidebar();
       updateProfileHeader();
+      // Kwam de gebruiker binnen via een gedeelde receptlink (/r/...)? Dan dat recept openen (alleen-lezen).
+      if (window.__publicRecipeRoute) await openLinkRecipe(window.__publicRecipeRoute);
       // Kwam de gebruiker binnen via een uitnodigingslink? Dan nu lid worden en de map openen.
       await acceptPendingInvite();
       // Terug van Stripe, of koos de gebruiker Pro vóór het aanmaken van een account?

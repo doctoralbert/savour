@@ -164,6 +164,7 @@ async function openPublicRecipeBySlug(slug) {
     const ingredients = Array.isArray(data.ingredients) ? data.ingredients : [];
     const steps = Array.isArray(data.steps) ? data.steps : [];
     document.title = `${data.title || 'Recept'} · Savour`;
+    const allowCopy = (await recipeAllowsCopy(data.id)) === true;
     const ingredient = x => {
       const [q, rest] = quantityParts(String(x));
       return `<li>${q ? `<b>${esc(q)}</b>` : ''}${esc(rest)}</li>`;
@@ -171,7 +172,11 @@ async function openPublicRecipeBySlug(slug) {
     $('publicRecipeContent').innerHTML =
       `<article class="share-recipe"><header class="share-recipe-head"><span class="share-recipe-tag">Gedeeld recept</span><h1 translate="no">${esc(data.title || 'Recept')}</h1>${
         data.description ? `<p class="site-lead" translate="no">${esc(data.description)}</p>` : ''
-      }${data.yield_text ? `<p class="share-recipe-yield"><span>Opbrengst</span> <b translate="no">${esc(data.yield_text)}</b></p>` : ''}</header>${
+      }${data.yield_text ? `<p class="share-recipe-yield"><span>Opbrengst</span> <b translate="no">${esc(data.yield_text)}</b></p>` : ''}${
+        allowCopy
+          ? `<div class="share-recipe-copy"><button type="button" class="site-btn solid" onclick="copyAfterLogin()">Toevoegen aan mijn recepten</button><small>Log in of maak gratis een account; daarna staat het recept in je eigen bibliotheek.</small></div>`
+          : ''
+      }</header>${
         data.photo_url ? `<img class="share-recipe-photo" src="${esc(data.photo_url)}" alt="">` : ''
       }<div class="share-recipe-cols"><section><h2>Ingrediënten</h2><ul class="share-recipe-ingredients" translate="no">${ingredients.map(ingredient).join('')}</ul></section>${
         steps.length
@@ -213,14 +218,26 @@ async function openLinkRecipe(slug) {
       photo: data.photo_url || '',
       category: 'Gedeeld recept',
       shared: true,
-      linkSlug: slug
+      linkSlug: slug,
+      allowCopy: (await recipeAllowsCopy(data.id)) === true
     };
     linkRecipes = [recipe, ...linkRecipes.filter(r => String(r.id) !== String(recipe.id))];
     openRecipe(recipe.id, 'link');
+    // Op de openbare pagina al op "Toevoegen aan mijn recepten" gedrukt en daarna ingelogd: nu toevoegen.
+    if (window.__copyAfterLogin && recipe.allowCopy) {
+      window.__copyAfterLogin = false;
+      await copyLinkRecipe(recipe.id);
+    }
   } catch (e) {
     console.error('Gedeeld recept openen mislukt', e);
     toast('Dit gedeelde recept kon niet worden geladen');
   }
+}
+
+// Openbare receptpagina: eerst inloggen of een account maken, daarna wordt het recept meteen toegevoegd.
+function copyAfterLogin() {
+  window.__copyAfterLogin = true;
+  openAuth('login');
 }
 
 async function openPublicInvite(key) {

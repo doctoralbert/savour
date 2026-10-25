@@ -115,7 +115,6 @@ if (new URLSearchParams(location.search).get('collega')) {
       activateView('recipes');
       const ok = await startDatabaseSession(data.session.user);
       if (!ok) sessionStorage.setItem('savour_session_active', '1');
-      else if (window.__publicRecipeRoute) await openLinkRecipe(window.__publicRecipeRoute);
     } else {
       // Geen sessie en geen internet: de bewaarde bibliotheek openen als die er is.
       if (!navigator.onLine && (await startOfflineSession())) return;

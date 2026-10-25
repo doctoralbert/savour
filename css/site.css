@@ -1523,3 +1523,17 @@
 .site-actions .site-btn.site-login:hover {
   border-color: var(--ink);
 }
+
+/* Openbare receptpagina: overnemen als de maker dat toestaat */
+.share-recipe-copy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-top: 24px;
+}
+.share-recipe-copy small {
+  color: var(--ink-2);
+  font-size: 14px;
+  max-width: 360px;
+}
