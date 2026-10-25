@@ -99,13 +99,8 @@ function openPublicInfo(id) {
     window.scrollTo(0, 0);
     return;
   }
-  const shell = $('publicInfoShell');
-  if (!shell) return;
-  $('landingView').style.display = 'none';
-  $('appShell').style.display = 'none';
-  $('publicRecipeShell').style.display = 'none';
-  if ($('publicInviteShell')) $('publicInviteShell').style.display = 'none';
-  shell.style.display = 'flex';
+  if (!$('publicInfoShell')) return;
+  showPublicShell('publicInfoShell');
   $('publicInfoTitle').textContent = c[id + 'Title'] || PUBLIC_PAGE_LABELS[id];
   $('publicInfoLead').textContent = c[id + 'Lead'] || '';
   $('publicInfoNote').textContent = c[id + 'Note'] || '';
@@ -139,31 +134,57 @@ function ensurePublicFooter() {
   );
 }
 
+// Melding op een publiek scherm (niet gevonden, kon niet laden), in de site-opmaak.
+function publicNotice(title, text) {
+  return `<section class="site-page-head share-notice"><h1>${esc(title)}</h1><p class="site-lead">${esc(text)}</p><div class="site-cta-row"><a class="site-btn solid" href="/">Naar Savour</a></div></section>`;
+}
+
+function showPublicShell(id) {
+  $('landingView').style.display = 'none';
+  $('appShell').style.display = 'none';
+  for (const shell of ['publicInfoShell', 'publicRecipeShell', 'publicInviteShell'])
+    if ($(shell)) $(shell).style.display = shell === id ? 'flex' : 'none';
+  window.scrollTo(0, 0);
+}
+
+// Gedeeld recept (/r/<slug>) in de site-stijl, met de hoeveelheden vet en onderaan een uitnodiging om zelf te beginnen.
+// De kop voor WhatsApp en andere apps (titel en voorbeeldplaatje) maakt api/recept.js.
 async function openPublicRecipeBySlug(slug) {
   try {
     const { data, error } = await supabaseClient.rpc('get_public_recipe_by_slug', { _slug: slug });
     if (error) throw error;
-    $('landingView').style.display = 'none';
-    $('appShell').style.display = 'none';
-    $('publicInfoShell').style.display = 'none';
-    $('publicRecipeShell').style.display = 'flex';
+    showPublicShell('publicRecipeShell');
     if (!data) {
-      $('publicRecipeContent').innerHTML =
-        '<div class="empty"><h2>Recept niet gevonden</h2><p>Deze openbare receptlink bestaat niet meer.</p></div>';
+      $('publicRecipeContent').innerHTML = publicNotice(
+        'Recept niet gevonden',
+        'Deze openbare receptlink bestaat niet meer.'
+      );
       return;
     }
     const ingredients = Array.isArray(data.ingredients) ? data.ingredients : [];
     const steps = Array.isArray(data.steps) ? data.steps : [];
+    document.title = `${data.title || 'Recept'} · Savour`;
+    const ingredient = x => {
+      const [q, rest] = quantityParts(String(x));
+      return `<li>${q ? `<b>${esc(q)}</b>` : ''}${esc(rest)}</li>`;
+    };
     $('publicRecipeContent').innerHTML =
-      `<article class="public-recipe-card">${data.photo_url ? `<img class="public-recipe-photo" src="${esc(data.photo_url)}" alt="">` : ''}<div class="public-recipe-main"><div class="eyebrow">Savour · Recept</div><h1>${esc(data.title || 'Recept')}</h1>${data.description ? `<p class="lead">${esc(data.description)}</p>` : ''}${data.yield_text ? `<p class="yield">Opbrengst: ${esc(data.yield_text)}</p>` : ''}<div class="public-recipe-columns"><section><h2>Ingrediënten</h2><ul>${ingredients.map(x => `<li>${esc(String(x))}</li>`).join('')}</ul></section><section><h2>Bereiding</h2><ol>${steps.map(x => `<li>${esc(String(x))}</li>`).join('')}</ol></section></div><div class="public-recipe-site">Gedeeld via <a href="${location.origin}">Savour</a></div></div></article>`;
+      `<article class="share-recipe"><header class="share-recipe-head"><span class="share-recipe-tag">Gedeeld recept</span><h1 translate="no">${esc(data.title || 'Recept')}</h1>${
+        data.description ? `<p class="site-lead" translate="no">${esc(data.description)}</p>` : ''
+      }${data.yield_text ? `<p class="share-recipe-yield"><span>Opbrengst</span> <b translate="no">${esc(data.yield_text)}</b></p>` : ''}</header>${
+        data.photo_url ? `<img class="share-recipe-photo" src="${esc(data.photo_url)}" alt="">` : ''
+      }<div class="share-recipe-cols"><section><h2>Ingrediënten</h2><ul class="share-recipe-ingredients" translate="no">${ingredients.map(ingredient).join('')}</ul></section>${
+        steps.length
+          ? `<section><h2>Bereiding</h2><ol class="share-recipe-steps" translate="no">${steps.map(x => `<li>${esc(String(x))}</li>`).join('')}</ol></section>`
+          : ''
+      }</div><aside class="share-recipe-cta"><div><h2>Ook je eigen recepten zo overzichtelijk?</h2><p>Savour zet je Word-bestanden, PDF's en kladjes om in één receptenboek, op computer en telefoon, voor je hele keuken.</p></div><div class="site-cta-row"><a class="site-btn solid" href="/?auth=signup" data-auth="signup">Gratis beginnen</a><a class="site-btn" href="/">Meer over Savour</a></div></aside></article>`;
   } catch (e) {
     console.error('Publiek recept laden mislukt', e);
-    $('landingView').style.display = 'none';
-    $('appShell').style.display = 'none';
-    $('publicInfoShell').style.display = 'none';
-    $('publicRecipeShell').style.display = 'flex';
-    $('publicRecipeContent').innerHTML =
-      '<div class="empty"><h2>Recept niet beschikbaar</h2><p>De openbare receptpagina kon niet worden geladen.</p></div>';
+    showPublicShell('publicRecipeShell');
+    $('publicRecipeContent').innerHTML = publicNotice(
+      'Recept niet beschikbaar',
+      'De openbare receptpagina kon niet worden geladen.'
+    );
   }
 }
 
@@ -171,27 +192,24 @@ async function openPublicInvite(key) {
   try {
     const { data, error } = await supabaseClient.rpc('get_public_shared_map_invite', { _public_key: key });
     if (error) throw error;
-    $('landingView').style.display = 'none';
-    $('appShell').style.display = 'none';
-    $('publicInfoShell').style.display = 'none';
-    $('publicRecipeShell').style.display = 'none';
-    $('publicInviteShell').style.display = 'flex';
+    showPublicShell('publicInviteShell');
     if (!data) {
-      $('publicInviteContent').innerHTML =
-        '<div class="empty"><h2>Uitnodiging niet gevonden</h2><p>Deze gedeelde-mapuitnodiging bestaat niet meer.</p></div>';
+      $('publicInviteContent').innerHTML = publicNotice(
+        'Uitnodiging niet gevonden',
+        'Deze gedeelde-mapuitnodiging bestaat niet meer.'
+      );
       return;
     }
+    const name = esc(data.name || 'Gedeelde map');
     $('publicInviteContent').innerHTML =
-      `<div class="eyebrow">Savour · Gedeelde map</div><h1>Uitnodiging voor ${esc(data.name || 'Gedeelde map')}</h1><p class="info-lead">Je bent uitgenodigd om mee te werken in een gedeelde receptenmap van Savour.</p><div class="panel" style="margin-top:24px"><h2 style="font-family:'Playfair Display';margin-top:0">${esc(data.name || 'Gedeelde map')}</h2><p class="muted">Maak een Savour-account of log in om verder te gaan. Na het inloggen word je lid als viewer: je kunt de recepten bekijken, printen en omrekenen. De eigenaar kan je daarna ook laten toevoegen.</p><div class="actions"><button class="btn gold" onclick="openAuth('signup')">Account aanmaken</button><button class="btn" onclick="openAuth('login')">Inloggen</button></div></div>`;
+      `<span class="share-recipe-tag">Gedeelde map</span><h1>Uitnodiging voor <span translate="no">${name}</span></h1><p class="site-lead">Je bent uitgenodigd om mee te werken in een gedeelde receptenmap van Savour.</p><p class="share-invite-text">Maak een Savour-account of log in om verder te gaan. Na het inloggen word je lid als viewer: je kunt de recepten bekijken, printen en omrekenen. De eigenaar kan je daarna meer rechten geven.</p><div class="site-cta-row"><a class="site-btn solid" href="/?auth=signup" data-auth="signup">Account aanmaken</a><a class="site-btn" href="/?auth=login" data-auth="login">Inloggen</a></div>`;
   } catch (e) {
     console.error('Uitnodiging laden mislukt', e);
-    $('landingView').style.display = 'none';
-    $('appShell').style.display = 'none';
-    $('publicInfoShell').style.display = 'none';
-    $('publicRecipeShell').style.display = 'none';
-    $('publicInviteShell').style.display = 'flex';
-    $('publicInviteContent').innerHTML =
-      '<div class="empty"><h2>Uitnodiging niet beschikbaar</h2><p>De uitnodiging kon niet worden geladen.</p></div>';
+    showPublicShell('publicInviteShell');
+    $('publicInviteContent').innerHTML = publicNotice(
+      'Uitnodiging niet beschikbaar',
+      'De uitnodiging kon niet worden geladen.'
+    );
   }
 }
 

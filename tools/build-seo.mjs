@@ -547,6 +547,20 @@ const HOME_META = {
   let h = fs.readFileSync(file, 'utf8');
   const blockFor = lang =>
     `<!-- SITE:START (gemaakt door tools/build-seo.mjs, niet met de hand aanpassen) -->\n<div class="site" data-site-lang="${lang}" translate="no">${header(lang, null, true)}<main>${homeBody(lang, true)}</main>${footer(lang, null, true)}</div>\n<!-- SITE:END -->`;
+  // De publieke schermen in de app (infopagina, gedeeld recept, map-uitnodiging) krijgen dezelfde kop en footer.
+  // translate="no": die zijn al in de goede taal; de inhoud eronder vertaalt de app zelf.
+  const withShells = (html, lang) =>
+    html
+      .replace(
+        /<!-- SHELL-HEADER:START[^>]*-->[\s\S]*?<!-- SHELL-HEADER:END -->/g,
+        () =>
+          `<!-- SHELL-HEADER:START (tools/build-seo.mjs) -->${header(lang, null, true).replace('<header class="site-header"', '<header class="site-header" translate="no"')}<!-- SHELL-HEADER:END -->`
+      )
+      .replace(
+        /<!-- SHELL-FOOTER:START[^>]*-->[\s\S]*?<!-- SHELL-FOOTER:END -->/g,
+        () =>
+          `<!-- SHELL-FOOTER:START (tools/build-seo.mjs) -->${footer(lang, null, true).replace('<footer class="site-foot"', '<footer class="site-foot" translate="no"')}<!-- SHELL-FOOTER:END -->`
+      );
   // Vragen van de startpagina ook als FAQPage voor zoekmachines, in de taal van de pagina.
   const withFaq = (html, lang) =>
     html.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/, (m, json) => {
@@ -570,6 +584,7 @@ const HOME_META = {
     if (a < open.length || b < 0) throw new Error('Startpagina niet gevonden in index.html');
     h = h.slice(0, a) + '\n' + blockFor('nl') + '\n' + h.slice(b);
   }
+  h = withShells(h, 'nl');
   h = withFaq(h, 'nl');
   fs.writeFileSync(file, h, 'utf8');
   for (const lang of ['en', 'de', 'es']) {
@@ -579,7 +594,10 @@ const HOME_META = {
       if (!re.test(x)) throw new Error(`index-${lang}: ${re} niet gevonden`);
       x = x.replace(re, () => to);
     };
-    let x = h.replace(/<!-- SITE:START[\s\S]*?<!-- SITE:END -->/, () => blockFor(lang));
+    let x = withShells(
+      h.replace(/<!-- SITE:START[\s\S]*?<!-- SITE:END -->/, () => blockFor(lang)),
+      lang
+    );
     swap(/<html lang="nl">/, `<html lang="${lang}">`);
     swap(/<title>[^<]*<\/title>/, `<title>${esc(m.title)}</title>`);
     swap(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(m.desc)}">`);

@@ -37,7 +37,8 @@ for (const name of [
   'pro-checkout',
   'pro-portal',
   'stripe-webhook',
-  'referral'
+  'referral',
+  'recept'
 ]) {
   const module = await import(pathToFileURL(path.join(ROOT, 'api', `${name}.js`)).href);
   handlers.set(`/api/${name}`, module.default);
@@ -74,6 +75,14 @@ function createResponse(res) {
       res.end(JSON.stringify(value));
     },
     send(value) {
+      res.end(value);
+    },
+    // Zoals bij Vercel: ook de gewone Node-functies.
+    setHeader(name, value) {
+      res.setHeader(name, value);
+      return this;
+    },
+    end(value) {
       res.end(value);
     }
   };
@@ -130,6 +139,14 @@ const server = http.createServer(async (req, res) => {
       return;
     }
     await apiRequest(req, res, handler);
+    return;
+  }
+
+  // Gedeeld recept: zoals vercel.json via api/recept.js (pagina met eigen preview).
+  const shared = pathname.match(/^\/r\/([^/]+)\/?$/);
+  if (shared && handlers.has('/api/recept')) {
+    req.url = `/api/recept?slug=${encodeURIComponent(shared[1])}`;
+    await apiRequest(req, res, handlers.get('/api/recept'));
     return;
   }
 

@@ -2,12 +2,15 @@
   "functions": {
     "api/ai-import.js": {
       "maxDuration": 60
+    },
+    "api/recept.js": {
+      "includeFiles": "{index.html,assets/fonts/**}"
     }
   },
   "rewrites": [
     {
       "source": "/r/:slug",
-      "destination": "/index.html"
+      "destination": "/api/recept?slug=:slug"
     },
     {
       "source": "/join/:public_key",

@@ -613,6 +613,15 @@ window.SAVOUR_I18N.es = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.',
     Verbergen: 'Ocultar',
+    'Gedeeld recept': 'Receta compartida',
+    'Ook je eigen recepten zo overzichtelijk?': '¿Quieres tus propias recetas así de claras?',
+    "Savour zet je Word-bestanden, PDF's en kladjes om in één receptenboek, op computer en telefoon, voor je hele keuken.":
+      'Savour convierte tus archivos de Word, PDF y notas en un solo recetario, en ordenador y móvil, para toda tu cocina.',
+    'Meer over Savour': 'Más sobre Savour',
+    'Naar Savour': 'Ir a Savour',
+    'Uitnodiging voor': 'Invitación a',
+    'Maak een Savour-account of log in om verder te gaan. Na het inloggen word je lid als viewer: je kunt de recepten bekijken, printen en omrekenen. De eigenaar kan je daarna meer rechten geven.':
+      'Crea una cuenta de Savour o inicia sesión para continuar. Al iniciar sesión te unes como lector: puedes ver, imprimir y escalar las recetas. El propietario puede darte más permisos después.',
     'Stuur je persoonlijke link naar een collega. Maakt die een account aan en bevestigt die het e-mailadres, dan krijg jij een maand Savour Pro cadeau.':
       'Envía tu enlace personal a un colega. Cuando cree una cuenta y confirme su correo, recibes un mes de Savour Pro gratis.',
     'Ik bewaar mijn recepten in Savour, handig in de keuken. Probeer het via deze link, je krijgt 7 dagen Savour Pro gratis:':
