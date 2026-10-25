@@ -121,7 +121,9 @@ function renderFolderDetail() {
   if (q) list = list.filter(r => recipeTitleOf(r).toLocaleLowerCase('nl').includes(q));
   const filtered = filterRecipesByLetter(list, window.folderAlphabet);
   const body = filtered.length
-    ? '<div class="savour-v13-list">' + contextRecipeRowsHtml(filtered, 'folder') + '</div>'
+    ? '<div class="savour-v13-list">' +
+      contextRecipeRowsHtml(filtered, 'folder', f.system ? '' : 'removeRecipeFromFolder') +
+      '</div>'
     : '<div class="empty">Deze map bevat geen recepten voor deze selectie.</div>';
   document.getElementById('folderDetailWrap').innerHTML =
     '<div class="folder-detail-head"><div><div class="eyebrow">Receptenmap</div><h1 style="font-family:\'Playfair Display\';font-size:40px;margin:7px 0">' +

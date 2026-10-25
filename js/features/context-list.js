@@ -35,12 +35,19 @@ function contextAlphabetHtml(selected, handler) {
   );
 }
 
-function contextRecipeRowsHtml(list, context) {
+// removeFn: naam van de functie die een recept uit deze map haalt; dan staat er een kruisje achter elk recept.
+function contextRecipeRowsHtml(list, context, removeFn = '') {
+  const removeLabel = esc(t('Uit deze map halen'));
   return sortRecipesByTitle(list)
     .map((r, i) => {
       const id = escJs(r.id);
+      const remove = removeFn
+        ? `<button type="button" class="savour-row-remove" title="${removeLabel}" aria-label="${removeLabel}" onclick="event.stopPropagation();${removeFn}('${id}')">×</button>`
+        : '';
       return (
-        '<div class="savour-v13-row" role="button" tabindex="0" onclick="openRecipe(\'' +
+        '<div class="savour-v13-row' +
+        (removeFn ? ' has-remove' : '') +
+        '" role="button" tabindex="0" onclick="openRecipe(\'' +
         id +
         "','" +
         (context || '') +
@@ -52,7 +59,9 @@ function contextRecipeRowsHtml(list, context) {
         String(i + 1).padStart(3, '0') +
         '</span><span class="savour-v13-name">' +
         esc(recipeTitleOf(r)) +
-        '</span><span class="savour-v13-arrow">›</span></div>'
+        '</span>' +
+        remove +
+        '<span class="savour-v13-arrow">›</span></div>'
       );
     })
     .join('');

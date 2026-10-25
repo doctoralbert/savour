@@ -377,7 +377,13 @@ function renderSharedFolderDetail() {
   const list = (f.recipeIds || []).map(id => findRecipe(id)).filter(Boolean);
   const filtered = filterRecipesByLetter(list, window.sharedFolderAlphabet);
   const body = filtered.length
-    ? '<div class="savour-v13-list">' + contextRecipeRowsHtml(filtered, 'sharedFolder') + '</div>'
+    ? '<div class="savour-v13-list">' +
+      contextRecipeRowsHtml(
+        filtered,
+        'sharedFolder',
+        canEditShared(m) && !f.system ? 'removeRecipeFromSharedFolder' : ''
+      ) +
+      '</div>'
     : '<div class="empty">Deze gedeelde map bevat geen recepten voor deze selectie.</div>';
   $('sharedFolderDetailWrap').innerHTML =
     '<div class="shared-folder-head"><div><div class="eyebrow">Gedeelde map · ' +
@@ -704,7 +710,7 @@ async function removeRecipeFromSharedFolder(id) {
   }
   await loadDatabaseState();
   renderSharedFolderDetail();
-  toast('Recept uit gedeelde map verwijderd');
+  toast('Recept uit deze map gehaald');
 }
 
 async function renameSharedMap(id) {

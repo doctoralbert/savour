@@ -1503,6 +1503,8 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Recept uit deze map gehaald", "Recipe removed from this folder", "Rezept aus diesem Ordner entfernt", "Receta quitada de esta carpeta"],
+  ["Uit deze map halen", "Remove from this folder", "Aus diesem Ordner entfernen", "Quitar de esta carpeta"],
   ["Uitleg", "Explanation", "Erklärung", "Explicación"],
   ["Zo werkt je receptenbibliotheek", "How your recipe library works", "So funktioniert deine Rezeptbibliothek", "Así funciona tu biblioteca de recetas"],
   ["Je hele receptenboek", "Your whole recipe book", "Dein ganzes Rezeptbuch", "Todo tu recetario"],

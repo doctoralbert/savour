@@ -1302,3 +1302,32 @@ h2.has-help .help-btn {
     gap: 4px;
   }
 }
+
+/* Recept in een map: klein kruisje om het snel uit de map te halen */
+.savour-v13-row.has-remove {
+  grid-template-columns: 42px minmax(0, 1fr) 34px 24px;
+}
+.savour-row-remove {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--sv-text-2, #8f9b92);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+.savour-row-remove:hover,
+.savour-row-remove:focus-visible {
+  border-color: #6b3f3a;
+  color: #e3a79c;
+}
+@media (max-width: 760px) {
+  .savour-v13-row.has-remove {
+    grid-template-columns: 32px minmax(0, 1fr) 34px 20px;
+  }
+}

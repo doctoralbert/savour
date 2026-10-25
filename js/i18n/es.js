@@ -613,6 +613,8 @@ window.SAVOUR_I18N.es = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.',
     Verbergen: 'Ocultar',
+    'Recept uit deze map gehaald': 'Receta quitada de esta carpeta',
+    'Uit deze map halen': 'Quitar de esta carpeta',
     Uitleg: 'Explicación',
     'Zo werkt je receptenbibliotheek': 'Así funciona tu biblioteca de recetas',
     'Je hele receptenboek': 'Todo tu recetario',
