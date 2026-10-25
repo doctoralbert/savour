@@ -44,7 +44,7 @@ export const UI = {
     related: 'Ook interessant',
     ctaTitle: 'Je recepten verdienen een betere plek dan een la.',
     ctaText: 'Begin gratis met tot 100 recepten en probeer Savour Pro 7 dagen. Geen betaalgegevens nodig.',
-    footerTag: 'De receptenapp voor de professionele keuken.',
+    footerTag: 'Het receptenplatform en de receptenapp voor de professionele, culinaire keuken.',
     footerCols: { features: 'Functies', audience: 'Voor wie', company: 'Savour', help: 'Hulp' },
     faq: 'Veelgestelde vragen',
     guide: 'Gids',
@@ -102,7 +102,7 @@ export const FEATURES = [
       menu: 'Recepten digitaliseren',
       short: "Word, PDF en foto's van handgeschreven recepten in één keer naar Savour.",
       title: 'Recepten digitaliseren: Word, PDF en handgeschreven kladjes | Savour',
-      desc: "Digitaliseer je recepten zonder overtypen. Importeer Word en PDF in één keer en laat handgeschreven kladjes en foto's uitlezen. Hoeveelheden worden nooit verzonnen.",
+      desc: "Digitaliseer je recepten zonder overtypen, in de receptenapp van Savour. Importeer Word en PDF in één keer en laat handgeschreven kladjes en foto's uitlezen. Hoeveelheden worden nooit verzonnen.",
       h1: 'Recepten digitaliseren zonder overtypen',
       lead: 'Je receptenschriften, Word-bestanden en kladjes met koffievlekken worden in één keer een geordend receptenboek.',
       kladje: true,
@@ -136,8 +136,8 @@ export const FEATURES = [
       slug: 'recepten-organiseren',
       menu: 'Recepten organiseren',
       short: 'Mappen, categorieën en zoeken op ingrediënt. Je beurre blanc in drie seconden.',
-      title: 'Recepten organiseren en receptbeheer voor restaurants | Savour',
-      desc: 'Receptbeheer voor restaurants en de horeca: al je recepten in één receptenboek, met eigen mappen en categorieën, zoeken op ingrediënt en favorieten.',
+      title: 'Recepten organiseren: receptbeheer en receptmanagement voor restaurants | Savour',
+      desc: 'Recepten organiseren op één culinair receptenplatform: receptmanagement voor restaurants en de horeca, met eigen mappen en categorieën, zoeken op ingrediënt en favorieten.',
       h1: 'Recepten organiseren zoals jouw keuken werkt',
       lead: 'Eén receptenboek voor alles wat je ooit hebt gemaakt, ingedeeld op jouw manier.',
       sections: [
@@ -170,7 +170,7 @@ export const FEATURES = [
       menu: 'Delen met je brigade',
       short: 'Gedeelde mappen met rechten: jij beheert, je sous-chef past aan, de rest kijkt mee.',
       title: 'Recepturen delen met je keukenteam en brigade | Savour',
-      desc: 'Deel recepturen met je keukenteam via gedeelde mappen met rechten. Iedereen in je restaurant werkt met dezelfde versie, van sous-chef tot stagiair.',
+      desc: 'Deel recepturen met je keukenteam via gedeelde mappen op het receptenplatform, met rechten per persoon. Iedereen in je restaurant werkt met dezelfde versie in de app, van sous-chef tot stagiair.',
       h1: 'Recepturen delen met je brigade',
       lead: 'Iedereen in de keuken werkt met dezelfde versie. Geen foto’s van foto’s in de groepsapp meer.',
       sections: [
@@ -304,8 +304,8 @@ export const AUDIENCES = [
       slug: 'voor-koks',
       menu: 'Koks',
       short: 'Voor chefs, sous-chefs en patissiers die hun recepturen willen bewaren.',
-      title: 'Receptenapp voor koks: chefs, sous-chefs en patissiers | Savour',
-      desc: 'Savour is gemaakt voor koks in restaurants en de horeca: chefs, sous-chefs en patissiers. Al je recepturen op één plek, precies zoals je ze schreef.',
+      title: 'Receptenapp en receptenplatform voor koks en chefs | Savour',
+      desc: 'Savour is het culinaire platform voor koks in restaurants en de horeca: chefs, sous-chefs en patissiers. Al je recepturen georganiseerd op één plek, precies zoals je ze schreef.',
       h1: 'Voor koks',
       lead: 'Of je nu de keuken leidt, de sauzen maakt of in de patisserie staat: je recepten moeten kloppen en vindbaar zijn.',
       sections: [
@@ -338,7 +338,7 @@ export const AUDIENCES = [
       menu: 'Keukenbrigades',
       short: 'Voor het hele team: chef de parties, commis en stagiairs.',
       title: 'Recepten delen met je keukenbrigade | Savour',
-      desc: 'Savour voor keukenbrigades: chef de parties, commis en stagiairs werken met dezelfde recepten, op hun eigen telefoon. Jij bepaalt wie wat mag.',
+      desc: 'Savour voor keukenbrigades: chef de parties, commis en stagiairs werken met dezelfde recepten in de app, op hun eigen telefoon. Receptmanagement waarbij jij bepaalt wie wat mag.',
       h1: 'Voor keukenbrigades',
       lead: 'Van chef de partie tot stagiair: je hele keukenteam kookt van hetzelfde recept, in elk restaurant en elke horecazaak waar je werkt.',
       sections: [
@@ -371,7 +371,7 @@ export const STORY = {
   nl: {
     slug: 'over-savour',
     title: 'Over Savour: gebouwd door een chef, niet door een softwarebedrijf',
-    desc: 'Het verhaal achter Savour: vijftien jaar recepten op losse papiertjes, vijftig keer op printen drukken, en een receptenapp die na de service is gebouwd.',
+    desc: 'Het verhaal achter Savour: vijftien jaar recepten op losse papiertjes, vijftig keer op printen drukken, en een culinair receptenplatform dat na de service is gebouwd.',
     h1: 'Het verhaal achter Savour',
     lead: 'Savour is gebouwd door een chef, niet door een softwarebedrijf. Uit frustratie over recepten die overal lagen, behalve op de plek waar je ze nodig had.',
     chapters: [
@@ -458,7 +458,7 @@ export const STORY = {
 export const HOME = {
   nl: {
     h1: 'Je hele receptenboek, op elke telefoon in de keuken.',
-    lead: 'Savour is de receptenapp voor receptbeheer in de professionele keuken. Je Word-bestanden, PDF’s en handgeschreven kladjes worden één geordend receptenboek, voor jou en je hele keukenteam.',
+    lead: 'Savour is het receptenplatform voor de professionele, culinaire keuken: een receptenapp voor receptbeheer en het organiseren van al je recepturen. Je Word-bestanden, PDF’s en handgeschreven kladjes worden één geordend receptenboek, voor jou en je hele keukenteam.',
     proof: '1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.',
     story: [
       'Op de achterkant van een bon. In een schrift dat na tien jaar service aan elkaar plakt. Op een foto die je ooit bij de pas maakte. Die kladjes zijn de kennis van je keuken, en ze raken kwijt, vervagen of zijn alleen leesbaar voor degene die ze schreef.',
@@ -474,6 +474,7 @@ export const HOME = {
     priceLink: 'Bekijk de prijzen',
     faqTitle: 'Vragen over Savour',
     faq: [
+      ['Wat is Savour?', 'Savour is een receptenplatform en receptenapp voor de professionele, culinaire keuken. Je organiseert al je recepturen op één plek, importeert ze uit Word, PDF of handgeschreven kladjes en deelt ze met je keukenteam: receptmanagement op computer, tablet en telefoon.'],
       ['Welke app gebruik ik om recepten te organiseren voor mijn restaurant?', 'Savour is gemaakt voor professionele keukens: je importeert je bestaande recepten, ordent ze in mappen en deelt ze met je team. Je begint gratis.'],
       ['Hoe digitaliseer ik handgeschreven recepten?', 'Maak een foto van het recept en upload hem in Savour. De AI zet hem om in een net recept met ingrediënten en bereiding, dat je daarna controleert.'],
       ['Kan ik recepten uit Word of PDF importeren?', 'Ja. Ook een bestand met honderden recepten tegelijk; Savour splitst ze zelf op.'],
@@ -552,7 +553,7 @@ export const POSTS = [
     nl: {
       slug: 'blog/recepten-organiseren-in-de-keuken',
       title: 'Recepten organiseren in een fine-dining keuken',
-      desc: 'Hoe deel je honderden recepturen zo in dat iedereen in de brigade ze snel vindt? Een praktische indeling in mappen en categorieën.',
+      desc: 'Recepten organiseren in de culinaire keuken: hoe deel je honderden recepturen zo in dat iedereen in de brigade ze snel vindt? Een praktische indeling in mappen en categorieën.',
       h1: 'Recepten organiseren in een fine-dining keuken',
       lead: 'Een keuken met een wisselend menu heeft al snel honderden recepturen. Zonder vaste indeling vindt niemand iets terug, behalve degene die het opschreef.',
       sections: [
