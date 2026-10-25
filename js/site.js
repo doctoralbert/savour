@@ -25,6 +25,46 @@
     });
   }
 
+  // Contactformulier op de losse contactpagina: versturen naar /api/bug-report (kind: contact).
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (!form.matches || !form.matches('[data-contact-form]')) return;
+    e.preventDefault();
+    var status = form.querySelector('.site-form-status');
+    var btn = form.querySelector('button[type="submit"]');
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    btn.disabled = true;
+    status.textContent = form.dataset.busy;
+    fetch('/api/bug-report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        kind: 'contact',
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        subject: form.subject.value.trim(),
+        message: form.message.value.trim(),
+        website: form.website.value,
+        page: location.href,
+        language: document.documentElement.lang || ''
+      })
+    })
+      .then(function (r) {
+        if (!r.ok) throw new Error();
+        form.reset();
+        status.textContent = form.dataset.ok;
+      })
+      .catch(function () {
+        status.textContent = form.dataset.fail;
+      })
+      .then(function () {
+        btn.disabled = false;
+      });
+  });
+
   // Taalkeuze: klik ernaast of Esc sluit het venster.
   document.addEventListener('click', function (e) {
     document.querySelectorAll('.site-lang[open]').forEach(function (d) {

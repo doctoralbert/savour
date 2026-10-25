@@ -8,8 +8,7 @@ export const DE = {
       'Praktische Artikel über das Digitalisieren von Rezepten, das Ordnen von Rezeptordnern, dein Küchenteam und Rezeptverwaltung in der Gastronomie.',
     more: 'Mehr lesen',
     logoLine: 'Von der Notiz zum Rezept, das stimmt. Gemacht von Köchen aus den Niederlanden, für Köche.',
-    soonMail: 'Möchtest du mitdenken? Schreib uns an',
-    formLine: 'Lieber ein Formular? <a href="/de?info=contact">Kontaktformular öffnen</a>.'
+    soonMail: 'Möchtest du mitdenken? Schreib uns an'
   },
   blogSlug: 'de/blog',
   blogTitle: 'Blog über Rezeptverwaltung und Küche — Savour',

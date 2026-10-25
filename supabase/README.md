@@ -15,6 +15,7 @@ bestand plakken → Run. Altijd in deze volgorde (op datum); elk bestand is veil
 | 2026-10-23-origineel-kladje.sql | Het originele kladje apart bewaren bij een recept |
 | 2026-10-23-proef-7-dagen.sql | Proefperiode van 7 dagen, ook dan tot 100 recepten |
 | 2026-10-24-logo-op-prints.sql | Logo van je restaurant op prints (Pro en teams) |
+| 2026-10-25-foutenlogboek.sql | Foutenlogboek: fouten uit de app, te zien in /admin onder Fouten |
 
 Werkt de app als een bestand nog niet is uitgevoerd? Ja: Savour valt dan terug op het oude gedrag (bijvoorbeeld
 printen zonder logo, of het kladje als receptfoto). Pas na het uitvoeren werkt het nieuwe onderdeel.

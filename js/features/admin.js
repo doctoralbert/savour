@@ -90,9 +90,25 @@ async function adminLogin() {
   adminShowDashboard(data.user);
 }
 
+// Tabbladen: Overzicht, Bezoekers, Accounts, Fouten, Advertenties. De keuze blijft bewaard tijdens het bezoek.
+function showAdminTab(tab) {
+  const tabs = [...document.querySelectorAll('.admin-tab')].map(t => t.dataset.adminTab);
+  if (!tabs.includes(tab)) tab = 'overzicht';
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.toggle('is-on', t.dataset.adminTab === tab));
+  document.querySelectorAll('.admin-tabs button').forEach(b => b.classList.toggle('is-on', b.dataset.adminTab === tab));
+  try {
+    sessionStorage.setItem('savour_admin_tab', tab);
+  } catch (_) {}
+}
+
 async function adminShowDashboard(user) {
   adminSetVisible('adminLoginView', false);
   adminSetVisible('adminDashboardView', true);
+  let tab = 'overzicht';
+  try {
+    tab = sessionStorage.getItem('savour_admin_tab') || tab;
+  } catch (_) {}
+  showAdminTab(tab);
   if ($('adminSignedInAs')) $('adminSignedInAs').textContent = user?.email || '';
   await loadAdminDashboard();
 }
@@ -195,6 +211,7 @@ async function loadAdminDashboard() {
     console.error('Admin-tellingen laden mislukt', error);
   }
   renderAdminStats();
+  loadAdminErrors();
   try {
     await loadAdminOverview();
   } finally {
@@ -202,6 +219,49 @@ async function loadAdminDashboard() {
       refresh.disabled = false;
       refresh.textContent = '↻ Vernieuwen';
     }
+  }
+}
+
+// ---- Foutenlogboek (api/admin.js, tabel app_errors) ----
+
+async function loadAdminErrors() {
+  const body = $('adminErrorsBody');
+  if (!body) return;
+  try {
+    const d = await adminApi('errors');
+    const badge = $('adminErrorBadge');
+    if (badge) {
+      badge.hidden = !d.last24h;
+      badge.textContent = d.last24h;
+      badge.title = `${d.last24h} fouten in de laatste 24 uur`;
+    }
+    if ($('adminErrorCount')) $('adminErrorCount').textContent = `${d.total} meldingen · laatste 30 dagen`;
+    body.innerHTML =
+      d.groups
+        .map(
+          g =>
+            `<tr><td><div class="admin-error-msg">${adminEscape(g.message)}<small>${adminEscape(g.source || '')}${g.line ? `:${adminEscape(g.line)}` : ''}${g.version ? ` · versie ${adminEscape(g.version)}` : ''}</small></div></td><td>${adminEscape(g.count)}</td><td>${adminFormatDate(g.last)}</td><td>${g.pages.map(adminEscape).join('<br>') || '—'}</td><td>${g.devices.map(adminEscape).join('<br>')}</td></tr>`
+        )
+        .join('') || '<tr><td colspan="5">Geen fouten in de laatste 30 dagen.</td></tr>';
+  } catch (e) {
+    body.innerHTML = `<tr><td colspan="5">Fouten konden niet worden geladen: ${adminEscape(e.message)}. Is supabase/2026-10-25-foutenlogboek.sql uitgevoerd?</td></tr>`;
+  }
+}
+
+async function adminClearErrors() {
+  if (
+    !(await askConfirm(
+      'Alle foutmeldingen wissen?\n\nDoe dit als je de fouten hebt bekeken of opgelost. Nieuwe fouten verschijnen daarna weer vanzelf.',
+      { confirmLabel: 'Alles wissen', danger: true }
+    ))
+  )
+    return;
+  try {
+    await adminApi('clear_errors');
+    toast('Foutmeldingen gewist');
+    await loadAdminErrors();
+  } catch (e) {
+    alertAdmin(e.message);
   }
 }
 

@@ -8,8 +8,7 @@ export const ES = {
       'Artículos prácticos sobre digitalizar recetas, ordenar carpetas de recetas, tu equipo de cocina y la gestión de recetas en restaurantes.',
     more: 'Leer más',
     logoLine: 'De la nota a una receta que funciona. Hecho por cocineros de los Países Bajos, para cocineros.',
-    soonMail: '¿Quieres aportar ideas? Escríbenos a',
-    formLine: '¿Prefieres un formulario? <a href="/es?info=contact">Abre el formulario de contacto</a>.'
+    soonMail: '¿Quieres aportar ideas? Escríbenos a'
   },
   blogSlug: 'es/blog',
   blogTitle: 'Blog sobre gestión de recetas y cocina — Savour',

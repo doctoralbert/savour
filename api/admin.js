@@ -151,6 +151,74 @@ async function visitorStats() {
   };
 }
 
+// ---- Foutenlogboek (tabel app_errors, zie js/core/errors.js) ----
+// Laatste 30 dagen, gegroepeerd per fout: hoe vaak, wanneer het laatst, op welke pagina's en apparaten.
+async function errorGroups() {
+  const since = new Date(Date.now() - 30 * 86400000).toISOString();
+  const rows = [];
+  for (let page = 0; page < 10; page++) {
+    const batch = await select(
+      'app_errors',
+      `created_at=gte.${since}&select=created_at,message,source,line,stack,page,platform,user_agent,app_version&order=created_at.desc&offset=${page * 1000}&limit=1000`
+    );
+    rows.push(...(batch || []));
+    if (!batch || batch.length < 1000) break;
+  }
+  const browser = ua =>
+    /Edg\//.test(ua)
+      ? 'Edge'
+      : /CriOS|Chrome\//.test(ua)
+        ? 'Chrome'
+        : /Firefox|FxiOS/.test(ua)
+          ? 'Firefox'
+          : /Safari/.test(ua)
+            ? 'Safari'
+            : 'Anders';
+  const groups = new Map();
+  for (const r of rows) {
+    const key = `${r.message}|${r.source || ''}|${r.line || ''}`;
+    let g = groups.get(key);
+    if (!g) {
+      g = {
+        message: r.message,
+        source: r.source,
+        line: r.line,
+        stack: r.stack,
+        count: 0,
+        last: r.created_at,
+        first: r.created_at,
+        pages: {},
+        devices: {},
+        version: r.app_version
+      };
+      groups.set(key, g);
+    }
+    g.count++;
+    if (r.created_at < g.first) g.first = r.created_at;
+    if (r.page) g.pages[r.page] = (g.pages[r.page] || 0) + 1;
+    const d = `${r.platform || '?'} · ${browser(r.user_agent || '')}`;
+    g.devices[d] = (g.devices[d] || 0) + 1;
+  }
+  const top = obj =>
+    Object.entries(obj)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([k, n]) => `${k} (${n})`);
+  const dayAgo = Date.now() - 86400000;
+  return {
+    total: rows.length,
+    last24h: rows.filter(r => new Date(r.created_at) > dayAgo).length,
+    groups: [...groups.values()]
+      .sort((a, b) => (a.last < b.last ? 1 : -1))
+      .map(g => ({ ...g, pages: top(g.pages), devices: top(g.devices) }))
+  };
+}
+
+async function clearErrors() {
+  await remove('app_errors', 'id=gt.0');
+  return { ok: true };
+}
+
 async function overview() {
   const [users, profiles, subs, orgs, members, stats, aiCost, revenue] = await Promise.all([
     listUsers(),
@@ -356,6 +424,8 @@ export default async function handler(req, res) {
     if (action === 'revoke_gift' && userId) return res.status(200).json(await revokeGift(userId));
     if (action === 'create_account')
       return res.status(200).json(await createAccount({ email, name, organization }, siteOrigin(req)));
+    if (action === 'errors') return res.status(200).json(await errorGroups());
+    if (action === 'clear_errors') return res.status(200).json(await clearErrors());
     if (action === 'confirm_account' && userId) return res.status(200).json(await confirmAccount(userId));
     if (action === 'delete_account' && userId) return res.status(200).json(await deleteAccount(userId, user));
     return res.status(400).json({ error: 'Onbekende actie.' });

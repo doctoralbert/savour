@@ -13,6 +13,7 @@ import { KLADJE_REAL } from './site-kladje.mjs';
 import { BLOG } from './site-blog.mjs';
 import { DE } from './site-pages-de.mjs';
 import { ES } from './site-pages-es.mjs';
+import { APP_PAGE } from './site-app.mjs';
 const PAGES = { de: DE, es: ES };
 
 // Nieuwste blogartikelen eerst.
@@ -164,12 +165,18 @@ const BLOG_TITLE = {
   es: ES.blogTitle
 };
 const SOON_MAIL = { nl: 'Wil je meedenken? Mail ons op', en: 'Want to share ideas? Email us at', de: DE.ui.soonMail, es: ES.ui.soonMail };
-const FORM_LINE = {
-  nl: 'Liever een formulier? <a href="/?info=contact">Open het contactformulier</a>.',
-  en: 'Prefer a form? <a href="/en?info=contact">Open the contact form</a>.',
-  de: DE.ui.formLine,
-  es: ES.ui.formLine
+// Contactformulier op de losse contactpagina (versturen via js/site.js naar /api/bug-report).
+const FORM_TEXT = {
+  nl: ['Stuur ons een bericht', 'Naam', 'E-mailadres', 'Onderwerp', 'Bericht', 'Waar kunnen we je mee helpen?', 'Bericht versturen', 'Bezig…', 'Bedankt. Je bericht is verstuurd; we reageren zo snel mogelijk.', 'Versturen is mislukt. Mail ons gerust op contact@savour.page.'],
+  en: ['Send us a message', 'Name', 'Email address', 'Subject', 'Message', 'How can we help?', 'Send message', 'Sending…', 'Thank you. Your message has been sent; we will reply as soon as possible.', 'Sending failed. Feel free to email us at contact@savour.page.'],
+  de: ['Schreib uns eine Nachricht', 'Name', 'E-Mail-Adresse', 'Betreff', 'Nachricht', 'Wie können wir helfen?', 'Nachricht senden', 'Wird gesendet…', 'Danke. Deine Nachricht wurde gesendet; wir antworten so schnell wie möglich.', 'Senden fehlgeschlagen. Schreib uns gern an contact@savour.page.'],
+  es: ['Envíanos un mensaje', 'Nombre', 'Correo electrónico', 'Asunto', 'Mensaje', '¿En qué podemos ayudarte?', 'Enviar mensaje', 'Enviando…', 'Gracias. Tu mensaje se ha enviado; te responderemos lo antes posible.', 'No se pudo enviar. Escríbenos a contact@savour.page.']
 };
+function contactForm(lang) {
+  const [title, name, email, subject, message, placeholder, send, busy, ok, fail] = FORM_TEXT[lang];
+  const f = (id, label, input) => `<div class="site-field"><label for="${id}">${label}</label>${input}</div>`;
+  return `<h2>${title}</h2><form class="site-form" data-contact-form data-busy="${esc(busy)}" data-ok="${esc(ok)}" data-fail="${esc(fail)}" novalidate>${f('cfName', name, '<input id="cfName" name="name" autocomplete="name" required maxlength="120">')}${f('cfEmail', email, '<input id="cfEmail" name="email" type="email" autocomplete="email" required maxlength="240">')}${f('cfSubject', subject, '<input id="cfSubject" name="subject" required maxlength="180">')}${f('cfMessage', message, `<textarea id="cfMessage" name="message" rows="6" required maxlength="12000" placeholder="${esc(placeholder)}"></textarea>`)}<div class="site-form-trap" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div><div class="site-form-row"><button class="site-btn solid" type="submit">${send}</button><span class="site-form-status" aria-live="polite"></span></div></form>`;
+}
 const homePath = lang => (lang === 'nl' ? '/' : '/' + lang);
 const LANG_LABEL = { nl: 'NL', en: 'EN', de: 'DE', es: 'ES' };
 const LANG_NAME = { nl: 'Nederlands', en: 'English', de: 'Deutsch', es: 'Español' };
@@ -220,7 +227,7 @@ function footer(lang, alt, inApp) {
 <div><h4>${u.footerCols.features}</h4><ul>${FEATURES.map(f => li(href(f[lang].slug), f[lang].menu)).join('')}</ul></div>
 <div><h4>${u.footerCols.audience}</h4><ul>${AUDIENCES.map(a => li(href(a[lang].slug), a[lang].menu)).join('')}</ul></div>
 <div><h4>${u.footerCols.company}</h4><ul>${li(href(STORY[lang].slug), u.about)}${li(href(legacy('pro')[lang]), u.pricing)}${li(href(blogSlug[lang]), u.blog)}${li(href(legacy('contact')[lang]), u.contact)}</ul></div>
-<div><h4>${u.footerCols.help}</h4><ul>${li(href(legacy('faq')[lang]), u.faq)}${li(href(legacy('guide')[lang]), u.guide)}${li(`${q}?info=bug`, u.bug)}<li><a href="${q}?auth=login" data-auth="login">${u.login}</a></li></ul></div>
+<div><h4>${u.footerCols.help}</h4><ul>${li(href(legacy('faq')[lang]), u.faq)}${li(href(legacy('guide')[lang]), u.guide)}${li(href(APP_PAGE[lang].slug), APP_PAGE[lang].menu)}${li(`${q}?info=bug`, u.bug)}<li><a href="${q}?auth=login" data-auth="login">${u.login}</a></li></ul></div>
 </div>
 <div class="site-foot-bottom"><span>© 2026 ${esc(u.company)}</span><nav>${`<a href="${href(legacy('terms')[lang])}">${u.terms}</a><a href="${href(legacy('privacy')[lang])}">${u.privacy}</a>`}</nav>${langSwitch(lang, alt, inApp)}</div>
 </div></footer>`;
@@ -452,6 +459,20 @@ for (const lang of LANGS) {
         `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}</p>${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p></div></article>`
     });
   }
+  // App downloaden (tools/site-app.mjs)
+  {
+    const t = APP_PAGE[lang];
+    page({
+      lang,
+      slugs: slugsOf(APP_PAGE),
+      title: t.title,
+      desc: t.desc,
+      crumbs: [[t.menu]],
+      body: c =>
+        pageTop(c, t.h1, t.lead) +
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections)}<p><a class="site-btn solid" href="${homePath(lang)}">${esc(t.open)}</a></p></div></article>`
+    });
+  }
   // Bestaande informatiepagina's (inhoud uit de app)
   for (const p of LEGACY) {
     // Titel, beschrijving en kop: NL en EN hier in LEGACY, DE en ES in tools/site-pages-*.mjs.
@@ -471,7 +492,7 @@ for (const lang of LANGS) {
       lead = lead && tr.text(lead);
       note = note && tr.text(note);
     }
-    body = body.replace('%%FORM%%', `<p>${FORM_LINE[lang]}</p>`);
+    body = body.replace('%%FORM%%', contactForm(lang));
     const schema = [];
     if (p.id === 'faq')
       schema.push({

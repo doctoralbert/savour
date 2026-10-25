@@ -1503,6 +1503,13 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Recepten downloaden", "Download recipes", "Rezepte herunterladen", "Descargar recetas"],
+  ["Download al je recepten in één keer: als Word-document om te lezen of te printen, of als back-up met je recepten en mappen. Je recepten blijven daarnaast gewoon in Savour staan.", "Download all your recipes at once: as a Word document to read or print, or as a backup with your recipes and folders. Your recipes also simply stay in Savour.", "Lade alle Rezepte auf einmal herunter: als Word-Dokument zum Lesen oder Drucken, oder als Backup mit Rezepten und Ordnern. Deine Rezepte bleiben außerdem in Savour.", "Descarga todas tus recetas de una vez: como documento de Word para leer o imprimir, o como copia de seguridad con tus recetas y carpetas. Tus recetas también siguen en Savour."],
+  ["Word-document", "Word document", "Word-Dokument", "Documento de Word"],
+  ["Back-up (JSON)", "Backup (JSON)", "Backup (JSON)", "Copia de seguridad (JSON)"],
+  ["Recepten downloaden is onderdeel van Savour Pro", "Downloading recipes is part of Savour Pro", "Rezepte herunterladen ist Teil von Savour Pro", "Descargar recetas forma parte de Savour Pro"],
+  ["Je recepten blijven altijd in Savour staan, ook zonder Pro: je kunt ze bekijken en printen. Met Savour Pro download je ze ook in één keer.", "Your recipes always stay in Savour, even without Pro: you can view and print them. With Savour Pro you can also download them all at once.", "Deine Rezepte bleiben immer in Savour, auch ohne Pro: Du kannst sie ansehen und drucken. Mit Savour Pro lädst du sie auch auf einmal herunter.", "Tus recetas siempre se quedan en Savour, también sin Pro: puedes verlas e imprimirlas. Con Savour Pro también las descargas todas de una vez."],
+  ["Je hebt nog geen recepten om te downloaden", "You have no recipes to download yet", "Du hast noch keine Rezepte zum Herunterladen", "Aún no tienes recetas para descargar"],
   ["App installeren", "Install app", "App installieren", "Instalar app"],
   ["Savour als app", "Savour as an app", "Savour als App", "Savour como app"],
   ["Zet Savour op het beginscherm van je telefoon, tablet of computer. Dan opent het als een eigen app, ook zonder internet.", "Put Savour on the home screen of your phone, tablet or computer. It then opens as its own app, even without internet.", "Lege Savour auf den Startbildschirm deines Handys, Tablets oder Computers. Dann öffnet es sich als eigene App, auch ohne Internet.", "Pon Savour en la pantalla de inicio de tu móvil, tableta u ordenador. Así se abre como una app propia, también sin internet."],
@@ -3105,6 +3112,7 @@ export const strings = [
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
 export const patterns = [
+  ["^(\\d+) recepten gedownload$", "$1 recipes downloaded", "$1 Rezepte heruntergeladen", "$1 recetas descargadas"],
   ["^(\\d+) van (\\d+) recepten$", "$1 of $2 recipes", "$1 von $2 Rezepten", "$1 de $2 recetas"],
   ["^(\\d+) recepten printen$", "Print $1 recipes", "$1 Rezepte drucken", "Imprimir $1 recetas"],
   ["^Geprint op (.+)$", "Printed on $1", "Gedruckt am $1", "Impreso el $1"],

@@ -398,3 +398,76 @@
   color: #ffb3a5;
   border-color: #b85c4c;
 }
+
+/* ---- Admin: tabbladen (Overzicht, Bezoekers, Accounts, Fouten, Advertenties) ---- */
+.admin-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  margin: 0 -4px 22px;
+  padding: 10px 4px;
+  background: linear-gradient(#030506 75%, rgba(3, 5, 6, 0));
+  scrollbar-width: none;
+}
+.admin-tabs::-webkit-scrollbar {
+  display: none;
+}
+.admin-tabs button {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #283333;
+  background: #091011;
+  color: #b9c0ba;
+  border-radius: 999px;
+  padding: 9px 18px;
+  font: inherit;
+  font-size: var(--sv-fs-sm);
+  cursor: pointer;
+}
+.admin-tabs button:hover {
+  border-color: #806f4b;
+  color: #e1c37a;
+}
+.admin-tabs button.is-on {
+  background: #e8ca8d;
+  border-color: #e8ca8d;
+  color: #111;
+  font-weight: 600;
+}
+.admin-tab-badge {
+  min-width: 20px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: #b85c4c;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+.admin-tab {
+  display: none;
+}
+.admin-tab.is-on {
+  display: block;
+}
+.admin-panel-note {
+  color: #8f9994;
+  font-size: var(--sv-fs-sm);
+  margin: -4px 0 14px;
+}
+.admin-error-msg {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 12px;
+  color: #e7c9c2;
+  word-break: break-word;
+}
+.admin-error-msg small {
+  display: block;
+  color: #8f9994;
+  margin-top: 3px;
+}

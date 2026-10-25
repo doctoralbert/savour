@@ -506,3 +506,18 @@ body.savour-light .print-pick-tools input[type='search'] {
 .sv-dialog-text {
   white-space: pre-line;
 }
+
+/* Klein label "Pro" naast een kop (bijv. Recepten downloaden) */
+.pro-tag {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #111;
+  font-family: var(--sv-font, inherit);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}

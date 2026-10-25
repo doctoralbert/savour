@@ -1259,3 +1259,56 @@
     top: 110px;
   }
 }
+
+/* Contactformulier op de losse contactpagina */
+.site-form {
+  display: grid;
+  gap: 16px;
+  margin: 18px 0 8px;
+  max-width: 620px;
+}
+.site-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.site-field input,
+.site-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+  padding: 13px 15px;
+  outline: none;
+}
+.site-field input:focus,
+.site-field textarea:focus {
+  border-color: var(--gold);
+}
+.site-form-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.site-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+.site-form-row .site-btn {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+.site-form-status {
+  font-size: 14px;
+  color: var(--gold);
+}

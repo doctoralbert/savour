@@ -2,7 +2,9 @@
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   try {
-    const { name, email, subject, message, screenshot, screenshotName, page, language, kind } = req.body || {};
+    const { name, email, subject, message, screenshot, screenshotName, page, language, kind, website } = req.body || {};
+    // Verborgen veld dat alleen spambots invullen: niets versturen, wel 'gelukt' melden.
+    if (website) return res.status(200).json({ ok: true });
     const isContact = kind === 'contact';
     const label = isContact ? 'contactbericht' : 'bugmelding';
     const clean = v => String(v ?? '').trim();
