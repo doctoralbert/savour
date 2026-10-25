@@ -130,8 +130,175 @@ function sharedFolderCount(m, f) {
   return f.recipeIds.length;
 }
 
+// Eén map in een gedeelde map als compacte rij, zodat ook 20+ mappen (per partie, per menu) overzichtelijk blijven.
 function sharedFolderCard(m, f) {
-  return `<div class="shared-folder" onclick="openSharedFolder('${m.id}','${f.id}')"><span class="ico">▱</span><b>${esc(f.name)}</b><small>${sharedFolderCount(m, f)} recepten</small></div>`;
+  return `<button type="button" class="shared-folder-row${f.archived ? ' is-archived' : ''}" onclick="openSharedFolder('${escJs(m.id)}','${escJs(f.id)}')"><span class="ico">▱</span><b>${esc(f.name)}</b><small>${sharedFolderCount(m, f)} recepten</small><i aria-hidden="true">›</i></button>`;
+}
+
+function sharedFoldersHtml(m) {
+  const active = (m.folders || []).filter(f => !f.archived);
+  const archived = (m.folders || []).filter(f => f.archived);
+  if (!active.length && !archived.length) return '<div class="empty">Nog geen mappen in deze gedeelde map.</div>';
+  return (
+    `<div class="shared-folder-list">${active.map(f => sharedFolderCard(m, f)).join('')}</div>` +
+    (archived.length
+      ? `<details class="shared-folder-archive"><summary>Archief (${archived.length})</summary><div class="shared-folder-list">${archived.map(f => sharedFolderCard(m, f)).join('')}</div></details>`
+      : '')
+  );
+}
+
+// ---- Uitleg: wat kan er allemaal in een gedeelde map (info-knop) ----
+const SHARED_HELP = [
+  [
+    'Eén receptenboek voor je team',
+    'Een gedeelde map is het receptenboek van je keuken. Iedereen die lid is, ziet dezelfde recepten op zijn eigen telefoon, tablet of computer. Past de maker een recept aan, dan ziet iedereen meteen de nieuwe versie.'
+  ],
+  [
+    'Rollen',
+    'Eigenaar: beheert de map, de leden en hun rol. Editor: voegt recepten en mappen toe, haalt ze uit de map en beheert de mappen. Viewer: bekijkt, print en rekent om. Een recept bewerken kan altijd alleen de maker van dat recept.'
+  ],
+  [
+    'Recepten toevoegen',
+    'Kies “Recept toevoegen” en vink recepten uit je eigen bibliotheek aan. Het recept blijft van jou: het staat in de gedeelde map en in je eigen recepten.'
+  ],
+  [
+    'Mappen (receptenklappers)',
+    'Deel de gedeelde map op in mappen, bijvoorbeeld per partie of per menu. Met “Mappen beheren” wijzig je de naam, zet je de mappen in jouw volgorde en archiveer je mappen die je niet meer gebruikt. Recepten in een gearchiveerde map blijven bewaard en staan onderaan onder “Archief”.'
+  ],
+  [
+    'Team uitnodigen',
+    'Nodig collega’s uit via WhatsApp, Telegram, e-mail of de uitnodigingslink. Na het inloggen worden ze lid als viewer; de eigenaar kan daarna hun rol aanpassen. Lid zijn van een gedeelde map is gratis.'
+  ],
+  [
+    'Printen',
+    'Print de hele gedeelde map, één map of een eigen selectie in één keer: met een inhoudsopgave, het nummer van elk recept onderaan de pagina en, met Savour Pro, het logo van je restaurant.'
+  ],
+  [
+    'Omrekenen en kookmodus',
+    'Reken elk recept om naar een andere opbrengst. De kookmodus toont alleen het recept in grote letters en houdt je scherm aan; vink ingrediënten en stappen af terwijl je werkt.'
+  ],
+  [
+    'Recept overnemen',
+    'Heeft de maker het toegestaan, dan zie je bij een recept “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie die je zelf kunt aanpassen.'
+  ],
+  [
+    'Zonder internet',
+    'Recepten die je hebt geopend, blijven op je apparaat beschikbaar, ook in een keuken zonder wifi.'
+  ],
+  [
+    'Map verlaten of verwijderen',
+    'Een lid kan een gedeelde map altijd verlaten. Alleen de eigenaar kan de map verwijderen; de recepten zelf blijven dan in de bibliotheek van hun maker.'
+  ]
+];
+
+function openSharedHelp() {
+  let modal = $('sharedHelpModal');
+  if (!modal) {
+    document.body.insertAdjacentHTML(
+      'beforeend',
+      `<div class="modal" id="sharedHelpModal" onclick="if(event.target===this)this.classList.remove('open')"><div class="modalbox shared-help-box"><div class="eyebrow">${t('Gedeelde map')}</div><h2>${t('Zo werkt een gedeelde map')}</h2><div class="shared-help">${SHARED_HELP.map(([h, p]) => `<section><h3>${esc(t(h))}</h3><p>${esc(t(p))}</p></section>`).join('')}</div><div class="actions"><a class="btn" href="${{ nl: '/blog/gedeelde-mappen-uitgelegd', en: '/en/blog/shared-folders-explained', de: '/de/blog/geteilte-ordner-erklaert', es: '/es/blog/carpetas-compartidas-explicadas' }[currentLanguage] || '/blog/gedeelde-mappen-uitgelegd'}" target="_blank" rel="noopener">${t('Lees het hele artikel')}</a><button class="btn gold" onclick="$('sharedHelpModal').classList.remove('open')">${t('Begrepen')}</button></div></div></div>`
+    );
+    modal = $('sharedHelpModal');
+  }
+  modal.classList.add('open');
+}
+
+// ---- Mappen beheren: hernoemen, volgorde en archief (eigenaar en editors) ----
+function openSharedFolderManage(mapId) {
+  const m = findSharedMap(mapId);
+  if (!m || !canEditShared(m)) return;
+  if (!sharedFoldersManageable) {
+    toast('Mappen beheren is nog niet beschikbaar');
+    return;
+  }
+  currentShared = String(mapId);
+  let modal = $('sharedFolderManageModal');
+  if (!modal) {
+    document.body.insertAdjacentHTML(
+      'beforeend',
+      `<div class="modal" id="sharedFolderManageModal" onclick="if(event.target===this)closeSharedFolderManage()"><div class="modalbox folder-manage-box"><h2>${t('Mappen beheren')}</h2><p class="muted">${t('Pas de naam aan, zet de mappen in jouw volgorde of archiveer mappen die je niet meer gebruikt. Recepten in een gearchiveerde map blijven bewaard.')}</p><div id="sfmList" class="sfm-list"></div><div class="actions"><button class="btn gold" onclick="closeSharedFolderManage()">${t('Klaar')}</button></div></div></div>`
+    );
+    modal = $('sharedFolderManageModal');
+  }
+  renderSharedFolderManage();
+  modal.classList.add('open');
+}
+
+function closeSharedFolderManage() {
+  $('sharedFolderManageModal')?.classList.remove('open');
+  if (currentShared) renderShared(currentShared);
+}
+
+function renderSharedFolderManage() {
+  const m = findSharedMap(currentShared);
+  const host = $('sfmList');
+  if (!m || !host) return;
+  const active = m.folders.filter(f => !f.archived);
+  const archived = m.folders.filter(f => f.archived);
+  const row = (f, i, list) => {
+    const fid = escJs(f.id);
+    return `<div class="sfm-row${f.archived ? ' is-archived' : ''}"><input value="${esc(f.name)}" aria-label="${esc(t('Naam van de map'))}" maxlength="80" onchange="renameSharedFolderInline('${fid}', this)"><span class="sfm-count">${f.recipeIds.length}</span>${
+      f.archived
+        ? ''
+        : `<button type="button" class="sfm-move" onclick="moveSharedFolder('${fid}', -1)" aria-label="${esc(t('Omhoog'))}"${i === 0 ? ' disabled' : ''}>↑</button><button type="button" class="sfm-move" onclick="moveSharedFolder('${fid}', 1)" aria-label="${esc(t('Omlaag'))}"${i === list.length - 1 ? ' disabled' : ''}>↓</button>`
+    }<button type="button" class="sfm-archive" onclick="archiveSharedFolder('${fid}', ${!f.archived})">${f.archived ? t('Terugzetten') : t('Archiveren')}</button></div>`;
+  };
+  host.innerHTML =
+    (active.length ? active.map(row).join('') : `<p class="muted">${t('Geen actieve mappen.')}</p>`) +
+    (archived.length ? `<h3 class="sfm-head">${t('Archief')}</h3>` + archived.map(row).join('') : '');
+}
+
+async function updateSharedFolder(folderId, changes) {
+  const { error } = await supabaseClient.rpc('savour_update_shared_folder', { _folder_id: folderId, ...changes });
+  if (error) {
+    console.error('Map bijwerken mislukt', error);
+    toast(
+      /not_allowed/.test(error.message || '')
+        ? 'Alleen de eigenaar of een editor kan mappen beheren'
+        : 'De map kon niet worden bijgewerkt'
+    );
+    return false;
+  }
+  return true;
+}
+
+async function renameSharedFolderInline(folderId, input) {
+  const m = findSharedMap(currentShared);
+  const f = m?.folders.find(x => String(x.id) === String(folderId));
+  const name = String(input.value || '').trim();
+  if (!f || !name || name === f.name) {
+    if (f) input.value = f.name;
+    return;
+  }
+  if (await updateSharedFolder(f.id, { _name: name })) {
+    f.name = name;
+    toast('Naam gewijzigd');
+  } else input.value = f.name;
+}
+
+async function moveSharedFolder(folderId, step) {
+  const m = findSharedMap(currentShared);
+  if (!m) return;
+  const active = m.folders.filter(f => !f.archived);
+  const i = active.findIndex(f => String(f.id) === String(folderId));
+  const j = i + step;
+  if (i < 0 || j < 0 || j >= active.length) return;
+  [active[i], active[j]] = [active[j], active[i]];
+  // Nieuwe volgorde vastleggen voor alle actieve mappen (10, 20, 30, ...).
+  const results = await Promise.all(active.map((f, k) => updateSharedFolder(f.id, { _position: (k + 1) * 10 })));
+  if (results.every(Boolean)) active.forEach((f, k) => (f.position = (k + 1) * 10));
+  m.folders = [...active, ...m.folders.filter(f => f.archived)];
+  renderSharedFolderManage();
+}
+
+async function archiveSharedFolder(folderId, archived) {
+  const m = findSharedMap(currentShared);
+  const f = m?.folders.find(x => String(x.id) === String(folderId));
+  if (!f || !(await updateSharedFolder(f.id, { _archived: archived }))) return;
+  f.archived = archived;
+  m.folders = [...m.folders.filter(x => !x.archived), ...m.folders.filter(x => x.archived)];
+  renderSharedFolderManage();
+  toast(archived ? 'Map gearchiveerd' : 'Map teruggezet');
 }
 
 function newSharedFolder(mapId) {
@@ -201,7 +368,7 @@ function renderShared(id) {
   const photo = m.photo
     ? `<div class="shared-cover compact-shared-cover"><img src="${esc(m.photo)}" alt="Foto van ${esc(m.name)}"><div class="shared-cover-body"><label class="btn compact-action">✎<span>Foto wijzigen</span>${photoInput}</label></div></div>`
     : `<div class="shared-cover compact-shared-cover"><div class="shared-cover-empty"><label class="btn compact-action">＋<span>Foto toevoegen</span>${photoInput}</label></div></div>`;
-  const foldersHtml = (m.folders || []).map(f => sharedFolderCard(m, f)).join('');
+  const foldersHtml = sharedFoldersHtml(m);
   const filtered = filterRecipesByLetter(list, window.sharedAlphabet);
   const recipeBlock = filtered.length
     ? '<div class="savour-v13-list">' + contextRecipeRowsHtml(filtered, 'shared') + '</div>'
@@ -231,8 +398,8 @@ function renderShared(id) {
     : `<button class="btn" style="width:100%;margin-top:12px" onclick="leaveSharedMap('${mid}')">Map verlaten</button>`;
   $('sharedWrap').innerHTML =
     photo +
-    `<div class="layout"><div><div class="panel"><div class="folder-detail-head shared-main-head"><div><div class="eyebrow">Gedeelde map</div><h1>${esc(m.name)}</h1><p class="muted">${list.length} recepten · ${m.members.length} leden</p></div><div class="shared-map-actions">${actions}</div></div></div>` +
-    `<div class="section-head"><h2>Mappen</h2>${canEdit ? `<button class="btn compact-action" onclick="newSharedFolder('${mid}')">＋<span>Nieuwe map</span></button>` : ''}</div><div class="shared-folder-grid">${foldersHtml}</div>` +
+    `<div class="layout"><div><div class="panel"><div class="folder-detail-head shared-main-head"><div><div class="eyebrow shared-eyebrow">Gedeelde map <button type="button" class="shared-help-btn" onclick="openSharedHelp()" aria-label="Uitleg over gedeelde mappen" title="Hoe werkt een gedeelde map?">i</button></div><h1>${esc(m.name)}</h1><p class="muted">${list.length} recepten · ${m.members.length} leden</p></div><div class="shared-map-actions">${actions}</div></div></div>` +
+    `<div class="section-head"><h2>Mappen</h2><div class="shared-folder-tools">${canEdit ? `<button class="btn compact-action" onclick="newSharedFolder('${mid}')">＋<span>Nieuwe map</span></button>` : ''}${canEdit && (m.folders || []).length ? `<button class="btn compact-action" onclick="openSharedFolderManage('${mid}')">⚙<span>Mappen beheren</span></button>` : ''}</div></div>${foldersHtml}` +
     `<div class="section-head" style="margin-top:30px"><h2>Alle gedeelde recepten</h2><span class="mini">${list.length} recepten</span></div>` +
     contextAlphabetHtml(window.sharedAlphabet, 'filterSharedAlphabet') +
     `<div class="savour-v13-context-tools"><span class="mini">${filtered.length} recepten${window.sharedAlphabet ? ' · ' + window.sharedAlphabet : ''}</span></div>` +

@@ -20,6 +20,9 @@ const PAGES = { de: DE, es: ES };
 POSTS.unshift(...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
+// Achtergrondfoto achter de bovenkant van de homepage. Alleen als het bestand bestaat; zonder bestand is de
+// homepage zoals eerst (terugdraaien = assets/keuken/hero-keuken.jpg weghalen en opnieuw bouwen).
+const HERO_PHOTO = fs.existsSync(new URL('assets/keuken/hero-keuken.jpg', ROOT)) ? '/assets/keuken/hero-keuken.jpg' : '';
 const SITE = 'https://savour.page';
 const LANGS = ['nl', 'en', 'de', 'es'];
 const read = p => fs.readFileSync(new URL(p, ROOT), 'utf8');
@@ -268,7 +271,7 @@ function homeBody(lang, inApp) {
   const h = HOME[lang];
   const u = UI[lang];
   const q = homePath(lang);
-  return `<section class="site-hero"><div class="site-wrap">
+  return `<section class="site-hero${HERO_PHOTO ? ' has-photo' : ''}"${HERO_PHOTO ? ` style="--hero-photo:url('${HERO_PHOTO}')"` : ''}><div class="site-wrap">
 <div><h1>${esc(h.h1)}</h1><p class="site-lead">${esc(h.lead)}</p><p class="site-proof">${esc(h.proof)}</p>
 <div class="site-cta-row"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?demo=1" data-demo>${u.demo}</a></div><p class="site-note" style="margin-top:10px">${esc(u.demoNote)}</p></div>
 <div class="hero-shots"><div class="hero-laptop"><img src="/assets/app/bibliotheek-${lang}.jpg" alt="${esc(SHOT_ALT[lang][0])}" width="1440" height="900"></div><div class="hero-phone"><img src="/assets/app/recept-${lang}.jpg" alt="${esc(SHOT_ALT[lang][1])}" width="520" height="1125"></div></div>

@@ -178,6 +178,56 @@ export const ES = {
     ]
   },
   posts: {
+    'en/blog/shared-folders-explained': {
+      "slug": "es/blog/carpetas-compartidas-explicadas",
+      "title": "Carpetas compartidas en Savour: así funciona tu recetario compartido",
+      "desc": "Todo lo que puedes hacer con una carpeta compartida en Savour: roles, añadir recetas y carpetas, gestionar carpetas por partida o menú, invitar a tu equipo, imprimir y copiar recetas.",
+      "h1": "Carpetas compartidas: así funciona tu recetario compartido",
+      "lead": "Una carpeta compartida es el corazón de Savour: un recetario para toda tu cocina, en el móvil de cada uno, siempre la misma versión. Esto es todo lo que puedes hacer con ella.",
+      "sections": [
+        [
+          "Un recetario para tu equipo",
+          "Todos los miembros de una carpeta compartida ven las mismas recetas en su propio móvil, tableta u ordenador. Si el autor cambia una receta, toda la brigada ve enseguida la nueva versión. Sin copias sueltas ni impresiones viejas en la pared."
+        ],
+        [
+          "Roles: propietario, editor y lector",
+          "El propietario gestiona la carpeta, los miembros y sus roles. Un editor añade recetas y carpetas, las quita y gestiona las carpetas. Un lector puede ver, imprimir y escalar. Solo el autor de una receta puede editarla, así nadie cambia por error la receta de otro."
+        ],
+        [
+          "Añadir recetas",
+          "Elige «Añadir receta» y marca recetas de tu propia biblioteca. La receta sigue siendo tuya: está en la carpeta compartida y en tus propias recetas a la vez."
+        ],
+        [
+          "Carpetas por partida o por menú",
+          "Divide la carpeta compartida en carpetas: una por partida (cuarto frío, salsas, pastelería) o una por menú. Con «Gestionar carpetas» cambias el nombre, las ordenas como en tu cocina y archivas las que ya no usas, como el menú de la temporada pasada. Las carpetas archivadas y sus recetas se conservan en «Archivo»."
+        ],
+        [
+          "Invitar a tu equipo",
+          "Invita a tus compañeros por WhatsApp, Telegram, correo o el enlace de invitación. Al iniciar sesión se unen como lector; después, como propietario, puedes darles otro rol. Ser miembro de una carpeta compartida es gratis, también sin Savour Pro."
+        ],
+        [
+          "Imprimir para el archivador",
+          "Imprime toda la carpeta compartida, una carpeta o tu propia selección de una vez. Obtienes un índice, el número de cada receta al pie de la página para encontrarla rápido y, con Savour Pro, el logo de tu restaurante arriba."
+        ],
+        [
+          "Escalar y modo cocina",
+          "Escala cualquier receta al rendimiento que necesitas. El modo cocina muestra solo la receta en letra grande y mantiene la pantalla encendida; marca ingredientes y pasos mientras trabajas."
+        ],
+        [
+          "Copiar una receta",
+          "Si el autor lo permite, verás «Añadir a mis recetas» en una receta. Obtienes tu propia copia para modificarla, mientras el original sigue siendo de su autor."
+        ],
+        [
+          "También sin internet",
+          "Las recetas que has abierto siguen disponibles en tu móvil. Incluso en una cocina en un sótano sin wifi puedes leerlas."
+        ],
+        [
+          "Salir o eliminar",
+          "Un miembro siempre puede salir de una carpeta compartida. Solo el propietario puede eliminarla; las recetas en sí siguen en la biblioteca de su autor."
+        ]
+      ],
+      "outro": "Una carpeta compartida se crea con Savour Pro; cualquiera puede ser miembro gratis. En cada carpeta compartida encontrarás también esta explicación tras el botón i."
+    },
     'en/blog/recipe-management-for-restaurants': {
       slug: 'es/blog/gestion-de-recetas-restaurantes',
       title: 'Gestión de recetas para restaurantes: por dónde empezar',

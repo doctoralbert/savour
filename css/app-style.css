@@ -897,3 +897,175 @@ body.savour-light .share-copy-periods button.is-on {
   border-color: #a8843f;
   color: #8a6a2f;
 }
+
+/* Gedeelde map: mappen als compacte rijen (ook bij 20+ mappen), archief onderaan */
+.shared-folder-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 8px;
+}
+.shared-folder-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 11px 14px;
+  border: 1px solid var(--sv-line);
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.shared-folder-row:hover {
+  border-color: var(--gold);
+}
+.shared-folder-row b {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 600;
+}
+.shared-folder-row small {
+  color: var(--sv-text-2);
+  white-space: nowrap;
+}
+.shared-folder-row i {
+  font-style: normal;
+  color: var(--sv-text-2);
+}
+.shared-folder-row.is-archived {
+  opacity: 0.7;
+}
+.shared-folder-archive {
+  margin-top: 12px;
+}
+.shared-folder-archive summary {
+  cursor: pointer;
+  color: var(--sv-text-2);
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.shared-folder-tools {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+/* Mappen beheren */
+.folder-manage-box {
+  width: min(620px, calc(100vw - 32px));
+}
+.sfm-list {
+  display: grid;
+  gap: 8px;
+  max-height: 60vh;
+  overflow-y: auto;
+  margin: 14px 0;
+}
+.sfm-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sfm-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--sv-line);
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+.sfm-row.is-archived input {
+  opacity: 0.65;
+}
+.sfm-count {
+  min-width: 28px;
+  text-align: right;
+  color: var(--sv-text-2);
+  font-size: 13px;
+}
+.sfm-row button {
+  padding: 9px 12px;
+  border: 1px solid var(--sv-line);
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.sfm-row button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.sfm-row .sfm-archive {
+  white-space: nowrap;
+}
+.sfm-head {
+  margin: 12px 0 2px;
+  font-size: 14px;
+  color: var(--sv-text-2);
+}
+@media (max-width: 560px) {
+  .sfm-row {
+    flex-wrap: wrap;
+  }
+  .sfm-row input {
+    flex-basis: 100%;
+  }
+}
+
+/* Gedeelde map: info-knop met uitleg van alle functies */
+.shared-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.shared-help-btn {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  font:
+    600 13px/1 Georgia,
+    serif;
+  font-style: italic;
+  cursor: pointer;
+  padding: 0;
+  letter-spacing: 0;
+}
+.shared-help-btn:hover {
+  background: var(--gold);
+  color: #111;
+}
+.shared-help-box {
+  width: min(680px, calc(100vw - 32px));
+  max-height: 86vh;
+  overflow-y: auto;
+}
+.shared-help {
+  display: grid;
+  gap: 4px;
+  margin: 10px 0 18px;
+}
+.shared-help section {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--sv-line);
+}
+.shared-help h3 {
+  margin: 0 0 4px;
+  font-family: var(--sv-font-display);
+  font-size: 18px;
+}
+.shared-help p {
+  margin: 0;
+  color: var(--sv-text-2);
+  line-height: 1.55;
+}

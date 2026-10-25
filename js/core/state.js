@@ -19,6 +19,8 @@ let sharedMaps = [];
 let sharedRecipes = [];
 // Recepten die je via een gedeelde link (/r/...) opende terwijl je was ingelogd: alleen-lezen (js/features/public-pages.js).
 let linkRecipes = [];
+// Kunnen mappen in gedeelde mappen worden geordend en gearchiveerd? (supabase/2026-10-25-mappen-beheren.sql)
+let sharedFoldersManageable = false;
 
 let activeCat = '';
 

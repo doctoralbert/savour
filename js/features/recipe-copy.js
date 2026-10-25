@@ -27,9 +27,9 @@ async function recipeAllowsCopy(recipeId) {
 
 // Hoelang ontvangers het recept mogen overnemen (in dagen; 0 = onbeperkt).
 const COPY_PERIODS = [
+  { days: 1 / 24, label: '1 uur' },
   { days: 1, label: '24 uur' },
   { days: 7, label: '7 dagen' },
-  { days: 30, label: '30 dagen' },
   { days: 0, label: 'Onbeperkt' }
 ];
 
@@ -55,7 +55,7 @@ async function renderShareCopyToggle(recipeId) {
   const current = setting.allowed && setting.until ? (setting.until - Date.now()) / 86400000 : 0;
   // Bij een lopende periode: de kortste keuze die er nog in past; anders onbeperkt.
   const selected =
-    setting.allowed && setting.until ? (COPY_PERIODS.find(x => x.days && current <= x.days)?.days ?? 30) : 0;
+    setting.allowed && setting.until ? (COPY_PERIODS.find(x => x.days && current <= x.days)?.days ?? 7) : 0;
   box.hidden = false;
   box.innerHTML = `<label class="share-copy-toggle"><input type="checkbox" id="shareCopyInput"${setting.allowed ? ' checked' : ''} onchange="setRecipeAllowsCopy('${rid}')"><span><b>Ontvangers mogen dit recept overnemen</b><small>Wie is ingelogd, kan het dan toevoegen aan de eigen recepten. Jouw recept blijft van jou.</small></span></label><div class="share-copy-time" id="shareCopyTime"${setting.allowed ? '' : ' hidden'}><span>Hoelang?</span><div class="share-copy-periods" role="group" aria-label="Hoelang?">${COPY_PERIODS.map(
     x =>
@@ -89,6 +89,21 @@ async function setRecipeAllowsCopy(recipeId, days) {
     $('shareCopyUntil').textContent = on ? copyUntilText(until) : '';
   }
   toast(on ? 'Ontvangers kunnen dit recept nu overnemen' : 'Overnemen staat uit');
+}
+
+// Recept van een ander in een gedeelde map: staat overnemen aan, dan de knop alsnog naast Printen zetten.
+async function addCopyButtonForShared(r) {
+  if (!r || isOwnRecipe(r) || r.linkSlug || demoMode) return;
+  if ((await recipeAllowsCopy(r.id)) !== true) return;
+  r.allowCopy = true;
+  if (String(currentId) !== String(r.id) || document.querySelector('[data-copy-recipe]')) return;
+  const print = [...document.querySelectorAll('.rp-actions button')].find(b =>
+    /printCurrentRecipe/.test(b.getAttribute('onclick') || '')
+  );
+  print?.insertAdjacentHTML(
+    'beforebegin',
+    `<button type="button" class="btn" data-copy-recipe onclick="copyLinkRecipe('${escJs(r.id)}')">${icon('plus')}${esc(t('Toevoegen aan mijn recepten'))}</button>`
+  );
 }
 
 // Kopie maken in de eigen bibliotheek van de ingelogde gebruiker.

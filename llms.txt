@@ -34,6 +34,7 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 
 ## Blog
 
+- [Shared folders in Savour: how your shared recipe book works](https://savour.page/en/blog/shared-folders-explained) · [NL](https://savour.page/blog/gedeelde-mappen-uitgelegd) · [DE](https://savour.page/de/blog/geteilte-ordner-erklaert) · [ES](https://savour.page/es/blog/carpetas-compartidas-explicadas)
 - [Standardised recipes: why every kitchen needs them](https://savour.page/en/blog/standardised-recipes) · [NL](https://savour.page/blog/standaardrecepturen-in-de-keuken) · [DE](https://savour.page/de/blog/standardrezepturen-gastronomie) · [ES](https://savour.page/es/blog/fichas-tecnicas-de-cocina)
 - [Print a recipe book with your restaurant’s logo](https://savour.page/en/blog/recipe-book-with-your-logo) · [NL](https://savour.page/blog/receptenboek-met-eigen-logo) · [DE](https://savour.page/de/blog/rezeptbuch-mit-eigenem-logo) · [ES](https://savour.page/es/blog/recetario-con-tu-logo)
 - [Recipes without wifi: working offline in the kitchen](https://savour.page/en/blog/recipes-without-wifi) · [NL](https://savour.page/blog/recepten-zonder-wifi) · [DE](https://savour.page/de/blog/rezepte-ohne-wlan) · [ES](https://savour.page/es/blog/recetas-sin-wifi)

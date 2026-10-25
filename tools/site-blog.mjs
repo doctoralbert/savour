@@ -3,6 +3,110 @@
 // de Duitse en Spaanse versies staan in tools/site-pages-de.mjs en tools/site-pages-es.mjs.
 export const BLOG = [
   {
+    id: 'sharedfolders',
+    date: '2026-10-25',
+    nl: {
+      "slug": "blog/gedeelde-mappen-uitgelegd",
+      "title": "Gedeelde mappen in Savour: zo werkt je gedeelde receptenboek",
+      "desc": "Alles wat je kunt met een gedeelde map in Savour: rollen, recepten en mappen toevoegen, mappen per partie of menu beheren, team uitnodigen, printen en recepten overnemen.",
+      "h1": "Gedeelde mappen: zo werkt je gedeelde receptenboek",
+      "lead": "Een gedeelde map is het hart van Savour: één receptenboek voor je hele keuken, op ieders telefoon, altijd dezelfde versie. Dit is alles wat je ermee kunt.",
+      "sections": [
+        [
+          "Eén receptenboek voor je team",
+          "Iedereen die lid is van een gedeelde map, ziet dezelfde recepten op zijn eigen telefoon, tablet of computer. Past de maker een recept aan, dan ziet de hele brigade meteen de nieuwe versie. Geen losse kopieën, geen oude printjes meer aan de muur."
+        ],
+        [
+          "Rollen: eigenaar, editor en viewer",
+          "De eigenaar beheert de map, de leden en hun rol. Een editor voegt recepten en mappen toe, haalt ze eruit en beheert de mappen. Een viewer bekijkt, print en rekent om. Een recept bewerken kan altijd alleen de maker van dat recept: zo verandert niemand per ongeluk andermans receptuur."
+        ],
+        [
+          "Recepten toevoegen",
+          "Kies “Recept toevoegen” en vink recepten uit je eigen bibliotheek aan. Het recept blijft van jou: het staat in de gedeelde map en in je eigen recepten tegelijk."
+        ],
+        [
+          "Mappen per partie of per menu",
+          "Deel de gedeelde map op in mappen: een map per partie (garde manger, saucier, patisserie) of een map per menu. Met “Mappen beheren” wijzig je de naam, zet je de mappen in de volgorde van je keuken en archiveer je mappen die je niet meer gebruikt, zoals het menu van vorig seizoen. Gearchiveerde mappen en hun recepten blijven bewaard onder “Archief”."
+        ],
+        [
+          "Je team uitnodigen",
+          "Nodig collega’s uit via WhatsApp, Telegram, e-mail of de uitnodigingslink. Na het inloggen worden ze lid als viewer; daarna geef je ze als eigenaar een andere rol. Lid zijn van een gedeelde map is gratis, ook zonder Savour Pro."
+        ],
+        [
+          "Printen voor de klapper",
+          "Print de hele gedeelde map, één map of een eigen selectie in één keer. Je krijgt een inhoudsopgave, het nummer van elk recept onderaan de pagina zodat je snel bladert, en met Savour Pro het logo van je restaurant bovenaan."
+        ],
+        [
+          "Omrekenen en kookmodus",
+          "Reken elk recept om naar de opbrengst die je nodig hebt. De kookmodus toont alleen het recept in grote letters en houdt je scherm aan; vink ingrediënten en stappen af terwijl je werkt."
+        ],
+        [
+          "Een recept overnemen",
+          "Heeft de maker het toegestaan, dan zie je bij een recept “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie die je zelf kunt aanpassen, terwijl het origineel van de maker blijft."
+        ],
+        [
+          "Ook zonder internet",
+          "Recepten die je hebt geopend, blijven op je telefoon beschikbaar. Ook in een kelderkeuken zonder wifi kun je ze lezen."
+        ],
+        [
+          "Verlaten of verwijderen",
+          "Een lid kan een gedeelde map altijd verlaten. Alleen de eigenaar kan de map verwijderen; de recepten zelf blijven dan gewoon in de bibliotheek van hun maker."
+        ]
+      ],
+      "outro": "Een gedeelde map maak je met Savour Pro; lid zijn kan iedereen gratis. In elke gedeelde map vind je deze uitleg ook achter het i-knopje."
+    },
+    en: {
+      "slug": "en/blog/shared-folders-explained",
+      "title": "Shared folders in Savour: how your shared recipe book works",
+      "desc": "Everything you can do with a shared folder in Savour: roles, adding recipes and folders, managing folders per section or menu, inviting your team, printing and copying recipes.",
+      "h1": "Shared folders: how your shared recipe book works",
+      "lead": "A shared folder is the heart of Savour: one recipe book for your whole kitchen, on everyone’s phone, always the same version. This is everything you can do with it.",
+      "sections": [
+        [
+          "One recipe book for your team",
+          "Everyone who is a member of a shared folder sees the same recipes on their own phone, tablet or computer. When the creator changes a recipe, the whole brigade sees the new version straight away. No loose copies, no old printouts on the wall."
+        ],
+        [
+          "Roles: owner, editor and viewer",
+          "The owner manages the folder, the members and their roles. An editor adds recipes and folders, removes them and manages the folders. A viewer can view, print and scale. Only the creator of a recipe can edit it, so nobody changes someone else’s recipe by accident."
+        ],
+        [
+          "Adding recipes",
+          "Choose “Add recipe” and tick recipes from your own library. The recipe stays yours: it is in the shared folder and in your own recipes at the same time."
+        ],
+        [
+          "Folders per section or per menu",
+          "Split the shared folder into folders: one per section (garde manger, saucier, pastry) or one per menu. With “Manage folders” you rename them, put them in your kitchen’s order and archive folders you no longer use, like last season’s menu. Archived folders and their recipes are kept under “Archive”."
+        ],
+        [
+          "Inviting your team",
+          "Invite colleagues via WhatsApp, Telegram, email or the invitation link. After logging in they join as a viewer; as the owner you can then give them another role. Being a member of a shared folder is free, also without Savour Pro."
+        ],
+        [
+          "Printing for the binder",
+          "Print the whole shared folder, one folder or your own selection in one go. You get a table of contents, the number of each recipe at the bottom of the page so you can leaf through quickly, and with Savour Pro your restaurant’s logo at the top."
+        ],
+        [
+          "Scaling and cook mode",
+          "Scale any recipe to the yield you need. Cook mode shows only the recipe in large type and keeps your screen on; tick off ingredients and steps as you work."
+        ],
+        [
+          "Copying a recipe",
+          "If the creator allows it, you see “Add to my recipes” on a recipe. You get your own copy to change, while the original stays with its creator."
+        ],
+        [
+          "Also without internet",
+          "Recipes you have opened stay available on your phone. Even in a basement kitchen without wifi you can read them."
+        ],
+        [
+          "Leaving or deleting",
+          "A member can always leave a shared folder. Only the owner can delete it; the recipes themselves simply stay in their creator’s library."
+        ]
+      ],
+      "outro": "You create a shared folder with Savour Pro; anyone can be a member for free. In every shared folder you also find this explanation behind the i button."
+    }
+  },
+  {
     id: "standard",
     date: "2026-10-24",
     nl: {

@@ -79,6 +79,14 @@ async function migrateLegacySharedMaps() {
   localStorage.removeItem('receptenapp_sharedmaps');
 }
 
+// Mappen in gedeelde mappen, met volgorde en archief (supabase/2026-10-25-mappen-beheren.sql). Zonder die SQL
+// zoals voorheen: dan kunnen ze nog niet worden geordend of gearchiveerd.
+async function selectSharedFolders() {
+  const res = await selectAllRows('shared_folders', 'id,shared_map_id,name,position,archived');
+  sharedFoldersManageable = !res.error;
+  return res.error ? selectAllRows('shared_folders', 'id,shared_map_id,name') : res;
+}
+
 async function selectAllRows(table, select = '*', build = q => q, pageSize = 1000) {
   let all = [];
   for (let offset = 0; ; offset += pageSize) {
@@ -282,7 +290,7 @@ async function loadSharedMapsState() {
   const [smsRes, smrRes, smfRes, smfrRes, smmRes] = await Promise.all([
     selectAllRows('shared_maps', 'id,owner_id,name,photo_url,public_key,created_at', q => q.order('name')),
     selectAllRows('shared_map_recipes', 'shared_map_id,recipe_id'),
-    selectAllRows('shared_folders', 'id,shared_map_id,name'),
+    selectSharedFolders(),
     selectAllRows('shared_folder_recipes', 'shared_folder_id,recipe_id'),
     selectAllRows('shared_map_members', 'shared_map_id,user_id,role')
   ]);
@@ -347,9 +355,13 @@ async function loadSharedMapsState() {
         .map(f => ({
           id: f.id,
           name: f.name,
+          position: f.position ?? null,
+          archived: !!f.archived,
           recipeIds: smfr.filter(x => x.shared_folder_id === f.id).map(x => x.recipe_id),
           system: false
-        })),
+        }))
+        // In de gekozen volgorde; mappen zonder plek (nieuw) achteraan op naam.
+        .sort((a, b) => (a.position ?? 1e9) - (b.position ?? 1e9) || a.name.localeCompare(b.name, 'nl')),
       photo: m.photo_url || '',
       members,
       publicKey: m.public_key,

@@ -178,6 +178,56 @@ export const DE = {
     ]
   },
   posts: {
+    'en/blog/shared-folders-explained': {
+      "slug": "de/blog/geteilte-ordner-erklaert",
+      "title": "Geteilte Ordner in Savour: so funktioniert dein gemeinsames Rezeptbuch",
+      "desc": "Alles, was du mit einem geteilten Ordner in Savour kannst: Rollen, Rezepte und Ordner hinzufügen, Ordner pro Posten oder Menü verwalten, Team einladen, drucken und Rezepte übernehmen.",
+      "h1": "Geteilte Ordner: so funktioniert dein gemeinsames Rezeptbuch",
+      "lead": "Ein geteilter Ordner ist das Herz von Savour: ein Rezeptbuch für deine ganze Küche, auf jedem Handy, immer dieselbe Version. Das alles kannst du damit machen.",
+      "sections": [
+        [
+          "Ein Rezeptbuch für dein Team",
+          "Alle Mitglieder eines geteilten Ordners sehen dieselben Rezepte auf ihrem eigenen Handy, Tablet oder Computer. Ändert der Ersteller ein Rezept, sieht die ganze Brigade sofort die neue Version. Keine losen Kopien, keine alten Ausdrucke mehr an der Wand."
+        ],
+        [
+          "Rollen: Eigentümer, Editor und Betrachter",
+          "Der Eigentümer verwaltet den Ordner, die Mitglieder und ihre Rollen. Ein Editor fügt Rezepte und Ordner hinzu, entfernt sie und verwaltet die Ordner. Ein Betrachter kann ansehen, drucken und umrechnen. Nur der Ersteller eines Rezepts kann es bearbeiten, damit niemand aus Versehen das Rezept eines anderen ändert."
+        ],
+        [
+          "Rezepte hinzufügen",
+          "Wähle „Rezept hinzufügen“ und markiere Rezepte aus deiner eigenen Bibliothek. Das Rezept bleibt deins: Es ist im geteilten Ordner und gleichzeitig in deinen eigenen Rezepten."
+        ],
+        [
+          "Ordner pro Posten oder Menü",
+          "Teile den geteilten Ordner in Ordner auf: einen pro Posten (Garde-Manger, Saucier, Patisserie) oder einen pro Menü. Mit „Ordner verwalten“ benennst du sie um, bringst sie in die Reihenfolge deiner Küche und archivierst Ordner, die du nicht mehr brauchst, etwa das Menü der letzten Saison. Archivierte Ordner und ihre Rezepte bleiben unter „Archiv“ erhalten."
+        ],
+        [
+          "Dein Team einladen",
+          "Lade Kollegen per WhatsApp, Telegram, E-Mail oder Einladungslink ein. Nach der Anmeldung sind sie Mitglied als Betrachter; als Eigentümer gibst du ihnen danach eine andere Rolle. Mitglied eines geteilten Ordners zu sein ist kostenlos, auch ohne Savour Pro."
+        ],
+        [
+          "Drucken für den Ordner",
+          "Drucke den ganzen geteilten Ordner, einen Ordner oder eine eigene Auswahl auf einmal. Du bekommst ein Inhaltsverzeichnis, die Nummer jedes Rezepts unten auf der Seite zum schnellen Blättern und mit Savour Pro das Logo deines Restaurants oben."
+        ],
+        [
+          "Umrechnen und Kochmodus",
+          "Rechne jedes Rezept auf die Ausbeute um, die du brauchst. Der Kochmodus zeigt nur das Rezept in großer Schrift und hält den Bildschirm an; hake Zutaten und Schritte beim Arbeiten ab."
+        ],
+        [
+          "Ein Rezept übernehmen",
+          "Wenn der Ersteller es erlaubt, siehst du bei einem Rezept „Zu meinen Rezepten hinzufügen“. Du bekommst eine eigene Kopie zum Anpassen, das Original bleibt beim Ersteller."
+        ],
+        [
+          "Auch ohne Internet",
+          "Rezepte, die du geöffnet hast, bleiben auf deinem Handy verfügbar. Auch in einer Kellerküche ohne WLAN kannst du sie lesen."
+        ],
+        [
+          "Verlassen oder löschen",
+          "Ein Mitglied kann einen geteilten Ordner jederzeit verlassen. Nur der Eigentümer kann ihn löschen; die Rezepte selbst bleiben dann einfach in der Bibliothek ihres Erstellers."
+        ]
+      ],
+      "outro": "Einen geteilten Ordner erstellst du mit Savour Pro; Mitglied sein kann jeder kostenlos. In jedem geteilten Ordner findest du diese Erklärung auch hinter dem i-Knopf."
+    },
     'en/blog/recipe-management-for-restaurants': {
       slug: 'de/blog/rezeptverwaltung-gastronomie',
       title: 'Rezeptverwaltung in der Gastronomie: wo du anfängst',
