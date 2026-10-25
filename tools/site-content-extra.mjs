@@ -33,7 +33,7 @@ export const EXTRA_LANGS = {
         'Auf der Rückseite eines Bons. In einem Heft, das nach zehn Jahren Service zusammenklebt. Auf einem Foto vom Pass. Diese Notizen sind das Wissen deiner Küche, und sie gehen verloren, verblassen oder sind nur für den lesbar, der sie schrieb.',
         'Savour bewahrt dieses Wissen. Nicht durch Abtippen, sondern indem deine Notizen, Ordner und Dateien in einem Schritt zu Rezepten werden, die stimmen und die deine ganze Brigade lesen kann.'
       ],
-      storyLink: 'Unsere Geschichte (Englisch)',
+      storyLink: 'Unsere Geschichte lesen',
       featuresTitle: 'Was Savour macht',
       audienceTitle: 'Für wen',
       soonTitle: 'Woran wir arbeiten',
@@ -93,7 +93,7 @@ export const EXTRA_LANGS = {
         'En el reverso de un ticket. En un cuaderno que se pega tras diez años de servicio. En una foto que hiciste en el pase. Esas notas son el conocimiento de tu cocina, y se pierden, se borran o solo las entiende quien las escribió.',
         'Savour está hecho para guardar ese conocimiento. No volviendo a escribirlo todo, sino convirtiendo tus notas, carpetas y archivos de una vez en recetas correctas que toda tu brigada puede leer.'
       ],
-      storyLink: 'Nuestra historia (en inglés)',
+      storyLink: 'Lee nuestra historia',
       featuresTitle: 'Qué hace Savour',
       audienceTitle: 'Para quién',
       soonTitle: 'En qué trabajamos',

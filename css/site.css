@@ -1231,3 +1231,31 @@
     font-size: 12px;
   }
 }
+/* Marshmallow-kladje: foto op natuurlijke hoogte, bereiding in stappen met een korte titel. */
+.kladje-duo {
+  align-items: start;
+}
+.kladje-duo-photo img {
+  height: auto;
+}
+.kladje-duo-card ol {
+  font-size: 14px;
+  line-height: 1.6;
+}
+.kladje-duo-card ol li {
+  margin-bottom: 9px;
+}
+.kladje-duo-card ol b {
+  color: #e8ca8d;
+  font-weight: 600;
+}
+.kladje-duo-photo .kladje-duo-tag {
+  top: auto;
+  bottom: 14px;
+}
+@media (min-width: 761px) {
+  .kladje-duo-photo {
+    position: sticky;
+    top: 110px;
+  }
+}
