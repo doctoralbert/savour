@@ -76,3 +76,17 @@ window.addEventListener('unhandledrejection', e => {
 
 // Onthouden dat de pagina wordt verlaten: scripts die dan nog laden breken af, dat is geen fout.
 window.addEventListener('pagehide', () => (window.__savourLeaving = true));
+
+// Fouten die de app zelf afvangt (en toont als melding) komen via console.error ook in het logboek.
+(() => {
+  const original = console.error.bind(console);
+  console.error = (...args) => {
+    original(...args);
+    try {
+      const e = args.find(a => a instanceof Error || (a && typeof a === 'object' && typeof a.message === 'string'));
+      const text = args.filter(a => typeof a === 'string').join(' ');
+      const message = [text, e?.message].filter(Boolean).join(': ');
+      if (message) reportError(message, { stack: e?.stack || '' });
+    } catch (_) {}
+  };
+})();

@@ -185,10 +185,9 @@ async function deleteRecipe(id) {
   const r = recipes.find(x => x.id === id);
   if (!r) return;
   if (!(await askConfirm(`Weet je zeker dat je ‘${r.title}’ uit je receptenbibliotheek wilt verwijderen?`))) return;
-  const { error } = await supabaseClient.from('recipes').delete().eq('id', id).eq('user_id', currentUser.id);
-  if (error) {
-    console.error(error);
-    toast('Recept kon niet worden verwijderd: ' + error.message);
+  const result = await deleteOwnRecipes([id]);
+  if (!result.done) {
+    toast('Recept kon niet worden verwijderd; probeer het opnieuw');
     return;
   }
   await loadDatabaseState();

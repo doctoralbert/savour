@@ -241,24 +241,68 @@ async function deleteBulkModalSelection() {
     refreshSidebar();
     return;
   }
-  const recipeIds = list.map(r => r.id);
-  // Eerst de koppelingen (mappen, favorieten, gedeelde mappen), zodat er geen losse verwijzingen achterblijven.
-  for (const table of ['folder_recipes', 'favorites', 'shared_map_recipes', 'shared_folder_recipes']) {
-    const { error } = await supabaseClient.from(table).delete().in('recipe_id', recipeIds);
-    if (error) console.warn(`Koppelingen in ${table} konden niet worden verwijderd`, error);
-  }
-  const { error } = await supabaseClient.from('recipes').delete().in('id', recipeIds).eq('user_id', currentUser.id);
-  if (error) {
-    console.error(error);
-    toast('Recepten konden niet worden verwijderd: ' + error.message);
-    return;
+  const btn = document.querySelector('#bulkDeleteDialog .delete-recipe');
+  if (btn) btn.disabled = true;
+  const deleted = await deleteOwnRecipes(
+    list.map(r => r.id),
+    (done, total) => btn && (btn.textContent = `Verwijderen… ${done} / ${total}`)
+  );
+  if (btn) {
+    btn.disabled = false;
+    btn.textContent = 'Selectie verwijderen';
   }
   bulkSelectedIds.clear();
   closeBulkDeleteModal();
   await loadDatabaseState();
   renderRecipes();
   refreshSidebar();
-  toast(`${list.length} recepten verwijderd`);
+  if (deleted.failed) toast(`${deleted.done} recepten verwijderd · ${deleted.failed} niet; probeer het opnieuw`);
+  else toast(`${deleted.done} recepten verwijderd`);
+}
+
+// Eigen recepten verwijderen, ook als ze in mappen, gedeelde mappen of een openbare link staan. In delen, zodat
+// ook 1.800 recepten in één keer lukken. Via savour_delete_my_recipes (supabase/2026-10-25-recepten-verwijderen.sql)
+// ruimt de database eerst alle koppelingen op; zonder die functie doet de app het zelf, in kleinere delen.
+// Geeft { done, failed }.
+async function deleteOwnRecipes(ids, onProgress = () => {}) {
+  const total = ids.length;
+  let done = 0,
+    failed = 0,
+    useRpc = true;
+  for (let i = 0; i < ids.length; ) {
+    const size = useRpc ? 200 : 100;
+    const part = ids.slice(i, i + size);
+    if (useRpc) {
+      const { data, error } = await supabaseClient.rpc('savour_delete_my_recipes', { _ids: part });
+      if (error && /savour_delete_my_recipes|PGRST202|function/i.test(`${error.code} ${error.message}`)) {
+        useRpc = false;
+        continue;
+      }
+      if (error) {
+        console.error('Recepten verwijderen mislukt', error);
+        failed += part.length;
+      } else done += Number(data) || 0;
+    } else {
+      for (const table of [
+        'folder_recipes',
+        'favorites',
+        'shared_map_recipes',
+        'shared_folder_recipes',
+        'recipe_sources'
+      ]) {
+        const { error } = await supabaseClient.from(table).delete().in('recipe_id', part);
+        if (error) console.warn(`Koppelingen in ${table} konden niet worden verwijderd`, error);
+      }
+      const { error } = await supabaseClient.from('recipes').delete().in('id', part).eq('user_id', currentUser.id);
+      if (error) {
+        console.error('Recepten verwijderen mislukt', error);
+        failed += part.length;
+      } else done += part.length;
+    }
+    i += part.length;
+    onProgress(Math.min(i, total), total);
+  }
+  return { done, failed };
 }
 
 function renderCategoryBar() {
