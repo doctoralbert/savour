@@ -5,8 +5,11 @@ function openAuth(mode) {
   $('authModal').classList.add('open');
   $('authFirstName').value = '';
   $('authLastName').value = '';
-  $('authEmail').value = '';
-  $('authPassword').value = '';
+  // Bij inloggen niets leegmaken: de wachtwoordbeheerder van de browser kan de velden al hebben ingevuld.
+  if (mode === 'signup') {
+    $('authEmail').value = '';
+    $('authPassword').value = '';
+  }
   $('authNameField').style.display = mode === 'signup' ? 'grid' : 'none';
   $('authTitle').textContent = mode === 'signup' ? t('Account aanmaken') : t('Inloggen');
   $('authIntro').textContent =
@@ -37,18 +40,28 @@ function rememberPassword() {
 // Savour onthoudt alleen het e-mailadres, en vraagt de browser om het bewaarde wachtwoord in te vullen.
 async function fillRememberedLogin() {
   if (!rememberPassword()) return;
+  let email = '';
   try {
-    const email = localStorage.getItem(LAST_EMAIL_KEY);
+    email = localStorage.getItem(LAST_EMAIL_KEY) || '';
     if (email && !$('authEmail').value) $('authEmail').value = email;
   } catch (_) {}
-  if (!window.PasswordCredential || !navigator.credentials?.get) return;
-  try {
-    const cred = await navigator.credentials.get({ password: true, mediation: 'optional' });
-    if (cred?.password && $('authModal').classList.contains('open') && authMode === 'login') {
-      $('authEmail').value = cred.id;
-      $('authPassword').value = cred.password;
-    }
-  } catch (_) {}
+  // Chrome, Edge en Android: het bewaarde wachtwoord direct opvragen.
+  if (window.PasswordCredential && navigator.credentials?.get) {
+    try {
+      const cred = await navigator.credentials.get({ password: true, mediation: 'optional' });
+      if (cred?.password && $('authModal').classList.contains('open') && authMode === 'login') {
+        $('authEmail').value = cred.id;
+        $('authPassword').value = cred.password;
+        $('authSubmit').focus();
+        return;
+      }
+    } catch (_) {}
+  }
+  // Anders (o.a. Safari en iPhone): het juiste veld aantikken, dan toont de browser zijn bewaarde wachtwoord.
+  setTimeout(() => {
+    if (!$('authModal').classList.contains('open') || authMode !== 'login') return;
+    ($('authEmail').value ? $('authPassword') : $('authEmail')).focus();
+  }, 150);
 }
 
 async function saveLoginChoices(email, password, name) {
