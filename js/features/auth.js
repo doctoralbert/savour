@@ -22,8 +22,11 @@ function openAuth(mode) {
   $('authEmailField').style.marginTop = mode === 'signup' ? '10px' : '0';
   $('authPassword').autocomplete = mode === 'signup' ? 'new-password' : 'current-password';
   // Vinkjes zoals de vorige keer; bij inloggen het onthouden e-mailadres en, als de browser het mag, het wachtwoord.
-  $('authStay').checked = staySignedIn();
-  $('authRemember').checked = rememberPassword();
+  // Bij account aanmaken geen vinkjes: een nieuw account blijft ingelogd en de browser mag het wachtwoord bewaren.
+  const checks = document.querySelector('#authForm .auth-checks');
+  if (checks) checks.style.display = mode === 'signup' ? 'none' : '';
+  $('authStay').checked = mode === 'signup' || staySignedIn();
+  $('authRemember').checked = mode === 'signup' || rememberPassword();
   if (mode === 'login') fillRememberedLogin();
 }
 
