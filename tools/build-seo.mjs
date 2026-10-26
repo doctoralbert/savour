@@ -352,15 +352,24 @@ function page({ lang, slugs, title, desc, crumbs, body, schema = [] }) {
   sitemap.push({ loc: canonical, alternates });
 }
 
+// Echte kladjes (opgepoetst, niets aan de tekst veranderd) op Over ons, als polaroids op een prikbord. Recepten worden nooit vertaald.
+const KLADJE_WALL = [
+  ['over-marshmallow', 'Marshmallow'],
+  ['over-spongecake', 'Spongecake lavas'],
+  ['over-eendenhuid', 'Eendenhuid krokant'],
+  ['over-mousse', 'Witte chocolade mousse']
+];
+
 // Over ons: hoofdstukken als doorlopend verhaal, met echte kladjes na het eerste en een echt scherm na "wat Savour nu kan".
 function aboutChapters(s, lang) {
   return s.chapters
     .map(([t, ps], i) => {
       let extra = '';
       if (i === 0)
-        extra = `<figure class="site-notes reveal">${['marshmallow', 'curd', 'basis-mayonaise']
-          .map(n => `<img src="/assets/kladjes/${n}.jpg" alt="" loading="lazy">`)
-          .join('')}<figcaption>${esc(s.notesCaption)}</figcaption></figure>`;
+        extra = `<figure class="kladje-wall reveal"><div class="kladje-wall-grid">${KLADJE_WALL.map(
+          ([file, name]) =>
+            `<div class="kladje-card"><img src="/assets/kladjes/${file}.jpg" alt="${esc(name)}" width="900" height="900" loading="lazy"><span translate="no">${esc(name)}</span></div>`
+        ).join('')}</div><figcaption>${esc(s.notesCaption)}</figcaption></figure>`;
       if (i === 4)
         extra = `<figure class="site-notes app reveal"><div class="site-phone-frame"><img src="/assets/app/recept-${lang}.jpg" alt="" loading="lazy"></div><figcaption>${esc(s.appCaption)}</figcaption></figure>`;
       if (i === s.chapters.length - 1)

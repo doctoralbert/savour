@@ -1856,3 +1856,91 @@ body.cook-mode #publicRecipeShell .share-recipe-head h1 {
     background-position: var(--page-photo-pos-wide, var(--page-photo-pos, center));
   }
 }
+
+/* Over ons: echte kladjes als polaroids op een prikbord, breder dan de tekstkolom (tools/build-seo.mjs, KLADJE_WALL) */
+.kladje-wall {
+  width: min(1040px, calc(100vw - 48px));
+  margin: 46px 0 22px calc(50% - min(520px, 50vw - 24px));
+}
+.kladje-wall-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 26px;
+  padding: 34px 30px 30px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(238, 232, 220, 0.035);
+}
+.kladje-card {
+  margin: 0;
+  padding: 10px 10px 14px;
+  background: #f6f2ea;
+  border-radius: 3px;
+  box-shadow:
+    0 18px 34px rgba(0, 0, 0, 0.5),
+    0 2px 6px rgba(0, 0, 0, 0.35);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+.kladje-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 1px;
+}
+.kladje-card span {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  text-align: center;
+  color: #2a2620;
+}
+.kladje-card:nth-child(1) {
+  transform: rotate(-3deg) translateY(6px);
+}
+.kladje-card:nth-child(2) {
+  transform: rotate(2deg) translateY(-6px);
+}
+.kladje-card:nth-child(3) {
+  transform: rotate(-1.5deg) translateY(10px);
+}
+.kladje-card:nth-child(4) {
+  transform: rotate(2.5deg);
+}
+.kladje-card:hover {
+  transform: rotate(0) translateY(-4px) scale(1.03);
+  box-shadow:
+    0 24px 44px rgba(0, 0, 0, 0.55),
+    0 2px 6px rgba(0, 0, 0, 0.35);
+}
+.kladje-wall figcaption {
+  margin-top: 16px;
+  font-size: 13.5px;
+  color: var(--ink-3);
+  text-align: center;
+}
+@media (max-width: 860px) {
+  .kladje-wall-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 16px;
+    padding: 22px 18px;
+  }
+  .kladje-card {
+    padding: 7px 7px 10px;
+  }
+  .kladje-card span {
+    font-size: 13px;
+    margin-top: 7px;
+  }
+  .kladje-card:nth-child(n) {
+    transform: rotate(-1.5deg);
+  }
+  .kladje-card:nth-child(even) {
+    transform: rotate(1.5deg);
+  }
+}
