@@ -379,7 +379,7 @@ const PHOTOS = {
   eend: ['eend-vuur.jpg', 'center 45%'],
   wortels: ['wortels.jpg', 'center 50%'],
   uien: ['uien.jpg', 'center 50%'],
-  bloemen: ['bloemen.jpg', 'center 50%']
+  bloemen: ['bloemen.jpg', 'center 45%']
 };
 const PAGE_PHOTO = {
   'recepten-digitaliseren': 'hout',
