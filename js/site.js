@@ -103,7 +103,10 @@
   function logStaticVisit() {
     if (document.getElementById('appShell') || !/(^|\.)savour\.page$/.test(location.hostname)) return;
     // Testbrowsers en bots tellen niet mee.
-    if (navigator.webdriver || /bot|crawl|spider|headless|lighthouse/i.test(navigator.userAgent || '')) return;
+    if (navigator.webdriver || /bot|crawl|spider|headless|lighthouse|electron|preview/i.test(navigator.userAgent || ''))
+      return;
+    // Alleen echte browsers (zelfde regel als api/admin.js).
+    if (!/Chrome\/|CriOS|Safari\/|Firefox\/|FxiOS|Edg\//.test(navigator.userAgent || '')) return;
     try {
       var vid = localStorage.getItem('savour_visit_id');
       if (!vid) {

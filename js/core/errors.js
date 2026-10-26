@@ -24,6 +24,10 @@ function reportError(message, { source = '', line = null, col = null, stack = ''
     errorReportCount++;
     if (/^(localhost|127\.)/.test(location.hostname) || typeof supabaseClient === 'undefined') return;
     const ua = navigator.userAgent || '';
+    // Zoekmachines en voorvertoningen (WhatsApp, Google-weergave, testtools) laden pagina's half en breken scripts
+    // af: geen fout voor gebruikers. Alleen echte browsers melden.
+    if (/bot|crawl|spider|slurp|headless|lighthouse|preview|facebookexternalhit|whatsapp/i.test(ua)) return;
+    if (!/Chrome|CriOS|Safari|Firefox|FxiOS|Edg\//.test(ua)) return;
     const view = document.querySelector('#appShell .view.active')?.id;
     supabaseClient
       .from('app_errors')

@@ -161,7 +161,12 @@ function renderAdminStats() {
       [
         'Unieke bezoekers all time',
         d.visitors_all_time,
-        d.own_devices ? `zonder jouw ${d.own_devices} apparaat/apparaten` : 'sinds de start'
+        [
+          d.own_devices ? `zonder jouw ${d.own_devices} apparaat/apparaten` : 'sinds de start',
+          d.not_counted ? `${d.not_counted} bots en tools niet meegeteld` : ''
+        ]
+          .filter(Boolean)
+          .join(' · ')
       ],
       ['Accounts', d.accounts, 'geregistreerde gebruikers'],
       ['App gebruikers', d.app_users, 'unieke native app-gebruikers'],
@@ -225,7 +230,7 @@ function renderAdminStats() {
       (d.recent_people || [])
         .map(
           v =>
-            `<tr><td>${adminFormatDate(v.last)}</td><td>${adminEscape(v.visits)}</td><td>${v.pages.map(adminEscape).join('<br>')}</td><td>${adminEscape(v.platform === 'native_app' ? 'Native app' : v.platform === 'mobile_web' ? 'Mobiel web' : 'Desktop web')}</td><td>${adminEscape(adminDevice(v.user_agent))}</td><td title="${adminEscape(v.referrer || '')}">${adminEscape(v.source || v.referrer || 'Direct')}</td></tr>`
+            `<tr><td>${adminFormatDate(v.last)}</td><td>${adminEscape(v.visits)}</td><td>${v.pages.map(adminEscape).join('<br>')}</td><td>${adminEscape(v.platform === 'native_app' ? 'Native app' : v.platform === 'mobile_web' ? 'Mobiel web' : 'Desktop web')}</td><td title="${adminEscape(v.user_agent || '')}">${adminEscape(adminDevice(v.user_agent))}</td><td title="${adminEscape(v.referrer || '')}">${adminEscape(v.source || v.referrer || 'Direct')}</td></tr>`
         )
         .join('') || '<tr><td colspan="6">Nog geen bezoekers.</td></tr>';
 }
@@ -376,7 +381,7 @@ async function loadAdminErrors() {
       d.groups
         .map(
           g =>
-            `<tr><td><div class="admin-error-msg">${adminEscape(g.message)}<small>${adminEscape(g.source || '')}${g.line ? `:${adminEscape(g.line)}` : ''}${g.version ? ` · versie ${adminEscape(g.version)}` : ''}</small></div></td><td>${adminEscape(g.count)}</td><td>${adminFormatDate(g.last)}</td><td>${g.pages.map(adminEscape).join('<br>') || '—'}</td><td>${g.devices.map(adminEscape).join('<br>')}</td></tr>`
+            `<tr><td><div class="admin-error-msg">${adminEscape(g.message)}<small>${adminEscape(g.source || '')}${g.line ? `:${adminEscape(g.line)}` : ''}${g.version ? ` · versie ${adminEscape(g.version)}` : ''}</small></div></td><td>${adminEscape(g.count)}</td><td>${adminFormatDate(g.last)}</td><td>${g.pages.map(adminEscape).join('<br>') || '—'}</td><td>${g.devices.map(adminEscape).join('<br>')}${(g.agents || []).length ? `<small class="admin-error-agent">${g.agents.map(adminEscape).join('<br>')}</small>` : ''}</td></tr>`
         )
         .join('') || '<tr><td colspan="5">Geen fouten in de laatste 30 dagen.</td></tr>';
   } catch (e) {
@@ -724,7 +729,10 @@ async function logSavourVisit() {
   // Alleen echte bezoeken aan savour.page; de testversie en lokaal testen tellen niet mee.
   if (IS_ADMIN_PATH || !/(^|\.)savour\.page$/.test(location.hostname)) return;
   // Testbrowsers en bots tellen niet mee.
-  if (navigator.webdriver || /bot|crawl|spider|headless|lighthouse/i.test(navigator.userAgent || '')) return;
+  if (navigator.webdriver || /bot|crawl|spider|headless|lighthouse|electron|preview/i.test(navigator.userAgent || ''))
+    return;
+  // Alleen echte browsers (zelfde regel als api/admin.js): tools zonder browsernaam blazen de teller op.
+  if (!/Chrome\/|CriOS|Safari\/|Firefox\/|FxiOS|Edg\//.test(navigator.userAgent || '')) return;
   try {
     const key = 'savour_visit_id';
     let vid = localStorage.getItem(key);

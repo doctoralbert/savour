@@ -219,14 +219,20 @@ async function ownVisitorIds(user, current) {
 
 // Geen mensen: zoekmachines, linkvoorbeelden (WhatsApp, Facebook, ...) en testbrowsers. Tellen niet mee als bezoeker.
 const NOT_A_VISITOR =
-  /bot\b|bot\/|crawl|spider|slurp|headless|lighthouse|pagespeed|facebookexternalhit|meta-externalagent|preview|python|curl|wget|node-fetch|axios|vercel|uptime|monitor/i;
+  /bot\b|bot\/|crawl|spider|slurp|headless|lighthouse|pagespeed|facebookexternalhit|meta-externalagent|preview|python|curl|wget|node-fetch|axios|vercel|uptime|monitor|electron|claude|chatgpt|gptbot|perplexity|prerender|inspectiontool|google-read-aloud/i;
+// Alleen echte browsers tellen: Chrome, Safari, Firefox, Edge (ook op iPhone). Tools die pagina's laden zonder
+// zo'n naam (bijv. SEO-scanners) krijgen bij elk bezoek een nieuw id en blazen de teller op.
+const REAL_BROWSER = /Chrome\/|CriOS|Safari\/|Firefox\/|FxiOS|Edg\//;
+const isVisitor = ua => REAL_BROWSER.test(ua || '') && !NOT_A_VISITOR.test(ua || '');
 
 // Alles in unieke bezoekers (elk apparaat telt één keer): vandaag, deze week (7 dagen), deze maand, all time,
 // per platform en per dag (30 dagen). Plus de laatste unieke bezoekers met hun bezoeken en pagina's.
 async function visitorStats(ownIds = []) {
   const own = new Set(ownIds);
   const all = await allVisits();
-  const rows = all.filter(v => !own.has(v.visitor_id) && !NOT_A_VISITOR.test(v.user_agent || ''));
+  const rows = all.filter(v => !own.has(v.visitor_id) && isVisitor(v.user_agent));
+  const notCounted = new Set(all.filter(v => !own.has(v.visitor_id) && !isVisitor(v.user_agent)).map(v => v.visitor_id))
+    .size;
   const who = v => v.visitor_id || `${v.user_agent}|${v.visited_at}`;
   const unique = list => new Set(list.map(who)).size;
   const today = amsterdamDay(Date.now());
@@ -295,6 +301,7 @@ async function visitorStats(ownIds = []) {
       platform_mobile: unique(rows.filter(v => platformOf(v) === 'mobile_web')),
       platform_app: unique(rows.filter(v => platformOf(v) === 'native_app')),
       own_devices: own.size,
+      not_counted: notCounted,
       recent_people: [...people.values()]
         .sort((a, b) => (a.last < b.last ? 1 : -1))
         .slice(0, 100)
@@ -341,6 +348,7 @@ async function errorGroups() {
         first: r.created_at,
         pages: {},
         devices: {},
+        agents: {},
         version: r.app_version
       };
       groups.set(key, g);
@@ -350,6 +358,8 @@ async function errorGroups() {
     if (r.page) g.pages[r.page] = (g.pages[r.page] || 0) + 1;
     const d = `${r.platform || '?'} · ${browser(r.user_agent || '')}`;
     g.devices[d] = (g.devices[d] || 0) + 1;
+    // Het volledige apparaat (user-agent), om bijvoorbeeld een bot te herkennen achter "Anders".
+    if (r.user_agent) g.agents[r.user_agent] = (g.agents[r.user_agent] || 0) + 1;
   }
   const top = obj =>
     Object.entries(obj)
@@ -362,7 +372,7 @@ async function errorGroups() {
     last24h: rows.filter(r => new Date(r.created_at) > dayAgo).length,
     groups: [...groups.values()]
       .sort((a, b) => (a.last < b.last ? 1 : -1))
-      .map(g => ({ ...g, pages: top(g.pages), devices: top(g.devices) }))
+      .map(g => ({ ...g, pages: top(g.pages), devices: top(g.devices), agents: top(g.agents) }))
   };
 }
 

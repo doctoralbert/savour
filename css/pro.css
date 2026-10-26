@@ -471,3 +471,13 @@
   color: #8f9994;
   margin-top: 3px;
 }
+/* Fouten: het volledige apparaat (user-agent) klein onder het apparaat, om bots te herkennen. */
+.admin-error-agent {
+  display: block;
+  margin-top: 6px;
+  max-width: 260px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+  word-break: break-word;
+}
