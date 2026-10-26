@@ -139,6 +139,15 @@ async function submitAuth() {
         data: invitedBy() ? { name, invited_by: invitedBy() } : { name }
       });
       if (error) throw error;
+      // Bestaat het e-mailadres al, dan stuurt Supabase géén mail en meldt het (om privacyredenen) toch "gelukt",
+      // met een lege lijst identities. Dan duidelijk zeggen wat er aan de hand is.
+      if (data.user && Array.isArray(data.user.identities) && !data.user.identities.length) {
+        await askConfirm(
+          `${t('Dit e-mailadres heeft al een account')}\n\n${t('Er is geen nieuwe bevestigingsmail verstuurd. Log in met dit e-mailadres, of kies "Wachtwoord vergeten?" als je het wachtwoord niet meer weet.')}`,
+          { confirmLabel: t('Inloggen') }
+        ).then(login => login && openAuth('login'));
+        return;
+      }
       saveLoginChoices(email, password, name);
       closeAuth();
       if (data.session) {

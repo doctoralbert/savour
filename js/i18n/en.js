@@ -519,6 +519,8 @@ window.SAVOUR_I18N.en = {
     "Bekijk Savour Pro": "View Savour Pro",
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.": "Unlimited recipes, AI that reads your notes and photos, and shared folders for your team.",
     "Verbergen": "Hide",
+    "Dit e-mailadres heeft al een account": "This email address already has an account",
+    "Er is geen nieuwe bevestigingsmail verstuurd. Log in met dit e-mailadres, of kies \"Wachtwoord vergeten?\" als je het wachtwoord niet meer weet.": "No new confirmation email was sent. Log in with this email address, or choose \"Forgot password?\" if you no longer know the password.",
     "Deze link werkt niet meer": "This link no longer works",
     "Een link uit een e-mail werkt één keer en maar een uur. Vroeg je meerdere keren een nieuwe aan, dan werkt alleen de nieuwste. Vraag hieronder een nieuwe link aan en gebruik de nieuwste mail.": "A link from an email works once and only for an hour. If you requested a new one several times, only the newest works. Request a new link below and use the newest email.",
     "Nieuwe link aanvragen": "Request a new link",
