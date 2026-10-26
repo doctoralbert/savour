@@ -1503,6 +1503,9 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Je receptenboek is nog leeg","Your recipe book is still empty","Dein Rezeptbuch ist noch leer","Tu recetario aún está vacío"],
+  ["Importeer je Word-bestanden, PDF's of foto's van kladjes in één keer, of voer zelf een recept in.","Import your Word files, PDFs or photos of notes in one go, or enter a recipe yourself.","Importiere deine Word-Dateien, PDFs oder Fotos von Notizen auf einmal, oder gib ein Rezept selbst ein.","Importa tus archivos de Word, PDF o fotos de notas de una vez, o introduce una receta tú mismo."],
+  ["Recepten importeren","Import recipes","Rezepte importieren","Importar recetas"],
   ["Deze link staat uit. Kies hoelang hij moet werken om hem weer aan te zetten.","This link is off. Choose how long it should work to turn it back on.","Dieser Link ist aus. Wähle, wie lange er funktionieren soll, um ihn wieder einzuschalten.","Este enlace está desactivado. Elige cuánto tiempo debe funcionar para volver a activarlo."],
   ["De link werkt onbeperkt, tot je hem uitzet.","The link works indefinitely, until you turn it off.","Der Link funktioniert unbegrenzt, bis du ihn ausschaltest.","El enlace funciona sin límite, hasta que lo desactives."],
   ["De link werkt tot","The link works until","Der Link funktioniert bis","El enlace funciona hasta"],

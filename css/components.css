@@ -943,3 +943,115 @@ body.savour-light .nav .nav-add-recipe.active {
 #importOptionOther {
   grid-column: 1 / -1;
 }
+
+/* ---- Keukenfoto's in de app (alleen overzichtspagina's; het recept zelf blijft rustig) ---- */
+/* 1. Fotoband achter de kop van Alle recepten, Favorieten, Categorieën en Recept toevoegen (laptop en tablet). */
+#recipes {
+  --view-photo: url('/assets/keuken/ingredienten-hout.jpg');
+}
+#favorites {
+  --view-photo: url('/assets/keuken/bord-pass.jpg');
+}
+#categories {
+  --view-photo: url('/assets/keuken/ingredienten-keuken.jpg');
+}
+#import {
+  --view-photo: url('/assets/keuken/wortels.jpg');
+}
+@media (min-width: 761px) {
+  #appShell :is(#recipes, #favorites, #categories, #import) > .content > .section-head {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 132px;
+    align-items: flex-end;
+    padding: 34px 26px 22px;
+    margin-bottom: 20px;
+    border: 1px solid #24302f;
+    border-radius: 16px;
+  }
+  #appShell :is(#recipes, #favorites, #categories, #import) > .content > .section-head::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: var(--view-photo) center 55% / cover no-repeat;
+  }
+  #appShell :is(#recipes, #favorites, #categories, #import) > .content > .section-head::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(90deg, rgba(6, 10, 11, 0.88) 0%, rgba(6, 10, 11, 0.62) 55%, rgba(6, 10, 11, 0.4) 100%);
+  }
+  #appShell :is(#recipes, #favorites, #categories, #import) > .content > .section-head :is(h2, .eyebrow) {
+    color: #f6f2ea !important;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+  }
+  #appShell :is(#recipes, #favorites, #categories, #import) > .content > .section-head .mini {
+    color: rgba(238, 232, 220, 0.82) !important;
+  }
+}
+
+/* 2. Welkom bij een lege bibliotheek */
+.library-welcome {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: 300px;
+  padding: 36px;
+  border: 1px solid #24302f;
+  border-radius: 18px;
+  color: #f6f2ea;
+}
+.library-welcome::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: var(--welcome-photo) center 40% / cover no-repeat;
+}
+.library-welcome::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(6, 10, 11, 0.92) 0%, rgba(6, 10, 11, 0.7) 55%, rgba(6, 10, 11, 0.45) 100%);
+}
+.library-welcome h3 {
+  margin: 0 0 10px;
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: #f6f2ea !important;
+}
+.library-welcome p {
+  max-width: 460px;
+  margin: 0 0 20px;
+  color: rgba(238, 232, 220, 0.86) !important;
+  line-height: 1.6;
+}
+.library-welcome-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.library-welcome .btn:not(.gold) {
+  color: #f6f2ea !important;
+  border-color: rgba(238, 232, 220, 0.45) !important;
+  background: transparent !important;
+}
+@media (max-width: 760px) {
+  .library-welcome {
+    min-height: 260px;
+    padding: 24px 20px;
+  }
+  .library-welcome::after {
+    background: linear-gradient(180deg, rgba(6, 10, 11, 0.7) 0%, rgba(6, 10, 11, 0.9) 100%);
+  }
+  .library-welcome h3 {
+    font-size: 24px;
+  }
+}

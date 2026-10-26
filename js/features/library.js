@@ -79,6 +79,11 @@ function renderRecipeList(list, hostId, countId, context) {
   const sorted = (list || []).slice().sort((a, b) => title(a).localeCompare(title(b), 'nl', { sensitivity: 'base' }));
   if ($(countId)) $(countId).textContent = sorted.length + ' ' + (context === 'favorite' ? 'favorieten' : 'recepten');
   host.className = 'savour-v13-list savour-v27-list';
+  // Nog helemaal geen recepten (niet: niets gevonden bij zoeken): een welkom met foto en één duidelijke stap.
+  if (context === 'library' && !recipes.length) {
+    host.innerHTML = `<div class="library-welcome" style="--welcome-photo:url('/assets/keuken/vuur-grill.jpg')"><div><h3>Je receptenboek is nog leeg</h3><p>Importeer je Word-bestanden, PDF's of foto's van kladjes in één keer, of voer zelf een recept in.</p><div class="library-welcome-actions"><button type="button" class="btn gold" onclick="go('import');showImportPanel()">Recepten importeren</button><button type="button" class="btn" onclick="newRecipe()">Zelf invoeren</button></div></div></div>`;
+    return;
+  }
   host.innerHTML = sorted.length
     ? sorted.map((r, i) => recipeRowHtml(r, i, context)).join('')
     : '<div class="empty">' +
