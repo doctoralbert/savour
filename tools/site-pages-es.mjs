@@ -55,6 +55,7 @@ export const ES = {
       sections: [
         ['Word y PDF de una vez', 'Arrastra un archivo de Word o un PDF a Savour, aunque contenga cientos de recetas. El lector de Savour detecta dónde empieza y termina cada receta y coloca el título, los ingredientes y la elaboración en su sitio. Los números delante de los títulos y pequeñas erratas, como 18oc en lugar de 180 °C, se corrigen. Un cocinero importó así 1.400 recetas en unos dos minutos.'],
         ['Recetas escritas a mano y fotos', 'Haz una foto de una nota, de una página de tu cuaderno o un escaneo de una carpeta antigua. La IA lee la letra y la convierte en una receta limpia, aunque la foto esté torcida o el papel manchado. Forma parte de Savour Pro.'],
+        [ "Orden en carpetas de recetas grandes y desordenadas", "¿Una carpeta con cientos de recetas de distintos chefs, con números, títulos sueltos y recetas que empiezan a mitad de página? Savour las separa solo, reconoce partes como la masa y el relleno, corrige errores ortográficos habituales y propone una categoría para cada receta. Las recetas en las que el lector tiene dudas las vuelve a leer la IA con Savour Pro. Tú lo revisas todo en un solo resumen antes de guardar." ],
         ['Nada inventado', 'Una receta tiene que ser correcta. Savour nunca inventa cantidades, ingredientes ni pasos. Si el lector tiene dudas, la receta se marca y la revisas tú antes de guardarla.'],
         ['Y luego, a seguir', 'Cada receta importada se puede editar, añadirle una foto, ponerla en una carpeta y compartirla con tu brigada.']
       ]
@@ -110,6 +111,35 @@ export const ES = {
         ['Con el logo de tu restaurante', 'Con Savour Pro, cada página lleva arriba el logo y el nombre de tu restaurante. En un equipo, el logo vale para todos. Elige A4 para la carpeta o A5 para una carpeta pequeña en el pase.']
       ]
     },
+    cloud: {
+      "slug": "es/base-de-datos-de-recetas",
+      "title": "Base de datos y archivo de recetas en la nube, también sin conexión | Savour",
+      "desc": "Savour es tu base de datos y archivo de recetas en la nube: todas tus recetas guardadas de forma segura en línea, en ordenador, tableta y móvil, y disponibles sin internet en la cocina.",
+      "h1": "Tu base de datos de recetas, con y sin conexión",
+      "lead": "Todas tus recetas en un lugar seguro en la nube. En cualquier dispositivo, aunque se caiga el wifi en la cámara.",
+      "sections": [
+        [
+          "Una base de datos de recetas en la nube",
+          "Todas tus recetas están en un solo lugar en la nube, ya no repartidas entre portátiles, móviles y memorias USB. Si se rompe tu móvil o estrenas portátil, inicias sesión y todo vuelve a estar ahí. Lo que cambias en el ordenador lo ves al momento en el móvil."
+        ],
+        [
+          "En cualquier dispositivo",
+          "En el ordenador importas y organizas; en la cocina abres la misma receta en el móvil o la tableta. Savour funciona en el navegador y se instala en tu pantalla de inicio sin tienda de apps: en iPhone, Android, tableta y ordenador."
+        ],
+        [
+          "También sin conexión",
+          "En la cámara, el sótano o un evento el wifi falla a menudo. Si has abierto Savour una vez con internet, tu biblioteca queda guardada en el dispositivo y abres tus recetas sin conexión. Podrás editar de nuevo en cuanto vuelvas a estar en línea."
+        ],
+        [
+          "Un archivo que permanece",
+          "Menús de temporadas pasadas, recetas de un chef anterior, el menú degustación de hace tres años: en Savour no pierdes nada. Ponlos en una carpeta de archivo y seguirán siendo fáciles de buscar. Si algún día dejas Pro, todas tus recetas siguen ahí."
+        ],
+        [
+          "Seguro y tuyo",
+          "Tus recetas solo las ves tú y las personas que invitas a una carpeta compartida; se guardan separadas por cuenta. Con Savour Pro descargas tu recetario completo cuando quieras, como archivos de Word o como copia de seguridad."
+        ]
+      ]
+    },
     roadmap: {
       slug: 'es/proximamente',
       short: 'Coste por receta, alérgenos y el historial de cada receta.',
@@ -141,7 +171,7 @@ export const ES = {
     },
     brigade: {
       slug: 'es/para-brigadas-de-cocina',
-      title: 'Comparte recetas con tu brigada de cocina | Savour',
+      title: 'Gestión de recetas para brigadas de cocina | Savour',
       desc: 'Savour para brigadas de cocina: jefes de partida, ayudantes y becarios trabajan con las mismas recetas, en su propio móvil. Tú decides quién puede hacer qué.',
       h1: 'Para brigadas de cocina',
       lead: 'Del jefe de partida al becario: todo tu equipo de cocina cocina con la misma receta, en cada restaurante que diriges.',
@@ -178,6 +208,70 @@ export const ES = {
     ]
   },
   posts: {
+    "en/blog/recipe-database-in-the-cloud": {
+      "slug": "es/blog/base-de-datos-de-recetas-en-la-nube",
+      "title": "Una base de datos de recetas para tu cocina: con conexión, sin conexión y en la nube",
+      "desc": "Por qué toda cocina profesional necesita una base de datos de recetas, por qué debe estar en la nube, cómo acceder a tus recetas sin conexión y cómo crear un archivo de recetas.",
+      "h1": "Una base de datos de recetas para tu cocina: con conexión, sin conexión y en la nube",
+      "lead": "La mayoría de las cocinas tienen sus recetas en diez sitios a la vez. Una base de datos de recetas lo reúne todo en un solo lugar que puedes abrir desde cualquier parte.",
+      "sections": [
+        [
+          "El problema: recetas en diez sitios",
+          "Archivos de Word en el portátil del chef anterior, fotos en tres móviles, una carpeta manchada en el pase. Cualquiera de esos sitios puede desaparecer: un móvil roto, un compañero que se va, una carpeta que acaba en la zona de fregado."
+        ],
+        [
+          "Qué hace una buena base de datos de recetas",
+          "Todas las recetas en un solo lugar, con búsqueda por título, ingrediente y elaboración. Cada receta con la misma estructura: título, rendimiento, ingredientes y pasos. Y con carpetas y categorías, para no tener que recorrer cientos de recetas."
+        ],
+        [
+          "Por qué en la nube",
+          "Si tu base de datos está en la nube, es la misma en todas partes: en el ordenador de la oficina, en la tableta del pase y en tu móvil en casa. Un cambio se ve al instante en todas partes, y un móvil nuevo solo significa volver a iniciar sesión."
+        ],
+        [
+          "Y sin conexión en la cocina",
+          "Las cocinas son malas para el wifi: acero, cámaras frigoríficas, sótanos. Por eso conviene una app de recetas que también funcione sin conexión. En Savour abres tus recetas en la cámara o en un evento, si has abierto la app una vez con conexión."
+        ],
+        [
+          "Un archivo, no una papelera",
+          "No tires los menús antiguos. Un archivo de temporadas pasadas vale oro cuando vuelve un plato o un cliente pregunta por un postre antiguo. Ponlos en una carpeta de archivo: fuera de la vista, pero siempre localizables."
+        ]
+      ],
+      "outro": "Savour es tu base de datos y archivo de recetas en la nube, en ordenador, tableta y móvil, y disponible sin conexión."
+    },
+    "en/blog/sorting-out-a-messy-recipe-folder": {
+      "slug": "es/blog/ordenar-una-carpeta-de-recetas-desordenada",
+      "title": "Ordenar una carpeta de recetas desordenada con IA e imprimirla de una vez",
+      "desc": "Cómo convertir una carpeta llena de recetas escritas a máquina, escaneadas y a mano en un recetario ordenado: importar, IA para notas, revisar, ordenar en carpetas e imprimir la carpeta completa.",
+      "h1": "Ordenar una carpeta de recetas desordenada con IA e imprimirla de una vez",
+      "lead": "Años de recetas en una carpeta: a máquina, escaneadas, a mano y llenas de números. Pasarlas a limpio lleva semanas. Con la ayuda adecuada, una tarde.",
+      "sections": [
+        [
+          "Donde suele empezar",
+          "Una carpeta con recetas de distintos chefs, con títulos repetidos, encabezados sueltos y una receta que continúa a mitad de página. Ya nadie sabe qué versión es la buena, y buscar lleva más tiempo que cocinar."
+        ],
+        [
+          "Deja que el lector haga el trabajo pesado",
+          "Sube el archivo entero a Savour de una vez. El lector de Savour lo separa en recetas sueltas, quita los números delante de los títulos, reconoce partes como la masa y el relleno y corrige errores ortográficos habituales. Lo que no tiene claro, lo marca."
+        ],
+        [
+          "IA para notas y casos dudosos",
+          "Las fotos de notas escritas a mano y las recetas en las que el lector tiene dudas las lee la IA (Savour Pro). Importante: una buena IA nunca inventa cantidades. Lo que no se puede leer queda marcado para que lo revises."
+        ],
+        [
+          "Revisar una vez y guardar",
+          "Ves todas las recetas en un solo resumen, cada una con una categoría propuesta. Corrige lo que no esté bien y guárdalo todo de una vez."
+        ],
+        [
+          "Ordenar en carpetas",
+          "Crea carpetas por partida, menú o temporada. Una receta puede estar en varias carpetas sin duplicarse. Comparte una carpeta con tu brigada y todos trabajan con la misma versión."
+        ],
+        [
+          "Imprimir la carpeta completa de una vez",
+          "¿La nueva carpeta tiene que ir al archivador del pase? Imprime la carpeta de recetas completa de una vez, con índice y bien maquetada. Con Savour Pro lleva el logo de tu restaurante en cada página."
+        ]
+      ],
+      "outro": "En Savour importas una carpeta de recetas entera de una vez, lo ordenas todo en carpetas e imprimes una carpeta completa con un clic."
+    },
     'en/blog/shared-folders-explained': {
       "slug": "es/blog/carpetas-compartidas-explicadas",
       "title": "Carpetas compartidas en Savour: así funciona tu recetario compartido",

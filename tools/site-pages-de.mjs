@@ -55,6 +55,7 @@ export const DE = {
       sections: [
         ['Word und PDF auf einmal', 'Zieh eine Word-Datei oder ein PDF in Savour, auch wenn Hunderte Rezepte darin stehen. Der Savour-Leser erkennt, wo jedes Rezept beginnt und endet, und setzt Titel, Zutaten und Zubereitung an die richtige Stelle. Nummern vor Titeln und kleine Tippfehler wie 18oc statt 180 °C werden bereinigt. Ein Koch hat so 1.400 Rezepte in etwa zwei Minuten importiert.'],
         ['Handschriftliche Rezepte und Fotos', 'Mach ein Foto von einer Notiz, einer Seite aus deinem Heft oder einem Scan aus einem alten Ordner. Die KI liest die Handschrift und macht daraus ein sauberes Rezept, auch wenn das Foto schief ist oder das Papier Flecken hat. Das ist Teil von Savour Pro.'],
+        [ "Ordnung in großen, chaotischen Rezeptordnern", "Ein Ordner mit Hunderten Rezepten verschiedener Köche, mit Nummern, losen Überschriften und Rezepten, die mitten auf einer Seite beginnen? Savour trennt sie selbst auf, erkennt Bestandteile wie Teig und Füllung, korrigiert häufige Schreibfehler und schlägt für jedes Rezept eine Kategorie vor. Rezepte, bei denen der Leser unsicher ist, liest die KI mit Savour Pro noch einmal. Du prüfst alles in einer Übersicht, bevor es gespeichert wird." ],
         ['Nichts wird erfunden', 'Ein Rezept muss stimmen. Savour erfindet nie Mengen, Zutaten oder Schritte. Ist sich der Leser unsicher, wird das Rezept markiert und du prüfst es selbst, bevor es gespeichert wird.'],
         ['Dann einfach weiterarbeiten', 'Jedes importierte Rezept kannst du bearbeiten, mit einem Foto versehen, in einen Ordner legen und mit deiner Brigade teilen.']
       ]
@@ -110,6 +111,35 @@ export const DE = {
         ['Mit dem Logo deines Restaurants', 'Mit Savour Pro stehen Logo und Name deines Restaurants oben auf jeder Seite. Im Team gilt das Logo für alle. Wähle A4 für den Ordner oder A5 für eine kleine Mappe am Pass.']
       ]
     },
+    cloud: {
+      "slug": "de/rezeptdatenbank",
+      "title": "Rezeptdatenbank und Rezeptarchiv in der Cloud, auch offline | Savour",
+      "desc": "Savour ist deine Rezeptdatenbank und dein Rezeptarchiv in der Cloud: alle Rezepturen sicher online gespeichert, auf Computer, Tablet und Handy, und in der Küche auch ohne Internet abrufbar.",
+      "h1": "Deine Rezeptdatenbank, online und offline",
+      "lead": "Alle Rezepte an einem sicheren Ort in der Cloud. Auf jedem Gerät, auch wenn im Kühlhaus das WLAN ausfällt.",
+      "sections": [
+        [
+          "Eine Rezeptdatenbank in der Cloud",
+          "Alle Rezepturen stehen an einem Ort in der Cloud, nicht mehr verstreut über Laptops, Handys und USB-Sticks. Geht dein Handy kaputt oder bekommst du einen neuen Laptop, meldest du dich an und alles ist wieder da. Was du am Computer änderst, siehst du sofort auf dem Handy."
+        ],
+        [
+          "Auf jedem Gerät",
+          "Am Computer importierst und ordnest du, in der Küche öffnest du dasselbe Rezept auf Handy oder Tablet. Savour läuft im Browser und kommt ohne App Store auf deinen Startbildschirm: auf iPhone, Android, Tablet und Computer."
+        ],
+        [
+          "Auch offline",
+          "Im Kühlhaus, im Keller oder auf einer Veranstaltung fällt das WLAN oft aus. Hast du Savour einmal mit Internet geöffnet, ist deine Bibliothek auf deinem Gerät gespeichert und du öffnest deine Rezepte auch ohne Verbindung. Bearbeiten geht wieder, sobald du online bist."
+        ],
+        [
+          "Ein Archiv, das bleibt",
+          "Alte Saisonmenüs, Rezepte eines früheren Küchenchefs, das Degustationsmenü von vor drei Jahren: In Savour geht nichts verloren. Leg sie in einen Archivordner und sie bleiben durchsuchbar. Kündigst du Pro, bleiben alle deine Rezepte erhalten."
+        ],
+        [
+          "Sicher und deins",
+          "Deine Rezepte sind nur für dich sichtbar und für die Personen, die du in einen geteilten Ordner einlädst; sie werden pro Konto getrennt gespeichert. Mit Savour Pro lädst du dein ganzes Rezeptbuch jederzeit herunter, als Word-Dateien oder als Backup."
+        ]
+      ]
+    },
     roadmap: {
       slug: 'de/demnaechst',
       short: 'Kosten pro Rezept, Allergene und der Verlauf jedes Rezepts.',
@@ -141,7 +171,7 @@ export const DE = {
     },
     brigade: {
       slug: 'de/fuer-kuechenbrigaden',
-      title: 'Rezepte mit deiner Küchenbrigade teilen | Savour',
+      title: 'Rezeptmanagement für Küchenbrigaden | Savour',
       desc: 'Savour für Küchenbrigaden: Chefs de Partie, Commis und Praktikanten arbeiten mit denselben Rezepten, auf dem eigenen Handy. Du bestimmst, wer was darf.',
       h1: 'Für Küchenbrigaden',
       lead: 'Vom Chef de Partie bis zum Praktikanten: Dein ganzes Küchenteam kocht nach demselben Rezept, in jedem Restaurant, das du führst.',
@@ -178,6 +208,70 @@ export const DE = {
     ]
   },
   posts: {
+    "en/blog/recipe-database-in-the-cloud": {
+      "slug": "de/blog/rezeptdatenbank-in-der-cloud",
+      "title": "Eine Rezeptdatenbank für deine Küche: online, offline und in der Cloud",
+      "desc": "Warum jede Profiküche eine Rezeptdatenbank braucht, warum sie in die Cloud gehört, wie du auch offline an deine Rezepte kommst und wie du ein Rezeptarchiv aufbaust.",
+      "h1": "Eine Rezeptdatenbank für deine Küche: online, offline und in der Cloud",
+      "lead": "Die meisten Küchen haben ihre Rezepte an zehn Orten gleichzeitig. Eine Rezeptdatenbank bringt sie an einen Ort zurück, den du überall öffnen kannst.",
+      "sections": [
+        [
+          "Das Problem: Rezepte an zehn Orten",
+          "Word-Dateien auf dem Laptop des früheren Küchenchefs, Fotos auf drei Handys, ein fleckiger Ordner am Pass. Jeder dieser Orte kann verschwinden: ein kaputtes Handy, ein Kollege, der geht, ein Ordner, der in der Spülküche landet."
+        ],
+        [
+          "Was eine gute Rezeptdatenbank kann",
+          "Alle Rezepturen an einem Ort, durchsuchbar nach Titel, Zutat und Zubereitung. Jedes Rezept in derselben Form: Titel, Ausbeute, Zutaten und Schritte. Und mit Ordnern und Kategorien, damit du nicht durch Hunderte Rezepte scrollen musst."
+        ],
+        [
+          "Warum in der Cloud",
+          "Liegt deine Datenbank in der Cloud, ist sie überall gleich: am Computer im Büro, am Tablet am Pass und auf dem Handy zu Hause. Eine Änderung ist sofort überall sichtbar, und ein neues Handy heißt nur: neu anmelden."
+        ],
+        [
+          "Und offline in der Küche",
+          "Küchen sind schlecht für WLAN: Stahl, Kühlhäuser, Keller. Wähle deshalb eine Rezept-App, die auch ohne Verbindung funktioniert. In Savour öffnest du deine Rezepte im Kühlhaus oder auf einer Veranstaltung, wenn du die App einmal online geöffnet hast."
+        ],
+        [
+          "Ein Archiv, kein Papierkorb",
+          "Wirf alte Menüs nicht weg. Ein Archiv vergangener Saisons ist Gold wert, wenn ein Gericht zurückkommt oder ein Gast nach einem alten Dessert fragt. Leg sie in einen Archivordner: aus dem Blick, aber immer auffindbar."
+        ]
+      ],
+      "outro": "Savour ist deine Rezeptdatenbank und dein Rezeptarchiv in der Cloud, auf Computer, Tablet und Handy, und auch offline abrufbar."
+    },
+    "en/blog/sorting-out-a-messy-recipe-folder": {
+      "slug": "de/blog/chaotischen-rezeptordner-ordnen",
+      "title": "Einen chaotischen Rezeptordner mit KI ordnen und dann auf einmal drucken",
+      "desc": "So wird aus einem Ordner voller getippter, gescannter und handgeschriebener Rezepte ein geordnetes Rezeptbuch: einlesen, KI für Notizen, prüfen, in Ordnern ordnen und den kompletten Ordner drucken.",
+      "h1": "Einen chaotischen Rezeptordner mit KI ordnen und dann auf einmal drucken",
+      "lead": "Jahre an Rezepten in einem Ordner: getippt, gescannt, handgeschrieben und voller Nummern. Abtippen dauert Wochen. Mit der richtigen Hilfe dauert es einen Nachmittag.",
+      "sections": [
+        [
+          "Wo es meistens anfängt",
+          "Ein Ordner mit Rezepten verschiedener Köche, mit doppelten Titeln, losen Überschriften und einem Rezept, das mitten auf einer Seite weitergeht. Niemand weiß mehr, welche Version stimmt, und Suchen dauert länger als Kochen."
+        ],
+        [
+          "Lass den Leser die schwere Arbeit machen",
+          "Gib die ganze Datei auf einmal in Savour. Der Savour-Leser teilt sie in einzelne Rezepte auf, entfernt Nummern vor Titeln, erkennt Bestandteile wie Teig und Füllung und korrigiert häufige Schreibfehler. Was er nicht sicher weiß, markiert er."
+        ],
+        [
+          "KI für Notizen und Zweifelsfälle",
+          "Fotos handschriftlicher Notizen und Rezepte, bei denen der Leser unsicher ist, liest die KI (Savour Pro). Wichtig: Eine gute KI erfindet nie Mengen. Was nicht lesbar ist, wird zum Prüfen markiert."
+        ],
+        [
+          "Einmal prüfen, dann speichern",
+          "Du siehst alle Rezepte in einer Übersicht, jedes mit einer vorgeschlagenen Kategorie. Korrigiere, was nicht stimmt, und speichere alles auf einmal."
+        ],
+        [
+          "In Ordnern ordnen",
+          "Lege Ordner pro Posten, Menü oder Saison an. Ein Rezept kann in mehreren Ordnern liegen, ohne doppelt zu existieren. Teile einen Ordner mit deiner Brigade, und alle arbeiten mit derselben Version."
+        ],
+        [
+          "Den kompletten Ordner auf einmal drucken",
+          "Muss der neue Ordner in die Mappe am Pass? Drucke den kompletten Rezeptordner auf einmal, mit Inhaltsverzeichnis und sauberem Layout. Mit Savour Pro steht das Logo deines Restaurants auf jeder Seite."
+        ]
+      ],
+      "outro": "In Savour importierst du einen ganzen Rezeptordner auf einmal, ordnest alles in Ordnern und druckst einen kompletten Ordner mit einem Klick."
+    },
     'en/blog/shared-folders-explained': {
       "slug": "de/blog/geteilte-ordner-erklaert",
       "title": "Geteilte Ordner in Savour: so funktioniert dein gemeinsames Rezeptbuch",

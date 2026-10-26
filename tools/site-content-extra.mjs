@@ -27,7 +27,7 @@ export const EXTRA_LANGS = {
     },
     home: {
       h1: 'Dein ganzes Rezeptbuch, auf jedem Handy in der Küche.',
-      lead: 'Savour ist die Rezept-App für die Profiküche. Deine Word-Dateien, PDFs und handschriftlichen Notizen werden ein geordnetes Rezeptbuch, für dich und deine Brigade.',
+      lead: 'Savour ist die Rezept-App für die Profiküche. Deine Word-Dateien, PDFs und handschriftlichen Notizen werden ein geordnetes Rezeptbuch, für dich und deine Brigade. Sicher in der Cloud, auf jedem Gerät und auch offline.',
       proof: '1.400 Rezepte in 2 Minuten aus Word importiert. Getestet in unserer eigenen Küche.',
       story: [
         'Auf der Rückseite eines Bons. In einem Heft, das nach zehn Jahren Service zusammenklebt. Auf einem Foto vom Pass. Diese Notizen sind das Wissen deiner Küche, und sie gehen verloren, verblassen oder sind nur für den lesbar, der sie schrieb.',
@@ -48,6 +48,9 @@ export const EXTRA_LANGS = {
         ['Kann ich Rezepte aus Word oder PDF importieren?', 'Ja. Auch eine Datei mit Hunderten Rezepten auf einmal; Savour trennt sie selbst auf.'],
         ['Wie teile ich Rezepte mit meinem Küchenteam?', 'Mit einem geteilten Ordner. Du lädst Kollegen ein und gibst ihnen Rechte zum Ansehen oder Mitarbeiten.'],
         ['Eignet sich Savour für die Rezeptverwaltung in der Gastronomie?', 'Ja. Savour ist für Restaurants, Hotels und Catering gebaut: Rezepturen zentral verwalten, mit dem Küchenteam teilen und nach Posten, Menü oder Standort ordnen.'],
+        [ "Funktioniert Savour auch offline?", "Ja. Öffne Savour einmal mit Internet und lege es auf deinen Startbildschirm; danach öffnest du deine Rezepte auch ohne Verbindung, zum Beispiel im Kühlhaus. Bearbeiten geht wieder, sobald du online bist." ],
+        [ "Wo werden meine Rezepte gespeichert?", "In der Cloud, getrennt pro Konto. Du öffnest sie auf Computer, Tablet und Handy, und nur du und die Personen, die du in einen geteilten Ordner einlädst, können sie lesen." ],
+        [ "Kann ich einen ganzen Rezeptordner auf einmal drucken?", "Ja. Drucke einzelne Rezepte oder einen kompletten Rezeptordner auf einmal, sauber gestaltet für den Küchenordner. Mit Savour Pro steht das Logo deines Restaurants darauf." ],
         ['Ist Savour auch für Hobbyköche?', 'Das geht, aber Savour ist für die Profiküche gebaut: große Rezeptbücher, Teams und den Service.']
       ]
     },
@@ -57,6 +60,10 @@ export const EXTRA_LANGS = {
       share: ['Mit der Brigade teilen', 'Geteilte Ordner mit Rechten: Du verwaltest, dein Sous-Chef bearbeitet, der Rest liest mit.'],
       scale: ['Rezepte hochrechnen', 'Von 8 Gedecken auf 120, ohne Rechenfehler.'],
       print: ['Drucken und Rezeptordner', 'Ein ganzer Ordner auf einmal zum Drucker, sauber für die Küche.'],
+      cloud: [
+  "Rezeptdatenbank und Archiv",
+  "Alle Rezepte sicher in der Cloud, online und offline auf jedem Gerät."
+],
       roadmap: ['Demnächst in Savour', 'Kosten pro Rezept, Allergene und der Verlauf jedes Rezepts.'],
       chefs: ['Köche', 'Für Küchenchefs, Sous-Chefs und Patissiers, die ihre Rezepturen bewahren wollen.'],
       brigade: ['Küchenbrigaden', 'Für das ganze Team: Chefs de Partie, Commis und Praktikanten.']
@@ -87,7 +94,7 @@ export const EXTRA_LANGS = {
     },
     home: {
       h1: 'Todo tu recetario, en cada móvil de la cocina.',
-      lead: 'Savour es la app de recetas para la cocina profesional. Tus archivos de Word, PDF y notas escritas a mano se convierten en un recetario ordenado, para ti y tu brigada.',
+      lead: 'Savour es la app de recetas para la cocina profesional. Tus archivos de Word, PDF y notas escritas a mano se convierten en un recetario ordenado, para ti y tu brigada. Segura en la nube, en cualquier dispositivo y también sin conexión.',
       proof: '1.400 recetas importadas de Word en 2 minutos. Probado en nuestra propia cocina.',
       story: [
         'En el reverso de un ticket. En un cuaderno que se pega tras diez años de servicio. En una foto que hiciste en el pase. Esas notas son el conocimiento de tu cocina, y se pierden, se borran o solo las entiende quien las escribió.',
@@ -108,6 +115,9 @@ export const EXTRA_LANGS = {
         ['¿Puedo importar recetas de Word o PDF?', 'Sí. Incluso un archivo con cientos de recetas a la vez; Savour las separa solo.'],
         ['¿Cómo comparto recetas con mi equipo de cocina?', 'Con una carpeta compartida. Invitas a tus compañeros y les das permiso para ver o colaborar.'],
         ['¿Sirve Savour para la gestión de recetas en hostelería?', 'Sí. Savour está hecho para restaurantes, hoteles y catering: gestionar recetas de forma central, compartirlas con tu equipo de cocina y ordenarlas por partida, menú o local.'],
+        [ "¿Savour funciona sin conexión?", "Sí. Abre Savour una vez con internet y añádelo a tu pantalla de inicio; después abres tus recetas sin conexión, por ejemplo en la cámara. Podrás editar de nuevo en cuanto estés en línea." ],
+        [ "¿Dónde se guardan mis recetas?", "En la nube, separadas por cuenta. Las abres en ordenador, tableta y móvil, y solo tú y quienes invites a una carpeta compartida pueden leerlas." ],
+        [ "¿Puedo imprimir una carpeta de recetas entera de una vez?", "Sí. Imprime recetas sueltas o una carpeta de recetas completa de una vez, bien maquetada para el archivador de la cocina. Con Savour Pro lleva el logo de tu restaurante." ],
         ['¿Savour también es para cocineros caseros?', 'Puede servir, pero Savour está hecho para la cocina profesional: grandes recetarios, equipos y el servicio.']
       ]
     },
@@ -117,6 +127,10 @@ export const EXTRA_LANGS = {
       share: ['Compartir con tu brigada', 'Carpetas compartidas con permisos: tú gestionas, tu segundo edita, el resto consulta.'],
       scale: ['Escalar recetas', 'De 8 cubiertos a 120, sin errores de cálculo.'],
       print: ['Imprimir y carpetas', 'Una carpeta entera a la impresora de una vez, limpia para la cocina.'],
+      cloud: [
+  "Base de datos y archivo",
+  "Todas tus recetas seguras en la nube, con y sin conexión en cualquier dispositivo."
+],
       roadmap: ['Próximamente en Savour', 'Coste por receta, alérgenos y el historial de cada receta.'],
       chefs: ['Cocineros', 'Para jefes de cocina, segundos y pasteleros que quieren guardar sus recetas.'],
       brigade: ['Brigadas de cocina', 'Para todo el equipo: jefes de partida, ayudantes y becarios.']

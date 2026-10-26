@@ -3,6 +3,142 @@
 // de Duitse en Spaanse versies staan in tools/site-pages-de.mjs en tools/site-pages-es.mjs.
 export const BLOG = [
   {
+    id: 'database',
+    date: '2026-10-26',
+    nl: {
+      "slug": "blog/receptendatabase-in-de-cloud",
+      "title": "Een receptendatabase voor je keuken: online, offline en in de cloud",
+      "desc": "Waarom elke professionele keuken een receptendatabase nodig heeft, waarom die in de cloud hoort, hoe je ook offline bij je recepten kunt en hoe je een receptenarchief opbouwt.",
+      "h1": "Een receptendatabase voor je keuken: online, offline en in de cloud",
+      "lead": "De meeste keukens hebben hun recepten op tien plekken tegelijk. Een receptendatabase brengt dat terug naar één plek, die je overal kunt openen.",
+      "sections": [
+        [
+          "Het probleem: recepten op tien plekken",
+          "Word-bestanden op de laptop van de vorige chef, foto’s op drie telefoons, een map met vlekken bij de pass. Elk van die plekken kan verdwijnen: een kapotte telefoon, een collega die vertrekt, een map die in de spoelkeuken belandt."
+        ],
+        [
+          "Wat een goede receptendatabase doet",
+          "Alle recepturen op één plek, doorzoekbaar op titel, ingrediënt en bereiding. Elk recept in dezelfde vorm: titel, opbrengst, ingrediënten en stappen. En met mappen en categorieën, zodat je niet door honderden recepten hoeft te scrollen."
+        ],
+        [
+          "Waarom in de cloud",
+          "Staat je database in de cloud, dan is hij overal hetzelfde: op de computer op kantoor, op de tablet aan de pass en op je telefoon thuis. Een aanpassing is meteen overal zichtbaar, en een nieuwe telefoon betekent alleen opnieuw inloggen."
+        ],
+        [
+          "En offline in de keuken",
+          "Keukens zijn slecht voor wifi: staal, koelcellen, kelders. Kies daarom een receptenapp die ook zonder verbinding werkt. In Savour open je je recepten in de koelcel of op een evenement, als je de app één keer online hebt geopend."
+        ],
+        [
+          "Een archief, geen prullenbak",
+          "Gooi oude menu’s niet weg. Een archief met vorige seizoenen is goud waard als een gerecht terugkomt of een gast naar een oud dessert vraagt. Zet ze in een archiefmap: uit het zicht, maar altijd vindbaar."
+        ]
+      ],
+      "outro": "Savour is je receptendatabase en receptenarchief in de cloud, op computer, tablet en telefoon, en ook offline te openen."
+    },
+    en: {
+      "slug": "en/blog/recipe-database-in-the-cloud",
+      "title": "A recipe database for your kitchen: online, offline and in the cloud",
+      "desc": "Why every professional kitchen needs a recipe database, why it belongs in the cloud, how to reach your recipes offline and how to build a recipe archive.",
+      "h1": "A recipe database for your kitchen: online, offline and in the cloud",
+      "lead": "Most kitchens keep their recipes in ten places at once. A recipe database brings that back to one place that you can open anywhere.",
+      "sections": [
+        [
+          "The problem: recipes in ten places",
+          "Word files on the previous chef’s laptop, photos on three phones, a stained binder at the pass. Each of those places can disappear: a broken phone, a colleague who leaves, a binder that ends up in the dish room."
+        ],
+        [
+          "What a good recipe database does",
+          "All recipes in one place, searchable by title, ingredient and method. Every recipe in the same shape: title, yield, ingredients and steps. And with folders and categories, so you do not have to scroll through hundreds of recipes."
+        ],
+        [
+          "Why in the cloud",
+          "When your database is in the cloud, it is the same everywhere: on the office computer, on the tablet at the pass and on your phone at home. A change is visible everywhere at once, and a new phone just means logging in again."
+        ],
+        [
+          "And offline in the kitchen",
+          "Kitchens are bad for wifi: steel, walk-ins, basements. So choose a recipe app that also works without a connection. In Savour you open your recipes in the walk-in or at an event, once you have opened the app online."
+        ],
+        [
+          "An archive, not a bin",
+          "Do not throw old menus away. An archive of past seasons is gold when a dish comes back or a guest asks about an old dessert. Put them in an archive folder: out of sight, but always findable."
+        ]
+      ],
+      "outro": "Savour is your recipe database and recipe archive in the cloud, on computer, tablet and phone, and available offline."
+    }
+  },
+  {
+    id: 'messy',
+    date: '2026-10-26',
+    nl: {
+      "slug": "blog/rommelige-receptenmap-ordenen",
+      "title": "Een rommelige receptenmap ordenen met AI, en daarna in één keer printen",
+      "desc": "Zo maak je van een map vol getypte, gescande en handgeschreven recepten een geordend receptenboek: inlezen, AI voor kladjes, controleren, ordenen in mappen en de complete map printen.",
+      "h1": "Een rommelige receptenmap ordenen met AI, en daarna in één keer printen",
+      "lead": "Jaren aan recepten in één map: getypt, gescand, handgeschreven en vol nummers. Overtypen kost weken. Met de juiste hulp duurt het een middag.",
+      "sections": [
+        [
+          "Waar het meestal begint",
+          "Een map met recepten van verschillende chefs, met dubbele titels, losse kopjes en een recept dat halverwege een pagina doorloopt. Niemand weet meer welke versie klopt, en zoeken kost meer tijd dan koken."
+        ],
+        [
+          "Laat de lezer het zware werk doen",
+          "Zet het hele bestand in één keer in Savour. De Savour-lezer splitst het in losse recepten, haalt nummers voor titels weg, herkent onderdelen zoals deeg en vulling en verbetert bekende schrijffouten. Wat hij niet zeker weet, markeert hij."
+        ],
+        [
+          "AI voor kladjes en twijfelgevallen",
+          "Foto’s van handgeschreven kladjes en recepten waar de lezer aan twijfelt, leest de AI (Savour Pro). Belangrijk: een goede AI verzint nooit hoeveelheden. Wat niet leesbaar is, staat erbij om te controleren."
+        ],
+        [
+          "Eén keer nalopen, dan opslaan",
+          "Je ziet alle recepten in één overzicht, met per recept een voorgestelde categorie. Pas aan wat niet klopt en sla alles in één keer op."
+        ],
+        [
+          "Ordenen in mappen",
+          "Maak mappen per partie, menu of seizoen. Een recept kan in meerdere mappen staan, zonder dat het dubbel bestaat. Deel een map met je brigade en iedereen werkt met dezelfde versie."
+        ],
+        [
+          "De complete map in één keer printen",
+          "Moet de nieuwe map in de klapper aan de pass? Print de complete receptenmap in één keer, met een inhoudsopgave en netjes opgemaakt. Met Savour Pro staat het logo van je restaurant op elke pagina."
+        ]
+      ],
+      "outro": "In Savour importeer je een hele receptenmap in één keer, orden je alles in mappen en print je een complete map met één klik."
+    },
+    en: {
+      "slug": "en/blog/sorting-out-a-messy-recipe-folder",
+      "title": "Sorting out a messy recipe folder with AI, then printing it in one go",
+      "desc": "How to turn a binder full of typed, scanned and handwritten recipes into an organised recipe book: import, AI for notes, review, organise in folders and print the complete folder.",
+      "h1": "Sorting out a messy recipe folder with AI, then printing it in one go",
+      "lead": "Years of recipes in one binder: typed, scanned, handwritten and full of numbers. Retyping takes weeks. With the right help it takes an afternoon.",
+      "sections": [
+        [
+          "Where it usually starts",
+          "A binder with recipes from different chefs, with duplicate titles, loose headings and a recipe that runs on halfway down a page. Nobody knows which version is right any more, and searching takes longer than cooking."
+        ],
+        [
+          "Let the reader do the heavy lifting",
+          "Put the whole file into Savour at once. The Savour reader splits it into separate recipes, removes numbers before titles, recognises parts such as dough and filling and corrects common spelling mistakes. Whatever it is unsure about, it flags."
+        ],
+        [
+          "AI for notes and doubtful cases",
+          "Photos of handwritten notes and recipes the reader is unsure about are read by the AI (Savour Pro). Important: a good AI never invents quantities. Anything unreadable is marked for you to check."
+        ],
+        [
+          "Review once, then save",
+          "You see all recipes in one overview, each with a suggested category. Fix what is wrong and save everything at once."
+        ],
+        [
+          "Organise in folders",
+          "Create folders per section, menu or season. A recipe can sit in several folders without existing twice. Share a folder with your brigade and everyone works from the same version."
+        ],
+        [
+          "Print the complete folder at once",
+          "Does the new folder need to go in the binder at the pass? Print the complete recipe folder at once, with a table of contents and a clean layout. With Savour Pro your restaurant’s logo is on every page."
+        ]
+      ],
+      "outro": "In Savour you import a whole recipe folder at once, organise everything in folders and print a complete folder with one click."
+    }
+  },
+  {
     id: 'sharedfolders',
     date: '2026-10-25',
     nl: {

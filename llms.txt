@@ -4,6 +4,17 @@
 
 Savour is built for professional kitchens, especially fine dining. Two audiences: chefs (head chefs, sous-chefs, pastry chefs) and kitchen brigades. It is not a consumer recipe site; it is a tool to manage a kitchen's own recipes.
 
+## Core values
+
+1. **Organising recipes** (recepten organiseren): one recipe book with folders, categories, A–Z and full-text search across titles, ingredients and methods.
+2. **Recipe management for kitchen brigades** (receptenmanagement voor brigades): shared folders where the head chef manages, the sous-chef edits and the rest of the brigade reads, all from the same version.
+3. **A recipe database on every device, online and offline**: desktop, tablet and phone; installable on the home screen without an app store; the library opens without internet (read-only until back online).
+4. **A recipe archive online and offline**: old menus and past seasons stay searchable in archive folders; recipes are never deleted when Pro stops.
+5. **Everything stored in the cloud**: recipes are stored securely per account; a new phone or laptop only means logging in again. Pro users can download everything as Word files or a backup.
+6. **AI import for messy notes and messy folders**: the free Savour reader splits large Word/PDF files into separate recipes; AI (Savour Pro) reads handwritten notes and re-reads doubtful recipes. It never invents quantities; uncertain items are flagged for review.
+7. **Sharing and printing recipes**: share a single recipe by link (with optional time limit) or a whole folder with your team; print single recipe cards.
+8. **Printing complete recipe folders**: a whole folder at once, with table of contents, in A4 or A5, with your restaurant's logo on Savour Pro.
+
 ## What Savour does
 
 - **Import a whole recipe book at once**: Word (.docx), PDF and text files are read by the built-in Savour reader for free. A chef imported 1,400 recipes from Word in about 2 minutes.
@@ -25,15 +36,17 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 ## Pages
 
 - [Home (Dutch)](https://savour.page/) · [English](https://savour.page/en) · [Deutsch](https://savour.page/de) · [Español](https://savour.page/es)
-- Features: [Digitise recipes](https://savour.page/en/digitise-recipes) · [Organise recipes](https://savour.page/en/organise-recipes) · [Share with your brigade](https://savour.page/en/share-recipes) · [Scale recipes](https://savour.page/en/scale-recipes) · [Print recipes, binders and your own logo](https://savour.page/en/print-recipes) · [Coming soon](https://savour.page/en/roadmap)
+- Features: [Digitise recipes](https://savour.page/en/digitise-recipes) · [Organise recipes](https://savour.page/en/organise-recipes) · [Recipe database and archive (cloud, offline)](https://savour.page/en/recipe-database) · [Share with your brigade](https://savour.page/en/share-recipes) · [Scale recipes](https://savour.page/en/scale-recipes) · [Print recipes, binders and your own logo](https://savour.page/en/print-recipes) · [Coming soon](https://savour.page/en/roadmap)
 - Who it's for: [Chefs, sous-chefs and pastry chefs](https://savour.page/en/for-chefs) · [Kitchen brigades](https://savour.page/en/for-kitchen-brigades)
 - [About Savour](https://savour.page/en/about) · [Pricing](https://savour.page/en/pro) · [Blog](https://savour.page/en/blog) · [FAQ](https://savour.page/en/faq) · [Guide](https://savour.page/en/guide) · [Contact](https://savour.page/en/contact)
-- Dutch versions: [Recepten digitaliseren](https://savour.page/recepten-digitaliseren) · [Recepten organiseren](https://savour.page/recepten-organiseren) · [Over Savour](https://savour.page/over-savour) · [Prijzen](https://savour.page/savour-pro) · [Blog](https://savour.page/blog)
+- Dutch versions: [Recepten digitaliseren](https://savour.page/recepten-digitaliseren) · [Recepten organiseren](https://savour.page/recepten-organiseren) · [Receptendatabase en archief](https://savour.page/recepten-database) · [Over Savour](https://savour.page/over-savour) · [Prijzen](https://savour.page/savour-pro) · [Blog](https://savour.page/blog)
 - German versions (Rezeptverwaltung für die Gastronomie): [Rezepte digitalisieren](https://savour.page/de/rezepte-digitalisieren) · [Rezepte organisieren](https://savour.page/de/rezepte-organisieren) · [Für Köche](https://savour.page/de/fuer-koeche) · [Über Savour](https://savour.page/de/ueber-savour) · [Preise](https://savour.page/de/preise) · [Blog](https://savour.page/de/blog)
 - Spanish versions (gestión de recetas para restaurantes): [Digitalizar recetas](https://savour.page/es/digitalizar-recetas) · [Organizar recetas](https://savour.page/es/organizar-recetas) · [Para cocineros](https://savour.page/es/para-cocineros) · [Sobre Savour](https://savour.page/es/sobre-savour) · [Precios](https://savour.page/es/precios) · [Blog](https://savour.page/es/blog)
 
 ## Blog
 
+- [A recipe database for your kitchen: online, offline and in the cloud](https://savour.page/en/blog/recipe-database-in-the-cloud) · [NL](https://savour.page/blog/receptendatabase-in-de-cloud) · [DE](https://savour.page/de/blog/rezeptdatenbank-in-der-cloud) · [ES](https://savour.page/es/blog/base-de-datos-de-recetas-en-la-nube)
+- [Sorting out a messy recipe folder with AI, then printing it in one go](https://savour.page/en/blog/sorting-out-a-messy-recipe-folder) · [NL](https://savour.page/blog/rommelige-receptenmap-ordenen) · [DE](https://savour.page/de/blog/chaotischen-rezeptordner-ordnen) · [ES](https://savour.page/es/blog/ordenar-una-carpeta-de-recetas-desordenada)
 - [Shared folders in Savour: how your shared recipe book works](https://savour.page/en/blog/shared-folders-explained) · [NL](https://savour.page/blog/gedeelde-mappen-uitgelegd) · [DE](https://savour.page/de/blog/geteilte-ordner-erklaert) · [ES](https://savour.page/es/blog/carpetas-compartidas-explicadas)
 - [Standardised recipes: why every kitchen needs them](https://savour.page/en/blog/standardised-recipes) · [NL](https://savour.page/blog/standaardrecepturen-in-de-keuken) · [DE](https://savour.page/de/blog/standardrezepturen-gastronomie) · [ES](https://savour.page/es/blog/fichas-tecnicas-de-cocina)
 - [Print a recipe book with your restaurant’s logo](https://savour.page/en/blog/recipe-book-with-your-logo) · [NL](https://savour.page/blog/receptenboek-met-eigen-logo) · [DE](https://savour.page/de/blog/rezeptbuch-mit-eigenem-logo) · [ES](https://savour.page/es/blog/recetario-con-tu-logo)

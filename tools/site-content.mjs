@@ -111,6 +111,7 @@ export const FEATURES = [
       sections: [
         ['Word en PDF in één keer', 'Sleep een Word-bestand of PDF in Savour, ook als er honderden recepten in staan. De Savour-lezer herkent zelf waar een recept begint en eindigt, en zet titel, ingrediënten en bereiding op de juiste plek. Nummers voor titels en kleine typfouten zoals 18oc in plaats van 180°C worden netjes opgeruimd. Een chef importeerde zo 1.400 recepten in ongeveer twee minuten.'],
         ['Handgeschreven recepten en foto’s', 'Maak een foto van een kladje, een bladzijde uit je schrift of een scan uit een oude map. De AI leest het handschrift en maakt er een net recept van. Dat werkt ook als de foto scheef is of het papier vlekken heeft. Dit is onderdeel van Savour Pro.'],
+        [ "Orde in grote, rommelige receptenmappen", "Een map met honderden recepten van verschillende chefs, met nummers, losse kopjes en recepten die halverwege een pagina beginnen? Savour splitst ze zelf op, herkent onderdelen zoals deeg en vulling, verbetert bekende schrijffouten en stelt per recept een categorie voor. Recepten waar de lezer aan twijfelt, laat de AI met Savour Pro nog eens nalezen. Jij controleert alles in één overzicht voordat het wordt opgeslagen." ],
         ['Niets verzonnen', 'Een recept moet kloppen. Savour verzint nooit hoeveelheden, ingrediënten of stappen. Twijfelt de lezer, dan zie je dat recept gemarkeerd en kijk je het zelf na voordat het wordt opgeslagen.'],
         ['Daarna gewoon verder werken', 'Elk geïmporteerd recept kun je aanpassen, aanvullen met een foto, in een map zetten en delen met je brigade.']
       ]
@@ -127,6 +128,7 @@ export const FEATURES = [
       sections: [
         ['Word and PDF in one go', 'Drop a Word file or PDF into Savour, even if it holds hundreds of recipes. The Savour reader works out where each recipe starts and ends, and puts the title, ingredients and method in the right place. Numbers before titles and small typos such as 18oc instead of 180°C are cleaned up. One chef imported 1,400 recipes this way in about two minutes.'],
         ['Handwritten recipes and photos', 'Take a photo of a note, a page from your notebook or a scan from an old binder. The AI reads the handwriting and turns it into a clean recipe, even when the photo is crooked or the paper is stained. This is part of Savour Pro.'],
+        [ "Order in large, messy recipe folders", "A binder with hundreds of recipes from different chefs, with numbers, loose headings and recipes that start halfway down a page? Savour splits them up itself, recognises parts such as dough and filling, corrects common spelling mistakes and suggests a category for each recipe. Recipes the reader is unsure about are read again by the AI with Savour Pro. You check everything in one overview before it is saved." ],
         ['Nothing made up', 'A recipe has to be right. Savour never invents quantities, ingredients or steps. If the reader is unsure, the recipe is flagged and you check it yourself before it is saved.'],
         ['Then simply carry on', 'Every imported recipe can be edited, given a photo, put in a folder and shared with your brigade.']
       ]
@@ -263,6 +265,71 @@ export const FEATURES = [
     }
   },
   {
+    id: 'cloud',
+    nl: {
+      "slug": "recepten-database",
+      "menu": "Receptendatabase en archief",
+      "short": "Al je recepten veilig in de cloud, online en offline op elk apparaat.",
+      "title": "Receptendatabase en receptenarchief in de cloud, ook offline | Savour",
+      "desc": "Savour is je receptendatabase en receptenarchief in de cloud: al je recepturen veilig online opgeslagen, op computer, tablet en telefoon, en ook zonder internet te openen in de keuken.",
+      "h1": "Je receptendatabase, online en offline",
+      "lead": "Al je recepten op één veilige plek in de cloud. Op elk apparaat, ook als de wifi in de koelcel wegvalt.",
+      "sections": [
+        [
+          "Eén receptendatabase in de cloud",
+          "Al je recepturen staan op één plek in de cloud, niet meer verspreid over laptops, telefoons en usb-sticks. Gaat je telefoon kapot of krijg je een nieuwe laptop, dan log je in en staat alles er weer. Wat je op de computer aanpast, zie je meteen op je telefoon."
+        ],
+        [
+          "Op elk apparaat",
+          "Op de computer importeer en orden je, in de keuken open je hetzelfde recept op je telefoon of tablet. Savour werkt in de browser en zet je zonder app store op je beginscherm: op iPhone, Android, tablet en computer."
+        ],
+        [
+          "Ook offline",
+          "In de koelcel, de kelder of op een evenement valt de wifi vaak weg. Heb je Savour één keer met internet geopend, dan staat je bibliotheek op je toestel en open je je recepten ook zonder verbinding. Aanpassen kan weer zodra je online bent."
+        ],
+        [
+          "Een archief dat blijft",
+          "Oude seizoensmenu’s, recepten van een vorige chef, het proeverijmenu van drie jaar geleden: in Savour raak je niets kwijt. Zet ze in een archiefmap en ze blijven doorzoekbaar. Stop je ooit met Pro, dan blijven al je recepten gewoon staan."
+        ],
+        [
+          "Veilig en van jou",
+          "Je recepten zijn alleen zichtbaar voor jou en voor wie jij uitnodigt in een gedeelde map; ze worden per account afgeschermd opgeslagen. Met Savour Pro download je je hele receptenboek wanneer je wilt, als Word-bestanden of als back-up."
+        ]
+      ]
+    },
+    en: {
+      "slug": "en/recipe-database",
+      "menu": "Recipe database and archive",
+      "short": "All your recipes safe in the cloud, online and offline on every device.",
+      "title": "Recipe database and recipe archive in the cloud, also offline | Savour",
+      "desc": "Savour is your recipe database and recipe archive in the cloud: all your recipes stored safely online, on computer, tablet and phone, and available without internet in the kitchen.",
+      "h1": "Your recipe database, online and offline",
+      "lead": "All your recipes in one safe place in the cloud. On every device, even when the wifi drops out in the walk-in.",
+      "sections": [
+        [
+          "One recipe database in the cloud",
+          "All your recipes live in one place in the cloud, no longer scattered across laptops, phones and USB sticks. If your phone breaks or you get a new laptop, you log in and everything is back. What you change on the computer, you see on your phone straight away."
+        ],
+        [
+          "On every device",
+          "Import and organise on the computer, open the same recipe on your phone or tablet in the kitchen. Savour runs in the browser and goes on your home screen without an app store: on iPhone, Android, tablet and computer."
+        ],
+        [
+          "Offline too",
+          "In the walk-in, the basement or at an event the wifi often drops out. Once you have opened Savour with internet, your library is stored on your device and you can open your recipes without a connection. Editing works again as soon as you are back online."
+        ],
+        [
+          "An archive that lasts",
+          "Old seasonal menus, recipes from a previous chef, the tasting menu from three years ago: in Savour you lose nothing. Put them in an archive folder and they stay searchable. If you ever stop Pro, all your recipes simply stay."
+        ],
+        [
+          "Safe and yours",
+          "Your recipes are only visible to you and to the people you invite to a shared folder; they are stored separately per account. With Savour Pro you can download your whole recipe book whenever you like, as Word files or as a backup."
+        ]
+      ]
+    }
+  },
+  {
     id: 'roadmap',
     soon: true,
     nl: {
@@ -339,7 +406,7 @@ export const AUDIENCES = [
       slug: 'voor-keukenbrigades',
       menu: 'Keukenbrigades',
       short: 'Voor het hele team: chef de parties, commis en stagiairs.',
-      title: 'Recepten delen met je keukenbrigade | Savour',
+      title: 'Receptenmanagement voor keukenbrigades | Savour',
       desc: 'Savour voor keukenbrigades: chef de parties, commis en stagiairs werken met dezelfde recepten in de app, op hun eigen telefoon. Receptmanagement waarbij jij bepaalt wie wat mag.',
       h1: 'Voor keukenbrigades',
       lead: 'Van chef de partie tot stagiair: je hele keukenteam kookt van hetzelfde recept, in elk restaurant en elke horecazaak waar je werkt.',
@@ -354,7 +421,7 @@ export const AUDIENCES = [
       slug: 'en/for-kitchen-brigades',
       menu: 'Kitchen brigades',
       short: 'For the whole team: chefs de partie, commis and interns.',
-      title: 'Share recipes with your kitchen brigade | Savour',
+      title: 'Recipe management for kitchen brigades | Savour',
       desc: 'Savour for kitchen brigades: chefs de partie, commis and interns work from the same recipes, on their own phones. You decide who can do what.',
       h1: 'For kitchen brigades',
       lead: 'From chef de partie to intern: your whole kitchen team cooks from the same recipe, in every restaurant you run.',
@@ -460,7 +527,7 @@ export const STORY = {
 export const HOME = {
   nl: {
     h1: 'Je hele receptenboek, op elke telefoon in de keuken.',
-    lead: 'Savour is het receptenplatform voor de professionele, culinaire keuken: een receptenapp voor receptbeheer en het organiseren van al je recepturen. Je Word-bestanden, PDF’s en handgeschreven kladjes worden één geordend receptenboek, voor jou en je hele keukenteam.',
+    lead: 'Savour is het receptenplatform voor de professionele, culinaire keuken: een receptenapp voor receptbeheer en het organiseren van al je recepturen. Je Word-bestanden, PDF’s en handgeschreven kladjes worden één geordend receptenboek, voor jou en je hele keukenteam. Veilig in de cloud, op elk apparaat en ook offline.',
     proof: '1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.',
     story: [
       'Op de achterkant van een bon. In een schrift dat na tien jaar service aan elkaar plakt. Op een foto die je ooit bij de pas maakte. Die kladjes zijn de kennis van je keuken, en ze raken kwijt, vervagen of zijn alleen leesbaar voor degene die ze schreef.',
@@ -482,12 +549,15 @@ export const HOME = {
       ['Kan ik recepten uit Word of PDF importeren?', 'Ja. Ook een bestand met honderden recepten tegelijk; Savour splitst ze zelf op.'],
       ['Hoe deel ik recepten met mijn keukenteam?', "Met een gedeelde map. Je nodigt collega's uit en geeft ze rechten om mee te kijken of mee te werken."],
       ['Is Savour geschikt voor receptbeheer in de horeca?', 'Ja. Savour is gebouwd voor restaurants, hotels en catering: recepturen centraal beheren, delen met je keukenteam en ordenen per partie, menu of vestiging.'],
+      [ "Werkt Savour ook offline?", "Ja. Open Savour één keer met internet en zet het op je beginscherm; daarna open je je recepten ook zonder verbinding, bijvoorbeeld in de koelcel. Aanpassen kan weer zodra je online bent." ],
+      [ "Waar worden mijn recepten opgeslagen?", "In de cloud, afgeschermd per account. Je opent ze op computer, tablet en telefoon, en alleen jij en wie je uitnodigt in een gedeelde map kunnen ze lezen." ],
+      [ "Kan ik een hele receptenmap in één keer printen?", "Ja. Print losse recepten of een complete receptenmap in één keer, netjes opgemaakt voor de klapper in de keuken. Met Savour Pro staat het logo van je restaurant erop." ],
       ['Is Savour ook voor thuiskoks?', 'Het kan, maar Savour is gebouwd voor de professionele keuken: grote receptenboeken, teams en de service.']
     ]
   },
   en: {
     h1: 'Your whole recipe book, on every phone in the kitchen.',
-    lead: 'Savour is the recipe management app for professional kitchens. Your Word files, PDFs and handwritten notes become one organised recipe book, for you and your whole kitchen team.',
+    lead: 'Savour is the recipe management app for professional kitchens. Your Word files, PDFs and handwritten notes become one organised recipe book, for you and your whole kitchen team. Safe in the cloud, on every device and offline too.',
     proof: '1,400 recipes imported from Word in 2 minutes. Tested in our own kitchen.',
     story: [
       'On the back of a ticket. In a notebook that sticks together after ten years of service. In a photo you once took at the pass. Those notes are your kitchen’s knowledge, and they get lost, fade, or can only be read by the person who wrote them.',
@@ -508,6 +578,9 @@ export const HOME = {
       ['Can I import recipes from Word or PDF?', 'Yes. Even a file with hundreds of recipes at once; Savour splits them up itself.'],
       ['How do I share recipes with my kitchen team?', 'With a shared folder. You invite colleagues and give them rights to view or to edit.'],
       ['Is Savour suitable for recipe management in hospitality?', 'Yes. Savour is built for restaurants, hotels and catering: manage recipes centrally, share them with your kitchen team and organise them by section, menu or location.'],
+      [ "Does Savour work offline?", "Yes. Open Savour once with internet and add it to your home screen; after that you can open your recipes without a connection, for example in the walk-in. Editing works again as soon as you are online." ],
+      [ "Where are my recipes stored?", "In the cloud, kept separate per account. You open them on computer, tablet and phone, and only you and the people you invite to a shared folder can read them." ],
+      [ "Can I print a whole recipe folder at once?", "Yes. Print single recipes or a complete recipe folder at once, neatly laid out for the binder in the kitchen. With Savour Pro your restaurant’s logo is on it." ],
       ['Is Savour for home cooks too?', 'It can be, but Savour is built for the professional kitchen: big recipe books, teams and service.']
     ]
   }

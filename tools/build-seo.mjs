@@ -396,6 +396,7 @@ const PHOTOS = {
 const PAGE_PHOTO = {
   'recepten-digitaliseren': 'hout',
   'recepten-organiseren': 'keuken',
+  'recepten-database': 'brigade',
   'recepten-delen': 'brigade',
   'recepten-opschalen': 'wortels',
   'recepten-printen': 'uien',
