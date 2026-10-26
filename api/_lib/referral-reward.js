@@ -4,12 +4,15 @@ import { getSubscription, upsertSubscription, getAuthUser, updateAppMetadata } f
 const DAY = 86400000;
 
 // Cadeau-Pro: de dagen gaan in na wat er nu nog loopt (een eerdere cadeau-periode of een opgezegd abonnement
-// dat nog doorloopt), zodat er nooit dagen verloren gaan.
+// dat nog doorloopt, of de gratis proefweek van een nieuw account), zodat er nooit dagen verloren gaan.
+const TRIAL_DAYS = 7; // zelfde als supabase/2026-10-23-proef-7-dagen.sql
 export async function extendGift(userId, days) {
   const sub = await getSubscription(userId);
   const end = sub?.current_period_end ? new Date(sub.current_period_end).getTime() : 0;
   const running = ['active', 'trialing', 'past_due', 'canceled'].includes(sub?.status) && end > Date.now();
-  const start = running ? end : Date.now();
+  const user = await getAuthUser(userId);
+  const trialEnd = user?.created_at ? new Date(user.created_at).getTime() + TRIAL_DAYS * DAY : 0;
+  const start = Math.max(Date.now(), running ? end : 0, trialEnd);
   const until = new Date(start + days * DAY).toISOString();
   await upsertSubscription({
     user_id: userId,
