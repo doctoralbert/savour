@@ -159,24 +159,20 @@ async function openPublicRecipeBySlug(slug) {
     const ingredients = Array.isArray(data.ingredients) ? data.ingredients : [];
     const steps = Array.isArray(data.steps) ? data.steps : [];
     document.title = `${data.title || 'Recept'} · Savour`;
-    const allowCopy = (await recipeAllowsCopy(data.id)) === true;
     publicRecipe = { ingredients: ingredients.map(String), base: parseYield(data.yield_text) };
     const ingredient = (x, i) => `<li data-ing="${i}">${ingredientHtml(String(x), 1)}</li>`;
     const base = publicRecipe.base;
-    // Omrekenen: zelfde stappen als in de app (min/plus of zelf typen); alleen bij een opbrengst met een getal.
+    // Opbrengst omrekenen (min/plus of zelf typen, alleen bij een opbrengst met een getal) en kookmodus, samen in één
+    // rustig blok. Overnemen kan hier niet: dat kan alleen ingelogd, in de app.
     const yieldHtml = base
-      ? `<div class="share-recipe-yield share-yield-tool" role="group" aria-label="Opbrengst omrekenen"><span>Opbrengst</span><div class="share-stepper"><button type="button" onclick="stepPublicYield(-1)" aria-label="Minder">−</button><input id="pubYieldInput" inputmode="decimal" value="${esc(formatNumber(base.value))}" oninput="setPublicYield(this.value)" aria-label="Nieuwe opbrengst"><button type="button" onclick="stepPublicYield(1)" aria-label="Meer">+</button></div><b translate="no">${esc(base.unit)}</b><small id="pubYieldFactor"></small><button type="button" id="pubYieldReset" class="share-yield-reset" onclick="setPublicYield('${escJs(formatNumber(base.value))}', true)" hidden>Origineel</button></div>`
+      ? `<div class="share-yield-tool" role="group" aria-label="Opbrengst omrekenen"><span class="share-yield-label">Opbrengst</span><div class="share-yield-row"><div class="share-stepper"><button type="button" onclick="stepPublicYield(-1)" aria-label="Minder">−</button><input id="pubYieldInput" inputmode="decimal" value="${esc(formatNumber(base.value))}" oninput="setPublicYield(this.value)" aria-label="Nieuwe opbrengst"><button type="button" onclick="stepPublicYield(1)" aria-label="Meer">+</button></div><b class="share-yield-unit" translate="no">${esc(base.unit)}</b></div><div class="share-yield-meta"><small id="pubYieldFactor"></small><button type="button" id="pubYieldReset" class="share-yield-reset" onclick="setPublicYield('${escJs(formatNumber(base.value))}', true)" hidden>Origineel</button></div></div>`
       : data.yield_text
-        ? `<p class="share-recipe-yield"><span>Opbrengst</span> <b translate="no">${esc(data.yield_text)}</b></p>`
+        ? `<div class="share-yield-tool"><span class="share-yield-label">Opbrengst</span><b class="share-yield-unit" translate="no">${esc(data.yield_text)}</b></div>`
         : '';
     $('publicRecipeContent').innerHTML =
       `<article class="share-recipe"><header class="share-recipe-head"><span class="share-recipe-tag">Gedeeld recept</span><h1 translate="no">${esc(data.title || 'Recept')}</h1>${
         data.description ? `<p class="site-lead" translate="no">${esc(data.description)}</p>` : ''
-      }${yieldHtml}<div class="share-recipe-tools"><button type="button" class="site-btn" onclick="toggleCookMode()">Kookmodus</button></div>${
-        allowCopy
-          ? `<div class="share-recipe-copy"><button type="button" class="site-btn solid" onclick="copyAfterLogin()">Toevoegen aan mijn recepten</button><small>Log in of maak gratis een account; daarna staat het recept in je eigen bibliotheek.</small></div>`
-          : ''
-      }</header>${
+      }<div class="share-recipe-bar">${yieldHtml}<button type="button" class="site-btn share-cook-btn" onclick="toggleCookMode()">Kookmodus</button></div></header>${
         data.photo_url ? `<img class="share-recipe-photo" src="${esc(data.photo_url)}" alt="">` : ''
       }<div class="share-recipe-cols"><section><h2>Ingrediënten</h2><ul class="share-recipe-ingredients" id="pubIngredients" translate="no">${ingredients.map(ingredient).join('')}</ul></section>${
         steps.length
@@ -250,21 +246,10 @@ async function openLinkRecipe(slug) {
     };
     linkRecipes = [recipe, ...linkRecipes.filter(r => String(r.id) !== String(recipe.id))];
     openRecipe(recipe.id, 'link');
-    // Op de openbare pagina al op "Toevoegen aan mijn recepten" gedrukt en daarna ingelogd: nu toevoegen.
-    if (window.__copyAfterLogin && recipe.allowCopy) {
-      window.__copyAfterLogin = false;
-      await copyLinkRecipe(recipe.id);
-    }
   } catch (e) {
     console.error('Gedeeld recept openen mislukt', e);
     toast('Dit gedeelde recept kon niet worden geladen');
   }
-}
-
-// Openbare receptpagina: eerst inloggen of een account maken, daarna wordt het recept meteen toegevoegd.
-function copyAfterLogin() {
-  window.__copyAfterLogin = true;
-  openAuth('login');
 }
 
 async function openPublicInvite(key) {

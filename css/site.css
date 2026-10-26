@@ -1524,20 +1524,6 @@
   border-color: var(--ink);
 }
 
-/* Openbare receptpagina: overnemen als de maker dat toestaat */
-.share-recipe-copy {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 16px;
-  margin-top: 24px;
-}
-.share-recipe-copy small {
-  color: var(--ink-2);
-  font-size: 14px;
-  max-width: 360px;
-}
-
 /* Homepage: optionele, licht vervaagde keukenfoto achter de bovenkant (assets/keuken/hero-keuken.jpg). */
 .site-hero.has-photo {
   position: relative;
@@ -1740,12 +1726,51 @@
   }
 }
 
-/* Openbaar recept: omrekenen en kookmodus zonder account */
-.share-yield-tool {
+/* Openbaar recept: opbrengst omrekenen en kookmodus zonder account, samen in één rustig blok */
+.share-recipe-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 18px 28px;
+  margin-top: 26px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(238, 232, 220, 0.03);
+}
+.share-yield-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.share-yield-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px 12px;
+  gap: 10px 14px;
+}
+.share-yield-unit {
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--ink);
+}
+.share-yield-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  min-height: 20px;
+}
+/* Factor en "Origineel" alleen tonen als er is omgerekend. */
+.share-yield-meta:not(:has(small:not(:empty))) {
+  display: none;
+}
+.share-yield-meta small {
+  color: var(--gold);
+  font-size: 14px;
 }
 .share-stepper {
   display: inline-flex;
@@ -1755,8 +1780,8 @@
   overflow: hidden;
 }
 .share-stepper button {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border: 0;
   background: transparent;
   color: var(--ink);
@@ -1765,19 +1790,17 @@
 }
 .share-stepper input {
   width: 64px;
-  height: 40px;
+  height: 44px;
   border: 0;
   background: transparent;
   color: var(--ink);
   font: inherit;
   font-weight: 600;
+  font-size: 17px;
   text-align: center;
 }
-.share-yield-tool small {
-  color: var(--gold);
-  font-size: 14px;
-}
 .share-yield-reset {
+  padding: 0;
   border: 0;
   background: none;
   color: var(--ink-2);
@@ -1786,24 +1809,29 @@
   text-decoration: underline;
   cursor: pointer;
 }
-.share-recipe-tools {
-  margin-top: 20px;
+.share-cook-btn {
+  margin-left: auto;
 }
 .share-recipe-ingredients .scale-note {
   color: var(--ink-2);
   font-size: 13px;
 }
+@media (max-width: 760px) {
+  .share-recipe-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 16px;
+  }
+  .share-cook-btn {
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+  }
+}
 body.cook-mode
   #publicRecipeShell
-  :is(
-    .site-header,
-    .site-foot,
-    .share-recipe-tag,
-    .share-recipe-photo,
-    .share-recipe-tools,
-    .share-recipe-copy,
-    .share-recipe-cta
-  ) {
+  :is(.site-header, .site-foot, .share-recipe-tag, .share-recipe-photo, .share-recipe-bar, .share-recipe-cta) {
   display: none !important;
 }
 body.cook-mode #publicRecipeShell .share-recipe-ingredients,
