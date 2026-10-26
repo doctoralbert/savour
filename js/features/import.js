@@ -38,12 +38,20 @@ const IMPORT_SOURCES = {
     accept: '.txt,.md,.rtf,.odt,.html,.htm,.csv,.json,.pages',
     test: /\.(txt|md|rtf|odt|html?|csv|json|pages)$/i
   },
+  apps: {
+    option: 'importOptionApps',
+    label: 'Andere recepten-app',
+    types: 'Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat en andere exports.',
+    accept: '.paprikarecipes,.paprikarecipe,.zip,.json,.crumb,.mx2,.mxp,.html,.htm,.csv,.txt',
+    test: /\.(paprikarecipes|paprikarecipe|zip|crumb|mx2|mxp|json|html?|csv|txt)$/i
+  },
   all: {
     option: 'importOptionAll',
     label: 'Alle bestanden door elkaar',
     types: 'Word, PDF, foto’s en andere tekstbestanden, ook een hele map.',
-    accept: '.doc,.docx,.pdf,.txt,.md,.rtf,.odt,.html,.htm,.csv,.json,.pages,image/jpeg,image/png,image/webp',
-    test: /\.(docx?|pdf|txt|md|rtf|odt|html?|csv|json|pages|jpe?g|png|webp)$/i
+    accept:
+      '.doc,.docx,.pdf,.txt,.md,.rtf,.odt,.html,.htm,.csv,.json,.pages,.paprikarecipes,.paprikarecipe,.zip,.crumb,.mx2,.mxp,image/jpeg,image/png,image/webp',
+    test: /\.(docx?|pdf|txt|md|rtf|odt|html?|csv|json|pages|paprikarecipes|paprikarecipe|zip|crumb|mx2|mxp|jpe?g|png|webp)$/i
   }
 };
 const IMPORT_ALLOWED = IMPORT_SOURCES.all.test;
@@ -54,7 +62,7 @@ function chooseImportSource(type) {
   if (type === 'camera') return openCameraImport();
   if (type === 'photo' && !isPro()) return askForPro("Foto's");
   selectImportSource(type);
-  if (type !== 'text') $('importFile').click();
+  if (type !== 'text' && type !== 'url') $('importFile').click();
 }
 
 function selectImportSource(type) {
@@ -67,7 +75,14 @@ function selectImportSource(type) {
   $(type === 'text' ? 'importOptionText' : source?.option)?.classList.add('selected');
   $('importStatus').textContent = '';
   $('importSourceNote').style.display = 'none';
-  if (type === 'text') {
+  $('importUrl').style.display = type === 'url' ? 'block' : 'none';
+  if (type === 'url') {
+    $('importText').style.display = 'none';
+    $('importDrop').style.display = 'none';
+    $('importUrlInput').focus();
+    $('importSourceLabel').textContent = t('Bron: webpagina');
+    $('importSourceNote').style.display = 'flex';
+  } else if (type === 'text') {
     $('importText').style.display = 'block';
     $('importDrop').style.display = 'none';
     $('importTextInput').focus();
@@ -239,6 +254,8 @@ function resetImportSource() {
   $('importFolder').value = '';
   $('importTextInput').value = '';
   $('importText').style.display = 'none';
+  $('importUrl').style.display = 'none';
+  $('importUrlInput').value = '';
   $('importDrop').style.display = 'block';
   $('importSourceNote').style.display = 'none';
   $('importStatus').textContent = '';
@@ -566,14 +583,7 @@ function rtfToText(rtf) {
 
 // ODT (LibreOffice/OpenOffice) is een zip; de tekst staat in content.xml.
 async function odtToText(file) {
-  if (!window.JSZip)
-    await new Promise((resolve, reject) => {
-      const s = document.createElement('script');
-      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
-      s.onload = resolve;
-      s.onerror = () => reject(new Error('ODT-importmodule kon niet worden geladen.'));
-      document.head.appendChild(s);
-    });
+  await ensureJSZip();
   const zip = await JSZip.loadAsync(await file.arrayBuffer());
   const xml = await zip.file('content.xml')?.async('string');
   if (!xml) throw new Error('Dit ODT-bestand bevat geen leesbare tekst.');
@@ -816,6 +826,13 @@ async function importScannedPdf(file) {
 // (gratis, telt niet mee). Alleen bij twijfel én met Pro leest de AI het bestand. Lukt de AI niet (storing,
 // limiet bereikt), dan gaat er niets verloren: de Savour-lezer neemt het over, gemarkeerd om te controleren.
 async function importTextFile(file) {
+  // Webpagina's en exports met recepten in vaste vorm (schema.org, kolommen in een CSV) eerst zo lezen.
+  if (/\.(html?|csv)$/i.test(file.name)) {
+    const raw = await file.text();
+    const extra = { sourceFile: file.name };
+    const found = /\.csv$/i.test(file.name) ? recipesFromCsv(raw, extra) : recipesFromHtml(raw, extra);
+    if (found?.length) return found;
+  }
   const sourceText = await extractImportText(file);
   if (!sourceText.trim()) {
     if (!/\.pdf$/i.test(file.name)) throw new Error('Dit bestand bevat geen leesbare tekst.');
@@ -829,6 +846,23 @@ async function importTextFile(file) {
 // heeft voorbereid. Ze komen in het controlescherm; er wordt pas iets opgeslagen als jij op Opslaan klikt.
 // Vorm: { "savour": "recepten", "recipes": [{ title, ingredients[], steps[], yield, sourceFile, photo, unclear[],
 // needsReview }] }. "photo" is het originele kladje (data:image/...), bewaard als origineel bij het recept.
+// .json: een Savour-importbestand, of een export uit een andere app (Mealie, Tandoor, schema.org).
+async function importJsonFile(file) {
+  try {
+    return await importSavourFile(file);
+  } catch (savourError) {
+    let data;
+    try {
+      data = JSON.parse(await file.text());
+    } catch {
+      throw savourError;
+    }
+    const found = recipesFromJson(data, { sourceFile: file.name });
+    if (!found.length) throw new Error(t('In dit bestand zijn geen recepten gevonden.'));
+    return found;
+  }
+}
+
 async function importSavourFile(file) {
   let data;
   try {
@@ -1037,7 +1071,8 @@ async function processImportFiles(files) {
         const name = (file.name || '').toLowerCase();
         let drafts;
         if (isPhoto) drafts = await importImageFile(file);
-        else if (/\.json$/i.test(name)) drafts = await importSavourFile(file);
+        else if (APP_EXPORT_EXT.test(name)) drafts = await importAppExport(file);
+        else if (/\.json$/i.test(name)) drafts = await importJsonFile(file);
         else drafts = await importTextFile(file);
         batchDrafts.push(...drafts);
       } catch (e) {
@@ -1116,6 +1151,7 @@ async function processImport() {
     $('importStatus').textContent = 'Voer eerst tekst in.';
     return;
   }
+  if (importSource === 'url') return importUrlSource();
   if (importSource !== 'text' && !files.length) {
     $('importStatus').textContent = 'Kies eerst één of meerdere bronbestanden.';
     return;
@@ -1141,6 +1177,31 @@ async function processImport() {
   } catch (e) {
     console.error(e);
     $('importStatus').textContent = e.message || 'Importeren is mislukt.';
+  }
+}
+
+// Webpagina: ophalen via de server, daarna hetzelfde controlescherm als bij bestanden.
+async function importUrlSource() {
+  const url = $('importUrlInput').value.trim();
+  if (!url) {
+    $('importStatus').textContent = t('Plak eerst de link van een recept.');
+    return;
+  }
+  if (demoMode) {
+    $('importStatus').textContent = t('In de demo kun je geen webpagina importeren. Maak een gratis account.');
+    return;
+  }
+  $('importStatus').textContent = t('Webpagina wordt gelezen…');
+  try {
+    batchDrafts = (await importFromUrl(url)).map((r, i) => ({ ...r, _importIndex: i }));
+    $('importStatus').textContent = '';
+    $('batchStatus').textContent =
+      `${batchDrafts.length} ${t('recept(en) gevonden op')} ${batchDrafts[0]?.sourceFile || url}.`;
+    renderBatchDrafts();
+    go('batchImport');
+  } catch (e) {
+    console.warn('Webpagina importeren mislukt', e);
+    $('importStatus').textContent = e.message || t('Deze pagina kon niet worden gelezen.');
   }
 }
 

@@ -64,6 +64,10 @@ const HELP_TOPICS = {
         'Importeer een heel bestand in één keer, ook met honderden recepten. De Savour-lezer splitst ze zelf op en herkent titel, opbrengst, ingrediënten en bereiding. Met "Alle bestanden door elkaar" kies je alles tegelijk, ook een hele map.'
       ],
       [
+        'Webpagina of andere recepten-app',
+        'Plak de link van een recept op een website, of zet je recepten over uit een andere app: Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat en meer. Maak in die app een export en kies het bestand bij "Uit een andere recepten-app".'
+      ],
+      [
         "Foto's",
         "Upload foto's van handgeschreven of gescande recepten. De AI leest ze voor je uit (Savour Pro, tot 500 per maand). Het originele kladje blijft bewaard bij het recept."
       ],

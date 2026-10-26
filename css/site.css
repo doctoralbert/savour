@@ -1944,3 +1944,26 @@ body.cook-mode #publicRecipeShell .share-recipe-head h1 {
     transform: rotate(1.5deg);
   }
 }
+/* Snelknoppen ½× 2× 3× 4× op het openbare recept */
+.share-yield-tool .rp-multipliers {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+.share-yield-tool .rp-multipliers button {
+  min-width: 46px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--line-strong, rgba(238, 232, 220, 0.3));
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.share-yield-tool .rp-multipliers button.is-on,
+.share-yield-tool .rp-multipliers button:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}

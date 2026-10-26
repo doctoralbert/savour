@@ -57,6 +57,7 @@ export const ES = {
         ['Recetas escritas a mano y fotos', 'Haz una foto de una nota, de una página de tu cuaderno o un escaneo de una carpeta antigua. La IA lee la letra y la convierte en una receta limpia, aunque la foto esté torcida o el papel manchado. Forma parte de Savour Pro.'],
         [ "Orden en carpetas de recetas grandes y desordenadas", "¿Una carpeta con cientos de recetas de distintos chefs, con números, títulos sueltos y recetas que empiezan a mitad de página? Savour las separa solo, reconoce partes como la masa y el relleno, corrige errores ortográficos habituales y propone una categoría para cada receta. Las recetas en las que el lector tiene dudas las vuelve a leer la IA con Savour Pro. Tú lo revisas todo en un solo resumen antes de guardar." ],
         ['Nada inventado', 'Una receta tiene que ser correcta. Savour nunca inventa cantidades, ingredientes ni pasos. Si el lector tiene dudas, la receta se marca y la revisas tú antes de guardarla.'],
+        ["Desde una web u otra app","Pega el enlace de una receta en una web y Savour extrae la receta. ¿Vienes de otra app de recetas, como Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That o Plan to Eat? Haz una exportación allí y pasa el archivo a Savour de una vez."],
         ['Y luego, a seguir', 'Cada receta importada se puede editar, añadirle una foto, ponerla en una carpeta y compartirla con tu brigada.']
       ]
     },
@@ -94,6 +95,7 @@ export const ES = {
       lead: 'De una degustación para 8 a una cena para 120, sin calculadora y sin errores.',
       sections: [
         ['Convierte de una vez', 'Introduce el rendimiento que necesitas y Savour convierte cada cantidad. La receta original se queda como está.'],
+        ["Entiende las unidades","Savour sabe que 3 cucharaditas son una cucharada y 1000 gramos un kilo. 20 cucharaditas se convierten en 6 ⅔ cucharadas, y las cucharas y tazas quedan como fracciones limpias en lugar de decimales largos. Incluso sin rendimiento, escala con un toque: ½×, 2×, 3× o 4×."],
         ['Contar por piezas', '¿Una receta da 50 brownies y necesitas 1.000 para un evento? Introduce el número de piezas y verás al momento qué tienes que pesar.'],
         ['Listo para la mise en place', 'Imprime la receta convertida al momento o ábrela en el móvil en modo cocina.']
       ]

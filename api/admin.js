@@ -183,7 +183,7 @@ function lookup(text) {
 function sourceOf(v) {
   const [path, search = ''] = String(v.path || '/').split('?');
   const query = new URLSearchParams(search);
-  const tag = query.get('bron') || query.get('utm_source');
+  const tag = query.get('bron') || query.get('ref') || query.get('utm_source');
   if (query.has('collega'))
     return ['Collega-uitnodiging', tag ? `Collega-uitnodiging via ${lookup(tag)?.[1] || tag}` : 'Collega-uitnodiging'];
   if (tag) return lookup(tag) || ['Eigen links (?bron=)', tag.slice(0, 30).toLowerCase()];

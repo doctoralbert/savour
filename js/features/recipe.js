@@ -85,8 +85,10 @@ function openRecipe(id, context = 'library') {
     steps.length ? `${steps.length} stappen` : ''
   ].filter(Boolean);
   const yieldControl = base
-    ? `<div class="rp-yield" role="group" aria-label="Opbrengst omrekenen"><span class="rp-yield-label">Opbrengst</span><div class="rp-stepper"><button type="button" class="rp-step" onclick="stepRecipeYield(-1)" aria-label="Minder">${icon('minus')}</button><input id="rpYieldInput" inputmode="decimal" value="${esc(formatNumber(base.value))}" oninput="setRecipeYield(this.value)" aria-label="Nieuwe opbrengst"><span class="rp-yield-unit">${esc(base.unit)}</span><button type="button" class="rp-step" onclick="stepRecipeYield(1)" aria-label="Meer">${icon('plus')}</button></div><span id="rpFactor" class="rp-factor"></span><button type="button" id="rpYieldReset" class="btn-quiet" onclick="resetRecipeYield()" hidden>${icon('undo', { size: 16 })} Origineel</button></div>`
-    : '';
+    ? `<div class="rp-yield" role="group" aria-label="Opbrengst omrekenen"><span class="rp-yield-label">Opbrengst</span><div class="rp-stepper"><button type="button" class="rp-step" onclick="stepRecipeYield(-1)" aria-label="Minder">${icon('minus')}</button><input id="rpYieldInput" inputmode="decimal" value="${esc(formatNumber(base.value))}" oninput="setRecipeYield(this.value)" aria-label="Nieuwe opbrengst"><span class="rp-yield-unit">${esc(base.unit)}</span><button type="button" class="rp-step" onclick="stepRecipeYield(1)" aria-label="Meer">${icon('plus')}</button></div><span id="rpFactor" class="rp-factor"></span><button type="button" id="rpYieldReset" class="btn-quiet" onclick="resetRecipeYield()" hidden>${icon('undo', { size: 16 })} Origineel</button>${recipeMultipliersHtml()}</div>`
+    : ingredients.length
+      ? `<div class="rp-yield" role="group" aria-label="Omrekenen"><span class="rp-yield-label">Omrekenen</span>${recipeMultipliersHtml()}<span id="rpFactor" class="rp-factor"></span><button type="button" id="rpYieldReset" class="btn-quiet" onclick="resetRecipeYield()" hidden>${icon('undo', { size: 16 })} Origineel</button></div>`
+      : '';
   window._savourScaled = null;
   $('detailWrap').innerHTML = `<article class="rp">
     ${r.photo ? `<img class="rp-photo" src="${esc(r.photo)}" alt="">` : ''}
@@ -245,6 +247,13 @@ function shareTelegram() {
     '_blank',
     'noopener'
   );
+}
+
+// SMS: opent de berichten-app met de link al ingevuld (iPhone en Android).
+function shareSms() {
+  if (!activeShareUrl || !shareLinkUsable()) return;
+  const body = activeShareTitle + ' — ' + linkWithSource(activeShareUrl, 'sms');
+  window.location.href = 'sms:?&body=' + encodeURIComponent(body);
 }
 
 function shareEmail() {

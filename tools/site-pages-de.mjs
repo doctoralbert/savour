@@ -57,6 +57,7 @@ export const DE = {
         ['Handschriftliche Rezepte und Fotos', 'Mach ein Foto von einer Notiz, einer Seite aus deinem Heft oder einem Scan aus einem alten Ordner. Die KI liest die Handschrift und macht daraus ein sauberes Rezept, auch wenn das Foto schief ist oder das Papier Flecken hat. Das ist Teil von Savour Pro.'],
         [ "Ordnung in großen, chaotischen Rezeptordnern", "Ein Ordner mit Hunderten Rezepten verschiedener Köche, mit Nummern, losen Überschriften und Rezepten, die mitten auf einer Seite beginnen? Savour trennt sie selbst auf, erkennt Bestandteile wie Teig und Füllung, korrigiert häufige Schreibfehler und schlägt für jedes Rezept eine Kategorie vor. Rezepte, bei denen der Leser unsicher ist, liest die KI mit Savour Pro noch einmal. Du prüfst alles in einer Übersicht, bevor es gespeichert wird." ],
         ['Nichts wird erfunden', 'Ein Rezept muss stimmen. Savour erfindet nie Mengen, Zutaten oder Schritte. Ist sich der Leser unsicher, wird das Rezept markiert und du prüfst es selbst, bevor es gespeichert wird.'],
+        ["Von einer Website oder aus einer anderen App","Füge den Link zu einem Rezept auf einer Website ein, und Savour holt das Rezept heraus. Du wechselst von einer anderen Rezept-App wie Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That oder Plan to Eat? Erstelle dort einen Export und übertrage die Datei auf einmal in Savour."],
         ['Dann einfach weiterarbeiten', 'Jedes importierte Rezept kannst du bearbeiten, mit einem Foto versehen, in einen Ordner legen und mit deiner Brigade teilen.']
       ]
     },
@@ -94,6 +95,7 @@ export const DE = {
       lead: 'Von einer Verkostung für 8 bis zum Dinner für 120, ohne Taschenrechner und ohne Fehler.',
       sections: [
         ['In einem Schritt umrechnen', 'Gib die Menge ein, die du brauchst, und Savour rechnet jede Zutat um. Das Originalrezept bleibt, wie es ist.'],
+        ["Versteht Einheiten","Savour weiß, dass 3 Teelöffel ein Esslöffel sind und 1000 Gramm ein Kilo. 20 Teelöffel werden 6 ⅔ Esslöffel, und Löffel und Cups bleiben saubere Brüche statt langer Dezimalzahlen. Auch ohne Ausbeute rechnest du mit einem Tippen um: ½×, 2×, 3× oder 4×."],
         ['Rechnen in Stück', 'Ein Rezept ergibt 50 Brownies und du brauchst 1.000 für eine Veranstaltung? Gib die Stückzahl ein und du siehst sofort, was du abwiegen musst.'],
         ['Bereit für die Mise en place', 'Drucke das umgerechnete Rezept direkt aus oder öffne es auf dem Handy im Kochmodus.']
       ]

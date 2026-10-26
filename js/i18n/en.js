@@ -612,6 +612,43 @@ window.SAVOUR_I18N.en = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Unlimited recipes, AI that reads your notes and photos, and shared folders for your team.',
     Verbergen: 'Hide',
+    'Webpagina of andere recepten-app': 'Web page or another recipe app',
+    'Plak de link van een recept op een website, of zet je recepten over uit een andere app: Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat en meer. Maak in die app een export en kies het bestand bij "Uit een andere recepten-app".':
+      'Paste the link to a recipe on a website, or move your recipes over from another app: Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat and more. Make an export in that app and choose the file under "From another recipe app".',
+    'niet omgerekend': 'not scaled',
+    porties: 'servings',
+    Notities: 'Notes',
+    'Licht of donker': 'Light or dark',
+    'Bron: webpagina': 'Source: web page',
+    'Plak eerst de link van een recept.': 'Paste the link to a recipe first.',
+    'In de demo kun je geen webpagina importeren. Maak een gratis account.':
+      "You can't import a web page in the demo. Create a free account.",
+    'Webpagina wordt gelezen…': 'Reading the web page…',
+    'recept(en) gevonden op': 'recipe(s) found on',
+    'Deze pagina kon niet worden gelezen.': 'This page could not be read.',
+    'Op deze pagina is geen recept gevonden.': 'No recipe was found on this page.',
+    'Log in om een recept van een website te importeren.': 'Log in to import a recipe from a website.',
+    'In deze export zijn geen recepten gevonden.': 'No recipes were found in this export.',
+    'In dit bestand zijn geen recepten gevonden.': 'No recipes were found in this file.',
+    'Webpagina (link)': 'Web page (link)',
+    'Plak de link van een recept op een website. Savour haalt het recept eruit.':
+      'Paste the link to a recipe on a website. Savour pulls out the recipe.',
+    'Uit een andere recepten-app': 'From another recipe app',
+    'Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat en meer.':
+      'Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat and more.',
+    'Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat en andere exports.':
+      'Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat and other exports.',
+    'Link naar het recept': 'Link to the recipe',
+    'Andere recepten-app kiezen': 'Choose export from another app',
+    'Bron: Andere recepten-app': 'Source: another recipe app',
+    'Deze website laat Savour de pagina niet ophalen. Kopieer de tekst van het recept en kies "Tekst invoeren".':
+      'This website doesn\'t let Savour fetch the page. Copy the recipe text and choose "Enter text".',
+    'De website reageerde niet op tijd.': 'The website did not respond in time.',
+    'De website kon niet worden geopend.': 'The website could not be opened.',
+    'Deze website is niet gevonden.': 'This website was not found.',
+    'Dit is geen geldige link.': 'This is not a valid link.',
+    'Deze link kan niet worden geopend.': 'This link cannot be opened.',
+    'Vul een link in.': 'Enter a link.',
     'Dit e-mailadres heeft al een account': 'This email address already has an account',
     'Er is geen nieuwe bevestigingsmail verstuurd. Log in met dit e-mailadres, of kies "Wachtwoord vergeten?" als je het wachtwoord niet meer weet.':
       'No new confirmation email was sent. Log in with this email address, or choose "Forgot password?" if you no longer know the password.',

@@ -19,6 +19,8 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 
 - **Import a whole recipe book at once**: Word (.docx), PDF and text files are read by the built-in Savour reader for free. A chef imported 1,400 recipes from Word in about 2 minutes.
 - **AI for difficult sources (Savour Pro)**: photos of handwritten notes, scanned pages and messy documents are read by AI. The AI never invents quantities, ingredients or steps; unclear recipes are flagged for review.
+- **Import from a website or another recipe app**: paste the link to a recipe page (schema.org recipes are read directly), or import exports from Paprika (.paprikarecipes), Mealie, Tandoor, Recipe Keeper, Copy Me That, Crouton (.crumb), MasterCook (.mx2, .mxp), Plan to Eat (.csv) and any schema.org JSON or HTML.
+- **Unit-aware scaling**: scaling understands units (tsp, tbsp, cup, g, kg, ml, l, oz, lb, Dutch el/tl), converts within a family (20 tsp → 6 ⅔ tbsp), shows spoons and cups as clean fractions and grams as whole numbers; one-tap ½×, 2×, 3×, 4× also works without a yield.
 - **Organise**: folders, categories, A–Z index, favourites and full-text search across titles, ingredients and methods.
 - **Use in the kitchen**: scale any recipe to the yield you need, cook mode with large text on a phone or tablet, print single recipe cards or a whole folder at once (A4 or A5, with your restaurant's logo on Savour Pro).
 - **Works offline**: install Savour on the home screen (no app store needed); the recipe library opens without internet, for example in a walk-in or basement.

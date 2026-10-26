@@ -5,6 +5,9 @@
     },
     "api/recept.js": {
       "includeFiles": "{index.html,assets/fonts/**}"
+    },
+    "api/import-url.js": {
+      "maxDuration": 20
     }
   },
   "rewrites": [

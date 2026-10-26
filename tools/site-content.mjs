@@ -113,6 +113,7 @@ export const FEATURES = [
         ['Handgeschreven recepten en foto’s', 'Maak een foto van een kladje, een bladzijde uit je schrift of een scan uit een oude map. De AI leest het handschrift en maakt er een net recept van. Dat werkt ook als de foto scheef is of het papier vlekken heeft. Dit is onderdeel van Savour Pro.'],
         [ "Orde in grote, rommelige receptenmappen", "Een map met honderden recepten van verschillende chefs, met nummers, losse kopjes en recepten die halverwege een pagina beginnen? Savour splitst ze zelf op, herkent onderdelen zoals deeg en vulling, verbetert bekende schrijffouten en stelt per recept een categorie voor. Recepten waar de lezer aan twijfelt, laat de AI met Savour Pro nog eens nalezen. Jij controleert alles in één overzicht voordat het wordt opgeslagen." ],
         ['Niets verzonnen', 'Een recept moet kloppen. Savour verzint nooit hoeveelheden, ingrediënten of stappen. Twijfelt de lezer, dan zie je dat recept gemarkeerd en kijk je het zelf na voordat het wordt opgeslagen.'],
+        ["Van een website of een andere app","Plak de link van een recept op een website en Savour haalt het recept eruit. Stap je over van een andere recepten-app, zoals Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That of Plan to Eat? Maak daar een export en zet het bestand in één keer in Savour."],
         ['Daarna gewoon verder werken', 'Elk geïmporteerd recept kun je aanpassen, aanvullen met een foto, in een map zetten en delen met je brigade.']
       ]
     },
@@ -130,6 +131,7 @@ export const FEATURES = [
         ['Handwritten recipes and photos', 'Take a photo of a note, a page from your notebook or a scan from an old binder. The AI reads the handwriting and turns it into a clean recipe, even when the photo is crooked or the paper is stained. This is part of Savour Pro.'],
         [ "Order in large, messy recipe folders", "A binder with hundreds of recipes from different chefs, with numbers, loose headings and recipes that start halfway down a page? Savour splits them up itself, recognises parts such as dough and filling, corrects common spelling mistakes and suggests a category for each recipe. Recipes the reader is unsure about are read again by the AI with Savour Pro. You check everything in one overview before it is saved." ],
         ['Nothing made up', 'A recipe has to be right. Savour never invents quantities, ingredients or steps. If the reader is unsure, the recipe is flagged and you check it yourself before it is saved.'],
+        ["From a website or another app","Paste the link to a recipe on a website and Savour pulls out the recipe. Moving from another recipe app, such as Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That or Plan to Eat? Make an export there and bring the file into Savour in one go."],
         ['Then simply carry on', 'Every imported recipe can be edited, given a photo, put in a folder and shared with your brigade.']
       ]
     }
@@ -212,6 +214,7 @@ export const FEATURES = [
       lead: 'Van een proeverij voor 8 naar een diner voor 120, zonder rekenmachine en zonder fouten.',
       sections: [
         ['Omrekenen in één keer', 'Vul de opbrengst in die je nodig hebt en Savour rekent alle hoeveelheden om. Het originele recept blijft gewoon staan.'],
+        ["Begrijpt eenheden","Savour weet dat 3 theelepels één eetlepel zijn en 1000 gram een kilo. 20 theelepels worden 6 ⅔ eetlepels, en lepels en cups blijven nette breuken in plaats van lange decimalen. Ook zonder opbrengst reken je met één tik ½×, 2×, 3× of 4× om."],
         ['Rekenen met stuks', 'Haal je 50 brownies uit één recept en heb je er 1.000 nodig voor een evenement? Vul het aantal stuks in en je ziet meteen wat je moet afwegen.'],
         ['Klaar voor de mise-en-place', 'Het omgerekende recept print je direct, of je zet het op je telefoon in de kookmodus.']
       ]
@@ -226,6 +229,7 @@ export const FEATURES = [
       lead: 'From a tasting for 8 to a dinner for 120, without a calculator and without mistakes.',
       sections: [
         ['Convert in one go', 'Enter the yield you need and Savour converts every quantity. The original recipe stays as it is.'],
+        ["Understands units","Savour knows that 3 teaspoons make a tablespoon and 1000 grams a kilo. 20 teaspoons become 6 ⅔ tablespoons, and spoons and cups stay clean fractions instead of long decimals. Even without a yield, scale with one tap: ½×, 2×, 3× or 4×."],
         ['Counting in pieces', 'One recipe makes 50 brownies and you need 1,000 for an event? Enter the number of pieces and you immediately see what to weigh out.'],
         ['Ready for mise en place', 'Print the converted recipe straight away, or open it on your phone in cook mode.']
       ]

@@ -464,3 +464,8 @@ async function deleteAccount() {
     toast(e.message || 'Account kon niet worden verwijderd');
   }
 }
+
+// Knop in de bovenbalk: wisselen tussen licht en donker (zelfde keuze als in Instellingen → Weergave).
+function toggleTheme() {
+  setTheme(currentTheme() === 'light' ? 'dark' : 'light');
+}

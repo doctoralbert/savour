@@ -765,7 +765,7 @@ function linkWithSource(url, source) {
 function savourVisitSourceQuery() {
   const q = new URLSearchParams(location.search);
   const out = [];
-  for (const k of ['bron', 'utm_source', 'utm_medium', 'utm_campaign']) {
+  for (const k of ['bron', 'ref', 'utm_source', 'utm_medium', 'utm_campaign']) {
     const v = (q.get(k) || '').trim().slice(0, 40);
     if (v) out.push(`${k}=${encodeURIComponent(v)}`);
   }

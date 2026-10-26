@@ -367,3 +367,27 @@ body.cook-mode .rp-step-num {
 .rp [hidden] {
   display: none !important;
 }
+
+/* Snelknoppen om te vermenigvuldigen (½× 2× 3× 4×), ook zonder opbrengst */
+.rp-multipliers {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.rp-multipliers button {
+  min-width: 46px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sv-text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.rp-multipliers button:hover,
+.rp-multipliers button.is-on {
+  border-color: var(--sv-gold);
+  color: var(--sv-gold);
+}

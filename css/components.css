@@ -1093,3 +1093,29 @@ body.savour-light .nav .nav-add-recipe.active {
     margin-bottom: 0;
   }
 }
+
+/* Licht/donker-knop in de bovenbalk */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--sv-line-strong, #3a4443);
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  flex: none;
+}
+.theme-toggle:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.theme-toggle .theme-sun,
+body.savour-light .theme-toggle .theme-moon {
+  display: none;
+}
+body.savour-light .theme-toggle .theme-sun {
+  display: block;
+}

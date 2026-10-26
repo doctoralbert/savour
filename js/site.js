@@ -136,7 +136,7 @@
   function visitSourceQuery() {
     var q = new URLSearchParams(location.search);
     var out = [];
-    ['bron', 'utm_source', 'utm_medium', 'utm_campaign'].forEach(function (k) {
+    ['bron', 'ref', 'utm_source', 'utm_medium', 'utm_campaign'].forEach(function (k) {
       var v = (q.get(k) || '').trim().slice(0, 40);
       if (v) out.push(k + '=' + encodeURIComponent(v));
     });

@@ -165,10 +165,12 @@ async function openPublicRecipeBySlug(slug) {
     // Opbrengst omrekenen (min/plus of zelf typen, alleen bij een opbrengst met een getal) en kookmodus, samen in één
     // rustig blok. Overnemen kan hier niet: dat kan alleen ingelogd, in de app.
     const yieldHtml = base
-      ? `<div class="share-yield-tool" role="group" aria-label="Opbrengst omrekenen"><span class="share-yield-label">Opbrengst</span><div class="share-yield-row"><div class="share-stepper"><button type="button" onclick="stepPublicYield(-1)" aria-label="Minder">−</button><input id="pubYieldInput" inputmode="decimal" value="${esc(formatNumber(base.value))}" oninput="setPublicYield(this.value)" aria-label="Nieuwe opbrengst"><button type="button" onclick="stepPublicYield(1)" aria-label="Meer">+</button></div><b class="share-yield-unit" translate="no">${esc(base.unit)}</b></div><div class="share-yield-meta"><small id="pubYieldFactor"></small><button type="button" id="pubYieldReset" class="share-yield-reset" onclick="setPublicYield('${escJs(formatNumber(base.value))}', true)" hidden>Origineel</button></div></div>`
+      ? `<div class="share-yield-tool" role="group" aria-label="Opbrengst omrekenen"><span class="share-yield-label">Opbrengst</span><div class="share-yield-row"><div class="share-stepper"><button type="button" onclick="stepPublicYield(-1)" aria-label="Minder">−</button><input id="pubYieldInput" inputmode="decimal" value="${esc(formatNumber(base.value))}" oninput="setPublicYield(this.value)" aria-label="Nieuwe opbrengst"><button type="button" onclick="stepPublicYield(1)" aria-label="Meer">+</button></div><b class="share-yield-unit" translate="no">${esc(base.unit)}</b></div>${recipeMultipliersHtml('setPublicFactor')}<div class="share-yield-meta"><small id="pubYieldFactor"></small><button type="button" id="pubYieldReset" class="share-yield-reset" onclick="setPublicYield('${escJs(formatNumber(base.value))}', true)" hidden>Origineel</button></div></div>`
       : data.yield_text
-        ? `<div class="share-yield-tool"><span class="share-yield-label">Opbrengst</span><b class="share-yield-unit" translate="no">${esc(data.yield_text)}</b></div>`
-        : '';
+        ? `<div class="share-yield-tool"><span class="share-yield-label">Opbrengst</span><b class="share-yield-unit" translate="no">${esc(data.yield_text)}</b>${recipeMultipliersHtml('setPublicFactor')}<div class="share-yield-meta"><small id="pubYieldFactor"></small><button type="button" id="pubYieldReset" class="share-yield-reset" onclick="setPublicFactor(1)" hidden>Origineel</button></div></div>`
+        : ingredients.length
+          ? `<div class="share-yield-tool"><span class="share-yield-label">Omrekenen</span>${recipeMultipliersHtml('setPublicFactor')}<div class="share-yield-meta"><small id="pubYieldFactor"></small><button type="button" id="pubYieldReset" class="share-yield-reset" onclick="setPublicFactor(1)" hidden>Origineel</button></div></div>`
+          : '';
     $('publicRecipeContent').innerHTML =
       `<article class="share-recipe"><header class="share-recipe-head"><span class="share-recipe-tag">Gedeeld recept</span><h1 translate="no">${esc(data.title || 'Recept')}</h1>${
         data.description ? `<p class="site-lead" translate="no">${esc(data.description)}</p>` : ''
@@ -198,7 +200,20 @@ function setPublicYield(value, reset) {
   if (reset && $('pubYieldInput')) $('pubYieldInput').value = value;
   const target = parseAmount(String(value).trim());
   if (!Number.isFinite(target) || target <= 0) return;
-  const factor = target / base.value;
+  applyPublicFactor(target / base.value);
+}
+
+// Snelknoppen ½× 2× 3× 4×, ook als het recept geen opbrengst heeft.
+function setPublicFactor(factor) {
+  const base = publicRecipe?.base;
+  if (base && $('pubYieldInput')) return setPublicYield(formatNumber(base.value * factor), true);
+  applyPublicFactor(factor);
+}
+
+function applyPublicFactor(factor) {
+  document
+    .querySelectorAll('.share-recipe-bar .rp-multipliers button')
+    .forEach(b => b.classList.toggle('is-on', Math.abs(+b.dataset.factor - factor) < 1e-9));
   document.querySelectorAll('#pubIngredients [data-ing]').forEach(li => {
     li.innerHTML = ingredientHtml(publicRecipe.ingredients[Number(li.dataset.ing)], factor);
   });
