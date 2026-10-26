@@ -27,7 +27,7 @@ export const EXTRA_LANGS = {
     },
     home: {
       h1: 'Dein ganzes Rezeptbuch, auf jedem Handy in der Küche.',
-      lead: 'Savour ist die Rezept-App für die Profiküche. Deine Word-Dateien, PDFs und handschriftlichen Notizen werden ein geordnetes Rezeptbuch, für dich und deine Brigade.',
+      lead: 'Savour ist die Rezept-App für die Profiküche: Rezepte organisieren, Rezeptverwaltung für deine ganze Brigade und eine Rezeptdatenbank in der Cloud, online und offline auf jedem Gerät. Der KI-Import liest chaotische Notizen und bringt Struktur in große, unordentliche Rezeptordner. Danach teilst und druckst du pro Rezept oder pro Ordner.',
       proof: '1.400 Rezepte in 2 Minuten aus Word importiert. Getestet in unserer eigenen Küche.',
       story: [
         'Auf der Rückseite eines Bons. In einem Heft, das nach zehn Jahren Service zusammenklebt. Auf einem Foto vom Pass. Diese Notizen sind das Wissen deiner Küche, und sie gehen verloren, verblassen oder sind nur für den lesbar, der sie schrieb.',
@@ -46,7 +46,9 @@ export const EXTRA_LANGS = {
         ['Welche App nutze ich, um Rezepte für mein Restaurant zu organisieren?', 'Savour ist für Profiküchen gemacht: Du importierst deine bestehenden Rezepte, ordnest sie in Ordnern und teilst sie mit deinem Team. Du startest kostenlos.'],
         ['Wie digitalisiere ich handgeschriebene Rezepte?', 'Mach ein Foto vom Rezept und lade es in Savour hoch. Die KI macht daraus ein sauberes Rezept mit Zutaten und Zubereitung, das du danach prüfst.'],
         ['Kann ich Rezepte aus Word oder PDF importieren?', 'Ja. Auch eine Datei mit Hunderten Rezepten auf einmal; Savour trennt sie selbst auf.'],
-        ['Wie teile ich Rezepte mit meinem Küchenteam?', 'Mit einem geteilten Ordner. Du lädst Kollegen ein und gibst ihnen Rechte zum Ansehen oder Mitarbeiten.'],
+        ['Funktioniert Savour auch offline und auf allen meinen Geräten?', 'Ja. Deine Rezepte sind sicher in der Cloud gespeichert und du nutzt Savour auf Computer, Tablet und Handy. Savour speichert deine Bibliothek auch auf deinem Gerät, sodass du deine Rezepte ohne WLAN lesen kannst, etwa im Kühlraum oder im Keller.'],
+        ['Kann Savour einen großen, chaotischen Rezeptordner ordnen?', 'Ja. Du importierst einen ganzen Ordner oder eine große Word-Datei auf einmal. Savour holt die einzelnen Rezepte heraus, bringt sie in denselben sauberen Aufbau und schlägt Kategorien vor. Handschriftliche Notizen liest die KI; im Zweifel markiert Savour das Rezept, damit du es selbst prüfst.'],
+        ['Wie teile ich Rezepte mit meinem Küchenteam?', 'Mit einem geteilten Ordner. Du lädst Kollegen ein und gibst ihnen Rechte zum Ansehen oder Mitarbeiten. So verwaltest du die Rezepte deiner ganzen Brigade an einem Ort und druckst ein Rezept oder einen ganzen Ordner auf einmal.'],
         ['Eignet sich Savour für die Rezeptverwaltung in der Gastronomie?', 'Ja. Savour ist für Restaurants, Hotels und Catering gebaut: Rezepturen zentral verwalten, mit dem Küchenteam teilen und nach Posten, Menü oder Standort ordnen.'],
         ['Ist Savour auch für Hobbyköche?', 'Das geht, aber Savour ist für die Profiküche gebaut: große Rezeptbücher, Teams und den Service.']
       ]
@@ -54,6 +56,7 @@ export const EXTRA_LANGS = {
     items: {
       digitise: ['Rezepte digitalisieren', 'Word, PDF und Fotos handschriftlicher Rezepte auf einmal in Savour.'],
       organise: ['Rezepte organisieren', 'Ordner, Kategorien und Suche nach Zutat. Deine Beurre blanc in drei Sekunden.'],
+      library: ['Rezeptdatenbank und Archiv', 'Alle Rezepte sicher in der Cloud, online und offline auf jedem Gerät.'],
       share: ['Mit der Brigade teilen', 'Geteilte Ordner mit Rechten: Du verwaltest, dein Sous-Chef bearbeitet, der Rest liest mit.'],
       scale: ['Rezepte hochrechnen', 'Von 8 Gedecken auf 120, ohne Rechenfehler.'],
       print: ['Drucken und Rezeptordner', 'Ein ganzer Ordner auf einmal zum Drucker, sauber für die Küche.'],
@@ -87,7 +90,7 @@ export const EXTRA_LANGS = {
     },
     home: {
       h1: 'Todo tu recetario, en cada móvil de la cocina.',
-      lead: 'Savour es la app de recetas para la cocina profesional. Tus archivos de Word, PDF y notas escritas a mano se convierten en un recetario ordenado, para ti y tu brigada.',
+      lead: 'Savour es la app de recetas para la cocina profesional: organiza recetas, gestiónalas para toda tu brigada y ten una base de datos de recetas en la nube, online y offline en cualquier dispositivo. La importación con IA lee notas desordenadas y pone orden en carpetas de recetas grandes y caóticas. Después compartes e imprimes por receta o por carpeta.',
       proof: '1.400 recetas importadas de Word en 2 minutos. Probado en nuestra propia cocina.',
       story: [
         'En el reverso de un ticket. En un cuaderno que se pega tras diez años de servicio. En una foto que hiciste en el pase. Esas notas son el conocimiento de tu cocina, y se pierden, se borran o solo las entiende quien las escribió.',
@@ -106,7 +109,9 @@ export const EXTRA_LANGS = {
         ['¿Qué app uso para organizar las recetas de mi restaurante?', 'Savour está hecho para cocinas profesionales: importas tus recetas, las ordenas en carpetas y las compartes con tu equipo. Empiezas gratis.'],
         ['¿Cómo digitalizo recetas escritas a mano?', 'Haz una foto de la receta y súbela a Savour. La IA la convierte en una receta limpia con ingredientes y elaboración, que luego revisas.'],
         ['¿Puedo importar recetas de Word o PDF?', 'Sí. Incluso un archivo con cientos de recetas a la vez; Savour las separa solo.'],
-        ['¿Cómo comparto recetas con mi equipo de cocina?', 'Con una carpeta compartida. Invitas a tus compañeros y les das permiso para ver o colaborar.'],
+        ['¿Savour funciona offline y en todos mis dispositivos?', 'Sí. Tus recetas se guardan de forma segura en la nube y usas Savour en ordenador, tablet y móvil. Savour también guarda tu biblioteca en tu dispositivo, para que puedas leer tus recetas sin wifi, por ejemplo en la cámara o en el sótano.'],
+        ['¿Puede Savour ordenar una carpeta de recetas grande y desordenada?', 'Sí. Importas una carpeta entera o un archivo de Word grande de una vez. Savour extrae las recetas, les da la misma estructura limpia y propone categorías. La IA lee las notas escritas a mano; si hay dudas, Savour marca la receta para que la revises tú.'],
+        ['¿Cómo comparto recetas con mi equipo de cocina?', 'Con una carpeta compartida. Invitas a tus compañeros y les das permiso para ver o colaborar. Así gestionas las recetas de toda tu brigada en un solo sitio e imprimes una receta o una carpeta entera de una vez.'],
         ['¿Sirve Savour para la gestión de recetas en hostelería?', 'Sí. Savour está hecho para restaurantes, hoteles y catering: gestionar recetas de forma central, compartirlas con tu equipo de cocina y ordenarlas por partida, menú o local.'],
         ['¿Savour también es para cocineros caseros?', 'Puede servir, pero Savour está hecho para la cocina profesional: grandes recetarios, equipos y el servicio.']
       ]
@@ -114,6 +119,7 @@ export const EXTRA_LANGS = {
     items: {
       digitise: ['Digitalizar recetas', 'Word, PDF y fotos de recetas escritas a mano en Savour de una vez.'],
       organise: ['Organizar recetas', 'Carpetas, categorías y búsqueda por ingrediente. Tu beurre blanc en tres segundos.'],
+      library: ['Base de datos y archivo de recetas', 'Todas tus recetas seguras en la nube, online y offline en cualquier dispositivo.'],
       share: ['Compartir con tu brigada', 'Carpetas compartidas con permisos: tú gestionas, tu segundo edita, el resto consulta.'],
       scale: ['Escalar recetas', 'De 8 cubiertos a 120, sin errores de cálculo.'],
       print: ['Imprimir y carpetas', 'Una carpeta entera a la impresora de una vez, limpia para la cocina.'],

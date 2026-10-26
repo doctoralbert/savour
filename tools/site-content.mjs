@@ -111,6 +111,7 @@ export const FEATURES = [
       sections: [
         ['Word en PDF in één keer', 'Sleep een Word-bestand of PDF in Savour, ook als er honderden recepten in staan. De Savour-lezer herkent zelf waar een recept begint en eindigt, en zet titel, ingrediënten en bereiding op de juiste plek. Nummers voor titels en kleine typfouten zoals 18oc in plaats van 180°C worden netjes opgeruimd. Een chef importeerde zo 1.400 recepten in ongeveer twee minuten.'],
         ['Handgeschreven recepten en foto’s', 'Maak een foto van een kladje, een bladzijde uit je schrift of een scan uit een oude map. De AI leest het handschrift en maakt er een net recept van. Dat werkt ook als de foto scheef is of het papier vlekken heeft. Dit is onderdeel van Savour Pro.'],
+        ['Structuur in grote, rommelige receptenmappen', 'Een map vol losse vellen, een Word-bestand van tien jaar waar iedereen iets aan toevoegde, recepten kriskras door elkaar. Savour haalt de recepten eruit, zet ze in dezelfde nette opbouw en stelt een indeling in categorieën voor. Zo wordt een rommelig archief een receptendatabase waarin je alles terugvindt.'],
         ['Niets verzonnen', 'Een recept moet kloppen. Savour verzint nooit hoeveelheden, ingrediënten of stappen. Twijfelt de lezer, dan zie je dat recept gemarkeerd en kijk je het zelf na voordat het wordt opgeslagen.'],
         ['Daarna gewoon verder werken', 'Elk geïmporteerd recept kun je aanpassen, aanvullen met een foto, in een map zetten en delen met je brigade.']
       ]
@@ -127,6 +128,7 @@ export const FEATURES = [
       sections: [
         ['Word and PDF in one go', 'Drop a Word file or PDF into Savour, even if it holds hundreds of recipes. The Savour reader works out where each recipe starts and ends, and puts the title, ingredients and method in the right place. Numbers before titles and small typos such as 18oc instead of 180°C are cleaned up. One chef imported 1,400 recipes this way in about two minutes.'],
         ['Handwritten recipes and photos', 'Take a photo of a note, a page from your notebook or a scan from an old binder. The AI reads the handwriting and turns it into a clean recipe, even when the photo is crooked or the paper is stained. This is part of Savour Pro.'],
+        ['Structure in big, messy recipe binders', 'A binder full of loose sheets, a Word file everyone has added to for ten years, recipes all mixed up. Savour pulls the recipes out, gives them the same clean layout and suggests categories. A messy archive becomes a recipe database where you can find everything.'],
         ['Nothing made up', 'A recipe has to be right. Savour never invents quantities, ingredients or steps. If the reader is unsure, the recipe is flagged and you check it yourself before it is saved.'],
         ['Then simply carry on', 'Every imported recipe can be edited, given a photo, put in a folder and shared with your brigade.']
       ]
@@ -162,6 +164,39 @@ export const FEATURES = [
         ['Search by what you remember', 'Only remember there was yuzu in it? Savour searches titles, ingredients and method. Or browse your whole book from A to Z.'],
         ['Calm and quick', 'No crowded screens. A list of titles, a star for your favourites and one tap to the recipe. Made for looking something up in the middle of service.'],
         ['On every device', 'Organise and import on the computer, use your phone or tablet in the kitchen with large text in cook mode. Nothing to install.']
+      ]
+    }
+  },
+  {
+    id: 'library',
+    nl: {
+      slug: 'receptendatabase',
+      menu: 'Receptendatabase en archief',
+      short: 'Al je recepten veilig in de cloud, online en offline op elk apparaat.',
+      title: 'Receptendatabase en receptenarchief, online en offline | Savour',
+      desc: 'Je receptendatabase en receptenarchief in de cloud: al je recepturen veilig bewaard, op computer, tablet en telefoon. Ook offline te raadplegen in de keuken, zonder wifi.',
+      h1: 'Je receptendatabase, online en offline op elk apparaat',
+      lead: 'Eén receptenarchief in de cloud, voor alles wat je keuken ooit heeft gemaakt. Op de computer, de tablet bij de pass en de telefoon in je schort.',
+      sections: [
+        ['Alles in de cloud opgeslagen', 'Elk recept dat je importeert of schrijft, staat veilig in de cloud. Valt je telefoon in de frituur of ga je naar een andere zaak, dan neem je je receptenboek gewoon mee. Log in op een ander apparaat en alles staat er.'],
+        ['Op alle apparaten hetzelfde', 'Importeer en orden op de laptop, kijk op de tablet bij de pass en zoek op je telefoon in de koelcel. Wat je op het ene apparaat aanpast, zie je ook op het andere. Er hoeft niets uit een app store te komen: je zet Savour op je beginscherm.'],
+        ['Offline in de keuken', 'Geen wifi in de kelder of de koelcel? Savour bewaart je bibliotheek op je toestel. Zonder verbinding open je je recepten gewoon om ze te lezen. Zodra er weer verbinding is, haalt Savour de nieuwste versie op.'],
+        ['Een archief dat blijft', 'Oude menu’s, recepten van vorige seizoenen en het schrift van je eerste chef: alles blijft bewaard en vindbaar. Stop je met Savour Pro, dan houd je al je recepten. Savour verwijdert nooit zelf iets.']
+      ]
+    },
+    en: {
+      slug: 'en/recipe-database',
+      menu: 'Recipe database and archive',
+      short: 'All your recipes safe in the cloud, online and offline on every device.',
+      title: 'Recipe database and recipe archive, online and offline | Savour',
+      desc: 'Your recipe database and recipe archive in the cloud: every recipe stored safely, on computer, tablet and phone. Also available offline in the kitchen, without wifi.',
+      h1: 'Your recipe database, online and offline on every device',
+      lead: 'One recipe archive in the cloud for everything your kitchen has ever made. On the computer, the tablet at the pass and the phone in your apron.',
+      sections: [
+        ['Everything stored in the cloud', 'Every recipe you import or write is stored safely in the cloud. If your phone ends up in the fryer or you move to another restaurant, your recipe book comes with you. Sign in on another device and everything is there.'],
+        ['The same on every device', 'Import and organise on the laptop, read on the tablet at the pass and search on your phone in the walk-in. What you change on one device shows up on the other too. Nothing to get from an app store: you add Savour to your home screen.'],
+        ['Offline in the kitchen', 'No wifi in the basement or the walk-in? Savour keeps your library on your device. Without a connection you simply open your recipes to read them. As soon as you are back online, Savour fetches the latest version.'],
+        ['An archive that lasts', 'Old menus, last season’s recipes and the notebook of your first head chef: everything stays stored and easy to find. If you stop Savour Pro, you keep all your recipes. Savour never deletes anything by itself.']
       ]
     }
   },
@@ -460,7 +495,7 @@ export const STORY = {
 export const HOME = {
   nl: {
     h1: 'Je hele receptenboek, op elke telefoon in de keuken.',
-    lead: 'Savour is het receptenplatform voor de professionele, culinaire keuken: een receptenapp voor receptbeheer en het organiseren van al je recepturen. Je Word-bestanden, PDF’s en handgeschreven kladjes worden één geordend receptenboek, voor jou en je hele keukenteam.',
+    lead: 'Savour is het receptenplatform voor de professionele, culinaire keuken: recepten organiseren, receptmanagement voor je hele brigade en een receptendatabase in de cloud, online en offline op elk apparaat. De AI-import leest slordige kladjes en brengt structuur in grote, rommelige receptenmappen. Daarna deel en print je per recept of per map.',
     proof: '1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.',
     story: [
       'Op de achterkant van een bon. In een schrift dat na tien jaar service aan elkaar plakt. Op een foto die je ooit bij de pas maakte. Die kladjes zijn de kennis van je keuken, en ze raken kwijt, vervagen of zijn alleen leesbaar voor degene die ze schreef.',
@@ -480,14 +515,16 @@ export const HOME = {
       ['Welke app gebruik ik om recepten te organiseren voor mijn restaurant?', 'Savour is gemaakt voor professionele keukens: je importeert je bestaande recepten, ordent ze in mappen en deelt ze met je team. Je begint gratis.'],
       ['Hoe digitaliseer ik handgeschreven recepten?', 'Maak een foto van het recept en upload hem in Savour. De AI zet hem om in een net recept met ingrediënten en bereiding, dat je daarna controleert.'],
       ['Kan ik recepten uit Word of PDF importeren?', 'Ja. Ook een bestand met honderden recepten tegelijk; Savour splitst ze zelf op.'],
-      ['Hoe deel ik recepten met mijn keukenteam?', "Met een gedeelde map. Je nodigt collega's uit en geeft ze rechten om mee te kijken of mee te werken."],
+      ['Werkt Savour ook offline en op al mijn apparaten?', 'Ja. Je recepten staan veilig in de cloud en je gebruikt Savour op computer, tablet en telefoon. Savour bewaart je bibliotheek ook op je toestel, zodat je recepten zonder wifi te lezen zijn, bijvoorbeeld in de koelcel of de kelder.'],
+      ['Kan Savour een grote, rommelige receptenmap ordenen?', 'Ja. Je importeert een hele map of een groot Word-bestand in één keer. Savour haalt de losse recepten eruit, zet ze in dezelfde nette opbouw en stelt categorieën voor. Handgeschreven kladjes leest de AI; bij twijfel markeert Savour het recept zodat je het zelf nakijkt.'],
+      ['Hoe deel ik recepten met mijn keukenteam?', "Met een gedeelde map. Je nodigt collega's uit en geeft ze rechten om mee te kijken of mee te werken. Zo beheer je de recepten van je hele brigade op één plek, en print je een recept of een hele map in één keer."],
       ['Is Savour geschikt voor receptbeheer in de horeca?', 'Ja. Savour is gebouwd voor restaurants, hotels en catering: recepturen centraal beheren, delen met je keukenteam en ordenen per partie, menu of vestiging.'],
       ['Is Savour ook voor thuiskoks?', 'Het kan, maar Savour is gebouwd voor de professionele keuken: grote receptenboeken, teams en de service.']
     ]
   },
   en: {
     h1: 'Your whole recipe book, on every phone in the kitchen.',
-    lead: 'Savour is the recipe management app for professional kitchens. Your Word files, PDFs and handwritten notes become one organised recipe book, for you and your whole kitchen team.',
+    lead: 'Savour is the recipe management app for professional kitchens: organise recipes, manage them for your whole brigade and keep one recipe database in the cloud, online and offline on every device. AI import reads messy handwritten notes and brings structure to big, messy recipe binders. Then share and print by recipe or by folder.',
     proof: '1,400 recipes imported from Word in 2 minutes. Tested in our own kitchen.',
     story: [
       'On the back of a ticket. In a notebook that sticks together after ten years of service. In a photo you once took at the pass. Those notes are your kitchen’s knowledge, and they get lost, fade, or can only be read by the person who wrote them.',
@@ -506,7 +543,9 @@ export const HOME = {
       ['Which app do I use to organise recipes for my restaurant?', 'Savour is made for professional kitchens: you import your existing recipes, organise them in folders and share them with your team. You start for free.'],
       ['How do I digitise handwritten recipes?', 'Take a photo of the recipe and upload it to Savour. The AI turns it into a clean recipe with ingredients and method, which you then check.'],
       ['Can I import recipes from Word or PDF?', 'Yes. Even a file with hundreds of recipes at once; Savour splits them up itself.'],
-      ['How do I share recipes with my kitchen team?', 'With a shared folder. You invite colleagues and give them rights to view or to edit.'],
+      ['Does Savour work offline and on all my devices?', 'Yes. Your recipes are stored safely in the cloud and you use Savour on computer, tablet and phone. Savour also keeps your library on your device, so you can read your recipes without wifi, for example in the walk-in or the basement.'],
+      ['Can Savour sort out a big, messy recipe binder?', 'Yes. You import a whole folder or a large Word file in one go. Savour pulls out the separate recipes, gives them the same clean layout and suggests categories. The AI reads handwritten notes; when in doubt, Savour flags the recipe so you check it yourself.'],
+      ['How do I share recipes with my kitchen team?', 'With a shared folder. You invite colleagues and give them rights to view or to edit. That way you manage the recipes of your whole brigade in one place, and print one recipe or a whole folder at once.'],
       ['Is Savour suitable for recipe management in hospitality?', 'Yes. Savour is built for restaurants, hotels and catering: manage recipes centrally, share them with your kitchen team and organise them by section, menu or location.'],
       ['Is Savour for home cooks too?', 'It can be, but Savour is built for the professional kitchen: big recipe books, teams and service.']
     ]

@@ -55,6 +55,7 @@ export const DE = {
       sections: [
         ['Word und PDF auf einmal', 'Zieh eine Word-Datei oder ein PDF in Savour, auch wenn Hunderte Rezepte darin stehen. Der Savour-Leser erkennt, wo jedes Rezept beginnt und endet, und setzt Titel, Zutaten und Zubereitung an die richtige Stelle. Nummern vor Titeln und kleine Tippfehler wie 18oc statt 180 °C werden bereinigt. Ein Koch hat so 1.400 Rezepte in etwa zwei Minuten importiert.'],
         ['Handschriftliche Rezepte und Fotos', 'Mach ein Foto von einer Notiz, einer Seite aus deinem Heft oder einem Scan aus einem alten Ordner. Die KI liest die Handschrift und macht daraus ein sauberes Rezept, auch wenn das Foto schief ist oder das Papier Flecken hat. Das ist Teil von Savour Pro.'],
+        ['Struktur in großen, chaotischen Rezeptordnern', 'Ein Ordner voller loser Blätter, eine Word-Datei, an der zehn Jahre lang alle etwas ergänzt haben, Rezepte kreuz und quer durcheinander. Savour holt die Rezepte heraus, bringt sie in denselben sauberen Aufbau und schlägt Kategorien vor. So wird ein chaotisches Archiv zu einer Rezeptdatenbank, in der du alles wiederfindest.'],
         ['Nichts wird erfunden', 'Ein Rezept muss stimmen. Savour erfindet nie Mengen, Zutaten oder Schritte. Ist sich der Leser unsicher, wird das Rezept markiert und du prüfst es selbst, bevor es gespeichert wird.'],
         ['Dann einfach weiterarbeiten', 'Jedes importierte Rezept kannst du bearbeiten, mit einem Foto versehen, in einen Ordner legen und mit deiner Brigade teilen.']
       ]
@@ -70,6 +71,19 @@ export const DE = {
         ['Suchen nach dem, was du noch weißt', 'Du weißt nur noch, dass Yuzu drin war? Savour durchsucht Titel, Zutaten und Zubereitung. Oder blättere von A bis Z durch dein ganzes Buch.'],
         ['Ruhig und schnell', 'Keine überladenen Bildschirme. Eine Liste mit Titeln, ein Stern für deine Favoriten und ein Tippen zum Rezept. Gemacht zum Nachschlagen mitten im Service.'],
         ['Auf jedem Gerät', 'Am Computer ordnen und importieren, in der Küche Handy oder Tablet mit großer Schrift im Kochmodus. Nichts zu installieren.']
+      ]
+    },
+    library: {
+      slug: 'de/rezeptdatenbank',
+      title: 'Rezeptdatenbank und Rezeptarchiv, online und offline | Savour',
+      desc: 'Deine Rezeptdatenbank und dein Rezeptarchiv in der Cloud: alle Rezepturen sicher gespeichert, auf Computer, Tablet und Handy. Auch offline in der Küche nutzbar, ohne WLAN.',
+      h1: 'Deine Rezeptdatenbank, online und offline auf jedem Gerät',
+      lead: 'Ein Rezeptarchiv in der Cloud für alles, was deine Küche je gekocht hat. Auf dem Computer, dem Tablet am Pass und dem Handy in der Schürze.',
+      sections: [
+        ['Alles in der Cloud gespeichert', 'Jedes Rezept, das du importierst oder schreibst, ist sicher in der Cloud gespeichert. Fällt dein Handy in die Fritteuse oder wechselst du das Restaurant, nimmst du dein Rezeptbuch einfach mit. Melde dich auf einem anderen Gerät an und alles ist da.'],
+        ['Auf jedem Gerät gleich', 'Am Laptop importieren und ordnen, am Tablet am Pass lesen und auf dem Handy im Kühlraum suchen. Was du auf einem Gerät änderst, siehst du auch auf dem anderen. Nichts aus dem App Store nötig: Du legst Savour auf deinen Startbildschirm.'],
+        ['Offline in der Küche', 'Kein WLAN im Keller oder im Kühlraum? Savour speichert deine Bibliothek auf deinem Gerät. Ohne Verbindung öffnest du deine Rezepte einfach zum Lesen. Sobald du wieder online bist, holt Savour die neueste Version.'],
+        ['Ein Archiv, das bleibt', 'Alte Menüs, Rezepte der letzten Saison und das Heft deines ersten Küchenchefs: Alles bleibt gespeichert und auffindbar. Beendest du Savour Pro, behältst du alle Rezepte. Savour löscht nie von selbst etwas.']
       ]
     },
     share: {

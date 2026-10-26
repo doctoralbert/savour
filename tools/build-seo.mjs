@@ -396,6 +396,7 @@ const PHOTOS = {
 const PAGE_PHOTO = {
   'recepten-digitaliseren': 'hout',
   'recepten-organiseren': 'keuken',
+  receptendatabase: 'hout',
   'recepten-delen': 'brigade',
   'recepten-opschalen': 'wortels',
   'recepten-printen': 'uien',
@@ -580,21 +581,21 @@ for (const lang of LANGS) {
 const HOME_META = {
   en: {
     title: 'Savour — recipe app for chefs: organise and share recipes',
-    desc: 'Organise all your recipes in one app: import from Word, PDF and handwritten notes, share with your kitchen team and print whole folders. Free to try.',
+    desc: 'Organise all your recipes in one recipe database in the cloud, online and offline on every device. AI reads messy handwritten notes; share and print with your brigade. Free to try.',
     ogTitle: 'Savour — recipe management for professional kitchens',
     ogDesc: 'From scribbled note to a recipe that works. Your whole recipe book in one place, on computer and phone, shared with your kitchen team.',
     locale: 'en_GB'
   },
   de: {
     title: 'Savour — Rezept-App für Köche: Rezepte organisieren und teilen',
-    desc: 'Organisiere alle Rezepte in einer App: aus Word, PDF und handschriftlichen Notizen importieren, mit dem Küchenteam teilen und ganze Ordner drucken. Kostenlos testen.',
+    desc: 'Alle Rezepte in einer Rezeptdatenbank in der Cloud, online und offline auf jedem Gerät. KI liest chaotische Notizen; teilen und drucken mit deiner Brigade. Kostenlos testen.',
     ogTitle: 'Savour — Rezeptverwaltung für Profiküchen',
     ogDesc: 'Von der Notiz zum Rezept, das stimmt. Dein ganzes Rezeptbuch an einem Ort, auf Computer und Handy, geteilt mit deinem Küchenteam.',
     locale: 'de_DE'
   },
   es: {
     title: 'Savour — app de recetas para chefs: organiza y comparte recetas',
-    desc: 'Organiza todas tus recetas en una app: importa de Word, PDF y notas a mano, compártelas con tu equipo de cocina e imprime carpetas enteras. Pruébalo gratis.',
+    desc: 'Todas tus recetas en una base de datos en la nube, online y offline en cualquier dispositivo. La IA lee notas desordenadas; comparte e imprime con tu brigada. Pruébalo gratis.',
     ogTitle: 'Savour — gestión de recetas para cocinas profesionales',
     ogDesc: 'De la nota a una receta que funciona. Todo tu recetario en un solo sitio, en ordenador y móvil, compartido con tu equipo de cocina.',
     locale: 'es_ES'
