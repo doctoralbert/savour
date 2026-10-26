@@ -166,10 +166,37 @@ async function submitAuth() {
       if (ok) toast(authWelcome(account.name || data.user.user_metadata?.name || email));
     }
   } catch (e) {
-    console.error(e);
-    let msg = e.message || t('Inloggen is mislukt');
-    if (/rate limit|email rate limit/i.test(msg))
+    const raw = e.message || '';
+    // Gewone situaties bij inloggen zijn geen fout in de app: niet in het foutenlogboek, wel een duidelijke uitleg.
+    if (/email not confirmed/i.test(raw)) {
+      console.warn('Inloggen: e-mailadres nog niet bevestigd');
+      const again = await askConfirm(
+        `${t('Bevestig eerst je e-mailadres')}\n\n${t('We hebben je een e-mail gestuurd met een link om je account te bevestigen. Kijk ook in je spam. Geen mail gekregen? Dan sturen we een nieuwe.')}`,
+        { confirmLabel: t('Nieuwe bevestigingsmail sturen') }
+      );
+      if (again) {
+        const { error } = await supabaseClient.auth.resend({ type: 'signup', email });
+        toast(
+          error
+            ? /rate limit/i.test(error.message || '')
+              ? t('Er zijn tijdelijk te veel e-mails aangevraagd. Probeer het later opnieuw.')
+              : t('De bevestigingsmail kon niet worden verstuurd. Probeer het later opnieuw.')
+            : t('Nieuwe bevestigingsmail verstuurd. Kijk ook in je spam.')
+        );
+      }
+      return;
+    }
+    let msg = raw || t('Inloggen is mislukt');
+    if (/invalid login credentials/i.test(raw)) {
+      console.warn('Inloggen: onjuist e-mailadres of wachtwoord');
+      msg = t('E-mailadres of wachtwoord klopt niet.');
+    } else if (/user already registered/i.test(raw)) {
+      console.warn('Aanmelden: e-mailadres bestaat al');
+      msg = t('Dit e-mailadres heeft al een account. Log in of kies "Wachtwoord vergeten?".');
+    } else if (/rate limit|email rate limit/i.test(raw)) {
+      console.warn('Aanmelden: te veel e-mails');
       msg = t('Er zijn tijdelijk te veel registratie-e-mails aangevraagd. Probeer het later opnieuw.');
+    } else console.error(e);
     toast(msg);
   } finally {
     $('authSubmit').disabled = false;
