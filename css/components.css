@@ -1119,3 +1119,41 @@ body.savour-light .theme-toggle .theme-moon {
 body.savour-light .theme-toggle .theme-sun {
   display: block;
 }
+
+/* Fotoband in het lichte thema: lichte achtergrond, lichtere foto en donkere tekst. */
+@media (min-width: 761px) {
+  body.savour-light #appShell .photo-band {
+    background: #f4f1ea;
+    border-color: #e2ddd2;
+  }
+  body.savour-light #appShell .photo-band::before {
+    filter: blur(2px) saturate(0.85) brightness(1.05);
+    opacity: 0.85;
+  }
+  body.savour-light #appShell .photo-band::after {
+    background: linear-gradient(
+        90deg,
+        #f4f1ea 0%,
+        #f4f1ea 38%,
+        rgba(244, 241, 234, 0.78) 56%,
+        rgba(244, 241, 234, 0.35) 100%
+      ),
+      linear-gradient(0deg, rgba(244, 241, 234, 0.5) 0%, rgba(244, 241, 234, 0) 60%);
+  }
+  body.savour-light #appShell .photo-band :is(h1, h2) {
+    color: #171918 !important;
+    text-shadow: none;
+  }
+  body.savour-light #appShell .photo-band .eyebrow {
+    color: #8a6a2f !important;
+    text-shadow: none;
+  }
+  body.savour-light #appShell .photo-band :is(.mini, .muted) {
+    color: #55595a !important;
+  }
+  body.savour-light #appShell .photo-band .pill {
+    color: #8a6a2f !important;
+    border-color: #c9b07a !important;
+    background: rgba(255, 255, 255, 0.7) !important;
+  }
+}

@@ -1503,6 +1503,7 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Probleem melden","Report a problem","Problem melden","Informar de un problema"],
   ["Webpagina of andere recepten-app","Web page or another recipe app","Webseite oder andere Rezept-App","Página web u otra app de recetas"],
   ["Plak de link van een recept op een website, of zet je recepten over uit een andere app: Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat en meer. Maak in die app een export en kies het bestand bij \"Uit een andere recepten-app\".","Paste the link to a recipe on a website, or move your recipes over from another app: Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat and more. Make an export in that app and choose the file under \"From another recipe app\".","Füge den Link zu einem Rezept auf einer Website ein oder übertrage deine Rezepte aus einer anderen App: Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat und mehr. Erstelle in dieser App einen Export und wähle die Datei unter „Aus einer anderen Rezept-App“.","Pega el enlace de una receta en una web o pasa tus recetas desde otra app: Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat y más. Haz una exportación en esa app y elige el archivo en «Desde otra app de recetas»."],
   ["niet omgerekend","not scaled","nicht umgerechnet","sin convertir"],

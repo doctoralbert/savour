@@ -1353,3 +1353,25 @@ h2.has-help .help-btn {
 #shareModal.share-link-off .share-channel-grid .btn {
   opacity: 0.5;
 }
+
+/* Footer in de app: geen los zwart blok, maar rustig onder de inhoud met een lijn erboven (ook in het lichte thema). */
+@media (min-width: 761px) {
+  #appShell .app-site-foot .site-foot {
+    background: transparent;
+    border-top: 1px solid var(--sv-line);
+    padding: 22px 0 26px;
+  }
+  #appShell .app-site-foot .site-foot-bottom {
+    border-top: 0;
+    padding-top: 0;
+    margin-top: 0;
+  }
+  body.savour-light #appShell .app-site-foot .site-foot,
+  body.savour-light #appShell .app-site-foot .site-foot a,
+  body.savour-light #appShell .app-site-foot .site-foot-bottom span {
+    color: #55595a;
+  }
+  body.savour-light #appShell .app-site-foot .site-foot a:hover {
+    color: #171918;
+  }
+}
