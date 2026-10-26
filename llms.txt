@@ -9,9 +9,11 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 - **Import a whole recipe book at once**: Word (.docx), PDF and text files are read by the built-in Savour reader for free. A chef imported 1,400 recipes from Word in about 2 minutes.
 - **AI for difficult sources (Savour Pro)**: photos of handwritten notes, scanned pages and messy documents are read by AI. The AI never invents quantities, ingredients or steps; unclear recipes are flagged for review.
 - **Organise**: folders, categories, A–Z index, favourites and full-text search across titles, ingredients and methods.
+- **Recipe database and archive in the cloud**: every recipe is stored in the cloud and available on computer, tablet and phone; sign in on another device and everything is there. Stopping Pro never deletes anything, so it doubles as a lasting recipe archive.
+- **Structure for messy recipe binders**: a large, messy folder or Word file is split into separate recipes with the same clean layout, and categories are suggested.
 - **Use in the kitchen**: scale any recipe to the yield you need, cook mode with large text on a phone or tablet, print single recipe cards or a whole folder at once (A4 or A5, with your restaurant's logo on Savour Pro).
-- **Works offline**: install Savour on the home screen (no app store needed); the recipe library opens without internet, for example in a walk-in or basement.
-- **Collaborate**: shared folders with roles — owner (manages), editor (adds and edits), viewer (reads) — so the whole brigade works from the same recipes.
+- **Works online and offline**: install Savour on the home screen (no app store needed); the recipe library is kept on the device and opens without internet (read-only), for example in a walk-in or basement.
+- **Recipe management for brigades**: shared folders with roles — owner (manages), editor (adds and edits), viewer (reads) — so the whole brigade works from the same recipes. Share single recipes by link, or share and print whole recipe folders.
 - **Languages**: the app and the website are available in Dutch, English, German and Spanish.
 
 ## Pricing
@@ -25,12 +27,12 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 ## Pages
 
 - [Home (Dutch)](https://savour.page/) · [English](https://savour.page/en) · [Deutsch](https://savour.page/de) · [Español](https://savour.page/es)
-- Features: [Digitise recipes](https://savour.page/en/digitise-recipes) · [Organise recipes](https://savour.page/en/organise-recipes) · [Share with your brigade](https://savour.page/en/share-recipes) · [Scale recipes](https://savour.page/en/scale-recipes) · [Print recipes, binders and your own logo](https://savour.page/en/print-recipes) · [Coming soon](https://savour.page/en/roadmap)
+- Features: [Digitise recipes](https://savour.page/en/digitise-recipes) · [Organise recipes](https://savour.page/en/organise-recipes) · [Recipe database and archive, online and offline](https://savour.page/en/recipe-database) · [Share with your brigade](https://savour.page/en/share-recipes) · [Scale recipes](https://savour.page/en/scale-recipes) · [Print recipes, binders and your own logo](https://savour.page/en/print-recipes) · [Coming soon](https://savour.page/en/roadmap)
 - Who it's for: [Chefs, sous-chefs and pastry chefs](https://savour.page/en/for-chefs) · [Kitchen brigades](https://savour.page/en/for-kitchen-brigades)
 - [About Savour](https://savour.page/en/about) · [Pricing](https://savour.page/en/pro) · [Blog](https://savour.page/en/blog) · [FAQ](https://savour.page/en/faq) · [Guide](https://savour.page/en/guide) · [Contact](https://savour.page/en/contact)
-- Dutch versions: [Recepten digitaliseren](https://savour.page/recepten-digitaliseren) · [Recepten organiseren](https://savour.page/recepten-organiseren) · [Over Savour](https://savour.page/over-savour) · [Prijzen](https://savour.page/savour-pro) · [Blog](https://savour.page/blog)
-- German versions (Rezeptverwaltung für die Gastronomie): [Rezepte digitalisieren](https://savour.page/de/rezepte-digitalisieren) · [Rezepte organisieren](https://savour.page/de/rezepte-organisieren) · [Für Köche](https://savour.page/de/fuer-koeche) · [Über Savour](https://savour.page/de/ueber-savour) · [Preise](https://savour.page/de/preise) · [Blog](https://savour.page/de/blog)
-- Spanish versions (gestión de recetas para restaurantes): [Digitalizar recetas](https://savour.page/es/digitalizar-recetas) · [Organizar recetas](https://savour.page/es/organizar-recetas) · [Para cocineros](https://savour.page/es/para-cocineros) · [Sobre Savour](https://savour.page/es/sobre-savour) · [Precios](https://savour.page/es/precios) · [Blog](https://savour.page/es/blog)
+- Dutch versions: [Recepten digitaliseren](https://savour.page/recepten-digitaliseren) · [Recepten organiseren](https://savour.page/recepten-organiseren) · [Receptendatabase](https://savour.page/receptendatabase) · [Over Savour](https://savour.page/over-savour) · [Prijzen](https://savour.page/savour-pro) · [Blog](https://savour.page/blog)
+- German versions (Rezeptverwaltung für die Gastronomie): [Rezepte digitalisieren](https://savour.page/de/rezepte-digitalisieren) · [Rezepte organisieren](https://savour.page/de/rezepte-organisieren) · [Rezeptdatenbank](https://savour.page/de/rezeptdatenbank) · [Für Köche](https://savour.page/de/fuer-koeche) · [Über Savour](https://savour.page/de/ueber-savour) · [Preise](https://savour.page/de/preise) · [Blog](https://savour.page/de/blog)
+- Spanish versions (gestión de recetas para restaurantes): [Digitalizar recetas](https://savour.page/es/digitalizar-recetas) · [Organizar recetas](https://savour.page/es/organizar-recetas) · [Base de datos de recetas](https://savour.page/es/base-de-datos-de-recetas) · [Para cocineros](https://savour.page/es/para-cocineros) · [Sobre Savour](https://savour.page/es/sobre-savour) · [Precios](https://savour.page/es/precios) · [Blog](https://savour.page/es/blog)
 
 ## Blog
 

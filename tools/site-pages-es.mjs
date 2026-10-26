@@ -55,6 +55,7 @@ export const ES = {
       sections: [
         ['Word y PDF de una vez', 'Arrastra un archivo de Word o un PDF a Savour, aunque contenga cientos de recetas. El lector de Savour detecta dónde empieza y termina cada receta y coloca el título, los ingredientes y la elaboración en su sitio. Los números delante de los títulos y pequeñas erratas, como 18oc en lugar de 180 °C, se corrigen. Un cocinero importó así 1.400 recetas en unos dos minutos.'],
         ['Recetas escritas a mano y fotos', 'Haz una foto de una nota, de una página de tu cuaderno o un escaneo de una carpeta antigua. La IA lee la letra y la convierte en una receta limpia, aunque la foto esté torcida o el papel manchado. Forma parte de Savour Pro.'],
+        ['Orden en carpetas de recetas grandes y desordenadas', 'Una carpeta llena de hojas sueltas, un archivo de Word al que todos han añadido algo durante diez años, recetas mezcladas sin orden. Savour extrae las recetas, les da la misma estructura limpia y propone categorías. Así un archivo desordenado se convierte en una base de datos de recetas donde lo encuentras todo.'],
         ['Nada inventado', 'Una receta tiene que ser correcta. Savour nunca inventa cantidades, ingredientes ni pasos. Si el lector tiene dudas, la receta se marca y la revisas tú antes de guardarla.'],
         ['Y luego, a seguir', 'Cada receta importada se puede editar, añadirle una foto, ponerla en una carpeta y compartirla con tu brigada.']
       ]
@@ -70,6 +71,19 @@ export const ES = {
         ['Busca por lo que recuerdas', '¿Solo recuerdas que llevaba yuzu? Savour busca en títulos, ingredientes y elaboración. O recorre todo tu recetario de la A a la Z.'],
         ['Tranquilo y rápido', 'Sin pantallas recargadas. Una lista de títulos, una estrella para tus favoritas y un toque hasta la receta. Hecho para consultar en pleno servicio.'],
         ['En cualquier dispositivo', 'Organiza e importa en el ordenador y usa el móvil o la tableta en la cocina con letra grande en el modo cocina. Sin instalar nada.']
+      ]
+    },
+    library: {
+      slug: 'es/base-de-datos-de-recetas',
+      title: 'Base de datos y archivo de recetas, online y offline | Savour',
+      desc: 'Tu base de datos y archivo de recetas en la nube: todas tus recetas guardadas de forma segura, en ordenador, tablet y móvil. También offline en la cocina, sin wifi.',
+      h1: 'Tu base de datos de recetas, online y offline en cualquier dispositivo',
+      lead: 'Un archivo de recetas en la nube para todo lo que tu cocina ha preparado. En el ordenador, la tablet del pase y el móvil del delantal.',
+      sections: [
+        ['Todo guardado en la nube', 'Cada receta que importas o escribes queda guardada de forma segura en la nube. Si tu móvil cae en la freidora o cambias de restaurante, tu recetario viene contigo. Inicia sesión en otro dispositivo y todo está ahí.'],
+        ['Igual en todos los dispositivos', 'Importa y ordena en el portátil, consulta en la tablet del pase y busca en el móvil dentro de la cámara. Lo que cambias en un dispositivo también lo ves en el otro. Nada que bajar de una tienda de apps: añades Savour a tu pantalla de inicio.'],
+        ['Offline en la cocina', '¿Sin wifi en el sótano o en la cámara? Savour guarda tu biblioteca en tu dispositivo. Sin conexión abres tus recetas para leerlas. En cuanto vuelve la conexión, Savour descarga la versión más reciente.'],
+        ['Un archivo que perdura', 'Menús antiguos, recetas de la temporada pasada y el cuaderno de tu primer jefe de cocina: todo queda guardado y fácil de encontrar. Si dejas Savour Pro, conservas todas tus recetas. Savour nunca borra nada por su cuenta.']
       ]
     },
     share: {
