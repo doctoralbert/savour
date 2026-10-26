@@ -905,13 +905,13 @@
   color: var(--gold-soft);
 }
 
-/* Afsluitende uitnodiging met de eend boven het vuur */
+/* Afsluitende uitnodiging met het vuur in de grill */
 .site-cta.with-photo {
   position: relative;
   border-top: 0;
   background:
     linear-gradient(180deg, rgba(21, 25, 23, 0.72), rgba(21, 25, 23, 0.86)),
-    url('/assets/keuken/vuur-breed.jpg') center / cover no-repeat;
+    url('/assets/keuken/vuur-grill.jpg') center 40% / cover no-repeat;
   padding: 120px 0;
 }
 .site .site-cta.with-photo h2 {
