@@ -1848,3 +1848,11 @@ body.cook-mode #publicRecipeShell .share-recipe-head h1 {
     font-size: 19px;
   }
 }
+/* Op de laptop kan een foto ingezoomd en verschoven worden (PHOTOS in tools/build-seo.mjs), zodat het onderwerp
+   naast de tekst staat in plaats van erachter. */
+@media (min-width: 761px) {
+  .site-page-head.has-photo::before {
+    background-size: var(--page-photo-size, cover);
+    background-position: var(--page-photo-pos-wide, var(--page-photo-pos, center));
+  }
+}

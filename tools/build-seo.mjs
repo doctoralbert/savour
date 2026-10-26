@@ -380,7 +380,9 @@ const PHOTOS = {
   wortels: ['wortels.jpg', 'center 50%'],
   uien: ['uien.jpg', 'center 50%'],
   bloemen: ['bloemen.jpg', 'center 45%'],
-  bloemenveld: ['bloemenveld.jpg', 'center 55%']
+  bloemenveld: ['bloemenveld.jpg', 'center 55%'],
+  // Het bord staat midden in de foto: op de laptop ingezoomd en links uitgelijnd, zodat het rechts naast de tekst staat.
+  bord: ['bord-pass.jpg', 'center 55%', '160% auto', '0% 58%']
 };
 const PAGE_PHOTO = {
   'recepten-digitaliseren': 'hout',
@@ -391,12 +393,12 @@ const PAGE_PHOTO = {
   binnenkort: 'bloemen',
   'voor-koks': 'hout',
   'voor-keukenbrigades': 'brigade',
-  'over-savour': 'bloemenveld',
+  'over-savour': 'bord',
   blog: 'hout',
   'app-downloaden': 'wortels',
   'savour-pro': 'brigade',
   'veelgestelde-vragen': 'keuken',
-  gids: 'hout',
+  gids: 'bloemenveld',
   contact: 'wortels'
 };
 // Staande foto's (eend, uien) alleen in de fotoduo's: in een brede band worden ze te ver uitvergroot.
@@ -407,7 +409,9 @@ const photoFile = key => {
 };
 const pageTop = (crumbHtml, h1, lead, photo) => {
   const p = photo && PHOTOS[photo];
-  const style = p ? ` style="--page-photo:url('${photoFile(photo)}');--page-photo-pos:${p[1]}"` : '';
+  const style = p
+    ? ` style="--page-photo:url('${photoFile(photo)}');--page-photo-pos:${p[1]}${p[2] ? `;--page-photo-size:${p[2]};--page-photo-pos-wide:${p[3]}` : ''}"`
+    : '';
   return `<section class="site-page-head${p ? ' has-photo' : ''}"${style}><div class="site-wrap site-narrow">${crumbHtml}<h1>${esc(h1)}</h1>${lead ? `<p class="site-lead">${esc(lead)}</p>` : ''}</div></section>`;
 };
 // Twee staande foto's naast elkaar midden in de tekst (Voor wie-pagina's).
