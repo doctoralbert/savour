@@ -150,6 +150,7 @@ function renderFolderDetail() {
     (window.folderAlphabet ? ' · ' + window.folderAlphabet : '') +
     '</span></div>' +
     body;
+  setViewPhoto(document.querySelector('#folderDetailWrap .folder-detail-head'), 'map:' + f.id);
 }
 
 async function deleteFolder(id) {

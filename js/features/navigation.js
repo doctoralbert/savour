@@ -36,6 +36,30 @@ function go(id) {
 }
 
 // Voegt eenmalig een snelknop ("+ ... toevoegen") toe onder een menulijst in de zijbalk.
+// Keukenfoto's voor de fotoband boven mappen (css: .photo-band). Elke map krijgt op basis van zijn id altijd
+// dezelfde foto uit de reeks; een gedeelde map met een eigen foto gebruikt die.
+const VIEW_PHOTOS = [
+  'ingredienten-hout',
+  'bord-pass',
+  'ingredienten-keuken',
+  'wortels',
+  'uien',
+  'eend-vuur',
+  'brigade',
+  'bloemen',
+  'bloemenveld',
+  'vuur-grill'
+];
+
+function setViewPhoto(el, key, ownPhoto) {
+  if (!el) return;
+  let h = 0;
+  for (const ch of String(key)) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  const url = ownPhoto || `/assets/keuken/${VIEW_PHOTOS[h % VIEW_PHOTOS.length]}.jpg`;
+  el.classList.add('photo-band');
+  el.style.setProperty('--view-photo', `url("${String(url).replace(/["\\]/g, '')}")`);
+}
+
 function addQuickButton(hostId, text, handler) {
   const host = $(hostId);
   if (!host) return;

@@ -344,7 +344,7 @@ function renderShared(id) {
     : `<button class="btn" style="width:100%;margin-top:12px" onclick="leaveSharedMap('${mid}')">Map verlaten</button>`;
   $('sharedWrap').innerHTML =
     photo +
-    `<div class="layout"><div><div class="panel"><div class="folder-detail-head shared-main-head"><div><div class="eyebrow shared-eyebrow">Gedeelde map ${helpButton('shared')}</div><h1>${esc(m.name)}</h1><p class="muted">${list.length} recepten · ${m.members.length} leden</p></div><div class="shared-map-actions">${actions}</div></div></div>` +
+    `<div class="layout"><div><div class="panel"><div class="folder-detail-head shared-main-head"><div><div class="eyebrow shared-eyebrow">Gedeelde map ${helpButton('shared')}</div><h1>${esc(m.name)}</h1><p class="muted">${list.length} recepten · ${m.members.length} leden</p></div><div class="shared-map-actions">${actions}<label class="btn compact-action photo-band-only">${m.photo ? '✎' : '＋'}<span>${m.photo ? 'Foto wijzigen' : 'Foto toevoegen'}</span>${photoInput}</label></div></div></div>` +
     `<div class="section-head shared-folders-head"><h2>Mappen</h2><div class="shared-folder-tools">${canEdit ? `<button class="btn compact-action" onclick="newSharedFolder('${mid}')">＋<span>Nieuwe map</span></button>` : ''}${canEdit && (m.folders || []).length ? `<button class="btn compact-action" onclick="openSharedFolderManage('${mid}')">⚙<span>Mappen beheren</span></button>` : ''}</div></div>${foldersHtml}` +
     `<div class="section-head" style="margin-top:30px"><h2>Alle gedeelde recepten</h2><span class="mini">${list.length} recepten</span></div>` +
     contextAlphabetHtml(window.sharedAlphabet, 'filterSharedAlphabet') +
@@ -354,6 +354,8 @@ function renderShared(id) {
     `<div class="panel"><h3>Openbare uitnodigingslink</h3><div class="sharelink">https://savour.page/join/${esc(m.publicKey)}</div><button class="btn" style="width:100%;margin-top:10px" onclick="inviteShared('${mid}')">Link delen</button></div>` +
     `<div class="panel"><h3>Keukenteam</h3>${members}${teamButton}</div>` +
     `<div class="panel"><h3>Rechten</h3><p class="muted" style="line-height:1.5;margin:0">${SHARED_RIGHTS_TEXT}</p></div></aside></div>`;
+  // Fotoband met de eigen foto van de map (of een keukenfoto); op de laptop vervangt die het losse fotovak.
+  setViewPhoto(document.querySelector('#sharedWrap .shared-main-head'), 'gedeeld:' + m.id, m.photo);
 }
 
 function openSharedMapManage(id) {
@@ -417,6 +419,7 @@ function renderSharedFolderDetail() {
     (window.sharedFolderAlphabet ? ' · ' + window.sharedFolderAlphabet : '') +
     '</span></div>' +
     body;
+  setViewPhoto(document.querySelector('#sharedFolderDetailWrap .shared-folder-head'), 'gedeeldemap:' + f.id);
 }
 
 function openSharedRecipePicker(id) {

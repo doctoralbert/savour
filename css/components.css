@@ -945,7 +945,8 @@ body.savour-light .nav .nav-add-recipe.active {
 }
 
 /* ---- Keukenfoto's in de app (alleen overzichtspagina's; het recept zelf blijft rustig) ---- */
-/* 1. Fotoband achter de kop van Alle recepten, Favorieten, Categorieën en Recept toevoegen (laptop en tablet). */
+/* 1. Fotoband (.photo-band) achter de kop van de overzichtspagina's en elke (gedeelde) receptenmap (laptop en tablet).
+   Vaste pagina's: foto per pagina hieronder. Mappen: setViewPhoto() in js/features/navigation.js. */
 #recipes {
   --view-photo: url('/assets/keuken/ingredienten-hout.jpg');
 }
@@ -958,8 +959,17 @@ body.savour-light .nav .nav-add-recipe.active {
 #import {
   --view-photo: url('/assets/keuken/wortels.jpg');
 }
+#folderManage {
+  --view-photo: url('/assets/keuken/uien.jpg');
+}
+#sharedManage {
+  --view-photo: url('/assets/keuken/brigade.jpg');
+}
+#settings {
+  --view-photo: url('/assets/keuken/bloemenveld.jpg');
+}
 @media (min-width: 761px) {
-  #appShell :is(#recipes, #favorites, #categories, #import) > .content > .section-head {
+  #appShell .photo-band {
     position: relative;
     isolation: isolate;
     overflow: hidden;
@@ -973,7 +983,7 @@ body.savour-light .nav .nav-add-recipe.active {
   }
   /* Kadering: de foto staat alleen rechts (ca. 62%), licht vervaagd en gedimd, en loopt links zacht over in een
      egale achtergrond waar de titel staat. inset negatief, zodat de vervaagde rand niet zichtbaar is. */
-  #appShell :is(#recipes, #favorites, #categories, #import) > .content > .section-head::before {
+  #appShell .photo-band::before {
     content: '';
     position: absolute;
     inset: -12px -12px -12px 38%;
@@ -981,7 +991,7 @@ body.savour-light .nav .nav-add-recipe.active {
     background: var(--view-photo) center 55% / cover no-repeat;
     filter: blur(3px) saturate(0.85) brightness(0.8);
   }
-  #appShell :is(#recipes, #favorites, #categories, #import) > .content > .section-head::after {
+  #appShell .photo-band::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -989,12 +999,19 @@ body.savour-light .nav .nav-add-recipe.active {
     background: linear-gradient(90deg, #0b1213 0%, #0b1213 38%, rgba(11, 18, 19, 0.72) 56%, rgba(11, 18, 19, 0.35) 100%),
       linear-gradient(0deg, rgba(11, 18, 19, 0.55) 0%, rgba(11, 18, 19, 0) 60%);
   }
-  #appShell :is(#recipes, #favorites, #categories, #import) > .content > .section-head :is(h2, .eyebrow) {
+  #appShell .photo-band :is(h1, h2, .eyebrow) {
     color: #f6f2ea !important;
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
   }
-  #appShell :is(#recipes, #favorites, #categories, #import) > .content > .section-head .mini {
+  #appShell .photo-band :is(.mini, .muted) {
     color: rgba(238, 232, 220, 0.82) !important;
+  }
+  /* Uitleg onder de titel blijft op het egale deel links, niet over de foto. */
+  #appShell .photo-band .muted {
+    max-width: min(620px, 58%) !important;
+  }
+  #appShell .photo-band h1 {
+    margin: 4px 0 8px !important;
   }
 }
 
@@ -1058,5 +1075,21 @@ body.savour-light .nav .nav-add-recipe.active {
   }
   .library-welcome h3 {
     font-size: 24px;
+  }
+}
+/* Gedeelde map: de fotoband zit in de kop van de map; de losse titel en het fotovak zijn dan dubbel (laptop). */
+.photo-band-only {
+  display: none !important;
+}
+@media (min-width: 761px) {
+  #shared > .content > .section-head,
+  #sharedWrap .compact-shared-cover {
+    display: none !important;
+  }
+  .photo-band-only {
+    display: inline-flex !important;
+  }
+  #appShell .shared-main-head.photo-band {
+    margin-bottom: 0;
   }
 }
