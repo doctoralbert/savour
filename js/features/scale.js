@@ -1,25 +1,5 @@
 // Recept omrekenen naar een andere opbrengst.
 
-function openScale(id) {
-  let r = findRecipe(id);
-  if (!r) return;
-  let y = parseYield(r.yield);
-  if (!y) {
-    toast(t('Recept omrekenen is beschikbaar zodra een opbrengst is ingevuld.'));
-    return;
-  }
-  currentId = id;
-  $('scaleBaseText').textContent = `${t('Basis')}: ${r.yield}`;
-  $('scaleTarget').value = '';
-  $('scaleResult').innerHTML =
-    `<div class="muted">${esc(t('Vul een nieuwe opbrengst in en klik op Omrekenen.'))}</div>`;
-  $('scaleModal').classList.add('open');
-}
-
-function closeScale() {
-  $('scaleModal').classList.remove('open');
-}
-
 // Leest een opbrengst als "15 platen", "2,5 liter" of "1/2 bak" uit tot { value, unit }.
 function parseYield(text) {
   const raw = String(text ?? '')
@@ -158,45 +138,6 @@ function resetRecipeYield() {
 function printCurrentRecipe() {
   if (window._savourScaled && String(window._savourScaled.recipe.id) === String(currentId)) printScaledRecipe();
   else printRecipe(currentId);
-}
-
-// Rekent het open recept om: factor = nieuwe opbrengst / oorspronkelijke opbrengst. De eenheid telt niet mee.
-function calculateScale() {
-  const r = findRecipe(currentId);
-  const base = parseYield(r && r.yield),
-    raw = String($('scaleTarget')?.value || '').trim(),
-    target = parseYield(raw);
-  if (!r || !base || !target) {
-    toast?.('Vul een geldige nieuwe opbrengst in, bijvoorbeeld 15 platen of 30 liter.');
-    return;
-  }
-  const factor = target.value / base.value,
-    fmt = formatNumber;
-  const scaleLine = line => scaleIngredientLine(line, factor);
-  const result = $('scaleResult');
-  if (!result) return;
-  result.innerHTML =
-    '<b>' +
-    esc(r.title || '') +
-    '</b><p class="muted">' +
-    esc(String(r.yield || '')) +
-    ' → ' +
-    esc(raw) +
-    ' · factor ' +
-    fmt(factor) +
-    '</p>' +
-    ((r.ingredients || []).map(x => '<div class="ingredient">' + scaleLine(x) + '</div>').join('') ||
-      '<div class="muted">Geen ingrediënten beschikbaar.</div>');
-  let btn = $('scalePrintButton');
-  if (!btn) {
-    btn = document.createElement('button');
-    btn.id = 'scalePrintButton';
-    btn.className = 'btn';
-    btn.textContent = 'Print omgerekend recept';
-    btn.onclick = printScaledRecipe;
-    $('scaleModal')?.querySelector('.actions')?.appendChild(btn);
-  }
-  window._savourScaled = { recipe: r, rawTarget: raw, factor, format: fmt, scaleLine };
 }
 
 function printScaledRecipe() {

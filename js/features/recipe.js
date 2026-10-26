@@ -204,6 +204,8 @@ async function deleteRecipe(id) {
 async function shareRecipe(id) {
   let r = recipes.find(x => x.id === id);
   if (!r) return;
+  // In de demo bestaat het recept niet in de database: een openbare link kan dan niet.
+  if (demoMode) return toast('In de demo kun je geen recepten delen. Maak een gratis account om te delen.');
   activeShareTitle = r.title;
   let slug = '';
   try {

@@ -160,7 +160,9 @@ function fillEditor(r, title = 'Nieuw recept') {
   if (!r?.id) suggestEditorCategory();
   $('fPhoto').value = '';
   $('photoPreview').style.display = r?.photo ? 'block' : 'none';
-  $('photoPreview').src = r?.photo || '';
+  // Zonder foto geen lege src: die laat de browser de pagina zelf als afbeelding opvragen.
+  if (r?.photo) $('photoPreview').src = r.photo;
+  else $('photoPreview').removeAttribute('src');
   renderEditorRows(r?.ingredients || [], r?.steps || []);
 }
 

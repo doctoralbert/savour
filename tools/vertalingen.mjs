@@ -1503,6 +1503,7 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["In de demo kun je geen recepten delen. Maak een gratis account om te delen.","You can't share recipes in the demo. Create a free account to share.","In der Demo kannst du keine Rezepte teilen. Erstelle ein kostenloses Konto, um zu teilen.","En la demo no puedes compartir recetas. Crea una cuenta gratuita para compartir."],
   ["Foto maken met je camera","Take a photo with your camera","Foto mit der Kamera aufnehmen","Hacer una foto con la cámara"],
   ["Fotografeer een handgeschreven recept of kladje. De AI zet het om in een net recept.","Photograph a handwritten recipe or note. The AI turns it into a clean recipe.","Fotografiere ein handgeschriebenes Rezept oder eine Notiz. Die KI macht daraus ein sauberes Rezept.","Fotografía una receta escrita a mano o una nota. La IA la convierte en una receta limpia."],
   ["Maak een foto met je camera of kies foto’s van handgeschreven recepten. De AI leest ze uit.","Take a photo with your camera or choose photos of handwritten recipes. The AI reads them.","Mach ein Foto mit deiner Kamera oder wähle Fotos von handgeschriebenen Rezepten. Die KI liest sie aus.","Haz una foto con tu cámara o elige fotos de recetas escritas a mano. La IA las lee."],

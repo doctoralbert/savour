@@ -110,7 +110,6 @@ async function submitAuth() {
   const first = $('authFirstName')?.value.trim() || '';
   const last = $('authLastName')?.value.trim() || '';
   const name = [first, last].filter(Boolean).join(' ');
-  const organization = $('authOrganization')?.value.trim() || '';
   if (!email || !password) {
     toast(t('Vul e-mailadres en wachtwoord in'));
     return;
@@ -131,7 +130,7 @@ async function submitAuth() {
         email,
         password,
         // Via de link van een collega? Dan staat dat bij het account (cadeau: js/features/referral.js).
-        data: invitedBy() ? { name, organization, invited_by: invitedBy() } : { name, organization }
+        data: invitedBy() ? { name, invited_by: invitedBy() } : { name }
       });
       if (error) throw error;
       saveLoginChoices(email, password, name);

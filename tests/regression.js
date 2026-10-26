@@ -108,14 +108,9 @@
     renderRecipes();
   });
   await step('09-detail', () => openRecipe('demo-r3'));
-  await step('10-scale-open', () => {
-    openRecipe('demo-r0');
-    openScale('demo-r0');
-  });
-  await step('11-scale-calc', () => {
-    document.getElementById('scaleTarget').value = '3 liter';
-    calculateScale();
-  });
+  // Omrekenen gebeurt in het recept zelf (opbrengst-invoer boven de ingrediënten).
+  await step('10-scale-open', () => openRecipe('demo-r0'));
+  await step('11-scale-calc', () => setRecipeYield('3'));
   await step('12-favorites', () => {
     document.querySelectorAll('.modal.open').forEach(m => m.classList.remove('open'));
     go('favorites');

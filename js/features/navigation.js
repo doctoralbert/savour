@@ -32,16 +32,7 @@ function go(id) {
   if (id === 'sharedMapManage') renderSharedMapManage(currentShared);
   if (id === 'settings') renderSettings();
   if (id === 'pro') renderProPage($('proBody'));
-  if (id === 'import') {
-    renderImportPlanNotice();
-    if ($('addChoiceGrid')?.style.display !== 'none' && $('addModeSwitch')?.style.display === 'none')
-      resetImportSource();
-    else if ($('addModeSwitch')?.style.display === 'none') {
-      if ($('addChoiceGrid')) $('addChoiceGrid').style.display = 'grid';
-      if ($('importPanel')) $('importPanel').style.display = 'none';
-      if ($('inlineEditorHost')) $('inlineEditorHost').style.display = 'none';
-    }
-  }
+  if (id === 'import') renderImportPlanNotice();
 }
 
 // Voegt eenmalig een snelknop ("+ ... toevoegen") toe onder een menulijst in de zijbalk.
@@ -104,19 +95,6 @@ function openMobileSearch() {
       el.select();
     }
   }, 80);
-}
-
-function syncMobileSearch(v) {
-  const g = $('globalSearch'),
-    m = $('mobileRecipeSearch');
-  if (g) g.value = v;
-  if (m) m.value = v;
-  activeCat = '';
-  activeFolderCategory = '';
-  if (v.trim()) {
-    go('recipes');
-    renderRecipes();
-  } else if ($('recipes').classList.contains('active')) renderRecipes();
 }
 
 function searchAll(v) {
