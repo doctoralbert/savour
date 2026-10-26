@@ -1503,6 +1503,12 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Deze link werkt niet meer","This link no longer works","Dieser Link funktioniert nicht mehr","Este enlace ya no funciona"],
+  ["Een link uit een e-mail werkt één keer en maar een uur. Vroeg je meerdere keren een nieuwe aan, dan werkt alleen de nieuwste. Vraag hieronder een nieuwe link aan en gebruik de nieuwste mail.","A link from an email works once and only for an hour. If you requested a new one several times, only the newest works. Request a new link below and use the newest email.","Ein Link aus einer E-Mail funktioniert einmal und nur eine Stunde. Hast du mehrmals einen neuen angefordert, funktioniert nur der neueste. Fordere unten einen neuen Link an und nutze die neueste E-Mail.","Un enlace de un correo funciona una vez y solo durante una hora. Si pediste uno nuevo varias veces, solo funciona el más reciente. Pide un enlace nuevo abajo y usa el correo más reciente."],
+  ["Nieuwe link aanvragen","Request a new link","Neuen Link anfordern","Pedir un enlace nuevo"],
+  ["Nieuw wachtwoord instellen","Set a new password","Neues Passwort festlegen","Establecer una contraseña nueva"],
+  ["Klik op Doorgaan om een nieuw wachtwoord voor je Savour-account te kiezen.","Click Continue to choose a new password for your Savour account.","Klicke auf Weiter, um ein neues Passwort für dein Savour-Konto zu wählen.","Haz clic en Continuar para elegir una contraseña nueva para tu cuenta de Savour."],
+  ["Klik op Doorgaan om je account te bevestigen en in te loggen.","Click Continue to confirm your account and log in.","Klicke auf Weiter, um dein Konto zu bestätigen und dich anzumelden.","Haz clic en Continuar para confirmar tu cuenta e iniciar sesión."],
   ["Je receptenboek is nog leeg","Your recipe book is still empty","Dein Rezeptbuch ist noch leer","Tu recetario aún está vacío"],
   ["Importeer je Word-bestanden, PDF's of foto's van kladjes in één keer, of voer zelf een recept in.","Import your Word files, PDFs or photos of notes in one go, or enter a recipe yourself.","Importiere deine Word-Dateien, PDFs oder Fotos von Notizen auf einmal, oder gib ein Rezept selbst ein.","Importa tus archivos de Word, PDF o fotos de notas de una vez, o introduce una receta tú mismo."],
   ["Recepten importeren","Import recipes","Rezepte importieren","Importar recetas"],

@@ -212,11 +212,20 @@ function showLanding() {
 // Supabase stuurt de gebruiker terug met inloggegevens achter het #-teken in de link.
 // De Supabase-client leest die niet automatisch (detectSessionInUrl staat uit), dus dat doet Savour hier zelf.
 
+// Nieuwe mails (docs/supabase-*.html) linken naar savour.page/?token_hash=...&type=...: de code wordt pas gebruikt
+// als de gebruiker op "Doorgaan" klikt. Mailprogramma's die links vooraf openen om te controleren op virussen
+// (Outlook, Hotmail, bedrijfsmail) verbruiken de link dan niet meer, waardoor hij "verlopen" leek.
+const AUTH_LINK_TYPES = ['recovery', 'email', 'signup', 'invite', 'magiclink', 'email_change'];
+
 function readAuthRedirect() {
+  const q = new URLSearchParams(location.search);
+  const tokenHash = q.get('token_hash');
+  if (tokenHash && AUTH_LINK_TYPES.includes(q.get('type'))) return { tokenHash, type: q.get('type') };
   const hash = location.hash.startsWith('#') ? location.hash.slice(1) : '';
   if (!hash) return null;
   const p = new URLSearchParams(hash);
-  if (p.get('error') || p.get('error_code')) return { error: p.get('error_description') || p.get('error') };
+  if (p.get('error') || p.get('error_code'))
+    return { error: p.get('error_description') || p.get('error'), code: p.get('error_code') || '' };
   const access_token = p.get('access_token'),
     refresh_token = p.get('refresh_token');
   if (!access_token || !refresh_token) return null;
@@ -226,16 +235,39 @@ function readAuthRedirect() {
 // Geeft true terug als de link is afgehandeld; anders gaat het opstarten gewoon verder.
 async function handleAuthRedirect(redirect) {
   // De inloggegevens direct uit de adresbalk halen, zodat ze niet in de geschiedenis blijven staan.
-  history.replaceState(null, '', location.pathname + location.search);
+  history.replaceState(null, '', location.pathname);
+  // Het opstartscherm weg, zodat de vraag hieronder zichtbaar is (met de startpagina erachter).
+  document.body.classList.remove('auth-booting');
+  showLanding();
   if (redirect.error) {
-    console.warn('Link uit e-mail niet geldig:', redirect.error);
-    toast(t('Deze link is ongeldig of verlopen. Vraag een nieuwe aan.'));
+    console.warn('Link uit e-mail niet geldig:', redirect.code, redirect.error);
+    await askConfirm(
+      `${t('Deze link werkt niet meer')}\n\n${t('Een link uit een e-mail werkt één keer en maar een uur. Vroeg je meerdere keren een nieuwe aan, dan werkt alleen de nieuwste. Vraag hieronder een nieuwe link aan en gebruik de nieuwste mail.')}`,
+      { confirmLabel: t('Nieuwe link aanvragen') }
+    ).then(again => again && openAuth('login'));
     return false;
   }
-  const { data, error } = await supabaseClient.auth.setSession({
-    access_token: redirect.access_token,
-    refresh_token: redirect.refresh_token
-  });
+  let result;
+  if (redirect.tokenHash) {
+    // Pas na een klik: zo kan een virusscanner van de mail de link niet vooraf verbruiken.
+    const proceed = await askConfirm(
+      redirect.type === 'recovery'
+        ? `${t('Nieuw wachtwoord instellen')}\n\n${t('Klik op Doorgaan om een nieuw wachtwoord voor je Savour-account te kiezen.')}`
+        : `${t('Welkom bij Savour')}\n\n${t('Klik op Doorgaan om je account te bevestigen en in te loggen.')}`,
+      { confirmLabel: t('Doorgaan') }
+    );
+    if (!proceed) return false;
+    result = await supabaseClient.auth.verifyOtp({ token_hash: redirect.tokenHash, type: redirect.type });
+    if (result.error) {
+      return handleAuthRedirect({ error: result.error.message, code: result.error.code || 'otp' });
+    }
+  } else {
+    result = await supabaseClient.auth.setSession({
+      access_token: redirect.access_token,
+      refresh_token: redirect.refresh_token
+    });
+  }
+  const { data, error } = result;
   if (error || !data?.session?.user) {
     console.error('Sessie uit e-maillink mislukt:', error);
     toast(t('Deze link is ongeldig of verlopen. Vraag een nieuwe aan.'));
