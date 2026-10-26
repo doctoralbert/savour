@@ -378,7 +378,8 @@ const PHOTOS = {
   hout: ['ingredienten-hout.jpg', 'center 55%'],
   eend: ['eend-vuur.jpg', 'center 45%'],
   wortels: ['wortels.jpg', 'center 50%'],
-  uien: ['uien.jpg', 'center 50%']
+  uien: ['uien.jpg', 'center 50%'],
+  bloemen: ['bloemen.jpg', 'center 50%']
 };
 const PAGE_PHOTO = {
   'recepten-digitaliseren': 'hout',
@@ -386,7 +387,7 @@ const PAGE_PHOTO = {
   'recepten-delen': 'brigade',
   'recepten-opschalen': 'wortels',
   'recepten-printen': 'hout',
-  binnenkort: 'keuken',
+  binnenkort: 'bloemen',
   'voor-koks': 'hout',
   'voor-keukenbrigades': 'brigade',
   'over-savour': 'keuken',
