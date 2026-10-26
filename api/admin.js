@@ -656,7 +656,9 @@ async function deleteAccount(userId, adminUser) {
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const user = await getUserFromRequest(req);
-  if (!user || !ADMIN_EMAILS.includes(String(user.email || '').toLowerCase()))
+  // Geen (geldige) inlog-sleutel is iets anders dan geen beheerder: de pagina ververst dan zelf de sessie.
+  if (!user) return res.status(401).json({ error: 'Sessie verlopen. Log opnieuw in.' });
+  if (!ADMIN_EMAILS.includes(String(user.email || '').toLowerCase()))
     return res.status(403).json({ error: 'Geen beheerdersrechten.' });
   const { action, user_id: userId, days, email, name, organization, own_visitor: ownVisitor } = req.body || {};
   // Elk apparaat waarop de beheerder is ingelogd telt als eigen apparaat en niet mee in de bezoekers.

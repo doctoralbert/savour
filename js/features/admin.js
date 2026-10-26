@@ -53,7 +53,8 @@ async function adminIsAllowed() {
   }
 }
 
-async function adminApi(action, body = {}) {
+// Na een tijd niets doen (laptop in slaap) is de inlog-sleutel verlopen: dan één keer verversen en opnieuw proberen.
+async function adminApi(action, body = {}, retried = false) {
   const { data } = await supabaseClient.auth.getSession();
   const token = data?.session?.access_token;
   const response = await fetch('/api/admin', {
@@ -62,6 +63,10 @@ async function adminApi(action, body = {}) {
     body: JSON.stringify({ action, ...body })
   });
   const result = await response.json().catch(() => ({}));
+  if (response.status === 401 && !retried) {
+    const { error } = await supabaseClient.auth.refreshSession();
+    if (!error) return adminApi(action, body, true);
+  }
   if (!response.ok) throw new Error(result.error || 'Er ging iets mis.');
   return result;
 }
