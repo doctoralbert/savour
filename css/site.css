@@ -1739,3 +1739,84 @@
     border-radius: 10px;
   }
 }
+
+/* Openbaar recept: omrekenen en kookmodus zonder account */
+.share-yield-tool {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+}
+.share-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line-strong, rgba(238, 232, 220, 0.3));
+  border-radius: 999px;
+  overflow: hidden;
+}
+.share-stepper button {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 20px;
+  cursor: pointer;
+}
+.share-stepper input {
+  width: 64px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  text-align: center;
+}
+.share-yield-tool small {
+  color: var(--gold);
+  font-size: 14px;
+}
+.share-yield-reset {
+  border: 0;
+  background: none;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.share-recipe-tools {
+  margin-top: 20px;
+}
+.share-recipe-ingredients .scale-note {
+  color: var(--ink-2);
+  font-size: 13px;
+}
+body.cook-mode
+  #publicRecipeShell
+  :is(
+    .site-header,
+    .site-foot,
+    .share-recipe-tag,
+    .share-recipe-photo,
+    .share-recipe-tools,
+    .share-recipe-copy,
+    .share-recipe-cta
+  ) {
+  display: none !important;
+}
+body.cook-mode #publicRecipeShell .share-recipe-ingredients,
+body.cook-mode #publicRecipeShell .share-recipe-steps {
+  font-size: 22px;
+  line-height: 1.6;
+}
+body.cook-mode #publicRecipeShell .share-recipe-head h1 {
+  font-size: clamp(32px, 5vw, 52px);
+}
+@media (max-width: 760px) {
+  body.cook-mode #publicRecipeShell .share-recipe-ingredients,
+  body.cook-mode #publicRecipeShell .share-recipe-steps {
+    font-size: 19px;
+  }
+}

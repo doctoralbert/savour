@@ -151,8 +151,8 @@ async function openPublicRecipeBySlug(slug) {
     showPublicShell('publicRecipeShell');
     if (!data) {
       $('publicRecipeContent').innerHTML = publicNotice(
-        'Recept niet gevonden',
-        'Deze openbare receptlink bestaat niet meer.'
+        'Dit recept wordt niet meer gedeeld',
+        'De maker heeft de link uitgezet, of de tijd waarin de link werkte is voorbij. Vraag de maker om een nieuwe link.'
       );
       return;
     }
@@ -160,20 +160,25 @@ async function openPublicRecipeBySlug(slug) {
     const steps = Array.isArray(data.steps) ? data.steps : [];
     document.title = `${data.title || 'Recept'} · Savour`;
     const allowCopy = (await recipeAllowsCopy(data.id)) === true;
-    const ingredient = x => {
-      const [q, rest] = quantityParts(String(x));
-      return `<li>${q ? `<b>${esc(q)}</b>` : ''}${esc(rest)}</li>`;
-    };
+    publicRecipe = { ingredients: ingredients.map(String), base: parseYield(data.yield_text) };
+    const ingredient = (x, i) => `<li data-ing="${i}">${ingredientHtml(String(x), 1)}</li>`;
+    const base = publicRecipe.base;
+    // Omrekenen: zelfde stappen als in de app (min/plus of zelf typen); alleen bij een opbrengst met een getal.
+    const yieldHtml = base
+      ? `<div class="share-recipe-yield share-yield-tool" role="group" aria-label="Opbrengst omrekenen"><span>Opbrengst</span><div class="share-stepper"><button type="button" onclick="stepPublicYield(-1)" aria-label="Minder">−</button><input id="pubYieldInput" inputmode="decimal" value="${esc(formatNumber(base.value))}" oninput="setPublicYield(this.value)" aria-label="Nieuwe opbrengst"><button type="button" onclick="stepPublicYield(1)" aria-label="Meer">+</button></div><b translate="no">${esc(base.unit)}</b><small id="pubYieldFactor"></small><button type="button" id="pubYieldReset" class="share-yield-reset" onclick="setPublicYield('${escJs(formatNumber(base.value))}', true)" hidden>Origineel</button></div>`
+      : data.yield_text
+        ? `<p class="share-recipe-yield"><span>Opbrengst</span> <b translate="no">${esc(data.yield_text)}</b></p>`
+        : '';
     $('publicRecipeContent').innerHTML =
       `<article class="share-recipe"><header class="share-recipe-head"><span class="share-recipe-tag">Gedeeld recept</span><h1 translate="no">${esc(data.title || 'Recept')}</h1>${
         data.description ? `<p class="site-lead" translate="no">${esc(data.description)}</p>` : ''
-      }${data.yield_text ? `<p class="share-recipe-yield"><span>Opbrengst</span> <b translate="no">${esc(data.yield_text)}</b></p>` : ''}${
+      }${yieldHtml}<div class="share-recipe-tools"><button type="button" class="site-btn" onclick="toggleCookMode()">Kookmodus</button></div>${
         allowCopy
           ? `<div class="share-recipe-copy"><button type="button" class="site-btn solid" onclick="copyAfterLogin()">Toevoegen aan mijn recepten</button><small>Log in of maak gratis een account; daarna staat het recept in je eigen bibliotheek.</small></div>`
           : ''
       }</header>${
         data.photo_url ? `<img class="share-recipe-photo" src="${esc(data.photo_url)}" alt="">` : ''
-      }<div class="share-recipe-cols"><section><h2>Ingrediënten</h2><ul class="share-recipe-ingredients" translate="no">${ingredients.map(ingredient).join('')}</ul></section>${
+      }<div class="share-recipe-cols"><section><h2>Ingrediënten</h2><ul class="share-recipe-ingredients" id="pubIngredients" translate="no">${ingredients.map(ingredient).join('')}</ul></section>${
         steps.length
           ? `<section><h2>Bereiding</h2><ol class="share-recipe-steps" translate="no">${steps.map(x => `<li>${esc(String(x))}</li>`).join('')}</ol></section>`
           : ''
@@ -188,6 +193,33 @@ async function openPublicRecipeBySlug(slug) {
   }
 }
 
+// Het openbare recept dat nu open is (omrekenen zonder account).
+let publicRecipe = null;
+
+function setPublicYield(value, reset) {
+  const base = publicRecipe?.base;
+  if (!base) return;
+  if (reset && $('pubYieldInput')) $('pubYieldInput').value = value;
+  const target = parseAmount(String(value).trim());
+  if (!Number.isFinite(target) || target <= 0) return;
+  const factor = target / base.value;
+  document.querySelectorAll('#pubIngredients [data-ing]').forEach(li => {
+    li.innerHTML = ingredientHtml(publicRecipe.ingredients[Number(li.dataset.ing)], factor);
+  });
+  if ($('pubYieldFactor')) $('pubYieldFactor').textContent = factor === 1 ? '' : `× ${formatNumber(factor)}`;
+  $('pubYieldReset')?.toggleAttribute('hidden', factor === 1);
+}
+
+function stepPublicYield(direction) {
+  const base = publicRecipe?.base;
+  const input = $('pubYieldInput');
+  if (!base || !input) return;
+  const step = base.value >= 2 ? 1 : 0.5;
+  const current = parseAmount(input.value) || base.value;
+  input.value = formatNumber(Math.max(step, Math.round((current + direction * step) / step) * step));
+  setPublicYield(input.value);
+}
+
 // Gedeeld recept openen terwijl je bent ingelogd: in je eigen app, alleen-lezen. Je kunt het bekijken, omrekenen
 // en printen; bewerken en verder delen kan alleen de maker.
 async function openLinkRecipe(slug) {
@@ -195,7 +227,7 @@ async function openLinkRecipe(slug) {
     const { data, error } = await supabaseClient.rpc('get_public_recipe_by_slug', { _slug: slug });
     if (error) throw error;
     if (!data) {
-      toast('Dit gedeelde recept bestaat niet meer');
+      toast('Dit recept wordt niet meer gedeeld');
       return;
     }
     // Je eigen recept: dan gewoon zoals altijd.

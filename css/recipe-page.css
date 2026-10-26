@@ -297,7 +297,8 @@
 }
 
 /* ---- Kookmodus: alleen het recept, groot en rustig ---- */
-body.cook-mode #appShell {
+/* Alleen als de app zichtbaar is; op een openbaar recept (niet ingelogd) blijft de app verborgen. */
+body.cook-mode #appShell:not([style*='none']) {
   display: block !important;
 }
 body.cook-mode

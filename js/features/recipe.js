@@ -208,10 +208,12 @@ async function shareRecipe(id) {
   if (demoMode) return toast('In de demo kun je geen recepten delen. Maak een gratis account om te delen.');
   activeShareTitle = r.title;
   let slug = '';
+  let share = null;
   try {
     const { data, error } = await supabaseClient.rpc('create_public_recipe_share', { _recipe_id: r.id });
     if (error) throw error;
     slug = data?.slug || '';
+    share = data;
   } catch (e) {
     console.error('Public share aanmaken mislukt', e);
     toast('Openbare link kon niet worden aangemaakt');
@@ -220,11 +222,12 @@ async function shareRecipe(id) {
   activeShareUrl = location.origin + '/r/' + encodeURIComponent(slug);
   $('shareLink').textContent = activeShareUrl;
   $('shareModal').classList.add('open');
+  renderShareLinkState(r.id, share);
   renderShareCopyToggle(r.id);
 }
 
 function shareWhatsApp() {
-  if (!activeShareUrl) return;
+  if (!activeShareUrl || !shareLinkUsable()) return;
   window.open(
     'https://wa.me/?text=' + encodeURIComponent(activeShareTitle + ' — ' + linkWithSource(activeShareUrl, 'whatsapp')),
     '_blank',
@@ -233,7 +236,7 @@ function shareWhatsApp() {
 }
 
 function shareTelegram() {
-  if (!activeShareUrl) return;
+  if (!activeShareUrl || !shareLinkUsable()) return;
   window.open(
     'https://t.me/share/url?url=' +
       encodeURIComponent(linkWithSource(activeShareUrl, 'telegram')) +
@@ -245,7 +248,7 @@ function shareTelegram() {
 }
 
 function shareEmail() {
-  if (!activeShareUrl) return;
+  if (!activeShareUrl || !shareLinkUsable()) return;
   window.location.href =
     'mailto:?subject=' +
     encodeURIComponent('Savour · ' + activeShareTitle) +
@@ -258,6 +261,7 @@ function closeShare() {
 }
 
 function copyShare() {
+  if (!shareLinkUsable()) return;
   navigator.clipboard?.writeText($('shareLink').textContent);
   toast('Deellink gekopieerd');
   closeShare();

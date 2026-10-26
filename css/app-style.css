@@ -1331,3 +1331,25 @@ h2.has-help .help-btn {
     grid-template-columns: 32px minmax(0, 1fr) 34px 20px;
   }
 }
+
+/* Recept delen: hoelang de openbare link werkt, en uitzetten */
+.share-link-time {
+  padding: 14px 16px;
+  border: 1px solid var(--sv-line);
+  border-radius: 12px;
+  margin-top: 0;
+}
+.share-link-off-btn {
+  margin-top: 10px;
+  padding: 0;
+  font-size: 13px;
+  color: var(--sv-text-2);
+  text-decoration: underline;
+}
+#shareModal.share-link-off .sharelink {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+#shareModal.share-link-off .share-channel-grid .btn {
+  opacity: 0.5;
+}

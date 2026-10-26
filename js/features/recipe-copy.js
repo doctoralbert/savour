@@ -25,11 +25,11 @@ async function recipeAllowsCopy(recipeId) {
   return setting ? setting.allowed : null;
 }
 
-// Hoelang ontvangers het recept mogen overnemen (in dagen; 0 = onbeperkt).
+// Hoelang ontvangers het recept mogen overnemen, en hoelang een openbare link werkt (in dagen; 0 = onbeperkt).
 const COPY_PERIODS = [
   { days: 1 / 24, label: '1 uur' },
-  { days: 1, label: '24 uur' },
-  { days: 7, label: '7 dagen' },
+  { days: 1, label: '1 dag' },
+  { days: 7, label: '1 week' },
   { days: 0, label: 'Onbeperkt' }
 ];
 
@@ -42,6 +42,68 @@ function copyUntilText(until) {
     minute: '2-digit'
   });
   return `${t('Overnemen kan tot')} ${when}.`;
+}
+
+// ---- Openbare link: hoelang hij werkt, of uit (supabase/2026-10-26-openbare-links.sql) ----
+// share = { slug, enabled, expires_at } zoals create_public_recipe_share of set_public_recipe_share teruggeeft.
+let activeShareState = null;
+
+function shareLinkUntilText(share) {
+  if (!share.enabled) return t('Deze link staat uit. Kies hoelang hij moet werken om hem weer aan te zetten.');
+  if (!share.expires_at) return t('De link werkt onbeperkt, tot je hem uitzet.');
+  const when = new Date(share.expires_at).toLocaleString(currentLanguage === 'nl' ? 'nl-NL' : currentLanguage, {
+    day: 'numeric',
+    month: 'long',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+  return `${t('De link werkt tot')} ${when}.`;
+}
+
+// Keuzes "Link werkt: 1 uur · 1 dag · 1 week · Onbeperkt" en "Link uitzetten" in het deelvenster.
+// Zonder de nieuwe databasefunctie (SQL nog niet uitgevoerd) geeft de server geen enabled terug: dan niets tonen.
+function renderShareLinkState(recipeId, share) {
+  const box = $('shareLinkState');
+  if (!box) return;
+  activeShareState = share && typeof share.enabled === 'boolean' ? share : null;
+  box.hidden = !activeShareState;
+  $('shareModal')?.classList.toggle('share-link-off', !!activeShareState && !activeShareState.enabled);
+  if (!activeShareState) return;
+  const rid = escJs(recipeId);
+  const left = share.enabled && share.expires_at ? (new Date(share.expires_at) - Date.now()) / 86400000 : 0;
+  const selected = !share.enabled
+    ? null
+    : share.expires_at
+      ? (COPY_PERIODS.find(x => x.days && left <= x.days)?.days ?? 7)
+      : 0;
+  box.innerHTML = `<div class="share-copy-time share-link-time"><span>${esc(t('Link werkt'))}</span><div class="share-copy-periods" role="group" aria-label="${esc(t('Link werkt'))}">${COPY_PERIODS.map(
+    x =>
+      `<button type="button" class="${x.days === selected ? 'is-on' : ''}" onclick="setPublicRecipeLink('${rid}', true, ${x.days})">${x.label}</button>`
+  ).join(
+    ''
+  )}</div><small>${esc(shareLinkUntilText(share))}</small>${share.enabled ? `<button type="button" class="btn-quiet share-link-off-btn" onclick="setPublicRecipeLink('${rid}', false)">${esc(t('Link uitzetten'))}</button>` : ''}</div>`;
+}
+
+async function setPublicRecipeLink(recipeId, enabled, days = 0) {
+  const { data, error } = await supabaseClient.rpc('set_public_recipe_share', {
+    _recipe_id: recipeId,
+    _enabled: enabled,
+    _hours: enabled && days ? days * 24 : null
+  });
+  if (error) {
+    console.warn('Openbare link instellen mislukt', error);
+    toast(t('De link kon niet worden aangepast'));
+    return;
+  }
+  renderShareLinkState(recipeId, data);
+  toast(enabled ? t('De link werkt weer') : t('De link staat uit: niemand kan het recept nog openen'));
+}
+
+// Delen via WhatsApp en dergelijke kan alleen met een werkende link.
+function shareLinkUsable() {
+  if (!activeShareState || activeShareState.enabled) return true;
+  toast(t('Deze link staat uit. Kies eerst hoelang hij moet werken.'));
+  return false;
 }
 
 // Schakelaar in het deelvenster ("Recept delen") voor je eigen recept, met daaronder de periode.
