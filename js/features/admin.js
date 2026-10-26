@@ -90,7 +90,7 @@ async function adminLogin() {
   adminShowDashboard(data.user);
 }
 
-// Tabbladen: Overzicht, Bezoekers, Accounts, Fouten, Advertenties. De keuze blijft bewaard tijdens het bezoek.
+// Tabbladen: Overzicht, Bezoekers, Accounts, Referral, Berichten, Fouten, Advertenties. De keuze blijft bewaard tijdens het bezoek.
 function showAdminTab(tab) {
   const tabs = [...document.querySelectorAll('.admin-tab')].map(t => t.dataset.adminTab);
   if (!tabs.includes(tab)) tab = 'overzicht';
@@ -254,6 +254,7 @@ async function loadAdminDashboard() {
   renderAdminStats();
   loadAdminErrors();
   loadAdminMessages();
+  loadAdminReferrals();
   try {
     await loadAdminOverview();
   } finally {
@@ -292,6 +293,48 @@ function renderAdminMessageBadge(unread) {
   }
   if ($('adminMessageCount'))
     $('adminMessageCount').textContent = `${adminMessages.length} berichten${unread ? ` · ${unread} ongelezen` : ''}`;
+}
+
+// Referral: per aanbrenger hoeveel collega's zijn geteld (bevestigd en ingelogd) en hoeveel nog wachten,
+// en daaronder elk aangebracht account met zijn status.
+async function loadAdminReferrals() {
+  const top = $('adminReferrersBody');
+  const list = $('adminReferralsBody');
+  if (!top || !list) return;
+  try {
+    const d = await adminApi('referrals');
+    const inviters = d.inviters || [];
+    const referrals = d.referrals || [];
+    const counted = referrals.filter(r => r.status === 'geteld').length;
+    if ($('adminReferralCount'))
+      $('adminReferralCount').textContent = `${counted} geteld · ${referrals.length - counted} niet (nog) geteld`;
+    const who = (email, name) =>
+      `${adminEscape(name || email)}${name ? `<small class="admin-referral-mail">${adminEscape(email)}</small>` : ''}`;
+    top.innerHTML =
+      inviters
+        .map(
+          i =>
+            `<tr><td>${who(i.email, i.name)}</td><td><b>${adminEscape(i.counted)}</b></td><td>${adminEscape(i.waiting)}</td><td>${adminEscape(i.rewards)}</td></tr>`
+        )
+        .join('') || '<tr><td colspan="4">Nog niemand heeft een collega aangebracht.</td></tr>';
+    const label = {
+      geteld: 'Geteld',
+      'wacht op inloggen': 'Bevestigd, nog niet ingelogd',
+      'wacht op bevestiging': 'E-mail nog niet bevestigd',
+      verlopen: 'Te laat (account ouder dan 30 dagen)',
+      onbekend: 'Aanbrenger bestaat niet meer'
+    };
+    list.innerHTML =
+      referrals
+        .map(
+          r =>
+            `<tr><td>${who(r.email, r.name)}</td><td>${who(r.inviter_email, r.inviter_name)}</td><td>${adminFormatDate(r.created_at)}</td><td><span class="admin-referral-status is-${r.status === 'geteld' ? 'on' : r.status.startsWith('wacht') ? 'wait' : 'off'}">${adminEscape(label[r.status] || r.status)}</span>${r.counted_at ? `<small class="admin-referral-mail">${adminFormatDate(r.counted_at)}</small>` : ''}</td></tr>`
+        )
+        .join('') || '<tr><td colspan="4">Nog geen aangebrachte accounts.</td></tr>';
+  } catch (e) {
+    top.innerHTML = `<tr><td colspan="4">Referral kon niet worden geladen: ${adminEscape(e.message)}</td></tr>`;
+    list.innerHTML = '';
+  }
 }
 
 async function loadAdminMessages() {

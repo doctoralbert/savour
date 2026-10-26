@@ -122,7 +122,7 @@ const HELP_TOPICS = {
       ],
       [
         'Collega uitnodigen en app',
-        'Nodig een collega uit en krijg een maand Savour Pro cadeau, of zet Savour als app op je beginscherm.'
+        'Nodig een collega uit en krijg 14 dagen Savour Pro cadeau, of zet Savour als app op je beginscherm.'
       ]
     ]
   },

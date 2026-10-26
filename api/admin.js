@@ -376,6 +376,57 @@ async function errorGroups() {
   };
 }
 
+// Referral (Nodig een collega uit, api/referral.js): wie heeft wie aangebracht. Een aangebrachte collega telt pas
+// als die het e-mailadres heeft bevestigd én heeft ingelogd; dan claimt de app de beloning (referral_claimed).
+async function referralOverview() {
+  const users = await listUsers();
+  const byId = new Map(users.map(u => [u.id, u]));
+  const nameOf = u => u?.user_metadata?.name || '';
+  const statusOf = u => {
+    const claimed = u.app_metadata?.referral_claimed;
+    if (claimed === 'te-oud') return 'verlopen';
+    if (claimed === 'onbekend') return 'onbekend';
+    if (claimed) return 'geteld';
+    return u.email_confirmed_at ? 'wacht op inloggen' : 'wacht op bevestiging';
+  };
+  const referrals = users
+    .filter(
+      u => /^[0-9a-f-]{36}$/i.test(String(u.user_metadata?.invited_by || '')) && u.user_metadata.invited_by !== u.id
+    )
+    .map(u => {
+      const inviter = byId.get(u.user_metadata.invited_by);
+      const status = statusOf(u);
+      return {
+        email: u.email,
+        name: nameOf(u),
+        created_at: u.created_at,
+        counted_at: status === 'geteld' ? u.app_metadata.referral_claimed : null,
+        status,
+        inviter_id: u.user_metadata.invited_by,
+        inviter_email: inviter?.email || '(account verwijderd)',
+        inviter_name: nameOf(inviter)
+      };
+    })
+    .sort((a, b) => (a.created_at < b.created_at ? 1 : -1));
+  const inviters = new Map();
+  for (const r of referrals) {
+    const row = inviters.get(r.inviter_id) || {
+      email: r.inviter_email,
+      name: r.inviter_name,
+      counted: 0,
+      waiting: 0,
+      rewards: Number(byId.get(r.inviter_id)?.app_metadata?.referral_rewards) || 0
+    };
+    if (r.status === 'geteld') row.counted++;
+    else if (r.status.startsWith('wacht')) row.waiting++;
+    inviters.set(r.inviter_id, row);
+  }
+  return {
+    inviters: [...inviters.values()].sort((a, b) => b.counted - a.counted || b.waiting - a.waiting),
+    referrals: referrals.map(({ inviter_id, ...r }) => r)
+  };
+}
+
 // Berichten (contactformulier en bugmeldingen), nieuwste eerst, met het aantal ongelezen.
 async function contactMessages() {
   const rows = await select(
@@ -624,6 +675,7 @@ export default async function handler(req, res) {
       return res.status(200).json(await createAccount({ email, name, organization }, siteOrigin(req)));
     if (action === 'errors') return res.status(200).json(await errorGroups());
     if (action === 'messages') return res.status(200).json(await contactMessages());
+    if (action === 'referrals') return res.status(200).json(await referralOverview());
     if (action === 'delete_message') return res.status(200).json(await deleteMessage(req.body?.id));
     if (action === 'mark_message')
       return res.status(200).json(await markMessage(req.body?.id, req.body?.read !== false));

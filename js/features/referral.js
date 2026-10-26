@@ -1,5 +1,5 @@
 // Nodig een collega uit: een persoonlijke link (savour.page/?collega=<id>). Maakt een collega daarmee een account
-// en bevestigt die het e-mailadres, dan krijgt de uitnodiger een maand Savour Pro cadeau (api/referral.js).
+// en bevestigt die het e-mailadres, en logt die in, dan krijgt de uitnodiger 14 dagen Savour Pro cadeau (api/referral.js).
 const REFERRAL_KEY = 'savour_collega';
 const REFERRAL_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -36,7 +36,7 @@ async function inviteColleague() {
   options.push({ label: 'Delen via WhatsApp', value: 'whatsapp' });
   if (navigator.share) options.push({ label: 'Delen via…', hint: 'Mail, berichten of een andere app', value: 'share' });
   const choice = await askChoice(
-    `${t('Nodig een collega uit')}\n\n${t('Stuur je persoonlijke link naar een collega. Maakt die een account aan en bevestigt die het e-mailadres, dan krijg jij een maand Savour Pro cadeau.')}\n\n${link}${count ? `\n\n${t('Collega’s uitgenodigd:')} ${count}` : ''}`,
+    `${t('Nodig een collega uit')}\n\n${t('Stuur je persoonlijke link naar een collega. Maakt die een account aan, bevestigt die het e-mailadres en logt die in, dan krijg jij 14 dagen Savour Pro cadeau.')}\n\n${link}${count ? `\n\n${t('Collega’s uitgenodigd:')} ${count}` : ''}`,
     options
   );
   if (choice === 'copy') {
@@ -82,7 +82,7 @@ async function claimReferral() {
   }
 }
 
-// Voor wie uitnodigt: is er sinds de vorige keer een collega bijgekomen, dan een bedankje met de maand Pro.
+// Voor wie uitnodigt: is er sinds de vorige keer een collega bijgekomen, dan een bedankje met de 14 dagen Pro.
 async function greetReferralRewards() {
   if (demoMode || !currentUser) return;
   const key = `savour_collega_seen_${currentUser.id}`;
@@ -101,7 +101,7 @@ async function greetReferralRewards() {
     await loadPlanState();
     renderProNav();
     await askConfirm(
-      `${t('Een maand Savour Pro cadeau')}\n\n${t('Een collega heeft via jouw link een account gemaakt. Bedankt! Je krijgt er een maand Savour Pro bij.')}`,
+      `${t('14 dagen Savour Pro cadeau')}\n\n${t('Een collega heeft via jouw link een account gemaakt. Bedankt! Je krijgt er 14 dagen Savour Pro bij.')}`,
       { confirmLabel: 'Mooi' }
     );
   } catch (e) {

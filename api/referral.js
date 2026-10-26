@@ -1,34 +1,34 @@
 // Nodig een collega uit: maakt iemand via jouw link (savour.page/?collega=<id>) een account en bevestigt die het
-// e-mailadres, dan krijg jij een maand Savour Pro cadeau. De nieuwe collega heeft zelf de gewone 7 dagen proef.
+// e-mailadres en logt die in, dan krijg jij 14 dagen Savour Pro cadeau. De nieuwe collega heeft zelf de gewone 7 dagen proef.
 // De app vraagt dit één keer aan na het inloggen (claimReferral in js/features/referral.js); alleen de server
 // mag Pro geven. Grenzen: alleen nieuwe accounts (max. 30 dagen oud), één keer per account, nooit jezelf,
-// en per uitnodiger hooguit MAX_REWARDS maanden.
+// en per uitnodiger hooguit MAX_REWARDS keer.
 import { getUserFromRequest } from './_lib/auth.js';
 import { getSubscription, getAuthUser, updateAppMetadata } from './_lib/supabase-admin.js';
 import { extendGift } from './_lib/referral-reward.js';
 import { stripe, hasStripe, PLAN_MONTHLY_EUR } from './_lib/stripe.js';
 
 const DAY = 86400000;
-const GIFT_DAYS = 30;
+const GIFT_DAYS = 14;
 const MAX_REWARDS = 12;
 const MAX_ACCOUNT_AGE_DAYS = 30;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 const paid = sub => !!sub?.stripe_subscription_id && ['active', 'trialing', 'past_due'].includes(sub.status);
 
-// De maand voor de uitnodiger:
-// - betaalt die en loopt het abonnement door: een maand tegoed op de volgende Stripe-factuur;
+// De 14 dagen voor de uitnodiger:
+// - betaalt die en loopt het abonnement door: 14 dagen tegoed (naar rato van de maandprijs) op de volgende Stripe-factuur;
 // - betaalt die maar heeft opgezegd: de dagen worden bewaard en gaan in zodra het betaalde abonnement afloopt
 //   (api/stripe-webhook.js → applyPendingReferralDays);
-// - anders: 30 dagen cadeau-Pro, na wat er nu nog loopt.
+// - anders: 14 dagen cadeau-Pro, na wat er nu nog loopt.
 async function rewardInviter(inviterId) {
   const sub = await getSubscription(inviterId);
   if (paid(sub)) {
     if (sub.cancel_at_period_end || !hasStripe() || !sub.stripe_customer_id) return { type: 'pending' };
     await stripe(`customers/${encodeURIComponent(sub.stripe_customer_id)}/balance_transactions`, {
-      amount: -Math.round(PLAN_MONTHLY_EUR.month * 100),
+      amount: -Math.round(((PLAN_MONTHLY_EUR.month * GIFT_DAYS) / 30) * 100),
       currency: 'eur',
-      description: 'Savour: een maand cadeau voor het uitnodigen van een collega'
+      description: 'Savour: 14 dagen cadeau voor het uitnodigen van een collega'
     });
     return { type: 'credit' };
   }
@@ -55,7 +55,7 @@ async function claim(user) {
   // Eerst vastleggen dat dit account geclaimd heeft, zodat twee gelijktijdige aanvragen niet dubbel geven.
   await updateAppMetadata(user.id, { ...meta, referral_claimed: new Date().toISOString(), referred_by: inviterId });
 
-  // De uitnodiger: tot MAX_REWARDS keer een maand.
+  // De uitnodiger: tot MAX_REWARDS keer 14 dagen.
   const inviterMeta = inviter.app_metadata || {};
   const count = Number(inviterMeta.referral_rewards) || 0;
   let reward = { type: 'max' };

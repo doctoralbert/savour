@@ -73,7 +73,13 @@ async function saveLoginChoices(email, password, name) {
     if (remember) localStorage.setItem(LAST_EMAIL_KEY, email);
     else localStorage.removeItem(LAST_EMAIL_KEY);
   } catch (_) {}
-  if (!remember || !window.PasswordCredential || !navigator.credentials?.store) return;
+  if (!remember) return;
+  // Telefoons (Safari op iPhone, Chrome op Android) bieden "Wachtwoord bewaren?" pas aan na een navigatie na
+  // het inloggen. Savour wisselt niet van pagina, dus hier een navigatie op dezelfde pagina (zelfde adres).
+  try {
+    history.pushState(history.state, '', location.href);
+  } catch (_) {}
+  if (!window.PasswordCredential || !navigator.credentials?.store) return;
   try {
     await navigator.credentials.store(new PasswordCredential({ id: email, password, name: name || email }));
   } catch (_) {}
