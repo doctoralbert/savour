@@ -376,7 +376,7 @@ const PHOTOS = {
   brigade: ['brigade.jpg', 'center 35%'],
   keuken: ['ingredienten-keuken.jpg', 'center 60%'],
   hout: ['ingredienten-hout.jpg', 'center 55%'],
-  eend: ['eend-vuur.jpg', 'center 45%'],
+  eend: ['eend-vuur.jpg', 'center 50%'],
   wortels: ['wortels.jpg', 'center 50%'],
   uien: ['uien.jpg', 'center 50%'],
   bloemen: ['bloemen.jpg', 'center 45%'],
@@ -389,9 +389,9 @@ const PAGE_PHOTO = {
   'recepten-organiseren': 'keuken',
   'recepten-delen': 'brigade',
   'recepten-opschalen': 'wortels',
-  'recepten-printen': 'hout',
+  'recepten-printen': 'uien',
   binnenkort: 'bloemen',
-  'voor-koks': 'hout',
+  'voor-koks': 'eend',
   'voor-keukenbrigades': 'brigade',
   'over-savour': 'bord',
   blog: 'hout',
@@ -399,10 +399,9 @@ const PAGE_PHOTO = {
   'savour-pro': 'brigade',
   'veelgestelde-vragen': 'keuken',
   gids: 'bloemenveld',
-  contact: 'wortels'
+  contact: 'eend'
 };
-// Staande foto's (eend, uien) alleen in de fotoduo's: in een brede band worden ze te ver uitvergroot.
-const BLOG_PHOTOS = ['wortels', 'keuken', 'brigade', 'hout'];
+const BLOG_PHOTOS = ['wortels', 'uien', 'keuken', 'eend', 'brigade', 'hout'];
 const photoFile = key => {
   const [file] = PHOTOS[key];
   return `/assets/keuken/${file}?v=${fs.statSync(new URL(`assets/keuken/${file}`, ROOT)).size}`;
@@ -450,7 +449,7 @@ for (const lang of LANGS) {
       crumbs: [[u.audience], [t.menu]],
       body: c =>
         pageTop(c, t.h1, t.lead, PAGE_PHOTO[a.nl.slug]) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${photoDuo(...(a.nl.slug === 'voor-koks' ? ['eend', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${photoDuo(...(a.nl.slug === 'voor-koks' ? ['wortels', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.features}</h2>${rows(FEATURES.filter(x => !x.soon), lang)}</div></section>`
     });
   }
