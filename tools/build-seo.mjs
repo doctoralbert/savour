@@ -241,7 +241,7 @@ function footer(lang, alt, inApp) {
 function kladje(lang) {
   const k = KLADJE_REAL[lang];
   return `<figure class="kladje-duo">
-<div class="kladje-duo-photo"><span class="kladje-duo-tag">${esc(k.before)}</span><img src="/assets/kladjes/marshmallow-kladje.jpg" alt="${esc(k.alt)}" width="1100" height="969" loading="lazy"></div>
+<div class="kladje-duo-photo"><span class="kladje-duo-tag">${esc(k.before)}</span><img src="/assets/kladjes/marshmallow-kladje.jpg" alt="${esc(k.alt)}" width="1100" height="972" loading="lazy"></div>
 <div class="kladje-duo-card"><span class="kladje-duo-tag gold">${esc(k.after)}</span><h3>${esc(k.title)}</h3><small>${esc(k.meta)}</small><h4>${esc(k.ingredientsTitle)}</h4><ul>${k.ingredients.map(i => `<li>${esc(i)}</li>`).join('')}</ul><h4>${esc(k.stepsTitle)}</h4><ol>${k.steps.map(([t, d]) => `<li><b>${esc(t)}</b> ${esc(d)}</li>`).join('')}</ol><p class="kladje-duo-note">${esc(k.stepsNote)}</p></div>
 <figcaption>${esc(k.caption)}</figcaption></figure>`;
 }
