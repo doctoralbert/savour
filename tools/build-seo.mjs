@@ -379,7 +379,8 @@ const PHOTOS = {
   eend: ['eend-vuur.jpg', 'center 45%'],
   wortels: ['wortels.jpg', 'center 50%'],
   uien: ['uien.jpg', 'center 50%'],
-  bloemen: ['bloemen.jpg', 'center 45%']
+  bloemen: ['bloemen.jpg', 'center 45%'],
+  bloemenveld: ['bloemenveld.jpg', 'center 55%']
 };
 const PAGE_PHOTO = {
   'recepten-digitaliseren': 'hout',
@@ -390,7 +391,7 @@ const PAGE_PHOTO = {
   binnenkort: 'bloemen',
   'voor-koks': 'hout',
   'voor-keukenbrigades': 'brigade',
-  'over-savour': 'keuken',
+  'over-savour': 'bloemenveld',
   blog: 'hout',
   'app-downloaden': 'wortels',
   'savour-pro': 'brigade',
