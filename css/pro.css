@@ -663,3 +663,19 @@
   color: #d9d3c6;
   font-size: 14px;
 }
+.admin-intake-archive {
+  margin-top: 18px;
+  border-top: 1px solid #243031;
+  padding-top: 12px;
+}
+.admin-intake-archive > summary {
+  cursor: pointer;
+  padding: 8px 0 12px;
+  color: #8f9994;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.admin-intake-archive > .admin-message {
+  opacity: 0.85;
+}

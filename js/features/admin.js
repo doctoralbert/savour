@@ -467,9 +467,16 @@ function renderAdminIntakes() {
   if ($('adminIntakeCount'))
     $('adminIntakeCount').textContent = `${adminIntakes.length} in totaal · ${todo} wacht op jou`;
   const open = new Set([...host.querySelectorAll('details[open]')].map(d => d.dataset.id));
+  // Afgeronde (vrijgegeven) en afgewezen aanvragen staan in het archief onderaan, dichtgeklapt.
+  const done = i => ['klaar', 'afgewezen'].includes(i.status);
+  const active = adminIntakes.filter(i => !done(i));
+  const archive = adminIntakes.filter(done);
   host.innerHTML =
-    adminIntakes.map(i => renderAdminIntake(i, open.has(String(i.id)))).join('') ||
-    '<p class="admin-panel-note">Nog geen aanvragen.</p>';
+    (active.map(i => renderAdminIntake(i, open.has(String(i.id)))).join('') ||
+      '<p class="admin-panel-note">Geen lopende aanvragen.</p>') +
+    (archive.length
+      ? `<details class="admin-intake-archive" data-id="archief"${open.has('archief') ? ' open' : ''}><summary>Archief · ${archive.length} afgerond of afgewezen</summary>${archive.map(i => renderAdminIntake(i, open.has(String(i.id)))).join('')}</details>`
+      : '');
 }
 
 function renderAdminIntake(i, isOpen) {

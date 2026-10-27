@@ -332,7 +332,7 @@ function deliverBody(lang) {
     perYear: w.perYear, once: w.once, free: w.free, paying: w.paying, processing: w.processing, reviewing: w.reviewing,
     rejected: w.rejected, importing: w.importing, membersHint: [2, 5, 10, 25].reduce((o, n) => ({ ...o, [n]: w.membersHint(n) }), {}),
     tooMany: [4, 9, 24].reduce((o, n) => ({ ...o, [n]: w.tooMany(n) }), {}), memberEmail: w.memberEmail, roleView: w.roleView,
-    roleEdit: w.roleEdit, remove: w.remove, service: w.service
+    roleEdit: w.roleEdit, remove: w.remove, service: w.service, resubmit: w.resubmit
   };
   return `<div data-deliver data-lang="${lang}" data-texts="${esc(JSON.stringify(texts))}">
 <p class="svc-deliver-who" data-deliver-who hidden></p>

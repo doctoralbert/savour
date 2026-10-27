@@ -41,7 +41,7 @@ async function createSharedMap() {
   const { data: m, error } = await supabaseClient
     .from('shared_maps')
     .insert({ owner_id: currentUser.id, name })
-    .select('id,name,owner_id,photo_url,public_key')
+    .select('id,name,owner_id,photo_url')
     .single();
   if (error) {
     console.error(error);
@@ -75,7 +75,7 @@ async function openShared(id) {
   if (!m) {
     const { data: map, error } = await supabaseClient
       .from('shared_maps')
-      .select('id,owner_id,name,photo_url,public_key,created_at')
+      .select('id,owner_id,name,photo_url,created_at')
       .eq('id', currentShared)
       .maybeSingle();
     if (error) {
@@ -116,7 +116,7 @@ async function openShared(id) {
           account: true,
           userId: x.user_id
         })),
-        publicKey: map.public_key,
+        publicKey: (await loadMySharedMapKeys())[map.id] || '',
         ownerId: map.owner_id
       },
       ...sharedMaps.filter(x => String(x.id) !== currentShared)
@@ -326,7 +326,10 @@ function renderShared(id) {
     (list.length
       ? `<button class="btn compact-action" onclick="printSharedMap('${mid}')">⎙<span>Recepten printen</span></button>`
       : '') +
-    `<button class="btn compact-action" onclick="inviteShared('${mid}')">♧<span>Team uitnodigen</span></button>` +
+    // Uitnodigen (en de uitnodigingslink) alleen voor de eigenaar; de database staat het ook alleen hem toe.
+    (isOwner
+      ? `<button class="btn compact-action" onclick="inviteShared('${mid}')">♧<span>Team uitnodigen</span></button>`
+      : '') +
     (m.ownerId === currentUser.id
       ? `<button class="btn compact-action" onclick="renameSharedMap('${mid}')">✎<span>Naam wijzigen</span></button><button class="btn compact-action danger-action" onclick="deleteSharedMap('${mid}')">⌫<span>Verwijderen</span></button>`
       : '') +
@@ -351,7 +354,9 @@ function renderShared(id) {
     `<div class="savour-v13-context-tools"><span class="mini">${filtered.length} recepten${window.sharedAlphabet ? ' · ' + window.sharedAlphabet : ''}</span></div>` +
     recipeBlock +
     `</div><aside class="rightcol"><div class="partner-slot"><small>Partnerpositie</small><b>Adverteer hier richting professionele keukens.</b><span>Een rustige positie naast de dagelijkse workflow, zonder de recepten te onderbreken.</span></div>` +
-    `<div class="panel"><h3>Openbare uitnodigingslink</h3><div class="sharelink">https://savour.page/join/${esc(m.publicKey)}</div><button class="btn" style="width:100%;margin-top:10px" onclick="inviteShared('${mid}')">Link delen</button></div>` +
+    (isOwner && m.publicKey
+      ? `<div class="panel"><h3>Openbare uitnodigingslink</h3><div class="sharelink">https://savour.page/join/${esc(m.publicKey)}</div><button class="btn" style="width:100%;margin-top:10px" onclick="inviteShared('${mid}')">Link delen</button></div>`
+      : '') +
     `<div class="panel"><h3>Keukenteam</h3>${members}${teamButton}</div>` +
     `<div class="panel"><h3>Rechten</h3><p class="muted" style="line-height:1.5;margin:0">${SHARED_RIGHTS_TEXT}</p></div></aside></div>`;
   // Fotoband met de eigen foto van de map (of een keukenfoto); op de laptop vervangt die het losse fotovak.

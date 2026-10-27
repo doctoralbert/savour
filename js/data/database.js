@@ -284,15 +284,26 @@ async function retryDatabaseSession() {
   if (ok) toast(t('Bibliotheek geladen'));
 }
 
+// Uitnodigingscodes (public_key) van de eigen gedeelde mappen: { mapId: code }. Leden krijgen ze niet te zien
+// (supabase/2026-10-27-uitnodigen-alleen-eigenaar.sql). Bestaat die functie nog niet, dan rechtstreeks uit de tabel.
+async function loadMySharedMapKeys() {
+  if (!currentUser || demoMode) return {};
+  let { data, error } = await supabaseClient.rpc('savour_my_shared_map_keys');
+  if (error)
+    ({ data } = await supabaseClient.from('shared_maps').select('id,public_key').eq('owner_id', currentUser.id));
+  return Object.fromEntries((data || []).map(r => [r.id, r.public_key]));
+}
+
 // Laadt de gedeelde mappen waar de gebruiker eigenaar of lid van is, met submappen, leden (met naam)
 // en de recepten die teamleden erin hebben gezet.
 async function loadSharedMapsState() {
-  const [smsRes, smrRes, smfRes, smfrRes, smmRes] = await Promise.all([
-    selectAllRows('shared_maps', 'id,owner_id,name,photo_url,public_key,created_at', q => q.order('name')),
+  const [smsRes, smrRes, smfRes, smfrRes, smmRes, keys] = await Promise.all([
+    selectAllRows('shared_maps', 'id,owner_id,name,photo_url,created_at', q => q.order('name')),
     selectAllRows('shared_map_recipes', 'shared_map_id,recipe_id'),
     selectSharedFolders(),
     selectAllRows('shared_folder_recipes', 'shared_folder_id,recipe_id'),
-    selectAllRows('shared_map_members', 'shared_map_id,user_id,role')
+    selectAllRows('shared_map_members', 'shared_map_id,user_id,role'),
+    loadMySharedMapKeys()
   ]);
   const loadError = smsRes.error || smrRes.error || smfRes.error || smfrRes.error || smmRes.error;
   if (loadError) throw loadError;
@@ -364,7 +375,7 @@ async function loadSharedMapsState() {
         .sort((a, b) => (a.position ?? 1e9) - (b.position ?? 1e9) || a.name.localeCompare(b.name, 'nl')),
       photo: m.photo_url || '',
       members,
-      publicKey: m.public_key,
+      publicKey: keys[m.id] || '',
       ownerId: m.owner_id
     };
   });

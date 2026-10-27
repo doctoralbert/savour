@@ -381,6 +381,7 @@
       })
         .then(function () {
           status.textContent = '';
+          btn.textContent = T.resubmit;
           say(T.thanks, true);
           msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
         })
@@ -412,8 +413,11 @@
         uploaded++;
         addRow(name, T.uploaded, 'is-done');
       });
-      if (info.status === 'ingediend') say(T.thanks, true);
-      else msg.hidden = true;
+      // Al eerder verstuurd: dezelfde knop slaat de wijzigingen op.
+      if (info.status === 'ingediend') {
+        form.querySelector('button[type="submit"]').textContent = T.resubmit;
+        say(T.thanks, true);
+      } else msg.hidden = true;
     }
 
     // ---- Stand van zaken ----

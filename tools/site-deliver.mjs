@@ -123,6 +123,7 @@ export const DELIVER = {
 // Stappen op de aanleverpagina vóór en na het aanleveren: betalen, leden doorgeven en statusmeldingen.
 export const DELIVER_FLOW = {
   nl: {
+    resubmit: 'Aanlevering wijzigen',
     payTitle: 'Rond je bestelling af',
     payIntro: 'Je aanvraag is goedgekeurd. Kies hoe groot je organisatie is en betaal. Daarna lever je op deze pagina je recepten aan.',
     seatsLabel: 'Grootte van je organisatie',
@@ -150,6 +151,7 @@ export const DELIVER_FLOW = {
     wiped: 'Je aangeleverde bestanden en gegevens worden gewist zodra je organisatie klaarstaat.'
   },
   en: {
+    resubmit: 'Update submission',
     payTitle: 'Complete your order',
     payIntro: 'Your request has been approved. Choose the size of your organisation and pay. Then send us your recipes on this page.',
     seatsLabel: 'Size of your organisation',
@@ -177,6 +179,7 @@ export const DELIVER_FLOW = {
     wiped: 'Your files and details are deleted as soon as your organisation is ready.'
   },
   de: {
+    resubmit: 'Lieferung ändern',
     payTitle: 'Schließe deine Bestellung ab',
     payIntro: 'Deine Anfrage ist freigegeben. Wähle die Größe deiner Organisation und bezahle. Danach lieferst du auf dieser Seite deine Rezepte.',
     seatsLabel: 'Größe deiner Organisation',
@@ -204,6 +207,7 @@ export const DELIVER_FLOW = {
     wiped: 'Deine gelieferten Dateien und Angaben werden gelöscht, sobald deine Organisation bereitsteht.'
   },
   es: {
+    resubmit: 'Modificar envío',
     payTitle: 'Completa tu pedido',
     payIntro: 'Tu solicitud está aprobada. Elige el tamaño de tu organización y paga. Después nos envías tus recetas en esta página.',
     seatsLabel: 'Tamaño de tu organización',
