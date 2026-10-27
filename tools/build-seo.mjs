@@ -14,6 +14,7 @@ import { BLOG } from './site-blog.mjs';
 import { DE } from './site-pages-de.mjs';
 import { ES } from './site-pages-es.mjs';
 import { APP_PAGE } from './site-app.mjs';
+import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
 const PAGES = { de: DE, es: ES };
 
 // Nieuwste blogartikelen eerst.
@@ -137,6 +138,17 @@ const legacy = id => LEGACY.find(p => p.id === id);
 const CONTACT_FORM = /<h2>Stuur ons een bericht<\/h2><form[\s\S]*?<\/form>/;
 const blogSlug = { nl: 'blog', en: 'en/blog' };
 
+// Inlaadservice (tools/site-service.mjs) als kernpunt tussen de functies, vóór "Binnenkort".
+{
+  const svc = { id: 'inladen', service: true, nl: SERVICE.nl.feature, en: SERVICE.en.feature };
+  FEATURES.splice(FEATURES.findIndex(f => f.soon), 0, svc);
+  for (const [l, P] of [['de', DE], ['es', ES]]) {
+    const { menu, short, ...rest } = SERVICE[l].feature;
+    EXTRA_LANGS[l].items.inladen = [menu, short];
+    P.features.inladen = rest;
+  }
+}
+
 // Duits en Spaans: menu en startpagina uit tools/site-content-extra.mjs, alle andere pagina's uit
 // tools/site-pages-de.mjs en tools/site-pages-es.mjs. Ontbreekt er een vertaling, dan stopt het bouwen.
 const HOME_LANGS = ['nl', 'en', 'de', 'es'];
@@ -159,6 +171,7 @@ for (const lang of ['de', 'es']) {
   for (const p of LEGACY) p[lang] = need(P.legacy[p.id], p.id).slug;
   blogSlug[lang] = P.blogSlug;
 }
+for (const lang of HOME_LANGS) HOME[lang].faq.push(SERVICE[lang].faq);
 // Alle taalversies van een pagina (voor hreflang en de taalknop).
 const slugsOf = item => Object.fromEntries(LANGS.map(l => [l, typeof item[l] === 'string' ? item[l] : item[l].slug]));
 const LOCALE = { nl: 'nl-NL', en: 'en-GB', de: 'de-DE', es: 'es-ES' };
@@ -260,6 +273,44 @@ function ctaBlock(lang, inApp) {
   return `<section class="site-cta with-photo"><div class="site-wrap"><h2 class="reveal">${esc(u.ctaTitle)}</h2><p>${esc(u.ctaText)}</p><div class="site-cta-row"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?demo=1" data-demo>${u.demo}</a></div></div></section>`;
 }
 
+// ---- Inlaadservice ----
+// Bedragen staan als "€249" in site-service.mjs; in het Duits en Spaans komt het euroteken erachter.
+const euro = (p, lang) => (lang === 'de' || lang === 'es' ? p.slice(1) + ' €' : p);
+const serviceHref = lang => href(FEATURES.find(f => f.service)[lang].slug);
+// Aanvraagformulier: zelfde verzending als het contactformulier (js/site.js); velden met data-extra gaan bovenaan het bericht.
+function intakeForm(lang) {
+  const [, name, email, , , , , busy, ok, fail] = FORM_TEXT[lang];
+  const fm = SERVICE[lang].form;
+  const f = (id, label, input) => `<div class="site-field"><label for="${id}">${esc(label)}</label>${input}</div>`;
+  const sel = (id, label, opts) => f(id, label, `<select id="${id}" data-extra="${esc(label)}">${opts.map(o => `<option>${esc(o)}</option>`).join('')}</select>`);
+  return `<h2>${esc(fm.title)}</h2><form class="site-form" data-contact-form data-busy="${esc(busy)}" data-ok="${esc(ok)}" data-fail="${esc(fail)}" novalidate><input type="hidden" name="subject" value="${esc(fm.subject)}">${f('ifName', name, '<input id="ifName" name="name" autocomplete="name" required maxlength="120">')}${f('ifEmail', email, '<input id="ifEmail" name="email" type="email" autocomplete="email" required maxlength="240">')}${f('ifPlace', fm.restaurant, `<input id="ifPlace" data-extra="${esc(fm.restaurant)}" autocomplete="organization" required maxlength="160">`)}<div class="site-field-pair">${sel('ifRecipes', fm.recipes, fm.recipeOptions)}${sel('ifTeam', fm.team, fm.teamOptions)}</div>${f('ifMessage', fm.message, `<textarea id="ifMessage" name="message" rows="4" maxlength="12000" placeholder="${esc(fm.placeholder)}"></textarea>`)}<div class="site-form-trap" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div><div class="site-form-row"><button class="site-btn solid" type="submit">${esc(fm.send)}</button><span class="site-form-status" aria-live="polite"></span></div></form>`;
+}
+const freeBadge = (lang, button) => {
+  const s = SERVICE[lang];
+  return FREE_KITCHENS
+    ? `<div class="svc-free"><div><b>${esc(s.free(FREE_KITCHENS))}</b><span>${esc(s.freeNote)}</span></div>${button || ''}</div>`
+    : '';
+};
+// Alles onder de tekst op de servicepagina: introductieaanbod, wat je krijgt, stappen, prijzen en het formulier.
+function serviceBlock(lang) {
+  const s = SERVICE[lang];
+  return `${freeBadge(lang, `<a class="site-btn solid" href="#aanvragen">${esc(s.bandButton)}</a>`)}
+<h2 class="reveal">${esc(s.includedTitle)}</h2><ul class="svc-list">${s.included.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
+<h2 class="reveal">${esc(s.stepsTitle)}</h2><ol class="svc-steps">${s.steps.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join('')}</ol>
+<h2 class="reveal">${esc(s.priceTitle)}</h2><p>${esc(s.priceIntro)}</p><div class="svc-prices">${SERVICE_TIERS.map(([n, p], i) => `<div${i === 1 ? ' class="is-featured"' : ''}><span>${esc(s.tier(n))}</span><strong>${euro(p, lang)}</strong></div>`).join('')}<div><span>${esc(s.tierMore)}</span><strong class="small">${esc(s.custom)}</strong></div></div><p class="site-note">${esc(s.example)}</p>
+<div id="aanvragen" class="svc-form">${intakeForm(lang)}</div>`;
+}
+// Opvallend blok op de startpagina, direct onder "Wat Savour doet".
+function serviceBand(lang) {
+  const s = SERVICE[lang];
+  return `<section class="site-section svc-band"><div class="site-wrap site-two"><div><span class="svc-kicker">${esc(s.kicker)}</span><h2 class="reveal">${esc(s.bandTitle)}</h2></div><div><p>${esc(s.bandText)}</p>${FREE_KITCHENS ? `<p class="svc-band-free">${esc(s.free(FREE_KITCHENS))}</p>` : ''}<div class="site-cta-row"><a class="site-btn solid" href="${serviceHref(lang)}">${esc(s.bandButton)}</a></div></div></div></section>`;
+}
+// Blok onderaan de prijzenpagina.
+function serviceTeaser(lang) {
+  const s = SERVICE[lang];
+  return `<div class="svc-teaser"><h2>${esc(s.proTitle)}</h2><p>${esc(s.proText)}</p>${FREE_KITCHENS ? `<p class="svc-band-free">${esc(s.free(FREE_KITCHENS))}</p>` : ''}<p><a class="site-btn solid" href="${serviceHref(lang)}">${esc(s.bandButton)}</a></p></div>`;
+}
+
 // ---- Startpagina (ook gebruikt in index.html) ----
 // Bovenaan echte schermafbeeldingen van de app (assets/app): bibliotheek op de laptop, recept op de telefoon.
 const SHOT_ALT = {
@@ -279,6 +330,7 @@ function homeBody(lang, inApp) {
 </div></section>
 <section class="site-section"><div class="site-wrap"><div class="site-two"><h2 class="reveal">${esc(KLADJE_REAL[lang].heading)}</h2><div>${h.story.map(p => `<p>${esc(p)}</p>`).join('')}<p><a class="site-link" href="${href(STORY[lang].slug)}">${esc(h.storyLink)}</a></p></div></div>${kladje(lang)}</div></section>
 <section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(h.featuresTitle)}</h2>${rows(FEATURES.filter(f => !f.soon), lang)}</div></section>
+${serviceBand(lang)}
 <section class="site-section"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.audienceTitle)}</h2>${rows(AUDIENCES, lang)}</div></section>
 <section class="site-section dark"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.soonTitle)}</h2><div><ul class="site-rows">${FEATURES.find(f => f.soon)[lang].sections.map(([t, d]) => `<li><a href="${href(FEATURES.find(f => f.soon)[lang].slug)}"><b>${esc(t)}</b><span>${esc(d)}</span><i aria-hidden="true">→</i></a></li>`).join('')}</ul></div></div></section>
 <section class="site-section"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.priceTitle)}</h2><div><p>${esc(h.price)}</p><p><a class="site-link" href="${href(legacy('pro')[lang])}">${esc(h.priceLink)}</a></p></div></div></section>
@@ -397,6 +449,7 @@ const PAGE_PHOTO = {
   'recepten-digitaliseren': 'hout',
   'recepten-organiseren': 'keuken',
   'recepten-database': 'brigade',
+  'recepten-laten-inladen': 'eend',
   'recepten-delen': 'brigade',
   'recepten-opschalen': 'wortels',
   'recepten-printen': 'uien',
@@ -442,7 +495,7 @@ for (const lang of LANGS) {
       crumbs: [[u.features], [t.menu]],
       body: c =>
         pageTop(c, t.h1, t.lead, PAGE_PHOTO[f.nl.slug]) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${t.kladje ? `<div class="site-figure">${kladje(lang)}</div>` : ''}${sectionsHtml(t.sections)}${
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${t.kladje ? `<div class="site-figure">${kladje(lang)}</div>` : ''}${sectionsHtml(t.sections)}${f.service ? serviceBlock(lang) : ''}${
           f.soon ? `<p class="site-note">${SOON_MAIL[lang]} <a href="mailto:contact@savour.page">contact@savour.page</a>.</p>` : ''
         }</div></article>
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.related}</h2>${rows(others.slice(0, 3), lang)}</div></section>`
@@ -552,6 +605,7 @@ for (const lang of LANGS) {
       note = note && tr.text(note);
     }
     body = body.replace('%%FORM%%', contactForm(lang));
+    if (p.id === 'pro') body += serviceTeaser(lang);
     const schema = [];
     if (p.id === 'faq')
       schema.push({

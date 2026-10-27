@@ -38,6 +38,14 @@
     }
     btn.disabled = true;
     status.textContent = form.dataset.busy;
+    // Aanvraagformulier inlaadservice: extra velden (restaurant, aantal recepten, team) bovenaan het bericht.
+    var extra = [].map
+      .call(form.querySelectorAll('[data-extra]'), function (el) {
+        return el.dataset.extra + ': ' + el.value.trim();
+      })
+      .join('\n');
+    var message = form.message.value.trim();
+    if (extra) message = extra + (message ? '\n\n' + message : '');
     fetch('/api/bug-report', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -46,7 +54,7 @@
         name: form.name.value.trim(),
         email: form.email.value.trim(),
         subject: form.subject.value.trim(),
-        message: form.message.value.trim(),
+        message: message,
         website: form.website.value,
         page: location.href,
         language: document.documentElement.lang || ''

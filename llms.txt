@@ -34,11 +34,12 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 - **Team plans**: 5 people €8.99/month, 10 people €14.99/month, 25 people €29.99/month (or yearly). Everyone on the team gets Pro.
 - New accounts can try Savour Pro free for 7 days, no payment details needed (up to 100 recipes during the trial).
 - Stopping Pro never deletes recipes; everything stays available.
+- **Recipe import service**: the founder of Savour, a chef, personally imports a kitchen's whole recipe folder (Word, PDF, photos of notebooks, other apps), organises it in folders and checks every recipe. One-off €249 (up to 100 recipes), €495 (up to 250) or €895 (up to 500), excl. VAT, with a yearly Team 5, 10 or 25 plan. The first 5 kitchens are imported for free. [Request it](https://savour.page/en/recipe-import-service).
 
 ## Pages
 
 - [Home (Dutch)](https://savour.page/) · [English](https://savour.page/en) · [Deutsch](https://savour.page/de) · [Español](https://savour.page/es)
-- Features: [Digitise recipes](https://savour.page/en/digitise-recipes) · [Organise recipes](https://savour.page/en/organise-recipes) · [Recipe database and archive (cloud, offline)](https://savour.page/en/recipe-database) · [Share with your brigade](https://savour.page/en/share-recipes) · [Scale recipes](https://savour.page/en/scale-recipes) · [Print recipes, binders and your own logo](https://savour.page/en/print-recipes) · [Coming soon](https://savour.page/en/roadmap)
+- Features: [Digitise recipes](https://savour.page/en/digitise-recipes) · [Organise recipes](https://savour.page/en/organise-recipes) · [Recipe database and archive (cloud, offline)](https://savour.page/en/recipe-database) · [Share with your brigade](https://savour.page/en/share-recipes) · [Scale recipes](https://savour.page/en/scale-recipes) · [Print recipes, binders and your own logo](https://savour.page/en/print-recipes) · [Recipe import service](https://savour.page/en/recipe-import-service) · [Coming soon](https://savour.page/en/roadmap)
 - Who it's for: [Chefs, sous-chefs and pastry chefs](https://savour.page/en/for-chefs) · [Kitchen brigades](https://savour.page/en/for-kitchen-brigades)
 - [About Savour](https://savour.page/en/about) · [Pricing](https://savour.page/en/pro) · [Blog](https://savour.page/en/blog) · [FAQ](https://savour.page/en/faq) · [Guide](https://savour.page/en/guide) · [Contact](https://savour.page/en/contact)
 - Dutch versions: [Recepten digitaliseren](https://savour.page/recepten-digitaliseren) · [Recepten organiseren](https://savour.page/recepten-organiseren) · [Receptendatabase en archief](https://savour.page/recepten-database) · [Over Savour](https://savour.page/over-savour) · [Prijzen](https://savour.page/savour-pro) · [Blog](https://savour.page/blog)
