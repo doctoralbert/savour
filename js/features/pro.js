@@ -282,7 +282,7 @@ function renderProPage(host) {
     <p class="pro-pay muted">Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Er wordt geen btw gerekend (kleineondernemersregeling). Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.</p>
     ${
       teamCards
-        ? `<h2>Savour voor je hele brigade</h2>
+        ? `<h2 id="proBrigade">Savour voor je hele brigade</h2>
     <p>Met een brigade-abonnement krijgt iedereen in je keuken Savour Pro. Hoe groter je brigade, hoe lager de prijs per persoon. Je nodigt je collega's uit op hun e-mailadres en kunt plekken altijd aan iemand anders geven.</p>
     <div class="pro-prices pro-team-prices">${teamCards}</div>
     <p class="pro-pay muted">Groter dan 25 personen of meerdere vestigingen? Neem contact op voor een prijs op maat.</p>`
@@ -330,7 +330,8 @@ function renderProNav() {
   const team = savourPlan.team;
   const teamBtn = $('navTeam');
   if (teamBtn) {
-    teamBtn.style.display = team ? '' : 'none';
+    // Alleen bij een lopend brigade-abonnement (eigenaar) of als lid van een brigade.
+    teamBtn.style.display = team?.active ? '' : 'none';
     $('navTeamCount').textContent = team?.owner ? `${(team.members || []).length + 1}/${team.seats}` : '';
   }
 }

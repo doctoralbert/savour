@@ -400,12 +400,14 @@ function teamBrigadeHtml(m) {
   let proBlock = '';
   if (isOwner && proOn)
     proBlock = `<div class="team-seats"><div><b>Brigade ${esc(b.seats)}</b><span class="muted">${esc(b.used)} van ${esc(b.seats)} plekken met Pro (jij telt mee)</span></div><div class="team-seats-bar"><i style="width:${Math.min(100, Math.round((b.used / b.seats) * 100))}%"></i></div></div>`;
-  else if (isOwner && b?.elsewhere)
+  else if (isOwner && b?.active && b.elsewhere)
     proBlock = `<div class="team-seats"><div><b>Je Brigade ${esc(b.seats)} hoort bij ${esc(b.elsewhere.name)}</b><span class="muted">Een brigade-abonnement hoort bij één keukenteam. Wil je ook hier Pro voor iedereen, neem dan een tweede abonnement of verwijder eerst dat keukenteam.</span></div><button class="btn" onclick="openTeamNav()">Naar ${esc(b.elsewhere.name)}</button></div>`;
-  else if (isOwner && b && !b.linked)
+  else if (isOwner && b?.active && !b.linked)
     proBlock = `<div class="team-seats"><div><b>Je hebt Brigade ${esc(b.seats)}</b><span class="muted">Koppel het aan dit keukenteam, dan krijgt je brigade hier Pro.</span></div><button class="btn gold" onclick="linkBrigade('${mid}')">Koppelen aan ${esc(m.name)}</button></div>`;
+  else if (isOwner && b && !b.active)
+    proBlock = `<div class="team-seats"><div><b>Je Brigade ${esc(b.seats)} is gestopt</b><span class="muted">Je brigade heeft geen Pro meer via dit abonnement. Je eigen recepten en dit keukenteam blijven gewoon staan.</span></div><button class="btn gold" onclick="openBrigadePlans()">Brigade opnieuw nemen</button></div>`;
   else if (isOwner)
-    proBlock = `<div class="team-seats"><div><b>Pro voor je hele brigade</b><span class="muted">Met Brigade 5, 10 of 25 heeft iedereen in dit keukenteam Savour Pro: onbeperkt recepten en AI voor kladjes.</span></div><button class="btn gold" onclick="go('pro')">Bekijk Brigade</button></div>`;
+    proBlock = `<div class="team-seats"><div><b>Pro voor je hele brigade</b><span class="muted">${isPro() ? 'Jij hebt Savour Pro. ' : ''}Met Brigade 5, 10 of 25 krijgt iedereen in dit keukenteam Savour Pro: onbeperkt recepten en AI voor kladjes.</span></div><button class="btn gold" onclick="openBrigadePlans()">Brigade kiezen</button></div>`;
   return (
     proBlock +
     `<div class="team-members">${members}</div>` +
@@ -433,6 +435,12 @@ function teamSettingsHtml(m, photoInput) {
 }
 
 // Pro-plek in de brigade geven of vrijgeven (savour_team_add_member / savour_team_remove_member).
+// Naar de brigade-abonnementen op de Pro-pagina (niet de bovenkant met je eigen Pro).
+function openBrigadePlans() {
+  go('pro');
+  setTimeout(() => $('proBrigade')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 250);
+}
+
 async function giveBrigadePro(mapId, email) {
   const { error } = await supabaseClient.rpc('savour_team_add_member', { _email: email });
   if (error)

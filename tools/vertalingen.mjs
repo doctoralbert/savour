@@ -1503,6 +1503,11 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Je brigade heeft geen Pro meer via dit abonnement. Je eigen recepten en dit keukenteam blijven gewoon staan.","Your brigade no longer has Pro through this plan. Your own recipes and this kitchen team stay as they are.","Deine Brigade hat über dieses Abo kein Pro mehr. Deine eigenen Rezepte und dieses Küchenteam bleiben bestehen.","Tu brigada ya no tiene Pro con este plan. Tus recetas y este equipo de cocina se mantienen."],
+  ["Brigade opnieuw nemen","Take Brigade again","Brigade erneut abschließen","Volver a contratar Brigada"],
+  ["Brigade kiezen","Choose Brigade","Brigade wählen","Elegir Brigada"],
+  ["Jij hebt Savour Pro. Met Brigade 5, 10 of 25 krijgt iedereen in dit keukenteam Savour Pro: onbeperkt recepten en AI voor kladjes.","You have Savour Pro. With Brigade 5, 10 or 25 everyone in this kitchen team gets Savour Pro: unlimited recipes and AI for notes.","Du hast Savour Pro. Mit Brigade 5, 10 oder 25 bekommt jeder in diesem Küchenteam Savour Pro: unbegrenzt Rezepte und KI für Notizen.","Tienes Savour Pro. Con Brigada 5, 10 o 25 todos en este equipo de cocina tienen Savour Pro: recetas ilimitadas e IA para notas."],
+  ["Met Brigade 5, 10 of 25 krijgt iedereen in dit keukenteam Savour Pro: onbeperkt recepten en AI voor kladjes.","With Brigade 5, 10 or 25 everyone in this kitchen team gets Savour Pro: unlimited recipes and AI for notes.","Mit Brigade 5, 10 oder 25 bekommt jeder in diesem Küchenteam Savour Pro: unbegrenzt Rezepte und KI für Notizen.","Con Brigada 5, 10 o 25 todos en este equipo de cocina tienen Savour Pro: recetas ilimitadas e IA para notas."],
   ["Alle recepten en mappen van dit keukenteam worden voor iedereen verwijderd. Je persoonlijke recepten blijven behouden.","All recipes and folders of this kitchen team are deleted for everyone. Your personal recipes are kept.","Alle Rezepte und Ordner dieses Küchenteams werden für alle gelöscht. Deine persönlichen Rezepte bleiben erhalten.","Todas las recetas y carpetas de este equipo de cocina se eliminan para todos. Tus recetas personales se conservan."],
   ["Je brigade-abonnement wordt losgekoppeld en de Pro-plekken komen vrij. Je kunt het daarna aan een ander of nieuw keukenteam koppelen.","Your brigade plan is unlinked and the Pro seats become free. You can then link it to another or a new kitchen team.","Dein Brigade-Abo wird getrennt und die Pro-Plätze werden frei. Danach kannst du es mit einem anderen oder neuen Küchenteam verknüpfen.","Tu plan de brigada se desvincula y las plazas Pro quedan libres. Después puedes vincularlo a otro equipo de cocina o a uno nuevo."],
   ["Een brigade-abonnement hoort bij één keukenteam. Wil je ook hier Pro voor iedereen, neem dan een tweede abonnement of verwijder eerst dat keukenteam.","A brigade plan belongs to one kitchen team. Want Pro for everyone here too? Take a second plan, or delete that kitchen team first.","Ein Brigade-Abo gehört zu einem Küchenteam. Möchtest du auch hier Pro für alle, nimm ein zweites Abo oder lösche zuerst das andere Küchenteam.","Un plan de brigada pertenece a un solo equipo de cocina. ¿Quieres Pro para todos aquí también? Contrata un segundo plan o elimina primero ese equipo."],
@@ -3399,6 +3404,7 @@ export const strings = [
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
 export const patterns = [
+  ["^Je Brigade (\\d+) is gestopt$","Your Brigade $1 has stopped","Deine Brigade $1 ist beendet","Tu Brigada $1 ha terminado"],
   ["^Je Brigade (\\d+) hoort bij (.+)$","Your Brigade $1 belongs to $2","Deine Brigade $1 gehört zu $2","Tu Brigada $1 pertenece a $2"],
   ["^Naar (.+)$","Go to $1","Zu $1","Ir a $1"],
   ["^Recepten (\\d+)$","Recipes $1","Rezepte $1","Recetas $1"],
