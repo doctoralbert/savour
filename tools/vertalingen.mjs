@@ -1197,7 +1197,7 @@ export const strings = [
     'Por ejemplo tu restaurante, hotel o catering.'
   ],
   ['Naam van je organisatie', 'Name of your organisation', 'Name deiner Organisation', 'Nombre de tu organización'],
-  ['Deze naam zien je teamleden.', 'Your team members will see this name.', 'Diesen Namen sehen deine Teammitglieder.', 'Tus compañeros verán este nombre.'],
+  ['Deze naam zien de leden van je organisatie.', 'Your members will see this name.', 'Diesen Namen sehen deine Mitglieder.', 'Tus compañeros verán este nombre.'],
   ['Verder naar betalen', 'Continue to payment', 'Weiter zur Zahlung', 'Continuar al pago'],
   [
     'Onbeperkt recepten, je eigen team en AI die je kladjes leest.',
@@ -1213,12 +1213,12 @@ export const strings = [
     'Teste Savour Pro 7 Tage kostenlos, ohne Zahlungsdaten: KI-Import und geteilte Ordner, bis zu 100 Rezepte.',
     'Prueba Savour Pro 7 días gratis, sin datos de pago: importación con IA y carpetas compartidas, hasta 100 recetas.'
   ],
-  ['Savour voor je hele team', 'Savour for your whole team', 'Savour für dein ganzes Team', 'Savour para todo tu equipo'],
+  ['Savour voor je hele organisatie', 'Savour for your whole organisation', 'Savour für deine ganze Organisation', 'Savour para toda tu organización'],
   [
-    "Met een teamabonnement krijgt iedereen in je keuken Savour Pro. Hoe groter je team, hoe lager de prijs per persoon. Je nodigt je collega's uit op hun e-mailadres en kunt plekken altijd aan iemand anders geven.",
-    'With a team subscription everyone in your kitchen gets Savour Pro. The bigger your team, the lower the price per person. You invite colleagues by email and can always give a seat to someone else.',
-    'Mit einem Team-Abo bekommt jeder in deiner Küche Savour Pro. Je größer dein Team, desto niedriger der Preis pro Person. Du lädst Kollegen per E-Mail ein und kannst Plätze jederzeit neu vergeben.',
-    'Con una suscripción de equipo, todos en tu cocina tienen Savour Pro. Cuanto más grande el equipo, menor el precio por persona. Invitas a tus compañeros por correo y puedes reasignar plazas cuando quieras.'
+    "Met een organisatie-abonnement krijgt iedereen in je keuken Savour Pro. Hoe groter je organisatie, hoe lager de prijs per persoon. Je nodigt je collega's uit op hun e-mailadres en kunt plekken altijd aan iemand anders geven.",
+    'With an organisation subscription everyone in your kitchen gets Savour Pro. The bigger your organisation, the lower the price per person. You invite colleagues by email and can always give a seat to someone else.',
+    'Mit einem Organisations-Abo bekommt jeder in deiner Küche Savour Pro. Je größer deine Organisation, desto niedriger der Preis pro Person. Du lädst Kollegen per E-Mail ein und kannst Plätze jederzeit neu vergeben.',
+    'Con una suscripción de organización, todos en tu cocina tienen Savour Pro. Cuanto más grande la organización, menor el precio por persona. Invitas a tus compañeros por correo y puedes reasignar plazas cuando quieras.'
   ],
   ['Meest gekozen', 'Most popular', 'Am beliebtesten', 'El más elegido'],
   [
@@ -1272,12 +1272,12 @@ export const strings = [
     'Du behältst alle Rezepte und geteilten Ordner. Du kannst nur keine neuen Rezepte über 100 hinzufügen und keine neuen geteilten Ordner erstellen.',
     'Conservas todas tus recetas y carpetas compartidas. Solo no puedes añadir recetas nuevas por encima de 100 ni crear carpetas compartidas nuevas.'
   ],
-  ['Moeten mijn teamleden ook betalen?', 'Do my team members have to pay too?', 'Müssen meine Teammitglieder auch zahlen?', '¿Mis compañeros también tienen que pagar?'],
+  ['Moeten de leden van mijn organisatie ook betalen?', 'Do my members have to pay too?', 'Müssen meine Mitglieder auch zahlen?', '¿Mis compañeros también tienen que pagar?'],
   [
-    'Nee. Lid zijn van een gedeelde map is gratis. Wil je dat iedereen in je keuken Pro heeft, kies dan een teamabonnement.',
-    'No. Being a member of a shared folder is free. If you want everyone in your kitchen to have Pro, choose a team subscription.',
-    'Nein. Mitglied in einem geteilten Ordner zu sein ist kostenlos. Soll jeder in deiner Küche Pro haben, wähle ein Team-Abo.',
-    'No. Ser miembro de una carpeta compartida es gratis. Si quieres que todos en tu cocina tengan Pro, elige una suscripción de equipo.'
+    'Nee. Lid zijn van een gedeelde map is gratis. Wil je dat iedereen in je keuken Pro heeft, kies dan een organisatie-abonnement.',
+    'No. Being a member of a shared folder is free. If you want everyone in your kitchen to have Pro, choose an organisation subscription.',
+    'Nein. Mitglied in einem geteilten Ordner zu sein ist kostenlos. Soll jeder in deiner Küche Pro haben, wähle ein Organisations-Abo.',
+    'No. Ser miembro de una carpeta compartida es gratis. Si quieres que todos en tu cocina tengan Pro, elige una suscripción de organización.'
   ],
   [
     'Elke foto, gescande pagina of elk deel van een bestand dat de AI leest (ongeveer 8 recepten per deel). Wat de Savour-lezer zelf zeker leest, telt niet mee.',
@@ -1300,7 +1300,7 @@ export const strings = [
   ],
   ['Savour Pro · gratis proefperiode', 'Savour Pro · free trial', 'Savour Pro · kostenlose Testphase', 'Savour Pro · prueba gratuita'],
   ['Savour Pro · proefperiode', 'Savour Pro · trial', 'Savour Pro · Testphase', 'Savour Pro · prueba'],
-  ['Je team', 'Your team', 'Dein Team', 'Tu equipo'],
+  ['Je organisatie', 'Your organisation', 'Deine Organisation', 'Tu organización'],
   ['Mijn abonnement', 'My subscription', 'Mein Abo', 'Mi suscripción'],
   ['Stuur ons een bericht', 'Send us a message', 'Schreib uns eine Nachricht', 'Envíanos un mensaje'],
   // ---- Publieke pagina's: Over Savour, Gids, voorwaarden en privacy (AdSense-klaar, 2026-10-21) ----
@@ -1403,10 +1403,10 @@ export const strings = [
   ],
   ['8. Gratis account en Savour Pro', '8. Free account and Savour Pro', '8. Kostenloses Konto und Savour Pro', '8. Cuenta gratuita y Savour Pro'],
   [
-    'Een gratis account bevat tot 100 recepten. Nieuwe accounts krijgen eenmalig 7 dagen Savour Pro zonder kosten, met ook dan maximaal 100 recepten; daarna gaat het account vanzelf terug naar gratis, zonder dat er iets wordt afgeschreven. Savour Pro is een betaald abonnement per maand of per jaar, voor één persoon of als teamabonnement met een vast aantal plekken, dat automatisch wordt verlengd tot je het opzegt. Opzeggen kan op elk moment via Mijn account; je houdt Savour Pro tot het einde van de betaalde periode. Na afloop blijven al je recepten en gedeelde mappen bewaard. Savour Pro bevat maximaal 500 AI-imports per persoon per maand. Betalingen worden verwerkt door Stripe.',
-    'A free account includes up to 100 recipes. New accounts get a one-time 7 days of Savour Pro free of charge, also limited to 100 recipes; after that the account automatically returns to free, without any charge. Savour Pro is a paid monthly or yearly subscription, for one person or as a team subscription with a fixed number of seats, which renews automatically until you cancel. You can cancel at any time via My account; you keep Savour Pro until the end of the paid period. Afterwards all your recipes and shared folders are kept. Savour Pro includes up to 500 AI imports per person per month. Payments are processed by Stripe.',
-    'Ein kostenloses Konto umfasst bis zu 100 Rezepte. Neue Konten erhalten einmalig 7 Tage Savour Pro kostenlos, auch dann mit höchstens 100 Rezepten; danach wechselt das Konto automatisch zurück zu kostenlos, ohne dass etwas abgebucht wird. Savour Pro ist ein kostenpflichtiges Monats- oder Jahresabo, für eine Person oder als Team-Abo mit einer festen Anzahl Plätze, das sich automatisch verlängert, bis du kündigst. Kündigen kannst du jederzeit über Mein Konto; Savour Pro bleibt bis zum Ende des bezahlten Zeitraums aktiv. Danach bleiben alle Rezepte und geteilten Ordner erhalten. Savour Pro umfasst bis zu 500 KI-Importe pro Person und Monat. Zahlungen werden von Stripe abgewickelt.',
-    'Una cuenta gratuita incluye hasta 100 recetas. Las cuentas nuevas reciben una sola vez 7 días de Savour Pro sin coste, también con un máximo de 100 recetas; después la cuenta vuelve automáticamente al plan gratuito, sin ningún cargo. Savour Pro es una suscripción de pago mensual o anual, para una persona o como suscripción de equipo con un número fijo de plazas, que se renueva automáticamente hasta que la canceles. Puedes cancelar en cualquier momento desde Mi cuenta; mantienes Savour Pro hasta el final del periodo pagado. Después se conservan todas tus recetas y carpetas compartidas. Savour Pro incluye hasta 500 importaciones con IA por persona al mes. Los pagos los procesa Stripe.'
+    'Een gratis account bevat tot 100 recepten. Nieuwe accounts krijgen eenmalig 7 dagen Savour Pro zonder kosten, met ook dan maximaal 100 recepten; daarna gaat het account vanzelf terug naar gratis, zonder dat er iets wordt afgeschreven. Savour Pro is een betaald abonnement per maand of per jaar, voor één persoon of als organisatie-abonnement met een vast aantal plekken, dat automatisch wordt verlengd tot je het opzegt. Opzeggen kan op elk moment via Mijn account; je houdt Savour Pro tot het einde van de betaalde periode. Na afloop blijven al je recepten en gedeelde mappen bewaard. Savour Pro bevat maximaal 500 AI-imports per persoon per maand. Betalingen worden verwerkt door Stripe.',
+    'A free account includes up to 100 recipes. New accounts get a one-time 7 days of Savour Pro free of charge, also limited to 100 recipes; after that the account automatically returns to free, without any charge. Savour Pro is a paid monthly or yearly subscription, for one person or as an organisation subscription with a fixed number of seats, which renews automatically until you cancel. You can cancel at any time via My account; you keep Savour Pro until the end of the paid period. Afterwards all your recipes and shared folders are kept. Savour Pro includes up to 500 AI imports per person per month. Payments are processed by Stripe.',
+    'Ein kostenloses Konto umfasst bis zu 100 Rezepte. Neue Konten erhalten einmalig 7 Tage Savour Pro kostenlos, auch dann mit höchstens 100 Rezepten; danach wechselt das Konto automatisch zurück zu kostenlos, ohne dass etwas abgebucht wird. Savour Pro ist ein kostenpflichtiges Monats- oder Jahresabo, für eine Person oder als Organisations-Abo mit einer festen Anzahl Plätze, das sich automatisch verlängert, bis du kündigst. Kündigen kannst du jederzeit über Mein Konto; Savour Pro bleibt bis zum Ende des bezahlten Zeitraums aktiv. Danach bleiben alle Rezepte und geteilten Ordner erhalten. Savour Pro umfasst bis zu 500 KI-Importe pro Person und Monat. Zahlungen werden von Stripe abgewickelt.',
+    'Una cuenta gratuita incluye hasta 100 recetas. Las cuentas nuevas reciben una sola vez 7 días de Savour Pro sin coste, también con un máximo de 100 recetas; después la cuenta vuelve automáticamente al plan gratuito, sin ningún cargo. Savour Pro es una suscripción de pago mensual o anual, para una persona o como suscripción de organización con un número fijo de plazas, que se renueva automáticamente hasta que la canceles. Puedes cancelar en cualquier momento desde Mi cuenta; mantienes Savour Pro hasta el final del periodo pagado. Después se conservan todas tus recetas y carpetas compartidas. Savour Pro incluye hasta 500 importaciones con IA por persona al mes. Los pagos los procesa Stripe.'
   ],
   ['9. Over de aanbieder', '9. About the provider', '9. Über den Anbieter', '9. Sobre el proveedor'],
   [
@@ -1482,17 +1482,17 @@ export const strings = [
     'Danke. Deine Nachricht wurde gesendet; wir antworten so schnell wie möglich.',
     'Gracias. Tu mensaje se ha enviado; responderemos lo antes posible.'
   ],
-  ['Teamlid · Savour Pro', 'Team member · Savour Pro', 'Teammitglied · Savour Pro', 'Miembro del equipo · Savour Pro'],
+  ['Lid · Savour Pro', 'Member · Savour Pro', 'Mitglied · Savour Pro', 'Miembro de la organización · Savour Pro'],
   ['Plek vrijgeven', 'Free up seat', 'Platz freigeben', 'Liberar plaza'],
   [
-    'Alle plekken zijn bezet. Een groter team kies je via Abonnement beheren.',
-    'All seats are taken. Choose a bigger team via Manage subscription.',
-    'Alle Plätze sind belegt. Ein größeres Team wählst du über Abo verwalten.',
-    'Todas las plazas están ocupadas. Elige un equipo más grande en Gestionar suscripción.'
+    'Alle plekken zijn bezet. Een grotere organisatie kies je via Abonnement beheren.',
+    'All seats are taken. Choose a bigger organisation via Manage subscription.',
+    'Alle Plätze sind belegt. Eine größere Organisation wählst du über Abo verwalten.',
+    'Todas las plazas están ocupadas. Elige una organización más grande en Gestionar suscripción.'
   ],
-  ['Alle plekken in je team zijn bezet.', 'All seats in your team are taken.', 'Alle Plätze in deinem Team sind belegt.', 'Todas las plazas de tu equipo están ocupadas.'],
+  ['Alle plekken in je organisatie zijn bezet.', 'All seats in your organisation are taken.', 'Alle Plätze in deiner Organisation sind belegt.', 'Todas las plazas de tu organización están ocupadas.'],
   ['Vul een geldig e-mailadres in.', 'Enter a valid email address.', 'Gib eine gültige E-Mail-Adresse ein.', 'Introduce un correo válido.'],
-  ['Teamlid kon niet worden toegevoegd.', 'Team member could not be added.', 'Teammitglied konnte nicht hinzugefügt werden.', 'No se pudo añadir al miembro.'],
+  ['Lid kon niet worden toegevoegd.', 'Member could not be added.', 'Mitglied konnte nicht hinzugefügt werden.', 'No se pudo añadir al miembro.'],
   ['Plek kon niet worden vrijgegeven.', 'Seat could not be freed.', 'Platz konnte nicht freigegeben werden.', 'No se pudo liberar la plaza.'],
   ['Een gedeelde map maken is Savour Pro', 'Creating a shared folder is Savour Pro', 'Geteilte Ordner erstellen ist Savour Pro', 'Crear una carpeta compartida es Savour Pro'],
   ['Bekijk Savour Pro', 'View Savour Pro', 'Savour Pro ansehen', 'Ver Savour Pro'],
@@ -1654,7 +1654,7 @@ export const strings = [
   ["Pas je naam en profielfoto aan, verander je wachtwoord of log uit.", "Change your name and profile photo, change your password or log out.", "Ändere deinen Namen und dein Profilbild, ändere dein Passwort oder melde dich ab.", "Cambia tu nombre y foto de perfil, cambia tu contraseña o cierra sesión."],
   ["Printen en downloaden", "Printing and downloading", "Drucken und herunterladen", "Imprimir y descargar"],
   ["Print al je recepten in één keer in de printopmaak van Savour. Met Savour Pro download je ze ook naar Word of als back-up.", "Print all your recipes at once in the Savour print layout. With Savour Pro you also download them to Word or as a backup.", "Drucke alle deine Rezepte auf einmal im Druckformat von Savour. Mit Savour Pro lädst du sie auch als Word oder Backup herunter.", "Imprime todas tus recetas de una vez con el formato de Savour. Con Savour Pro también las descargas en Word o como copia de seguridad."],
-  ["Bekijk of beheer je Savour Pro of teamabonnement, nodig je team uit en stel het logo voor je prints in.", "View or manage your Savour Pro or team subscription, invite your team and set the logo for your prints.", "Sieh oder verwalte dein Savour Pro oder Team-Abo, lade dein Team ein und lege das Logo für deine Ausdrucke fest.", "Consulta o gestiona tu Savour Pro o suscripción de equipo, invita a tu equipo y configura el logo de tus impresiones."],
+  ["Bekijk of beheer je Savour Pro of organisatie-abonnement, nodig je organisatie uit en stel het logo voor je prints in.", "View or manage your Savour Pro or organisation subscription, invite your organisation and set the logo for your prints.", "Sieh oder verwalte dein Savour Pro oder Organisations-Abo, lade deine Organisation ein und lege das Logo für deine Ausdrucke fest.", "Consulta o gestiona tu Savour Pro o suscripción de organización, invita a tu organización y configura el logo de tus impresiones."],
   ["Kies het donkere of lichte thema; je keuze wordt bewaard in je account.", "Choose the dark or light theme; your choice is saved in your account.", "Wähle das dunkle oder helle Design; deine Wahl wird in deinem Konto gespeichert.", "Elige el tema oscuro o claro; tu elección se guarda en tu cuenta."],
   ["Beheer je eigen categorieën en hun trefwoorden.", "Manage your own categories and their keywords.", "Verwalte deine eigenen Kategorien und ihre Stichwörter.", "Gestiona tus propias categorías y sus palabras clave."],
   ["Savour zoekt nummers voor receptnamen en dubbele recepten. Je ziet altijd eerst wat er verandert.", "Savour looks for numbers in front of recipe names and duplicate recipes. You always see what changes first.", "Savour sucht Nummern vor Rezeptnamen und doppelte Rezepte. Du siehst immer zuerst, was sich ändert.", "Savour busca números delante de los nombres y recetas duplicadas. Siempre ves primero lo que cambia."],
@@ -1805,7 +1805,7 @@ export const strings = [
   ["Logo weggehaald", "Logo removed", "Logo entfernt", "Logo quitado"],
   ["Opslaan lukte niet. Probeer een kleiner logo.", "Saving failed. Try a smaller logo.", "Speichern fehlgeschlagen. Versuche ein kleineres Logo.", "No se pudo guardar. Prueba con un logo más pequeño."],
   ["Je prints krijgen dan alleen de naam van je restaurant.", "Your prints will then only show your restaurant's name.", "Deine Ausdrucke zeigen dann nur den Namen deines Restaurants.", "Tus impresiones mostrarán solo el nombre de tu restaurante."],
-  ["Dit logo staat op de prints van iedereen in je team.", "This logo appears on the prints of everyone in your team.", "Dieses Logo erscheint auf den Ausdrucken aller in deinem Team.", "Este logo aparece en las impresiones de todo tu equipo."],
+  ["Dit logo staat op de prints van iedereen in je organisatie.", "This logo appears on the prints of everyone in your organisation.", "Dieses Logo erscheint auf den Ausdrucken aller in deiner Organisation.", "Este logo aparece en las impresiones de toda tu organización."],
   ["Dit logo staat bovenaan elke pagina die je print: het logo links, de naam in het midden.", "This logo appears at the top of every page you print: the logo on the left, the name in the centre.", "Dieses Logo steht oben auf jeder Seite, die du druckst: das Logo links, der Name in der Mitte.", "Este logo aparece arriba en cada página que imprimes: el logo a la izquierda, el nombre en el centro."],
   ["Logo op prints is binnenkort beschikbaar.", "Logo on prints is coming soon.", "Logo auf Ausdrucken ist bald verfügbar.", "El logo en las impresiones estará disponible pronto."],
   ["Met Savour Pro print je recepten en mappen met het logo en de naam van je restaurant bovenaan. In de demo kun je dit niet instellen.", "With Savour Pro you print recipes and folders with your restaurant's logo and name at the top. You can't set this up in the demo.", "Mit Savour Pro druckst du Rezepte und Mappen mit Logo und Namen deines Restaurants oben auf der Seite. In der Demo kannst du das nicht einrichten.", "Con Savour Pro imprimes recetas y carpetas con el logo y el nombre de tu restaurante arriba. En la demo no puedes configurarlo."],
@@ -1816,7 +1816,7 @@ export const strings = [
   ["Zo stond het recept op papier, voordat Savour het las.","This is how the recipe looked on paper, before Savour read it.","So stand das Rezept auf Papier, bevor Savour es gelesen hat.","Así estaba la receta en papel, antes de que Savour la leyera."],
   ["Het origineel kon niet worden geladen.","The original could not be loaded.","Das Original konnte nicht geladen werden.","No se pudo cargar el original."],
   ["Offline","Offline","Offline","Sin conexión"],
-  ["Abonnement en team","Subscription and team","Abo und Team","Suscripción y equipo"],
+  ["Abonnement en organisatie","Subscription and organisation","Abo und Organisation","Suscripción y organización"],
   ["Opschonen","Clean up","Aufräumen","Limpiar"],
   ["Savour kijkt hier of er nummers voor receptnamen staan, zoals “12. Kalfsjus”, en of recepten dubbel in je bibliotheek staan. Je ziet altijd eerst wat er verandert.","Savour checks here whether recipe names start with numbers, such as “12. Veal jus”, and whether recipes appear twice in your library. You always see what will change first.","Savour prüft hier, ob Rezeptnamen mit Nummern beginnen, wie „12. Kalbsjus“, und ob Rezepte doppelt in deiner Bibliothek stehen. Du siehst immer zuerst, was sich ändert.","Savour comprueba aquí si los nombres empiezan con números, como “12. Jugo de ternera”, y si hay recetas duplicadas en tu biblioteca. Siempre ves primero lo que cambia."],
   ["✓ Er is niets op te schonen: geen nummers voor receptnamen en geen dubbele recepten.","✓ Nothing to clean up: no numbers before recipe names and no duplicate recipes.","✓ Nichts aufzuräumen: keine Nummern vor Rezeptnamen und keine doppelten Rezepte.","✓ No hay nada que limpiar: ningún número delante de los nombres y ninguna receta duplicada."],
@@ -1828,17 +1828,17 @@ export const strings = [
   ["Zelf een recept invoeren","Enter a recipe yourself","Rezept selbst eingeben","Introducir una receta"],
   ["Eerst rondkijken","Look around first","Erst umsehen","Primero echar un vistazo"],
   ["Welkom bij Savour. Kies hieronder je wachtwoord","Welcome to Savour. Choose your password below","Willkommen bei Savour. Wähle unten dein Passwort","Bienvenido a Savour. Elige tu contraseña abajo"],
-  ["Hoe krijgen mijn teamleden Pro?","How do my team members get Pro?","Wie bekommen meine Teammitglieder Pro?","¿Cómo obtienen Pro los miembros de mi equipo?"],
-  ["Je voegt ze toe via Mijn team in het menu, of op je telefoon via Mijn account → Abonnement. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.","You add them via My team in the menu, or on your phone via My account → Subscription. They get an invitation by email and have Savour Pro as soon as they log in or sign up with exactly that email address. You count as the first seat yourself.","Du fügst sie über Mein Team im Menü hinzu, oder am Handy über Mein Konto → Abo. Sie bekommen eine Einladung per E-Mail und haben Savour Pro, sobald sie sich mit genau dieser E-Mail-Adresse anmelden oder registrieren. Du selbst zählst als erster Platz.","Los añades desde Mi equipo en el menú, o en el móvil desde Mi cuenta → Suscripción. Reciben una invitación por correo y tienen Savour Pro en cuanto inician sesión o se registran con exactamente ese correo. Tú cuentas como la primera plaza."],
+  ["Hoe krijgen de leden van mijn organisatie Pro?","How do the members of my organisation get Pro?","Wie bekommen die Mitglieder meiner Organisation Pro?","¿Cómo obtienen Pro los miembros de mi organización?"],
+  ["Je voegt ze toe via Mijn organisatie in het menu, of op je telefoon via Mijn account → Abonnement. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.","You add them via My organisation in the menu, or on your phone via My account → Subscription. They get an invitation by email and have Savour Pro as soon as they log in or sign up with exactly that email address. You count as the first seat yourself.","Du fügst sie über Meine Organisation im Menü hinzu, oder am Handy über Mein Konto → Abo. Sie bekommen eine Einladung per E-Mail und haben Savour Pro, sobald sie sich mit genau dieser E-Mail-Adresse anmelden oder registrieren. Du selbst zählst als erster Platz.","Los añades desde Mi organización en el menú, o en el móvil desde Mi cuenta → Suscripción. Reciben una invitación por correo y tienen Savour Pro en cuanto inician sesión o se registran con exactamente ese correo. Tú cuentas como la primera plaza."],
   // ---- Teams: uitnodigen en uitleg (2026-10-23) ----
-  ["Mijn team","My team","Mein Team","Mi equipo"],
+  ["Mijn organisatie","My organisation","Meine Organisation","Mi organización"],
   ["Collega's toevoegen","Add colleagues","Kollegen hinzufügen","Añadir compañeros"],
   ["Aan de slag","Get started","Los geht’s","Empezar"],
-  ["Je team staat klaar","Your team is ready","Dein Team ist bereit","Tu equipo está listo"],
+  ["Je organisatie staat klaar","Your organisation is ready","Deine Organisation ist bereit","Tu organización está lista"],
   ["Vul het e-mailadres van een collega in en kies Toevoegen.","Enter a colleague’s email address and choose Add.","Gib die E-Mail-Adresse eines Kollegen ein und wähle Hinzufügen.","Introduce el correo de un compañero y elige Añadir."],
   ["Je collega krijgt een uitnodiging van ons per mail.","Your colleague gets an invitation from us by email.","Dein Kollege bekommt von uns eine Einladung per E-Mail.","Tu compañero recibe una invitación nuestra por correo."],
   ["Je collega heeft Savour Pro zodra die inlogt of zich aanmeldt met precies dat e-mailadres. Vertrekt iemand, geef dan de plek vrij voor een ander.","Your colleague has Savour Pro as soon as they log in or sign up with exactly that email address. If someone leaves, free up the seat for someone else.","Dein Kollege hat Savour Pro, sobald er sich mit genau dieser E-Mail-Adresse anmeldet oder registriert. Geht jemand, gib den Platz für jemand anderen frei.","Tu compañero tiene Savour Pro en cuanto inicia sesión o se registra con exactamente ese correo. Si alguien se va, libera la plaza para otra persona."],
-  ["Je hebt Savour Pro via je team: onbeperkt recepten, gedeelde mappen en AI voor handgeschreven kladjes. Je hoeft niets te betalen; dat regelt je team.","You have Savour Pro through your team: unlimited recipes, shared folders and AI for handwritten notes. You do not have to pay anything; your team takes care of that.","Du hast Savour Pro über dein Team: unbegrenzt Rezepte, geteilte Ordner und KI für handschriftliche Notizen. Du musst nichts bezahlen; das regelt dein Team.","Tienes Savour Pro a través de tu equipo: recetas ilimitadas, carpetas compartidas e IA para notas escritas a mano. No tienes que pagar nada; de eso se encarga tu equipo."],
+  ["Je hebt Savour Pro via je organisatie: onbeperkt recepten, gedeelde mappen en AI voor handgeschreven kladjes. Je hoeft niets te betalen; dat regelt je organisatie.","You have Savour Pro through your organisation: unlimited recipes, shared folders and AI for handwritten notes. You do not have to pay anything; your organisation takes care of that.","Du hast Savour Pro über deine Organisation: unbegrenzt Rezepte, geteilte Ordner und KI für handschriftliche Notizen. Du musst nichts bezahlen; das regelt deine Organisation.","Tienes Savour Pro a través de tu organización: recetas ilimitadas, carpetas compartidas e IA para notas escritas a mano. No tienes que pagar nada; de eso se encarga tu organización."],
   // ---- Camera: foto van een kladje (2026-10-23) ----
   ["Foto van een kladje","Photo of a note","Foto einer Notiz","Foto de una nota"],
   ["Maak met je camera een foto van een handgeschreven recept. De AI zet het om in een net recept.","Take a photo of a handwritten recipe with your camera. The AI turns it into a clean recipe.","Mach mit deiner Kamera ein Foto eines handgeschriebenen Rezepts. Die KI macht daraus ein sauberes Rezept.","Haz una foto de una receta escrita a mano con tu cámara. La IA la convierte en una receta limpia."],
@@ -1863,10 +1863,10 @@ export const strings = [
   ],
   ['Wat krijg ik met Savour Pro?', 'What do I get with Savour Pro?', 'Was bekomme ich mit Savour Pro?', '¿Qué obtengo con Savour Pro?'],
   [
-    "Onbeperkt recepten, zelf gedeelde mappen maken en je team uitnodigen, en AI-import van foto's, handgeschreven en gescande recepten. Voor een hele keuken is er een teamabonnement: hoe groter het team, hoe lager de prijs per persoon.",
-    'Unlimited recipes, creating your own shared folders and inviting your team, and AI import of photos, handwritten and scanned recipes. For a whole kitchen there is a team plan: the bigger the team, the lower the price per person.',
-    'Unbegrenzt Rezepte, eigene geteilte Ordner erstellen und dein Team einladen, und KI-Import von Fotos, handschriftlichen und gescannten Rezepten. Für eine ganze Küche gibt es ein Team-Abo: je größer das Team, desto niedriger der Preis pro Person.',
-    'Recetas ilimitadas, crear tus propias carpetas compartidas e invitar a tu equipo, e importación con IA de fotos y recetas manuscritas o escaneadas. Para una cocina entera hay un plan de equipo: cuanto mayor el equipo, menor el precio por persona.'
+    "Onbeperkt recepten, zelf gedeelde mappen maken en je team uitnodigen, en AI-import van foto's, handgeschreven en gescande recepten. Voor een hele keuken is er een organisatie-abonnement: hoe groter de organisatie, hoe lager de prijs per persoon.",
+    'Unlimited recipes, creating your own shared folders and inviting your team, and AI import of photos, handwritten and scanned recipes. For a whole kitchen there is an organisation plan: the bigger the organisation, the lower the price per person.',
+    'Unbegrenzt Rezepte, eigene geteilte Ordner erstellen und dein Team einladen, und KI-Import von Fotos, handschriftlichen und gescannten Rezepten. Für eine ganze Küche gibt es ein Organisations-Abo: je größer die Organisation, desto niedriger der Preis pro Person.',
+    'Recetas ilimitadas, crear tus propias carpetas compartidas e invitar a tu equipo, e importación con IA de fotos y recetas manuscritas o escaneadas. Para una cocina entera hay un plan de organización: cuanto mayor la organización, menor el precio por persona.'
   ],
   [
     'Wat gebeurt er met mijn recepten als ik stop met Pro?',
@@ -3365,7 +3365,7 @@ export const patterns = [
   ["^(\\d+) van (\\d+) recepten$", "$1 of $2 recipes", "$1 von $2 Rezepten", "$1 de $2 recetas"],
   ["^(\\d+) recepten printen$", "Print $1 recipes", "$1 Rezepte drucken", "Imprimir $1 recetas"],
   ["^Geprint op (.+)$", "Printed on $1", "Gedruckt am $1", "Impreso el $1"],
-  ["^Je print met het logo van je team \\((.+)\\)\\. Dat logo stelt de eigenaar van het team in\\.$", "You print with your team's logo ($1). The team owner sets that logo.", "Du druckst mit dem Logo deines Teams ($1). Dieses Logo legt der Team-Inhaber fest.", "Imprimes con el logo de tu equipo ($1). El propietario del equipo configura ese logo."],
+  ["^Je print met het logo van je organisatie \\((.+)\\)\\. Dat logo stelt de eigenaar van de organisatie in\\.$", "You print with your organisation's logo ($1). The organisation owner sets that logo.", "Du druckst mit dem Logo deiner Organisation ($1). Dieses Logo legt der Inhaber der Organisation fest.", "Imprimes con el logo de tu organización ($1). El propietario de la organización configura ese logo."],
   ['^(\\d+) recepten$', '$1 recipes', '$1 Rezepte', '$1 recetas'],
   ['^(\\d+) recept$', '$1 recipe', '$1 Rezept', '$1 receta'],
   ['^(\\d+) favorieten$', '$1 favourites', '$1 Favoriten', '$1 favoritos'],
@@ -3624,8 +3624,8 @@ export const patterns = [
     '$1 nombres actualizados, $2 fallaron. Inténtalo de nuevo.'
   ],
   // ---- Gratis, Pro en teams (2026-10-22) ----
-  ['^Team (\\d+)$', 'Team $1', 'Team $1', 'Equipo $1'],
-  ['^Savour Pro · Team (\\d+)$', 'Savour Pro · Team $1', 'Savour Pro · Team $1', 'Savour Pro · Equipo $1'],
+  ['^Organisatie (\\d+)$', 'Organisation $1', 'Organisation $1', 'Organización $1'],
+  ['^Savour Pro · Organisatie (\\d+)$', 'Savour Pro · Organisation $1', 'Savour Pro · Organisation $1', 'Savour Pro · Organización $1'],
   [
     '^(\\d+) personen · (€[\\d,]+) per persoon$',
     '$1 people · $2 per person',
@@ -3652,7 +3652,7 @@ export const patterns = [
     'Savour Pro wurde für dich kostenlos bis $1 aktiviert.',
     'Savour Pro se ha activado gratis para ti hasta el $1.'
   ],
-  ['^Via je team: (.+)\\.$', 'Through your team: $1.', 'Über dein Team: $1.', 'A través de tu equipo: $1.'],
+  ['^Via je organisatie: (.+)\\.$', 'Through your organisation: $1.', 'Über deine Organisation: $1.', 'A través de tu organización: $1.'],
   [
     '^(\\d+) van (\\d+|∞) recepten\\. Met Savour Pro onbeperkt recepten, je eigen gedeelde mappen en AI-import\\.$',
     '$1 of $2 recipes. With Savour Pro: unlimited recipes, your own shared folders and AI import.',
@@ -3665,7 +3665,7 @@ export const patterns = [
     '$1 von $2 Plätzen belegt (du zählst mit). Teammitglieder haben Pro, sobald sie sich mit dieser E-Mail-Adresse anmelden.',
     '$1 de $2 plazas en uso (contándote a ti). Los miembros tienen Pro en cuanto inician sesión con ese correo.'
   ],
-  ['^(.+) heeft nu Savour Pro via je team$', '$1 now has Savour Pro through your team', '$1 hat jetzt Savour Pro über dein Team', '$1 ya tiene Savour Pro a través de tu equipo'],
+  ['^(.+) heeft nu Savour Pro via je organisatie$', '$1 now has Savour Pro through your organisation', '$1 hat jetzt Savour Pro über deine Organisation', '$1 ya tiene Savour Pro a través de tu organización'],
   [
     "^Word, PDF en tekst lees je gratis in \\(nog (\\d+) van (\\d+) recepten in je gratis account\\)\\. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro\\.$",
     'You import Word, PDF and text for free ($1 of $2 recipes left in your free account). Photos, handwritten and scanned recipes are read by AI: only in Savour Pro.',
@@ -3675,12 +3675,12 @@ export const patterns = [
   ["^Je ziet je recepten zoals ze op (.+) op dit toestel stonden. Wijzigen kan weer zodra je verbinding hebt.$","You are seeing your recipes as they were on this device on $1. You can edit again once you are back online.","Du siehst deine Rezepte so, wie sie am $1 auf diesem Gerät waren. Bearbeiten geht wieder, sobald du online bist.","Ves tus recetas tal como estaban en este dispositivo el $1. Podrás editar de nuevo cuando vuelvas a tener conexión."],
   // ---- Teams (2026-10-23) ----
   ["^(\\d+) van (\\d+) plekken in gebruik \\(jij telt mee\\)\\.$","$1 of $2 seats in use (including you).","$1 von $2 Plätzen belegt (du zählst mit).","$1 de $2 plazas en uso (contándote a ti)."],
-  ["^Via je team: (.+)\\. De eigenaar van het team beheert de plekken; je hoeft niets te betalen\\.$","Through your team: $1. The team owner manages the seats; you do not have to pay anything.","Über dein Team: $1. Der Team-Inhaber verwaltet die Plätze; du musst nichts bezahlen.","A través de tu equipo: $1. El propietario del equipo gestiona las plazas; no tienes que pagar nada."],
+  ["^Via je organisatie: (.+)\\. De eigenaar van de organisatie beheert de plekken; je hoeft niets te betalen\\.$","Through your organisation: $1. The organisation owner manages the seats; you do not have to pay anything.","Über deine Organisation: $1. Der Inhaber der Organisation verwaltet die Plätze; du musst nichts bezahlen.","A través de tu organización: $1. El propietario de la organización gestiona las plazas; no tienes que pagar nada."],
   ["^1 van (\\d+) plekken in gebruik\\. Voeg je collega's toe: zij krijgen een uitnodiging en hebben direct Savour Pro\\.$","1 of $1 seats in use. Add your colleagues: they get an invitation and have Savour Pro straight away.","1 von $1 Plätzen belegt. Füge deine Kollegen hinzu: Sie bekommen eine Einladung und haben sofort Savour Pro.","1 de $1 plazas en uso. Añade a tus compañeros: reciben una invitación y tienen Savour Pro al momento."],
   ["^(.+) heeft nu Savour Pro\\. We hebben een uitnodiging gestuurd\\.$","$1 now has Savour Pro. We sent an invitation.","$1 hat jetzt Savour Pro. Wir haben eine Einladung geschickt.","$1 ya tiene Savour Pro. Hemos enviado una invitación."],
   ["^(.+) heeft nu Savour Pro\\. De uitnodiging kon niet worden verstuurd; laat het je collega zelf weten\\.$","$1 now has Savour Pro. The invitation could not be sent; please let your colleague know yourself.","$1 hat jetzt Savour Pro. Die Einladung konnte nicht gesendet werden; sag es deinem Kollegen bitte selbst.","$1 ya tiene Savour Pro. No se pudo enviar la invitación; avisa tú a tu compañero."],
   ["^Je hebt (\\d+) plekken; jij telt zelf als eerste mee\\. Voeg je collega's toe op hun e-mailadres: zij krijgen een uitnodiging van ons en hebben Savour Pro zodra ze inloggen of zich aanmelden met dat adres\\.$","You have $1 seats; you count as the first one. Add your colleagues by email: they get an invitation from us and have Savour Pro as soon as they log in or sign up with that address.","Du hast $1 Plätze; du zählst als erster mit. Füge deine Kollegen per E-Mail hinzu: Sie bekommen eine Einladung von uns und haben Savour Pro, sobald sie sich mit dieser Adresse anmelden oder registrieren.","Tienes $1 plazas; tú cuentas como la primera. Añade a tus compañeros por correo: reciben una invitación nuestra y tienen Savour Pro en cuanto inician sesión o se registran con esa dirección."],
-  ["^Welkom bij het team van (.+)$","Welcome to the $1 team","Willkommen im Team von $1","Bienvenido al equipo de $1"],
+  ["^Welkom bij de organisatie (.+)$","Welcome to the organisation $1","Willkommen in der Organisation $1","Te damos la bienvenida a la organización $1"],
   ['^(\\d+) van (\\d+) recepten$', '$1 of $2 recipes', '$1 von $2 Rezepten', '$1 de $2 recetas'],
   ['^Savour Pro · nog 1 dag gratis$', 'Savour Pro · 1 free day left', 'Savour Pro · noch 1 Tag kostenlos', 'Savour Pro · queda 1 día gratis'],
   ['^Savour Pro · nog (\\d+) dagen gratis$', 'Savour Pro · $1 free days left', 'Savour Pro · noch $1 Tage kostenlos', 'Savour Pro · quedan $1 días gratis'],
@@ -3732,10 +3732,10 @@ export const patterns = [
   ],
   ['^Plek van (.+) vrijgeven\\?$', "Free up $1's seat?", 'Platz von $1 freigeben?', '¿Liberar la plaza de $1?'],
   [
-    '^Diegene houdt al zijn recepten, maar heeft geen Pro meer via je team\\.$',
-    'They keep all their recipes but no longer have Pro through your team.',
-    'Die Person behält alle Rezepte, hat aber kein Pro mehr über dein Team.',
-    'Conserva todas sus recetas, pero ya no tiene Pro a través de tu equipo.'
+    '^Diegene houdt al zijn recepten, maar heeft geen Pro meer via je organisatie\\.$',
+    'They keep all their recipes but no longer have Pro through your organisation.',
+    'Die Person behält alle Rezepte, hat aber kein Pro mehr über deine Organisation.',
+    'Conserva todas sus recetas, pero ya no tiene Pro a través de tu organización.'
   ],
   [
     '^Gelezen door de Savour-lezer: (\\d+) · nagelezen door de AI: (\\d+)$',

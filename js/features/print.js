@@ -1,5 +1,5 @@
 // Printen van recepten en mappen.
-// Met Pro of een team staat bovenaan het logo (links) en de naam van je restaurant (midden) (Instellingen → Abonnement en team).
+// Met Pro of een team staat bovenaan het logo (links) en de naam van je restaurant (midden) (Instellingen → Abonnement en organisatie).
 // Database: supabase/2026-10-24-logo-op-prints.sql. Zonder die SQL print Savour zoals voorheen, zonder logo.
 
 const PRINT_OPTIONS_KEY = 'savour_print_options';
@@ -334,7 +334,7 @@ async function renderPrintBrandSettings() {
     return;
   }
   if (s.source === 'team_member') {
-    host.innerHTML = `<p class="muted">Je print met het logo van je team (${esc(s.team?.name || '')}). Dat logo stelt de eigenaar van het team in.</p>`;
+    host.innerHTML = `<p class="muted">Je print met het logo van je organisatie (${esc(s.team?.name || '')}). Dat logo stelt de eigenaar van de organisatie in.</p>`;
     return;
   }
   if (!isPro()) {
@@ -348,7 +348,7 @@ async function renderPrintBrandSettings() {
   }
   const b = printBrandOwn || {};
   const name = b.name ?? (account?.organization || s.team?.name || '');
-  host.innerHTML = `<p class="muted">${s.source === 'team_owner' ? 'Dit logo staat op de prints van iedereen in je team.' : 'Dit logo staat bovenaan elke pagina die je print: het logo links, de naam in het midden.'}</p><div class="print-brand-setup"><div class="print-sheet-frame" id="printBrandPreview" aria-label="Voorbeeld van een geprinte pagina">${printSheetHtml({ name, logo: b.logo, bw: b.bw })}</div><div class="print-brand-fields"><div class="field"><label>Naam op de print</label><input id="printBrandName" value="${esc(name)}" placeholder="Bijv. Restaurant De Zwaan" maxlength="120" autocomplete="organization" oninput="previewPrintBrand()"></div><div class="actions"><label class="btn">${b.logo ? 'Ander logo kiezen' : 'Logo kiezen'}<input type="file" id="printBrandFile" accept="image/png,image/jpeg,image/webp" onchange="choosePrintLogo(this)" style="display:none"></label>${b.logo ? '<button class="btn" onclick="removePrintLogo()">Logo weghalen</button>' : ''}</div><label class="print-option"><input type="checkbox" id="printBrandBw"${b.bw ? ' checked' : ''} onchange="previewPrintBrand()"><span>Logo in zwart-wit printen (beter op een keukenprinter)</span></label><div class="actions"><button class="btn gold" onclick="savePrintBrand()">Opslaan</button></div></div></div>`;
+  host.innerHTML = `<p class="muted">${s.source === 'team_owner' ? 'Dit logo staat op de prints van iedereen in je organisatie.' : 'Dit logo staat bovenaan elke pagina die je print: het logo links, de naam in het midden.'}</p><div class="print-brand-setup"><div class="print-sheet-frame" id="printBrandPreview" aria-label="Voorbeeld van een geprinte pagina">${printSheetHtml({ name, logo: b.logo, bw: b.bw })}</div><div class="print-brand-fields"><div class="field"><label>Naam op de print</label><input id="printBrandName" value="${esc(name)}" placeholder="Bijv. Restaurant De Zwaan" maxlength="120" autocomplete="organization" oninput="previewPrintBrand()"></div><div class="actions"><label class="btn">${b.logo ? 'Ander logo kiezen' : 'Logo kiezen'}<input type="file" id="printBrandFile" accept="image/png,image/jpeg,image/webp" onchange="choosePrintLogo(this)" style="display:none"></label>${b.logo ? '<button class="btn" onclick="removePrintLogo()">Logo weghalen</button>' : ''}</div><label class="print-option"><input type="checkbox" id="printBrandBw"${b.bw ? ' checked' : ''} onchange="previewPrintBrand()"><span>Logo in zwart-wit printen (beter op een keukenprinter)</span></label><div class="actions"><button class="btn gold" onclick="savePrintBrand()">Opslaan</button></div></div></div>`;
 }
 
 // Nieuw gekozen logo, nog niet opgeslagen.

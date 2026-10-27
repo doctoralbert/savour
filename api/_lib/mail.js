@@ -29,25 +29,25 @@ const esc = v =>
 export function thankYouMail({ name, team, seats }) {
   const hi = name ? `Hoi ${esc(name.split(' ')[0])},` : 'Hoi,';
   const what = team
-    ? `Je team heeft nu Savour Pro, met ${seats} plekken. Jij telt zelf als eerste plek mee.`
+    ? `Je organisatie heeft nu Savour Pro, met ${seats} plekken. Jij telt zelf als eerste plek mee.`
     : "Je hebt nu Savour Pro: onbeperkt recepten, je eigen gedeelde mappen voor je team, en AI die je handgeschreven kladjes en foto's omzet in nette recepten.";
   // Teamaankoop: in drie stappen uitleggen hoe collega's Pro krijgen.
   const teamSteps = team
     ? [
-        'Open Savour en kies links in het menu <strong>Mijn team</strong> (op je telefoon: Mijn account → Abonnement).',
+        'Open Savour en kies links in het menu <strong>Mijn organisatie</strong> (op je telefoon: Mijn account → Abonnement).',
         `Vul het e-mailadres van een collega in. Je hebt ${seats} plekken, jij telt mee.`,
         'Je collega krijgt een uitnodiging van ons en heeft Savour Pro zodra die inlogt of zich aanmeldt met precies dat e-mailadres. Vertrekt iemand, dan geef je de plek met één klik vrij voor een ander.'
       ]
     : [];
   const teamHtml = team
-    ? `<p style="margin:0 0 10px;color:#e8ca8d;font-size:12px;letter-spacing:.2em;text-transform:uppercase">Zo werkt je team</p>${teamSteps
+    ? `<p style="margin:0 0 10px;color:#e8ca8d;font-size:12px;letter-spacing:.2em;text-transform:uppercase">Zo werkt je organisatie</p>${teamSteps
         .map(
           (s, i) =>
             `<p style="margin:0 0 10px"><strong style="color:#e8ca8d">${i + 1}.</strong> <span style="color:#d9d3c6">${s}</span></p>`
         )
         .join(
           ''
-        )}<p style="margin:16px 0 26px;text-align:center"><a href="https://savour.page/?team=1" style="display:inline-block;background:#e8ca8d;color:#111;text-decoration:none;padding:13px 24px;border-radius:999px;font-weight:bold">Team instellen</a></p>`
+        )}<p style="margin:16px 0 26px;text-align:center"><a href="https://savour.page/?team=1" style="display:inline-block;background:#e8ca8d;color:#111;text-decoration:none;padding:13px 24px;border-radius:999px;font-weight:bold">Organisatie instellen</a></p>`
     : '';
   const plans = [
     [
@@ -82,7 +82,7 @@ ${plans.map(([t, d]) => `<p style="margin:0 0 10px"><strong style="color:#eee8dc
 Bedankt voor je aankoop! Wat fijn dat je voor Savour Pro kiest. Savour is gemaakt door chefs, voor chefs, en met jouw steun kunnen we het platform elke week beter maken.
 
 ${what}
-${team ? `\nZo werkt je team:\n${teamSteps.map((s, i) => `${i + 1}. ${s.replace(/<[^>]+>/g, '')}`).join('\n')}\n\nTeam instellen: https://savour.page/?team=1` : '\nOpen Savour: https://savour.page'}
+${team ? `\nZo werkt je organisatie:\n${teamSteps.map((s, i) => `${i + 1}. ${s.replace(/<[^>]+>/g, '')}`).join('\n')}\n\nOrganisatie instellen: https://savour.page/?team=1` : '\nOpen Savour: https://savour.page'}
 
 Waar we aan werken:
 ${plans.map(([t, d]) => `- ${t}: ${d}`).join('\n')}
@@ -101,7 +101,7 @@ Savour · KvK 89674871 · Nederland · contact@savour.page`;
 export function teamInviteMail({ team, inviter, origin = 'https://savour.page' }) {
   const who = inviter ? `${esc(inviter.split(' ')[0])} heeft je` : 'Je bent';
   const whoText = inviter ? `${inviter.split(' ')[0]} heeft je` : 'Je bent';
-  const teamName = esc(team || 'je team');
+  const teamName = esc(team || 'je organisatie');
   const btn = (href, label, gold) =>
     `<a href="${href}" style="display:inline-block;margin:4px;${gold ? 'background:#e8ca8d;color:#111' : 'border:1px solid #e8ca8d;color:#e8ca8d'};text-decoration:none;padding:12px 22px;border-radius:999px;font-weight:bold">${label}</a>`;
   const html = `<!doctype html><html lang="nl"><body style="margin:0;background:#f5f4ef;font-family:Helvetica,Arial,sans-serif;color:#151716">
@@ -110,26 +110,26 @@ export function teamInviteMail({ team, inviter, origin = 'https://savour.page' }
 <tr><td style="padding:34px 34px 8px;text-align:center;font-family:Georgia,serif;letter-spacing:.34em;color:#e8ca8d;font-size:20px">SAVOUR</td></tr>
 <tr><td style="padding:8px 34px 30px;color:#eee8dc;font-size:15px;line-height:1.65">
 <h1 style="font-family:Georgia,serif;font-weight:normal;font-size:26px;color:#eee8dc;margin:18px 0 18px">Je hebt Savour Pro via ${teamName}</h1>
-<p style="margin:0 0 14px">${who} ${inviter ? 'toegevoegd aan' : 'toegevoegd aan'} het Savour-team van <strong>${teamName}</strong>. Daarmee heb je Savour Pro: onbeperkt recepten, gedeelde mappen met je collega's en AI die handgeschreven kladjes omzet in nette recepten.</p>
+<p style="margin:0 0 14px">${who} ${inviter ? 'toegevoegd aan' : 'toegevoegd aan'} <strong>${teamName}</strong> in Savour. Daarmee heb je Savour Pro: onbeperkt recepten, gedeelde mappen met je collega's en AI die handgeschreven kladjes omzet in nette recepten.</p>
 <p style="margin:0 0 10px;color:#e8ca8d;font-size:12px;letter-spacing:.2em;text-transform:uppercase">Zo begin je</p>
 <p style="margin:0 0 10px"><strong style="color:#e8ca8d">1.</strong> <span style="color:#d9d3c6">Nog geen account? Maak er een aan met <strong>dit e-mailadres</strong>. Heb je al een account met dit adres, log dan gewoon in.</span></p>
-<p style="margin:0 0 22px"><strong style="color:#e8ca8d">2.</strong> <span style="color:#d9d3c6">Je hebt direct Pro. Je hoeft niets te betalen; dat regelt je team.</span></p>
+<p style="margin:0 0 22px"><strong style="color:#e8ca8d">2.</strong> <span style="color:#d9d3c6">Je hebt direct Pro. Je hoeft niets te betalen; dat regelt je organisatie.</span></p>
 <p style="margin:0 0 22px;text-align:center">${btn(`${origin}/?auth=signup`, 'Account aanmaken', true)}${btn(`${origin}/?auth=login`, 'Inloggen', false)}</p>
-<p style="margin:0;color:#b9c0ba">Gebruik je liever een ander e-mailadres? Vraag dan aan wie je heeft toegevoegd om dat adres in het team te zetten.</p>
+<p style="margin:0;color:#b9c0ba">Gebruik je liever een ander e-mailadres? Vraag dan aan wie je heeft toegevoegd om dat adres aan de organisatie toe te voegen.</p>
 <p style="margin:22px 0 0">Veel kookplezier,<br>Het Savour-team</p>
 </td></tr>
 <tr><td style="padding:16px 34px 26px;border-top:1px solid #243031;color:#87918b;font-size:12px;line-height:1.6">Savour is de receptenapp voor de professionele keuken. Je ontvangt deze mail omdat iemand je e-mailadres aan een Savour-team heeft toegevoegd.<br>Savour · KvK 89674871 · Nederland · contact@savour.page</td></tr>
 </table></td></tr></table></body></html>`;
-  const text = `${whoText} toegevoegd aan het Savour-team van ${team || 'je team'}. Daarmee heb je Savour Pro.
+  const text = `${whoText} toegevoegd aan ${team || 'je organisatie'} in Savour. Daarmee heb je Savour Pro.
 
 Zo begin je:
 1. Nog geen account? Maak er een aan met dit e-mailadres: ${origin}/?auth=signup
    Heb je al een account met dit adres? Log dan in: ${origin}/?auth=login
-2. Je hebt direct Pro. Je hoeft niets te betalen; dat regelt je team.
+2. Je hebt direct Pro. Je hoeft niets te betalen; dat regelt je organisatie.
 
-Gebruik je liever een ander e-mailadres? Vraag dan aan wie je heeft toegevoegd om dat adres in het team te zetten.
+Gebruik je liever een ander e-mailadres? Vraag dan aan wie je heeft toegevoegd om dat adres aan de organisatie toe te voegen.
 
 Het Savour-team
 Savour · KvK 89674871 · Nederland · contact@savour.page`;
-  return { subject: `Je hebt Savour Pro via ${team || 'je team'}`, html, text };
+  return { subject: `Je hebt Savour Pro via ${team || 'je organisatie'}`, html, text };
 }

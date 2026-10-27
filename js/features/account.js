@@ -211,7 +211,7 @@ async function saveCrop() {
   closeCrop();
 }
 
-// Instellingen in delen: Account · Abonnement en team · Weergave · Categorieën · Opschonen.
+// Instellingen in delen: Account · Abonnement en organisatie · Weergave · Categorieën · Opschonen.
 let settingsTab = 'account';
 
 function showSettingsTab(tab) {

@@ -15,9 +15,9 @@ export const DE = {
   legacy: {
     pro: {
       slug: 'de/preise',
-      title: 'Preise — Savour Pro und Team-Abos',
+      title: 'Preise — Savour Pro und Organisations-Abos',
       h1: 'Preise',
-      desc: 'Kostenlos starten mit bis zu 100 Rezepten. Savour Pro ab 2,99 € pro Monat: unbegrenzt Rezepte, KI für handschriftliche Notizen und geteilte Ordner. Auch Team-Abos.'
+      desc: 'Kostenlos starten mit bis zu 100 Rezepten. Savour Pro ab 2,99 € pro Monat: unbegrenzt Rezepte, KI für handschriftliche Notizen und geteilte Ordner. Auch Organisations-Abos.'
     },
     faq: {
       slug: 'de/faq',
@@ -32,12 +32,12 @@ export const DE = {
     contact: {
       slug: 'de/kontakt',
       title: 'Kontakt — Savour',
-      desc: 'Fragen zu Savour, zur Rezeptverwaltung für dein Restaurant oder zu einem Team-Abo? Schreib uns über das Formular oder an contact@savour.page.'
+      desc: 'Fragen zu Savour, zur Rezeptverwaltung für dein Restaurant oder zu einem Organisations-Abo? Schreib uns über das Formular oder an contact@savour.page.'
     },
     terms: {
       slug: 'de/agb',
       title: 'Allgemeine Geschäftsbedingungen — Savour',
-      desc: 'Die AGB von Savour: kostenloses Konto, Savour Pro, Team-Abos, Kündigung und Widerrufsrecht.'
+      desc: 'Die AGB von Savour: kostenloses Konto, Savour Pro, Organisations-Abos, Kündigung und Widerrufsrecht.'
     },
     privacy: {
       slug: 'de/datenschutz',
@@ -182,7 +182,7 @@ export const DE = {
         ['Eine Version für alle', 'Passe eine Sauce für das neue Menü an, und alle im geteilten Ordner arbeiten sofort mit der neuen Version.'],
         ['Rechte pro Person', 'Du verwaltest den Ordner. Dein Sous-Chef oder Chef de Partie kann Rezepte hinzufügen und bearbeiten. Commis und Praktikanten können lesen, aber nichts ändern.'],
         ['Auf dem eigenen Handy', 'Kein gemeinsamer Ordner voller Flecken mehr. Jedes Mitglied der Brigade öffnet die Rezepte des Postens auf dem eigenen Handy, mit großer Schrift im Kochmodus.'],
-        ['Neue Leute schneller eingearbeitet', 'Praktikanten und neue Köche lesen, wie es hier gemacht wird, statt im Service fragen zu müssen. Mitglied eines geteilten Ordners zu sein ist kostenlos; mit einem Team-Abo hat jeder Savour Pro.']
+        ['Neue Leute schneller eingearbeitet', 'Praktikanten und neue Köche lesen, wie es hier gemacht wird, statt im Service fragen zu müssen. Mitglied eines geteilten Ordners zu sein ist kostenlos; mit einem Organisations-Abo hat jeder Savour Pro.']
       ]
     }
   },
@@ -383,7 +383,7 @@ export const DE = {
         ['Bestimme, was jeder darf', 'Es gibt drei Rollen. Der Eigentümer verwaltet den Ordner. Ein Bearbeiter kann Rezepte hinzufügen und ändern. Ein Leser kann alles lesen, aber nichts ändern. Du entscheidest, wer die Rezepte anfasst.'],
         ['Ein einzelnes Rezept schicken', 'Willst du ein Rezept teilen, etwa mit einem Kollegen in einem anderen Restaurant oder einem Lieferanten? Teile es mit einem Link. Der Empfänger sieht das Rezept sauber, ohne Konto.'],
         ['Kollegen, die mitbauen', 'Ein geteilter Ordner muss nicht nur von dir kommen. Gib deinem Sous-Chef Bearbeitungsrechte und lass das Team selbst Rezepte hinzufügen. Das Rezeptbuch wächst mit der Küche.'],
-        ['Was es kostet', 'Mitglied eines geteilten Ordners zu sein ist kostenlos. Selbst einen geteilten Ordner anzulegen ist Teil von Savour Pro. Mit einem Team-Abo hat jeder in deiner Küche Pro.']
+        ['Was es kostet', 'Mitglied eines geteilten Ordners zu sein ist kostenlos. Selbst einen geteilten Ordner anzulegen ist Teil von Savour Pro. Mit einem Organisations-Abo hat jeder in deiner Küche Pro.']
       ],
       outro: 'Geteilte Ordner mit Rollen findest du in Savour unter „Geteilte Ordner“.'
     },
@@ -514,7 +514,7 @@ export const DE = {
       lead: 'Auch mit allen Rezepten auf dem Handy bleibt Papier in vielen Küchen wichtig. Dann soll es auch nach deinem Restaurant aussehen.',
       sections: [
         ['Dein Logo und Name auf jeder Seite', 'Mit Savour Pro stellst du einmal Logo und Name deines Restaurants ein. Danach stehen sie oben auf jeder gedruckten Seite: das Logo links, der Name in der Mitte. Für Küchendrucker kannst du das Logo in Schwarzweiß drucken lassen.'],
-        ['Für das ganze Team', 'Mit einem Team-Abo gilt das Logo des Eigentümers für alle im Team. Jeder druckt also im selben Stil, wer auch immer druckt. Bei einem geteilten Ordner gilt das Logo des Restaurants, das den Ordner verwaltet.'],
+        ['Für das ganze Team', 'Mit einem Organisations-Abo gilt das Logo des Eigentümers für alle im Team. Jeder druckt also im selben Stil, wer auch immer druckt. Bei einem geteilten Ordner gilt das Logo des Restaurants, das den Ordner verwaltet.'],
         ['Ein ganzer Ordner als Buch', 'Druckst du einen Ordner, kannst du ein Deckblatt mit Logo, Ordnername und Inhaltsverzeichnis hinzufügen. Wähle A4 für den Küchenordner oder A5 für eine kleine Mappe am Pass.'],
         ['Immer erkennbar aktuell', 'Unten auf jeder Seite steht das Druckdatum. So sieht jeder in der Küche, ob eine Mappe noch die neueste Version ist. Kopf- und Fußzeilen des Browsers fallen weg, damit die Seite ruhig bleibt.'],
         ['Selbst wählen, was du druckst', 'In einem geteilten Ordner wählst du vor dem Drucken selbst die Rezepte aus, nach Ordnern gruppiert. Also nur das, was für diesen Posten oder diese Veranstaltung gebraucht wird.']

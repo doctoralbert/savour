@@ -420,7 +420,7 @@ export const AUDIENCES = [
         ['Eén versie voor iedereen', 'Pas je een saus aan voor het nieuwe menu, dan werkt iedereen in de gedeelde map direct met de nieuwe versie.'],
         ['Rechten per persoon', 'Jij beheert de map. Je sous-chef of chef de partie mag recepten toevoegen en aanpassen. Commis en stagiairs kunnen meekijken, maar niets veranderen.'],
         ['Op je eigen telefoon', 'Geen gedeelde map met vlekken meer. Elk lid van de brigade opent de recepten van de partie op de eigen telefoon, met grote letters in de kookmodus.'],
-        ['Nieuwe mensen sneller ingewerkt', 'Stagiairs en nieuwe koks lezen hoe het hier gedaan wordt, in plaats van het te moeten vragen tijdens de service. Lid zijn van een gedeelde map is gratis; met een teamabonnement krijgt iedereen Savour Pro.']
+        ['Nieuwe mensen sneller ingewerkt', 'Stagiairs en nieuwe koks lezen hoe het hier gedaan wordt, in plaats van het te moeten vragen tijdens de service. Lid zijn van een gedeelde map is gratis; met een organisatie-abonnement krijgt iedereen Savour Pro.']
       ]
     },
     en: {
@@ -435,7 +435,7 @@ export const AUDIENCES = [
         ['One version for everyone', 'Adjust a sauce for the new menu and everyone in the shared folder works with the new version straight away.'],
         ['Rights per person', 'You manage the folder. Your sous-chef or chef de partie can add and edit recipes. Commis and interns can view but not change anything.'],
         ['On your own phone', 'No more shared binder full of stains. Every member of the brigade opens the section’s recipes on their own phone, with large text in cook mode.'],
-        ['New people up to speed faster', 'Interns and new cooks read how things are done here, instead of having to ask during service. Being a member of a shared folder is free; with a team plan everyone gets Savour Pro.']
+        ['New people up to speed faster', 'Interns and new cooks read how things are done here, instead of having to ask during service. Being a member of a shared folder is free; with a organisation plan everyone gets Savour Pro.']
       ]
     }
   }
@@ -545,7 +545,7 @@ export const HOME = {
     soonTitle: 'Waar we aan werken',
     soonLink: 'Bekijk wat er komt',
     priceTitle: 'Gratis beginnen',
-    price: 'Tot 100 recepten gratis, met de Savour-lezer voor Word, PDF en tekst. Savour Pro kost €2,99 per maand of €29 per jaar: onbeperkt recepten, AI voor handgeschreven kladjes en foto’s, en je eigen gedeelde mappen. Teams vanaf €1,20 per persoon.',
+    price: 'Tot 100 recepten gratis, met de Savour-lezer voor Word, PDF en tekst. Savour Pro kost €2,99 per maand of €29 per jaar: onbeperkt recepten, AI voor handgeschreven kladjes en foto’s, en je eigen gedeelde mappen. Organisaties vanaf €1,20 per persoon.',
     priceLink: 'Bekijk de prijzen',
     faqTitle: 'Vragen over Savour',
     faq: [
@@ -575,7 +575,7 @@ export const HOME = {
     soonTitle: 'What we are working on',
     soonLink: 'See what is coming',
     priceTitle: 'Start for free',
-    price: 'Up to 100 recipes free, with the Savour reader for Word, PDF and text. Savour Pro costs €2.99 per month or €29 per year: unlimited recipes, AI for handwritten notes and photos, and your own shared folders. Teams from €1.20 per person.',
+    price: 'Up to 100 recipes free, with the Savour reader for Word, PDF and text. Savour Pro costs €2.99 per month or €29 per year: unlimited recipes, AI for handwritten notes and photos, and your own shared folders. Organisations from €1.20 per person.',
     priceLink: 'See pricing',
     faqTitle: 'Questions about Savour',
     faq: [

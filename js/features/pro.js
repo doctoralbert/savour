@@ -150,9 +150,13 @@ async function choosePro(plan) {
   if (isTeam) {
     if (savourPlan.team?.owner && savourPlan.team.active) return openProPortal();
     organization = String(
-      (await askText('Naam van je organisatie\n\nDeze naam zien je teamleden.', account.organization || '', {
-        confirmLabel: 'Verder naar betalen'
-      })) || ''
+      (await askText(
+        'Naam van je organisatie\n\nDeze naam zien de leden van je organisatie.',
+        account.organization || '',
+        {
+          confirmLabel: 'Verder naar betalen'
+        }
+      )) || ''
     ).trim();
     if (!organization) return;
   }
@@ -248,7 +252,7 @@ function renderProPage(host) {
     const month = proPlanAvailable(`${t.id}_month`),
       year = proPlanAvailable(`${t.id}_year`);
     if (!month && !year) return '';
-    return `<div class="pro-price pro-team${t.seats === 10 ? ' is-featured' : ''}">${t.seats === 10 ? '<span class="pro-badge">Meest gekozen</span>' : ''}<h3>Team ${t.seats}</h3><div class="pro-amount"><strong>${t.month}</strong><span>per maand</span></div><p class="muted">${t.seats} personen · ${t.perPerson} per persoon<br>of ${t.year} per jaar</p>${month ? `<button type="button" class="btn ${t.seats === 10 ? 'gold' : ''}" data-pro-choose onclick="choosePro('${t.id}_month')">Kies maandelijks</button>` : ''}${year ? `<button type="button" class="btn pro-year-link" data-pro-choose onclick="choosePro('${t.id}_year')">Kies jaarlijks</button>` : ''}</div>`;
+    return `<div class="pro-price pro-team${t.seats === 10 ? ' is-featured' : ''}">${t.seats === 10 ? '<span class="pro-badge">Meest gekozen</span>' : ''}<h3>Organisatie ${t.seats}</h3><div class="pro-amount"><strong>${t.month}</strong><span>per maand</span></div><p class="muted">${t.seats} personen · ${t.perPerson} per persoon<br>of ${t.year} per jaar</p>${month ? `<button type="button" class="btn ${t.seats === 10 ? 'gold' : ''}" data-pro-choose onclick="choosePro('${t.id}_month')">Kies maandelijks</button>` : ''}${year ? `<button type="button" class="btn pro-year-link" data-pro-choose onclick="choosePro('${t.id}_year')">Kies jaarlijks</button>` : ''}</div>`;
   };
   const teamCards = TEAM_PLANS.map(teamCard).join('');
   const current =
@@ -264,8 +268,8 @@ function renderProPage(host) {
     <p class="pro-pay muted">Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Er wordt geen btw gerekend (kleineondernemersregeling). Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.</p>
     ${
       teamCards
-        ? `<h2>Savour voor je hele team</h2>
-    <p>Met een teamabonnement krijgt iedereen in je keuken Savour Pro. Hoe groter je team, hoe lager de prijs per persoon. Je nodigt je collega's uit op hun e-mailadres en kunt plekken altijd aan iemand anders geven.</p>
+        ? `<h2>Savour voor je hele organisatie</h2>
+    <p>Met een organisatie-abonnement krijgt iedereen in je keuken Savour Pro. Hoe groter je organisatie, hoe lager de prijs per persoon. Je nodigt je collega's uit op hun e-mailadres en kunt plekken altijd aan iemand anders geven.</p>
     <div class="pro-prices pro-team-prices">${teamCards}</div>
     <p class="pro-pay muted">Groter dan 25 personen of meerdere vestigingen? Neem contact op voor een prijs op maat.</p>`
         : ''
@@ -290,8 +294,8 @@ function renderProPage(host) {
     <p>Iedereen gebruikt de <strong>Savour-lezer</strong>: die leest Word, PDF en tekst direct en gratis in. Met <strong>Savour Pro</strong> leest daarnaast de AI wat de lezer niet zeker weet: foto's, handgeschreven kladjes, gescande pagina's en documenten zonder duidelijke indeling. De AI verzint nooit hoeveelheden of stappen; je controleert elk recept voordat het wordt opgeslagen.</p>
     <h2>Vragen</h2>
     <p><strong>Wat gebeurt er als ik stop met Pro?</strong><br>Je houdt al je recepten en gedeelde mappen. Je kunt alleen geen nieuwe recepten meer toevoegen boven de ${FREE_RECIPE_LIMIT} en geen nieuwe gedeelde mappen maken.</p>
-    <p><strong>Hoe krijgen mijn teamleden Pro?</strong><br>Je voegt ze toe via Mijn team in het menu, of op je telefoon via Mijn account → Abonnement. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.</p>
-    <p><strong>Moeten mijn teamleden ook betalen?</strong><br>Nee. Lid zijn van een gedeelde map is gratis. Wil je dat iedereen in je keuken Pro heeft, kies dan een teamabonnement.</p>
+    <p><strong>Hoe krijgen de leden van mijn organisatie Pro?</strong><br>Je voegt ze toe via Mijn organisatie in het menu, of op je telefoon via Mijn account → Abonnement. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.</p>
+    <p><strong>Moeten de leden van mijn organisatie ook betalen?</strong><br>Nee. Lid zijn van een gedeelde map is gratis. Wil je dat iedereen in je keuken Pro heeft, kies dan een organisatie-abonnement.</p>
     <p><strong>Wat telt als een AI-import?</strong><br>Elke foto, gescande pagina of elk deel van een bestand dat de AI leest (ongeveer 8 recepten per deel). Wat de Savour-lezer zelf zeker leest, telt niet mee.</p>
     <p><strong>Wat als ik over de 500 heen ga?</strong><br>Dan leest de Savour-lezer verder en kun je de rest volgende maand met AI doen. Er komen nooit extra kosten bij.</p>
     <p><strong>Hoe zeg ik op?</strong><br>In Mijn account → Abonnement → Abonnement beheren. Daar wijzig je ook je betaalmethode en download je facturen.</p>`;
@@ -308,7 +312,7 @@ function renderProNav() {
   if (!label) return;
   const paid = savourPlan.hasCustomer && ['subscription', 'team_owner'].includes(savourPlan.source);
   label.textContent = paid ? 'Abonnement beheren' : hasOwnPro() ? 'Mijn abonnement' : 'Savour Pro';
-  // "Mijn team" in het menu: alleen als je eigenaar of lid van een team bent. De eigenaar ziet hoeveel plekken bezet zijn.
+  // "Mijn organisatie" in het menu: alleen als je eigenaar of lid van een team bent. De eigenaar ziet hoeveel plekken bezet zijn.
   const team = savourPlan.team;
   const teamBtn = $('navTeam');
   if (teamBtn) {
@@ -334,14 +338,14 @@ async function showTeamReady() {
   if (!t?.owner) return;
   if (
     await askConfirm(
-      `Je team staat klaar\n\nJe hebt ${t.seats} plekken; jij telt zelf als eerste mee. Voeg je collega's toe op hun e-mailadres: zij krijgen een uitnodiging van ons en hebben Savour Pro zodra ze inloggen of zich aanmelden met dat adres.`,
+      `Je organisatie staat klaar\n\nJe hebt ${t.seats} plekken; jij telt zelf als eerste mee. Voeg je collega's toe op hun e-mailadres: zij krijgen een uitnodiging van ons en hebben Savour Pro zodra ze inloggen of zich aanmelden met dat adres.`,
       { confirmLabel: "Collega's toevoegen" }
     )
   )
     openTeamNav();
 }
 
-// Eén keer per team: een nieuw teamlid laten weten dat hij of zij Pro heeft via het team.
+// Eén keer per organisatie: een nieuw lid laten weten dat die Pro heeft via de organisatie.
 async function greetTeamMember() {
   const t = savourPlan.team;
   if (demoMode || savourPlan.source !== 'team_member' || !t?.id) return;
@@ -353,7 +357,7 @@ async function greetTeamMember() {
     return;
   }
   await askConfirm(
-    `Welkom bij het team van ${t.name}\n\nJe hebt Savour Pro via je team: onbeperkt recepten, gedeelde mappen en AI voor handgeschreven kladjes. Je hoeft niets te betalen; dat regelt je team.`,
+    `Welkom bij de organisatie ${t.name}\n\nJe hebt Savour Pro via je organisatie: onbeperkt recepten, gedeelde mappen en AI voor handgeschreven kladjes. Je hoeft niets te betalen; dat regelt je organisatie.`,
     { confirmLabel: 'Aan de slag' }
   );
 }
@@ -396,7 +400,7 @@ async function renderAdminNav() {
   }
 }
 
-// ---- Abonnement en team in Instellingen ----
+// ---- Abonnement en organisatie in Instellingen ----
 
 function renderPlanSettings() {
   renderProNav();
@@ -413,9 +417,9 @@ function renderPlanSettings() {
   else if (s.source === 'subscription')
     row = `<b>Savour Pro</b><small>${esc(s.cancelAtEnd ? `Opgezegd. Je houdt Pro tot ${until}.` : `${s.plan === 'year' ? 'Jaarabonnement' : 'Maandabonnement'} · verlengt op ${until}`)}</small>${ai}`;
   else if (s.source === 'team_owner')
-    row = `<b>Savour Pro · Team ${esc(s.team.seats)}</b><small>${esc(s.team.name)}${s.team.cancel_at_period_end ? ` · opgezegd, loopt tot ${esc(formatProDate(new Date(s.team.period_end)))}` : ''}</small>${ai}`;
+    row = `<b>Savour Pro · Organisatie ${esc(s.team.seats)}</b><small>${esc(s.team.name)}${s.team.cancel_at_period_end ? ` · opgezegd, loopt tot ${esc(formatProDate(new Date(s.team.period_end)))}` : ''}</small>${ai}`;
   else if (s.source === 'team_member')
-    row = `<b>Savour Pro</b><small>Via je team: ${esc(s.team.name)}. De eigenaar van het team beheert de plekken; je hoeft niets te betalen.</small>${ai}`;
+    row = `<b>Savour Pro</b><small>Via je organisatie: ${esc(s.team.name)}. De eigenaar van de organisatie beheert de plekken; je hoeft niets te betalen.</small>${ai}`;
   else if (s.source === 'trial')
     row = `<b>Savour Pro · gratis proefperiode</b><small>Tot ${esc(formatProDate(s.trialEnd))}. ${recipes.length} van ${s.recipeLimit} recepten; onbeperkt bewaren kan met Savour Pro. Daarna ga je vanzelf terug naar gratis, tenzij je zelf Pro kiest.</small>${ai}`;
   else
@@ -432,13 +436,13 @@ function renderTeamManager(team) {
   const list = members
     .map(
       email =>
-        `<div class="member"><div><b translate="no">${esc(email)}</b><small class="muted">Teamlid · Savour Pro</small></div><button class="btn small" onclick="removeTeamMember('${escJs(email)}')">Plek vrijgeven</button></div>`
+        `<div class="member"><div><b translate="no">${esc(email)}</b><small class="muted">Lid · Savour Pro</small></div><button class="btn small" onclick="removeTeamMember('${escJs(email)}')">Plek vrijgeven</button></div>`
     )
     .join('');
   const full = used >= team.seats;
-  return `<div class="team-manager" id="teamManager"><h4>Je team</h4><p class="muted">${used} van ${team.seats} plekken in gebruik (jij telt mee).</p><ol class="team-how"><li>Vul het e-mailadres van een collega in en kies Toevoegen.</li><li>Je collega krijgt een uitnodiging van ons per mail.</li><li>Je collega heeft Savour Pro zodra die inlogt of zich aanmeldt met precies dat e-mailadres. Vertrekt iemand, geef dan de plek vrij voor een ander.</li></ol><div class="member"><div><b translate="no">${esc(currentUser?.email || '')}</b><small class="muted">Eigenaar</small></div></div>${list}${
+  return `<div class="team-manager" id="teamManager"><h4>Je organisatie</h4><p class="muted">${used} van ${team.seats} plekken in gebruik (jij telt mee).</p><ol class="team-how"><li>Vul het e-mailadres van een collega in en kies Toevoegen.</li><li>Je collega krijgt een uitnodiging van ons per mail.</li><li>Je collega heeft Savour Pro zodra die inlogt of zich aanmeldt met precies dat e-mailadres. Vertrekt iemand, geef dan de plek vrij voor een ander.</li></ol><div class="member"><div><b translate="no">${esc(currentUser?.email || '')}</b><small class="muted">Eigenaar</small></div></div>${list}${
     full
-      ? '<p class="muted">Alle plekken zijn bezet. Een groter team kies je via Abonnement beheren.</p>'
+      ? '<p class="muted">Alle plekken zijn bezet. Een grotere organisatie kies je via Abonnement beheren.</p>'
       : '<div class="team-add"><input id="teamMemberEmail" type="email" placeholder="naam@restaurant.nl" autocomplete="off"><button class="btn gold" onclick="addTeamMember()">Toevoegen</button></div>'
   }</div>`;
 }
@@ -451,10 +455,10 @@ async function addTeamMember() {
     const msg = String(error.message || '');
     return toast(
       /team_full/.test(msg)
-        ? 'Alle plekken in je team zijn bezet.'
+        ? 'Alle plekken in je organisatie zijn bezet.'
         : /bad_email/.test(msg)
           ? 'Vul een geldig e-mailadres in.'
-          : 'Teamlid kon niet worden toegevoegd.'
+          : 'Lid kon niet worden toegevoegd.'
     );
   }
   await loadPlanState();
@@ -476,7 +480,7 @@ async function addTeamMember() {
 async function removeTeamMember(email) {
   if (
     !(await askConfirm(
-      `Plek van ${email} vrijgeven?\n\nDiegene houdt al zijn recepten, maar heeft geen Pro meer via je team.`,
+      `Plek van ${email} vrijgeven?\n\nDiegene houdt al zijn recepten, maar heeft geen Pro meer via je organisatie.`,
       { confirmLabel: 'Plek vrijgeven' }
     ))
   )
@@ -502,7 +506,7 @@ function renderRecipeProHint() {
   // Teameigenaar die nog niemand heeft toegevoegd: herinnering om collega's toe te voegen.
   const team = savourPlan.team;
   if (!demoMode && team?.owner && team.active && !(team.members || []).length && Date.now() - hiddenAt > 7 * 86400000) {
-    host.innerHTML = `<div class="recipe-pro-hint"><b>Je team</b><span>1 van ${esc(team.seats)} plekken in gebruik. Voeg je collega's toe: zij krijgen een uitnodiging en hebben direct Savour Pro.</span><button class="btn small gold" onclick="openTeamNav()">Collega's toevoegen</button><button class="recipe-pro-hint-close" aria-label="Verbergen" title="Verbergen" onclick="hideRecipeProHint()">×</button></div>`;
+    host.innerHTML = `<div class="recipe-pro-hint"><b>Je organisatie</b><span>1 van ${esc(team.seats)} plekken in gebruik. Voeg je collega's toe: zij krijgen een uitnodiging en hebben direct Savour Pro.</span><button class="btn small gold" onclick="openTeamNav()">Collega's toevoegen</button><button class="recipe-pro-hint-close" aria-label="Verbergen" title="Verbergen" onclick="hideRecipeProHint()">×</button></div>`;
     return;
   }
   const show = !demoMode && !savourPlan.unlimited && Date.now() - hiddenAt > 7 * 86400000;

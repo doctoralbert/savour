@@ -115,8 +115,8 @@ const HELP_TOPICS = {
         'Print al je recepten in één keer in de printopmaak van Savour. Met Savour Pro download je ze ook naar Word of als back-up.'
       ],
       [
-        'Abonnement en team',
-        'Bekijk of beheer je Savour Pro of teamabonnement, nodig je team uit en stel het logo voor je prints in.'
+        'Abonnement en organisatie',
+        'Bekijk of beheer je Savour Pro of organisatie-abonnement, nodig je organisatie uit en stel het logo voor je prints in.'
       ],
       ['Weergave', 'Kies het donkere of lichte thema; je keuze wordt bewaard in je account.'],
       ['Categorieën', 'Beheer je eigen categorieën en hun trefwoorden.'],

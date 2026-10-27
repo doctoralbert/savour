@@ -330,7 +330,7 @@ export const BLOG = [
         ],
         [
           "Voor je hele team",
-          "Met een teamabonnement geldt het logo van de eigenaar voor iedereen in het team. Iedereen print dus in dezelfde stijl, wie er ook print. Bij een gedeelde map geldt het logo van het restaurant dat de map beheert."
+          "Met een organisatie-abonnement geldt het logo van de eigenaar voor iedereen in het team. Iedereen print dus in dezelfde stijl, wie er ook print. Bij een gedeelde map geldt het logo van het restaurant dat de map beheert."
         ],
         [
           "Een hele map als boek",
@@ -345,7 +345,7 @@ export const BLOG = [
           "In een gedeelde map kies je vóór het printen zelf welke recepten je wilt, gegroepeerd per map. Alleen wat nodig is voor die partie of dat evenement."
         ]
       ],
-      outro: "Printen met je eigen logo is onderdeel van Savour Pro. Je stelt het in onder Instellingen → Abonnement en team."
+      outro: "Printen met je eigen logo is onderdeel van Savour Pro. Je stelt het in onder Instellingen → Abonnement en organisatie."
     },
     en: {
       slug: "en/blog/recipe-book-with-your-logo",
@@ -360,7 +360,7 @@ export const BLOG = [
         ],
         [
           "For your whole team",
-          "With a team plan the owner’s logo applies to everyone in the team. So everyone prints in the same style, whoever prints. In a shared folder the logo of the restaurant that manages the folder is used."
+          "With a organisation plan the owner’s logo applies to everyone in the team. So everyone prints in the same style, whoever prints. In a shared folder the logo of the restaurant that manages the folder is used."
         ],
         [
           "A whole folder as a book",
@@ -643,7 +643,7 @@ export const BLOG = [
         ['Kies per persoon wat mag', 'Er zijn drie rollen. De eigenaar beheert de map. Een bewerker mag recepten toevoegen en aanpassen. Een kijker kan alles lezen, maar niets veranderen. Zo bepaal jij wie aan de recepturen komt.'],
         ['Eén recept doorsturen', 'Wil je één recept delen, bijvoorbeeld met een collega in een andere zaak of een leverancier? Deel het met een link. De ontvanger ziet het recept netjes, zonder account.'],
         ['Collega’s die meebouwen', 'Een gedeelde map hoeft niet alleen van jou te komen. Geef je sous-chef bewerkrechten en laat het team zelf recepten toevoegen. Zo groeit het receptenboek mee met de keuken.'],
-        ['Wat het kost', 'Lid zijn van een gedeelde map is gratis. Zelf een gedeelde map maken is onderdeel van Savour Pro. Met een teamabonnement krijgt iedereen in je keuken Pro.']
+        ['Wat het kost', 'Lid zijn van een gedeelde map is gratis. Zelf een gedeelde map maken is onderdeel van Savour Pro. Met een organisatie-abonnement krijgt iedereen in je keuken Pro.']
       ],
       outro: 'Gedeelde mappen met rollen staan in Savour onder “Gedeelde mappen”.'
     },
@@ -658,7 +658,7 @@ export const BLOG = [
         ['Choose what each person may do', 'There are three roles. The owner manages the folder. An editor can add and change recipes. A viewer can read everything but change nothing. You decide who touches the recipes.'],
         ['Send a single recipe', 'Want to share one recipe, for example with a colleague at another restaurant or a supplier? Share it with a link. The recipient sees the recipe neatly, without an account.'],
         ['Colleagues who build along', 'A shared folder does not have to come from you alone. Give your sous-chef edit rights and let the team add recipes themselves. The recipe book grows with the kitchen.'],
-        ['What it costs', 'Being a member of a shared folder is free. Creating a shared folder yourself is part of Savour Pro. With a team plan everyone in your kitchen gets Pro.']
+        ['What it costs', 'Being a member of a shared folder is free. Creating a shared folder yourself is part of Savour Pro. With a organisation plan everyone in your kitchen gets Pro.']
       ],
       outro: 'Shared folders with roles are under “Shared folders” in Savour.'
     }

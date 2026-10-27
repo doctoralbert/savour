@@ -15,7 +15,7 @@ export const ES = {
   legacy: {
     pro: {
       slug: 'es/precios',
-      title: 'Precios — Savour Pro y planes de equipo',
+      title: 'Precios — Savour Pro y planes de organización',
       h1: 'Precios',
       desc: 'Empieza gratis con hasta 100 recetas. Savour Pro desde 2,99 € al mes: recetas ilimitadas, IA para notas a mano y carpetas compartidas. También para equipos.'
     },
@@ -32,12 +32,12 @@ export const ES = {
     contact: {
       slug: 'es/contacto',
       title: 'Contacto — Savour',
-      desc: '¿Preguntas sobre Savour, la gestión de recetas de tu restaurante o un plan de equipo? Escríbenos con el formulario o a contact@savour.page.'
+      desc: '¿Preguntas sobre Savour, la gestión de recetas de tu restaurante o un plan de organización? Escríbenos con el formulario o a contact@savour.page.'
     },
     terms: {
       slug: 'es/terminos',
       title: 'Términos y condiciones — Savour',
-      desc: 'Los términos y condiciones de Savour: cuenta gratuita, Savour Pro, planes de equipo, cancelación y derecho de desistimiento.'
+      desc: 'Los términos y condiciones de Savour: cuenta gratuita, Savour Pro, planes de organización, cancelación y derecho de desistimiento.'
     },
     privacy: {
       slug: 'es/privacidad',
@@ -182,7 +182,7 @@ export const ES = {
         ['Una versión para todos', 'Ajusta una salsa para el nuevo menú y todos en la carpeta compartida trabajan al momento con la nueva versión.'],
         ['Permisos por persona', 'Tú gestionas la carpeta. Tu segundo o jefe de partida puede añadir y editar recetas. Ayudantes y becarios pueden consultar, pero no cambiar nada.'],
         ['En su propio móvil', 'Se acabó la carpeta común llena de manchas. Cada miembro de la brigada abre las recetas de su partida en su propio móvil, con letra grande en el modo cocina.'],
-        ['Gente nueva al día más rápido', 'Becarios y cocineros nuevos leen cómo se hacen las cosas aquí, en lugar de preguntar durante el servicio. Ser miembro de una carpeta compartida es gratis; con un plan de equipo todos tienen Savour Pro.']
+        ['Gente nueva al día más rápido', 'Becarios y cocineros nuevos leen cómo se hacen las cosas aquí, en lugar de preguntar durante el servicio. Ser miembro de una carpeta compartida es gratis; con un plan de organización todos tienen Savour Pro.']
       ]
     }
   },
@@ -383,7 +383,7 @@ export const ES = {
         ['Elige qué puede hacer cada uno', 'Hay tres roles. El propietario gestiona la carpeta. Un editor puede añadir y cambiar recetas. Un lector puede verlo todo, pero no cambiar nada. Tú decides quién toca las recetas.'],
         ['Envía una receta suelta', '¿Quieres compartir una receta, por ejemplo con un compañero de otro restaurante o un proveedor? Compártela con un enlace. Quien la recibe la ve limpia, sin cuenta.'],
         ['Compañeros que construyen contigo', 'Una carpeta compartida no tiene por qué venir solo de ti. Da permiso de edición a tu segundo y deja que el equipo añada recetas. El recetario crece con la cocina.'],
-        ['Lo que cuesta', 'Ser miembro de una carpeta compartida es gratis. Crear tú una carpeta compartida forma parte de Savour Pro. Con un plan de equipo todos en tu cocina tienen Pro.']
+        ['Lo que cuesta', 'Ser miembro de una carpeta compartida es gratis. Crear tú una carpeta compartida forma parte de Savour Pro. Con un plan de organización todos en tu cocina tienen Pro.']
       ],
       outro: 'Las carpetas compartidas con roles están en Savour en «Carpetas compartidas».'
     },
@@ -514,7 +514,7 @@ export const ES = {
       lead: 'Aunque tengas todas las recetas en el móvil, en muchas cocinas el papel sigue siendo importante. Entonces, que se vea que es de tu restaurante.',
       sections: [
         ['Tu logo y tu nombre en cada página', 'Con Savour Pro configuras una vez el logo y el nombre de tu restaurante. Después aparecen arriba en cada página impresa: el logo a la izquierda y el nombre en el centro. Para impresoras de cocina puedes imprimir el logo en blanco y negro.'],
-        ['Para todo el equipo', 'Con un plan de equipo, el logo del propietario vale para todo el equipo. Así todos imprimen con el mismo estilo, imprima quien imprima. En una carpeta compartida se usa el logo del restaurante que la gestiona.'],
+        ['Para todo el equipo', 'Con un plan de organización, el logo del propietario vale para todo el equipo. Así todos imprimen con el mismo estilo, imprima quien imprima. En una carpeta compartida se usa el logo del restaurante que la gestiona.'],
         ['Una carpeta entera como libro', 'Al imprimir una carpeta puedes añadir una portada con el logo, el nombre de la carpeta y un índice. Elige A4 para la carpeta de la cocina o A5 para una carpeta pequeña en el pase.'],
         ['Siempre se ve si está al día', 'Abajo, en cada página, aparece la fecha de impresión. Así todos en la cocina ven si una carpeta es la última versión. Los encabezados y pies del navegador desaparecen para que la página quede limpia.'],
         ['Elige tú qué imprimir', 'En una carpeta compartida eliges antes de imprimir qué recetas quieres, agrupadas por carpeta. Solo lo que hace falta para esa partida o ese evento.']
