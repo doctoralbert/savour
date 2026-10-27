@@ -211,6 +211,44 @@ export const ES = {
     ]
   },
   posts: {
+    "en/blog/have-your-recipe-folder-moved-over": {
+      "slug": "es/blog/traspasar-tu-recetario",
+      "title": "Traspasar tu recetario: por qué las cocinas lo aplazan y cómo sí se consigue",
+      "desc": "Por qué las cocinas siempre aplazan su recetario, qué falla cuando se hace a medias y cómo los cocineros detrás de Savour cargan tus recetas y lo preparan todo para tu brigada.",
+      "h1": "Traspasar tu recetario: por qué las cocinas lo aplazan y cómo sí se consigue",
+      "lead": "Casi todos los chefs quieren sus recetas en digital. Casi nadie tiene tiempo para pasarlas. Por eso los cocineros detrás de Savour lo hacen por ti.",
+      "sections": [
+        [
+          "Por qué se queda pendiente",
+          "Pasar un recetario no es trabajo para entre servicios. Cientos de recetas repartidas entre archivos Word, libretas y fotos, y cada receta hay que copiarla, revisarla y darle un sitio. Así que la carpeta espera, hasta que alguien se va o la carpeta desaparece."
+        ],
+        [
+          "Qué falla cuando se hace a medias",
+          "Si un becario lo pasa todo a mano, aparecen errores en las cantidades. Un escáner sin revisión convierte sin avisar 1 cucharada en 1 litro. Digitalizar a medias es peor que no hacerlo: nadie se fía de la app y la carpeta de papel vuelve al pase."
+        ],
+        [
+          "Tú eliges la estructura",
+          "Eliges un paquete y solicitas el servicio de carga. Tras la aprobación pagas y nos lo envías todo: Word, PDF, fotos de libretas y notas o exportaciones de otra app. Tú nos indicas tu estructura de carpetas, por partida, por tipo o por menú, tal como trabaja tu cocina."
+        ],
+        [
+          "Cada receta revisada",
+          "Lo leemos todo con el lector de Savour y comparamos cada receta con el original: cantidades, unidades, rendimiento y elaboración. Donde la fuente deja dudas, miramos con más cuidado. Nunca se inventa nada; lo que no está, no lo rellenamos."
+        ],
+        [
+          "Todo listo para tu brigada",
+          "Nos das los correos de tus compañeros. Cada uno recibe una cuenta con Savour Pro, acceso a las recetas y un correo para elegir su contraseña. El primer día toda tu brigada abre el mismo recetario, en el móvil, la tablet del pase y el ordenador de la oficina."
+        ],
+        [
+          "Tus recetas siguen siendo tuyas",
+          "Los archivos que envías se guardan en un almacenamiento privado que solo Savour puede ver y se borran en cuanto tu organización está lista. Después tus recetas solo están en tu organización."
+        ],
+        [
+          "Cuánto cuesta",
+          "Pago único de 85 € hasta 100 recetas, 100 € hasta 500 y 164,99 € hasta 1.000, junto con un plan anual para tu organización de 5, 10 o 25 personas. Más recetas, a convenir. Las primeras cinco cocinas las cargamos gratis."
+        ]
+      ],
+      "outro": "¿Quieres saber más o solicitarlo? Mira «Cargamos tus recetas» en savour.page."
+    },
     "en/blog/recipe-database-in-the-cloud": {
       "slug": "es/blog/base-de-datos-de-recetas-en-la-nube",
       "title": "Una base de datos de recetas para tu cocina: con conexión, sin conexión y en la nube",

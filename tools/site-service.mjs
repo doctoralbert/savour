@@ -1,4 +1,4 @@
-// Inlaadservice: de oprichter (zelf kok) zet de receptenmap van een keuken persoonlijk over in Savour.
+// Inlaadservice: de koks achter Savour zetten de receptenmap van een keuken persoonlijk over in Savour.
 // Eén plek voor alle teksten en prijzen in vier talen. tools/build-seo.mjs maakt er een eigen pagina van
 // (met prijzen, stappen en aanvraagformulier), een blok op de startpagina, een blok op de prijzenpagina en een vraag.
 //
@@ -19,18 +19,18 @@ export const SERVICE = {
       menu: 'Recepten laten inladen',
       short: 'Wij zetten je hele receptenmap voor je over, recept voor recept nagekeken.',
       title: 'Recepten laten inladen: wij digitaliseren je receptenmap | Savour',
-      desc: 'Geen tijd om je recepten over te zetten? De oprichter van Savour, zelf kok, laadt je hele receptenmap persoonlijk in: geordend in mappen, elk recept nagekeken en je team klaar om te koken. Vanaf €85.',
+      desc: 'Geen tijd om je recepten over te zetten? De koks achter Savour laden je hele receptenmap persoonlijk in: geordend in mappen, elk recept nagekeken en de omgeving klaar voor je brigade. Vanaf €85.',
       h1: 'Wij laden je hele receptenmap voor je in',
-      lead: 'Geen tijd om honderden recepten over te zetten? De oprichter van Savour, zelf kok, doet het persoonlijk voor je. Jij levert je map aan, je team krijgt een receptenboek dat klopt.',
+      lead: 'Geen tijd om honderden recepten over te zetten? De koks achter Savour laden persoonlijk al je aangeleverde recepten in en zetten de hele omgeving klaar, zodat je brigade meteen kan starten.',
       sections: [
         ['Waarom we dit doen', 'De grootste drempel voor een keuken is niet de app, maar het overzetten. Driehonderd recepten in Word, een map met vlekken, schriften van de vorige chef: daar heeft niemand tijd voor naast de service. Dus doen wij het.'],
-        ['Door een kok, niet door een callcenter', 'Je recepten worden ingeladen door iemand die zelf in de keuken heeft gestaan. Iemand die weet wat een fond is, dat 1 el geen 1 liter is en dat je mise-en-place per partie wilt kunnen vinden. Elk recept wordt naast het origineel gelegd en nagekeken.'],
+        ['Door koks, niet door een callcenter', 'Je recepten worden ingeladen door mensen die zelf in de keuken hebben gestaan. Mensen die weten wat een fond is, dat 1 el geen 1 liter is en dat je mise-en-place per partie wilt kunnen vinden. Elk recept wordt naast het origineel gelegd en nagekeken.'],
         ['Je recepten blijven van jou', 'Recepten zijn het kapitaal van je keuken. We gebruiken ze alleen om ze voor jou in te laden, delen ze met niemand en verwijderen je bronbestanden zodra alles klaarstaat.']
       ]
     },
     kicker: 'Inlaadservice',
     bandTitle: 'Geen tijd om alles over te zetten? Wij doen het voor je.',
-    bandText: 'De oprichter van Savour, zelf kok, laadt je hele receptenmap persoonlijk in. Geordend zoals jullie werken, elk recept nagekeken en je team klaar om te koken.',
+    bandText: 'De koks achter Savour laden al je recepten persoonlijk in en zetten de hele omgeving klaar, zodat je brigade meteen kan starten. Geordend zoals jullie werken, elk recept nagekeken.',
     bandButton: 'Laat je recepten inladen',
     free: n => `Introductie: de eerste ${n} keukens laden we gratis in`,
     freeNote: 'Je betaalt alleen je organisatie-abonnement. In ruil vragen we om eerlijke feedback.',
@@ -132,12 +132,12 @@ export const SERVICE = {
       "send": "Aanvraag versturen"
     },
     proTitle: 'Liever dat wij je recepten inladen?',
-    proText: 'Met de inlaadservice zet de oprichter van Savour, zelf kok, je hele receptenmap persoonlijk over. Vanaf €85 eenmalig, bij een organisatie-abonnement naar keuze.',
+    proText: 'Met de inlaadservice zetten de koks achter Savour je hele receptenmap persoonlijk over en staat je omgeving klaar voor de brigade. Vanaf €85 eenmalig, bij een organisatie-abonnement naar keuze.',
     requestOk: "Bedankt! Je aanvraag is verstuurd. Je krijgt een bevestiging per mail en hoort zo snel mogelijk van ons.",
     faqs: [
       [
         "Kunnen jullie mijn recepten voor me inladen?",
-        "Ja. Met de inlaadservice zet de oprichter van Savour, zelf kok, je hele receptenmap persoonlijk over: ingeladen, geordend in jouw mappen en elk recept nagekeken. Vanaf €85 eenmalig, samen met een jaarabonnement Organisatie 5, 10 of 25. De eerste 5 keukens laden we gratis in."
+        "Ja. Met de inlaadservice zetten de koks achter Savour je hele receptenmap persoonlijk over: ingeladen, geordend in jouw mappen en elk recept nagekeken. Vanaf €85 eenmalig, samen met een jaarabonnement Organisatie 5, 10 of 25. De eerste 5 keukens laden we gratis in."
       ],
       [
         "Hoe werkt de inlaadservice?",
@@ -159,18 +159,18 @@ export const SERVICE = {
       menu: 'We import your recipes',
       short: 'We move your whole recipe folder over for you, checked recipe by recipe.',
       title: 'Recipe import service: we digitise your recipe folder | Savour',
-      desc: 'No time to move your recipes over? The founder of Savour, a chef, personally imports your whole recipe folder: organised in folders, every recipe checked and your team ready to cook. From €85.',
+      desc: 'No time to move your recipes over? The chefs behind Savour personally import your whole recipe folder: organised in folders, every recipe checked and everything ready for your brigade. From €85.',
       h1: 'We import your whole recipe folder for you',
-      lead: 'No time to move hundreds of recipes over? The founder of Savour, a chef, does it for you personally. You hand over your folder, your team gets a recipe book that is right.',
+      lead: 'No time to move hundreds of recipes over? The chefs behind Savour personally import every recipe you send and set up the whole environment, so your brigade can start straight away.',
       sections: [
         ['Why we do this', 'The biggest hurdle for a kitchen is not the app, it is moving everything over. Three hundred recipes in Word, a stained binder, notebooks from the previous chef: nobody has time for that next to service. So we do it.'],
-        ['By a chef, not a call centre', 'Your recipes are imported by someone who has worked in a kitchen. Someone who knows what a stock is, that 1 tbsp is not 1 litre and that you want to find your mise en place by section. Every recipe is laid next to the original and checked.'],
+        ['By chefs, not a call centre', 'Your recipes are imported by people who have worked in a kitchen. People who know what a stock is, that 1 tbsp is not 1 litre and that you want to find your mise en place by section. Every recipe is laid next to the original and checked.'],
         ['Your recipes stay yours', 'Recipes are the capital of your kitchen. We only use them to import them for you, share them with no one and delete your source files as soon as everything is ready.']
       ]
     },
     kicker: 'Import service',
     bandTitle: 'No time to move everything over? We do it for you.',
-    bandText: 'The founder of Savour, a chef, personally imports your whole recipe folder. Organised the way you work, every recipe checked and your team ready to cook.',
+    bandText: 'The chefs behind Savour personally import all your recipes and set up the whole environment, so your brigade can start straight away. Organised the way you work, every recipe checked.',
     bandButton: 'Have your recipes imported',
     free: n => `Launch offer: the first ${n} kitchens are imported for free`,
     freeNote: 'You only pay for your organisation plan. In return we ask for honest feedback.',
@@ -272,12 +272,12 @@ export const SERVICE = {
       "send": "Send request"
     },
     proTitle: 'Rather have us import your recipes?',
-    proText: 'With the import service, the founder of Savour, a chef, personally moves your whole recipe folder over. From €85 one-off, with an organisation plan of your choice.',
+    proText: 'With the import service, the chefs behind Savour personally move your whole recipe folder over and set everything up for your brigade. From €85 one-off, with an organisation plan of your choice.',
     requestOk: "Thank you! Your request has been sent. You will get a confirmation by email and hear from us as soon as possible.",
     faqs: [
       [
         "Can you import my recipes for me?",
-        "Yes. With the import service, the founder of Savour, a chef, personally moves your whole recipe folder over: imported, organised in your folders and every recipe checked. From €85 one-off, together with a yearly Organisation 5, 10 or 25 plan. The first 5 kitchens are imported for free."
+        "Yes. With the import service, the chefs behind Savour personally move your whole recipe folder over: imported, organised in your folders and every recipe checked. From €85 one-off, together with a yearly Organisation 5, 10 or 25 plan. The first 5 kitchens are imported for free."
       ],
       [
         "How does the import service work?",
@@ -299,18 +299,18 @@ export const SERVICE = {
       menu: 'Rezepte einpflegen lassen',
       short: 'Wir übertragen deinen ganzen Rezeptordner für dich, Rezept für Rezept geprüft.',
       title: 'Rezepte einpflegen lassen: wir digitalisieren deinen Rezeptordner | Savour',
-      desc: 'Keine Zeit, deine Rezepte zu übertragen? Der Gründer von Savour, selbst Koch, pflegt deinen ganzen Rezeptordner persönlich ein: in Ordnern sortiert, jedes Rezept geprüft und dein Team startklar. Ab 85 €.',
+      desc: 'Keine Zeit, deine Rezepte zu übertragen? Die Köche hinter Savour pflegen deinen ganzen Rezeptordner persönlich ein: in Ordnern sortiert, jedes Rezept geprüft und alles bereit für deine Brigade. Ab 85 €.',
       h1: 'Wir pflegen deinen ganzen Rezeptordner für dich ein',
-      lead: 'Keine Zeit, Hunderte Rezepte zu übertragen? Der Gründer von Savour, selbst Koch, macht das persönlich für dich. Du lieferst deinen Ordner, dein Team bekommt ein Rezeptbuch, das stimmt.',
+      lead: 'Keine Zeit, Hunderte Rezepte zu übertragen? Die Köche hinter Savour pflegen alle gelieferten Rezepte persönlich ein und richten alles ein, damit deine Brigade sofort loslegen kann.',
       sections: [
         ['Warum wir das machen', 'Die größte Hürde für eine Küche ist nicht die App, sondern das Übertragen. Dreihundert Rezepte in Word, ein fleckiger Ordner, Hefte vom vorigen Küchenchef: dafür hat neben dem Service niemand Zeit. Also machen wir das.'],
-        ['Von einem Koch, nicht von einem Callcenter', 'Deine Rezepte pflegt jemand ein, der selbst in der Küche gestanden hat. Jemand, der weiß, was ein Fond ist, dass 1 EL nicht 1 Liter ist und dass du deine Mise en place nach Posten finden willst. Jedes Rezept wird neben das Original gelegt und geprüft.'],
+        ['Von Köchen, nicht von einem Callcenter', 'Deine Rezepte pflegen Leute ein, die selbst in der Küche gestanden haben. Leute, die wissen, was ein Fond ist, dass 1 EL nicht 1 Liter ist und dass du deine Mise en place nach Posten finden willst. Jedes Rezept wird neben das Original gelegt und geprüft.'],
         ['Deine Rezepte bleiben deine', 'Rezepte sind das Kapital deiner Küche. Wir nutzen sie nur, um sie für dich einzupflegen, geben sie an niemanden weiter und löschen deine Quelldateien, sobald alles bereitsteht.']
       ]
     },
     kicker: 'Einpflege-Service',
     bandTitle: 'Keine Zeit, alles zu übertragen? Wir machen das für dich.',
-    bandText: 'Der Gründer von Savour, selbst Koch, pflegt deinen ganzen Rezeptordner persönlich ein. Sortiert, wie ihr arbeitet, jedes Rezept geprüft und dein Team startklar.',
+    bandText: 'Die Köche hinter Savour pflegen alle Rezepte persönlich ein und richten alles ein, damit deine Brigade sofort loslegen kann. Sortiert, wie ihr arbeitet, jedes Rezept geprüft.',
     bandButton: 'Rezepte einpflegen lassen',
     free: n => `Zum Start: Die ersten ${n} Küchen pflegen wir kostenlos ein`,
     freeNote: 'Du zahlst nur dein Organisations-Abo. Im Gegenzug bitten wir um ehrliches Feedback.',
@@ -412,12 +412,12 @@ export const SERVICE = {
       "send": "Anfrage senden"
     },
     proTitle: 'Sollen wir deine Rezepte einpflegen?',
-    proText: 'Mit dem Einpflege-Service überträgt der Gründer von Savour, selbst Koch, deinen ganzen Rezeptordner persönlich. Ab 85 € einmalig, mit einem Organisations-Abo nach Wahl.',
+    proText: 'Mit dem Einpflege-Service übertragen die Köche hinter Savour deinen ganzen Rezeptordner persönlich und richten alles für deine Brigade ein. Ab 85 € einmalig, mit einem Organisations-Abo nach Wahl.',
     requestOk: "Danke! Deine Anfrage wurde gesendet. Du bekommst eine Bestätigung per E-Mail und hörst so schnell wie möglich von uns.",
     faqs: [
       [
         "Könnt ihr meine Rezepte für mich einpflegen?",
-        "Ja. Mit dem Einpflege-Service überträgt der Gründer von Savour, selbst Koch, deinen ganzen Rezeptordner persönlich: eingepflegt, in deine Ordner sortiert und jedes Rezept geprüft. Ab 85 € einmalig, zusammen mit einem Jahres-Abo Organisation 5, 10 oder 25. Die ersten 5 Küchen pflegen wir kostenlos ein."
+        "Ja. Mit dem Einpflege-Service übertragen die Köche hinter Savour deinen ganzen Rezeptordner persönlich: eingepflegt, in deine Ordner sortiert und jedes Rezept geprüft. Ab 85 € einmalig, zusammen mit einem Jahres-Abo Organisation 5, 10 oder 25. Die ersten 5 Küchen pflegen wir kostenlos ein."
       ],
       [
         "Wie funktioniert der Einpflege-Service?",
@@ -439,18 +439,18 @@ export const SERVICE = {
       menu: 'Cargamos tus recetas',
       short: 'Pasamos todo tu recetario por ti, revisado receta por receta.',
       title: 'Servicio de carga de recetas: digitalizamos tu recetario | Savour',
-      desc: '¿Sin tiempo para pasar tus recetas? El fundador de Savour, cocinero, carga personalmente todo tu recetario: ordenado en carpetas, cada receta revisada y tu equipo listo para cocinar. Desde 85 €.',
+      desc: '¿Sin tiempo para pasar tus recetas? Los cocineros detrás de Savour cargan personalmente todo tu recetario: ordenado en carpetas, cada receta revisada y todo listo para tu brigada. Desde 85 €.',
       h1: 'Cargamos todo tu recetario por ti',
-      lead: '¿Sin tiempo para pasar cientos de recetas? El fundador de Savour, cocinero, lo hace personalmente por ti. Tú entregas tu carpeta y tu equipo recibe un recetario que funciona.',
+      lead: '¿Sin tiempo para pasar cientos de recetas? Los cocineros detrás de Savour cargan personalmente todas las recetas que envías y lo dejan todo preparado para que tu brigada empiece enseguida.',
       sections: [
         ['Por qué lo hacemos', 'La mayor barrera para una cocina no es la app, sino pasarlo todo. Trescientas recetas en Word, una carpeta con manchas, libretas del chef anterior: nadie tiene tiempo para eso además del servicio. Así que lo hacemos nosotros.'],
-        ['Por un cocinero, no por un call center', 'Tus recetas las carga alguien que ha trabajado en una cocina. Alguien que sabe qué es un fondo, que 1 cucharada no es 1 litro y que quieres encontrar tu mise en place por partida. Cada receta se compara con el original y se revisa.'],
+        ['Por cocineros, no por un call center', 'Tus recetas las cargan personas que han trabajado en una cocina. Personas que saben qué es un fondo, que 1 cucharada no es 1 litro y que quieres encontrar tu mise en place por partida. Cada receta se compara con el original y se revisa.'],
         ['Tus recetas siguen siendo tuyas', 'Las recetas son el capital de tu cocina. Solo las usamos para cargarlas por ti, no las compartimos con nadie y borramos tus archivos originales en cuanto todo está listo.']
       ]
     },
     kicker: 'Servicio de carga',
     bandTitle: '¿Sin tiempo para pasarlo todo? Lo hacemos por ti.',
-    bandText: 'El fundador de Savour, cocinero, carga personalmente todo tu recetario. Ordenado como trabajáis, cada receta revisada y tu equipo listo para cocinar.',
+    bandText: 'Los cocineros detrás de Savour cargan personalmente todas tus recetas y lo dejan todo preparado para que tu brigada empiece enseguida. Ordenado como trabajáis, cada receta revisada.',
     bandButton: 'Que carguemos tus recetas',
     free: n => `Lanzamiento: las primeras ${n} cocinas las cargamos gratis`,
     freeNote: 'Solo pagas tu plan de organización. A cambio te pedimos una opinión sincera.',
@@ -552,12 +552,12 @@ export const SERVICE = {
       "send": "Enviar solicitud"
     },
     proTitle: '¿Prefieres que carguemos tus recetas?',
-    proText: 'Con el servicio de carga, el fundador de Savour, cocinero, pasa personalmente todo tu recetario. Desde 85 € pago único, con un plan de organización a elegir.',
+    proText: 'Con el servicio de carga, los cocineros detrás de Savour pasan personalmente todo tu recetario y lo preparan todo para tu brigada. Desde 85 € pago único, con un plan de organización a elegir.',
     requestOk: "¡Gracias! Tu solicitud se ha enviado. Recibirás una confirmación por correo y te escribiremos lo antes posible.",
     faqs: [
       [
         "¿Podéis cargar mis recetas por mí?",
-        "Sí. Con el servicio de carga, el fundador de Savour, cocinero, pasa personalmente todo tu recetario: cargado, ordenado en tus carpetas y cada receta revisada. Desde 85 € pago único, junto con un plan anual Organización 5, 10 o 25. Las primeras 5 cocinas las cargamos gratis."
+        "Sí. Con el servicio de carga, los cocineros detrás de Savour pasan personalmente todo tu recetario: cargado, ordenado en tus carpetas y cada receta revisada. Desde 85 € pago único, junto con un plan anual Organización 5, 10 o 25. Las primeras 5 cocinas las cargamos gratis."
       ],
       [
         "¿Cómo funciona el servicio de carga?",

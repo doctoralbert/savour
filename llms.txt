@@ -34,7 +34,7 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 - **Organisation plans**: 5 people €8.99/month, 10 people €14.99/month, 25 people €29.99/month (or yearly). Everyone on the team gets Pro.
 - New accounts can try Savour Pro free for 7 days, no payment details needed (up to 100 recipes during the trial).
 - Stopping Pro never deletes recipes; everything stays available.
-- **Recipe import service**: the founder of Savour, a chef, personally imports a kitchen's whole recipe folder (Word, PDF, photos of notebooks, other apps) into the folder structure the kitchen chooses (by section, by type, by menu or their own) and checks every recipe. One-off €85 (up to 100 recipes), €100 (up to 500) or €164.99 (up to 1,000), more by arrangement, excl. VAT, with a yearly Organisation 5, 10 or 25 plan. Paid by invoice (iDEAL or card); recipes are uploaded through a personal link. The first 5 kitchens are imported for free. [Request it](https://savour.page/en/recipe-import-service).
+- **Recipe import service**: the chefs behind Savour personally import a kitchen's whole recipe folder (Word, PDF, photos of notebooks, other apps) into the folder structure the kitchen chooses (by section, by type, by menu or their own) and checks every recipe. One-off €85 (up to 100 recipes), €100 (up to 500) or €164.99 (up to 1,000), more by arrangement, excl. VAT, with a yearly Organisation 5, 10 or 25 plan. Paid by invoice (iDEAL or card); recipes are uploaded through a personal link. The first 5 kitchens are imported for free. [Request it](https://savour.page/en/recipe-import-service).
 
 ## Pages
 
@@ -48,6 +48,7 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 
 ## Blog
 
+- [Having your recipe folder moved over: why kitchens put it off and how it does get done](https://savour.page/en/blog/have-your-recipe-folder-moved-over) · [NL](https://savour.page/blog/receptenmap-laten-overzetten) · [DE](https://savour.page/de/blog/rezeptordner-uebertragen-lassen) · [ES](https://savour.page/es/blog/traspasar-tu-recetario)
 - [A recipe database for your kitchen: online, offline and in the cloud](https://savour.page/en/blog/recipe-database-in-the-cloud) · [NL](https://savour.page/blog/receptendatabase-in-de-cloud) · [DE](https://savour.page/de/blog/rezeptdatenbank-in-der-cloud) · [ES](https://savour.page/es/blog/base-de-datos-de-recetas-en-la-nube)
 - [Sorting out a messy recipe folder with AI, then printing it in one go](https://savour.page/en/blog/sorting-out-a-messy-recipe-folder) · [NL](https://savour.page/blog/rommelige-receptenmap-ordenen) · [DE](https://savour.page/de/blog/chaotischen-rezeptordner-ordnen) · [ES](https://savour.page/es/blog/ordenar-una-carpeta-de-recetas-desordenada)
 - [Shared folders in Savour: how your shared recipe book works](https://savour.page/en/blog/shared-folders-explained) · [NL](https://savour.page/blog/gedeelde-mappen-uitgelegd) · [DE](https://savour.page/de/blog/geteilte-ordner-erklaert) · [ES](https://savour.page/es/blog/carpetas-compartidas-explicadas)

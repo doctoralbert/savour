@@ -3,6 +3,86 @@
 // de Duitse en Spaanse versies staan in tools/site-pages-de.mjs en tools/site-pages-es.mjs.
 export const BLOG = [
   {
+    id: 'overzetten',
+    date: '2026-10-27',
+    nl: {
+      "slug": "blog/receptenmap-laten-overzetten",
+      "title": "Je receptenmap laten overzetten: waarom keukens het uitstellen en hoe het wél lukt",
+      "desc": "Waarom keukens hun receptenmap blijven uitstellen, wat er misgaat als je het half doet en hoe de koks achter Savour je recepten inladen en de omgeving klaarzetten voor je brigade.",
+      "h1": "Je receptenmap laten overzetten: waarom keukens het uitstellen en hoe het wél lukt",
+      "lead": "Bijna elke chef wil zijn recepten digitaal hebben. Bijna niemand heeft tijd om ze over te zetten. Daarom doen de koks achter Savour het voor je.",
+      "sections": [
+        [
+          "Waarom het blijft liggen",
+          "Een receptenmap overzetten is geen klus voor tussen de service door. Honderden recepten, verspreid over Word-bestanden, schriften en foto’s, en elk recept moet worden overgenomen, gecontroleerd en een plek krijgen. Dus blijft de map liggen, tot iemand vertrekt of de map kwijt is."
+        ],
+        [
+          "Wat er misgaat als je het half doet",
+          "Een stagiair laten overtypen levert tikfouten in hoeveelheden op. Een scanner zonder controle maakt van 1 el ongemerkt 1 l. Half digitaliseren is erger dan niet digitaliseren: niemand vertrouwt de app meer en de papieren map komt terug aan de pass."
+        ],
+        [
+          "Jij kiest de indeling",
+          "Je kiest een pakket en vraagt de inlaadservice aan. Na goedkeuring betaal je en lever je alles aan: Word, PDF, foto’s van schriften en kladjes of exports uit een andere app. Je geeft zelf je mappenstructuur door, per partie, per soort of per menu, precies zoals jouw keuken werkt."
+        ],
+        [
+          "Elk recept nagekeken",
+          "We lezen alles in met de Savour-lezer en leggen elk recept naast het origineel: hoeveelheden, eenheden, opbrengst en bereiding. Waar de bron twijfel laat, kijken we extra goed. Er wordt nooit iets verzonnen; wat er niet staat, vullen we niet in."
+        ],
+        [
+          "De omgeving klaar voor je brigade",
+          "Je geeft de e-mailadressen van je collega’s door. Iedereen krijgt een account met Savour Pro, toegang tot de recepten en een mail om zelf een wachtwoord te kiezen. Op dag één opent je hele brigade hetzelfde receptenboek, op de telefoon, de tablet aan de pass en de computer op kantoor."
+        ],
+        [
+          "Je recepten blijven van jou",
+          "Aangeleverde bestanden staan in een afgeschermde opslag die alleen Savour kan zien, en worden gewist zodra je organisatie klaarstaat. Daarna staan je recepten alleen nog in jouw organisatie."
+        ],
+        [
+          "Wat het kost",
+          "Eenmalig €85 tot 100 recepten, €100 tot 500 recepten en €164,99 tot 1000 recepten, samen met een jaarabonnement voor je organisatie van 5, 10 of 25 personen. Meer recepten kan in overleg. De eerste vijf keukens laden we gratis in."
+        ]
+      ],
+      "outro": "Meer weten of aanvragen? Kijk bij “Recepten laten inladen” op savour.page."
+    },
+    en: {
+      "slug": "en/blog/have-your-recipe-folder-moved-over",
+      "title": "Having your recipe folder moved over: why kitchens put it off and how it does get done",
+      "desc": "Why kitchens keep putting off their recipe folder, what goes wrong when you do it halfway, and how the chefs behind Savour import your recipes and set everything up for your brigade.",
+      "h1": "Having your recipe folder moved over: why kitchens put it off and how it does get done",
+      "lead": "Almost every chef wants their recipes digital. Almost nobody has the time to move them over. That is why the chefs behind Savour do it for you.",
+      "sections": [
+        [
+          "Why it keeps waiting",
+          "Moving a recipe folder over is not a job for between services. Hundreds of recipes spread across Word files, notebooks and photos, and every recipe has to be copied, checked and given a place. So the folder waits, until someone leaves or the folder is lost."
+        ],
+        [
+          "What goes wrong when you do it halfway",
+          "Letting an intern retype everything leads to typos in quantities. A scanner without checks quietly turns 1 tbsp into 1 l. Going digital halfway is worse than not at all: nobody trusts the app any more and the paper binder comes back to the pass."
+        ],
+        [
+          "You choose the structure",
+          "You choose a package and request the import service. Once approved, you pay and send us everything: Word, PDF, photos of notebooks and notes, or exports from another app. You tell us your own folder structure, by section, by type or by menu, exactly the way your kitchen works."
+        ],
+        [
+          "Every recipe checked",
+          "We read everything with the Savour reader and lay every recipe next to the original: quantities, units, yield and method. Where the source leaves doubt, we look extra carefully. Nothing is ever made up; what is not there, we do not fill in."
+        ],
+        [
+          "Everything ready for your brigade",
+          "You give us the email addresses of your colleagues. Everyone gets an account with Savour Pro, access to the recipes and an email to choose their own password. On day one your whole brigade opens the same recipe book, on the phone, the tablet at the pass and the office computer."
+        ],
+        [
+          "Your recipes stay yours",
+          "The files you send are kept in private storage that only Savour can see, and are deleted as soon as your organisation is ready. After that your recipes only live in your organisation."
+        ],
+        [
+          "What it costs",
+          "One-off €85 up to 100 recipes, €100 up to 500 and €164.99 up to 1,000, together with a yearly plan for your organisation of 5, 10 or 25 people. More recipes by arrangement. The first five kitchens are imported for free."
+        ]
+      ],
+      "outro": "Want to know more or request it? See “We import your recipes” on savour.page."
+    }
+  },
+  {
     id: 'database',
     date: '2026-10-26',
     nl: {

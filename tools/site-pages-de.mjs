@@ -211,6 +211,44 @@ export const DE = {
     ]
   },
   posts: {
+    "en/blog/have-your-recipe-folder-moved-over": {
+      "slug": "de/blog/rezeptordner-uebertragen-lassen",
+      "title": "Den Rezeptordner übertragen lassen: warum Küchen es aufschieben und wie es doch klappt",
+      "desc": "Warum Küchen ihren Rezeptordner immer wieder aufschieben, was schiefgeht, wenn man es halb macht, und wie die Köche hinter Savour deine Rezepte einpflegen und alles für deine Brigade einrichten.",
+      "h1": "Den Rezeptordner übertragen lassen: warum Küchen es aufschieben und wie es doch klappt",
+      "lead": "Fast jeder Küchenchef will seine Rezepte digital haben. Fast niemand hat Zeit, sie zu übertragen. Deshalb machen die Köche hinter Savour das für dich.",
+      "sections": [
+        [
+          "Warum es liegen bleibt",
+          "Einen Rezeptordner zu übertragen ist keine Arbeit für zwischen zwei Services. Hunderte Rezepte, verteilt auf Word-Dateien, Hefte und Fotos, und jedes Rezept muss übernommen, geprüft und einsortiert werden. Also bleibt der Ordner liegen, bis jemand geht oder der Ordner weg ist."
+        ],
+        [
+          "Was schiefgeht, wenn man es halb macht",
+          "Lässt man einen Praktikanten alles abtippen, entstehen Tippfehler in den Mengen. Ein Scanner ohne Kontrolle macht aus 1 EL unbemerkt 1 l. Halb digitalisieren ist schlimmer als gar nicht: Niemand vertraut der App mehr und der Papierordner kommt zurück an den Pass."
+        ],
+        [
+          "Du bestimmst die Ordnung",
+          "Du wählst ein Paket und fragst den Einpflege-Service an. Nach der Freigabe bezahlst du und lieferst alles: Word, PDF, Fotos von Heften und Notizen oder Exporte aus einer anderen App. Deine Ordnerstruktur nennst du selbst, nach Posten, nach Art oder nach Menü, genau so, wie deine Küche arbeitet."
+        ],
+        [
+          "Jedes Rezept geprüft",
+          "Wir lesen alles mit dem Savour-Leser ein und legen jedes Rezept neben das Original: Mengen, Einheiten, Ausbeute und Zubereitung. Wo die Quelle Zweifel lässt, schauen wir besonders genau hin. Es wird nie etwas erfunden; was nicht dasteht, ergänzen wir nicht."
+        ],
+        [
+          "Alles bereit für deine Brigade",
+          "Du nennst uns die E-Mail-Adressen deiner Kollegen. Alle bekommen ein Konto mit Savour Pro, Zugriff auf die Rezepte und eine E-Mail, um selbst ein Passwort zu wählen. Am ersten Tag öffnet deine ganze Brigade dasselbe Rezeptbuch, auf dem Handy, dem Tablet am Pass und dem Computer im Büro."
+        ],
+        [
+          "Deine Rezepte bleiben deine",
+          "Die gelieferten Dateien liegen in einem geschützten Speicher, den nur Savour sehen kann, und werden gelöscht, sobald deine Organisation bereitsteht. Danach sind deine Rezepte nur noch in deiner Organisation."
+        ],
+        [
+          "Was es kostet",
+          "Einmalig 85 € bis 100 Rezepte, 100 € bis 500 Rezepte und 164,99 € bis 1.000 Rezepte, zusammen mit einem Jahres-Abo für deine Organisation mit 5, 10 oder 25 Personen. Mehr Rezepte nach Absprache. Die ersten fünf Küchen pflegen wir kostenlos ein."
+        ]
+      ],
+      "outro": "Mehr erfahren oder anfragen? Siehe „Rezepte einpflegen lassen“ auf savour.page."
+    },
     "en/blog/recipe-database-in-the-cloud": {
       "slug": "de/blog/rezeptdatenbank-in-der-cloud",
       "title": "Eine Rezeptdatenbank für deine Küche: online, offline und in der Cloud",
