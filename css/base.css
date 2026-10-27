@@ -80,6 +80,10 @@ button {
 .nav button.nav-folder .ico {
   font-size: 13px;
 }
+/* Mappen van een gedeelde map: verder ingesprongen dan de gedeelde map zelf (.sub). */
+.nav button.nav-team-folder {
+  padding-left: 62px;
+}
 .nav button:hover,
 .nav button.active {
   background: linear-gradient(90deg, #182321, #0c1415);

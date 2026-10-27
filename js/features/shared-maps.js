@@ -676,12 +676,12 @@ function renderSharedNav() {
   el.innerHTML = chosen
     .map(
       m =>
-        `<button onclick="openShared('${escJs(m.id)}')"><span class="ico">▱</span>${esc(m.name)}</button>` +
+        `<button class="sub" onclick="openShared('${escJs(m.id)}')"><span class="ico">▱</span>${esc(m.name)}</button>` +
         (m.folders || [])
           .filter(f => !f.archived)
           .map(
             f =>
-              `<button class="nav-folder" onclick="openSharedFolder('${escJs(m.id)}','${escJs(f.id)}')"><span class="ico">•</span>${esc(f.name)}</button>`
+              `<button class="nav-folder nav-team-folder" onclick="openSharedFolder('${escJs(m.id)}','${escJs(f.id)}')"><span class="ico">•</span>${esc(f.name)}</button>`
           )
           .join('')
     )
