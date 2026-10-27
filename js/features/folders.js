@@ -211,7 +211,7 @@ function renderCategoryNav() {
     ? chosen
         .map(
           f =>
-            `<button onclick="filterFolderCategory('${escJs(f.id)}')"><span class="ico">•</span>${esc(f.name)}</button>`
+            `<button class="nav-folder" onclick="filterFolderCategory('${escJs(f.id)}')"><span class="ico">•</span>${esc(f.name)}</button>`
         )
         .join('')
     : `<div class="category-empty">Geen recepten mappen gekozen</div>`;

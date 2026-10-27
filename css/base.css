@@ -69,6 +69,17 @@ button {
   margin: 1px 0;
   font-size: var(--sv-fs-sm);
 }
+/* Mappen in het menu (Recepten mappen en de mappen van een gedeelde map): kleiner en dichter op elkaar,
+   zodat ze zichtbaar bij hun kopje of gedeelde map horen. */
+.nav button.nav-folder {
+  padding: 4px 10px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.3;
+}
+.nav button.nav-folder .ico {
+  font-size: 13px;
+}
 .nav button:hover,
 .nav button.active {
   background: linear-gradient(90deg, #182321, #0c1415);

@@ -681,7 +681,7 @@ function renderSharedNav() {
           .filter(f => !f.archived)
           .map(
             f =>
-              `<button onclick="openSharedFolder('${escJs(m.id)}','${escJs(f.id)}')"><span class="ico">•</span>${esc(f.name)}</button>`
+              `<button class="nav-folder" onclick="openSharedFolder('${escJs(m.id)}','${escJs(f.id)}')"><span class="ico">•</span>${esc(f.name)}</button>`
           )
           .join('')
     )
