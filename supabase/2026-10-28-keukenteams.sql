@@ -156,9 +156,8 @@ begin
   select email, created_at into my_email, created from auth.users where id = me;
   select * into s from public.subscriptions where user_id = me;
   sub_running := s.user_id is not null
-    and s.status in ('active', 'trialing', 'past_due', 'canceled')
-    and (s.current_period_end is null or s.current_period_end > now())
-    and (s.status <> 'canceled' or s.current_period_end > now());
+    and s.status in ('active', 'trialing', 'past_due')
+    and (s.current_period_end is null or s.current_period_end > now());
   select * into own_org from public.organizations where owner_id = me;
   select o.* into member_org from public.organizations o
     join public.organization_members m on m.organization_id = o.id

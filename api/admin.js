@@ -35,9 +35,10 @@ const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || 'schreurs.jop@gmail.com')
   .map(x => x.trim().toLowerCase())
   .filter(Boolean);
 
+// "canceled" betekent bij Stripe echt gestopt (bij opzeggen blijft de status "active" tot de einddatum).
 const running = row =>
   !!row &&
-  ['active', 'trialing', 'past_due', 'canceled'].includes(row.status) &&
+  ['active', 'trialing', 'past_due'].includes(row.status) &&
   (!row.current_period_end || new Date(row.current_period_end) > new Date());
 
 // Omschrijving van het account zoals in de tabel: Gratis, Proef, Pro maand/jaar, Cadeau, Team.
