@@ -223,20 +223,48 @@ begin
   update public.organizations set shared_map_id = _team, updated_at = now()
   where owner_id = auth.uid() and (shared_map_id is null or shared_map_id = _team);
   if not found then raise exception 'savour_already_linked'; end if;
+  -- Pro-plekken horen bij mensen in dit keukenteam: plekken van anderen komen vrij.
+  delete from public.organization_members m
+  using public.organizations o
+  where m.organization_id = o.id and o.owner_id = auth.uid()
+    and not exists (select 1 from public.shared_map_members sm join auth.users u on u.id = sm.user_id
+                    where sm.shared_map_id = _team and lower(u.email) = lower(m.email));
 end;
-$;
+$$;
 
 -- Wordt het keukenteam van een brigade-abonnement verwijderd, dan komen de Pro-plekken vrij. Het abonnement zelf
 -- loopt door en kan aan een ander of nieuw keukenteam worden gekoppeld (shared_map_id wordt leeg via de verwijzing).
 create or replace function public.savour_free_brigade_seats()
-returns trigger language plpgsql security definer set search_path = public as $
+returns trigger language plpgsql security definer set search_path = public as $$
 begin
   delete from public.organization_members m
   using public.organizations o
   where m.organization_id = o.id and o.shared_map_id = old.id;
   return old;
 end;
-$;
+$$;
+
+-- Vertrekt iemand uit het keukenteam (zelf, of verwijderd door de eigenaar), dan komt zijn Pro-plek vrij.
+create or replace function public.savour_free_member_seat()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  delete from public.organization_members m
+  using public.organizations o, auth.users u
+  where m.organization_id = o.id and o.shared_map_id = old.shared_map_id
+    and u.id = old.user_id and lower(u.email) = lower(m.email);
+  return old;
+end;
+$$;
+drop trigger if exists savour_free_member_seat on public.shared_map_members;
+create trigger savour_free_member_seat after delete on public.shared_map_members
+  for each row execute function public.savour_free_member_seat();
+
+-- Opruimen: Pro-plekken van een gekoppeld brigade-abonnement die niet bij iemand in dat keukenteam horen.
+delete from public.organization_members m
+using public.organizations o
+where m.organization_id = o.id and o.shared_map_id is not null
+  and not exists (select 1 from public.shared_map_members sm join auth.users u on u.id = sm.user_id
+                  where sm.shared_map_id = o.shared_map_id and lower(u.email) = lower(m.email));
 drop trigger if exists savour_free_brigade_seats on public.shared_maps;
 create trigger savour_free_brigade_seats before delete on public.shared_maps
   for each row execute function public.savour_free_brigade_seats();

@@ -310,7 +310,9 @@ function teamBrigade(m) {
   const linked = String(t.team_id || '') === String(m.id);
   // Het abonnement hoort bij precies één keukenteam. Bestaat dat nog, dan kan het niet ook hier gekoppeld worden.
   const elsewhere = !linked && t.team_id ? findSharedMap(t.team_id) : null;
-  const pro = new Set((t.members || []).map(e => String(e).toLowerCase()));
+  // Pro-plekken tellen alleen voor mensen die echt in dit keukenteam zitten.
+  const inTeam = new Set((m.members || []).map(x => String(x.email || '').toLowerCase()).filter(Boolean));
+  const pro = new Set((t.members || []).map(e => String(e).toLowerCase()).filter(e => !linked || inTeam.has(e)));
   return { plan: t, linked, elsewhere, active: !!t.active, seats: t.seats || 0, used: pro.size + 1, pro };
 }
 
