@@ -207,7 +207,9 @@
   margin-right: var(--sv-space-2);
 }
 @media (max-width: 760px) {
-  .topbar > .lang-switch {
+  .topbar > .lang-switch,
+  .topbar > .theme-toggle {
+    /* Op mobiel staan taal- en licht/donker-knop al in .mobile-top-actions */
     display: none;
   }
   .mobile-top-actions .lang-menu > summary {
