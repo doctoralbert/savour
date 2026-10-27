@@ -3404,6 +3404,7 @@ export const strings = [
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
 export const patterns = [
+  ["^Je Brigade (\\d+) is gestopt\\. Je brigade heeft geen Pro meer via dit abonnement; je eigen Pro en je keukenteams blijven gewoon staan\\.$","Your Brigade $1 has stopped. Your brigade no longer has Pro through this plan; your own Pro and your kitchen teams stay as they are.","Deine Brigade $1 ist beendet. Deine Brigade hat über dieses Abo kein Pro mehr; dein eigenes Pro und deine Küchenteams bleiben bestehen.","Tu Brigada $1 ha terminado. Tu brigada ya no tiene Pro con este plan; tu Pro y tus equipos de cocina se mantienen."],
   ["^Je Brigade (\\d+) is gestopt$","Your Brigade $1 has stopped","Deine Brigade $1 ist beendet","Tu Brigada $1 ha terminado"],
   ["^Je Brigade (\\d+) hoort bij (.+)$","Your Brigade $1 belongs to $2","Deine Brigade $1 gehört zu $2","Tu Brigada $1 pertenece a $2"],
   ["^Naar (.+)$","Go to $1","Zu $1","Ir a $1"],

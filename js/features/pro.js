@@ -454,6 +454,9 @@ function renderPlanSettings() {
 // In Instellingen: de brigade beheer je in het keukenteam (Brigade-tabblad). Hier alleen waar het abonnement bij
 // hoort, of (oud abonnement zonder keukenteam) bij welk keukenteam je het wilt koppelen.
 function renderTeamManager(team) {
+  // Gestopt brigade-abonnement: niet doen alsof het nog loopt.
+  if (!team.active)
+    return `<div class="team-manager" id="teamManager"><h4>Je brigade</h4><p class="muted">Je Brigade ${esc(team.seats)} is gestopt. Je brigade heeft geen Pro meer via dit abonnement; je eigen Pro en je keukenteams blijven gewoon staan.</p><button class="btn gold" onclick="openBrigadePlans()">Brigade opnieuw nemen</button></div>`;
   const used = (team.members || []).length + 1;
   const linked = team.team_id && findSharedMap(team.team_id);
   if (linked)
