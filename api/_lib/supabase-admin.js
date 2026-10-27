@@ -126,3 +126,40 @@ export async function getAuthUser(userId) {
     return null;
   }
 }
+
+// ---- Privé-opslag (Supabase Storage) voor de inlaadservice: bucket 'aanleveringen' ----
+// Paden zijn "<aanlevering-id>/<bestandsnaam>"; elk deel wordt apart gecodeerd.
+const storagePath = path => path.split('/').map(encodeURIComponent).join('/');
+
+// Eenmalige uploadlink: de browser zet het bestand er zelf neer (PUT), zonder de service-role-sleutel te zien.
+export async function storageUploadUrl(bucket, path) {
+  const d = await adminFetch(`/storage/v1/object/upload/sign/${bucket}/${storagePath(path)}`, {
+    method: 'POST',
+    body: {}
+  });
+  return `${SUPABASE_URL}/storage/v1${d.url}`;
+}
+
+// Tijdelijke downloadlink (standaard een uur geldig).
+export async function storageDownloadUrl(bucket, path, expiresIn = 3600) {
+  const d = await adminFetch(`/storage/v1/object/sign/${bucket}/${storagePath(path)}`, {
+    method: 'POST',
+    body: { expiresIn }
+  });
+  // "download" laat de browser het bestand opslaan in plaats van openen.
+  return `${SUPABASE_URL}/storage/v1${d.signedURL}&download=`;
+}
+
+// Bestanden in een map: [{ name, metadata: { size } }].
+export async function storageList(bucket, prefix) {
+  const rows = await adminFetch(`/storage/v1/object/list/${bucket}`, {
+    method: 'POST',
+    body: { prefix, limit: 1000, sortBy: { column: 'created_at', order: 'asc' } }
+  });
+  return (rows || []).filter(r => r.id);
+}
+
+export function storageRemove(bucket, paths) {
+  if (!paths.length) return Promise.resolve([]);
+  return adminFetch(`/storage/v1/object/${bucket}`, { method: 'DELETE', body: { prefixes: paths } });
+}

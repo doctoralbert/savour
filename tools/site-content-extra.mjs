@@ -59,7 +59,7 @@ export const EXTRA_LANGS = {
       organise: ['Rezepte organisieren', 'Ordner, Kategorien und Suche nach Zutat. Deine Beurre blanc in drei Sekunden.'],
       share: ['Mit der Brigade teilen', 'Geteilte Ordner mit Rechten: Du verwaltest, dein Sous-Chef bearbeitet, der Rest liest mit.'],
       scale: ['Rezepte hochrechnen', 'Von 8 Gedecken auf 120, ohne Rechenfehler.'],
-      print: ['Drucken und Rezeptordner', 'Ein ganzer Ordner auf einmal zum Drucker, sauber für die Küche.'],
+      print: ['Rezepte drucken', 'Ein einzelnes Rezept oder ein kompletter Rezeptordner auf einmal, sauber gedruckt für die Küche.'],
       cloud: [
   "Rezeptdatenbank und Archiv",
   "Alle Rezepte sicher in der Cloud, online und offline auf jedem Gerät."
@@ -126,7 +126,7 @@ export const EXTRA_LANGS = {
       organise: ['Organizar recetas', 'Carpetas, categorías y búsqueda por ingrediente. Tu beurre blanc en tres segundos.'],
       share: ['Compartir con tu brigada', 'Carpetas compartidas con permisos: tú gestionas, tu segundo edita, el resto consulta.'],
       scale: ['Escalar recetas', 'De 8 cubiertos a 120, sin errores de cálculo.'],
-      print: ['Imprimir y carpetas', 'Una carpeta entera a la impresora de una vez, limpia para la cocina.'],
+      print: ['Imprimir recetas', 'Una receta suelta o una carpeta de recetas completa de una vez, bien impresa para la cocina.'],
       cloud: [
   "Base de datos y archivo",
   "Todas tus recetas seguras en la nube, con y sin conexión en cualquier dispositivo."

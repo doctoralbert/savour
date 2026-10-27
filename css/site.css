@@ -2104,28 +2104,266 @@ body.cook-mode #publicRecipeShell .share-recipe-head h1 {
   gap: 12px;
   margin: 18px 0 12px;
 }
-.svc-prices > div {
+.svc-price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
   border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 18px 16px;
+  border-radius: 16px;
+  padding: 20px 14px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--ink);
+  font: inherit;
   text-align: center;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    transform 0.2s,
+    background 0.2s;
 }
-.svc-prices > div.is-featured {
+.svc-price:hover,
+.svc-price:focus-visible {
+  border-color: var(--gold-soft);
+  background: rgba(232, 202, 141, 0.07);
+  transform: translateY(-2px);
+  outline: none;
+}
+.svc-price.is-featured {
   border-color: var(--gold-soft);
   background: rgba(232, 202, 141, 0.06);
 }
-.svc-prices span {
-  display: block;
+.svc-price span {
   color: var(--ink-2);
   font-size: 14px;
-  margin-bottom: 6px;
 }
-.svc-prices strong {
-  font: 500 30px/1.2 var(--serif, 'Playfair Display', serif);
+.svc-price strong {
+  font: 500 30px/1.2 var(--serif);
   color: var(--ink);
 }
-.svc-prices strong.small {
+.svc-price strong.small {
   font-size: 22px;
+  line-height: 1.6;
+}
+.svc-price em {
+  margin-top: 8px;
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold-soft);
+}
+.svc-structures {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0 8px;
+}
+.svc-structures > div {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+.svc-structures b {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+.svc-structures span {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.svc-structures i {
+  font-style: normal;
+  font-size: 13px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(232, 202, 141, 0.35);
+  color: var(--gold-soft);
+}
+/* Overlay met het aanvraagformulier */
+.svc-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 16px;
+  background: rgba(5, 8, 9, 0.78);
+  backdrop-filter: blur(6px);
+  animation: svc-fade 0.2s ease;
+}
+.svc-dialog[hidden],
+.svc-deliver[hidden],
+.svc-deliver-msg[hidden] {
+  display: none;
+}
+.svc-dialog-box {
+  position: relative;
+  width: min(620px, 100%);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 30px 30px 24px;
+  border: 1px solid rgba(232, 202, 141, 0.45);
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(232, 202, 141, 0.06), rgba(232, 202, 141, 0) 140px), var(--paper-2);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  animation: svc-rise 0.25s ease;
+}
+.site .svc-dialog-box h2 {
+  margin: 0 0 6px;
+}
+.svc-dialog-note {
+  color: var(--ink-2);
+  font-size: 15px;
+  margin: 0 0 6px;
+}
+.svc-dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+.svc-dialog-close:hover {
+  border-color: var(--gold-soft);
+  color: var(--gold-soft);
+}
+.svc-dialog .site-form {
+  max-width: none;
+}
+.svc-dialog-open,
+.svc-dialog-open body {
+  overflow: hidden;
+}
+@keyframes svc-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes svc-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+/* Aanleverpagina */
+.svc-deliver h2 {
+  margin-top: 26px;
+}
+.svc-deliver-who {
+  margin: 0;
+  padding: 14px 18px;
+  border: 1px solid rgba(232, 202, 141, 0.45);
+  border-radius: 14px;
+  color: var(--gold-soft);
+  font-weight: 600;
+}
+.svc-deliver-msg {
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--ink-2);
+}
+.svc-deliver-msg.is-ok {
+  border-color: var(--gold-soft);
+  color: var(--ink);
+  background: rgba(232, 202, 141, 0.07);
+}
+.svc-choice {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.svc-choice label {
+  cursor: pointer;
+}
+.svc-choice input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.svc-choice span {
+  display: inline-block;
+  padding: 9px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-2);
+}
+.svc-choice input:checked + span {
+  border-color: var(--gold-soft);
+  color: var(--night);
+  background: var(--gold-soft);
+  font-weight: 600;
+}
+.svc-choice input:focus-visible + span {
+  outline: 2px solid var(--gold-soft);
+  outline-offset: 2px;
+}
+.svc-drop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 130px;
+  padding: 20px;
+  border: 1.5px dashed rgba(232, 202, 141, 0.5);
+  border-radius: 16px;
+  color: var(--ink-2);
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.svc-drop:hover,
+.svc-drop.is-over {
+  background: rgba(232, 202, 141, 0.07);
+  color: var(--ink);
+}
+.svc-drop input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.site-prose .svc-files {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: grid;
+  gap: 6px;
+}
+.site-prose .svc-files li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding: 9px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 14px;
+}
+.svc-files b {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.svc-files span {
+  flex: none;
+  color: var(--ink-2);
+}
+.svc-files .is-done span {
+  color: var(--gold-soft);
+}
+.svc-files .is-failed span {
+  color: #e3a79c;
 }
 .svc-form {
   margin-top: 40px;
@@ -2164,8 +2402,21 @@ body.cook-mode #publicRecipeShell .share-recipe-head h1 {
   .site-field-pair {
     grid-template-columns: 1fr;
   }
-  .svc-prices {
+  .svc-prices,
+  .svc-structures {
     grid-template-columns: 1fr 1fr;
+  }
+  .svc-structures {
+    grid-template-columns: 1fr;
+  }
+  .svc-dialog {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .svc-dialog-box {
+    border-radius: 22px 22px 0 0;
+    max-height: 92vh;
+    padding: 26px 18px 20px;
   }
   .svc-free .site-btn {
     width: 100%;

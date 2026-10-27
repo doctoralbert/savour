@@ -239,32 +239,34 @@ export const FEATURES = [
     id: 'print',
     nl: {
       slug: 'recepten-printen',
-      menu: 'Printen en receptenmappen',
-      short: 'Een hele map in één keer naar de printer, netjes voor de receptenklapper.',
-      title: 'Recepten printen: hele receptenmappen in één keer | Savour',
-      desc: 'Print losse recepten of een hele receptenmap in één keer, netjes opgemaakt voor de receptenklapper in de keuken.',
-      h1: 'Recepten printen, ook een hele map tegelijk',
-      lead: 'Soms werkt papier aan de muur gewoon het best. Dan moet het snel en netjes.',
+      menu: 'Printen van recepten',
+      short: 'Een los recept of een complete receptenmap in één keer, netjes geprint voor de keuken.',
+      title: 'Printen van recepten: losse recepten en complete receptenmappen | Savour',
+      desc: 'Print een los recept of een complete receptenmap in één keer, netjes opgemaakt voor de muur, de pass of de receptenklapper. Met Savour Pro met het logo van je restaurant.',
+      h1: 'Printen van recepten',
+      lead: 'Print één recept voor aan de muur, of een complete receptenmap voor de klapper. Snel, netjes en altijd de versie die klopt.',
       sections: [
-        ['Een hele map in één keer', 'Moeten alle ijsrecepten in de klapper voor de patisserie? Print de hele map in één keer, in plaats van vijftig bestanden één voor één.'],
-        ['Rustige opmaak', 'Titel, opbrengst, ingrediënten en bereiding, groot en overzichtelijk. Leesbaar op een meter afstand, ook met een vlek erop.'],
+        ['Een los recept printen', 'Open een recept en kies Printen. Je krijgt één rustige pagina met titel, opbrengst, ingrediënten en bereiding. Heb je het recept omgerekend, bijvoorbeeld naar 40 couverts, dan print je precies die hoeveelheden.'],
+        ['Een complete receptenmap printen', 'Moeten alle ijsrecepten in de klapper voor de patisserie? Open de map en print hem in één keer: elk recept op een eigen pagina, in de volgorde van je map. Geen vijftig bestanden meer één voor één.'],
+        ['Rustige opmaak', 'Groot en overzichtelijk. Leesbaar op een meter afstand, ook met een vlek erop.'],
         ['Altijd de laatste versie', 'Omdat je print vanuit Savour, hangt er altijd de versie aan de muur die nu klopt. Onderaan staat de printdatum, zodat je ziet of een map nog actueel is.'],
-        ['Met het logo van je restaurant', 'Met Savour Pro staat bovenaan elke pagina het logo en de naam van je restaurant. Bij een team geldt het logo voor iedereen. Kies A4 voor de klapper of A5 voor een kleine map aan de pass.']
+        ['Met het logo van je restaurant', 'Met Savour Pro staat bovenaan elke pagina het logo en de naam van je restaurant. Binnen een organisatie geldt het logo voor iedereen. Kies A4 voor de klapper of A5 voor een kleine map aan de pass.']
       ]
     },
     en: {
       slug: 'en/print-recipes',
-      menu: 'Printing and binders',
-      short: 'A whole folder to the printer in one go, neat for the binder.',
-      title: 'Print recipes: whole recipe folders at once | Savour',
-      desc: 'Print single recipes or a whole recipe folder at once, neatly laid out for the binder in the kitchen.',
-      h1: 'Print recipes, even a whole folder at once',
-      lead: 'Sometimes paper on the wall simply works best. Then it has to be quick and neat.',
+      menu: 'Printing recipes',
+      short: 'A single recipe or a complete recipe folder in one go, neatly printed for the kitchen.',
+      title: 'Printing recipes: single recipes and complete recipe folders | Savour',
+      desc: 'Print a single recipe or a complete recipe folder in one go, neatly laid out for the wall, the pass or the kitchen binder. With Savour Pro, with your restaurant’s logo.',
+      h1: 'Printing recipes',
+      lead: 'Print one recipe for the wall, or a complete recipe folder for the binder. Quick, neat and always the version that is right.',
       sections: [
-        ['A whole folder at once', 'All the ice cream recipes need to go in the pastry binder? Print the whole folder at once, instead of fifty files one by one.'],
-        ['Calm layout', 'Title, yield, ingredients and method, large and clear. Readable from a metre away, even with a stain on it.'],
+        ['Print a single recipe', 'Open a recipe and choose Print. You get one calm page with title, yield, ingredients and method. Scaled the recipe, for example to 40 covers? Then you print exactly those quantities.'],
+        ['Print a complete recipe folder', 'All the ice cream recipes need to go in the pastry binder? Open the folder and print it in one go: every recipe on its own page, in the order of your folder. No more fifty files one by one.'],
+        ['Calm layout', 'Large and clear. Readable from a metre away, even with a stain on it.'],
         ['Always the latest version', 'Because you print from Savour, the version on the wall is always the one that is right now. The print date is at the bottom, so you can see whether a binder is still up to date.'],
-        ['With your restaurant’s logo', 'With Savour Pro every page carries your restaurant’s logo and name at the top. In a team the logo applies to everyone. Choose A4 for the binder or A5 for a small folder at the pass.']
+        ['With your restaurant’s logo', 'With Savour Pro every page carries your restaurant’s logo and name at the top. Within an organisation the logo applies to everyone. Choose A4 for the binder or A5 for a small folder at the pass.']
       ]
     }
   },

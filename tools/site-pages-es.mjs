@@ -102,15 +102,16 @@ export const ES = {
     },
     print: {
       slug: 'es/imprimir-recetas',
-      title: 'Imprimir recetas: carpetas de recetas enteras de una vez | Savour',
-      desc: 'Imprime recetas sueltas o una carpeta de recetas entera de una vez, con un diseño limpio para la carpeta de la cocina. Con Savour Pro, con el logo de tu restaurante.',
-      h1: 'Imprime recetas, también una carpeta entera de una vez',
-      lead: 'A veces el papel en la pared es lo que mejor funciona. Entonces tiene que ser rápido y limpio.',
+      title: 'Imprimir recetas: recetas sueltas y carpetas de recetas completas | Savour',
+      desc: 'Imprime una receta suelta o una carpeta de recetas completa de una vez, con un diseño limpio para la pared, el pase o la carpeta de cocina. Con Savour Pro, con el logo de tu restaurante.',
+      h1: 'Imprimir recetas',
+      lead: 'Imprime una receta para la pared o una carpeta de recetas completa para el archivador. Rápido, limpio y siempre la versión correcta.',
       sections: [
-        ['Una carpeta entera de una vez', '¿Todas las recetas de helado tienen que ir a la carpeta de pastelería? Imprime la carpeta entera de una vez, en lugar de cincuenta archivos uno a uno.'],
-        ['Diseño tranquilo', 'Título, rendimiento, ingredientes y elaboración, grandes y claros. Legible a un metro, incluso con una mancha encima.'],
+        ['Imprimir una receta suelta', 'Abre una receta y elige Imprimir. Obtienes una página tranquila con título, rendimiento, ingredientes y elaboración. ¿Has escalado la receta, por ejemplo a 40 cubiertos? Entonces imprimes justo esas cantidades.'],
+        ['Imprimir una carpeta de recetas completa', '¿Todas las recetas de helado tienen que ir a la carpeta de pastelería? Abre la carpeta e imprímela de una vez: cada receta en su propia página, en el orden de tu carpeta. Se acabó imprimir cincuenta archivos uno a uno.'],
+        ['Diseño tranquilo', 'Grande y claro. Legible a un metro, incluso con una mancha encima.'],
         ['Siempre la última versión', 'Como imprimes desde Savour, en la pared siempre está la versión correcta. Abajo aparece la fecha de impresión, para que veas si una carpeta sigue al día.'],
-        ['Con el logo de tu restaurante', 'Con Savour Pro, cada página lleva arriba el logo y el nombre de tu restaurante. En un equipo, el logo vale para todos. Elige A4 para la carpeta o A5 para una carpeta pequeña en el pase.']
+        ['Con el logo de tu restaurante', 'Con Savour Pro, cada página lleva arriba el logo y el nombre de tu restaurante. En una organización, el logo vale para todos. Elige A4 para la carpeta o A5 para una carpeta pequeña en el pase.']
       ]
     },
     cloud: {

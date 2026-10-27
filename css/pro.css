@@ -508,3 +508,71 @@
   border-color: rgba(232, 202, 141, 0.4);
   color: #d8c38e;
 }
+
+/* ---- Beheerscherm: Inladen (aanleverlinks) ---- */
+.admin-intake-new input {
+  flex: 1 1 180px;
+}
+.admin-intake-new select {
+  flex: 0 1 200px;
+}
+.admin-intake-link {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+.admin-intake-link input {
+  flex: 1 1 320px;
+  padding: 8px 12px;
+  border: 1px solid #2c3837;
+  border-radius: 10px;
+  background: #0b1213;
+  color: #c9cfcb;
+  font-size: 13px;
+}
+.admin-intake-h {
+  margin: 16px 0 6px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8f9994;
+}
+.admin-intake-files {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+.admin-intake-files li {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.admin-intake-files small {
+  color: #8f9994;
+  font-size: 12px;
+}
+.admin-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #e8ca8d;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.admin-link:hover {
+  text-decoration: underline;
+}
+.admin-message-actions select {
+  padding: 7px 10px;
+  border: 1px solid #2c3837;
+  border-radius: 10px;
+  background: #0b1213;
+  color: #eee8dc;
+}
+.admin-message-actions {
+  flex-wrap: wrap;
+}

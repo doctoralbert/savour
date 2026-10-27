@@ -15,6 +15,7 @@ import { DE } from './site-pages-de.mjs';
 import { ES } from './site-pages-es.mjs';
 import { APP_PAGE } from './site-app.mjs';
 import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
+import { DELIVER } from './site-deliver.mjs';
 const PAGES = { de: DE, es: ES };
 
 // Nieuwste blogartikelen eerst.
@@ -274,16 +275,22 @@ function ctaBlock(lang, inApp) {
 }
 
 // ---- Inlaadservice ----
-// Bedragen staan als "€249" in site-service.mjs; in het Duits en Spaans komt het euroteken erachter.
-const euro = (p, lang) => (lang === 'de' || lang === 'es' ? p.slice(1) + ' €' : p);
+// Bedragen staan als "€164,99" in site-service.mjs; in het Engels met een punt, in het Duits en Spaans met het euroteken erachter.
+const euro = (p, lang) => (lang === 'de' || lang === 'es' ? p.slice(1) + ' €' : lang === 'en' ? p.replace(',', '.') : p);
 const serviceHref = lang => href(FEATURES.find(f => f.service)[lang].slug);
+// Pakketten voor de knoppen en de keuzelijst in het formulier: [label, prijs]; de laatste is "meer, in overleg".
+const servicePackages = lang => {
+  const s = SERVICE[lang];
+  return [...SERVICE_TIERS.map(([n, p]) => [s.tier(n), euro(p, lang)]), [s.tierMore, s.custom]];
+};
 // Aanvraagformulier: zelfde verzending als het contactformulier (js/site.js); velden met data-extra gaan bovenaan het bericht.
 function intakeForm(lang) {
   const [, name, email, , , , , busy, ok, fail] = FORM_TEXT[lang];
   const fm = SERVICE[lang].form;
   const f = (id, label, input) => `<div class="site-field"><label for="${id}">${esc(label)}</label>${input}</div>`;
   const sel = (id, label, opts) => f(id, label, `<select id="${id}" data-extra="${esc(label)}">${opts.map(o => `<option>${esc(o)}</option>`).join('')}</select>`);
-  return `<h2>${esc(fm.title)}</h2><form class="site-form" data-contact-form data-busy="${esc(busy)}" data-ok="${esc(ok)}" data-fail="${esc(fail)}" novalidate><input type="hidden" name="subject" value="${esc(fm.subject)}">${f('ifName', name, '<input id="ifName" name="name" autocomplete="name" required maxlength="120">')}${f('ifEmail', email, '<input id="ifEmail" name="email" type="email" autocomplete="email" required maxlength="240">')}${f('ifPlace', fm.restaurant, `<input id="ifPlace" data-extra="${esc(fm.restaurant)}" autocomplete="organization" required maxlength="160">`)}<div class="site-field-pair">${sel('ifRecipes', fm.recipes, fm.recipeOptions)}${sel('ifTeam', fm.team, fm.teamOptions)}</div>${f('ifMessage', fm.message, `<textarea id="ifMessage" name="message" rows="4" maxlength="12000" placeholder="${esc(fm.placeholder)}"></textarea>`)}<div class="site-form-trap" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div><div class="site-form-row"><button class="site-btn solid" type="submit">${esc(fm.send)}</button><span class="site-form-status" aria-live="polite"></span></div></form>`;
+  const packages = servicePackages(lang).map(([t, p], i, all) => (i === all.length - 1 ? fm.packageMore : `${t} · ${p}`));
+  return `<form class="site-form" data-contact-form data-busy="${esc(busy)}" data-ok="${esc(ok)}" data-fail="${esc(fail)}" novalidate><input type="hidden" name="subject" value="${esc(fm.subject)}"><div class="site-field-pair">${sel('ifPackage', fm.package, packages)}${sel('ifTeam', fm.team, fm.teamOptions)}</div>${f('ifName', name, '<input id="ifName" name="name" autocomplete="name" required maxlength="120">')}${f('ifEmail', email, '<input id="ifEmail" name="email" type="email" autocomplete="email" required maxlength="240">')}${f('ifPlace', fm.restaurant, `<input id="ifPlace" data-extra="${esc(fm.restaurant)}" autocomplete="organization" required maxlength="160">`)}${f('ifMessage', fm.message, `<textarea id="ifMessage" name="message" rows="3" maxlength="12000" placeholder="${esc(fm.placeholder)}"></textarea>`)}<div class="site-form-trap" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div><div class="site-form-row"><button class="site-btn solid" type="submit">${esc(fm.send)}</button><span class="site-form-status" aria-live="polite"></span></div></form>`;
 }
 const freeBadge = (lang, button) => {
   const s = SERVICE[lang];
@@ -291,24 +298,53 @@ const freeBadge = (lang, button) => {
     ? `<div class="svc-free"><div><b>${esc(s.free(FREE_KITCHENS))}</b><span>${esc(s.freeNote)}</span></div>${button || ''}</div>`
     : '';
 };
-// Alles onder de tekst op de servicepagina: introductieaanbod, wat je krijgt, stappen, prijzen en het formulier.
+// Overlay met het aanvraagformulier; een pakketknop (data-svc-open="2") opent hem met dat pakket gekozen (js/site.js).
+function serviceDialog(lang) {
+  const s = SERVICE[lang];
+  return `<div class="svc-dialog" id="svcDialog" hidden><div class="svc-dialog-box" role="dialog" aria-modal="true" aria-labelledby="svcDialogTitle"><button type="button" class="svc-dialog-close" data-svc-close aria-label="${esc(s.close)}">×</button><span class="svc-kicker">${esc(s.kicker)}</span><h2 id="svcDialogTitle">${esc(s.form.title)}</h2><p class="svc-dialog-note">${esc(s.payNote)}</p>${intakeForm(lang)}</div></div>`;
+}
+// Alles onder de tekst op de servicepagina: introductieaanbod, wat je krijgt, indeling, stappen, pakketten en de overlay.
 function serviceBlock(lang) {
   const s = SERVICE[lang];
-  return `${freeBadge(lang, `<a class="site-btn solid" href="#aanvragen">${esc(s.bandButton)}</a>`)}
+  const featured = 1;
+  return `${freeBadge(lang, `<button type="button" class="site-btn solid" data-svc-open="${featured}">${esc(s.bandButton)}</button>`)}
 <h2 class="reveal">${esc(s.includedTitle)}</h2><ul class="svc-list">${s.included.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
+<h2 class="reveal">${esc(s.structureTitle)}</h2><p>${esc(s.structureText)}</p><div class="svc-structures">${s.structures.map(([t, folders]) => `<div><b>${esc(t)}</b><span>${folders.map(x => `<i>${esc(x)}</i>`).join('')}</span></div>`).join('')}</div>
 <h2 class="reveal">${esc(s.stepsTitle)}</h2><ol class="svc-steps">${s.steps.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join('')}</ol>
-<h2 class="reveal">${esc(s.priceTitle)}</h2><p>${esc(s.priceIntro)}</p><div class="svc-prices">${SERVICE_TIERS.map(([n, p], i) => `<div${i === 1 ? ' class="is-featured"' : ''}><span>${esc(s.tier(n))}</span><strong>${euro(p, lang)}</strong></div>`).join('')}<div><span>${esc(s.tierMore)}</span><strong class="small">${esc(s.custom)}</strong></div></div><p class="site-note">${esc(s.example)}</p>
-<div id="aanvragen" class="svc-form">${intakeForm(lang)}</div>`;
+<h2 class="reveal" id="pakketten">${esc(s.priceTitle)}</h2><p>${esc(s.priceIntro)}</p><div class="svc-prices">${servicePackages(lang)
+    .map(([t, p], i, all) => `<button type="button" class="svc-price${i === featured ? ' is-featured' : ''}" data-svc-open="${i}"><span>${esc(t)}</span><strong${i === all.length - 1 ? ' class="small"' : ''}>${esc(p)}</strong><em>${esc(s.choose)} →</em></button>`)
+    .join('')}</div><p class="site-note">${esc(s.example)}</p>
+${serviceDialog(lang)}`;
+}
+// Aanleverpagina (alleen via een persoonlijke link): het formulier wordt pas zichtbaar als de link klopt (js/site.js).
+function deliverBody(lang) {
+  const d = DELIVER[lang];
+  const s = SERVICE[lang];
+  const structures = s.structures;
+  return `<form class="site-form svc-deliver" data-deliver data-lang="${lang}" data-texts="${esc(JSON.stringify({ uploading: d.uploading, uploaded: d.uploaded, failed: d.failed, tooBig: d.tooBig, busy: d.busy, needFiles: d.needFiles, thanks: d.thanks, invalid: d.invalid, closed: d.closed, hello: d.hello, package: d.package }))}" hidden novalidate>
+<p class="svc-deliver-who" data-deliver-who></p>
+<h2>${esc(d.structureTitle)}</h2><p class="site-note">${esc(d.structureHint)}</p>
+<div class="svc-choice">${structures.map(([t, folders], i) => `<label><input type="radio" name="structure" value="${esc(t)}" data-folders="${esc(i === structures.length - 1 ? '' : folders.join('\n'))}"${i === 0 ? ' checked' : ''}><span>${esc(t)}</span></label>`).join('')}</div>
+<div class="site-field"><label for="dvFolders">${esc(d.foldersLabel)}</label><textarea id="dvFolders" name="folders" rows="6" maxlength="6000">${esc(structures[0][1].join('\n'))}</textarea></div>
+<div class="site-field"><label for="dvMatch">${esc(d.matchLabel)}</label><textarea id="dvMatch" name="match" rows="2" maxlength="3000" placeholder="${esc(d.matchPlaceholder)}"></textarea></div>
+<h2>${esc(d.filesTitle)}</h2><p class="site-note">${esc(d.filesHint)}</p>
+<label class="svc-drop" data-deliver-drop><input type="file" multiple data-deliver-files><span>${esc(d.drop)}</span></label>
+<ul class="svc-files" data-deliver-list></ul>
+<h2>${esc(d.notesTitle)}</h2>
+<div class="site-field"><textarea id="dvNotes" name="notes" rows="4" maxlength="6000" placeholder="${esc(d.notesPlaceholder)}" aria-label="${esc(d.notesTitle)}"></textarea></div>
+<div class="site-form-row"><button class="site-btn solid" type="submit">${esc(d.submit)}</button><span class="site-form-status" aria-live="polite"></span></div>
+<p class="site-note">${esc(d.privacy)}</p>
+</form><p class="svc-deliver-msg" data-deliver-msg>…</p>`;
 }
 // Opvallend blok op de startpagina, direct onder "Wat Savour doet".
 function serviceBand(lang) {
   const s = SERVICE[lang];
-  return `<section class="site-section svc-band"><div class="site-wrap site-two"><div><span class="svc-kicker">${esc(s.kicker)}</span><h2 class="reveal">${esc(s.bandTitle)}</h2></div><div><p>${esc(s.bandText)}</p>${FREE_KITCHENS ? `<p class="svc-band-free">${esc(s.free(FREE_KITCHENS))}</p>` : ''}<div class="site-cta-row"><a class="site-btn solid" href="${serviceHref(lang)}">${esc(s.bandButton)}</a></div></div></div></section>`;
+  return `<section class="site-section svc-band"><div class="site-wrap site-two"><div><span class="svc-kicker">${esc(s.kicker)}</span><h2 class="reveal">${esc(s.bandTitle)}</h2></div><div><p>${esc(s.bandText)}</p>${FREE_KITCHENS ? `<p class="svc-band-free">${esc(s.free(FREE_KITCHENS))}</p>` : ''}<div class="site-cta-row"><a class="site-btn solid" href="${serviceHref(lang)}#pakketten">${esc(s.bandButton)}</a></div></div></div></section>`;
 }
 // Blok onderaan de prijzenpagina.
 function serviceTeaser(lang) {
   const s = SERVICE[lang];
-  return `<div class="svc-teaser"><h2>${esc(s.proTitle)}</h2><p>${esc(s.proText)}</p>${FREE_KITCHENS ? `<p class="svc-band-free">${esc(s.free(FREE_KITCHENS))}</p>` : ''}<p><a class="site-btn solid" href="${serviceHref(lang)}">${esc(s.bandButton)}</a></p></div>`;
+  return `<div class="svc-teaser"><h2>${esc(s.proTitle)}</h2><p>${esc(s.proText)}</p>${FREE_KITCHENS ? `<p class="svc-band-free">${esc(s.free(FREE_KITCHENS))}</p>` : ''}<p><a class="site-btn solid" href="${serviceHref(lang)}#pakketten">${esc(s.bandButton)}</a></p></div>`;
 }
 
 // ---- Startpagina (ook gebruikt in index.html) ----
@@ -339,7 +375,7 @@ ${ctaBlock(lang, inApp)}`;
 }
 
 // ---- Losse pagina's ----
-function pageHead(lang, { title, desc, canonical, alternates, schema }) {
+function pageHead(lang, { title, desc, canonical, alternates, schema, hidden }) {
   return `<!doctype html>
 <html lang="${lang}">
 <head>
@@ -347,7 +383,7 @@ function pageHead(lang, { title, desc, canonical, alternates, schema }) {
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
-<link rel="canonical" href="${canonical}">
+${hidden ? '<meta name="robots" content="noindex, nofollow">\n' : ''}<link rel="canonical" href="${canonical}">
 ${alternates.map(([l, h]) => `<link rel="alternate" hreflang="${l}" href="${h}">`).join('\n')}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Savour">
@@ -389,7 +425,7 @@ function writePage(slug, html) {
 }
 
 const sitemap = [];
-function page({ lang, slugs, title, desc, crumbs, body, schema = [] }) {
+function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = false }) {
   const canonical = url(slugs[lang]);
   const alternates = LANGS.filter(l => slugs[l]).map(l => [l, url(slugs[l])]);
   if (slugs.nl) alternates.push(['x-default', url(slugs.nl)]);
@@ -398,10 +434,10 @@ function page({ lang, slugs, title, desc, crumbs, body, schema = [] }) {
     ? `<div class="site-crumbs"><a href="${UI[lang].home}">Home</a>${crumbs.map(c => ` / ${c[1] ? `<a href="${c[1]}">${esc(c[0])}</a>` : esc(c[0])}`).join('')}</div>`
     : '';
   const html =
-    pageHead(lang, { title, desc, canonical, alternates, schema: [webPage(lang, title, desc, canonical), ...schema] }) +
-    `<div class="site">${header(lang, alt, false)}<main>${body(crumbHtml)}</main>${ctaBlock(lang, false)}${footer(lang, alt, false)}</div>\n</body>\n</html>\n`;
+    pageHead(lang, { title, desc, canonical, alternates, hidden, schema: [webPage(lang, title, desc, canonical), ...schema] }) +
+    `<div class="site">${header(lang, alt, false)}<main>${body(crumbHtml)}</main>${hidden ? '' : ctaBlock(lang, false)}${footer(lang, alt, false)}</div>\n</body>\n</html>\n`;
   writePage(slugs[lang], html);
-  sitemap.push({ loc: canonical, alternates });
+  if (!hidden) sitemap.push({ loc: canonical, alternates });
 }
 
 // Echte kladjes (opgepoetst, niets aan de tekst veranderd) op Over ons, als polaroids op een prikbord. Recepten worden nooit vertaald.
@@ -499,6 +535,18 @@ for (const lang of LANGS) {
           f.soon ? `<p class="site-note">${SOON_MAIL[lang]} <a href="mailto:contact@savour.page">contact@savour.page</a>.</p>` : ''
         }</div></article>
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.related}</h2>${rows(others.slice(0, 3), lang)}</div></section>`
+    });
+  }
+  // Aanleverpagina van de inlaadservice (alleen via een persoonlijke link)
+  {
+    const d = DELIVER[lang];
+    page({
+      lang,
+      hidden: true,
+      slugs: Object.fromEntries(LANGS.map(l => [l, DELIVER[l].slug])),
+      title: d.title,
+      desc: d.lead,
+      body: c => pageTop(c, d.h1, d.lead, PAGE_PHOTO[SERVICE.nl.feature.slug]) + `<article class="site-article"><div class="site-wrap site-narrow site-prose">${deliverBody(lang)}</div></article>`
     });
   }
   // Voor wie

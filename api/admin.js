@@ -14,8 +14,13 @@ import {
   inviteUser,
   deleteAuthUser,
   confirmAuthUser,
-  updateAppMetadata
+  updateAppMetadata,
+  insert,
+  storageList,
+  storageDownloadUrl,
+  storageRemove
 } from './_lib/supabase-admin.js';
+import { randomBytes } from 'node:crypto';
 import { siteOrigin } from './_lib/origin.js';
 import { stripe, hasStripe, PLAN_MONTHLY_EUR } from './_lib/stripe.js';
 
@@ -457,6 +462,87 @@ async function deleteMessage(id) {
   return { ok: true };
 }
 
+// ---- Inlaadservice: aanleverlinks (tabel recipe_intakes, bucket 'aanleveringen'; api/aanleveren.js is de klantkant) ----
+const INTAKE_BUCKET = 'aanleveringen';
+const INTAKE_SLUG = { nl: 'aanleveren', en: 'en/send-recipes', de: 'de/rezepte-liefern', es: 'es/enviar-recetas' };
+const intakeLink = (origin, row) => `${origin}/${INTAKE_SLUG[row.language] || INTAKE_SLUG.nl}?t=${row.token}`;
+const intakeId = id => {
+  if (!Number.isInteger(Number(id))) throw Object.assign(new Error('Onbekende aanlevering.'), { status: 400 });
+  return Number(id);
+};
+
+async function intakes(origin) {
+  const rows = await select('recipe_intakes', 'select=*&order=created_at.desc&limit=200');
+  const out = await Promise.all(
+    (rows || []).map(async r => {
+      const files = r.files_deleted_at ? [] : await storageList(INTAKE_BUCKET, `${r.id}/`).catch(() => []);
+      return {
+        ...r,
+        token: undefined,
+        link: intakeLink(origin, r),
+        files: files.map(f => ({ name: f.name, size: f.metadata?.size || 0 }))
+      };
+    })
+  );
+  return { intakes: out };
+}
+
+async function createIntake(body, origin) {
+  const clean = (v, max) =>
+    String(v ?? '')
+      .trim()
+      .slice(0, max);
+  const row = {
+    token: randomBytes(24).toString('hex'),
+    name: clean(body.name, 120) || null,
+    email: clean(body.email, 240).toLowerCase() || null,
+    restaurant: clean(body.restaurant, 160) || null,
+    package: clean(body.package, 120) || null,
+    plan: clean(body.plan, 60) || null,
+    language: ['nl', 'en', 'de', 'es'].includes(body.language) ? body.language : 'nl'
+  };
+  if (!row.restaurant && !row.name)
+    throw Object.assign(new Error('Vul minstens een naam of restaurant in.'), { status: 400 });
+  await insert('recipe_intakes', row);
+  return { ok: true, link: intakeLink(origin, row) };
+}
+
+async function intakeFileUrl(id, name) {
+  const file = String(name || '');
+  if (!file || file.includes('/')) throw Object.assign(new Error('Onbekend bestand.'), { status: 400 });
+  return { url: await storageDownloadUrl(INTAKE_BUCKET, `${intakeId(id)}/${file}`) };
+}
+
+async function setIntakeStatus(id, status) {
+  if (!['open', 'ingediend', 'bezig', 'klaar'].includes(status))
+    throw Object.assign(new Error('Onbekende status.'), { status: 400 });
+  await update('recipe_intakes', `id=eq.${intakeId(id)}`, { status });
+  return { ok: true };
+}
+
+// Bestanden weggooien (belofte aan de keuken: na het inladen verwijderd). De gegevens van de aanlevering blijven.
+async function deleteIntakeFiles(id) {
+  const n = intakeId(id);
+  const files = await storageList(INTAKE_BUCKET, `${n}/`);
+  await storageRemove(
+    INTAKE_BUCKET,
+    files.map(f => `${n}/${f.name}`)
+  );
+  await update('recipe_intakes', `id=eq.${n}`, { files_deleted_at: new Date().toISOString() });
+  return { ok: true, removed: files.length };
+}
+
+async function deleteIntake(id) {
+  const n = intakeId(id);
+  const files = await storageList(INTAKE_BUCKET, `${n}/`).catch(() => []);
+  await storageRemove(
+    INTAKE_BUCKET,
+    files.map(f => `${n}/${f.name}`)
+  );
+  await remove('recipe_intakes', `id=eq.${n}`);
+  return { ok: true };
+}
+
 async function clearErrors() {
   await remove('app_errors', 'id=gt.0');
   return { ok: true };
@@ -682,6 +768,12 @@ export default async function handler(req, res) {
     if (action === 'mark_message')
       return res.status(200).json(await markMessage(req.body?.id, req.body?.read !== false));
     if (action === 'clear_errors') return res.status(200).json(await clearErrors());
+    if (action === 'intakes') return res.status(200).json(await intakes(siteOrigin(req)));
+    if (action === 'create_intake') return res.status(200).json(await createIntake(req.body, siteOrigin(req)));
+    if (action === 'intake_file') return res.status(200).json(await intakeFileUrl(req.body?.id, req.body?.file));
+    if (action === 'intake_status') return res.status(200).json(await setIntakeStatus(req.body?.id, req.body?.status));
+    if (action === 'delete_intake_files') return res.status(200).json(await deleteIntakeFiles(req.body?.id));
+    if (action === 'delete_intake') return res.status(200).json(await deleteIntake(req.body?.id));
     if (action === 'confirm_account' && userId) return res.status(200).json(await confirmAccount(userId));
     if (action === 'delete_account' && userId) return res.status(200).json(await deleteAccount(userId, user));
     return res.status(400).json({ error: 'Onbekende actie.' });

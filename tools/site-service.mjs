@@ -2,14 +2,14 @@
 // Eén plek voor alle teksten en prijzen in vier talen. tools/build-seo.mjs maakt er een eigen pagina van
 // (met prijzen, stappen en aanvraagformulier), een blok op de startpagina, een blok op de prijzenpagina en een vraag.
 //
-// Prijs: eenmalig, bij een jaarabonnement Team 5, 10 of 25 naar keuze. Gerekend op ongeveer 12 uur werk voor
-// 250 recepten (intake 1 u, inladen en mappen 2 u, elk recept nakijken ±2 min = 8 u, team instellen 1 u).
+// Prijs: eenmalig, bij een jaarabonnement Organisatie 5, 10 of 25 naar keuze. Prijzen gekozen door de eigenaar.
+// Aanleveren gaat via een persoonlijke link (/aanleveren?t=...) die de beheerder in /admin → Inladen maakt.
 // De eerste FREE_KITCHENS keukens gratis; zet FREE_KITCHENS op 0 als die plekken vol zijn.
 export const FREE_KITCHENS = 5;
 export const SERVICE_TIERS = [
-  [100, '€249'],
-  [250, '€495'],
-  [500, '€895']
+  [100, '€85'],
+  [500, '€100'],
+  [1000, '€164,99']
 ];
 
 export const SERVICE = {
@@ -19,7 +19,7 @@ export const SERVICE = {
       menu: 'Recepten laten inladen',
       short: 'Wij zetten je hele receptenmap voor je over, recept voor recept nagekeken.',
       title: 'Recepten laten inladen: wij digitaliseren je receptenmap | Savour',
-      desc: 'Geen tijd om je recepten over te zetten? De oprichter van Savour, zelf kok, laadt je hele receptenmap persoonlijk in: geordend in mappen, elk recept nagekeken en je team klaar om te koken. Vanaf €249.',
+      desc: 'Geen tijd om je recepten over te zetten? De oprichter van Savour, zelf kok, laadt je hele receptenmap persoonlijk in: geordend in mappen, elk recept nagekeken en je team klaar om te koken. Vanaf €85.',
       h1: 'Wij laden je hele receptenmap voor je in',
       lead: 'Geen tijd om honderden recepten over te zetten? De oprichter van Savour, zelf kok, doet het persoonlijk voor je. Jij levert je map aan, je team krijgt een receptenboek dat klopt.',
       sections: [
@@ -33,7 +33,7 @@ export const SERVICE = {
     bandText: 'De oprichter van Savour, zelf kok, laadt je hele receptenmap persoonlijk in. Geordend zoals jullie werken, elk recept nagekeken en je team klaar om te koken.',
     bandButton: 'Laat je recepten inladen',
     free: n => `Introductie: de eerste ${n} keukens laden we gratis in`,
-    freeNote: 'Je betaalt alleen je teamabonnement. In ruil vragen we om eerlijke feedback.',
+    freeNote: 'Je betaalt alleen je organisatie-abonnement. In ruil vragen we om eerlijke feedback.',
     includedTitle: 'Wat je krijgt',
     included: [
       'Al je recepten ingeladen: Word, PDF, foto’s van schriften en kladjes, en exports uit andere apps',
@@ -44,32 +44,91 @@ export const SERVICE = {
     ],
     stepsTitle: 'Hoe het werkt',
     steps: [
-      ['Aanvragen', 'Vul het formulier in. We nemen contact op om af te stemmen hoeveel recepten het zijn en hoe je wilt indelen.'],
-      ['Recepten aanleveren', 'Stuur je bestanden, foto’s of exports. Hoe rommelig ook: daar is Savour voor gemaakt.'],
-      ['Inladen en nakijken', 'Wij laden alles in, ordenen het in mappen en kijken elk recept na.'],
-      ['Jij keurt goed', 'Je loopt alles na, je team krijgt een uitnodiging en jullie kunnen koken.']
+      [
+        "Kies je pakket",
+        "Klik op een pakket en vul de aanvraag in. Je krijgt een factuur per mail en betaalt met iDEAL of creditcard."
+      ],
+      [
+        "Lever aan",
+        "Je krijgt een persoonlijke aanleverlink. Upload je recepten en geef je mappenstructuur door."
+      ],
+      [
+        "Inladen en nakijken",
+        "Wij laden alles in, zetten het in jouw mappen en kijken elk recept na."
+      ],
+      [
+        "Jij keurt goed",
+        "Je loopt alles na, je organisatie krijgt een uitnodiging en jullie kunnen koken."
+      ]
     ],
+    structureTitle: "Jij bepaalt de indeling",
+    structureText: "Bij het aanleveren geef je zelf je mappenstructuur door. Werk je per partie, per soort of per menu? Wij zetten elk recept in de juiste map.",
+    structures: [
+      [
+        "Per partie",
+        [
+          "Garde-manger",
+          "Pâtisserie",
+          "Rôtisseur",
+          "Entremetier",
+          "Saucier"
+        ]
+      ],
+      [
+        "Per soort",
+        [
+          "Amuses",
+          "Mousses",
+          "Gels",
+          "Sauzen",
+          "IJs",
+          "Krokantjes"
+        ]
+      ],
+      [
+        "Per menu",
+        [
+          "Restaurant menu november",
+          "Banqueting menu november",
+          "Kerstmenu 2026"
+        ]
+      ],
+      [
+        "Eigen indeling",
+        [
+          "Precies zoals jij het wilt"
+        ]
+      ]
+    ],
+    choose: "Kies dit pakket",
+    close: "Sluiten",
+    payNote: "Na je aanvraag krijg je een factuur per mail (iDEAL of creditcard) en een persoonlijke aanleverlink.",
     priceTitle: 'Prijs',
-    priceIntro: 'Eenmalig, bij een jaarabonnement Team 5, 10 of 25 naar keuze. Prijzen excl. btw.',
+    priceIntro: 'Eenmalig, bij een jaarabonnement Organisatie 5, 10 of 25 naar keuze. Prijzen excl. btw.',
     tier: n => `Tot ${n} recepten`,
-    tierMore: 'Meer dan 500 recepten',
-    custom: 'Op maat',
-    example: 'Voorbeeld: 250 recepten in een gedeelde map voor 5 koks = €495 eenmalig + Team 5 voor €89 per jaar.',
+    tierMore: 'Meer dan 1000 recepten',
+    custom: 'In overleg',
+    example: 'Voorbeeld: 250 recepten in een gedeelde map voor 5 koks = €100 eenmalig + Organisatie 5 voor €89 per jaar.',
     form: {
-      title: 'Inladen aanvragen',
-      subject: 'Inlaadservice aanvragen',
-      restaurant: 'Restaurant of bedrijf',
-      recipes: 'Hoeveel recepten ongeveer?',
-      recipeOptions: ['Tot 100', '100 tot 250', '250 tot 500', 'Meer dan 500', 'Weet ik nog niet'],
-      team: 'Welk teamabonnement?',
-      teamOptions: ['Team 5', 'Team 10', 'Team 25', 'Weet ik nog niet'],
-      message: 'In welke vorm zijn je recepten?',
-      placeholder: 'Bijvoorbeeld: Word-bestanden, een geprinte map, schriften, recepten in een andere app…',
-      send: 'Inladen aanvragen'
+      "title": "Inladen aanvragen",
+      "subject": "Inlaadservice aanvragen",
+      "restaurant": "Restaurant of bedrijf",
+      "package": "Pakket",
+      "packageMore": "Meer dan 1000 recepten (in overleg)",
+      "team": "Welk organisatie-abonnement?",
+      "teamOptions": [
+        "Organisatie 5",
+        "Organisatie 10",
+        "Organisatie 25",
+        "Weet ik nog niet"
+      ],
+      "message": "Opmerkingen",
+      "placeholder": "Bijvoorbeeld: in welke vorm je recepten zijn, of wanneer je het klaar wilt hebben…",
+      "send": "Aanvraag versturen"
     },
     proTitle: 'Liever dat wij je recepten inladen?',
-    proText: 'Met de inlaadservice zet de oprichter van Savour, zelf kok, je hele receptenmap persoonlijk over. Vanaf €249 eenmalig, bij een teamabonnement naar keuze.',
-    faq: ['Kunnen jullie mijn recepten voor me inladen?', 'Ja. Met de inlaadservice zet de oprichter van Savour, zelf kok, je hele receptenmap persoonlijk over: ingeladen, geordend in mappen en elk recept nagekeken. Vanaf €249 eenmalig, bij een jaarabonnement Team 5, 10 of 25. De eerste 5 keukens laden we gratis in.']
+    proText: 'Met de inlaadservice zet de oprichter van Savour, zelf kok, je hele receptenmap persoonlijk over. Vanaf €85 eenmalig, bij een organisatie-abonnement naar keuze.',
+    faq: ['Kunnen jullie mijn recepten voor me inladen?', 'Ja. Met de inlaadservice zet de oprichter van Savour, zelf kok, je hele receptenmap persoonlijk over: ingeladen, geordend in mappen en elk recept nagekeken. Vanaf €85 eenmalig, bij een jaarabonnement Organisatie 5, 10 of 25. De eerste 5 keukens laden we gratis in.']
   },
   en: {
     feature: {
@@ -77,7 +136,7 @@ export const SERVICE = {
       menu: 'We import your recipes',
       short: 'We move your whole recipe folder over for you, checked recipe by recipe.',
       title: 'Recipe import service: we digitise your recipe folder | Savour',
-      desc: 'No time to move your recipes over? The founder of Savour, a chef, personally imports your whole recipe folder: organised in folders, every recipe checked and your team ready to cook. From €249.',
+      desc: 'No time to move your recipes over? The founder of Savour, a chef, personally imports your whole recipe folder: organised in folders, every recipe checked and your team ready to cook. From €85.',
       h1: 'We import your whole recipe folder for you',
       lead: 'No time to move hundreds of recipes over? The founder of Savour, a chef, does it for you personally. You hand over your folder, your team gets a recipe book that is right.',
       sections: [
@@ -91,7 +150,7 @@ export const SERVICE = {
     bandText: 'The founder of Savour, a chef, personally imports your whole recipe folder. Organised the way you work, every recipe checked and your team ready to cook.',
     bandButton: 'Have your recipes imported',
     free: n => `Launch offer: the first ${n} kitchens are imported for free`,
-    freeNote: 'You only pay for your team plan. In return we ask for honest feedback.',
+    freeNote: 'You only pay for your organisation plan. In return we ask for honest feedback.',
     includedTitle: 'What you get',
     included: [
       'All your recipes imported: Word, PDF, photos of notebooks and notes, and exports from other apps',
@@ -102,32 +161,91 @@ export const SERVICE = {
     ],
     stepsTitle: 'How it works',
     steps: [
-      ['Request', 'Fill in the form. We get in touch to agree how many recipes there are and how you want them organised.'],
-      ['Send your recipes', 'Send your files, photos or exports. However messy: that is what Savour was made for.'],
-      ['Import and check', 'We import everything, organise it in folders and check every recipe.'],
-      ['You approve', 'You go through it all, your team gets an invitation and you can start cooking.']
+      [
+        "Choose your package",
+        "Click a package and fill in the request. You receive an invoice by email and pay with iDEAL or card."
+      ],
+      [
+        "Send your recipes",
+        "You get a personal upload link. Upload your recipes and tell us your folder structure."
+      ],
+      [
+        "Import and check",
+        "We import everything, put it in your folders and check every recipe."
+      ],
+      [
+        "You approve",
+        "You go through it all, your organisation gets an invitation and you can start cooking."
+      ]
     ],
+    structureTitle: "You decide the structure",
+    structureText: "When you send your recipes, you tell us your own folder structure. By section, by type or by menu? We put every recipe in the right folder.",
+    structures: [
+      [
+        "By section",
+        [
+          "Garde manger",
+          "Pastry",
+          "Rôtisseur",
+          "Entremetier",
+          "Saucier"
+        ]
+      ],
+      [
+        "By type",
+        [
+          "Amuse-bouches",
+          "Mousses",
+          "Gels",
+          "Sauces",
+          "Ice cream",
+          "Crisps"
+        ]
+      ],
+      [
+        "By menu",
+        [
+          "Restaurant menu November",
+          "Banqueting menu November",
+          "Christmas menu 2026"
+        ]
+      ],
+      [
+        "Your own",
+        [
+          "Exactly the way you want it"
+        ]
+      ]
+    ],
+    choose: "Choose this package",
+    close: "Close",
+    payNote: "After your request you receive an invoice by email (iDEAL or card) and a personal upload link.",
     priceTitle: 'Price',
-    priceIntro: 'One-off, with a yearly Team 5, 10 or 25 plan of your choice. Prices excl. VAT.',
+    priceIntro: 'One-off, with a yearly Organisation 5, 10 or 25 plan of your choice. Prices excl. VAT.',
     tier: n => `Up to ${n} recipes`,
-    tierMore: 'More than 500 recipes',
-    custom: 'Custom quote',
-    example: 'Example: 250 recipes in a shared folder for 5 cooks = €495 one-off + Team 5 for €89 a year.',
+    tierMore: 'More than 1,000 recipes',
+    custom: 'Let’s talk',
+    example: 'Example: 250 recipes in a shared folder for 5 cooks = €100 one-off + Organisation 5 for €89 a year.',
     form: {
-      title: 'Request an import',
-      subject: 'Import service request',
-      restaurant: 'Restaurant or company',
-      recipes: 'About how many recipes?',
-      recipeOptions: ['Up to 100', '100 to 250', '250 to 500', 'More than 500', 'Not sure yet'],
-      team: 'Which team plan?',
-      teamOptions: ['Team 5', 'Team 10', 'Team 25', 'Not sure yet'],
-      message: 'What form are your recipes in?',
-      placeholder: 'For example: Word files, a printed binder, notebooks, recipes in another app…',
-      send: 'Request an import'
+      "title": "Request an import",
+      "subject": "Import service request",
+      "restaurant": "Restaurant or company",
+      "package": "Package",
+      "packageMore": "More than 1,000 recipes (let’s talk)",
+      "team": "Which organisation plan?",
+      "teamOptions": [
+        "Organisation 5",
+        "Organisation 10",
+        "Organisation 25",
+        "Not sure yet"
+      ],
+      "message": "Notes",
+      "placeholder": "For example: what form your recipes are in, or when you would like it ready…",
+      "send": "Send request"
     },
     proTitle: 'Rather have us import your recipes?',
-    proText: 'With the import service, the founder of Savour, a chef, personally moves your whole recipe folder over. From €249 one-off, with a team plan of your choice.',
-    faq: ['Can you import my recipes for me?', 'Yes. With the import service, the founder of Savour, a chef, personally moves your whole recipe folder over: imported, organised in folders and every recipe checked. From €249 one-off, with a yearly Team 5, 10 or 25 plan. The first 5 kitchens are imported for free.']
+    proText: 'With the import service, the founder of Savour, a chef, personally moves your whole recipe folder over. From €85 one-off, with an organisation plan of your choice.',
+    faq: ['Can you import my recipes for me?', 'Yes. With the import service, the founder of Savour, a chef, personally moves your whole recipe folder over: imported, organised in folders and every recipe checked. From €85 one-off, with a yearly Organisation 5, 10 or 25 plan. The first 5 kitchens are imported for free.']
   },
   de: {
     feature: {
@@ -135,7 +253,7 @@ export const SERVICE = {
       menu: 'Rezepte einpflegen lassen',
       short: 'Wir übertragen deinen ganzen Rezeptordner für dich, Rezept für Rezept geprüft.',
       title: 'Rezepte einpflegen lassen: wir digitalisieren deinen Rezeptordner | Savour',
-      desc: 'Keine Zeit, deine Rezepte zu übertragen? Der Gründer von Savour, selbst Koch, pflegt deinen ganzen Rezeptordner persönlich ein: in Ordnern sortiert, jedes Rezept geprüft und dein Team startklar. Ab 249 €.',
+      desc: 'Keine Zeit, deine Rezepte zu übertragen? Der Gründer von Savour, selbst Koch, pflegt deinen ganzen Rezeptordner persönlich ein: in Ordnern sortiert, jedes Rezept geprüft und dein Team startklar. Ab 85 €.',
       h1: 'Wir pflegen deinen ganzen Rezeptordner für dich ein',
       lead: 'Keine Zeit, Hunderte Rezepte zu übertragen? Der Gründer von Savour, selbst Koch, macht das persönlich für dich. Du lieferst deinen Ordner, dein Team bekommt ein Rezeptbuch, das stimmt.',
       sections: [
@@ -149,7 +267,7 @@ export const SERVICE = {
     bandText: 'Der Gründer von Savour, selbst Koch, pflegt deinen ganzen Rezeptordner persönlich ein. Sortiert, wie ihr arbeitet, jedes Rezept geprüft und dein Team startklar.',
     bandButton: 'Rezepte einpflegen lassen',
     free: n => `Zum Start: Die ersten ${n} Küchen pflegen wir kostenlos ein`,
-    freeNote: 'Du zahlst nur dein Team-Abo. Im Gegenzug bitten wir um ehrliches Feedback.',
+    freeNote: 'Du zahlst nur dein Organisations-Abo. Im Gegenzug bitten wir um ehrliches Feedback.',
     includedTitle: 'Was du bekommst',
     included: [
       'Alle Rezepte eingepflegt: Word, PDF, Fotos von Heften und Notizen sowie Exporte aus anderen Apps',
@@ -160,32 +278,91 @@ export const SERVICE = {
     ],
     stepsTitle: 'So funktioniert es',
     steps: [
-      ['Anfragen', 'Füll das Formular aus. Wir melden uns, um abzustimmen, wie viele Rezepte es sind und wie du sie ordnen willst.'],
-      ['Rezepte schicken', 'Schick deine Dateien, Fotos oder Exporte. Egal wie chaotisch: Dafür ist Savour gemacht.'],
-      ['Einpflegen und prüfen', 'Wir pflegen alles ein, sortieren es in Ordner und prüfen jedes Rezept.'],
-      ['Du gibst frei', 'Du gehst alles durch, dein Team bekommt eine Einladung und ihr könnt kochen.']
+      [
+        "Paket wählen",
+        "Klick auf ein Paket und füll die Anfrage aus. Du bekommst eine Rechnung per E-Mail und zahlst per iDEAL oder Karte."
+      ],
+      [
+        "Rezepte liefern",
+        "Du bekommst einen persönlichen Upload-Link. Lade deine Rezepte hoch und nenne uns deine Ordnerstruktur."
+      ],
+      [
+        "Einpflegen und prüfen",
+        "Wir pflegen alles ein, sortieren es in deine Ordner und prüfen jedes Rezept."
+      ],
+      [
+        "Du gibst frei",
+        "Du gehst alles durch, deine Organisation bekommt eine Einladung und ihr könnt kochen."
+      ]
     ],
+    structureTitle: "Du bestimmst die Ordnung",
+    structureText: "Beim Liefern nennst du uns deine eigene Ordnerstruktur. Nach Posten, nach Art oder nach Menü? Wir legen jedes Rezept in den richtigen Ordner.",
+    structures: [
+      [
+        "Nach Posten",
+        [
+          "Garde-manger",
+          "Pâtisserie",
+          "Rôtisseur",
+          "Entremetier",
+          "Saucier"
+        ]
+      ],
+      [
+        "Nach Art",
+        [
+          "Amuse-Bouches",
+          "Mousses",
+          "Gele",
+          "Saucen",
+          "Eis",
+          "Crunch"
+        ]
+      ],
+      [
+        "Nach Menü",
+        [
+          "Restaurant-Menü November",
+          "Bankett-Menü November",
+          "Weihnachtsmenü 2026"
+        ]
+      ],
+      [
+        "Eigene Ordnung",
+        [
+          "Genau so, wie du es willst"
+        ]
+      ]
+    ],
+    choose: "Dieses Paket wählen",
+    close: "Schließen",
+    payNote: "Nach deiner Anfrage bekommst du eine Rechnung per E-Mail (iDEAL oder Karte) und einen persönlichen Upload-Link.",
     priceTitle: 'Preis',
-    priceIntro: 'Einmalig, zusammen mit einem Jahres-Abo Team 5, 10 oder 25 nach Wahl. Preise zzgl. MwSt.',
+    priceIntro: 'Einmalig, zusammen mit einem Jahres-Abo Organisation 5, 10 oder 25 nach Wahl. Preise zzgl. MwSt.',
     tier: n => `Bis ${n} Rezepte`,
-    tierMore: 'Mehr als 500 Rezepte',
-    custom: 'Auf Anfrage',
-    example: 'Beispiel: 250 Rezepte in einem geteilten Ordner für 5 Köche = 495 € einmalig + Team 5 für 89 € pro Jahr.',
+    tierMore: 'Mehr als 1.000 Rezepte',
+    custom: 'Nach Absprache',
+    example: 'Beispiel: 250 Rezepte in einem geteilten Ordner für 5 Köche = 100 € einmalig + Organisation 5 für 89 € pro Jahr.',
     form: {
-      title: 'Einpflegen anfragen',
-      subject: 'Anfrage Einpflege-Service',
-      restaurant: 'Restaurant oder Unternehmen',
-      recipes: 'Wie viele Rezepte ungefähr?',
-      recipeOptions: ['Bis 100', '100 bis 250', '250 bis 500', 'Mehr als 500', 'Weiß ich noch nicht'],
-      team: 'Welches Team-Abo?',
-      teamOptions: ['Team 5', 'Team 10', 'Team 25', 'Weiß ich noch nicht'],
-      message: 'In welcher Form liegen deine Rezepte vor?',
-      placeholder: 'Zum Beispiel: Word-Dateien, ein gedruckter Ordner, Hefte, Rezepte in einer anderen App…',
-      send: 'Einpflegen anfragen'
+      "title": "Einpflegen anfragen",
+      "subject": "Anfrage Einpflege-Service",
+      "restaurant": "Restaurant oder Unternehmen",
+      "package": "Paket",
+      "packageMore": "Mehr als 1.000 Rezepte (nach Absprache)",
+      "team": "Welches Organisations-Abo?",
+      "teamOptions": [
+        "Organisation 5",
+        "Organisation 10",
+        "Organisation 25",
+        "Weiß ich noch nicht"
+      ],
+      "message": "Anmerkungen",
+      "placeholder": "Zum Beispiel: in welcher Form deine Rezepte vorliegen oder bis wann es fertig sein soll…",
+      "send": "Anfrage senden"
     },
     proTitle: 'Sollen wir deine Rezepte einpflegen?',
-    proText: 'Mit dem Einpflege-Service überträgt der Gründer von Savour, selbst Koch, deinen ganzen Rezeptordner persönlich. Ab 249 € einmalig, mit einem Team-Abo nach Wahl.',
-    faq: ['Könnt ihr meine Rezepte für mich einpflegen?', 'Ja. Mit dem Einpflege-Service überträgt der Gründer von Savour, selbst Koch, deinen ganzen Rezeptordner persönlich: eingepflegt, in Ordnern sortiert und jedes Rezept geprüft. Ab 249 € einmalig, mit einem Jahres-Abo Team 5, 10 oder 25. Die ersten 5 Küchen pflegen wir kostenlos ein.']
+    proText: 'Mit dem Einpflege-Service überträgt der Gründer von Savour, selbst Koch, deinen ganzen Rezeptordner persönlich. Ab 85 € einmalig, mit einem Organisations-Abo nach Wahl.',
+    faq: ['Könnt ihr meine Rezepte für mich einpflegen?', 'Ja. Mit dem Einpflege-Service überträgt der Gründer von Savour, selbst Koch, deinen ganzen Rezeptordner persönlich: eingepflegt, in Ordnern sortiert und jedes Rezept geprüft. Ab 85 € einmalig, mit einem Jahres-Abo Organisation 5, 10 oder 25. Die ersten 5 Küchen pflegen wir kostenlos ein.']
   },
   es: {
     feature: {
@@ -193,7 +370,7 @@ export const SERVICE = {
       menu: 'Cargamos tus recetas',
       short: 'Pasamos todo tu recetario por ti, revisado receta por receta.',
       title: 'Servicio de carga de recetas: digitalizamos tu recetario | Savour',
-      desc: '¿Sin tiempo para pasar tus recetas? El fundador de Savour, cocinero, carga personalmente todo tu recetario: ordenado en carpetas, cada receta revisada y tu equipo listo para cocinar. Desde 249 €.',
+      desc: '¿Sin tiempo para pasar tus recetas? El fundador de Savour, cocinero, carga personalmente todo tu recetario: ordenado en carpetas, cada receta revisada y tu equipo listo para cocinar. Desde 85 €.',
       h1: 'Cargamos todo tu recetario por ti',
       lead: '¿Sin tiempo para pasar cientos de recetas? El fundador de Savour, cocinero, lo hace personalmente por ti. Tú entregas tu carpeta y tu equipo recibe un recetario que funciona.',
       sections: [
@@ -207,7 +384,7 @@ export const SERVICE = {
     bandText: 'El fundador de Savour, cocinero, carga personalmente todo tu recetario. Ordenado como trabajáis, cada receta revisada y tu equipo listo para cocinar.',
     bandButton: 'Que carguemos tus recetas',
     free: n => `Lanzamiento: las primeras ${n} cocinas las cargamos gratis`,
-    freeNote: 'Solo pagas tu plan de equipo. A cambio te pedimos una opinión sincera.',
+    freeNote: 'Solo pagas tu plan de organización. A cambio te pedimos una opinión sincera.',
     includedTitle: 'Qué incluye',
     included: [
       'Todas tus recetas cargadas: Word, PDF, fotos de libretas y notas, y exportaciones de otras apps',
@@ -218,31 +395,90 @@ export const SERVICE = {
     ],
     stepsTitle: 'Cómo funciona',
     steps: [
-      ['Solicítalo', 'Rellena el formulario. Nos ponemos en contacto para ver cuántas recetas son y cómo quieres organizarlas.'],
-      ['Envía tus recetas', 'Envía tus archivos, fotos o exportaciones. Por desordenado que esté: para eso se hizo Savour.'],
-      ['Cargamos y revisamos', 'Lo cargamos todo, lo ordenamos en carpetas y revisamos cada receta.'],
-      ['Tú lo apruebas', 'Lo revisas todo, tu equipo recibe una invitación y podéis cocinar.']
+      [
+        "Elige tu paquete",
+        "Haz clic en un paquete y rellena la solicitud. Recibes una factura por correo y pagas con iDEAL o tarjeta."
+      ],
+      [
+        "Envía tus recetas",
+        "Recibes un enlace personal. Sube tus recetas e indícanos tu estructura de carpetas."
+      ],
+      [
+        "Cargamos y revisamos",
+        "Lo cargamos todo, lo ponemos en tus carpetas y revisamos cada receta."
+      ],
+      [
+        "Tú lo apruebas",
+        "Lo revisas todo, tu organización recibe una invitación y podéis cocinar."
+      ]
     ],
+    structureTitle: "Tú decides la estructura",
+    structureText: "Al enviar tus recetas nos indicas tu propia estructura de carpetas. ¿Por partida, por tipo o por menú? Ponemos cada receta en la carpeta correcta.",
+    structures: [
+      [
+        "Por partida",
+        [
+          "Garde manger",
+          "Pastelería",
+          "Rôtisseur",
+          "Entremetier",
+          "Saucier"
+        ]
+      ],
+      [
+        "Por tipo",
+        [
+          "Aperitivos",
+          "Mousses",
+          "Geles",
+          "Salsas",
+          "Helados",
+          "Crujientes"
+        ]
+      ],
+      [
+        "Por menú",
+        [
+          "Menú restaurante noviembre",
+          "Menú banquetes noviembre",
+          "Menú de Navidad 2026"
+        ]
+      ],
+      [
+        "A tu manera",
+        [
+          "Exactamente como tú quieras"
+        ]
+      ]
+    ],
+    choose: "Elegir este paquete",
+    close: "Cerrar",
+    payNote: "Tras tu solicitud recibes una factura por correo (iDEAL o tarjeta) y un enlace personal para enviar tus recetas.",
     priceTitle: 'Precio',
-    priceIntro: 'Pago único, con un plan anual Team 5, 10 o 25 a elegir. Precios sin IVA.',
+    priceIntro: 'Pago único, con un plan anual Organización 5, 10 o 25 a elegir. Precios sin IVA.',
     tier: n => `Hasta ${n} recetas`,
-    tierMore: 'Más de 500 recetas',
-    custom: 'A medida',
-    example: 'Ejemplo: 250 recetas en una carpeta compartida para 5 cocineros = 495 € pago único + Team 5 por 89 € al año.',
+    tierMore: 'Más de 1.000 recetas',
+    custom: 'A convenir',
+    example: 'Ejemplo: 250 recetas en una carpeta compartida para 5 cocineros = 100 € pago único + Organización 5 por 89 € al año.',
     form: {
-      title: 'Solicitar la carga',
-      subject: 'Solicitud del servicio de carga',
-      restaurant: 'Restaurante o empresa',
-      recipes: '¿Cuántas recetas, más o menos?',
-      recipeOptions: ['Hasta 100', 'De 100 a 250', 'De 250 a 500', 'Más de 500', 'Aún no lo sé'],
-      team: '¿Qué plan de equipo?',
-      teamOptions: ['Team 5', 'Team 10', 'Team 25', 'Aún no lo sé'],
-      message: '¿En qué formato están tus recetas?',
-      placeholder: 'Por ejemplo: archivos Word, una carpeta impresa, libretas, recetas en otra app…',
-      send: 'Solicitar la carga'
+      "title": "Solicitar la carga",
+      "subject": "Solicitud del servicio de carga",
+      "restaurant": "Restaurante o empresa",
+      "package": "Paquete",
+      "packageMore": "Más de 1.000 recetas (a convenir)",
+      "team": "¿Qué plan de organización?",
+      "teamOptions": [
+        "Organización 5",
+        "Organización 10",
+        "Organización 25",
+        "Aún no lo sé"
+      ],
+      "message": "Comentarios",
+      "placeholder": "Por ejemplo: en qué formato están tus recetas o para cuándo lo quieres…",
+      "send": "Enviar solicitud"
     },
     proTitle: '¿Prefieres que carguemos tus recetas?',
-    proText: 'Con el servicio de carga, el fundador de Savour, cocinero, pasa personalmente todo tu recetario. Desde 249 € pago único, con un plan de equipo a elegir.',
-    faq: ['¿Podéis cargar mis recetas por mí?', 'Sí. Con el servicio de carga, el fundador de Savour, cocinero, pasa personalmente todo tu recetario: cargado, ordenado en carpetas y cada receta revisada. Desde 249 € pago único, con un plan anual Team 5, 10 o 25. Las primeras 5 cocinas las cargamos gratis.']
+    proText: 'Con el servicio de carga, el fundador de Savour, cocinero, pasa personalmente todo tu recetario. Desde 85 € pago único, con un plan de organización a elegir.',
+    faq: ['¿Podéis cargar mis recetas por mí?', 'Sí. Con el servicio de carga, el fundador de Savour, cocinero, pasa personalmente todo tu recetario: cargado, ordenado en carpetas y cada receta revisada. Desde 85 € pago único, con un plan anual Organización 5, 10 o 25. Las primeras 5 cocinas las cargamos gratis.']
   }
 };

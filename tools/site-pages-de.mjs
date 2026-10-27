@@ -102,15 +102,16 @@ export const DE = {
     },
     print: {
       slug: 'de/rezepte-drucken',
-      title: 'Rezepte drucken: ganze Rezeptordner auf einmal | Savour',
-      desc: 'Drucke einzelne Rezepte oder einen ganzen Rezeptordner auf einmal, sauber gestaltet für den Ordner in der Küche. Mit Savour Pro mit deinem Restaurantlogo.',
-      h1: 'Rezepte drucken, auch einen ganzen Ordner auf einmal',
-      lead: 'Manchmal funktioniert Papier an der Wand einfach am besten. Dann muss es schnell und sauber gehen.',
+      title: 'Rezepte drucken: einzelne Rezepte und komplette Rezeptordner | Savour',
+      desc: 'Drucke ein einzelnes Rezept oder einen kompletten Rezeptordner auf einmal, sauber gestaltet für die Wand, den Pass oder den Küchenordner. Mit Savour Pro mit deinem Restaurantlogo.',
+      h1: 'Rezepte drucken',
+      lead: 'Drucke ein Rezept für die Wand oder einen kompletten Rezeptordner für den Ordner. Schnell, sauber und immer die Version, die stimmt.',
       sections: [
-        ['Ein ganzer Ordner auf einmal', 'Alle Eisrezepte sollen in den Ordner der Patisserie? Drucke den ganzen Ordner auf einmal, statt fünfzig Dateien einzeln.'],
-        ['Ruhiges Layout', 'Titel, Ausbeute, Zutaten und Zubereitung, groß und übersichtlich. Lesbar aus einem Meter Entfernung, auch mit einem Fleck darauf.'],
+        ['Ein einzelnes Rezept drucken', 'Öffne ein Rezept und wähle Drucken. Du bekommst eine ruhige Seite mit Titel, Ausbeute, Zutaten und Zubereitung. Hast du das Rezept hochgerechnet, zum Beispiel auf 40 Gedecke, druckst du genau diese Mengen.'],
+        ['Einen kompletten Rezeptordner drucken', 'Alle Eisrezepte sollen in den Ordner der Patisserie? Öffne den Ordner und drucke ihn auf einmal: jedes Rezept auf einer eigenen Seite, in der Reihenfolge deines Ordners. Nie mehr fünfzig Dateien einzeln.'],
+        ['Ruhiges Layout', 'Groß und übersichtlich. Lesbar aus einem Meter Entfernung, auch mit einem Fleck darauf.'],
         ['Immer die neueste Version', 'Weil du aus Savour druckst, hängt immer die Version an der Wand, die jetzt stimmt. Unten steht das Druckdatum, damit du siehst, ob ein Ordner noch aktuell ist.'],
-        ['Mit dem Logo deines Restaurants', 'Mit Savour Pro stehen Logo und Name deines Restaurants oben auf jeder Seite. Im Team gilt das Logo für alle. Wähle A4 für den Ordner oder A5 für eine kleine Mappe am Pass.']
+        ['Mit dem Logo deines Restaurants', 'Mit Savour Pro stehen Logo und Name deines Restaurants oben auf jeder Seite. In einer Organisation gilt das Logo für alle. Wähle A4 für den Ordner oder A5 für eine kleine Mappe am Pass.']
       ]
     },
     cloud: {
