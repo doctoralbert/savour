@@ -19,6 +19,7 @@ import {
   INTAKE_BUCKET as BUCKET,
   PACKAGES,
   SEAT_YEAR_EUR,
+  SEAT_YEAR_PRICE,
   deliverLink,
   packageLabel,
   cleanText as clean,
@@ -87,6 +88,22 @@ async function request(body) {
   );
   if ((recent || []).length >= 3) return { ok: true };
   await insert('recipe_intakes', row);
+  const summary = `Pakket: ${packageLabel(row.package) || 'weet nog niet'}
+Organisatie: ${row.seats ? `${row.seats} personen` : 'weet nog niet'}
+Taal: ${row.language}
+
+${row.request_notes || ''}
+
+Goedkeuren of afwijzen: /admin → Inladen.`;
+  // Ook in /admin → Berichten, net als het contactformulier. Lukt dat niet, dan gaat de mail gewoon door.
+  await insert('contact_messages', {
+    kind: 'contact',
+    name: row.name,
+    email: row.email,
+    subject: `Inlaadservice: aanvraag van ${row.restaurant}`.slice(0, 180),
+    message: summary,
+    language: row.language
+  }).catch(e => console.warn('Inladen: niet in Berichten gezet', e.message));
   await notifyAdmin(
     `Savour inladen: nieuwe aanvraag van ${row.restaurant}`,
     `Nieuwe aanvraag voor de inlaadservice\n\nRestaurant: ${row.restaurant}\nNaam: ${row.name}\nE-mail: ${row.email}\nPakket: ${packageLabel(row.package) || 'weet nog niet'}\nOrganisatie: ${row.seats ? `${row.seats} personen` : 'weet nog niet'}\nTaal: ${row.language}\n\n${row.request_notes || ''}\n\nGoedkeuren of afwijzen: savour.page/admin → Inladen.`
@@ -133,13 +150,15 @@ async function state(intake) {
 async function checkout(intake, body, origin) {
   if (intake.status !== 'goedgekeurd')
     throw Object.assign(new Error('Deze bestelling kan nu niet worden betaald.'), { status: 409 });
-  if (!hasStripe()) throw Object.assign(new Error('Betalen is nog niet ingesteld.'), { status: 503 });
+  if (!hasStripe())
+    throw Object.assign(new Error('Betalen is nog niet ingesteld (Stripe-sleutel ontbreekt).'), { status: 503 });
   if (!intake.owner_id)
     throw Object.assign(new Error('Deze aanvraag is nog niet klaar om te betalen.'), { status: 409 });
   const seats = [5, 10, 25].includes(Number(body.seats)) ? Number(body.seats) : intake.seats || 5;
   const plan = `team${seats}_year`;
-  const price = priceFor(plan);
-  if (!price) throw Object.assign(new Error('Betalen is nog niet ingesteld.'), { status: 503 });
+  const price = priceFor(plan) || SEAT_YEAR_PRICE[seats];
+  if (!price)
+    throw Object.assign(new Error(`Betalen is nog niet ingesteld (prijs Organisatie ${seats}).`), { status: 503 });
   const ownerId = intake.owner_id;
 
   const [existing] = await select('organizations', `owner_id=eq.${encodeURIComponent(ownerId)}&select=*`);

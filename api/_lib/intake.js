@@ -9,8 +9,14 @@ export const PACKAGES = {
 };
 // Zoveel keukens krijgen het inladen gratis (introductie); gelijk houden met FREE_KITCHENS in tools/site-service.mjs.
 export const FREE_INTRO = 5;
-// Organisatie-abonnement per jaar (Stripe-prijzen STRIPE_PRICE_TEAMx_YEAR); bedragen alleen om te tonen.
+// Organisatie-abonnement per jaar; bedragen alleen om te tonen. Stripe-prijzen (geen geheim): staat er in Vercel
+// een STRIPE_PRICE_TEAMx_YEAR, dan geldt die; anders deze vaste prijzen uit het Stripe-dashboard.
 export const SEAT_YEAR_EUR = { 5: 89, 10: 149, 25: 299 };
+export const SEAT_YEAR_PRICE = {
+  5: 'price_1UVD9QFnfKM1E6tPuJsZhw1q',
+  10: 'price_1UVDCEFnfKM1E6tPh8FS3ybb',
+  25: 'price_1UVDCfFnfKM1E6tPv71CuIqo'
+};
 export const DELIVER_SLUG = {
   nl: 'aanleveren',
   en: 'en/send-recipes',
