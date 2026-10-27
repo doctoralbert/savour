@@ -308,8 +308,10 @@ function teamBrigade(m) {
   const t = savourPlan.team;
   if (!t?.owner || !isSharedMapOwner(m)) return null;
   const linked = String(t.team_id || '') === String(m.id);
+  // Het abonnement hoort bij precies één keukenteam. Bestaat dat nog, dan kan het niet ook hier gekoppeld worden.
+  const elsewhere = !linked && t.team_id ? findSharedMap(t.team_id) : null;
   const pro = new Set((t.members || []).map(e => String(e).toLowerCase()));
-  return { plan: t, linked, active: !!t.active, seats: t.seats || 0, used: pro.size + 1, pro };
+  return { plan: t, linked, elsewhere, active: !!t.active, seats: t.seats || 0, used: pro.size + 1, pro };
 }
 
 function renderShared(id) {
@@ -396,6 +398,8 @@ function teamBrigadeHtml(m) {
   let proBlock = '';
   if (isOwner && proOn)
     proBlock = `<div class="team-seats"><div><b>Brigade ${esc(b.seats)}</b><span class="muted">${esc(b.used)} van ${esc(b.seats)} plekken met Pro (jij telt mee)</span></div><div class="team-seats-bar"><i style="width:${Math.min(100, Math.round((b.used / b.seats) * 100))}%"></i></div></div>`;
+  else if (isOwner && b?.elsewhere)
+    proBlock = `<div class="team-seats"><div><b>Je Brigade ${esc(b.seats)} hoort bij ${esc(b.elsewhere.name)}</b><span class="muted">Een brigade-abonnement hoort bij één keukenteam. Wil je ook hier Pro voor iedereen, neem dan een tweede abonnement of verwijder eerst dat keukenteam.</span></div><button class="btn" onclick="openTeamNav()">Naar ${esc(b.elsewhere.name)}</button></div>`;
   else if (isOwner && b && !b.linked)
     proBlock = `<div class="team-seats"><div><b>Je hebt Brigade ${esc(b.seats)}</b><span class="muted">Koppel het aan dit keukenteam, dan krijgt je brigade hier Pro.</span></div><button class="btn gold" onclick="linkBrigade('${mid}')">Koppelen aan ${esc(m.name)}</button></div>`;
   else if (isOwner)
@@ -451,7 +455,12 @@ async function takeBrigadePro(mapId, email) {
 
 async function linkBrigade(mapId) {
   const { error } = await supabaseClient.rpc('savour_link_brigade', { _team: mapId });
-  if (error) return toast('Koppelen lukte niet');
+  if (error)
+    return toast(
+      /already_linked/.test(error.message || '')
+        ? 'Je brigade-abonnement hoort al bij een ander keukenteam'
+        : 'Koppelen lukte niet'
+    );
   await loadPlanState();
   currentTeamTab = 'brigade';
   openShared(mapId);
@@ -931,7 +940,8 @@ async function deleteSharedMap(id) {
   if (!m || String(m.ownerId) !== String(currentUser.id)) return;
   if (
     !(await askConfirm(
-      `Weet je zeker dat je het keukenteam “${m.name}” wilt verwijderen?\n\nHet keukenteam en de indeling worden verwijderd. Je persoonlijke recepten blijven behouden.`
+      `Weet je zeker dat je het keukenteam “${m.name}” wilt verwijderen?\n\nAlle recepten en mappen van dit keukenteam worden voor iedereen verwijderd. Je persoonlijke recepten blijven behouden.${teamBrigade(m)?.linked ? '\n\nJe brigade-abonnement wordt losgekoppeld en de Pro-plekken komen vrij. Je kunt het daarna aan een ander of nieuw keukenteam koppelen.' : ''}`,
+      { confirmLabel: 'Verwijderen', danger: true }
     ))
   )
     return;
@@ -950,6 +960,8 @@ async function deleteSharedMap(id) {
     return;
   }
   if (String(currentShared) === String(id)) currentShared = null;
+  // Hoorde het brigade-abonnement erbij, dan is het nu losgekoppeld (de database regelt dat).
+  await loadPlanState();
   await loadDatabaseState();
   renderSharedManage();
   renderSharedNav();

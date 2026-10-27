@@ -1503,6 +1503,10 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Alle recepten en mappen van dit keukenteam worden voor iedereen verwijderd. Je persoonlijke recepten blijven behouden.","All recipes and folders of this kitchen team are deleted for everyone. Your personal recipes are kept.","Alle Rezepte und Ordner dieses Küchenteams werden für alle gelöscht. Deine persönlichen Rezepte bleiben erhalten.","Todas las recetas y carpetas de este equipo de cocina se eliminan para todos. Tus recetas personales se conservan."],
+  ["Je brigade-abonnement wordt losgekoppeld en de Pro-plekken komen vrij. Je kunt het daarna aan een ander of nieuw keukenteam koppelen.","Your brigade plan is unlinked and the Pro seats become free. You can then link it to another or a new kitchen team.","Dein Brigade-Abo wird getrennt und die Pro-Plätze werden frei. Danach kannst du es mit einem anderen oder neuen Küchenteam verknüpfen.","Tu plan de brigada se desvincula y las plazas Pro quedan libres. Después puedes vincularlo a otro equipo de cocina o a uno nuevo."],
+  ["Een brigade-abonnement hoort bij één keukenteam. Wil je ook hier Pro voor iedereen, neem dan een tweede abonnement of verwijder eerst dat keukenteam.","A brigade plan belongs to one kitchen team. Want Pro for everyone here too? Take a second plan, or delete that kitchen team first.","Ein Brigade-Abo gehört zu einem Küchenteam. Möchtest du auch hier Pro für alle, nimm ein zweites Abo oder lösche zuerst das andere Küchenteam.","Un plan de brigada pertenece a un solo equipo de cocina. ¿Quieres Pro para todos aquí también? Contrata un segundo plan o elimina primero ese equipo."],
+  ["Je brigade-abonnement hoort al bij een ander keukenteam","Your brigade plan already belongs to another kitchen team","Dein Brigade-Abo gehört schon zu einem anderen Küchenteam","Tu plan de brigada ya pertenece a otro equipo de cocina"],
   ["Nog geen keukenteam. Maak er een met “Keukenteam maken”, of word lid via een uitnodiging.","No kitchen team yet. Create one with “Create kitchen team”, or join through an invitation.","Noch kein Küchenteam. Erstelle eines mit „Küchenteam erstellen“ oder tritt über eine Einladung bei.","Aún no hay equipo de cocina. Crea uno con «Crear equipo de cocina» o únete con una invitación."],
   ["Geen recepten voor deze selectie.","No recipes for this selection.","Keine Rezepte für diese Auswahl.","No hay recetas para esta selección."],
   ["Nog geen recepten in dit keukenteam. Voeg ze toe met “Recept toevoegen”.","No recipes in this kitchen team yet. Add them with “Add recipe”.","Noch keine Rezepte in diesem Küchenteam. Füge sie mit „Rezept hinzufügen“ hinzu.","Aún no hay recetas en este equipo de cocina. Añádelas con «Añadir receta»."],
@@ -3395,6 +3399,8 @@ export const strings = [
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
 export const patterns = [
+  ["^Je Brigade (\\d+) hoort bij (.+)$","Your Brigade $1 belongs to $2","Deine Brigade $1 gehört zu $2","Tu Brigada $1 pertenece a $2"],
+  ["^Naar (.+)$","Go to $1","Zu $1","Ir a $1"],
   ["^Recepten (\\d+)$","Recipes $1","Rezepte $1","Recetas $1"],
   ["^Mappen (\\d+)$","Folders $1","Ordner $1","Carpetas $1"],
   ["^(\\d+) recepten · (\\d+) in de brigade$","$1 recipes · $2 in the brigade","$1 Rezepte · $2 in der Brigade","$1 recetas · $2 en la brigada"],

@@ -218,9 +218,28 @@ begin
   if not exists (select 1 from public.shared_maps where id = _team and owner_id = auth.uid()) then
     raise exception 'savour_not_allowed';
   end if;
-  update public.organizations set shared_map_id = _team, updated_at = now() where owner_id = auth.uid();
+  -- Een brigade-abonnement hoort bij één keukenteam: alleen koppelen als het nog nergens bij hoort
+  -- (na het verwijderen van dat keukenteam is shared_map_id weer leeg).
+  update public.organizations set shared_map_id = _team, updated_at = now()
+  where owner_id = auth.uid() and (shared_map_id is null or shared_map_id = _team);
+  if not found then raise exception 'savour_already_linked'; end if;
 end;
-$$;
+$;
+
+-- Wordt het keukenteam van een brigade-abonnement verwijderd, dan komen de Pro-plekken vrij. Het abonnement zelf
+-- loopt door en kan aan een ander of nieuw keukenteam worden gekoppeld (shared_map_id wordt leeg via de verwijzing).
+create or replace function public.savour_free_brigade_seats()
+returns trigger language plpgsql security definer set search_path = public as $
+begin
+  delete from public.organization_members m
+  using public.organizations o
+  where m.organization_id = o.id and o.shared_map_id = old.id;
+  return old;
+end;
+$;
+drop trigger if exists savour_free_brigade_seats on public.shared_maps;
+create trigger savour_free_brigade_seats before delete on public.shared_maps
+  for each row execute function public.savour_free_brigade_seats();
 revoke all on function public.savour_link_brigade(uuid) from public, anon;
 grant execute on function public.savour_link_brigade(uuid) to authenticated;
 
