@@ -79,8 +79,19 @@ export function isPlan(plan) {
   return Object.hasOwn(PLAN_ENV, plan);
 }
 
+// Organisaties hebben eigen producten in Stripe ("Savour Organisatie 5/10/25"), zodat klanten op de betaalpagina
+// die naam zien in plaats van "Savour Pro". Prijs-ID's zijn geen geheim; deze gaan vóór Vercel.
+const ORGANISATION_PRICES = {
+  team5_month: 'price_1UVGde2HVpd6qtqkzsNQ3Hu5',
+  team5_year: 'price_1UVGeA2HVpd6qtqkseOHiGOn',
+  team10_month: 'price_1UVGfd2HVpd6qtqk9BAweKk6',
+  team10_year: 'price_1UVGgT2HVpd6qtqk2kLH8gkl',
+  team25_month: 'price_1UVGfv2HVpd6qtqk5hIXOQfR',
+  team25_year: 'price_1UVGhs2HVpd6qtqkh1xgthy9'
+};
+
 export function priceFor(plan) {
-  return process.env[PLAN_ENV[plan]];
+  return ORGANISATION_PRICES[plan] || process.env[PLAN_ENV[plan]];
 }
 
 // Welke abonnementen kunnen nu worden afgerekend (de prijs-ID staat in Vercel)? Alleen namen, geen waarden.
@@ -90,7 +101,12 @@ export function configuredPlans() {
 
 export function planForPrice(priceId) {
   if (!priceId) return null;
-  return Object.keys(PLAN_ENV).find(plan => process.env[PLAN_ENV[plan]] === priceId) || null;
+  // Ook de oude organisatieprijzen uit Vercel (onder Savour Pro) herkennen, voor abonnementen die daarop lopen.
+  return (
+    Object.keys(PLAN_ENV).find(
+      plan => ORGANISATION_PRICES[plan] === priceId || process.env[PLAN_ENV[plan]] === priceId
+    ) || null
+  );
 }
 
 // Prijs per maand in euro's, voor de omzet in het beheerscherm.

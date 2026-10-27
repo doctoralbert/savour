@@ -19,7 +19,6 @@ import {
   INTAKE_BUCKET as BUCKET,
   PACKAGES,
   SEAT_YEAR_EUR,
-  SEAT_YEAR_PRICE,
   deliverLink,
   packageLabel,
   cleanText as clean,
@@ -156,7 +155,7 @@ async function checkout(intake, body, origin) {
     throw Object.assign(new Error('Deze aanvraag is nog niet klaar om te betalen.'), { status: 409 });
   const seats = [5, 10, 25].includes(Number(body.seats)) ? Number(body.seats) : intake.seats || 5;
   const plan = `team${seats}_year`;
-  const price = priceFor(plan) || SEAT_YEAR_PRICE[seats];
+  const price = priceFor(plan);
   if (!price)
     throw Object.assign(new Error(`Betalen is nog niet ingesteld (prijs Organisatie ${seats}).`), { status: 503 });
   const ownerId = intake.owner_id;
