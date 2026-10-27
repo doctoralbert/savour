@@ -25,7 +25,7 @@ import {
 } from './_lib/supabase-admin.js';
 import { sendMail } from './_lib/mail.js';
 import { intakeMail } from './_lib/intake-mail.js';
-import { INTAKE_BUCKET, PACKAGES, deliverLink, packageLabel } from './_lib/intake.js';
+import { INTAKE_BUCKET, PACKAGES, FREE_INTRO, deliverLink, packageLabel } from './_lib/intake.js';
 import { randomBytes } from 'node:crypto';
 import { siteOrigin } from './_lib/origin.js';
 import { stripe, hasStripe, PLAN_MONTHLY_EUR } from './_lib/stripe.js';
@@ -497,15 +497,20 @@ async function intakes(origin) {
       };
     })
   );
-  return { intakes: out };
+  // Gratis introductieplekken: goedgekeurd met prijs 0.
+  const freeUsed = (rows || []).filter(r => r.approved_at && r.price_cents === 0).length;
+  return { intakes: out, free_left: Math.max(0, FREE_INTRO - freeUsed) };
 }
 
 // Goedkeuren: account van de aanvrager klaarzetten (zonder mail, zonder wachtwoord) en de betaallink mailen.
-async function approveIntake(id, priceCents, origin) {
+// De prijs volgt uit het pakket; alleen "meer dan 1000 recepten" vraagt een eigen bedrag. "free" = een van de
+// gratis introductieplekken. Opnieuw mailen (al goedgekeurd) houdt de eerder bepaalde prijs.
+async function approveIntake(id, { free, price_cents: custom } = {}, origin) {
   const row = await getIntake(id);
   if (!['aanvraag', 'afgewezen', 'goedgekeurd'].includes(row.status)) throw fail('Deze aanvraag is al betaald.');
-  const cents = Number(priceCents);
-  if (!Number.isInteger(cents) || cents < 0) throw fail('Vul een geldig bedrag in.');
+  let cents =
+    row.status === 'goedgekeurd' ? row.price_cents : free ? 0 : (PACKAGES[row.package]?.cents ?? Number(custom));
+  if (!Number.isInteger(cents) || cents < 0) throw fail('Vul een prijs in voor dit pakket.');
   const owner = await ensureUser(row.email, row.name);
   await update('recipe_intakes', `id=eq.${row.id}`, {
     status: 'goedgekeurd',
@@ -912,7 +917,7 @@ export default async function handler(req, res) {
     if (action === 'clear_errors') return res.status(200).json(await clearErrors());
     if (action === 'intakes') return res.status(200).json(await intakes(siteOrigin(req)));
     if (action === 'approve_intake')
-      return res.status(200).json(await approveIntake(req.body?.id, req.body?.price_cents, siteOrigin(req)));
+      return res.status(200).json(await approveIntake(req.body?.id, req.body || {}, siteOrigin(req)));
     if (action === 'reject_intake') return res.status(200).json(await rejectIntake(req.body?.id, req.body?.reason));
     if (action === 'intake_file') return res.status(200).json(await intakeFileUrl(req.body?.id, req.body?.file));
     if (action === 'import_intake')

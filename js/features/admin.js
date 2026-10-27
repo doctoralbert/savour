@@ -416,6 +416,7 @@ async function adminMarkMessage(id, read) {
 // Per aanvraag: goedkeuren/afwijzen → (klant betaalt en levert aan) → inlezen met de Savour-lezer, nakijken
 // en in de organisatie laden → vrijgeven. Ingelezen concepten staan alleen in deze browser tot je ze inlaadt.
 let adminIntakes = [];
+let adminIntakeFreeLeft = 0;
 const adminIntakeDrafts = {};
 const INTAKE_STATUS = {
   aanvraag: 'Nieuwe aanvraag',
@@ -431,7 +432,9 @@ async function loadAdminIntakes() {
   const host = $('adminIntakes');
   if (!host) return;
   try {
-    adminIntakes = (await adminApi('intakes')).intakes || [];
+    const d = await adminApi('intakes');
+    adminIntakes = d.intakes || [];
+    adminIntakeFreeLeft = d.free_left ?? 0;
     renderAdminIntakes();
   } catch (e) {
     host.innerHTML = `<p class="admin-panel-note">Aanvragen konden niet worden geladen: ${adminEscape(e.message)}. Is supabase/2026-10-27-aanleveringen.sql uitgevoerd?</p>`;
@@ -477,9 +480,15 @@ function renderAdminIntake(i, isOpen) {
     text ? `<h4 class="admin-intake-h">${label}</h4><div class="admin-message-text">${adminEscape(text)}</div>` : '';
   const price = i.price_cents ?? i.package_cents;
   let step = '';
-  if (['aanvraag', 'afgewezen'].includes(i.status))
-    step = `<div class="admin-intake-step"><label>Prijs inlaadservice (€, 0 = gratis)<input id="intakePrice${id}" type="number" min="0" step="0.01" value="${price == null ? '' : (price / 100).toFixed(2)}"></label><div class="admin-message-actions"><button class="admin-refresh" onclick="adminApproveIntake(${id})">Goedkeuren en betaallink mailen</button>${i.status === 'aanvraag' ? `<button class="admin-ghost admin-danger" onclick="adminRejectIntake(${id})">Afwijzen</button>` : ''}</div></div>`;
-  else if (i.status === 'goedgekeurd')
+  if (['aanvraag', 'afgewezen'].includes(i.status)) {
+    // De prijs volgt uit het pakket; alleen bij "meer dan 1000 recepten" (of onbekend) vul je hem zelf in.
+    const price =
+      i.package_cents == null
+        ? `<label>Prijs inlaadservice (€)<input id="intakePrice${id}" type="number" min="0" step="0.01" placeholder="bijv. 250"></label>`
+        : `<p class="admin-panel-note">Prijs volgens pakket: <b>${adminEuro(i.package_cents)}</b> + organisatie-abonnement.</p>`;
+    const free = `<label class="admin-check"><input type="checkbox" id="intakeFree${id}"${adminIntakeFreeLeft ? '' : ' disabled'}> Gratis inladen (introductie, nog ${adminIntakeFreeLeft} van 5 plekken)</label>`;
+    step = `<div class="admin-intake-step">${price}${free}<div class="admin-message-actions"><button class="admin-refresh" onclick="adminApproveIntake(${id})">Goedkeuren en betaallink mailen</button>${i.status === 'aanvraag' ? `<button class="admin-ghost admin-danger" onclick="adminRejectIntake(${id})">Afwijzen</button>` : ''}</div></div>`;
+  } else if (i.status === 'goedgekeurd')
     step = `<p class="admin-panel-note">Goedgekeurd op ${adminFormatDate(i.approved_at)} voor ${adminEuro(i.price_cents)} + organisatie-abonnement. De klant heeft de betaallink per mail.</p><div class="admin-intake-link"><input readonly value="${adminEscape(i.link)}" onclick="this.select()"><button class="admin-ghost" onclick="adminCopyIntakeLink(${id})">Kopieer link</button><button class="admin-ghost" onclick="adminApproveIntake(${id}, true)">Mail opnieuw sturen</button></div>`;
   else if (i.status === 'betaald')
     step = `<p class="admin-panel-note">Betaald op ${adminFormatDate(i.paid_at)}. De klant kan nu aanleveren via zijn link.</p>`;
@@ -623,20 +632,27 @@ async function adminImportIntake(id) {
 async function adminApproveIntake(id, again) {
   const i = adminIntakes.find(x => x.id === id);
   if (!i) return;
-  const raw = again ? (i.price_cents ?? 0) / 100 : Number(String($(`intakePrice${id}`)?.value || '').replace(',', '.'));
-  if (!Number.isFinite(raw) || raw < 0 || String($(`intakePrice${id}`)?.value ?? '0').trim() === '')
-    return toast('Vul een prijs in (0 = gratis)');
-  const cents = Math.round(raw * 100);
+  const free = !again && !!$(`intakeFree${id}`)?.checked;
+  let cents = again ? i.price_cents : free ? 0 : i.package_cents;
+  if (cents == null) {
+    const raw = String($(`intakePrice${id}`)?.value || '')
+      .replace(',', '.')
+      .trim();
+    if (!raw || !(Number(raw) >= 0)) return toast('Vul een prijs in voor dit pakket');
+    cents = Math.round(Number(raw) * 100);
+  }
   if (
     !again &&
     !(await askConfirm(
-      `Aanvraag van ${i.restaurant || i.name} goedkeuren?\n\nPrijs inlaadservice: ${adminEuro(cents)}, plus het organisatie-abonnement. ${i.email} krijgt een mail met de link om te betalen en aan te leveren.`,
+      `Aanvraag van ${i.restaurant || i.name} goedkeuren?
+
+Inlaadservice: ${adminEuro(cents)}, plus het organisatie-abonnement. ${i.email} krijgt een mail met de link om te betalen en aan te leveren.`,
       { confirmLabel: 'Goedkeuren' }
     ))
   )
     return;
   try {
-    await adminApi('approve_intake', { id, price_cents: cents });
+    await adminApi('approve_intake', { id, free, price_cents: cents });
     toast(again ? 'Mail opnieuw verstuurd' : 'Goedgekeurd; de klant heeft een mail');
     await loadAdminIntakes();
   } catch (e) {

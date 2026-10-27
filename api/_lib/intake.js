@@ -7,6 +7,8 @@ export const PACKAGES = {
   p1000: { cents: 16499, recipes: 1000 },
   meer: { cents: null, recipes: null }
 };
+// Zoveel keukens krijgen het inladen gratis (introductie); gelijk houden met FREE_KITCHENS in tools/site-service.mjs.
+export const FREE_INTRO = 5;
 // Organisatie-abonnement per jaar (Stripe-prijzen STRIPE_PRICE_TEAMx_YEAR); bedragen alleen om te tonen.
 export const SEAT_YEAR_EUR = { 5: 89, 10: 149, 25: 299 };
 export const DELIVER_SLUG = {

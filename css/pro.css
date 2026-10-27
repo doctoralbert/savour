@@ -654,3 +654,12 @@
     grid-column: 2;
   }
 }
+.admin-intake-step .admin-check {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  max-width: none;
+  margin: 6px 0;
+  color: #d9d3c6;
+  font-size: 14px;
+}
