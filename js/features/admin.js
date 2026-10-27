@@ -21,6 +21,22 @@ function adminDevice(ua) {
   return 'Overig';
 }
 
+// Vlaggetje bij een landcode (js/country.js schat het land uit de tijdzone). Afbeelding, want Windows toont
+// geen vlag-emoji. Onbekend: een streepje.
+const adminCountryNames = (() => {
+  try {
+    return new Intl.DisplayNames(['nl'], { type: 'region' });
+  } catch (_) {
+    return null;
+  }
+})();
+function adminFlag(code) {
+  const cc = String(code || '').toUpperCase();
+  if (!/^[A-Z]{2}$/.test(cc)) return '<span class="admin-flag-none" title="Land onbekend">–</span>';
+  const name = adminCountryNames?.of(cc) || cc;
+  return `<img class="admin-flag" src="https://flagcdn.com/w20/${cc.toLowerCase()}.png" width="20" height="15" alt="${adminEscape(cc)}" title="${adminEscape(name)}" loading="lazy">`;
+}
+
 function adminFormatDate(v) {
   if (!v) return '—';
   try {
@@ -235,9 +251,9 @@ function renderAdminStats() {
       (d.recent_people || [])
         .map(
           v =>
-            `<tr><td>${adminFormatDate(v.last)}</td><td>${adminEscape(v.visits)}</td><td>${v.pages.map(adminEscape).join('<br>')}</td><td>${adminEscape(v.platform === 'native_app' ? 'Native app' : v.platform === 'mobile_web' ? 'Mobiel web' : 'Desktop web')}</td><td title="${adminEscape(v.user_agent || '')}">${adminEscape(adminDevice(v.user_agent))}</td><td title="${adminEscape(v.referrer || '')}">${adminEscape(v.source || v.referrer || 'Direct')}</td></tr>`
+            `<tr><td>${adminFlag(v.country)}</td><td>${adminFormatDate(v.last)}</td><td>${adminEscape(v.visits)}</td><td>${v.pages.map(adminEscape).join('<br>')}</td><td>${adminEscape(v.platform === 'native_app' ? 'Native app' : v.platform === 'mobile_web' ? 'Mobiel web' : 'Desktop web')}</td><td title="${adminEscape(v.user_agent || '')}">${adminEscape(adminDevice(v.user_agent))}</td><td title="${adminEscape(v.referrer || '')}">${adminEscape(v.source || v.referrer || 'Direct')}</td></tr>`
         )
-        .join('') || '<tr><td colspan="6">Nog geen bezoekers.</td></tr>';
+        .join('') || '<tr><td colspan="7">Nog geen bezoekers.</td></tr>';
 }
 
 async function loadAdminDashboard() {
@@ -412,7 +428,7 @@ async function adminMarkMessage(id, read) {
   }
 }
 
-// ---- Inlaadservice (api/admin.js, tabel recipe_intakes; klantkant is api/aanleveren.js) ----
+// ---- Import service (api/admin.js, tabel recipe_intakes; klantkant is api/aanleveren.js) ----
 // Per aanvraag: goedkeuren/afwijzen → (klant betaalt en levert aan) → inlezen met de Savour-lezer, nakijken
 // en in de organisatie laden → vrijgeven. Ingelezen concepten staan alleen in deze browser tot je ze inlaadt.
 let adminIntakes = [];
@@ -491,7 +507,7 @@ function renderAdminIntake(i, isOpen) {
     // De prijs volgt uit het pakket; alleen bij "meer dan 1000 recepten" (of onbekend) vul je hem zelf in.
     const price =
       i.package_cents == null
-        ? `<label>Prijs inlaadservice (€)<input id="intakePrice${id}" type="number" min="0" step="0.01" placeholder="bijv. 250"></label>`
+        ? `<label>Prijs import service (€)<input id="intakePrice${id}" type="number" min="0" step="0.01" placeholder="bijv. 250"></label>`
         : `<p class="admin-panel-note">Prijs volgens pakket: <b>${adminEuro(i.package_cents)}</b> + organisatie-abonnement.</p>`;
     const free = `<label class="admin-check"><input type="checkbox" id="intakeFree${id}"${adminIntakeFreeLeft ? '' : ' disabled'}> Gratis inladen (introductie, nog ${adminIntakeFreeLeft} van 5 plekken)</label>`;
     step = `<div class="admin-intake-step">${price}${free}<div class="admin-message-actions"><button class="admin-refresh" onclick="adminApproveIntake(${id})">Goedkeuren en betaallink mailen</button>${i.status === 'aanvraag' ? `<button class="admin-ghost admin-danger" onclick="adminRejectIntake(${id})">Afwijzen</button>` : ''}</div></div>`;
@@ -653,7 +669,7 @@ async function adminApproveIntake(id, again) {
     !(await askConfirm(
       `Aanvraag van ${i.restaurant || i.name} goedkeuren?
 
-Inlaadservice: ${adminEuro(cents)}, plus het organisatie-abonnement. ${i.email} krijgt een mail met de link om te betalen en aan te leveren.`,
+Import service: ${adminEuro(cents)}, plus het organisatie-abonnement. ${i.email} krijgt een mail met de link om te betalen en aan te leveren.`,
       { confirmLabel: 'Goedkeuren' }
     ))
   )
@@ -913,7 +929,7 @@ function renderAdminAccounts() {
           ? ''
           : `<button class="admin-ghost" onclick="adminConfirmAccount('${a.id}')">Bevestigen</button>`;
         const remove = `<button class="admin-ghost admin-danger" onclick="adminDeleteAccount('${a.id}')">Verwijderen</button>`;
-        return `<tr><td>${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_this_month)}</td><td>${adminFormatDate(a.created_at)}</td><td>${adminFormatDate(a.last_sign_in_at)}</td><td><div class="admin-actions">${confirm}${action}${remove}</div></td></tr>`;
+        return `<tr><td>${adminFlag(a.country)} ${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_this_month)}</td><td>${adminFormatDate(a.created_at)}</td><td>${adminFormatDate(a.last_sign_in_at)}</td><td><div class="admin-actions">${confirm}${action}${remove}</div></td></tr>`;
       })
       .join('') || '<tr><td colspan="9">Geen accounts gevonden.</td></tr>';
 }
@@ -1132,13 +1148,15 @@ async function logSavourVisit() {
       path: (window.location.pathname || '/') + savourVisitSourceQuery(),
       referrer: document.referrer || null,
       user_agent: navigator.userAgent || null,
-      platform: savourAnalyticsPlatform()
+      platform: savourAnalyticsPlatform(),
+      country: window.savourCountry ? window.savourCountry() : null
     };
     const { error } = await supabaseClient.from('site_visits').insert(visit);
-    // Zonder de kolom platform (supabase/2026-10-23-bezoekers-platform.sql nog niet uitgevoerd) weigert de
-    // database het hele bezoek; dan zonder platform opslaan zodat de teller toch loopt.
-    if (error && /platform/.test(error.message || '')) {
-      delete visit.platform;
+    // Ontbreekt een kolom (platform of country: SQL nog niet uitgevoerd), dan weigert de database het hele
+    // bezoek; dan zonder die kolom opslaan zodat de teller toch loopt.
+    if (error && /platform|country/.test(error.message || '')) {
+      delete visit.country;
+      if (/platform/.test(error.message || '')) delete visit.platform;
       await supabaseClient.from('site_visits').insert(visit);
     }
   } catch (e) {

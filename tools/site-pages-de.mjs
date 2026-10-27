@@ -228,7 +228,7 @@ export const DE = {
         ],
         [
           "Du bestimmst die Ordnung",
-          "Du wählst ein Paket und fragst den Einpflege-Service an. Nach der Freigabe bezahlst du und lieferst alles: Word, PDF, Fotos von Heften und Notizen oder Exporte aus einer anderen App. Deine Ordnerstruktur nennst du selbst, nach Posten, nach Art oder nach Menü, genau so, wie deine Küche arbeitet."
+          "Du wählst ein Paket und fragst den Import-Service an. Nach der Freigabe bezahlst du und lieferst alles: Word, PDF, Fotos von Heften und Notizen oder Exporte aus einer anderen App. Deine Ordnerstruktur nennst du selbst, nach Posten, nach Art oder nach Menü, genau so, wie deine Küche arbeitet."
         ],
         [
           "Jedes Rezept geprüft",
@@ -247,7 +247,7 @@ export const DE = {
           "Einmalig 85 € bis 100 Rezepte, 100 € bis 500 Rezepte und 164,99 € bis 1.000 Rezepte, zusammen mit einem Jahres-Abo für deine Organisation mit 5, 10 oder 25 Personen. Mehr Rezepte nach Absprache. Die ersten fünf Küchen pflegen wir kostenlos ein."
         ]
       ],
-      "outro": "Mehr erfahren oder anfragen? Siehe „Rezepte einpflegen lassen“ auf savour.page."
+      "outro": "Mehr erfahren oder anfragen? Siehe „Import-Service“ auf savour.page."
     },
     "en/blog/recipe-database-in-the-cloud": {
       "slug": "de/blog/rezeptdatenbank-in-der-cloud",

@@ -79,7 +79,7 @@ export default async function handler(req, res) {
       const sub = await stripe(`subscriptions/${obj.subscription}`, null, 'GET');
       const userId = obj.client_reference_id || (await userIdFor(sub));
       await applySubscription(sub, userId);
-      // Inlaadservice: de aanvraag staat op betaald en de klant kan aanleveren. Geen bedankmail: de accounts
+      // Import service: de aanvraag staat op betaald en de klant kan aanleveren. Geen bedankmail: de accounts
       // krijgen pas een mail als de beheerder de organisatie vrijgeeft (api/admin.js).
       const intakeId = obj.metadata?.intake_id || sub.metadata?.intake_id;
       if (intakeId && /^d+$/.test(intakeId))

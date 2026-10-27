@@ -26,7 +26,7 @@ import {
   isEmail
 } from './_lib/intake.js';
 
-// Inlaadservice, klantkant. Geen account nodig: de lange, geheime token in de link is de toegang.
+// Import service, klantkant. Geen account nodig: de lange, geheime token in de link is de toegang.
 // - request:  aanvraag vanaf de website (zonder token); de beheerder krijgt een mail en ziet hem in /admin → Inladen
 // - get:      stand van zaken voor de aanleverpagina
 // - checkout: na goedkeuring betalen (organisatie-abonnement per jaar + pakket) via Stripe
@@ -100,13 +100,13 @@ Goedkeuren of afwijzen: /admin → Inladen.`;
     kind: 'contact',
     name: row.name,
     email: row.email,
-    subject: `Inlaadservice: aanvraag van ${row.restaurant}`.slice(0, 180),
+    subject: `Import service: aanvraag van ${row.restaurant}`.slice(0, 180),
     message: summary,
     language: row.language
   }).catch(e => console.warn('Inladen: niet in Berichten gezet', e.message));
   await notifyAdmin(
-    `Savour inladen: nieuwe aanvraag van ${row.restaurant}`,
-    `Nieuwe aanvraag voor de inlaadservice\n\nRestaurant: ${row.restaurant}\nNaam: ${row.name}\nE-mail: ${row.email}\nPakket: ${packageLabel(row.package) || 'weet nog niet'}\nOrganisatie: ${row.seats ? `${row.seats} personen` : 'weet nog niet'}\nTaal: ${row.language}\n\n${row.request_notes || ''}\n\nGoedkeuren of afwijzen: savour.page/admin → Inladen.`
+    `Savour import service: nieuwe aanvraag van ${row.restaurant}`,
+    `Nieuwe aanvraag voor de import service\n\nRestaurant: ${row.restaurant}\nNaam: ${row.name}\nE-mail: ${row.email}\nPakket: ${packageLabel(row.package) || 'weet nog niet'}\nOrganisatie: ${row.seats ? `${row.seats} personen` : 'weet nog niet'}\nTaal: ${row.language}\n\n${row.request_notes || ''}\n\nGoedkeuren of afwijzen: savour.page/admin → Inladen.`
   );
   await sendMail({ to: row.email, ...intakeMail('received', row) }).catch(e =>
     console.warn('Inladen: ontvangstbevestiging niet verstuurd', e.message)
@@ -195,7 +195,7 @@ async function checkout(intake, body, origin) {
       price_data: {
         currency: 'eur',
         unit_amount: cents,
-        product_data: { name: `Savour inlaadservice · ${packageLabel(intake.package, intake.language) || 'op maat'}` }
+        product_data: { name: `Savour import service · ${packageLabel(intake.package, intake.language) || 'op maat'}` }
       }
     });
   const back = deliverLink(origin, intake);
@@ -246,8 +246,8 @@ async function submit(intake, body) {
   const files = await storageList(BUCKET, `${intake.id}/`);
   const who = intake.restaurant || intake.name || intake.email;
   await notifyAdmin(
-    `Savour inladen: aanlevering van ${who}`,
-    `Nieuwe aanlevering voor de inlaadservice\n\nVoor: ${who}\nPakket: ${packageLabel(intake.package) || '-'}\nOrganisatie: ${seats} plekken\nBestanden: ${files.length}\nLeden: ${members.map(m => `${m.email} (${m.role === 'editor' ? 'bewerken' : 'bekijken'})`).join(', ') || '-'}\nIndeling: ${values.structure || '-'}\n\nMappen:\n${values.folders || '-'}\n\nWelk recept in welke map:\n${values.match || '-'}\n\nOpmerkingen:\n${values.notes || '-'}\n\nInladen en vrijgeven: savour.page/admin → Inladen.`
+    `Savour import service: aanlevering van ${who}`,
+    `Nieuwe aanlevering voor de import service\n\nVoor: ${who}\nPakket: ${packageLabel(intake.package) || '-'}\nOrganisatie: ${seats} plekken\nBestanden: ${files.length}\nLeden: ${members.map(m => `${m.email} (${m.role === 'editor' ? 'bewerken' : 'bekijken'})`).join(', ') || '-'}\nIndeling: ${values.structure || '-'}\n\nMappen:\n${values.folders || '-'}\n\nWelk recept in welke map:\n${values.match || '-'}\n\nOpmerkingen:\n${values.notes || '-'}\n\nInladen en vrijgeven: savour.page/admin → Inladen.`
   );
   return { ok: true, files: files.length };
 }

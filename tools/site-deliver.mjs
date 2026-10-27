@@ -1,4 +1,4 @@
-// Aanleverpagina van de inlaadservice (/aanleveren?t=...): de klant uploadt recepten en geeft de mappenstructuur door.
+// Aanleverpagina van de import service (/aanleveren?t=...): de klant uploadt recepten en geeft de mappenstructuur door.
 // Niet in de sitemap en niet vindbaar (noindex); werkt alleen met een persoonlijke link uit /admin → Inladen.
 // Verzenden en uploaden: js/site.js (data-deliver) via api/aanleveren.js.
 export const DELIVER = {
@@ -130,7 +130,7 @@ export const DELIVER_FLOW = {
     seats: n => `Organisatie ${n}`,
     seatsNote: n => `${n} personen met Savour Pro, jij telt mee`,
     perYear: 'per jaar',
-    service: 'Inlaadservice',
+    service: 'Import service',
     once: 'eenmalig',
     free: 'gratis',
     payButton: 'Veilig betalen',
@@ -186,7 +186,7 @@ export const DELIVER_FLOW = {
     seats: n => `Organisation ${n}`,
     seatsNote: n => `${n} Personen mit Savour Pro, du zählst mit`,
     perYear: 'pro Jahr',
-    service: 'Einpflege-Service',
+    service: 'Import-Service',
     once: 'einmalig',
     free: 'kostenlos',
     payButton: 'Sicher bezahlen',
@@ -214,7 +214,7 @@ export const DELIVER_FLOW = {
     seats: n => `Organización ${n}`,
     seatsNote: n => `${n} personas con Savour Pro, tú incluido`,
     perYear: 'al año',
-    service: 'Servicio de carga',
+    service: 'Servicio de importación',
     once: 'pago único',
     free: 'gratis',
     payButton: 'Pagar de forma segura',

@@ -65,7 +65,7 @@
       });
   });
 
-  // Inlaadservice: een pakketknop opent de overlay met het aanvraagformulier, met dat pakket al gekozen.
+  // Import service: een pakketknop opent de overlay met het aanvraagformulier, met dat pakket al gekozen.
   function openServiceDialog(index) {
     var dialog = document.getElementById('svcDialog');
     if (!dialog) return;
@@ -85,10 +85,17 @@
     dialog.hidden = true;
     document.documentElement.classList.remove('svc-dialog-open');
   }
+  // Buiten het venster klikken sluit het, maar alleen als de klik daar ook begon: tekst selecteren en de muis
+  // buiten het venster loslaten sluit het dus niet.
+  var downOnBackdrop = false;
+  document.addEventListener('pointerdown', function (e) {
+    downOnBackdrop = e.target.id === 'svcDialog';
+  });
   document.addEventListener('click', function (e) {
     var open = e.target.closest && e.target.closest('[data-svc-open]');
     if (open) return openServiceDialog(Number(open.dataset.svcOpen));
-    if (e.target.id === 'svcDialog' || (e.target.closest && e.target.closest('[data-svc-close]'))) closeServiceDialog();
+    if ((e.target.id === 'svcDialog' && downOnBackdrop) || (e.target.closest && e.target.closest('[data-svc-close]')))
+      closeServiceDialog();
   });
 
   // Taalkeuze: klik ernaast of Esc sluit het venster.
@@ -106,7 +113,7 @@
     }
   });
 
-  // Inlaadservice, aanvraag in de overlay: naar /api/aanleveren (actie request). Komt in /admin → Inladen en per mail.
+  // Import service, aanvraag in de overlay: naar /api/aanleveren (actie request). Komt in /admin → Inladen en per mail.
   document.addEventListener('submit', function (e) {
     var form = e.target;
     if (!form.matches || !form.matches('[data-intake-request]')) return;
@@ -147,7 +154,7 @@
       });
   });
 
-  // Aanleverpagina inlaadservice (/aanleveren?t=...). Per stand van zaken één deel tonen:
+  // Aanleverpagina import service (/aanleveren?t=...). Per stand van zaken één deel tonen:
   // goedgekeurd → betalen; betaald/aangeleverd → aanleveren (bestanden, mappen, leden); anders een melding.
   // Alles via /api/aanleveren; bestanden gaan rechtstreeks naar een afgeschermde opslag met een eenmalige uploadlink.
   function setupDeliver() {
@@ -488,22 +495,29 @@
         localStorage.setItem('savour_visit_id', vid);
       }
       var key = 'sb_publishable_R8DGUuglOC3aFz5qv4xOgw_UGdQUyiD';
-      fetch('https://qmzfqfmpylkgcnxsedse.supabase.co/rest/v1/site_visits', {
-        method: 'POST',
-        keepalive: true,
-        headers: {
-          apikey: key,
-          Authorization: 'Bearer ' + key,
-          'Content-Type': 'application/json',
-          Prefer: 'return=minimal'
-        },
-        body: JSON.stringify({
-          visitor_id: vid,
-          path: location.pathname + visitSourceQuery(),
-          referrer: document.referrer || null,
-          user_agent: navigator.userAgent || null
+      var url = 'https://qmzfqfmpylkgcnxsedse.supabase.co/rest/v1/site_visits';
+      var headers = {
+        apikey: key,
+        Authorization: 'Bearer ' + key,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal'
+      };
+      var visit = {
+        visitor_id: vid,
+        path: location.pathname + visitSourceQuery(),
+        referrer: document.referrer || null,
+        user_agent: navigator.userAgent || null,
+        country: window.savourCountry ? window.savourCountry() : null
+      };
+      fetch(url, { method: 'POST', keepalive: true, headers: headers, body: JSON.stringify(visit) })
+        .then(function (r) {
+          // Zonder de kolom country (supabase/2026-10-27-land.sql nog niet uitgevoerd): opnieuw zonder land.
+          if (r.status === 400 && visit.country) {
+            delete visit.country;
+            return fetch(url, { method: 'POST', keepalive: true, headers: headers, body: JSON.stringify(visit) });
+          }
         })
-      }).catch(function () {});
+        .catch(function () {});
     } catch (_) {}
   }
   // Zelfde als savourVisitSourceQuery in js/features/admin.js: alleen de herkomst uit de link, nooit iets persoonlijks.

@@ -1,4 +1,4 @@
-// Inlaadservice: pakketten, slugs en gedeelde hulpjes voor api/aanleveren.js, api/admin.js en de webhook.
+// Import service: pakketten, slugs en gedeelde hulpjes voor api/aanleveren.js, api/admin.js en de webhook.
 // Prijzen gelijk houden met tools/site-service.mjs (de website).
 export const INTAKE_BUCKET = 'aanleveringen';
 export const PACKAGES = {

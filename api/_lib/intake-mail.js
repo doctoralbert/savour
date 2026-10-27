@@ -1,4 +1,4 @@
-// Mails van de inlaadservice aan de klant en de leden, in de taal van de aanvraag (nl, en, de, es).
+// Mails van de import service aan de klant en de leden, in de taal van de aanvraag (nl, en, de, es).
 // Verstuurd via sendMail (api/_lib/mail.js); opmaak in dezelfde donkere Savour-stijl als de andere mails.
 const esc = v =>
   String(v ?? '').replace(
@@ -11,7 +11,7 @@ const T = {
     hi: n => (n ? `Hoi ${n},` : 'Hoi,'),
     bye: 'Veel kookplezier,<br>Savour',
     received: {
-      subject: 'We hebben je aanvraag voor de inlaadservice ontvangen',
+      subject: 'We hebben je aanvraag voor de import service ontvangen',
       body: r => [
         `Bedankt voor je aanvraag om de recepten van ${r} in Savour te laten inladen.`,
         'We bekijken je aanvraag en laten je zo snel mogelijk weten of we aan de slag kunnen. Na goedkeuring krijg je een persoonlijke link om te betalen en je recepten aan te leveren.'
@@ -26,7 +26,7 @@ const T = {
       button: 'Betalen en aanleveren'
     },
     rejected: {
-      subject: 'Over je aanvraag voor de inlaadservice',
+      subject: 'Over je aanvraag voor de import service',
       body: (r, reason) => [
         `Bedankt voor je aanvraag voor ${r}. Helaas kunnen we deze aanvraag nu niet aannemen.`,
         ...(reason ? [reason] : []),
@@ -83,7 +83,7 @@ const T = {
     hi: n => (n ? `Hallo ${n},` : 'Hallo,'),
     bye: 'Viel Freude beim Kochen,<br>Savour',
     received: {
-      subject: 'Wir haben deine Anfrage zum Einpflege-Service erhalten',
+      subject: 'Wir haben deine Anfrage zum Import-Service erhalten',
       body: r => [
         `Danke für deine Anfrage, die Rezepte von ${r} in Savour einpflegen zu lassen.`,
         'Wir prüfen deine Anfrage und melden uns so schnell wie möglich. Nach der Freigabe bekommst du einen persönlichen Link zum Bezahlen und zum Liefern deiner Rezepte.'
@@ -98,7 +98,7 @@ const T = {
       button: 'Bezahlen und liefern'
     },
     rejected: {
-      subject: 'Zu deiner Anfrage zum Einpflege-Service',
+      subject: 'Zu deiner Anfrage zum Import-Service',
       body: (r, reason) => [
         `Danke für deine Anfrage für ${r}. Leider können wir diese Anfrage im Moment nicht annehmen.`,
         ...(reason ? [reason] : []),
@@ -119,7 +119,7 @@ const T = {
     hi: n => (n ? `Hola ${n}:` : 'Hola:'),
     bye: 'Que disfrutes cocinando,<br>Savour',
     received: {
-      subject: 'Hemos recibido tu solicitud del servicio de carga',
+      subject: 'Hemos recibido tu solicitud del servicio de importación',
       body: r => [
         `Gracias por tu solicitud para cargar las recetas de ${r} en Savour.`,
         'Revisaremos tu solicitud y te diremos algo lo antes posible. Una vez aprobada, recibirás un enlace personal para pagar y enviarnos tus recetas.'
@@ -134,7 +134,7 @@ const T = {
       button: 'Pagar y enviar recetas'
     },
     rejected: {
-      subject: 'Sobre tu solicitud del servicio de carga',
+      subject: 'Sobre tu solicitud del servicio de importación',
       body: (r, reason) => [
         `Gracias por tu solicitud para ${r}. Lamentablemente ahora no podemos aceptarla.`,
         ...(reason ? [reason] : []),
@@ -161,7 +161,8 @@ function layout(paragraphs, button, link, bye) {
 <tr><td style="padding:10px 34px 28px;font-size:15px;line-height:1.65;color:#d9d3c6">
 ${paragraphs.map(p => `<p style="margin:0 0 14px">${p}</p>`).join('')}
 ${button ? `<p style="margin:22px 0 24px;text-align:center"><a href="${esc(link)}" style="display:inline-block;background:#e8ca8d;color:#111;text-decoration:none;padding:13px 24px;border-radius:999px;font-weight:bold">${esc(button)}</a></p><p style="margin:0 0 14px;font-size:12px;color:#87918b;word-break:break-all">${esc(link)}</p>` : ''}
-<p style="margin:22px 0 0">${bye}</p></td></tr></table></td></tr></table></body></html>`;
+<p style="margin:22px 0 0">${bye}</p></td></tr></table></td></tr></table>
+<span style="display:none;font-size:0;line-height:0;max-height:0;overflow:hidden">${Date.now().toString(36)}${Math.random().toString(36).slice(2)}</span></body></html>`;
   return html;
 }
 
@@ -182,7 +183,10 @@ export function intakeMail(kind, { language = 'nl', name, restaurant, link, reas
         ? k.body(esc(r), reason ? esc(reason) : '')
         : k.body(esc(r));
   const paragraphs = [esc(L.hi(first)), ...lines];
-  const subject = typeof k.subject === 'function' ? k.subject(org) : k.subject;
+  // Gmail vouwt tekst weg die gelijk is aan een eerdere mail in hetzelfde gesprek. Daarom het restaurant in het
+  // onderwerp (eigen gesprek per keuken) en onderaan een onzichtbaar uniek stukje (zie layout).
+  const base = typeof k.subject === 'function' ? k.subject(org) : k.subject;
+  const subject = kind === 'welcome' ? base : `${base} · ${r}`;
   const text = [
     L.hi(first),
     ...lines.map(l =>

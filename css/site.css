@@ -1968,7 +1968,7 @@ body.cook-mode #publicRecipeShell .share-recipe-head h1 {
   color: var(--gold);
 }
 
-/* ==== Inlaadservice (tools/site-service.mjs): blok op de startpagina, servicepagina en prijzenpagina ==== */
+/* ==== Import service (tools/site-service.mjs): blok op de startpagina, servicepagina en prijzenpagina ==== */
 .svc-band {
   position: relative;
   border-top: 0;

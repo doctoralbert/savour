@@ -139,7 +139,7 @@ const legacy = id => LEGACY.find(p => p.id === id);
 const CONTACT_FORM = /<h2>Stuur ons een bericht<\/h2><form[\s\S]*?<\/form>/;
 const blogSlug = { nl: 'blog', en: 'en/blog' };
 
-// Inlaadservice (tools/site-service.mjs) als kernpunt tussen de functies, vóór "Binnenkort".
+// Import service (tools/site-service.mjs) als kernpunt tussen de functies, vóór "Binnenkort".
 {
   const svc = { id: 'inladen', service: true, nl: SERVICE.nl.feature, en: SERVICE.en.feature };
   FEATURES.splice(FEATURES.findIndex(f => f.soon), 0, svc);
@@ -274,7 +274,7 @@ function ctaBlock(lang, inApp) {
   return `<section class="site-cta with-photo"><div class="site-wrap"><h2 class="reveal">${esc(u.ctaTitle)}</h2><p>${esc(u.ctaText)}</p><div class="site-cta-row"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?demo=1" data-demo>${u.demo}</a></div></div></section>`;
 }
 
-// ---- Inlaadservice ----
+// ---- Import service ----
 // Bedragen staan als "€164,99" in site-service.mjs; in het Engels met een punt, in het Duits en Spaans met het euroteken erachter.
 const euro = (p, lang) => (lang === 'de' || lang === 'es' ? p.slice(1) + ' €' : lang === 'en' ? p.replace(',', '.') : p);
 const serviceHref = lang => href(FEATURES.find(f => f.service)[lang].slug);
@@ -426,6 +426,7 @@ ${alternates.map(([l, h]) => `<link rel="alternate" hreflang="${l}" href="${h}">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/site.css">
 <script type="application/ld+json">${JSON.stringify(schema)}</script>
+<script src="/js/country.js" defer></script>
 <script src="/js/site.js" defer></script>
 </head>
 <body style="margin:0">
@@ -563,7 +564,7 @@ for (const lang of LANGS) {
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.related}</h2>${rows(others.slice(0, 3), lang)}</div></section>`
     });
   }
-  // Aanleverpagina van de inlaadservice (alleen via een persoonlijke link)
+  // Aanleverpagina van de import service (alleen via een persoonlijke link)
   {
     const d = DELIVER[lang];
     page({
@@ -680,7 +681,7 @@ for (const lang of LANGS) {
     }
     body = body.replace('%%FORM%%', contactForm(lang));
     if (p.id === 'pro') body += serviceTeaser(lang);
-    // Vragenpagina: ook de vragen over de inlaadservice (komen zo ook in het FAQPage-schema).
+    // Vragenpagina: ook de vragen over de import service (komen zo ook in het FAQPage-schema).
     if (p.id === 'faq') body += SERVICE[lang].faqs.map(([q, a]) => `<h2>${esc(q)}</h2>
 <p>${esc(a)}</p>`).join('');
     const schema = [];

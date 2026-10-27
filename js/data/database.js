@@ -20,6 +20,11 @@ async function ensureProfile(user) {
       console.error('Standaardcategorieën konden niet worden toegevoegd:', e);
     }
   }
+  // Land voor het vlaggetje in /admin (geschat uit de tijdzone, js/country.js). Alleen bijwerken als het anders
+  // is; zonder de kolom country (supabase/2026-10-27-land.sql) gebeurt er niets.
+  const country = window.savourCountry ? window.savourCountry() : null;
+  if (country && (!profile || ('country' in profile && profile.country !== country)))
+    await supabaseClient.from('profiles').update({ country }).eq('id', user.id);
   // Nieuwe accounts starten leeg. A–Z is een filterfunctie, geen fysieke map.
   // Bestaande oude A t/m Z-mappen blijven in de database staan maar worden in de UI verborgen.
 }

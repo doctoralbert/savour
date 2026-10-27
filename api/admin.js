@@ -102,13 +102,18 @@ async function stripeRevenue30Days() {
 
 // ---- Bezoekers (tabel site_visits) ----
 // De database geeft per aanvraag hooguit 1000 regels; daarom in pagina's ophalen.
+// Land (vlaggetje) staat er pas na supabase/2026-10-27-land.sql; tot die tijd zonder.
+let visitColumns = 'visited_at,visitor_id,path,referrer,platform,user_agent,country';
 async function allVisits() {
   const rows = [];
   for (let page = 0; page < 500; page++) {
-    const batch = await select(
-      'site_visits',
-      `select=visited_at,visitor_id,path,referrer,platform,user_agent&order=visited_at.asc&offset=${page * 1000}&limit=1000`
-    );
+    const query = () =>
+      select('site_visits', `select=${visitColumns}&order=visited_at.asc&offset=${page * 1000}&limit=1000`);
+    const batch = await query().catch(e => {
+      if (!/country/.test(e.message || '')) throw e;
+      visitColumns = visitColumns.replace(',country', '');
+      return query();
+    });
     rows.push(...(batch || []));
     if (!batch || batch.length < 1000) break;
   }
@@ -266,7 +271,8 @@ async function visitorStats(ownIds = []) {
         referrer: v.referrer || '',
         source: sourceOf(v),
         user_agent: v.user_agent,
-        platform: platformOf(v)
+        platform: platformOf(v),
+        country: v.country || ''
       };
       people.set(id, p);
     }
@@ -274,6 +280,7 @@ async function visitorStats(ownIds = []) {
     p.last = v.visited_at;
     p.user_agent = v.user_agent || p.user_agent;
     p.platform = platformOf(v);
+    if (v.country) p.country = v.country;
     if (!p.referrer && v.referrer) p.referrer = v.referrer;
     // De eerste echte bron telt; een later direct bezoek verandert die niet.
     if (isDirect(p.source)) p.source = sourceOf(v);
@@ -468,7 +475,7 @@ async function deleteMessage(id) {
   return { ok: true };
 }
 
-// ---- Inlaadservice (tabel recipe_intakes, bucket 'aanleveringen'; api/aanleveren.js is de klantkant) ----
+// ---- Import service (tabel recipe_intakes, bucket 'aanleveringen'; api/aanleveren.js is de klantkant) ----
 // aanvraag → goedkeuren (account eigenaar + mail met betaallink) → betaald (webhook) → aangeleverd →
 // recepten inladen in de gedeelde map van de organisatie → vrijgeven (accounts, mails) → gegevens gewist.
 const intakeId = id => {
@@ -698,7 +705,9 @@ async function clearErrors() {
 async function overview(user, ownVisitor) {
   const [users, profiles, subs, orgs, members, stats, aiCost, revenue] = await Promise.all([
     listUsers(),
-    select('profiles', 'select=id,name,organization'),
+    select('profiles', 'select=id,name,organization,country').catch(() =>
+      select('profiles', 'select=id,name,organization')
+    ),
     select('subscriptions', 'select=*'),
     select('organizations', 'select=*'),
     select('organization_members', 'select=*'),
@@ -729,6 +738,7 @@ async function overview(user, ownVisitor) {
         email: u.email,
         name: p.name || u.user_metadata?.name || '',
         organization: p.organization || u.user_metadata?.organization || '',
+        country: p.country || '',
         created_at: u.created_at,
         last_sign_in_at: u.last_sign_in_at,
         confirmed: !!(u.email_confirmed_at || u.confirmed_at),

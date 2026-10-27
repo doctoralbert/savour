@@ -1,6 +1,6 @@
--- Inlaadservice: aanvragen en aanleveringen (2026-10-27)
+-- Import service: aanvragen en aanleveringen (2026-10-27)
 --
--- Waarom: een keuken vraagt op de site de inlaadservice aan. De beheerder keurt de aanvraag goed of af in
+-- Waarom: een keuken vraagt op de site de import service aan. De beheerder keurt de aanvraag goed of af in
 -- /admin → Inladen. Na goedkeuring krijgt de klant een persoonlijke link (savour.page/aanleveren?t=...):
 -- eerst betalen (organisatie-abonnement + pakket via Stripe), daarna recepten uploaden, de mappenstructuur
 -- en de e-mailadressen van de leden doorgeven. De beheerder laadt de recepten in de organisatie en geeft hem

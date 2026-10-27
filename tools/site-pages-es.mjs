@@ -228,7 +228,7 @@ export const ES = {
         ],
         [
           "Tú eliges la estructura",
-          "Eliges un paquete y solicitas el servicio de carga. Tras la aprobación pagas y nos lo envías todo: Word, PDF, fotos de libretas y notas o exportaciones de otra app. Tú nos indicas tu estructura de carpetas, por partida, por tipo o por menú, tal como trabaja tu cocina."
+          "Eliges un paquete y solicitas el servicio de importación. Tras la aprobación pagas y nos lo envías todo: Word, PDF, fotos de libretas y notas o exportaciones de otra app. Tú nos indicas tu estructura de carpetas, por partida, por tipo o por menú, tal como trabaja tu cocina."
         ],
         [
           "Cada receta revisada",
@@ -247,7 +247,7 @@ export const ES = {
           "Pago único de 85 € hasta 100 recetas, 100 € hasta 500 y 164,99 € hasta 1.000, junto con un plan anual para tu organización de 5, 10 o 25 personas. Más recetas, a convenir. Las primeras cinco cocinas las cargamos gratis."
         ]
       ],
-      "outro": "¿Quieres saber más o solicitarlo? Mira «Cargamos tus recetas» en savour.page."
+      "outro": "¿Quieres saber más o solicitarlo? Mira «Servicio de importación» en savour.page."
     },
     "en/blog/recipe-database-in-the-cloud": {
       "slug": "es/blog/base-de-datos-de-recetas-en-la-nube",

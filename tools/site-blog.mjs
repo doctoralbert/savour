@@ -22,7 +22,7 @@ export const BLOG = [
         ],
         [
           "Jij kiest de indeling",
-          "Je kiest een pakket en vraagt de inlaadservice aan. Na goedkeuring betaal je en lever je alles aan: Word, PDF, foto’s van schriften en kladjes of exports uit een andere app. Je geeft zelf je mappenstructuur door, per partie, per soort of per menu, precies zoals jouw keuken werkt."
+          "Je kiest een pakket en vraagt de import service aan. Na goedkeuring betaal je en lever je alles aan: Word, PDF, foto’s van schriften en kladjes of exports uit een andere app. Je geeft zelf je mappenstructuur door, per partie, per soort of per menu, precies zoals jouw keuken werkt."
         ],
         [
           "Elk recept nagekeken",
@@ -41,7 +41,7 @@ export const BLOG = [
           "Eenmalig €85 tot 100 recepten, €100 tot 500 recepten en €164,99 tot 1000 recepten, samen met een jaarabonnement voor je organisatie van 5, 10 of 25 personen. Meer recepten kan in overleg. De eerste vijf keukens laden we gratis in."
         ]
       ],
-      "outro": "Meer weten of aanvragen? Kijk bij “Recepten laten inladen” op savour.page."
+      "outro": "Meer weten of aanvragen? Kijk bij “Import service” op savour.page."
     },
     en: {
       "slug": "en/blog/have-your-recipe-folder-moved-over",
@@ -79,7 +79,7 @@ export const BLOG = [
           "One-off €85 up to 100 recipes, €100 up to 500 and €164.99 up to 1,000, together with a yearly plan for your organisation of 5, 10 or 25 people. More recipes by arrangement. The first five kitchens are imported for free."
         ]
       ],
-      "outro": "Want to know more or request it? See “We import your recipes” on savour.page."
+      "outro": "Want to know more or request it? See “Import service” on savour.page."
     }
   },
   {
