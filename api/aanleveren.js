@@ -97,6 +97,19 @@ async function request(body) {
   return { ok: true };
 }
 
+// Terug van Stripe: de betaling zelf bij Stripe nakijken, zodat de klant niet op de webhook hoeft te wachten
+// (die komt ook, maar soms later). Alleen een afgeronde, betaalde sessie van deze aanvraag telt.
+async function paidCheck(intake, sessionId) {
+  if (intake.status !== 'goedgekeurd' || !/^cs_[A-Za-z0-9_]+$/.test(String(sessionId || '')) || !hasStripe())
+    return intake;
+  const session = await stripe(`checkout/sessions/${sessionId}`, null, 'GET').catch(() => null);
+  const paid = session?.status === 'complete' && ['paid', 'no_payment_required'].includes(session.payment_status);
+  if (!paid || String(session.metadata?.intake_id) !== String(intake.id)) return intake;
+  const values = { status: 'betaald', paid_at: new Date().toISOString() };
+  await update('recipe_intakes', `id=eq.${intake.id}&status=eq.goedgekeurd`, values);
+  return { ...intake, ...values };
+}
+
 async function state(intake) {
   const files = DELIVERING.includes(intake.status) ? await storageList(BUCKET, `${intake.id}/`) : [];
   const p = PACKAGES[intake.package];
@@ -176,7 +189,8 @@ async function checkout(intake, body, origin) {
     subscription_data: { metadata: { user_id: ownerId, organization_id: org?.id, intake_id: String(intake.id) } },
     allow_promotion_codes: 'true',
     locale: intake.language === 'en' ? 'en' : intake.language,
-    success_url: `${back}&betaald=1`,
+    // Stripe vult {CHECKOUT_SESSION_ID} zelf in; daarmee controleren we de betaling bij terugkomst (zie paidCheck).
+    success_url: `${back}&betaald=1&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: back
   });
   await update('recipe_intakes', `id=eq.${intake.id}`, { seats, organization_id: org?.id || null });
@@ -256,7 +270,7 @@ export default async function handler(req, res) {
     if (action === 'request') return res.status(200).json(await request(req.body));
     const intake = await findIntake(token);
     if (!intake) return res.status(404).json({ error: 'Deze link klopt niet.' });
-    if (action === 'get') return res.status(200).json(await state(intake));
+    if (action === 'get') return res.status(200).json(await state(await paidCheck(intake, req.body.session_id)));
     if (action === 'checkout') return res.status(200).json(await checkout(intake, req.body, siteOrigin(req)));
     if (!DELIVERING.includes(intake.status)) return res.status(409).json({ error: 'Aanleveren kan nu niet.' });
 

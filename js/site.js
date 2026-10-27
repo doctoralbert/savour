@@ -419,7 +419,7 @@
     // ---- Stand van zaken ----
     var tries = 0;
     function load() {
-      api({ action: 'get' })
+      api({ action: 'get', session_id: params.get('session_id') || '' })
         .then(function (d) {
           info = d;
           who.hidden = false;
