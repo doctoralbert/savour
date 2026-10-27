@@ -80,12 +80,9 @@ button {
 .nav button.nav-folder .ico {
   font-size: 13px;
 }
-/* Keukenteam in het menu iets ingesprongen; de mappen ervan nog verder. */
-#sharedNav button.sub {
-  padding-left: 50px !important;
-}
+/* Keukenteam staat gelijk met de rest van het menu; de mappen ervan springen een klein stukje in. */
 .nav button.nav-team-folder {
-  padding-left: 76px;
+  padding-left: 26px;
 }
 .nav button:hover,
 .nav button.active {
