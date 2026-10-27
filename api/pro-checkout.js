@@ -39,7 +39,7 @@ export default async function handler(req, res) {
       const [existing] = await select('organizations', `owner_id=eq.${encodeURIComponent(user.id)}&select=*`);
       if (existing?.stripe_subscription_id && ['active', 'trialing', 'past_due'].includes(existing.status))
         return res.status(409).json({ error: 'Je hebt al een teamabonnement.', code: 'already_pro' });
-      // Het brigade-abonnement hoort bij een keukenteam (shared_maps) van deze gebruiker. Bestaat dat nog niet,
+      // Het teamabonnement hoort bij een gedeelde map (shared_maps) van deze gebruiker. Bestaat dat nog niet,
       // dan maken we het hier aan met de opgegeven naam (zonder Pro kan de gebruiker dat zelf nog niet).
       const teamId = String(req.body?.team || '');
       let [map] = /^[0-9a-f-]{36}$/i.test(teamId)
@@ -48,7 +48,7 @@ export default async function handler(req, res) {
       const newName = String(req.body?.team_name || '')
         .trim()
         .slice(0, 120);
-      if (!map && !newName) return res.status(400).json({ error: 'Kies eerst een keukenteam.' });
+      if (!map && !newName) return res.status(400).json({ error: 'Kies eerst een gedeelde map.' });
       const org = await upsertOrganization({
         owner_id: user.id,
         name: map?.name || newName,

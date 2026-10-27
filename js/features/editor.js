@@ -168,7 +168,7 @@ function fillEditor(r, title = 'Nieuw recept') {
 
 function editRecipe(id) {
   window.__aiImportedPhoto = '';
-  // Ook een recept van een keukenteam (als je het mag bewerken, zie isOwnRecipe).
+  // Ook een recept van een gedeelde map (als je het mag bewerken, zie isOwnRecipe).
   const r = findRecipe(id);
   if (r && !isOwnRecipe(r)) return;
   if (!r) return;
@@ -279,7 +279,7 @@ function persistRecipe() {
   (async () => {
     try {
       const old = currentId ? findRecipe(currentId) : null;
-      // Recept van een keukenteam: geen persoonlijke categorie, en bewaren mag via de rechten in het team.
+      // Recept van een gedeelde map: geen persoonlijke categorie, en bewaren mag via de rechten in het team.
       const teamId = old?.teamId || null;
       let categoryId = null;
       if (!teamId && categoryName && categoryName !== 'Eigen recepten') {

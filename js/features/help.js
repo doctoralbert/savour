@@ -101,7 +101,7 @@ const HELP_TOPICS = {
       ],
       [
         'Samenwerken',
-        'Je eigen mappen zie alleen jij. Wil je recepten delen met je keukenteam, gebruik dan een keukenteam.'
+        'Je eigen mappen zie alleen jij. Wil je recepten delen met je gedeelde map, gebruik dan een gedeelde map.'
       ]
     ]
   },
@@ -115,8 +115,8 @@ const HELP_TOPICS = {
         'Print al je recepten in één keer in de printopmaak van Savour. Met Savour Pro download je ze ook naar Word of als back-up.'
       ],
       [
-        'Abonnement en brigade',
-        'Bekijk of beheer je Savour Pro of brigade-abonnement, nodig je brigade uit en stel het logo voor je prints in.'
+        'Abonnement en team',
+        'Bekijk of beheer je Savour Pro of teamabonnement, nodig je team uit en stel het logo voor je prints in.'
       ],
       ['Weergave', 'Kies het donkere of lichte thema; je keuze wordt bewaard in je account.'],
       ['Categorieën', 'Beheer je eigen categorieën en hun trefwoorden.'],
@@ -131,8 +131,8 @@ const HELP_TOPICS = {
     ]
   },
   shared: {
-    eyebrow: 'Keukenteam',
-    title: 'Zo werkt een keukenteam',
+    eyebrow: 'Gedeelde map',
+    title: 'Zo werkt een gedeelde map',
     article: {
       nl: '/blog/gedeelde-mappen-uitgelegd',
       en: '/en/blog/shared-folders-explained',
@@ -142,7 +142,7 @@ const HELP_TOPICS = {
     sections: [
       [
         'Eén receptenboek voor je team',
-        'Een keukenteam is het receptenboek van je keuken. Iedereen die lid is, ziet dezelfde recepten op zijn eigen telefoon, tablet of computer. Past de maker een recept aan, dan ziet iedereen meteen de nieuwe versie.'
+        'Een gedeelde map is het receptenboek van je keuken. Iedereen die lid is, ziet dezelfde recepten op zijn eigen telefoon, tablet of computer. Past de maker een recept aan, dan ziet iedereen meteen de nieuwe versie.'
       ],
       [
         'Rollen',
@@ -150,19 +150,19 @@ const HELP_TOPICS = {
       ],
       [
         'Recepten toevoegen',
-        'Kies “Recept toevoegen” en vink recepten uit je eigen bibliotheek aan. Het recept blijft van jou: het staat in het keukenteam en in je eigen recepten.'
+        'Kies “Recept toevoegen” en vink recepten uit je eigen bibliotheek aan. Het recept blijft van jou: het staat in de gedeelde map en in je eigen recepten.'
       ],
       [
         'Mappen (receptenklappers)',
-        'Deel het keukenteam op in mappen, bijvoorbeeld per partie of per menu. Met “Mappen beheren” wijzig je de naam, zet je de mappen in jouw volgorde en archiveer je mappen die je niet meer gebruikt. Recepten in een gearchiveerde map blijven bewaard en staan onderaan onder “Archief”.'
+        'Deel de gedeelde map op in mappen, bijvoorbeeld per partie of per menu. Met “Mappen beheren” wijzig je de naam, zet je de mappen in jouw volgorde en archiveer je mappen die je niet meer gebruikt. Recepten in een gearchiveerde map blijven bewaard en staan onderaan onder “Archief”.'
       ],
       [
-        'Brigade uitnodigen',
-        'Nodig collega’s uit via WhatsApp, Telegram, e-mail of de uitnodigingslink. Na het inloggen worden ze lid als viewer; de eigenaar kan daarna hun rol aanpassen. Lid zijn van een keukenteam is gratis.'
+        'Team uitnodigen',
+        'Nodig collega’s uit via WhatsApp, Telegram, e-mail of de uitnodigingslink. Na het inloggen worden ze lid als viewer; de eigenaar kan daarna hun rol aanpassen. Lid zijn van een gedeelde map is gratis.'
       ],
       [
         'Printen',
-        'Print de hele keukenteam, één map of een eigen selectie in één keer: met een inhoudsopgave, het nummer van elk recept onderaan de pagina en, met Savour Pro, het logo van je restaurant.'
+        'Print de hele gedeelde map, één map of een eigen selectie in één keer: met een inhoudsopgave, het nummer van elk recept onderaan de pagina en, met Savour Pro, het logo van je restaurant.'
       ],
       [
         'Omrekenen en kookmodus',
@@ -170,7 +170,7 @@ const HELP_TOPICS = {
       ],
       [
         'Recept overnemen',
-        'Bij elk recept van een collega in het keukenteam zie je “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie in je bibliotheek die je zelf kunt aanpassen; het origineel blijft van de maker.'
+        'Bij elk recept van een collega in de gedeelde map zie je “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie in je bibliotheek die je zelf kunt aanpassen; het origineel blijft van de maker.'
       ],
       [
         'Zonder internet',
@@ -178,7 +178,7 @@ const HELP_TOPICS = {
       ],
       [
         'Map verlaten of verwijderen',
-        'Een lid kan een keukenteam altijd verlaten. Alleen de eigenaar kan de map verwijderen; de recepten zelf blijven dan in de bibliotheek van hun maker.'
+        'Een lid kan een gedeelde map altijd verlaten. Alleen de eigenaar kan de map verwijderen; de recepten zelf blijven dan in de bibliotheek van hun maker.'
       ]
     ]
   }

@@ -15,11 +15,11 @@ let favorites = [];
 
 let sharedMaps = [];
 
-// Recepten van teamleden uit keukenteams (alleen-lezen; niet in de eigen bibliotheek).
+// Recepten van teamleden uit gedeelde mappen (alleen-lezen; niet in de eigen bibliotheek).
 let sharedRecipes = [];
 // Recepten die je via een gedeelde link (/r/...) opende terwijl je was ingelogd: alleen-lezen (js/features/public-pages.js).
 let linkRecipes = [];
-// Kunnen mappen in keukenteams worden geordend en gearchiveerd? (supabase/2026-10-25-mappen-beheren.sql)
+// Kunnen mappen in gedeelde mappen worden geordend en gearchiveerd? (supabase/2026-10-25-mappen-beheren.sql)
 let sharedFoldersManageable = false;
 
 let activeCat = '';
@@ -77,7 +77,7 @@ let bulkSelectedIds = new Set();
 
 // Gekozen beginletter per lijst (bibliotheek en favorieten); '' betekent alles.
 window.savourAlphabet = { library: '', favorite: '' };
-// Gekozen beginletter binnen een persoonlijke map, keukenteam en map binnen een keukenteam.
+// Gekozen beginletter binnen een persoonlijke map, gedeelde map en map binnen een gedeelde map.
 window.folderAlphabet = '';
 window.sharedAlphabet = '';
 window.sharedFolderAlphabet = '';

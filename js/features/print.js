@@ -1,5 +1,5 @@
 // Printen van recepten en mappen.
-// Met Pro of een team staat bovenaan het logo (links) en de naam van je restaurant (midden) (Instellingen → Abonnement en brigade).
+// Met Pro of een team staat bovenaan het logo (links) en de naam van je restaurant (midden) (Instellingen → Abonnement en team).
 // Database: supabase/2026-10-24-logo-op-prints.sql. Zonder die SQL print Savour zoals voorheen, zonder logo.
 
 const PRINT_OPTIONS_KEY = 'savour_print_options';
@@ -17,7 +17,7 @@ function uniqueRecipes(list) {
   });
 }
 
-// Het logo dat bij deze print hoort: dat van je team of jezelf, of bij een keukenteam dat van wie hem beheert.
+// Het logo dat bij deze print hoort: dat van je team of jezelf, of bij een gedeelde map dat van wie hem beheert.
 async function fetchPrintBrand(mapId) {
   if (!currentUser || demoMode) return null;
   try {
@@ -124,7 +124,7 @@ async function openPrintBundle(list, { title = '', mapId = null } = {}) {
   setTimeout(() => window.print(), 80);
 }
 
-// Een recept dat niet van jou is, komt uit een keukenteam: dan hoort het logo van die map erbij.
+// Een recept dat niet van jou is, komt uit een gedeelde map: dan hoort het logo van die map erbij.
 function printRecipe(id) {
   let r = findRecipe(id);
   if (!r) return;
@@ -196,13 +196,13 @@ function printFolder(id) {
   openPrintBundle(list, { title: f.name });
 }
 
-// Keukenteam: eerst zelf kiezen welke recepten je print, per map gegroepeerd.
+// Gedeelde map: eerst zelf kiezen welke recepten je print, per map gegroepeerd.
 async function printSharedMap(id) {
   let m = sharedMaps.find(x => x.id === id);
   if (!m) return;
   let list = m.recipeIds.map(rid => findRecipe(rid)).filter(Boolean);
   if (!list.length) {
-    toast('Dit keukenteam bevat nog geen recepten');
+    toast('Deze gedeelde map bevat nog geen recepten');
     return;
   }
   const chosen = await pickRecipesToPrint(m, list);
@@ -210,7 +210,7 @@ async function printSharedMap(id) {
   openPrintBundle(chosen, { title: m.name, mapId: m.id });
 }
 
-// Venster met alle recepten van een keukenteam, gegroepeerd per map, met vinkjes. Alles staat aan.
+// Venster met alle recepten van een gedeelde map, gegroepeerd per map, met vinkjes. Alles staat aan.
 // Geeft de gekozen recepten in de volgorde van de groepen, of null bij annuleren.
 function pickRecipesToPrint(m, list) {
   const byId = new Map(list.map(r => [String(r.id), r]));
@@ -306,7 +306,7 @@ function printSharedFolder(mapId, folderId) {
   if (!m || !f) return;
   let list = (f.system && f.name === 'A t/m Z' ? m.recipeIds : f.recipeIds).map(rid => findRecipe(rid)).filter(Boolean);
   if (!list.length) {
-    toast('Dit keukenteam bevat nog geen recepten');
+    toast('Deze gedeelde map bevat nog geen recepten');
     return;
   }
   openPrintBundle(list, { title: f.system ? m.name : `${m.name} · ${f.name}`, mapId: m.id });
@@ -334,7 +334,7 @@ async function renderPrintBrandSettings() {
     return;
   }
   if (s.source === 'team_member') {
-    host.innerHTML = `<p class="muted">Je print met het logo van je brigade (${esc(s.team?.name || '')}). Dat logo stelt de eigenaar van de brigade in.</p>`;
+    host.innerHTML = `<p class="muted">Je print met het logo van je team (${esc(s.team?.name || '')}). Dat logo stelt de eigenaar van het team in.</p>`;
     return;
   }
   if (!isPro()) {
@@ -348,7 +348,7 @@ async function renderPrintBrandSettings() {
   }
   const b = printBrandOwn || {};
   const name = b.name ?? (account?.organization || s.team?.name || '');
-  host.innerHTML = `<p class="muted">${s.source === 'team_owner' ? 'Dit logo staat op de prints van iedereen in je brigade.' : 'Dit logo staat bovenaan elke pagina die je print: het logo links, de naam in het midden.'}</p><div class="print-brand-setup"><div class="print-sheet-frame" id="printBrandPreview" aria-label="Voorbeeld van een geprinte pagina">${printSheetHtml({ name, logo: b.logo, bw: b.bw })}</div><div class="print-brand-fields"><div class="field"><label>Naam op de print</label><input id="printBrandName" value="${esc(name)}" placeholder="Bijv. Restaurant De Zwaan" maxlength="120" autocomplete="organization" oninput="previewPrintBrand()"></div><div class="actions"><label class="btn">${b.logo ? 'Ander logo kiezen' : 'Logo kiezen'}<input type="file" id="printBrandFile" accept="image/png,image/jpeg,image/webp" onchange="choosePrintLogo(this)" style="display:none"></label>${b.logo ? '<button class="btn" onclick="removePrintLogo()">Logo weghalen</button>' : ''}</div><label class="print-option"><input type="checkbox" id="printBrandBw"${b.bw ? ' checked' : ''} onchange="previewPrintBrand()"><span>Logo in zwart-wit printen (beter op een keukenprinter)</span></label><div class="actions"><button class="btn gold" onclick="savePrintBrand()">Opslaan</button></div></div></div>`;
+  host.innerHTML = `<p class="muted">${s.source === 'team_owner' ? 'Dit logo staat op de prints van iedereen in je team.' : 'Dit logo staat bovenaan elke pagina die je print: het logo links, de naam in het midden.'}</p><div class="print-brand-setup"><div class="print-sheet-frame" id="printBrandPreview" aria-label="Voorbeeld van een geprinte pagina">${printSheetHtml({ name, logo: b.logo, bw: b.bw })}</div><div class="print-brand-fields"><div class="field"><label>Naam op de print</label><input id="printBrandName" value="${esc(name)}" placeholder="Bijv. Restaurant De Zwaan" maxlength="120" autocomplete="organization" oninput="previewPrintBrand()"></div><div class="actions"><label class="btn">${b.logo ? 'Ander logo kiezen' : 'Logo kiezen'}<input type="file" id="printBrandFile" accept="image/png,image/jpeg,image/webp" onchange="choosePrintLogo(this)" style="display:none"></label>${b.logo ? '<button class="btn" onclick="removePrintLogo()">Logo weghalen</button>' : ''}</div><label class="print-option"><input type="checkbox" id="printBrandBw"${b.bw ? ' checked' : ''} onchange="previewPrintBrand()"><span>Logo in zwart-wit printen (beter op een keukenprinter)</span></label><div class="actions"><button class="btn gold" onclick="savePrintBrand()">Opslaan</button></div></div></div>`;
 }
 
 // Nieuw gekozen logo, nog niet opgeslagen.

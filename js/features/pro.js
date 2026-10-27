@@ -1,7 +1,7 @@
 // Savour Pro: abonnement (Stripe), de Pro-pagina, de abonnementsstatus in Instellingen en de melding bij
 // importeren.
-// Gratis: tot 100 eigen recepten, de Savour-lezer, lid zijn van keukenteams.
-// Pro: onbeperkt recepten, zelf keukenteams maken en je team uitnodigen, AI-import (500 per maand).
+// Gratis: tot 100 eigen recepten, de Savour-lezer, lid zijn van gedeelde mappen.
+// Pro: onbeperkt recepten, zelf gedeelde mappen maken en je team uitnodigen, AI-import (500 per maand).
 // Nieuwe accounts: 7 dagen Pro gratis, maar ook dan tot 100 recepten (onbeperkt bewaren is alleen betaald).
 // Teams: een pakket plekken voor een organisatie.
 // De echte controle zit in de database (supabase/2026-10-22-gratis-pro-teams.sql en 2026-10-23-proef-7-dagen.sql)
@@ -133,24 +133,24 @@ async function proApi(path, body = {}) {
 
 // Knop "Kies maand/jaar" of een teampakket ("team10_month"). Niet ingelogd? Eerst een account; daarna gaat
 // het afrekenen vanzelf verder.
-// Bij welk keukenteam hoort het brigade-abonnement? Eén eigen keukenteam: dat. Meerdere: kiezen.
-// Nog geen: een naam vragen; het keukenteam wordt dan bij het afrekenen aangemaakt.
+// Bij welke gedeelde map hoort het teamabonnement? Eén eigen gedeelde map: dat. Meerdere: kiezen.
+// Nog geen: een naam vragen; de gedeelde map wordt dan bij het afrekenen aangemaakt.
 async function chooseBrigadeTeam() {
   const own = (sharedMaps || []).filter(m => isSharedMapOwner(m));
   if (own.length === 1) return { id: own[0].id };
   if (own.length > 1)
     return askChoice(
-      'Bij welk keukenteam hoort je brigade?\n\nIedereen in dat keukenteam kan Savour Pro krijgen.',
+      'Bij welke gedeelde map hoort je team?\n\nIedereen in die gedeelde map kan Savour Pro krijgen.',
       own.map(m => ({ label: m.name, value: m.id }))
     ).then(id => (id ? { id } : null));
   const name = String(
     (await askText(
-      'Naam van je keukenteam\n\nBijvoorbeeld de naam van je restaurant. Je brigade ziet deze naam.',
+      'Naam van je gedeelde map\n\nBijvoorbeeld de naam van je restaurant. Je team ziet deze naam.',
       account.organization || '',
       { confirmLabel: 'Verder naar betalen' }
     )) || ''
   ).trim();
-  // Het keukenteam wordt bij het afrekenen aangemaakt (api/pro-checkout.js), ook zonder Pro.
+  // De gedeelde map wordt bij het afrekenen aangemaakt (api/pro-checkout.js), ook zonder Pro.
   return name ? { name } : null;
 }
 
@@ -167,7 +167,7 @@ async function choosePro(plan) {
   // Eigen Pro (betaald) beheer je in het Stripe-portaal; een team kun je ook naast een proefperiode nemen.
   if (!isTeam && ['subscription', 'gift', 'team_owner', 'team_member'].includes(savourPlan.source))
     return openProPortal();
-  // Brigade-abonnement: hoort bij één keukenteam van jou. Kies er een, of maak er meteen een aan.
+  // Teamabonnement: hoort bij één gedeelde map van jou. Kies er een, of maak er meteen een aan.
   let team = null;
   if (isTeam) {
     if (savourPlan.team?.owner && savourPlan.team.active) return openProPortal();
@@ -212,7 +212,7 @@ async function handleProReturn() {
   if (p === 'success') {
     toast('Bedankt! Je abonnement wordt geactiveerd…');
     // Tijdens de proefperiode is iemand al Pro: wacht op het betaalde abonnement zelf.
-    // Betaald: eigen abonnement, of een lopend brigade-abonnement (ook als je zelf al Pro had, bijv. als cadeau).
+    // Betaald: eigen abonnement, of een lopend teamabonnement (ook als je zelf al Pro had, bijv. als cadeau).
     const paid = () =>
       ['subscription', 'team_owner'].includes(savourPlan.source) ||
       !!(savourPlan.team?.owner && savourPlan.team.active);
@@ -269,7 +269,7 @@ function renderProPage(host) {
     const month = proPlanAvailable(`${t.id}_month`),
       year = proPlanAvailable(`${t.id}_year`);
     if (!month && !year) return '';
-    return `<div class="pro-price pro-team${t.seats === 10 ? ' is-featured' : ''}">${t.seats === 10 ? '<span class="pro-badge">Meest gekozen</span>' : ''}<h3>Brigade ${t.seats}</h3><div class="pro-amount"><strong>${t.month}</strong><span>per maand</span></div><p class="muted">${t.seats} personen · ${t.perPerson} per persoon<br>of ${t.year} per jaar</p>${month ? `<button type="button" class="btn ${t.seats === 10 ? 'gold' : ''}" data-pro-choose onclick="choosePro('${t.id}_month')">Kies maandelijks</button>` : ''}${year ? `<button type="button" class="btn pro-year-link" data-pro-choose onclick="choosePro('${t.id}_year')">Kies jaarlijks</button>` : ''}</div>`;
+    return `<div class="pro-price pro-team${t.seats === 10 ? ' is-featured' : ''}">${t.seats === 10 ? '<span class="pro-badge">Meest gekozen</span>' : ''}<h3>Team ${t.seats}</h3><div class="pro-amount"><strong>${t.month}</strong><span>per maand</span></div><p class="muted">${t.seats} personen · ${t.perPerson} per persoon<br>of ${t.year} per jaar</p>${month ? `<button type="button" class="btn ${t.seats === 10 ? 'gold' : ''}" data-pro-choose onclick="choosePro('${t.id}_month')">Kies maandelijks</button>` : ''}${year ? `<button type="button" class="btn pro-year-link" data-pro-choose onclick="choosePro('${t.id}_year')">Kies jaarlijks</button>` : ''}</div>`;
   };
   const teamCards = TEAM_PLANS.map(teamCard).join('');
   const current =
@@ -280,13 +280,13 @@ function renderProPage(host) {
         : '';
   host.innerHTML =
     current +
-    `<p class="pro-trial-note"><strong>Nieuw bij Savour?</strong> Je probeert Savour Pro ${TRIAL_DAYS} dagen gratis, zonder betaalgegevens: AI-import en keukenteams, tot ${FREE_RECIPE_LIMIT} recepten.</p>
+    `<p class="pro-trial-note"><strong>Nieuw bij Savour?</strong> Je probeert Savour Pro ${TRIAL_DAYS} dagen gratis, zonder betaalgegevens: AI-import en gedeelde mappen, tot ${FREE_RECIPE_LIMIT} recepten.</p>
     <div class="pro-prices">${card('month', PRO_PRICES.month, 'per maand', 'Maandelijks opzegbaar.', false)}${card('year', PRO_PRICES.year, 'per jaar', 'Twee maanden gratis ten opzichte van maandelijks.', true)}</div>
     <p class="pro-pay muted">Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Er wordt geen btw gerekend (kleineondernemersregeling). Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.</p>
     ${
       teamCards
-        ? `<h2 id="proBrigade">Savour voor je hele brigade</h2>
-    <p>Met een brigade-abonnement krijgt iedereen in je keuken Savour Pro. Hoe groter je brigade, hoe lager de prijs per persoon. Je nodigt je collega's uit op hun e-mailadres en kunt plekken altijd aan iemand anders geven.</p>
+        ? `<h2 id="proBrigade">Savour voor je hele team</h2>
+    <p>Met een teamabonnement krijgt iedereen in je keuken Savour Pro. Hoe groter je team, hoe lager de prijs per persoon. Je nodigt je collega's uit op hun e-mailadres en kunt plekken altijd aan iemand anders geven.</p>
     <div class="pro-prices pro-team-prices">${teamCards}</div>
     <p class="pro-pay muted">Groter dan 25 personen of meerdere vestigingen? Neem contact op voor een prijs op maat.</p>`
         : ''
@@ -299,8 +299,8 @@ function renderProPage(host) {
         <tr><td>Mappen, categorieën, zoeken en favorieten</td><td>✓</td><td>✓</td></tr>
         <tr><td>Omrekenen, printen, kookmodus en delen</td><td>✓</td><td>✓</td></tr>
         <tr><td>Importeren van Word, PDF en tekst met de Savour-lezer</td><td>✓</td><td>✓</td></tr>
-        <tr><td>Lid zijn van een keukenteam van een ander</td><td>✓</td><td>✓</td></tr>
-        <tr><td>Zelf een keukenteam maken en je team uitnodigen</td><td>–</td><td>✓</td></tr>
+        <tr><td>Lid zijn van een gedeelde map van een ander</td><td>✓</td><td>✓</td></tr>
+        <tr><td>Zelf een gedeelde map maken en je team uitnodigen</td><td>–</td><td>✓</td></tr>
         <tr><td>AI leest foto's, handgeschreven en gescande recepten</td><td>–</td><td>✓</td></tr>
         <tr><td>Printen met het logo van je restaurant</td><td>–</td><td>✓</td></tr>
         <tr><td>Alle recepten downloaden naar Word of als back-up</td><td>–</td><td>✓</td></tr>
@@ -310,9 +310,9 @@ function renderProPage(host) {
     <h2>Hoe werkt importeren?</h2>
     <p>Iedereen gebruikt de <strong>Savour-lezer</strong>: die leest Word, PDF en tekst direct en gratis in. Met <strong>Savour Pro</strong> leest daarnaast de AI wat de lezer niet zeker weet: foto's, handgeschreven kladjes, gescande pagina's en documenten zonder duidelijke indeling. De AI verzint nooit hoeveelheden of stappen; je controleert elk recept voordat het wordt opgeslagen.</p>
     <h2>Vragen</h2>
-    <p><strong>Wat gebeurt er als ik stop met Pro?</strong><br>Je houdt al je recepten en keukenteams. Je kunt alleen geen nieuwe recepten meer toevoegen boven de ${FREE_RECIPE_LIMIT} en geen nieuwe keukenteams maken.</p>
-    <p><strong>Hoe krijgen de leden van mijn brigade Pro?</strong><br>Je voegt ze toe via Mijn brigade in het menu, of op je telefoon via Mijn account → Abonnement. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.</p>
-    <p><strong>Moeten de leden van mijn brigade ook betalen?</strong><br>Nee. Lid zijn van een keukenteam is gratis. Wil je dat iedereen in je keuken Pro heeft, kies dan een brigade-abonnement.</p>
+    <p><strong>Wat gebeurt er als ik stop met Pro?</strong><br>Je houdt al je recepten en gedeelde mappen. Je kunt alleen geen nieuwe recepten meer toevoegen boven de ${FREE_RECIPE_LIMIT} en geen nieuwe gedeelde mappen maken.</p>
+    <p><strong>Hoe krijgen mijn teamleden Pro?</strong><br>Je voegt ze toe via Mijn team in het menu, of op je telefoon via Mijn account → Abonnement. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.</p>
+    <p><strong>Moeten mijn teamleden ook betalen?</strong><br>Nee. Lid zijn van een gedeelde map is gratis. Wil je dat iedereen in je keuken Pro heeft, kies dan een teamabonnement.</p>
     <p><strong>Wat telt als een AI-import?</strong><br>Elke foto, gescande pagina of elk deel van een bestand dat de AI leest (ongeveer 8 recepten per deel). Wat de Savour-lezer zelf zeker leest, telt niet mee.</p>
     <p><strong>Wat als ik over de 500 heen ga?</strong><br>Dan leest de Savour-lezer verder en kun je de rest volgende maand met AI doen. Er komen nooit extra kosten bij.</p>
     <p><strong>Hoe zeg ik op?</strong><br>In Mijn account → Abonnement → Abonnement beheren. Daar wijzig je ook je betaalmethode en download je facturen.</p>`;
@@ -329,17 +329,17 @@ function renderProNav() {
   if (!label) return;
   const paid = savourPlan.hasCustomer && ['subscription', 'team_owner'].includes(savourPlan.source);
   label.textContent = paid ? 'Abonnement beheren' : hasOwnPro() ? 'Mijn abonnement' : 'Savour Pro';
-  // "Mijn brigade" in het menu: alleen als je eigenaar of lid van een team bent. De eigenaar ziet hoeveel plekken bezet zijn.
+  // "Mijn team" in het menu: alleen als je eigenaar of lid van een team bent. De eigenaar ziet hoeveel plekken bezet zijn.
   const team = savourPlan.team;
   const teamBtn = $('navTeam');
   if (teamBtn) {
-    // Alleen bij een lopend brigade-abonnement (eigenaar) of als lid van een brigade.
+    // Alleen bij een lopend teamabonnement (eigenaar) of als lid van een team.
     teamBtn.style.display = team?.active ? '' : 'none';
     $('navTeamCount').textContent = team?.owner ? `${(team.members || []).length + 1}/${team.seats}` : '';
   }
 }
 
-// "Mijn brigade": naar het Brigade-tabblad van het keukenteam waar het abonnement bij hoort.
+// "Mijn team": naar het tabblad Team van de gedeelde map waar het abonnement bij hoort.
 function openTeamNav() {
   const teamId = savourPlan.team?.team_id;
   if (teamId && findSharedMap(teamId)) {
@@ -361,7 +361,7 @@ async function showTeamReady() {
   if (!t?.owner) return;
   if (
     await askConfirm(
-      `Je brigade staat klaar\n\nJe hebt ${t.seats} plekken; jij telt zelf als eerste mee. Voeg je collega's toe op hun e-mailadres: zij krijgen een uitnodiging van ons en hebben Savour Pro zodra ze inloggen of zich aanmelden met dat adres.`,
+      `Je team staat klaar\n\nJe hebt ${t.seats} plekken; jij telt zelf als eerste mee. Voeg je collega's toe op hun e-mailadres: zij krijgen een uitnodiging van ons en hebben Savour Pro zodra ze inloggen of zich aanmelden met dat adres.`,
       { confirmLabel: "Collega's toevoegen" }
     )
   )
@@ -380,7 +380,7 @@ async function greetTeamMember() {
     return;
   }
   await askConfirm(
-    `Welkom bij de brigade van ${t.name}\n\nJe hebt Savour Pro via je brigade: onbeperkt recepten, keukenteams en AI voor handgeschreven kladjes. Je hoeft niets te betalen; dat regelt je brigade.`,
+    `Welkom bij het team van ${t.name}\n\nJe hebt Savour Pro via je team: onbeperkt recepten, gedeelde mappen en AI voor handgeschreven kladjes. Je hoeft niets te betalen; dat regelt je team.`,
     { confirmLabel: 'Aan de slag' }
   );
 }
@@ -423,7 +423,7 @@ async function renderAdminNav() {
   }
 }
 
-// ---- Abonnement en brigade in Instellingen ----
+// ---- Abonnement en team in Instellingen ----
 
 function renderPlanSettings() {
   renderProNav();
@@ -440,31 +440,31 @@ function renderPlanSettings() {
   else if (s.source === 'subscription')
     row = `<b>Savour Pro</b><small>${esc(s.cancelAtEnd ? `Opgezegd. Je houdt Pro tot ${until}.` : `${s.plan === 'year' ? 'Jaarabonnement' : 'Maandabonnement'} · verlengt op ${until}`)}</small>${ai}`;
   else if (s.source === 'team_owner')
-    row = `<b>Savour Pro · Brigade ${esc(s.team.seats)}</b><small>${esc(s.team.name)}${s.team.cancel_at_period_end ? ` · opgezegd, loopt tot ${esc(formatProDate(new Date(s.team.period_end)))}` : ''}</small>${ai}`;
+    row = `<b>Savour Pro · Team ${esc(s.team.seats)}</b><small>${esc(s.team.name)}${s.team.cancel_at_period_end ? ` · opgezegd, loopt tot ${esc(formatProDate(new Date(s.team.period_end)))}` : ''}</small>${ai}`;
   else if (s.source === 'team_member')
-    row = `<b>Savour Pro</b><small>Via je brigade: ${esc(s.team.name)}. De eigenaar van de brigade beheert de plekken; je hoeft niets te betalen.</small>${ai}`;
+    row = `<b>Savour Pro</b><small>Via je team: ${esc(s.team.name)}. De eigenaar van het team beheert de plekken; je hoeft niets te betalen.</small>${ai}`;
   else if (s.source === 'trial')
     row = `<b>Savour Pro · gratis proefperiode</b><small>Tot ${esc(formatProDate(s.trialEnd))}. ${recipes.length} van ${s.recipeLimit} recepten; onbeperkt bewaren kan met Savour Pro. Daarna ga je vanzelf terug naar gratis, tenzij je zelf Pro kiest.</small>${ai}`;
   else
-    row = `<b>Gratis</b><small>${recipes.length} van ${s.recipeLimit === Infinity ? '∞' : s.recipeLimit} recepten. Met Savour Pro onbeperkt recepten, je eigen keukenteams en AI-import.</small>`;
+    row = `<b>Gratis</b><small>${recipes.length} van ${s.recipeLimit === Infinity ? '∞' : s.recipeLimit} recepten. Met Savour Pro onbeperkt recepten, je eigen gedeelde mappen en AI-import.</small>`;
   const button = ['subscription', 'team_owner'].includes(s.source) || s.source === 'gift' ? manage : more;
   host.innerHTML = `<div class="plan-row"><div>${row}</div>${button}</div>${s.team?.owner ? renderTeamManager(s.team) : ''}`;
   renderPrintBrandSettings();
 }
 
 // Teamleden beheren: de eigenaar telt als eerste plek mee.
-// In Instellingen: de brigade beheer je in het keukenteam (Brigade-tabblad). Hier alleen waar het abonnement bij
-// hoort, of (oud abonnement zonder keukenteam) bij welk keukenteam je het wilt koppelen.
+// In Instellingen: het team beheer je in de gedeelde map (tabblad Team). Hier alleen waar het abonnement bij
+// hoort, of (oud abonnement zonder gedeelde map) bij welke gedeelde map je het wilt koppelen.
 function renderTeamManager(team) {
-  // Gestopt brigade-abonnement: niet doen alsof het nog loopt.
+  // Gestopt teamabonnement: niet doen alsof het nog loopt.
   if (!team.active)
-    return `<div class="team-manager" id="teamManager"><h4>Je brigade</h4><p class="muted">Je Brigade ${esc(team.seats)} is gestopt. Je brigade heeft geen Pro meer via dit abonnement; je eigen Pro en je keukenteams blijven gewoon staan.</p><button class="btn gold" onclick="openBrigadePlans()">Brigade opnieuw nemen</button></div>`;
+    return `<div class="team-manager" id="teamManager"><h4>Je team</h4><p class="muted">Je Team ${esc(team.seats)} is gestopt. Je team heeft geen Pro meer via dit abonnement; je eigen Pro en je gedeelde mappen blijven gewoon staan.</p><button class="btn gold" onclick="openBrigadePlans()">Team opnieuw nemen</button></div>`;
   const used = (team.members || []).length + 1;
   const linked = team.team_id && findSharedMap(team.team_id);
   if (linked)
-    return `<div class="team-manager" id="teamManager"><h4>Je brigade</h4><p class="muted">${used} van ${team.seats} plekken met Pro, in keukenteam ${esc(linked.name)}. Mensen toevoegen en Pro geven doe je in het keukenteam, op het tabblad Brigade.</p><button class="btn gold" onclick="openTeamNav()">Naar de brigade</button></div>`;
+    return `<div class="team-manager" id="teamManager"><h4>Je team</h4><p class="muted">${used} van ${team.seats} plekken met Pro, in gedeelde map ${esc(linked.name)}. Mensen toevoegen en Pro geven doe je in de gedeelde map, op het tabblad Team.</p><button class="btn gold" onclick="openTeamNav()">Naar het team</button></div>`;
   const own = (sharedMaps || []).filter(m => isSharedMapOwner(m));
-  return `<div class="team-manager" id="teamManager"><h4>Je brigade</h4><p class="muted">Koppel je brigade-abonnement aan een keukenteam. Dan beheer je daar je brigade en geef je Pro.</p>${
+  return `<div class="team-manager" id="teamManager"><h4>Je team</h4><p class="muted">Koppel je teamabonnement aan een gedeelde map. Dan beheer je daar je team en geef je Pro.</p>${
     own.length
       ? own
           .map(
@@ -472,7 +472,7 @@ function renderTeamManager(team) {
               `<button class="btn" style="margin:4px 6px 0 0" onclick="linkBrigade('${escJs(m.id)}')">Koppelen aan ${esc(m.name)}</button>`
           )
           .join('')
-      : '<button class="btn gold" onclick="newSharedMap()">Keukenteam maken</button>'
+      : '<button class="btn gold" onclick="newSharedMap()">Gedeelde map maken</button>'
   }</div>`;
 }
 
@@ -491,7 +491,7 @@ function renderRecipeProHint() {
   // Teameigenaar die nog niemand heeft toegevoegd: herinnering om collega's toe te voegen.
   const team = savourPlan.team;
   if (!demoMode && team?.owner && team.active && !(team.members || []).length && Date.now() - hiddenAt > 7 * 86400000) {
-    host.innerHTML = `<div class="recipe-pro-hint"><b>Je brigade</b><span>1 van ${esc(team.seats)} plekken in gebruik. Voeg je collega's toe: zij krijgen een uitnodiging en hebben direct Savour Pro.</span><button class="btn small gold" onclick="openTeamNav()">Collega's toevoegen</button><button class="recipe-pro-hint-close" aria-label="Verbergen" title="Verbergen" onclick="hideRecipeProHint()">×</button></div>`;
+    host.innerHTML = `<div class="recipe-pro-hint"><b>Je team</b><span>1 van ${esc(team.seats)} plekken in gebruik. Voeg je collega's toe: zij krijgen een uitnodiging en hebben direct Savour Pro.</span><button class="btn small gold" onclick="openTeamNav()">Collega's toevoegen</button><button class="recipe-pro-hint-close" aria-label="Verbergen" title="Verbergen" onclick="hideRecipeProHint()">×</button></div>`;
     return;
   }
   const show = !demoMode && !savourPlan.unlimited && Date.now() - hiddenAt > 7 * 86400000;
@@ -504,7 +504,7 @@ function renderRecipeProHint() {
     savourPlan.source === 'trial'
       ? `Savour Pro · nog ${daysLeft} ${daysLeft === 1 ? 'dag' : 'dagen'} gratis`
       : 'Savour Pro';
-  host.innerHTML = `<div class="recipe-pro-hint"><b>${title}</b><span>Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.</span><small>${recipes.length} van ${savourPlan.recipeLimit} recepten</small><button class="btn small gold" onclick="openPublicInfo('pro')">Bekijk Savour Pro</button><button class="recipe-pro-hint-close" aria-label="Verbergen" title="Verbergen" onclick="hideRecipeProHint()">×</button></div>`;
+  host.innerHTML = `<div class="recipe-pro-hint"><b>${title}</b><span>Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.</span><small>${recipes.length} van ${savourPlan.recipeLimit} recepten</small><button class="btn small gold" onclick="openPublicInfo('pro')">Bekijk Savour Pro</button><button class="recipe-pro-hint-close" aria-label="Verbergen" title="Verbergen" onclick="hideRecipeProHint()">×</button></div>`;
 }
 
 function hideRecipeProHint() {
@@ -542,7 +542,7 @@ async function askForPro(what) {
 async function askForProSharedMap() {
   if (
     await askConfirm(
-      `Een keukenteam maken is Savour Pro\n\nMet Pro maak je keukenteams en nodig je je team uit (vanaf ${PRO_PRICES.month} per maand). Lid zijn van het keukenteam van een ander blijft gratis.`,
+      `Een gedeelde map maken is Savour Pro\n\nMet Pro maak je gedeelde mappen en nodig je je team uit (vanaf ${PRO_PRICES.month} per maand). Lid zijn van de gedeelde map van een ander blijft gratis.`,
       { confirmLabel: 'Bekijk Savour Pro' }
     )
   )

@@ -37,7 +37,7 @@ function go(id) {
 
 // Voegt eenmalig een snelknop ("+ ... toevoegen") toe onder een menulijst in de zijbalk.
 // Keukenfoto's voor de fotoband boven mappen (css: .photo-band). Elke map krijgt op basis van zijn id altijd
-// dezelfde foto uit de reeks; een keukenteam met een eigen foto gebruikt die.
+// dezelfde foto uit de reeks; een gedeelde map met een eigen foto gebruikt die.
 const VIEW_PHOTOS = [
   'ingredienten-hout',
   'bord-pass',

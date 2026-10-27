@@ -265,7 +265,7 @@ async function deleteBulkModalSelection() {
   else toast(`${deleted.done} recepten verwijderd`);
 }
 
-// Eigen recepten verwijderen, ook als ze in mappen, keukenteams of een openbare link staan. In delen, zodat
+// Eigen recepten verwijderen, ook als ze in mappen, gedeelde mappen of een openbare link staan. In delen, zodat
 // ook 1.800 recepten in één keer lukken. Via savour_delete_my_recipes (supabase/2026-10-25-recepten-verwijderen.sql)
 // ruimt de database eerst alle koppelingen op; zonder die functie doet de app het zelf, in kleinere delen.
 // Geeft { done, failed }.

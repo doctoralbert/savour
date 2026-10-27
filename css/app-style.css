@@ -1376,7 +1376,7 @@ h2.has-help .help-btn {
   }
 }
 
-/* ---- Keukenteam: tabbladen, brigade en instellingen (js/features/shared-maps.js) ---- */
+/* ---- Gedeelde map: tabbladen, brigade en instellingen (js/features/shared-maps.js) ---- */
 .team-tabs {
   display: flex;
   gap: 4px;
@@ -1473,9 +1473,4 @@ h2.has-help .help-btn {
 }
 .team-setting.danger {
   border-color: rgba(213, 170, 160, 0.35);
-}
-.team-nav-folder {
-  padding-left: 44px !important;
-  font-size: 13px !important;
-  opacity: 0.8;
 }

@@ -69,7 +69,7 @@ function startDemo() {
     }
   );
   favorites = recipes.slice(0, 3).map(r => r.id);
-  // Een collega met eigen recepten in het keukenteam, om samenwerken te laten zien.
+  // Een collega met eigen recepten in de gedeelde map, om samenwerken te laten zien.
   sharedRecipes = ['Bouillabaisse', 'Crème brûlée', 'Gepocheerde peer'].map((title, i) => ({
     id: 'demo-anna-' + i,
     title,

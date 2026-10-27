@@ -39,7 +39,7 @@ function saveSharedManagerChanges() {
   );
   renderSharedNav();
   renderSharedManage();
-  toast('Keukenteams bijgewerkt');
+  toast('Gedeelde mappen bijgewerkt');
 }
 
 function managerDragStart(e) {

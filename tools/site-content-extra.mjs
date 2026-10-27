@@ -39,17 +39,17 @@ export const EXTRA_LANGS = {
       soonTitle: 'Woran wir arbeiten',
       soonLink: 'Was kommt',
       priceTitle: 'Kostenlos starten',
-      price: 'Bis zu 100 Rezepte kostenlos, mit dem Savour-Leser für Word, PDF und Text. Savour Pro kostet 2,99 € pro Monat oder 29 € pro Jahr: unbegrenzt Rezepte, KI für handschriftliche Notizen und Fotos und eigene Küchenteams. Teams ab 1,20 € pro Person.',
+      price: 'Bis zu 100 Rezepte kostenlos, mit dem Savour-Leser für Word, PDF und Text. Savour Pro kostet 2,99 € pro Monat oder 29 € pro Jahr: unbegrenzt Rezepte, KI für handschriftliche Notizen und Fotos und eigene geteilte Ordner. Teams ab 1,20 € pro Person.',
       priceLink: 'Preise ansehen',
       faqTitle: 'Fragen zu Savour',
       faq: [
         ['Welche App nutze ich, um Rezepte für mein Restaurant zu organisieren?', 'Savour ist für Profiküchen gemacht: Du importierst deine bestehenden Rezepte, ordnest sie in Ordnern und teilst sie mit deinem Team. Du startest kostenlos.'],
         ['Wie digitalisiere ich handgeschriebene Rezepte?', 'Mach ein Foto vom Rezept und lade es in Savour hoch. Die KI macht daraus ein sauberes Rezept mit Zutaten und Zubereitung, das du danach prüfst.'],
         ['Kann ich Rezepte aus Word oder PDF importieren?', 'Ja. Auch eine Datei mit Hunderten Rezepten auf einmal; Savour trennt sie selbst auf.'],
-        ['Wie teile ich Rezepte mit meinem Küchenteam?', 'Mit einem Küchenteam. Du lädst Kollegen ein und gibst ihnen Rechte zum Ansehen oder Mitarbeiten.'],
+        ['Wie teile ich Rezepte mit meinem geteilten Ordner?', 'Mit einem geteilten Ordner. Du lädst Kollegen ein und gibst ihnen Rechte zum Ansehen oder Mitarbeiten.'],
         ['Eignet sich Savour für die Rezeptverwaltung in der Gastronomie?', 'Ja. Savour ist für Restaurants, Hotels und Catering gebaut: Rezepturen zentral verwalten, mit dem Küchenteam teilen und nach Posten, Menü oder Standort ordnen.'],
         [ "Funktioniert Savour auch offline?", "Ja. Öffne Savour einmal mit Internet und lege es auf deinen Startbildschirm; danach öffnest du deine Rezepte auch ohne Verbindung, zum Beispiel im Kühlhaus. Bearbeiten geht wieder, sobald du online bist." ],
-        [ "Wo werden meine Rezepte gespeichert?", "In der Cloud, getrennt pro Konto. Du öffnest sie auf Computer, Tablet und Handy, und nur du und die Personen, die du in ein Küchenteam einlädst, können sie lesen." ],
+        [ "Wo werden meine Rezepte gespeichert?", "In der Cloud, getrennt pro Konto. Du öffnest sie auf Computer, Tablet und Handy, und nur du und die Personen, die du in einen geteilten Ordner einlädst, können sie lesen." ],
         [ "Kann ich einen ganzen Rezeptordner auf einmal drucken?", "Ja. Drucke einzelne Rezepte oder einen kompletten Rezeptordner auf einmal, sauber gestaltet für den Küchenordner. Mit Savour Pro steht das Logo deines Restaurants darauf." ],
         ['Ist Savour auch für Hobbyköche?', 'Das geht, aber Savour ist für die Profiküche gebaut: große Rezeptbücher, Teams und den Service.']
       ]
@@ -57,7 +57,7 @@ export const EXTRA_LANGS = {
     items: {
       digitise: ['Rezepte digitalisieren', 'Word, PDF und Fotos handschriftlicher Rezepte auf einmal in Savour.'],
       organise: ['Rezepte organisieren', 'Ordner, Kategorien und Suche nach Zutat. Deine Beurre blanc in drei Sekunden.'],
-      share: ['Mit der Brigade teilen', 'Küchenteams mit Rechten: Du verwaltest, dein Sous-Chef bearbeitet, der Rest liest mit.'],
+      share: ['Mit dem Team teilen', 'geteilte Ordner mit Rechten: Du verwaltest, dein Sous-Chef bearbeitet, der Rest liest mit.'],
       scale: ['Rezepte hochrechnen', 'Von 8 Gedecken auf 120, ohne Rechenfehler.'],
       print: ['Rezepte drucken', 'Ein einzelnes Rezept oder ein kompletter Rezeptordner auf einmal, sauber gedruckt für die Küche.'],
       cloud: [
@@ -106,17 +106,17 @@ export const EXTRA_LANGS = {
       soonTitle: 'En qué trabajamos',
       soonLink: 'Lo que viene',
       priceTitle: 'Empieza gratis',
-      price: 'Hasta 100 recetas gratis, con el lector de Savour para Word, PDF y texto. Savour Pro cuesta 2,99 € al mes o 29 € al año: recetas ilimitadas, IA para notas escritas a mano y fotos, y tus propias equipos de cocina. Equipos desde 1,20 € por persona.',
+      price: 'Hasta 100 recetas gratis, con el lector de Savour para Word, PDF y texto. Savour Pro cuesta 2,99 € al mes o 29 € al año: recetas ilimitadas, IA para notas escritas a mano y fotos, y tus propias carpetas compartidas. Equipos desde 1,20 € por persona.',
       priceLink: 'Ver precios',
       faqTitle: 'Preguntas sobre Savour',
       faq: [
         ['¿Qué app uso para organizar las recetas de mi restaurante?', 'Savour está hecho para cocinas profesionales: importas tus recetas, las ordenas en carpetas y las compartes con tu equipo. Empiezas gratis.'],
         ['¿Cómo digitalizo recetas escritas a mano?', 'Haz una foto de la receta y súbela a Savour. La IA la convierte en una receta limpia con ingredientes y elaboración, que luego revisas.'],
         ['¿Puedo importar recetas de Word o PDF?', 'Sí. Incluso un archivo con cientos de recetas a la vez; Savour las separa solo.'],
-        ['¿Cómo comparto recetas con mi equipo de cocina?', 'Con un equipo de cocina. Invitas a tus compañeros y les das permiso para ver o colaborar.'],
+        ['¿Cómo comparto recetas con mi carpeta compartida?', 'Con una carpeta compartida. Invitas a tus compañeros y les das permiso para ver o colaborar.'],
         ['¿Sirve Savour para la gestión de recetas en hostelería?', 'Sí. Savour está hecho para restaurantes, hoteles y catering: gestionar recetas de forma central, compartirlas con tu equipo de cocina y ordenarlas por partida, menú o local.'],
         [ "¿Savour funciona sin conexión?", "Sí. Abre Savour una vez con internet y añádelo a tu pantalla de inicio; después abres tus recetas sin conexión, por ejemplo en la cámara. Podrás editar de nuevo en cuanto estés en línea." ],
-        [ "¿Dónde se guardan mis recetas?", "En la nube, separadas por cuenta. Las abres en ordenador, tableta y móvil, y solo tú y quienes invites a un equipo de cocina pueden leerlas." ],
+        [ "¿Dónde se guardan mis recetas?", "En la nube, separadas por cuenta. Las abres en ordenador, tableta y móvil, y solo tú y quienes invites a una carpeta compartida pueden leerlas." ],
         [ "¿Puedo imprimir una carpeta de recetas entera de una vez?", "Sí. Imprime recetas sueltas o una carpeta de recetas completa de una vez, bien maquetada para el archivador de la cocina. Con Savour Pro lleva el logo de tu restaurante." ],
         ['¿Savour también es para cocineros caseros?', 'Puede servir, pero Savour está hecho para la cocina profesional: grandes recetarios, equipos y el servicio.']
       ]
@@ -124,7 +124,7 @@ export const EXTRA_LANGS = {
     items: {
       digitise: ['Digitalizar recetas', 'Word, PDF y fotos de recetas escritas a mano en Savour de una vez.'],
       organise: ['Organizar recetas', 'Carpetas, categorías y búsqueda por ingrediente. Tu beurre blanc en tres segundos.'],
-      share: ['Compartir con tu brigada', 'Equipos de cocina con permisos: tú gestionas, tu segundo edita, el resto consulta.'],
+      share: ['Compartir con tu equipo', 'Carpetas compartidas con permisos: tú gestionas, tu segundo edita, el resto consulta.'],
       scale: ['Escalar recetas', 'De 8 cubiertos a 120, sin errores de cálculo.'],
       print: ['Imprimir recetas', 'Una receta suelta o una carpeta de recetas completa de una vez, bien impresa para la cocina.'],
       cloud: [

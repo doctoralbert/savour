@@ -572,7 +572,7 @@ async function importIntakeRecipes(id, recipes) {
     await insert('shared_map_members', { shared_map_id: mapId, user_id: row.owner_id, role: 'owner' });
     await update('recipe_intakes', `id=eq.${row.id}`, { shared_map_id: mapId });
   }
-  // Het brigade-abonnement van de klant hoort bij dit keukenteam.
+  // Het teamabonnement van de klant hoort bij deze gedeelde map.
   if (row.organization_id)
     await update('organizations', `id=eq.${row.organization_id}`, { shared_map_id: mapId }).catch(() => null);
   // Submappen: bestaande op naam hergebruiken, ontbrekende aanmaken.
@@ -605,7 +605,7 @@ async function importIntakeRecipes(id, recipes) {
     'recipes',
     list.map(r => ({
       user_id: row.owner_id,
-      // Recept van het keukenteam: blijft van het team (supabase/2026-10-28-keukenteams.sql).
+      // Recept van de gedeelde map: blijft van het team (supabase/2026-10-28-gedeelde mappen.sql).
       team_id: mapId,
       title: text(r.title, 300).trim() || 'Recept',
       description: null,

@@ -28,7 +28,7 @@ import {
 // Import service, klantkant. Geen account nodig: de lange, geheime token in de link is de toegang.
 // - request:  aanvraag vanaf de website (zonder token); de beheerder krijgt een mail en ziet hem in /admin → Inladen
 // - get:      stand van zaken voor de aanleverpagina
-// - checkout: na goedkeuring betalen (brigade-abonnement per jaar + pakket) via Stripe
+// - checkout: na goedkeuring betalen (teamabonnement per jaar + pakket) via Stripe
 // - upload:   eenmalige uploadlink voor één bestand in de privé-bucket (pas na betalen)
 // - submit:   mappenstructuur, opmerkingen en de e-mailadressen van de leden
 // GET ?welkom=...: welkomstlink uit de mail na het vrijgeven → verse wachtwoordlink (zie welcome_links).
@@ -156,8 +156,7 @@ async function checkout(intake, body, origin) {
   const seats = [5, 10, 25].includes(Number(body.seats)) ? Number(body.seats) : intake.seats || 5;
   const plan = `team${seats}_year`;
   const price = priceFor(plan);
-  if (!price)
-    throw Object.assign(new Error(`Betalen is nog niet ingesteld (prijs Brigade ${seats}).`), { status: 503 });
+  if (!price) throw Object.assign(new Error(`Betalen is nog niet ingesteld (prijs Team ${seats}).`), { status: 503 });
   const ownerId = intake.owner_id;
 
   const [existing] = await select('organizations', `owner_id=eq.${encodeURIComponent(ownerId)}&select=*`);
@@ -229,7 +228,7 @@ async function submit(intake, body) {
   }
   // Jij (de eigenaar) telt als eerste plek mee.
   if (members.length > seats - 1)
-    throw Object.assign(new Error(`Je brigade heeft ${seats} plekken: jij en ${seats - 1} collega's.`), {
+    throw Object.assign(new Error(`Je team heeft ${seats} plekken: jij en ${seats - 1} collega's.`), {
       status: 400
     });
   const values = {

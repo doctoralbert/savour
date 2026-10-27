@@ -34,11 +34,11 @@ export const BLOG = [
         ],
         [
           "Je recepten blijven van jou",
-          "Aangeleverde bestanden staan in een afgeschermde opslag die alleen Savour kan zien, en worden gewist zodra je keukenteam klaarstaat. Daarna staan je recepten alleen nog in jouw keukenteam."
+          "Aangeleverde bestanden staan in een afgeschermde opslag die alleen Savour kan zien, en worden gewist zodra je gedeelde map klaarstaat. Daarna staan je recepten alleen nog in jouw gedeelde map."
         ],
         [
           "Wat het kost",
-          "Eenmalig €85 tot 100 recepten, €100 tot 500 recepten en €164,99 tot 1000 recepten, samen met een jaarabonnement voor je brigade van 5, 10 of 25 personen. Meer recepten kan in overleg. De eerste vijf keukens laden we gratis in."
+          "Eenmalig €85 tot 100 recepten, €100 tot 500 recepten en €164,99 tot 1000 recepten, samen met een jaarabonnement voor je team van 5, 10 of 25 personen. Meer recepten kan in overleg. De eerste vijf keukens laden we gratis in."
         ]
       ],
       "outro": "Meer weten of aanvragen? Kijk bij “Import service” op savour.page."
@@ -72,11 +72,11 @@ export const BLOG = [
         ],
         [
           "Your recipes stay yours",
-          "The files you send are kept in private storage that only Savour can see, and are deleted as soon as your brigade is ready. After that your recipes only live in your brigade."
+          "The files you send are kept in private storage that only Savour can see, and are deleted as soon as your team is ready. After that your recipes only live in your team."
         ],
         [
           "What it costs",
-          "One-off €85 up to 100 recipes, €100 up to 500 and €164.99 up to 1,000, together with a yearly plan for your brigade of 5, 10 or 25 people. More recipes by arrangement. The first five kitchens are imported for free."
+          "One-off €85 up to 100 recipes, €100 up to 500 and €164.99 up to 1,000, together with a yearly plan for your team of 5, 10 or 25 people. More recipes by arrangement. The first five kitchens are imported for free."
         ]
       ],
       "outro": "Want to know more or request it? See “Import service” on savour.page."
@@ -223,14 +223,14 @@ export const BLOG = [
     date: '2026-10-25',
     nl: {
       "slug": "blog/gedeelde-mappen-uitgelegd",
-      "title": "Keukenteams in Savour: zo werkt je gedeelde receptenboek",
-      "desc": "Alles wat je kunt met een keukenteam in Savour: rollen, recepten en mappen toevoegen, mappen per partie of menu beheren, team uitnodigen, printen en recepten overnemen.",
-      "h1": "Keukenteams: zo werkt je gedeelde receptenboek",
-      "lead": "Een keukenteam is het hart van Savour: één receptenboek voor je hele keuken, op ieders telefoon, altijd dezelfde versie. Dit is alles wat je ermee kunt.",
+      "title": "Gedeelde mappen in Savour: zo werkt je gedeelde receptenboek",
+      "desc": "Alles wat je kunt met een gedeelde map in Savour: rollen, recepten en mappen toevoegen, mappen per partie of menu beheren, team uitnodigen, printen en recepten overnemen.",
+      "h1": "Gedeelde mappen: zo werkt je gedeelde receptenboek",
+      "lead": "Een gedeelde map is het hart van Savour: één receptenboek voor je hele keuken, op ieders telefoon, altijd dezelfde versie. Dit is alles wat je ermee kunt.",
       "sections": [
         [
           "Eén receptenboek voor je team",
-          "Iedereen die lid is van een keukenteam, ziet dezelfde recepten op zijn eigen telefoon, tablet of computer. Past de maker een recept aan, dan ziet de hele brigade meteen de nieuwe versie. Geen losse kopieën, geen oude printjes meer aan de muur."
+          "Iedereen die lid is van een gedeelde map, ziet dezelfde recepten op zijn eigen telefoon, tablet of computer. Past de maker een recept aan, dan ziet het hele team meteen de nieuwe versie. Geen losse kopieën, geen oude printjes meer aan de muur."
         ],
         [
           "Rollen: eigenaar, editor en viewer",
@@ -238,19 +238,19 @@ export const BLOG = [
         ],
         [
           "Recepten toevoegen",
-          "Kies “Recept toevoegen” en vink recepten uit je eigen bibliotheek aan. Het recept blijft van jou: het staat in het keukenteam en in je eigen recepten tegelijk."
+          "Kies “Recept toevoegen” en vink recepten uit je eigen bibliotheek aan. Het recept blijft van jou: het staat in de gedeelde map en in je eigen recepten tegelijk."
         ],
         [
           "Mappen per partie of per menu",
-          "Deel het keukenteam op in mappen: een map per partie (garde manger, saucier, patisserie) of een map per menu. Met “Mappen beheren” wijzig je de naam, zet je de mappen in de volgorde van je keuken en archiveer je mappen die je niet meer gebruikt, zoals het menu van vorig seizoen. Gearchiveerde mappen en hun recepten blijven bewaard onder “Archief”."
+          "Deel de gedeelde map op in mappen: een map per partie (garde manger, saucier, patisserie) of een map per menu. Met “Mappen beheren” wijzig je de naam, zet je de mappen in de volgorde van je keuken en archiveer je mappen die je niet meer gebruikt, zoals het menu van vorig seizoen. Gearchiveerde mappen en hun recepten blijven bewaard onder “Archief”."
         ],
         [
           "Je team uitnodigen",
-          "Nodig collega’s uit via WhatsApp, Telegram, e-mail of de uitnodigingslink. Na het inloggen worden ze lid als viewer; daarna geef je ze als eigenaar een andere rol. Lid zijn van een keukenteam is gratis, ook zonder Savour Pro."
+          "Nodig collega’s uit via WhatsApp, Telegram, e-mail of de uitnodigingslink. Na het inloggen worden ze lid als viewer; daarna geef je ze als eigenaar een andere rol. Lid zijn van een gedeelde map is gratis, ook zonder Savour Pro."
         ],
         [
           "Printen voor de klapper",
-          "Print de hele keukenteam, één map of een eigen selectie in één keer. Je krijgt een inhoudsopgave, het nummer van elk recept onderaan de pagina zodat je snel bladert, en met Savour Pro het logo van je restaurant bovenaan."
+          "Print de hele gedeelde map, één map of een eigen selectie in één keer. Je krijgt een inhoudsopgave, het nummer van elk recept onderaan de pagina zodat je snel bladert, en met Savour Pro het logo van je restaurant bovenaan."
         ],
         [
           "Omrekenen en kookmodus",
@@ -258,7 +258,7 @@ export const BLOG = [
         ],
         [
           "Een recept overnemen",
-          "Bij elk recept van een collega in het keukenteam zie je “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie die je zelf kunt aanpassen, terwijl het origineel van de maker blijft."
+          "Bij elk recept van een collega in de gedeelde map zie je “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie die je zelf kunt aanpassen, terwijl het origineel van de maker blijft."
         ],
         [
           "Ook zonder internet",
@@ -266,21 +266,21 @@ export const BLOG = [
         ],
         [
           "Verlaten of verwijderen",
-          "Een lid kan een keukenteam altijd verlaten. Alleen de eigenaar kan de map verwijderen; de recepten zelf blijven dan gewoon in de bibliotheek van hun maker."
+          "Een lid kan een gedeelde map altijd verlaten. Alleen de eigenaar kan de map verwijderen; de recepten zelf blijven dan gewoon in de bibliotheek van hun maker."
         ]
       ],
-      "outro": "Een keukenteam maak je met Savour Pro; lid zijn kan iedereen gratis. In elk keukenteam vind je deze uitleg ook achter het i-knopje."
+      "outro": "Een gedeelde map maak je met Savour Pro; lid zijn kan iedereen gratis. In elke gedeelde map vind je deze uitleg ook achter het i-knopje."
     },
     en: {
       "slug": "en/blog/shared-folders-explained",
-      "title": "Kitchen teams in Savour: how your shared recipe book works",
-      "desc": "Everything you can do with a kitchen team in Savour: roles, adding recipes and folders, managing folders per section or menu, inviting your team, printing and copying recipes.",
-      "h1": "Kitchen teams: how your shared recipe book works",
-      "lead": "A kitchen team is the heart of Savour: one recipe book for your whole kitchen, on everyone’s phone, always the same version. This is everything you can do with it.",
+      "title": "Shared folders in Savour: how your shared recipe book works",
+      "desc": "Everything you can do with a shared folder in Savour: roles, adding recipes and folders, managing folders per section or menu, inviting your team, printing and copying recipes.",
+      "h1": "Shared folders: how your shared recipe book works",
+      "lead": "A shared folder is the heart of Savour: one recipe book for your whole kitchen, on everyone’s phone, always the same version. This is everything you can do with it.",
       "sections": [
         [
           "One recipe book for your team",
-          "Everyone who is a member of a kitchen team sees the same recipes on their own phone, tablet or computer. When the creator changes a recipe, the whole brigade sees the new version straight away. No loose copies, no old printouts on the wall."
+          "Everyone who is a member of a shared folder sees the same recipes on their own phone, tablet or computer. When the creator changes a recipe, the whole team sees the new version straight away. No loose copies, no old printouts on the wall."
         ],
         [
           "Roles: owner, editor and viewer",
@@ -288,19 +288,19 @@ export const BLOG = [
         ],
         [
           "Adding recipes",
-          "Choose “Add recipe” and tick recipes from your own library. The recipe stays yours: it is in the kitchen team and in your own recipes at the same time."
+          "Choose “Add recipe” and tick recipes from your own library. The recipe stays yours: it is in the shared folder and in your own recipes at the same time."
         ],
         [
           "Folders per section or per menu",
-          "Split the kitchen team into folders: one per section (garde manger, saucier, pastry) or one per menu. With “Manage folders” you rename them, put them in your kitchen’s order and archive folders you no longer use, like last season’s menu. Archived folders and their recipes are kept under “Archive”."
+          "Split the shared folder into folders: one per section (garde manger, saucier, pastry) or one per menu. With “Manage folders” you rename them, put them in your kitchen’s order and archive folders you no longer use, like last season’s menu. Archived folders and their recipes are kept under “Archive”."
         ],
         [
           "Inviting your team",
-          "Invite colleagues via WhatsApp, Telegram, email or the invitation link. After logging in they join as a viewer; as the owner you can then give them another role. Being a member of a kitchen team is free, also without Savour Pro."
+          "Invite colleagues via WhatsApp, Telegram, email or the invitation link. After logging in they join as a viewer; as the owner you can then give them another role. Being a member of a shared folder is free, also without Savour Pro."
         ],
         [
           "Printing for the binder",
-          "Print the whole kitchen team, one folder or your own selection in one go. You get a table of contents, the number of each recipe at the bottom of the page so you can leaf through quickly, and with Savour Pro your restaurant’s logo at the top."
+          "Print the whole shared folder, one folder or your own selection in one go. You get a table of contents, the number of each recipe at the bottom of the page so you can leaf through quickly, and with Savour Pro your restaurant’s logo at the top."
         ],
         [
           "Scaling and cook mode",
@@ -308,7 +308,7 @@ export const BLOG = [
         ],
         [
           "Copying a recipe",
-          "On every colleague’s recipe in the kitchen team you see “Add to my recipes”. You get your own copy to change, while the original stays with its creator."
+          "On every colleague’s recipe in the shared folder you see “Add to my recipes”. You get your own copy to change, while the original stays with its creator."
         ],
         [
           "Also without internet",
@@ -316,10 +316,10 @@ export const BLOG = [
         ],
         [
           "Leaving or deleting",
-          "A member can always leave a kitchen team. Only the owner can delete it; the recipes themselves simply stay in their creator’s library."
+          "A member can always leave a shared folder. Only the owner can delete it; the recipes themselves simply stay in their creator’s library."
         ]
       ],
-      "outro": "You create a kitchen team with Savour Pro; anyone can be a member for free. In every kitchen team you also find this explanation behind the i button."
+      "outro": "You create a shared folder with Savour Pro; anyone can be a member for free. In every shared folder you also find this explanation behind the i button."
     }
   },
   {
@@ -357,7 +357,7 @@ export const BLOG = [
           "Begin met de basisrecepten die dagelijks gemaakt worden: fonds, sauzen, degen. Leg ze vast in één vaste vorm, op één plek die iedereen kan openen, en spreek af wie ze mag aanpassen."
         ]
       ],
-      outro: "In Savour heeft elk recept dezelfde vorm: titel, opbrengst, ingrediënten en bereiding. Deel je recepturen met de brigade in een keukenteam."
+      outro: "In Savour heeft elk recept dezelfde vorm: titel, opbrengst, ingrediënten en bereiding. Deel je recepturen met het team in een gedeelde map."
     },
     en: {
       slug: "en/blog/standardised-recipes",
@@ -391,7 +391,7 @@ export const BLOG = [
           "Start with the base recipes made every day: stocks, sauces, doughs. Put them in one fixed format, in one place everyone can open, and agree who may change them."
         ]
       ],
-      outro: "In Savour every recipe has the same shape: title, yield, ingredients and method. Share your recipes with the brigade in a kitchen team."
+      outro: "In Savour every recipe has the same shape: title, yield, ingredients and method. Share your recipes with the team in a shared folder."
     }
   },
   {
@@ -410,7 +410,7 @@ export const BLOG = [
         ],
         [
           "Voor je hele team",
-          "Met een brigade-abonnement geldt het logo van de eigenaar voor iedereen in het team. Iedereen print dus in dezelfde stijl, wie er ook print. Bij een keukenteam geldt het logo van het restaurant dat de map beheert."
+          "Met een teamabonnement geldt het logo van de eigenaar voor iedereen in het team. Iedereen print dus in dezelfde stijl, wie er ook print. Bij een gedeelde map geldt het logo van het restaurant dat de map beheert."
         ],
         [
           "Een hele map als boek",
@@ -422,10 +422,10 @@ export const BLOG = [
         ],
         [
           "Zelf kiezen wat je print",
-          "In een keukenteam kies je vóór het printen zelf welke recepten je wilt, gegroepeerd per map. Alleen wat nodig is voor die partie of dat evenement."
+          "In een gedeelde map kies je vóór het printen zelf welke recepten je wilt, gegroepeerd per map. Alleen wat nodig is voor die partie of dat evenement."
         ]
       ],
-      outro: "Printen met je eigen logo is onderdeel van Savour Pro. Je stelt het in onder Instellingen → Abonnement en brigade."
+      outro: "Printen met je eigen logo is onderdeel van Savour Pro. Je stelt het in onder Instellingen → Abonnement en team."
     },
     en: {
       slug: "en/blog/recipe-book-with-your-logo",
@@ -440,7 +440,7 @@ export const BLOG = [
         ],
         [
           "For your whole team",
-          "With a brigade plan the owner’s logo applies to everyone in the team. So everyone prints in the same style, whoever prints. In a kitchen team the logo of the restaurant that manages the folder is used."
+          "With a team plan the owner’s logo applies to everyone in the team. So everyone prints in the same style, whoever prints. In a shared folder the logo of the restaurant that manages the folder is used."
         ],
         [
           "A whole folder as a book",
@@ -452,7 +452,7 @@ export const BLOG = [
         ],
         [
           "Choose what you print",
-          "In a kitchen team you choose which recipes to print before printing, grouped by folder. Only what that section or that event needs."
+          "In a shared folder you choose which recipes to print before printing, grouped by folder. Only what that section or that event needs."
         ]
       ],
       outro: "Printing with your own logo is part of Savour Pro. You set it up under Settings → Subscription and team."
@@ -618,7 +618,7 @@ export const BLOG = [
         ['Stap 2: kies een indeling', 'Kies een indeling die past bij je restaurant: per partie, per menu of basis apart van gerechten. Houd het simpel; je kunt later altijd uitbreiden. Voorbeelden staan in ons artikel over receptenmappen indelen.'],
         ['Stap 3: bepaal wie wat mag', 'Spreek af wie recepturen mag aanpassen, meestal de chef en de sous-chef, en laat de rest van het keukenteam meekijken. Zo voorkom je drie versies van dezelfde saus.'],
         ['Stap 4: maak het makkelijk in de keuken', 'Receptbeheer werkt alleen als het in de keuken sneller is dan het oude briefje. Recepten moeten op de telefoon openen, met grote letters, en een hele map moet in één keer te printen zijn.'],
-        ['Meerdere zaken of vestigingen', 'Werk je met meerdere restaurants of een cateringtak? Maak per zaak een keukenteam, met dezelfde basisrecepten erin. Een aanpassing aan de basis staat dan direct overal goed.']
+        ['Meerdere zaken of vestigingen', 'Werk je met meerdere restaurants of een cateringtak? Maak per zaak een gedeelde map, met dezelfde basisrecepten erin. Een aanpassing aan de basis staat dan direct overal goed.']
       ],
       outro: 'Savour is gebouwd voor receptbeheer in de professionele keuken: importeren, ordenen, delen met je keukenteam en printen.'
     },
@@ -634,7 +634,7 @@ export const BLOG = [
         ['Step 2: choose a structure', 'Pick a structure that fits your restaurant: by section, by menu, or base recipes separate from dishes. Keep it simple; you can always expand later. Examples are in our article on organising recipe folders.'],
         ['Step 3: decide who may do what', 'Agree who may change recipes, usually the chef and sous-chef, and let the rest of the kitchen team view. That prevents three versions of the same sauce.'],
         ['Step 4: make it easy in the kitchen', 'Recipe management only works if it is faster in the kitchen than the old note. Recipes must open on a phone, in large text, and a whole folder must print in one go.'],
-        ['Several restaurants or locations', 'Running several restaurants or a catering arm? Create a kitchen team per location, with the same base recipes in it. A change to the base is then right everywhere at once.']
+        ['Several restaurants or locations', 'Running several restaurants or a catering arm? Create a shared folder per location, with the same base recipes in it. A change to the base is then right everywhere at once.']
       ],
       outro: 'Savour is built for recipe management in professional kitchens: import, organise, share with your kitchen team and print.'
     }
@@ -652,10 +652,10 @@ export const BLOG = [
         ['Minder vragen tijdens de service', 'Als iedereen het recept op de eigen telefoon kan openen, hoeft niemand midden in de service te vragen hoeveel dragon er in de béarnaise gaat. De chef houdt zijn handen en zijn hoofd vrij voor de pas.'],
         ['Hetzelfde bord, elke dag', 'Drie versies van dezelfde saus ontstaan vanzelf: iemand past iets aan en schrijft het op een eigen briefje. Met één gedeeld recept is de laatste versie altijd de enige versie. Dat merk je aan de consistentie, ook op de drukste avond.'],
         ['Verantwoordelijkheid zonder chaos', 'Niet iedereen hoeft alles te kunnen aanpassen. Geef je sous-chef of chef de partie rechten om recepten te bewerken, en laat commis en stagiairs alleen meekijken. Zo blijft het receptenboek van de keuken, en niet van wie er toevallig als laatste aan zat.'],
-        ['Kennis die blijft', 'Als een kok vertrekt, vertrekt de kennis niet mee. Wat in het keukenteam staat, blijft van de keuken. Voor een nieuwe kok is dat de snelste manier om te leren hoe het hier gedaan wordt.'],
-        ['Zo begin je', 'Begin klein: één keukenteam met de basisrecepten die iedereen dagelijks gebruikt, zoals fonds, sauzen en vaste garnituren. Nodig je team uit en spreek af wie wat mag aanpassen. Breid daarna uit per partie of per menu.']
+        ['Kennis die blijft', 'Als een kok vertrekt, vertrekt de kennis niet mee. Wat in de gedeelde map staat, blijft van de keuken. Voor een nieuwe kok is dat de snelste manier om te leren hoe het hier gedaan wordt.'],
+        ['Zo begin je', 'Begin klein: één gedeelde map met de basisrecepten die iedereen dagelijks gebruikt, zoals fonds, sauzen en vaste garnituren. Nodig je team uit en spreek af wie wat mag aanpassen. Breid daarna uit per partie of per menu.']
       ],
-      outro: 'In Savour maak je keukenteams met de rechten die jij kiest. Lid zijn van een keukenteam is gratis.'
+      outro: 'In Savour maak je gedeelde mappen met de rechten die jij kiest. Lid zijn van een gedeelde map is gratis.'
     },
     en: {
       slug: 'en/blog/shared-recipe-book-kitchen-team',
@@ -667,10 +667,10 @@ export const BLOG = [
         ['Fewer questions during service', 'When everyone can open the recipe on their own phone, nobody has to ask in the middle of service how much tarragon goes into the béarnaise. The chef keeps hands and head free for the pass.'],
         ['The same plate, every day', 'Three versions of the same sauce appear by themselves: someone tweaks something and writes it on their own note. With one shared recipe the latest version is always the only version. You notice it in consistency, even on the busiest night.'],
         ['Responsibility without chaos', 'Not everyone needs to be able to change everything. Give your sous-chef or chef de partie rights to edit recipes, and let commis and interns only view. The recipe book stays the kitchen’s, not whoever touched it last.'],
-        ['Knowledge that stays', 'When a cook leaves, the knowledge does not leave with them. What is in the kitchen team belongs to the kitchen. For a new cook it is the fastest way to learn how things are done here.'],
-        ['How to start', 'Start small: one kitchen team with the base recipes everyone uses daily, such as stocks, sauces and standard garnishes. Invite your team and agree who may change what. Then expand per section or per menu.']
+        ['Knowledge that stays', 'When a cook leaves, the knowledge does not leave with them. What is in the shared folder belongs to the kitchen. For a new cook it is the fastest way to learn how things are done here.'],
+        ['How to start', 'Start small: one shared folder with the base recipes everyone uses daily, such as stocks, sauces and standard garnishes. Invite your team and agree who may change what. Then expand per section or per menu.']
       ],
-      outro: 'In Savour you create kitchen teams with the rights you choose. Being a member of a kitchen team is free.'
+      outro: 'In Savour you create shared folders with the rights you choose. Being a member of a shared folder is free.'
     }
   },
   {
@@ -719,13 +719,13 @@ export const BLOG = [
       h1: 'Recepten delen met je team, zonder foto’s van foto’s',
       lead: 'Een foto van een recept, doorgestuurd in de groepsapp, opnieuw gefotografeerd van een ander scherm. Herkenbaar. En niemand weet welke versie de goede is.',
       sections: [
-        ['Een hele map delen', 'Maak een keukenteam, bijvoorbeeld “Saucier” of “Najaarsmenu”, en nodig je collega’s uit. Iedereen ziet dezelfde recepten, en een aanpassing staat direct bij iedereen.'],
+        ['Een hele map delen', 'Maak een gedeelde map, bijvoorbeeld “Saucier” of “Najaarsmenu”, en nodig je collega’s uit. Iedereen ziet dezelfde recepten, en een aanpassing staat direct bij iedereen.'],
         ['Kies per persoon wat mag', 'Er zijn drie rollen. De eigenaar beheert de map. Een bewerker mag recepten toevoegen en aanpassen. Een kijker kan alles lezen, maar niets veranderen. Zo bepaal jij wie aan de recepturen komt.'],
         ['Eén recept doorsturen', 'Wil je één recept delen, bijvoorbeeld met een collega in een andere zaak of een leverancier? Deel het met een link. De ontvanger ziet het recept netjes, zonder account.'],
-        ['Collega’s die meebouwen', 'Een keukenteam hoeft niet alleen van jou te komen. Geef je sous-chef bewerkrechten en laat het team zelf recepten toevoegen. Zo groeit het receptenboek mee met de keuken.'],
-        ['Wat het kost', 'Lid zijn van een keukenteam is gratis. Zelf een keukenteam maken is onderdeel van Savour Pro. Met een brigade-abonnement krijgt iedereen in je keuken Pro.']
+        ['Collega’s die meebouwen', 'Een gedeelde map hoeft niet alleen van jou te komen. Geef je sous-chef bewerkrechten en laat het team zelf recepten toevoegen. Zo groeit het receptenboek mee met de keuken.'],
+        ['Wat het kost', 'Lid zijn van een gedeelde map is gratis. Zelf een gedeelde map maken is onderdeel van Savour Pro. Met een teamabonnement krijgt iedereen in je keuken Pro.']
       ],
-      outro: 'Keukenteams met rollen staan in Savour onder “Keukenteams”.'
+      outro: 'Gedeelde mappen met rollen staan in Savour onder “Gedeelde mappen”.'
     },
     en: {
       slug: 'en/blog/sharing-recipes-with-your-team',
@@ -734,13 +734,13 @@ export const BLOG = [
       h1: 'Sharing recipes with your team, without photos of photos',
       lead: 'A photo of a recipe, forwarded in the group chat, photographed again from another screen. Sounds familiar. And nobody knows which version is right.',
       sections: [
-        ['Share a whole folder', 'Create a kitchen team, for example “Saucier” or “Autumn menu”, and invite your colleagues. Everyone sees the same recipes, and a change shows up for everyone straight away.'],
+        ['Share a whole folder', 'Create a shared folder, for example “Saucier” or “Autumn menu”, and invite your colleagues. Everyone sees the same recipes, and a change shows up for everyone straight away.'],
         ['Choose what each person may do', 'There are three roles. The owner manages the folder. An editor can add and change recipes. A viewer can read everything but change nothing. You decide who touches the recipes.'],
         ['Send a single recipe', 'Want to share one recipe, for example with a colleague at another restaurant or a supplier? Share it with a link. The recipient sees the recipe neatly, without an account.'],
-        ['Colleagues who build along', 'A kitchen team does not have to come from you alone. Give your sous-chef edit rights and let the team add recipes themselves. The recipe book grows with the kitchen.'],
-        ['What it costs', 'Being a member of a kitchen team is free. Creating a kitchen team yourself is part of Savour Pro. With a brigade plan everyone in your kitchen gets Pro.']
+        ['Colleagues who build along', 'A shared folder does not have to come from you alone. Give your sous-chef edit rights and let the team add recipes themselves. The recipe book grows with the kitchen.'],
+        ['What it costs', 'Being a member of a shared folder is free. Creating a shared folder yourself is part of Savour Pro. With a team plan everyone in your kitchen gets Pro.']
       ],
-      outro: 'Kitchen teams with roles are under “Kitchen teams” in Savour.'
+      outro: 'Shared folders with roles are under “Shared folders” in Savour.'
     }
   },
   {
@@ -787,12 +787,12 @@ export const BLOG = [
       h1: 'Een nieuwe kok inwerken met vaste recepturen',
       lead: 'Een nieuwe kok wil het goed doen, maar weet nog niet hoe het hier gaat. Elke vraag tijdens de service kost iemand anders aandacht.',
       sections: [
-        ['Geef ze de recepten vóór de eerste dienst', 'Voeg een nieuwe kok toe aan het keukenteam van de partie, als kijker. Dan kan die thuis al lezen wat er gemaakt wordt en hoe, in de versie die jij hebt goedgekeurd.'],
+        ['Geef ze de recepten vóór de eerste dienst', 'Voeg een nieuwe kok toe aan de gedeelde map van de partie, als kijker. Dan kan die thuis al lezen wat er gemaakt wordt en hoe, in de versie die jij hebt goedgekeurd.'],
         ['Laat ze koken vanaf de telefoon', 'In de kookmodus staat het recept met grote letters op het scherm. Afvinken wat klaar is, scrollen met natte handen. Geen vette uitdraai die halverwege de service onleesbaar is.'],
         ['Eén manier van werken', 'Wie leert van een vast recept, leert de manier van jouw keuken. Niet die van de vorige zaak of van de collega die toevallig naast hem of haar stond.'],
         ['Vraag om feedback', 'Nieuwe mensen zien wat vaste krachten niet meer zien: een hoeveelheid die niet klopt, een stap die ontbreekt. Laat ze dat melden, en pas het recept aan voor iedereen.']
       ],
-      outro: 'In Savour voeg je nieuwe koks toe aan een keukenteam met kijkrechten. Dat is voor hen gratis.'
+      outro: 'In Savour voeg je nieuwe koks toe aan een gedeelde map met kijkrechten. Dat is voor hen gratis.'
     },
     en: {
       slug: 'en/blog/onboarding-new-cooks',
@@ -801,12 +801,12 @@ export const BLOG = [
       h1: 'Onboarding a new cook with standard recipes',
       lead: 'A new cook wants to get it right, but does not yet know how things work here. Every question during service costs someone else attention.',
       sections: [
-        ['Give them the recipes before the first shift', 'Add a new cook to the section’s kitchen team as a viewer. They can read at home what gets made and how, in the version you approved.'],
+        ['Give them the recipes before the first shift', 'Add a new cook to the section’s shared folder as a viewer. They can read at home what gets made and how, in the version you approved.'],
         ['Let them cook from their phone', 'In cook mode the recipe is on screen in large text. Tick off what is done, scroll with wet hands. No greasy printout that is unreadable halfway through service.'],
         ['One way of working', 'Whoever learns from a standard recipe learns your kitchen’s way. Not that of their previous restaurant or of the colleague who happened to stand next to them.'],
         ['Ask for feedback', 'New people see what regulars no longer see: a quantity that is off, a step that is missing. Let them report it, and update the recipe for everyone.']
       ],
-      outro: 'In Savour you add new cooks to a kitchen team with view rights. That is free for them.'
+      outro: 'In Savour you add new cooks to a shared folder with view rights. That is free for them.'
     }
   },
   {

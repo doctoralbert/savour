@@ -2,7 +2,7 @@
 // Eén plek voor alle teksten en prijzen in vier talen. tools/build-seo.mjs maakt er een eigen pagina van
 // (met prijzen, stappen en aanvraagformulier), een blok op de startpagina, een blok op de prijzenpagina en een vraag.
 //
-// Prijs: eenmalig, bij een jaarabonnement Brigade 5, 10 of 25 naar keuze. Prijzen gekozen door de eigenaar.
+// Prijs: eenmalig, bij een jaarabonnement Team 5, 10 of 25 naar keuze. Prijzen gekozen door de eigenaar.
 // Aanleveren gaat via een persoonlijke link (/aanleveren?t=...) die de beheerder in /admin → Inladen maakt.
 // De eerste FREE_KITCHENS keukens gratis; zet FREE_KITCHENS op 0 als die plekken vol zijn.
 export const FREE_KITCHENS = 5;
@@ -33,15 +33,15 @@ export const SERVICE = {
     bandText: 'De koks achter Savour laden al je recepten persoonlijk in en zetten de hele omgeving klaar, zodat je brigade meteen kan starten. Geordend zoals jullie werken, elk recept nagekeken.',
     bandButton: 'Laat je recepten inladen',
     free: n => `Introductie: de eerste ${n} keukens laden we gratis in`,
-    freeNote: 'Je betaalt alleen je brigade-abonnement. In ruil vragen we om eerlijke feedback.',
+    freeNote: 'Je betaalt alleen je teamabonnement. In ruil vragen we om eerlijke feedback.',
     includedTitle: 'Wat je krijgt',
     included: [
       "Al je recepten ingeladen: Word, PDF, foto’s van schriften en kladjes, en exports uit andere apps",
       "Een mappenstructuur zoals jullie werken: per partie, menu, seizoen of vestiging",
       "Elk recept nagekeken tegen het origineel: hoeveelheden, eenheden, opbrengst en bereiding",
-      "Accounts voor iedereen in je brigade, met Savour Pro en toegang tot de recepten",
+      "Accounts voor iedereen in je team, met Savour Pro en toegang tot de recepten",
       "Iedereen krijgt een mail om zelf een wachtwoord te kiezen zodra alles klaarstaat",
-      "Vertrouwelijk: je aangeleverde bestanden en gegevens worden gewist zodra je keukenteam klaarstaat"
+      "Vertrouwelijk: je aangeleverde bestanden en gegevens worden gewist zodra je gedeelde map klaarstaat"
     ],
     stepsTitle: 'Hoe het werkt',
     steps: [
@@ -51,7 +51,7 @@ export const SERVICE = {
       ],
       [
         "Betaal",
-        "Na goedkeuring krijg je een persoonlijke link. Kies de grootte van je brigade en betaal het abonnement en het pakket in één keer."
+        "Na goedkeuring krijg je een persoonlijke link. Kies de grootte van je team en betaal het abonnement en het pakket in één keer."
       ],
       [
         "Lever aan",
@@ -62,7 +62,7 @@ export const SERVICE = {
         "We zetten alles in de juiste mappen en kijken elk recept na."
       ],
       [
-        "Je brigade staat klaar",
+        "Je team staat klaar",
         "Iedereen krijgt een mail om een wachtwoord te kiezen en kan meteen koken. Je aangeleverde gegevens worden gewist."
       ]
     ],
@@ -109,22 +109,22 @@ export const SERVICE = {
     close: "Sluiten",
     payNote: "We bekijken je aanvraag en mailen je zo snel mogelijk. Na goedkeuring krijg je een persoonlijke link om te betalen en aan te leveren.",
     priceTitle: 'Prijs',
-    priceIntro: "Eenmalig, samen met een jaarabonnement Brigade 5 (€89), 10 (€149) of 25 (€299) naar keuze. Je betaalt pas na goedkeuring.",
+    priceIntro: "Eenmalig, samen met een jaarabonnement Team 5 (€89), 10 (€149) of 25 (€299) naar keuze. Je betaalt pas na goedkeuring.",
     tier: n => `Tot ${n} recepten`,
     tierMore: 'Meer dan 1000 recepten',
     custom: 'In overleg',
-    example: 'Voorbeeld: 250 recepten in een keukenteam voor 5 koks = €100 eenmalig + Brigade 5 voor €89 per jaar.',
+    example: 'Voorbeeld: 250 recepten in een gedeelde map voor 5 koks = €100 eenmalig + Team 5 voor €89 per jaar.',
     form: {
       "title": "Inladen aanvragen",
       "subject": "Import service aanvragen",
       "restaurant": "Restaurant of bedrijf",
       "package": "Pakket",
       "packageMore": "Meer dan 1000 recepten (in overleg)",
-      "team": "Welk brigade-abonnement?",
+      "team": "Welk teamabonnement?",
       "teamOptions": [
-        "Brigade 5",
-        "Brigade 10",
-        "Brigade 25",
+        "Team 5",
+        "Team 10",
+        "Team 25",
         "Weet ik nog niet"
       ],
       "message": "Opmerkingen",
@@ -132,24 +132,24 @@ export const SERVICE = {
       "send": "Aanvraag versturen"
     },
     proTitle: 'Liever dat wij je recepten inladen?',
-    proText: 'Met de import service zetten de koks achter Savour je hele receptenmap persoonlijk over en staat je omgeving klaar voor de brigade. Vanaf €85 eenmalig, bij een brigade-abonnement naar keuze.',
+    proText: 'Met de import service zetten de koks achter Savour je hele receptenmap persoonlijk over en staat je omgeving klaar voor het team. Vanaf €85 eenmalig, bij een teamabonnement naar keuze.',
     requestOk: "Bedankt! Je aanvraag is verstuurd. Je krijgt een bevestiging per mail en hoort zo snel mogelijk van ons.",
     faqs: [
       [
         "Kunnen jullie mijn recepten voor me inladen?",
-        "Ja. Met de import service zetten de koks achter Savour je hele receptenmap persoonlijk over: ingeladen, geordend in jouw mappen en elk recept nagekeken. Vanaf €85 eenmalig, samen met een jaarabonnement Brigade 5, 10 of 25. De eerste 5 keukens laden we gratis in."
+        "Ja. Met de import service zetten de koks achter Savour je hele receptenmap persoonlijk over: ingeladen, geordend in jouw mappen en elk recept nagekeken. Vanaf €85 eenmalig, samen met een jaarabonnement Team 5, 10 of 25. De eerste 5 keukens laden we gratis in."
       ],
       [
         "Hoe werkt de import service?",
-        "Je vraagt hem aan op de site. Na goedkeuring krijg je een persoonlijke link: je betaalt het brigade-abonnement en het pakket, en levert daarna je recepten, je mappenstructuur en de e-mailadressen van je collega’s aan. Wij laden alles in en kijken het na. Zodra je keukenteam klaarstaat, krijgt iedereen een mail om een wachtwoord te kiezen."
+        "Je vraagt hem aan op de site. Na goedkeuring krijg je een persoonlijke link: je betaalt het teamabonnement en het pakket, en levert daarna je recepten, je mappenstructuur en de e-mailadressen van je collega’s aan. Wij laden alles in en kijken het na. Zodra je gedeelde map klaarstaat, krijgt iedereen een mail om een wachtwoord te kiezen."
       ],
       [
         "Wat gebeurt er met de bestanden die ik aanlever?",
-        "Ze staan in een afgeschermde opslag die alleen Savour kan zien, en worden samen met je overige aangeleverde gegevens gewist zodra je keukenteam klaarstaat. Je recepten staan daarna alleen nog in jouw keukenteam in Savour."
+        "Ze staan in een afgeschermde opslag die alleen Savour kan zien, en worden samen met je overige aangeleverde gegevens gewist zodra je gedeelde map klaarstaat. Je recepten staan daarna alleen nog in jouw gedeelde map in Savour."
       ],
       [
         "Moeten mijn collega’s zelf een account maken?",
-        "Nee. Bij de import service maken wij de accounts aan voor de e-mailadressen die je doorgeeft. Iedereen krijgt Savour Pro via je brigade en een mail om zelf een wachtwoord te kiezen."
+        "Nee. Bij de import service maken wij de accounts aan voor de e-mailadressen die je doorgeeft. Iedereen krijgt Savour Pro via je team en een mail om zelf een wachtwoord te kiezen."
       ]
     ],
   },
@@ -173,15 +173,15 @@ export const SERVICE = {
     bandText: 'The chefs behind Savour personally import all your recipes and set up the whole environment, so your brigade can start straight away. Organised the way you work, every recipe checked.',
     bandButton: 'Have your recipes imported',
     free: n => `Launch offer: the first ${n} kitchens are imported for free`,
-    freeNote: 'You only pay for your brigade plan. In return we ask for honest feedback.',
+    freeNote: 'You only pay for your team plan. In return we ask for honest feedback.',
     includedTitle: 'What you get',
     included: [
       "All your recipes imported: Word, PDF, photos of notebooks and notes, and exports from other apps",
       "A folder structure that matches how you work: by section, menu, season or location",
       "Every recipe checked against the original: quantities, units, yield and method",
-      "Accounts for everyone in your brigade, with Savour Pro and access to the recipes",
+      "Accounts for everyone in your team, with Savour Pro and access to the recipes",
       "Everyone gets an email to choose their own password as soon as everything is ready",
-      "Confidential: your files and details are deleted as soon as your brigade is ready"
+      "Confidential: your files and details are deleted as soon as your team is ready"
     ],
     stepsTitle: 'How it works',
     steps: [
@@ -191,7 +191,7 @@ export const SERVICE = {
       ],
       [
         "Pay",
-        "Once approved you get a personal link. Choose the size of your brigade and pay the plan and the package in one go."
+        "Once approved you get a personal link. Choose the size of your team and pay the plan and the package in one go."
       ],
       [
         "Send your recipes",
@@ -202,7 +202,7 @@ export const SERVICE = {
         "We put everything in the right folders and check every recipe."
       ],
       [
-        "Your brigade is ready",
+        "Your team is ready",
         "Everyone gets an email to choose a password and can start cooking. Your files and details are deleted."
       ]
     ],
@@ -249,22 +249,22 @@ export const SERVICE = {
     close: "Close",
     payNote: "We review your request and email you as soon as possible. Once approved you get a personal link to pay and send your recipes.",
     priceTitle: 'Price',
-    priceIntro: "One-off, together with a yearly Brigade 5 (€89), 10 (€149) or 25 (€299) plan of your choice. You only pay after approval.",
+    priceIntro: "One-off, together with a yearly Team 5 (€89), 10 (€149) or 25 (€299) plan of your choice. You only pay after approval.",
     tier: n => `Up to ${n} recipes`,
     tierMore: 'More than 1,000 recipes',
     custom: 'Let’s talk',
-    example: 'Example: 250 recipes in a kitchen team for 5 cooks = €100 one-off + Brigade 5 for €89 a year.',
+    example: 'Example: 250 recipes in a shared folder for 5 cooks = €100 one-off + Team 5 for €89 a year.',
     form: {
       "title": "Request an import",
       "subject": "Import service request",
       "restaurant": "Restaurant or company",
       "package": "Package",
       "packageMore": "More than 1,000 recipes (let’s talk)",
-      "team": "Which brigade plan?",
+      "team": "Which team plan?",
       "teamOptions": [
-        "Brigade 5",
-        "Brigade 10",
-        "Brigade 25",
+        "Team 5",
+        "Team 10",
+        "Team 25",
         "Not sure yet"
       ],
       "message": "Notes",
@@ -272,24 +272,24 @@ export const SERVICE = {
       "send": "Send request"
     },
     proTitle: 'Rather have us import your recipes?',
-    proText: 'With the import service, the chefs behind Savour personally move your whole recipe folder over and set everything up for your brigade. From €85 one-off, with an brigade plan of your choice.',
+    proText: 'With the import service, the chefs behind Savour personally move your whole recipe folder over and set everything up for your team. From €85 one-off, with an team plan of your choice.',
     requestOk: "Thank you! Your request has been sent. You will get a confirmation by email and hear from us as soon as possible.",
     faqs: [
       [
         "Can you import my recipes for me?",
-        "Yes. With the import service, the chefs behind Savour personally move your whole recipe folder over: imported, organised in your folders and every recipe checked. From €85 one-off, together with a yearly Brigade 5, 10 or 25 plan. The first 5 kitchens are imported for free."
+        "Yes. With the import service, the chefs behind Savour personally move your whole recipe folder over: imported, organised in your folders and every recipe checked. From €85 one-off, together with a yearly Team 5, 10 or 25 plan. The first 5 kitchens are imported for free."
       ],
       [
         "How does the import service work?",
-        "You request it on the website. Once approved you get a personal link: you pay the brigade plan and the package, then send us your recipes, your folder structure and the email addresses of your colleagues. We import and check everything. As soon as your brigade is ready, everyone gets an email to choose a password."
+        "You request it on the website. Once approved you get a personal link: you pay the team plan and the package, then send us your recipes, your folder structure and the email addresses of your colleagues. We import and check everything. As soon as your team is ready, everyone gets an email to choose a password."
       ],
       [
         "What happens to the files I send?",
-        "They are kept in private storage that only Savour can see, and are deleted together with your other details as soon as your brigade is ready. After that your recipes only live in your brigade in Savour."
+        "They are kept in private storage that only Savour can see, and are deleted together with your other details as soon as your team is ready. After that your recipes only live in your team in Savour."
       ],
       [
         "Do my colleagues have to create an account?",
-        "No. With the import service we create the accounts for the email addresses you give us. Everyone gets Savour Pro through your brigade and an email to choose their own password."
+        "No. With the import service we create the accounts for the email addresses you give us. Everyone gets Savour Pro through your team and an email to choose their own password."
       ]
     ],
   },
@@ -313,15 +313,15 @@ export const SERVICE = {
     bandText: 'Die Köche hinter Savour pflegen alle Rezepte persönlich ein und richten alles ein, damit deine Brigade sofort loslegen kann. Sortiert, wie ihr arbeitet, jedes Rezept geprüft.',
     bandButton: 'Rezepte einpflegen lassen',
     free: n => `Zum Start: Die ersten ${n} Küchen pflegen wir kostenlos ein`,
-    freeNote: 'Du zahlst nur dein Brigade-Abo. Im Gegenzug bitten wir um ehrliches Feedback.',
+    freeNote: 'Du zahlst nur dein Team-Abo. Im Gegenzug bitten wir um ehrliches Feedback.',
     includedTitle: 'Was du bekommst',
     included: [
       "Alle Rezepte eingepflegt: Word, PDF, Fotos von Heften und Notizen sowie Exporte aus anderen Apps",
       "Eine Ordnerstruktur, wie ihr arbeitet: nach Posten, Menü, Saison oder Standort",
       "Jedes Rezept mit dem Original abgeglichen: Mengen, Einheiten, Ausbeute und Zubereitung",
-      "Konten für alle in deiner Brigade, mit Savour Pro und Zugriff auf die Rezepte",
+      "Konten für alle in deinem Team, mit Savour Pro und Zugriff auf die Rezepte",
       "Alle bekommen eine E-Mail, um selbst ein Passwort zu wählen, sobald alles bereitsteht",
-      "Vertraulich: Deine gelieferten Dateien und Angaben werden gelöscht, sobald deine Brigade bereitsteht"
+      "Vertraulich: Deine gelieferten Dateien und Angaben werden gelöscht, sobald dein Team bereitsteht"
     ],
     stepsTitle: 'So funktioniert es',
     steps: [
@@ -331,7 +331,7 @@ export const SERVICE = {
       ],
       [
         "Bezahlen",
-        "Nach der Freigabe bekommst du einen persönlichen Link. Wähle die Größe deiner Brigade und bezahle Abo und Paket in einem Schritt."
+        "Nach der Freigabe bekommst du einen persönlichen Link. Wähle die Größe deinem Team und bezahle Abo und Paket in einem Schritt."
       ],
       [
         "Liefern",
@@ -342,7 +342,7 @@ export const SERVICE = {
         "Wir legen alles in die richtigen Ordner und prüfen jedes Rezept."
       ],
       [
-        "Deine Brigade steht bereit",
+        "Dein Team steht bereit",
         "Alle bekommen eine E-Mail zum Wählen eines Passworts und können loslegen. Deine gelieferten Angaben werden gelöscht."
       ]
     ],
@@ -389,22 +389,22 @@ export const SERVICE = {
     close: "Schließen",
     payNote: "Wir prüfen deine Anfrage und melden uns so schnell wie möglich. Nach der Freigabe bekommst du einen persönlichen Link zum Bezahlen und Liefern.",
     priceTitle: 'Preis',
-    priceIntro: "Einmalig, zusammen mit einem Jahres-Abo Brigade 5 (89 €), 10 (149 €) oder 25 (299 €) nach Wahl. Du zahlst erst nach der Freigabe.",
+    priceIntro: "Einmalig, zusammen mit einem Jahres-Abo Team 5 (89 €), 10 (149 €) oder 25 (299 €) nach Wahl. Du zahlst erst nach der Freigabe.",
     tier: n => `Bis ${n} Rezepte`,
     tierMore: 'Mehr als 1.000 Rezepte',
     custom: 'Nach Absprache',
-    example: 'Beispiel: 250 Rezepte in einem Küchenteam für 5 Köche = 100 € einmalig + Brigade 5 für 89 € pro Jahr.',
+    example: 'Beispiel: 250 Rezepte in einem geteilten Ordner für 5 Köche = 100 € einmalig + Team 5 für 89 € pro Jahr.',
     form: {
       "title": "Einpflegen anfragen",
       "subject": "Anfrage Import-Service",
       "restaurant": "Restaurant oder Unternehmen",
       "package": "Paket",
       "packageMore": "Mehr als 1.000 Rezepte (nach Absprache)",
-      "team": "Welches Brigade-Abo?",
+      "team": "Welches Team-Abo?",
       "teamOptions": [
-        "Brigade 5",
-        "Brigade 10",
-        "Brigade 25",
+        "Team 5",
+        "Team 10",
+        "Team 25",
         "Weiß ich noch nicht"
       ],
       "message": "Anmerkungen",
@@ -412,24 +412,24 @@ export const SERVICE = {
       "send": "Anfrage senden"
     },
     proTitle: 'Sollen wir deine Rezepte einpflegen?',
-    proText: 'Mit dem Import-Service übertragen die Köche hinter Savour deinen ganzen Rezeptordner persönlich und richten alles für deine Brigade ein. Ab 85 € einmalig, mit einem Brigade-Abo nach Wahl.',
+    proText: 'Mit dem Import-Service übertragen die Köche hinter Savour deinen ganzen Rezeptordner persönlich und richten alles für dein Team ein. Ab 85 € einmalig, mit einem Team-Abo nach Wahl.',
     requestOk: "Danke! Deine Anfrage wurde gesendet. Du bekommst eine Bestätigung per E-Mail und hörst so schnell wie möglich von uns.",
     faqs: [
       [
         "Könnt ihr meine Rezepte für mich einpflegen?",
-        "Ja. Mit dem Import-Service übertragen die Köche hinter Savour deinen ganzen Rezeptordner persönlich: eingepflegt, in deine Ordner sortiert und jedes Rezept geprüft. Ab 85 € einmalig, zusammen mit einem Jahres-Abo Brigade 5, 10 oder 25. Die ersten 5 Küchen pflegen wir kostenlos ein."
+        "Ja. Mit dem Import-Service übertragen die Köche hinter Savour deinen ganzen Rezeptordner persönlich: eingepflegt, in deine Ordner sortiert und jedes Rezept geprüft. Ab 85 € einmalig, zusammen mit einem Jahres-Abo Team 5, 10 oder 25. Die ersten 5 Küchen pflegen wir kostenlos ein."
       ],
       [
         "Wie funktioniert der Import-Service?",
-        "Du fragst ihn auf der Website an. Nach der Freigabe bekommst du einen persönlichen Link: Du bezahlst das Brigade-Abo und das Paket und lieferst danach deine Rezepte, deine Ordnerstruktur und die E-Mail-Adressen deiner Kollegen. Wir pflegen alles ein und prüfen es. Sobald deine Brigade bereitsteht, bekommen alle eine E-Mail zum Wählen eines Passworts."
+        "Du fragst ihn auf der Website an. Nach der Freigabe bekommst du einen persönlichen Link: Du bezahlst das Team-Abo und das Paket und lieferst danach deine Rezepte, deine Ordnerstruktur und die E-Mail-Adressen deiner Kollegen. Wir pflegen alles ein und prüfen es. Sobald dein Team bereitsteht, bekommen alle eine E-Mail zum Wählen eines Passworts."
       ],
       [
         "Was passiert mit den Dateien, die ich liefere?",
-        "Sie liegen in einem geschützten Speicher, den nur Savour sehen kann, und werden zusammen mit deinen übrigen Angaben gelöscht, sobald deine Brigade bereitsteht. Danach sind deine Rezepte nur noch in deiner Brigade in Savour."
+        "Sie liegen in einem geschützten Speicher, den nur Savour sehen kann, und werden zusammen mit deinen übrigen Angaben gelöscht, sobald dein Team bereitsteht. Danach sind deine Rezepte nur noch in deinem Team in Savour."
       ],
       [
         "Müssen meine Kollegen selbst ein Konto anlegen?",
-        "Nein. Beim Import-Service legen wir die Konten für die E-Mail-Adressen an, die du uns nennst. Alle bekommen Savour Pro über deine Brigade und eine E-Mail, um selbst ein Passwort zu wählen."
+        "Nein. Beim Import-Service legen wir die Konten für die E-Mail-Adressen an, die du uns nennst. Alle bekommen Savour Pro über dein Team und eine E-Mail, um selbst ein Passwort zu wählen."
       ]
     ],
   },
@@ -453,15 +453,15 @@ export const SERVICE = {
     bandText: 'Los cocineros detrás de Savour cargan personalmente todas tus recetas y lo dejan todo preparado para que tu brigada empiece enseguida. Ordenado como trabajáis, cada receta revisada.',
     bandButton: 'Que carguemos tus recetas',
     free: n => `Lanzamiento: las primeras ${n} cocinas las cargamos gratis`,
-    freeNote: 'Solo pagas tu plan de brigada. A cambio te pedimos una opinión sincera.',
+    freeNote: 'Solo pagas tu plan de equipo. A cambio te pedimos una opinión sincera.',
     includedTitle: 'Qué incluye',
     included: [
       "Todas tus recetas cargadas: Word, PDF, fotos de libretas y notas, y exportaciones de otras apps",
       "Una estructura de carpetas como trabajáis: por partida, menú, temporada o local",
       "Cada receta revisada con el original: cantidades, unidades, rendimiento y elaboración",
-      "Cuentas para todos en tu brigada, con Savour Pro y acceso a las recetas",
+      "Cuentas para todos en tu equipo, con Savour Pro y acceso a las recetas",
       "Todos reciben un correo para elegir su contraseña en cuanto todo está listo",
-      "Confidencial: tus archivos y datos se borran en cuanto tu brigada está lista"
+      "Confidencial: tus archivos y datos se borran en cuanto tu equipo está lista"
     ],
     stepsTitle: 'Cómo funciona',
     steps: [
@@ -471,7 +471,7 @@ export const SERVICE = {
       ],
       [
         "Paga",
-        "Tras la aprobación recibes un enlace personal. Elige el tamaño de tu brigada y paga el plan y el paquete de una vez."
+        "Tras la aprobación recibes un enlace personal. Elige el tamaño de tu equipo y paga el plan y el paquete de una vez."
       ],
       [
         "Envía tus recetas",
@@ -482,7 +482,7 @@ export const SERVICE = {
         "Lo ponemos todo en las carpetas correctas y revisamos cada receta."
       ],
       [
-        "Tu brigada está lista",
+        "Tu equipo está lista",
         "Todos reciben un correo para elegir contraseña y pueden empezar a cocinar. Tus datos enviados se borran."
       ]
     ],
@@ -529,22 +529,22 @@ export const SERVICE = {
     close: "Cerrar",
     payNote: "Revisamos tu solicitud y te escribimos lo antes posible. Tras la aprobación recibes un enlace personal para pagar y enviar tus recetas.",
     priceTitle: 'Precio',
-    priceIntro: "Pago único, junto con un plan anual Brigada 5 (89 €), 10 (149 €) o 25 (299 €) a elegir. Solo pagas tras la aprobación.",
+    priceIntro: "Pago único, junto con un plan anual Equipo 5 (89 €), 10 (149 €) o 25 (299 €) a elegir. Solo pagas tras la aprobación.",
     tier: n => `Hasta ${n} recetas`,
     tierMore: 'Más de 1.000 recetas',
     custom: 'A convenir',
-    example: 'Ejemplo: 250 recetas en un equipo de cocina para 5 cocineros = 100 € pago único + Brigada 5 por 89 € al año.',
+    example: 'Ejemplo: 250 recetas en una carpeta compartida para 5 cocineros = 100 € pago único + Equipo 5 por 89 € al año.',
     form: {
       "title": "Solicitar la carga",
       "subject": "Solicitud del servicio de importación",
       "restaurant": "Restaurante o empresa",
       "package": "Paquete",
       "packageMore": "Más de 1.000 recetas (a convenir)",
-      "team": "¿Qué plan de brigada?",
+      "team": "¿Qué plan de equipo?",
       "teamOptions": [
-        "Brigada 5",
-        "Brigada 10",
-        "Brigada 25",
+        "Equipo 5",
+        "Equipo 10",
+        "Equipo 25",
         "Aún no lo sé"
       ],
       "message": "Comentarios",
@@ -552,24 +552,24 @@ export const SERVICE = {
       "send": "Enviar solicitud"
     },
     proTitle: '¿Prefieres que carguemos tus recetas?',
-    proText: 'Con el servicio de importación, los cocineros detrás de Savour pasan personalmente todo tu recetario y lo preparan todo para tu brigada. Desde 85 € pago único, con un plan de brigada a elegir.',
+    proText: 'Con el servicio de importación, los cocineros detrás de Savour pasan personalmente todo tu recetario y lo preparan todo para tu equipo. Desde 85 € pago único, con un plan de equipo a elegir.',
     requestOk: "¡Gracias! Tu solicitud se ha enviado. Recibirás una confirmación por correo y te escribiremos lo antes posible.",
     faqs: [
       [
         "¿Podéis cargar mis recetas por mí?",
-        "Sí. Con el servicio de importación, los cocineros detrás de Savour pasan personalmente todo tu recetario: cargado, ordenado en tus carpetas y cada receta revisada. Desde 85 € pago único, junto con un plan anual Brigada 5, 10 o 25. Las primeras 5 cocinas las cargamos gratis."
+        "Sí. Con el servicio de importación, los cocineros detrás de Savour pasan personalmente todo tu recetario: cargado, ordenado en tus carpetas y cada receta revisada. Desde 85 € pago único, junto con un plan anual Equipo 5, 10 o 25. Las primeras 5 cocinas las cargamos gratis."
       ],
       [
         "¿Cómo funciona el servicio de importación?",
-        "Lo solicitas en la web. Tras la aprobación recibes un enlace personal: pagas el plan de brigada y el paquete, y después nos envías tus recetas, tu estructura de carpetas y los correos de tus compañeros. Lo cargamos y revisamos todo. En cuanto tu brigada está lista, todos reciben un correo para elegir contraseña."
+        "Lo solicitas en la web. Tras la aprobación recibes un enlace personal: pagas el plan de equipo y el paquete, y después nos envías tus recetas, tu estructura de carpetas y los correos de tus compañeros. Lo cargamos y revisamos todo. En cuanto tu equipo está lista, todos reciben un correo para elegir contraseña."
       ],
       [
         "¿Qué pasa con los archivos que envío?",
-        "Se guardan en un almacenamiento privado que solo Savour puede ver y se borran junto con tus demás datos en cuanto tu brigada está lista. Después tus recetas solo están en tu brigada en Savour."
+        "Se guardan en un almacenamiento privado que solo Savour puede ver y se borran junto con tus demás datos en cuanto tu equipo está lista. Después tus recetas solo están en tu equipo en Savour."
       ],
       [
         "¿Mis compañeros tienen que crear una cuenta?",
-        "No. Con el servicio de importación creamos las cuentas para los correos que nos das. Todos reciben Savour Pro a través de tu brigada y un correo para elegir su contraseña."
+        "No. Con el servicio de importación creamos las cuentas para los correos que nos das. Todos reciben Savour Pro a través de tu equipo y un correo para elegir su contraseña."
       ]
     ],
   }

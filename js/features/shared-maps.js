@@ -1,6 +1,6 @@
-// Keukenteams: samenwerken met collega's.
+// Gedeelde mappen: samenwerken met collega's.
 
-// Rechten binnen een keukenteam: owner beheert, editor voegt toe en bewerkt, viewer bekijkt.
+// Rechten binnen een gedeelde map: owner beheert, editor voegt toe en bewerkt, viewer bekijkt.
 // Let op: dit bepaalt alleen wat de interface toont. De database (Supabase RLS) moet dezelfde regels afdwingen.
 function isSharedMapOwner(m) {
   return !!currentUser && !!m && String(m.ownerId) === String(currentUser.id);
@@ -24,7 +24,7 @@ function findSharedMap(id) {
 }
 
 function newSharedMap() {
-  // Zelf een keukenteam maken is Pro; lid zijn van andermans map blijft gratis.
+  // Zelf een gedeelde map maken is Pro; lid zijn van andermans map blijft gratis.
   if (!demoMode && !isPro()) return askForProSharedMap();
   $('newSharedName').value = '';
   $('newSharedModal').classList.add('open');
@@ -49,7 +49,7 @@ async function createSharedMap() {
       closeNewShared();
       return askForProSharedMap();
     }
-    toast('Keukenteam kon niet worden aangemaakt');
+    toast('Gedeelde map kon niet worden aangemaakt');
     return;
   }
   const { error: me } = await supabaseClient
@@ -66,7 +66,7 @@ async function createSharedMap() {
   renderSharedNav();
   refreshSidebar();
   go('shared');
-  toast('Keukenteam aangemaakt');
+  toast('Gedeelde map aangemaakt');
 }
 
 async function openShared(id) {
@@ -80,11 +80,11 @@ async function openShared(id) {
       .maybeSingle();
     if (error) {
       console.error(error);
-      toast(error.message || 'Keukenteam kon niet worden geladen');
+      toast(error.message || 'Gedeelde map kon niet worden geladen');
       return;
     }
     if (!map) {
-      toast('Dit keukenteam bestaat niet meer of je hebt geen toegang.');
+      toast('Deze gedeelde map bestaat niet meer of je hebt geen toegang.');
       return;
     }
     const [{ data: smr }, { data: smf }, { data: smfr }, { data: smm }] = await Promise.all([
@@ -130,7 +130,7 @@ function sharedFolderCount(m, f) {
   return f.recipeIds.length;
 }
 
-// Eén map in een keukenteam als compacte rij, zodat ook 20+ mappen (per partie, per menu) overzichtelijk blijven.
+// Eén map in een gedeelde map als compacte rij, zodat ook 20+ mappen (per partie, per menu) overzichtelijk blijven.
 function sharedFolderCard(m, f) {
   return `<button type="button" class="shared-folder-row${f.archived ? ' is-archived' : ''}" onclick="openSharedFolder('${escJs(m.id)}','${escJs(f.id)}')"><span class="ico">▱</span><b>${esc(f.name)}</b><small>${sharedFolderCount(m, f)} recepten</small><i aria-hidden="true">›</i></button>`;
 }
@@ -138,7 +138,7 @@ function sharedFolderCard(m, f) {
 function sharedFoldersHtml(m) {
   const active = (m.folders || []).filter(f => !f.archived);
   const archived = (m.folders || []).filter(f => f.archived);
-  if (!active.length && !archived.length) return '<div class="empty">Nog geen mappen in dit keukenteam.</div>';
+  if (!active.length && !archived.length) return '<div class="empty">Nog geen mappen in deze gedeelde map.</div>';
   return (
     `<div class="shared-folder-list">${active.map(f => sharedFolderCard(m, f)).join('')}</div>` +
     (archived.length
@@ -295,22 +295,22 @@ function openSharedFolder(mapId, folderId) {
   go('sharedFolderDetail');
 }
 
-// Keukenteam: de plek met de recepten en mappen van een zaak, met een brigade (leden met een rol).
-// Tabbladen: Recepten · Mappen · Brigade · Instellingen (alleen de eigenaar). De keuze blijft per bezoek bewaard.
+// Gedeelde map: de plek met de recepten en mappen van een zaak, met een team (leden met een rol).
+// Tabbladen: Recepten · Mappen · Team · Instellingen (alleen de eigenaar). De keuze blijft per bezoek bewaard.
 let currentTeamTab = 'recepten';
 function showTeamTab(tab) {
   currentTeamTab = tab;
   if (currentShared) renderShared(currentShared);
 }
 
-// Brigade-abonnement (Brigade 5/10/25) van de eigenaar, als het bij dit keukenteam hoort.
+// Teamabonnement (Team 5/10/25) van de eigenaar, als het bij deze gedeelde map hoort.
 function teamBrigade(m) {
   const t = savourPlan.team;
   if (!t?.owner || !isSharedMapOwner(m)) return null;
   const linked = String(t.team_id || '') === String(m.id);
-  // Het abonnement hoort bij precies één keukenteam. Bestaat dat nog, dan kan het niet ook hier gekoppeld worden.
+  // Het abonnement hoort bij precies één gedeelde map. Bestaat dat nog, dan kan het niet ook hier gekoppeld worden.
   const elsewhere = !linked && t.team_id ? findSharedMap(t.team_id) : null;
-  // Pro-plekken tellen alleen voor mensen die echt in dit keukenteam zitten.
+  // Pro-plekken tellen alleen voor mensen die echt in deze gedeelde map zitten.
   const inTeam = new Set((m.members || []).map(x => String(x.email || '').toLowerCase()).filter(Boolean));
   const pro = new Set((t.members || []).map(e => String(e).toLowerCase()).filter(e => !linked || inTeam.has(e)));
   return { plan: t, linked, elsewhere, active: !!t.active, seats: t.seats || 0, used: pro.size + 1, pro };
@@ -319,9 +319,9 @@ function teamBrigade(m) {
 function renderShared(id) {
   const m = findSharedMap(id);
   if (!m) {
-    $('sharedTitle').textContent = 'Keukenteams';
+    $('sharedTitle').textContent = 'Gedeelde mappen';
     $('sharedWrap').innerHTML =
-      '<div class="empty">Nog geen keukenteam. Maak er een met “Keukenteam maken”, of word lid via een uitnodiging.</div>';
+      '<div class="empty">Nog geen gedeelde map. Maak er een met “Gedeelde map maken”, of word lid via een uitnodiging.</div>';
     return;
   }
   const canEdit = canEditShared(m);
@@ -341,10 +341,10 @@ function renderShared(id) {
   const tabs = [
     ['recepten', `Recepten ${list.length}`],
     ['mappen', `Mappen ${(m.folders || []).filter(f => !f.archived).length}`],
-    ['brigade', `Brigade ${m.members.length}`],
+    ['brigade', `Team ${m.members.length}`],
     ...(isOwner ? [['instellingen', 'Instellingen']] : [])
   ];
-  const tabBar = `<nav class="team-tabs" aria-label="Keukenteam">${tabs
+  const tabBar = `<nav class="team-tabs" aria-label="Gedeelde map">${tabs
     .map(
       ([key, label]) =>
         `<button type="button" class="${currentTeamTab === key ? 'is-on' : ''}" onclick="showTeamTab('${key}')">${esc(label)}</button>`
@@ -364,15 +364,15 @@ function renderShared(id) {
         ? '<div class="savour-v13-list">' +
           contextRecipeRowsHtml(filtered, 'shared', canEdit ? 'removeRecipeFromShared' : '') +
           '</div>'
-        : `<div class="empty">${list.length ? 'Geen recepten voor deze selectie.' : canEdit ? 'Nog geen recepten in dit keukenteam. Voeg ze toe met “Recept toevoegen”.' : 'Nog geen recepten in dit keukenteam.'}</div>`);
+        : `<div class="empty">${list.length ? 'Geen recepten voor deze selectie.' : canEdit ? 'Nog geen recepten in deze gedeelde map. Voeg ze toe met “Recept toevoegen”.' : 'Nog geen recepten in deze gedeelde map.'}</div>`);
   }
   $('sharedWrap').innerHTML =
-    `<div class="panel team-page"><div class="folder-detail-head shared-main-head"><div><div class="eyebrow shared-eyebrow">Keukenteam ${helpButton('shared')}</div><h1>${esc(m.name)}</h1><p class="muted">${list.length} recepten · ${m.members.length} in de brigade</p></div><div class="shared-map-actions">${actions}</div></div>${tabBar}<div class="team-tab-body">${body}</div></div>`;
-  // Fotoband met de eigen foto van het keukenteam (of een keukenfoto).
+    `<div class="panel team-page"><div class="folder-detail-head shared-main-head"><div><div class="eyebrow shared-eyebrow">Gedeelde map ${helpButton('shared')}</div><h1>${esc(m.name)}</h1><p class="muted">${list.length} recepten · ${m.members.length} in het team</p></div><div class="shared-map-actions">${actions}</div></div>${tabBar}<div class="team-tab-body">${body}</div></div>`;
+  // Fotoband met de eigen foto van de gedeelde map (of een keukenfoto).
   setViewPhoto(document.querySelector('#sharedWrap .shared-main-head'), 'gedeeld:' + m.id, m.photo);
 }
 
-// Brigade: wie er in het keukenteam zit, met rol en (bij een brigade-abonnement) Pro.
+// Team: wie er in de gedeelde map zit, met rol en (bij een teamabonnement) Pro.
 function teamBrigadeHtml(m) {
   const mid = escJs(m.id);
   const isOwner = isSharedMapOwner(m);
@@ -399,21 +399,21 @@ function teamBrigadeHtml(m) {
     .join('');
   let proBlock = '';
   if (isOwner && proOn)
-    proBlock = `<div class="team-seats"><div><b>Brigade ${esc(b.seats)}</b><span class="muted">${esc(b.used)} van ${esc(b.seats)} plekken met Pro (jij telt mee)</span></div><div class="team-seats-bar"><i style="width:${Math.min(100, Math.round((b.used / b.seats) * 100))}%"></i></div></div>`;
+    proBlock = `<div class="team-seats"><div><b>Team ${esc(b.seats)}</b><span class="muted">${esc(b.used)} van ${esc(b.seats)} plekken met Pro (jij telt mee)</span></div><div class="team-seats-bar"><i style="width:${Math.min(100, Math.round((b.used / b.seats) * 100))}%"></i></div></div>`;
   else if (isOwner && b?.active && b.elsewhere)
-    proBlock = `<div class="team-seats"><div><b>Je Brigade ${esc(b.seats)} hoort bij ${esc(b.elsewhere.name)}</b><span class="muted">Een brigade-abonnement hoort bij één keukenteam. Wil je ook hier Pro voor iedereen, neem dan een tweede abonnement of verwijder eerst dat keukenteam.</span></div><button class="btn" onclick="openTeamNav()">Naar ${esc(b.elsewhere.name)}</button></div>`;
+    proBlock = `<div class="team-seats"><div><b>Je Team ${esc(b.seats)} hoort bij ${esc(b.elsewhere.name)}</b><span class="muted">Een teamabonnement hoort bij één gedeelde map. Wil je ook hier Pro voor iedereen, neem dan een tweede abonnement of verwijder eerst die gedeelde map.</span></div><button class="btn" onclick="openTeamNav()">Naar ${esc(b.elsewhere.name)}</button></div>`;
   else if (isOwner && b?.active && !b.linked)
-    proBlock = `<div class="team-seats"><div><b>Je hebt Brigade ${esc(b.seats)}</b><span class="muted">Koppel het aan dit keukenteam, dan krijgt je brigade hier Pro.</span></div><button class="btn gold" onclick="linkBrigade('${mid}')">Koppelen aan ${esc(m.name)}</button></div>`;
+    proBlock = `<div class="team-seats"><div><b>Je hebt Team ${esc(b.seats)}</b><span class="muted">Koppel het aan deze gedeelde map, dan krijgt je team hier Pro.</span></div><button class="btn gold" onclick="linkBrigade('${mid}')">Koppelen aan ${esc(m.name)}</button></div>`;
   else if (isOwner && b && !b.active)
-    proBlock = `<div class="team-seats"><div><b>Je Brigade ${esc(b.seats)} is gestopt</b><span class="muted">Je brigade heeft geen Pro meer via dit abonnement. Je eigen recepten en dit keukenteam blijven gewoon staan.</span></div><button class="btn gold" onclick="openBrigadePlans()">Brigade opnieuw nemen</button></div>`;
+    proBlock = `<div class="team-seats"><div><b>Je Team ${esc(b.seats)} is gestopt</b><span class="muted">Je team heeft geen Pro meer via dit abonnement. Je eigen recepten en deze gedeelde map blijven gewoon staan.</span></div><button class="btn gold" onclick="openBrigadePlans()">Team opnieuw nemen</button></div>`;
   else if (isOwner)
-    proBlock = `<div class="team-seats"><div><b>Pro voor je hele brigade</b><span class="muted">${isPro() ? 'Jij hebt Savour Pro. ' : ''}Met Brigade 5, 10 of 25 krijgt iedereen in dit keukenteam Savour Pro: onbeperkt recepten en AI voor kladjes.</span></div><button class="btn gold" onclick="openBrigadePlans()">Brigade kiezen</button></div>`;
+    proBlock = `<div class="team-seats"><div><b>Pro voor je hele team</b><span class="muted">${isPro() ? 'Jij hebt Savour Pro. ' : ''}Met Team 5, 10 of 25 krijgt iedereen in deze gedeelde map Savour Pro: onbeperkt recepten en AI voor kladjes.</span></div><button class="btn gold" onclick="openBrigadePlans()">Team kiezen</button></div>`;
   return (
     proBlock +
     `<div class="team-members">${members}</div>` +
     (isOwner
       ? `<button class="btn gold" style="margin-top:12px" onclick="inviteShared('${mid}')">＋ Iemand uitnodigen</button>`
-      : `<button class="btn" style="margin-top:12px" onclick="leaveSharedMap('${mid}')">Keukenteam verlaten</button>`) +
+      : `<button class="btn" style="margin-top:12px" onclick="leaveSharedMap('${mid}')">Gedeelde map verlaten</button>`) +
     `<p class="muted team-rights">${SHARED_RIGHTS_TEXT}</p>`
   );
 }
@@ -424,18 +424,18 @@ function teamSettingsHtml(m, photoInput) {
   return (
     `<div class="team-settings">` +
     `<div class="team-setting"><div><b>Naam</b><span class="muted">${esc(m.name)}</span></div><button class="btn" onclick="renameSharedMap('${mid}')">Naam wijzigen</button></div>` +
-    `<div class="team-setting"><div><b>Foto</b><span class="muted">Staat bovenaan het keukenteam.</span></div><label class="btn">${m.photo ? 'Foto wijzigen' : 'Foto toevoegen'}${photoInput}</label></div>` +
+    `<div class="team-setting"><div><b>Foto</b><span class="muted">Staat bovenaan de gedeelde map.</span></div><label class="btn">${m.photo ? 'Foto wijzigen' : 'Foto toevoegen'}${photoInput}</label></div>` +
     (m.publicKey
       ? `<div class="team-setting"><div><b>Uitnodigingslink</b><span class="muted sharelink">https://savour.page/join/${esc(m.publicKey)}</span></div><button class="btn" onclick="inviteShared('${mid}')">Link delen</button></div>`
       : '') +
-    `<div class="team-setting"><div><b>Logo op prints</b><span class="muted">Het logo van je zaak bovenaan elke print, voor de hele brigade.</span></div><button class="btn" onclick="go('settings');showSettingsTab('plan')">Logo instellen</button></div>` +
-    `<div class="team-setting danger"><div><b>Keukenteam verwijderen</b><span class="muted">Alle recepten en mappen van dit keukenteam worden voor iedereen verwijderd.</span></div><button class="btn danger-action" onclick="deleteSharedMap('${mid}')">Verwijderen</button></div>` +
+    `<div class="team-setting"><div><b>Logo op prints</b><span class="muted">Het logo van je zaak bovenaan elke print, voor het hele team.</span></div><button class="btn" onclick="go('settings');showSettingsTab('plan')">Logo instellen</button></div>` +
+    `<div class="team-setting danger"><div><b>Gedeelde map verwijderen</b><span class="muted">Alle recepten en mappen van deze gedeelde map worden voor iedereen verwijderd.</span></div><button class="btn danger-action" onclick="deleteSharedMap('${mid}')">Verwijderen</button></div>` +
     `</div>`
   );
 }
 
-// Pro-plek in de brigade geven of vrijgeven (savour_team_add_member / savour_team_remove_member).
-// Naar de brigade-abonnementen op de Pro-pagina (niet de bovenkant met je eigen Pro).
+// Pro-plek in het team geven of vrijgeven (savour_team_add_member / savour_team_remove_member).
+// Naar de teamabonnementen op de Pro-pagina (niet de bovenkant met je eigen Pro).
 function openBrigadePlans() {
   go('pro');
   setTimeout(() => $('proBrigade')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 250);
@@ -447,13 +447,13 @@ async function giveBrigadePro(mapId, email) {
     return toast(/team_full/.test(error.message || '') ? 'Alle Pro-plekken zijn bezet' : 'Pro geven lukte niet');
   await loadPlanState();
   renderShared(mapId);
-  toast(`${email} heeft nu Pro via de brigade`);
+  toast(`${email} heeft nu Pro via het team`);
 }
 
 async function takeBrigadePro(mapId, email) {
   if (
     !(await askConfirm(
-      `Pro-plek van ${email} vrijgeven?\n\nDiegene blijft in de brigade, maar heeft geen Pro meer via jouw abonnement.`
+      `Pro-plek van ${email} vrijgeven?\n\nDiegene blijft in het team, maar heeft geen Pro meer via jouw abonnement.`
     ))
   )
     return;
@@ -468,13 +468,13 @@ async function linkBrigade(mapId) {
   if (error)
     return toast(
       /already_linked/.test(error.message || '')
-        ? 'Je brigade-abonnement hoort al bij een ander keukenteam'
+        ? 'Je teamabonnement hoort al bij een ander gedeelde map'
         : 'Koppelen lukte niet'
     );
   await loadPlanState();
   currentTeamTab = 'brigade';
   openShared(mapId);
-  toast('Je brigade-abonnement hoort nu bij dit keukenteam');
+  toast('Je teamabonnement hoort nu bij deze gedeelde map');
 }
 
 function openSharedMapManage(id) {
@@ -482,7 +482,7 @@ function openSharedMapManage(id) {
   go('sharedMapManage');
 }
 
-// Terug uit een map naar het keukenteam waar die in zit (bijv. "← Kasteel Maurick").
+// Terug uit een map naar de gedeelde map waar die in zit (bijv. "← Kasteel Maurick").
 function backToSharedMap() {
   if (currentShared && findSharedMap(currentShared)) openShared(currentShared);
   else go('sharedManage');
@@ -507,9 +507,9 @@ function renderSharedFolderDetail() {
         canEditShared(m) && !f.system ? 'removeRecipeFromSharedFolder' : ''
       ) +
       '</div>'
-    : '<div class="empty">Dit keukenteam bevat geen recepten voor deze selectie.</div>';
+    : '<div class="empty">Deze gedeelde map bevat geen recepten voor deze selectie.</div>';
   $('sharedFolderDetailWrap').innerHTML =
-    '<div class="shared-folder-head"><div><div class="eyebrow">Keukenteam · ' +
+    '<div class="shared-folder-head"><div><div class="eyebrow">Gedeelde map · ' +
     esc(m.name) +
     '</div><h1>' +
     esc(f.name) +
@@ -545,11 +545,11 @@ function openSharedRecipePicker(id) {
   const m = findSharedMap(id);
   if (!m) return;
   if (!canEditShared(m)) {
-    toast('Je hebt geen rechten om recepten toe te voegen aan dit keukenteam');
+    toast('Je hebt geen rechten om recepten toe te voegen aan deze gedeelde map');
     return;
   }
   currentFolder = 'shared:' + id;
-  $('folderModalTitle').textContent = 'Recepten aan keukenteam toevoegen';
+  $('folderModalTitle').textContent = 'Recepten aan gedeelde map toevoegen';
   $('pickerSearch').value = '';
   filterPicker('');
   $('folderModal').classList.add('open');
@@ -561,13 +561,13 @@ function openSharedFolderRecipePicker(mapId, folderId) {
     f = m?.folders?.find(x => String(x.id) === String(folderId));
   if (!m || !f) return;
   if (!canEditShared(m)) {
-    toast('Je hebt geen rechten om recepten toe te voegen aan dit keukenteam');
+    toast('Je hebt geen rechten om recepten toe te voegen aan deze gedeelde map');
     return;
   }
   folderTargetRecipe = null;
   currentShared = mapId;
   currentFolder = 'sharedfolderpick:' + folderId;
-  $('folderModalTitle').textContent = 'Recepten aan keukenteam toevoegen';
+  $('folderModalTitle').textContent = 'Recepten aan gedeelde map toevoegen';
   $('pickerSearch').value = '';
   filterPicker('');
   $('folderModal').classList.add('open');
@@ -606,7 +606,7 @@ async function saveSharedMapSelection() {
     return;
   }
   const ids = [...document.querySelectorAll('[data-shared-check]:checked')].map(x => x.dataset.sharedCheck);
-  // Een eigen recept in het keukenteam zetten = een kopie die van het keukenteam is (team_id); je eigen
+  // Een eigen recept in de gedeelde map zetten = een kopie die van de gedeelde map is (team_id); je eigen
   // recept blijft van jou. Zo blijven de recepten van de zaak bij de zaak, ook als iemand vertrekt.
   const chosen = ids.map(rid => recipes.find(r => String(r.id) === String(rid))).filter(Boolean);
   for (let i = 0; i < chosen.length; i += 50) {
@@ -632,7 +632,7 @@ async function saveSharedMapSelection() {
         .insert(copies.map(c => ({ shared_map_id: id, recipe_id: c.id }))));
     if (error) {
       console.error(error);
-      toast(error.message || 'Recept kon niet aan het keukenteam worden toegevoegd');
+      toast(error.message || 'Recept kon niet aan de gedeelde map worden toegevoegd');
       await loadDatabaseState();
       return renderShared(id);
     }
@@ -640,7 +640,7 @@ async function saveSharedMapSelection() {
   closeFolderModal();
   await loadDatabaseState();
   renderShared(id);
-  toast(`${chosen.length} recept${chosen.length === 1 ? '' : 'en'} toegevoegd aan het keukenteam`);
+  toast(`${chosen.length} recept${chosen.length === 1 ? '' : 'en'} toegevoegd aan de gedeelde map`);
 }
 
 async function saveSharedFolderSelection() {
@@ -659,10 +659,10 @@ async function saveSharedFolderSelection() {
   closeFolderModal();
   await loadDatabaseState();
   renderSharedFolderDetail();
-  toast('Recepten toegevoegd aan keukenteam');
+  toast('Recepten toegevoegd aan gedeelde map');
 }
 
-// Keukenteams in de zijbalk (alleen de gekozen mappen, in eigen volgorde), plus snelknop.
+// Gedeelde mappen in de zijbalk (alleen de gekozen mappen, in eigen volgorde), plus snelknop.
 function renderSharedNav() {
   const el = $('sharedNav');
   if (!el) return;
@@ -672,21 +672,21 @@ function renderSharedNav() {
     .map(id => map.get(id))
     .filter(Boolean)
     .filter(m => s.selected.includes(String(m.id)));
-  // Per keukenteam de eigen mappen eronder, zodat je in één klik bij een partie of menu bent.
+  // Per gedeelde map de eigen mappen eronder, zodat je in één klik bij een partie of menu bent.
   el.innerHTML = chosen
     .map(
       m =>
-        `<button class="sub" onclick="openShared('${escJs(m.id)}')"><span class="ico">▱</span>${esc(m.name)}</button>` +
+        `<button onclick="openShared('${escJs(m.id)}')"><span class="ico">▱</span>${esc(m.name)}</button>` +
         (m.folders || [])
           .filter(f => !f.archived)
           .map(
             f =>
-              `<button class="sub team-nav-folder" onclick="openSharedFolder('${escJs(m.id)}','${escJs(f.id)}')">${esc(f.name)}</button>`
+              `<button onclick="openSharedFolder('${escJs(m.id)}','${escJs(f.id)}')"><span class="ico">•</span>${esc(f.name)}</button>`
           )
           .join('')
     )
     .join('');
-  addQuickButton('sharedNav', 'Keukenteam maken', () => newSharedMap());
+  addQuickButton('sharedNav', 'Gedeelde map maken', () => newSharedMap());
 }
 
 function renderSharedManage() {
@@ -698,10 +698,10 @@ function renderSharedManage() {
     ? list
         .map(m => managerItemHtml('shared', m, (getSharedMenuSettings()?.selected || []).includes(String(m.id))))
         .join('')
-    : '<div class="empty">Nog geen keukenteams. Maak je eerste map aan.</div>';
+    : '<div class="empty">Nog geen gedeelde mappen. Maak je eerste map aan.</div>';
 }
 
-// Beheerpagina van één keukenteam: naam, foto, deellink en leden met rechten.
+// Beheerpagina van één gedeelde map: naam, foto, deellink en leden met rechten.
 function renderSharedMapManage(id) {
   id = id || currentShared;
   currentShared = id;
@@ -709,7 +709,7 @@ function renderSharedMapManage(id) {
     host = $('sharedMapManageWrap');
   if (!host) return;
   if (!m) {
-    host.innerHTML = '<div class="empty">Keukenteam niet gevonden.</div>';
+    host.innerHTML = '<div class="empty">Gedeelde map niet gevonden.</div>';
     return;
   }
   const own = isSharedMapOwner(m),
@@ -717,10 +717,10 @@ function renderSharedMapManage(id) {
     mid = escJs(m.id),
     cover = m.photo
       ? '<img class="savour-v30-cover" src="' + esc(m.photo) + '" alt="Foto van ' + esc(m.name) + '">'
-      : '<div class="savour-v30-cover-empty">Nog geen foto voor dit keukenteam.</div>',
+      : '<div class="savour-v30-cover-empty">Nog geen foto voor deze gedeelde map.</div>',
     shareUrl = 'https://savour.page/join/' + encodeURIComponent(m.publicKey || m.id);
   host.innerHTML =
-    '<div class="section-head"><div><div class="eyebrow">Keukenteam beheren</div><h1 style="font-family:Playfair Display;margin:6px 0 4px">' +
+    '<div class="section-head"><div><div class="eyebrow">Gedeelde map beheren</div><h1 style="font-family:Playfair Display;margin:6px 0 4px">' +
     esc(m.name) +
     '</h1><p class="muted" style="margin:0">' +
     members.length +
@@ -736,7 +736,7 @@ function renderSharedMapManage(id) {
         mid +
         '\',this)" style="display:none"></label><button class="btn" style="border-color:#704a43;color:#d5aaa0" onclick="deleteSharedMap(\'' +
         mid +
-        '\')">Keukenteam verwijderen</button>'
+        '\')">Gedeelde map verwijderen</button>'
       : '<span class="muted">Alleen de eigenaar kan de mapinstellingen wijzigen.</span>') +
     '</div><div style="margin-top:18px"><h3>Delen</h3><div class="sharelink">' +
     esc(shareUrl) +
@@ -777,7 +777,7 @@ function renderSharedMapManage(id) {
     '</div></div>';
 }
 
-// Een recept van het keukenteam hoort bij het team: "uit het keukenteam halen" is het recept verwijderen.
+// Een recept van de gedeelde map hoort bij het team: "uit de gedeelde map halen" is het recept verwijderen.
 // Wie het wil bewaren, voegt het eerst toe aan de eigen recepten (kopie).
 async function deleteTeamRecipe(r) {
   const m = findSharedMap(r.teamId);
@@ -786,7 +786,7 @@ async function deleteTeamRecipe(r) {
     !(await askConfirm(
       `“${r.title}” verwijderen uit ${m.name}?
 
-Dit recept hoort bij het keukenteam en wordt voor de hele brigade verwijderd. Wil je het zelf bewaren? Voeg het dan eerst toe aan je eigen recepten.`,
+Dit recept hoort bij de gedeelde map en wordt voor het hele team verwijderd. Wil je het zelf bewaren? Voeg het dan eerst toe aan je eigen recepten.`,
       { confirmLabel: 'Verwijderen', danger: true }
     ))
   )
@@ -800,7 +800,7 @@ Dit recept hoort bij het keukenteam en wordt voor de hele brigade verwijderd. Wi
   if (currentId === r.id) currentId = null;
   refreshSidebar();
   openShared(m.id);
-  toast('Recept verwijderd uit het keukenteam');
+  toast('Recept verwijderd uit de gedeelde map');
 }
 
 async function removeRecipeFromShared(id) {
@@ -808,19 +808,19 @@ async function removeRecipeFromShared(id) {
   if (!m || !currentUser || !canEditShared(m)) return;
   const teamRecipe = findRecipe(id);
   if (teamRecipe?.teamId) return deleteTeamRecipe(teamRecipe);
-  // Eigen recept of dat van een collega: het verdwijnt alleen uit dit keukenteam, nooit uit de bibliotheek van de maker.
+  // Eigen recept of dat van een collega: het verdwijnt alleen uit deze gedeelde map, nooit uit de bibliotheek van de maker.
   const own = recipes.some(r => String(r.id) === String(id));
   if (
     !(await askConfirm(
       own
-        ? 'Recept uit dit keukenteam halen?\n\nHet blijft beschikbaar in Alle recepten.'
-        : 'Recept uit dit keukenteam halen?\n\nHet blijft gewoon in de eigen recepten van de maker.',
+        ? 'Recept uit deze gedeelde map halen?\n\nHet blijft beschikbaar in Alle recepten.'
+        : 'Recept uit deze gedeelde map halen?\n\nHet blijft gewoon in de eigen recepten van de maker.',
       { confirmLabel: 'Uit map halen', danger: false }
     ))
   )
     return;
 
-  // Alleen de koppeling met dit keukenteam verwijderen. Het recept zelf
+  // Alleen de koppeling met deze gedeelde map verwijderen. Het recept zelf
   // wordt hier NOOIT uit public.recipes verwijderd.
   const { error } = await supabaseClient
     .from('shared_map_recipes')
@@ -829,7 +829,7 @@ async function removeRecipeFromShared(id) {
     .eq('recipe_id', id);
   if (error) {
     console.error(error);
-    toast(error.message || 'Recept kon niet uit het keukenteam worden verwijderd');
+    toast(error.message || 'Recept kon niet uit de gedeelde map worden verwijderd');
     return;
   }
 
@@ -843,7 +843,7 @@ async function removeRecipeFromShared(id) {
       .eq('recipe_id', id);
     if (fe) {
       console.error(fe);
-      toast(fe.message || 'Recept kon niet uit een keukenteam worden verwijderd');
+      toast(fe.message || 'Recept kon niet uit een gedeelde map worden verwijderd');
       return;
     }
   }
@@ -852,7 +852,7 @@ async function removeRecipeFromShared(id) {
   if (!own) {
     await loadDatabaseState();
     renderShared(m.id);
-    toast('Recept uit keukenteam gehaald; de maker houdt het in de eigen recepten');
+    toast('Recept uit gedeelde map gehaald; de maker houdt het in de eigen recepten');
     return;
   }
   const { data: stillThere, error: checkError } = await supabaseClient
@@ -875,7 +875,7 @@ async function removeRecipeFromShared(id) {
 
   await loadDatabaseState();
   renderShared(m.id);
-  toast('Recept uit keukenteam verwijderd; persoonlijke recept behouden');
+  toast('Recept uit gedeelde map verwijderd; persoonlijke recept behouden');
 }
 
 async function removeRecipeFromSharedFolder(id) {
@@ -883,7 +883,7 @@ async function removeRecipeFromSharedFolder(id) {
   const f = m?.folders?.find(x => x.id === String(currentFolder).replace(/^sharedfolder:/, ''));
   if (!m || !f || f.system) return;
   if (
-    !(await askConfirm('Recept uit deze map halen?\n\nHet blijft in het keukenteam en in Alle recepten.', {
+    !(await askConfirm('Recept uit deze map halen?\n\nHet blijft in de gedeelde map en in Alle recepten.', {
       confirmLabel: 'Uit map halen',
       danger: false
     }))
@@ -896,7 +896,7 @@ async function removeRecipeFromSharedFolder(id) {
     .eq('recipe_id', id);
   if (error) {
     console.error(error);
-    toast('Recept kon niet uit het keukenteam worden verwijderd');
+    toast('Recept kon niet uit de gedeelde map worden verwijderd');
     return;
   }
   await loadDatabaseState();
@@ -908,15 +908,15 @@ async function renameSharedMap(id) {
   if (!currentUser) return;
   const m = sharedMaps.find(x => String(x.id) === String(id));
   if (!m || String(m.ownerId) !== String(currentUser.id)) {
-    toast(t('Je hebt geen rechten om dit keukenteam te wijzigen'));
+    toast(t('Je hebt geen rechten om deze gedeelde map te wijzigen'));
     return;
   }
-  let next = await askText('Nieuwe naam voor dit keukenteam', m.name);
+  let next = await askText('Nieuwe naam voor deze gedeelde map', m.name);
   if (next === null) return;
   next = next.trim();
   if (!next || next === m.name) return;
   if (sharedMaps.some(x => String(x.id) !== String(id) && x.name.toLowerCase() === next.toLowerCase())) {
-    toast('Dit keukenteam bestaat al');
+    toast('Deze gedeelde map bestaat al');
     return;
   }
   if (demoMode) {
@@ -932,7 +932,7 @@ async function renameSharedMap(id) {
     .eq('id', id)
     .eq('owner_id', currentUser.id);
   if (error) {
-    toast(error.message || 'Keukenteam kon niet worden hernoemd');
+    toast(error.message || 'Gedeelde map kon niet worden hernoemd');
     return;
   }
   await loadDatabaseState();
@@ -941,7 +941,7 @@ async function renameSharedMap(id) {
   renderSharedNav();
   refreshSidebar();
   renderShared(id);
-  toast('Keukenteam hernoemd');
+  toast('Gedeelde map hernoemd');
 }
 
 async function deleteSharedMap(id) {
@@ -950,7 +950,7 @@ async function deleteSharedMap(id) {
   if (!m || String(m.ownerId) !== String(currentUser.id)) return;
   if (
     !(await askConfirm(
-      `Weet je zeker dat je het keukenteam “${m.name}” wilt verwijderen?\n\nAlle recepten en mappen van dit keukenteam worden voor iedereen verwijderd. Je persoonlijke recepten blijven behouden.${teamBrigade(m)?.linked ? '\n\nJe brigade-abonnement wordt losgekoppeld en de Pro-plekken komen vrij. Je kunt het daarna aan een ander of nieuw keukenteam koppelen.' : ''}`,
+      `Weet je zeker dat je de gedeelde map “${m.name}” wilt verwijderen?\n\nAlle recepten en mappen van deze gedeelde map worden voor iedereen verwijderd. Je persoonlijke recepten blijven behouden.${teamBrigade(m)?.linked ? '\n\nJe teamabonnement wordt losgekoppeld en de Pro-plekken komen vrij. Je kunt het daarna aan een ander of nieuwe gedeelde map koppelen.' : ''}`,
       { confirmLabel: 'Verwijderen', danger: true }
     ))
   )
@@ -966,18 +966,18 @@ async function deleteSharedMap(id) {
   const { error } = await supabaseClient.from('shared_maps').delete().eq('id', id).eq('owner_id', currentUser.id);
   if (error) {
     console.error(error);
-    toast(error.message || 'Keukenteam kon niet worden verwijderd');
+    toast(error.message || 'Gedeelde map kon niet worden verwijderd');
     return;
   }
   if (String(currentShared) === String(id)) currentShared = null;
-  // Hoorde het brigade-abonnement erbij, dan is het nu losgekoppeld (de database regelt dat).
+  // Hoorde het teamabonnement erbij, dan is het nu losgekoppeld (de database regelt dat).
   await loadPlanState();
   await loadDatabaseState();
   renderSharedManage();
   renderSharedNav();
   refreshSidebar();
   go('sharedManage');
-  toast('Keukenteam verwijderd');
+  toast('Gedeelde map verwijderd');
 }
 
 const sharedOrderStorageKey = () => `savour_shared_map_order_${currentUser?.id || 'local'}`;
@@ -1062,7 +1062,7 @@ async function addMemberByEmail() {
   }
   if (result.status === 'added') {
     $('inviteEmail').value = '';
-    // Hoort er een brigade-abonnement bij dit keukenteam en is er een plek vrij, dan meteen Pro.
+    // Hoort er een teamabonnement bij deze gedeelde map en is er een plek vrij, dan meteen Pro.
     const b = teamBrigade(m);
     let pro = false;
     if (!demoMode && b?.linked && b.active && b.used < b.seats)
@@ -1074,7 +1074,7 @@ async function addMemberByEmail() {
     if ($('sharedMapManage')?.classList.contains('active')) renderSharedMapManage(m.id);
     if ($('shared')?.classList.contains('active')) renderShared(m.id);
     return toast(
-      `${result.name} zit nu in de brigade als ${result.role === 'editor' ? 'sous-chef' : 'kok'}${pro ? ', met Pro' : ''}`
+      `${result.name} zit nu in het team als ${result.role === 'editor' ? 'sous-chef' : 'kok'}${pro ? ', met Pro' : ''}`
     );
   }
   if (result.status === 'already') return toast(`${result.name} is al lid van deze map`);
@@ -1128,7 +1128,7 @@ function shareInviteEmail(to = '') {
     encodeURIComponent('Uitnodiging voor ' + activeInviteTitle + ' in Savour') +
     '&body=' +
     encodeURIComponent(
-      'Je bent uitgenodigd voor het keukenteam ' + activeInviteTitle + ' in Savour.\n\n' + linkWithSource(u, 'email')
+      'Je bent uitgenodigd voor de gedeelde map ' + activeInviteTitle + ' in Savour.\n\n' + linkWithSource(u, 'email')
     );
 }
 
@@ -1178,7 +1178,7 @@ function takePendingInvite() {
   return '';
 }
 
-// Voegt de ingelogde gebruiker toe aan het keukenteam uit de bewaarde uitnodiging (als viewer).
+// Voegt de ingelogde gebruiker toe aan de gedeelde map uit de bewaarde uitnodiging (als viewer).
 async function acceptPendingInvite() {
   const key = takePendingInvite();
   if (!key || demoMode || !currentUser) return false;
@@ -1186,7 +1186,7 @@ async function acceptPendingInvite() {
   if (location.pathname.startsWith('/join/')) history.replaceState(null, '', '/');
   if (error || !data?.id) {
     console.error('Lid worden mislukt:', error);
-    toast('Je kon niet aan het keukenteam worden toegevoegd. Vraag een nieuwe uitnodigingslink.');
+    toast('Je kon niet aan de gedeelde map worden toegevoegd. Vraag een nieuwe uitnodigingslink.');
     return false;
   }
   await loadDatabaseState();
@@ -1194,7 +1194,7 @@ async function acceptPendingInvite() {
   const m = findSharedMap(data.id);
   toast(
     m && isSharedMapOwner(m)
-      ? 'Dit is je eigen keukenteam.'
+      ? 'Dit is je eigen gedeelde map.'
       : `Je bent lid van ${data.name}. De eigenaar bepaalt of je ook recepten mag toevoegen.`
   );
   return true;
@@ -1208,7 +1208,7 @@ async function removeSharedMember(mapId, userId) {
   const member = m.members.find(x => String(x.userId) === String(userId));
   if (
     !(await askConfirm(
-      `${member?.name || 'Dit lid'} verwijderen uit de brigade van “${m.name}”?\n\nDe recepten die in het keukenteam staan, blijven van het keukenteam.`
+      `${member?.name || 'Dit lid'} verwijderen uit het team van “${m.name}”?\n\nDe recepten die in de gedeelde map staan, blijven van de gedeelde map.`
     ))
   )
     return;
@@ -1227,7 +1227,7 @@ async function removeSharedMember(mapId, userId) {
     toast('Lid kon niet worden verwijderd');
     return;
   }
-  // Had diegene een Pro-plek via de brigade, dan komt die vrij.
+  // Had diegene een Pro-plek via het team, dan komt die vrij.
   const b = teamBrigade(m);
   if (b?.linked && member?.email && b.pro.has(member.email.toLowerCase()))
     await supabaseClient.rpc('savour_team_remove_member', { _email: member.email });
@@ -1235,7 +1235,7 @@ async function removeSharedMember(mapId, userId) {
   await loadDatabaseState();
   if ($('sharedMapManage')?.classList.contains('active')) renderSharedMapManage(mapId);
   else renderShared(mapId);
-  toast('Verwijderd uit de brigade');
+  toast('Verwijderd uit het team');
 }
 
 async function leaveSharedMap(mapId) {
@@ -1255,7 +1255,7 @@ async function leaveSharedMap(mapId) {
       .eq('user_id', currentUser.id);
     if (error) {
       console.error(error);
-      toast('Je kon het keukenteam niet verlaten');
+      toast('Je kon de gedeelde map niet verlaten');
       return;
     }
     await loadDatabaseState();
@@ -1263,10 +1263,10 @@ async function leaveSharedMap(mapId) {
   currentShared = null;
   renderSharedNav();
   go('sharedManage');
-  toast('Je hebt het keukenteam verlaten');
+  toast('Je hebt de gedeelde map verlaten');
 }
 const SHARED_RIGHTS_TEXT =
-  'De eigenaar beheert het keukenteam en de brigade. Een sous-chef voegt recepten en mappen toe en bewerkt ze. Een kok bekijkt, print en rekent om. Recepten in het keukenteam blijven van het keukenteam, ook als iemand vertrekt.';
+  'De eigenaar beheert de gedeelde map en het team. Een sous-chef voegt recepten en mappen toe en bewerkt ze. Een kok bekijkt, print en rekent om. Recepten in de gedeelde map blijven van de gedeelde map, ook als iemand vertrekt.';
 
 function memberRoleLabel(m, x) {
   if (x.role === 'owner' || String(x.userId) === String(m.ownerId)) return 'Eigenaar';
