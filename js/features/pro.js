@@ -100,7 +100,7 @@ async function loadPlanState() {
     const running = !periodEnd || periodEnd > new Date();
     savourPlan = {
       ...EMPTY_PLAN,
-      pro: !!s && ['active', 'trialing', 'past_due', 'canceled'].includes(s.status) && running,
+      pro: !!s && ['active', 'trialing', 'past_due'].includes(s.status) && running,
       unlimited: true,
       // Zonder de nieuwe SQL bestaat de recepten-limiet nog niet in de database; dan ook niet in de app.
       recipeLimit: Infinity,
