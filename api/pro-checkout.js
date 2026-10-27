@@ -7,6 +7,9 @@ import {
   upsertSubscription,
   upsertOrganization,
   select,
+  insert,
+  insertReturning,
+  update,
   hasServiceRole
 } from './_lib/supabase-admin.js';
 import { siteOrigin } from './_lib/origin.js';
@@ -36,12 +39,29 @@ export default async function handler(req, res) {
       const [existing] = await select('organizations', `owner_id=eq.${encodeURIComponent(user.id)}&select=*`);
       if (existing?.stripe_subscription_id && ['active', 'trialing', 'past_due'].includes(existing.status))
         return res.status(409).json({ error: 'Je hebt al een teamabonnement.', code: 'already_pro' });
-      const name = String(req.body?.organization || '')
+      // Het brigade-abonnement hoort bij een keukenteam (shared_maps) van deze gebruiker. Bestaat dat nog niet,
+      // dan maken we het hier aan met de opgegeven naam (zonder Pro kan de gebruiker dat zelf nog niet).
+      const teamId = String(req.body?.team || '');
+      let [map] = /^[0-9a-f-]{36}$/i.test(teamId)
+        ? await select('shared_maps', `id=eq.${teamId}&owner_id=eq.${encodeURIComponent(user.id)}&select=id,name`)
+        : [];
+      const newName = String(req.body?.team_name || '')
         .trim()
         .slice(0, 120);
-      if (!name) return res.status(400).json({ error: 'Vul de naam van je organisatie in.' });
-      const org = await upsertOrganization({ owner_id: user.id, name, seats: TEAM_SEATS[team], plan });
+      if (!map && !newName) return res.status(400).json({ error: 'Kies eerst een keukenteam.' });
+      const org = await upsertOrganization({
+        owner_id: user.id,
+        name: map?.name || newName,
+        seats: TEAM_SEATS[team],
+        plan,
+        ...(map ? { shared_map_id: map.id } : {})
+      });
       organizationId = org?.id;
+      if (!map) {
+        [map] = await insertReturning('shared_maps', [{ owner_id: user.id, name: newName }]);
+        await insert('shared_map_members', { shared_map_id: map.id, user_id: user.id, role: 'owner' });
+        await update('organizations', `id=eq.${org.id}`, { shared_map_id: map.id });
+      }
     }
 
     // Eén Stripe-klant per Savour-gebruiker. Een klant uit de testomgeving (of een verwijderde) bestaat niet

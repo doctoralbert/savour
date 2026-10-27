@@ -15,14 +15,14 @@ export const ES = {
   legacy: {
     pro: {
       slug: 'es/precios',
-      title: 'Precios — Savour Pro y planes de organización',
+      title: 'Precios — Savour Pro y planes de brigada',
       h1: 'Precios',
-      desc: 'Empieza gratis con hasta 100 recetas. Savour Pro desde 2,99 € al mes: recetas ilimitadas, IA para notas a mano y carpetas compartidas. También para equipos.'
+      desc: 'Empieza gratis con hasta 100 recetas. Savour Pro desde 2,99 € al mes: recetas ilimitadas, IA para notas a mano y equipos de cocina. También para equipos.'
     },
     faq: {
       slug: 'es/preguntas-frecuentes',
       title: 'Preguntas frecuentes sobre Savour',
-      desc: 'Respuestas sobre Savour: importar recetas de Word, PDF y fotos, gratis y Pro, carpetas compartidas y trabajar en la cocina.'
+      desc: 'Respuestas sobre Savour: importar recetas de Word, PDF y fotos, gratis y Pro, equipos de cocina y trabajar en la cocina.'
     },
     guide: {
       slug: 'es/guia',
@@ -32,12 +32,12 @@ export const ES = {
     contact: {
       slug: 'es/contacto',
       title: 'Contacto — Savour',
-      desc: '¿Preguntas sobre Savour, la gestión de recetas de tu restaurante o un plan de organización? Escríbenos con el formulario o a contact@savour.page.'
+      desc: '¿Preguntas sobre Savour, la gestión de recetas de tu restaurante o un plan de brigada? Escríbenos con el formulario o a contact@savour.page.'
     },
     terms: {
       slug: 'es/terminos',
       title: 'Términos y condiciones — Savour',
-      desc: 'Los términos y condiciones de Savour: cuenta gratuita, Savour Pro, planes de organización, cancelación y derecho de desistimiento.'
+      desc: 'Los términos y condiciones de Savour: cuenta gratuita, Savour Pro, planes de brigada, cancelación y derecho de desistimiento.'
     },
     privacy: {
       slug: 'es/privacidad',
@@ -77,11 +77,11 @@ export const ES = {
     share: {
       slug: 'es/compartir-recetas',
       title: 'Compartir recetas con tu equipo de cocina y tu brigada | Savour',
-      desc: 'Comparte recetas con tu equipo de cocina en carpetas compartidas con permisos. Todos trabajan con la misma versión, del segundo de cocina al becario.',
+      desc: 'Comparte recetas con tu equipo de cocina en equipos de cocina con permisos. Todos trabajan con la misma versión, del segundo de cocina al becario.',
       h1: 'Comparte recetas con tu brigada',
       lead: 'Todos en la cocina trabajan con la misma versión. Se acabaron las fotos de fotos en el grupo de WhatsApp.',
       sections: [
-        ['Carpetas compartidas', 'Crea una carpeta para tu cocina, tu partida o el nuevo menú e invita a tu equipo. Lo que cambias lo ven todos al instante.'],
+        ['Equipos de cocina', 'Crea una carpeta para tu cocina, tu partida o el nuevo menú e invita a tu equipo. Lo que cambias lo ven todos al instante.'],
         ['Permisos por persona', 'Tú gestionas la carpeta. Tu segundo o jefe de partida puede añadir y editar recetas. Ayudantes y becarios pueden consultar, pero no cambiar nada.'],
         ['Gente nueva al día más rápido', 'Un cocinero nuevo tiene desde el primer día todas las recetas de la partida en el móvil, en la versión que tú aprobaste.'],
         ['Compartir recetas sueltas', '¿Quieres enviar una receta, por ejemplo a un compañero de otro restaurante? Compártela con un enlace.']
@@ -111,7 +111,7 @@ export const ES = {
         ['Imprimir una carpeta de recetas completa', '¿Todas las recetas de helado tienen que ir a la carpeta de pastelería? Abre la carpeta e imprímela de una vez: cada receta en su propia página, en el orden de tu carpeta. Se acabó imprimir cincuenta archivos uno a uno.'],
         ['Diseño tranquilo', 'Grande y claro. Legible a un metro, incluso con una mancha encima.'],
         ['Siempre la última versión', 'Como imprimes desde Savour, en la pared siempre está la versión correcta. Abajo aparece la fecha de impresión, para que veas si una carpeta sigue al día.'],
-        ['Con el logo de tu restaurante', 'Con Savour Pro, cada página lleva arriba el logo y el nombre de tu restaurante. En una organización, el logo vale para todos. Elige A4 para la carpeta o A5 para una carpeta pequeña en el pase.']
+        ['Con el logo de tu restaurante', 'Con Savour Pro, cada página lleva arriba el logo y el nombre de tu restaurante. En una brigada, el logo vale para todos. Elige A4 para la carpeta o A5 para una carpeta pequeña en el pase.']
       ]
     },
     cloud: {
@@ -139,7 +139,7 @@ export const ES = {
         ],
         [
           "Seguro y tuyo",
-          "Tus recetas solo las ves tú y las personas que invitas a una carpeta compartida; se guardan separadas por cuenta. Con Savour Pro descargas tu recetario completo cuando quieras, como archivos de Word o como copia de seguridad."
+          "Tus recetas solo las ves tú y las personas que invitas a un equipo de cocina; se guardan separadas por cuenta. Con Savour Pro descargas tu recetario completo cuando quieras, como archivos de Word o como copia de seguridad."
         ]
       ]
     },
@@ -179,10 +179,10 @@ export const ES = {
       h1: 'Para brigadas de cocina',
       lead: 'Del jefe de partida al becario: todo tu equipo de cocina cocina con la misma receta, en cada restaurante que diriges.',
       sections: [
-        ['Una versión para todos', 'Ajusta una salsa para el nuevo menú y todos en la carpeta compartida trabajan al momento con la nueva versión.'],
+        ['Una versión para todos', 'Ajusta una salsa para el nuevo menú y todos en el equipo de cocina trabajan al momento con la nueva versión.'],
         ['Permisos por persona', 'Tú gestionas la carpeta. Tu segundo o jefe de partida puede añadir y editar recetas. Ayudantes y becarios pueden consultar, pero no cambiar nada.'],
         ['En su propio móvil', 'Se acabó la carpeta común llena de manchas. Cada miembro de la brigada abre las recetas de su partida en su propio móvil, con letra grande en el modo cocina.'],
-        ['Gente nueva al día más rápido', 'Becarios y cocineros nuevos leen cómo se hacen las cosas aquí, en lugar de preguntar durante el servicio. Ser miembro de una carpeta compartida es gratis; con un plan de organización todos tienen Savour Pro.']
+        ['Gente nueva al día más rápido', 'Becarios y cocineros nuevos leen cómo se hacen las cosas aquí, en lugar de preguntar durante el servicio. Ser miembro de un equipo de cocina es gratis; con un plan de brigada todos tienen Savour Pro.']
       ]
     }
   },
@@ -240,11 +240,11 @@ export const ES = {
         ],
         [
           "Tus recetas siguen siendo tuyas",
-          "Los archivos que envías se guardan en un almacenamiento privado que solo Savour puede ver y se borran en cuanto tu organización está lista. Después tus recetas solo están en tu organización."
+          "Los archivos que envías se guardan en un almacenamiento privado que solo Savour puede ver y se borran en cuanto tu brigada está lista. Después tus recetas solo están en tu brigada."
         ],
         [
           "Cuánto cuesta",
-          "Pago único de 85 € hasta 100 recetas, 100 € hasta 500 y 164,99 € hasta 1.000, junto con un plan anual para tu organización de 5, 10 o 25 personas. Más recetas, a convenir. Las primeras cinco cocinas las cargamos gratis."
+          "Pago único de 85 € hasta 100 recetas, 100 € hasta 500 y 164,99 € hasta 1.000, junto con un plan anual para tu brigada de 5, 10 o 25 personas. Más recetas, a convenir. Las primeras cinco cocinas las cargamos gratis."
         ]
       ],
       "outro": "¿Quieres saber más o solicitarlo? Mira «Servicio de importación» en savour.page."
@@ -315,14 +315,14 @@ export const ES = {
     },
     'en/blog/shared-folders-explained': {
       "slug": "es/blog/carpetas-compartidas-explicadas",
-      "title": "Carpetas compartidas en Savour: así funciona tu recetario compartido",
-      "desc": "Todo lo que puedes hacer con una carpeta compartida en Savour: roles, añadir recetas y carpetas, gestionar carpetas por partida o menú, invitar a tu equipo, imprimir y copiar recetas.",
-      "h1": "Carpetas compartidas: así funciona tu recetario compartido",
-      "lead": "Una carpeta compartida es el corazón de Savour: un recetario para toda tu cocina, en el móvil de cada uno, siempre la misma versión. Esto es todo lo que puedes hacer con ella.",
+      "title": "Equipos de cocina en Savour: así funciona tu recetario compartido",
+      "desc": "Todo lo que puedes hacer con un equipo de cocina en Savour: roles, añadir recetas y carpetas, gestionar carpetas por partida o menú, invitar a tu equipo, imprimir y copiar recetas.",
+      "h1": "Equipos de cocina: así funciona tu recetario compartido",
+      "lead": "Un equipo de cocina es el corazón de Savour: un recetario para toda tu cocina, en el móvil de cada uno, siempre la misma versión. Esto es todo lo que puedes hacer con ella.",
       "sections": [
         [
           "Un recetario para tu equipo",
-          "Todos los miembros de una carpeta compartida ven las mismas recetas en su propio móvil, tableta u ordenador. Si el autor cambia una receta, toda la brigada ve enseguida la nueva versión. Sin copias sueltas ni impresiones viejas en la pared."
+          "Todos los miembros de un equipo de cocina ven las mismas recetas en su propio móvil, tableta u ordenador. Si el autor cambia una receta, toda la brigada ve enseguida la nueva versión. Sin copias sueltas ni impresiones viejas en la pared."
         ],
         [
           "Roles: propietario, editor y lector",
@@ -330,19 +330,19 @@ export const ES = {
         ],
         [
           "Añadir recetas",
-          "Elige «Añadir receta» y marca recetas de tu propia biblioteca. La receta sigue siendo tuya: está en la carpeta compartida y en tus propias recetas a la vez."
+          "Elige «Añadir receta» y marca recetas de tu propia biblioteca. La receta sigue siendo tuya: está en el equipo de cocina y en tus propias recetas a la vez."
         ],
         [
           "Carpetas por partida o por menú",
-          "Divide la carpeta compartida en carpetas: una por partida (cuarto frío, salsas, pastelería) o una por menú. Con «Gestionar carpetas» cambias el nombre, las ordenas como en tu cocina y archivas las que ya no usas, como el menú de la temporada pasada. Las carpetas archivadas y sus recetas se conservan en «Archivo»."
+          "Divide el equipo de cocina en carpetas: una por partida (cuarto frío, salsas, pastelería) o una por menú. Con «Gestionar carpetas» cambias el nombre, las ordenas como en tu cocina y archivas las que ya no usas, como el menú de la temporada pasada. Las carpetas archivadas y sus recetas se conservan en «Archivo»."
         ],
         [
           "Invitar a tu equipo",
-          "Invita a tus compañeros por WhatsApp, Telegram, correo o el enlace de invitación. Al iniciar sesión se unen como lector; después, como propietario, puedes darles otro rol. Ser miembro de una carpeta compartida es gratis, también sin Savour Pro."
+          "Invita a tus compañeros por WhatsApp, Telegram, correo o el enlace de invitación. Al iniciar sesión se unen como lector; después, como propietario, puedes darles otro rol. Ser miembro de un equipo de cocina es gratis, también sin Savour Pro."
         ],
         [
           "Imprimir para el archivador",
-          "Imprime toda la carpeta compartida, una carpeta o tu propia selección de una vez. Obtienes un índice, el número de cada receta al pie de la página para encontrarla rápido y, con Savour Pro, el logo de tu restaurante arriba."
+          "Imprime toda el equipo de cocina, una carpeta o tu propia selección de una vez. Obtienes un índice, el número de cada receta al pie de la página para encontrarla rápido y, con Savour Pro, el logo de tu restaurante arriba."
         ],
         [
           "Escalar y modo cocina",
@@ -350,7 +350,7 @@ export const ES = {
         ],
         [
           "Copiar una receta",
-          "En cada receta de un compañero en la carpeta compartida verás «Añadir a mis recetas». Obtienes tu propia copia para modificarla, mientras el original sigue siendo de su autor."
+          "En cada receta de un compañero en el equipo de cocina verás «Añadir a mis recetas». Obtienes tu propia copia para modificarla, mientras el original sigue siendo de su autor."
         ],
         [
           "También sin internet",
@@ -358,10 +358,10 @@ export const ES = {
         ],
         [
           "Salir o eliminar",
-          "Un miembro siempre puede salir de una carpeta compartida. Solo el propietario puede eliminarla; las recetas en sí siguen en la biblioteca de su autor."
+          "Un miembro siempre puede salir de un equipo de cocina. Solo el propietario puede eliminarla; las recetas en sí siguen en la biblioteca de su autor."
         ]
       ],
-      "outro": "Una carpeta compartida se crea con Savour Pro; cualquiera puede ser miembro gratis. En cada carpeta compartida encontrarás también esta explicación tras el botón i."
+      "outro": "Un equipo de cocina se crea con Savour Pro; cualquiera puede ser miembro gratis. En cada equipo de cocina encontrarás también esta explicación tras el botón i."
     },
     'en/blog/recipe-management-for-restaurants': {
       slug: 'es/blog/gestion-de-recetas-restaurantes',
@@ -375,7 +375,7 @@ export const ES = {
         ['Paso 2: elige una estructura', 'Elige una estructura que encaje con tu restaurante: por partida, por menú o las recetas base separadas de los platos. Hazlo sencillo; siempre puedes ampliarlo después. Tienes ejemplos en nuestro artículo sobre cómo ordenar carpetas de recetas.'],
         ['Paso 3: decide quién puede hacer qué', 'Acuerda quién puede cambiar recetas, normalmente el jefe de cocina y el segundo, y deja que el resto del equipo consulte. Así evitas tres versiones de la misma salsa.'],
         ['Paso 4: hazlo fácil en la cocina', 'La gestión de recetas solo funciona si en la cocina es más rápida que la nota de siempre. Las recetas deben abrirse en el móvil con letra grande y una carpeta entera debe imprimirse de una vez.'],
-        ['Varios restaurantes o locales', '¿Llevas varios restaurantes o un catering? Crea una carpeta compartida por local, con las mismas recetas base. Un cambio en la base queda bien en todos a la vez.']
+        ['Varios restaurantes o locales', '¿Llevas varios restaurantes o un catering? Crea un equipo de cocina por local, con las mismas recetas base. Un cambio en la base queda bien en todos a la vez.']
       ],
       outro: 'Savour está hecho para gestionar recetas en cocinas profesionales: importar, organizar, compartir con tu equipo e imprimir.'
     },
@@ -389,10 +389,10 @@ export const ES = {
         ['Menos preguntas durante el servicio', 'Cuando todos pueden abrir la receta en su propio móvil, nadie tiene que preguntar en pleno servicio cuánto estragón lleva la bearnesa. El chef tiene las manos y la cabeza libres para el pase.'],
         ['El mismo plato, cada día', 'Tres versiones de la misma salsa aparecen solas: alguien cambia algo y lo apunta en su propia nota. Con una receta compartida, la última versión siempre es la única. Se nota en la regularidad, incluso en la noche más llena.'],
         ['Responsabilidad sin caos', 'No todos necesitan poder cambiarlo todo. Da a tu segundo o jefe de partida permiso para editar recetas y deja que ayudantes y becarios solo consulten. El recetario sigue siendo de la cocina, no del último que lo tocó.'],
-        ['Conocimiento que se queda', 'Cuando un cocinero se va, el conocimiento no se va con él. Lo que está en la carpeta compartida es de la cocina. Para un cocinero nuevo es la forma más rápida de aprender cómo se trabaja aquí.'],
-        ['Cómo empezar', 'Empieza poco a poco: una carpeta compartida con las recetas base que todos usan a diario, como fondos, salsas y guarniciones de siempre. Invita a tu equipo y acordad quién puede cambiar qué. Después amplía por partida o por menú.']
+        ['Conocimiento que se queda', 'Cuando un cocinero se va, el conocimiento no se va con él. Lo que está en el equipo de cocina es de la cocina. Para un cocinero nuevo es la forma más rápida de aprender cómo se trabaja aquí.'],
+        ['Cómo empezar', 'Empieza poco a poco: un equipo de cocina con las recetas base que todos usan a diario, como fondos, salsas y guarniciones de siempre. Invita a tu equipo y acordad quién puede cambiar qué. Después amplía por partida o por menú.']
       ],
-      outro: 'En Savour creas carpetas compartidas con los permisos que elijas. Ser miembro de una carpeta compartida es gratis.'
+      outro: 'En Savour creas equipos de cocina con los permisos que elijas. Ser miembro de un equipo de cocina es gratis.'
     },
     'en/blog/recipe-folder-examples': {
       slug: 'es/blog/ordenar-carpetas-de-recetas-ejemplos',
@@ -417,13 +417,13 @@ export const ES = {
       h1: 'Compartir recetas con tu equipo, sin fotos de fotos',
       lead: 'La foto de una receta, reenviada en el grupo, fotografiada otra vez desde otra pantalla. Te suena. Y nadie sabe qué versión es la buena.',
       sections: [
-        ['Comparte una carpeta entera', 'Crea una carpeta compartida, por ejemplo «Salsas» o «Menú de otoño», e invita a tus compañeros. Todos ven las mismas recetas y un cambio aparece al momento para todos.'],
+        ['Comparte una carpeta entera', 'Crea un equipo de cocina, por ejemplo «Salsas» o «Menú de otoño», e invita a tus compañeros. Todos ven las mismas recetas y un cambio aparece al momento para todos.'],
         ['Elige qué puede hacer cada uno', 'Hay tres roles. El propietario gestiona la carpeta. Un editor puede añadir y cambiar recetas. Un lector puede verlo todo, pero no cambiar nada. Tú decides quién toca las recetas.'],
         ['Envía una receta suelta', '¿Quieres compartir una receta, por ejemplo con un compañero de otro restaurante o un proveedor? Compártela con un enlace. Quien la recibe la ve limpia, sin cuenta.'],
-        ['Compañeros que construyen contigo', 'Una carpeta compartida no tiene por qué venir solo de ti. Da permiso de edición a tu segundo y deja que el equipo añada recetas. El recetario crece con la cocina.'],
-        ['Lo que cuesta', 'Ser miembro de una carpeta compartida es gratis. Crear tú una carpeta compartida forma parte de Savour Pro. Con un plan de organización todos en tu cocina tienen Pro.']
+        ['Compañeros que construyen contigo', 'Un equipo de cocina no tiene por qué venir solo de ti. Da permiso de edición a tu segundo y deja que el equipo añada recetas. El recetario crece con la cocina.'],
+        ['Lo que cuesta', 'Ser miembro de un equipo de cocina es gratis. Crear tú un equipo de cocina forma parte de Savour Pro. Con un plan de brigada todos en tu cocina tienen Pro.']
       ],
-      outro: 'Las carpetas compartidas con roles están en Savour en «Carpetas compartidas».'
+      outro: 'Las equipos de cocina con roles están en Savour en «Equipos de cocina».'
     },
     'en/blog/roadmap': {
       slug: 'es/blog/hoja-de-ruta',
@@ -447,12 +447,12 @@ export const ES = {
       h1: 'Incorporar a un cocinero nuevo con recetas estándar',
       lead: 'Un cocinero nuevo quiere hacerlo bien, pero todavía no sabe cómo funcionan las cosas aquí. Cada pregunta durante el servicio le quita atención a otro.',
       sections: [
-        ['Dale las recetas antes del primer turno', 'Añade al cocinero nuevo como lector a la carpeta compartida de la partida. Puede leer en casa qué se hace y cómo, en la versión que tú aprobaste.'],
+        ['Dale las recetas antes del primer turno', 'Añade al cocinero nuevo como lector al equipo de cocina de la partida. Puede leer en casa qué se hace y cómo, en la versión que tú aprobaste.'],
         ['Que cocine desde el móvil', 'En el modo cocina la receta aparece en pantalla con letra grande. Marca lo que ya está hecho y desplázate con las manos mojadas. Sin hojas grasientas ilegibles a mitad del servicio.'],
         ['Una forma de trabajar', 'Quien aprende con una receta estándar aprende la forma de trabajar de tu cocina. No la de su restaurante anterior ni la del compañero que casualmente tenía al lado.'],
         ['Pide su opinión', 'La gente nueva ve lo que los de siempre ya no ven: una cantidad que no cuadra, un paso que falta. Deja que lo digan y actualiza la receta para todos.']
       ],
-      outro: 'En Savour añades cocineros nuevos a una carpeta compartida con permiso de lectura. Para ellos es gratis.'
+      outro: 'En Savour añades cocineros nuevos a un equipo de cocina con permiso de lectura. Para ellos es gratis.'
     },
     'en/blog/scaling-recipes-without-errors': {
       slug: 'es/blog/escalar-recetas-sin-errores',
@@ -542,7 +542,7 @@ export const ES = {
         ['Escalar y escandallar', 'Con un rendimiento fijo puedes escalar con fiabilidad hacia arriba y hacia abajo. Y cuando las cantidades son correctas, la ficha es también la base del escandallo por ración.'],
         ['Cómo empezar', 'Empieza por las recetas base que se hacen a diario: fondos, salsas, masas. Créalas con un formato fijo, en un sitio que todos puedan abrir, y acordad quién puede cambiarlas.']
       ],
-      outro: 'En Savour cada receta tiene la misma forma: título, rendimiento, ingredientes y elaboración. Comparte tus fichas con la brigada en una carpeta compartida.'
+      outro: 'En Savour cada receta tiene la misma forma: título, rendimiento, ingredientes y elaboración. Comparte tus fichas con la brigada en un equipo de cocina.'
     },
     'en/blog/recipe-book-with-your-logo': {
       slug: 'es/blog/recetario-con-tu-logo',
@@ -552,10 +552,10 @@ export const ES = {
       lead: 'Aunque tengas todas las recetas en el móvil, en muchas cocinas el papel sigue siendo importante. Entonces, que se vea que es de tu restaurante.',
       sections: [
         ['Tu logo y tu nombre en cada página', 'Con Savour Pro configuras una vez el logo y el nombre de tu restaurante. Después aparecen arriba en cada página impresa: el logo a la izquierda y el nombre en el centro. Para impresoras de cocina puedes imprimir el logo en blanco y negro.'],
-        ['Para todo el equipo', 'Con un plan de organización, el logo del propietario vale para todo el equipo. Así todos imprimen con el mismo estilo, imprima quien imprima. En una carpeta compartida se usa el logo del restaurante que la gestiona.'],
+        ['Para todo el equipo', 'Con un plan de brigada, el logo del propietario vale para todo el equipo. Así todos imprimen con el mismo estilo, imprima quien imprima. En un equipo de cocina se usa el logo del restaurante que la gestiona.'],
         ['Una carpeta entera como libro', 'Al imprimir una carpeta puedes añadir una portada con el logo, el nombre de la carpeta y un índice. Elige A4 para la carpeta de la cocina o A5 para una carpeta pequeña en el pase.'],
         ['Siempre se ve si está al día', 'Abajo, en cada página, aparece la fecha de impresión. Así todos en la cocina ven si una carpeta es la última versión. Los encabezados y pies del navegador desaparecen para que la página quede limpia.'],
-        ['Elige tú qué imprimir', 'En una carpeta compartida eliges antes de imprimir qué recetas quieres, agrupadas por carpeta. Solo lo que hace falta para esa partida o ese evento.']
+        ['Elige tú qué imprimir', 'En un equipo de cocina eliges antes de imprimir qué recetas quieres, agrupadas por carpeta. Solo lo que hace falta para esa partida o ese evento.']
       ],
       outro: 'Imprimir con tu propio logo forma parte de Savour Pro. Se configura en Ajustes → Suscripción y equipo.'
     },

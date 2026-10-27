@@ -1157,3 +1157,15 @@ body.savour-light .theme-toggle .theme-sun {
     background: rgba(255, 255, 255, 0.7) !important;
   }
 }
+
+/* Keukenteam in het lichte thema */
+body.savour-light .team-tabs button.is-on {
+  border-bottom-color: #a8843f;
+}
+body.savour-light .team-seats {
+  background: #faf6ec;
+  border-color: #e3d3ac;
+}
+body.savour-light .team-seats-bar i {
+  background: #a8843f;
+}

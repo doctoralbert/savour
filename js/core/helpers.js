@@ -55,9 +55,12 @@ function findRecipe(id) {
   );
 }
 
-// Is dit recept van de ingelogde gebruiker zelf (en dus te bewerken)?
+// Mag de ingelogde gebruiker dit recept bewerken? Je eigen recepten, en recepten van een keukenteam waarin je
+// eigenaar of sous-chef bent (die blijven van het keukenteam).
 function isOwnRecipe(r) {
-  return !!r && !r.shared;
+  if (!r) return false;
+  if (r.teamId) return canEditShared(findSharedMap(r.teamId));
+  return !r.shared;
 }
 
 function isUuid(value) {

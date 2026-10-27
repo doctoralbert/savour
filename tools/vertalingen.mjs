@@ -20,7 +20,7 @@ export const strings = [
   ["Recepten organiseren zoals jouw keuken werkt","Organise recipes the way your kitchen works","Rezepte so organisieren, wie deine Küche arbeitet","Organiza las recetas como trabaja tu cocina"],
   ["Sauzen, garnituren, patisserie, het lunchmenu: jij bepaalt de mappen en categorieën. Zoek op titel of op ingrediënt, of blader van A tot Z. Je beurre blanc vind je in drie seconden, ook midden in de service.","Sauces, garnishes, pastry, the lunch menu: you decide the folders and categories. Search by title or ingredient, or browse from A to Z. You find your beurre blanc in three seconds, even in the middle of service.","Saucen, Garnituren, Patisserie, das Mittagsmenü: Du bestimmst die Ordner und Kategorien. Suche nach Titel oder Zutat oder blättere von A bis Z. Deine Beurre blanc findest du in drei Sekunden, auch mitten im Service.","Salsas, guarniciones, pastelería, el menú del mediodía: tú decides las carpetas y categorías. Busca por título o ingrediente, o recorre de la A a la Z. Encuentras tu beurre blanc en tres segundos, incluso en pleno servicio."],
   ["Recepturen delen met je keukenteam","Share recipes with your kitchen team","Rezepturen mit deinem Küchenteam teilen","Comparte recetas con tu equipo de cocina"],
-  ["Maak een gedeelde map en nodig je koks uit. Jij beheert, je sous-chef mag aanpassen en de rest kan meekijken. Iedereen werkt met dezelfde versie, en een nieuwe kok heeft op de eerste dag alle recepten op de telefoon.","Create a shared folder and invite your cooks. You manage it, your sous-chef can edit and the rest can view. Everyone works from the same version, and a new cook has every recipe on their phone on day one.","Erstelle einen geteilten Ordner und lade deine Köche ein. Du verwaltest, dein Sous-Chef darf bearbeiten und der Rest kann mitlesen. Alle arbeiten mit derselben Version, und neue Köche haben am ersten Tag alle Rezepte auf dem Handy.","Crea una carpeta compartida e invita a tus cocineros. Tú la gestionas, tu segundo de cocina puede editar y el resto puede ver. Todos trabajan con la misma versión, y un cocinero nuevo tiene todas las recetas en el móvil desde el primer día."],
+  ["Maak een keukenteam en nodig je koks uit. Jij beheert, je sous-chef mag aanpassen en de rest kan meekijken. Iedereen werkt met dezelfde versie, en een nieuwe kok heeft op de eerste dag alle recepten op de telefoon.","Create a kitchen team and invite your cooks. You manage it, your sous-chef can edit and the rest can view. Everyone works from the same version, and a new cook has every recipe on their phone on day one.","Erstelle ein Küchenteam und lade deine Köche ein. Du verwaltest, dein Sous-Chef darf bearbeiten und der Rest kann mitlesen. Alle arbeiten mit derselben Version, und neue Köche haben am ersten Tag alle Rezepte auf dem Handy.","Crea un equipo de cocina e invita a tus cocineros. Tú la gestionas, tu segundo de cocina puede editar y el resto puede ver. Todos trabajan con la misma versión, y un cocinero nuevo tiene todas las recetas en el móvil desde el primer día."],
   ["Opschalen en printen voor de service","Scale and print for service","Hochrechnen und drucken für den Service","Escala e imprime para el servicio"],
   ["Haal je 50 brownies uit één recept en heb je er 1.000 nodig? Savour rekent het om. Moeten alle ijsrecepten in de receptenklapper? Print de hele map in één keer, in plaats van 50 bestanden één voor één.","One recipe makes 50 brownies and you need 1,000? Savour does the maths. All the ice cream recipes need to go in the binder? Print the whole folder at once, instead of 50 files one by one.","Ein Rezept ergibt 50 Brownies und du brauchst 1.000? Savour rechnet es um. Alle Eisrezepte sollen in den Ordner? Drucke den ganzen Ordner auf einmal, statt 50 Dateien einzeln.","¿Una receta da 50 brownies y necesitas 1.000? Savour hace la cuenta. ¿Todas las recetas de helado van a la carpeta? Imprime la carpeta entera de una vez, en lugar de 50 archivos uno a uno."],
   ["Op computer, tablet en telefoon","On computer, tablet and phone","Auf Computer, Tablet und Handy","En ordenador, tableta y móvil"],
@@ -35,7 +35,7 @@ export const strings = [
   ["Kan ik recepten uit Word of PDF importeren?","Can I import recipes from Word or PDF?","Kann ich Rezepte aus Word oder PDF importieren?","¿Puedo importar recetas de Word o PDF?"],
   ["Ja. Ook een bestand met honderden recepten tegelijk; Savour splitst ze zelf op.","Yes. Even a file with hundreds of recipes at once; Savour splits them up itself.","Ja. Auch eine Datei mit Hunderten Rezepten auf einmal; Savour trennt sie selbst auf.","Sí. Incluso un archivo con cientos de recetas a la vez; Savour las separa solo."],
   ["Hoe deel ik recepten met mijn keukenteam?","How do I share recipes with my kitchen team?","Wie teile ich Rezepte mit meinem Küchenteam?","¿Cómo comparto recetas con mi equipo de cocina?"],
-  ["Met een gedeelde map. Je nodigt collega's uit en geeft ze rechten om mee te kijken of mee te werken.","With a shared folder. You invite colleagues and give them rights to view or to edit.","Mit einem geteilten Ordner. Du lädst Kollegen ein und gibst ihnen Rechte zum Ansehen oder Mitarbeiten.","Con una carpeta compartida. Invitas a tus compañeros y les das permiso para ver o colaborar."],
+  ["Met een keukenteam. Je nodigt collega's uit en geeft ze rechten om mee te kijken of mee te werken.","With a kitchen team. You invite colleagues and give them rights to view or to edit.","Mit einem Küchenteam. Du lädst Kollegen ein und gibst ihnen Rechte zum Ansehen oder Mitarbeiten.","Con un equipo de cocina. Invitas a tus compañeros y les das permiso para ver o colaborar."],
   ["Is Savour ook voor thuiskoks?","Is Savour for home cooks too?","Ist Savour auch für Hobbyköche?","¿Savour también es para cocineros caseros?"],
   ["Het kan, maar Savour is gebouwd voor de professionele keuken: grote receptenboeken, teams en de service.","It can be, but Savour is built for the professional kitchen: big recipe books, teams and service.","Das geht, aber Savour ist für die Profiküche gebaut: große Rezeptbücher, Teams und den Service.","Puede servir, pero Savour está hecho para la cocina profesional: grandes recetarios, equipos y el servicio."],
   ['Annuleren', 'Cancel', 'Abbrechen', 'Cancelar'],
@@ -163,10 +163,10 @@ export const strings = [
     'No se pudo restablecer la contraseña.'
   ],
   [
-    'Je bent uitgenodigd voor de gedeelde map',
-    'You have been invited to the shared folder',
-    'Du wurdest eingeladen in den geteilten Ordner',
-    'Te han invitado a la carpeta compartida'
+    'Je bent uitgenodigd voor het keukenteam',
+    'You have been invited to the kitchen team',
+    'Du wurdest eingeladen in das Küchenteam',
+    'Te han invitado al equipo de cocina'
   ],
   ['bij Savour', 'on Savour', 'bei Savour', 'en Savour'],
   ['in Savour', 'in Savour', 'in Savour', 'en Savour'],
@@ -174,7 +174,7 @@ export const strings = [
   ['in Savour:', 'in Savour:', 'in Savour:', 'en Savour:'],
   ['persoonlijke recepten', 'personal recipes', 'persönliche Rezepte', 'recetas personales'],
   ['persoonlijke mappen', 'personal folders', 'persönliche Ordner', 'carpetas personales'],
-  ['gedeelde mappen', 'shared folders', 'geteilte Ordner', 'carpetas compartidas'],
+  ['keukenteams', 'kitchen teams', 'Küchenteams', 'equipos de cocina'],
   ['· alfabetisch', '· alphabetical', '· alphabetisch', '· alfabético'],
   ['Gedeeld door', 'Shared by', 'Geteilt von', 'Compartido por'],
   [
@@ -219,9 +219,9 @@ export const strings = [
   ['Recept toevoegen', 'Add recipe', 'Rezept hinzufügen', 'Añadir receta'],
   ['Recepten mappen', 'Recipe folders', 'Rezeptordner', 'Carpetas de recetas'],
   ['Receptenmappen', 'Recipe folders', 'Rezeptordner', 'Carpetas de recetas'],
-  ['Gedeelde mappen', 'Shared folders', 'Geteilte Ordner', 'Carpetas compartidas'],
+  ['Keukenteams', 'Kitchen teams', 'Küchenteams', 'Equipos de cocina'],
   ['Recepten map toevoegen', 'Add recipe folder', 'Rezeptordner hinzufügen', 'Añadir carpeta de recetas'],
-  ['Gedeelde map toevoegen', 'Add shared folder', 'Geteilten Ordner hinzufügen', 'Añadir carpeta compartida'],
+  ['Keukenteam toevoegen', 'Add kitchen team', 'Küchenteam hinzufügen', 'Añadir equipo de cocina'],
   [
     'Geen recepten mappen gekozen',
     'No recipe folders selected',
@@ -262,10 +262,10 @@ export const strings = [
   ['Van inspiratie naar', 'From inspiration to', 'Von der Inspiration zur', 'De la inspiración a la'],
   ['perfectie.', 'perfection.', 'Perfektion.', 'perfección.'],
   [
-    'Beheer je recepten, organiseer je mappen en werk samen via gedeelde mappen. Alles voor een efficiënte en inspirerende keuken.',
-    'Manage your recipes, organise your folders and collaborate through shared folders. Everything for an efficient and inspiring kitchen.',
-    'Verwalte deine Rezepte, organisiere deine Ordner und arbeite über geteilte Ordner zusammen. Alles für eine effiziente und inspirierende Küche.',
-    'Gestiona tus recetas, organiza tus carpetas y colabora mediante carpetas compartidas. Todo para una cocina eficiente e inspiradora.'
+    'Beheer je recepten, organiseer je mappen en werk samen via keukenteams. Alles voor een efficiënte en inspirerende keuken.',
+    'Manage your recipes, organise your folders and collaborate through kitchen teams. Everything for an efficient and inspiring kitchen.',
+    'Verwalte deine Rezepte, organisiere deine Ordner und arbeite über Küchenteams zusammen. Alles für eine effiziente und inspirierende Küche.',
+    'Gestiona tus recetas, organiza tus carpetas y colabora mediante equipos de cocina. Todo para una cocina eficiente e inspiradora.'
   ],
   ['＋ Nieuw recept', '＋ New recipe', '＋ Neues Rezept', '＋ Nueva receta'],
   ['⇧ Importeren', '⇧ Import', '⇧ Importieren', '⇧ Importar'],
@@ -279,10 +279,10 @@ export const strings = [
   ['Nog geen favorieten.', 'No favourites yet.', 'Noch keine Favoriten.', 'Aún no hay favoritos.'],
   ['Nog geen mappen.', 'No folders yet.', 'Noch keine Ordner.', 'Aún no hay carpetas.'],
   [
-    'Nog geen gedeelde mappen.',
-    'No shared folders yet.',
-    'Noch keine geteilten Ordner.',
-    'Aún no hay carpetas compartidas.'
+    'Nog geen keukenteams.',
+    'No kitchen teams yet.',
+    'Noch keine Küchenteams.',
+    'Aún no hay equipos de cocina.'
   ],
   [
     'Bekijk en beheer je recepten',
@@ -363,17 +363,17 @@ export const strings = [
   ['Verwijderen uit bibliotheek', 'Delete from library', 'Aus Bibliothek löschen', 'Eliminar de la biblioteca'],
   ['Uit map halen', 'Remove from folder', 'Aus Ordner entfernen', 'Quitar de la carpeta'],
   [
-    'Uit gedeelde map halen',
-    'Remove from shared folder',
+    'Uit keukenteam halen',
+    'Remove from kitchen team',
     'Aus geteiltem Ordner entfernen',
-    'Quitar de la carpeta compartida'
+    'Quitar del equipo de cocina'
   ],
   ['Uit map verwijderen', 'Remove from folder', 'Aus Ordner entfernen', 'Quitar de la carpeta'],
   [
-    'Uit gedeelde map verwijderen',
-    'Remove from shared folder',
+    'Uit keukenteam verwijderen',
+    'Remove from kitchen team',
     'Aus geteiltem Ordner entfernen',
-    'Quitar de la carpeta compartida'
+    'Quitar del equipo de cocina'
   ],
   ['Opbrengst omrekenen', 'Scale yield', 'Menge umrechnen', 'Recalcular rendimiento'],
   ['Nieuwe opbrengst', 'New yield', 'Neue Menge', 'Nuevo rendimiento'],
@@ -911,10 +911,10 @@ export const strings = [
     '¿Quitar la receta de esta carpeta?'
   ],
   [
-    'Recept uit deze gedeelde map halen?',
-    'Remove recipe from this shared folder?',
-    'Rezept aus diesem geteilten Ordner entfernen?',
-    '¿Quitar la receta de esta carpeta compartida?'
+    'Recept uit dit keukenteam halen?',
+    'Remove recipe from this kitchen team?',
+    'Rezept aus diesem Küchenteam entfernen?',
+    '¿Quitar la receta de este equipo de cocina?'
   ],
   [
     'Het blijft beschikbaar in Alle recepten.',
@@ -923,10 +923,10 @@ export const strings = [
     'Seguirá disponible en Todas las recetas.'
   ],
   [
-    'Het blijft in de gedeelde map en in Alle recepten.',
-    'It remains in the shared folder and in All recipes.',
-    'Es bleibt im geteilten Ordner und unter Alle Rezepte.',
-    'Seguirá en la carpeta compartida y en Todas las recetas.'
+    'Het blijft in het keukenteam en in Alle recepten.',
+    'It remains in the kitchen team and in All recipes.',
+    'Es bleibt im Küchenteam und unter Alle Rezepte.',
+    'Seguirá en el equipo de cocina y en Todas las recetas.'
   ],
   [
     'De recepten blijven in Alle recepten staan.',
@@ -1085,10 +1085,10 @@ export const strings = [
     'Recetas, carpetas, categorías y búsqueda'
   ],
   [
-    'Gedeelde mappen en samenwerken met je team',
-    'Shared folders and working with your team',
-    'Geteilte Ordner und Zusammenarbeit im Team',
-    'Carpetas compartidas y trabajo en equipo'
+    'Keukenteams en samenwerken met je team',
+    'Kitchen teams and working with your team',
+    'Küchenteams und Zusammenarbeit im Team',
+    'Equipos de cocina y trabajo en equipo'
   ],
   [
     'Omrekenen, printen, kookmodus en delen',
@@ -1196,8 +1196,8 @@ export const strings = [
     'Zum Beispiel dein Restaurant, Hotel oder Caterer.',
     'Por ejemplo tu restaurante, hotel o catering.'
   ],
-  ['Naam van je organisatie', 'Name of your organisation', 'Name deiner Organisation', 'Nombre de tu organización'],
-  ['Deze naam zien de leden van je organisatie.', 'Your members will see this name.', 'Diesen Namen sehen deine Mitglieder.', 'Tus compañeros verán este nombre.'],
+  ['Naam van je brigade', 'Name of your brigade', 'Name deiner Brigade', 'Nombre de tu brigada'],
+  ['Deze naam zien je brigade.', 'Your members will see this name.', 'Diesen Namen sehen deine Mitglieder.', 'Tus compañeros verán este nombre.'],
   ['Verder naar betalen', 'Continue to payment', 'Weiter zur Zahlung', 'Continuar al pago'],
   [
     'Onbeperkt recepten, je eigen team en AI die je kladjes leest.',
@@ -1208,17 +1208,17 @@ export const strings = [
   ['Je probeert Savour Pro gratis.', 'You are trying Savour Pro for free.', 'Du testest Savour Pro kostenlos.', 'Estás probando Savour Pro gratis.'],
   ['Nieuw bij Savour?', 'New to Savour?', 'Neu bei Savour?', '¿Nuevo en Savour?'],
   [
-    'Je probeert Savour Pro 7 dagen gratis, zonder betaalgegevens: AI-import en gedeelde mappen, tot 100 recepten.',
-    'Try Savour Pro free for 7 days, no payment details needed: AI import and shared folders, up to 100 recipes.',
-    'Teste Savour Pro 7 Tage kostenlos, ohne Zahlungsdaten: KI-Import und geteilte Ordner, bis zu 100 Rezepte.',
-    'Prueba Savour Pro 7 días gratis, sin datos de pago: importación con IA y carpetas compartidas, hasta 100 recetas.'
+    'Je probeert Savour Pro 7 dagen gratis, zonder betaalgegevens: AI-import en keukenteams, tot 100 recepten.',
+    'Try Savour Pro free for 7 days, no payment details needed: AI import and kitchen teams, up to 100 recipes.',
+    'Teste Savour Pro 7 Tage kostenlos, ohne Zahlungsdaten: KI-Import und Küchenteams, bis zu 100 Rezepte.',
+    'Prueba Savour Pro 7 días gratis, sin datos de pago: importación con IA y equipos de cocina, hasta 100 recetas.'
   ],
-  ['Savour voor je hele organisatie', 'Savour for your whole organisation', 'Savour für deine ganze Organisation', 'Savour para toda tu organización'],
+  ['Savour voor je hele brigade', 'Savour for your whole brigade', 'Savour für deine ganze Brigade', 'Savour para toda tu brigada'],
   [
-    "Met een organisatie-abonnement krijgt iedereen in je keuken Savour Pro. Hoe groter je organisatie, hoe lager de prijs per persoon. Je nodigt je collega's uit op hun e-mailadres en kunt plekken altijd aan iemand anders geven.",
-    'With an organisation subscription everyone in your kitchen gets Savour Pro. The bigger your organisation, the lower the price per person. You invite colleagues by email and can always give a seat to someone else.',
-    'Mit einem Organisations-Abo bekommt jeder in deiner Küche Savour Pro. Je größer deine Organisation, desto niedriger der Preis pro Person. Du lädst Kollegen per E-Mail ein und kannst Plätze jederzeit neu vergeben.',
-    'Con una suscripción de organización, todos en tu cocina tienen Savour Pro. Cuanto más grande la organización, menor el precio por persona. Invitas a tus compañeros por correo y puedes reasignar plazas cuando quieras.'
+    "Met een brigade-abonnement krijgt iedereen in je keuken Savour Pro. Hoe groter je brigade, hoe lager de prijs per persoon. Je nodigt je collega's uit op hun e-mailadres en kunt plekken altijd aan iemand anders geven.",
+    'With an brigade subscription everyone in your kitchen gets Savour Pro. The bigger your brigade, the lower the price per person. You invite colleagues by email and can always give a seat to someone else.',
+    'Mit einem Brigade-Abo bekommt jeder in deiner Küche Savour Pro. Je größer deine Brigade, desto niedriger der Preis pro Person. Du lädst Kollegen per E-Mail ein und kannst Plätze jederzeit neu vergeben.',
+    'Con una suscripción de organización, todos en tu cocina tienen Savour Pro. Cuanto más grande la brigada, menor el precio por persona. Invitas a tus compañeros por correo y puedes reasignar plazas cuando quieras.'
   ],
   ['Meest gekozen', 'Most popular', 'Am beliebtesten', 'El más elegido'],
   [
@@ -1236,16 +1236,16 @@ export const strings = [
     'Carpetas, categorías, búsqueda y favoritos'
   ],
   [
-    'Lid zijn van een gedeelde map van een ander',
-    "Being a member of someone else's shared folder",
-    'Mitglied im geteilten Ordner von jemand anderem sein',
-    'Ser miembro de la carpeta compartida de otra persona'
+    'Lid zijn van een keukenteam van een ander',
+    "Being a member of someone else's kitchen team",
+    'Mitglied im Küchenteam von jemand anderem sein',
+    'Ser miembro del equipo de cocina de otra persona'
   ],
   [
-    'Zelf een gedeelde map maken en je team uitnodigen',
-    'Creating your own shared folders and inviting your team',
-    'Eigene geteilte Ordner erstellen und dein Team einladen',
-    'Crear tus propias carpetas compartidas e invitar a tu equipo'
+    'Zelf een keukenteam maken en je team uitnodigen',
+    'Creating your own kitchen teams and inviting your team',
+    'Eigene Küchenteams erstellen und dein Brigade einladen',
+    'Crear tus propias equipos de cocina e invitar a tu equipo'
   ],
   [
     "AI leest foto's, handgeschreven en gescande recepten",
@@ -1267,17 +1267,17 @@ export const strings = [
   ],
   ['Wat gebeurt er als ik stop met Pro?', 'What happens if I stop Pro?', 'Was passiert, wenn ich Pro beende?', '¿Qué pasa si dejo Pro?'],
   [
-    'Je houdt al je recepten en gedeelde mappen. Je kunt alleen geen nieuwe recepten meer toevoegen boven de 100 en geen nieuwe gedeelde mappen maken.',
-    'You keep all your recipes and shared folders. You just cannot add new recipes beyond 100 or create new shared folders.',
-    'Du behältst alle Rezepte und geteilten Ordner. Du kannst nur keine neuen Rezepte über 100 hinzufügen und keine neuen geteilten Ordner erstellen.',
-    'Conservas todas tus recetas y carpetas compartidas. Solo no puedes añadir recetas nuevas por encima de 100 ni crear carpetas compartidas nuevas.'
+    'Je houdt al je recepten en keukenteams. Je kunt alleen geen nieuwe recepten meer toevoegen boven de 100 en geen nieuwe keukenteams maken.',
+    'You keep all your recipes and kitchen teams. You just cannot add new recipes beyond 100 or create new kitchen teams.',
+    'Du behältst alle Rezepte und Küchenteam. Du kannst nur keine neuen Rezepte über 100 hinzufügen und keine neues Küchenteam erstellen.',
+    'Conservas todas tus recetas y equipos de cocina. Solo no puedes añadir recetas nuevas por encima de 100 ni crear equipos de cocina nuevas.'
   ],
-  ['Moeten de leden van mijn organisatie ook betalen?', 'Do my members have to pay too?', 'Müssen meine Mitglieder auch zahlen?', '¿Mis compañeros también tienen que pagar?'],
+  ['Moeten de leden van mijn brigade ook betalen?', 'Do my members have to pay too?', 'Müssen meine Mitglieder auch zahlen?', '¿Mis compañeros también tienen que pagar?'],
   [
-    'Nee. Lid zijn van een gedeelde map is gratis. Wil je dat iedereen in je keuken Pro heeft, kies dan een organisatie-abonnement.',
-    'No. Being a member of a shared folder is free. If you want everyone in your kitchen to have Pro, choose an organisation subscription.',
-    'Nein. Mitglied in einem geteilten Ordner zu sein ist kostenlos. Soll jeder in deiner Küche Pro haben, wähle ein Organisations-Abo.',
-    'No. Ser miembro de una carpeta compartida es gratis. Si quieres que todos en tu cocina tengan Pro, elige una suscripción de organización.'
+    'Nee. Lid zijn van een keukenteam is gratis. Wil je dat iedereen in je keuken Pro heeft, kies dan een brigade-abonnement.',
+    'No. Being a member of a kitchen team is free. If you want everyone in your kitchen to have Pro, choose an brigade subscription.',
+    'Nein. Mitglied in einem Küchenteam zu sein ist kostenlos. Soll jeder in deiner Küche Pro haben, wähle ein Brigade-Abo.',
+    'No. Ser miembro de un equipo de cocina es gratis. Si quieres que todos en tu cocina tengan Pro, elige una suscripción de organización.'
   ],
   [
     'Elke foto, gescande pagina of elk deel van een bestand dat de AI leest (ongeveer 8 recepten per deel). Wat de Savour-lezer zelf zeker leest, telt niet mee.',
@@ -1287,10 +1287,10 @@ export const strings = [
   ],
   ['Gratis beginnen. Pro voor je hele keuken.', 'Start for free. Pro for your whole kitchen.', 'Kostenlos starten. Pro für deine ganze Küche.', 'Empieza gratis. Pro para toda tu cocina.'],
   [
-    "Gratis bewaar je tot 100 recepten en importeer je Word, PDF en tekst met de Savour-lezer. Met Savour Pro bewaar je onbeperkt, maak je gedeelde mappen voor je team en leest de AI foto's van handgeschreven recepten en gescande pagina's. Nieuw bij Savour? Je probeert Pro 7 dagen gratis.",
-    'For free you store up to 100 recipes and import Word, PDF and text with the Savour reader. With Savour Pro you store unlimited recipes, create shared folders for your team and the AI reads photos of handwritten recipes and scanned pages. New to Savour? Try Pro free for 7 days.',
-    'Kostenlos speicherst du bis zu 100 Rezepte und importierst Word, PDF und Text mit dem Savour-Leser. Mit Savour Pro speicherst du unbegrenzt, erstellst geteilte Ordner für dein Team und die KI liest Fotos handschriftlicher Rezepte und gescannte Seiten. Neu bei Savour? Teste Pro 7 Tage kostenlos.',
-    'Gratis guardas hasta 100 recetas e importas Word, PDF y texto con el lector de Savour. Con Savour Pro guardas sin límite, creas carpetas compartidas para tu equipo y la IA lee fotos de recetas manuscritas y páginas escaneadas. ¿Nuevo en Savour? Prueba Pro 7 días gratis.'
+    "Gratis bewaar je tot 100 recepten en importeer je Word, PDF en tekst met de Savour-lezer. Met Savour Pro bewaar je onbeperkt, maak je keukenteams voor je team en leest de AI foto's van handgeschreven recepten en gescande pagina's. Nieuw bij Savour? Je probeert Pro 7 dagen gratis.",
+    'For free you store up to 100 recipes and import Word, PDF and text with the Savour reader. With Savour Pro you store unlimited recipes, create kitchen teams for your team and the AI reads photos of handwritten recipes and scanned pages. New to Savour? Try Pro free for 7 days.',
+    'Kostenlos speicherst du bis zu 100 Rezepte und importierst Word, PDF und Text mit dem Savour-Leser. Mit Savour Pro speicherst du unbegrenzt, erstellst Küchenteams für dein Team und die KI liest Fotos handschriftlicher Rezepte und gescannte Seiten. Neu bei Savour? Teste Pro 7 Tage kostenlos.',
+    'Gratis guardas hasta 100 recetas e importas Word, PDF y texto con el lector de Savour. Con Savour Pro guardas sin límite, creas equipos de cocina para tu equipo y la IA lee fotos de recetas manuscritas y páginas escaneadas. ¿Nuevo en Savour? Prueba Pro 7 días gratis.'
   ],
   [
     'of €29 per jaar · teams vanaf €1,20 per persoon',
@@ -1300,7 +1300,7 @@ export const strings = [
   ],
   ['Savour Pro · gratis proefperiode', 'Savour Pro · free trial', 'Savour Pro · kostenlose Testphase', 'Savour Pro · prueba gratuita'],
   ['Savour Pro · proefperiode', 'Savour Pro · trial', 'Savour Pro · Testphase', 'Savour Pro · prueba'],
-  ['Je organisatie', 'Your organisation', 'Deine Organisation', 'Tu organización'],
+  ['Je brigade', 'Your brigade', 'Deine Brigade', 'Tu brigada'],
   ['Mijn abonnement', 'My subscription', 'Mein Abo', 'Mi suscripción'],
   ['Stuur ons een bericht', 'Send us a message', 'Schreib uns eine Nachricht', 'Envíanos un mensaje'],
   // ---- Publieke pagina's: Over Savour, Gids, voorwaarden en privacy (AdSense-klaar, 2026-10-21) ----
@@ -1389,10 +1389,10 @@ export const strings = [
   ],
   ['Samenwerken met je brigade', 'Working with your brigade', 'Zusammenarbeit mit deiner Brigade', 'Trabajar con tu brigada'],
   [
-    'Een keuken werkt het best met één bron voor elk recept. Deel recepten via een gedeelde map in plaats van losse foto\'s of berichten. Geef de sous-chef rechten om recepten te bewerken en de rest van het team rechten om ze te bekijken. Pas je een recept aan, dan werkt iedereen meteen met de nieuwe versie, en raakt niemand een oude versie kwijt in een appgroep.',
-    'A kitchen works best with one source for every recipe. Share recipes through a shared folder instead of loose photos or messages. Give the sous-chef rights to edit recipes and the rest of the team rights to view them. When you change a recipe, everyone works with the new version straight away, and no old version gets lost in a group chat.',
-    'Eine Küche funktioniert am besten mit einer Quelle für jedes Rezept. Teile Rezepte über einen geteilten Ordner statt über lose Fotos oder Nachrichten. Gib dem Sous-Chef das Recht, Rezepte zu bearbeiten, und dem restlichen Team das Recht, sie anzusehen. Änderst du ein Rezept, arbeitet jeder sofort mit der neuen Version, und keine alte Version geht in einem Gruppenchat verloren.',
-    'Una cocina funciona mejor con una sola fuente para cada receta. Comparte recetas mediante una carpeta compartida en lugar de fotos o mensajes sueltos. Da al segundo de cocina permiso para editar recetas y al resto del equipo permiso para verlas. Cuando cambias una receta, todos trabajan al instante con la nueva versión y ninguna versión antigua se pierde en un chat de grupo.'
+    'Een keuken werkt het best met één bron voor elk recept. Deel recepten via een keukenteam in plaats van losse foto\'s of berichten. Geef de sous-chef rechten om recepten te bewerken en de rest van het team rechten om ze te bekijken. Pas je een recept aan, dan werkt iedereen meteen met de nieuwe versie, en raakt niemand een oude versie kwijt in een appgroep.',
+    'A kitchen works best with one source for every recipe. Share recipes through a kitchen team instead of loose photos or messages. Give the sous-chef rights to edit recipes and the rest of the team rights to view them. When you change a recipe, everyone works with the new version straight away, and no old version gets lost in a group chat.',
+    'Eine Küche funktioniert am besten mit einer Quelle für jedes Rezept. Teile Rezepte über ein Küchenteam statt über lose Fotos oder Nachrichten. Gib dem Sous-Chef das Recht, Rezepte zu bearbeiten, und dem restlichen Team das Recht, sie anzusehen. Änderst du ein Rezept, arbeitet jeder sofort mit der neuen Version, und keine alte Version geht in einem Gruppenchat verloren.',
+    'Una cocina funciona mejor con una sola fuente para cada receta. Comparte recetas mediante un equipo de cocina en lugar de fotos o mensajes sueltos. Da al segundo de cocina permiso para editar recetas y al resto del equipo permiso para verlas. Cuando cambias una receta, todos trabajan al instante con la nueva versión y ninguna versión antigua se pierde en un chat de grupo.'
   ],
   ['Allergenen en vaste afspraken', 'Allergens and fixed agreements', 'Allergene und feste Absprachen', 'Alérgenos y acuerdos fijos'],
   [
@@ -1403,10 +1403,10 @@ export const strings = [
   ],
   ['8. Gratis account en Savour Pro', '8. Free account and Savour Pro', '8. Kostenloses Konto und Savour Pro', '8. Cuenta gratuita y Savour Pro'],
   [
-    'Een gratis account bevat tot 100 recepten. Nieuwe accounts krijgen eenmalig 7 dagen Savour Pro zonder kosten, met ook dan maximaal 100 recepten; daarna gaat het account vanzelf terug naar gratis, zonder dat er iets wordt afgeschreven. Savour Pro is een betaald abonnement per maand of per jaar, voor één persoon of als organisatie-abonnement met een vast aantal plekken, dat automatisch wordt verlengd tot je het opzegt. Opzeggen kan op elk moment via Mijn account; je houdt Savour Pro tot het einde van de betaalde periode. Na afloop blijven al je recepten en gedeelde mappen bewaard. Savour Pro bevat maximaal 500 AI-imports per persoon per maand. Betalingen worden verwerkt door Stripe.',
-    'A free account includes up to 100 recipes. New accounts get a one-time 7 days of Savour Pro free of charge, also limited to 100 recipes; after that the account automatically returns to free, without any charge. Savour Pro is a paid monthly or yearly subscription, for one person or as an organisation subscription with a fixed number of seats, which renews automatically until you cancel. You can cancel at any time via My account; you keep Savour Pro until the end of the paid period. Afterwards all your recipes and shared folders are kept. Savour Pro includes up to 500 AI imports per person per month. Payments are processed by Stripe.',
-    'Ein kostenloses Konto umfasst bis zu 100 Rezepte. Neue Konten erhalten einmalig 7 Tage Savour Pro kostenlos, auch dann mit höchstens 100 Rezepten; danach wechselt das Konto automatisch zurück zu kostenlos, ohne dass etwas abgebucht wird. Savour Pro ist ein kostenpflichtiges Monats- oder Jahresabo, für eine Person oder als Organisations-Abo mit einer festen Anzahl Plätze, das sich automatisch verlängert, bis du kündigst. Kündigen kannst du jederzeit über Mein Konto; Savour Pro bleibt bis zum Ende des bezahlten Zeitraums aktiv. Danach bleiben alle Rezepte und geteilten Ordner erhalten. Savour Pro umfasst bis zu 500 KI-Importe pro Person und Monat. Zahlungen werden von Stripe abgewickelt.',
-    'Una cuenta gratuita incluye hasta 100 recetas. Las cuentas nuevas reciben una sola vez 7 días de Savour Pro sin coste, también con un máximo de 100 recetas; después la cuenta vuelve automáticamente al plan gratuito, sin ningún cargo. Savour Pro es una suscripción de pago mensual o anual, para una persona o como suscripción de organización con un número fijo de plazas, que se renueva automáticamente hasta que la canceles. Puedes cancelar en cualquier momento desde Mi cuenta; mantienes Savour Pro hasta el final del periodo pagado. Después se conservan todas tus recetas y carpetas compartidas. Savour Pro incluye hasta 500 importaciones con IA por persona al mes. Los pagos los procesa Stripe.'
+    'Een gratis account bevat tot 100 recepten. Nieuwe accounts krijgen eenmalig 7 dagen Savour Pro zonder kosten, met ook dan maximaal 100 recepten; daarna gaat het account vanzelf terug naar gratis, zonder dat er iets wordt afgeschreven. Savour Pro is een betaald abonnement per maand of per jaar, voor één persoon of als brigade-abonnement met een vast aantal plekken, dat automatisch wordt verlengd tot je het opzegt. Opzeggen kan op elk moment via Mijn account; je houdt Savour Pro tot het einde van de betaalde periode. Na afloop blijven al je recepten en keukenteams bewaard. Savour Pro bevat maximaal 500 AI-imports per persoon per maand. Betalingen worden verwerkt door Stripe.',
+    'A free account includes up to 100 recipes. New accounts get a one-time 7 days of Savour Pro free of charge, also limited to 100 recipes; after that the account automatically returns to free, without any charge. Savour Pro is a paid monthly or yearly subscription, for one person or as an brigade subscription with a fixed number of seats, which renews automatically until you cancel. You can cancel at any time via My account; you keep Savour Pro until the end of the paid period. Afterwards all your recipes and kitchen teams are kept. Savour Pro includes up to 500 AI imports per person per month. Payments are processed by Stripe.',
+    'Ein kostenloses Konto umfasst bis zu 100 Rezepte. Neue Konten erhalten einmalig 7 Tage Savour Pro kostenlos, auch dann mit höchstens 100 Rezepten; danach wechselt das Konto automatisch zurück zu kostenlos, ohne dass etwas abgebucht wird. Savour Pro ist ein kostenpflichtiges Monats- oder Jahresabo, für eine Person oder als Brigade-Abo mit einer festen Anzahl Plätze, das sich automatisch verlängert, bis du kündigst. Kündigen kannst du jederzeit über Mein Konto; Savour Pro bleibt bis zum Ende des bezahlten Zeitraums aktiv. Danach bleiben alle Rezepte und Küchenteam erhalten. Savour Pro umfasst bis zu 500 KI-Importe pro Person und Monat. Zahlungen werden von Stripe abgewickelt.',
+    'Una cuenta gratuita incluye hasta 100 recetas. Las cuentas nuevas reciben una sola vez 7 días de Savour Pro sin coste, también con un máximo de 100 recetas; después la cuenta vuelve automáticamente al plan gratuito, sin ningún cargo. Savour Pro es una suscripción de pago mensual o anual, para una persona o como suscripción de organización con un número fijo de plazas, que se renueva automáticamente hasta que la canceles. Puedes cancelar en cualquier momento desde Mi cuenta; mantienes Savour Pro hasta el final del periodo pagado. Después se conservan todas tus recetas y equipos de cocina. Savour Pro incluye hasta 500 importaciones con IA por persona al mes. Los pagos los procesa Stripe.'
   ],
   ['9. Over de aanbieder', '9. About the provider', '9. Über den Anbieter', '9. Sobre el proveedor'],
   [
@@ -1467,10 +1467,10 @@ export const strings = [
   ['Dubbele recepten opschonen', 'Remove duplicate recipes', 'Doppelte Rezepte bereinigen', 'Limpiar recetas duplicadas'],
   ['Van elk recept blijft er één staan.', 'One copy of each recipe is kept.', 'Von jedem Rezept bleibt eins erhalten.', 'Se conserva una copia de cada receta.'],
   [
-    'Van elk recept blijft er één staan. Alleen kopieën die precies hetzelfde zijn (naam, opbrengst, ingrediënten en bereiding) worden verwijderd. Mappen, favorieten en gedeelde mappen gaan over naar het recept dat blijft.',
-    'One copy of each recipe is kept. Only copies that are exactly the same (name, yield, ingredients and method) are removed. Folders, favourites and shared folders move to the recipe that stays.',
-    'Von jedem Rezept bleibt eins erhalten. Nur exakt gleiche Kopien (Name, Menge, Zutaten und Zubereitung) werden gelöscht. Ordner, Favoriten und geteilte Ordner gehen auf das verbleibende Rezept über.',
-    'Se conserva una copia de cada receta. Solo se eliminan las copias exactamente iguales (nombre, rendimiento, ingredientes y preparación). Carpetas, favoritos y carpetas compartidas pasan a la receta que queda.'
+    'Van elk recept blijft er één staan. Alleen kopieën die precies hetzelfde zijn (naam, opbrengst, ingrediënten en bereiding) worden verwijderd. Mappen, favorieten en keukenteams gaan over naar het recept dat blijft.',
+    'One copy of each recipe is kept. Only copies that are exactly the same (name, yield, ingredients and method) are removed. Folders, favourites and kitchen teams move to the recipe that stays.',
+    'Von jedem Rezept bleibt eins erhalten. Nur exakt gleiche Kopien (Name, Menge, Zutaten und Zubereitung) werden gelöscht. Ordner, Favoriten und Küchenteams gehen auf das verbleibende Rezept über.',
+    'Se conserva una copia de cada receta. Solo se eliminan las copias exactamente iguales (nombre, rendimiento, ingredientes y preparación). Carpetas, favoritos y equipos de cocina pasan a la receta que queda.'
   ],
   ['Bericht', 'Message', 'Nachricht', 'Mensaje'],
   ['Waar kunnen we je mee helpen?', 'How can we help you?', 'Wie können wir dir helfen?', '¿En qué podemos ayudarte?'],
@@ -1485,24 +1485,58 @@ export const strings = [
   ['Lid · Savour Pro', 'Member · Savour Pro', 'Mitglied · Savour Pro', 'Miembro de la organización · Savour Pro'],
   ['Plek vrijgeven', 'Free up seat', 'Platz freigeben', 'Liberar plaza'],
   [
-    'Alle plekken zijn bezet. Een grotere organisatie kies je via Abonnement beheren.',
-    'All seats are taken. Choose a bigger organisation via Manage subscription.',
-    'Alle Plätze sind belegt. Eine größere Organisation wählst du über Abo verwalten.',
-    'Todas las plazas están ocupadas. Elige una organización más grande en Gestionar suscripción.'
+    'Alle plekken zijn bezet. Een grotere brigade kies je via Abonnement beheren.',
+    'All seats are taken. Choose a bigger brigade via Manage subscription.',
+    'Alle Plätze sind belegt. Eine größere Brigade wählst du über Abo verwalten.',
+    'Todas las plazas están ocupadas. Elige una brigada más grande en Gestionar suscripción.'
   ],
-  ['Alle plekken in je organisatie zijn bezet.', 'All seats in your organisation are taken.', 'Alle Plätze in deiner Organisation sind belegt.', 'Todas las plazas de tu organización están ocupadas.'],
+  ['Alle plekken in je brigade zijn bezet.', 'All seats in your brigade are taken.', 'Alle Plätze in deiner Brigade sind belegt.', 'Todas las plazas de tu brigada están ocupadas.'],
   ['Vul een geldig e-mailadres in.', 'Enter a valid email address.', 'Gib eine gültige E-Mail-Adresse ein.', 'Introduce un correo válido.'],
   ['Lid kon niet worden toegevoegd.', 'Member could not be added.', 'Mitglied konnte nicht hinzugefügt werden.', 'No se pudo añadir al miembro.'],
   ['Plek kon niet worden vrijgegeven.', 'Seat could not be freed.', 'Platz konnte nicht freigegeben werden.', 'No se pudo liberar la plaza.'],
-  ['Een gedeelde map maken is Savour Pro', 'Creating a shared folder is Savour Pro', 'Geteilte Ordner erstellen ist Savour Pro', 'Crear una carpeta compartida es Savour Pro'],
+  ['Een keukenteam maken is Savour Pro', 'Creating a kitchen team is Savour Pro', 'Küchenteams erstellen ist Savour Pro', 'Crear un equipo de cocina es Savour Pro'],
   ['Bekijk Savour Pro', 'View Savour Pro', 'Savour Pro ansehen', 'Ver Savour Pro'],
   [
-    "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.",
-    'Unlimited recipes, AI that reads your notes and photos, and shared folders for your team.',
-    'Unbegrenzt Rezepte, KI, die deine Notizen und Fotos liest, und geteilte Ordner für dein Team.',
-    'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
+    "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.",
+    'Unlimited recipes, AI that reads your notes and photos, and kitchen teams for your team.',
+    'Unbegrenzt Rezepte, KI, die deine Notizen und Fotos liest, und Küchenteams für dein Team.',
+    'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Nog geen keukenteam. Maak er een met “Keukenteam maken”, of word lid via een uitnodiging.","No kitchen team yet. Create one with “Create kitchen team”, or join through an invitation.","Noch kein Küchenteam. Erstelle eines mit „Küchenteam erstellen“ oder tritt über eine Einladung bei.","Aún no hay equipo de cocina. Crea uno con «Crear equipo de cocina» o únete con una invitación."],
+  ["Geen recepten voor deze selectie.","No recipes for this selection.","Keine Rezepte für diese Auswahl.","No hay recetas para esta selección."],
+  ["Nog geen recepten in dit keukenteam. Voeg ze toe met “Recept toevoegen”.","No recipes in this kitchen team yet. Add them with “Add recipe”.","Noch keine Rezepte in diesem Küchenteam. Füge sie mit „Rezept hinzufügen“ hinzu.","Aún no hay recetas en este equipo de cocina. Añádelas con «Añadir receta»."],
+  ["Nog geen recepten in dit keukenteam.","No recipes in this kitchen team yet.","Noch keine Rezepte in diesem Küchenteam.","Aún no hay recetas en este equipo de cocina."],
+  ["Pro-plek vrijgeven","Release Pro seat","Pro-Platz freigeben","Liberar plaza Pro"],
+  ["Pro geven","Give Pro","Pro geben","Dar Pro"],
+  ["Pro voor je hele brigade","Pro for your whole brigade","Pro für deine ganze Brigade","Pro para toda tu brigada"],
+  ["Met Brigade 5, 10 of 25 heeft iedereen in dit keukenteam Savour Pro: onbeperkt recepten en AI voor kladjes.","With Brigade 5, 10 or 25 everyone in this kitchen team has Savour Pro: unlimited recipes and AI for notes.","Mit Brigade 5, 10 oder 25 hat jeder in diesem Küchenteam Savour Pro: unbegrenzt Rezepte und KI für Notizen.","Con Brigada 5, 10 o 25 todos en este equipo de cocina tienen Savour Pro: recetas ilimitadas e IA para notas."],
+  ["Bekijk Brigade","View Brigade","Brigade ansehen","Ver Brigada"],
+  ["Keukenteam verlaten","Leave kitchen team","Küchenteam verlassen","Salir del equipo de cocina"],
+  ["De eigenaar beheert het keukenteam en de brigade. Een sous-chef voegt recepten en mappen toe en bewerkt ze. Een kok bekijkt, print en rekent om. Recepten in het keukenteam blijven van het keukenteam, ook als iemand vertrekt.","The owner manages the kitchen team and the brigade. A sous-chef adds and edits recipes and folders. A cook views, prints and scales. Recipes in the kitchen team stay with the kitchen team, even when someone leaves.","Der Inhaber verwaltet das Küchenteam und die Brigade. Ein Sous-Chef fügt Rezepte und Ordner hinzu und bearbeitet sie. Ein Koch sieht an, druckt und rechnet um. Rezepte im Küchenteam bleiben beim Küchenteam, auch wenn jemand geht.","El propietario gestiona el equipo de cocina y la brigada. Un segundo de cocina añade y edita recetas y carpetas. Un cocinero consulta, imprime y escala. Las recetas del equipo de cocina se quedan en el equipo, aunque alguien se vaya."],
+  ["Sous-chef","Sous-chef","Sous-Chef","Segundo de cocina"],
+  ["Kok","Cook","Koch","Cocinero"],
+  ["Foto","Photo","Foto","Foto"],
+  ["Staat bovenaan het keukenteam.","Shown at the top of the kitchen team.","Steht oben im Küchenteam.","Aparece arriba en el equipo de cocina."],
+  ["Uitnodigingslink","Invitation link","Einladungslink","Enlace de invitación"],
+  ["Het logo van je zaak bovenaan elke print, voor de hele brigade.","Your restaurant’s logo at the top of every print, for the whole brigade.","Das Logo deines Betriebs oben auf jedem Ausdruck, für die ganze Brigade.","El logo de tu negocio arriba en cada impresión, para toda la brigada."],
+  ["Logo instellen","Set logo","Logo festlegen","Configurar logo"],
+  ["Alle recepten en mappen van dit keukenteam worden voor iedereen verwijderd.","All recipes and folders of this kitchen team are deleted for everyone.","Alle Rezepte und Ordner dieses Küchenteams werden für alle gelöscht.","Todas las recetas y carpetas de este equipo de cocina se eliminan para todos."],
+  ["Naar de brigade","Go to the brigade","Zur Brigade","Ir a la brigada"],
+  ["Koppel je brigade-abonnement aan een keukenteam. Dan beheer je daar je brigade en geef je Pro.","Link your brigade plan to a kitchen team. Then you manage your brigade and give Pro there.","Verknüpfe dein Brigade-Abo mit einem Küchenteam. Dort verwaltest du dann deine Brigade und vergibst Pro.","Vincula tu plan de brigada a un equipo de cocina. Allí gestionas tu brigada y das Pro."],
+  ["Koppel het aan dit keukenteam, dan krijgt je brigade hier Pro.","Link it to this kitchen team and your brigade gets Pro here.","Verknüpfe es mit diesem Küchenteam, dann bekommt deine Brigade hier Pro.","Vincúlalo a este equipo de cocina y tu brigada tendrá Pro aquí."],
+  ["Recept verwijderd uit het keukenteam","Recipe deleted from the kitchen team","Rezept aus dem Küchenteam gelöscht","Receta eliminada del equipo de cocina"],
+  ["Verwijderd uit de brigade","Removed from the brigade","Aus der Brigade entfernt","Eliminado de la brigada"],
+  ["Lid kon niet worden verwijderd","Member could not be removed","Mitglied konnte nicht entfernt werden","No se pudo eliminar al miembro"],
+  ["Recept kon niet aan het keukenteam worden toegevoegd","Recipe could not be added to the kitchen team","Rezept konnte nicht zum Küchenteam hinzugefügt werden","No se pudo añadir la receta al equipo de cocina"],
+  ["Je hebt geen rechten om dit recept te verwijderen","You are not allowed to delete this recipe","Du darfst dieses Rezept nicht löschen","No tienes permiso para eliminar esta receta"],
+  ["Alle Pro-plekken zijn bezet","All Pro seats are taken","Alle Pro-Plätze sind belegt","Todas las plazas Pro están ocupadas"],
+  ["Pro geven lukte niet","Could not give Pro","Pro konnte nicht vergeben werden","No se pudo dar Pro"],
+  ["Vrijgeven lukte niet","Could not release","Freigeben fehlgeschlagen","No se pudo liberar"],
+  ["Koppelen lukte niet","Could not link","Verknüpfen fehlgeschlagen","No se pudo vincular"],
+  ["Je brigade-abonnement hoort nu bij dit keukenteam","Your brigade plan now belongs to this kitchen team","Dein Brigade-Abo gehört jetzt zu diesem Küchenteam","Tu plan de brigada ahora pertenece a este equipo de cocina"],
+  ["Een keukenteam maken kan met Savour Pro","Creating a kitchen team is part of Savour Pro","Ein Küchenteam erstellen ist Teil von Savour Pro","Crear un equipo de cocina es parte de Savour Pro"],
+  ["Keukenteam kon niet worden aangemaakt","Kitchen team could not be created","Küchenteam konnte nicht erstellt werden","No se pudo crear el equipo de cocina"],
   ["Bevestig eerst je e-mailadres","Confirm your email address first","Bestätige zuerst deine E-Mail-Adresse","Confirma primero tu correo electrónico"],
   ["We hebben je een e-mail gestuurd met een link om je account te bevestigen. Kijk ook in je spam. Geen mail gekregen? Dan sturen we een nieuwe.","We sent you an email with a link to confirm your account. Check your spam folder too. No email? We'll send a new one.","Wir haben dir eine E-Mail mit einem Link zur Bestätigung deines Kontos geschickt. Sieh auch im Spam nach. Keine E-Mail bekommen? Dann schicken wir eine neue.","Te hemos enviado un correo con un enlace para confirmar tu cuenta. Revisa también el spam. ¿No te ha llegado? Te enviamos uno nuevo."],
   ["Nieuwe bevestigingsmail sturen","Send a new confirmation email","Neue Bestätigungs-E-Mail senden","Enviar un nuevo correo de confirmación"],
@@ -1607,10 +1641,10 @@ export const strings = [
   ["Dit .json-bestand bevat geen recepten voor Savour.","This .json file contains no recipes for Savour.","Diese .json-Datei enthält keine Rezepte für Savour.","Este archivo .json no contiene recetas para Savour."],
   ["Dit .doc-bestand kon niet worden gelezen. Sla het in Word op als .docx en probeer opnieuw.","This .doc file could not be read. Save it in Word as .docx and try again.","Diese .doc-Datei konnte nicht gelesen werden. Speichere sie in Word als .docx und versuche es erneut.","No se pudo leer este archivo .doc. Guárdalo en Word como .docx e inténtalo de nuevo."],
   ["Recept kon niet worden verwijderd; probeer het opnieuw", "Recipe could not be deleted; please try again", "Rezept konnte nicht gelöscht werden; bitte versuche es erneut", "No se pudo eliminar la receta; inténtalo de nuevo"],
-  ["Bij elk recept van een collega in de gedeelde map zie je “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie in je bibliotheek die je zelf kunt aanpassen; het origineel blijft van de maker.", "On every colleague’s recipe in the shared folder you see “Add to my recipes”. You get your own copy in your library that you can change; the original stays with its creator.", "Bei jedem Rezept eines Kollegen im geteilten Ordner siehst du „Zu meinen Rezepten hinzufügen“. Du bekommst eine eigene Kopie in deiner Bibliothek, die du anpassen kannst; das Original bleibt beim Ersteller.", "En cada receta de un compañero en la carpeta compartida verás «Añadir a mis recetas». Obtienes tu propia copia en tu biblioteca que puedes modificar; el original sigue siendo de su autor."],
-  ["Recept uit deze gedeelde map halen?", "Remove this recipe from the shared folder?", "Rezept aus diesem geteilten Ordner entfernen?", "¿Quitar esta receta de la carpeta compartida?"],
+  ["Bij elk recept van een collega in het keukenteam zie je “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie in je bibliotheek die je zelf kunt aanpassen; het origineel blijft van de maker.", "On every colleague’s recipe in the kitchen team you see “Add to my recipes”. You get your own copy in your library that you can change; the original stays with its creator.", "Bei jedem Rezept eines Kollegen im Küchenteam siehst du „Zu meinen Rezepten hinzufügen“. Du bekommst eine eigene Kopie in deiner Bibliothek, die du anpassen kannst; das Original bleibt beim Ersteller.", "En cada receta de un compañero en el equipo de cocina verás «Añadir a mis recetas». Obtienes tu propia copia en tu biblioteca que puedes modificar; el original sigue siendo de su autor."],
+  ["Recept uit dit keukenteam halen?", "Remove this recipe from the kitchen team?", "Rezept aus diesem Küchenteam entfernen?", "¿Quitar esta receta del equipo de cocina?"],
   ["Het blijft gewoon in de eigen recepten van de maker.", "It simply stays in the creator’s own recipes.", "Es bleibt einfach in den eigenen Rezepten des Erstellers.", "Sigue estando en las recetas propias de su autor."],
-  ["Recept uit gedeelde map gehaald; de maker houdt het in de eigen recepten", "Recipe removed from the shared folder; the creator keeps it in their own recipes", "Rezept aus dem geteilten Ordner entfernt; der Ersteller behält es in seinen eigenen Rezepten", "Receta quitada de la carpeta compartida; su autor la conserva en sus recetas"],
+  ["Recept uit keukenteam gehaald; de maker houdt het in de eigen recepten", "Recipe removed from the kitchen team; the creator keeps it in their own recipes", "Rezept aus dem Küchenteam entfernt; der Ersteller behält es in seinen eigenen Rezepten", "Receta quitada del equipo de cocina; su autor la conserva en sus recetas"],
   ["Recept uit deze map gehaald", "Recipe removed from this folder", "Rezept aus diesem Ordner entfernt", "Receta quitada de esta carpeta"],
   ["Uit deze map halen", "Remove from this folder", "Aus diesem Ordner entfernen", "Quitar de esta carpeta"],
   ["Uitleg", "Explanation", "Erklärung", "Explicación"],
@@ -1649,28 +1683,28 @@ export const strings = [
   ["Kies welke mappen in het menu verschijnen en sleep ze in de volgorde die voor jou logisch is.", "Choose which folders appear in the menu and drag them into the order that makes sense to you.", "Wähle, welche Ordner im Menü erscheinen, und ziehe sie in die Reihenfolge, die für dich logisch ist.", "Elige qué carpetas aparecen en el menú y arrástralas al orden que te parezca lógico."],
   ["Print een hele map in één keer: met voorblad, inhoudsopgave en het nummer van elk recept onderaan de pagina. Met Savour Pro staat het logo van je restaurant erop.", "Print a whole folder at once: with a cover, table of contents and the number of each recipe at the bottom of the page. With Savour Pro your restaurant’s logo is on it.", "Drucke einen ganzen Ordner auf einmal: mit Deckblatt, Inhaltsverzeichnis und der Nummer jedes Rezepts unten auf der Seite. Mit Savour Pro steht das Logo deines Restaurants darauf.", "Imprime una carpeta entera de una vez: con portada, índice y el número de cada receta al pie de la página. Con Savour Pro aparece el logo de tu restaurante."],
   ["Samenwerken", "Working together", "Zusammenarbeiten", "Trabajar juntos"],
-  ["Je eigen mappen zie alleen jij. Wil je recepten delen met je keukenteam, gebruik dan een gedeelde map.", "Only you see your own folders. To share recipes with your kitchen team, use a shared folder.", "Deine eigenen Ordner siehst nur du. Willst du Rezepte mit deinem Küchenteam teilen, nutze einen geteilten Ordner.", "Tus propias carpetas solo las ves tú. Para compartir recetas con tu equipo, usa una carpeta compartida."],
+  ["Je eigen mappen zie alleen jij. Wil je recepten delen met je keukenteam, gebruik dan een keukenteam.", "Only you see your own folders. To share recipes with your kitchen team, use a kitchen team.", "Deine eigenen Ordner siehst nur du. Willst du Rezepte mit deinem Küchenteam teilen, nutze ein Küchenteam.", "Tus propias carpetas solo las ves tú. Para compartir recetas con tu equipo, usa un equipo de cocina."],
   ["Zo werken je instellingen", "How your settings work", "So funktionieren deine Einstellungen", "Así funcionan tus ajustes"],
   ["Pas je naam en profielfoto aan, verander je wachtwoord of log uit.", "Change your name and profile photo, change your password or log out.", "Ändere deinen Namen und dein Profilbild, ändere dein Passwort oder melde dich ab.", "Cambia tu nombre y foto de perfil, cambia tu contraseña o cierra sesión."],
   ["Printen en downloaden", "Printing and downloading", "Drucken und herunterladen", "Imprimir y descargar"],
   ["Print al je recepten in één keer in de printopmaak van Savour. Met Savour Pro download je ze ook naar Word of als back-up.", "Print all your recipes at once in the Savour print layout. With Savour Pro you also download them to Word or as a backup.", "Drucke alle deine Rezepte auf einmal im Druckformat von Savour. Mit Savour Pro lädst du sie auch als Word oder Backup herunter.", "Imprime todas tus recetas de una vez con el formato de Savour. Con Savour Pro también las descargas en Word o como copia de seguridad."],
-  ["Bekijk of beheer je Savour Pro of organisatie-abonnement, nodig je organisatie uit en stel het logo voor je prints in.", "View or manage your Savour Pro or organisation subscription, invite your organisation and set the logo for your prints.", "Sieh oder verwalte dein Savour Pro oder Organisations-Abo, lade deine Organisation ein und lege das Logo für deine Ausdrucke fest.", "Consulta o gestiona tu Savour Pro o suscripción de organización, invita a tu organización y configura el logo de tus impresiones."],
+  ["Bekijk of beheer je Savour Pro of brigade-abonnement, nodig je brigade uit en stel het logo voor je prints in.", "View or manage your Savour Pro or brigade subscription, invite your brigade and set the logo for your prints.", "Sieh oder verwalte dein Savour Pro oder Brigade-Abo, lade deine Brigade ein und lege das Logo für deine Ausdrucke fest.", "Consulta o gestiona tu Savour Pro o suscripción de organización, invita a tu brigada y configura el logo de tus impresiones."],
   ["Kies het donkere of lichte thema; je keuze wordt bewaard in je account.", "Choose the dark or light theme; your choice is saved in your account.", "Wähle das dunkle oder helle Design; deine Wahl wird in deinem Konto gespeichert.", "Elige el tema oscuro o claro; tu elección se guarda en tu cuenta."],
   ["Beheer je eigen categorieën en hun trefwoorden.", "Manage your own categories and their keywords.", "Verwalte deine eigenen Kategorien und ihre Stichwörter.", "Gestiona tus propias categorías y sus palabras clave."],
   ["Savour zoekt nummers voor receptnamen en dubbele recepten. Je ziet altijd eerst wat er verandert.", "Savour looks for numbers in front of recipe names and duplicate recipes. You always see what changes first.", "Savour sucht Nummern vor Rezeptnamen und doppelte Rezepte. Du siehst immer zuerst, was sich ändert.", "Savour busca números delante de los nombres y recetas duplicadas. Siempre ves primero lo que cambia."],
   ["Collega uitnodigen en app", "Inviting a colleague and the app", "Kollegen einladen und App", "Invitar a un colega y la app"],
-  ["Zo werkt een gedeelde map", "How a shared folder works", "So funktioniert ein geteilter Ordner", "Así funciona una carpeta compartida"],
+  ["Zo werkt een keukenteam", "How a kitchen team works", "So funktioniert ein Küchenteam", "Así funciona un equipo de cocina"],
   ["Lees het hele artikel", "Read the full article", "Den ganzen Artikel lesen", "Leer el artículo completo"],
   ["Eén receptenboek voor je team", "One recipe book for your team", "Ein Rezeptbuch für dein Team", "Un recetario para tu equipo"],
-  ["Een gedeelde map is het receptenboek van je keuken. Iedereen die lid is, ziet dezelfde recepten op zijn eigen telefoon, tablet of computer. Past de maker een recept aan, dan ziet iedereen meteen de nieuwe versie.", "A shared folder is your kitchen’s recipe book. Every member sees the same recipes on their own phone, tablet or computer. When the creator changes a recipe, everyone sees the new version straight away.", "Ein geteilter Ordner ist das Rezeptbuch deiner Küche. Jedes Mitglied sieht dieselben Rezepte auf dem eigenen Handy, Tablet oder Computer. Ändert der Ersteller ein Rezept, sieht jeder sofort die neue Version.", "Una carpeta compartida es el recetario de tu cocina. Cada miembro ve las mismas recetas en su propio móvil, tableta u ordenador. Si el autor cambia una receta, todos ven enseguida la nueva versión."],
+  ["Een keukenteam is het receptenboek van je keuken. Iedereen die lid is, ziet dezelfde recepten op zijn eigen telefoon, tablet of computer. Past de maker een recept aan, dan ziet iedereen meteen de nieuwe versie.", "A kitchen team is your kitchen’s recipe book. Every member sees the same recipes on their own phone, tablet or computer. When the creator changes a recipe, everyone sees the new version straight away.", "Ein Küchenteam ist das Rezeptbuch deiner Küche. Jedes Mitglied sieht dieselben Rezepte auf dem eigenen Handy, Tablet oder Computer. Ändert der Ersteller ein Rezept, sieht jeder sofort die neue Version.", "Un equipo de cocina es el recetario de tu cocina. Cada miembro ve las mismas recetas en su propio móvil, tableta u ordenador. Si el autor cambia una receta, todos ven enseguida la nueva versión."],
   ["Rollen", "Roles", "Rollen", "Roles"],
   ["Eigenaar: beheert de map, de leden en hun rol. Editor: voegt recepten en mappen toe, haalt ze uit de map en beheert de mappen. Viewer: bekijkt, print en rekent om. Een recept bewerken kan altijd alleen de maker van dat recept.", "Owner: manages the folder, the members and their roles. Editor: adds recipes and folders, removes them and manages the folders. Viewer: views, prints and scales. Only the creator of a recipe can ever edit it.", "Eigentümer: verwaltet den Ordner, die Mitglieder und ihre Rollen. Editor: fügt Rezepte und Ordner hinzu, entfernt sie und verwaltet die Ordner. Betrachter: ansehen, drucken und umrechnen. Bearbeiten kann ein Rezept immer nur sein Ersteller.", "Propietario: gestiona la carpeta, los miembros y sus roles. Editor: añade recetas y carpetas, las quita y gestiona las carpetas. Lector: ver, imprimir y escalar. Solo el autor de una receta puede editarla."],
   ["Recepten toevoegen", "Adding recipes", "Rezepte hinzufügen", "Añadir recetas"],
-  ["Kies “Recept toevoegen” en vink recepten uit je eigen bibliotheek aan. Het recept blijft van jou: het staat in de gedeelde map en in je eigen recepten.", "Choose “Add recipe” and tick recipes from your own library. The recipe stays yours: it is in the shared folder and in your own recipes.", "Wähle „Rezept hinzufügen“ und markiere Rezepte aus deiner eigenen Bibliothek. Das Rezept bleibt deins: Es ist im geteilten Ordner und in deinen eigenen Rezepten.", "Elige «Añadir receta» y marca recetas de tu propia biblioteca. La receta sigue siendo tuya: está en la carpeta compartida y en tus propias recetas."],
+  ["Kies “Recept toevoegen” en vink recepten uit je eigen bibliotheek aan. Het recept blijft van jou: het staat in het keukenteam en in je eigen recepten.", "Choose “Add recipe” and tick recipes from your own library. The recipe stays yours: it is in the kitchen team and in your own recipes.", "Wähle „Rezept hinzufügen“ und markiere Rezepte aus deiner eigenen Bibliothek. Das Rezept bleibt deins: Es ist im Küchenteam und in deinen eigenen Rezepten.", "Elige «Añadir receta» y marca recetas de tu propia biblioteca. La receta sigue siendo tuya: está en el equipo de cocina y en tus propias recetas."],
   ["Mappen (receptenklappers)", "Folders (recipe binders)", "Ordner (Rezeptordner)", "Carpetas (archivadores)"],
-  ["Deel de gedeelde map op in mappen, bijvoorbeeld per partie of per menu. Met “Mappen beheren” wijzig je de naam, zet je de mappen in jouw volgorde en archiveer je mappen die je niet meer gebruikt. Recepten in een gearchiveerde map blijven bewaard en staan onderaan onder “Archief”.", "Split the shared folder into folders, for example per section or per menu. With “Manage folders” you rename them, put them in your order and archive folders you no longer use. Recipes in an archived folder are kept and appear at the bottom under “Archive”.", "Teile den geteilten Ordner in Ordner auf, zum Beispiel pro Posten oder pro Menü. Mit „Ordner verwalten“ benennst du sie um, bringst sie in deine Reihenfolge und archivierst Ordner, die du nicht mehr brauchst. Rezepte in einem archivierten Ordner bleiben erhalten und stehen unten unter „Archiv“.", "Divide la carpeta compartida en carpetas, por ejemplo por partida o por menú. Con «Gestionar carpetas» cambias el nombre, las ordenas a tu manera y archivas las que ya no usas. Las recetas de una carpeta archivada se conservan y aparecen abajo en «Archivo»."],
-  ["Nodig collega’s uit via WhatsApp, Telegram, e-mail of de uitnodigingslink. Na het inloggen worden ze lid als viewer; de eigenaar kan daarna hun rol aanpassen. Lid zijn van een gedeelde map is gratis.", "Invite colleagues via WhatsApp, Telegram, email or the invitation link. After logging in they join as a viewer; the owner can then change their role. Being a member of a shared folder is free.", "Lade Kollegen per WhatsApp, Telegram, E-Mail oder Einladungslink ein. Nach der Anmeldung sind sie Betrachter; der Eigentümer kann ihre Rolle danach ändern. Mitglied eines geteilten Ordners zu sein ist kostenlos.", "Invita a tus compañeros por WhatsApp, Telegram, correo o el enlace de invitación. Al iniciar sesión se unen como lector; el propietario puede cambiar después su rol. Ser miembro de una carpeta compartida es gratis."],
-  ["Print de hele gedeelde map, één map of een eigen selectie in één keer: met een inhoudsopgave, het nummer van elk recept onderaan de pagina en, met Savour Pro, het logo van je restaurant.", "Print the whole shared folder, one folder or your own selection at once: with a table of contents, the number of each recipe at the bottom of the page and, with Savour Pro, your restaurant’s logo.", "Drucke den ganzen geteilten Ordner, einen Ordner oder eine eigene Auswahl auf einmal: mit Inhaltsverzeichnis, der Nummer jedes Rezepts unten auf der Seite und mit Savour Pro dem Logo deines Restaurants.", "Imprime toda la carpeta compartida, una carpeta o tu propia selección de una vez: con índice, el número de cada receta al pie de la página y, con Savour Pro, el logo de tu restaurante."],
+  ["Deel het keukenteam op in mappen, bijvoorbeeld per partie of per menu. Met “Mappen beheren” wijzig je de naam, zet je de mappen in jouw volgorde en archiveer je mappen die je niet meer gebruikt. Recepten in een gearchiveerde map blijven bewaard en staan onderaan onder “Archief”.", "Split the kitchen team into folders, for example per section or per menu. With “Manage folders” you rename them, put them in your order and archive folders you no longer use. Recipes in an archived folder are kept and appear at the bottom under “Archive”.", "Teile das Küchenteam in Ordner auf, zum Beispiel pro Posten oder pro Menü. Mit „Ordner verwalten“ benennst du sie um, bringst sie in deine Reihenfolge und archivierst Ordner, die du nicht mehr brauchst. Rezepte in einem archivierten Ordner bleiben erhalten und stehen unten unter „Archiv“.", "Divide el equipo de cocina en carpetas, por ejemplo por partida o por menú. Con «Gestionar carpetas» cambias el nombre, las ordenas a tu manera y archivas las que ya no usas. Las recetas de una carpeta archivada se conservan y aparecen abajo en «Archivo»."],
+  ["Nodig collega’s uit via WhatsApp, Telegram, e-mail of de uitnodigingslink. Na het inloggen worden ze lid als viewer; de eigenaar kan daarna hun rol aanpassen. Lid zijn van een keukenteam is gratis.", "Invite colleagues via WhatsApp, Telegram, email or the invitation link. After logging in they join as a viewer; the owner can then change their role. Being a member of a kitchen team is free.", "Lade Kollegen per WhatsApp, Telegram, E-Mail oder Einladungslink ein. Nach der Anmeldung sind sie Betrachter; der Eigentümer kann ihre Rolle danach ändern. Mitglied eines Küchenteams zu sein ist kostenlos.", "Invita a tus compañeros por WhatsApp, Telegram, correo o el enlace de invitación. Al iniciar sesión se unen como lector; el propietario puede cambiar después su rol. Ser miembro de un equipo de cocina es gratis."],
+  ["Print de hele keukenteam, één map of een eigen selectie in één keer: met een inhoudsopgave, het nummer van elk recept onderaan de pagina en, met Savour Pro, het logo van je restaurant.", "Print the whole kitchen team, one folder or your own selection at once: with a table of contents, the number of each recipe at the bottom of the page and, with Savour Pro, your restaurant’s logo.", "Drucke den ganzen Küchenteam, einen Ordner oder eine eigene Auswahl auf einmal: mit Inhaltsverzeichnis, der Nummer jedes Rezepts unten auf der Seite und mit Savour Pro dem Logo deines Restaurants.", "Imprime toda el equipo de cocina, una carpeta o tu propia selección de una vez: con índice, el número de cada receta al pie de la página y, con Savour Pro, el logo de tu restaurante."],
   ["Omrekenen en kookmodus", "Scaling and cook mode", "Umrechnen und Kochmodus", "Escalar y modo cocina"],
   ["Reken elk recept om naar een andere opbrengst. De kookmodus toont alleen het recept in grote letters en houdt je scherm aan; vink ingrediënten en stappen af terwijl je werkt.", "Scale any recipe to another yield. Cook mode shows only the recipe in large type and keeps your screen on; tick off ingredients and steps as you work.", "Rechne jedes Rezept auf eine andere Ausbeute um. Der Kochmodus zeigt nur das Rezept in großer Schrift und hält den Bildschirm an; hake Zutaten und Schritte beim Arbeiten ab.", "Escala cualquier receta a otro rendimiento. El modo cocina muestra solo la receta en letra grande y mantiene la pantalla encendida; marca ingredientes y pasos mientras trabajas."],
   ["Recept overnemen", "Copying a recipe", "Rezept übernehmen", "Copiar una receta"],
@@ -1678,7 +1712,7 @@ export const strings = [
   ["Zonder internet", "Without internet", "Ohne Internet", "Sin internet"],
   ["Recepten die je hebt geopend, blijven op je apparaat beschikbaar, ook in een keuken zonder wifi.", "Recipes you have opened stay available on your device, even in a kitchen without wifi.", "Rezepte, die du geöffnet hast, bleiben auf deinem Gerät verfügbar, auch in einer Küche ohne WLAN.", "Las recetas que has abierto siguen disponibles en tu dispositivo, incluso en una cocina sin wifi."],
   ["Map verlaten of verwijderen", "Leaving or deleting a folder", "Ordner verlassen oder löschen", "Salir o eliminar una carpeta"],
-  ["Een lid kan een gedeelde map altijd verlaten. Alleen de eigenaar kan de map verwijderen; de recepten zelf blijven dan in de bibliotheek van hun maker.", "A member can always leave a shared folder. Only the owner can delete it; the recipes themselves stay in their creator’s library.", "Ein Mitglied kann einen geteilten Ordner jederzeit verlassen. Nur der Eigentümer kann ihn löschen; die Rezepte selbst bleiben in der Bibliothek ihres Erstellers.", "Un miembro siempre puede salir de una carpeta compartida. Solo el propietario puede eliminarla; las recetas siguen en la biblioteca de su autor."],
+  ["Een lid kan een keukenteam altijd verlaten. Alleen de eigenaar kan de map verwijderen; de recepten zelf blijven dan in de bibliotheek van hun maker.", "A member can always leave a kitchen team. Only the owner can delete it; the recipes themselves stay in their creator’s library.", "Ein Mitglied kann ein Küchenteam jederzeit verlassen. Nur der Eigentümer kann ihn löschen; die Rezepte selbst bleiben in der Bibliothek ihres Erstellers.", "Un miembro siempre puede salir de un equipo de cocina. Solo el propietario puede eliminarla; las recetas siguen en la biblioteca de su autor."],
   ["Mappen beheren", "Manage folders", "Ordner verwalten", "Gestionar carpetas"],
   ["Pas de naam aan, zet de mappen in jouw volgorde of archiveer mappen die je niet meer gebruikt. Recepten in een gearchiveerde map blijven bewaard.", "Rename folders, put them in your own order or archive folders you no longer use. Recipes in an archived folder are kept.", "Benenne Ordner um, bringe sie in deine Reihenfolge oder archiviere Ordner, die du nicht mehr brauchst. Rezepte in einem archivierten Ordner bleiben erhalten.", "Cambia el nombre, ordena las carpetas a tu manera o archiva las que ya no usas. Las recetas de una carpeta archivada se conservan."],
   ["Omhoog", "Up", "Nach oben", "Subir"],
@@ -1693,7 +1727,7 @@ export const strings = [
   ["Naam gewijzigd", "Name changed", "Name geändert", "Nombre cambiado"],
   ["Map gearchiveerd", "Folder archived", "Ordner archiviert", "Carpeta archivada"],
   ["Map teruggezet", "Folder restored", "Ordner wiederhergestellt", "Carpeta restaurada"],
-  ["Nog geen mappen in deze gedeelde map.", "No folders in this shared folder yet.", "Noch keine Ordner in diesem geteilten Ordner.", "Aún no hay carpetas en esta carpeta compartida."],
+  ["Nog geen mappen in dit keukenteam.", "No folders in this kitchen team yet.", "Noch keine Ordner in diesem Küchenteam.", "Aún no hay carpetas en este equipo de cocina."],
   ["1 uur", "1 hour", "1 Stunde", "1 hora"],
   ["Gedeeld door een gebruiker. Alleen de maker van het recept kan het bewerken.", "Shared by another user. Only the creator of the recipe can edit it.", "Von einem anderen Nutzer geteilt. Nur der Ersteller des Rezepts kann es bearbeiten.", "Compartida por otro usuario. Solo el autor de la receta puede editarla."],
   ["Hoelang?", "For how long?", "Wie lange?", "¿Durante cuánto tiempo?"],
@@ -1805,7 +1839,7 @@ export const strings = [
   ["Logo weggehaald", "Logo removed", "Logo entfernt", "Logo quitado"],
   ["Opslaan lukte niet. Probeer een kleiner logo.", "Saving failed. Try a smaller logo.", "Speichern fehlgeschlagen. Versuche ein kleineres Logo.", "No se pudo guardar. Prueba con un logo más pequeño."],
   ["Je prints krijgen dan alleen de naam van je restaurant.", "Your prints will then only show your restaurant's name.", "Deine Ausdrucke zeigen dann nur den Namen deines Restaurants.", "Tus impresiones mostrarán solo el nombre de tu restaurante."],
-  ["Dit logo staat op de prints van iedereen in je organisatie.", "This logo appears on the prints of everyone in your organisation.", "Dieses Logo erscheint auf den Ausdrucken aller in deiner Organisation.", "Este logo aparece en las impresiones de toda tu organización."],
+  ["Dit logo staat op de prints van iedereen in je brigade.", "This logo appears on the prints of everyone in your brigade.", "Dieses Logo erscheint auf den Ausdrucken aller in deiner Brigade.", "Este logo aparece en las impresiones de toda tu brigada."],
   ["Dit logo staat bovenaan elke pagina die je print: het logo links, de naam in het midden.", "This logo appears at the top of every page you print: the logo on the left, the name in the centre.", "Dieses Logo steht oben auf jeder Seite, die du druckst: das Logo links, der Name in der Mitte.", "Este logo aparece arriba en cada página que imprimes: el logo a la izquierda, el nombre en el centro."],
   ["Logo op prints is binnenkort beschikbaar.", "Logo on prints is coming soon.", "Logo auf Ausdrucken ist bald verfügbar.", "El logo en las impresiones estará disponible pronto."],
   ["Met Savour Pro print je recepten en mappen met het logo en de naam van je restaurant bovenaan. In de demo kun je dit niet instellen.", "With Savour Pro you print recipes and folders with your restaurant's logo and name at the top. You can't set this up in the demo.", "Mit Savour Pro druckst du Rezepte und Mappen mit Logo und Namen deines Restaurants oben auf der Seite. In der Demo kannst du das nicht einrichten.", "Con Savour Pro imprimes recetas y carpetas con el logo y el nombre de tu restaurante arriba. En la demo no puedes configurarlo."],
@@ -1816,7 +1850,7 @@ export const strings = [
   ["Zo stond het recept op papier, voordat Savour het las.","This is how the recipe looked on paper, before Savour read it.","So stand das Rezept auf Papier, bevor Savour es gelesen hat.","Así estaba la receta en papel, antes de que Savour la leyera."],
   ["Het origineel kon niet worden geladen.","The original could not be loaded.","Das Original konnte nicht geladen werden.","No se pudo cargar el original."],
   ["Offline","Offline","Offline","Sin conexión"],
-  ["Abonnement en organisatie","Subscription and organisation","Abo und Organisation","Suscripción y organización"],
+  ["Abonnement en brigade","Subscription and organisation","Abo und Organisation","Suscripción y organización"],
   ["Opschonen","Clean up","Aufräumen","Limpiar"],
   ["Savour kijkt hier of er nummers voor receptnamen staan, zoals “12. Kalfsjus”, en of recepten dubbel in je bibliotheek staan. Je ziet altijd eerst wat er verandert.","Savour checks here whether recipe names start with numbers, such as “12. Veal jus”, and whether recipes appear twice in your library. You always see what will change first.","Savour prüft hier, ob Rezeptnamen mit Nummern beginnen, wie „12. Kalbsjus“, und ob Rezepte doppelt in deiner Bibliothek stehen. Du siehst immer zuerst, was sich ändert.","Savour comprueba aquí si los nombres empiezan con números, como “12. Jugo de ternera”, y si hay recetas duplicadas en tu biblioteca. Siempre ves primero lo que cambia."],
   ["✓ Er is niets op te schonen: geen nummers voor receptnamen en geen dubbele recepten.","✓ Nothing to clean up: no numbers before recipe names and no duplicate recipes.","✓ Nichts aufzuräumen: keine Nummern vor Rezeptnamen und keine doppelten Rezepte.","✓ No hay nada que limpiar: ningún número delante de los nombres y ninguna receta duplicada."],
@@ -1828,17 +1862,17 @@ export const strings = [
   ["Zelf een recept invoeren","Enter a recipe yourself","Rezept selbst eingeben","Introducir una receta"],
   ["Eerst rondkijken","Look around first","Erst umsehen","Primero echar un vistazo"],
   ["Welkom bij Savour. Kies hieronder je wachtwoord","Welcome to Savour. Choose your password below","Willkommen bei Savour. Wähle unten dein Passwort","Bienvenido a Savour. Elige tu contraseña abajo"],
-  ["Hoe krijgen de leden van mijn organisatie Pro?","How do the members of my organisation get Pro?","Wie bekommen die Mitglieder meiner Organisation Pro?","¿Cómo obtienen Pro los miembros de mi organización?"],
-  ["Je voegt ze toe via Mijn organisatie in het menu, of op je telefoon via Mijn account → Abonnement. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.","You add them via My organisation in the menu, or on your phone via My account → Subscription. They get an invitation by email and have Savour Pro as soon as they log in or sign up with exactly that email address. You count as the first seat yourself.","Du fügst sie über Meine Organisation im Menü hinzu, oder am Handy über Mein Konto → Abo. Sie bekommen eine Einladung per E-Mail und haben Savour Pro, sobald sie sich mit genau dieser E-Mail-Adresse anmelden oder registrieren. Du selbst zählst als erster Platz.","Los añades desde Mi organización en el menú, o en el móvil desde Mi cuenta → Suscripción. Reciben una invitación por correo y tienen Savour Pro en cuanto inician sesión o se registran con exactamente ese correo. Tú cuentas como la primera plaza."],
+  ["Hoe krijgen de leden van mijn brigade Pro?","How do the members of my organisation get Pro?","Wie bekommen die Mitglieder meiner Organisation Pro?","¿Cómo obtienen Pro los miembros de mi organización?"],
+  ["Je voegt ze toe via Mijn brigade in het menu, of op je telefoon via Mijn account → Abonnement. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.","You add them via My brigade in the menu, or on your phone via My account → Subscription. They get an invitation by email and have Savour Pro as soon as they log in or sign up with exactly that email address. You count as the first seat yourself.","Du fügst sie über Meine Brigade im Menü hinzu, oder am Handy über Mein Konto → Abo. Sie bekommen eine Einladung per E-Mail und haben Savour Pro, sobald sie sich mit genau dieser E-Mail-Adresse anmelden oder registrieren. Du selbst zählst als erster Platz.","Los añades desde Mi brigada en el menú, o en el móvil desde Mi cuenta → Suscripción. Reciben una invitación por correo y tienen Savour Pro en cuanto inician sesión o se registran con exactamente ese correo. Tú cuentas como la primera plaza."],
   // ---- Teams: uitnodigen en uitleg (2026-10-23) ----
-  ["Mijn organisatie","My organisation","Meine Organisation","Mi organización"],
+  ["Mijn brigade","My brigade","Meine Brigade","Mi brigada"],
   ["Collega's toevoegen","Add colleagues","Kollegen hinzufügen","Añadir compañeros"],
   ["Aan de slag","Get started","Los geht’s","Empezar"],
-  ["Je organisatie staat klaar","Your organisation is ready","Deine Organisation ist bereit","Tu organización está lista"],
+  ["Je brigade staat klaar","Your brigade is ready","Deine Brigade ist bereit","Tu brigada está lista"],
   ["Vul het e-mailadres van een collega in en kies Toevoegen.","Enter a colleague’s email address and choose Add.","Gib die E-Mail-Adresse eines Kollegen ein und wähle Hinzufügen.","Introduce el correo de un compañero y elige Añadir."],
   ["Je collega krijgt een uitnodiging van ons per mail.","Your colleague gets an invitation from us by email.","Dein Kollege bekommt von uns eine Einladung per E-Mail.","Tu compañero recibe una invitación nuestra por correo."],
   ["Je collega heeft Savour Pro zodra die inlogt of zich aanmeldt met precies dat e-mailadres. Vertrekt iemand, geef dan de plek vrij voor een ander.","Your colleague has Savour Pro as soon as they log in or sign up with exactly that email address. If someone leaves, free up the seat for someone else.","Dein Kollege hat Savour Pro, sobald er sich mit genau dieser E-Mail-Adresse anmeldet oder registriert. Geht jemand, gib den Platz für jemand anderen frei.","Tu compañero tiene Savour Pro en cuanto inicia sesión o se registra con exactamente ese correo. Si alguien se va, libera la plaza para otra persona."],
-  ["Je hebt Savour Pro via je organisatie: onbeperkt recepten, gedeelde mappen en AI voor handgeschreven kladjes. Je hoeft niets te betalen; dat regelt je organisatie.","You have Savour Pro through your organisation: unlimited recipes, shared folders and AI for handwritten notes. You do not have to pay anything; your organisation takes care of that.","Du hast Savour Pro über deine Organisation: unbegrenzt Rezepte, geteilte Ordner und KI für handschriftliche Notizen. Du musst nichts bezahlen; das regelt deine Organisation.","Tienes Savour Pro a través de tu organización: recetas ilimitadas, carpetas compartidas e IA para notas escritas a mano. No tienes que pagar nada; de eso se encarga tu organización."],
+  ["Je hebt Savour Pro via je brigade: onbeperkt recepten, keukenteams en AI voor handgeschreven kladjes. Je hoeft niets te betalen; dat regelt je brigade.","You have Savour Pro through your brigade: unlimited recipes, kitchen teams and AI for handwritten notes. You do not have to pay anything; your brigade takes care of that.","Du hast Savour Pro über deine Brigade: unbegrenzt Rezepte, Küchenteams und KI für handschriftliche Notizen. Du musst nichts bezahlen; das regelt deine Brigade.","Tienes Savour Pro a través de tu brigada: recetas ilimitadas, equipos de cocina e IA para notas escritas a mano. No tienes que pagar nada; de eso se encarga tu brigada."],
   // ---- Camera: foto van een kladje (2026-10-23) ----
   ["Foto van een kladje","Photo of a note","Foto einer Notiz","Foto de una nota"],
   ["Maak met je camera een foto van een handgeschreven recept. De AI zet het om in een net recept.","Take a photo of a handwritten recipe with your camera. The AI turns it into a clean recipe.","Mach mit deiner Kamera ein Foto eines handgeschriebenen Rezepts. Die KI macht daraus ein sauberes Rezept.","Haz una foto de una receta escrita a mano con tu cámara. La IA la convierte en una receta limpia."],
@@ -1856,17 +1890,17 @@ export const strings = [
   ],
   ['Wat kan ik gratis?', 'What can I do for free?', 'Was kann ich kostenlos?', '¿Qué puedo hacer gratis?'],
   [
-    'Met een gratis account bewaar je tot 100 recepten, importeer je Word, PDF en tekst met de Savour-lezer en ben je lid van de gedeelde mappen van anderen. Nieuwe accounts proberen daarnaast 7 dagen Savour Pro gratis, zonder betaalgegevens; ook dan bewaar je tot 100 recepten.',
-    "With a free account you store up to 100 recipes, import Word, PDF and text with the Savour reader and can be a member of other people's shared folders. New accounts also try Savour Pro free for 7 days, without payment details; during that time you also store up to 100 recipes.",
-    'Mit einem kostenlosen Konto speicherst du bis zu 100 Rezepte, importierst Word, PDF und Text mit dem Savour-Leser und kannst Mitglied in geteilten Ordnern anderer sein. Neue Konten testen außerdem 7 Tage Savour Pro kostenlos, ohne Zahlungsdaten; auch dann speicherst du bis zu 100 Rezepte.',
-    'Con una cuenta gratuita guardas hasta 100 recetas, importas Word, PDF y texto con el lector de Savour y puedes ser miembro de carpetas compartidas de otros. Las cuentas nuevas además prueban Savour Pro 7 días gratis, sin datos de pago; también entonces guardas hasta 100 recetas.'
+    'Met een gratis account bewaar je tot 100 recepten, importeer je Word, PDF en tekst met de Savour-lezer en ben je lid van de keukenteams van anderen. Nieuwe accounts proberen daarnaast 7 dagen Savour Pro gratis, zonder betaalgegevens; ook dan bewaar je tot 100 recepten.',
+    "With a free account you store up to 100 recipes, import Word, PDF and text with the Savour reader and can be a member of other people's kitchen teams. New accounts also try Savour Pro free for 7 days, without payment details; during that time you also store up to 100 recipes.",
+    'Mit einem kostenlosen Konto speicherst du bis zu 100 Rezepte, importierst Word, PDF und Text mit dem Savour-Leser und kannst Mitglied in Küchenteams anderer sein. Neue Konten testen außerdem 7 Tage Savour Pro kostenlos, ohne Zahlungsdaten; auch dann speicherst du bis zu 100 Rezepte.',
+    'Con una cuenta gratuita guardas hasta 100 recetas, importas Word, PDF y texto con el lector de Savour y puedes ser miembro de equipos de cocina de otros. Las cuentas nuevas además prueban Savour Pro 7 días gratis, sin datos de pago; también entonces guardas hasta 100 recetas.'
   ],
   ['Wat krijg ik met Savour Pro?', 'What do I get with Savour Pro?', 'Was bekomme ich mit Savour Pro?', '¿Qué obtengo con Savour Pro?'],
   [
-    "Onbeperkt recepten, zelf gedeelde mappen maken en je team uitnodigen, en AI-import van foto's, handgeschreven en gescande recepten. Voor een hele keuken is er een organisatie-abonnement: hoe groter de organisatie, hoe lager de prijs per persoon.",
-    'Unlimited recipes, creating your own shared folders and inviting your team, and AI import of photos, handwritten and scanned recipes. For a whole kitchen there is an organisation plan: the bigger the organisation, the lower the price per person.',
-    'Unbegrenzt Rezepte, eigene geteilte Ordner erstellen und dein Team einladen, und KI-Import von Fotos, handschriftlichen und gescannten Rezepten. Für eine ganze Küche gibt es ein Organisations-Abo: je größer die Organisation, desto niedriger der Preis pro Person.',
-    'Recetas ilimitadas, crear tus propias carpetas compartidas e invitar a tu equipo, e importación con IA de fotos y recetas manuscritas o escaneadas. Para una cocina entera hay un plan de organización: cuanto mayor la organización, menor el precio por persona.'
+    "Onbeperkt recepten, zelf keukenteams maken en je team uitnodigen, en AI-import van foto's, handgeschreven en gescande recepten. Voor een hele keuken is er een brigade-abonnement: hoe groter de brigade, hoe lager de prijs per persoon.",
+    'Unlimited recipes, creating your own kitchen teams and inviting your team, and AI import of photos, handwritten and scanned recipes. For a whole kitchen there is an brigade plan: the bigger the brigade, the lower the price per person.',
+    'Unbegrenzt Rezepte, eigene Küchenteams erstellen und dein Brigade einladen, und KI-Import von Fotos, handschriftlichen und gescannten Rezepten. Für eine ganze Küche gibt es ein Brigade-Abo: je größer die Brigade, desto niedriger der Preis pro Person.',
+    'Recetas ilimitadas, crear tus propias equipos de cocina e invitar a tu equipo, e importación con IA de fotos y recetas manuscritas o escaneadas. Para una cocina entera hay un plan de brigada: cuanto mayor la brigada, menor el precio por persona.'
   ],
   [
     'Wat gebeurt er met mijn recepten als ik stop met Pro?',
@@ -1875,10 +1909,10 @@ export const strings = [
     '¿Qué pasa con mis recetas si dejo Pro?'
   ],
   [
-    'Die blijven allemaal staan, net als je gedeelde mappen. Je kunt alleen geen nieuwe recepten boven de 100 toevoegen en geen nieuwe gedeelde mappen maken.',
-    'They all stay, just like your shared folders. You just cannot add new recipes above 100 or create new shared folders.',
-    'Sie bleiben alle erhalten, genau wie deine geteilten Ordner. Du kannst nur keine neuen Rezepte über 100 hinzufügen und keine neuen geteilten Ordner erstellen.',
-    'Se conservan todas, igual que tus carpetas compartidas. Solo no puedes añadir recetas nuevas por encima de 100 ni crear nuevas carpetas compartidas.'
+    'Die blijven allemaal staan, net als je keukenteams. Je kunt alleen geen nieuwe recepten boven de 100 toevoegen en geen nieuwe keukenteams maken.',
+    'They all stay, just like your kitchen teams. You just cannot add new recipes above 100 or create new kitchen teams.',
+    'Sie bleiben alle erhalten, genau wie deine Küchenteam. Du kannst nur keine neuen Rezepte über 100 hinzufügen und keine neues Küchenteam erstellen.',
+    'Se conservan todas, igual que tus equipos de cocina. Solo no puedes añadir recetas nuevas por encima de 100 ni crear nuevas equipos de cocina.'
   ],
   [
     'Savour Pro is voor jou kosteloos geactiveerd.',
@@ -2208,15 +2242,15 @@ export const strings = [
   ],
 
   // ---- Gedeelde mappen ----
-  ['Gedeelde map', 'Shared folder', 'Geteilter Ordner', 'Carpeta compartida'],
-  ['Gedeelde map openen', 'Open shared folder', 'Geteilten Ordner öffnen', 'Abrir carpeta compartida'],
+  ['Keukenteam', 'Kitchen team', 'Küchenteam', 'Equipo de cocina'],
+  ['Keukenteam openen', 'Open kitchen team', 'Küchenteam öffnen', 'Abrir equipo de cocina'],
   [
-    'Kies de gedeelde map die je wilt openen.',
-    'Choose the shared folder you want to open.',
-    'Wähle den geteilten Ordner, den du öffnen möchtest.',
-    'Elige la carpeta compartida que quieres abrir.'
+    'Kies het keukenteam die je wilt openen.',
+    'Choose the kitchen team you want to open.',
+    'Wähle das Küchenteam, den du öffnen möchtest.',
+    'Elige el equipo de cocina que quieres abrir.'
   ],
-  ['＋ Nieuwe gedeelde map', '＋ New shared folder', '＋ Neuer geteilter Ordner', '＋ Nueva carpeta compartida'],
+  ['＋ Nieuw keukenteam', '＋ New kitchen team', '＋ Neuer Küchenteam', '＋ Nuevo equipo de cocina'],
   [
     'Maak een map die je met je keukenteam kunt delen.',
     'Create a folder you can share with your kitchen team.',
@@ -2224,10 +2258,10 @@ export const strings = [
     'Crea una carpeta para compartir con tu equipo de cocina.'
   ],
   [
-    'Naam van de gedeelde map',
-    'Name of the shared folder',
-    'Name des geteilten Ordners',
-    'Nombre de la carpeta compartida'
+    'Naam van het keukenteam',
+    'Name of the kitchen team',
+    'Name des Küchenteams',
+    'Nombre del equipo de cocina'
   ],
   [
     'Bijv. Garde, Patisserie of Keuken algemeen',
@@ -2235,33 +2269,33 @@ export const strings = [
     'Z. B. Garde-Manger, Patisserie oder Küche allgemein',
     'P. ej. Garde manger, Pastelería o Cocina general'
   ],
-  ['Gedeelde map maken', 'Create shared folder', 'Geteilten Ordner erstellen', 'Crear carpeta compartida'],
-  ['Gedeelde map beheren', 'Manage shared folder', 'Geteilten Ordner verwalten', 'Gestionar carpeta compartida'],
-  ['Beheer gedeelde map', 'Manage shared folder', 'Geteilten Ordner verwalten', 'Gestionar carpeta compartida'],
+  ['Keukenteam maken', 'Create kitchen team', 'Küchenteam erstellen', 'Crear equipo de cocina'],
+  ['Keukenteam beheren', 'Manage kitchen team', 'Küchenteam verwalten', 'Gestionar equipo de cocina'],
+  ['Beheer keukenteam', 'Manage kitchen team', 'Küchenteam verwalten', 'Gestionar equipo de cocina'],
   ['Beheer', 'Manage', 'Verwalten', 'Gestionar'],
   [
-    'Beheer de gedeelde mappen die je met je team gebruikt. Kies welke in het menu staan en bepaal zelf de volgorde.',
-    'Manage the shared folders you use with your team. Choose which appear in the menu and set the order yourself.',
-    'Verwalte die geteilten Ordner deines Teams. Wähle, welche im Menü stehen, und bestimme die Reihenfolge.',
+    'Beheer de keukenteams die je met je team gebruikt. Kies welke in het menu staan en bepaal zelf de volgorde.',
+    'Manage the kitchen teams you use with your team. Choose which appear in the menu and set the order yourself.',
+    'Verwalte die Küchenteam deines Teams. Wähle, welche im Menü stehen, und bestimme die Reihenfolge.',
     'Gestiona las carpetas que compartes con tu equipo. Elige cuáles aparecen en el menú y su orden.'
   ],
   [
-    'Gedeelde mappen bijgewerkt',
-    'Shared folders updated',
-    'Geteilte Ordner aktualisiert',
-    'Carpetas compartidas actualizadas'
+    'Keukenteams bijgewerkt',
+    'Kitchen teams updated',
+    'Küchenteams aktualisiert',
+    'Equipos de cocina actualizadas'
   ],
   [
-    'Nog geen gedeelde mappen. Klik op “Gedeelde map toevoegen”.',
-    'No shared folders yet. Click “Add shared folder”.',
-    'Noch keine geteilten Ordner. Klicke auf „Geteilten Ordner hinzufügen“.',
-    'Aún no hay carpetas compartidas. Haz clic en «Añadir carpeta compartida».'
+    'Nog geen keukenteams. Klik op “Keukenteam toevoegen”.',
+    'No kitchen teams yet. Click “Add kitchen team”.',
+    'Noch keine Küchenteams. Klicke auf „Küchenteam hinzufügen“.',
+    'Aún no hay equipos de cocina. Haz clic en «Añadir equipo de cocina».'
   ],
   [
-    'Nog geen gedeelde mappen. Maak je eerste map aan.',
-    'No shared folders yet. Create your first folder.',
-    'Noch keine geteilten Ordner. Erstelle deinen ersten Ordner.',
-    'Aún no hay carpetas compartidas. Crea la primera.'
+    'Nog geen keukenteams. Maak je eerste map aan.',
+    'No kitchen teams yet. Create your first folder.',
+    'Noch keine Küchenteams. Erstelle deinen ersten Ordner.',
+    'Aún no hay equipos de cocina. Crea la primera.'
   ],
   ['Alle gedeelde recepten', 'All shared recipes', 'Alle geteilten Rezepte', 'Todas las recetas compartidas'],
   [
@@ -2271,20 +2305,20 @@ export const strings = [
     'No hay recetas compartidas para esta selección.'
   ],
   [
-    'Deze gedeelde map bevat geen recepten voor deze selectie.',
-    'This shared folder contains no recipes for this selection.',
-    'Dieser geteilte Ordner enthält keine Rezepte für diese Auswahl.',
-    'Esta carpeta compartida no contiene recetas para esta selección.'
+    'Dit keukenteam bevat geen recepten voor deze selectie.',
+    'This kitchen team contains no recipes for this selection.',
+    'Dieses Küchenteam enthält keine Rezepte für diese Auswahl.',
+    'Este equipo de cocina no contiene recetas para esta selección.'
   ],
   [
-    'Deze gedeelde map bevat nog geen recepten',
-    'This shared folder does not contain any recipes yet',
-    'Dieser geteilte Ordner enthält noch keine Rezepte',
-    'Esta carpeta compartida aún no contiene recetas'
+    'Dit keukenteam bevat nog geen recepten',
+    'This kitchen team does not contain any recipes yet',
+    'Dieses Küchenteam enthält noch keine Rezepte',
+    'Este equipo de cocina aún no contiene recetas'
   ],
   ['Recept toevoegen', 'Add recipe', 'Rezept hinzufügen', 'Añadir receta'],
-  ['Team uitnodigen', 'Invite team', 'Team einladen', 'Invitar al equipo'],
-  ['＋ Teamlid uitnodigen', '＋ Invite team member', '＋ Teammitglied einladen', '＋ Invitar a un miembro'],
+  ['Brigade uitnodigen', 'Invite your brigade', 'Brigade einladen', 'Invitar a tu brigada'],
+  ['＋ Iemand uitnodigen', '＋ Invite someone', '＋ Jemanden einladen', '＋ Invitar a un miembro'],
   ['Map verlaten', 'Leave folder', 'Ordner verlassen', 'Abandonar carpeta'],
   ['Foto toevoegen', 'Add photo', 'Foto hinzufügen', 'Añadir foto'],
   ['Foto wijzigen', 'Change photo', 'Foto ändern', 'Cambiar foto'],
@@ -2331,31 +2365,31 @@ export const strings = [
     'Nur der Eigentümer kann die Ordnereinstellungen ändern.',
     'Solo el propietario puede cambiar la configuración.'
   ],
-  ['Gedeelde map verwijderen', 'Delete shared folder', 'Geteilten Ordner löschen', 'Eliminar carpeta compartida'],
+  ['Keukenteam verwijderen', 'Delete kitchen team', 'Küchenteam löschen', 'Eliminar equipo de cocina'],
   ['Delen / uitnodigen', 'Share / invite', 'Teilen / einladen', 'Compartir / invitar'],
   [
-    'Nog geen foto voor deze gedeelde map.',
-    'No photo for this shared folder yet.',
-    'Noch kein Foto für diesen geteilten Ordner.',
-    'Aún no hay foto para esta carpeta compartida.'
+    'Nog geen foto voor dit keukenteam.',
+    'No photo for this kitchen team yet.',
+    'Noch kein Foto für dieses Küchenteam.',
+    'Aún no hay foto para este equipo de cocina.'
   ],
   [
-    '← Terug naar gedeelde map',
-    '← Back to shared folder',
-    '← Zurück zum geteilten Ordner',
-    '← Volver a la carpeta compartida'
+    '← Terug naar keukenteam',
+    '← Back to kitchen team',
+    '← Zurück zum Küchenteam',
+    '← Volver al equipo de cocina'
   ],
   [
-    '← Terug naar gedeelde mappen',
-    '← Back to shared folders',
-    '← Zurück zu den geteilten Ordnern',
-    '← Volver a las carpetas compartidas'
+    '← Terug naar keukenteams',
+    '← Back to kitchen teams',
+    '← Zurück zu den Küchenteams',
+    '← Volver a los equipos de cocina'
   ],
   [
-    'Nieuwe map in gedeelde map',
-    'New folder in shared folder',
-    'Neuer Ordner im geteilten Ordner',
-    'Nueva carpeta dentro de la carpeta compartida'
+    'Nieuwe map in keukenteam',
+    'New folder in kitchen team',
+    'Neuer Ordner im Küchenteam',
+    'Nueva carpeta dentro del equipo de cocina'
   ],
   [
     'Bijv. Parties, Garde of Patisserie',
@@ -2364,109 +2398,109 @@ export const strings = [
     'P. ej. Partidas, Garde manger o Pastelería'
   ],
   [
-    'Bepaal zelf hoe deze gedeelde map wordt georganiseerd.',
-    'Decide for yourself how this shared folder is organised.',
-    'Bestimme selbst, wie dieser geteilte Ordner organisiert wird.',
-    'Decide tú cómo se organiza esta carpeta compartida.'
+    'Bepaal zelf hoe dit keukenteam wordt georganiseerd.',
+    'Decide for yourself how this kitchen team is organised.',
+    'Bestimme selbst, wie dieser Küchenteams organisiert wird.',
+    'Decide tú cómo se organiza este equipo de cocina.'
   ],
   [
-    'Recepten aan gedeelde map toevoegen',
-    'Add recipes to shared folder',
-    'Rezepte zum geteilten Ordner hinzufügen',
-    'Añadir recetas a la carpeta compartida'
+    'Recepten aan keukenteam toevoegen',
+    'Add recipes to kitchen team',
+    'Rezepte zum Küchenteam hinzufügen',
+    'Añadir recetas al equipo de cocina'
   ],
   [
-    'Recepten toegevoegd aan gedeelde map',
-    'Recipes added to shared folder',
-    'Rezepte zum geteilten Ordner hinzugefügt',
-    'Recetas añadidas a la carpeta compartida'
+    'Recepten toegevoegd aan keukenteam',
+    'Recipes added to kitchen team',
+    'Rezepte zum Küchenteam hinzugefügt',
+    'Recetas añadidas al equipo de cocina'
   ],
   [
-    'Recept uit gedeelde map verwijderd',
-    'Recipe removed from shared folder',
+    'Recept uit keukenteam verwijderd',
+    'Recipe removed from kitchen team',
     'Rezept aus geteiltem Ordner entfernt',
-    'Receta quitada de la carpeta compartida'
+    'Receta quitada del equipo de cocina'
   ],
   [
-    'Recept kon niet aan de gedeelde map worden toegevoegd',
-    'Recipe could not be added to the shared folder',
-    'Rezept konnte nicht zum geteilten Ordner hinzugefügt werden',
-    'No se pudo añadir la receta a la carpeta compartida'
+    'Recept kon niet aan het keukenteam worden toegevoegd',
+    'Recipe could not be added to the kitchen team',
+    'Rezept konnte nicht zum Küchenteam hinzugefügt werden',
+    'No se pudo añadir la receta al equipo de cocina'
   ],
   [
-    'Recept kon niet uit de gedeelde map worden verwijderd',
-    'Recipe could not be removed from the shared folder',
-    'Rezept konnte nicht aus dem geteilten Ordner entfernt werden',
-    'No se pudo quitar la receta de la carpeta compartida'
+    'Recept kon niet uit het keukenteam worden verwijderd',
+    'Recipe could not be removed from the kitchen team',
+    'Rezept konnte nicht aus dem Küchenteam entfernt werden',
+    'No se pudo quitar la receta del equipo de cocina'
   ],
   [
-    'Recept kon niet uit een gedeelde map worden verwijderd',
-    'Recipe could not be removed from a shared folder',
-    'Rezept konnte nicht aus einem geteilten Ordner entfernt werden',
-    'No se pudo quitar la receta de una carpeta compartida'
+    'Recept kon niet uit een keukenteam worden verwijderd',
+    'Recipe could not be removed from a kitchen team',
+    'Rezept konnte nicht aus einem Küchenteam entfernt werden',
+    'No se pudo quitar la receta de un equipo de cocina'
   ],
-  ['Gedeelde map aangemaakt', 'Shared folder created', 'Geteilter Ordner erstellt', 'Carpeta compartida creada'],
-  ['Gedeelde map hernoemd', 'Shared folder renamed', 'Geteilter Ordner umbenannt', 'Carpeta compartida renombrada'],
-  ['Gedeelde map verwijderd', 'Shared folder deleted', 'Geteilter Ordner gelöscht', 'Carpeta compartida eliminada'],
+  ['Keukenteam aangemaakt', 'Kitchen team created', 'Küchenteam erstellt', 'Equipo de cocina creada'],
+  ['Keukenteam hernoemd', 'Kitchen team renamed', 'Küchenteam umbenannt', 'Equipo de cocina renombrada'],
+  ['Keukenteam verwijderd', 'Kitchen team deleted', 'Küchenteam gelöscht', 'Equipo de cocina eliminada'],
   [
-    'Gedeelde map niet gevonden.',
-    'Shared folder not found.',
-    'Geteilter Ordner nicht gefunden.',
-    'Carpeta compartida no encontrada.'
-  ],
-  [
-    'Gedeelde map kon niet worden aangemaakt',
-    'Shared folder could not be created',
-    'Geteilter Ordner konnte nicht erstellt werden',
-    'No se pudo crear la carpeta compartida'
+    'Keukenteam niet gevonden.',
+    'Kitchen team not found.',
+    'Küchenteam nicht gefunden.',
+    'Equipo de cocina no encontrada.'
   ],
   [
-    'Gedeelde map kon niet worden geladen',
-    'Shared folder could not be loaded',
-    'Geteilter Ordner konnte nicht geladen werden',
-    'No se pudo cargar la carpeta compartida'
+    'Keukenteam kon niet worden aangemaakt',
+    'Kitchen team could not be created',
+    'Küchenteam konnte nicht erstellt werden',
+    'No se pudo crear el equipo de cocina'
   ],
   [
-    'Gedeelde map kon niet worden hernoemd',
-    'Shared folder could not be renamed',
-    'Geteilter Ordner konnte nicht umbenannt werden',
-    'No se pudo renombrar la carpeta compartida'
+    'Keukenteam kon niet worden geladen',
+    'Kitchen team could not be loaded',
+    'Küchenteam konnte nicht geladen werden',
+    'No se pudo cargar el equipo de cocina'
   ],
   [
-    'Gedeelde map kon niet worden verwijderd',
-    'Shared folder could not be deleted',
-    'Geteilter Ordner konnte nicht gelöscht werden',
-    'No se pudo eliminar la carpeta compartida'
+    'Keukenteam kon niet worden hernoemd',
+    'Kitchen team could not be renamed',
+    'Küchenteam konnte nicht umbenannt werden',
+    'No se pudo renombrar el equipo de cocina'
   ],
   [
-    'Gedeelde mappen konden niet worden geladen.',
-    'Shared folders could not be loaded.',
-    'Geteilte Ordner konnten nicht geladen werden.',
-    'No se pudieron cargar las carpetas compartidas.'
+    'Keukenteam kon niet worden verwijderd',
+    'Kitchen team could not be deleted',
+    'Küchenteam konnte nicht gelöscht werden',
+    'No se pudo eliminar el equipo de cocina'
   ],
   [
-    'Deze gedeelde map bestaat al',
-    'This shared folder already exists',
-    'Dieser geteilte Ordner existiert bereits',
-    'Esta carpeta compartida ya existe'
+    'Keukenteams konden niet worden geladen.',
+    'Kitchen teams could not be loaded.',
+    'Küchenteams konnten nicht geladen werden.',
+    'No se pudieron cargar los equipos de cocina.'
   ],
   [
-    'Deze gedeelde map bestaat niet meer of je hebt geen toegang.',
-    'This shared folder no longer exists or you do not have access.',
-    'Dieser geteilte Ordner existiert nicht mehr oder du hast keinen Zugriff.',
-    'Esta carpeta compartida ya no existe o no tienes acceso.'
+    'Dit keukenteam bestaat al',
+    'This kitchen team already exists',
+    'Dieses Küchenteam existiert bereits',
+    'Este equipo de cocina ya existe'
   ],
   [
-    'Nieuwe naam voor deze gedeelde map',
-    'New name for this shared folder',
-    'Neuer Name für diesen geteilten Ordner',
-    'Nuevo nombre para esta carpeta compartida'
+    'Dit keukenteam bestaat niet meer of je hebt geen toegang.',
+    'This kitchen team no longer exists or you do not have access.',
+    'Dieses Küchenteam existiert nicht mehr oder du hast keinen Zugriff.',
+    'Este equipo de cocina ya no existe o no tienes acceso.'
   ],
   [
-    'Je hebt geen rechten om deze gedeelde map te wijzigen',
-    'You do not have permission to change this shared folder',
-    'Du hast keine Berechtigung, diesen geteilten Ordner zu ändern',
-    'No tienes permiso para cambiar esta carpeta compartida'
+    'Nieuwe naam voor dit keukenteam',
+    'New name for this kitchen team',
+    'Neuer Name für dieses Küchenteam',
+    'Nuevo nombre para este equipo de cocina'
+  ],
+  [
+    'Je hebt geen rechten om dit keukenteam te wijzigen',
+    'You do not have permission to change this kitchen team',
+    'Du hast keine Berechtigung, dieses Küchenteam zu ändern',
+    'No tienes permiso para cambiar este equipo de cocina'
   ],
   [
     'Je hebt geen rechten om recepten toe te voegen',
@@ -2475,10 +2509,10 @@ export const strings = [
     'No tienes permiso para añadir recetas'
   ],
   [
-    'Je hebt geen rechten om recepten toe te voegen aan deze gedeelde map',
-    'You do not have permission to add recipes to this shared folder',
-    'Du hast keine Berechtigung, diesem geteilten Ordner Rezepte hinzuzufügen',
-    'No tienes permiso para añadir recetas a esta carpeta compartida'
+    'Je hebt geen rechten om recepten toe te voegen aan dit keukenteam',
+    'You do not have permission to add recipes to this kitchen team',
+    'Du hast keine Berechtigung, diesem Küchenteam Rezepte hinzuzufügen',
+    'No tienes permiso para añadir recetas a este equipo de cocina'
   ],
   [
     'Je hebt geen rechten om de foto te wijzigen',
@@ -2526,34 +2560,34 @@ export const strings = [
     'No se pudo eliminar al miembro'
   ],
   [
-    'Je hebt de gedeelde map verlaten',
-    'You have left the shared folder',
-    'Du hast den geteilten Ordner verlassen',
-    'Has abandonado la carpeta compartida'
+    'Je hebt het keukenteam verlaten',
+    'You have left the kitchen team',
+    'Du hast das Küchenteam verlassen',
+    'Has abandonado el equipo de cocina'
   ],
   [
-    'Je kon de gedeelde map niet verlaten',
-    'You could not leave the shared folder',
-    'Du konntest den geteilten Ordner nicht verlassen',
-    'No has podido abandonar la carpeta compartida'
+    'Je kon het keukenteam niet verlaten',
+    'You could not leave the kitchen team',
+    'Du konntest das Küchenteam nicht verlassen',
+    'No has podido abandonar el equipo de cocina'
   ],
   [
-    'Je kon niet aan de gedeelde map worden toegevoegd. Vraag een nieuwe uitnodigingslink.',
-    'You could not be added to the shared folder. Ask for a new invitation link.',
-    'Du konntest dem geteilten Ordner nicht hinzugefügt werden. Bitte um einen neuen Einladungslink.',
-    'No se te pudo añadir a la carpeta compartida. Pide un nuevo enlace de invitación.'
+    'Je kon niet aan het keukenteam worden toegevoegd. Vraag een nieuwe uitnodigingslink.',
+    'You could not be added to the kitchen team. Ask for a new invitation link.',
+    'Du konntest dem Küchenteam nicht hinzugefügt werden. Bitte um einen neuen Einladungslink.',
+    'No se te pudo añadir al equipo de cocina. Pide un nuevo enlace de invitación.'
   ],
   [
-    'Dit is je eigen gedeelde map.',
-    'This is your own shared folder.',
-    'Das ist dein eigener geteilter Ordner.',
-    'Esta es tu propia carpeta compartida.'
+    'Dit is je eigen keukenteam.',
+    'This is your own kitchen team.',
+    'Das ist dein eigener Küchenteam.',
+    'Esta es tu propio equipo de cocina.'
   ],
   [
-    'De recepten van dit teamlid verdwijnen uit de gedeelde map.',
-    'This team member’s recipes will disappear from the shared folder.',
-    'Die Rezepte dieses Teammitglieds verschwinden aus dem geteilten Ordner.',
-    'Las recetas de este miembro desaparecerán de la carpeta compartida.'
+    'De recepten van dit teamlid verdwijnen uit het keukenteam.',
+    'This team member’s recipes will disappear from the kitchen team.',
+    'Die Rezepte dieses Teammitglieds verschwinden aus dem Küchenteam.',
+    'Las recetas de este miembro desaparecerán del equipo de cocina.'
   ],
   [
     'Je eigen recepten blijven in je bibliotheek.',
@@ -2562,14 +2596,14 @@ export const strings = [
     'Tus recetas siguen en tu biblioteca.'
   ],
   [
-    'De gedeelde map en de indeling worden verwijderd. Je persoonlijke recepten blijven behouden.',
-    'The shared folder and its layout will be deleted. Your personal recipes are kept.',
-    'Der geteilte Ordner und seine Struktur werden gelöscht. Deine persönlichen Rezepte bleiben erhalten.',
-    'Se eliminarán la carpeta compartida y su organización. Tus recetas personales se conservan.'
+    'Het keukenteam en de indeling worden verwijderd. Je persoonlijke recepten blijven behouden.',
+    'The kitchen team and its layout will be deleted. Your personal recipes are kept.',
+    'Der Küchenteams und seine Struktur werden gelöscht. Deine persönlichen Rezepte bleiben erhalten.',
+    'Se eliminarán el equipo de cocina y su organización. Tus recetas personales se conservan.'
   ],
 
   // ---- Uitnodiging en openbare pagina's ----
-  ['Savour · Gedeelde map', 'Savour · Shared folder', 'Savour · Geteilter Ordner', 'Savour · Carpeta compartida'],
+  ['Savour · Keukenteam', 'Savour · Kitchen team', 'Savour · Küchenteam', 'Savour · Equipo de cocina'],
   ['Savour · Recept', 'Savour · Recipe', 'Savour · Rezept', 'Savour · Receta'],
   [
     'Je bent uitgenodigd om mee te werken in een gedeelde receptenmap van Savour.',
@@ -2960,10 +2994,10 @@ export const strings = [
     'Una plataforma. Ordenador, tableta y móvil.'
   ],
   [
-    'Savour werkt op je computer, tablet en telefoon, gewoon in de browser. Je hoeft niets te installeren: overal dezelfde recepten, mappen, gedeelde mappen en hetzelfde account. Je workflow blijft overal gesynchroniseerd.',
-    'Savour works on your computer, tablet and phone, right in the browser. Nothing to install: the same recipes, folders, shared folders and account everywhere. Your workflow stays in sync everywhere.',
-    'Savour funktioniert auf deinem Computer, Tablet und Handy, direkt im Browser. Nichts zu installieren: überall dieselben Rezepte, Ordner, geteilten Ordner und dasselbe Konto. Dein Arbeitsablauf bleibt überall synchron.',
-    'Savour funciona en tu ordenador, tableta y móvil, directamente en el navegador. Sin instalar nada: las mismas recetas, carpetas, carpetas compartidas y cuenta en todas partes. Tu trabajo se sincroniza en todas partes.'
+    'Savour werkt op je computer, tablet en telefoon, gewoon in de browser. Je hoeft niets te installeren: overal dezelfde recepten, mappen, keukenteams en hetzelfde account. Je workflow blijft overal gesynchroniseerd.',
+    'Savour works on your computer, tablet and phone, right in the browser. Nothing to install: the same recipes, folders, kitchen teams and account everywhere. Your workflow stays in sync everywhere.',
+    'Savour funktioniert auf deinem Computer, Tablet und Handy, direkt im Browser. Nichts zu installieren: überall dieselben Rezepte, Ordner, Küchenteam und dasselbe Konto. Dein Arbeitsablauf bleibt überall synchron.',
+    'Savour funciona en tu ordenador, tableta y móvil, directamente en el navegador. Sin instalar nada: las mismas recetas, carpetas, equipos de cocina y cuenta en todas partes. Tu trabajo se sincroniza en todas partes.'
   ],
   ['✓ Desktop browser', '✓ Desktop browser', '✓ Desktop-Browser', '✓ Navegador de escritorio'],
   ['✓ Mobiele browser', '✓ Mobile browser', '✓ Mobiler Browser', '✓ Navegador móvil'],
@@ -3036,10 +3070,10 @@ export const strings = [
   ],
   ['Samenwerken met een team', 'Working with a team', 'Zusammenarbeit im Team', 'Trabajar en equipo'],
   [
-    'Gedeelde mappen maken het mogelijk om recepten gecontroleerd beschikbaar te stellen aan collega’s. Gebruik persoonlijke bibliotheken voor eigen werk en gedeelde mappen voor samenwerking, overdracht en vaste werkafspraken.',
-    'Shared folders let you make recipes available to colleagues in a controlled way. Use your personal library for your own work and shared folders for collaboration, handovers and agreed ways of working.',
-    'Geteilte Ordner machen Rezepte kontrolliert für Kollegen verfügbar. Nutze die persönliche Bibliothek für eigene Arbeit und geteilte Ordner für Zusammenarbeit, Übergaben und feste Absprachen.',
-    'Las carpetas compartidas permiten poner recetas a disposición de tus compañeros de forma controlada. Usa tu biblioteca personal para tu trabajo y las carpetas compartidas para colaborar, hacer traspasos y acordar formas de trabajo.'
+    'Keukenteams maken het mogelijk om recepten gecontroleerd beschikbaar te stellen aan collega’s. Gebruik persoonlijke bibliotheken voor eigen werk en keukenteams voor samenwerking, overdracht en vaste werkafspraken.',
+    'Kitchen teams let you make recipes available to colleagues in a controlled way. Use your personal library for your own work and kitchen teams for collaboration, handovers and agreed ways of working.',
+    'Küchenteams machen Rezepte kontrolliert für Kollegen verfügbar. Nutze die persönliche Bibliothek für eigene Arbeit und Küchenteams für Zusammenarbeit, Übergaben und feste Absprachen.',
+    'Las equipos de cocina permiten poner recetas a disposición de tus compañeros de forma controlada. Usa tu biblioteca personal para tu trabajo y los equipos de cocina para colaborar, hacer traspasos y acordar formas de trabajo.'
   ],
   ['Wat is Savour?', 'What is Savour?', 'Was ist Savour?', '¿Qué es Savour?'],
   [
@@ -3049,9 +3083,9 @@ export const strings = [
     '¿Cómo añado una receta?'
   ],
   [
-    'Je kunt recepten zelf invoeren of bestaande recepten importeren. Je eigen receptenbibliotheek blijft centraal staan en recepten kunnen worden georganiseerd in persoonlijke mappen en gedeelde mappen.',
-    'You can enter recipes yourself or import existing ones. Your own recipe library stays central, and recipes can be organised in personal and shared folders.',
-    'Du kannst Rezepte selbst eingeben oder bestehende importieren. Deine Rezeptbibliothek steht im Mittelpunkt, und Rezepte lassen sich in persönlichen und geteilten Ordnern organisieren.',
+    'Je kunt recepten zelf invoeren of bestaande recepten importeren. Je eigen receptenbibliotheek blijft centraal staan en recepten kunnen worden georganiseerd in persoonlijke mappen en keukenteams.',
+    'You can enter recipes yourself or import existing ones. Your own recipe library stays central, and recipes can be organised in personal and kitchen teams.',
+    'Du kannst Rezepte selbst eingeben oder bestehende importieren. Deine Rezeptbibliothek steht im Mittelpunkt, und Rezepte lassen sich in persönlichen und Küchenteams organisieren.',
     'Puedes introducir recetas tú mismo o importar las que ya tienes. Tu biblioteca sigue siendo el centro y las recetas se pueden organizar en carpetas personales y compartidas.'
   ],
   [
@@ -3086,10 +3120,10 @@ export const strings = [
   ],
   ['Kan ik recepten delen?', 'Can I share recipes?', 'Kann ich Rezepte teilen?', '¿Puedo compartir recetas?'],
   [
-    'Ja. Met een gedeelde map kun je recepten met andere gebruikers delen en, afhankelijk van de ingestelde rechten, samenwerken.',
-    'Yes. With a shared folder you can share recipes with other users and, depending on the permissions, work together.',
-    'Ja. Mit einem geteilten Ordner kannst du Rezepte mit anderen teilen und je nach Rechten zusammenarbeiten.',
-    'Sí. Con una carpeta compartida puedes compartir recetas con otros usuarios y, según los permisos, colaborar.'
+    'Ja. Met een keukenteam kun je recepten met andere gebruikers delen en, afhankelijk van de ingestelde rechten, samenwerken.',
+    'Yes. With a kitchen team you can share recipes with other users and, depending on the permissions, work together.',
+    'Ja. Mit einem Küchenteam kannst du Rezepte mit anderen teilen und je nach Rechten zusammenarbeiten.',
+    'Sí. Con un equipo de cocina puedes compartir recetas con otros usuarios y, según los permisos, colaborar.'
   ],
   [
     'Waar worden mijn recepten opgeslagen?',
@@ -3110,9 +3144,9 @@ export const strings = [
     '¿Puedo decidir mi propia estructura?'
   ],
   [
-    'Ja. Categorieën, persoonlijke mappen en gedeelde mappen zijn bedoeld om aan te sluiten op jouw manier van werken. Houd de bibliotheek compact en gebruik de detailpagina voor de volledige receptuur.',
-    'Yes. Categories, personal folders and shared folders are meant to fit the way you work. Keep the library compact and use the detail page for the full recipe.',
-    'Ja. Kategorien, persönliche und geteilte Ordner sollen zu deiner Arbeitsweise passen. Halte die Bibliothek kompakt und nutze die Detailseite für die vollständige Rezeptur.',
+    'Ja. Categorieën, persoonlijke mappen en keukenteams zijn bedoeld om aan te sluiten op jouw manier van werken. Houd de bibliotheek compact en gebruik de detailpagina voor de volledige receptuur.',
+    'Yes. Categories, personal folders and kitchen teams are meant to fit the way you work. Keep the library compact and use the detail page for the full recipe.',
+    'Ja. Kategorien, persönliche und Küchenteams sollen zu deiner Arbeitsweise passen. Halte die Bibliothek kompakt und nutze die Detailseite für die vollständige Rezeptur.',
     'Sí. Las categorías, carpetas personales y compartidas están pensadas para adaptarse a tu forma de trabajar. Mantén la biblioteca compacta y usa la página de detalle para la receta completa.'
   ],
   [
@@ -3308,10 +3342,10 @@ export const strings = [
     'Los datos se usan para que tu cuenta funcione, guardar y mostrar recetas, ofrecer carpetas y funciones de compartir y respaldar la seguridad y el funcionamiento de Savour.'
   ],
   [
-    '3. Recepten en gedeelde mappen',
-    '3. Recipes and shared folders',
-    '3. Rezepte und geteilte Ordner',
-    '3. Recetas y carpetas compartidas'
+    '3. Recepten en keukenteams',
+    '3. Recipes and kitchen teams',
+    '3. Rezepte und Küchenteams',
+    '3. Recetas y equipos de cocina'
   ],
   [
     'Je persoonlijke recepten zijn bedoeld voor jouw account. Wanneer je een recept of map deelt, kunnen andere deelnemers de inhoud zien volgens de rechten en instellingen van die gedeelde functie.',
@@ -3361,11 +3395,22 @@ export const strings = [
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
 export const patterns = [
+  ["^Recepten (\\d+)$","Recipes $1","Rezepte $1","Recetas $1"],
+  ["^Mappen (\\d+)$","Folders $1","Ordner $1","Carpetas $1"],
+  ["^(\\d+) recepten · (\\d+) in de brigade$","$1 recipes · $2 in the brigade","$1 Rezepte · $2 in der Brigade","$1 recetas · $2 en la brigada"],
+  ["^(\\d+) van (\\d+) plekken met Pro \\(jij telt mee\\)$","$1 of $2 seats with Pro (you count too)","$1 von $2 Plätzen mit Pro (du zählst mit)","$1 de $2 plazas con Pro (tú cuentas)"],
+  ["^Je hebt Brigade (\\d+)$","You have Brigade $1","Du hast Brigade $1","Tienes Brigada $1"],
+  ["^Koppelen aan (.+)$","Link to $1","Mit $1 verknüpfen","Vincular a $1"],
+  ["^(\\d+) van (\\d+) plekken met Pro, in keukenteam (.+)\\. Mensen toevoegen en Pro geven doe je in het keukenteam, op het tabblad Brigade\\.$","$1 of $2 seats with Pro, in kitchen team $3. You add people and give Pro in the kitchen team, on the Brigade tab.","$1 von $2 Plätzen mit Pro, im Küchenteam $3. Leute hinzufügen und Pro vergeben machst du im Küchenteam, im Tab Brigade.","$1 de $2 plazas con Pro, en el equipo de cocina $3. Añades personas y das Pro en el equipo de cocina, en la pestaña Brigada."],
+  ["^(.+) zit nu in de brigade als sous-chef(, met Pro)?$","$1 is now in the brigade as sous-chef$2","$1 ist jetzt als Sous-Chef in der Brigade$2","$1 está ahora en la brigada como segundo de cocina$2"],
+  ["^(.+) zit nu in de brigade als kok(, met Pro)?$","$1 is now in the brigade as cook$2","$1 ist jetzt als Koch in der Brigade$2","$1 está ahora en la brigada como cocinero$2"],
+  ["^(\\d+) recepten? toegevoegd aan het keukenteam$","$1 recipe(s) added to the kitchen team","$1 Rezept(e) zum Küchenteam hinzugefügt","$1 receta(s) añadida(s) al equipo de cocina"],
+  ["^(.+) heeft nu Pro via de brigade$","$1 now has Pro through the brigade","$1 hat jetzt Pro über die Brigade","$1 ya tiene Pro a través de la brigada"],
   ["^(\\d+) recepten gedownload$", "$1 recipes downloaded", "$1 Rezepte heruntergeladen", "$1 recetas descargadas"],
   ["^(\\d+) van (\\d+) recepten$", "$1 of $2 recipes", "$1 von $2 Rezepten", "$1 de $2 recetas"],
   ["^(\\d+) recepten printen$", "Print $1 recipes", "$1 Rezepte drucken", "Imprimir $1 recetas"],
   ["^Geprint op (.+)$", "Printed on $1", "Gedruckt am $1", "Impreso el $1"],
-  ["^Je print met het logo van je organisatie \\((.+)\\)\\. Dat logo stelt de eigenaar van de organisatie in\\.$", "You print with your organisation's logo ($1). The organisation owner sets that logo.", "Du druckst mit dem Logo deiner Organisation ($1). Dieses Logo legt der Inhaber der Organisation fest.", "Imprimes con el logo de tu organización ($1). El propietario de la organización configura ese logo."],
+  ["^Je print met het logo van je brigade \\((.+)\\)\\. Dat logo stelt de eigenaar van de brigade in\\.$", "You print with your brigade's logo ($1). The organisation owner sets that logo.", "Du druckst mit dem Logo deiner Brigade ($1). Dieses Logo legt der Inhaber der Brigade fest.", "Imprimes con el logo de tu brigada ($1). El propietario de la brigada configura ese logo."],
   ['^(\\d+) recepten$', '$1 recipes', '$1 Rezepte', '$1 recetas'],
   ['^(\\d+) recept$', '$1 recipe', '$1 Rezept', '$1 receta'],
   ['^(\\d+) favorieten$', '$1 favourites', '$1 Favoriten', '$1 favoritos'],
@@ -3407,7 +3452,7 @@ export const patterns = [
     '$1 recetas · $2 carpetas'
   ],
   ['^Gedeeld door (.+)$', 'Shared by $1', 'Geteilt von $1', 'Compartido por $1'],
-  ['^Gedeelde map · (.+)$', 'Shared folder · $1', 'Geteilter Ordner · $1', 'Carpeta compartida · $1'],
+  ['^Keukenteam · (.+)$', 'Kitchen team · $1', 'Küchenteam · $1', 'Equipo de cocina · $1'],
   ['^Recepten aan (.+) toevoegen$', 'Add recipes to $1', 'Rezepte zu $1 hinzufügen', 'Añadir recetas a $1'],
   ['^(\\d+) recepten verwijderen\\?$', 'Delete $1 recipes?', '$1 Rezepte löschen?', '¿Eliminar $1 recetas?'],
   ['^(\\d+) recepten verwijderd$', '$1 recipes deleted', '$1 Rezepte gelöscht', '$1 recetas eliminadas'],
@@ -3418,10 +3463,10 @@ export const patterns = [
     '¿Seguro que quieres eliminar la carpeta «$1»?'
   ],
   [
-    '^Weet je zeker dat je de gedeelde map “(.+)” wilt verwijderen\\?$',
-    'Are you sure you want to delete the shared folder “$1”?',
-    'Möchtest du den geteilten Ordner „$1“ wirklich löschen?',
-    '¿Seguro que quieres eliminar la carpeta compartida «$1»?'
+    '^Weet je zeker dat je het keukenteam “(.+)” wilt verwijderen\\?$',
+    'Are you sure you want to delete the kitchen team “$1”?',
+    'Möchtest du das Küchenteam „$1“ wirklich löschen?',
+    '¿Seguro que quieres eliminar el equipo de cocina «$1»?'
   ],
   [
     '^Weet je zeker dat je de categorie “(.+)” wilt verwijderen\\?$',
@@ -3624,8 +3669,8 @@ export const patterns = [
     '$1 nombres actualizados, $2 fallaron. Inténtalo de nuevo.'
   ],
   // ---- Gratis, Pro en teams (2026-10-22) ----
-  ['^Organisatie (\\d+)$', 'Organisation $1', 'Organisation $1', 'Organización $1'],
-  ['^Savour Pro · Organisatie (\\d+)$', 'Savour Pro · Organisation $1', 'Savour Pro · Organisation $1', 'Savour Pro · Organización $1'],
+  ['^Brigade (\\d+)$', 'Brigade $1', 'Brigade $1', 'Brigada $1'],
+  ['^Savour Pro · Brigade (\\d+)$', 'Savour Pro · Brigade $1', 'Savour Pro · Brigade $1', 'Savour Pro · Brigada $1'],
   [
     '^(\\d+) personen · (€[\\d,]+) per persoon$',
     '$1 people · $2 per person',
@@ -3652,12 +3697,12 @@ export const patterns = [
     'Savour Pro wurde für dich kostenlos bis $1 aktiviert.',
     'Savour Pro se ha activado gratis para ti hasta el $1.'
   ],
-  ['^Via je organisatie: (.+)\\.$', 'Through your organisation: $1.', 'Über deine Organisation: $1.', 'A través de tu organización: $1.'],
+  ['^Via je brigade: (.+)\\.$', 'Through your brigade: $1.', 'Über deine Brigade: $1.', 'A través de tu brigada: $1.'],
   [
-    '^(\\d+) van (\\d+|∞) recepten\\. Met Savour Pro onbeperkt recepten, je eigen gedeelde mappen en AI-import\\.$',
-    '$1 of $2 recipes. With Savour Pro: unlimited recipes, your own shared folders and AI import.',
-    '$1 von $2 Rezepten. Mit Savour Pro: unbegrenzt Rezepte, eigene geteilte Ordner und KI-Import.',
-    '$1 de $2 recetas. Con Savour Pro: recetas ilimitadas, tus propias carpetas compartidas e importación con IA.'
+    '^(\\d+) van (\\d+|∞) recepten\\. Met Savour Pro onbeperkt recepten, je eigen keukenteams en AI-import\\.$',
+    '$1 of $2 recipes. With Savour Pro: unlimited recipes, your own kitchen teams and AI import.',
+    '$1 von $2 Rezepten. Mit Savour Pro: unbegrenzt Rezepte, eigene Küchenteams und KI-Import.',
+    '$1 de $2 recetas. Con Savour Pro: recetas ilimitadas, tus propias equipos de cocina e importación con IA.'
   ],
   [
     '^(\\d+) van (\\d+) plekken in gebruik \\(jij telt mee\\)\\. Teamleden hebben Pro zodra ze inloggen met dit e-mailadres\\.$',
@@ -3665,7 +3710,7 @@ export const patterns = [
     '$1 von $2 Plätzen belegt (du zählst mit). Teammitglieder haben Pro, sobald sie sich mit dieser E-Mail-Adresse anmelden.',
     '$1 de $2 plazas en uso (contándote a ti). Los miembros tienen Pro en cuanto inician sesión con ese correo.'
   ],
-  ['^(.+) heeft nu Savour Pro via je organisatie$', '$1 now has Savour Pro through your organisation', '$1 hat jetzt Savour Pro über deine Organisation', '$1 ya tiene Savour Pro a través de tu organización'],
+  ['^(.+) heeft nu Savour Pro via je brigade$', '$1 now has Savour Pro through your brigade', '$1 hat jetzt Savour Pro über deine Brigade', '$1 ya tiene Savour Pro a través de tu brigada'],
   [
     "^Word, PDF en tekst lees je gratis in \\(nog (\\d+) van (\\d+) recepten in je gratis account\\)\\. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro\\.$",
     'You import Word, PDF and text for free ($1 of $2 recipes left in your free account). Photos, handwritten and scanned recipes are read by AI: only in Savour Pro.',
@@ -3675,12 +3720,12 @@ export const patterns = [
   ["^Je ziet je recepten zoals ze op (.+) op dit toestel stonden. Wijzigen kan weer zodra je verbinding hebt.$","You are seeing your recipes as they were on this device on $1. You can edit again once you are back online.","Du siehst deine Rezepte so, wie sie am $1 auf diesem Gerät waren. Bearbeiten geht wieder, sobald du online bist.","Ves tus recetas tal como estaban en este dispositivo el $1. Podrás editar de nuevo cuando vuelvas a tener conexión."],
   // ---- Teams (2026-10-23) ----
   ["^(\\d+) van (\\d+) plekken in gebruik \\(jij telt mee\\)\\.$","$1 of $2 seats in use (including you).","$1 von $2 Plätzen belegt (du zählst mit).","$1 de $2 plazas en uso (contándote a ti)."],
-  ["^Via je organisatie: (.+)\\. De eigenaar van de organisatie beheert de plekken; je hoeft niets te betalen\\.$","Through your organisation: $1. The organisation owner manages the seats; you do not have to pay anything.","Über deine Organisation: $1. Der Inhaber der Organisation verwaltet die Plätze; du musst nichts bezahlen.","A través de tu organización: $1. El propietario de la organización gestiona las plazas; no tienes que pagar nada."],
+  ["^Via je brigade: (.+)\\. De eigenaar van de brigade beheert de plekken; je hoeft niets te betalen\\.$","Through your brigade: $1. The organisation owner manages the seats; you do not have to pay anything.","Über deine Brigade: $1. Der Inhaber der Brigade verwaltet die Plätze; du musst nichts bezahlen.","A través de tu brigada: $1. El propietario de la brigada gestiona las plazas; no tienes que pagar nada."],
   ["^1 van (\\d+) plekken in gebruik\\. Voeg je collega's toe: zij krijgen een uitnodiging en hebben direct Savour Pro\\.$","1 of $1 seats in use. Add your colleagues: they get an invitation and have Savour Pro straight away.","1 von $1 Plätzen belegt. Füge deine Kollegen hinzu: Sie bekommen eine Einladung und haben sofort Savour Pro.","1 de $1 plazas en uso. Añade a tus compañeros: reciben una invitación y tienen Savour Pro al momento."],
   ["^(.+) heeft nu Savour Pro\\. We hebben een uitnodiging gestuurd\\.$","$1 now has Savour Pro. We sent an invitation.","$1 hat jetzt Savour Pro. Wir haben eine Einladung geschickt.","$1 ya tiene Savour Pro. Hemos enviado una invitación."],
   ["^(.+) heeft nu Savour Pro\\. De uitnodiging kon niet worden verstuurd; laat het je collega zelf weten\\.$","$1 now has Savour Pro. The invitation could not be sent; please let your colleague know yourself.","$1 hat jetzt Savour Pro. Die Einladung konnte nicht gesendet werden; sag es deinem Kollegen bitte selbst.","$1 ya tiene Savour Pro. No se pudo enviar la invitación; avisa tú a tu compañero."],
   ["^Je hebt (\\d+) plekken; jij telt zelf als eerste mee\\. Voeg je collega's toe op hun e-mailadres: zij krijgen een uitnodiging van ons en hebben Savour Pro zodra ze inloggen of zich aanmelden met dat adres\\.$","You have $1 seats; you count as the first one. Add your colleagues by email: they get an invitation from us and have Savour Pro as soon as they log in or sign up with that address.","Du hast $1 Plätze; du zählst als erster mit. Füge deine Kollegen per E-Mail hinzu: Sie bekommen eine Einladung von uns und haben Savour Pro, sobald sie sich mit dieser Adresse anmelden oder registrieren.","Tienes $1 plazas; tú cuentas como la primera. Añade a tus compañeros por correo: reciben una invitación nuestra y tienen Savour Pro en cuanto inician sesión o se registran con esa dirección."],
-  ["^Welkom bij de organisatie (.+)$","Welcome to the organisation $1","Willkommen in der Organisation $1","Te damos la bienvenida a la organización $1"],
+  ["^Welkom bij de brigade van (.+)$","Welcome to the brigade $1","Willkommen in der Brigade $1","Te damos la bienvenida a la brigada $1"],
   ['^(\\d+) van (\\d+) recepten$', '$1 of $2 recipes', '$1 von $2 Rezepten', '$1 de $2 recetas'],
   ['^Savour Pro · nog 1 dag gratis$', 'Savour Pro · 1 free day left', 'Savour Pro · noch 1 Tag kostenlos', 'Savour Pro · queda 1 día gratis'],
   ['^Savour Pro · nog (\\d+) dagen gratis$', 'Savour Pro · $1 free days left', 'Savour Pro · noch $1 Tage kostenlos', 'Savour Pro · quedan $1 días gratis'],
@@ -3711,10 +3756,10 @@ export const patterns = [
     'Con Savour Pro guardas recetas ilimitadas (desde $1 al mes). Tus recetas actuales siempre se conservan.'
   ],
   [
-    '^Met Pro maak je gedeelde mappen en nodig je je team uit \\(vanaf (€[\\d,]+) per maand\\)\\. Lid zijn van de gedeelde map van een ander blijft gratis\\.$',
-    "With Pro you create shared folders and invite your team (from $1 per month). Being a member of someone else's shared folder stays free.",
-    'Mit Pro erstellst du geteilte Ordner und lädst dein Team ein (ab $1 pro Monat). Mitglied im Ordner von jemand anderem zu sein bleibt kostenlos.',
-    'Con Pro creas carpetas compartidas e invitas a tu equipo (desde $1 al mes). Ser miembro de la carpeta de otra persona sigue siendo gratis.'
+    '^Met Pro maak je keukenteams en nodig je je team uit \\(vanaf (€[\\d,]+) per maand\\)\\. Lid zijn van het keukenteam van een ander blijft gratis\\.$',
+    "With Pro you create kitchen teams and invite your team (from $1 per month). Being a member of someone else's kitchen team stays free.",
+    'Mit Pro erstellst du Küchenteams und lädst dein Team ein (ab $1 pro Monat). Mitglied im Ordner von jemand anderem zu sein bleibt kostenlos.',
+    'Con Pro creas equipos de cocina e invitas a tu equipo (desde $1 al mes). Ser miembro de la carpeta de otra persona sigue siendo gratis.'
   ],
   ['^Je gratis account heeft nog ruimte voor (\\d+) recepten$', 'Your free account has room for $1 more recipes', 'Dein kostenloses Konto hat noch Platz für $1 Rezepte', 'Tu cuenta gratuita tiene espacio para $1 recetas más'],
   [
@@ -3732,10 +3777,10 @@ export const patterns = [
   ],
   ['^Plek van (.+) vrijgeven\\?$', "Free up $1's seat?", 'Platz von $1 freigeben?', '¿Liberar la plaza de $1?'],
   [
-    '^Diegene houdt al zijn recepten, maar heeft geen Pro meer via je organisatie\\.$',
-    'They keep all their recipes but no longer have Pro through your organisation.',
-    'Die Person behält alle Rezepte, hat aber kein Pro mehr über deine Organisation.',
-    'Conserva todas sus recetas, pero ya no tiene Pro a través de tu organización.'
+    '^Diegene houdt al zijn recepten, maar heeft geen Pro meer via je brigade\\.$',
+    'They keep all their recipes but no longer have Pro through your brigade.',
+    'Die Person behält alle Rezepte, hat aber kein Pro mehr über deine Brigade.',
+    'Conserva todas sus recetas, pero ya no tiene Pro a través de tu brigada.'
   ],
   [
     '^Gelezen door de Savour-lezer: (\\d+) · nagelezen door de AI: (\\d+)$',

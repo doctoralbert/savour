@@ -493,7 +493,7 @@ function filterPicker(q) {
       m = sharedMaps.find(x => x.id === currentShared),
       f = m?.folders?.find(x => x.id === fid);
     let available = (m?.recipeIds || [])
-      .map(rid => recipes.find(r => r.id === rid))
+      .map(rid => findRecipe(rid))
       .filter(Boolean)
       .filter(r => !f?.recipeIds.includes(r.id));
     renderPickerList(

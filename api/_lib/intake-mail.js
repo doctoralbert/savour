@@ -21,7 +21,7 @@ const T = {
       subject: 'Je aanvraag is goedgekeurd: rond je bestelling af',
       body: r => [
         `Goed nieuws: we laden de recepten van ${r} graag voor je in.`,
-        'Via de knop hieronder kies je de grootte van je organisatie en betaal je. Daarna lever je op dezelfde pagina je recepten aan en geef je de e-mailadressen van je collega’s door.'
+        'Via de knop hieronder kies je de grootte van je brigade en betaal je. Daarna lever je op dezelfde pagina je recepten aan en geef je de e-mailadressen van je collega’s door.'
       ],
       button: 'Betalen en aanleveren'
     },
@@ -36,7 +36,7 @@ const T = {
     welcome: {
       subject: org => `Je receptenboek van ${org} staat klaar in Savour`,
       body: org => [
-        `De recepten van ${org} staan klaar in Savour. Je hebt een account met Savour Pro via je organisatie.`,
+        `De recepten van ${org} staan klaar in Savour. Je hebt een account met Savour Pro via je brigade.`,
         'Kies via de knop hieronder je wachtwoord. Daarna log je in met dit e-mailadres, op je computer en op je telefoon.',
         'De link is 14 dagen geldig.'
       ],

@@ -56,7 +56,7 @@ function openRecipe(id, context = 'library') {
   const rid = escJs(r.id);
   // Een recept van een teamlid is alleen-lezen: bekijken, printen en omrekenen.
   const own = isOwnRecipe(r);
-  // Recept van een collega in een gedeelde map: altijd toe te voegen aan je eigen recepten (eigen kopie).
+  // Recept van een collega in een keukenteam: altijd toe te voegen aan je eigen recepten (eigen kopie).
   // Via een openbare link alleen als de maker dat heeft toegestaan (js/features/recipe-copy.js).
   if (!own && !r.linkSlug) r.allowCopy = true;
   const inShared = context === 'shared' || context === 'sharedFolder';
@@ -64,7 +64,7 @@ function openRecipe(id, context = 'library') {
   const removeAction = !mayRemoveFromShared
     ? null
     : context === 'shared'
-      ? { label: 'Uit gedeelde map halen', fn: `removeRecipeFromShared('${rid}')` }
+      ? { label: 'Uit keukenteam halen', fn: `removeRecipeFromShared('${rid}')` }
       : context === 'sharedFolder'
         ? { label: 'Uit map halen', fn: `removeRecipeFromSharedFolder('${rid}')` }
         : context === 'folder'
@@ -184,8 +184,9 @@ async function deleteRecipe(id) {
     return;
   }
   if (!currentUser) return;
-  const r = recipes.find(x => x.id === id);
+  const r = findRecipe(id);
   if (!r) return;
+  if (r.teamId) return deleteTeamRecipe(r);
   if (!(await askConfirm(`Weet je zeker dat je ‘${r.title}’ uit je receptenbibliotheek wilt verwijderen?`))) return;
   const result = await deleteOwnRecipes([id]);
   if (!result.done) {

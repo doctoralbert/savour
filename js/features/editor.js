@@ -168,7 +168,9 @@ function fillEditor(r, title = 'Nieuw recept') {
 
 function editRecipe(id) {
   window.__aiImportedPhoto = '';
-  const r = recipes.find(x => String(x.id) === String(id));
+  // Ook een recept van een keukenteam (als je het mag bewerken, zie isOwnRecipe).
+  const r = findRecipe(id);
+  if (r && !isOwnRecipe(r)) return;
   if (!r) return;
   fillEditor(r, 'Recept bewerken');
   recipeReturnView = 'recipes';
@@ -276,9 +278,11 @@ function persistRecipe() {
   }
   (async () => {
     try {
-      const old = currentId ? recipes.find(x => String(x.id) === String(currentId)) : null;
+      const old = currentId ? findRecipe(currentId) : null;
+      // Recept van een keukenteam: geen persoonlijke categorie, en bewaren mag via de rechten in het team.
+      const teamId = old?.teamId || null;
       let categoryId = null;
-      if (categoryName && categoryName !== 'Eigen recepten') {
+      if (!teamId && categoryName && categoryName !== 'Eigen recepten') {
         const { data: cat, error } = await supabaseClient
           .from('categories')
           .select('id')
@@ -300,8 +304,11 @@ function persistRecipe() {
           category_id: categoryId,
           photo_url: photo || null
         };
+        if (teamId) delete payload.category_id;
         const result = currentId
-          ? await supabaseClient.from('recipes').update(payload).eq('id', currentId).eq('user_id', currentUser.id)
+          ? teamId
+            ? await supabaseClient.from('recipes').update(payload).eq('id', currentId).eq('team_id', teamId)
+            : await supabaseClient.from('recipes').update(payload).eq('id', currentId).eq('user_id', currentUser.id)
           : await supabaseClient
               .from('recipes')
               .insert({ ...payload, user_id: currentUser.id })
