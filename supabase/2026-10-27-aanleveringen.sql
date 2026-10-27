@@ -68,6 +68,10 @@ alter table public.recipe_intakes add column if not exists imported_count intege
 alter table public.recipe_intakes add column if not exists released_at timestamptz;
 alter table public.recipe_intakes add column if not exists wiped_at timestamptz;
 alter table public.recipe_intakes drop constraint if exists recipe_intakes_status_check;
+-- Rijen uit de eerste testversie (status 'open') worden gewone aanvragen.
+update public.recipe_intakes
+set status = 'aanvraag'
+where status not in ('aanvraag', 'goedgekeurd', 'afgewezen', 'betaald', 'ingediend', 'bezig', 'klaar');
 alter table public.recipe_intakes add constraint recipe_intakes_status_check
   check (status in ('aanvraag', 'goedgekeurd', 'afgewezen', 'betaald', 'ingediend', 'bezig', 'klaar'));
 alter table public.recipe_intakes alter column status set default 'aanvraag';
