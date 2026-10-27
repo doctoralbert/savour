@@ -212,7 +212,10 @@ async function handleProReturn() {
   if (p === 'success') {
     toast('Bedankt! Je abonnement wordt geactiveerd…');
     // Tijdens de proefperiode is iemand al Pro: wacht op het betaalde abonnement zelf.
-    const paid = () => ['subscription', 'team_owner'].includes(savourPlan.source);
+    // Betaald: eigen abonnement, of een lopend brigade-abonnement (ook als je zelf al Pro had, bijv. als cadeau).
+    const paid = () =>
+      ['subscription', 'team_owner'].includes(savourPlan.source) ||
+      !!(savourPlan.team?.owner && savourPlan.team.active);
     for (let i = 0; i < 8 && !paid(); i++) {
       await new Promise(r => setTimeout(r, 2000));
       await loadPlanState();
@@ -336,7 +339,6 @@ function renderProNav() {
   }
 }
 
-// Naar het teamblok in Instellingen (eigenaar: collega's toevoegen; lid: van welk team je Pro hebt).
 // "Mijn brigade": naar het Brigade-tabblad van het keukenteam waar het abonnement bij hoort.
 function openTeamNav() {
   const teamId = savourPlan.team?.team_id;
