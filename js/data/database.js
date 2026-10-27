@@ -84,7 +84,7 @@ async function migrateLegacySharedMaps() {
   localStorage.removeItem('receptenapp_sharedmaps');
 }
 
-// Mappen in gedeelde mappen, met volgorde en archief (supabase/2026-10-25-mappen-beheren.sql). Zonder die SQL
+// Mappen in keukenteams, met volgorde en archief (supabase/2026-10-25-mappen-beheren.sql). Zonder die SQL
 // zoals voorheen: dan kunnen ze nog niet worden geordend of gearchiveerd.
 async function selectSharedFolders() {
   const res = await selectAllRows('shared_folders', 'id,shared_map_id,name,position,archived');
@@ -117,11 +117,11 @@ async function loadCategoryRows() {
 }
 
 // Laadt de volledige bibliotheek van de ingelogde gebruiker: recepten, categorieën, mappen, favorieten,
-// profiel en gedeelde mappen.
+// profiel en keukenteams.
 async function loadDatabaseState() {
   if (!currentUser) throw new Error('Geen ingelogde gebruiker');
   const [recipesRes, categoriesRes, foldersRes, folderRecipesRes, favoritesRes, profileRes] = await Promise.all([
-    // Alleen je eigen recepten; recepten van een gedeelde map (team_id) komen via loadSharedRecipes.
+    // Alleen je eigen recepten; recepten van een keukenteam (team_id) komen via loadSharedRecipes.
     selectAllRows('recipes', 'id,title,description,yield_text,ingredients,steps,photo_url,category_id,created_at', q =>
       q.eq('user_id', currentUser.id).is('team_id', null).order('title', { ascending: true })
     ),
@@ -195,7 +195,7 @@ async function loadDatabaseState() {
     console.error('Savour shared-map load warning:', e);
     sharedMaps = [];
     sharedRecipes = [];
-    toast(t('Gedeelde mappen konden niet worden geladen.'));
+    toast(t('Keukenteams konden niet worden geladen.'));
   }
   renderCategoryNav();
   renderSharedNav();
@@ -290,7 +290,7 @@ async function retryDatabaseSession() {
   if (ok) toast(t('Bibliotheek geladen'));
 }
 
-// Uitnodigingscodes (public_key) van de eigen gedeelde mappen: { mapId: code }. Leden krijgen ze niet te zien
+// Uitnodigingscodes (public_key) van de eigen keukenteams: { mapId: code }. Leden krijgen ze niet te zien
 // (supabase/2026-10-27-uitnodigen-alleen-eigenaar.sql). Bestaat die functie nog niet, dan rechtstreeks uit de tabel.
 async function loadMySharedMapKeys() {
   if (!currentUser || demoMode) return {};
@@ -300,7 +300,7 @@ async function loadMySharedMapKeys() {
   return Object.fromEntries((data || []).map(r => [r.id, r.public_key]));
 }
 
-// Laadt de gedeelde mappen waar de gebruiker eigenaar of lid van is, met submappen, leden (met naam)
+// Laadt de keukenteams waar de gebruiker eigenaar of lid van is, met submappen, leden (met naam)
 // en de recepten die teamleden erin hebben gezet.
 async function loadSharedMapsState() {
   const [smsRes, smrRes, smfRes, smfrRes, smmRes, keys] = await Promise.all([
@@ -388,7 +388,7 @@ async function loadSharedMapsState() {
   await loadSharedRecipes();
 }
 
-// Haalt de recepten van je gedeelde mappen op (en, in oude gedeelde mappen, die van collega's).
+// Haalt de recepten van je keukenteams op (en, in oude keukenteams, die van collega's).
 async function loadSharedRecipes() {
   const own = new Set(recipes.map(r => String(r.id)));
   const ids = [
@@ -420,9 +420,9 @@ async function loadSharedRecipes() {
     yield: r.yield_text || '',
     ingredients: Array.isArray(r.ingredients) ? r.ingredients : [],
     steps: Array.isArray(r.steps) ? r.steps : [],
-    // Recept van de gedeelde map (blijft van het team) of, in oude gedeelde mappen, van een collega zelf.
+    // Recept van het keukenteam (blijft van het team) of, in oude keukenteams, van een collega zelf.
     category: r.team_id
-      ? sharedMaps.find(m => String(m.id) === String(r.team_id))?.name || 'Gedeelde map'
+      ? sharedMaps.find(m => String(m.id) === String(r.team_id))?.name || 'Keukenteam'
       : 'Gedeeld door ' + authorName(r.user_id),
     addedBy: r.team_id && r.created_by ? authorName(r.created_by) : '',
     photo: r.photo_url || '',

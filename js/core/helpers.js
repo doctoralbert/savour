@@ -55,8 +55,8 @@ function findRecipe(id) {
   );
 }
 
-// Mag de ingelogde gebruiker dit recept bewerken? Je eigen recepten, en recepten van een gedeelde map waarin je
-// eigenaar of sous-chef bent (die blijven van de gedeelde map).
+// Mag de ingelogde gebruiker dit recept bewerken? Je eigen recepten, en recepten van een keukenteam waarin je
+// eigenaar of sous-chef bent (die blijven van het keukenteam).
 function isOwnRecipe(r) {
   if (!r) return false;
   if (r.teamId) return canEditShared(findSharedMap(r.teamId));

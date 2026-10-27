@@ -80,9 +80,12 @@ button {
 .nav button.nav-folder .ico {
   font-size: 13px;
 }
-/* Mappen van een gedeelde map: verder ingesprongen dan de gedeelde map zelf (.sub). */
+/* Keukenteam in het menu iets ingesprongen; de mappen ervan nog verder. */
+#sharedNav button.sub {
+  padding-left: 50px !important;
+}
 .nav button.nav-team-folder {
-  padding-left: 62px;
+  padding-left: 76px;
 }
 .nav button:hover,
 .nav button.active {

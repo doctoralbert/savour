@@ -17,12 +17,12 @@ export const DE = {
       slug: 'de/preise',
       title: 'Preise — Savour Pro und Team-Abos',
       h1: 'Preise',
-      desc: 'Kostenlos starten mit bis zu 100 Rezepten. Savour Pro ab 2,99 € pro Monat: unbegrenzt Rezepte, KI für handschriftliche Notizen und geteilte Ordner. Auch Team-Abos.'
+      desc: 'Kostenlos starten mit bis zu 100 Rezepten. Savour Pro ab 2,99 € pro Monat: unbegrenzt Rezepte, KI für handschriftliche Notizen und Küchenteams. Auch Team-Abos.'
     },
     faq: {
       slug: 'de/faq',
       title: 'Häufige Fragen zu Savour',
-      desc: 'Antworten zu Savour: Rezepte aus Word, PDF und Fotos importieren, kostenlos und Pro, geteilte Ordner und Arbeiten in der Küche.'
+      desc: 'Antworten zu Savour: Rezepte aus Word, PDF und Fotos importieren, kostenlos und Pro, Küchenteams und Arbeiten in der Küche.'
     },
     guide: {
       slug: 'de/anleitung',
@@ -77,11 +77,11 @@ export const DE = {
     share: {
       slug: 'de/rezepte-teilen',
       title: 'Rezepte mit Küchenteam und Brigade teilen | Savour',
-      desc: 'Teile Rezepte mit deinem geteilten Ordner in geteilte Ordner mit Rechten. Alle arbeiten mit derselben Version, vom Sous-Chef bis zum Praktikanten.',
+      desc: 'Teile Rezepte mit deinem Küchenteam in Küchenteams mit Rechten. Alle arbeiten mit derselben Version, vom Sous-Chef bis zum Praktikanten.',
       h1: 'Rezepte mit deiner Brigade teilen',
       lead: 'Alle in der Küche arbeiten mit derselben Version. Keine Fotos von Fotos mehr im Gruppenchat.',
       sections: [
-        ['geteilte Ordner', 'Lege einen Ordner für deine Küche, deinen Posten oder das neue Menü an und lade dein Team ein. Was du änderst, sehen alle sofort.'],
+        ['Küchenteams', 'Lege einen Ordner für deine Küche, deinen Posten oder das neue Menü an und lade dein Team ein. Was du änderst, sehen alle sofort.'],
         ['Rechte pro Person', 'Du verwaltest den Ordner. Dein Sous-Chef oder Chef de Partie kann Rezepte hinzufügen und bearbeiten. Commis und Praktikanten können lesen, aber nichts ändern.'],
         ['Neue Leute schneller eingearbeitet', 'Ein neuer Koch hat am ersten Tag alle Rezepte des Postens auf dem Handy, in der Version, die du freigegeben hast.'],
         ['Einzelne Rezepte teilen', 'Willst du ein Rezept verschicken, etwa an einen Kollegen in einem anderen Restaurant? Teile es mit einem Link.']
@@ -139,7 +139,7 @@ export const DE = {
         ],
         [
           "Sicher und deins",
-          "Deine Rezepte sind nur für dich sichtbar und für die Personen, die du in einen geteilten Ordner einlädst; sie werden pro Konto getrennt gespeichert. Mit Savour Pro lädst du dein ganzes Rezeptbuch jederzeit herunter, als Word-Dateien oder als Backup."
+          "Deine Rezepte sind nur für dich sichtbar und für die Personen, die du in ein Küchenteam einlädst; sie werden pro Konto getrennt gespeichert. Mit Savour Pro lädst du dein ganzes Rezeptbuch jederzeit herunter, als Word-Dateien oder als Backup."
         ]
       ]
     },
@@ -179,10 +179,10 @@ export const DE = {
       h1: 'Für Küchenbrigaden',
       lead: 'Vom Chef de Partie bis zum Praktikanten: Dein ganzes Küchenteam kocht nach demselben Rezept, in jedem Restaurant, das du führst.',
       sections: [
-        ['Eine Version für alle', 'Passe eine Sauce für das neue Menü an, und alle im geteilten Ordner arbeiten sofort mit der neuen Version.'],
+        ['Eine Version für alle', 'Passe eine Sauce für das neue Menü an, und alle im Küchenteam arbeiten sofort mit der neuen Version.'],
         ['Rechte pro Person', 'Du verwaltest den Ordner. Dein Sous-Chef oder Chef de Partie kann Rezepte hinzufügen und bearbeiten. Commis und Praktikanten können lesen, aber nichts ändern.'],
         ['Auf dem eigenen Handy', 'Kein gemeinsamer Ordner voller Flecken mehr. Jedes Mitglied der Brigade öffnet die Rezepte des Postens auf dem eigenen Handy, mit großer Schrift im Kochmodus.'],
-        ['Neue Leute schneller eingearbeitet', 'Praktikanten und neue Köche lesen, wie es hier gemacht wird, statt im Service fragen zu müssen. Mitglied eines geteilte Ordner zu sein ist kostenlos; mit einem Team-Abo hat jeder Savour Pro.']
+        ['Neue Leute schneller eingearbeitet', 'Praktikanten und neue Köche lesen, wie es hier gemacht wird, statt im Service fragen zu müssen. Mitglied eines Küchenteams zu sein ist kostenlos; mit einem Team-Abo hat jeder Savour Pro.']
       ]
     }
   },
@@ -315,14 +315,14 @@ export const DE = {
     },
     'en/blog/shared-folders-explained': {
       "slug": "de/blog/geteilte-ordner-erklaert",
-      "title": "geteilte Ordner in Savour: so funktioniert dein gemeinsames Rezeptbuch",
-      "desc": "Alles, was du mit einem geteilten Ordner in Savour kannst: Rollen, Rezepte und Ordner hinzufügen, Ordner pro Posten oder Menü verwalten, Team einladen, drucken und Rezepte übernehmen.",
-      "h1": "geteilte Ordner: so funktioniert dein gemeinsames Rezeptbuch",
-      "lead": "Ein geteilter Ordner ist das Herz von Savour: ein Rezeptbuch für deine ganze Küche, auf jedem Handy, immer dieselbe Version. Das alles kannst du damit machen.",
+      "title": "Küchenteams in Savour: so funktioniert dein gemeinsames Rezeptbuch",
+      "desc": "Alles, was du mit einem Küchenteam in Savour kannst: Rollen, Rezepte und Ordner hinzufügen, Ordner pro Posten oder Menü verwalten, Team einladen, drucken und Rezepte übernehmen.",
+      "h1": "Küchenteams: so funktioniert dein gemeinsames Rezeptbuch",
+      "lead": "Ein Küchenteam ist das Herz von Savour: ein Rezeptbuch für deine ganze Küche, auf jedem Handy, immer dieselbe Version. Das alles kannst du damit machen.",
       "sections": [
         [
           "Ein Rezeptbuch für dein Team",
-          "Alle Mitglieder eines geteilte Ordner sehen dieselben Rezepte auf ihrem eigenen Handy, Tablet oder Computer. Ändert der Ersteller ein Rezept, sieht die ganze Brigade sofort die neue Version. Keine losen Kopien, keine alten Ausdrucke mehr an der Wand."
+          "Alle Mitglieder eines Küchenteams sehen dieselben Rezepte auf ihrem eigenen Handy, Tablet oder Computer. Ändert der Ersteller ein Rezept, sieht die ganze Brigade sofort die neue Version. Keine losen Kopien, keine alten Ausdrucke mehr an der Wand."
         ],
         [
           "Rollen: Eigentümer, Editor und Betrachter",
@@ -330,19 +330,19 @@ export const DE = {
         ],
         [
           "Rezepte hinzufügen",
-          "Wähle „Rezept hinzufügen“ und markiere Rezepte aus deiner eigenen Bibliothek. Das Rezept bleibt deins: Es ist im geteilten Ordner und gleichzeitig in deinen eigenen Rezepten."
+          "Wähle „Rezept hinzufügen“ und markiere Rezepte aus deiner eigenen Bibliothek. Das Rezept bleibt deins: Es ist im Küchenteam und gleichzeitig in deinen eigenen Rezepten."
         ],
         [
           "Ordner pro Posten oder Menü",
-          "Teile den geteilten Ordner in Ordner auf: einen pro Posten (Garde-Manger, Saucier, Patisserie) oder einen pro Menü. Mit „Ordner verwalten“ benennst du sie um, bringst sie in die Reihenfolge deiner Küche und archivierst Ordner, die du nicht mehr brauchst, etwa das Menü der letzten Saison. Archivierte Ordner und ihre Rezepte bleiben unter „Archiv“ erhalten."
+          "Teile das Küchenteam in Ordner auf: einen pro Posten (Garde-Manger, Saucier, Patisserie) oder einen pro Menü. Mit „Ordner verwalten“ benennst du sie um, bringst sie in die Reihenfolge deiner Küche und archivierst Ordner, die du nicht mehr brauchst, etwa das Menü der letzten Saison. Archivierte Ordner und ihre Rezepte bleiben unter „Archiv“ erhalten."
         ],
         [
           "Dein Team einladen",
-          "Lade Kollegen per WhatsApp, Telegram, E-Mail oder Einladungslink ein. Nach der Anmeldung sind sie Mitglied als Betrachter; als Eigentümer gibst du ihnen danach eine andere Rolle. Mitglied eines geteilte Ordner zu sein ist kostenlos, auch ohne Savour Pro."
+          "Lade Kollegen per WhatsApp, Telegram, E-Mail oder Einladungslink ein. Nach der Anmeldung sind sie Mitglied als Betrachter; als Eigentümer gibst du ihnen danach eine andere Rolle. Mitglied eines Küchenteams zu sein ist kostenlos, auch ohne Savour Pro."
         ],
         [
           "Drucken für den Ordner",
-          "Drucke den ganzen geteilter Ordner, einen Ordner oder eine eigene Auswahl auf einmal. Du bekommst ein Inhaltsverzeichnis, die Nummer jedes Rezepts unten auf der Seite zum schnellen Blättern und mit Savour Pro das Logo deines Restaurants oben."
+          "Drucke den ganzen Küchenteam, einen Ordner oder eine eigene Auswahl auf einmal. Du bekommst ein Inhaltsverzeichnis, die Nummer jedes Rezepts unten auf der Seite zum schnellen Blättern und mit Savour Pro das Logo deines Restaurants oben."
         ],
         [
           "Umrechnen und Kochmodus",
@@ -350,7 +350,7 @@ export const DE = {
         ],
         [
           "Ein Rezept übernehmen",
-          "Bei jedem Rezept eines Kollegen im geteilten Ordner siehst du „Zu meinen Rezepten hinzufügen“. Du bekommst eine eigene Kopie zum Anpassen, das Original bleibt beim Ersteller."
+          "Bei jedem Rezept eines Kollegen im Küchenteam siehst du „Zu meinen Rezepten hinzufügen“. Du bekommst eine eigene Kopie zum Anpassen, das Original bleibt beim Ersteller."
         ],
         [
           "Auch ohne Internet",
@@ -358,10 +358,10 @@ export const DE = {
         ],
         [
           "Verlassen oder löschen",
-          "Ein Mitglied kann einen geteilten Ordner jederzeit verlassen. Nur der Eigentümer kann ihn löschen; die Rezepte selbst bleiben dann einfach in der Bibliothek ihres Erstellers."
+          "Ein Mitglied kann ein Küchenteam jederzeit verlassen. Nur der Eigentümer kann ihn löschen; die Rezepte selbst bleiben dann einfach in der Bibliothek ihres Erstellers."
         ]
       ],
-      "outro": "Einen geteilter Ordner erstellst du mit Savour Pro; Mitglied sein kann jeder kostenlos. In jedem geteilten Ordner findest du diese Erklärung auch hinter dem i-Knopf."
+      "outro": "Einen Küchenteam erstellst du mit Savour Pro; Mitglied sein kann jeder kostenlos. In jedem Küchenteam findest du diese Erklärung auch hinter dem i-Knopf."
     },
     'en/blog/recipe-management-for-restaurants': {
       slug: 'de/blog/rezeptverwaltung-gastronomie',
@@ -375,7 +375,7 @@ export const DE = {
         ['Schritt 2: Wähle eine Struktur', 'Wähle eine Struktur, die zu deinem Restaurant passt: nach Posten, nach Menü oder Grundrezepte getrennt von den Gerichten. Halte es einfach; erweitern kannst du später immer noch. Beispiele findest du in unserem Artikel über das Ordnen von Rezeptordnern.'],
         ['Schritt 3: Lege fest, wer was darf', 'Vereinbare, wer Rezepte ändern darf, meist Küchenchef und Sous-Chef, und lass den Rest des Teams nur lesen. So verhinderst du drei Versionen derselben Sauce.'],
         ['Schritt 4: Mach es in der Küche einfach', 'Rezeptverwaltung funktioniert nur, wenn sie in der Küche schneller ist als der alte Zettel. Rezepte müssen sich auf dem Handy in großer Schrift öffnen lassen, und ein ganzer Ordner muss sich auf einmal drucken lassen.'],
-        ['Mehrere Restaurants oder Standorte', 'Führst du mehrere Restaurants oder ein Catering? Lege pro Standort einen geteilten Ordner mit denselben Grundrezepten an. Eine Änderung am Grundrezept stimmt dann überall gleichzeitig.']
+        ['Mehrere Restaurants oder Standorte', 'Führst du mehrere Restaurants oder ein Catering? Lege pro Standort ein Küchenteam mit denselben Grundrezepten an. Eine Änderung am Grundrezept stimmt dann überall gleichzeitig.']
       ],
       outro: 'Savour ist für die Rezeptverwaltung in Profiküchen gebaut: importieren, ordnen, mit dem Küchenteam teilen und drucken.'
     },
@@ -389,10 +389,10 @@ export const DE = {
         ['Weniger Fragen im Service', 'Wenn jeder das Rezept auf dem eigenen Handy öffnen kann, muss niemand mitten im Service fragen, wie viel Estragon in die Béarnaise gehört. Der Küchenchef hat Hände und Kopf frei für den Pass.'],
         ['Jeden Tag derselbe Teller', 'Drei Versionen derselben Sauce entstehen von selbst: Jemand ändert etwas und schreibt es auf den eigenen Zettel. Mit einem gemeinsamen Rezept ist die neueste Version immer die einzige Version. Das merkst du an der Gleichmäßigkeit, auch am vollsten Abend.'],
         ['Verantwortung ohne Chaos', 'Nicht jeder muss alles ändern können. Gib deinem Sous-Chef oder Chef de Partie das Recht, Rezepte zu bearbeiten, und lass Commis und Praktikanten nur lesen. Das Rezeptbuch bleibt das der Küche, nicht das von dem, der es zuletzt angefasst hat.'],
-        ['Wissen, das bleibt', 'Wenn ein Koch geht, geht das Wissen nicht mit. Was im geteilten Ordner steht, gehört der Küche. Für einen neuen Koch ist es der schnellste Weg zu lernen, wie es hier gemacht wird.'],
-        ['So fängst du an', 'Fang klein an: einen geteilten Ordner mit den Grundrezepten, die alle täglich nutzen, wie Fonds, Saucen und Standardgarnituren. Lade dein Team ein und vereinbare, wer was ändern darf. Erweitere dann pro Posten oder pro Menü.']
+        ['Wissen, das bleibt', 'Wenn ein Koch geht, geht das Wissen nicht mit. Was im Küchenteam steht, gehört der Küche. Für einen neuen Koch ist es der schnellste Weg zu lernen, wie es hier gemacht wird.'],
+        ['So fängst du an', 'Fang klein an: ein Küchenteam mit den Grundrezepten, die alle täglich nutzen, wie Fonds, Saucen und Standardgarnituren. Lade dein Team ein und vereinbare, wer was ändern darf. Erweitere dann pro Posten oder pro Menü.']
       ],
-      outro: 'In Savour legst du geteilte Ordner mit den Rechten an, die du wählst. Mitglied eines geteilte Ordner zu sein ist kostenlos.'
+      outro: 'In Savour legst du Küchenteams mit den Rechten an, die du wählst. Mitglied eines Küchenteams zu sein ist kostenlos.'
     },
     'en/blog/recipe-folder-examples': {
       slug: 'de/blog/rezeptordner-ordnen-beispiele',
@@ -417,13 +417,13 @@ export const DE = {
       h1: 'Rezepte mit deinem Team teilen, ohne Fotos von Fotos',
       lead: 'Ein Foto eines Rezepts, weitergeleitet im Gruppenchat, noch einmal vom Bildschirm abfotografiert. Kommt dir bekannt vor. Und niemand weiß, welche Version stimmt.',
       sections: [
-        ['Einen ganzen Ordner teilen', 'Lege einen geteilten Ordner an, zum Beispiel „Saucier“ oder „Herbstmenü“, und lade deine Kollegen ein. Alle sehen dieselben Rezepte, und eine Änderung ist sofort für alle sichtbar.'],
+        ['Einen ganzen Ordner teilen', 'Lege ein Küchenteam an, zum Beispiel „Saucier“ oder „Herbstmenü“, und lade deine Kollegen ein. Alle sehen dieselben Rezepte, und eine Änderung ist sofort für alle sichtbar.'],
         ['Bestimme, was jeder darf', 'Es gibt drei Rollen. Der Eigentümer verwaltet den Ordner. Ein Bearbeiter kann Rezepte hinzufügen und ändern. Ein Leser kann alles lesen, aber nichts ändern. Du entscheidest, wer die Rezepte anfasst.'],
         ['Ein einzelnes Rezept schicken', 'Willst du ein Rezept teilen, etwa mit einem Kollegen in einem anderen Restaurant oder einem Lieferanten? Teile es mit einem Link. Der Empfänger sieht das Rezept sauber, ohne Konto.'],
-        ['Kollegen, die mitbauen', 'Ein geteilter Ordner muss nicht nur von dir kommen. Gib deinem Sous-Chef Bearbeitungsrechte und lass das Team selbst Rezepte hinzufügen. Das Rezeptbuch wächst mit der Küche.'],
-        ['Was es kostet', 'Mitglied eines geteilte Ordner zu sein ist kostenlos. Selbst einen geteilten Ordner anzulegen ist Teil von Savour Pro. Mit einem Team-Abo hat jeder in deiner Küche Pro.']
+        ['Kollegen, die mitbauen', 'Ein Küchenteam muss nicht nur von dir kommen. Gib deinem Sous-Chef Bearbeitungsrechte und lass das Team selbst Rezepte hinzufügen. Das Rezeptbuch wächst mit der Küche.'],
+        ['Was es kostet', 'Mitglied eines Küchenteams zu sein ist kostenlos. Selbst ein Küchenteam anzulegen ist Teil von Savour Pro. Mit einem Team-Abo hat jeder in deiner Küche Pro.']
       ],
-      outro: 'geteilte Ordner mit Rollen findest du in Savour unter „geteilte Ordner“.'
+      outro: 'Küchenteams mit Rollen findest du in Savour unter „Küchenteams“.'
     },
     'en/blog/roadmap': {
       slug: 'de/blog/roadmap',
@@ -447,12 +447,12 @@ export const DE = {
       h1: 'Einen neuen Koch mit Standardrezepten einarbeiten',
       lead: 'Ein neuer Koch will es richtig machen, weiß aber noch nicht, wie es hier läuft. Jede Frage im Service kostet jemand anderen Aufmerksamkeit.',
       sections: [
-        ['Gib die Rezepte vor der ersten Schicht', 'Füge einen neuen Koch als Leser zum geteilten Ordner des Postens hinzu. Er kann zu Hause lesen, was gemacht wird und wie, in der Version, die du freigegeben hast.'],
+        ['Gib die Rezepte vor der ersten Schicht', 'Füge einen neuen Koch als Leser zum Küchenteam des Postens hinzu. Er kann zu Hause lesen, was gemacht wird und wie, in der Version, die du freigegeben hast.'],
         ['Lass vom Handy kochen', 'Im Kochmodus steht das Rezept in großer Schrift auf dem Bildschirm. Abhaken, was erledigt ist, scrollen mit nassen Händen. Kein fettiger Ausdruck, der mitten im Service unlesbar ist.'],
         ['Eine Arbeitsweise', 'Wer nach einem Standardrezept lernt, lernt die Art deiner Küche. Nicht die seines vorherigen Restaurants oder die des Kollegen, der zufällig daneben stand.'],
         ['Frag nach Rückmeldung', 'Neue sehen, was Stammkräfte nicht mehr sehen: eine Menge, die nicht stimmt, ein Schritt, der fehlt. Lass sie es melden und passe das Rezept für alle an.']
       ],
-      outro: 'In Savour fügst du neue Köche mit Leserechten zu einem geteilten Ordner hinzu. Für sie ist das kostenlos.'
+      outro: 'In Savour fügst du neue Köche mit Leserechten zu einem Küchenteam hinzu. Für sie ist das kostenlos.'
     },
     'en/blog/scaling-recipes-without-errors': {
       slug: 'de/blog/rezepte-hochrechnen-ohne-fehler',
@@ -542,7 +542,7 @@ export const DE = {
         ['Hochrechnen und kalkulieren', 'Mit einer festen Ausbeute kannst du zuverlässig hoch- und herunterrechnen. Und sobald die Mengen stimmen, ist sie auch die Grundlage für die Kalkulation pro Portion.'],
         ['So fängst du an', 'Fang mit den Grundrezepten an, die täglich gemacht werden: Fonds, Saucen, Teige. Lege sie in einem festen Format an, an einem Ort, den alle öffnen können, und vereinbare, wer sie ändern darf.']
       ],
-      outro: 'In Savour hat jedes Rezept dieselbe Form: Titel, Ausbeute, Zutaten und Zubereitung. Teile deine Rezepturen mit dem Team in einem geteilten Ordner.'
+      outro: 'In Savour hat jedes Rezept dieselbe Form: Titel, Ausbeute, Zutaten und Zubereitung. Teile deine Rezepturen mit dem Team in einem Küchenteam.'
     },
     'en/blog/recipe-book-with-your-logo': {
       slug: 'de/blog/rezeptbuch-mit-eigenem-logo',
@@ -552,10 +552,10 @@ export const DE = {
       lead: 'Auch mit allen Rezepten auf dem Handy bleibt Papier in vielen Küchen wichtig. Dann soll es auch nach deinem Restaurant aussehen.',
       sections: [
         ['Dein Logo und Name auf jeder Seite', 'Mit Savour Pro stellst du einmal Logo und Name deines Restaurants ein. Danach stehen sie oben auf jeder gedruckten Seite: das Logo links, der Name in der Mitte. Für Küchendrucker kannst du das Logo in Schwarzweiß drucken lassen.'],
-        ['Für das ganze Team', 'Mit einem Team-Abo gilt das Logo des Eigentümers für alle im Team. Jeder druckt also im selben Stil, wer auch immer druckt. Bei einem geteilten Ordner gilt das Logo des Restaurants, das den Ordner verwaltet.'],
+        ['Für das ganze Team', 'Mit einem Team-Abo gilt das Logo des Eigentümers für alle im Team. Jeder druckt also im selben Stil, wer auch immer druckt. Bei einem Küchenteam gilt das Logo des Restaurants, das den Ordner verwaltet.'],
         ['Ein ganzer Ordner als Buch', 'Druckst du einen Ordner, kannst du ein Deckblatt mit Logo, Ordnername und Inhaltsverzeichnis hinzufügen. Wähle A4 für den Küchenordner oder A5 für eine kleine Mappe am Pass.'],
         ['Immer erkennbar aktuell', 'Unten auf jeder Seite steht das Druckdatum. So sieht jeder in der Küche, ob eine Mappe noch die neueste Version ist. Kopf- und Fußzeilen des Browsers fallen weg, damit die Seite ruhig bleibt.'],
-        ['Selbst wählen, was du druckst', 'In einem geteilten Ordner wählst du vor dem Drucken selbst die Rezepte aus, nach Ordnern gruppiert. Also nur das, was für diesen Posten oder diese Veranstaltung gebraucht wird.']
+        ['Selbst wählen, was du druckst', 'In einem Küchenteam wählst du vor dem Drucken selbst die Rezepte aus, nach Ordnern gruppiert. Also nur das, was für diesen Posten oder diese Veranstaltung gebraucht wird.']
       ],
       outro: 'Drucken mit eigenem Logo ist Teil von Savour Pro. Einstellen kannst du es unter Einstellungen → Abo und Team.'
     },

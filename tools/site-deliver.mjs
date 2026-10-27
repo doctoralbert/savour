@@ -139,16 +139,16 @@ export const DELIVER_FLOW = {
     processing: 'Bedankt! We verwerken je betaling. Dit duurt meestal een paar seconden…',
     reviewing: 'We bekijken je aanvraag. Je krijgt een mail zodra je verder kunt.',
     rejected: 'Deze aanvraag is helaas afgewezen. Vragen? Mail ons op contact@savour.page.',
-    importing: 'We zijn je recepten aan het inladen. Je krijgt een mail zodra je gedeelde map klaarstaat.',
+    importing: 'We zijn je recepten aan het inladen. Je krijgt een mail zodra je keukenteam klaarstaat.',
     membersTitle: '4. Wie werken er in je team?',
-    membersHint: n => `Je hebt ${n} plekken: jij en ${n - 1} collega's. Vul hun e-mailadressen in. Zij krijgen een account met Savour Pro en een mail om een wachtwoord te kiezen zodra je gedeelde map klaarstaat.`,
+    membersHint: n => `Je hebt ${n} plekken: jij en ${n - 1} collega's. Vul hun e-mailadressen in. Zij krijgen een account met Savour Pro en een mail om een wachtwoord te kiezen zodra je keukenteam klaarstaat.`,
     addMember: '＋ Collega toevoegen',
     memberEmail: 'naam@restaurant.nl',
     roleView: 'Mag bekijken',
     roleEdit: 'Mag bewerken',
     remove: 'Verwijderen',
     tooMany: n => `Je team heeft ruimte voor ${n} collega's.`,
-    wiped: 'Je aangeleverde bestanden en gegevens worden gewist zodra je gedeelde map klaarstaat.'
+    wiped: 'Je aangeleverde bestanden en gegevens worden gewist zodra je keukenteam klaarstaat.'
   },
   en: {
     resubmit: 'Update submission',

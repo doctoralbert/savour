@@ -1,5 +1,5 @@
 // Al je recepten printen of downloaden (Instellingen → Account). Alleen je eigen bibliotheek; recepten van
-// collega's in gedeelde mappen niet.
+// collega's in keukenteams niet.
 // - Alle recepten printen: iedereen, in de printopmaak van Savour (js/features/print.js).
 // - Downloaden (Savour Pro): per recept een Word-bestand in de printopmaak (samen in een .zip), alle recepten
 //   in één eenvoudig Word-bestand, of een back-up (JSON) met recepten en mappen.

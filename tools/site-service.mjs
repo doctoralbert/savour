@@ -41,7 +41,7 @@ export const SERVICE = {
       "Elk recept nagekeken tegen het origineel: hoeveelheden, eenheden, opbrengst en bereiding",
       "Accounts voor iedereen in je team, met Savour Pro en toegang tot de recepten",
       "Iedereen krijgt een mail om zelf een wachtwoord te kiezen zodra alles klaarstaat",
-      "Vertrouwelijk: je aangeleverde bestanden en gegevens worden gewist zodra je gedeelde map klaarstaat"
+      "Vertrouwelijk: je aangeleverde bestanden en gegevens worden gewist zodra je keukenteam klaarstaat"
     ],
     stepsTitle: 'Hoe het werkt',
     steps: [
@@ -113,7 +113,7 @@ export const SERVICE = {
     tier: n => `Tot ${n} recepten`,
     tierMore: 'Meer dan 1000 recepten',
     custom: 'In overleg',
-    example: 'Voorbeeld: 250 recepten in een gedeelde map voor 5 koks = €100 eenmalig + Team 5 voor €89 per jaar.',
+    example: 'Voorbeeld: 250 recepten in een keukenteam voor 5 koks = €100 eenmalig + Team 5 voor €89 per jaar.',
     form: {
       "title": "Inladen aanvragen",
       "subject": "Import service aanvragen",
@@ -141,11 +141,11 @@ export const SERVICE = {
       ],
       [
         "Hoe werkt de import service?",
-        "Je vraagt hem aan op de site. Na goedkeuring krijg je een persoonlijke link: je betaalt het teamabonnement en het pakket, en levert daarna je recepten, je mappenstructuur en de e-mailadressen van je collega’s aan. Wij laden alles in en kijken het na. Zodra je gedeelde map klaarstaat, krijgt iedereen een mail om een wachtwoord te kiezen."
+        "Je vraagt hem aan op de site. Na goedkeuring krijg je een persoonlijke link: je betaalt het teamabonnement en het pakket, en levert daarna je recepten, je mappenstructuur en de e-mailadressen van je collega’s aan. Wij laden alles in en kijken het na. Zodra je keukenteam klaarstaat, krijgt iedereen een mail om een wachtwoord te kiezen."
       ],
       [
         "Wat gebeurt er met de bestanden die ik aanlever?",
-        "Ze staan in een afgeschermde opslag die alleen Savour kan zien, en worden samen met je overige aangeleverde gegevens gewist zodra je gedeelde map klaarstaat. Je recepten staan daarna alleen nog in jouw gedeelde map in Savour."
+        "Ze staan in een afgeschermde opslag die alleen Savour kan zien, en worden samen met je overige aangeleverde gegevens gewist zodra je keukenteam klaarstaat. Je recepten staan daarna alleen nog in jouw keukenteam in Savour."
       ],
       [
         "Moeten mijn collega’s zelf een account maken?",
@@ -253,7 +253,7 @@ export const SERVICE = {
     tier: n => `Up to ${n} recipes`,
     tierMore: 'More than 1,000 recipes',
     custom: 'Let’s talk',
-    example: 'Example: 250 recipes in a shared folder for 5 cooks = €100 one-off + Team 5 for €89 a year.',
+    example: 'Example: 250 recipes in a kitchen team for 5 cooks = €100 one-off + Team 5 for €89 a year.',
     form: {
       "title": "Request an import",
       "subject": "Import service request",
@@ -393,7 +393,7 @@ export const SERVICE = {
     tier: n => `Bis ${n} Rezepte`,
     tierMore: 'Mehr als 1.000 Rezepte',
     custom: 'Nach Absprache',
-    example: 'Beispiel: 250 Rezepte in einem geteilten Ordner für 5 Köche = 100 € einmalig + Team 5 für 89 € pro Jahr.',
+    example: 'Beispiel: 250 Rezepte in einem Küchenteam für 5 Köche = 100 € einmalig + Team 5 für 89 € pro Jahr.',
     form: {
       "title": "Einpflegen anfragen",
       "subject": "Anfrage Import-Service",
@@ -533,7 +533,7 @@ export const SERVICE = {
     tier: n => `Hasta ${n} recetas`,
     tierMore: 'Más de 1.000 recetas',
     custom: 'A convenir',
-    example: 'Ejemplo: 250 recetas en una carpeta compartida para 5 cocineros = 100 € pago único + Equipo 5 por 89 € al año.',
+    example: 'Ejemplo: 250 recetas en un equipo de cocina para 5 cocineros = 100 € pago único + Equipo 5 por 89 € al año.',
     form: {
       "title": "Solicitar la carga",
       "subject": "Solicitud del servicio de importación",

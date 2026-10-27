@@ -193,7 +193,7 @@ function renderAdminStats() {
       ['App gebruikers', d.app_users, 'unieke native app-gebruikers'],
       ['Recepten', d.recipes, 'persoonlijke recepten'],
       ['Receptenmappen', d.folders, 'persoonlijke mappen'],
-      ['Gedeelde mappen', d.shared_maps, 'gedeelde mappen']
+      ['Keukenteams', d.shared_maps, 'keukenteams']
     ]
       .map(
         x =>
@@ -430,7 +430,7 @@ async function adminMarkMessage(id, read) {
 
 // ---- Import service (api/admin.js, tabel recipe_intakes; klantkant is api/aanleveren.js) ----
 // Per aanvraag: goedkeuren/afwijzen → (klant betaalt en levert aan) → inlezen met de Savour-lezer, nakijken
-// en in de gedeelde map laden → vrijgeven. Ingelezen concepten staan alleen in deze browser tot je ze inlaadt.
+// en in het keukenteam laden → vrijgeven. Ingelezen concepten staan alleen in deze browser tot je ze inlaadt.
 let adminIntakes = [];
 let adminIntakeFreeLeft = 0;
 const adminIntakeDrafts = {};
@@ -541,8 +541,8 @@ function renderAdminIntakeImport(i) {
   const id = Number(i.id);
   const drafts = adminIntakeDrafts[id];
   const done = Number(i.imported_count) || 0;
-  const head = `<p class="admin-panel-note">${done ? `${done} recepten staan al in de gedeelde map. ` : ''}Lees de bestanden in met de Savour-lezer, kijk elk recept na en laad ze in de gedeelde map “${adminEscape(i.restaurant || i.name || '')}” van de eigenaar.</p>`;
-  const actions = `<div class="admin-message-actions"><button class="admin-refresh" onclick="adminReadIntake(${id})">${drafts ? 'Opnieuw inlezen' : 'Recepten inlezen'}</button>${done ? `<button class="admin-refresh" onclick="adminReleaseIntake(${id})">Gedeelde map vrijgeven</button>` : ''}</div>`;
+  const head = `<p class="admin-panel-note">${done ? `${done} recepten staan al in het keukenteam. ` : ''}Lees de bestanden in met de Savour-lezer, kijk elk recept na en laad ze in het keukenteam “${adminEscape(i.restaurant || i.name || '')}” van de eigenaar.</p>`;
+  const actions = `<div class="admin-message-actions"><button class="admin-refresh" onclick="adminReadIntake(${id})">${drafts ? 'Opnieuw inlezen' : 'Recepten inlezen'}</button>${done ? `<button class="admin-refresh" onclick="adminReleaseIntake(${id})">Keukenteam vrijgeven</button>` : ''}</div>`;
   if (!drafts) return head + actions;
   if (drafts.busy) return head + `<p class="admin-panel-note">${adminEscape(drafts.busy)}</p>`;
   const folders = adminIntakeFolders(i);
@@ -563,7 +563,7 @@ function renderAdminIntakeImport(i) {
   const failed = drafts.failed.length
     ? `<p class="admin-panel-note">Niet gelukt: ${drafts.failed.map(f => adminEscape(`${f.name} (${f.error})`)).join(', ')}</p>`
     : '';
-  return `${head}${failed}<p class="admin-panel-note"><b>${drafts.list.length}</b> recepten gelezen, ${chosen} geselecteerd. Oranje = de lezer twijfelde: kijk die extra goed na.</p><ul class="admin-drafts">${rows}</ul><div class="admin-message-actions"><button class="admin-refresh" onclick="adminImportIntake(${id})">${chosen} recepten in de gedeelde map laden</button><button class="admin-ghost" onclick="adminReadIntake(${id})">Opnieuw inlezen</button>${done ? `<button class="admin-refresh" onclick="adminReleaseIntake(${id})">Gedeelde map vrijgeven</button>` : ''}</div>`;
+  return `${head}${failed}<p class="admin-panel-note"><b>${drafts.list.length}</b> recepten gelezen, ${chosen} geselecteerd. Oranje = de lezer twijfelde: kijk die extra goed na.</p><ul class="admin-drafts">${rows}</ul><div class="admin-message-actions"><button class="admin-refresh" onclick="adminImportIntake(${id})">${chosen} recepten in het keukenteam laden</button><button class="admin-ghost" onclick="adminReadIntake(${id})">Opnieuw inlezen</button>${done ? `<button class="admin-refresh" onclick="adminReleaseIntake(${id})">Keukenteam vrijgeven</button>` : ''}</div>`;
 }
 
 function adminIntakeDraft(id, n, field, value) {
@@ -627,7 +627,7 @@ async function adminImportIntake(id) {
   if (!chosen.length) return toast('Kies eerst recepten');
   if (
     !(await askConfirm(
-      `${chosen.length} recepten in de gedeelde map laden?\n\nZe komen in de gedeelde map van de eigenaar, in de gekozen submappen. De klant ziet ze pas na het vrijgeven.`,
+      `${chosen.length} recepten in het keukenteam laden?\n\nZe komen in het keukenteam van de eigenaar, in de gekozen submappen. De klant ziet ze pas na het vrijgeven.`,
       { confirmLabel: 'Inladen' }
     ))
   )
@@ -709,7 +709,7 @@ async function adminReleaseIntake(id) {
   const n = (i.members || []).length + 1;
   if (
     !(await askConfirm(
-      `Gedeelde map van ${i.restaurant || i.name} vrijgeven?\n\n${n} ${n === 1 ? 'persoon krijgt' : 'personen krijgen'} een mail met een link om een wachtwoord te kiezen; de leden krijgen Pro en toegang tot de gedeelde map. Daarna worden alle aangeleverde bestanden en gegevens gewist. Dit kan niet ongedaan worden gemaakt.`,
+      `Keukenteam van ${i.restaurant || i.name} vrijgeven?\n\n${n} ${n === 1 ? 'persoon krijgt' : 'personen krijgen'} een mail met een link om een wachtwoord te kiezen; de leden krijgen Pro en toegang tot het keukenteam. Daarna worden alle aangeleverde bestanden en gegevens gewist. Dit kan niet ongedaan worden gemaakt.`,
       { confirmLabel: 'Vrijgeven', danger: true }
     ))
   )
@@ -752,7 +752,7 @@ async function adminDeleteIntake(id) {
   if (!i) return;
   if (
     !(await askConfirm(
-      `Aanvraag verwijderen?\n\nDe aanvraag van ${i.restaurant || i.name || 'deze keuken'} en alle aangeleverde bestanden worden verwijderd; de link werkt daarna niet meer. Recepten die al in de gedeelde map staan blijven staan.`,
+      `Aanvraag verwijderen?\n\nDe aanvraag van ${i.restaurant || i.name || 'deze keuken'} en alle aangeleverde bestanden worden verwijderd; de link werkt daarna niet meer. Recepten die al in het keukenteam staan blijven staan.`,
       { confirmLabel: 'Verwijderen', danger: true }
     ))
   )
@@ -990,7 +990,7 @@ async function adminDeleteAccount(userId) {
   if (!a) return;
   if (
     !(await askConfirm(
-      `Account definitief verwijderen?\n\n${a.email}${a.name ? ` (${a.name})` : ''}\n\nAlle ${a.recipes} recepten, mappen, favorieten en gedeelde mappen van dit account worden verwijderd. Dit kan niet ongedaan worden gemaakt.`,
+      `Account definitief verwijderen?\n\n${a.email}${a.name ? ` (${a.name})` : ''}\n\nAlle ${a.recipes} recepten, mappen, favorieten en keukenteams van dit account worden verwijderd. Dit kan niet ongedaan worden gemaakt.`,
       { confirmLabel: 'Ja, verwijderen', danger: true }
     ))
   )

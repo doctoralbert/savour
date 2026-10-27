@@ -17,7 +17,7 @@ function uniqueRecipes(list) {
   });
 }
 
-// Het logo dat bij deze print hoort: dat van je team of jezelf, of bij een gedeelde map dat van wie hem beheert.
+// Het logo dat bij deze print hoort: dat van je team of jezelf, of bij een keukenteam dat van wie hem beheert.
 async function fetchPrintBrand(mapId) {
   if (!currentUser || demoMode) return null;
   try {
@@ -124,7 +124,7 @@ async function openPrintBundle(list, { title = '', mapId = null } = {}) {
   setTimeout(() => window.print(), 80);
 }
 
-// Een recept dat niet van jou is, komt uit een gedeelde map: dan hoort het logo van die map erbij.
+// Een recept dat niet van jou is, komt uit een keukenteam: dan hoort het logo van die map erbij.
 function printRecipe(id) {
   let r = findRecipe(id);
   if (!r) return;
@@ -196,13 +196,13 @@ function printFolder(id) {
   openPrintBundle(list, { title: f.name });
 }
 
-// Gedeelde map: eerst zelf kiezen welke recepten je print, per map gegroepeerd.
+// Keukenteam: eerst zelf kiezen welke recepten je print, per map gegroepeerd.
 async function printSharedMap(id) {
   let m = sharedMaps.find(x => x.id === id);
   if (!m) return;
   let list = m.recipeIds.map(rid => findRecipe(rid)).filter(Boolean);
   if (!list.length) {
-    toast('Deze gedeelde map bevat nog geen recepten');
+    toast('Dit keukenteam bevat nog geen recepten');
     return;
   }
   const chosen = await pickRecipesToPrint(m, list);
@@ -210,7 +210,7 @@ async function printSharedMap(id) {
   openPrintBundle(chosen, { title: m.name, mapId: m.id });
 }
 
-// Venster met alle recepten van een gedeelde map, gegroepeerd per map, met vinkjes. Alles staat aan.
+// Venster met alle recepten van een keukenteam, gegroepeerd per map, met vinkjes. Alles staat aan.
 // Geeft de gekozen recepten in de volgorde van de groepen, of null bij annuleren.
 function pickRecipesToPrint(m, list) {
   const byId = new Map(list.map(r => [String(r.id), r]));
@@ -306,7 +306,7 @@ function printSharedFolder(mapId, folderId) {
   if (!m || !f) return;
   let list = (f.system && f.name === 'A t/m Z' ? m.recipeIds : f.recipeIds).map(rid => findRecipe(rid)).filter(Boolean);
   if (!list.length) {
-    toast('Deze gedeelde map bevat nog geen recepten');
+    toast('Dit keukenteam bevat nog geen recepten');
     return;
   }
   openPrintBundle(list, { title: f.system ? m.name : `${m.name} · ${f.name}`, mapId: m.id });

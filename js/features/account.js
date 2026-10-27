@@ -325,7 +325,7 @@ async function cleanDuplicateRecipes() {
     .join('\n');
   const more = groups.length > 5 ? `\n… en nog ${groups.length - 5}` : '';
   const ok = await askConfirm(
-    `${count} dubbele recepten verwijderen?\n\nVan elk recept blijft er één staan. Alleen kopieën die precies hetzelfde zijn (naam, opbrengst, ingrediënten en bereiding) worden verwijderd. Mappen, favorieten en gedeelde mappen gaan over naar het recept dat blijft.\n\n${examples}${more}`,
+    `${count} dubbele recepten verwijderen?\n\nVan elk recept blijft er één staan. Alleen kopieën die precies hetzelfde zijn (naam, opbrengst, ingrediënten en bereiding) worden verwijderd. Mappen, favorieten en keukenteams gaan over naar het recept dat blijft.\n\n${examples}${more}`,
     { confirmLabel: `${count} dubbele verwijderen` }
   );
   if (!ok) return;

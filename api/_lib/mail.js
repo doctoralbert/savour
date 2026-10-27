@@ -30,7 +30,7 @@ export function thankYouMail({ name, team, seats }) {
   const hi = name ? `Hoi ${esc(name.split(' ')[0])},` : 'Hoi,';
   const what = team
     ? `Je team heeft nu Savour Pro, met ${seats} plekken. Jij telt zelf als eerste plek mee.`
-    : "Je hebt nu Savour Pro: onbeperkt recepten, je eigen gedeelde mappen voor je team, en AI die je handgeschreven kladjes en foto's omzet in nette recepten.";
+    : "Je hebt nu Savour Pro: onbeperkt recepten, je eigen keukenteams voor je team, en AI die je handgeschreven kladjes en foto's omzet in nette recepten.";
   // Teamaankoop: in drie stappen uitleggen hoe collega's Pro krijgen.
   const teamSteps = team
     ? [
@@ -110,7 +110,7 @@ export function teamInviteMail({ team, inviter, origin = 'https://savour.page' }
 <tr><td style="padding:34px 34px 8px;text-align:center;font-family:Georgia,serif;letter-spacing:.34em;color:#e8ca8d;font-size:20px">SAVOUR</td></tr>
 <tr><td style="padding:8px 34px 30px;color:#eee8dc;font-size:15px;line-height:1.65">
 <h1 style="font-family:Georgia,serif;font-weight:normal;font-size:26px;color:#eee8dc;margin:18px 0 18px">Je hebt Savour Pro via ${teamName}</h1>
-<p style="margin:0 0 14px">${who} ${inviter ? 'toegevoegd aan' : 'toegevoegd aan'} <strong>${teamName}</strong> in Savour. Daarmee heb je Savour Pro: onbeperkt recepten, gedeelde mappen met je collega's en AI die handgeschreven kladjes omzet in nette recepten.</p>
+<p style="margin:0 0 14px">${who} ${inviter ? 'toegevoegd aan' : 'toegevoegd aan'} <strong>${teamName}</strong> in Savour. Daarmee heb je Savour Pro: onbeperkt recepten, keukenteams met je collega's en AI die handgeschreven kladjes omzet in nette recepten.</p>
 <p style="margin:0 0 10px;color:#e8ca8d;font-size:12px;letter-spacing:.2em;text-transform:uppercase">Zo begin je</p>
 <p style="margin:0 0 10px"><strong style="color:#e8ca8d">1.</strong> <span style="color:#d9d3c6">Nog geen account? Maak er een aan met <strong>dit e-mailadres</strong>. Heb je al een account met dit adres, log dan gewoon in.</span></p>
 <p style="margin:0 0 22px"><strong style="color:#e8ca8d">2.</strong> <span style="color:#d9d3c6">Je hebt direct Pro. Je hoeft niets te betalen; dat regelt je team.</span></p>

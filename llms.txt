@@ -7,7 +7,7 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 ## Core values
 
 1. **Organising recipes** (recepten organiseren): one recipe book with folders, categories, A–Z and full-text search across titles, ingredients and methods.
-2. **Recipe management for kitchen brigades** (receptenmanagement voor brigades): shared folders where the head chef manages, the sous-chef edits and the rest of the team reads, all from the same version.
+2. **Recipe management for kitchen brigades** (receptenmanagement voor brigades): kitchen teams where the head chef manages, the sous-chef edits and the rest of the team reads, all from the same version.
 3. **A recipe database on every device, online and offline**: desktop, tablet and phone; installable on the home screen without an app store; the library opens without internet (read-only until back online).
 4. **A recipe archive online and offline**: old menus and past seasons stay searchable in archive folders; recipes are never deleted when Pro stops.
 5. **Everything stored in the cloud**: recipes are stored securely per account; a new phone or laptop only means logging in again. Pro users can download everything as Word files or a backup.
@@ -24,13 +24,13 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 - **Organise**: folders, categories, A–Z index, favourites and full-text search across titles, ingredients and methods.
 - **Use in the kitchen**: scale any recipe to the yield you need, cook mode with large text on a phone or tablet, print single recipe cards or a whole folder at once (A4 or A5, with your restaurant's logo on Savour Pro).
 - **Works offline**: install Savour on the home screen (no app store needed); the recipe library opens without internet, for example in a walk-in or basement.
-- **Collaborate**: shared folders with roles — owner (manages), editor (adds and edits), viewer (reads) — so the whole team works from the same recipes.
+- **Collaborate**: kitchen teams with roles — owner (manages), editor (adds and edits), viewer (reads) — so the whole team works from the same recipes.
 - **Languages**: the app and the website are available in Dutch, English, German and Spanish.
 
 ## Pricing
 
-- **Free**: up to 100 recipes, Savour reader import (Word, PDF, text), member of other people's shared folders.
-- **Savour Pro**: €2.99 per month or €29 per year — unlimited recipes, AI import (up to 500 per month), create shared folders and invite your team.
+- **Free**: up to 100 recipes, Savour reader import (Word, PDF, text), member of other people's kitchen teams.
+- **Savour Pro**: €2.99 per month or €29 per year — unlimited recipes, AI import (up to 500 per month), create kitchen teams and invite your team.
 - **Organisation plans**: 5 people €8.99/month, 10 people €14.99/month, 25 people €29.99/month (or yearly). Everyone on the team gets Pro.
 - New accounts can try Savour Pro free for 7 days, no payment details needed (up to 100 recipes during the trial).
 - Stopping Pro never deletes recipes; everything stays available.
@@ -51,7 +51,7 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 - [Having your recipe folder moved over: why kitchens put it off and how it does get done](https://savour.page/en/blog/have-your-recipe-folder-moved-over) · [NL](https://savour.page/blog/receptenmap-laten-overzetten) · [DE](https://savour.page/de/blog/rezeptordner-uebertragen-lassen) · [ES](https://savour.page/es/blog/traspasar-tu-recetario)
 - [A recipe database for your kitchen: online, offline and in the cloud](https://savour.page/en/blog/recipe-database-in-the-cloud) · [NL](https://savour.page/blog/receptendatabase-in-de-cloud) · [DE](https://savour.page/de/blog/rezeptdatenbank-in-der-cloud) · [ES](https://savour.page/es/blog/base-de-datos-de-recetas-en-la-nube)
 - [Sorting out a messy recipe folder with AI, then printing it in one go](https://savour.page/en/blog/sorting-out-a-messy-recipe-folder) · [NL](https://savour.page/blog/rommelige-receptenmap-ordenen) · [DE](https://savour.page/de/blog/chaotischen-rezeptordner-ordnen) · [ES](https://savour.page/es/blog/ordenar-una-carpeta-de-recetas-desordenada)
-- [Shared folders in Savour: how your shared recipe book works](https://savour.page/en/blog/shared-folders-explained) · [NL](https://savour.page/blog/gedeelde-mappen-uitgelegd) · [DE](https://savour.page/de/blog/geteilte-ordner-erklaert) · [ES](https://savour.page/es/blog/carpetas-compartidas-explicadas)
+- [Kitchen teams in Savour: how your shared recipe book works](https://savour.page/en/blog/shared-folders-explained) · [NL](https://savour.page/blog/gedeelde-mappen-uitgelegd) · [DE](https://savour.page/de/blog/geteilte-ordner-erklaert) · [ES](https://savour.page/es/blog/carpetas-compartidas-explicadas)
 - [Standardised recipes: why every kitchen needs them](https://savour.page/en/blog/standardised-recipes) · [NL](https://savour.page/blog/standaardrecepturen-in-de-keuken) · [DE](https://savour.page/de/blog/standardrezepturen-gastronomie) · [ES](https://savour.page/es/blog/fichas-tecnicas-de-cocina)
 - [Print a recipe book with your restaurant’s logo](https://savour.page/en/blog/recipe-book-with-your-logo) · [NL](https://savour.page/blog/receptenboek-met-eigen-logo) · [DE](https://savour.page/de/blog/rezeptbuch-mit-eigenem-logo) · [ES](https://savour.page/es/blog/recetario-con-tu-logo)
 - [Recipes without wifi: working offline in the kitchen](https://savour.page/en/blog/recipes-without-wifi) · [NL](https://savour.page/blog/recepten-zonder-wifi) · [DE](https://savour.page/de/blog/rezepte-ohne-wlan) · [ES](https://savour.page/es/blog/recetas-sin-wifi)
