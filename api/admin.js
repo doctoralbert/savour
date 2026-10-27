@@ -16,10 +16,16 @@ import {
   confirmAuthUser,
   updateAppMetadata,
   insert,
+  insertReturning,
+  insertIgnore,
+  ensureUser,
   storageList,
   storageDownloadUrl,
   storageRemove
 } from './_lib/supabase-admin.js';
+import { sendMail } from './_lib/mail.js';
+import { intakeMail } from './_lib/intake-mail.js';
+import { INTAKE_BUCKET, PACKAGES, deliverLink, packageLabel } from './_lib/intake.js';
 import { randomBytes } from 'node:crypto';
 import { siteOrigin } from './_lib/origin.js';
 import { stripe, hasStripe, PLAN_MONTHLY_EUR } from './_lib/stripe.js';
@@ -462,24 +468,31 @@ async function deleteMessage(id) {
   return { ok: true };
 }
 
-// ---- Inlaadservice: aanleverlinks (tabel recipe_intakes, bucket 'aanleveringen'; api/aanleveren.js is de klantkant) ----
-const INTAKE_BUCKET = 'aanleveringen';
-const INTAKE_SLUG = { nl: 'aanleveren', en: 'en/send-recipes', de: 'de/rezepte-liefern', es: 'es/enviar-recetas' };
-const intakeLink = (origin, row) => `${origin}/${INTAKE_SLUG[row.language] || INTAKE_SLUG.nl}?t=${row.token}`;
+// ---- Inlaadservice (tabel recipe_intakes, bucket 'aanleveringen'; api/aanleveren.js is de klantkant) ----
+// aanvraag → goedkeuren (account eigenaar + mail met betaallink) → betaald (webhook) → aangeleverd →
+// recepten inladen in de gedeelde map van de organisatie → vrijgeven (accounts, mails) → gegevens gewist.
 const intakeId = id => {
   if (!Number.isInteger(Number(id))) throw Object.assign(new Error('Onbekende aanlevering.'), { status: 400 });
   return Number(id);
 };
+const fail = (message, status = 400) => Object.assign(new Error(message), { status });
+async function getIntake(id) {
+  const [row] = await select('recipe_intakes', `id=eq.${intakeId(id)}&select=*`);
+  if (!row) throw fail('Aanlevering niet gevonden.', 404);
+  return row;
+}
 
 async function intakes(origin) {
   const rows = await select('recipe_intakes', 'select=*&order=created_at.desc&limit=200');
   const out = await Promise.all(
     (rows || []).map(async r => {
-      const files = r.files_deleted_at ? [] : await storageList(INTAKE_BUCKET, `${r.id}/`).catch(() => []);
+      const files = r.wiped_at ? [] : await storageList(INTAKE_BUCKET, `${r.id}/`).catch(() => []);
       return {
         ...r,
         token: undefined,
-        link: intakeLink(origin, r),
+        link: deliverLink(origin, r),
+        package_label: packageLabel(r.package),
+        package_cents: PACKAGES[r.package]?.cents ?? null,
         files: files.map(f => ({ name: f.name, size: f.metadata?.size || 0 }))
       };
     })
@@ -487,59 +500,188 @@ async function intakes(origin) {
   return { intakes: out };
 }
 
-async function createIntake(body, origin) {
-  const clean = (v, max) =>
-    String(v ?? '')
-      .trim()
-      .slice(0, max);
-  const row = {
-    token: randomBytes(24).toString('hex'),
-    name: clean(body.name, 120) || null,
-    email: clean(body.email, 240).toLowerCase() || null,
-    restaurant: clean(body.restaurant, 160) || null,
-    package: clean(body.package, 120) || null,
-    plan: clean(body.plan, 60) || null,
-    language: ['nl', 'en', 'de', 'es'].includes(body.language) ? body.language : 'nl'
-  };
-  if (!row.restaurant && !row.name)
-    throw Object.assign(new Error('Vul minstens een naam of restaurant in.'), { status: 400 });
-  await insert('recipe_intakes', row);
-  return { ok: true, link: intakeLink(origin, row) };
+// Goedkeuren: account van de aanvrager klaarzetten (zonder mail, zonder wachtwoord) en de betaallink mailen.
+async function approveIntake(id, priceCents, origin) {
+  const row = await getIntake(id);
+  if (!['aanvraag', 'afgewezen', 'goedgekeurd'].includes(row.status)) throw fail('Deze aanvraag is al betaald.');
+  const cents = Number(priceCents);
+  if (!Number.isInteger(cents) || cents < 0) throw fail('Vul een geldig bedrag in.');
+  const owner = await ensureUser(row.email, row.name);
+  await update('recipe_intakes', `id=eq.${row.id}`, {
+    status: 'goedgekeurd',
+    approved_at: new Date().toISOString(),
+    rejected_at: null,
+    price_cents: cents,
+    owner_id: owner.id
+  });
+  const link = deliverLink(origin, row);
+  await sendMail({ to: row.email, ...intakeMail('approved', { ...row, link }) });
+  return { ok: true, link };
+}
+
+async function rejectIntake(id, reason) {
+  const row = await getIntake(id);
+  if (row.paid_at) throw fail('Deze aanvraag is al betaald; afwijzen kan niet meer.');
+  await update('recipe_intakes', `id=eq.${row.id}`, { status: 'afgewezen', rejected_at: new Date().toISOString() });
+  await sendMail({
+    to: row.email,
+    ...intakeMail('rejected', {
+      ...row,
+      reason: String(reason || '')
+        .trim()
+        .slice(0, 1000)
+    })
+  });
+  return { ok: true };
 }
 
 async function intakeFileUrl(id, name) {
   const file = String(name || '');
-  if (!file || file.includes('/')) throw Object.assign(new Error('Onbekend bestand.'), { status: 400 });
+  if (!file || file.includes('/')) throw fail('Onbekend bestand.');
   return { url: await storageDownloadUrl(INTAKE_BUCKET, `${intakeId(id)}/${file}`) };
 }
 
-async function setIntakeStatus(id, status) {
-  if (!['open', 'ingediend', 'bezig', 'klaar'].includes(status))
-    throw Object.assign(new Error('Onbekende status.'), { status: 400 });
-  await update('recipe_intakes', `id=eq.${intakeId(id)}`, { status });
-  return { ok: true };
+// Recepten (uit de lezer in /admin) in de organisatie zetten: eigendom van de eigenaar, in één gedeelde map
+// met de naam van het restaurant, met submappen volgens de mappenstructuur van de klant.
+async function importIntakeRecipes(id, recipes) {
+  const row = await getIntake(id);
+  if (!row.owner_id) throw fail('Keur de aanvraag eerst goed.');
+  if (!['betaald', 'ingediend', 'bezig'].includes(row.status)) throw fail('Inladen kan pas na betaling.');
+  const list = (Array.isArray(recipes) ? recipes : []).slice(0, 100);
+  if (!list.length) throw fail('Geen recepten om in te laden.');
+
+  let mapId = row.shared_map_id;
+  if (!mapId) {
+    const [map] = await insertReturning('shared_maps', [
+      { owner_id: row.owner_id, name: row.restaurant || row.name || 'Recepten' }
+    ]);
+    mapId = map.id;
+    await insert('shared_map_members', { shared_map_id: mapId, user_id: row.owner_id, role: 'owner' });
+    await update('recipe_intakes', `id=eq.${row.id}`, { shared_map_id: mapId });
+  }
+  // Submappen: bestaande op naam hergebruiken, ontbrekende aanmaken.
+  const folders = (await select('shared_folders', `shared_map_id=eq.${mapId}&select=id,name,position`)) || [];
+  const byName = new Map(folders.map(f => [f.name.toLowerCase(), f.id]));
+  const wanted = [
+    ...new Set(
+      list
+        .map(r =>
+          String(r.folder || '')
+            .trim()
+            .slice(0, 120)
+        )
+        .filter(Boolean)
+    )
+  ];
+  let position = folders.length;
+  for (const name of wanted.filter(n => !byName.has(n.toLowerCase()))) {
+    const [f] = await insertReturning('shared_folders', [{ shared_map_id: mapId, name, position: position++ }]);
+    byName.set(name.toLowerCase(), f.id);
+  }
+
+  const text = (v, max) => String(v ?? '').slice(0, max);
+  const lines = v =>
+    (Array.isArray(v) ? v : [])
+      .map(x => text(x, 2000))
+      .filter(x => x.trim())
+      .slice(0, 300);
+  const inserted = await insertReturning(
+    'recipes',
+    list.map(r => ({
+      user_id: row.owner_id,
+      title: text(r.title, 300).trim() || 'Recept',
+      description: null,
+      yield_text: text(r.yield, 200).trim() || null,
+      ingredients: lines(r.ingredients),
+      steps: lines(r.steps)
+    }))
+  );
+  await insertIgnore(
+    'shared_map_recipes',
+    inserted.map(r => ({ shared_map_id: mapId, recipe_id: r.id })),
+    'shared_map_id,recipe_id'
+  );
+  const folderLinks = inserted
+    .map((r, i) => ({
+      recipe_id: r.id,
+      shared_folder_id: byName.get(
+        String(list[i].folder || '')
+          .trim()
+          .toLowerCase()
+      )
+    }))
+    .filter(l => l.shared_folder_id);
+  if (folderLinks.length) await insertIgnore('shared_folder_recipes', folderLinks, 'shared_folder_id,recipe_id');
+  const count = (row.imported_count || 0) + inserted.length;
+  await update('recipe_intakes', `id=eq.${row.id}`, { imported_count: count, status: 'bezig' });
+  return { ok: true, added: inserted.length, total: count };
 }
 
-// Bestanden weggooien (belofte aan de keuken: na het inladen verwijderd). De gegevens van de aanlevering blijven.
-async function deleteIntakeFiles(id) {
-  const n = intakeId(id);
-  const files = await storageList(INTAKE_BUCKET, `${n}/`);
+// Aangeleverde bestanden en gegevens wissen (belofte op de site). Wat blijft: naam, restaurant, pakket, data.
+async function wipeIntake(row) {
+  const files = await storageList(INTAKE_BUCKET, `${row.id}/`).catch(() => []);
   await storageRemove(
     INTAKE_BUCKET,
-    files.map(f => `${n}/${f.name}`)
+    files.map(f => `${row.id}/${f.name}`)
   );
-  await update('recipe_intakes', `id=eq.${n}`, { files_deleted_at: new Date().toISOString() });
-  return { ok: true, removed: files.length };
+  await update('recipe_intakes', `id=eq.${row.id}`, {
+    structure: null,
+    folders: null,
+    match: null,
+    notes: null,
+    request_notes: null,
+    members: [],
+    wiped_at: new Date().toISOString()
+  });
+  return files.length;
+}
+
+// Vrijgeven: leden krijgen een account (bestond het al, dan dat), Pro via de organisatie en toegang tot de
+// gedeelde map; iedereen (ook de eigenaar) krijgt een mail met een eigen welkomstlink. Daarna wissen.
+async function releaseIntake(id, origin) {
+  const row = await getIntake(id);
+  if (!row.shared_map_id || !row.imported_count) throw fail('Laad eerst de recepten in.');
+  if (!row.organization_id) throw fail('Er is nog geen organisatie: is er betaald?');
+  const [org] = await select('organizations', `id=eq.${row.organization_id}&select=*`);
+  if (!org || !['active', 'trialing'].includes(org.status))
+    throw fail('De organisatie is (nog) niet actief: is de betaling verwerkt?');
+  const members = (row.members || []).slice(0, Math.max(0, (org.seats || 5) - 1));
+
+  for (const m of members) {
+    const user = await ensureUser(m.email);
+    await insertIgnore('organization_members', [{ organization_id: org.id, email: m.email }], 'organization_id,email');
+    await insertIgnore(
+      'shared_map_members',
+      [{ shared_map_id: row.shared_map_id, user_id: user.id, role: m.role === 'editor' ? 'editor' : 'viewer' }],
+      'shared_map_id,user_id'
+    );
+  }
+  await remove('welcome_links', `expires_at=lt.${new Date().toISOString()}`).catch(() => null);
+  const people = [{ email: row.email, name: row.name }, ...members.map(m => ({ email: m.email }))];
+  const failed = [];
+  for (const p of people) {
+    try {
+      const token = randomBytes(24).toString('hex');
+      await insert('welcome_links', { token, email: p.email });
+      const link = `${origin}/api/aanleveren?welkom=${token}`;
+      await sendMail({
+        to: p.email,
+        ...intakeMail('welcome', { ...row, name: p.name || '', link, organization: org.name })
+      });
+    } catch (e) {
+      console.error('Welkomstmail', p.email, e);
+      failed.push(p.email);
+    }
+  }
+  await update('recipe_intakes', `id=eq.${row.id}`, { status: 'klaar', released_at: new Date().toISOString() });
+  const removed = await wipeIntake(row);
+  return { ok: true, sent: people.length - failed.length, failed, removed };
 }
 
 async function deleteIntake(id) {
-  const n = intakeId(id);
-  const files = await storageList(INTAKE_BUCKET, `${n}/`).catch(() => []);
-  await storageRemove(
-    INTAKE_BUCKET,
-    files.map(f => `${n}/${f.name}`)
-  );
-  await remove('recipe_intakes', `id=eq.${n}`);
+  const row = await getIntake(id);
+  await wipeIntake(row);
+  await remove('recipe_intakes', `id=eq.${row.id}`);
   return { ok: true };
 }
 
@@ -769,10 +911,13 @@ export default async function handler(req, res) {
       return res.status(200).json(await markMessage(req.body?.id, req.body?.read !== false));
     if (action === 'clear_errors') return res.status(200).json(await clearErrors());
     if (action === 'intakes') return res.status(200).json(await intakes(siteOrigin(req)));
-    if (action === 'create_intake') return res.status(200).json(await createIntake(req.body, siteOrigin(req)));
+    if (action === 'approve_intake')
+      return res.status(200).json(await approveIntake(req.body?.id, req.body?.price_cents, siteOrigin(req)));
+    if (action === 'reject_intake') return res.status(200).json(await rejectIntake(req.body?.id, req.body?.reason));
     if (action === 'intake_file') return res.status(200).json(await intakeFileUrl(req.body?.id, req.body?.file));
-    if (action === 'intake_status') return res.status(200).json(await setIntakeStatus(req.body?.id, req.body?.status));
-    if (action === 'delete_intake_files') return res.status(200).json(await deleteIntakeFiles(req.body?.id));
+    if (action === 'import_intake')
+      return res.status(200).json(await importIntakeRecipes(req.body?.id, req.body?.recipes));
+    if (action === 'release_intake') return res.status(200).json(await releaseIntake(req.body?.id, siteOrigin(req)));
     if (action === 'delete_intake') return res.status(200).json(await deleteIntake(req.body?.id));
     if (action === 'confirm_account' && userId) return res.status(200).json(await confirmAccount(userId));
     if (action === 'delete_account' && userId) return res.status(200).json(await deleteAccount(userId, user));

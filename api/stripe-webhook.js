@@ -79,7 +79,15 @@ export default async function handler(req, res) {
       const sub = await stripe(`subscriptions/${obj.subscription}`, null, 'GET');
       const userId = obj.client_reference_id || (await userIdFor(sub));
       await applySubscription(sub, userId);
-      await sendThankYou(obj, sub, userId);
+      // Inlaadservice: de aanvraag staat op betaald en de klant kan aanleveren. Geen bedankmail: de accounts
+      // krijgen pas een mail als de beheerder de organisatie vrijgeeft (api/admin.js).
+      const intakeId = obj.metadata?.intake_id || sub.metadata?.intake_id;
+      if (intakeId && /^d+$/.test(intakeId))
+        await update('recipe_intakes', `id=eq.${intakeId}&status=eq.goedgekeurd`, {
+          status: 'betaald',
+          paid_at: new Date().toISOString()
+        });
+      else await sendThankYou(obj, sub, userId);
     } else if (event.type?.startsWith('customer.subscription.')) {
       // Meldingen kunnen dubbel of in de verkeerde volgorde komen: daarom de actuele stand bij Stripe opvragen.
       const sub = await stripe(`subscriptions/${obj.id}`, null, 'GET').catch(() => obj);

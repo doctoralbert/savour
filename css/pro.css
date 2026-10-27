@@ -510,12 +510,6 @@
 }
 
 /* ---- Beheerscherm: Inladen (aanleverlinks) ---- */
-.admin-intake-new input {
-  flex: 1 1 180px;
-}
-.admin-intake-new select {
-  flex: 0 1 200px;
-}
 .admin-intake-link {
   display: flex;
   flex-wrap: wrap;
@@ -575,4 +569,88 @@
 }
 .admin-message-actions {
   flex-wrap: wrap;
+}
+.admin-intake-step {
+  margin: 12px 0;
+  padding: 14px 16px;
+  border: 1px solid rgba(232, 202, 141, 0.35);
+  border-radius: 12px;
+}
+.admin-intake-step label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 260px;
+  font-size: 13px;
+  color: #8f9994;
+}
+.admin-intake-step input,
+.admin-drafts input,
+.admin-drafts textarea,
+.admin-drafts select {
+  padding: 8px 10px;
+  border: 1px solid #2c3837;
+  border-radius: 10px;
+  background: #0b1213;
+  color: #eee8dc;
+  font: inherit;
+  font-size: 14px;
+}
+.admin-drafts {
+  list-style: none;
+  margin: 10px 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+  max-height: 620px;
+  overflow-y: auto;
+}
+.admin-draft {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 200px;
+  gap: 10px;
+  align-items: start;
+  padding: 10px 12px;
+  border: 1px solid #243031;
+  border-radius: 12px;
+}
+.admin-draft.is-review {
+  border-color: rgba(224, 160, 90, 0.6);
+}
+.admin-draft-use {
+  padding-top: 8px;
+}
+.admin-draft-main {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.admin-draft-title {
+  width: 100%;
+  box-sizing: border-box;
+  font-weight: 600;
+}
+.admin-draft small {
+  color: #8f9994;
+  font-size: 12px;
+}
+.admin-draft details label {
+  display: grid;
+  gap: 4px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #8f9994;
+}
+.admin-draft details summary {
+  cursor: pointer;
+  color: #e8ca8d;
+  font-size: 13px;
+}
+@media (max-width: 760px) {
+  .admin-draft {
+    grid-template-columns: 24px minmax(0, 1fr);
+  }
+  .admin-draft select {
+    grid-column: 2;
+  }
 }

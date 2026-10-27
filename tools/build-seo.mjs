@@ -15,7 +15,7 @@ import { DE } from './site-pages-de.mjs';
 import { ES } from './site-pages-es.mjs';
 import { APP_PAGE } from './site-app.mjs';
 import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
-import { DELIVER } from './site-deliver.mjs';
+import { DELIVER, DELIVER_FLOW } from './site-deliver.mjs';
 const PAGES = { de: DE, es: ES };
 
 // Nieuwste blogartikelen eerst.
@@ -172,7 +172,7 @@ for (const lang of ['de', 'es']) {
   for (const p of LEGACY) p[lang] = need(P.legacy[p.id], p.id).slug;
   blogSlug[lang] = P.blogSlug;
 }
-for (const lang of HOME_LANGS) HOME[lang].faq.push(SERVICE[lang].faq);
+for (const lang of HOME_LANGS) HOME[lang].faq.push(...SERVICE[lang].faqs.slice(0, 2));
 // Alle taalversies van een pagina (voor hreflang en de taalknop).
 const slugsOf = item => Object.fromEntries(LANGS.map(l => [l, typeof item[l] === 'string' ? item[l] : item[l].slug]));
 const LOCALE = { nl: 'nl-NL', en: 'en-GB', de: 'de-DE', es: 'es-ES' };
@@ -283,14 +283,17 @@ const servicePackages = lang => {
   const s = SERVICE[lang];
   return [...SERVICE_TIERS.map(([n, p]) => [s.tier(n), euro(p, lang)]), [s.tierMore, s.custom]];
 };
-// Aanvraagformulier: zelfde verzending als het contactformulier (js/site.js); velden met data-extra gaan bovenaan het bericht.
+// Aanvraagformulier in de overlay: gaat naar /api/aanleveren (actie request), komt in /admin → Inladen en in de mail.
+const PACKAGE_KEYS = ['p100', 'p500', 'p1000', 'meer'];
 function intakeForm(lang) {
-  const [, name, email, , , , , busy, ok, fail] = FORM_TEXT[lang];
-  const fm = SERVICE[lang].form;
+  const [, name, email, , , , , busy, , fail] = FORM_TEXT[lang];
+  const s = SERVICE[lang];
+  const fm = s.form;
   const f = (id, label, input) => `<div class="site-field"><label for="${id}">${esc(label)}</label>${input}</div>`;
-  const sel = (id, label, opts) => f(id, label, `<select id="${id}" data-extra="${esc(label)}">${opts.map(o => `<option>${esc(o)}</option>`).join('')}</select>`);
-  const packages = servicePackages(lang).map(([t, p], i, all) => (i === all.length - 1 ? fm.packageMore : `${t} · ${p}`));
-  return `<form class="site-form" data-contact-form data-busy="${esc(busy)}" data-ok="${esc(ok)}" data-fail="${esc(fail)}" novalidate><input type="hidden" name="subject" value="${esc(fm.subject)}"><div class="site-field-pair">${sel('ifPackage', fm.package, packages)}${sel('ifTeam', fm.team, fm.teamOptions)}</div>${f('ifName', name, '<input id="ifName" name="name" autocomplete="name" required maxlength="120">')}${f('ifEmail', email, '<input id="ifEmail" name="email" type="email" autocomplete="email" required maxlength="240">')}${f('ifPlace', fm.restaurant, `<input id="ifPlace" data-extra="${esc(fm.restaurant)}" autocomplete="organization" required maxlength="160">`)}${f('ifMessage', fm.message, `<textarea id="ifMessage" name="message" rows="3" maxlength="12000" placeholder="${esc(fm.placeholder)}"></textarea>`)}<div class="site-form-trap" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div><div class="site-form-row"><button class="site-btn solid" type="submit">${esc(fm.send)}</button><span class="site-form-status" aria-live="polite"></span></div></form>`;
+  const opts = list => list.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join('');
+  const packages = servicePackages(lang).map(([t, p], i, all) => [PACKAGE_KEYS[i], i === all.length - 1 ? fm.packageMore : `${t} · ${p}`]);
+  const seats = fm.teamOptions.map((t, i) => [[5, 10, 25][i] || '', t]);
+  return `<form class="site-form" data-intake-request data-lang="${lang}" data-busy="${esc(busy)}" data-ok="${esc(s.requestOk)}" data-fail="${esc(fail)}" novalidate><div class="site-field-pair">${f('ifPackage', fm.package, `<select id="ifPackage" name="package">${opts(packages)}</select>`)}${f('ifTeam', fm.team, `<select id="ifTeam" name="seats">${opts(seats)}</select>`)}</div>${f('ifName', name, '<input id="ifName" name="name" autocomplete="name" required maxlength="120">')}${f('ifEmail', email, '<input id="ifEmail" name="email" type="email" autocomplete="email" required maxlength="240">')}${f('ifPlace', fm.restaurant, '<input id="ifPlace" name="restaurant" autocomplete="organization" required maxlength="160">')}${f('ifMessage', fm.message, `<textarea id="ifMessage" name="notes" rows="3" maxlength="6000" placeholder="${esc(fm.placeholder)}"></textarea>`)}<div class="site-form-trap" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div><div class="site-form-row"><button class="site-btn solid" type="submit">${esc(fm.send)}</button><span class="site-form-status" aria-live="polite"></span></div></form>`;
 }
 const freeBadge = (lang, button) => {
   const s = SERVICE[lang];
@@ -314,15 +317,34 @@ function serviceBlock(lang) {
 <h2 class="reveal" id="pakketten">${esc(s.priceTitle)}</h2><p>${esc(s.priceIntro)}</p><div class="svc-prices">${servicePackages(lang)
     .map(([t, p], i, all) => `<button type="button" class="svc-price${i === featured ? ' is-featured' : ''}" data-svc-open="${i}"><span>${esc(t)}</span><strong${i === all.length - 1 ? ' class="small"' : ''}>${esc(p)}</strong><em>${esc(s.choose)} →</em></button>`)
     .join('')}</div><p class="site-note">${esc(s.example)}</p>
+<div class="site-faq svc-faq">${s.faqs.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}</div>
 ${serviceDialog(lang)}`;
 }
-// Aanleverpagina (alleen via een persoonlijke link): het formulier wordt pas zichtbaar als de link klopt (js/site.js).
+// Aanleverpagina (alleen via een persoonlijke link). js/site.js toont per stand van zaken één deel:
+// betalen (na goedkeuring), aanleveren (na betalen) of een melding.
 function deliverBody(lang) {
   const d = DELIVER[lang];
-  const s = SERVICE[lang];
-  const structures = s.structures;
-  return `<form class="site-form svc-deliver" data-deliver data-lang="${lang}" data-texts="${esc(JSON.stringify({ uploading: d.uploading, uploaded: d.uploaded, failed: d.failed, tooBig: d.tooBig, busy: d.busy, needFiles: d.needFiles, thanks: d.thanks, invalid: d.invalid, closed: d.closed, hello: d.hello, package: d.package }))}" hidden novalidate>
-<p class="svc-deliver-who" data-deliver-who></p>
+  const w = DELIVER_FLOW[lang];
+  const structures = SERVICE[lang].structures;
+  const texts = {
+    uploading: d.uploading, uploaded: d.uploaded, failed: d.failed, tooBig: d.tooBig, busy: d.busy, needFiles: d.needFiles,
+    thanks: d.thanks, invalid: d.invalid, closed: d.closed, hello: d.hello, package: d.package,
+    perYear: w.perYear, once: w.once, free: w.free, paying: w.paying, processing: w.processing, reviewing: w.reviewing,
+    rejected: w.rejected, importing: w.importing, membersHint: [2, 5, 10, 25].reduce((o, n) => ({ ...o, [n]: w.membersHint(n) }), {}),
+    tooMany: [4, 9, 24].reduce((o, n) => ({ ...o, [n]: w.tooMany(n) }), {}), memberEmail: w.memberEmail, roleView: w.roleView,
+    roleEdit: w.roleEdit, remove: w.remove, service: w.service
+  };
+  return `<div data-deliver data-lang="${lang}" data-texts="${esc(JSON.stringify(texts))}">
+<p class="svc-deliver-who" data-deliver-who hidden></p>
+<section class="svc-pay" data-stage="pay" hidden>
+<h2>${esc(w.payTitle)}</h2><p>${esc(w.payIntro)}</p>
+<p class="site-note"><b>${esc(w.seatsLabel)}</b></p>
+<div class="svc-seat-choice">${[5, 10, 25].map(n => `<label><input type="radio" name="seats" value="${n}"><span><b>${esc(w.seats(n))}</b><small>${esc(w.seatsNote(n))}</small><em data-seat-price="${n}"></em></span></label>`).join('')}</div>
+<div class="svc-total" data-pay-total></div>
+<div class="site-form-row"><button class="site-btn solid" type="button" data-pay>${esc(w.payButton)}</button><span class="site-form-status" aria-live="polite" data-pay-status></span></div>
+<p class="site-note">${esc(w.payNote)}</p>
+</section>
+<form class="site-form svc-deliver" data-stage="deliver" hidden novalidate>
 <h2>${esc(d.structureTitle)}</h2><p class="site-note">${esc(d.structureHint)}</p>
 <div class="svc-choice">${structures.map(([t, folders], i) => `<label><input type="radio" name="structure" value="${esc(t)}" data-folders="${esc(i === structures.length - 1 ? '' : folders.join('\n'))}"${i === 0 ? ' checked' : ''}><span>${esc(t)}</span></label>`).join('')}</div>
 <div class="site-field"><label for="dvFolders">${esc(d.foldersLabel)}</label><textarea id="dvFolders" name="folders" rows="6" maxlength="6000">${esc(structures[0][1].join('\n'))}</textarea></div>
@@ -332,9 +354,13 @@ function deliverBody(lang) {
 <ul class="svc-files" data-deliver-list></ul>
 <h2>${esc(d.notesTitle)}</h2>
 <div class="site-field"><textarea id="dvNotes" name="notes" rows="4" maxlength="6000" placeholder="${esc(d.notesPlaceholder)}" aria-label="${esc(d.notesTitle)}"></textarea></div>
+<h2>${esc(w.membersTitle)}</h2><p class="site-note" data-members-hint></p>
+<ul class="svc-members" data-members></ul>
+<p><button type="button" class="site-btn" data-add-member>${esc(w.addMember)}</button></p>
 <div class="site-form-row"><button class="site-btn solid" type="submit">${esc(d.submit)}</button><span class="site-form-status" aria-live="polite"></span></div>
-<p class="site-note">${esc(d.privacy)}</p>
-</form><p class="svc-deliver-msg" data-deliver-msg>…</p>`;
+<p class="site-note">${esc(w.wiped)}</p>
+</form>
+<p class="svc-deliver-msg" data-deliver-msg>…</p></div>`;
 }
 // Opvallend blok op de startpagina, direct onder "Wat Savour doet".
 function serviceBand(lang) {
@@ -654,6 +680,9 @@ for (const lang of LANGS) {
     }
     body = body.replace('%%FORM%%', contactForm(lang));
     if (p.id === 'pro') body += serviceTeaser(lang);
+    // Vragenpagina: ook de vragen over de inlaadservice (komen zo ook in het FAQPage-schema).
+    if (p.id === 'faq') body += SERVICE[lang].faqs.map(([q, a]) => `<h2>${esc(q)}</h2>
+<p>${esc(a)}</p>`).join('');
     const schema = [];
     if (p.id === 'faq')
       schema.push({

@@ -163,3 +163,46 @@ export function storageRemove(bucket, paths) {
   if (!paths.length) return Promise.resolve([]);
   return adminFetch(`/storage/v1/object/${bucket}`, { method: 'DELETE', body: { prefixes: paths } });
 }
+
+// ---- Accounts voor de inlaadservice ----
+// Bestaand account op e-mailadres zoeken (kleine gebruikersaantallen: de hele lijst doorlopen is prima).
+export async function findUserByEmail(email) {
+  const want = String(email || '')
+    .trim()
+    .toLowerCase();
+  if (!want) return null;
+  return (await listUsers()).find(u => String(u.email || '').toLowerCase() === want) || null;
+}
+
+// Account aanmaken zonder mail en zonder wachtwoord; de persoon kiest later zelf een wachtwoord via een link.
+export async function ensureUser(email, name) {
+  const existing = await findUserByEmail(email);
+  if (existing) return existing;
+  return adminFetch('/auth/v1/admin/users', {
+    method: 'POST',
+    body: { email: String(email).trim().toLowerCase(), email_confirm: true, user_metadata: name ? { name } : {} }
+  });
+}
+
+// Link om een (nieuw) wachtwoord te kiezen, zonder dat Supabase zelf mailt. De app handelt
+// ?token_hash=...&type=recovery af (js/features/auth.js) en vraagt dan om een wachtwoord.
+export async function passwordLink(email, origin) {
+  const d = await adminFetch('/auth/v1/admin/generate_link', { method: 'POST', body: { type: 'recovery', email } });
+  const hash = d?.hashed_token || d?.properties?.hashed_token;
+  if (!hash) throw new Error('Kon geen wachtwoordlink maken.');
+  return `${origin}/?token_hash=${encodeURIComponent(hash)}&type=recovery`;
+}
+
+// Rijen toevoegen en de nieuwe rijen terugkrijgen (voor id's van nieuwe recepten, mappen enz.).
+export function insertReturning(table, rows) {
+  return adminFetch(`/rest/v1/${table}`, { method: 'POST', body: rows, prefer: 'return=representation' });
+}
+
+// Rijen toevoegen; bestaat de combinatie al (on_conflict), dan niets doen.
+export function insertIgnore(table, rows, onConflict) {
+  return adminFetch(`/rest/v1/${table}?on_conflict=${onConflict}`, {
+    method: 'POST',
+    body: rows,
+    prefer: 'resolution=ignore-duplicates,return=minimal'
+  });
+}

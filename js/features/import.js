@@ -1030,6 +1030,15 @@ function importFailureSummary(failures) {
     );
 }
 
+// Eén bestand lezen naar receptconcepten, op type. Ook gebruikt door /admin → Inladen (inlaadservice).
+async function readImportFile(file) {
+  const name = (file.name || '').toLowerCase();
+  if (/\.(jpe?g|png|webp)$/i.test(name)) return importImageFile(file);
+  if (APP_EXPORT_EXT.test(name)) return importAppExport(file);
+  if (/\.json$/i.test(name)) return importJsonFile(file);
+  return importTextFile(file);
+}
+
 async function processImportFiles(files) {
   const list = normalizeImportFiles(files);
   if (!list.length) {
@@ -1068,13 +1077,7 @@ async function processImportFiles(files) {
       });
       if (isPhoto) $('importStatus').textContent = `${file.name} wordt rechtgezet en twee keer gelezen…`;
       try {
-        const name = (file.name || '').toLowerCase();
-        let drafts;
-        if (isPhoto) drafts = await importImageFile(file);
-        else if (APP_EXPORT_EXT.test(name)) drafts = await importAppExport(file);
-        else if (/\.json$/i.test(name)) drafts = await importJsonFile(file);
-        else drafts = await importTextFile(file);
-        batchDrafts.push(...drafts);
+        batchDrafts.push(...(await readImportFile(file)));
       } catch (e) {
         console.error('Bulk import', file.name, e);
         failures.push({ name: file.name, error: e?.message || 'Import mislukt.', pro: e?.code === 'pro_required' });

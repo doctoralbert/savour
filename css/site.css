@@ -2423,3 +2423,117 @@ body.cook-mode #publicRecipeShell .share-recipe-head h1 {
     text-align: center;
   }
 }
+
+/* Aanleverpagina: betalen en leden */
+.svc-pay {
+  padding: 24px;
+  border: 1px solid rgba(232, 202, 141, 0.45);
+  border-radius: 18px;
+  background: rgba(232, 202, 141, 0.04);
+}
+.site .svc-pay h2 {
+  margin-top: 0;
+}
+.svc-seat-choice {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 10px 0 16px;
+}
+.svc-seat-choice label {
+  cursor: pointer;
+}
+.svc-seat-choice input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.svc-seat-choice span {
+  display: grid;
+  gap: 4px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  text-align: center;
+}
+.svc-seat-choice small {
+  color: var(--ink-2);
+  font-size: 13px;
+}
+.svc-seat-choice em {
+  font-style: normal;
+  color: var(--gold-soft);
+  font-weight: 600;
+}
+.svc-seat-choice input:checked + span {
+  border-color: var(--gold-soft);
+  background: rgba(232, 202, 141, 0.09);
+}
+.svc-seat-choice input:focus-visible + span {
+  outline: 2px solid var(--gold-soft);
+  outline-offset: 2px;
+}
+.svc-total {
+  margin: 0 0 16px;
+  border-top: 1px solid var(--line);
+}
+.svc-total p {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.svc-total span {
+  color: var(--ink-2);
+}
+.site-prose .svc-members {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  display: grid;
+  gap: 8px;
+}
+.site-prose .svc-members li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 170px 40px;
+  gap: 8px;
+  margin: 0;
+}
+.svc-members input,
+.svc-members select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper-2);
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+  padding: 11px 13px;
+}
+.svc-member-del {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 20px;
+  cursor: pointer;
+}
+.svc-faq {
+  margin-top: 34px;
+}
+@media (max-width: 720px) {
+  .svc-seat-choice {
+    grid-template-columns: 1fr;
+  }
+  .site-prose .svc-members li {
+    grid-template-columns: minmax(0, 1fr) 40px;
+  }
+  .svc-members select {
+    grid-column: 1;
+  }
+}

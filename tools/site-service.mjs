@@ -36,29 +36,34 @@ export const SERVICE = {
     freeNote: 'Je betaalt alleen je organisatie-abonnement. In ruil vragen we om eerlijke feedback.',
     includedTitle: 'Wat je krijgt',
     included: [
-      'Al je recepten ingeladen: Word, PDF, foto’s van schriften en kladjes, en exports uit andere apps',
-      'Een mappenstructuur zoals jullie werken: per partie, menu, seizoen of vestiging',
-      'Elk recept nagekeken tegen het origineel: hoeveelheden, eenheden, opbrengst en bereiding',
-      'Een gedeelde map voor je team, iedereen uitgenodigd, met een korte uitleg',
-      'Vertrouwelijk: je bronbestanden worden na afloop verwijderd'
+      "Al je recepten ingeladen: Word, PDF, foto’s van schriften en kladjes, en exports uit andere apps",
+      "Een mappenstructuur zoals jullie werken: per partie, menu, seizoen of vestiging",
+      "Elk recept nagekeken tegen het origineel: hoeveelheden, eenheden, opbrengst en bereiding",
+      "Accounts voor iedereen in je organisatie, met Savour Pro en toegang tot de recepten",
+      "Iedereen krijgt een mail om zelf een wachtwoord te kiezen zodra alles klaarstaat",
+      "Vertrouwelijk: je aangeleverde bestanden en gegevens worden gewist zodra je organisatie klaarstaat"
     ],
     stepsTitle: 'Hoe het werkt',
     steps: [
       [
-        "Kies je pakket",
-        "Klik op een pakket en vul de aanvraag in. Je krijgt een factuur per mail en betaalt met iDEAL of creditcard."
+        "Vraag aan",
+        "Kies een pakket en vul de aanvraag in. Wij bekijken hem en mailen je zo snel mogelijk."
+      ],
+      [
+        "Betaal",
+        "Na goedkeuring krijg je een persoonlijke link. Kies de grootte van je organisatie en betaal het abonnement en het pakket in één keer."
       ],
       [
         "Lever aan",
-        "Je krijgt een persoonlijke aanleverlink. Upload je recepten en geef je mappenstructuur door."
+        "Upload je recepten, geef je mappenstructuur door en vul de e-mailadressen van je collega’s in."
       ],
       [
-        "Inladen en nakijken",
-        "Wij laden alles in, zetten het in jouw mappen en kijken elk recept na."
+        "Wij laden in",
+        "We zetten alles in de juiste mappen en kijken elk recept na."
       ],
       [
-        "Jij keurt goed",
-        "Je loopt alles na, je organisatie krijgt een uitnodiging en jullie kunnen koken."
+        "Je organisatie staat klaar",
+        "Iedereen krijgt een mail om een wachtwoord te kiezen en kan meteen koken. Je aangeleverde gegevens worden gewist."
       ]
     ],
     structureTitle: "Jij bepaalt de indeling",
@@ -102,9 +107,9 @@ export const SERVICE = {
     ],
     choose: "Kies dit pakket",
     close: "Sluiten",
-    payNote: "Na je aanvraag krijg je een factuur per mail (iDEAL of creditcard) en een persoonlijke aanleverlink.",
+    payNote: "We bekijken je aanvraag en mailen je zo snel mogelijk. Na goedkeuring krijg je een persoonlijke link om te betalen en aan te leveren.",
     priceTitle: 'Prijs',
-    priceIntro: 'Eenmalig, bij een jaarabonnement Organisatie 5, 10 of 25 naar keuze. Prijzen excl. btw.',
+    priceIntro: "Eenmalig, samen met een jaarabonnement Organisatie 5 (€89), 10 (€149) of 25 (€299) naar keuze. Je betaalt pas na goedkeuring.",
     tier: n => `Tot ${n} recepten`,
     tierMore: 'Meer dan 1000 recepten',
     custom: 'In overleg',
@@ -128,7 +133,25 @@ export const SERVICE = {
     },
     proTitle: 'Liever dat wij je recepten inladen?',
     proText: 'Met de inlaadservice zet de oprichter van Savour, zelf kok, je hele receptenmap persoonlijk over. Vanaf €85 eenmalig, bij een organisatie-abonnement naar keuze.',
-    faq: ['Kunnen jullie mijn recepten voor me inladen?', 'Ja. Met de inlaadservice zet de oprichter van Savour, zelf kok, je hele receptenmap persoonlijk over: ingeladen, geordend in mappen en elk recept nagekeken. Vanaf €85 eenmalig, bij een jaarabonnement Organisatie 5, 10 of 25. De eerste 5 keukens laden we gratis in.']
+    requestOk: "Bedankt! Je aanvraag is verstuurd. Je krijgt een bevestiging per mail en hoort zo snel mogelijk van ons.",
+    faqs: [
+      [
+        "Kunnen jullie mijn recepten voor me inladen?",
+        "Ja. Met de inlaadservice zet de oprichter van Savour, zelf kok, je hele receptenmap persoonlijk over: ingeladen, geordend in jouw mappen en elk recept nagekeken. Vanaf €85 eenmalig, samen met een jaarabonnement Organisatie 5, 10 of 25. De eerste 5 keukens laden we gratis in."
+      ],
+      [
+        "Hoe werkt de inlaadservice?",
+        "Je vraagt hem aan op de site. Na goedkeuring krijg je een persoonlijke link: je betaalt het organisatie-abonnement en het pakket, en levert daarna je recepten, je mappenstructuur en de e-mailadressen van je collega’s aan. Wij laden alles in en kijken het na. Zodra je organisatie klaarstaat, krijgt iedereen een mail om een wachtwoord te kiezen."
+      ],
+      [
+        "Wat gebeurt er met de bestanden die ik aanlever?",
+        "Ze staan in een afgeschermde opslag die alleen Savour kan zien, en worden samen met je overige aangeleverde gegevens gewist zodra je organisatie klaarstaat. Je recepten staan daarna alleen nog in jouw organisatie in Savour."
+      ],
+      [
+        "Moeten mijn collega’s zelf een account maken?",
+        "Nee. Bij de inlaadservice maken wij de accounts aan voor de e-mailadressen die je doorgeeft. Iedereen krijgt Savour Pro via je organisatie en een mail om zelf een wachtwoord te kiezen."
+      ]
+    ],
   },
   en: {
     feature: {
@@ -153,29 +176,34 @@ export const SERVICE = {
     freeNote: 'You only pay for your organisation plan. In return we ask for honest feedback.',
     includedTitle: 'What you get',
     included: [
-      'All your recipes imported: Word, PDF, photos of notebooks and notes, and exports from other apps',
-      'A folder structure that matches how you work: by section, menu, season or location',
-      'Every recipe checked against the original: quantities, units, yield and method',
-      'A shared folder for your team, everyone invited, with a short walkthrough',
-      'Confidential: your source files are deleted afterwards'
+      "All your recipes imported: Word, PDF, photos of notebooks and notes, and exports from other apps",
+      "A folder structure that matches how you work: by section, menu, season or location",
+      "Every recipe checked against the original: quantities, units, yield and method",
+      "Accounts for everyone in your organisation, with Savour Pro and access to the recipes",
+      "Everyone gets an email to choose their own password as soon as everything is ready",
+      "Confidential: your files and details are deleted as soon as your organisation is ready"
     ],
     stepsTitle: 'How it works',
     steps: [
       [
-        "Choose your package",
-        "Click a package and fill in the request. You receive an invoice by email and pay with iDEAL or card."
+        "Request",
+        "Choose a package and fill in the request. We review it and email you as soon as possible."
+      ],
+      [
+        "Pay",
+        "Once approved you get a personal link. Choose the size of your organisation and pay the plan and the package in one go."
       ],
       [
         "Send your recipes",
-        "You get a personal upload link. Upload your recipes and tell us your folder structure."
+        "Upload your recipes, tell us your folder structure and enter the email addresses of your colleagues."
       ],
       [
-        "Import and check",
-        "We import everything, put it in your folders and check every recipe."
+        "We import",
+        "We put everything in the right folders and check every recipe."
       ],
       [
-        "You approve",
-        "You go through it all, your organisation gets an invitation and you can start cooking."
+        "Your organisation is ready",
+        "Everyone gets an email to choose a password and can start cooking. Your files and details are deleted."
       ]
     ],
     structureTitle: "You decide the structure",
@@ -219,9 +247,9 @@ export const SERVICE = {
     ],
     choose: "Choose this package",
     close: "Close",
-    payNote: "After your request you receive an invoice by email (iDEAL or card) and a personal upload link.",
+    payNote: "We review your request and email you as soon as possible. Once approved you get a personal link to pay and send your recipes.",
     priceTitle: 'Price',
-    priceIntro: 'One-off, with a yearly Organisation 5, 10 or 25 plan of your choice. Prices excl. VAT.',
+    priceIntro: "One-off, together with a yearly Organisation 5 (€89), 10 (€149) or 25 (€299) plan of your choice. You only pay after approval.",
     tier: n => `Up to ${n} recipes`,
     tierMore: 'More than 1,000 recipes',
     custom: 'Let’s talk',
@@ -245,7 +273,25 @@ export const SERVICE = {
     },
     proTitle: 'Rather have us import your recipes?',
     proText: 'With the import service, the founder of Savour, a chef, personally moves your whole recipe folder over. From €85 one-off, with an organisation plan of your choice.',
-    faq: ['Can you import my recipes for me?', 'Yes. With the import service, the founder of Savour, a chef, personally moves your whole recipe folder over: imported, organised in folders and every recipe checked. From €85 one-off, with a yearly Organisation 5, 10 or 25 plan. The first 5 kitchens are imported for free.']
+    requestOk: "Thank you! Your request has been sent. You will get a confirmation by email and hear from us as soon as possible.",
+    faqs: [
+      [
+        "Can you import my recipes for me?",
+        "Yes. With the import service, the founder of Savour, a chef, personally moves your whole recipe folder over: imported, organised in your folders and every recipe checked. From €85 one-off, together with a yearly Organisation 5, 10 or 25 plan. The first 5 kitchens are imported for free."
+      ],
+      [
+        "How does the import service work?",
+        "You request it on the website. Once approved you get a personal link: you pay the organisation plan and the package, then send us your recipes, your folder structure and the email addresses of your colleagues. We import and check everything. As soon as your organisation is ready, everyone gets an email to choose a password."
+      ],
+      [
+        "What happens to the files I send?",
+        "They are kept in private storage that only Savour can see, and are deleted together with your other details as soon as your organisation is ready. After that your recipes only live in your organisation in Savour."
+      ],
+      [
+        "Do my colleagues have to create an account?",
+        "No. With the import service we create the accounts for the email addresses you give us. Everyone gets Savour Pro through your organisation and an email to choose their own password."
+      ]
+    ],
   },
   de: {
     feature: {
@@ -270,29 +316,34 @@ export const SERVICE = {
     freeNote: 'Du zahlst nur dein Organisations-Abo. Im Gegenzug bitten wir um ehrliches Feedback.',
     includedTitle: 'Was du bekommst',
     included: [
-      'Alle Rezepte eingepflegt: Word, PDF, Fotos von Heften und Notizen sowie Exporte aus anderen Apps',
-      'Eine Ordnerstruktur, wie ihr arbeitet: nach Posten, Menü, Saison oder Standort',
-      'Jedes Rezept mit dem Original abgeglichen: Mengen, Einheiten, Ausbeute und Zubereitung',
-      'Ein geteilter Ordner für dein Team, alle eingeladen, mit einer kurzen Einführung',
-      'Vertraulich: Deine Quelldateien werden danach gelöscht'
+      "Alle Rezepte eingepflegt: Word, PDF, Fotos von Heften und Notizen sowie Exporte aus anderen Apps",
+      "Eine Ordnerstruktur, wie ihr arbeitet: nach Posten, Menü, Saison oder Standort",
+      "Jedes Rezept mit dem Original abgeglichen: Mengen, Einheiten, Ausbeute und Zubereitung",
+      "Konten für alle in deiner Organisation, mit Savour Pro und Zugriff auf die Rezepte",
+      "Alle bekommen eine E-Mail, um selbst ein Passwort zu wählen, sobald alles bereitsteht",
+      "Vertraulich: Deine gelieferten Dateien und Angaben werden gelöscht, sobald deine Organisation bereitsteht"
     ],
     stepsTitle: 'So funktioniert es',
     steps: [
       [
-        "Paket wählen",
-        "Klick auf ein Paket und füll die Anfrage aus. Du bekommst eine Rechnung per E-Mail und zahlst per iDEAL oder Karte."
+        "Anfragen",
+        "Wähle ein Paket und füll die Anfrage aus. Wir prüfen sie und melden uns so schnell wie möglich."
       ],
       [
-        "Rezepte liefern",
-        "Du bekommst einen persönlichen Upload-Link. Lade deine Rezepte hoch und nenne uns deine Ordnerstruktur."
+        "Bezahlen",
+        "Nach der Freigabe bekommst du einen persönlichen Link. Wähle die Größe deiner Organisation und bezahle Abo und Paket in einem Schritt."
       ],
       [
-        "Einpflegen und prüfen",
-        "Wir pflegen alles ein, sortieren es in deine Ordner und prüfen jedes Rezept."
+        "Liefern",
+        "Lade deine Rezepte hoch, nenne deine Ordnerstruktur und trag die E-Mail-Adressen deiner Kollegen ein."
       ],
       [
-        "Du gibst frei",
-        "Du gehst alles durch, deine Organisation bekommt eine Einladung und ihr könnt kochen."
+        "Wir pflegen ein",
+        "Wir legen alles in die richtigen Ordner und prüfen jedes Rezept."
+      ],
+      [
+        "Deine Organisation steht bereit",
+        "Alle bekommen eine E-Mail zum Wählen eines Passworts und können loslegen. Deine gelieferten Angaben werden gelöscht."
       ]
     ],
     structureTitle: "Du bestimmst die Ordnung",
@@ -336,9 +387,9 @@ export const SERVICE = {
     ],
     choose: "Dieses Paket wählen",
     close: "Schließen",
-    payNote: "Nach deiner Anfrage bekommst du eine Rechnung per E-Mail (iDEAL oder Karte) und einen persönlichen Upload-Link.",
+    payNote: "Wir prüfen deine Anfrage und melden uns so schnell wie möglich. Nach der Freigabe bekommst du einen persönlichen Link zum Bezahlen und Liefern.",
     priceTitle: 'Preis',
-    priceIntro: 'Einmalig, zusammen mit einem Jahres-Abo Organisation 5, 10 oder 25 nach Wahl. Preise zzgl. MwSt.',
+    priceIntro: "Einmalig, zusammen mit einem Jahres-Abo Organisation 5 (89 €), 10 (149 €) oder 25 (299 €) nach Wahl. Du zahlst erst nach der Freigabe.",
     tier: n => `Bis ${n} Rezepte`,
     tierMore: 'Mehr als 1.000 Rezepte',
     custom: 'Nach Absprache',
@@ -362,7 +413,25 @@ export const SERVICE = {
     },
     proTitle: 'Sollen wir deine Rezepte einpflegen?',
     proText: 'Mit dem Einpflege-Service überträgt der Gründer von Savour, selbst Koch, deinen ganzen Rezeptordner persönlich. Ab 85 € einmalig, mit einem Organisations-Abo nach Wahl.',
-    faq: ['Könnt ihr meine Rezepte für mich einpflegen?', 'Ja. Mit dem Einpflege-Service überträgt der Gründer von Savour, selbst Koch, deinen ganzen Rezeptordner persönlich: eingepflegt, in Ordnern sortiert und jedes Rezept geprüft. Ab 85 € einmalig, mit einem Jahres-Abo Organisation 5, 10 oder 25. Die ersten 5 Küchen pflegen wir kostenlos ein.']
+    requestOk: "Danke! Deine Anfrage wurde gesendet. Du bekommst eine Bestätigung per E-Mail und hörst so schnell wie möglich von uns.",
+    faqs: [
+      [
+        "Könnt ihr meine Rezepte für mich einpflegen?",
+        "Ja. Mit dem Einpflege-Service überträgt der Gründer von Savour, selbst Koch, deinen ganzen Rezeptordner persönlich: eingepflegt, in deine Ordner sortiert und jedes Rezept geprüft. Ab 85 € einmalig, zusammen mit einem Jahres-Abo Organisation 5, 10 oder 25. Die ersten 5 Küchen pflegen wir kostenlos ein."
+      ],
+      [
+        "Wie funktioniert der Einpflege-Service?",
+        "Du fragst ihn auf der Website an. Nach der Freigabe bekommst du einen persönlichen Link: Du bezahlst das Organisations-Abo und das Paket und lieferst danach deine Rezepte, deine Ordnerstruktur und die E-Mail-Adressen deiner Kollegen. Wir pflegen alles ein und prüfen es. Sobald deine Organisation bereitsteht, bekommen alle eine E-Mail zum Wählen eines Passworts."
+      ],
+      [
+        "Was passiert mit den Dateien, die ich liefere?",
+        "Sie liegen in einem geschützten Speicher, den nur Savour sehen kann, und werden zusammen mit deinen übrigen Angaben gelöscht, sobald deine Organisation bereitsteht. Danach sind deine Rezepte nur noch in deiner Organisation in Savour."
+      ],
+      [
+        "Müssen meine Kollegen selbst ein Konto anlegen?",
+        "Nein. Beim Einpflege-Service legen wir die Konten für die E-Mail-Adressen an, die du uns nennst. Alle bekommen Savour Pro über deine Organisation und eine E-Mail, um selbst ein Passwort zu wählen."
+      ]
+    ],
   },
   es: {
     feature: {
@@ -387,29 +456,34 @@ export const SERVICE = {
     freeNote: 'Solo pagas tu plan de organización. A cambio te pedimos una opinión sincera.',
     includedTitle: 'Qué incluye',
     included: [
-      'Todas tus recetas cargadas: Word, PDF, fotos de libretas y notas, y exportaciones de otras apps',
-      'Una estructura de carpetas como trabajáis: por partida, menú, temporada o local',
-      'Cada receta revisada con el original: cantidades, unidades, rendimiento y elaboración',
-      'Una carpeta compartida para tu equipo, todos invitados, con una breve explicación',
-      'Confidencial: tus archivos originales se borran al terminar'
+      "Todas tus recetas cargadas: Word, PDF, fotos de libretas y notas, y exportaciones de otras apps",
+      "Una estructura de carpetas como trabajáis: por partida, menú, temporada o local",
+      "Cada receta revisada con el original: cantidades, unidades, rendimiento y elaboración",
+      "Cuentas para todos en tu organización, con Savour Pro y acceso a las recetas",
+      "Todos reciben un correo para elegir su contraseña en cuanto todo está listo",
+      "Confidencial: tus archivos y datos se borran en cuanto tu organización está lista"
     ],
     stepsTitle: 'Cómo funciona',
     steps: [
       [
-        "Elige tu paquete",
-        "Haz clic en un paquete y rellena la solicitud. Recibes una factura por correo y pagas con iDEAL o tarjeta."
+        "Solicítalo",
+        "Elige un paquete y rellena la solicitud. La revisamos y te escribimos lo antes posible."
+      ],
+      [
+        "Paga",
+        "Tras la aprobación recibes un enlace personal. Elige el tamaño de tu organización y paga el plan y el paquete de una vez."
       ],
       [
         "Envía tus recetas",
-        "Recibes un enlace personal. Sube tus recetas e indícanos tu estructura de carpetas."
+        "Sube tus recetas, indícanos tu estructura de carpetas y escribe los correos de tus compañeros."
       ],
       [
-        "Cargamos y revisamos",
-        "Lo cargamos todo, lo ponemos en tus carpetas y revisamos cada receta."
+        "Las cargamos",
+        "Lo ponemos todo en las carpetas correctas y revisamos cada receta."
       ],
       [
-        "Tú lo apruebas",
-        "Lo revisas todo, tu organización recibe una invitación y podéis cocinar."
+        "Tu organización está lista",
+        "Todos reciben un correo para elegir contraseña y pueden empezar a cocinar. Tus datos enviados se borran."
       ]
     ],
     structureTitle: "Tú decides la estructura",
@@ -453,9 +527,9 @@ export const SERVICE = {
     ],
     choose: "Elegir este paquete",
     close: "Cerrar",
-    payNote: "Tras tu solicitud recibes una factura por correo (iDEAL o tarjeta) y un enlace personal para enviar tus recetas.",
+    payNote: "Revisamos tu solicitud y te escribimos lo antes posible. Tras la aprobación recibes un enlace personal para pagar y enviar tus recetas.",
     priceTitle: 'Precio',
-    priceIntro: 'Pago único, con un plan anual Organización 5, 10 o 25 a elegir. Precios sin IVA.',
+    priceIntro: "Pago único, junto con un plan anual Organización 5 (89 €), 10 (149 €) o 25 (299 €) a elegir. Solo pagas tras la aprobación.",
     tier: n => `Hasta ${n} recetas`,
     tierMore: 'Más de 1.000 recetas',
     custom: 'A convenir',
@@ -479,6 +553,24 @@ export const SERVICE = {
     },
     proTitle: '¿Prefieres que carguemos tus recetas?',
     proText: 'Con el servicio de carga, el fundador de Savour, cocinero, pasa personalmente todo tu recetario. Desde 85 € pago único, con un plan de organización a elegir.',
-    faq: ['¿Podéis cargar mis recetas por mí?', 'Sí. Con el servicio de carga, el fundador de Savour, cocinero, pasa personalmente todo tu recetario: cargado, ordenado en carpetas y cada receta revisada. Desde 85 € pago único, con un plan anual Organización 5, 10 o 25. Las primeras 5 cocinas las cargamos gratis.']
+    requestOk: "¡Gracias! Tu solicitud se ha enviado. Recibirás una confirmación por correo y te escribiremos lo antes posible.",
+    faqs: [
+      [
+        "¿Podéis cargar mis recetas por mí?",
+        "Sí. Con el servicio de carga, el fundador de Savour, cocinero, pasa personalmente todo tu recetario: cargado, ordenado en tus carpetas y cada receta revisada. Desde 85 € pago único, junto con un plan anual Organización 5, 10 o 25. Las primeras 5 cocinas las cargamos gratis."
+      ],
+      [
+        "¿Cómo funciona el servicio de carga?",
+        "Lo solicitas en la web. Tras la aprobación recibes un enlace personal: pagas el plan de organización y el paquete, y después nos envías tus recetas, tu estructura de carpetas y los correos de tus compañeros. Lo cargamos y revisamos todo. En cuanto tu organización está lista, todos reciben un correo para elegir contraseña."
+      ],
+      [
+        "¿Qué pasa con los archivos que envío?",
+        "Se guardan en un almacenamiento privado que solo Savour puede ver y se borran junto con tus demás datos en cuanto tu organización está lista. Después tus recetas solo están en tu organización en Savour."
+      ],
+      [
+        "¿Mis compañeros tienen que crear una cuenta?",
+        "No. Con el servicio de carga creamos las cuentas para los correos que nos das. Todos reciben Savour Pro a través de tu organización y un correo para elegir su contraseña."
+      ]
+    ],
   }
 };

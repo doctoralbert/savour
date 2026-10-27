@@ -412,9 +412,20 @@ async function adminMarkMessage(id, read) {
   }
 }
 
-// ---- Inlaadservice: aanleverlinks (api/admin.js, tabel recipe_intakes; klantkant is api/aanleveren.js) ----
+// ---- Inlaadservice (api/admin.js, tabel recipe_intakes; klantkant is api/aanleveren.js) ----
+// Per aanvraag: goedkeuren/afwijzen → (klant betaalt en levert aan) → inlezen met de Savour-lezer, nakijken
+// en in de organisatie laden → vrijgeven. Ingelezen concepten staan alleen in deze browser tot je ze inlaadt.
 let adminIntakes = [];
-const INTAKE_STATUS = { open: 'Link verstuurd', ingediend: 'Aangeleverd', bezig: 'Bezig met inladen', klaar: 'Klaar' };
+const adminIntakeDrafts = {};
+const INTAKE_STATUS = {
+  aanvraag: 'Nieuwe aanvraag',
+  goedgekeurd: 'Wacht op betaling',
+  afgewezen: 'Afgewezen',
+  betaald: 'Betaald, wacht op aanlevering',
+  ingediend: 'Aangeleverd',
+  bezig: 'Bezig met inladen',
+  klaar: 'Klaar en vrijgegeven'
+};
 
 async function loadAdminIntakes() {
   const host = $('adminIntakes');
@@ -423,7 +434,7 @@ async function loadAdminIntakes() {
     adminIntakes = (await adminApi('intakes')).intakes || [];
     renderAdminIntakes();
   } catch (e) {
-    host.innerHTML = `<p class="admin-panel-note">Aanleveringen konden niet worden geladen: ${adminEscape(e.message)}. Is supabase/2026-10-27-aanleveringen.sql uitgevoerd?</p>`;
+    host.innerHTML = `<p class="admin-panel-note">Aanvragen konden niet worden geladen: ${adminEscape(e.message)}. Is supabase/2026-10-27-aanleveringen.sql uitgevoerd?</p>`;
   }
 }
 
@@ -431,93 +442,245 @@ function adminFileSize(bytes) {
   return bytes > 1048576 ? `${(bytes / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} kB`;
 }
 
+const adminEuro = cents =>
+  cents == null ? 'in overleg' : cents === 0 ? 'gratis' : `€${(cents / 100).toFixed(2).replace('.', ',')}`;
+
+// De mappen die de klant opgaf (één per regel).
+const adminIntakeFolders = i =>
+  String(i.folders || '')
+    .split('\n')
+    .map(x => x.trim())
+    .filter(Boolean);
+
 function renderAdminIntakes() {
   const host = $('adminIntakes');
   if (!host) return;
-  const waiting = adminIntakes.filter(i => i.status === 'ingediend').length;
+  const todo = adminIntakes.filter(i => ['aanvraag', 'ingediend'].includes(i.status)).length;
   const badge = $('adminIntakeBadge');
   if (badge) {
-    badge.hidden = !waiting;
-    badge.textContent = waiting;
+    badge.hidden = !todo;
+    badge.textContent = todo;
   }
   if ($('adminIntakeCount'))
-    $('adminIntakeCount').textContent = `${adminIntakes.length} aanlevering(en) · ${waiting} wacht op inladen`;
+    $('adminIntakeCount').textContent = `${adminIntakes.length} in totaal · ${todo} wacht op jou`;
+  const open = new Set([...host.querySelectorAll('details[open]')].map(d => d.dataset.id));
   host.innerHTML =
-    adminIntakes
-      .map(i => {
-        const who = i.restaurant || i.name || i.email || `Aanlevering ${i.id}`;
-        const files = i.files || [];
-        const fileList = i.files_deleted_at
-          ? `<p class="admin-panel-note">Bestanden verwijderd op ${adminFormatDate(i.files_deleted_at)}.</p>`
-          : files.length
-            ? `<ul class="admin-intake-files">${files.map(f => `<li><button class="admin-link" onclick="adminDownloadIntakeFile(${Number(i.id)}, '${escJs(f.name)}')">${adminEscape(f.name.replace(/^[a-z0-9]+-/, ''))}</button><small>${adminFileSize(f.size)}</small></li>`).join('')}</ul>`
-            : '<p class="admin-panel-note">Nog geen bestanden.</p>';
-        const block = (label, text) =>
-          text
-            ? `<h4 class="admin-intake-h">${label}</h4><div class="admin-message-text">${adminEscape(text)}</div>`
-            : '';
-        return `<details class="admin-message${i.status === 'ingediend' ? ' is-unread' : ''}">
-  <summary><span class="admin-message-dot" aria-hidden="true"></span><span class="admin-message-kind">${adminEscape(INTAKE_STATUS[i.status] || i.status)}</span><b>${adminEscape(who)}</b><span class="admin-message-from">${adminEscape(i.package || '')} · ${files.length} bestand(en)</span><time>${adminFormatDate(i.submitted_at || i.created_at)}</time></summary>
+    adminIntakes.map(i => renderAdminIntake(i, open.has(String(i.id)))).join('') ||
+    '<p class="admin-panel-note">Nog geen aanvragen.</p>';
+}
+
+function renderAdminIntake(i, isOpen) {
+  const id = Number(i.id);
+  const who = i.restaurant || i.name || i.email || `Aanvraag ${id}`;
+  const files = i.files || [];
+  const block = (label, text) =>
+    text ? `<h4 class="admin-intake-h">${label}</h4><div class="admin-message-text">${adminEscape(text)}</div>` : '';
+  const price = i.price_cents ?? i.package_cents;
+  let step = '';
+  if (['aanvraag', 'afgewezen'].includes(i.status))
+    step = `<div class="admin-intake-step"><label>Prijs inlaadservice (€, 0 = gratis)<input id="intakePrice${id}" type="number" min="0" step="0.01" value="${price == null ? '' : (price / 100).toFixed(2)}"></label><div class="admin-message-actions"><button class="admin-refresh" onclick="adminApproveIntake(${id})">Goedkeuren en betaallink mailen</button>${i.status === 'aanvraag' ? `<button class="admin-ghost admin-danger" onclick="adminRejectIntake(${id})">Afwijzen</button>` : ''}</div></div>`;
+  else if (i.status === 'goedgekeurd')
+    step = `<p class="admin-panel-note">Goedgekeurd op ${adminFormatDate(i.approved_at)} voor ${adminEuro(i.price_cents)} + organisatie-abonnement. De klant heeft de betaallink per mail.</p><div class="admin-intake-link"><input readonly value="${adminEscape(i.link)}" onclick="this.select()"><button class="admin-ghost" onclick="adminCopyIntakeLink(${id})">Kopieer link</button><button class="admin-ghost" onclick="adminApproveIntake(${id}, true)">Mail opnieuw sturen</button></div>`;
+  else if (i.status === 'betaald')
+    step = `<p class="admin-panel-note">Betaald op ${adminFormatDate(i.paid_at)}. De klant kan nu aanleveren via zijn link.</p>`;
+  else if (['ingediend', 'bezig'].includes(i.status)) step = renderAdminIntakeImport(i);
+  else if (i.status === 'klaar')
+    step = `<p class="admin-panel-note">Vrijgegeven op ${adminFormatDate(i.released_at)} met ${Number(i.imported_count) || 0} recepten. Aangeleverde bestanden en gegevens gewist op ${adminFormatDate(i.wiped_at)}.</p>`;
+  const members = (i.members || []).length
+    ? `<h4 class="admin-intake-h">Leden</h4><ul class="admin-intake-files">${i.members.map(m => `<li>${adminEscape(m.email)}<small>${m.role === 'editor' ? 'mag bewerken' : 'mag bekijken'}</small></li>`).join('')}</ul>`
+    : '';
+  const fileList =
+    files.length && !i.wiped_at
+      ? `<h4 class="admin-intake-h">Bestanden (${files.length})</h4><ul class="admin-intake-files">${files.map(f => `<li><button class="admin-link" onclick="adminDownloadIntakeFile(${id}, '${escJs(f.name)}')">${adminEscape(f.name.replace(/^[a-z0-9]+-/, ''))}</button><small>${adminFileSize(f.size)}</small></li>`).join('')}</ul>`
+      : '';
+  return `<details class="admin-message${['aanvraag', 'ingediend'].includes(i.status) ? ' is-unread' : ''}" data-id="${id}"${isOpen ? ' open' : ''}>
+  <summary><span class="admin-message-dot" aria-hidden="true"></span><span class="admin-message-kind">${adminEscape(INTAKE_STATUS[i.status] || i.status)}</span><b>${adminEscape(who)}</b><span class="admin-message-from">${adminEscape(i.package_label || 'pakket onbekend')} · ${i.seats ? `${Number(i.seats)} plekken` : 'grootte onbekend'}</span><time>${adminFormatDate(i.submitted_at || i.created_at)}</time></summary>
   <div class="admin-message-body">
-    <p class="admin-message-meta">${i.name ? `${adminEscape(i.name)} · ` : ''}${i.email ? `<a href="mailto:${adminEscape(i.email)}">${adminEscape(i.email)}</a> · ` : ''}aangemaakt ${adminFormatDate(i.created_at)}${i.submitted_at ? ` · aangeleverd ${adminFormatDate(i.submitted_at)}` : ''}</p>
-    <div class="admin-intake-link"><input readonly value="${adminEscape(i.link)}" onclick="this.select()"><button class="admin-ghost" onclick="adminCopyIntakeLink(${Number(i.id)})">Kopieer link</button>${i.email ? `<a class="admin-ghost" href="${adminEscape(adminIntakeMailto(i))}">Mail opstellen</a>` : ''}</div>
-    ${block('Indeling', i.structure)}${block('Mappen', i.folders)}${block('Welk recept in welke map', i.match)}${block('Opmerkingen', i.notes)}
-    <h4 class="admin-intake-h">Bestanden</h4>${fileList}
-    <div class="admin-message-actions"><select onchange="adminSetIntakeStatus(${Number(i.id)}, this.value)" aria-label="Status">${Object.entries(
-      INTAKE_STATUS
-    )
-      .map(([k, v]) => `<option value="${k}"${k === i.status ? ' selected' : ''}>${v}</option>`)
-      .join(
-        ''
-      )}</select>${files.length && !i.files_deleted_at ? `<button class="admin-ghost" onclick="adminDownloadIntakeAll(${Number(i.id)})">Alles downloaden</button><button class="admin-ghost admin-danger" onclick="adminDeleteIntakeFiles(${Number(i.id)})">Bestanden verwijderen</button>` : ''}<button class="admin-ghost admin-danger" onclick="adminDeleteIntake(${Number(i.id)})">Aanlevering verwijderen</button></div>
+    <p class="admin-message-meta">${adminEscape(i.name || '')} · <a href="mailto:${adminEscape(i.email)}">${adminEscape(i.email)}</a> · ${adminEscape((i.language || 'nl').toUpperCase())} · aangevraagd ${adminFormatDate(i.created_at)}</p>
+    ${block('Bij de aanvraag', i.request_notes)}${step}
+    ${block('Indeling', i.structure)}${block('Mappen', i.folders)}${block('Welk recept in welke map', i.match)}${block('Opmerkingen', i.notes)}${members}${fileList}
+    <div class="admin-message-actions"><button class="admin-ghost admin-danger" onclick="adminDeleteIntake(${id})">Aanvraag verwijderen</button></div>
   </div>
 </details>`;
-      })
-      .join('') || '<p class="admin-panel-note">Nog geen aanleverlinks.</p>';
 }
 
-// Mail in de taal van de aanleverpagina; jij verstuurt hem zelf vanuit je eigen mailprogramma.
-function adminIntakeMailto(i) {
-  const first = (i.name || '').split(' ')[0];
-  const texts = {
-    nl: [
-      `Je aanleverlink voor Savour`,
-      `Hoi${first ? ' ' + first : ''},\n\nBedankt voor je aanvraag voor de inlaadservice van Savour. Via deze persoonlijke link lever je je recepten aan en geef je door hoe je ze ingedeeld wilt hebben:\n\n${i.link}\n\nDe factuur ontvang je in een aparte mail; betalen kan met iDEAL of creditcard.\n\nVragen? Antwoord gewoon op deze mail.\n\nGroet,\nSavour`
-    ],
-    en: [
-      `Your upload link for Savour`,
-      `Hi${first ? ' ' + first : ''},\n\nThank you for requesting the Savour import service. Use this personal link to send us your recipes and tell us how you would like them organised:\n\n${i.link}\n\nYou will receive the invoice in a separate email; you can pay with iDEAL or card.\n\nQuestions? Just reply to this email.\n\nBest regards,\nSavour`
-    ],
-    de: [
-      `Dein Upload-Link für Savour`,
-      `Hallo${first ? ' ' + first : ''},\n\ndanke für deine Anfrage zum Einpflege-Service von Savour. Über diesen persönlichen Link lieferst du deine Rezepte und sagst uns, wie sie geordnet werden sollen:\n\n${i.link}\n\nDie Rechnung bekommst du in einer separaten E-Mail; zahlen kannst du per iDEAL oder Karte.\n\nFragen? Antworte einfach auf diese E-Mail.\n\nViele Grüße\nSavour`
-    ],
-    es: [
-      `Tu enlace para enviar recetas a Savour`,
-      `Hola${first ? ' ' + first : ''}:\n\nGracias por solicitar el servicio de carga de Savour. Con este enlace personal nos envías tus recetas y nos indicas cómo quieres organizarlas:\n\n${i.link}\n\nRecibirás la factura en un correo aparte; puedes pagar con iDEAL o tarjeta.\n\n¿Preguntas? Responde a este correo.\n\nUn saludo,\nSavour`
-    ]
-  };
-  const [subject, body] = texts[i.language] || texts.nl;
-  return `mailto:${i.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+// Inlezen en inladen: concepten uit de lezer, per recept een map, aan/uit en na te kijken.
+function renderAdminIntakeImport(i) {
+  const id = Number(i.id);
+  const drafts = adminIntakeDrafts[id];
+  const done = Number(i.imported_count) || 0;
+  const head = `<p class="admin-panel-note">${done ? `${done} recepten staan al in de organisatie. ` : ''}Lees de bestanden in met de Savour-lezer, kijk elk recept na en laad ze in de gedeelde map “${adminEscape(i.restaurant || i.name || '')}” van de eigenaar.</p>`;
+  const actions = `<div class="admin-message-actions"><button class="admin-refresh" onclick="adminReadIntake(${id})">${drafts ? 'Opnieuw inlezen' : 'Recepten inlezen'}</button>${done ? `<button class="admin-refresh" onclick="adminReleaseIntake(${id})">Organisatie vrijgeven</button>` : ''}</div>`;
+  if (!drafts) return head + actions;
+  if (drafts.busy) return head + `<p class="admin-panel-note">${adminEscape(drafts.busy)}</p>`;
+  const folders = adminIntakeFolders(i);
+  const options = sel =>
+    ['', ...folders]
+      .map(
+        f =>
+          `<option value="${adminEscape(f)}"${f === sel ? ' selected' : ''}>${f ? adminEscape(f) : '(geen submap)'}</option>`
+      )
+      .join('');
+  const chosen = drafts.list.filter(d => d.use).length;
+  const rows = drafts.list
+    .map(
+      (d, n) =>
+        `<li class="admin-draft${d.needsReview ? ' is-review' : ''}"><label class="admin-draft-use"><input type="checkbox"${d.use ? ' checked' : ''} onchange="adminIntakeDraft(${id}, ${n}, 'use', this.checked)"></label><div class="admin-draft-main"><input class="admin-draft-title" value="${adminEscape(d.title)}" onchange="adminIntakeDraft(${id}, ${n}, 'title', this.value)"><small>${adminEscape(d.sourceFile || '')} · ${d.ingredients.length} ingrediënten · ${d.steps.length} stappen${d.needsReview ? ' · nakijken' : ''}</small><details><summary>Nakijken</summary><label>Opbrengst<input value="${adminEscape(d.yield || '')}" onchange="adminIntakeDraft(${id}, ${n}, 'yield', this.value)"></label><label>Ingrediënten (één per regel)<textarea rows="6" onchange="adminIntakeDraft(${id}, ${n}, 'ingredients', this.value)">${adminEscape(d.ingredients.join('\n'))}</textarea></label><label>Bereiding (één stap per regel)<textarea rows="6" onchange="adminIntakeDraft(${id}, ${n}, 'steps', this.value)">${adminEscape(d.steps.join('\n'))}</textarea></label></details></div><select onchange="adminIntakeDraft(${id}, ${n}, 'folder', this.value)" aria-label="Map">${options(d.folder)}</select></li>`
+    )
+    .join('');
+  const failed = drafts.failed.length
+    ? `<p class="admin-panel-note">Niet gelukt: ${drafts.failed.map(f => adminEscape(`${f.name} (${f.error})`)).join(', ')}</p>`
+    : '';
+  return `${head}${failed}<p class="admin-panel-note"><b>${drafts.list.length}</b> recepten gelezen, ${chosen} geselecteerd. Oranje = de lezer twijfelde: kijk die extra goed na.</p><ul class="admin-drafts">${rows}</ul><div class="admin-message-actions"><button class="admin-refresh" onclick="adminImportIntake(${id})">${chosen} recepten in de organisatie laden</button><button class="admin-ghost" onclick="adminReadIntake(${id})">Opnieuw inlezen</button>${done ? `<button class="admin-refresh" onclick="adminReleaseIntake(${id})">Organisatie vrijgeven</button>` : ''}</div>`;
 }
 
-async function adminCreateIntake() {
-  const body = {
-    restaurant: $('intakeRestaurant').value,
-    name: $('intakeName').value,
-    email: $('intakeEmail').value,
-    package: $('intakePackage').value,
-    language: $('intakeLanguage').value
+function adminIntakeDraft(id, n, field, value) {
+  const d = adminIntakeDrafts[id]?.list?.[n];
+  if (!d) return;
+  d[field] =
+    field === 'ingredients' || field === 'steps'
+      ? String(value)
+          .split('\n')
+          .map(x => x.trim())
+          .filter(Boolean)
+      : value;
+  if (field === 'use') renderAdminIntakes();
+}
+
+// Bestanden van de klant ophalen (tijdelijke downloadlinks) en met dezelfde lezer als in de app inlezen.
+async function adminReadIntake(id) {
+  const i = adminIntakes.find(x => x.id === id);
+  if (!i) return;
+  const folders = adminIntakeFolders(i);
+  const guess = d => {
+    const hay = `${d.sourceFile || ''} ${d.title || ''}`.toLowerCase();
+    return folders.find(f => hay.includes(f.toLowerCase())) || '';
   };
-  if (!body.restaurant.trim() && !body.name.trim()) return toast('Vul minstens een restaurant of naam in');
+  adminIntakeDrafts[id] = { busy: 'Bestanden ophalen…', list: [], failed: [] };
+  renderAdminIntakes();
+  const list = [];
+  const failed = [];
+  let n = 0;
+  for (const f of i.files || []) {
+    n++;
+    adminIntakeDrafts[id].busy = `Lezen: ${n} van ${i.files.length} bestanden…`;
+    renderAdminIntakes();
+    const name = f.name.replace(/^[a-z0-9]+-/, '').replace(/_/g, ' ');
+    try {
+      const { url } = await adminApi('intake_file', { id, file: f.name });
+      const blob = await (await fetch(url)).blob();
+      const drafts = await readImportFile(new File([blob], name, { type: blob.type }));
+      for (const d of drafts || [])
+        list.push({
+          title: d.title || 'Recept',
+          yield: d.yield || '',
+          ingredients: (d.ingredients || []).map(String),
+          steps: (d.steps || []).map(String),
+          sourceFile: d.sourceFile || name,
+          needsReview: !!(d.needsReview || d._incomplete || d.readerConfidence === 'low'),
+          use: !d._incomplete
+        });
+    } catch (e) {
+      failed.push({ name, error: e?.message || 'mislukt' });
+    }
+  }
+  list.forEach(d => (d.folder = guess(d)));
+  adminIntakeDrafts[id] = { list, failed };
+  renderAdminIntakes();
+}
+
+async function adminImportIntake(id) {
+  const drafts = adminIntakeDrafts[id];
+  const chosen = (drafts?.list || []).filter(d => d.use);
+  if (!chosen.length) return toast('Kies eerst recepten');
+  if (
+    !(await askConfirm(
+      `${chosen.length} recepten in de organisatie laden?\n\nZe komen in de gedeelde map van de eigenaar, in de gekozen submappen. De klant ziet ze pas na het vrijgeven.`,
+      { confirmLabel: 'Inladen' }
+    ))
+  )
+    return;
   try {
-    const d = await adminApi('create_intake', body);
-    ['intakeRestaurant', 'intakeName', 'intakeEmail'].forEach(id => ($(id).value = ''));
-    await loadAdminIntakes();
-    navigator.clipboard?.writeText(d.link).catch(() => {});
-    toast('Aanleverlink gemaakt en gekopieerd');
+    for (let s = 0; s < chosen.length; s += 100) {
+      drafts.busy = `Inladen: ${s} van ${chosen.length}…`;
+      renderAdminIntakes();
+      await adminApi('import_intake', {
+        id,
+        recipes: chosen
+          .slice(s, s + 100)
+          .map(d => ({ title: d.title, yield: d.yield, ingredients: d.ingredients, steps: d.steps, folder: d.folder }))
+      });
+    }
+    delete adminIntakeDrafts[id];
+    toast(`${chosen.length} recepten ingeladen`);
   } catch (e) {
-    toast(e.message || 'De aanleverlink kon niet worden gemaakt');
+    delete drafts.busy;
+    toast(e.message || 'Inladen lukte niet');
+  }
+  await loadAdminIntakes();
+}
+
+async function adminApproveIntake(id, again) {
+  const i = adminIntakes.find(x => x.id === id);
+  if (!i) return;
+  const raw = again ? (i.price_cents ?? 0) / 100 : Number(String($(`intakePrice${id}`)?.value || '').replace(',', '.'));
+  if (!Number.isFinite(raw) || raw < 0 || String($(`intakePrice${id}`)?.value ?? '0').trim() === '')
+    return toast('Vul een prijs in (0 = gratis)');
+  const cents = Math.round(raw * 100);
+  if (
+    !again &&
+    !(await askConfirm(
+      `Aanvraag van ${i.restaurant || i.name} goedkeuren?\n\nPrijs inlaadservice: ${adminEuro(cents)}, plus het organisatie-abonnement. ${i.email} krijgt een mail met de link om te betalen en aan te leveren.`,
+      { confirmLabel: 'Goedkeuren' }
+    ))
+  )
+    return;
+  try {
+    await adminApi('approve_intake', { id, price_cents: cents });
+    toast(again ? 'Mail opnieuw verstuurd' : 'Goedgekeurd; de klant heeft een mail');
+    await loadAdminIntakes();
+  } catch (e) {
+    toast(e.message || 'Goedkeuren lukte niet');
+  }
+}
+
+async function adminRejectIntake(id) {
+  const i = adminIntakes.find(x => x.id === id);
+  if (!i) return;
+  const reason = await askText(
+    `Aanvraag van ${i.restaurant || i.name} afwijzen\n\nDe klant krijgt een vriendelijke mail. Wil je er een reden bij zetten? (mag leeg)`,
+    '',
+    {
+      confirmLabel: 'Afwijzen en mailen'
+    }
+  );
+  if (reason === null || reason === undefined) return;
+  try {
+    await adminApi('reject_intake', { id, reason });
+    toast('Afgewezen; de klant heeft een mail');
+    await loadAdminIntakes();
+  } catch (e) {
+    toast(e.message || 'Afwijzen lukte niet');
+  }
+}
+
+async function adminReleaseIntake(id) {
+  const i = adminIntakes.find(x => x.id === id);
+  if (!i) return;
+  const n = (i.members || []).length + 1;
+  if (
+    !(await askConfirm(
+      `Organisatie van ${i.restaurant || i.name} vrijgeven?\n\n${n} ${n === 1 ? 'persoon krijgt' : 'personen krijgen'} een mail met een link om een wachtwoord te kiezen; de leden krijgen Pro en toegang tot de gedeelde map. Daarna worden alle aangeleverde bestanden en gegevens gewist. Dit kan niet ongedaan worden gemaakt.`,
+      { confirmLabel: 'Vrijgeven', danger: true }
+    ))
+  )
+    return;
+  try {
+    const d = await adminApi('release_intake', { id });
+    toast(`Vrijgegeven: ${d.sent} mail(s) verstuurd${d.failed?.length ? `, mislukt: ${d.failed.join(', ')}` : ''}`);
+    await loadAdminIntakes();
+  } catch (e) {
+    toast(e.message || 'Vrijgeven lukte niet');
   }
 }
 
@@ -528,16 +691,6 @@ function adminCopyIntakeLink(id) {
     ?.writeText(i.link)
     .then(() => toast('Link gekopieerd'))
     .catch(() => toast('Kopiëren lukte niet; selecteer de link en kopieer hem zelf'));
-}
-
-async function adminSetIntakeStatus(id, status) {
-  try {
-    await adminApi('intake_status', { id, status });
-    adminIntakes = adminIntakes.map(i => (i.id === id ? { ...i, status } : i));
-    renderAdminIntakes();
-  } catch (e) {
-    toast(e.message || 'Status kon niet worden opgeslagen');
-  }
 }
 
 // Downloadlinks zijn een uur geldig en worden per klik opgevraagd.
@@ -555,39 +708,12 @@ async function adminDownloadIntakeFile(id, file) {
   }
 }
 
-async function adminDownloadIntakeAll(id) {
-  const i = adminIntakes.find(x => x.id === id);
-  for (const f of i?.files || []) {
-    await adminDownloadIntakeFile(id, f.name);
-    await new Promise(r => setTimeout(r, 700));
-  }
-}
-
-async function adminDeleteIntakeFiles(id) {
-  const i = adminIntakes.find(x => x.id === id);
-  if (!i) return;
-  if (
-    !(await askConfirm(
-      `Bestanden verwijderen?\n\nDe ${i.files.length} aangeleverde bestand(en) van ${i.restaurant || i.name || 'deze keuken'} worden definitief verwijderd. Doe dit pas als alles is ingeladen. De gegevens van de aanlevering blijven staan.`,
-      { confirmLabel: 'Bestanden verwijderen', danger: true }
-    ))
-  )
-    return;
-  try {
-    await adminApi('delete_intake_files', { id });
-    await loadAdminIntakes();
-    toast('Bestanden verwijderd');
-  } catch (e) {
-    toast(e.message || 'Verwijderen lukte niet');
-  }
-}
-
 async function adminDeleteIntake(id) {
   const i = adminIntakes.find(x => x.id === id);
   if (!i) return;
   if (
     !(await askConfirm(
-      `Aanlevering verwijderen?\n\nDe aanleverlink van ${i.restaurant || i.name || 'deze keuken'} werkt daarna niet meer en alle bestanden worden verwijderd.`,
+      `Aanvraag verwijderen?\n\nDe aanvraag van ${i.restaurant || i.name || 'deze keuken'} en alle aangeleverde bestanden worden verwijderd; de link werkt daarna niet meer. Recepten die al in de organisatie staan blijven staan.`,
       { confirmLabel: 'Verwijderen', danger: true }
     ))
   )

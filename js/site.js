@@ -38,14 +38,6 @@
     }
     btn.disabled = true;
     status.textContent = form.dataset.busy;
-    // Aanvraagformulier inlaadservice: extra velden (pakket, organisatie-abonnement, restaurant) bovenaan het bericht.
-    var extra = [].map
-      .call(form.querySelectorAll('[data-extra]'), function (el) {
-        return el.dataset.extra + ': ' + el.value.trim();
-      })
-      .join('\n');
-    var message = form.message.value.trim();
-    if (extra) message = extra + (message ? '\n\n' + message : '');
     fetch('/api/bug-report', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -54,7 +46,7 @@
         name: form.name.value.trim(),
         email: form.email.value.trim(),
         subject: form.subject.value.trim(),
-        message: message,
+        message: form.message.value.trim(),
         website: form.website.value,
         page: location.href,
         language: document.documentElement.lang || ''
@@ -114,23 +106,83 @@
     }
   });
 
-  // Aanleverpagina inlaadservice (/aanleveren?t=...): link controleren, bestanden uploaden en de indeling versturen.
+  // Inlaadservice, aanvraag in de overlay: naar /api/aanleveren (actie request). Komt in /admin → Inladen en per mail.
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (!form.matches || !form.matches('[data-intake-request]')) return;
+    e.preventDefault();
+    var status = form.querySelector('.site-form-status');
+    var btn = form.querySelector('button[type="submit"]');
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    btn.disabled = true;
+    status.textContent = form.dataset.busy;
+    fetch('/api/aanleveren', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'request',
+        language: form.dataset.lang,
+        package: form.package.value,
+        seats: form.seats.value,
+        name: form.name.value.trim(),
+        email: form.email.value.trim(),
+        restaurant: form.restaurant.value.trim(),
+        notes: form.notes.value.trim(),
+        website: form.website.value
+      })
+    })
+      .then(function (r) {
+        if (!r.ok) throw new Error();
+        form.reset();
+        status.textContent = form.dataset.ok;
+      })
+      .catch(function () {
+        status.textContent = form.dataset.fail;
+      })
+      .then(function () {
+        btn.disabled = false;
+      });
+  });
+
+  // Aanleverpagina inlaadservice (/aanleveren?t=...). Per stand van zaken één deel tonen:
+  // goedgekeurd → betalen; betaald/aangeleverd → aanleveren (bestanden, mappen, leden); anders een melding.
   // Alles via /api/aanleveren; bestanden gaan rechtstreeks naar een afgeschermde opslag met een eenmalige uploadlink.
   function setupDeliver() {
-    var form = document.querySelector('[data-deliver]');
-    if (!form) return;
-    var T = JSON.parse(form.dataset.texts);
-    var msg = document.querySelector('[data-deliver-msg]');
-    var token = new URLSearchParams(location.search).get('t') || '';
+    var root = document.querySelector('[data-deliver]');
+    if (!root) return;
+    var T = JSON.parse(root.dataset.texts);
+    var lang = root.dataset.lang;
+    var msg = root.querySelector('[data-deliver-msg]');
+    var who = root.querySelector('[data-deliver-who]');
+    var pay = root.querySelector('[data-stage="pay"]');
+    var form = root.querySelector('[data-stage="deliver"]');
+    var params = new URLSearchParams(location.search);
+    var token = params.get('t') || '';
     var list = form.querySelector('[data-deliver-list]');
     var status = form.querySelector('.site-form-status');
     var folders = form.querySelector('#dvFolders');
+    var membersList = form.querySelector('[data-members]');
     var uploaded = 0;
     var foldersEdited = false;
+    var info = null;
+    var euro = function (v) {
+      var n = Number(v).toFixed(Number(v) % 1 ? 2 : 0);
+      return lang === 'de' || lang === 'es'
+        ? n.replace('.', ',') + ' €'
+        : '€' + (lang === 'nl' ? n.replace('.', ',') : n);
+    };
     // De taalknop houdt de persoonlijke link vast.
     document.querySelectorAll('.site-lang a').forEach(function (a) {
       a.href = a.getAttribute('href') + location.search;
     });
+    function say(text, ok) {
+      msg.textContent = text;
+      msg.hidden = false;
+      msg.className = 'svc-deliver-msg' + (ok ? ' is-ok' : '');
+    }
     function api(body) {
       body.token = token;
       return fetch('/api/aanleveren', {
@@ -144,6 +196,94 @@
         });
       });
     }
+
+    // ---- Betalen ----
+    function renderTotal() {
+      var seats = Number((pay.querySelector('input[name="seats"]:checked') || {}).value || 5);
+      var cents = info.price_cents;
+      pay.querySelector('[data-pay-total]').innerHTML = '';
+      [
+        [T.service + (info.package ? ' · ' + info.package : ''), cents ? euro(cents / 100) + ' ' + T.once : T.free],
+        [
+          pay.querySelector('input[value="' + seats + '"] + span b').textContent,
+          euro(info.seat_prices[seats]) + ' ' + T.perYear
+        ]
+      ].forEach(function (row) {
+        var p = document.createElement('p');
+        var a = document.createElement('span');
+        var b = document.createElement('b');
+        a.textContent = row[0];
+        b.textContent = row[1];
+        p.appendChild(a);
+        p.appendChild(b);
+        pay.querySelector('[data-pay-total]').appendChild(p);
+      });
+    }
+    function showPay() {
+      pay.hidden = false;
+      pay.querySelectorAll('[data-seat-price]').forEach(function (el) {
+        el.textContent = euro(info.seat_prices[el.dataset.seatPrice]) + ' ' + T.perYear;
+      });
+      var pick = pay.querySelector('input[name="seats"][value="' + (info.seats || 5) + '"]');
+      if (pick) pick.checked = true;
+      renderTotal();
+      pay.addEventListener('change', renderTotal);
+      pay.querySelector('[data-pay]').addEventListener('click', function () {
+        var st = pay.querySelector('[data-pay-status]');
+        var btn = this;
+        btn.disabled = true;
+        st.textContent = T.paying;
+        api({ action: 'checkout', seats: (pay.querySelector('input[name="seats"]:checked') || {}).value })
+          .then(function (d) {
+            location.href = d.url;
+          })
+          .catch(function (err) {
+            st.textContent = err.message || T.failed;
+            btn.disabled = false;
+          });
+      });
+    }
+
+    // ---- Leden van de organisatie ----
+    function memberRow(m) {
+      var li = document.createElement('li');
+      var input = document.createElement('input');
+      var select = document.createElement('select');
+      var del = document.createElement('button');
+      input.type = 'email';
+      input.placeholder = T.memberEmail;
+      input.value = (m && m.email) || '';
+      input.setAttribute('aria-label', T.memberEmail);
+      [
+        ['viewer', T.roleView],
+        ['editor', T.roleEdit]
+      ].forEach(function (o) {
+        var opt = document.createElement('option');
+        opt.value = o[0];
+        opt.textContent = o[1];
+        select.appendChild(opt);
+      });
+      select.value = (m && m.role) || 'viewer';
+      del.type = 'button';
+      del.className = 'svc-member-del';
+      del.textContent = '×';
+      del.setAttribute('aria-label', T.remove);
+      del.addEventListener('click', function () {
+        li.remove();
+      });
+      li.appendChild(input);
+      li.appendChild(select);
+      li.appendChild(del);
+      membersList.appendChild(li);
+      return input;
+    }
+    form.querySelector('[data-add-member]').addEventListener('click', function () {
+      var max = (info.seats || 5) - 1;
+      if (membersList.children.length >= max) return (status.textContent = T.tooMany[max]);
+      memberRow().focus();
+    });
+
+    // ---- Bestanden ----
     function addRow(name, text, cls) {
       var li = document.createElement('li');
       var b = document.createElement('b');
@@ -173,9 +313,9 @@
           row.className = 'is-done';
           row.lastChild.textContent = T.uploaded;
         })
-        .catch(function () {
+        .catch(function (err) {
           row.className = 'is-failed';
-          row.lastChild.textContent = T.failed;
+          row.lastChild.textContent = (err && err.message) || T.failed;
         });
     }
     // Drie bestanden tegelijk, zodat een grote map niet de hele verbinding vastzet.
@@ -220,6 +360,13 @@
         status.textContent = T.needFiles;
         return;
       }
+      var members = [].map
+        .call(membersList.children, function (li) {
+          return { email: li.querySelector('input').value.trim(), role: li.querySelector('select').value };
+        })
+        .filter(function (m) {
+          return m.email;
+        });
       var btn = form.querySelector('button[type="submit"]');
       var structure = form.querySelector('input[name="structure"]:checked');
       btn.disabled = true;
@@ -229,13 +376,12 @@
         structure: structure ? structure.value : '',
         folders: folders.value,
         match: form.match.value,
-        notes: form.notes.value
+        notes: form.notes.value,
+        members: members
       })
         .then(function () {
           status.textContent = '';
-          msg.textContent = T.thanks;
-          msg.hidden = false;
-          msg.className = 'svc-deliver-msg is-ok';
+          say(T.thanks, true);
           msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
         })
         .catch(function (err) {
@@ -245,42 +391,61 @@
           btn.disabled = false;
         });
     });
-    if (!token) {
-      msg.textContent = T.invalid;
-      return;
-    }
-    api({ action: 'get' })
-      .then(function (d) {
-        if (d.status === 'klaar') {
-          msg.textContent = T.closed;
-          return;
-        }
-        msg.hidden = true;
-        form.hidden = false;
-        var who = form.querySelector('[data-deliver-who]');
-        who.textContent =
-          T.hello + ' ' + (d.restaurant || d.name || '') + (d.package ? ' · ' + T.package + ': ' + d.package : '');
-        // Eerder ingevuld? Dan staat het er weer.
-        if (d.structure) {
-          var radio = [].find.call(form.querySelectorAll('input[name="structure"]'), function (r) {
-            return r.value === d.structure;
-          });
-          if (radio) radio.checked = true;
-        }
-        if (d.folders) {
-          folders.value = d.folders;
-          foldersEdited = true;
-        }
-        if (d.match) form.match.value = d.match;
-        if (d.notes) form.notes.value = d.notes;
-        (d.files || []).forEach(function (name) {
-          uploaded++;
-          addRow(name, T.uploaded, 'is-done');
+    function showDeliver() {
+      form.hidden = false;
+      form.querySelector('[data-members-hint]').textContent = T.membersHint[info.seats || 5] || '';
+      if (info.structure) {
+        var radio = [].find.call(form.querySelectorAll('input[name="structure"]'), function (r) {
+          return r.value === info.structure;
         });
-      })
-      .catch(function () {
-        msg.textContent = T.invalid;
+        if (radio) radio.checked = true;
+      }
+      if (info.folders) {
+        folders.value = info.folders;
+        foldersEdited = true;
+      }
+      if (info.match) form.match.value = info.match;
+      if (info.notes) form.notes.value = info.notes;
+      (info.members || []).forEach(memberRow);
+      if (!(info.members || []).length && (info.seats || 5) > 1) memberRow();
+      (info.files || []).forEach(function (name) {
+        uploaded++;
+        addRow(name, T.uploaded, 'is-done');
       });
+      if (info.status === 'ingediend') say(T.thanks, true);
+      else msg.hidden = true;
+    }
+
+    // ---- Stand van zaken ----
+    var tries = 0;
+    function load() {
+      api({ action: 'get' })
+        .then(function (d) {
+          info = d;
+          who.hidden = false;
+          who.textContent =
+            T.hello + ' ' + (d.restaurant || d.name || '') + (d.package ? ' · ' + T.package + ': ' + d.package : '');
+          if (d.status === 'aanvraag') return say(T.reviewing);
+          if (d.status === 'afgewezen') return say(T.rejected);
+          if (d.status === 'bezig') return say(T.importing, true);
+          if (d.status === 'klaar') return say(T.closed);
+          if (d.status === 'goedgekeurd') {
+            // Net betaald: Stripe meldt de betaling binnen een paar seconden; tot die tijd even wachten.
+            if (params.get('betaald') && tries++ < 20) {
+              say(T.processing, true);
+              return setTimeout(load, 3000);
+            }
+            msg.hidden = true;
+            return showPay();
+          }
+          showDeliver();
+        })
+        .catch(function () {
+          say(T.invalid);
+        });
+    }
+    if (!token) return say(T.invalid);
+    load();
   }
 
   // In de app (startpagina): inloggen, account maken en de demo openen zonder de pagina te herladen.
