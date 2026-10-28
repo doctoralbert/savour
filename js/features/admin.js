@@ -218,6 +218,14 @@ function renderAdminStats() {
       ['Deze maand', d.visits_month],
       ['All time', d.visitors_all_time]
     ]);
+  // Demo: hoeveel bezoekers (unieke apparaten) de demo openden, en hoe vaak in totaal.
+  if ($('adminDemo'))
+    $('adminDemo').innerHTML = box([
+      ['Vandaag', d.demo_today],
+      ['Deze week', d.demo_week],
+      ['Deze maand', d.demo_month],
+      ['All time', d.demo_all]
+    ]);
   if ($('adminPlatformUsage'))
     $('adminPlatformUsage').innerHTML = box([
       ['Desktop', d.platform_desktop],
@@ -275,7 +283,16 @@ async function loadAdminDashboard() {
   }
   adminDashData = {};
   try {
-    const { data, error } = await supabaseClient.rpc('get_savour_admin_dashboard');
+    let { data, error } = await supabaseClient.rpc('get_savour_admin_dashboard');
+    // "not authorized" na een verlopen sessie (bijv. de telefoon die een tijd dicht was): eerst verversen.
+    if (error && /not authorized|jwt/i.test(error.message || '')) {
+      const refreshed = await supabaseClient.auth.refreshSession();
+      if (refreshed.error) {
+        console.warn('Admin-tellingen: sessie verlopen', error.message);
+        return adminSessionExpired();
+      }
+      ({ data, error } = await supabaseClient.rpc('get_savour_admin_dashboard'));
+    }
     if (error) throw error;
     // Alleen de tellingen van accounts, recepten en mappen; bezoekers komen van de server.
     const d = data || {};
@@ -1139,7 +1156,8 @@ function savourVisitSourceQuery() {
   return out.length ? `?${out.join('&')}` : '';
 }
 
-async function logSavourVisit() {
+// path: zelf opgeven, bijv. '/demo' als iemand de demo start (zie startDemo); anders de huidige pagina.
+async function logSavourVisit(path) {
   // Alleen echte bezoeken aan savour.page; de testversie en lokaal testen tellen niet mee.
   if (IS_ADMIN_PATH || !/(^|\.)savour\.page$/.test(location.hostname)) return;
   // Testbrowsers en bots tellen niet mee.
@@ -1156,7 +1174,7 @@ async function logSavourVisit() {
     }
     const visit = {
       visitor_id: vid,
-      path: (window.location.pathname || '/') + savourVisitSourceQuery(),
+      path: path || (window.location.pathname || '/') + savourVisitSourceQuery(),
       referrer: document.referrer || null,
       user_agent: navigator.userAgent || null,
       platform: savourAnalyticsPlatform(),

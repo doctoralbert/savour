@@ -477,18 +477,19 @@ const READER_KNOWN_MISSPELLINGS = {
   gastronorn: 'gastronorm',
   rawitt: 'rawit'
 };
+// Geen lookbehind (oudere Safari op iPhone kent die niet): het teken vóór het woord vangen we mee en zetten we terug.
 const READER_MISSPELLING_WORD = new RegExp(
-  `(?<![\\p{L}])(?:${Object.keys(READER_KNOWN_MISSPELLINGS).join('|')})(?![\\p{L}])`,
+  `(^|[^\\p{L}])(${Object.keys(READER_KNOWN_MISSPELLINGS).join('|')})(?![\\p{L}])`,
   'giu'
 );
 
 function readerFixKnownMisspellings(text, fixes) {
-  return text.replace(READER_MISSPELLING_WORD, word => {
+  return text.replace(READER_MISSPELLING_WORD, (match, before, word) => {
     let to = READER_KNOWN_MISSPELLINGS[word.toLowerCase()];
     if (word === word.toUpperCase()) to = to.toUpperCase();
     else if (word[0] === word[0].toUpperCase()) to = to[0].toUpperCase() + to.slice(1);
     fixes.push({ from: word, to });
-    return to;
+    return before + to;
   });
 }
 

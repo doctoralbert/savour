@@ -242,15 +242,44 @@ const NOT_A_VISITOR =
 const REAL_BROWSER = /Chrome\/|CriOS|Safari\/|Firefox\/|FxiOS|Edg\//;
 const isVisitor = ua => REAL_BROWSER.test(ua || '') && !NOT_A_VISITOR.test(ua || '');
 
+// Robots die de site aflopen zonder iets te bewaren krijgen bij elke pagina een nieuw bezoekers-id en zouden zo
+// als tientallen bezoekers tellen. Herkenning: exact dezelfde browser (user agent), geen herkomst, één bezoek per
+// id, minstens 6 van zulke ids binnen 30 minuten die samen minstens 4 verschillende pagina's openden.
+function crawlerIds(visits) {
+  const count = new Map();
+  for (const v of visits) count.set(v.visitor_id, (count.get(v.visitor_id) || 0) + 1);
+  const byUa = new Map();
+  for (const v of visits) {
+    if (!v.visitor_id || count.get(v.visitor_id) !== 1 || v.referrer) continue;
+    const k = v.user_agent || '';
+    if (!byUa.has(k)) byUa.set(k, []);
+    byUa.get(k).push(v);
+  }
+  const bots = new Set();
+  for (const list of byUa.values()) {
+    list.sort((a, b) => new Date(a.visited_at) - new Date(b.visited_at));
+    let start = 0;
+    for (let end = 0; end < list.length; end++) {
+      while (new Date(list[end].visited_at) - new Date(list[start].visited_at) > 30 * 60000) start++;
+      const win = list.slice(start, end + 1);
+      if (win.length >= 6 && new Set(win.map(v => (v.path || '/').split('?')[0])).size >= 4)
+        win.forEach(v => bots.add(v.visitor_id));
+    }
+  }
+  return bots;
+}
+
 // Alles in unieke bezoekers (elk apparaat telt één keer): vandaag, deze week (7 dagen), deze maand, all time,
 // per platform en per dag (30 dagen). Plus de laatste unieke bezoekers met hun bezoeken en pagina's.
 async function visitorStats(ownIds = []) {
   const own = new Set(ownIds);
   const all = await allVisits();
-  const rows = all.filter(v => !own.has(v.visitor_id) && isVisitor(v.user_agent));
-  const notCounted = new Set(all.filter(v => !own.has(v.visitor_id) && !isVisitor(v.user_agent)).map(v => v.visitor_id))
-    .size;
+  const bots = crawlerIds(all);
+  const isReal = v => !own.has(v.visitor_id) && isVisitor(v.user_agent) && !bots.has(v.visitor_id);
+  const rows = all.filter(isReal);
+  const notCounted = new Set(all.filter(v => !own.has(v.visitor_id) && !isReal(v)).map(v => v.visitor_id)).size;
   const who = v => v.visitor_id || `${v.user_agent}|${v.visited_at}`;
+  const isDemo = v => (v.path || '').split('?')[0] === '/demo';
   const unique = list => new Set(list.map(who)).size;
   const today = amsterdamDay(Date.now());
   const month = today.slice(0, 7);
@@ -320,6 +349,11 @@ async function visitorStats(ownIds = []) {
       platform_mobile: unique(rows.filter(v => platformOf(v) === 'mobile_web')),
       platform_app: unique(rows.filter(v => platformOf(v) === 'native_app')),
       own_devices: own.size,
+      // Demo gestart (startDemo logt een bezoek aan /demo): unieke apparaten.
+      demo_today: unique(rows.filter(v => isDemo(v) && amsterdamDay(v.visited_at) === today)),
+      demo_week: unique(rows.filter(v => isDemo(v) && new Date(v.visited_at) > weekAgo)),
+      demo_month: unique(rows.filter(v => isDemo(v) && amsterdamDay(v.visited_at).startsWith(month))),
+      demo_all: unique(rows.filter(isDemo)),
       not_counted: notCounted,
       recent_people: [...people.values()]
         .sort((a, b) => (a.last < b.last ? 1 : -1))

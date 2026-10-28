@@ -1,6 +1,8 @@
 // Demo-account met proefrecepten (er wordt niets opgeslagen).
 
 function startDemo() {
+  // Tellen in /admin → Bezoekers → Demo (alleen op savour.page, niet voor bots of testbrowsers).
+  logSavourVisit('/demo');
   demoMode = true;
   currentUser = { id: 'demo-user', email: 'demo@savour.local' };
   account = { name: 'Demo', role: 'Demo account', email: 'demo@savour.local', photo: '' };
