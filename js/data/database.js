@@ -7,7 +7,11 @@ async function ensureProfile(user) {
   const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', user.id).maybeSingle();
   if (!profile) {
     const name = (meta.name || '').trim() || '';
-    const { error } = await supabaseClient.from('profiles').insert({ id: user.id, email: user.email || '', name });
+    // Alleen toevoegen als het profiel er echt nog niet is: mislukte de controle hierboven (verbinding, twee tabbladen
+    // tegelijk), dan bestaat het misschien al en mag er niets worden overschreven.
+    const { error } = await supabaseClient
+      .from('profiles')
+      .upsert({ id: user.id, email: user.email || '', name }, { onConflict: 'id', ignoreDuplicates: true });
     if (error) console.error('Profiel kon niet worden aangemaakt:', error);
     // Apart, zodat een profiel ook wordt aangemaakt als de kolom organization nog niet bestaat.
     if (meta.organization)

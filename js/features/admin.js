@@ -46,6 +46,12 @@ function adminFormatDate(v) {
   }
 }
 
+function adminSessionExpired() {
+  adminRenderLogin();
+  const err = $('adminLoginError');
+  if (err) err.textContent = 'Je sessie is verlopen. Log opnieuw in.';
+}
+
 function adminRenderLogin() {
   document.body.classList.remove('auth-booting');
   adminSetVisible('landingView', false);
@@ -82,6 +88,11 @@ async function adminApi(action, body = {}, retried = false) {
   if (response.status === 401 && !retried) {
     const { error } = await supabaseClient.auth.refreshSession();
     if (!error) return adminApi(action, body, true);
+  }
+  // Sessie echt verlopen (verversen lukte niet): terug naar het inlogscherm in plaats van een kapot overzicht.
+  if (response.status === 401) {
+    adminSessionExpired();
+    throw Object.assign(new Error('Sessie verlopen. Log opnieuw in.'), { expired: true });
   }
   if (!response.ok) throw new Error(result.error || 'Er ging iets mis.');
   return result;
@@ -858,7 +869,7 @@ async function loadAdminOverview() {
     renderAdminAccounts();
     renderAdminGrowth(adminAccounts);
   } catch (error) {
-    console.error('Admin overzicht laden mislukt', error);
+    if (!error.expired) console.error('Admin overzicht laden mislukt', error);
     if (money)
       money.innerHTML = `<div class="admin-stat"><div class="label">Status</div><div class="value">Fout</div><div class="sub">${adminEscape(error.message)}</div></div>`;
   }
