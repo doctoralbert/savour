@@ -305,6 +305,19 @@ async function saveFolderSelection() {
     const ids = [...document.querySelectorAll('[data-folder-check]:checked')]
       .map(x => x.dataset.folderCheck)
       .filter(Boolean);
+    // Demo: niets in de database (de demo-mappen bestaan daar niet), alleen in het geheugen.
+    if (demoMode) {
+      for (const f of folders.filter(x => !x.system)) {
+        const has = ids.includes(String(f.id));
+        f.recipeIds = (f.recipeIds || []).filter(x => String(x) !== String(folderTargetRecipe));
+        if (has) f.recipeIds.push(folderTargetRecipe);
+      }
+      folderTargetRecipe = null;
+      closeFolderModal();
+      toast('Mapindeling opgeslagen');
+      refreshSidebar();
+      return;
+    }
     for (const f of folders.filter(x => !x.system)) {
       const { error } = await supabaseClient
         .from('folder_recipes')
@@ -349,6 +362,16 @@ async function saveFolderSelection() {
     }
     if (!ids.length) {
       toast('Selecteer minimaal één recept');
+      return;
+    }
+    if (demoMode) {
+      const f = folders.find(x => String(x.id) === folderId && !x.system);
+      if (f) f.recipeIds = [...new Set([...(f.recipeIds || []), ...ids])];
+      closeFolderModal();
+      currentFolder = folderId;
+      toast('Recepten toegevoegd aan map');
+      renderFolderDetail();
+      refreshSidebar();
       return;
     }
     // The picker was opened from the current user's database folder list, so the
@@ -412,6 +435,12 @@ async function removeRecipeFromFolder(id) {
     }))
   )
     return;
+  if (demoMode) {
+    f.recipeIds = (f.recipeIds || []).filter(x => String(x) !== String(id));
+    renderFolderDetail();
+    refreshSidebar();
+    return toast('Recept uit map verwijderd');
+  }
   const { error } = await supabaseClient.from('folder_recipes').delete().eq('folder_id', f.id).eq('recipe_id', id);
   if (error) {
     console.error(error);

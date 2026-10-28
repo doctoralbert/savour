@@ -75,8 +75,10 @@ function structuredIngredients(value) {
 function structuredSteps(value) {
   if (value == null) return [];
   if (typeof value === 'string') {
+    // Zonder lookbehind (oudere Safari op iPhone kent die niet): eerst ". 2) " omzetten naar een nieuwe regel.
     return plainText(value)
-      .split(/\n+|(?<=\.)\s+(?=\d+[.)]\s)/)
+      .replace(/\.\s+(?=\d+[.)]\s)/g, '.\n')
+      .split(/\n+/)
       .map(l => l.replace(/^\s*(?:stap\s*)?\d+[.)]\s*/i, '').trim())
       .filter(Boolean);
   }
