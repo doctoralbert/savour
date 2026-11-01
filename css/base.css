@@ -4849,3 +4849,131 @@ body {
   border-radius: 3px 3px 0 0;
   background: #e1c37a;
 }
+
+/* Financiën in het beheer */
+.fin-periods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.fin-periods button {
+  padding: 8px 14px;
+  border: 1px solid #273333;
+  border-radius: 999px;
+  background: none;
+  color: #e7e0d4;
+  font: inherit;
+  cursor: pointer;
+}
+.fin-periods button.is-on {
+  border-color: #e1c37a;
+  background: #e1c37a;
+  color: #111;
+}
+.fin-hero {
+  margin-bottom: 14px;
+}
+.fin-chart {
+  overflow-x: auto;
+}
+.fin-chart svg {
+  display: block;
+  width: 100%;
+  min-width: 620px;
+  height: auto;
+}
+.fin-grid {
+  stroke: #273333;
+  stroke-width: 1;
+}
+.fin-axis {
+  fill: #8e9892;
+  font-size: 11px;
+}
+.fin-hit:hover rect[fill='transparent'] {
+  fill: rgba(255, 255, 255, 0.04);
+}
+.fin-legend {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 10px;
+  color: #c8c6bf;
+  font-size: var(--sv-fs-sm);
+}
+.fin-legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  border-radius: 3px;
+}
+.fin-two {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.fin-cats {
+  display: grid;
+  gap: 10px;
+}
+.fin-cats > div {
+  display: grid;
+  grid-template-columns: 130px 1fr 90px;
+  align-items: center;
+  gap: 10px;
+  color: #c8c6bf;
+  font-size: var(--sv-fs-sm);
+}
+.fin-cats i {
+  display: block;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #182122;
+}
+.fin-cats b {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: #4a8fd9;
+}
+.fin-cats strong {
+  color: #e7e0d4;
+  text-align: right;
+}
+.fin-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.fin-form input,
+.fin-form select {
+  flex: 1 1 150px;
+  min-width: 0;
+  height: 42px;
+  box-sizing: border-box;
+  padding: 0 12px;
+  border: 1px solid #273333;
+  border-radius: var(--sv-radius);
+  background: #070d0e;
+  color: #e7e0d4;
+  font: inherit;
+}
+.fin-tip {
+  position: fixed;
+  z-index: 50;
+  max-width: 280px;
+  padding: 8px 10px;
+  border: 1px solid #273333;
+  border-radius: 8px;
+  background: #0d1314;
+  color: #e7e0d4;
+  font-size: var(--sv-fs-xs);
+  pointer-events: none;
+}
+@media (max-width: 760px) {
+  .fin-cats > div {
+    grid-template-columns: 90px 1fr 76px;
+  }
+}

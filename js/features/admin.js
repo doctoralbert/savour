@@ -482,6 +482,7 @@ async function loadAdminDashboard() {
   loadAdminReferrals();
   loadAdminIntakes();
   loadAdminAdsense();
+  loadAdminFinance();
   try {
     await loadAdminOverview();
   } finally {
@@ -1038,6 +1039,8 @@ async function loadAdminOverview() {
       renderAdminStats();
     }
     adminAccounts = accounts || [];
+    adminTotals = t;
+    renderAdminFinance();
     const openai = t.openai_this_month ? `$ ${t.openai_this_month.usd.toFixed(2)}` : '—';
     if (money)
       money.innerHTML = [
@@ -1371,4 +1374,335 @@ async function logSavourVisit(path) {
   } catch (e) {
     console.debug('Savour analytics unavailable', e);
   }
+}
+
+// ---- Financiën: omzet, kosten, winst en uren (api/admin.js). Cijfers zijn een hulpmiddel, geen boekhouding. ----
+
+const FIN_REVENUE = '#b28515';
+const FIN_COST = '#4a8fd9';
+const FIN_PROFIT = '#38a97c';
+const FIN_LOSS = '#d9694a';
+const KOR_LIMIT = 20000;
+const PRO_MONTH_PRICE = 2.99;
+let adminFinance = null;
+let adminFinancePeriod = 'year';
+let adminTotals = null;
+
+async function loadAdminFinance() {
+  if (!$('adminFinanceBody')) return;
+  try {
+    adminFinance = await adminApi('finance');
+    renderAdminFinance();
+  } catch (error) {
+    if (!error.expired) $('adminFinanceBody').innerHTML = `<p class="admin-note">${adminEscape(error.message)}</p>`;
+  }
+}
+
+function setFinancePeriod(period) {
+  adminFinancePeriod = period;
+  renderAdminFinance();
+}
+
+// Eigen kosten per maand. Een terugkerende post loopt door tot de stopmaand.
+function financeCostInMonth(cost, month) {
+  const start = cost.date.slice(0, 7);
+  if (month < start || (cost.until && month > cost.until)) return 0;
+  if (cost.repeat === 'month') return cost.amount;
+  if (cost.repeat === 'year') return month.slice(5) === start.slice(5) ? cost.amount : 0;
+  return month === start ? cost.amount : 0;
+}
+
+// Eén rij per maand: omzet, kosten per soort en winst.
+function financeRows(d) {
+  return d.months.map(month => {
+    const stripeRow = d.stripe?.[month] || { revenue: 0, fees: 0 };
+    const ads = d.ads?.[month] || 0;
+    const ai = d.openai?.[month] || 0;
+    const categories = { Betaalkosten: stripeRow.fees, 'AI (OpenAI)': ai };
+    for (const c of d.costs || []) {
+      const amount = financeCostInMonth(c, month);
+      if (amount) categories[c.category] = (categories[c.category] || 0) + amount;
+    }
+    const revenue = stripeRow.revenue + ads;
+    const costs = Object.values(categories).reduce((a, b) => a + b, 0);
+    return { month, subs: stripeRow.revenue, ads, revenue, categories, costs, profit: revenue - costs };
+  });
+}
+
+const finMonthLabel = (month, long) =>
+  new Date(`${month}-15T12:00:00`).toLocaleDateString(
+    'nl-NL',
+    long ? { month: 'long', year: 'numeric' } : { month: 'short' }
+  );
+
+function finBars(rows, series, label) {
+  const W = 720,
+    H = 230,
+    L = 72,
+    B = 26,
+    T = 10;
+  const values = rows.flatMap(r => series.map(s => r[s.key]));
+  const top = Math.max(...values, 0) || 1;
+  const low = Math.min(...values, 0);
+  const span = top - low;
+  const y = v => T + ((top - v) / span) * (H - T - B);
+  const band = (W - L) / rows.length;
+  const width = Math.min(18, (band - 8) / series.length - 2);
+  const grid = [top, top / 2, 0, ...(low < 0 ? [low] : [])]
+    .filter((v, i, list) => list.slice(0, i).every(o => Math.abs(y(o) - y(v)) > 16))
+    .map(
+      v =>
+        `<line x1="${L}" x2="${W}" y1="${y(v)}" y2="${y(v)}" class="fin-grid"></line><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end" class="fin-axis">${adminEscape(adminMoney(v).replace(',00', ''))}</text>`
+    )
+    .join('');
+  const bars = rows
+    .map((r, i) => {
+      const x0 = L + i * band + (band - series.length * (width + 2)) / 2;
+      const marks = series
+        .map((s, n) => {
+          const v = r[s.key];
+          const color = s.color || (v < 0 ? FIN_LOSS : FIN_PROFIT);
+          const h = Math.max(v ? 2 : 0, Math.abs(y(v) - y(0)));
+          return `<rect x="${x0 + n * (width + 2)}" y="${v < 0 ? y(0) : y(0) - h}" width="${width}" height="${h}" rx="3" fill="${color}"></rect>`;
+        })
+        .join('');
+      const tip = `${finMonthLabel(r.month, true)}: ${series.map(s => `${s.name} ${adminMoney(r[s.key])}`).join(' · ')}`;
+      return `<g class="fin-hit" data-tip="${adminEscape(tip)}"><rect x="${L + i * band}" y="0" width="${band}" height="${H}" fill="transparent"></rect>${marks}<text x="${L + i * band + band / 2}" y="${H - 8}" text-anchor="middle" class="fin-axis">${adminEscape(finMonthLabel(r.month))}</text></g>`;
+    })
+    .join('');
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${adminEscape(label)}">${grid}${bars}</svg>`;
+}
+
+function finLine(rows) {
+  const W = 720,
+    H = 190,
+    L = 72,
+    B = 26,
+    T = 10;
+  let sum = 0;
+  const points = rows.map(r => ({ ...r, total: (sum += r.profit) }));
+  const top = Math.max(...points.map(p => p.total), 0) || 1;
+  const low = Math.min(...points.map(p => p.total), 0);
+  const span = top - low || 1;
+  const y = v => T + ((top - v) / span) * (H - T - B);
+  const x = i => L + ((W - L - 12) / Math.max(1, points.length - 1)) * i;
+  const line = points.map((p, i) => `${i ? 'L' : 'M'}${x(i)} ${y(p.total)}`).join(' ');
+  const zero = `<line x1="${L}" x2="${W}" y1="${y(0)}" y2="${y(0)}" class="fin-grid"></line><text x="${L - 6}" y="${y(0) + 4}" text-anchor="end" class="fin-axis">€ 0</text>`;
+  const dots = points
+    .map(
+      (p, i) =>
+        `<g class="fin-hit" data-tip="${adminEscape(`${finMonthLabel(p.month, true)}: totaal ${adminMoney(p.total)}`)}"><rect x="${x(i) - 24}" y="0" width="48" height="${H}" fill="transparent"></rect><circle cx="${x(i)}" cy="${y(p.total)}" r="4" fill="${FIN_REVENUE}"></circle></g>`
+    )
+    .join('');
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Totale winst over twaalf maanden">${zero}<path d="${line}" fill="none" stroke="${FIN_REVENUE}" stroke-width="2"></path>${dots}</svg>`;
+}
+
+function finLegend(series) {
+  return `<div class="fin-legend">${series.map(s => `<span><i style="background:${s.color}"></i>${adminEscape(s.name)}</span>`).join('')}</div>`;
+}
+
+function finTile(label, value, note, cls = '') {
+  return `<div class="admin-stat ${cls}"><div class="label">${adminEscape(label)}</div><div class="value">${adminEscape(value)}</div><div class="sub">${adminEscape(note)}</div></div>`;
+}
+
+function financeHoursSummary(d) {
+  const m = d.measured || {};
+  const rows = [
+    { source: 'Claude Code', hours: m.claudeCodeHours || 0, note: `Gemeten sinds ${m.firstClaude || '—'}`, auto: true },
+    {
+      source: 'Claude Code',
+      hours: m.gitEstimateHours || 0,
+      note: `Geschat uit Git, ${m.firstCommit || '—'} tot ${m.firstClaude || '—'}`,
+      auto: true
+    },
+    ...(d.hours || [])
+  ].filter(r => r.hours > 0);
+  return { rows, total: rows.reduce((sum, r) => sum + Number(r.hours), 0) };
+}
+
+function renderAdminFinance() {
+  const host = $('adminFinanceBody');
+  const d = adminFinance;
+  if (!host || !d) return;
+  const all = financeRows(d);
+  const now = new Date();
+  const thisMonth = d.months[d.months.length - 1];
+  const thisYear = String(now.getFullYear());
+  const picked = {
+    month: all.filter(r => r.month === thisMonth),
+    year: all.filter(r => r.month.startsWith(thisYear)),
+    all
+  }[adminFinancePeriod];
+  const sum = key => picked.reduce((total, r) => total + r[key], 0);
+  const revenue = sum('revenue');
+  const costs = sum('costs');
+  const profit = revenue - costs;
+  const yearRevenue = all.filter(r => r.month.startsWith(thisYear)).reduce((t, r) => t + r.revenue, 0);
+  const fixed = (d.costs || []).reduce((t, c) => {
+    if (c.until && c.until < thisMonth) return t;
+    return t + (c.repeat === 'month' ? c.amount : c.repeat === 'year' ? c.amount / 12 : 0);
+  }, 0);
+  const t = adminTotals || {};
+  const mrr = Number(t.mrr_eur) || 0;
+  const customers = (Number(t.pro) || 0) + (Number(t.teams) || 0);
+  const breakEven = Math.max(0, Math.ceil((fixed - mrr) / PRO_MONTH_PRICE));
+  const hours = financeHoursSummary(d);
+  const allProfit = all.reduce((total, r) => total + r.profit, 0);
+
+  const categories = new Map();
+  for (const r of picked)
+    for (const [name, amount] of Object.entries(r.categories))
+      categories.set(name, (categories.get(name) || 0) + amount);
+  const costRows = [...categories].filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]);
+  const maxCost = costRows[0]?.[1] || 1;
+
+  const missing = [
+    !d.stripe && 'Stripe',
+    !d.ads && 'AdSense (nog niet gekoppeld)',
+    !d.openai && 'OpenAI (geen admin-sleutel)'
+  ].filter(Boolean);
+  const period = (id, label) =>
+    `<button type="button" class="${adminFinancePeriod === id ? 'is-on' : ''}" onclick="setFinancePeriod('${id}')">${label}</button>`;
+  const options = list => list.map(x => `<option>${adminEscape(x)}</option>`).join('');
+  const today = now.toISOString().slice(0, 10);
+  const repeatName = { none: 'Eenmalig', month: 'Per maand', year: 'Per jaar' };
+
+  host.innerHTML = `
+    <div class="fin-periods" role="group" aria-label="Periode">${period('month', 'Deze maand')}${period('year', 'Dit jaar')}${period('all', '12 maanden')}</div>
+    ${missing.length ? `<p class="admin-note">Nog niet meegeteld: ${adminEscape(missing.join(', '))}.</p>` : ''}
+    <div class="admin-stats-grid fin-hero">
+      ${finTile('Omzet', adminMoney(revenue), 'abonnementen, import service en advertenties')}
+      ${finTile('Kosten', adminMoney(costs), 'eigen kosten, betaalkosten en AI')}
+      ${finTile('Winst', `${profit < 0 ? '▼ ' : '▲ '}${adminMoney(Math.abs(profit))}`, profit < 0 ? 'verlies in deze periode' : 'in deze periode')}
+      ${finTile('Marge', revenue ? `${Math.round((profit / revenue) * 100)}%` : '—', 'winst als deel van de omzet')}
+    </div>
+    <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">ONTWIKKELING</div><h2>Omzet en kosten per maand</h2></div></div>${finLegend(
+      [
+        { name: 'Omzet', color: FIN_REVENUE },
+        { name: 'Kosten', color: FIN_COST }
+      ]
+    )}<div class="fin-chart">${finBars(
+      all,
+      [
+        { key: 'revenue', name: 'Omzet', color: FIN_REVENUE },
+        { key: 'costs', name: 'Kosten', color: FIN_COST }
+      ],
+      'Omzet en kosten per maand'
+    )}</div></section>
+    <div class="fin-two">
+      <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">RESULTAAT</div><h2>Winst per maand</h2></div></div><div class="fin-chart">${finBars(all, [{ key: 'profit', name: 'Winst' }], 'Winst per maand')}</div></section>
+      <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">TOTAAL</div><h2>Opgeteld over 12 maanden</h2></div><span class="admin-count">${adminEscape(adminMoney(allProfit))}</span></div><div class="fin-chart">${finLine(all)}</div></section>
+    </div>
+    <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">GEZONDHEID</div><h2>Belangrijkste cijfers</h2></div></div>
+      <div class="admin-stats-grid">
+        ${finTile('Terugkerend per maand', adminMoney(mrr), 'MRR, lopende abonnementen')}
+        ${finTile('Op jaarbasis', adminMoney(mrr * 12), 'ARR, als alles zo doorloopt')}
+        ${finTile('Betalende klanten', count0(customers), `${count0(t.pro)} Pro · ${count0(t.teams)} teams`)}
+        ${finTile('Gemiddeld per klant', customers ? adminMoney(mrr / customers) : '—', 'per maand')}
+        ${finTile('Vaste kosten', adminMoney(fixed), 'per maand, zelf ingevoerd')}
+        ${finTile('Tot break-even', breakEven ? `${breakEven} Pro erbij` : 'Bereikt', breakEven ? 'om de vaste kosten te dekken' : 'abonnementen dekken de vaste kosten')}
+      </div>
+      <div class="adsense-payout"><div><b>${adminEscape(adminMoney(yearRevenue))}</b> van ${adminEscape(adminMoney(KOR_LIMIT))} omzet dit jaar (KOR-grens)</div><i><b style="width:${Math.min(100, (yearRevenue / KOR_LIMIT) * 100)}%"></b></i></div>
+      <p class="admin-footnote">Savour rekent nu geen btw (KOR). Vraag je boekhouder wat er nodig is als je bij de grens komt.</p>
+    </section>
+    <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">KOSTEN</div><h2>Waar het geld heen gaat</h2></div></div>
+      ${costRows.length ? `<div class="fin-cats">${costRows.map(([name, value]) => `<div><span>${adminEscape(name)}</span><i><b style="width:${(value / maxCost) * 100}%"></b></i><strong>${adminEscape(adminMoney(value))}</strong></div>`).join('')}</div>` : '<p class="admin-note">Nog geen kosten in deze periode.</p>'}
+      <h3 class="adsense-title">Kosten toevoegen</h3>
+      <form class="fin-form" onsubmit="event.preventDefault();saveFinanceCostForm(this)">
+        <input name="name" placeholder="Bijv. Claude-abonnement" aria-label="Naam" required>
+        <select name="category" aria-label="Categorie">${options(d.categories || [])}</select>
+        <input name="amount" inputmode="decimal" placeholder="Bedrag in €" aria-label="Bedrag" required>
+        <input name="date" type="date" value="${today}" aria-label="Datum" required>
+        <select name="repeat" aria-label="Herhaling"><option value="none">Eenmalig</option><option value="month">Per maand</option><option value="year">Per jaar</option></select>
+        <button class="btn gold">Toevoegen</button>
+      </form>
+      ${(d.costs || []).length ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Kosten</th><th>Categorie</th><th>Bedrag</th><th>Herhaling</th><th>Vanaf</th><th></th></tr></thead><tbody>${d.costs.map(c => `<tr><td>${adminEscape(c.name)}</td><td>${adminEscape(c.category)}</td><td>${adminEscape(adminMoney(c.amount))}</td><td>${repeatName[c.repeat] || ''}</td><td>${adminEscape(c.date)}</td><td><button type="button" class="btn-quiet" onclick="deleteFinanceRow('finance_delete_cost','${adminEscape(c.id)}')">Verwijderen</button></td></tr>`).join('')}</tbody></table></div>` : ''}
+    </section>
+    <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">UREN</div><h2>Tijd in Savour</h2></div><span class="admin-count">${hours.total.toLocaleString('nl-NL', { maximumFractionDigits: 1 })} uur</span></div>
+      <div class="admin-stats-grid">
+        ${finTile('Totaal gewerkt', `${hours.total.toLocaleString('nl-NL', { maximumFractionDigits: 0 })} uur`, 'gemeten, geschat en zelf ingevoerd')}
+        ${finTile('Werkweken', (hours.total / 40).toLocaleString('nl-NL', { maximumFractionDigits: 1 }), 'van 40 uur')}
+        ${finTile('Winst per uur', hours.total ? adminMoney(allProfit / hours.total) : '—', 'over de laatste 12 maanden')}
+        ${finTile('Commits', count0(d.measured?.commits), `sinds ${d.measured?.firstCommit || '—'}`)}
+      </div>
+      <h3 class="adsense-title">Uren toevoegen</h3>
+      <form class="fin-form" onsubmit="event.preventDefault();saveFinanceHoursForm(this)">
+        <select name="source" aria-label="Bron">${options(d.sources || [])}</select>
+        <input name="hours" inputmode="decimal" placeholder="Aantal uren" aria-label="Uren" required>
+        <input name="note" placeholder="Toelichting" aria-label="Toelichting">
+        <button class="btn gold">Toevoegen</button>
+      </form>
+      <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Bron</th><th>Uren</th><th>Toelichting</th><th></th></tr></thead><tbody>${hours.rows.map(h => `<tr><td>${adminEscape(h.source)}</td><td>${Number(h.hours).toLocaleString('nl-NL')}</td><td>${adminEscape(h.note || '')}</td><td>${h.auto ? '' : `<button type="button" class="btn-quiet" onclick="deleteFinanceRow('finance_delete_hours','${adminEscape(h.id)}')">Verwijderen</button>`}</td></tr>`).join('')}</tbody></table></div>
+    </section>
+    <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">OVERZICHT</div><h2>Per maand</h2></div><button type="button" class="btn" onclick="downloadFinanceCsv()">Download voor boekhouder</button></div>
+      <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Maand</th><th>Stripe</th><th>Advertenties</th><th>Omzet</th><th>Kosten</th><th>Winst</th></tr></thead><tbody>${all
+        .slice()
+        .reverse()
+        .map(
+          r =>
+            `<tr><td>${adminEscape(finMonthLabel(r.month, true))}</td><td>${adminEscape(adminMoney(r.subs))}</td><td>${adminEscape(adminMoney(r.ads))}</td><td>${adminEscape(adminMoney(r.revenue))}</td><td>${adminEscape(adminMoney(r.costs))}</td><td>${adminEscape(adminMoney(r.profit))}</td></tr>`
+        )
+        .join('')}</tbody></table></div>
+      <p class="admin-footnote">Hulpmiddel, geen boekhouding. Advertenties zijn schattingen van Google en dollars zijn afgerond omgerekend.</p>
+    </section>
+    <div id="finTip" class="fin-tip" hidden></div>`;
+
+  // Hover: waarde bij elke maand. De tabel hierboven toont dezelfde cijfers zonder muis.
+  const tip = $('finTip');
+  host.querySelectorAll('.fin-hit').forEach(g => {
+    g.addEventListener('mousemove', e => {
+      tip.textContent = g.dataset.tip;
+      tip.hidden = false;
+      tip.style.left = `${Math.min(innerWidth - 300, e.clientX + 14)}px`;
+      tip.style.top = `${e.clientY + 14}px`;
+    });
+    g.addEventListener('mouseleave', () => (tip.hidden = true));
+  });
+}
+
+const count0 = v => (Number(v) || 0).toLocaleString('nl-NL');
+
+async function saveFinanceCostForm(form) {
+  try {
+    await adminApi('finance_save_cost', { cost: Object.fromEntries(new FormData(form)) });
+    await loadAdminFinance();
+  } catch (error) {
+    toast(error.message);
+  }
+}
+
+async function saveFinanceHoursForm(form) {
+  try {
+    await adminApi('finance_save_hours', { entry: Object.fromEntries(new FormData(form)) });
+    await loadAdminFinance();
+  } catch (error) {
+    toast(error.message);
+  }
+}
+
+async function deleteFinanceRow(action, id) {
+  if (!(await askConfirm('Deze regel verwijderen?'))) return;
+  try {
+    await adminApi(action, { id });
+    await loadAdminFinance();
+  } catch (error) {
+    toast(error.message);
+  }
+}
+
+function downloadFinanceCsv() {
+  if (!adminFinance) return;
+  const cell = v => `"${String(v).replace(/"/g, '""')}"`;
+  const number = v => v.toFixed(2).replace('.', ',');
+  const lines = [['Maand', 'Stripe', 'Advertenties', 'Omzet', 'Kosten', 'Winst'].map(cell).join(';')];
+  for (const r of financeRows(adminFinance))
+    lines.push([r.month, ...[r.subs, r.ads, r.revenue, r.costs, r.profit].map(number)].map(cell).join(';'));
+  lines.push('', ['Kosten', 'Categorie', 'Bedrag', 'Herhaling', 'Datum'].map(cell).join(';'));
+  for (const c of adminFinance.costs || [])
+    lines.push([c.name, c.category, number(c.amount), c.repeat, c.date].map(cell).join(';'));
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(new Blob([`﻿${lines.join('\n')}`], { type: 'text/csv;charset=utf-8' }));
+  link.download = `savour-financien-${new Date().toISOString().slice(0, 10)}.csv`;
+  link.click();
+  URL.revokeObjectURL(link.href);
 }

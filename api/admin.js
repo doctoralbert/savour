@@ -29,6 +29,7 @@ import { INTAKE_BUCKET, PACKAGES, FREE_INTRO, deliverLink, packageLabel } from '
 import { randomBytes } from 'node:crypto';
 import { siteOrigin } from './_lib/origin.js';
 import { stripe, hasStripe, PLAN_MONTHLY_EUR } from './_lib/stripe.js';
+import { MEASURED_HOURS } from './_lib/uren.js';
 
 const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || 'schreurs.jop@gmail.com')
   .split(',')
@@ -983,10 +984,11 @@ async function adsenseDisconnect() {
   return { ok: true };
 }
 
-async function adsenseRange(accessToken, dateRange, dimension, limit) {
+async function adsenseRange(accessToken, dateRange, dimension, limit, extra = {}) {
   const q = new URLSearchParams({ dateRange });
   for (const metric of ['ESTIMATED_EARNINGS', 'PAGE_VIEWS', 'IMPRESSIONS', 'CLICKS']) q.append('metrics', metric);
   if (dimension) q.append('dimensions', dimension);
+  for (const [key, value] of Object.entries(extra)) q.append(key, String(value));
   if (limit) {
     q.append('orderBy', '-ESTIMATED_EARNINGS');
     q.append('limit', String(limit));
@@ -1074,6 +1076,182 @@ async function adsenseReport() {
   };
 }
 
+// ---- Financiën (/admin → Financiën): omzet, kosten, winst en gewerkte uren ----
+// Automatisch: Stripe (omzet en betaalkosten), AdSense en OpenAI. Eigen kosten en uren staan als JSON in admin_settings.
+const FINANCE_COSTS = 'finance_costs';
+const FINANCE_HOURS = 'finance_hours';
+const COST_CATEGORIES = ['Software', 'Hosting', 'AI', 'Marketing', 'Administratie', 'Overig'];
+const HOUR_SOURCES = ['Claude-chat', 'ChatGPT', 'Zelf gewerkt', 'Overig'];
+const EUR_PER_USD = 0.92; // Vaste afronding: OpenAI rekent in dollars.
+
+async function settingList(key) {
+  const rows = await select('admin_settings', `key=eq.${key}&select=value`);
+  try {
+    const list = JSON.parse(rows?.[0]?.value || '[]');
+    return Array.isArray(list) ? list : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+async function saveSettingList(key, list) {
+  await remove('admin_settings', `key=eq.${key}`);
+  await insert('admin_settings', { key, value: JSON.stringify(list) });
+}
+
+const financeMonths = () => {
+  const now = new Date();
+  return Array.from({ length: 12 }, (_, i) => {
+    const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 11 + i, 1));
+    return d.toISOString().slice(0, 7);
+  });
+};
+
+// Omzet en betaalkosten per maand uit Stripe, na terugbetalingen.
+async function stripeMonths(months) {
+  if (!hasStripe()) return null;
+  const since = Math.floor(Date.parse(`${months[0]}-01T00:00:00Z`) / 1000);
+  const result = {};
+  let after = '';
+  for (let page = 0; page < 50; page++) {
+    const data = await stripe(
+      `charges?limit=100&created[gte]=${since}&expand[]=data.balance_transaction${after}`,
+      null,
+      'GET'
+    );
+    for (const c of data.data || []) {
+      if (!c.paid) continue;
+      const month = new Date(c.created * 1000).toISOString().slice(0, 7);
+      const row = (result[month] ||= { revenue: 0, fees: 0 });
+      row.revenue += (c.amount - (c.amount_refunded || 0)) / 100;
+      row.fees += (c.balance_transaction?.fee || 0) / 100;
+    }
+    if (!data.has_more) break;
+    after = `&starting_after=${data.data[data.data.length - 1].id}`;
+  }
+  return result;
+}
+
+async function adsenseMonths(months) {
+  if (!adsenseClientId() || !adsenseSecret()) return null;
+  const rows = await select('admin_settings', `key=eq.${ADSENSE_TOKEN_KEY}&select=value`);
+  if (!rows?.[0]?.value) return null;
+  const { access_token: accessToken } = await googleToken({
+    refresh_token: rows[0].value,
+    grant_type: 'refresh_token'
+  });
+  const [year, month] = months[0].split('-').map(Number);
+  const now = new Date();
+  const report = await adsenseRange(accessToken, 'CUSTOM', 'MONTH', 0, {
+    'startDate.year': year,
+    'startDate.month': month,
+    'startDate.day': 1,
+    'endDate.year': now.getFullYear(),
+    'endDate.month': now.getMonth() + 1,
+    'endDate.day': now.getDate()
+  });
+  return Object.fromEntries(report.rows.map(r => [r.MONTH, Number(r.ESTIMATED_EARNINGS) || 0]));
+}
+
+// AI-kosten per maand uit OpenAI (admin-sleutel), omgerekend naar euro.
+async function openAiMonths(months) {
+  const key = process.env.OPENAI_ADMIN_KEY;
+  if (!key) return null;
+  const start = Math.floor(Date.parse(`${months[0]}-01T00:00:00Z`) / 1000);
+  const result = {};
+  let pageToken = '';
+  for (let page = 0; page < 3; page++) {
+    const response = await fetch(
+      `https://api.openai.com/v1/organization/costs?start_time=${start}&bucket_width=1d&limit=180${pageToken}`,
+      { headers: { Authorization: `Bearer ${key}` } }
+    );
+    if (!response.ok) return null;
+    const data = await response.json();
+    for (const bucket of data.data || []) {
+      const month = new Date(bucket.start_time * 1000).toISOString().slice(0, 7);
+      for (const r of bucket.results || [])
+        result[month] = (result[month] || 0) + (Number(r.amount?.value) || 0) * EUR_PER_USD;
+    }
+    if (!data.has_more || !data.next_page) break;
+    pageToken = `&page=${encodeURIComponent(data.next_page)}`;
+  }
+  return result;
+}
+
+async function financeOverview() {
+  const months = financeMonths();
+  const safe = promise => promise.catch(error => (console.error('Financiën', error), null));
+  const [stripeData, ads, openai, costs, hours] = await Promise.all([
+    safe(stripeMonths(months)),
+    safe(adsenseMonths(months)),
+    safe(openAiMonths(months)),
+    settingList(FINANCE_COSTS),
+    settingList(FINANCE_HOURS)
+  ]);
+  return {
+    months,
+    stripe: stripeData,
+    ads,
+    openai,
+    costs,
+    hours,
+    measured: MEASURED_HOURS,
+    categories: COST_CATEGORIES,
+    sources: HOUR_SOURCES
+  };
+}
+
+async function saveFinanceCost(cost) {
+  const amount = Number(String(cost?.amount ?? '').replace(',', '.'));
+  const name = String(cost?.name || '')
+    .trim()
+    .slice(0, 120);
+  if (!name) throw Object.assign(new Error('Vul een naam in.'), { status: 400 });
+  if (!(amount >= 0 && amount <= 10000000))
+    throw Object.assign(new Error('Vul een geldig bedrag in.'), { status: 400 });
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(cost?.date || ''))
+    throw Object.assign(new Error('Vul een datum in.'), { status: 400 });
+  const until = /^\d{4}-\d{2}$/.test(cost?.until || '') ? cost.until : '';
+  const list = await settingList(FINANCE_COSTS);
+  list.push({
+    id: randomBytes(8).toString('hex'),
+    name,
+    amount: Math.round(amount * 100) / 100,
+    date: cost.date,
+    category: COST_CATEGORIES.includes(cost?.category) ? cost.category : 'Overig',
+    repeat: ['none', 'month', 'year'].includes(cost?.repeat) ? cost.repeat : 'none',
+    until
+  });
+  await saveSettingList(FINANCE_COSTS, list);
+  return { ok: true };
+}
+
+async function saveFinanceHours(entry) {
+  const hours = Number(String(entry?.hours ?? '').replace(',', '.'));
+  if (!(hours > 0 && hours <= 100000))
+    throw Object.assign(new Error('Vul een geldig aantal uren in.'), { status: 400 });
+  const list = await settingList(FINANCE_HOURS);
+  list.push({
+    id: randomBytes(8).toString('hex'),
+    source: HOUR_SOURCES.includes(entry?.source) ? entry.source : 'Overig',
+    hours: Math.round(hours * 10) / 10,
+    note: String(entry?.note || '')
+      .trim()
+      .slice(0, 160)
+  });
+  await saveSettingList(FINANCE_HOURS, list);
+  return { ok: true };
+}
+
+async function deleteFinanceItem(key, id) {
+  const list = await settingList(key);
+  await saveSettingList(
+    key,
+    list.filter(x => x.id !== String(id))
+  );
+  return { ok: true };
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const user = await getUserFromRequest(req);
@@ -1098,6 +1276,13 @@ export default async function handler(req, res) {
       return res.status(200).json(await createAccount({ email, name, organization }, siteOrigin(req)));
     if (action === 'errors') return res.status(200).json(await errorGroups());
     if (action === 'adsense') return res.status(200).json(await adsenseReport());
+    if (action === 'finance') return res.status(200).json(await financeOverview());
+    if (action === 'finance_save_cost') return res.status(200).json(await saveFinanceCost(req.body?.cost));
+    if (action === 'finance_save_hours') return res.status(200).json(await saveFinanceHours(req.body?.entry));
+    if (action === 'finance_delete_cost')
+      return res.status(200).json(await deleteFinanceItem(FINANCE_COSTS, req.body?.id));
+    if (action === 'finance_delete_hours')
+      return res.status(200).json(await deleteFinanceItem(FINANCE_HOURS, req.body?.id));
     if (action === 'adsense_auth_url') return res.status(200).json(adsenseAuthUrl(siteOrigin(req), req.body?.state));
     if (action === 'adsense_connect')
       return res.status(200).json(await adsenseConnect(req.body?.code, siteOrigin(req)));
