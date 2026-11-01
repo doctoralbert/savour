@@ -16,6 +16,7 @@ import { ES } from './site-pages-es.mjs';
 import { FR } from './site-pages-fr.mjs';
 import { EXTRA_FR, APP_PAGE_FR, DELIVER_FR, DELIVER_FLOW_FR, SERVICE_FR, KLADJE_FR } from './site-fr-extra.mjs';
 import { stringsFr, patternsFr } from './vertalingen-fr.mjs';
+import { VERDIEPING } from './site-verdieping.mjs';
 import { APP_PAGE } from './site-app.mjs';
 import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
 import { DELIVER, DELIVER_FLOW } from './site-deliver.mjs';
@@ -184,6 +185,23 @@ for (const lang of ['de', 'es', 'fr']) {
   blogSlug[lang] = P.blogSlug;
 }
 for (const lang of HOME_LANGS) HOME[lang].faq.push(...SERVICE[lang].faqs.slice(0, 2));
+// Extra alinea's voor de kortste pagina's (tools/site-verdieping.mjs).
+for (const [id, extra] of Object.entries(VERDIEPING)) {
+  const item =
+    id === 'app'
+      ? APP_PAGE
+      : FEATURES.find(f => f.id === id) || AUDIENCES.find(a => a.id === id) || POSTS.find(p => p.en.slug === id);
+  if (!item) throw new Error(`Verdieping: pagina ${id} niet gevonden`);
+  for (const [lang, sections] of Object.entries(extra)) item[lang].sections.push(...sections);
+}
+
+// Beschrijving van de keukenfoto's, voor zoekmachines en schermlezers.
+const PHOTO_ALT = {
+  wortels: { nl: 'Verse wortels op een werkbank in de keuken', en: 'Fresh carrots on a kitchen workbench', de: 'Frische Karotten auf einer Küchenarbeitsplatte', es: 'Zanahorias frescas en una mesa de cocina', fr: 'Carottes fraîches sur un plan de travail de cuisine' },
+  uien: { nl: 'Uien in de professionele keuken', en: 'Onions in a professional kitchen', de: 'Zwiebeln in der Profiküche', es: 'Cebollas en una cocina profesional', fr: 'Oignons dans une cuisine professionnelle' },
+  eend: { nl: 'Eend wordt bereid boven het vuur', en: 'Duck being cooked over the fire', de: 'Ente wird über dem Feuer zubereitet', es: 'Pato cocinándose sobre el fuego', fr: 'Canard cuit au-dessus du feu' }
+};
+
 // Alle taalversies van een pagina (voor hreflang en de taalknop).
 const slugsOf = item => Object.fromEntries(LANGS.map(l => [l, typeof item[l] === 'string' ? item[l] : item[l].slug]));
 const LOCALE = { nl: 'nl-NL', en: 'en-GB', de: 'de-DE', es: 'es-ES', fr: 'fr-FR' };
@@ -520,7 +538,7 @@ function aboutChapters(s, lang) {
             `<div class="kladje-card"><img src="/assets/kladjes/${file}.jpg" alt="${esc(name)}" width="900" height="900" loading="lazy"><span translate="no">${esc(name)}</span></div>`
         ).join('')}</div><figcaption>${esc(s.notesCaption)}</figcaption></figure>`;
       if (i === 4)
-        extra = `<figure class="site-notes app reveal"><div class="site-phone-frame"><img src="/assets/app/recept-${lang}.jpg" alt="" loading="lazy"></div><figcaption>${esc(s.appCaption)}</figcaption></figure>`;
+        extra = `<figure class="site-notes app reveal"><div class="site-phone-frame"><img src="/assets/app/recept-${lang}.jpg" alt="${esc(SHOT_ALT[lang][1])}" loading="lazy"></div><figcaption>${esc(s.appCaption)}</figcaption></figure>`;
       if (i === s.chapters.length - 1)
         extra = `<p><a class="site-link" href="${href(FEATURES.find(f => f.soon)[lang].slug)}">${esc(s.roadmapLink)}</a></p>`;
       return `<h2 class="reveal">${esc(t)}</h2>${ps.map(p => `<p>${esc(p)}</p>`).join('')}${extra}`;
@@ -574,8 +592,8 @@ const pageTop = (crumbHtml, h1, lead, photo) => {
   return `<section class="site-page-head${p ? ' has-photo' : ''}"${style}><div class="site-wrap site-narrow">${crumbHtml}<h1>${esc(h1)}</h1>${lead ? `<p class="site-lead">${esc(lead)}</p>` : ''}</div></section>`;
 };
 // Twee staande foto's naast elkaar midden in de tekst (Voor wie-pagina's).
-const photoDuo = (a, b) =>
-  `<figure class="site-photo-duo reveal">${[a, b].map(k => `<img src="${photoFile(k)}" alt="" loading="lazy" style="object-position:${PHOTOS[k][1]}">`).join('')}</figure>`;
+const photoDuo = (lang, a, b) =>
+  `<figure class="site-photo-duo reveal">${[a, b].map(k => `<img src="${photoFile(k)}" alt="${esc(PHOTO_ALT[k]?.[lang] || PHOTO_ALT[k]?.en || '')}" loading="lazy" style="object-position:${PHOTOS[k][1]}">`).join('')}</figure>`;
 // AdSense: alleen in blogartikelen, na de tweede alinea (blok "Blog artikel"; niet in de app, recepten of andere pagina's).
 const ADSENSE_CLIENT = 'ca-pub-8120664667405598';
 const ADSENSE_SCRIPT = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}" crossorigin="anonymous"></script>\n`;
@@ -625,7 +643,7 @@ for (const lang of LANGS) {
       crumbs: [[u.audience], [t.menu]],
       body: c =>
         pageTop(c, t.h1, t.lead, PAGE_PHOTO[a.nl.slug]) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${photoDuo(...(a.nl.slug === 'voor-koks' ? ['wortels', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${photoDuo(lang, ...(a.nl.slug === 'voor-koks' ? ['wortels', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.features}</h2>${rows(FEATURES.filter(x => !x.soon), lang)}</div></section>`
     });
   }
