@@ -1,6 +1,7 @@
 // Franse vertalingen, naast tools/vertalingen.mjs: Nederlandse brontekst → Frans.
 // Nieuwe interfacetekst? Zet hier ook de Franse regel; node tools/build-i18n.mjs meldt wat ontbreekt.
 export const stringsFr = {
+ "Meer omrekenen": "Plus d'options de conversion",
  "Samenwerken met je team": "Travailler avec ton équipe",
  "Factor": "Facteur",
  "Dit kon niet worden omgerekend. Controleer wat je hebt ingevuld.": "La conversion n'a pas pu se faire. Vérifie ce que tu as saisi.",

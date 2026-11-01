@@ -305,7 +305,7 @@ function applyRecipeFactor(r, factor, rawTarget) {
     });
   const label = $('rpFactor');
   if (label) label.textContent = factor === 1 ? '' : `× ${formatNumber(factor)}`;
-  $('rpScaleBar')?.toggleAttribute('hidden', factor === 1);
+  $('rpYieldReset')?.toggleAttribute('hidden', factor === 1);
   window._savourScaled =
     factor === 1
       ? null
@@ -341,7 +341,7 @@ function chooseRecipeFactor(factor) {
   setRecipeFactor(factor);
 }
 
-// Omrekenen uit het ⋯-menu: snelknoppen, een eigen factor, de opbrengst of "Ik heb … van een ingrediënt".
+// Uitgebreid omrekenen uit het ⋯-menu: een eigen factor, de opbrengst of "Ik heb … van een ingrediënt".
 function openRecipeScale() {
   document.querySelector('.rp-more')?.removeAttribute('open');
   const { r, base } = recipePageYield();
@@ -354,7 +354,7 @@ function openRecipeScale() {
   closeRecipeScale();
   document.body.insertAdjacentHTML(
     'beforeend',
-    `<div class="modal sv-dialog open" id="scaleDialog" role="dialog" aria-modal="true" aria-labelledby="scaleDialogTitle"><form class="sv-dialog-box rp-scale-box" novalidate><h2 id="scaleDialogTitle" class="sv-dialog-title">Omrekenen</h2>${recipeMultipliersHtml('chooseRecipeFactor')}<label class="rp-scale-field"><span>Factor</span><input name="factor" inputmode="decimal" autocomplete="off" placeholder="2,5"></label>${
+    `<div class="modal sv-dialog open" id="scaleDialog" role="dialog" aria-modal="true" aria-labelledby="scaleDialogTitle"><form class="sv-dialog-box rp-scale-box" novalidate><h2 id="scaleDialogTitle" class="sv-dialog-title">Omrekenen</h2><label class="rp-scale-field"><span>Factor</span><input name="factor" inputmode="decimal" autocomplete="off" placeholder="2,5"></label>${
       base
         ? `<label class="rp-scale-field"><span>Opbrengst</span><input name="yield" inputmode="decimal" autocomplete="off" placeholder="${esc(formatNumber(base.value))}"><small translate="no">${esc(base.unit)}</small></label>`
         : ''

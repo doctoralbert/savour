@@ -75,7 +75,7 @@ function openRecipe(id, context = 'library') {
             ? { label: 'Verwijderen uit bibliotheek', fn: `deleteRecipe('${rid}')` }
             : null;
   const menuItems = [
-    ingredients.length && `<button type="button" onclick="openRecipeScale()">${icon('plus')}Omrekenen</button>`,
+    ingredients.length && `<button type="button" onclick="openRecipeScale()">${icon('plus')}Meer omrekenen</button>`,
     own &&
       ingredients.length &&
       `<button type="button" onclick="openIngredientLinks()">${icon('book')}Koppelen aan recept</button>`,
@@ -90,7 +90,9 @@ function openRecipe(id, context = 'library') {
     ingredients.length ? `${ingredients.filter(x => !recipePartName(x)).length} ingrediënten` : '',
     steps.length ? `${steps.filter(x => !recipePartName(x)).length} stappen` : ''
   ].filter(Boolean);
-  const scaleBar = `<div class="rp-yield" id="rpScaleBar" hidden><span id="rpFactor" class="rp-factor"></span><button type="button" class="btn-quiet" onclick="resetRecipeYield()">${icon('undo', { size: 16 })} Origineel</button></div>`;
+  const scaleBar = ingredients.length
+    ? `<div class="rp-yield" role="group" aria-label="Omrekenen"><span class="rp-yield-label">Omrekenen</span>${recipeMultipliersHtml()}<span id="rpFactor" class="rp-factor"></span><button type="button" id="rpYieldReset" class="btn-quiet" onclick="resetRecipeYield()" hidden>${icon('undo', { size: 16 })} Origineel</button></div>`
+    : '';
   window._savourScaled = null;
   $('detailWrap').innerHTML = `<article class="rp">
     ${r.photo ? `<img class="rp-photo" src="${esc(r.photo)}" alt="">` : ''}

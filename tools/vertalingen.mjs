@@ -1498,6 +1498,7 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Meer omrekenen","More scaling options","Mehr umrechnen","Más opciones de escala"],
   ["Samenwerken met je team","Working with your team","Zusammenarbeiten mit deinem Team","Trabajar con tu equipo"],
   ["Factor","Factor","Faktor","Factor"],
   ["Dit kon niet worden omgerekend. Controleer wat je hebt ingevuld.","This could not be converted. Check what you entered.","Das konnte nicht umgerechnet werden. Prüfe deine Eingabe.","No se ha podido convertir. Revisa lo que has introducido."],
