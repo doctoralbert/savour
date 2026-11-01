@@ -220,7 +220,92 @@ function renderAdminAdsense(r) {
           .join('')}</tbody></table></div>`
       : '';
   const pagePath = url => String(url || '').replace(/^https?:\/\/(www\.)?savour\.page/, '') || '/';
-  host.innerHTML = `<div class="admin-adsense-grid">${period('Vandaag', r.today)}${period('Laatste 7 dagen', r.week)}${period('Deze maand', r.month)}</div>${table('Pagina', 'PAGE_URL', r.pages, pagePath)}${table('Advertentieblok', 'AD_UNIT_NAME', r.units)}${table('Land', 'COUNTRY_NAME', r.countries)}${table('Apparaat', 'PLATFORM_TYPE_NAME', r.devices)}<p class="admin-footnote">Geschatte inkomsten volgens Google. Alle schermen in de app staan samen onder <b>/</b>. <button type="button" class="btn-quiet" onclick="disconnectAdsense()">Loskoppelen</button></p>`;
+  const earned = x => Number(x?.ESTIMATED_EARNINGS) || 0;
+  const views = x => Number(x?.PAGE_VIEWS) || 0;
+  const pages = (r.pages || []).slice().sort((a, b) => earned(b) - earned(a));
+  const days = r.daily || [];
+  const dayName = d => new Date(`${d}T12:00:00`).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long' });
+
+  // Leuke inzichten: alles berekend uit de cijfers van Google.
+  const now = new Date();
+  const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  const forecast = earned(r.month) + (earned(r.week) / 7) * (daysInMonth - now.getDate());
+  const rpm = views(r.month) ? (earned(r.month) / views(r.month)) * 1000 : 0;
+  const ctr = Number(r.month?.IMPRESSIONS) ? (Number(r.month.CLICKS) / Number(r.month.IMPRESSIONS)) * 100 : 0;
+  const bestPage = pages[0] && earned(pages[0]) > 0 ? pages[0] : null;
+  const bestRate = pages
+    .filter(p => views(p) >= 20 && earned(p) > 0)
+    .sort((a, b) => earned(b) / views(b) - earned(a) / views(a))[0];
+  const bestDay = days.reduce((best, d) => (earned(d) > earned(best) ? d : best), null);
+  const proEqual = earned(r.month) / 2.99;
+  const insight = (label, value, note) =>
+    `<div><span class="adsense-label">${label}</span><strong class="adsense-insight">${adminEscape(value)}</strong><small>${adminEscape(note)}</small></div>`;
+  const insights = [
+    insight(
+      'Topverdiener',
+      bestPage ? pagePath(bestPage.PAGE_URL) : 'Nog geen',
+      bestPage ? `${money(earned(bestPage))} deze maand` : 'Zodra er inkomsten zijn'
+    ),
+    insight(
+      'Beste tarief',
+      bestRate ? pagePath(bestRate.PAGE_URL) : 'Nog geen',
+      bestRate
+        ? `${money((earned(bestRate) / views(bestRate)) * 1000)} per 1.000 weergaven`
+        : 'Vanaf 20 weergaven per pagina'
+    ),
+    insight(
+      'Beste dag',
+      bestDay && earned(bestDay) > 0 ? dayName(bestDay.DATE) : 'Nog geen',
+      bestDay && earned(bestDay) > 0 ? `${money(earned(bestDay))} in de laatste 30 dagen` : 'In de laatste 30 dagen'
+    ),
+    insight('Verwacht deze maand', money(forecast), 'Bij het tempo van de laatste 7 dagen'),
+    insight(
+      'Per 1.000 weergaven',
+      money(rpm),
+      `${ctr.toLocaleString('nl-NL', { maximumFractionDigits: 2 })}% klikt op een advertentie`
+    ),
+    insight(
+      'Gelijk aan',
+      `${proEqual.toLocaleString('nl-NL', { maximumFractionDigits: 1 })} Pro-abonnementen`,
+      'Inkomsten deze maand gedeeld door €2,99'
+    )
+  ].join('');
+
+  // Naar de uitbetaling: Google betaalt vanaf €70.
+  const unpaid = Number(r.unpaid);
+  const payout =
+    r.unpaid !== null && r.unpaid !== undefined && Number.isFinite(unpaid)
+      ? `<div class="adsense-payout"><div><b>${adminEscape(money(unpaid))}</b> van €70 tot je eerste uitbetaling</div><i><b style="width:${Math.min(100, (unpaid / 70) * 100)}%"></b></i></div>`
+      : '';
+
+  // Grafiek van de laatste 30 dagen.
+  const top = Math.max(...days.map(earned), 0);
+  const chart = days.length
+    ? `<h3 class="adsense-title">Laatste 30 dagen</h3><div class="adsense-chart" role="img" aria-label="Inkomsten per dag">${days
+        .map(
+          d =>
+            `<i title="${adminEscape(`${dayName(d.DATE)}: ${money(earned(d))}`)}" style="height:${top ? Math.max(2, (earned(d) / top) * 100) : 2}%"></i>`
+        )
+        .join('')}</div>`
+    : '';
+
+  // Waar het geld vandaan komt: blog per taal, website en app.
+  const groupOf = url => {
+    const path = pagePath(url);
+    const lang = path.match(/^\/(en|de|es|fr)(\/|$)/)?.[1]?.toUpperCase() || 'NL';
+    if (path === '/') return 'App en startpagina';
+    return `${/\/blog(\/|$)/.test(path) ? 'Blog' : 'Website'} ${lang}`;
+  };
+  const groups = new Map();
+  for (const p of r.pages || []) {
+    const name = groupOf(p.PAGE_URL);
+    const g = groups.get(name) || { GROUP: name, ESTIMATED_EARNINGS: 0, PAGE_VIEWS: 0, IMPRESSIONS: 0, CLICKS: 0 };
+    for (const k of ['ESTIMATED_EARNINGS', 'PAGE_VIEWS', 'IMPRESSIONS', 'CLICKS']) g[k] += Number(p[k]) || 0;
+    groups.set(name, g);
+  }
+  const grouped = [...groups.values()].sort((a, b) => earned(b) - earned(a));
+
+  host.innerHTML = `<div class="admin-adsense-grid">${period('Vandaag', r.today)}${period('Laatste 7 dagen', r.week)}${period('Deze maand', r.month)}</div>${payout}<div class="admin-adsense-grid adsense-insights">${insights}</div>${chart}${table('Waar het geld vandaan komt', 'GROUP', grouped)}${table('Pagina', 'PAGE_URL', pages.slice(0, 25), pagePath)}${table('Advertentieblok', 'AD_UNIT_NAME', r.units)}${table('Land', 'COUNTRY_NAME', r.countries)}${table('Apparaat', 'PLATFORM_TYPE_NAME', r.devices)}<p class="admin-footnote">Geschatte inkomsten volgens Google. Alle schermen in de app staan samen onder <b>/</b>. <button type="button" class="btn-quiet" onclick="disconnectAdsense()">Loskoppelen</button></p>`;
 }
 
 async function adminShowDashboard(user) {
@@ -1258,6 +1343,9 @@ async function logSavourVisit(path) {
   // Alleen echte browsers (zelfde regel als api/admin.js): tools zonder browsernaam blazen de teller op.
   if (!/Chrome\/|CriOS|Safari\/|Firefox\/|FxiOS|Edg\//.test(navigator.userAgent || '')) return;
   try {
+    // Eigen test, bijvoorbeeld in incognito: open savour.page/?intern en dit venster telt niet meer mee.
+    if (/[?&]intern\b/.test(location.search)) localStorage.setItem('savour_intern', '1');
+    if (localStorage.getItem('savour_intern')) return;
     const key = 'savour_visit_id';
     let vid = localStorage.getItem(key);
     if (!vid) {

@@ -489,6 +489,9 @@
     // Alleen echte browsers (zelfde regel als api/admin.js).
     if (!/Chrome\/|CriOS|Safari\/|Firefox\/|FxiOS|Edg\//.test(navigator.userAgent || '')) return;
     try {
+      // Eigen test, bijvoorbeeld in incognito: open een pagina met ?intern en dit venster telt niet meer mee.
+      if (/[?&]intern\b/.test(location.search)) localStorage.setItem('savour_intern', '1');
+      if (localStorage.getItem('savour_intern')) return;
       var vid = localStorage.getItem('savour_visit_id');
       if (!vid) {
         vid = crypto.randomUUID();

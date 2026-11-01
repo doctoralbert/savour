@@ -1005,6 +1005,24 @@ async function adsenseRange(accessToken, dateRange, dimension, limit) {
   };
 }
 
+// Saldo dat nog niet is uitbetaald, als getal. null als Google het niet geeft.
+async function adsenseUnpaid(accessToken) {
+  try {
+    const response = await fetch(`https://adsense.googleapis.com/v2/${ADSENSE_ACCOUNT}/payments`, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    const amount = (data.payments || []).find(p => /\/unpaid$/.test(p.name || ''))?.amount;
+    const digits = String(amount || '').match(/\d[\d.,]*/)?.[0];
+    if (!digits) return null;
+    const value = Number(digits.replace(/[.,](?=\d{3}(\D|$))/g, '').replace(',', '.'));
+    return Number.isFinite(value) ? value : null;
+  } catch (e) {
+    return null;
+  }
+}
+
 async function adsenseReport() {
   if (!adsenseClientId() || !adsenseSecret()) return { state: 'setup' };
   let rows;
@@ -1027,14 +1045,19 @@ async function adsenseReport() {
       r => r.rows,
       () => []
     );
-  const [today, week, month, units, pages, countries, devices] = await Promise.all([
+  const [today, week, month, units, pages, countries, devices, daily, unpaid] = await Promise.all([
     adsenseRange(accessToken, 'TODAY'),
     adsenseRange(accessToken, 'LAST_7_DAYS'),
     adsenseRange(accessToken, 'MONTH_TO_DATE'),
     part('AD_UNIT_NAME', 50),
-    part('PAGE_URL', 25),
+    part('PAGE_URL', 200),
     part('COUNTRY_NAME', 10),
-    part('PLATFORM_TYPE_NAME', 5)
+    part('PLATFORM_TYPE_NAME', 5),
+    adsenseRange(accessToken, 'LAST_30_DAYS', 'DATE').then(
+      r => r.rows,
+      () => []
+    ),
+    adsenseUnpaid(accessToken)
   ]);
   return {
     state: 'ok',
@@ -1042,6 +1065,8 @@ async function adsenseReport() {
     today: today.totals,
     week: week.totals,
     month: month.totals,
+    daily,
+    unpaid,
     units,
     pages,
     countries,

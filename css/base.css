@@ -4803,3 +4803,49 @@ body {
 #adminAdsenseBody td:first-child {
   overflow-wrap: anywhere;
 }
+.adsense-insights {
+  margin-top: 10px;
+}
+.admin-adsense-grid strong.adsense-insight {
+  overflow-wrap: anywhere;
+  color: #e1c37a;
+  font-size: var(--sv-fs-md);
+}
+.adsense-payout {
+  margin-top: 10px;
+  padding: 15px;
+  border: 1px solid #273333;
+  border-radius: var(--sv-radius);
+  background: #070d0e;
+  color: #e7e0d4;
+  font-size: var(--sv-fs-sm);
+}
+.adsense-payout i {
+  display: block;
+  height: 8px;
+  margin-top: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #273333;
+}
+.adsense-payout i b {
+  display: block;
+  height: 100%;
+  background: #e1c37a;
+}
+.adsense-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 120px;
+  padding: 12px;
+  border: 1px solid #273333;
+  border-radius: var(--sv-radius);
+  background: #070d0e;
+}
+.adsense-chart i {
+  flex: 1 1 0;
+  min-width: 0;
+  border-radius: 3px 3px 0 0;
+  background: #e1c37a;
+}
