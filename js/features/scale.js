@@ -285,24 +285,12 @@ function recipePageYield() {
   return { r, base: parseYield(r?.yield) };
 }
 
-function setRecipeYield(value) {
-  const { r, base } = recipePageYield();
-  if (!r || !base) return;
-  const target = parseAmount(value);
-  if (!Number.isFinite(target) || target <= 0) return;
-  applyRecipeFactor(r, target / base.value, `${formatNumber(target)}${base.unit ? ' ' + base.unit : ''}`);
-}
-
-// Snelknoppen ½×, 2×, 3×, 4×: werken ook als het recept geen opbrengst heeft.
+// Ook zonder opbrengst: het hele recept keer een factor.
 function setRecipeFactor(factor) {
   const { r, base } = recipePageYield();
   if (!r) return;
-  const input = $('rpYieldInput');
-  if (base && input) {
-    input.value = formatNumber(base.value * factor);
-    return setRecipeYield(input.value);
-  }
-  applyRecipeFactor(r, factor, `× ${formatNumber(factor)}`);
+  const target = base ? `${formatNumber(base.value * factor)}${base.unit ? ' ' + base.unit : ''}` : '';
+  applyRecipeFactor(r, factor, target || `× ${formatNumber(factor)}`);
 }
 
 function applyRecipeFactor(r, factor, rawTarget) {
@@ -317,7 +305,7 @@ function applyRecipeFactor(r, factor, rawTarget) {
     });
   const label = $('rpFactor');
   if (label) label.textContent = factor === 1 ? '' : `× ${formatNumber(factor)}`;
-  $('rpYieldReset')?.toggleAttribute('hidden', factor === 1);
+  $('rpScaleBar')?.toggleAttribute('hidden', factor === 1);
   window._savourScaled =
     factor === 1
       ? null
@@ -330,51 +318,76 @@ function applyRecipeFactor(r, factor, rawTarget) {
         };
 }
 
-function stepRecipeYield(direction) {
-  const { base } = recipePageYield();
-  const input = $('rpYieldInput');
-  if (!base || !input) return;
-  const step = base.value >= 2 ? 1 : 0.5;
-  const current = parseAmount(input.value) || base.value;
-  const next = Math.max(step, Math.round((current + direction * step) / step) * step);
-  input.value = formatNumber(next);
-  setRecipeYield(input.value);
-}
-
 function resetRecipeYield() {
   setRecipeFactor(1);
-  if ($('rpHaveInput')) $('rpHaveInput').value = '';
 }
 
-// Elke factor kan, van een klein proefje (0,1) tot een grote batch (250).
-async function askRecipeFactor() {
-  document.querySelector('.rp-more')?.removeAttribute('open');
-  const value = await askText(
-    'Eigen factor\n\nMet hoeveel wil je het recept vermenigvuldigen? Bijvoorbeeld 0,1 of 2,5.',
-    '',
-    { confirmLabel: 'Omrekenen' }
-  );
-  if (value === null) return;
-  const factor = parseAmount(value);
-  if (!Number.isFinite(factor) || factor < 0.01 || factor > 1000) return toast('Vul een getal in tussen 0,01 en 1000.');
-  if ($('rpHaveInput')) $('rpHaveInput').value = '';
-  setRecipeFactor(factor);
-}
-
-// "Ik heb 3 kg biet": het hele recept rekent mee op wat je van één ingrediënt hebt. Ook met een andere eenheid
-// dan in het recept; een kaal getal in het recept ("6000 rettich") telt dan als gram of milliliter.
-function scaleOnIngredient() {
-  const { r } = recipePageYield();
-  const line = r?.ingredients?.[Number($('rpHaveIngredient')?.value)];
+// "Ik heb 3 kg biet": de factor volgt uit wat je van één ingrediënt hebt. Ook met een andere eenheid dan in het
+// recept; een kaal getal in het recept ("6000 rettich") telt dan als gram of milliliter. Geeft null als het niet kan.
+function factorFromIngredient(line, haveText) {
   const from = parseIngredientAmount(line);
-  const have = parseIngredientAmount($('rpHaveInput')?.value);
-  if (!from || !have || !(from.value > 0) || !(have.value > 0)) return;
+  const have = parseIngredientAmount(haveText);
+  if (!from || !have || !(from.value > 0) || !(have.value > 0)) return null;
   const sameKind = have.unit && (!from.unit || from.unit.family === have.unit.family);
-  const factor = sameKind
-    ? (have.value * have.unit.base) / (from.value * (from.unit?.base || 1))
-    : have.value / from.value;
-  if (!(factor >= 0.01 && factor <= 1000)) return;
+  return sameKind ? (have.value * have.unit.base) / (from.value * (from.unit?.base || 1)) : have.value / from.value;
+}
+
+function closeRecipeScale() {
+  $('scaleDialog')?.remove();
+}
+
+function chooseRecipeFactor(factor) {
+  closeRecipeScale();
   setRecipeFactor(factor);
+}
+
+// Omrekenen uit het ⋯-menu: snelknoppen, een eigen factor, de opbrengst of "Ik heb … van een ingrediënt".
+function openRecipeScale() {
+  document.querySelector('.rp-more')?.removeAttribute('open');
+  const { r, base } = recipePageYield();
+  if (!r) return;
+  const options = (r.ingredients || [])
+    .map((line, i) =>
+      parseIngredientAmount(line) ? `<option value="${i}">${esc(ingredientNameOf(line))}</option>` : ''
+    )
+    .join('');
+  closeRecipeScale();
+  document.body.insertAdjacentHTML(
+    'beforeend',
+    `<div class="modal sv-dialog open" id="scaleDialog" role="dialog" aria-modal="true" aria-labelledby="scaleDialogTitle"><form class="sv-dialog-box rp-scale-box" novalidate><h2 id="scaleDialogTitle" class="sv-dialog-title">Omrekenen</h2>${recipeMultipliersHtml('chooseRecipeFactor')}<label class="rp-scale-field"><span>Factor</span><input name="factor" inputmode="decimal" autocomplete="off" placeholder="2,5"></label>${
+      base
+        ? `<label class="rp-scale-field"><span>Opbrengst</span><input name="yield" inputmode="decimal" autocomplete="off" placeholder="${esc(formatNumber(base.value))}"><small translate="no">${esc(base.unit)}</small></label>`
+        : ''
+    }${
+      options
+        ? `<div class="rp-scale-field"><span>Ik heb</span><input name="have" autocomplete="off" placeholder="3 kg" aria-label="Ik heb"><select name="line" aria-label="Ingrediënt" translate="no">${options}</select></div>`
+        : ''
+    }<div class="sv-dialog-actions"><button type="button" class="btn" data-cancel>Annuleren</button><button type="submit" class="btn gold">Omrekenen</button></div></form></div>`
+  );
+  const el = $('scaleDialog');
+  const form = el.querySelector('form');
+  const inputs = [...form.querySelectorAll('input')];
+  // Eén manier tegelijk: wat je invult, maakt de andere velden leeg.
+  inputs.forEach(input => input.addEventListener('input', () => inputs.forEach(x => x !== input && (x.value = ''))));
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    let factor = null;
+    if (form.have?.value.trim()) factor = factorFromIngredient(r.ingredients[Number(form.line.value)], form.have.value);
+    else if (form.yield?.value.trim()) factor = parseAmount(form.yield.value) / base.value;
+    else if (form.factor.value.trim()) factor = parseAmount(form.factor.value);
+    else return closeRecipeScale();
+    if (!Number.isFinite(factor) || factor < 0.01 || factor > 1000)
+      return toast('Dit kon niet worden omgerekend. Controleer wat je hebt ingevuld.');
+    chooseRecipeFactor(factor);
+  });
+  el.querySelector('[data-cancel]').addEventListener('click', closeRecipeScale);
+  el.addEventListener('mousedown', e => {
+    if (e.target === el) closeRecipeScale();
+  });
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeRecipeScale();
+  });
+  setTimeout(() => form.factor.focus(), 0);
 }
 
 // Alleen de naam van een ingrediënt: "1000 slagroom" wordt "slagroom".
@@ -383,19 +396,6 @@ function ingredientNameOf(line) {
     ?.rest.replace(/^[\s,.:;-]+/, '')
     .trim();
   return name || String(line || '');
-}
-
-function recipeScaleToolsHtml(ingredients) {
-  const options = ingredients
-    .map((line, i) =>
-      parseIngredientAmount(line) ? `<option value="${i}">${esc(ingredientNameOf(line))}</option>` : ''
-    )
-    .join('');
-  return `<div class="rp-scale-more">${
-    options
-      ? `<label class="rp-scale-field">Ik heb <input id="rpHaveInput" placeholder="3 kg" oninput="scaleOnIngredient()"></label><select id="rpHaveIngredient" aria-label="Ingrediënt" onchange="scaleOnIngredient()">${options}</select>`
-      : ''
-  }</div>`;
 }
 
 // Deel van een recept ("Deeg:"): staat als kopregel tussen de ingrediënten en de bereiding.

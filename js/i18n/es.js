@@ -613,6 +613,9 @@ window.SAVOUR_I18N.es = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.":
       'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.',
     Verbergen: 'Ocultar',
+    Factor: 'Factor',
+    'Dit kon niet worden omgerekend. Controleer wat je hebt ingevuld.':
+      'No se ha podido convertir. Revisa lo que has introducido.',
     'Koppelen aan recept': 'Vincular a receta',
     'Kies het ingrediënt waar een eigen recept bij hoort, bijvoorbeeld een basissaus.':
       'Elige el ingrediente que tiene su propia receta, por ejemplo una salsa base.',

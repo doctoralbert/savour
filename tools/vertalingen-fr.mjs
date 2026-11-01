@@ -1,6 +1,8 @@
 // Franse vertalingen, naast tools/vertalingen.mjs: Nederlandse brontekst → Frans.
 // Nieuwe interfacetekst? Zet hier ook de Franse regel; node tools/build-i18n.mjs meldt wat ontbreekt.
 export const stringsFr = {
+ "Factor": "Facteur",
+ "Dit kon niet worden omgerekend. Controleer wat je hebt ingevuld.": "La conversion n'a pas pu se faire. Vérifie ce que tu as saisi.",
  "Savour — professioneel receptbeheer": "Savour — gestion professionnelle des recettes",
  "Savour — receptenapp voor chefs: recepten organiseren en delen": "Savour — application de recettes pour chefs : organiser et partager ses recettes",
  "Receptenapp voor chefs en keukenteams": "Application de recettes pour chefs et équipes de cuisine",

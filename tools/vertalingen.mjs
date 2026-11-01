@@ -1498,6 +1498,8 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Factor","Factor","Faktor","Factor"],
+  ["Dit kon niet worden omgerekend. Controleer wat je hebt ingevuld.","This could not be converted. Check what you entered.","Das konnte nicht umgerechnet werden. Prüfe deine Eingabe.","No se ha podido convertir. Revisa lo que has introducido."],
   ["Koppelen aan recept","Link to recipe","Mit Rezept verknüpfen","Vincular a receta"],
   ["Kies het ingrediënt waar een eigen recept bij hoort, bijvoorbeeld een basissaus.","Choose the ingredient that has its own recipe, such as a base sauce.","Wähle die Zutat, zu der ein eigenes Rezept gehört, zum Beispiel eine Grundsauce.","Elige el ingrediente que tiene su propia receta, por ejemplo una salsa base."],
   ["Koppeling weghalen","Remove link","Verknüpfung entfernen","Quitar vínculo"],

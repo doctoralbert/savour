@@ -368,23 +368,24 @@ body.cook-mode .rp-step-num {
   display: none !important;
 }
 
-/* Omrekenen met een eigen factor of op wat je van één ingrediënt hebt */
-.rp-scale-more {
-  display: flex;
-  flex: 1 1 100%;
-  flex-wrap: wrap;
-  align-items: center;
+/* Omrekenen: venster uit het ⋯-menu */
+.rp-scale-box {
+  display: grid;
   gap: var(--sv-space-3);
 }
 .rp-scale-field {
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--sv-space-2);
   color: var(--sv-text-2);
   font-size: var(--sv-fs-md);
 }
-.rp-scale-more input,
-.rp-scale-more select {
+.rp-scale-field > span {
+  flex: 0 0 84px;
+}
+.rp-scale-field input,
+.rp-scale-field select {
   box-sizing: border-box;
   height: var(--sv-control-h);
   padding: 0 12px;
@@ -394,11 +395,11 @@ body.cook-mode .rp-step-num {
   color: var(--sv-text);
   font: inherit;
 }
-.rp-scale-more input {
+.rp-scale-field input {
   width: 110px;
 }
-.rp-scale-more select {
-  flex: 0 1 280px;
+.rp-scale-field select {
+  flex: 1 1 150px;
   min-width: 0;
   max-width: 100%;
 }
