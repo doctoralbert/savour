@@ -983,10 +983,14 @@ async function adsenseDisconnect() {
   return { ok: true };
 }
 
-async function adsenseRange(accessToken, dateRange, dimension) {
+async function adsenseRange(accessToken, dateRange, dimension, limit) {
   const q = new URLSearchParams({ dateRange });
   for (const metric of ['ESTIMATED_EARNINGS', 'PAGE_VIEWS', 'IMPRESSIONS', 'CLICKS']) q.append('metrics', metric);
   if (dimension) q.append('dimensions', dimension);
+  if (limit) {
+    q.append('orderBy', '-ESTIMATED_EARNINGS');
+    q.append('limit', String(limit));
+  }
   const response = await fetch(`https://adsense.googleapis.com/v2/${ADSENSE_ACCOUNT}/reports:generate?${q}`, {
     headers: { Authorization: `Bearer ${accessToken}` }
   });
@@ -1017,11 +1021,20 @@ async function adsenseReport() {
   } catch (e) {
     return { state: 'connect', expired: true };
   }
-  const [today, week, month, units] = await Promise.all([
+  // Een losse uitsplitsing mag mislukken; de totalen blijven dan gewoon zichtbaar.
+  const part = (dimension, limit) =>
+    adsenseRange(accessToken, 'MONTH_TO_DATE', dimension, limit).then(
+      r => r.rows,
+      () => []
+    );
+  const [today, week, month, units, pages, countries, devices] = await Promise.all([
     adsenseRange(accessToken, 'TODAY'),
     adsenseRange(accessToken, 'LAST_7_DAYS'),
     adsenseRange(accessToken, 'MONTH_TO_DATE'),
-    adsenseRange(accessToken, 'MONTH_TO_DATE', 'AD_UNIT_NAME')
+    part('AD_UNIT_NAME', 50),
+    part('PAGE_URL', 25),
+    part('COUNTRY_NAME', 10),
+    part('PLATFORM_TYPE_NAME', 5)
   ]);
   return {
     state: 'ok',
@@ -1029,7 +1042,10 @@ async function adsenseReport() {
     today: today.totals,
     week: week.totals,
     month: month.totals,
-    units: units.rows
+    units,
+    pages,
+    countries,
+    devices
   };
 }
 

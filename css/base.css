@@ -4795,3 +4795,11 @@ body {
 #adminAdsenseBody .admin-table-wrap {
   margin-top: 14px;
 }
+.adsense-title {
+  margin: 20px 0 8px;
+  color: #e7e0d4;
+  font-size: var(--sv-fs-md);
+}
+#adminAdsenseBody td:first-child {
+  overflow-wrap: anywhere;
+}
