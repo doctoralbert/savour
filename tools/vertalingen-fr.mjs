@@ -1,6 +1,31 @@
 // Franse vertalingen, naast tools/vertalingen.mjs: Nederlandse brontekst → Frans.
 // Nieuwe interfacetekst? Zet hier ook de Franse regel; node tools/build-i18n.mjs meldt wat ontbreekt.
 export const stringsFr = {
+ "Voorbeeld": "Exemple",
+ "Dit is een voorbeeld": "Ceci est un exemple",
+ "Zo ziet een receptenmap eruit. Hij verdwijnt zodra je je eigen map maakt.": "Voici à quoi ressemble un dossier de recettes. Il disparaît dès que tu crées le tien.",
+ "Maak je eigen map": "Crée ton propre dossier",
+ "Orden recepten zoals jouw keuken werkt: per partie, menu of seizoen.": "Organise les recettes comme ta cuisine travaille : par partie, menu ou saison.",
+ "Zo werkt een keukenteam. Het verdwijnt zodra je je eigen team maakt of ergens lid van wordt.": "Voici comment fonctionne une équipe de cuisine. Elle disparaît dès que tu crées ton équipe ou en rejoins une.",
+ "Maak je eigen keukenteam": "Crée ta propre équipe de cuisine",
+ "Eén receptenboek voor de hele brigade. Iedereen ziet elke wijziging meteen.": "Un seul livre de recettes pour toute la brigade. Chacun voit aussitôt chaque modification.",
+ "Stagiair": "Stagiaire",
+ "Hoi": "Salut",
+ ", je keuken staat klaar.": ", ta cuisine est prête.",
+ "Je keuken staat klaar.": "Ta cuisine est prête.",
+ "In drie stappen heb je al je recepten op één plek.": "En trois étapes, toutes tes recettes sont au même endroit.",
+ "Word, PDF of een foto van een kladje. Ook honderden tegelijk.": "Word, PDF ou la photo d'une note. Même des centaines d'un coup.",
+ "Orden ze in mappen": "Classe-les en dossiers",
+ "Per partie, menu of seizoen, zoals jouw keuken werkt.": "Par partie, menu ou saison, comme ta cuisine travaille.",
+ "Deel met je brigade": "Partage avec ta brigade",
+ "Iedereen kookt van dezelfde versie, op de eigen telefoon.": "Tout le monde cuisine avec la même version, sur son téléphone.",
+ "Importeer je eerste recepten": "Importe tes premières recettes",
+ "Bekijk eerst het voorbeeld": "Voir d'abord l'exemple",
+ "Een receptenmap maken": "Créer un dossier de recettes",
+ "Je team uitnodigen": "Inviter ton équipe",
+ "1 recept gevonden": "1 recette trouvée",
+ "Alles duidelijk gelezen": "Tout a été lu clairement",
+ "Voorbeeldrecept. Zo ziet een recept er in Savour uit.": "Recette d'exemple. Voici à quoi ressemble une recette dans Savour.",
  "Dit bestand kon niet worden geopend. Staat het in OneDrive of een andere cloudmap? Zet het dan eerst op deze computer.": "Ce fichier n'a pas pu être ouvert. Est-il dans OneDrive ou un autre dossier cloud ? Enregistre-le d'abord sur cet ordinateur.",
  "Meer omrekenen": "Plus d'options de conversion",
  "Samenwerken met je team": "Travailler avec ton équipe",
@@ -1313,6 +1338,9 @@ export const stringsFr = {
  "Voor de livegang van Savour moeten de verantwoordelijke rechtspersoon, contactgegevens, hosting- en verwerkingspartijen en eventuele internationale gegevensdoorgiften definitief worden ingevuld.": "Avant la mise en ligne de Savour, l'entité juridique responsable, les coordonnées, les hébergeurs et sous-traitants et les éventuels transferts internationaux de données doivent être finalisés."
 };
 export const patternsFr = {
+ "^(\\d+) recepten gevonden$": "$1 recettes trouvées",
+ "^(\\d+) om na te kijken$": "$1 à vérifier",
+ "^(\\d+) van (\\d+) gedaan$": "$1 sur $2 fait",
  "^(€[\\d,.]+) per maand$": "$1 par mois",
  "^(€[\\d,.]+) per persoon$": "$1 par personne",
  "^Team (\\d+): (\\d+) van (\\d+) plekken met Pro\\.$": "Équipe $1 : $2 places sur $3 avec Pro.",

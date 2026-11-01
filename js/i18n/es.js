@@ -613,6 +613,37 @@ window.SAVOUR_I18N.es = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.":
       'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.',
     Verbergen: 'Ocultar',
+    Voorbeeld: 'Ejemplo',
+    'Dit is een voorbeeld': 'Esto es un ejemplo',
+    'Zo ziet een receptenmap eruit. Hij verdwijnt zodra je je eigen map maakt.':
+      'Así es una carpeta de recetas. Desaparece en cuanto creas la tuya.',
+    'Maak je eigen map': 'Crea tu propia carpeta',
+    'Orden recepten zoals jouw keuken werkt: per partie, menu of seizoen.':
+      'Ordena las recetas como trabaja tu cocina: por partida, menú o temporada.',
+    'Zo werkt een keukenteam. Het verdwijnt zodra je je eigen team maakt of ergens lid van wordt.':
+      'Así funciona un equipo de cocina. Desaparece en cuanto creas tu equipo o te unes a uno.',
+    'Maak je eigen keukenteam': 'Crea tu propio equipo de cocina',
+    'Eén receptenboek voor de hele brigade. Iedereen ziet elke wijziging meteen.':
+      'Un recetario para toda la brigada. Todos ven cada cambio al momento.',
+    Stagiair: 'Becario',
+    Hoi: 'Hola',
+    ', je keuken staat klaar.': ', tu cocina está lista.',
+    'Je keuken staat klaar.': 'Tu cocina está lista.',
+    'In drie stappen heb je al je recepten op één plek.': 'En tres pasos tienes todas tus recetas en un solo sitio.',
+    'Word, PDF of een foto van een kladje. Ook honderden tegelijk.':
+      'Word, PDF o una foto de una nota. Incluso cientos a la vez.',
+    'Orden ze in mappen': 'Ordénalas en carpetas',
+    'Per partie, menu of seizoen, zoals jouw keuken werkt.': 'Por partida, menú o temporada, como trabaja tu cocina.',
+    'Deel met je brigade': 'Comparte con tu brigada',
+    'Iedereen kookt van dezelfde versie, op de eigen telefoon.':
+      'Todos cocinan con la misma versión, en su propio móvil.',
+    'Importeer je eerste recepten': 'Importa tus primeras recetas',
+    'Bekijk eerst het voorbeeld': 'Ver primero el ejemplo',
+    'Een receptenmap maken': 'Crear una carpeta de recetas',
+    'Je team uitnodigen': 'Invitar a tu equipo',
+    '1 recept gevonden': '1 receta encontrada',
+    'Alles duidelijk gelezen': 'Todo leído con claridad',
+    'Voorbeeldrecept. Zo ziet een recept er in Savour uit.': 'Receta de ejemplo. Así se ve una receta en Savour.',
     'Dit bestand kon niet worden geopend. Staat het in OneDrive of een andere cloudmap? Zet het dan eerst op deze computer.':
       'No se ha podido abrir este archivo. ¿Está en OneDrive o en otra carpeta en la nube? Guárdalo primero en este ordenador.',
     'Meer omrekenen': 'Más opciones de escala',
@@ -1638,6 +1669,9 @@ window.SAVOUR_I18N.es = {
       'Antes del lanzamiento de Savour deben fijarse la entidad responsable, los datos de contacto, los proveedores de alojamiento y tratamiento y las posibles transferencias internacionales de datos.'
   },
   patterns: [
+    ['^(\\d+) recepten gevonden$', '$1 recetas encontradas'],
+    ['^(\\d+) om na te kijken$', '$1 por revisar'],
+    ['^(\\d+) van (\\d+) gedaan$', '$1 de $2 hechos'],
     ['^(€[\\d,.]+) per maand$', '$1 al mes'],
     ['^(€[\\d,.]+) per persoon$', '$1 por persona'],
     ['^Team (\\d+): (\\d+) van (\\d+) plekken met Pro\\.$', 'Equipo $1: $2 de $3 plazas con Pro.'],

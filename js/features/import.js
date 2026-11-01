@@ -110,22 +110,7 @@ async function welcomeNewUser() {
   } catch {
     return;
   }
-  const choice = await askChoice(
-    'Welkom bij Savour\n\nJe receptenboek is nog leeg. Zo vul je het: importeer je Word-bestanden of PDF’s in één keer, maak een foto van een handgeschreven kladje, of voer een recept zelf in. Daarna orden je alles in mappen en deel je het met je keukenteam.',
-    [
-      { label: 'Word of PDF importeren', hint: 'Ook honderden recepten tegelijk', value: 'file', primary: true },
-      { label: 'Foto van een kladje', hint: 'De AI leest het voor je uit (Savour Pro)', value: 'camera' },
-      { label: 'Zelf een recept invoeren', value: 'new' },
-      { label: 'Eerst rondkijken', value: 'look' }
-    ]
-  );
-  if (choice === 'file') {
-    go('import');
-    showImportPanel();
-  } else if (choice === 'camera') {
-    go('import');
-    openCameraImport();
-  } else if (choice === 'new') newRecipe();
+  showWelcomeFlow();
 }
 
 // ---- Camera: foto van een kladje maken (Savour Pro; gaat via de AI, net als een foto uit je album) ----
@@ -1261,7 +1246,10 @@ function batchRows(lines) {
 }
 
 function renderBatchDrafts() {
-  $('batchCount').textContent = batchDrafts.length ? `${batchDrafts.length} recepten herkend` : '';
+  const toCheck = batchDrafts.filter(r => r._needsReview || r._unclear?.length).length;
+  $('batchCount').innerHTML = batchDrafts.length
+    ? `<span class="import-result"><b>${batchDrafts.length === 1 ? '1 recept gevonden' : `${batchDrafts.length} recepten gevonden`}</b><span class="${toCheck ? 'is-check' : 'is-ok'}">${toCheck ? `${toCheck} om na te kijken` : 'Alles duidelijk gelezen'}</span></span>`
+    : '';
   const catOptions = ['Eigen recepten', ...categories];
   $('batchRecipeGrid').innerHTML =
     batchDrafts

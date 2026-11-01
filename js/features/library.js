@@ -96,6 +96,7 @@ function renderRecipeList(list, hostId, countId, context) {
 function renderRecipes() {
   drawAlphabet('recipeAlphabet', 'library');
   if (!currentUser) return;
+  renderStartChecklist();
   renderRecipeProHint();
   renderCategoryBar();
   renderRecipeList(filteredLibraryRecipes(), 'recipeGrid', 'recipeCount', 'library');

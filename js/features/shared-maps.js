@@ -910,6 +910,7 @@ function renderSharedNav() {
           : '')
     )
     .join('');
+  if (showsExampleTeam()) el.innerHTML = exampleNavButton('team', EXAMPLE_TEAM.name);
   addQuickButton('sharedNav', 'Keukenteam maken', () => newSharedMap());
 }
 

@@ -162,7 +162,8 @@ function backFromRecipe() {
 
 function openSharedChooser() {
   if (!sharedMaps.length) {
-    newSharedMap();
+    if (showsExampleTeam()) openExample('team');
+    else newSharedMap();
     return;
   }
   const list = $('sharedChooserList');
@@ -183,7 +184,8 @@ function closeSharedChooser() {
 function openFolderChooser() {
   const own = getOrderedPersonalFolders().filter(f => !f.system);
   if (!own.length) {
-    newFolder();
+    if (showsExampleFolder()) openExample('folder');
+    else newFolder();
     return;
   }
   $('folderChooserList').innerHTML = own

@@ -1028,6 +1028,7 @@ async function loadAdminOverview() {
     const {
       accounts,
       totals: t,
+      funnel,
       visitor_days: visitorDays,
       visitor_stats: visitorNumbers
     } = await adminApi('overview', { own_visitor: adminOwnVisitorId() });
@@ -1039,6 +1040,7 @@ async function loadAdminOverview() {
       renderAdminStats();
     }
     adminAccounts = accounts || [];
+    renderAdminFunnel(funnel);
     adminTotals = t;
     renderAdminFinance();
     const openai = t.openai_this_month ? `$ ${t.openai_this_month.usd.toFixed(2)}` : '—';
@@ -1070,6 +1072,21 @@ async function loadAdminOverview() {
     if (money)
       money.innerHTML = `<div class="admin-stat"><div class="label">Status</div><div class="value">Fout</div><div class="sub">${adminEscape(error.message)}</div></div>`;
   }
+}
+
+// Waar haken nieuwe gebruikers af? Elke stap als deel van de eerste stap, met de grootste daling gemarkeerd.
+function renderAdminFunnel(funnel) {
+  const host = $('adminFunnel');
+  if (!host || !funnel?.length) return;
+  const start = funnel[0][1] || 1;
+  const drops = funnel.map(([, n], i) => (i ? funnel[i - 1][1] - n : 0));
+  const worst = Math.max(...drops);
+  host.innerHTML = `<div class="funnel">${funnel
+    .map(([label, n], i) => {
+      const lost = drops[i];
+      return `<div class="funnel-row${lost && lost === worst ? ' is-worst' : ''}"><span>${adminEscape(label)}</span><i><b style="width:${(n / start) * 100}%"></b></i><strong>${n}</strong><small>${i ? `${Math.round((n / start) * 100)}%${lost ? ` · ${lost} afgehaakt` : ''}` : ''}</small></div>`;
+    })
+    .join('')}</div>`;
 }
 
 // Nieuwe accounts per week, de laatste 8 weken (week begint op maandag).

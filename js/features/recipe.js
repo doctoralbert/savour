@@ -44,6 +44,10 @@ function openRecipe(id, context = 'library') {
     recipeReturnView = 'folderDetail';
     recipeReturnShared = null;
     recipeReturnFolder = currentFolder;
+  } else if (context === 'example') {
+    recipeReturnView = 'exampleView';
+    recipeReturnShared = null;
+    recipeReturnFolder = null;
   } else if (context === 'favorite') {
     recipeReturnView = 'favorites';
     recipeReturnShared = null;
@@ -60,7 +64,7 @@ function openRecipe(id, context = 'library') {
   const own = isOwnRecipe(r);
   // Recept van een collega in een keukenteam: altijd toe te voegen aan je eigen recepten (eigen kopie).
   // Via een openbare link alleen als de maker dat heeft toegestaan (js/features/recipe-copy.js).
-  if (!own && !r.linkSlug) r.allowCopy = true;
+  if (!own && !r.linkSlug && !r.example) r.allowCopy = true;
   const inShared = context === 'shared' || context === 'sharedFolder';
   const mayRemoveFromShared = !inShared || canEditShared(findSharedMap(currentShared));
   const removeAction = !mayRemoveFromShared
@@ -100,7 +104,7 @@ function openRecipe(id, context = 'library') {
       <div class="eyebrow">${esc(r.category || (own ? 'Eigen recepten' : 'Gedeeld recept'))}</div>
       <h1 class="rp-title">${esc(r.title)}</h1>
       ${meta.length ? `<p class="rp-meta">${meta.map(x => '<span>' + x + '</span>').join(' · ')}</p>` : ''}
-      ${own ? '' : r.linkSlug ? `<p class="rp-note rp-note-link">${icon('share', { size: 16 })}<span>${r.allowCopy ? 'Gedeeld recept. Voeg het toe aan je eigen recepten om het aan te passen.' : 'Gedeeld recept. Je kunt het bekijken, omrekenen en printen; alleen de maker kan het aanpassen.'}</span></p>` : `<p class="rp-note">Gedeeld door een gebruiker. Alleen de maker van het recept kan het bewerken.</p>`}
+      ${own ? '' : r.example ? '<p class="rp-note">Voorbeeldrecept. Zo ziet een recept er in Savour uit.</p>' : r.linkSlug ? `<p class="rp-note rp-note-link">${icon('share', { size: 16 })}<span>${r.allowCopy ? 'Gedeeld recept. Voeg het toe aan je eigen recepten om het aan te passen.' : 'Gedeeld recept. Je kunt het bekijken, omrekenen en printen; alleen de maker kan het aanpassen.'}</span></p>` : `<p class="rp-note">Gedeeld door een gebruiker. Alleen de maker van het recept kan het bewerken.</p>`}
       ${own && recipeSourceIds.has(String(r.id)) ? `<button type="button" class="btn-quiet rp-source" onclick="showRecipeSource('${rid}')">Origineel kladje bekijken</button>` : ''}
       <div class="rp-actions">
         <button type="button" class="btn gold" onclick="toggleCookMode()">${icon('cook')}Kookmodus</button>
@@ -195,7 +199,9 @@ function ingredientLinkTarget(r, line, byTitle) {
 }
 
 function linkableRecipes(r) {
-  return [...recipes, ...sharedRecipes].filter(x => String(x.id) !== String(r.id));
+  return [...(r.example ? EXAMPLE_RECIPES : []), ...recipes, ...sharedRecipes].filter(
+    x => String(x.id) !== String(r.id)
+  );
 }
 
 function recipesByTitle(r) {

@@ -215,6 +215,7 @@ function renderCategoryNav() {
         )
         .join('')
     : `<div class="category-empty">Geen recepten mappen gekozen</div>`;
+  if (showsExampleFolder()) el.innerHTML = exampleNavButton('folder', 'Sauzen');
   addQuickButton('categoryNav', 'Recepten map toevoegen', () => newFolder());
 }
 

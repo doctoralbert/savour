@@ -744,7 +744,7 @@ async function clearErrors() {
 }
 
 async function overview(user, ownVisitor) {
-  const [users, profiles, subs, orgs, members, stats, aiCost, revenue] = await Promise.all([
+  const [users, profiles, subs, orgs, members, stats, aiCost, revenue, teams, ownFolders] = await Promise.all([
     listUsers(),
     select('profiles', 'select=id,name,organization,country').catch(() =>
       select('profiles', 'select=id,name,organization')
@@ -754,7 +754,9 @@ async function overview(user, ownVisitor) {
     select('organization_members', 'select=*'),
     rpc('savour_admin_user_stats', {}),
     openAiCostsThisMonth(),
-    stripeRevenue30Days()
+    stripeRevenue30Days(),
+    select('shared_maps', 'select=owner_id').catch(() => []),
+    select('folders', 'select=user_id').catch(() => [])
   ]);
   const visitors = await visitorStats(await ownVisitorIds(user, ownVisitor)).catch(e => {
     console.error('Bezoekers laden mislukt', e);
@@ -791,6 +793,20 @@ async function overview(user, ownVisitor) {
     })
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
+  // Waar nieuwe gebruikers afhaken. Beheerders tellen niet mee.
+  const real = accounts.filter(a => !ADMIN_EMAILS.includes(String(a.email || '').toLowerCase()));
+  const hasMap = new Set((ownFolders || []).map(f => f.user_id));
+  const hasTeam = new Set((teams || []).map(t => t.owner_id));
+  const funnel = [
+    ['Account gemaakt', real.length],
+    ['E-mail bevestigd', real.filter(a => a.confirmed).length],
+    ['Eerste recept', real.filter(a => a.recipes > 0).length],
+    ['10 of meer recepten', real.filter(a => a.recipes >= 10).length],
+    ['Receptenmap gemaakt', real.filter(a => hasMap.has(a.id)).length],
+    ['Keukenteam gestart', real.filter(a => hasTeam.has(a.id)).length],
+    ['Betaalt', real.filter(a => a.paid_stripe || a.type === 'team').length]
+  ];
+
   // Terugkerende omzet per maand: lopende, niet-opgezegde betaalde abonnementen en teams.
   const mrr = [...(subs || []), ...(orgs || [])]
     .filter(r => running(r) && r.stripe_subscription_id && !r.cancel_at_period_end)
@@ -798,6 +814,7 @@ async function overview(user, ownVisitor) {
   const weekAgo = Date.now() - 7 * 86400000;
   return {
     accounts,
+    funnel,
     visitor_days: visitors?.days || null,
     visitor_stats: visitors?.stats || null,
     totals: {
