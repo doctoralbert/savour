@@ -435,7 +435,7 @@ function renderShared(id) {
       ? `<button class="btn compact-action kt-tool" onclick="showTeamTab('instellingen')" aria-label="Instellingen" title="Instellingen">${icon('settings')}<span>Instellingen</span></button>`
       : '') +
     (canEdit
-      ? `<button class="btn compact-action kt-tool kt-new-folder-phone" onclick="newSharedFolder('${mid}')" aria-label="Receptenmap toevoegen" title="Receptenmap toevoegen">${icon('folderPlus')}</button><button class="btn gold compact-action kt-add-desktop" onclick="openSharedRecipePicker('${mid}')">＋<span>Recept toevoegen</span></button>`
+      ? `<button class="btn compact-action kt-tool kt-new-folder-phone" onclick="newSharedFolder('${mid}')" aria-label="Receptenmap toevoegen" title="Receptenmap toevoegen">${icon('folderPlus')}<span>Nieuwe map</span></button><button class="btn gold compact-action kt-add-desktop" onclick="openSharedRecipePicker('${mid}')">＋<span>Recept toevoegen</span></button>`
       : '');
 
   const folderTile = f =>
