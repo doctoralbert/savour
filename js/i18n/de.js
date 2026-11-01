@@ -615,6 +615,39 @@ window.SAVOUR_I18N.de = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.":
       'Unbegrenzt Rezepte, KI, die deine Notizen und Fotos liest, und Küchenteams für dein Team.',
     Verbergen: 'Ausblenden',
+    'Eén receptenboek voor de hele brigade.': 'Ein Rezeptbuch für die ganze Brigade.',
+    'Eén receptenboek voor je hele brigade': 'Ein Rezeptbuch für deine ganze Brigade',
+    'Koks uitnodigen': 'Köche einladen',
+    'Brigade beheren ›': 'Brigade verwalten ›',
+    'Brigade bekijken ›': 'Brigade ansehen ›',
+    Brigade: 'Brigade',
+    'Iedereen ziet direct elke wijziging': 'Alle sehen jede Änderung sofort',
+    'Bijv. per partie of menu': 'Z. B. nach Posten oder Menü',
+    'Net bijgewerkt': 'Gerade aktualisiert',
+    'Nog niets bijgewerkt.': 'Noch nichts aktualisiert.',
+    'Nieuw keukenteam': 'Neues Küchenteam',
+    'Geen losse prints of oude versies op de pass. Iedereen kookt van hetzelfde recept, op elk apparaat.':
+      'Keine losen Ausdrucke oder alten Versionen am Pass. Alle kochen nach demselben Rezept, auf jedem Gerät.',
+    'Geef je keuken een naam': 'Gib deiner Küche einen Namen',
+    'Nodig je koks uit': 'Lade deine Köche ein',
+    'Met hun e-mailadres, direct hierna.': 'Mit ihrer E-Mail-Adresse, direkt danach.',
+    'Zet je recepten erin': 'Füge deine Rezepte hinzu',
+    'Uit je eigen recepten of importeer een hele map.':
+      'Aus deinen eigenen Rezepten oder importiere einen ganzen Ordner.',
+    'Bijv. de naam van je restaurant': 'Z. B. der Name deines Restaurants',
+    'Recepten in het keukenteam blijven van de keuken, ook als een kok vertrekt.':
+      'Rezepte im Küchenteam bleiben bei der Küche, auch wenn ein Koch geht.',
+    'Wat mag diegene?': 'Was darf die Person?',
+    'Recepten bekijken, printen en omrekenen': 'Rezepte ansehen, drucken und umrechnen',
+    'Recepten en mappen toevoegen en aanpassen': 'Rezepte und Ordner hinzufügen und bearbeiten',
+    Uitnodigen: 'Einladen',
+    'Heeft diegene al een Savour-account, dan zit hij of zij er direct in. Zo niet, dan stuur je een uitnodiging per e-mail.':
+      'Hat die Person schon ein Savour-Konto, ist sie sofort dabei. Wenn nicht, schickst du eine Einladung per E-Mail.',
+    'Of deel de uitnodigingslink': 'Oder teile den Einladungslink',
+    'Bijvoorbeeld via WhatsApp naar een telefoonnummer. Na het aanmaken van een account kun je de rechten aanpassen.':
+      'Zum Beispiel per WhatsApp an eine Telefonnummer. Sobald ein Konto besteht, kannst du die Rechte ändern.',
+    zojuist: 'gerade eben',
+    gisteren: 'gestern',
     'Je eigen mappen zie alleen jij. Wil je recepten delen met je keukenteam, gebruik dan een keukenteam.':
       'Deine eigenen Ordner siehst nur du. Willst du Rezepte mit deinem Küchenteam teilen, nutze ein Küchenteam.',
     Keukenteam: 'Küchenteam',
@@ -1574,6 +1607,17 @@ window.SAVOUR_I18N.de = {
       'Vor dem Start von Savour müssen die verantwortliche juristische Person, Kontaktdaten, Hosting- und Verarbeitungspartner sowie etwaige internationale Datenübermittlungen endgültig festgelegt werden.'
   },
   patterns: [
+    ['^(d+) in de brigade$', '$1 in der Brigade'],
+    ['^Team (d+) · nog (d+) Pro-plekken vrij$', 'Team $1 · noch $2 Pro-Plätze frei'],
+    ['^Voor (.+) · nog (d+) Pro-plekken vrij$', 'Für $1 · noch $2 Pro-Plätze frei'],
+    ['^Voor (.+)$', 'Für $1'],
+    ['^Zoek in (d+) recepten$', 'In $1 Rezepten suchen'],
+    ['^(d+) van (d+) recepten$', '$1 von $2 Rezepten'],
+    ['^Instellingen van (.+) ›$', 'Einstellungen von $1 ›'],
+    ['^Keukenteam · (.+)$', 'Küchenteam · $1'],
+    ['^(.+) · (d+) min geleden$', '$1 · vor $2 Min.'],
+    ['^(.+) · (d+) u geleden$', '$1 · vor $2 Std.'],
+    ['^(.+) · (d+) dagen geleden$', '$1 · vor $2 Tagen'],
     [
       '^Je Team (\\d+) is gestopt\\. Je team heeft geen Pro meer via dit abonnement; je eigen Pro en je keukenteams blijven gewoon staan\\.$',
       'Deine Team $1 ist beendet. Dein Team hat über dieses Abo kein Pro mehr; dein eigenes Pro und deine Küchenteams bleiben bestehen.'

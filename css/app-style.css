@@ -1474,3 +1474,534 @@ h2.has-help .help-btn {
 .team-setting.danger {
   border-color: rgba(213, 170, 160, 0.35);
 }
+
+/* ---- Keukenteam: startpagina, brigade, mappen, net bijgewerkt en bibliotheek (js/features/shared-maps.js) ---- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.kt {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.kt .kt-head {
+  margin-bottom: 0;
+}
+.kt-actions .kt-print {
+  min-width: 44px;
+  justify-content: center;
+}
+.kt-library .kt-add-phone {
+  display: none;
+}
+.kt-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.kt-section-head h2 {
+  margin: 0;
+  font-family: var(--sv-font-display);
+  font-weight: 500;
+  font-size: var(--sv-fs-xl);
+}
+.kt-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--sv-gold);
+  font: 500 var(--sv-fs-md) / 1.3 var(--sv-font);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.kt-link:hover {
+  text-decoration: underline;
+}
+.kt-avatar {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  margin-right: -8px;
+  border-radius: 50%;
+  border: 2px solid var(--sv-surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 12px/1 var(--sv-font);
+  color: #1a1612;
+  box-sizing: border-box;
+}
+.kt-avatar.tone-0 {
+  background: #e8ca8d;
+}
+.kt-avatar.tone-1 {
+  background: #d2bd98;
+}
+.kt-avatar.tone-2 {
+  background: #bfae90;
+}
+.kt-avatar.tone-3 {
+  background: #d9b46a;
+}
+.kt-avatar.tone-4 {
+  background: #c7b59a;
+}
+.kt-avatar.is-more,
+.kt-avatar.is-empty {
+  background: var(--sv-surface-2);
+  color: var(--sv-text-2);
+}
+.kt-avatar.is-open {
+  margin: 0 0 0 4px;
+  border: 1.5px dashed var(--sv-line-strong);
+  background: transparent;
+  color: var(--sv-text-3);
+  font-size: 18px;
+  font-weight: 400;
+}
+.kt-brigade {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  padding: 16px 20px;
+  border: 1px solid var(--sv-line);
+  border-radius: 16px;
+  background: var(--sv-surface);
+  color: var(--sv-text);
+  text-align: left;
+  cursor: pointer;
+}
+.kt-brigade:hover {
+  border-color: var(--sv-line-strong);
+}
+.kt-avatars {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+.kt-brigade-text {
+  display: grid;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.kt-brigade-text b {
+  font-size: var(--sv-fs-base);
+}
+.kt-brigade-text small {
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.kt-brigade .kt-link {
+  flex: 0 0 auto;
+}
+.kt-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 28px;
+  align-items: start;
+}
+.kt-folder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+.kt-folder {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  min-height: 112px;
+  padding: 18px;
+  border: 1px solid var(--sv-line);
+  border-radius: 16px;
+  background: var(--sv-surface);
+  color: var(--sv-text);
+  text-align: left;
+  cursor: pointer;
+}
+.kt-folder:hover {
+  border-color: var(--sv-gold);
+}
+.kt-folder svg {
+  color: var(--sv-gold);
+}
+.kt-folder > span:last-child {
+  display: grid;
+  gap: 3px;
+}
+.kt-folder b {
+  font-size: 16px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.kt-folder small {
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.kt-folder.is-new {
+  border-style: dashed;
+  background: transparent;
+}
+.kt-plus {
+  color: var(--sv-gold);
+  font-size: 22px;
+  line-height: 24px;
+}
+.kt-recent-list {
+  border: 1px solid var(--sv-line);
+  border-radius: 16px;
+  background: var(--sv-surface);
+  overflow: hidden;
+}
+.kt-recent-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  border: 0;
+  border-bottom: 1px solid var(--sv-line);
+  background: none;
+  color: var(--sv-text);
+  text-align: left;
+  cursor: pointer;
+}
+.kt-recent-row:last-child {
+  border-bottom: 0;
+}
+.kt-recent-row:hover {
+  background: var(--sv-surface-2);
+}
+.kt-recent-row .kt-avatar {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  border: 0;
+  font-size: 11px;
+}
+.kt-recent-row > span:last-child {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.kt-recent-row b {
+  font-size: var(--sv-fs-md);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.kt-recent-row small {
+  color: var(--sv-text-2);
+  font-size: 12.5px;
+}
+.kt-recent-empty {
+  margin: 0;
+  padding: 16px;
+}
+.kt-library {
+  padding-top: 6px;
+}
+.kt-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 50px;
+  padding: 0 16px;
+  margin-bottom: 12px;
+  border: 1px solid var(--sv-line);
+  border-radius: 14px;
+  background: var(--sv-surface);
+  color: var(--sv-text-3);
+}
+.kt-search:focus-within {
+  border-color: var(--sv-gold);
+}
+.kt-search input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--sv-text);
+  font: 400 16px var(--sv-font);
+}
+.kt-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.kt-chips button {
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid var(--sv-line);
+  border-radius: 999px;
+  background: var(--sv-surface);
+  color: var(--sv-text);
+  font: 500 var(--sv-fs-md) / 1.2 var(--sv-font);
+  cursor: pointer;
+}
+.kt-chips button.is-on {
+  border-color: var(--sv-gold);
+  background: var(--sv-gold);
+  color: var(--sv-on-gold);
+}
+.kt-foot {
+  padding: 16px 0 0;
+  border-top: 1px solid var(--sv-line);
+}
+.kt-back {
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+.kt-sub-head h1 {
+  margin: 4px 0 0;
+}
+
+/* Pop-ups: keukenteam maken en koks uitnodigen */
+.kt-new-box,
+.kt-invite-box {
+  position: relative;
+  width: min(560px, calc(100vw - 28px));
+  padding: 30px;
+  border-radius: 20px;
+  background: var(--sv-surface);
+  border-color: var(--sv-line);
+}
+.kt-new-box h2 {
+  margin: 6px 44px 10px 0;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1.1;
+}
+.kt-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--sv-surface-2);
+  color: var(--sv-text-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.kt-modal-head .kt-close {
+  position: static;
+  flex: 0 0 auto;
+}
+.kt-steps {
+  list-style: none;
+  margin: 22px 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.kt-steps li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border: 1px solid var(--sv-line);
+  border-radius: 14px;
+}
+.kt-steps li.is-on {
+  border-color: var(--sv-gold);
+}
+.kt-steps li > div {
+  display: grid;
+  gap: 4px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.kt-steps small {
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.kt-steps input {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 6px;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 12px;
+  background: var(--sv-bg);
+  color: var(--sv-text);
+  font: 400 16px var(--sv-font);
+}
+.kt-step-no {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 1.5px solid var(--sv-gold);
+  color: var(--sv-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--sv-fs-sm);
+  box-sizing: border-box;
+}
+.kt-steps li.is-on .kt-step-no {
+  background: var(--sv-gold);
+  color: var(--sv-on-gold);
+}
+.kt-wide {
+  width: 100%;
+  min-height: 52px;
+  font-size: 16px;
+}
+.kt-note {
+  margin: 12px 0 0;
+  font-size: var(--sv-fs-sm);
+  text-align: center;
+}
+.kt-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.kt-modal-head h2 {
+  margin: 0 0 4px;
+  font-weight: 500;
+  font-size: 28px;
+}
+.kt-modal-head p {
+  margin: 0;
+}
+.kt-invite-form .field input {
+  height: 50px;
+  font-size: 16px;
+}
+.kt-roles {
+  margin: 4px 0 18px;
+  padding: 0;
+  border: 0;
+  display: grid;
+  gap: 8px;
+}
+.kt-roles legend {
+  padding: 0 0 8px;
+  font-weight: 600;
+  font-size: var(--sv-fs-md);
+}
+.kt-role {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--sv-line);
+  border-radius: 14px;
+  cursor: pointer;
+}
+.kt-role:has(input:checked) {
+  border-color: var(--sv-gold);
+  background: var(--sv-surface-2);
+}
+.kt-role input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--sv-gold);
+}
+.kt-role span {
+  display: grid;
+  gap: 2px;
+}
+.kt-role small {
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.kt-invite-link {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--sv-line);
+}
+.kt-invite-link summary {
+  color: var(--sv-gold);
+  cursor: pointer;
+  font-size: var(--sv-fs-md);
+}
+
+/* Telefoon: eerst de bibliotheek (zoeken, mappen, toevoegen, A t/m Z), daarna mappen en net bijgewerkt. */
+@media (max-width: 760px) {
+  .kt-overview {
+    grid-template-columns: minmax(0, 1fr);
+    order: 3;
+  }
+  .kt-library {
+    order: 2;
+  }
+  .kt-foot {
+    order: 4;
+  }
+  #shared .section-head:has(+ #sharedWrap .kt) {
+    display: none;
+  }
+  #appShell #sharedWrap .kt-actions .kt-add-desktop {
+    display: none !important;
+  }
+  .kt-library .kt-add-phone {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 54px;
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+  .kt-brigade {
+    padding: 12px 14px;
+    gap: 12px;
+  }
+  .kt-brigade .kt-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+  }
+  .kt-brigade .kt-link {
+    display: none;
+  }
+  .kt-folder-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .kt-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .kt-chips::-webkit-scrollbar {
+    display: none;
+  }
+  .kt-chips button {
+    flex: 0 0 auto;
+  }
+  .kt-new-box,
+  .kt-invite-box {
+    padding: 22px 18px;
+  }
+  .kt-new-box h2 {
+    font-size: 26px;
+  }
+}

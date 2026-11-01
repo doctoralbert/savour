@@ -613,6 +613,38 @@ window.SAVOUR_I18N.es = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.":
       'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.',
     Verbergen: 'Ocultar',
+    'Eén receptenboek voor de hele brigade.': 'Un recetario para toda la brigada.',
+    'Eén receptenboek voor je hele brigade': 'Un recetario para toda tu brigada',
+    'Koks uitnodigen': 'Invitar cocineros',
+    'Brigade beheren ›': 'Gestionar brigada ›',
+    'Brigade bekijken ›': 'Ver brigada ›',
+    Brigade: 'Brigada',
+    'Iedereen ziet direct elke wijziging': 'Todos ven cada cambio al instante',
+    'Bijv. per partie of menu': 'P. ej. por partida o menú',
+    'Net bijgewerkt': 'Actualizado hace poco',
+    'Nog niets bijgewerkt.': 'Aún no hay cambios.',
+    'Nieuw keukenteam': 'Nuevo equipo de cocina',
+    'Geen losse prints of oude versies op de pass. Iedereen kookt van hetzelfde recept, op elk apparaat.':
+      'Sin copias sueltas ni versiones antiguas en el pase. Todos cocinan con la misma receta, en cualquier dispositivo.',
+    'Geef je keuken een naam': 'Ponle nombre a tu cocina',
+    'Nodig je koks uit': 'Invita a tus cocineros',
+    'Met hun e-mailadres, direct hierna.': 'Con su correo electrónico, justo después.',
+    'Zet je recepten erin': 'Añade tus recetas',
+    'Uit je eigen recepten of importeer een hele map.': 'De tus propias recetas o importa una carpeta entera.',
+    'Bijv. de naam van je restaurant': 'P. ej. el nombre de tu restaurante',
+    'Recepten in het keukenteam blijven van de keuken, ook als een kok vertrekt.':
+      'Las recetas del equipo se quedan en la cocina, aunque un cocinero se vaya.',
+    'Wat mag diegene?': '¿Qué puede hacer?',
+    'Recepten bekijken, printen en omrekenen': 'Ver, imprimir y escalar recetas',
+    'Recepten en mappen toevoegen en aanpassen': 'Añadir y editar recetas y carpetas',
+    Uitnodigen: 'Invitar',
+    'Heeft diegene al een Savour-account, dan zit hij of zij er direct in. Zo niet, dan stuur je een uitnodiging per e-mail.':
+      'Si ya tiene una cuenta de Savour, entra directamente. Si no, le envías una invitación por correo.',
+    'Of deel de uitnodigingslink': 'O comparte el enlace de invitación',
+    'Bijvoorbeeld via WhatsApp naar een telefoonnummer. Na het aanmaken van een account kun je de rechten aanpassen.':
+      'Por ejemplo por WhatsApp a un número de teléfono. Cuando tenga cuenta, puedes cambiar sus permisos.',
+    zojuist: 'ahora mismo',
+    gisteren: 'ayer',
     'Je eigen mappen zie alleen jij. Wil je recepten delen met je keukenteam, gebruik dan een keukenteam.':
       'Tus propias carpetas solo las ves tú. Para compartir recetas con tu equipo, usa un equipo de cocina.',
     Keukenteam: 'Equipo de cocina',
@@ -1563,6 +1595,17 @@ window.SAVOUR_I18N.es = {
       'Antes del lanzamiento de Savour deben fijarse la entidad responsable, los datos de contacto, los proveedores de alojamiento y tratamiento y las posibles transferencias internacionales de datos.'
   },
   patterns: [
+    ['^(d+) in de brigade$', '$1 en la brigada'],
+    ['^Team (d+) · nog (d+) Pro-plekken vrij$', 'Equipo $1 · quedan $2 plazas Pro'],
+    ['^Voor (.+) · nog (d+) Pro-plekken vrij$', 'Para $1 · quedan $2 plazas Pro'],
+    ['^Voor (.+)$', 'Para $1'],
+    ['^Zoek in (d+) recepten$', 'Buscar en $1 recetas'],
+    ['^(d+) van (d+) recepten$', '$1 de $2 recetas'],
+    ['^Instellingen van (.+) ›$', 'Ajustes de $1 ›'],
+    ['^Keukenteam · (.+)$', 'Equipo de cocina · $1'],
+    ['^(.+) · (d+) min geleden$', '$1 · hace $2 min'],
+    ['^(.+) · (d+) u geleden$', '$1 · hace $2 h'],
+    ['^(.+) · (d+) dagen geleden$', '$1 · hace $2 días'],
     [
       '^Je Team (\\d+) is gestopt\\. Je team heeft geen Pro meer via dit abonnement; je eigen Pro en je keukenteams blijven gewoon staan\\.$',
       'Tu Equipo $1 ha terminado. Tu equipo ya no tiene Pro con este plan; tu Pro y tus equipos de cocina se mantienen.'

@@ -126,8 +126,10 @@ async function loadDatabaseState() {
   if (!currentUser) throw new Error('Geen ingelogde gebruiker');
   const [recipesRes, categoriesRes, foldersRes, folderRecipesRes, favoritesRes, profileRes] = await Promise.all([
     // Alleen je eigen recepten; recepten van een keukenteam (team_id) komen via loadSharedRecipes.
-    selectAllRows('recipes', 'id,title,description,yield_text,ingredients,steps,photo_url,category_id,created_at', q =>
-      q.eq('user_id', currentUser.id).is('team_id', null).order('title', { ascending: true })
+    selectAllRows(
+      'recipes',
+      'id,title,description,yield_text,ingredients,steps,photo_url,category_id,created_at,updated_at',
+      q => q.eq('user_id', currentUser.id).is('team_id', null).order('title', { ascending: true })
     ),
     loadCategoryRows(),
     selectAllRows('folders', 'id,name', q => q.eq('user_id', currentUser.id).order('name')),
@@ -166,6 +168,7 @@ async function loadDatabaseState() {
     categoryId: r.category_id || null,
     photo: r.photo_url || '',
     createdAt: r.created_at || '',
+    updatedAt: r.updated_at || '',
     dbId: r.id
   }));
   const seenFolderNames = new Set();
@@ -399,11 +402,22 @@ async function loadSharedRecipes() {
     ...new Set(sharedMaps.flatMap(m => [...m.recipeIds, ...m.folders.flatMap(f => f.recipeIds)]).map(String))
   ].filter(id => !own.has(id));
   const rows = [];
+  // updated_by (wie het laatst aanpaste) bestaat pas na supabase/2026-10-29-net-bijgewerkt.sql; zonder kan het ook.
+  let cols =
+    'id,user_id,team_id,created_by,title,description,yield_text,ingredients,steps,photo_url,created_at,updated_at';
+  let withEditor = true;
   for (let i = 0; i < ids.length; i += 100) {
-    const { data, error } = await supabaseClient
+    let { data, error } = await supabaseClient
       .from('recipes')
-      .select('id,user_id,team_id,created_by,title,description,yield_text,ingredients,steps,photo_url')
+      .select(withEditor ? cols + ',updated_by' : cols)
       .in('id', ids.slice(i, i + 100));
+    if (error && withEditor && /updated_by/.test(error.message || '')) {
+      withEditor = false;
+      ({ data, error } = await supabaseClient
+        .from('recipes')
+        .select(cols)
+        .in('id', ids.slice(i, i + 100)));
+    }
     if (error) {
       console.warn('Gedeelde recepten konden niet worden geladen:', error);
       break;
@@ -411,6 +425,7 @@ async function loadSharedRecipes() {
     rows.push(...(data || []));
   }
   const authorName = userId => {
+    if (String(userId) === String(currentUser?.id)) return account?.name || 'Jij';
     for (const m of sharedMaps) {
       const member = m.members.find(x => String(x.userId) === String(userId));
       if (member && member.name !== 'Jij') return member.name;
@@ -429,6 +444,9 @@ async function loadSharedRecipes() {
       ? sharedMaps.find(m => String(m.id) === String(r.team_id))?.name || 'Keukenteam'
       : 'Gedeeld door ' + authorName(r.user_id),
     addedBy: r.team_id && r.created_by ? authorName(r.created_by) : '',
+    updatedBy: r.updated_by ? authorName(r.updated_by) : '',
+    createdAt: r.created_at || '',
+    updatedAt: r.updated_at || '',
     photo: r.photo_url || '',
     shared: true,
     teamId: r.team_id || null,

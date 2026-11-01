@@ -28,6 +28,7 @@ function newSharedMap() {
   if (!demoMode && !isPro()) return askForProSharedMap();
   $('newSharedName').value = '';
   $('newSharedModal').classList.add('open');
+  setTimeout(() => $('newSharedName')?.focus(), 30);
 }
 
 function closeNewShared() {
@@ -65,8 +66,11 @@ async function createSharedMap() {
   currentShared = m.id;
   renderSharedNav();
   refreshSidebar();
+  currentTeamTab = 'home';
   go('shared');
   toast('Keukenteam aangemaakt');
+  // Stap 2 uit het venster: meteen koks uitnodigen (overslaan kan met Sluiten).
+  inviteShared(m.id);
 }
 
 async function openShared(id) {
@@ -295,12 +299,14 @@ function openSharedFolder(mapId, folderId) {
   go('sharedFolderDetail');
 }
 
-// Keukenteam: de plek met de recepten en mappen van een zaak, met een team (leden met een rol).
-// Tabbladen: Recepten · Mappen · Team · Instellingen (alleen de eigenaar). De keuze blijft per bezoek bewaard.
-let currentTeamTab = 'recepten';
+// Keukenteam: één receptenboek voor de hele brigade. De startpagina toont de brigade, de mappen, wat net is
+// bijgewerkt en de gezamenlijke receptenbibliotheek (zoeken, per map en A t/m Z).
+// Brigade beheren en Instellingen (alleen de eigenaar) zijn aparte schermen met een terugknop.
+let currentTeamTab = 'home';
 function showTeamTab(tab) {
   currentTeamTab = tab;
   if (currentShared) renderShared(currentShared);
+  window.scrollTo?.(0, 0);
 }
 
 // Teamabonnement (Team 5/10/25) van de eigenaar, als het bij dit keukenteam hoort.
@@ -316,6 +322,123 @@ function teamBrigade(m) {
   return { plan: t, linked, elsewhere, active: !!t.active, seats: t.seats || 0, used: pro.size + 1, pro };
 }
 
+// Naam zoals de brigade die ziet; "Jij" wordt je eigen naam, zodat de initialen kloppen.
+function teamMemberName(x) {
+  if (x?.name && x.name !== 'Jij' && x.name !== 'Teamlid') return x.name;
+  if (String(x?.userId) === String(currentUser?.id)) return account?.name || currentUser?.email?.split('@')[0] || 'Jij';
+  return x?.email ? x.email.split('@')[0] : 'Teamlid';
+}
+
+function teamInitials(name) {
+  const parts = String(name || '?')
+    .replace(/@.*/, '')
+    .split(/[\s._-]+/)
+    .filter(Boolean);
+  return ((parts[0]?.[0] || '?') + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase();
+}
+
+// Vaste kleur per persoon, in de goudtinten van Savour.
+function teamAvatarTone(key) {
+  let h = 0;
+  for (const ch of String(key || '')) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  return h % 5;
+}
+
+function teamAvatar(name, key, extra = '') {
+  return `<span class="kt-avatar tone-${teamAvatarTone(key || name)}${extra}" title="${esc(name)}" aria-hidden="true">${esc(teamInitials(name))}</span>`;
+}
+
+// "12 min geleden", "3 u geleden", "gisteren", "4 dagen geleden" of een datum.
+function teamAgo(iso) {
+  const ms = Date.now() - new Date(iso).getTime();
+  if (!isFinite(ms)) return '';
+  const min = Math.max(0, Math.round(ms / 60000));
+  if (min < 1) return 'zojuist';
+  if (min < 60) return `${min} min geleden`;
+  const h = Math.round(min / 60);
+  if (h < 24) return `${h} u geleden`;
+  const d = Math.round(h / 24);
+  if (d === 1) return 'gisteren';
+  if (d < 7) return `${d} dagen geleden`;
+  return new Date(iso).toLocaleDateString(currentLanguage === 'nl' ? 'nl-NL' : currentLanguage, {
+    day: 'numeric',
+    month: 'short'
+  });
+}
+
+// De vijf recepten die het laatst zijn toegevoegd of aangepast, met wie het deed (als dat bekend is).
+function teamRecentHtml(list) {
+  const items = list
+    .map(r => {
+      const changed = r.updatedAt && r.createdAt && new Date(r.updatedAt) - new Date(r.createdAt) > 60000;
+      const at = changed ? r.updatedAt : r.createdAt || r.updatedAt;
+      const who = changed
+        ? r.updatedBy || ''
+        : r.addedBy || (r.shared ? '' : teamMemberName({ userId: currentUser?.id }));
+      return { r, at, who, changed };
+    })
+    .filter(x => x.at)
+    .sort((a, b) => new Date(b.at) - new Date(a.at))
+    .slice(0, 5);
+  if (!items.length) return '<p class="muted kt-recent-empty">Nog niets bijgewerkt.</p>';
+  return items
+    .map(({ r, at, who, changed }) => {
+      const what = (changed ? 'aangepast' : 'toegevoegd') + (who ? ' door ' + who : '') + ' · ' + teamAgo(at);
+      return `<button type="button" class="kt-recent-row" onclick="openRecipe('${escJs(r.id)}','shared')">${who ? teamAvatar(who, who) : '<span class="kt-avatar is-empty" aria-hidden="true"></span>'}<span><b>${esc(recipeTitleOf(r))}</b><small>${esc(what)}</small></span></button>`;
+    })
+    .join('');
+}
+
+// Zoeken in titel en ingrediënten, zonder op hoofdletters of accenten te letten.
+function teamSearchText(r) {
+  const ing = (r.ingredients || [])
+    .map(i => (typeof i === 'string' ? i : i?.name || i?.text || i?.item || ''))
+    .join(' ');
+  return (recipeTitleOf(r) + ' ' + ing).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+}
+
+function teamLibraryList(m) {
+  const folder = window.sharedFolderFilter && m.folders.find(f => String(f.id) === String(window.sharedFolderFilter));
+  const base = (folder ? folder.recipeIds : m.recipeIds || []).map(rid => findRecipe(rid)).filter(Boolean);
+  const q = String(window.sharedSearch || '')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .trim();
+  const searched = q ? base.filter(r => q.split(/\s+/).every(w => teamSearchText(r).includes(w))) : base;
+  return filterRecipesByLetter(searched, window.sharedAlphabet);
+}
+
+// Alleen de lijst opnieuw tekenen, zodat het zoekveld de focus houdt tijdens het typen.
+function renderTeamLibrary() {
+  const m = findSharedMap(currentShared);
+  const host = $('ktLibList');
+  if (!m || !host) return;
+  const all = (m.recipeIds || []).map(rid => findRecipe(rid)).filter(Boolean);
+  const list = teamLibraryList(m);
+  const filtering = window.sharedSearch || window.sharedAlphabet || window.sharedFolderFilter;
+  $('ktLibCount').textContent = filtering ? `${list.length} van ${all.length} recepten` : `${all.length} recepten`;
+  host.innerHTML = list.length
+    ? '<div class="savour-v13-list">' +
+      contextRecipeRowsHtml(
+        list,
+        'shared',
+        canEditShared(m) && !window.sharedFolderFilter ? 'removeRecipeFromShared' : ''
+      ) +
+      '</div>'
+    : `<div class="empty">${all.length ? 'Geen recepten gevonden.' : canEditShared(m) ? 'Nog geen recepten in dit keukenteam. Voeg ze toe met “Recept toevoegen”.' : 'Nog geen recepten in dit keukenteam.'}</div>`;
+}
+
+function filterTeamSearch(value) {
+  window.sharedSearch = String(value || '');
+  renderTeamLibrary();
+}
+
+function filterTeamFolder(folderId) {
+  window.sharedFolderFilter = folderId ? String(folderId) : '';
+  renderShared(currentShared);
+}
+
 function renderShared(id) {
   const m = findSharedMap(id);
   if (!m) {
@@ -327,47 +450,93 @@ function renderShared(id) {
   const canEdit = canEditShared(m);
   const isOwner = isSharedMapOwner(m);
   const mid = escJs(m.id);
-  const list = (m.recipeIds || []).map(rid => findRecipe(rid)).filter(Boolean);
-  if (currentTeamTab === 'instellingen' && !isOwner) currentTeamTab = 'recepten';
+  if (!['home', 'brigade', 'instellingen'].includes(currentTeamTab)) currentTeamTab = 'home';
+  if (currentTeamTab === 'instellingen' && !isOwner) currentTeamTab = 'home';
+  if (window.sharedFolderFilter && !m.folders.some(f => String(f.id) === String(window.sharedFolderFilter)))
+    window.sharedFolderFilter = '';
   $('sharedTitle').textContent = m.name;
   const photoInput = `<input type="file" accept="image/*" onchange="saveSharedPhoto('${mid}',this)" style="display:none">`;
-  const actions =
-    (canEdit
-      ? `<button class="btn gold compact-action" onclick="openSharedRecipePicker('${mid}')">＋<span>Recept toevoegen</span></button>`
-      : '') +
-    (list.length
-      ? `<button class="btn compact-action" onclick="printSharedMap('${mid}')">⎙<span>Recepten printen</span></button>`
-      : '');
-  const tabs = [
-    ['recepten', `Recepten ${list.length}`],
-    ['mappen', `Mappen ${(m.folders || []).filter(f => !f.archived).length}`],
-    ['brigade', `Team ${m.members.length}`],
-    ...(isOwner ? [['instellingen', 'Instellingen']] : [])
-  ];
-  const tabBar = `<nav class="team-tabs" aria-label="Keukenteam">${tabs
-    .map(
-      ([key, label]) =>
-        `<button type="button" class="${currentTeamTab === key ? 'is-on' : ''}" onclick="showTeamTab('${key}')">${esc(label)}</button>`
-    )
-    .join('')}</nav>`;
-  let body = '';
-  if (currentTeamTab === 'mappen')
-    body = `<div class="section-head shared-folders-head"><h2>Mappen</h2><div class="shared-folder-tools">${canEdit ? `<button class="btn compact-action" onclick="newSharedFolder('${mid}')">＋<span>Nieuwe map</span></button>` : ''}${canEdit && (m.folders || []).length ? `<button class="btn compact-action" onclick="openSharedFolderManage('${mid}')">⚙<span>Mappen beheren</span></button>` : ''}</div></div>${sharedFoldersHtml(m)}`;
-  else if (currentTeamTab === 'brigade') body = teamBrigadeHtml(m);
-  else if (currentTeamTab === 'instellingen') body = teamSettingsHtml(m, photoInput);
-  else {
-    const filtered = filterRecipesByLetter(list, window.sharedAlphabet);
-    body =
-      contextAlphabetHtml(window.sharedAlphabet, 'filterSharedAlphabet') +
-      `<div class="savour-v13-context-tools"><span class="mini">${filtered.length} recepten${window.sharedAlphabet ? ' · ' + window.sharedAlphabet : ''}</span></div>` +
-      (filtered.length
-        ? '<div class="savour-v13-list">' +
-          contextRecipeRowsHtml(filtered, 'shared', canEdit ? 'removeRecipeFromShared' : '') +
-          '</div>'
-        : `<div class="empty">${list.length ? 'Geen recepten voor deze selectie.' : canEdit ? 'Nog geen recepten in dit keukenteam. Voeg ze toe met “Recept toevoegen”.' : 'Nog geen recepten in dit keukenteam.'}</div>`);
+
+  // Brigade beheren en Instellingen: eigen scherm met een duidelijke weg terug.
+  if (currentTeamTab !== 'home') {
+    const title = currentTeamTab === 'brigade' ? 'Brigade' : 'Instellingen';
+    const body = currentTeamTab === 'brigade' ? teamBrigadeHtml(m) : teamSettingsHtml(m, photoInput);
+    $('sharedWrap').innerHTML =
+      `<div class="panel team-page kt"><button type="button" class="back kt-back" onclick="showTeamTab('home')">← ${esc(m.name)}</button><div class="kt-sub-head"><div class="eyebrow shared-eyebrow">Keukenteam · ${esc(m.name)}</div><h1>${title}</h1></div>${body}</div>`;
+    return;
   }
+
+  const all = (m.recipeIds || []).map(rid => findRecipe(rid)).filter(Boolean);
+  const active = (m.folders || []).filter(f => !f.archived);
+  const archived = (m.folders || []).filter(f => f.archived);
+  const b = teamBrigade(m);
+  const members = m.members || [];
+
+  const actions =
+    (isOwner
+      ? `<button class="btn compact-action" onclick="inviteShared('${mid}')"><span>Koks uitnodigen</span></button>`
+      : '') +
+    (all.length
+      ? `<button class="btn compact-action kt-print" onclick="printSharedMap('${mid}')" title="Recepten printen" aria-label="Recepten printen">⎙</button>`
+      : '') +
+    (canEdit
+      ? `<button class="btn gold compact-action kt-add-desktop" onclick="openSharedRecipePicker('${mid}')">＋<span>Recept toevoegen</span></button>`
+      : '');
+
+  const shown = members.slice(0, 6);
+  const avatars =
+    shown.map(x => teamAvatar(teamMemberName(x), x.userId || x.email)).join('') +
+    (members.length > shown.length
+      ? `<span class="kt-avatar is-more" aria-hidden="true">+${members.length - shown.length}</span>`
+      : '') +
+    (isOwner ? '<span class="kt-avatar is-open" aria-hidden="true">+</span>' : '');
+  const seatsLine =
+    b?.linked && b.active
+      ? `Team ${b.seats} · nog ${Math.max(0, b.seats - b.used)} Pro-plekken vrij`
+      : 'Iedereen ziet direct elke wijziging';
+  const brigade = `<button type="button" class="kt-brigade" onclick="showTeamTab('brigade')"><span class="kt-avatars">${avatars}</span><span class="kt-brigade-text"><b>${members.length} in de brigade</b><small>${esc(seatsLine)}</small></span><span class="kt-link">${isOwner ? 'Brigade beheren' : 'Brigade bekijken'} ›</span></button>`;
+
+  const folderTile = f =>
+    `<button type="button" class="kt-folder" onclick="openSharedFolder('${mid}','${escJs(f.id)}')"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span><b>${esc(f.name)}</b><small>${sharedFolderCount(m, f)} recepten</small></span></button>`;
+  const folders =
+    `<section class="kt-folders" aria-label="Mappen"><div class="kt-section-head"><h2>Mappen</h2>${canEdit && m.folders.length && sharedFoldersManageable ? `<button type="button" class="kt-link" onclick="openSharedFolderManage('${mid}')">Mappen beheren</button>` : ''}</div>` +
+    (active.length || canEdit
+      ? `<div class="kt-folder-grid">${active.map(folderTile).join('')}${canEdit ? `<button type="button" class="kt-folder is-new" onclick="newSharedFolder('${mid}')"><span class="kt-plus" aria-hidden="true">＋</span><span><b>Nieuwe map</b><small>Bijv. per partie of menu</small></span></button>` : ''}</div>`
+      : '<p class="muted">Nog geen mappen in dit keukenteam.</p>') +
+    (archived.length
+      ? `<details class="shared-folder-archive"><summary>Archief (${archived.length})</summary><div class="shared-folder-list">${archived.map(f => sharedFolderCard(m, f)).join('')}</div></details>`
+      : '') +
+    '</section>';
+  const recent = `<aside class="kt-recent" aria-label="Net bijgewerkt"><div class="kt-section-head"><h2>Net bijgewerkt</h2></div><div class="kt-recent-list">${teamRecentHtml(all)}</div></aside>`;
+
+  const chips = active.length
+    ? `<div class="kt-chips" role="group" aria-label="Filter op map"><button type="button" class="${window.sharedFolderFilter ? '' : 'is-on'}" onclick="filterTeamFolder('')">Alles</button>${active
+        .map(
+          f =>
+            `<button type="button" class="${String(window.sharedFolderFilter) === String(f.id) ? 'is-on' : ''}" onclick="filterTeamFolder('${escJs(f.id)}')">${esc(f.name)}</button>`
+        )
+        .join('')}</div>`
+    : '';
+  const library =
+    `<section class="kt-library" aria-label="Receptenbibliotheek"><div class="kt-section-head"><h2>Receptenbibliotheek</h2><span class="muted" id="ktLibCount"></span></div>` +
+    `<label class="kt-search"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg><input type="search" id="ktSearch" placeholder="Zoek in ${all.length} recepten" aria-label="Zoek in de receptenbibliotheek" value="${esc(window.sharedSearch || '')}" oninput="filterTeamSearch(this.value)"></label>` +
+    chips +
+    (canEdit
+      ? `<button class="btn gold kt-add-phone" onclick="openSharedRecipePicker('${mid}')">＋ Recept toevoegen</button>`
+      : '') +
+    contextAlphabetHtml(window.sharedAlphabet, 'filterSharedAlphabet') +
+    '<div id="ktLibList"></div></section>';
+
   $('sharedWrap').innerHTML =
-    `<div class="panel team-page"><div class="folder-detail-head shared-main-head"><div><div class="eyebrow shared-eyebrow">Keukenteam ${helpButton('shared')}</div><h1>${esc(m.name)}</h1><p class="muted">${list.length} recepten · ${m.members.length} in het team</p></div><div class="shared-map-actions">${actions}</div></div>${tabBar}<div class="team-tab-body">${body}</div></div>`;
+    `<div class="panel team-page kt"><div class="folder-detail-head shared-main-head kt-head"><div><div class="eyebrow shared-eyebrow">Keukenteam ${helpButton('shared')}</div><h1>${esc(m.name)}</h1><p class="muted">Eén receptenboek voor de hele brigade.</p></div><div class="shared-map-actions kt-actions">${actions}</div></div>` +
+    brigade +
+    `<div class="kt-overview">${folders}${recent}</div>` +
+    library +
+    (isOwner
+      ? `<div class="kt-foot"><button type="button" class="kt-link" onclick="showTeamTab('instellingen')">Instellingen van ${esc(m.name)} ›</button></div>`
+      : `<div class="kt-foot"><button type="button" class="kt-link" onclick="leaveSharedMap('${mid}')">Keukenteam verlaten</button></div>`) +
+    '</div>';
+  renderTeamLibrary();
   // Fotoband met de eigen foto van het keukenteam (of een keukenfoto).
   setViewPhoto(document.querySelector('#sharedWrap .shared-main-head'), 'gedeeld:' + m.id, m.photo);
 }
@@ -1028,8 +1197,15 @@ function inviteShared(id) {
   const base = 'https://savour.page/join/' + encodeURIComponent(m.publicKey || m.id);
   $('inviteLink').textContent = base;
   $('inviteEmail').value = '';
-  $('inviteRole').value = 'viewer';
+  const viewer = document.querySelector('input[name="inviteRole"][value="viewer"]');
+  if (viewer) viewer.checked = true;
+  // Bij een teamabonnement zie je meteen hoeveel Pro-plekken er nog vrij zijn.
+  const b = teamBrigade(m);
+  $('inviteSub').textContent =
+    b?.linked && b.active ? `Voor ${m.name} · nog ${Math.max(0, b.seats - b.used)} Pro-plekken vrij` : `Voor ${m.name}`;
+  $('inviteModal').querySelector('.kt-invite-link')?.removeAttribute('open');
   $('inviteModal').classList.add('open');
+  setTimeout(() => $('inviteEmail')?.focus(), 30);
 }
 
 // Teamlid direct toevoegen op e-mailadres. Bestaat er nog geen account, dan gaat er via het eigen
@@ -1037,7 +1213,7 @@ function inviteShared(id) {
 async function addMemberByEmail() {
   const m = findSharedMap(currentShared);
   const email = $('inviteEmail').value.trim();
-  const role = $('inviteRole').value === 'editor' ? 'editor' : 'viewer';
+  const role = document.querySelector('input[name="inviteRole"]:checked')?.value === 'editor' ? 'editor' : 'viewer';
   if (!m || !isSharedMapOwner(m)) return toast('Alleen de eigenaar kan teamleden toevoegen');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return toast('Vul een geldig e-mailadres in');
   let result;
