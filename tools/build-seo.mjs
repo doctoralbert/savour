@@ -433,7 +433,7 @@ function fitDesc(desc, max = 160) {
 }
 
 // ---- Losse pagina's ----
-function pageHead(lang, { title: longTitle, desc: longDesc, canonical, alternates, schema, hidden }) {
+function pageHead(lang, { title: longTitle, desc: longDesc, canonical, alternates, schema, hidden, ads }) {
   const title = fitTitle(longTitle);
   const desc = fitDesc(longDesc);
   return `<!doctype html>
