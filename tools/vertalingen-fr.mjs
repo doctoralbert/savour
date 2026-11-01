@@ -1,6 +1,16 @@
 // Franse vertalingen, naast tools/vertalingen.mjs: Nederlandse brontekst → Frans.
 // Nieuwe interfacetekst? Zet hier ook de Franse regel; node tools/build-i18n.mjs meldt wat ontbreekt.
 export const stringsFr = {
+ "Proefperiode tot": "Essai jusqu'au",
+ "Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot je Savour Pro neemt.": "Ensuite tout est conservé, mais cette équipe de cuisine n'est plus utilisable tant que tu n'as pas pris Savour Pro.",
+ "Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot de eigenaar Savour Pro neemt.": "Ensuite tout est conservé, mais cette équipe de cuisine n'est plus utilisable tant que le propriétaire n'a pas pris Savour Pro.",
+ "Dit keukenteam staat op slot": "Cette équipe de cuisine est verrouillée",
+ "Een keukenteam werkt alleen met Savour Pro. Er is niets weg: alle recepten, mappen en leden blijven bewaard. Neem je Savour Pro, dan gaat het meteen weer open.": "Une équipe de cuisine ne fonctionne qu'avec Savour Pro. Rien n'est perdu : toutes les recettes, dossiers et membres sont conservés. Avec Savour Pro, elle se rouvre aussitôt.",
+ "De eigenaar heeft geen Savour Pro meer. Er is niets weg: zodra de eigenaar weer Pro heeft, gaat dit keukenteam meteen weer open.": "Le propriétaire n'a plus Savour Pro. Rien n'est perdu : dès qu'il aura de nouveau Pro, cette équipe de cuisine se rouvrira.",
+ "Een keukenteam blijft bewaard, maar is pas weer te gebruiken als de eigenaar Savour Pro heeft.": "Une équipe de cuisine est conservée, mais n'est de nouveau utilisable que lorsque le propriétaire a Savour Pro.",
+ "Een keukenteam werkt zolang de eigenaar Savour Pro heeft.": "Une équipe de cuisine fonctionne tant que le propriétaire a Savour Pro.",
+ "Een keukenteam uit je proefperiode blijft bewaard, maar werkt daarna pas weer met Savour Pro.": "Une équipe de cuisine créée pendant ton essai est conservée, mais ne fonctionne ensuite qu'avec Savour Pro.",
+ "Af en toe sturen we je nieuws over Savour op het e-mailadres van je account. Afmelden kan met één klik onderaan elke mail.": "De temps en temps, nous envoyons des nouvelles de Savour à l'adresse e-mail de ton compte. Tu peux te désinscrire en un clic en bas de chaque e-mail.",
  "Welkom bekijken": "Revoir l'accueil",
  "Terug naar welkom": "Retour à l'accueil",
  "Sauzen": "Sauces",

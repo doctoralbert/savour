@@ -17,7 +17,7 @@ Verdienmodel: gratis basis + Savour Pro (€2,99 p/m of €29 p/j, via Stripe) +
 recepten, zelf keukenteams maken, AI-import (max. 500 per maand), printen met het logo van je restaurant
 (`js/features/print.js`, `supabase/2026-10-24-logo-op-prints.sql`; bij een team geldt het logo van de eigenaar). Nieuwe accounts: 7 dagen Pro gratis, maar ook dan tot 100 recepten
 (`supabase/2026-10-23-proef-7-dagen.sql`: savour_paid_pro voor onbeperkt bewaren).
-Wie stopt met Pro houdt altijd alles; alleen toevoegen boven de grens kan niet. Regels in de database:
+Wie stopt met Pro houdt altijd alles; alleen toevoegen boven de grens kan niet. Een keukenteam werkt alleen zolang de eigenaar Pro heeft (ook proefperiode); daarna staat het op slot maar blijft alles bewaard (`supabase/2026-11-01-keukenteam-alleen-met-pro.sql`). Regels in de database:
 `supabase/2026-10-22-gratis-pro-teams.sql` (savour_is_pro, savour_my_plan). Beheer: /admin (api/admin.js). Importeren gaat altijd eerst via de eigen lezer
 (`js/features/recipe-reader.js`, test: `npm run test:lezer`); alleen bij twijfel en met Pro naar de AI.
 De server (`api/ai-import.js`) controleert Pro en de limiet. Instellen: `docs/savour-pro-instellen.md`.

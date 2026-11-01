@@ -352,7 +352,12 @@ async function loadSharedMapsState() {
   const visibleMaps = sms.filter(
     m => m.owner_id === currentUser.id || memberRows.some(x => x.shared_map_id === m.id && x.user_id === currentUser.id)
   );
+  // Op slot als de eigenaar geen Pro heeft (supabase/2026-11-01-keukenteam-alleen-met-pro.sql); zonder die SQL alles open.
+  const { data: teamStatus } = await supabaseClient.rpc('savour_team_status');
+  const statusOf = new Map((teamStatus || []).map(s => [s.id, s]));
   sharedMaps = visibleMaps.map(m => {
+    const status = statusOf.get(m.id);
+    const locked = !!status?.locked;
     const members = allMembers
       .filter(x => x.shared_map_id === m.id)
       .map(x => ({
@@ -375,9 +380,11 @@ async function loadSharedMapsState() {
     return {
       id: m.id,
       name: m.name,
-      recipeIds: smr.filter(x => x.shared_map_id === m.id).map(x => x.recipe_id),
+      locked,
+      trialEnd: status?.trial_end ? new Date(status.trial_end) : null,
+      recipeIds: locked ? [] : smr.filter(x => x.shared_map_id === m.id).map(x => x.recipe_id),
       folders: smf
-        .filter(x => x.shared_map_id === m.id && x.name !== 'A t/m Z')
+        .filter(x => !locked && x.shared_map_id === m.id && x.name !== 'A t/m Z')
         .map(f => ({
           id: f.id,
           name: f.name,

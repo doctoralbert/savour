@@ -613,6 +613,24 @@ window.SAVOUR_I18N.es = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.":
       'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.',
     Verbergen: 'Ocultar',
+    'Proefperiode tot': 'Prueba hasta',
+    'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot je Savour Pro neemt.':
+      'Después todo se conserva, pero este equipo de cocina no se puede usar hasta que contrates Savour Pro.',
+    'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot de eigenaar Savour Pro neemt.':
+      'Después todo se conserva, pero este equipo de cocina no se puede usar hasta que el propietario contrate Savour Pro.',
+    'Dit keukenteam staat op slot': 'Este equipo de cocina está bloqueado',
+    'Een keukenteam werkt alleen met Savour Pro. Er is niets weg: alle recepten, mappen en leden blijven bewaard. Neem je Savour Pro, dan gaat het meteen weer open.':
+      'Un equipo de cocina solo funciona con Savour Pro. No se pierde nada: todas las recetas, carpetas y miembros se conservan. Con Savour Pro se vuelve a abrir al momento.',
+    'De eigenaar heeft geen Savour Pro meer. Er is niets weg: zodra de eigenaar weer Pro heeft, gaat dit keukenteam meteen weer open.':
+      'El propietario ya no tiene Savour Pro. No se pierde nada: en cuanto vuelva a tener Pro, este equipo de cocina se abrirá de nuevo.',
+    'Een keukenteam blijft bewaard, maar is pas weer te gebruiken als de eigenaar Savour Pro heeft.':
+      'Un equipo de cocina se conserva, pero solo se puede volver a usar cuando el propietario tenga Savour Pro.',
+    'Een keukenteam werkt zolang de eigenaar Savour Pro heeft.':
+      'Un equipo de cocina funciona mientras el propietario tenga Savour Pro.',
+    'Een keukenteam uit je proefperiode blijft bewaard, maar werkt daarna pas weer met Savour Pro.':
+      'Un equipo de cocina de tu prueba se conserva, pero después solo funciona con Savour Pro.',
+    'Af en toe sturen we je nieuws over Savour op het e-mailadres van je account. Afmelden kan met één klik onderaan elke mail.':
+      'De vez en cuando enviamos noticias sobre Savour al correo de tu cuenta. Puedes darte de baja con un clic al final de cada correo.',
     'Welkom bekijken': 'Ver bienvenida',
     'Terug naar welkom': 'Volver a la bienvenida',
     Sauzen: 'Salsas',

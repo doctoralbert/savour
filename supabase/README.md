@@ -30,6 +30,7 @@ bestand plakken → Run. Altijd in deze volgorde (op datum); elk bestand is veil
 | 2026-10-29-net-bijgewerkt.sql | "Net bijgewerkt" op de startpagina van een keukenteam |
 | 2026-11-01-admin-settings.sql | Instellingen die alleen de server kan lezen (AdSense, financiën) |
 | 2026-11-01-inlogtellingen.sql | Hoe vaak elk account is ingelogd, in /admin |
+| 2026-11-01-keukenteam-alleen-met-pro.sql | Een keukenteam werkt alleen als de eigenaar Pro heeft; daarna op slot, niets wordt verwijderd |
 | 2026-11-01-notities-koppelingen.sql | Notities en koppelingen tussen recepten |
 | 2026-11-01-opschonen.sql | Interne functies niet meer van buitenaf aan te roepen; werking blijft gelijk |
 

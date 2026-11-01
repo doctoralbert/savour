@@ -128,6 +128,7 @@ function showAdminTab(tab) {
   if (!tabs.includes(tab)) tab = 'overzicht';
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.toggle('is-on', t.dataset.adminTab === tab));
   document.querySelectorAll('.admin-tabs button').forEach(b => b.classList.toggle('is-on', b.dataset.adminTab === tab));
+  if (tab === 'nieuwsbrief' && !adminNews) loadAdminNewsletter();
   try {
     sessionStorage.setItem('savour_admin_tab', tab);
   } catch (_) {}
@@ -1722,4 +1723,155 @@ function downloadFinanceCsv() {
   link.download = `savour-financien-${new Date().toISOString().slice(0, 10)}.csv`;
   link.click();
   URL.revokeObjectURL(link.href);
+}
+
+// ---- Nieuwsbrief: mail in huisstijl naar gekozen accounts. Versturen gebeurt op de server (api/admin.js). ----
+let adminNews = null;
+let newsPicked = new Set();
+let newsPreviewTimer = 0;
+
+const NEWS_WELCOME = {
+  subject: 'Welkom bij Savour: wat heb jij nodig in je keuken?',
+  heading: 'Fijn dat je erbij bent',
+  body: `Hoi {voornaam},
+
+Jij bent een van de eerste koks met een account bij Savour. Daar zijn we blij mee. Savour is gemaakt door koks, voor koks, en we bouwen het het liefst samen met de mensen die ermee werken.
+
+Daarom hebben we twee vragen aan jou:
+
+1. Wat zou je graag aan Savour toegevoegd zien?
+2. Wat is er nodig om Savour elke dag in je keuken te gebruiken?
+
+Een paar woorden is al genoeg, en een eerlijk "dit werkt niet voor mij" is net zo waardevol. We lezen alles zelf en bouwen graag wat keukens echt nodig hebben.
+
+Stuur je antwoord via de knop hieronder, of beantwoord gewoon deze mail.
+
+Veel kookplezier,
+De koks achter Savour`,
+  button_label: 'Stuur je feedback',
+  button_url: 'https://savour.page/contact'
+};
+
+const newsValue = id => $(id)?.value || '';
+const newsMail = () => ({
+  subject: newsValue('newsSubject'),
+  heading: newsValue('newsHeading'),
+  body: newsValue('newsText'),
+  button_label: newsValue('newsButtonLabel'),
+  button_url: newsValue('newsButtonUrl')
+});
+
+async function loadAdminNewsletter() {
+  try {
+    adminNews = await adminApi('newsletter');
+    renderAdminNewsletter();
+  } catch (error) {
+    adminNews = null;
+    if ($('adminNewsBody')) $('adminNewsBody').innerHTML = `<p class="admin-note">${adminEscape(error.message)}</p>`;
+  }
+}
+
+function newsCanReceive(p) {
+  return p.confirmed && !p.unsubscribed;
+}
+
+function renderAdminNewsletter() {
+  const input = (id, label, hint = '') =>
+    `<label class="news-field"><span>${label}</span><input id="${id}" oninput="queueNewsPreview()" placeholder="${hint}"></label>`;
+  $('adminNewsBody').innerHTML = `<div class="news-grid"><div class="news-form">
+    <div class="admin-note">Schrijf je mail, kies wie hem krijgt en stuur eerst een testmail. <code>{voornaam}</code> wordt per persoon ingevuld. Onderaan staat altijd een afmeldlink.</div>
+    <button type="button" class="btn-quiet" onclick="fillNewsWelcome()">Welkomstmail eerste gebruikers invullen</button>
+    ${input('newsSubject', 'Onderwerp')}${input('newsHeading', 'Kop in de mail')}
+    <label class="news-field"><span>Tekst</span><textarea id="newsText" rows="14" oninput="queueNewsPreview()" placeholder="Lege regel = nieuwe alinea. Regels met - worden een lijstje."></textarea></label>
+    ${input('newsButtonLabel', 'Tekst op de knop (mag leeg)')}${input('newsButtonUrl', 'Link van de knop', 'https://savour.page/contact')}
+    <div class="news-people-head"><h3>Ontvangers</h3><span id="newsCount"></span><button type="button" class="btn-quiet" onclick="pickNewsAll(true)">Iedereen</button><button type="button" class="btn-quiet" onclick="pickNewsAll(false)">Niemand</button></div>
+    <div id="newsPeople" class="news-people"></div>
+    <div class="news-actions"><button type="button" class="btn" id="newsTestBtn" onclick="sendNewsletter(true)">Testmail naar mij</button><button type="button" class="btn gold" id="newsSendBtn" onclick="sendNewsletter(false)">Versturen</button></div>
+    <p id="newsStatus" class="admin-note"></p>
+  </div><div class="news-preview"><h3>Zo ziet de mail eruit</h3><iframe id="newsPreview" title="Voorbeeld van de mail" sandbox=""></iframe></div></div><div id="newsHistory"></div>`;
+  renderNewsPeople();
+  renderNewsHistory();
+}
+
+function renderNewsPeople() {
+  $('newsPeople').innerHTML = adminNews.people
+    .map(p => {
+      const note = !p.confirmed ? 'niet bevestigd' : p.unsubscribed ? 'afgemeld' : `${p.recipes} recepten`;
+      return `<label class="${newsCanReceive(p) ? '' : 'is-off'}"><input type="checkbox" ${newsCanReceive(p) ? '' : 'disabled'} ${newsPicked.has(p.id) ? 'checked' : ''} onchange="pickNews('${adminEscape(p.id)}',this.checked)"><span><b>${adminEscape(p.name || p.email)}</b><small>${adminEscape(p.email)}</small></span><small>${adminFormatDate(p.created_at)} · ${adminEscape(note)}</small></label>`;
+    })
+    .join('');
+  $('newsCount').textContent = `${newsPicked.size} gekozen`;
+}
+
+function renderNewsHistory() {
+  const sent = adminNews.sent || [];
+  $('newsHistory').innerHTML = sent.length
+    ? `<h3>Eerder verstuurd</h3><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Datum</th><th>Onderwerp</th><th>Ontvangers</th></tr></thead><tbody>${sent.map(s => `<tr><td>${adminFormatDate(s.date)}</td><td>${adminEscape(s.subject)}</td><td>${adminEscape(s.count)}</td></tr>`).join('')}</tbody></table></div>`
+    : '';
+}
+
+function pickNews(id, on) {
+  if (on) newsPicked.add(id);
+  else newsPicked.delete(id);
+  $('newsCount').textContent = `${newsPicked.size} gekozen`;
+}
+
+function pickNewsAll(on) {
+  newsPicked = new Set(on ? adminNews.people.filter(newsCanReceive).map(p => p.id) : []);
+  renderNewsPeople();
+}
+
+function fillNewsWelcome() {
+  $('newsSubject').value = NEWS_WELCOME.subject;
+  $('newsHeading').value = NEWS_WELCOME.heading;
+  $('newsText').value = NEWS_WELCOME.body;
+  $('newsButtonLabel').value = NEWS_WELCOME.button_label;
+  $('newsButtonUrl').value = NEWS_WELCOME.button_url;
+  refreshNewsPreview();
+}
+
+function queueNewsPreview() {
+  clearTimeout(newsPreviewTimer);
+  newsPreviewTimer = setTimeout(refreshNewsPreview, 500);
+}
+
+async function refreshNewsPreview() {
+  try {
+    const { html } = await adminApi('newsletter_preview', { mail: newsMail(), name: 'Sanne' });
+    if ($('newsPreview')) $('newsPreview').srcdoc = html;
+  } catch (error) {
+    if ($('newsStatus')) $('newsStatus').textContent = error.message;
+  }
+}
+
+async function sendNewsletter(test) {
+  const mail = newsMail();
+  if (!mail.subject.trim() || !mail.body.trim())
+    return ($('newsStatus').textContent = 'Vul een onderwerp en tekst in.');
+  if (!test) {
+    if (!newsPicked.size) return ($('newsStatus').textContent = 'Kies minstens één ontvanger.');
+    const names = adminNews.people.filter(p => newsPicked.has(p.id)).map(p => p.email);
+    const ok = await askConfirm(
+      `Mail versturen naar ${names.length} ${names.length === 1 ? 'persoon' : 'mensen'}?\n\n“${mail.subject}”\n\n${names.join('\n')}\n\nDit kun je niet terugdraaien.`,
+      { confirmLabel: 'Nu versturen' }
+    );
+    if (!ok) return;
+  }
+  ['newsTestBtn', 'newsSendBtn'].forEach(id => ($(id).disabled = true));
+  $('newsStatus').textContent = 'Bezig met versturen…';
+  try {
+    const { sent } = await adminApi('newsletter_send', { mail, ids: [...newsPicked], test });
+    $('newsStatus').textContent = test
+      ? 'Testmail verstuurd. Kijk in je inbox.'
+      : `Verstuurd naar ${sent} ${sent === 1 ? 'persoon' : 'mensen'}.`;
+    if (!test) {
+      newsPicked = new Set();
+      adminNews = await adminApi('newsletter');
+      renderNewsPeople();
+      renderNewsHistory();
+    }
+  } catch (error) {
+    $('newsStatus').textContent = error.message;
+  }
+  ['newsTestBtn', 'newsSendBtn'].forEach(id => ($(id).disabled = false));
 }

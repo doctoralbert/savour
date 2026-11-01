@@ -26,9 +26,30 @@ function findSharedMap(id) {
 function newSharedMap() {
   // Zelf een keukenteam maken is Pro; lid zijn van andermans map blijft gratis.
   if (!demoMode && !isPro()) return askForProSharedMap();
+  const trial = savourPlan.source === 'trial' && !demoMode;
+  $('newSharedTrial').style.display = trial ? 'block' : 'none';
+  if (trial) $('newSharedTrial').innerHTML = teamTrialText(savourPlan.trialEnd, true);
   $('newSharedName').value = '';
   $('newSharedModal').classList.add('open');
   setTimeout(() => $('newSharedName')?.focus(), 30);
+}
+
+// Proefperiode: het keukenteam werkt tot de einddatum en daarna pas weer als de eigenaar Pro heeft. Er gaat niets weg.
+function teamTrialText(end, mine) {
+  return `<b>Proefperiode tot</b> <b translate="no">${esc(formatProDate(end))}</b> <span>${mine ? 'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot je Savour Pro neemt.' : 'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot de eigenaar Savour Pro neemt.'}</span>`;
+}
+
+function teamTrialBanner(m) {
+  if (!m.trialEnd) return '';
+  const mine = isSharedMapOwner(m);
+  return `<div class="team-seats"><div>${teamTrialText(m.trialEnd, mine)}</div>${mine ? `<button class="btn gold" onclick="openPublicInfo('pro')">Bekijk Savour Pro</button>` : ''}</div>`;
+}
+
+// Eigenaar zonder Pro: het keukenteam staat op slot. Alles blijft bewaard, verwijderen of verlaten kan nog wel.
+function teamLockedHtml(m) {
+  const mine = isSharedMapOwner(m);
+  const mid = escJs(m.id);
+  return `<div class="panel team-page kt"><div class="eyebrow shared-eyebrow">Keukenteam</div><h1>${esc(m.name)}</h1><div class="team-seats"><div><b>Dit keukenteam staat op slot</b><span class="muted">${mine ? 'Een keukenteam werkt alleen met Savour Pro. Er is niets weg: alle recepten, mappen en leden blijven bewaard. Neem je Savour Pro, dan gaat het meteen weer open.' : 'De eigenaar heeft geen Savour Pro meer. Er is niets weg: zodra de eigenaar weer Pro heeft, gaat dit keukenteam meteen weer open.'}</span></div>${mine ? `<button class="btn gold" onclick="openPublicInfo('pro')">Bekijk Savour Pro</button>` : ''}</div>${mine ? `<button type="button" class="kt-link" onclick="deleteSharedMap('${mid}')">Keukenteam verwijderen</button>` : `<button type="button" class="kt-link" onclick="leaveSharedMap('${mid}')">Keukenteam verlaten</button>`}</div>`;
 }
 
 function closeNewShared() {
@@ -445,6 +466,11 @@ function renderShared(id) {
       '<div class="empty">Nog geen keukenteam. Maak er een met “Keukenteam maken”, of word lid via een uitnodiging.</div>';
     return;
   }
+  if (m.locked) {
+    $('sharedTitle').textContent = m.name;
+    $('sharedWrap').innerHTML = teamLockedHtml(m);
+    return;
+  }
   const canEdit = canEditShared(m);
   const isOwner = isSharedMapOwner(m);
   const mid = escJs(m.id);
@@ -530,7 +556,7 @@ function renderShared(id) {
     '<div id="ktLibList"></div></section>';
 
   $('sharedWrap').innerHTML =
-    `<div class="panel team-page kt"><div class="folder-detail-head shared-main-head kt-head"><div><div class="eyebrow shared-eyebrow">Keukenteam ${helpButton('shared')}</div><h1>${esc(m.name)}</h1><p class="muted">Eén receptenboek voor de hele brigade.</p></div><div class="shared-map-actions kt-actions">${actions}</div></div>` +
+    `${teamTrialBanner(m)}<div class="panel team-page kt"><div class="folder-detail-head shared-main-head kt-head"><div><div class="eyebrow shared-eyebrow">Keukenteam ${helpButton('shared')}</div><h1>${esc(m.name)}</h1><p class="muted">Eén receptenboek voor de hele brigade.</p></div><div class="shared-map-actions kt-actions">${actions}</div></div>` +
     brigade +
     `<div class="kt-overview">${folders}${recent}</div>` +
     library +

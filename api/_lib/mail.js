@@ -1,5 +1,36 @@
 // E-mail versturen via Resend (RESEND_API_KEY in Vercel), afzender contact@savour.page.
 
+// Meerdere persoonlijke mails tegelijk (Resend: maximaal 100 per keer). Geeft terug hoeveel er zijn aangenomen.
+export async function sendMailBatch(mails) {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) throw new Error('RESEND_API_KEY ontbreekt in Vercel.');
+  let sent = 0;
+  for (let i = 0; i < mails.length; i += 100) {
+    const part = mails.slice(i, i + 100);
+    const response = await fetch('https://api.resend.com/emails/batch', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+        part.map(({ to, subject, html, text, headers }) => ({
+          from: process.env.MAIL_FROM || 'Savour <contact@savour.page>',
+          to: [to],
+          reply_to: 'contact@savour.page',
+          subject,
+          html,
+          text,
+          headers
+        }))
+      )
+    });
+    if (!response.ok) {
+      console.error('Resend batch', response.status, await response.text().catch(() => ''));
+      throw new Error(`Versturen stopte na ${sent} mails. Kijk in Resend wat er misging.`);
+    }
+    sent += part.length;
+  }
+  return sent;
+}
+
 export async function sendMail({ to, subject, html, text, replyTo = 'contact@savour.page' }) {
   const key = process.env.RESEND_API_KEY;
   if (!key || !to) return false;
@@ -131,4 +162,48 @@ Gebruik je liever een ander e-mailadres? Vraag dan aan wie je heeft toegevoegd o
 Het Savour-team
 Savour · KvK 89674871 · Nederland · contact@savour.page`;
   return { subject: `Je hebt Savour Pro via ${team || 'je team'}`, html, text };
+}
+
+// Nieuwsbrief uit /admin. {voornaam} wordt per persoon ingevuld. Lege regel = nieuwe alinea, regels met "- " = lijstje.
+export function newsletterMail({ subject, heading, body, buttonLabel, buttonUrl, name, unsubscribeUrl }) {
+  const first = String(name || '')
+    .trim()
+    .split(/\s+/)[0];
+  const fill = s => String(s || '').replace(/ ?\{voornaam\}/g, first ? ` ${first}` : '');
+  const inline = s => esc(s).replace(/https?:\/\/[^\s<]+/g, u => `<a href="${u}" style="color:#e8ca8d">${u}</a>`);
+  const blocks = fill(body)
+    .split(/\n\s*\n/)
+    .map(b => b.trim())
+    .filter(Boolean);
+  const blockHtml = b => {
+    const lines = b.split('\n');
+    if (lines.every(l => /^(- |\d+\. )/.test(l)))
+      return lines
+        .map(l => {
+          const [, mark, rest] = l.match(/^(- |\d+\. )(.*)$/);
+          return `<p style="margin:0 0 10px"><strong style="color:#e8ca8d">${mark === '- ' ? '•' : esc(mark.trim())}</strong> <span style="color:#d9d3c6">${inline(rest)}</span></p>`;
+        })
+        .join('');
+    return `<p style="margin:0 0 14px">${lines.map(inline).join('<br>')}</p>`;
+  };
+  const button =
+    buttonLabel && buttonUrl
+      ? `<p style="margin:22px 0 22px;text-align:center"><a href="${esc(buttonUrl)}" style="display:inline-block;background:#e8ca8d;color:#111;text-decoration:none;padding:13px 24px;border-radius:999px;font-weight:bold">${esc(buttonLabel)}</a></p>`
+      : '';
+  const html = `<!doctype html><html lang="nl"><body style="margin:0;background:#f5f4ef;font-family:Helvetica,Arial,sans-serif;color:#151716">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f5f4ef;padding:32px 12px"><tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#0d1314;border-radius:14px;overflow:hidden">
+<tr><td style="padding:34px 34px 8px;text-align:center;font-family:Georgia,serif;letter-spacing:.34em;color:#e8ca8d;font-size:20px">SAVOUR</td></tr>
+<tr><td style="padding:8px 34px 30px;color:#eee8dc;font-size:15px;line-height:1.65">
+${heading ? `<h1 style="font-family:Georgia,serif;font-weight:normal;font-size:26px;color:#eee8dc;margin:18px 0 18px">${esc(fill(heading))}</h1>` : ''}
+${blocks.map(blockHtml).join('\n')}
+${button}
+</td></tr>
+<tr><td style="padding:16px 34px 26px;border-top:1px solid #243031;color:#87918b;font-size:12px;line-height:1.6">Je ontvangt deze mail omdat je een account hebt bij Savour. <a href="${esc(unsubscribeUrl)}" style="color:#87918b">Afmelden</a><br>Savour · KvK 89674871 · Nederland · contact@savour.page</td></tr>
+</table></td></tr></table></body></html>`;
+  const text = `${heading ? `${fill(heading)}\n\n` : ''}${fill(body)}${button ? `\n\n${buttonLabel}: ${buttonUrl}` : ''}
+
+Afmelden: ${unsubscribeUrl}
+Savour · KvK 89674871 · Nederland · contact@savour.page`;
+  return { subject: fill(subject), html, text };
 }

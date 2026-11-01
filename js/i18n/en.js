@@ -612,6 +612,24 @@ window.SAVOUR_I18N.en = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.":
       'Unlimited recipes, AI that reads your notes and photos, and kitchen teams for your team.',
     Verbergen: 'Hide',
+    'Proefperiode tot': 'Trial until',
+    'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot je Savour Pro neemt.':
+      'After that everything is kept, but this kitchen team cannot be used until you get Savour Pro.',
+    'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot de eigenaar Savour Pro neemt.':
+      'After that everything is kept, but this kitchen team cannot be used until the owner gets Savour Pro.',
+    'Dit keukenteam staat op slot': 'This kitchen team is locked',
+    'Een keukenteam werkt alleen met Savour Pro. Er is niets weg: alle recepten, mappen en leden blijven bewaard. Neem je Savour Pro, dan gaat het meteen weer open.':
+      'A kitchen team only works with Savour Pro. Nothing is gone: all recipes, folders and members are kept. Get Savour Pro and it opens again right away.',
+    'De eigenaar heeft geen Savour Pro meer. Er is niets weg: zodra de eigenaar weer Pro heeft, gaat dit keukenteam meteen weer open.':
+      'The owner no longer has Savour Pro. Nothing is gone: as soon as the owner has Pro again, this kitchen team opens right away.',
+    'Een keukenteam blijft bewaard, maar is pas weer te gebruiken als de eigenaar Savour Pro heeft.':
+      'A kitchen team is kept, but can only be used again once the owner has Savour Pro.',
+    'Een keukenteam werkt zolang de eigenaar Savour Pro heeft.':
+      'A kitchen team works as long as the owner has Savour Pro.',
+    'Een keukenteam uit je proefperiode blijft bewaard, maar werkt daarna pas weer met Savour Pro.':
+      'A kitchen team from your trial is kept, but after that only works with Savour Pro.',
+    'Af en toe sturen we je nieuws over Savour op het e-mailadres van je account. Afmelden kan met één klik onderaan elke mail.':
+      'We occasionally send news about Savour to your account email address. You can unsubscribe with one click at the bottom of every email.',
     'Welkom bekijken': 'View welcome',
     'Terug naar welkom': 'Back to welcome',
     Sauzen: 'Sauces',

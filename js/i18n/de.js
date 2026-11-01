@@ -615,6 +615,24 @@ window.SAVOUR_I18N.de = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.":
       'Unbegrenzt Rezepte, KI, die deine Notizen und Fotos liest, und Küchenteams für dein Team.',
     Verbergen: 'Ausblenden',
+    'Proefperiode tot': 'Testphase bis',
+    'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot je Savour Pro neemt.':
+      'Danach bleibt alles gespeichert, aber dieses Küchenteam ist erst wieder nutzbar, wenn du Savour Pro nimmst.',
+    'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot de eigenaar Savour Pro neemt.':
+      'Danach bleibt alles gespeichert, aber dieses Küchenteam ist erst wieder nutzbar, wenn der Eigentümer Savour Pro nimmt.',
+    'Dit keukenteam staat op slot': 'Dieses Küchenteam ist gesperrt',
+    'Een keukenteam werkt alleen met Savour Pro. Er is niets weg: alle recepten, mappen en leden blijven bewaard. Neem je Savour Pro, dan gaat het meteen weer open.':
+      'Ein Küchenteam funktioniert nur mit Savour Pro. Nichts ist verloren: Alle Rezepte, Ordner und Mitglieder bleiben gespeichert. Mit Savour Pro ist es sofort wieder offen.',
+    'De eigenaar heeft geen Savour Pro meer. Er is niets weg: zodra de eigenaar weer Pro heeft, gaat dit keukenteam meteen weer open.':
+      'Der Eigentümer hat kein Savour Pro mehr. Nichts ist verloren: Sobald der Eigentümer wieder Pro hat, ist dieses Küchenteam sofort wieder offen.',
+    'Een keukenteam blijft bewaard, maar is pas weer te gebruiken als de eigenaar Savour Pro heeft.':
+      'Ein Küchenteam bleibt gespeichert, ist aber erst wieder nutzbar, wenn der Eigentümer Savour Pro hat.',
+    'Een keukenteam werkt zolang de eigenaar Savour Pro heeft.':
+      'Ein Küchenteam funktioniert, solange der Eigentümer Savour Pro hat.',
+    'Een keukenteam uit je proefperiode blijft bewaard, maar werkt daarna pas weer met Savour Pro.':
+      'Ein Küchenteam aus deiner Testphase bleibt gespeichert, funktioniert danach aber erst wieder mit Savour Pro.',
+    'Af en toe sturen we je nieuws over Savour op het e-mailadres van je account. Afmelden kan met één klik onderaan elke mail.':
+      'Gelegentlich senden wir dir Neuigkeiten zu Savour an die E-Mail-Adresse deines Kontos. Abmelden kannst du dich mit einem Klick unten in jeder Mail.',
     'Welkom bekijken': 'Willkommen ansehen',
     'Terug naar welkom': 'Zurück zum Willkommen',
     Sauzen: 'Saucen',

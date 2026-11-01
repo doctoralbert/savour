@@ -23,10 +23,10 @@ import {
   storageDownloadUrl,
   storageRemove
 } from './_lib/supabase-admin.js';
-import { sendMail } from './_lib/mail.js';
+import { newsletterMail, sendMail, sendMailBatch } from './_lib/mail.js';
 import { intakeMail } from './_lib/intake-mail.js';
 import { INTAKE_BUCKET, PACKAGES, FREE_INTRO, deliverLink, packageLabel } from './_lib/intake.js';
-import { randomBytes } from 'node:crypto';
+import { createHmac, randomBytes } from 'node:crypto';
 import { siteOrigin } from './_lib/origin.js';
 import { stripe, hasStripe, PLAN_MONTHLY_EUR } from './_lib/stripe.js';
 import { MEASURED_HOURS } from './_lib/uren.js';
@@ -1279,7 +1279,115 @@ async function deleteFinanceItem(key, id) {
   return { ok: true };
 }
 
+// ---- Nieuwsbrief: mail aan accounts, in huisstijl. Afmeldingen en verzendlijst staan in admin_settings. ----
+const NEWS_OPTOUT = 'newsletter_optout';
+const NEWS_SENT = 'newsletter_sent';
+
+const newsToken = id =>
+  createHmac('sha256', process.env.SUPABASE_SERVICE_ROLE_KEY || '')
+    .update(`afmelden:${id}`)
+    .digest('hex')
+    .slice(0, 32);
+const newsUnsubscribeUrl = id => `https://savour.page/api/admin?afmelden=${id}&t=${newsToken(id)}`;
+
+function newsFields(mail = {}) {
+  const clean = (v, max) =>
+    String(v || '')
+      .trim()
+      .slice(0, max);
+  const out = {
+    subject: clean(mail.subject, 150),
+    heading: clean(mail.heading, 150),
+    body: clean(mail.body, 10000),
+    buttonLabel: clean(mail.button_label, 60),
+    buttonUrl: clean(mail.button_url, 500)
+  };
+  if (out.buttonUrl && !/^https:\/\//.test(out.buttonUrl)) throw new Error('De knoplink moet met https:// beginnen.');
+  return out;
+}
+
+async function newsPeople() {
+  const [users, profiles, stats, optout] = await Promise.all([
+    listUsers(),
+    select('profiles', 'select=id,name'),
+    rpc('savour_admin_user_stats', {}),
+    settingList(NEWS_OPTOUT)
+  ]);
+  const names = new Map((profiles || []).map(p => [p.id, p.name]));
+  const recipes = new Map((stats || []).map(s => [s.user_id, Number(s.recipes || 0)]));
+  const off = new Set(optout);
+  return users
+    .map(u => ({
+      id: u.id,
+      email: u.email,
+      name: names.get(u.id) || u.user_metadata?.name || '',
+      created_at: u.created_at,
+      recipes: recipes.get(u.id) || 0,
+      confirmed: !!(u.email_confirmed_at || u.confirmed_at),
+      unsubscribed: off.has(u.id)
+    }))
+    .sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+}
+
+async function newsSend(mail, ids, adminEmail, test) {
+  const fields = newsFields(mail);
+  if (!fields.subject || !fields.body) throw new Error('Vul een onderwerp en tekst in.');
+  const people = await newsPeople();
+  if (test) {
+    const me = people.find(p => p.email === adminEmail) || { id: 'test', email: adminEmail, name: '' };
+    const m = newsletterMail({ ...fields, name: me.name, unsubscribeUrl: newsUnsubscribeUrl(me.id) });
+    await sendMailBatch([{ to: adminEmail, ...m, subject: `[Test] ${m.subject}` }]);
+    return { ok: true, sent: 1 };
+  }
+  const wanted = new Set(ids || []);
+  const list = people.filter(p => wanted.has(p.id) && p.confirmed && !p.unsubscribed);
+  if (!list.length) throw new Error('Kies minstens één ontvanger.');
+  const sent = await sendMailBatch(
+    list.map(p => {
+      const unsubscribeUrl = newsUnsubscribeUrl(p.id);
+      return {
+        to: p.email,
+        ...newsletterMail({ ...fields, name: p.name, unsubscribeUrl }),
+        headers: { 'List-Unsubscribe': `<${unsubscribeUrl}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' }
+      };
+    })
+  );
+  const history = await settingList(NEWS_SENT);
+  await saveSettingList(
+    NEWS_SENT,
+    [{ date: new Date().toISOString(), subject: fields.subject, count: sent }, ...history].slice(0, 100)
+  );
+  return { ok: true, sent };
+}
+
+// Link onderaan elke mail. Openen vraagt eerst om een klik, zodat een mailscanner niemand per ongeluk afmeldt.
+async function newsUnsubscribe(req, res) {
+  const id = String(req.query.afmelden);
+  const page = (title, content) =>
+    res
+      .status(200)
+      .setHeader('Content-Type', 'text/html; charset=utf-8')
+      .send(
+        `<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${title} · Savour</title></head><body style="margin:0;background:#0d1314;color:#eee8dc;font-family:Helvetica,Arial,sans-serif;text-align:center;padding:64px 20px"><div style="font-family:Georgia,serif;letter-spacing:.34em;color:#e8ca8d;font-size:20px">SAVOUR</div><h1 style="font-family:Georgia,serif;font-weight:normal;font-size:26px">${title}</h1>${content}</body></html>`
+      );
+  if (!/^[0-9a-f-]{36}$/.test(id) || req.query.t !== newsToken(id))
+    return page('Deze link klopt niet', '<p>Stuur ons gerust een mail: contact@savour.page</p>');
+  if (req.method === 'POST') {
+    const list = await settingList(NEWS_OPTOUT);
+    if (!list.includes(id)) await saveSettingList(NEWS_OPTOUT, [...list, id]);
+    return page(
+      'Je bent afgemeld',
+      '<p>Je krijgt geen nieuws meer van ons. Mails over je account blijven wel komen.</p>'
+    );
+  }
+  return page(
+    'Afmelden voor nieuws van Savour?',
+    '<form method="post"><button style="background:#e8ca8d;color:#111;border:0;border-radius:999px;padding:13px 24px;font-size:15px;font-weight:bold;cursor:pointer">Afmelden</button></form>'
+  );
+}
+
 export default async function handler(req, res) {
+  if (req.query?.afmelden) return newsUnsubscribe(req, res);
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const user = await getUserFromRequest(req);
   // Geen (geldige) inlog-sleutel is iets anders dan geen beheerder: de pagina ververst dan zelf de sessie.
@@ -1304,6 +1412,15 @@ export default async function handler(req, res) {
     if (action === 'errors') return res.status(200).json(await errorGroups());
     if (action === 'adsense') return res.status(200).json(await adsenseReport());
     if (action === 'finance') return res.status(200).json(await financeOverview());
+    if (action === 'newsletter')
+      return res.status(200).json({ people: await newsPeople(), sent: await settingList(NEWS_SENT) });
+    if (action === 'newsletter_preview')
+      return res.status(200).json({
+        html: newsletterMail({ ...newsFields(req.body?.mail), name: name || '', unsubscribeUrl: 'https://savour.page' })
+          .html
+      });
+    if (action === 'newsletter_send')
+      return res.status(200).json(await newsSend(req.body?.mail, req.body?.ids, user.email, !!req.body?.test));
     if (action === 'finance_save_cost') return res.status(200).json(await saveFinanceCost(req.body?.cost));
     if (action === 'finance_save_hours') return res.status(200).json(await saveFinanceHours(req.body?.entry));
     if (action === 'finance_delete_cost')
