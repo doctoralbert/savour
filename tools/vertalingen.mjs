@@ -1503,6 +1503,9 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Eigen factor ×","Custom factor ×","Eigener Faktor ×","Factor propio ×"],
+  ["Ik heb","I have","Ich habe","Tengo"],
+  ["Ingrediënt","Ingredient","Zutat","Ingrediente"],
   ["Kleiner","Smaller","Kleiner","Más pequeño"],
   ["Groter","Larger","Größer","Más grande"],
   ["Tekstgrootte","Text size","Textgröße","Tamaño del texto"],

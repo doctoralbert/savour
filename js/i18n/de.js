@@ -615,6 +615,9 @@ window.SAVOUR_I18N.de = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Unbegrenzt Rezepte, KI, die deine Notizen und Fotos liest, und geteilte Ordner für dein Team.',
     Verbergen: 'Ausblenden',
+    'Eigen factor ×': 'Eigener Faktor ×',
+    'Ik heb': 'Ich habe',
+    Ingrediënt: 'Zutat',
     Kleiner: 'Kleiner',
     Groter: 'Größer',
     Tekstgrootte: 'Textgröße',

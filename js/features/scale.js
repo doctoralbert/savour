@@ -343,15 +343,57 @@ function stepRecipeYield(direction) {
 
 function resetRecipeYield() {
   setRecipeFactor(1);
+  if ($('rpFactorInput')) $('rpFactorInput').value = '';
+  if ($('rpHaveInput')) $('rpHaveInput').value = '';
 }
 
-// Knoppen ½× 2× 3× 4× onder (of in plaats van) de opbrengst.
+// Elke factor kan, van een klein proefje (0,1) tot een grote batch (250).
+function setRecipeFactorInput(value) {
+  const factor = parseAmount(value);
+  if (!Number.isFinite(factor) || factor < 0.01 || factor > 1000) return;
+  if ($('rpHaveInput')) $('rpHaveInput').value = '';
+  setRecipeFactor(factor);
+}
+
+// "Ik heb 3 kg biet": het hele recept rekent mee op wat je van één ingrediënt hebt. Ook met een andere eenheid
+// dan in het recept; een kaal getal in het recept ("6000 rettich") telt dan als gram of milliliter.
+function scaleOnIngredient() {
+  const { r } = recipePageYield();
+  const line = r?.ingredients?.[Number($('rpHaveIngredient')?.value)];
+  const from = parseIngredientAmount(line);
+  const have = parseIngredientAmount($('rpHaveInput')?.value);
+  if (!from || !have || !(from.value > 0) || !(have.value > 0)) return;
+  const sameKind = have.unit && (!from.unit || from.unit.family === have.unit.family);
+  const factor = sameKind
+    ? (have.value * have.unit.base) / (from.value * (from.unit?.base || 1))
+    : have.value / from.value;
+  if (!(factor >= 0.01 && factor <= 1000)) return;
+  if ($('rpFactorInput')) $('rpFactorInput').value = '';
+  setRecipeFactor(factor);
+}
+
+function recipeScaleToolsHtml(ingredients) {
+  const options = ingredients
+    .map((line, i) => (parseIngredientAmount(line) ? `<option value="${i}">${esc(line)}</option>` : ''))
+    .join('');
+  return `<div class="rp-scale-more"><label class="rp-scale-field">Eigen factor × <input id="rpFactorInput" inputmode="decimal" placeholder="1,5" oninput="setRecipeFactorInput(this.value)"></label>${
+    options
+      ? `<label class="rp-scale-field">Ik heb <input id="rpHaveInput" placeholder="3 kg" oninput="scaleOnIngredient()"></label><select id="rpHaveIngredient" aria-label="Ingrediënt" onchange="scaleOnIngredient()">${options}</select>`
+      : ''
+  }</div>`;
+}
+
+// Knoppen ¼× t/m 10× onder (of in plaats van) de opbrengst.
 function recipeMultipliersHtml(handler = 'setRecipeFactor') {
   return `<div class="rp-multipliers" role="group" aria-label="${esc(t('Omrekenen'))}">${[
+    [0.25, '¼×'],
     [0.5, '½×'],
+    [1.5, '1½×'],
     [2, '2×'],
     [3, '3×'],
-    [4, '4×']
+    [4, '4×'],
+    [5, '5×'],
+    [10, '10×']
   ]
     .map(([f, label]) => `<button type="button" data-factor="${f}" onclick="${handler}(${f})">${label}</button>`)
     .join('')}</div>`;

@@ -85,9 +85,9 @@ function openRecipe(id, context = 'library') {
     steps.length ? `${steps.length} stappen` : ''
   ].filter(Boolean);
   const yieldControl = base
-    ? `<div class="rp-yield" role="group" aria-label="Opbrengst omrekenen"><span class="rp-yield-label">Opbrengst</span><div class="rp-stepper"><button type="button" class="rp-step" onclick="stepRecipeYield(-1)" aria-label="Minder">${icon('minus')}</button><input id="rpYieldInput" inputmode="decimal" value="${esc(formatNumber(base.value))}" oninput="setRecipeYield(this.value)" aria-label="Nieuwe opbrengst"><span class="rp-yield-unit">${esc(base.unit)}</span><button type="button" class="rp-step" onclick="stepRecipeYield(1)" aria-label="Meer">${icon('plus')}</button></div><span id="rpFactor" class="rp-factor"></span><button type="button" id="rpYieldReset" class="btn-quiet" onclick="resetRecipeYield()" hidden>${icon('undo', { size: 16 })} Origineel</button>${recipeMultipliersHtml()}</div>`
+    ? `<div class="rp-yield" role="group" aria-label="Opbrengst omrekenen"><span class="rp-yield-label">Opbrengst</span><div class="rp-stepper"><button type="button" class="rp-step" onclick="stepRecipeYield(-1)" aria-label="Minder">${icon('minus')}</button><input id="rpYieldInput" inputmode="decimal" value="${esc(formatNumber(base.value))}" oninput="setRecipeYield(this.value)" aria-label="Nieuwe opbrengst"><span class="rp-yield-unit">${esc(base.unit)}</span><button type="button" class="rp-step" onclick="stepRecipeYield(1)" aria-label="Meer">${icon('plus')}</button></div><span id="rpFactor" class="rp-factor"></span><button type="button" id="rpYieldReset" class="btn-quiet" onclick="resetRecipeYield()" hidden>${icon('undo', { size: 16 })} Origineel</button>${recipeMultipliersHtml()}${recipeScaleToolsHtml(ingredients)}</div>`
     : ingredients.length
-      ? `<div class="rp-yield" role="group" aria-label="Omrekenen"><span class="rp-yield-label">Omrekenen</span>${recipeMultipliersHtml()}<span id="rpFactor" class="rp-factor"></span><button type="button" id="rpYieldReset" class="btn-quiet" onclick="resetRecipeYield()" hidden>${icon('undo', { size: 16 })} Origineel</button></div>`
+      ? `<div class="rp-yield" role="group" aria-label="Omrekenen"><span class="rp-yield-label">Omrekenen</span>${recipeMultipliersHtml()}<span id="rpFactor" class="rp-factor"></span><button type="button" id="rpYieldReset" class="btn-quiet" onclick="resetRecipeYield()" hidden>${icon('undo', { size: 16 })} Origineel</button>${recipeScaleToolsHtml(ingredients)}</div>`
       : '';
   window._savourScaled = null;
   $('detailWrap').innerHTML = `<article class="rp">
@@ -103,7 +103,6 @@ function openRecipe(id, context = 'library') {
         ${own ? `<button type="button" class="btn" onclick="editRecipe('${rid}')">${icon('edit')}Bewerken</button>` : ''}
         ${r.allowCopy ? `<button type="button" class="btn" onclick="copyLinkRecipe('${rid}')">${icon('plus')}Toevoegen aan mijn recepten</button>` : ''}
         <button type="button" class="btn" onclick="printCurrentRecipe()">${icon('print')}Printen</button>
-        ${recipeSizeControl()}
         ${own ? `<button type="button" class="btn" onclick="shareRecipe('${rid}')">${icon('share')}Delen</button>` : ''}
         ${own ? `<button type="button" class="btn rp-icon-btn${isFav ? ' is-on' : ''}" id="rpFavorite" onclick="toggleRecipePageFavorite('${rid}')" aria-pressed="${isFav}" aria-label="Favoriet" title="Favoriet">${icon('star', { filled: isFav })}</button>` : ''}
         ${menuItems.length ? `<details class="rp-more"><summary class="btn rp-icon-btn" aria-label="Meer acties" title="Meer acties">${icon('more')}</summary><div class="rp-menu">${menuItems.join('')}</div></details>` : ''}
@@ -143,38 +142,6 @@ async function toggleRecipePageFavorite(id) {
   btn.innerHTML = icon('star', { filled: on });
 }
 
-// Tekstgrootte van ingrediënten en bereiding, voor elk recept en onthouden op dit apparaat.
-const RECIPE_SIZES = [0.8, 0.9, 1, 1.15, 1.3, 1.5, 1.75, 2, 2.5];
-const RECIPE_SIZE_KEY = 'savour_recipe_size';
-function currentRecipeSize() {
-  try {
-    const saved = Number(localStorage.getItem(RECIPE_SIZE_KEY));
-    if (RECIPE_SIZES.includes(saved)) return saved;
-  } catch (e) {}
-  return 1;
-}
-
-function recipeSizeControl(extra = '') {
-  const size = currentRecipeSize();
-  document.documentElement.style.setProperty('--rp-zoom', size);
-  const first = size === RECIPE_SIZES[0];
-  const last = size === RECIPE_SIZES[RECIPE_SIZES.length - 1];
-  return `<div class="rp-size${extra}" role="group" aria-label="Tekstgrootte"><button type="button" onclick="changeRecipeSize(-1)" aria-label="Kleiner" title="Kleiner"${first ? ' disabled' : ''}>A−</button><span class="rp-size-value">${Math.round(size * 100)}%</span><button type="button" onclick="changeRecipeSize(1)" aria-label="Groter" title="Groter"${last ? ' disabled' : ''}>A+</button></div>`;
-}
-
-function changeRecipeSize(step) {
-  const i = RECIPE_SIZES.indexOf(currentRecipeSize());
-  const size = RECIPE_SIZES[Math.min(RECIPE_SIZES.length - 1, Math.max(0, i + step))];
-  try {
-    localStorage.setItem(RECIPE_SIZE_KEY, size);
-  } catch (e) {}
-  document.documentElement.style.setProperty('--rp-zoom', size);
-  // Knoppen op de receptpagina en in de kookmodus gelijk houden.
-  document.querySelectorAll('.rp-size').forEach(el => {
-    el.outerHTML = recipeSizeControl(el.classList.contains('cook-size') ? ' cook-size' : '');
-  });
-}
-
 // Kookmodus: alleen het recept in grote letters, en het scherm blijft aan (waar de browser dat toestaat).
 let cookWakeLock = null;
 async function toggleCookMode(force) {
@@ -184,8 +151,7 @@ async function toggleCookMode(force) {
     if (!$('cookModeExit'))
       document.body.insertAdjacentHTML(
         'beforeend',
-        `<button type="button" id="cookModeExit" class="cook-exit" onclick="toggleCookMode(false)">${icon('close')}Kookmodus sluiten</button>` +
-          recipeSizeControl(' cook-size')
+        `<button type="button" id="cookModeExit" class="cook-exit" onclick="toggleCookMode(false)">${icon('close')}Kookmodus sluiten</button>`
       );
     window.scrollTo(0, 0);
     try {
@@ -195,7 +161,6 @@ async function toggleCookMode(force) {
     }
   } else {
     $('cookModeExit')?.remove();
-    document.querySelector('.cook-size')?.remove();
     try {
       await cookWakeLock?.release();
     } catch (e) {}

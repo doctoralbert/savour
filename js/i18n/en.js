@@ -612,6 +612,9 @@ window.SAVOUR_I18N.en = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Unlimited recipes, AI that reads your notes and photos, and shared folders for your team.',
     Verbergen: 'Hide',
+    'Eigen factor ×': 'Custom factor ×',
+    'Ik heb': 'I have',
+    Ingrediënt: 'Ingredient',
     Kleiner: 'Smaller',
     Groter: 'Larger',
     Tekstgrootte: 'Text size',
