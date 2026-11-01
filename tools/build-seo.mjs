@@ -1,7 +1,7 @@
 // Bouwt de publieke website: de startpagina (in index.html), de losse pagina's (functies, voor wie, over ons,
 // prijzen, blog, FAQ, gids, contact, voorwaarden, privacy) in het Nederlands, Engels, Duits en Spaans, en sitemap.xml.
 // Zoekmachines en AI-assistenten lezen deze gewone HTML zonder JavaScript.
-// Teksten: tools/site-content.mjs en tools/site-blog.mjs (NL en EN), tools/site-pages-de.mjs en -es.mjs (DE en ES),
+// Teksten: tools/site-content.mjs en tools/site-blog.mjs (NL en EN), tools/site-pages-de.mjs, -es.mjs en -fr.mjs (DE, ES en FR),
 // js/features/public-pages.js + de Pro-pagina (uit de app, vertaald via tools/vertalingen.mjs).
 // Draai na het aanpassen van teksten:  node tools/build-i18n.mjs && node tools/build-seo.mjs
 import fs from 'node:fs';
@@ -13,10 +13,19 @@ import { KLADJE_REAL } from './site-kladje.mjs';
 import { BLOG } from './site-blog.mjs';
 import { DE } from './site-pages-de.mjs';
 import { ES } from './site-pages-es.mjs';
+import { FR } from './site-pages-fr.mjs';
+import { EXTRA_FR, APP_PAGE_FR, DELIVER_FR, DELIVER_FLOW_FR, SERVICE_FR, KLADJE_FR } from './site-fr-extra.mjs';
+import { stringsFr, patternsFr } from './vertalingen-fr.mjs';
 import { APP_PAGE } from './site-app.mjs';
 import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
 import { DELIVER, DELIVER_FLOW } from './site-deliver.mjs';
-const PAGES = { de: DE, es: ES };
+const PAGES = { de: DE, es: ES, fr: FR };
+EXTRA_LANGS.fr = EXTRA_FR;
+APP_PAGE.fr = APP_PAGE_FR;
+DELIVER.fr = DELIVER_FR;
+DELIVER_FLOW.fr = DELIVER_FLOW_FR;
+SERVICE.fr = SERVICE_FR;
+KLADJE_REAL.fr = KLADJE_FR;
 
 // Nieuwste blogartikelen eerst.
 POSTS.unshift(...BLOG);
@@ -27,7 +36,7 @@ const ROOT = new URL('../', import.meta.url);
 const HERO_FILE = new URL('assets/keuken/hero-keuken.jpg', ROOT);
 const HERO_PHOTO = fs.existsSync(HERO_FILE) ? `/assets/keuken/hero-keuken.jpg?v=${fs.statSync(HERO_FILE).size}` : '';
 const SITE = 'https://savour.page';
-const LANGS = ['nl', 'en', 'de', 'es'];
+const LANGS = ['nl', 'en', 'de', 'es', 'fr'];
 const read = p => fs.readFileSync(new URL(p, ROOT), 'utf8');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const url = slug => `${SITE}/${slug}`.replace(/\/$/, '') || SITE;
@@ -46,13 +55,15 @@ vm.runInContext('renderProPage(proHost)', ctx);
 const proBody = proHost.innerHTML.replace(/<button[^>]*>[\s\S]*?<\/button>/g, '');
 
 // Vertaling van die app-teksten (zelfde regels als js/core/i18n.js, per stukje tekst tussen tags).
-// Kolommen in tools/vertalingen.mjs: 0 = NL, 1 = EN, 2 = DE, 3 = ES.
-const COLUMN = { en: 1, de: 2, es: 3 };
-const missing = { en: new Set(), de: new Set(), es: new Set() };
+// Kolommen in tools/vertalingen.mjs: 0 = NL, 1 = EN, 2 = DE, 3 = ES; Frans (4) komt uit tools/vertalingen-fr.mjs.
+const COLUMN = { en: 1, de: 2, es: 3, fr: 4 };
+const missing = { en: new Set(), de: new Set(), es: new Set(), fr: new Set() };
+const allStrings = strings.map(r => [r[0], r[1], r[2], r[3], stringsFr[r[0].replace(/\s+/g, ' ').trim()]]);
+const allPatterns = patterns.map(r => [r[0], r[1], r[2], r[3], patternsFr[r[0]]]);
 const translators = Object.fromEntries(
   Object.entries(COLUMN).map(([lang, col]) => {
-    const dict = new Map(strings.filter(r => r[col]).map(r => [r[0].replace(/\s+/g, ' ').trim(), r[col]]));
-    const pats = patterns.filter(r => r[col]).map(r => [new RegExp(r[0]), r[col]]);
+    const dict = new Map(allStrings.filter(r => r[col]).map(r => [r[0].replace(/\s+/g, ' ').trim(), r[col]]));
+    const pats = allPatterns.filter(r => r[col]).map(r => [new RegExp(r[0]), r[col]]);
     const text = t => {
       const key = t.replace(/­/g, '').replace(/\s+/g, ' ').trim();
       if (!key || !/\p{L}/u.test(key)) return t;
@@ -143,7 +154,7 @@ const blogSlug = { nl: 'blog', en: 'en/blog' };
 {
   const svc = { id: 'inladen', service: true, nl: SERVICE.nl.feature, en: SERVICE.en.feature };
   FEATURES.splice(FEATURES.findIndex(f => f.soon), 0, svc);
-  for (const [l, P] of [['de', DE], ['es', ES]]) {
+  for (const [l, P] of [['de', DE], ['es', ES], ['fr', FR]]) {
     const { menu, short, ...rest } = SERVICE[l].feature;
     EXTRA_LANGS[l].items.inladen = [menu, short];
     P.features.inladen = rest;
@@ -151,9 +162,9 @@ const blogSlug = { nl: 'blog', en: 'en/blog' };
 }
 
 // Duits en Spaans: menu en startpagina uit tools/site-content-extra.mjs, alle andere pagina's uit
-// tools/site-pages-de.mjs en tools/site-pages-es.mjs. Ontbreekt er een vertaling, dan stopt het bouwen.
-const HOME_LANGS = ['nl', 'en', 'de', 'es'];
-for (const lang of ['de', 'es']) {
+// tools/site-pages-de.mjs, -es.mjs en -fr.mjs. Ontbreekt er een vertaling, dan stopt het bouwen.
+const HOME_LANGS = ['nl', 'en', 'de', 'es', 'fr'];
+for (const lang of ['de', 'es', 'fr']) {
   const x = EXTRA_LANGS[lang];
   const P = PAGES[lang];
   const need = (v, what) => {
@@ -175,20 +186,22 @@ for (const lang of ['de', 'es']) {
 for (const lang of HOME_LANGS) HOME[lang].faq.push(...SERVICE[lang].faqs.slice(0, 2));
 // Alle taalversies van een pagina (voor hreflang en de taalknop).
 const slugsOf = item => Object.fromEntries(LANGS.map(l => [l, typeof item[l] === 'string' ? item[l] : item[l].slug]));
-const LOCALE = { nl: 'nl-NL', en: 'en-GB', de: 'de-DE', es: 'es-ES' };
+const LOCALE = { nl: 'nl-NL', en: 'en-GB', de: 'de-DE', es: 'es-ES', fr: 'fr-FR' };
 const BLOG_TITLE = {
   nl: 'Blog over receptbeheer en de keuken — Savour',
   en: 'Blog about recipe management and the kitchen — Savour',
   de: DE.blogTitle,
-  es: ES.blogTitle
+  es: ES.blogTitle,
+  fr: FR.blogTitle
 };
-const SOON_MAIL = { nl: 'Wil je meedenken? Mail ons op', en: 'Want to share ideas? Email us at', de: DE.ui.soonMail, es: ES.ui.soonMail };
+const SOON_MAIL = { nl: 'Wil je meedenken? Mail ons op', en: 'Want to share ideas? Email us at', de: DE.ui.soonMail, es: ES.ui.soonMail, fr: FR.ui.soonMail };
 // Contactformulier op de losse contactpagina (versturen via js/site.js naar /api/bug-report).
 const FORM_TEXT = {
   nl: ['Stuur ons een bericht', 'Naam', 'E-mailadres', 'Onderwerp', 'Bericht', 'Waar kunnen we je mee helpen?', 'Bericht versturen', 'Bezig…', 'Bedankt. Je bericht is verstuurd; we reageren zo snel mogelijk.', 'Versturen is mislukt. Mail ons gerust op contact@savour.page.'],
   en: ['Send us a message', 'Name', 'Email address', 'Subject', 'Message', 'How can we help?', 'Send message', 'Sending…', 'Thank you. Your message has been sent; we will reply as soon as possible.', 'Sending failed. Feel free to email us at contact@savour.page.'],
   de: ['Schreib uns eine Nachricht', 'Name', 'E-Mail-Adresse', 'Betreff', 'Nachricht', 'Wie können wir helfen?', 'Nachricht senden', 'Wird gesendet…', 'Danke. Deine Nachricht wurde gesendet; wir antworten so schnell wie möglich.', 'Senden fehlgeschlagen. Schreib uns gern an contact@savour.page.'],
-  es: ['Envíanos un mensaje', 'Nombre', 'Correo electrónico', 'Asunto', 'Mensaje', '¿En qué podemos ayudarte?', 'Enviar mensaje', 'Enviando…', 'Gracias. Tu mensaje se ha enviado; te responderemos lo antes posible.', 'No se pudo enviar. Escríbenos a contact@savour.page.']
+  es: ['Envíanos un mensaje', 'Nombre', 'Correo electrónico', 'Asunto', 'Mensaje', '¿En qué podemos ayudarte?', 'Enviar mensaje', 'Enviando…', 'Gracias. Tu mensaje se ha enviado; te responderemos lo antes posible.', 'No se pudo enviar. Escríbenos a contact@savour.page.'],
+  fr: ['Envoie-nous un message', 'Nom', 'Adresse e-mail', 'Objet', 'Message', 'Comment pouvons-nous t\'aider ?', 'Envoyer le message', 'Envoi en cours…', 'Merci. Ton message a bien été envoyé ; nous te répondrons dès que possible.', 'L\'envoi a échoué. Écris-nous directement à contact@savour.page.']
 };
 function contactForm(lang) {
   const [title, name, email, subject, message, placeholder, send, busy, ok, fail] = FORM_TEXT[lang];
@@ -196,12 +209,12 @@ function contactForm(lang) {
   return `<h2>${title}</h2><form class="site-form" data-contact-form data-busy="${esc(busy)}" data-ok="${esc(ok)}" data-fail="${esc(fail)}" novalidate>${f('cfName', name, '<input id="cfName" name="name" autocomplete="name" required maxlength="120">')}${f('cfEmail', email, '<input id="cfEmail" name="email" type="email" autocomplete="email" required maxlength="240">')}${f('cfSubject', subject, '<input id="cfSubject" name="subject" required maxlength="180">')}${f('cfMessage', message, `<textarea id="cfMessage" name="message" rows="6" required maxlength="12000" placeholder="${esc(placeholder)}"></textarea>`)}<div class="site-form-trap" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div><div class="site-form-row"><button class="site-btn solid" type="submit">${send}</button><span class="site-form-status" aria-live="polite"></span></div></form>`;
 }
 const homePath = lang => (lang === 'nl' ? '/' : '/' + lang);
-const LANG_LABEL = { nl: 'NL', en: 'EN', de: 'DE', es: 'ES' };
-const LANG_NAME = { nl: 'Nederlands', en: 'English', de: 'Deutsch', es: 'Español' };
+const LANG_LABEL = { nl: 'NL', en: 'EN', de: 'DE', es: 'ES', fr: 'FR' };
+const LANG_NAME = { nl: 'Nederlands', en: 'English', de: 'Deutsch', es: 'Español', fr: 'Français' };
 // Taalkeuze. In de app wisselt hij zonder herladen; op losse pagina's gaat NL/EN naar dezelfde pagina in de
 // andere taal en DE/ES naar de startpagina in die taal.
 function langSwitch(lang, alts, inApp) {
-  // Eén knop met de huidige taal; klikken opent een klein venster met de vier talen (zoals in de app).
+  // Eén knop met de huidige taal; klikken opent een klein venster met de talen (zoals in de app).
   return `<details class="site-lang" translate="no"><summary aria-label="Taal / Language">${LANG_LABEL[lang]}</summary><div class="site-lang-menu">${HOME_LANGS.map(l => {
     const target = inApp ? homePath(l) : alts?.[l] || homePath(l);
     return `<a href="${target}" hreflang="${l}" data-set-lang="${l}"${l === lang ? ' aria-current="true"' : ''}><span>${LANG_LABEL[l]}</span>${LANG_NAME[l]}</a>`;
@@ -276,7 +289,7 @@ function ctaBlock(lang, inApp) {
 
 // ---- Import service ----
 // Bedragen staan als "€164,99" in site-service.mjs; in het Engels met een punt, in het Duits en Spaans met het euroteken erachter.
-const euro = (p, lang) => (lang === 'de' || lang === 'es' ? p.slice(1) + ' €' : lang === 'en' ? p.replace(',', '.') : p);
+const euro = (p, lang) => (lang === 'de' || lang === 'es' || lang === 'fr' ? p.slice(1) + ' €' : lang === 'en' ? p.replace(',', '.') : p);
 const serviceHref = lang => href(FEATURES.find(f => f.service)[lang].slug);
 // Pakketten voor de knoppen en de keuzelijst in het formulier: [label, prijs]; de laatste is "meer, in overleg".
 const servicePackages = lang => {
@@ -379,7 +392,8 @@ const SHOT_ALT = {
   nl: ['Receptenbibliotheek in Savour op een laptop', 'Receptscherm in Savour op een telefoon'],
   en: ['Recipe library in Savour on a laptop', 'Recipe screen in Savour on a phone'],
   de: ['Rezeptbibliothek in Savour auf einem Laptop', 'Rezeptansicht in Savour auf dem Handy'],
-  es: ['Biblioteca de recetas en Savour en un portátil', 'Pantalla de receta en Savour en un móvil']
+  es: ['Biblioteca de recetas en Savour en un portátil', 'Pantalla de receta en Savour en un móvil'],
+  fr: ['Bibliothèque de recettes Savour sur un ordinateur portable', 'Écran de recette Savour sur un téléphone']
 };
 function homeBody(lang, inApp) {
   const h = HOME[lang];
@@ -437,7 +451,7 @@ ${alternates.map(([l, h]) => `<link rel="alternate" hreflang="${l}" href="${h}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${canonical}">
 <meta property="og:image" content="${SITE}/assets/savour-og.png?v=2">
-<meta property="og:locale" content="${{ nl: 'nl_NL', en: 'en_GB', de: 'de_DE', es: 'es_ES' }[lang] || 'en_GB'}">
+<meta property="og:locale" content="${{ nl: 'nl_NL', en: 'en_GB', de: 'de_DE', es: 'es_ES', fr: 'fr_FR' }[lang] || 'en_GB'}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0d1314">
 <link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/favicon-96.png"><link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/favicon-192.png">
@@ -751,6 +765,13 @@ const HOME_META = {
     ogTitle: 'Savour — gestión de recetas para cocinas profesionales',
     ogDesc: 'De la nota a una receta que funciona. Todo tu recetario en un solo sitio, en ordenador y móvil, compartido con tu equipo de cocina.',
     locale: 'es_ES'
+  },
+  fr: {
+    title: 'Savour — application de recettes pour chefs : organiser et partager',
+    desc: "Organise toutes tes recettes dans une application : importe Word, PDF et notes manuscrites, partage-les avec ton équipe et imprime des dossiers entiers.",
+    ogTitle: 'Savour — gestion des recettes pour cuisines professionnelles',
+    ogDesc: 'De la note griffonnée à la recette qui fonctionne. Tout ton livre de recettes au même endroit, sur ordinateur et téléphone, partagé avec ton équipe de cuisine.',
+    locale: 'fr_FR'
   }
 };
 {
@@ -798,7 +819,7 @@ const HOME_META = {
   h = withShells(h, 'nl');
   h = withFaq(h, 'nl');
   fs.writeFileSync(file, h, 'utf8');
-  for (const lang of ['en', 'de', 'es']) {
+  for (const lang of ['en', 'de', 'es', 'fr']) {
     const m = HOME_META[lang];
     const home = `${SITE}/${lang}`;
     const swap = (re, to) => {
@@ -865,7 +886,7 @@ const HOME_META = {
     '## Blog\n\n' +
     POSTS.map(
       p =>
-        `- [${p.en.title}](${url(p.en.slug)}) · [NL](${url(p.nl.slug)}) · [DE](${url(p.de.slug)}) · [ES](${url(p.es.slug)})`
+        `- [${p.en.title}](${url(p.en.slug)}) · [NL](${url(p.nl.slug)}) · [DE](${url(p.de.slug)}) · [ES](${url(p.es.slug)}) · [FR](${url(p.fr.slug)})`
     ).join('\n') +
     '\n\n';
   if (/## Blog\n[\s\S]*?(?=## )/.test(t)) t = t.replace(/## Blog\n[\s\S]*?(?=## )/, () => blog);
@@ -875,12 +896,12 @@ const HOME_META = {
 
 // ---- Sitemap ----
 const today = new Date().toISOString().slice(0, 10);
-const homeAlts = [['nl', SITE + '/'], ['en', SITE + '/en'], ['de', SITE + '/de'], ['es', SITE + '/es'], ['x-default', SITE + '/']];
+const homeAlts = [['nl', SITE + '/'], ['en', SITE + '/en'], ['de', SITE + '/de'], ['es', SITE + '/es'], ['fr', SITE + '/fr'], ['x-default', SITE + '/']];
 const entry = (loc, alts, priority) =>
   `  <url><loc>${loc}</loc>${alts.map(([l, h]) => `<xhtml:link rel="alternate" hreflang="${l}" href="${h}"/>`).join('')}<lastmod>${today}</lastmod><priority>${priority}</priority></url>`;
-const low = /\/((en|de|es)\/)?(voorwaarden|terms|privacy|contact|agb|datenschutz|kontakt|terminos|privacidad|contacto)$/;
+const low = /\/((en|de|es|fr)\/)?(voorwaarden|terms|privacy|contact|agb|datenschutz|kontakt|terminos|privacidad|contacto|conditions|confidentialite)$/;
 const urls = [
-  ...homeAlts.slice(0, 4).map(([, h], n) => entry(h, homeAlts, n ? '0.8' : '1.0')),
+  ...homeAlts.slice(0, 5).map(([, h], n) => entry(h, homeAlts, n ? '0.8' : '1.0')),
   ...sitemap.map(s => entry(s.loc, s.alternates, low.test(s.loc) ? '0.3' : '0.7'))
 ];
 fs.writeFileSync(

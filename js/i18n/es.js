@@ -613,6 +613,7 @@ window.SAVOUR_I18N.es = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.":
       'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.',
     Verbergen: 'Ocultar',
+    'Samenwerken met je team': 'Trabajar con tu equipo',
     Factor: 'Factor',
     'Dit kon niet worden omgerekend. Controleer wat je hebt ingevuld.':
       'No se ha podido convertir. Revisa lo que has introducido.',

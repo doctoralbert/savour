@@ -174,7 +174,9 @@ const server = http.createServer(async (req, res) => {
     '/de': 'de',
     '/deu': 'de',
     '/es': 'es',
-    '/esp': 'es'
+    '/esp': 'es',
+    '/fr': 'fr',
+    '/fra': 'fr'
   }[pathname.replace(/\/$/, '')];
   if (homeLang) file = path.join(ROOT, 'site', `index-${homeLang}.html`);
   // Losse websitepagina's staan in site/ (zoals de rewrites in vercel.json): /over-savour -> site/over-savour/index.html.

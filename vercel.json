@@ -72,8 +72,16 @@
       "destination": "/site/index-es.html"
     },
     {
+      "source": "/fr",
+      "destination": "/site/index-fr.html"
+    },
+    {
       "source": "/esp",
       "destination": "/site/index-es.html"
+    },
+    {
+      "source": "/fra",
+      "destination": "/site/index-fr.html"
     },
     {
       "source": "/en/blog/:post",
@@ -96,8 +104,16 @@
       "destination": "/site/es/blog/:post/index.html"
     },
     {
+      "source": "/fr/blog/:post",
+      "destination": "/site/fr/blog/:post/index.html"
+    },
+    {
       "source": "/es/:page",
       "destination": "/site/es/:page/index.html"
+    },
+    {
+      "source": "/fr/:page",
+      "destination": "/site/fr/:page/index.html"
     },
     {
       "source": "/blog/:post",
