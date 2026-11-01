@@ -6,7 +6,8 @@
     "start": "node local-server.mjs",
     "test:lezer": "node tests/lezer.test.mjs",
     "format": "prettier --write \"js/**/*.js\" \"css/*.css\" \"api/**/*.js\" local-server.mjs tests/*.js",
-    "test:schaal": "node tests/schaal.test.mjs"
+    "test:schaal": "node tests/schaal.test.mjs",
+    "indexnow": "node tools/indexnow.mjs"
   },
   "devDependencies": {
     "prettier": "3.3.3"

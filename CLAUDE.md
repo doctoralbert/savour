@@ -41,6 +41,7 @@ De server (`api/ai-import.js`) controleert Pro en de limiet. Instellen: `docs/sa
   aangepast? Draai daarna `node tools/build-i18n.mjs && node tools/build-seo.mjs`. Verder: `robots.txt`, `llms.txt`,
   de kop van `index.html` (beschrijving, Open Graph, schema.org) en de deelafbeelding `assets/savour-og.png`
   (`tools/og-image.html`).
+- Nieuwe pagina's live gezet? Draai daarna `npm run indexnow`: dat meldt alleen nieuwe adressen uit `sitemap.xml` bij Bing aan.
 - Savour verwijdert nooit zelf gegevens zonder dat de gebruiker daarom vraagt (zie `js/data/duplicates.js`).
 - Links uit e-mails (bevestigen, wachtwoord herstellen) worden afgehandeld in `readAuthRedirect`/`handleAuthRedirect` (`js/features/auth.js`).
 
