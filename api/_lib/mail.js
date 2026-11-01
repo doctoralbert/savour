@@ -57,8 +57,7 @@ export function thankYouMail({ name, team, seats }) {
     [
       'Allergenen in één oogopslag',
       'per recept en per samengesteld gerecht, zodat je een vraag van een gast meteen kunt beantwoorden.'
-    ],
-    ['Receptkaarten met je eigen logo', 'netjes geprint voor de keuken, in de stijl van jouw zaak.']
+    ]
   ];
   const html = `<!doctype html><html lang="nl"><body style="margin:0;background:#f5f4ef;font-family:Helvetica,Arial,sans-serif;color:#151716">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f5f4ef;padding:32px 12px"><tr><td align="center">

@@ -419,7 +419,7 @@ export const AUDIENCES = [
       sections: [
         ['Eén versie voor iedereen', 'Pas je een saus aan voor het nieuwe menu, dan werkt iedereen in het keukenteam direct met de nieuwe versie.'],
         ['Rechten per persoon', 'Jij beheert de map. Je sous-chef of chef de partie mag recepten toevoegen en aanpassen. Commis en stagiairs kunnen meekijken, maar niets veranderen.'],
-        ['Op je eigen telefoon', 'Geen keukenteam met vlekken meer. Elk lid van het team opent de recepten van de partie op de eigen telefoon, met grote letters in de kookmodus.'],
+        ['Op je eigen telefoon', 'Geen receptenmap met vlekken meer. Elk lid van het team opent de recepten van de partie op de eigen telefoon, met grote letters in de kookmodus.'],
         ['Nieuwe mensen sneller ingewerkt', 'Stagiairs en nieuwe koks lezen hoe het hier gedaan wordt, in plaats van het te moeten vragen tijdens de service. Lid zijn van een keukenteam is gratis; met een teamabonnement krijgt iedereen Savour Pro.']
       ]
     },

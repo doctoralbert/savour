@@ -19,13 +19,13 @@ De knop "Bekijk de demo" op de landingspagina laadt 40 proefrecepten zonder iets
 index.html            Alle schermen van de app (HTML) plus de startpagina van de website (blok tussen SITE:START
                       en SITE:END, gemaakt door tools/build-seo.mjs). Laadt de CSS en daarna de JavaScript.
 css/base.css          Basisopmaak: app-indeling, formulieren, admin, mobiel.
-css/components.css    Receptenlijsten, mappen, gedeelde mappen, omrekenen. Latere regels winnen.
+css/components.css    Receptenlijsten, mappen, keukenteams, omrekenen. Latere regels winnen.
 css/foundation.css    Knoppen, invoervelden en kleine teksten: overal hetzelfde.
 css/app-style.css     De ingelogde app in de stijl van de website (koppen, logo, footer, camera).
 css/site.css          Opmaak van de publieke website (startpagina en de pagina's in site/).
 js/core/              Fundament: Supabase-verbinding, gedeelde toestand, hulpfuncties (esc, toast, compressPhoto).
 js/data/              Bibliotheek laden uit de database, sessie opbouwen, dubbele recepten herkennen.
-js/features/          Eén bestand per onderdeel van de app (bibliotheek, editor, import, mappen, gedeelde mappen, ...).
+js/features/          Eén bestand per onderdeel van de app (bibliotheek, editor, import, mappen, keukenteams, ...).
 js/i18n/              Vertalingen (gemaakt door tools/build-i18n.mjs, niet met de hand aanpassen).
 js/site.js            Kleine scripts voor de website (telefoonmenu, beweging bij scrollen).
 js/data/offline.js    Offline in de keuken: bibliotheek op het toestel bewaren en openen zonder verbinding.
@@ -34,14 +34,14 @@ js/main.js            Opstarten. Wordt als laatste geladen.
 api/                  Serverfuncties op Vercel: AI-import, Stripe (pro-checkout, pro-portal, stripe-webhook),
                       beheer (admin), teamuitnodiging, bugmelding. api/_lib/: gedeelde hulp (inlog, mail, Supabase).
 assets/               Afbeeldingen: logo, deelafbeelding, app/ (echte app-schermen), kladjes/ en keuken/ (foto's).
-site/                 GEMAAKT: alle losse websitepagina's (over ons, functies, blog, ...) in NL, EN, DE en ES.
+site/                 GEMAAKT: alle losse websitepagina's (over ons, functies, blog, ...) in NL, EN, DE, ES en FR.
                       Niet met de hand aanpassen; teksten staan in tools/site-*.mjs. vercel.json en
                       local-server.mjs laten /over-savour zien vanuit site/over-savour/.
-                      site/index-en.html, index-de.html, index-es.html: de startpagina (met de app) per taal,
-                      voor /en, /de en /es. index.html zelf is de Nederlandse.
+                      site/index-en.html, index-de.html, index-es.html, index-fr.html: de startpagina (met de app) per taal,
+                      voor /en, /de, /es en /fr. index.html zelf is de Nederlandse.
 tools/                Bouwscripts en bronteksten: build-seo.mjs (website), build-i18n.mjs (vertalingen),
                       site-content*.mjs, site-blog.mjs, site-kladje.mjs (teksten van de website, NL en EN),
-                      site-pages-de.mjs en site-pages-es.mjs (alle Duitse en Spaanse pagina's).
+                      site-pages-de.mjs, site-pages-es.mjs en site-pages-fr.mjs (Duitse, Spaanse en Franse pagina's).
 supabase/             SQL-bestanden voor de database; overzicht en volgorde in supabase/README.md.
 tests/                Automatische tests (lezer en regressietest, zie hieronder).
 docs/                 Handleidingen en e-mailsjablonen.

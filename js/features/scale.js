@@ -115,12 +115,6 @@ function parseIngredientAmount(line) {
 }
 
 // Splitst "100 gram boter" in { amount: '100', unit: 'gram', rest: 'boter', value: 100 }; null zonder hoeveelheid.
-function splitQuantity(line) {
-  const p = parseIngredientAmount(line);
-  if (!p) return null;
-  return { amount: p.amount, unit: p.unitText, rest: p.rest.trim(), value: p.value };
-}
-
 // Splitst een ingrediëntregel in [hoeveelheid met eenheid, rest], precies zoals de tekst er staat (ook de spaties),
 // zodat de hoeveelheid vet kan. Zonder hoeveelheid: ['', hele regel].
 function quantityParts(line) {

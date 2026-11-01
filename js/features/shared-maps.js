@@ -135,23 +135,6 @@ function sharedFolderCount(m, f) {
 }
 
 // Eén map in een keukenteam als compacte rij, zodat ook 20+ mappen (per partie, per menu) overzichtelijk blijven.
-function sharedFolderCard(m, f) {
-  return `<button type="button" class="shared-folder-row${f.archived ? ' is-archived' : ''}" onclick="openSharedFolder('${escJs(m.id)}','${escJs(f.id)}')"><span class="ico">▱</span><b>${esc(f.name)}</b><small>${sharedFolderCount(m, f)} recepten</small><i aria-hidden="true">›</i></button>`;
-}
-
-function sharedFoldersHtml(m) {
-  const active = (m.folders || []).filter(f => !f.archived);
-  const archived = (m.folders || []).filter(f => f.archived);
-  if (!active.length && !archived.length) return '<div class="empty">Nog geen mappen in dit keukenteam.</div>';
-  return (
-    `<div class="shared-folder-list">${active.map(f => sharedFolderCard(m, f)).join('')}</div>` +
-    (archived.length
-      ? `<details class="shared-folder-archive"><summary>Archief (${archived.length})</summary><div class="shared-folder-list">${archived.map(f => sharedFolderCard(m, f)).join('')}</div></details>`
-      : '')
-  );
-}
-
-// ---- Mappen beheren: hernoemen, volgorde en archief (eigenaar en editors) ----
 function openSharedFolderManage(mapId) {
   const m = findSharedMap(mapId);
   if (!m || !canEditShared(m)) return;
@@ -686,11 +669,6 @@ async function linkBrigade(mapId) {
   currentTeamTab = 'brigade';
   openShared(mapId);
   toast('Je teamabonnement hoort nu bij dit keukenteam');
-}
-
-function openSharedMapManage(id) {
-  currentShared = id;
-  go('sharedMapManage');
 }
 
 // Terug uit een map naar het keukenteam waar die in zit (bijv. "← Kasteel Maurick").

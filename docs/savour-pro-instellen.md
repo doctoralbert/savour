@@ -90,7 +90,7 @@ vervang in Vercel de vier Stripe-waarden door de live-waarden.
 **Database:** voer `supabase/2026-10-22-gratis-pro-teams.sql` uit in de SQL Editor. Daarmee:
 
 - gratis accounts maximaal 100 eigen recepten (bestaande recepten blijven altijd staan);
-- een gedeelde map maken is Pro (lid zijn van andermans map blijft gratis);
+- een keukenteam maken is Pro (lid zijn van het keukenteam van een ander blijft gratis);
 - nieuwe accounts Pro gratis om te proberen, zonder betaalgegevens;
 - teams (organisaties) met een pakket plekken;
 - de organisatie in het profiel.
