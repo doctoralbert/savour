@@ -615,6 +615,8 @@ window.SAVOUR_I18N.de = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.":
       'Unbegrenzt Rezepte, KI, die deine Notizen und Fotos liest, und Küchenteams für dein Team.',
     Verbergen: 'Ausblenden',
+    'Dit bestand kon niet worden geopend. Staat het in OneDrive of een andere cloudmap? Zet het dan eerst op deze computer.':
+      'Diese Datei konnte nicht geöffnet werden. Liegt sie in OneDrive oder einem anderen Cloud-Ordner? Speichere sie zuerst auf diesem Computer.',
     'Meer omrekenen': 'Mehr umrechnen',
     'Samenwerken met je team': 'Zusammenarbeiten mit deinem Team',
     Factor: 'Faktor',

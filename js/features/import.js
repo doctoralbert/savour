@@ -1119,7 +1119,15 @@ async function processImportFiles(files) {
         batchDrafts.push(...(await readImportFile(file)));
       } catch (e) {
         console.error('Bulk import', file.name, e);
-        failures.push({ name: file.name, error: e?.message || 'Import mislukt.', pro: e?.code === 'pro_required' });
+        // Een bestand dat alleen online staat (OneDrive, iCloud) kan de browser niet altijd lezen.
+        const unreadable = e?.name === 'NotReadableError' || e?.name === 'NotFoundError';
+        failures.push({
+          name: file.name,
+          error: unreadable
+            ? 'Dit bestand kon niet worden geopend. Staat het in OneDrive of een andere cloudmap? Zet het dan eerst op deze computer.'
+            : e?.message || 'Import mislukt.',
+          pro: e?.code === 'pro_required'
+        });
       } finally {
         importInFlight.delete(file);
         done++;

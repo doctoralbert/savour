@@ -1498,6 +1498,7 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Dit bestand kon niet worden geopend. Staat het in OneDrive of een andere cloudmap? Zet het dan eerst op deze computer.","This file could not be opened. Is it in OneDrive or another cloud folder? Put it on this computer first.","Diese Datei konnte nicht geöffnet werden. Liegt sie in OneDrive oder einem anderen Cloud-Ordner? Speichere sie zuerst auf diesem Computer.","No se ha podido abrir este archivo. ¿Está en OneDrive o en otra carpeta en la nube? Guárdalo primero en este ordenador."],
   ["Meer omrekenen","More scaling options","Mehr umrechnen","Más opciones de escala"],
   ["Samenwerken met je team","Working with your team","Zusammenarbeiten mit deinem Team","Trabajar con tu equipo"],
   ["Factor","Factor","Faktor","Factor"],

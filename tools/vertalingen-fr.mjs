@@ -1,6 +1,7 @@
 // Franse vertalingen, naast tools/vertalingen.mjs: Nederlandse brontekst → Frans.
 // Nieuwe interfacetekst? Zet hier ook de Franse regel; node tools/build-i18n.mjs meldt wat ontbreekt.
 export const stringsFr = {
+ "Dit bestand kon niet worden geopend. Staat het in OneDrive of een andere cloudmap? Zet het dan eerst op deze computer.": "Ce fichier n'a pas pu être ouvert. Est-il dans OneDrive ou un autre dossier cloud ? Enregistre-le d'abord sur cet ordinateur.",
  "Meer omrekenen": "Plus d'options de conversion",
  "Samenwerken met je team": "Travailler avec ton équipe",
  "Factor": "Facteur",
