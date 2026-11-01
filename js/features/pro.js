@@ -373,11 +373,18 @@ function openProNav() {
 }
 
 // De server (api/admin.js, ADMIN_EMAILS) beslist of iemand beheerder is; de knop is alleen een snelkoppeling.
+function setAdminLink(show) {
+  if (adminLinkVisible === show) return;
+  adminLinkVisible = show;
+  renderLanguageSwitches();
+}
+
 // Beheer: knop in het menu links en, voor de telefoon, een blok onder Instellingen → Account.
 // Alleen zichtbaar als de server bevestigt dat dit account beheerder is (ADMIN_EMAILS).
 async function renderAdminNav() {
   const spots = [$('navAdmin'), $('settingsAdmin')].filter(Boolean);
   spots.forEach(el => (el.style.display = 'none'));
+  setAdminLink(false);
   if (!currentUser || demoMode || !spots.length) return;
   try {
     // Met het bezoekers-id van dit apparaat: dan telt het niet mee in de bezoekerscijfers (api/admin.js).
@@ -385,6 +392,7 @@ async function renderAdminNav() {
     // Intussen uitgelogd of naar de demo? Dan geen Admin-knop meer tonen.
     if (!me.admin || demoMode || !currentUser) return;
     spots.forEach(el => (el.style.display = ''));
+    setAdminLink(true);
     // Ongelezen berichten (contact en bugs): een gouden teller bij "Admin".
     const nav = $('navAdmin');
     if (nav) {

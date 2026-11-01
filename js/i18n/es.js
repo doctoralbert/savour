@@ -613,6 +613,10 @@ window.SAVOUR_I18N.es = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.',
     Verbergen: 'Ocultar',
+    'Eigen factor': 'Factor propio',
+    'Met hoeveel wil je het recept vermenigvuldigen? Bijvoorbeeld 0,1 of 2,5.':
+      '¿Por cuánto quieres multiplicar la receta? Por ejemplo, 0,1 o 2,5.',
+    'Vul een getal in tussen 0,01 en 1000.': 'Introduce un número entre 0,01 y 1000.',
     'Eigen factor ×': 'Factor propio ×',
     'Ik heb': 'Tengo',
     Ingrediënt: 'Ingrediente',

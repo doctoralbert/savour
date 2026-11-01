@@ -129,6 +129,25 @@
 .lang-switch {
   display: inline-flex;
   flex: 0 0 auto;
+  align-items: center;
+  gap: var(--sv-space-2);
+}
+.lang-admin {
+  display: inline-flex;
+  align-items: center;
+  height: var(--sv-control-h);
+  padding: 0 var(--sv-space-2);
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+.lang-admin:hover {
+  border-color: var(--sv-gold);
+  color: var(--sv-gold);
 }
 .lang-menu {
   position: relative;

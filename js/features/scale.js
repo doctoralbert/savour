@@ -343,14 +343,20 @@ function stepRecipeYield(direction) {
 
 function resetRecipeYield() {
   setRecipeFactor(1);
-  if ($('rpFactorInput')) $('rpFactorInput').value = '';
   if ($('rpHaveInput')) $('rpHaveInput').value = '';
 }
 
 // Elke factor kan, van een klein proefje (0,1) tot een grote batch (250).
-function setRecipeFactorInput(value) {
+async function askRecipeFactor() {
+  document.querySelector('.rp-more')?.removeAttribute('open');
+  const value = await askText(
+    'Eigen factor\n\nMet hoeveel wil je het recept vermenigvuldigen? Bijvoorbeeld 0,1 of 2,5.',
+    '',
+    { confirmLabel: 'Omrekenen' }
+  );
+  if (value === null) return;
   const factor = parseAmount(value);
-  if (!Number.isFinite(factor) || factor < 0.01 || factor > 1000) return;
+  if (!Number.isFinite(factor) || factor < 0.01 || factor > 1000) return toast('Vul een getal in tussen 0,01 en 1000.');
   if ($('rpHaveInput')) $('rpHaveInput').value = '';
   setRecipeFactor(factor);
 }
@@ -368,15 +374,24 @@ function scaleOnIngredient() {
     ? (have.value * have.unit.base) / (from.value * (from.unit?.base || 1))
     : have.value / from.value;
   if (!(factor >= 0.01 && factor <= 1000)) return;
-  if ($('rpFactorInput')) $('rpFactorInput').value = '';
   setRecipeFactor(factor);
+}
+
+// Alleen de naam van een ingrediënt: "1000 slagroom" wordt "slagroom".
+function ingredientNameOf(line) {
+  const name = parseIngredientAmount(line)
+    ?.rest.replace(/^[\s,.:;-]+/, '')
+    .trim();
+  return name || String(line || '');
 }
 
 function recipeScaleToolsHtml(ingredients) {
   const options = ingredients
-    .map((line, i) => (parseIngredientAmount(line) ? `<option value="${i}">${esc(line)}</option>` : ''))
+    .map((line, i) =>
+      parseIngredientAmount(line) ? `<option value="${i}">${esc(ingredientNameOf(line))}</option>` : ''
+    )
     .join('');
-  return `<div class="rp-scale-more"><label class="rp-scale-field">Eigen factor × <input id="rpFactorInput" inputmode="decimal" placeholder="1,5" oninput="setRecipeFactorInput(this.value)"></label>${
+  return `<div class="rp-scale-more">${
     options
       ? `<label class="rp-scale-field">Ik heb <input id="rpHaveInput" placeholder="3 kg" oninput="scaleOnIngredient()"></label><select id="rpHaveIngredient" aria-label="Ingrediënt" onchange="scaleOnIngredient()">${options}</select>`
       : ''

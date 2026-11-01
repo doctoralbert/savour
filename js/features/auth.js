@@ -227,6 +227,7 @@ function clearSessionState() {
     if ($(id)) $(id).innerHTML = '';
   });
   [$('navAdmin'), $('settingsAdmin')].filter(Boolean).forEach(el => (el.style.display = 'none'));
+  setAdminLink(false);
 }
 
 function logout() {
