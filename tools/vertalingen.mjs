@@ -1498,6 +1498,18 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["＋ Deel toevoegen","＋ Add part","＋ Teil hinzufügen","＋ Añadir parte"],
+  ["Deel toevoegen","Add part","Teil hinzufügen","Añadir parte"],
+  ["Bestaat je recept uit meerdere delen, zoals deeg, vulling en saus? Voeg er zoveel toe als je wilt.","Does your recipe have several parts, like dough, filling and sauce? Add as many as you like.","Besteht dein Rezept aus mehreren Teilen, etwa Teig, Füllung und Sauce? Füge so viele hinzu, wie du möchtest.","¿Tu receta tiene varias partes, como masa, relleno y salsa? Añade tantas como quieras."],
+  ["Naam, bijv. deeg of saus","Name, e.g. dough or sauce","Name, z. B. Teig oder Sauce","Nombre, p. ej. masa o salsa"],
+  ["Naam van dit deel","Name of this part","Name dieses Teils","Nombre de esta parte"],
+  ["Deel verwijderen","Remove part","Teil entfernen","Quitar parte"],
+  ["Eén ingrediënt per regel","One ingredient per line","Eine Zutat pro Zeile","Un ingrediente por línea"],
+  ["Eén stap per regel","One step per line","Ein Schritt pro Zeile","Un paso por línea"],
+  ["Receptenmap toevoegen","Add recipe folder","Rezeptordner hinzufügen","Añadir carpeta de recetas"],
+  ["Eigen factor ×","Custom factor ×","Eigener Faktor ×","Factor propio ×"],
+  ["Ik heb","I have","Ich habe","Tengo"],
+  ["Ingrediënt","Ingredient","Zutat","Ingrediente"],
 
   ["Kleiner","Smaller","Kleiner","Más pequeño"],
   ["Groter","Larger","Größer","Más grande"],

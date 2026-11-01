@@ -160,7 +160,10 @@ async function openPublicRecipeBySlug(slug) {
     const steps = Array.isArray(data.steps) ? data.steps : [];
     document.title = `${data.title || 'Recept'} · Savour`;
     publicRecipe = { ingredients: ingredients.map(String), base: parseYield(data.yield_text) };
-    const ingredient = (x, i) => `<li data-ing="${i}">${ingredientHtml(String(x), 1)}</li>`;
+    const ingredient = (x, i) =>
+      recipePartName(x)
+        ? `<li class="rp-part-head">${esc(recipePartName(x))}</li>`
+        : `<li data-ing="${i}">${ingredientHtml(String(x), 1)}</li>`;
     const base = publicRecipe.base;
     // Opbrengst omrekenen (min/plus of zelf typen, alleen bij een opbrengst met een getal) en kookmodus, samen in één
     // rustig blok. Overnemen kan hier niet: dat kan alleen ingelogd, in de app.
@@ -178,7 +181,7 @@ async function openPublicRecipeBySlug(slug) {
         data.photo_url ? `<img class="share-recipe-photo" src="${esc(data.photo_url)}" alt="">` : ''
       }<div class="share-recipe-cols"><section><h2>Ingrediënten</h2><ul class="share-recipe-ingredients" id="pubIngredients" translate="no">${ingredients.map(ingredient).join('')}</ul></section>${
         steps.length
-          ? `<section><h2>Bereiding</h2><ol class="share-recipe-steps" translate="no">${steps.map(x => `<li>${esc(String(x))}</li>`).join('')}</ol></section>`
+          ? `<section><h2>Bereiding</h2><ol class="share-recipe-steps" translate="no">${steps.map((x, i) => (recipePartName(x) ? `<li class="rp-part-head">${esc(recipePartName(x))}</li>` : `<li value="${recipeStepNumbers(steps)[i]}">${esc(String(x))}</li>`)).join('')}</ol></section>`
           : ''
       }</div><aside class="share-recipe-cta"><div><h2>Ook je eigen recepten zo overzichtelijk?</h2><p>Savour zet je Word-bestanden, PDF's en kladjes om in één receptenboek, op computer en telefoon, voor je hele keuken.</p></div><div class="site-cta-row"><a class="site-btn solid" href="/?auth=signup" data-auth="signup">Gratis beginnen</a><a class="site-btn" href="/">Meer over Savour</a></div></aside></article>`;
   } catch (e) {

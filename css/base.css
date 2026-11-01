@@ -71,9 +71,12 @@ button {
 }
 /* Mappen in het menu (Recepten mappen en de mappen van een gedeelde map): kleiner en dichter op elkaar,
    zodat ze zichtbaar bij hun kopje of gedeelde map horen. */
-/* De mappen van een keukenteam staan 1 cm (38px) rechts van de teamnaam. */
+/* De mappen van een keukenteam staan een halve cm (19px) rechts van de teamnaam. */
 .nav button.nav-team-folder {
-  padding-left: 48px;
+  padding-left: 29px;
+}
+.nav button.nav-team-add {
+  color: var(--sv-gold);
 }
 .nav button:hover,
 .nav button.active {

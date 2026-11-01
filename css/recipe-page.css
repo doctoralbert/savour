@@ -296,53 +296,6 @@
   }
 }
 
-/* ---- Tekstgrootte van ingrediënten en bereiding (knoppen A− en A+, js/features/recipe.js) ---- */
-.rp-ingredients,
-.rp-steps {
-  zoom: var(--rp-zoom, 1);
-}
-@media print {
-  .rp-ingredients,
-  .rp-steps {
-    zoom: 1;
-  }
-}
-.rp-size {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--sv-control-h);
-  border: 1px solid var(--sv-line-strong);
-  border-radius: 999px;
-  background: var(--sv-surface);
-  color: var(--sv-text);
-}
-.rp-size button {
-  min-width: 44px;
-  height: 44px;
-  border: 0;
-  background: none;
-  color: inherit;
-  font: 600 var(--sv-fs-md) / 1 var(--sv-font);
-  cursor: pointer;
-}
-.rp-size button:disabled {
-  opacity: 0.35;
-  cursor: default;
-}
-.rp-size-value {
-  min-width: 44px;
-  text-align: center;
-  font-size: var(--sv-fs-sm);
-  color: var(--sv-text-2);
-}
-.cook-size {
-  position: fixed;
-  z-index: 50;
-  top: var(--sv-space-4);
-  left: var(--sv-space-4);
-  box-shadow: 0 10px 30px #00000040;
-}
-
 /* ---- Kookmodus: alleen het recept, groot en rustig ---- */
 /* Alleen als de app zichtbaar is; op een openbaar recept (niet ingelogd) blijft de app verborgen. */
 body.cook-mode #appShell:not([style*='none']) {
@@ -406,17 +359,48 @@ body.cook-mode .rp-step-num {
   .cook-exit {
     top: auto;
     bottom: var(--sv-space-4);
-    right: var(--sv-space-4);
-  }
-  .cook-size {
-    top: auto;
-    bottom: var(--sv-space-4);
-    left: var(--sv-space-4);
+    right: 50%;
+    transform: translateX(50%);
   }
 }
 
 .rp [hidden] {
   display: none !important;
+}
+
+/* Omrekenen met een eigen factor of op wat je van één ingrediënt hebt */
+.rp-scale-more {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sv-space-3);
+}
+.rp-scale-field {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sv-space-2);
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-md);
+}
+.rp-scale-more input,
+.rp-scale-more select {
+  box-sizing: border-box;
+  height: var(--sv-control-h);
+  padding: 0 12px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface);
+  color: var(--sv-text);
+  font: inherit;
+}
+.rp-scale-more input {
+  width: 110px;
+}
+.rp-scale-more select {
+  flex: 0 1 280px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 /* Snelknoppen om te vermenigvuldigen (½× 2× 3× 4×), ook zonder opbrengst */
@@ -441,4 +425,63 @@ body.cook-mode .rp-step-num {
 .rp-multipliers button.is-on {
   border-color: var(--sv-gold);
   color: var(--sv-gold);
+}
+
+/* ---- Recept in delen: kopje per deel, in de receptpagina en de editor ---- */
+.rp-part-head {
+  list-style: none;
+  margin: var(--sv-space-5) 0 var(--sv-space-2);
+  padding: 0;
+  border: 0;
+  color: var(--sv-gold);
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-lg);
+  font-weight: 500;
+}
+.rp-part-head:first-child {
+  margin-top: 0;
+}
+.print-part {
+  margin-top: 10px;
+  font-weight: 700;
+}
+.parts-editor {
+  display: grid;
+  gap: var(--sv-space-4);
+}
+.parts-editor[hidden],
+[id='ingredientField'][hidden],
+[id='stepField'][hidden] {
+  display: none !important;
+}
+.part-block {
+  display: grid;
+  gap: var(--sv-space-3);
+  padding: var(--sv-space-4);
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius-lg);
+}
+.part-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sv-space-3);
+}
+.part-head b {
+  flex: 0 0 auto;
+  color: var(--sv-gold);
+}
+.part-head input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.part-block label {
+  display: grid;
+  gap: 6px;
+}
+.part-block textarea {
+  min-height: 130px;
+}
+.part-add {
+  display: grid;
+  gap: 6px;
 }

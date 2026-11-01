@@ -47,6 +47,8 @@ function previewPhoto(input) {
 }
 
 function renderEditorRows(ingredients = [], steps = []) {
+  editorParts = null;
+  showRecipeParts(false);
   const ing = Array.isArray(ingredients) && ingredients.length ? ingredients : [''];
   const st = Array.isArray(steps) && steps.length ? steps : [''];
   $('ingredientEditor').innerHTML = ing
@@ -64,7 +66,105 @@ function renderEditorRows(ingredients = [], steps = []) {
   syncStructuredEditor();
 }
 
+// Recept in delen: per deel een naam, ingrediënten en bereiding. In de database blijft het één lijst met
+// kopregels ("Deeg:"), zodat opschalen, printen en delen gewoon blijven werken. Zonder delen: editorParts = null.
+let editorParts = null;
+
+function recipePartsFrom(ingredients, steps) {
+  const split = lines => {
+    const out = [];
+    for (const line of lines) {
+      const name = recipePartName(line);
+      if (name || !out.length) out.push({ name, lines: [] });
+      if (!name) out[out.length - 1].lines.push(line);
+    }
+    return out;
+  };
+  const parts = split(ingredients).map(p => ({ name: p.name, ingredients: p.lines.join('\n'), steps: '' }));
+  for (const p of split(steps)) {
+    const same = parts.find(x => x.name.toLowerCase() === p.name.toLowerCase());
+    if (same) same.steps = p.lines.join('\n');
+    else parts.push({ name: p.name, ingredients: '', steps: p.lines.join('\n') });
+  }
+  return parts;
+}
+
+// Bij het openen: een recept met delen opent direct per deel.
+function loadEditorRows(ingredients, steps) {
+  if (ingredients.some(recipePartName)) {
+    editorParts = recipePartsFrom(ingredients, steps);
+    renderRecipeParts();
+  } else renderEditorRows(ingredients, steps);
+}
+
+function showRecipeParts(on) {
+  $('ingredientField').hidden = on;
+  $('stepField').hidden = on;
+  $('partsEditor').hidden = !on;
+}
+
+function renderRecipeParts() {
+  showRecipeParts(true);
+  $('partsEditor').innerHTML = editorParts
+    .map(
+      (p, i) =>
+        `<section class="part-block"><div class="part-head"><b>Deel ${i + 1}</b><input data-part-name="${i}" value="${esc(p.name)}" maxlength="58" placeholder="Naam, bijv. deeg of saus" aria-label="Naam van dit deel" oninput="syncStructuredEditor()"><button type="button" class="structured-remove" onclick="removeRecipePart(${i})" aria-label="Deel verwijderen" title="Deel verwijderen">×</button></div><label>Ingrediënten<textarea data-part-ingredients="${i}" placeholder="Eén ingrediënt per regel" oninput="syncStructuredEditor()">${esc(p.ingredients)}</textarea></label><label>Bereiding<textarea data-part-steps="${i}" placeholder="Eén stap per regel" oninput="syncStructuredEditor()">${esc(p.steps)}</textarea></label></section>`
+    )
+    .join('');
+  syncStructuredEditor();
+}
+
+function readRecipeParts() {
+  editorParts = editorParts.map((p, i) => ({
+    name: document.querySelector(`[data-part-name="${i}"]`).value.trim().replace(/:+$/, ''),
+    ingredients: document.querySelector(`[data-part-ingredients="${i}"]`).value,
+    steps: document.querySelector(`[data-part-steps="${i}"]`).value
+  }));
+}
+
+function addRecipePart() {
+  syncStructuredEditor();
+  if (editorParts) readRecipeParts();
+  else editorParts = [{ name: '', ingredients: $('fIngredients').value, steps: $('fSteps').value }];
+  editorParts.push({ name: '', ingredients: '', steps: '' });
+  renderRecipeParts();
+  document.querySelector(`[data-part-name="${editorParts.length - 1}"]`)?.focus();
+}
+
+async function removeRecipePart(index) {
+  readRecipeParts();
+  const p = editorParts[index];
+  if ((p.ingredients.trim() || p.steps.trim()) && !(await askConfirm(`${p.name || `Deel ${index + 1}`} verwijderen?`)))
+    return;
+  editorParts.splice(index, 1);
+  // Nog één deel zonder naam: terug naar het gewone recept.
+  if (editorParts.length <= 1 && !editorParts[0]?.name) {
+    const last = editorParts[0];
+    editorParts = null;
+    const lines = text => (text || '').split('\n').filter(x => x.trim());
+    renderEditorRows(lines(last?.ingredients), lines(last?.steps));
+  } else renderRecipeParts();
+}
+
 function syncStructuredEditor() {
+  if (editorParts) {
+    readRecipeParts();
+    const join = key =>
+      editorParts
+        .flatMap((p, i) => {
+          const lines = p[key]
+            .split('\n')
+            .map(x => x.trim())
+            .filter(Boolean);
+          // Een deel zonder naam krijgt zijn nummer; alleen het eerste mag zonder kopje.
+          const name = p.name || (i ? `Deel ${i + 1}` : editorParts.length > 1 ? 'Deel 1' : '');
+          return lines.length && name ? [`${name}:`, ...lines] : lines;
+        })
+        .join('\n');
+    $('fIngredients').value = join('ingredients');
+    $('fSteps').value = join('steps');
+    return;
+  }
   const ins = [...document.querySelectorAll('[data-ingredient-row]')].map(x => x.value.trim()).filter(Boolean);
   const sts = [...document.querySelectorAll('[data-step-row]')].map(x => x.value.trim()).filter(Boolean);
   if ($('fIngredients')) $('fIngredients').value = ins.join('\n');
@@ -163,7 +263,7 @@ function fillEditor(r, title = 'Nieuw recept') {
   // Zonder foto geen lege src: die laat de browser de pagina zelf als afbeelding opvragen.
   if (r?.photo) $('photoPreview').src = r.photo;
   else $('photoPreview').removeAttribute('src');
-  renderEditorRows(r?.ingredients || [], r?.steps || []);
+  loadEditorRows(r?.ingredients || [], r?.steps || []);
 }
 
 function editRecipe(id) {

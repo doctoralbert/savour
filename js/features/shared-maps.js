@@ -492,7 +492,10 @@ function renderShared(id) {
       ? `<button class="btn compact-action" onclick="inviteShared('${mid}')"><span>Koks uitnodigen</span></button>`
       : '') +
     (all.length
-      ? `<button class="btn compact-action kt-print" onclick="printSharedMap('${mid}')" title="Recepten printen" aria-label="Recepten printen">⎙</button>`
+      ? `<button class="btn compact-action kt-tool" onclick="printSharedMap('${mid}')">${icon('print')}<span>Printen</span></button>`
+      : '') +
+    (isOwner
+      ? `<button class="btn compact-action kt-tool" onclick="showTeamTab('instellingen')">${icon('settings')}<span>Instellingen</span></button>`
       : '') +
     (canEdit
       ? `<button class="btn gold compact-action kt-add-desktop" onclick="openSharedRecipePicker('${mid}')">＋<span>Recept toevoegen</span></button>`
@@ -516,7 +519,7 @@ function renderShared(id) {
   const folders =
     `<section class="kt-folders" aria-label="Mappen"><div class="kt-section-head"><h2>Mappen</h2>${canEdit && m.folders.length && sharedFoldersManageable ? `<button type="button" class="kt-link" onclick="openSharedFolderManage('${mid}')">Mappen beheren</button>` : ''}</div>` +
     (active.length || canEdit
-      ? `<div class="kt-folder-grid">${active.map(folderTile).join('')}${canEdit ? `<button type="button" class="kt-folder is-new" onclick="newSharedFolder('${mid}')"><span class="kt-plus" aria-hidden="true">＋</span><span><b>Nieuwe map</b><small>Bijv. per partie of menu</small></span></button>` : ''}</div>`
+      ? `<div class="kt-folder-grid">${active.map(folderTile).join('')}${canEdit ? `<button type="button" class="kt-folder is-new" onclick="newSharedFolder('${mid}')"><span class="kt-plus" aria-hidden="true">＋</span><span><b>Receptenmap toevoegen</b><small>Bijv. per partie of menu</small></span></button>` : ''}</div>`
       : '<p class="muted">Nog geen mappen in dit keukenteam.</p>') +
     (archived.length
       ? `<details class="shared-folder-archive"><summary>Archief (${archived.length})</summary><div class="shared-folder-list">${archived.map(f => sharedFolderCard(m, f)).join('')}</div></details>`
@@ -548,7 +551,7 @@ function renderShared(id) {
     `<div class="kt-overview">${folders}${recent}</div>` +
     library +
     (isOwner
-      ? `<div class="kt-foot"><button type="button" class="kt-link" onclick="showTeamTab('instellingen')">Instellingen van ${esc(m.name)} ›</button></div>`
+      ? ''
       : `<div class="kt-foot"><button type="button" class="kt-link" onclick="leaveSharedMap('${mid}')">Keukenteam verlaten</button></div>`) +
     '</div>';
   renderTeamLibrary();
@@ -874,7 +877,10 @@ function renderSharedNav() {
             f =>
               `<button class="nav-team-folder" onclick="openSharedFolder('${escJs(m.id)}','${escJs(f.id)}')"><span class="ico">•</span>${esc(f.name)}</button>`
           )
-          .join('')
+          .join('') +
+        (canEditShared(m)
+          ? `<button class="nav-team-folder nav-team-add" onclick="newSharedFolder('${escJs(m.id)}')"><span class="ico">＋</span>Receptenmap toevoegen</button>`
+          : '')
     )
     .join('');
   addQuickButton('sharedNav', 'Keukenteam maken', () => newSharedMap());
