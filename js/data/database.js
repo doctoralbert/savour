@@ -128,7 +128,7 @@ async function loadDatabaseState() {
     // Alleen je eigen recepten; recepten van een keukenteam (team_id) komen via loadSharedRecipes.
     selectAllRows(
       'recipes',
-      'id,title,description,yield_text,ingredients,steps,photo_url,category_id,created_at,updated_at',
+      'id,title,description,yield_text,ingredients,steps,photo_url,category_id,created_at,updated_at,notes,ingredient_links',
       q => q.eq('user_id', currentUser.id).is('team_id', null).order('title', { ascending: true })
     ),
     loadCategoryRows(),
