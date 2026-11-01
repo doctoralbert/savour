@@ -524,7 +524,7 @@ window.SAVOUR_I18N.de = {
     'Je team': 'Dein Team',
     'Mijn abonnement': 'Mein Abo',
     'Stuur ons een bericht': 'Schreib uns eine Nachricht',
-    'Laatst bijgewerkt: 21 oktober 2026.': 'Zuletzt aktualisiert: 21. Oktober 2026.',
+    'Laatst bijgewerkt: 1 november 2026.': 'Zuletzt aktualisiert: 1. November 2026.',
     'Waarom Savour bestaat': 'Warum es Savour gibt',
     'In bijna elke keuken liggen recepten verspreid: in een map op kantoor, op losse kladjes bij de pass, in Word-bestanden van een vorige chef en in berichten op telefoons. Wie een recept zoekt, vindt vaak drie versies met andere hoeveelheden. Savour is gemaakt door chefs die daar zelf dagelijks tegenaan lopen, met één doel: één plek waar elk recept staat zoals het bedoeld is.':
       'In fast jeder Küche sind Rezepte verstreut: in einem Ordner im Büro, auf losen Zetteln am Pass, in Word-Dateien eines früheren Küchenchefs und in Nachrichten auf Handys. Wer ein Rezept sucht, findet oft drei Versionen mit unterschiedlichen Mengen. Savour wird von Köchen gemacht, die genau das täglich erleben, mit einem Ziel: ein Ort, an dem jedes Rezept so steht, wie es gemeint ist.',

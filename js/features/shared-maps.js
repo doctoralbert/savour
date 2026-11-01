@@ -318,8 +318,8 @@ function openSharedFolder(mapId, folderId) {
   go('sharedFolderDetail');
 }
 
-// Keukenteam: één receptenboek voor de hele brigade. De startpagina toont de brigade, de mappen, wat net is
-// bijgewerkt en de gezamenlijke receptenbibliotheek (zoeken, per map en A t/m Z).
+// Keukenteam: één receptenboek voor de hele brigade. De startpagina toont alleen de mappen en de gezamenlijke
+// receptenbibliotheek (zoeken, per map en A t/m Z); de brigade zit achter de knop bovenin.
 // Brigade beheren en Instellingen (alleen de eigenaar) zijn aparte schermen met een terugknop.
 let currentTeamTab = 'home';
 function showTeamTab(tab) {
@@ -339,73 +339,6 @@ function teamBrigade(m) {
   const inTeam = new Set((m.members || []).map(x => String(x.email || '').toLowerCase()).filter(Boolean));
   const pro = new Set((t.members || []).map(e => String(e).toLowerCase()).filter(e => !linked || inTeam.has(e)));
   return { plan: t, linked, elsewhere, active: !!t.active, seats: t.seats || 0, used: pro.size + 1, pro };
-}
-
-// Naam zoals de brigade die ziet; "Jij" wordt je eigen naam, zodat de initialen kloppen.
-function teamMemberName(x) {
-  if (x?.name && x.name !== 'Jij' && x.name !== 'Teamlid') return x.name;
-  if (String(x?.userId) === String(currentUser?.id)) return account?.name || currentUser?.email?.split('@')[0] || 'Jij';
-  return x?.email ? x.email.split('@')[0] : 'Teamlid';
-}
-
-function teamInitials(name) {
-  const parts = String(name || '?')
-    .replace(/@.*/, '')
-    .split(/[\s._-]+/)
-    .filter(Boolean);
-  return ((parts[0]?.[0] || '?') + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase();
-}
-
-// Vaste kleur per persoon, in de goudtinten van Savour.
-function teamAvatarTone(key) {
-  let h = 0;
-  for (const ch of String(key || '')) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-  return h % 5;
-}
-
-function teamAvatar(name, key, extra = '') {
-  return `<span class="kt-avatar tone-${teamAvatarTone(key || name)}${extra}" title="${esc(name)}" aria-hidden="true">${esc(teamInitials(name))}</span>`;
-}
-
-// "12 min geleden", "3 u geleden", "gisteren", "4 dagen geleden" of een datum.
-function teamAgo(iso) {
-  const ms = Date.now() - new Date(iso).getTime();
-  if (!isFinite(ms)) return '';
-  const min = Math.max(0, Math.round(ms / 60000));
-  if (min < 1) return 'zojuist';
-  if (min < 60) return `${min} min geleden`;
-  const h = Math.round(min / 60);
-  if (h < 24) return `${h} u geleden`;
-  const d = Math.round(h / 24);
-  if (d === 1) return 'gisteren';
-  if (d < 7) return `${d} dagen geleden`;
-  return new Date(iso).toLocaleDateString(currentLanguage === 'nl' ? 'nl-NL' : currentLanguage, {
-    day: 'numeric',
-    month: 'short'
-  });
-}
-
-// De vijf recepten die het laatst zijn toegevoegd of aangepast, met wie het deed (als dat bekend is).
-function teamRecentHtml(list) {
-  const items = list
-    .map(r => {
-      const changed = r.updatedAt && r.createdAt && new Date(r.updatedAt) - new Date(r.createdAt) > 60000;
-      const at = changed ? r.updatedAt : r.createdAt || r.updatedAt;
-      const who = changed
-        ? r.updatedBy || ''
-        : r.addedBy || (r.shared ? '' : teamMemberName({ userId: currentUser?.id }));
-      return { r, at, who, changed };
-    })
-    .filter(x => x.at)
-    .sort((a, b) => new Date(b.at) - new Date(a.at))
-    .slice(0, 5);
-  if (!items.length) return '<p class="muted kt-recent-empty">Nog niets bijgewerkt.</p>';
-  return items
-    .map(({ r, at, who, changed }) => {
-      const what = (changed ? 'aangepast' : 'toegevoegd') + (who ? ' door ' + who : '') + ' · ' + teamAgo(at);
-      return `<button type="button" class="kt-recent-row" onclick="openRecipe('${escJs(r.id)}','shared')">${who ? teamAvatar(who, who) : '<span class="kt-avatar is-empty" aria-hidden="true"></span>'}<span><b>${esc(recipeTitleOf(r))}</b><small>${esc(what)}</small></span></button>`;
-    })
-    .join('');
 }
 
 // Zoeken in titel en ingrediënten, zonder op hoofdletters of accenten te letten.
@@ -493,13 +426,8 @@ function renderShared(id) {
   const all = (m.recipeIds || []).map(rid => findRecipe(rid)).filter(Boolean);
   const active = (m.folders || []).filter(f => !f.archived);
   const archived = (m.folders || []).filter(f => f.archived);
-  const b = teamBrigade(m);
-  const members = m.members || [];
-
   const actions =
-    (isOwner
-      ? `<button class="btn compact-action kt-tool" onclick="inviteShared('${mid}')" aria-label="Koks uitnodigen" title="Koks uitnodigen">${icon('users')}<span>Koks uitnodigen</span></button>`
-      : '') +
+    `<button class="btn compact-action kt-tool" onclick="showTeamTab('brigade')" aria-label="Brigade" title="Brigade">${icon('users')}<span>Brigade</span></button>` +
     (all.length
       ? `<button class="btn compact-action kt-tool" onclick="printSharedMap('${mid}')" aria-label="Printen" title="Printen">${icon('print')}<span>Printen</span></button>`
       : '') +
@@ -509,19 +437,6 @@ function renderShared(id) {
     (canEdit
       ? `<button class="btn compact-action kt-tool kt-new-folder-phone" onclick="newSharedFolder('${mid}')" aria-label="Receptenmap toevoegen" title="Receptenmap toevoegen">${icon('folderPlus')}</button><button class="btn gold compact-action kt-add-desktop" onclick="openSharedRecipePicker('${mid}')">＋<span>Recept toevoegen</span></button>`
       : '');
-
-  const shown = members.slice(0, 6);
-  const avatars =
-    shown.map(x => teamAvatar(teamMemberName(x), x.userId || x.email)).join('') +
-    (members.length > shown.length
-      ? `<span class="kt-avatar is-more" aria-hidden="true">+${members.length - shown.length}</span>`
-      : '') +
-    (isOwner ? '<span class="kt-avatar is-open" aria-hidden="true">+</span>' : '');
-  const seatsLine =
-    b?.linked && b.active
-      ? `Team ${b.seats} · nog ${Math.max(0, b.seats - b.used)} Pro-plekken vrij`
-      : 'Iedereen ziet direct elke wijziging';
-  const brigade = `<button type="button" class="kt-brigade" onclick="showTeamTab('brigade')"><span class="kt-avatars">${avatars}</span><span class="kt-brigade-text"><b>${members.length} in de brigade</b><small>${esc(seatsLine)}</small></span><span class="kt-link">${isOwner ? 'Brigade beheren' : 'Brigade bekijken'} ›</span></button>`;
 
   const folderTile = f =>
     `<div class="kt-folder-wrap"><button type="button" class="kt-folder" onclick="openSharedFolder('${mid}','${escJs(f.id)}')"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span><b>${esc(f.name)}</b><small>${sharedFolderCount(m, f)} recepten</small></span></button>${sharedFolderCount(m, f) ? `<button type="button" class="kt-folder-print" title="Map printen" aria-label="Map printen" onclick="printSharedFolder('${mid}','${escJs(f.id)}')">${icon('print', { size: 18 })}</button>` : ''}</div>`;
@@ -534,7 +449,6 @@ function renderShared(id) {
       ? `<details class="shared-folder-archive"><summary>Archief (${archived.length})</summary><div class="shared-folder-list">${archived.map(f => sharedFolderCard(m, f)).join('')}</div></details>`
       : '') +
     '</section>';
-  const recent = `<aside class="kt-recent" aria-label="Net bijgewerkt"><div class="kt-section-head"><h2>Net bijgewerkt</h2></div><div class="kt-recent-list">${teamRecentHtml(all)}</div></aside>`;
 
   const chips = active.length
     ? `<div class="kt-chips" role="group" aria-label="Filter op map"><button type="button" class="${window.sharedFolderFilter ? '' : 'is-on'}" onclick="filterTeamFolder('')">Alles</button>${active
@@ -556,9 +470,8 @@ function renderShared(id) {
     '<div id="ktLibList"></div></section>';
 
   $('sharedWrap').innerHTML =
-    `${teamTrialBanner(m)}<div class="panel team-page kt"><div class="folder-detail-head shared-main-head kt-head"><div><div class="eyebrow shared-eyebrow">Keukenteam ${helpButton('shared')}</div><h1>${esc(m.name)}</h1><p class="muted">Eén receptenboek voor de hele brigade.</p></div><div class="shared-map-actions kt-actions">${actions}</div></div>` +
-    brigade +
-    `<div class="kt-overview">${folders}${recent}</div>` +
+    `${teamTrialBanner(m)}<div class="panel team-page kt"><div class="folder-detail-head shared-main-head kt-head"><div><div class="eyebrow shared-eyebrow">Keukenteam ${helpButton('shared')}</div><h1>${esc(m.name)}</h1><p class="muted kt-sub">Eén receptenboek voor de hele brigade.</p></div><div class="shared-map-actions kt-actions">${actions}</div></div>` +
+    `<div class="kt-overview">${folders}</div>` +
     library +
     (isOwner
       ? ''

@@ -1543,88 +1543,9 @@ h2.has-help .help-btn {
 .kt-link:hover {
   text-decoration: underline;
 }
-.kt-avatar {
-  width: 38px;
-  height: 38px;
-  flex: 0 0 auto;
-  margin-right: -8px;
-  border-radius: 50%;
-  border: 2px solid var(--sv-surface);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font: 700 12px/1 var(--sv-font);
-  color: #1a1612;
-  box-sizing: border-box;
-}
-.kt-avatar.tone-0 {
-  background: #e8ca8d;
-}
-.kt-avatar.tone-1 {
-  background: #d2bd98;
-}
-.kt-avatar.tone-2 {
-  background: #bfae90;
-}
-.kt-avatar.tone-3 {
-  background: #d9b46a;
-}
-.kt-avatar.tone-4 {
-  background: #c7b59a;
-}
-.kt-avatar.is-more,
-.kt-avatar.is-empty {
-  background: var(--sv-surface-2);
-  color: var(--sv-text-2);
-}
-.kt-avatar.is-open {
-  margin: 0 0 0 4px;
-  border: 1.5px dashed var(--sv-line-strong);
-  background: transparent;
-  color: var(--sv-text-3);
-  font-size: 18px;
-  font-weight: 400;
-}
-.kt-brigade {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  width: 100%;
-  padding: 16px 20px;
-  border: 1px solid var(--sv-line);
-  border-radius: 16px;
-  background: var(--sv-surface);
-  color: var(--sv-text);
-  text-align: left;
-  cursor: pointer;
-}
-.kt-brigade:hover {
-  border-color: var(--sv-line-strong);
-}
-.kt-avatars {
-  display: flex;
-  align-items: center;
-  flex: 0 0 auto;
-}
-.kt-brigade-text {
-  display: grid;
-  gap: 2px;
-  flex: 1 1 auto;
-  min-width: 0;
-}
-.kt-brigade-text b {
-  font-size: var(--sv-fs-base);
-}
-.kt-brigade-text small {
-  color: var(--sv-text-2);
-  font-size: var(--sv-fs-sm);
-}
-.kt-brigade .kt-link {
-  flex: 0 0 auto;
-}
 .kt-overview {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
+  grid-template-columns: minmax(0, 1fr);
   gap: 28px;
   align-items: start;
 }
@@ -1674,57 +1595,6 @@ h2.has-help .help-btn {
   color: var(--sv-gold);
   font-size: 22px;
   line-height: 24px;
-}
-.kt-recent-list {
-  border: 1px solid var(--sv-line);
-  border-radius: 16px;
-  background: var(--sv-surface);
-  overflow: hidden;
-}
-.kt-recent-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  padding: 12px 16px;
-  border: 0;
-  border-bottom: 1px solid var(--sv-line);
-  background: none;
-  color: var(--sv-text);
-  text-align: left;
-  cursor: pointer;
-}
-.kt-recent-row:last-child {
-  border-bottom: 0;
-}
-.kt-recent-row:hover {
-  background: var(--sv-surface-2);
-}
-.kt-recent-row .kt-avatar {
-  width: 30px;
-  height: 30px;
-  margin: 0;
-  border: 0;
-  font-size: 11px;
-}
-.kt-recent-row > span:last-child {
-  display: grid;
-  gap: 2px;
-  min-width: 0;
-}
-.kt-recent-row b {
-  font-size: var(--sv-fs-md);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.kt-recent-row small {
-  color: var(--sv-text-2);
-  font-size: 12.5px;
-}
-.kt-recent-empty {
-  margin: 0;
-  padding: 16px;
 }
 .kt-library {
   padding-top: 6px;
@@ -1964,14 +1834,16 @@ h2.has-help .help-btn {
   font-size: var(--sv-fs-md);
 }
 
-/* Telefoon: eerst de bibliotheek (zoeken, mappen, toevoegen, A t/m Z), daarna mappen en net bijgewerkt. */
+/* Telefoon: eerst de mappen, dan de bibliotheek (zoeken, toevoegen, A t/m Z). */
 @media (max-width: 760px) {
   .kt-overview {
-    grid-template-columns: minmax(0, 1fr);
-    order: 3;
+    order: 2;
   }
   .kt-library {
-    order: 2;
+    order: 3;
+  }
+  .kt-sub {
+    display: none;
   }
   .kt-foot {
     order: 4;
@@ -2018,18 +1890,6 @@ h2.has-help .help-btn {
     min-height: 54px;
     margin-bottom: 12px;
     font-size: 16px;
-  }
-  .kt-brigade {
-    padding: 12px 14px;
-    gap: 12px;
-  }
-  .kt-brigade .kt-avatar {
-    width: 32px;
-    height: 32px;
-    font-size: 11px;
-  }
-  .kt-brigade .kt-link {
-    display: none;
   }
   .kt-folder-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
