@@ -160,6 +160,7 @@ async function setLanguage(lang) {
   }
   renderLanguageSwitches();
   document.documentElement.classList.remove('i18n-loading');
+  window.refreshExampleLanguage?.();
 }
 
 // Taalknop (NL/EN/DE/ES/FR) op alle plekken met [data-lang-switch].

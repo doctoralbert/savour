@@ -744,7 +744,7 @@ async function clearErrors() {
 }
 
 async function overview(user, ownVisitor) {
-  const [users, profiles, subs, orgs, members, stats, aiCost, revenue, teams, ownFolders] = await Promise.all([
+  const [users, profiles, subs, orgs, members, stats, aiCost, revenue, teams, ownFolders, logins] = await Promise.all([
     listUsers(),
     select('profiles', 'select=id,name,organization,country').catch(() =>
       select('profiles', 'select=id,name,organization')
@@ -756,7 +756,8 @@ async function overview(user, ownVisitor) {
     openAiCostsThisMonth(),
     stripeRevenue30Days(),
     select('shared_maps', 'select=owner_id').catch(() => []),
-    select('folders', 'select=user_id').catch(() => [])
+    select('folders', 'select=user_id').catch(() => []),
+    rpc('savour_admin_login_counts', {}).catch(() => null)
   ]);
   const visitors = await visitorStats(await ownVisitorIds(user, ownVisitor)).catch(e => {
     console.error('Bezoekers laden mislukt', e);
@@ -768,6 +769,7 @@ async function overview(user, ownVisitor) {
   const ownOrgOf = byId(orgs, 'owner_id');
   const orgById = byId(orgs);
   const statsOf = byId(stats, 'user_id');
+  const loginsOf = byId(logins, 'user_id');
   const memberOrgOfEmail = new Map(
     (members || []).map(m => [String(m.email).toLowerCase(), orgById.get(m.organization_id)])
   );
@@ -786,6 +788,8 @@ async function overview(user, ownVisitor) {
         last_sign_in_at: u.last_sign_in_at,
         confirmed: !!(u.email_confirmed_at || u.confirmed_at),
         recipes: Number(s.recipes || 0),
+        logins: logins ? Number(loginsOf.get(u.id)?.logins || 0) : null,
+        logins_30_days: logins ? Number(loginsOf.get(u.id)?.logins_30_days || 0) : null,
         ai_this_month: Number(s.ai_this_month || 0),
         paid_stripe: !!sub?.stripe_subscription_id && running(sub),
         ...accountType(u, sub, ownOrgOf.get(u.id), memberOrgOfEmail.get(String(u.email).toLowerCase()))
@@ -1116,12 +1120,18 @@ async function saveSettingList(key, list) {
   await insert('admin_settings', { key, value: JSON.stringify(list) });
 }
 
-const financeMonths = () => {
-  const now = new Date();
-  return Array.from({ length: 12 }, (_, i) => {
-    const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 11 + i, 1));
-    return d.toISOString().slice(0, 7);
-  });
+// Alle maanden sinds de start van Savour, of eerder als er oudere kosten zijn ingevoerd.
+const FINANCE_START = '2026-09';
+const financeMonths = costs => {
+  const first = [FINANCE_START, ...costs.map(c => String(c.date || '').slice(0, 7)).filter(Boolean)].sort()[0];
+  const end = new Date().toISOString().slice(0, 7);
+  const months = [];
+  for (let [year, month] = first.split('-').map(Number); ; month++) {
+    if (month > 12) [year, month] = [year + 1, 1];
+    const key = `${year}-${String(month).padStart(2, '0')}`;
+    months.push(key);
+    if (key >= end) return months;
+  }
 };
 
 // Omzet en betaalkosten per maand uit Stripe, na terugbetalingen.
@@ -1196,14 +1206,13 @@ async function openAiMonths(months) {
 }
 
 async function financeOverview() {
-  const months = financeMonths();
+  const [costs, hours] = await Promise.all([settingList(FINANCE_COSTS), settingList(FINANCE_HOURS)]);
+  const months = financeMonths(costs);
   const safe = promise => promise.catch(error => (console.error('Financiën', error), null));
-  const [stripeData, ads, openai, costs, hours] = await Promise.all([
+  const [stripeData, ads, openai] = await Promise.all([
     safe(stripeMonths(months)),
     safe(adsenseMonths(months)),
-    safe(openAiMonths(months)),
-    settingList(FINANCE_COSTS),
-    settingList(FINANCE_HOURS)
+    safe(openAiMonths(months))
   ]);
   return {
     months,

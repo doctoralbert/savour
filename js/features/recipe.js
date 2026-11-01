@@ -199,7 +199,7 @@ function ingredientLinkTarget(r, line, byTitle) {
 }
 
 function linkableRecipes(r) {
-  return [...(r.example ? EXAMPLE_RECIPES : []), ...recipes, ...sharedRecipes].filter(
+  return [...(r.example ? exampleRecipes() : []), ...recipes, ...sharedRecipes].filter(
     x => String(x.id) !== String(r.id)
   );
 }

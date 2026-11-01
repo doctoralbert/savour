@@ -613,6 +613,9 @@ window.SAVOUR_I18N.es = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.":
       'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.',
     Verbergen: 'Ocultar',
+    Sauzen: 'Salsas',
+    Patisserie: 'Pastelería',
+    Kaart: 'Carta',
     Voorbeeld: 'Ejemplo',
     'Dit is een voorbeeld': 'Esto es un ejemplo',
     'Zo ziet een receptenmap eruit. Hij verdwijnt zodra je je eigen map maakt.':

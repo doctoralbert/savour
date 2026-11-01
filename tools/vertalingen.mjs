@@ -1498,6 +1498,9 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Sauzen","Sauces","Saucen","Salsas"],
+  ["Patisserie","Pastry","Patisserie","Pastelería"],
+  ["Kaart","Menu","Karte","Carta"],
   ["Voorbeeld","Example","Beispiel","Ejemplo"],
   ["Dit is een voorbeeld","This is an example","Das ist ein Beispiel","Esto es un ejemplo"],
   ["Zo ziet een receptenmap eruit. Hij verdwijnt zodra je je eigen map maakt.","This is what a recipe folder looks like. It disappears as soon as you create your own.","So sieht ein Rezeptordner aus. Er verschwindet, sobald du deinen eigenen anlegst.","Así es una carpeta de recetas. Desaparece en cuanto creas la tuya."],

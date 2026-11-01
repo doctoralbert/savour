@@ -1154,9 +1154,9 @@ function renderAdminAccounts() {
           ? ''
           : `<button class="admin-ghost" onclick="adminConfirmAccount('${a.id}')">Bevestigen</button>`;
         const remove = `<button class="admin-ghost admin-danger" onclick="adminDeleteAccount('${a.id}')">Verwijderen</button>`;
-        return `<tr><td>${adminFlag(a.country)} ${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_this_month)}</td><td>${adminFormatDate(a.created_at)}</td><td>${adminFormatDate(a.last_sign_in_at)}</td><td><div class="admin-actions">${confirm}${action}${remove}</div></td></tr>`;
+        return `<tr><td>${adminFlag(a.country)} ${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_this_month)}</td><td>${adminFormatDate(a.created_at)}</td><td>${adminFormatDate(a.last_sign_in_at)}</td><td>${a.logins == null ? '—' : `${adminEscape(a.logins)}<small> ${adminEscape(a.logins_30_days)} in 30 dagen</small>`}</td><td><div class="admin-actions">${confirm}${action}${remove}</div></td></tr>`;
       })
-      .join('') || '<tr><td colspan="9">Geen accounts gevonden.</td></tr>';
+      .join('') || '<tr><td colspan="10">Geen accounts gevonden.</td></tr>';
 }
 
 // Nieuw account: uitnodiging per mail, de gebruiker kiest zelf een wachtwoord (api/admin.js).
@@ -1402,7 +1402,7 @@ const FIN_LOSS = '#d9694a';
 const KOR_LIMIT = 20000;
 const PRO_MONTH_PRICE = 2.99;
 let adminFinance = null;
-let adminFinancePeriod = 'year';
+let adminFinancePeriod = 'all';
 let adminTotals = null;
 
 async function loadAdminFinance() {
@@ -1511,7 +1511,7 @@ function finLine(rows) {
         `<g class="fin-hit" data-tip="${adminEscape(`${finMonthLabel(p.month, true)}: totaal ${adminMoney(p.total)}`)}"><rect x="${x(i) - 24}" y="0" width="48" height="${H}" fill="transparent"></rect><circle cx="${x(i)}" cy="${y(p.total)}" r="4" fill="${FIN_REVENUE}"></circle></g>`
     )
     .join('');
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Totale winst over twaalf maanden">${zero}<path d="${line}" fill="none" stroke="${FIN_REVENUE}" stroke-width="2"></path>${dots}</svg>`;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Totale winst sinds de start">${zero}<path d="${line}" fill="none" stroke="${FIN_REVENUE}" stroke-width="2"></path>${dots}</svg>`;
 }
 
 function finLegend(series) {
@@ -1585,7 +1585,7 @@ function renderAdminFinance() {
   const repeatName = { none: 'Eenmalig', month: 'Per maand', year: 'Per jaar' };
 
   host.innerHTML = `
-    <div class="fin-periods" role="group" aria-label="Periode">${period('month', 'Deze maand')}${period('year', 'Dit jaar')}${period('all', '12 maanden')}</div>
+    <div class="fin-periods" role="group" aria-label="Periode">${period('all', 'Altijd')}${period('year', 'Jaar')}${period('month', 'Maand')}</div>
     ${missing.length ? `<p class="admin-note">Nog niet meegeteld: ${adminEscape(missing.join(', '))}.</p>` : ''}
     <div class="admin-stats-grid fin-hero">
       ${finTile('Omzet', adminMoney(revenue), 'abonnementen, import service en advertenties')}
@@ -1608,7 +1608,7 @@ function renderAdminFinance() {
     )}</div></section>
     <div class="fin-two">
       <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">RESULTAAT</div><h2>Winst per maand</h2></div></div><div class="fin-chart">${finBars(all, [{ key: 'profit', name: 'Winst' }], 'Winst per maand')}</div></section>
-      <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">TOTAAL</div><h2>Opgeteld over 12 maanden</h2></div><span class="admin-count">${adminEscape(adminMoney(allProfit))}</span></div><div class="fin-chart">${finLine(all)}</div></section>
+      <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">TOTAAL</div><h2>Opgeteld sinds de start</h2></div><span class="admin-count">${adminEscape(adminMoney(allProfit))}</span></div><div class="fin-chart">${finLine(all)}</div></section>
     </div>
     <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">GEZONDHEID</div><h2>Belangrijkste cijfers</h2></div></div>
       <div class="admin-stats-grid">
@@ -1639,7 +1639,7 @@ function renderAdminFinance() {
       <div class="admin-stats-grid">
         ${finTile('Totaal gewerkt', `${hours.total.toLocaleString('nl-NL', { maximumFractionDigits: 0 })} uur`, 'gemeten, geschat en zelf ingevoerd')}
         ${finTile('Werkweken', (hours.total / 40).toLocaleString('nl-NL', { maximumFractionDigits: 1 }), 'van 40 uur')}
-        ${finTile('Winst per uur', hours.total ? adminMoney(allProfit / hours.total) : '—', 'over de laatste 12 maanden')}
+        ${finTile('Winst per uur', hours.total ? adminMoney(allProfit / hours.total) : '—', 'sinds de start')}
         ${finTile('Commits', count0(d.measured?.commits), `sinds ${d.measured?.firstCommit || '—'}`)}
       </div>
       <h3 class="adsense-title">Uren toevoegen</h3>

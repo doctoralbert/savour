@@ -1,6 +1,9 @@
 // Franse vertalingen, naast tools/vertalingen.mjs: Nederlandse brontekst → Frans.
 // Nieuwe interfacetekst? Zet hier ook de Franse regel; node tools/build-i18n.mjs meldt wat ontbreekt.
 export const stringsFr = {
+ "Sauzen": "Sauces",
+ "Patisserie": "Pâtisserie",
+ "Kaart": "Carte",
  "Voorbeeld": "Exemple",
  "Dit is een voorbeeld": "Ceci est un exemple",
  "Zo ziet een receptenmap eruit. Hij verdwijnt zodra je je eigen map maakt.": "Voici à quoi ressemble un dossier de recettes. Il disparaît dès que tu crées le tien.",
