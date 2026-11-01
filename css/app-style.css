@@ -2081,3 +2081,27 @@ h2.has-help .help-btn {
 .team-pro-action {
   margin-top: 14px;
 }
+
+/* Advertentie in de app, alleen zonder Pro */
+.app-ad {
+  overflow: hidden;
+  margin: var(--sv-space-5) 0;
+}
+.rp .app-ad {
+  max-width: 720px;
+  margin: var(--sv-space-6) auto 0;
+}
+.savour-v13-list .app-ad {
+  margin: var(--sv-space-3) 0;
+}
+.app-ad:has(ins[data-ad-status='unfilled']) {
+  display: none;
+}
+body.cook-mode .app-ad {
+  display: none;
+}
+@media print {
+  .app-ad {
+    display: none !important;
+  }
+}

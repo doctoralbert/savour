@@ -536,6 +536,7 @@ function renderShared(id) {
         .join('')}</div>`
     : '';
   const library =
+    appAdHtml() +
     `<section class="kt-library" aria-label="Receptenbibliotheek"><div class="kt-section-head"><h2>Receptenbibliotheek</h2><span class="muted" id="ktLibCount"></span></div>` +
     `<label class="kt-search"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg><input type="search" id="ktSearch" placeholder="Zoek in ${all.length} recepten" aria-label="Zoek in de receptenbibliotheek" value="${esc(window.sharedSearch || '')}" oninput="filterTeamSearch(this.value)"></label>` +
     chips +
@@ -714,7 +715,8 @@ function renderSharedFolderDetail() {
       contextRecipeRowsHtml(
         filtered,
         'sharedFolder',
-        canEditShared(m) && !f.system ? 'removeRecipeFromSharedFolder' : ''
+        canEditShared(m) && !f.system ? 'removeRecipeFromSharedFolder' : '',
+        true
       ) +
       '</div>'
     : '<div class="empty">Dit keukenteam bevat geen recepten voor deze selectie.</div>';

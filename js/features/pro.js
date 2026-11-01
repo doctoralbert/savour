@@ -41,6 +41,31 @@ function isPro() {
   return !!savourPlan.pro;
 }
 
+// Advertenties in de app: alleen als zeker is dat dit account geen Pro heeft (dus niet in de demo, de proefperiode
+// of als het abonnement niet geladen kon worden). Niet in de kookmodus of op papier (css/app-style.css).
+const APP_AD_SLOT = '3450856429';
+
+function showsAppAds() {
+  return !!currentUser && !demoMode && !!savourPlan.loaded && !isPro();
+}
+
+function appAdHtml() {
+  if (!showsAppAds()) return '';
+  setTimeout(fillAppAds, 50);
+  return `<div class="app-ad"><ins class="adsbygoogle" style="display:block;text-align:center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8120664667405598" data-ad-slot="${APP_AD_SLOT}"></ins></div>`;
+}
+
+// Alleen zichtbare blokken: een blok in een verborgen scherm heeft geen breedte. go() vult de rest bij het openen.
+function fillAppAds() {
+  document.querySelectorAll('.app-ad ins:not([data-app-ad])').forEach(ins => {
+    if (!ins.offsetWidth) return;
+    ins.dataset.appAd = '1';
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {}
+  });
+}
+
 // Hoeveel eigen recepten mag deze gebruiker nog toevoegen? Infinity met betaald Pro (niet in de proefperiode).
 function recipeRoomLeft() {
   return savourPlan.unlimited || demoMode ? Infinity : Math.max(0, savourPlan.recipeLimit - recipes.length);
@@ -70,6 +95,7 @@ async function loadPlanState() {
   const { data: p, error } = await supabaseClient.rpc('savour_my_plan');
   if (!error && p) {
     savourPlan = {
+      loaded: true,
       ...EMPTY_PLAN,
       pro: !!p.pro,
       // Oude SQL zonder 'unlimited': toen gaf elke vorm van Pro onbeperkt recepten.

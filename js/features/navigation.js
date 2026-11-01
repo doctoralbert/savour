@@ -19,6 +19,7 @@ function go(id) {
   const view = $(id);
   if (!view) return;
   view.classList.add('active');
+  fillAppAds();
   document.querySelectorAll('[data-nav]').forEach(b => b.classList.toggle('active', b.dataset.nav === id));
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (id === 'recipes') renderRecipes();
