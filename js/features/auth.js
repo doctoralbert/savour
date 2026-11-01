@@ -151,6 +151,13 @@ async function submitAuth() {
         ).then(login => login && openAuth('login'));
         return;
       }
+      // Nieuw account: de server controleert dat het echt bestaat en mailt contact@savour.page.
+      fetch('/api/bug-report', {
+        method: 'POST',
+        keepalive: true,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ kind: 'signup', email, language: currentLanguage })
+      }).catch(() => {});
       saveLoginChoices(email, password, name);
       closeAuth();
       if (data.session) {

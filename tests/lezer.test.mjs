@@ -13,6 +13,69 @@ const { splitRecipeText } = ctx;
 // t = titel, y = opbrengst, i = ingrediënten (exact), s = bereiding (exact of aantal), c = zekerheid
 const cases = [
   {
+    name: 'Koksnotities zonder kopjes: lege regels, tussenstappen en kale getallen',
+    text: `Rode biet gel
+6000 liter bietensap in koken tot 3000
+250 kalamansi coulis erbij
+opsmaak brengen met zout
+35 gram agar erop
+1 minuut doorkoken en doodraaien
+
+Rode  biet tartaar
+10 kg gekookte biet
+140 graden 1 uur in de oven
+doordraaien
+20 gram zout
+3 limoenen rasp.
+
+Pastrami
+pastrami pekelen
+3000 water
+150 zout
+mosterdzaad,, peperkorel, koriander, laurier, kruidnagel, knoflook
+3 dagen pekelen.
+
+Loh pak ho
+6000 rettich
+in gaatjes bak met en bestrooien met zout
+2000 sjalot
+papje maken met
+666 rijstebloem
+dan rettich aan bakken. Hier het papje in garen.
+Polenta ( per plaat)
+4,5 Liter water
+1350 polenta
+alles apart afwegen.`,
+    expect: [
+      {
+        t: 'Rode biet gel',
+        i: ['6000 liter bietensap in koken tot 3000', '250 kalamansi coulis erbij', '35 gram agar erop'],
+        s: ['opsmaak brengen met zout', '1 minuut doorkoken en doodraaien']
+      },
+      {
+        t: 'Rode biet tartaar',
+        i: ['10 kg gekookte biet', '20 gram zout', '3 limoenen rasp.'],
+        s: ['140 graden 1 uur in de oven', 'doordraaien']
+      },
+      {
+        t: 'Pastrami',
+        i: [
+          'pastrami pekelen',
+          '3000 water',
+          '150 zout',
+          'mosterdzaad,, peperkorel, koriander, laurier, kruidnagel, knoflook'
+        ],
+        s: ['3 dagen pekelen.']
+      },
+      {
+        t: 'Loh pak ho',
+        i: ['6000 rettich', '2000 sjalot', '666 rijstebloem'],
+        s: ['in gaatjes bak met en bestrooien met zout', 'papje maken met:', 'dan rettich aan bakken. Hier het papje in garen.']
+      },
+      { t: 'Polenta ( per plaat)', i: ['4,5 Liter water', '1350 polenta'], s: ['alles apart afwegen.'] }
+    ]
+  },
+  {
     name: 'Kopjes Ingrediënten/Bereiding met opbrengst',
     text: `Beurre blanc
 Voor 4 personen
@@ -310,7 +373,7 @@ Wanneer ingekookt afmaken met
       {
         t: 'Rode wijn jus',
         i: ['4000 gram rode wijn', '250 gram prei', '5 gram laurier', '75 gram mirin', '10 gram zout'],
-        s: ['Groente fijn snijden en alles in koken tot 1000 gram.', 'Wanneer ingekookt afmaken met'],
+        s: ['Groente fijn snijden en alles in koken tot 1000 gram.', 'Wanneer ingekookt afmaken met:'],
         c: 'high'
       }
     ]

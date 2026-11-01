@@ -613,6 +613,9 @@ window.SAVOUR_I18N.es = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.":
       'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.',
     Verbergen: 'Ocultar',
+    Kleiner: 'Más pequeño',
+    Groter: 'Más grande',
+    Tekstgrootte: 'Tamaño del texto',
     'Eén receptenboek voor de hele brigade.': 'Un recetario para toda la brigada.',
     'Eén receptenboek voor je hele brigade': 'Un recetario para toda tu brigada',
     'Koks uitnodigen': 'Invitar cocineros',

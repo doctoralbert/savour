@@ -606,6 +606,45 @@ function readRecipesLocally(text, extra = {}) {
     ...extra
   }));
 }
+// Geplakt uit Word of een mail: helemaal vetgedrukte regels onthouden. Die zijn vaak een receptnaam of onderdeel
+// en gaan als zachte kop ("#b ") naar de lezer, net als bij een Word-bestand.
+let pastedBoldLines = new Set();
+function rememberPastedBold(event) {
+  const html = event.clipboardData?.getData('text/html');
+  if (!html) return;
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  const isBold = el => {
+    for (let x = el; x && x !== doc.body; x = x.parentElement) {
+      const weight = (x.getAttribute('style') || '').match(/font-weight:\s*(\w+)/i)?.[1];
+      if (weight) return weight === 'bold' || weight === 'bolder' || Number(weight) >= 600;
+      if (/^(B|STRONG|H[1-6])$/.test(x.tagName)) return true;
+    }
+    return false;
+  };
+  const blocks = [...doc.body.querySelectorAll('p,div,li,h1,h2,h3,h4,h5,h6,td')].filter(
+    b => !b.querySelector('p,div,li,h1,h2,h3,h4,h5,h6,td')
+  );
+  for (const block of blocks) {
+    const text = readerClean(block.textContent);
+    if (!text) continue;
+    const walker = doc.createTreeWalker(block, NodeFilter.SHOW_TEXT);
+    let bold = 0;
+    for (let n = walker.nextNode(); n; n = walker.nextNode())
+      if (isBold(n.parentElement)) bold += readerClean(n.textContent).length;
+    if (bold >= text.length * 0.9) pastedBoldLines.add(text);
+  }
+}
+
+function withPastedBold(text) {
+  if (!pastedBoldLines.size) return text;
+  const marked = text
+    .split('\n')
+    .map(l => (pastedBoldLines.has(readerClean(l)) && !readerIsIngredientLine(readerClean(l)) ? `#b ${l}` : l))
+    .join('\n');
+  pastedBoldLines = new Set();
+  return marked;
+}
+
 function removeBatchDraft(index) {
   syncBatchDrafts();
   if (index < 0 || index >= batchDrafts.length) return;
@@ -1148,7 +1187,7 @@ async function processImportFiles(files) {
 }
 
 async function processImport() {
-  const text = $('importTextInput').value.trim();
+  const text = withPastedBold($('importTextInput').value.trim());
   const files = Array.isArray(importFileData) ? importFileData : normalizeImportFiles($('importFile').files);
   if (importSource === 'text' && !text) {
     $('importStatus').textContent = 'Voer eerst tekst in.';
@@ -1243,7 +1282,18 @@ function syncBatchDrafts() {
 }
 
 // Slaat gecontroleerde importrecepten op en slaat exacte dubbelen (met de bibliotheek of binnen de batch) over.
+let batchSaving = false;
 async function saveBatchRecipes() {
+  if (batchSaving) return;
+  batchSaving = true;
+  try {
+    await saveBatchRecipesOnce();
+  } finally {
+    batchSaving = false;
+  }
+}
+
+async function saveBatchRecipesOnce() {
   syncBatchDrafts();
   if (!currentUser || !batchDrafts.length) return persistBatchRecipes();
   const existing = new Map(recipes.map(r => [recipeFingerprint(r), r]));

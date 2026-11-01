@@ -1498,6 +1498,10 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+
+  ["Kleiner","Smaller","Kleiner","Más pequeño"],
+  ["Groter","Larger","Größer","Más grande"],
+  ["Tekstgrootte","Text size","Textgröße","Tamaño del texto"],
   ["Eén receptenboek voor de hele brigade.","One recipe book for the whole brigade.","Ein Rezeptbuch für die ganze Brigade.","Un recetario para toda la brigada."],
   ["Eén receptenboek voor je hele brigade","One recipe book for your whole brigade","Ein Rezeptbuch für deine ganze Brigade","Un recetario para toda tu brigada"],
   ["Koks uitnodigen","Invite cooks","Köche einladen","Invitar cocineros"],

@@ -189,6 +189,8 @@ function newRecipe() {
 }
 
 // Controleert het recept in de editor en weigert een exacte kopie van een bestaand recept.
+// Een dubbele klik mag nooit twee recepten maken, ook niet in de editor binnen "Recept toevoegen".
+let savingRecipe = false;
 async function saveRecipe() {
   syncStructuredEditor();
   if (!currentUser) {
@@ -243,12 +245,15 @@ function persistRecipe() {
     .map(x => x.trim())
     .filter(Boolean);
   const categoryName = $('fCategory').value || 'Eigen recepten';
-  const btn = document.querySelector('#editor .actions .btn.gold');
+  if (savingRecipe) return;
+  savingRecipe = true;
+  const btn = document.querySelector('#editor .actions .btn.gold, #inlineEditorHost .actions .btn.gold');
   if (btn) {
     btn.disabled = true;
     btn.textContent = 'Opslaan…';
   }
   const done = () => {
+    savingRecipe = false;
     if (btn) {
       btn.disabled = false;
       btn.textContent = 'Opslaan';

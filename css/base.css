@@ -71,18 +71,9 @@ button {
 }
 /* Mappen in het menu (Recepten mappen en de mappen van een gedeelde map): kleiner en dichter op elkaar,
    zodat ze zichtbaar bij hun kopje of gedeelde map horen. */
-.nav button.nav-folder {
-  padding: 4px 10px;
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.3;
-}
-.nav button.nav-folder .ico {
-  font-size: 13px;
-}
-/* Keukenteam staat gelijk met de rest van het menu; de mappen ervan springen een klein stukje in. */
+/* De mappen van een keukenteam staan 1 cm (38px) rechts van de teamnaam. */
 .nav button.nav-team-folder {
-  padding-left: 26px;
+  padding-left: 48px;
 }
 .nav button:hover,
 .nav button.active {
@@ -1337,7 +1328,7 @@ button {
 }
 .import-text textarea {
   width: 100%;
-  min-height: 230px;
+  min-height: 460px;
   background: #081011;
   border: 1px solid #2b3637;
   color: #fff;
@@ -1560,7 +1551,7 @@ button {
 .public-info-view .eyebrow {
   margin-bottom: 8px;
 }
-.info-page h1 {
+.info-page :is(h1, .page-h1) {
   font-family: var(--sv-font-display);
   font-size: var(--sv-fs-3xl);
   margin: 0 0 12px;
@@ -2804,6 +2795,33 @@ button {
 .mobile-bottom-nav {
   z-index: 80;
 }
+/* Eén h1 per pagina (zoekmachines): verborgen schermen gebruiken deze klasse met de opmaak van een h1. */
+.page-h1 {
+  display: block;
+  margin: 0.67em 0;
+  font-size: 2em;
+  font-weight: 700;
+}
+.share-modal-box {
+  position: relative;
+}
+.share-modal-box h2 {
+  padding-right: 48px;
+}
+.share-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--sv-radius-lg);
+  background: var(--sv-surface-2);
+  color: var(--sv-text-2);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
 .share-modal-box,
 .shared-chooser-box,
 .invite-modal-box {
@@ -2971,13 +2989,13 @@ button {
   letter-spacing: 0.22em;
   font-weight: 700;
 }
-.admin-login-card h1,
-.admin-head h1 {
+.admin-login-card :is(h1, .page-h1),
+.admin-head :is(h1, .page-h1) {
   font-family: var(--sv-font-display);
   font-weight: 500;
   color: #f3eee4;
 }
-.admin-login-card h1 {
+.admin-login-card :is(h1, .page-h1) {
   font-size: var(--sv-fs-3xl);
   margin: 8px 0;
 }
@@ -3105,7 +3123,7 @@ button {
   gap: 25px;
   margin-bottom: 28px;
 }
-.admin-head h1 {
+.admin-head :is(h1, .page-h1) {
   font-size: var(--sv-fs-3xl);
   margin: 7px 0 0;
 }
@@ -3259,7 +3277,7 @@ button {
     align-items: flex-start;
     flex-direction: column;
   }
-  .admin-head h1 {
+  .admin-head :is(h1, .page-h1) {
     font-size: var(--sv-fs-2xl);
   }
   .admin-stats-grid {
@@ -4152,7 +4170,7 @@ body {
   position: relative;
   z-index: 1;
 }
-.activation-card h1 {
+.activation-card :is(h1, .page-h1) {
   font-family: var(--sv-font-display);
   font-size: var(--sv-fs-3xl);
   line-height: 1.05;
@@ -4326,7 +4344,7 @@ body {
   background: #fff !important;
   border-color: #d9d8d0;
 }
-.savour-light .public-info-view h1,
+.savour-light .public-info-view :is(h1, .page-h1),
 .savour-light .public-info-view h2,
 .savour-light .public-info-view p,
 .savour-light .public-info-view strong {
@@ -4339,7 +4357,7 @@ body {
   .activation-card {
     padding: 42px 22px;
   }
-  .activation-card h1 {
+  .activation-card :is(h1, .page-h1) {
     font-size: var(--sv-fs-2xl);
   }
   .activation-logo {
