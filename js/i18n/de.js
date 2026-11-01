@@ -625,6 +625,10 @@ window.SAVOUR_I18N.de = {
     'Eén ingrediënt per regel': 'Eine Zutat pro Zeile',
     'Eén stap per regel': 'Ein Schritt pro Zeile',
     'Receptenmap toevoegen': 'Rezeptordner hinzufügen',
+    'Eigen factor': 'Eigener Faktor',
+    'Met hoeveel wil je het recept vermenigvuldigen? Bijvoorbeeld 0,1 of 2,5.':
+      'Womit möchtest du das Rezept multiplizieren? Zum Beispiel 0,1 oder 2,5.',
+    'Vul een getal in tussen 0,01 en 1000.': 'Gib eine Zahl zwischen 0,01 und 1000 ein.',
     'Eigen factor ×': 'Eigener Faktor ×',
     'Ik heb': 'Ich habe',
     Ingrediënt: 'Zutat',

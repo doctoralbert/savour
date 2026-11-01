@@ -73,6 +73,7 @@ function openRecipe(id, context = 'library') {
             ? { label: 'Verwijderen uit bibliotheek', fn: `deleteRecipe('${rid}')` }
             : null;
   const menuItems = [
+    ingredients.length && `<button type="button" onclick="askRecipeFactor()">${icon('plus')}Eigen factor</button>`,
     own && `<button type="button" onclick="openFolderModal('${rid}')">${icon('folderPlus')}Toevoegen aan map</button>`,
     removeAction &&
       `<button type="button" class="rp-menu-danger" onclick="${removeAction.fn}">${icon('trash')}${removeAction.label}</button>`

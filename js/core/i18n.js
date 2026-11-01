@@ -11,6 +11,7 @@ const I18N_ATTRIBUTES = ['placeholder', 'title', 'aria-label', 'alt'];
 let currentLanguage = 'nl';
 let i18nDictionary = null; // { strings: Map, patterns: [[RegExp, vervanging]] }
 let i18nObserver = null;
+let adminLinkVisible = false; // Beheerder bevestigd door de server (renderAdminNav in js/features/pro.js).
 const i18nTextState = new WeakMap(); // tekstknoop -> { original, shown }
 
 function getSavedLanguage() {
@@ -171,6 +172,8 @@ function renderLanguageSwitches() {
         ([code, name]) =>
           `<button type="button" class="${code === currentLanguage ? 'is-on' : ''}" onclick="setLanguage('${code}')"><span>${code.toUpperCase()}</span>${name}</button>`
       )
-      .join('')}</div></details>`;
+      .join(
+        ''
+      )}</div></details>${adminLinkVisible ? '<a class="lang-admin" href="/admin" translate="no">Admin</a>' : ''}`;
   });
 }

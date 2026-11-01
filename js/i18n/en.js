@@ -622,6 +622,10 @@ window.SAVOUR_I18N.en = {
     'Eén ingrediënt per regel': 'One ingredient per line',
     'Eén stap per regel': 'One step per line',
     'Receptenmap toevoegen': 'Add recipe folder',
+    'Eigen factor': 'Custom factor',
+    'Met hoeveel wil je het recept vermenigvuldigen? Bijvoorbeeld 0,1 of 2,5.':
+      'What should the recipe be multiplied by? For example 0.1 or 2.5.',
+    'Vul een getal in tussen 0,01 en 1000.': 'Enter a number between 0.01 and 1000.',
     'Eigen factor ×': 'Custom factor ×',
     'Ik heb': 'I have',
     Ingrediënt: 'Ingredient',
