@@ -1503,6 +1503,9 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Kleiner","Smaller","Kleiner","Más pequeño"],
+  ["Groter","Larger","Größer","Más grande"],
+  ["Tekstgrootte","Text size","Textgröße","Tamaño del texto"],
   ["Bevestig eerst je e-mailadres","Confirm your email address first","Bestätige zuerst deine E-Mail-Adresse","Confirma primero tu correo electrónico"],
   ["We hebben je een e-mail gestuurd met een link om je account te bevestigen. Kijk ook in je spam. Geen mail gekregen? Dan sturen we een nieuwe.","We sent you an email with a link to confirm your account. Check your spam folder too. No email? We'll send a new one.","Wir haben dir eine E-Mail mit einem Link zur Bestätigung deines Kontos geschickt. Sieh auch im Spam nach. Keine E-Mail bekommen? Dann schicken wir eine neue.","Te hemos enviado un correo con un enlace para confirmar tu cuenta. Revisa también el spam. ¿No te ha llegado? Te enviamos uno nuevo."],
   ["Nieuwe bevestigingsmail sturen","Send a new confirmation email","Neue Bestätigungs-E-Mail senden","Enviar un nuevo correo de confirmación"],

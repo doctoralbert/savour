@@ -613,6 +613,9 @@ window.SAVOUR_I18N.es = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en gedeelde mappen voor je team.":
       'Recetas ilimitadas, IA que lee tus notas y fotos, y carpetas compartidas para tu equipo.',
     Verbergen: 'Ocultar',
+    Kleiner: 'Más pequeño',
+    Groter: 'Más grande',
+    Tekstgrootte: 'Tamaño del texto',
     'Bevestig eerst je e-mailadres': 'Confirma primero tu correo electrónico',
     'We hebben je een e-mail gestuurd met een link om je account te bevestigen. Kijk ook in je spam. Geen mail gekregen? Dan sturen we een nieuwe.':
       'Te hemos enviado un correo con un enlace para confirmar tu cuenta. Revisa también el spam. ¿No te ha llegado? Te enviamos uno nuevo.',

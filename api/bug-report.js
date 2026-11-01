@@ -1,10 +1,30 @@
-import { insert, hasServiceRole } from './_lib/supabase-admin.js';
+import { insert, hasServiceRole, findUserByEmail } from './_lib/supabase-admin.js';
+import { sendMail } from './_lib/mail.js';
 
 // Bugmeldingen én contactberichten (kind: 'contact') van de publieke pagina's, per mail naar contact@savour.page.
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   try {
     const { name, email, subject, message, screenshot, screenshotName, page, language, kind, website } = req.body || {};
+    // Nieuw account: alleen mailen als het account echt bestaat en net is gemaakt, zodat dit niet te misbruiken is.
+    if (kind === 'signup') {
+      const user = hasServiceRole() ? await findUserByEmail(email) : null;
+      if (user && Date.now() - new Date(user.created_at).getTime() < 15 * 60 * 1000) {
+        const who = user.user_metadata?.name || '';
+        const lines = [
+          `E-mail: ${user.email}`,
+          who && `Naam: ${who}`,
+          `Taal: ${String(language || 'nl').slice(0, 10)}`
+        ].filter(Boolean);
+        await sendMail({
+          to: process.env.BUG_REPORT_TO || 'contact@savour.page',
+          subject: `Nieuw Savour-account: ${user.email}`,
+          html: `<h2>Nieuw account op Savour</h2><p>${lines.map(esc).join('<br>')}</p>`,
+          text: lines.join('\n')
+        });
+      }
+      return res.status(200).json({ ok: true });
+    }
     // Verborgen veld dat alleen spambots invullen: niets versturen, wel 'gelukt' melden.
     if (website) return res.status(200).json({ ok: true });
     const isContact = kind === 'contact';

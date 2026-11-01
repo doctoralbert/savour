@@ -29,7 +29,7 @@ const READER_QUALITATIVE =
 const READER_BULLET = /^[-–•*·▪◦●]\s*/;
 const READER_STEP_NUMBER = /^(?:stap\s*\d+\s*[:.)-]?|\d+\s*[.)]\s+(?=\D))\s*/i;
 const READER_STARTS_WITH_TIME =
-  /^\d+(?:[.,]\d+)?\s*(?:minuten|minuut|min\.?|uur|uren|seconden|sec\.?|dagen|dag|nachten|nacht|weken)\b/i;
+  /^\d+(?:[.,]\d+)?\s*(?:minuten|minuut|min\.?|uur|uren|seconden|sec\.?|dagen|dag|nachten|nacht|weken|graden)\b/i;
 // Genummerde receptnaam zonder spatie, zoals koks die in een receptenboek zetten: "211.Aardappel crème",
 // of zelfs zonder punt: "465Gado gado saus" (minstens twee cijfers en een hoofdletter erna).
 const READER_NUMBERED_TITLE = /^(?:\d{1,4}\.(?=\p{L})|\d{2,4}(?=\p{Lu}\p{Ll}))/u;
@@ -80,7 +80,7 @@ function readerLooksLikeSentence(line) {
 // Keukenwerkwoorden. In koksnotities staat het werkwoord vaak achteraan ("Fijn draaien in de cutter",
 // "Room en kardemom laten trekken"); zo herkent de lezer een stap ook zonder punt.
 const READER_KITCHEN_VERB =
-  /\b(?:(?:op|af|in|door|aan|bij|uit|terug|los|fijn|kort|koud)?(?:koken|draaien|mengen|zeven|bakken|braden|garen|roeren|kloppen|spatelen|snijden|schillen|smelten|verwarmen|oplossen|toevoegen|trekken|koelen|vriezen|ontdooien|vacumeren|vacümeren|frituren|cutteren|blenden|mixen|pureren|pocheren|stomen|roosteren|karamelliseren|monteren|binden|afbinden|afblussen|blussen|marineren|wellen|weken|zetten|spuiten|strooien|bestrooien|smeren|insmeren|uitsmeren|steken|uitsteken|vullen|rollen|drogen|laten|brengen|halen|doen|gieten|storten|dresseren|serveren|bekleden|leggen|schrapen|spoelen|deppen|vouwen|wassen|schoonmaken|fruiten|raspen|hakken|snipperen|persen|wegen|verdelen|portioneren|bestrijken|oprollen|inpakken|uitrekken|opwarmen|afdekken)\b)/i;
+  /\b(?:(?:op|af|in|door|aan|bij|uit|terug|los|fijn|kort|koud)?(?:koken|draaien|mengen|zeven|bakken|braden|garen|roeren|kloppen|spatelen|snijden|schillen|smelten|verwarmen|oplossen|toevoegen|trekken|koelen|vriezen|ontdooien|vacumeren|vacümeren|frituren|cutteren|blenden|mixen|pureren|pocheren|stomen|roosteren|karamelliseren|monteren|binden|afbinden|afblussen|blussen|marineren|wellen|weken|zetten|spuiten|maken|strooien|bestrooien|smeren|insmeren|uitsmeren|steken|uitsteken|vullen|rollen|drogen|laten|brengen|halen|doen|gieten|storten|dresseren|serveren|bekleden|leggen|schrapen|spoelen|deppen|vouwen|wassen|schoonmaken|fruiten|raspen|hakken|snipperen|persen|wegen|verdelen|portioneren|bestrijken|oprollen|inpakken|uitrekken|opwarmen|afdekken)\b)/i;
 
 // Sterk signaal voor een ingrediënt: opsommingsteken, begint met een hoeveelheid of is kwalitatief
 // ("zout naar smaak"), en is geen zin.
@@ -89,6 +89,8 @@ function readerIsIngredientLine(line) {
   if (!x || READER_STEP_NUMBER.test(line) || READER_NUMBERED_TITLE.test(x)) return false;
   // "2 minuten doorkoken", "1 nacht marineren": een tijd is geen hoeveelheid.
   if (READER_STARTS_WITH_TIME.test(x)) return false;
+  // "mosterdzaad, peperkorrel, koriander, laurier, kruidnagel, knoflook": een opsomming is één ingrediëntregel.
+  if ((x.match(/,/g) || []).length >= 4 && !/[.!?]$/.test(x) && !READER_KITCHEN_VERB.test(x)) return true;
   // "100 verse gember in de blender met de suiker doordraaien. Vervolgens alles …": meerdere zinnen of heel
   // lang is bereiding, ook als de regel met een hoeveelheid begint.
   if (x.length > 90 || /\p{L}[.!?]\s+\p{L}/u.test(x)) return false;
@@ -120,7 +122,7 @@ function readerIsSureStep(line) {
   if (READER_STARTS_WITH_QTY.test(line) && !READER_STARTS_WITH_TIME.test(line)) return false;
   return (
     /^alles\b/i.test(line) ||
-    (READER_KITCHEN_VERB.test(line) && line.split(/\s+/).length >= 2) ||
+    READER_KITCHEN_VERB.test(line) ||
     READER_STARTS_WITH_TIME.test(line) ||
     /\d\s*(?:°|’|')?\s*c\b/i.test(line) ||
     /\b\d+\s*(?:minuten|min|uur|seconden|sec)\b/i.test(line)
@@ -378,7 +380,8 @@ function parseRecipeBlock(block) {
       if (k === 'yield' && !yieldText) yieldText = readerYieldFrom(l);
       else if (i <= lastIngredient) {
         if (k === 'ingredient' || k === 'short') ingredients.push(l.replace(READER_BULLET, ''));
-        else intro.push(l);
+        // "papje maken met" + nieuwe ingrediënten: blijft een eigen regel, niet vastgeplakt aan de volgende stap.
+        else intro.push(/\bmet$/i.test(l) && kinds[i + 1] === 'ingredient' ? `${l}:` : l);
       } else steps.push(readerCleanStep(l));
     });
   }
@@ -622,6 +625,25 @@ function splitRecipeText(text) {
       state.steps > 0 &&
       readerLooksLikeTitle(l) &&
       (readerIsIngredientLine(next) || readerYieldFrom(next) || READER_INGREDIENTS_HEADING.test(next));
+    // Koksnotities zonder kopjes: een naam met direct een hoeveelheid eronder start een nieuw recept, na een lege
+    // regel of na een volle zin ("…stomen op 100 graden." + "Polenta ( per plaat)"). Een aanloop als "papje maken
+    // met" of een regel die een stap is, hoort nog bij het huidige recept.
+    const previous = current[current.length - 1] || '';
+    const afterBreak = blankBefore || /[.!?]$/.test(previous) || previous.length > 70;
+    const namesIngredients =
+      readerIsIngredientLine(next) ||
+      (blankBefore &&
+        readerLooksLikeTitle(next) &&
+        readerIsIngredientLine(nextFilled(nextFilled(i + 1).index + 1).line));
+    const titleInNotes =
+      current.length > 1 &&
+      !state.headings &&
+      state.ingredients > 0 &&
+      afterBreak &&
+      namesIngredients &&
+      readerLooksLikeTitle(l) &&
+      !readerLooksLikeStepLine(l) &&
+      !/\b(?:met|en|of|van|in|op|aan|voor|tot|de|het|een)$/i.test(l);
     const repeatedIngredientsHeading = READER_INGREDIENTS_HEADING.test(l) && state.inSteps && state.steps > 0;
     // Vanaf nummer 10 ook als er direct bereiding volgt ("598.Roseval gepoft" + "Was de Roseval…"):
     // stappen zonder spatie na het nummer ("1.Snijd de ui") komen zelden zo ver.
@@ -630,7 +652,10 @@ function splitRecipeText(text) {
       readerLooksLikeTitle(l) &&
       (readerIsIngredientLine(next) || READER_INGREDIENTS_HEADING.test(next) || (hasContent && parseInt(l, 10) >= 10));
     // Zonder inhoud (bijv. receptnaam + ondertitel vóór "Ingrediënten") splitsen we niet: de eerste regel blijft de naam.
-    if (current.length && (isDocHeading || numberedTitle || titleAfterMethod || (titleBeforeIngredients && hasContent)))
+    if (
+      current.length &&
+      (isDocHeading || numberedTitle || titleAfterMethod || titleInNotes || (titleBeforeIngredients && hasContent))
+    )
       start();
     else if (repeatedIngredientsHeading) {
       start();

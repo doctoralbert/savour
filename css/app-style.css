@@ -3,7 +3,7 @@
    De bibliotheek blijft minimalistisch; hier verandert alleen de typografie. */
 
 /* 1. Letters: koppen licht en elegant, minder dikgedrukt */
-#appShell h1,
+#appShell :is(h1, .page-h1),
 #appShell h2,
 #appShell h3,
 .modal h2,

@@ -220,6 +220,21 @@ async function renameSharedFolderInline(folderId, input) {
   } else input.value = f.name;
 }
 
+// Naam wijzigen vanuit de map zelf.
+async function renameSharedFolder(mapId, folderId) {
+  const m = findSharedMap(mapId);
+  const f = m?.folders.find(x => String(x.id) === String(folderId));
+  if (!f || !canEditShared(m)) return;
+  const raw = await askText('Nieuwe naam voor deze receptenmap', f.name);
+  const name = String(raw ?? '').trim();
+  if (!name || name === f.name) return;
+  if (!demoMode && !(await updateSharedFolder(f.id, { _name: name }))) return;
+  f.name = name;
+  renderSharedNav();
+  renderSharedFolderDetail();
+  toast('Naam gewijzigd');
+}
+
 async function moveSharedFolder(folderId, step) {
   const m = findSharedMap(currentShared);
   if (!m) return;
@@ -408,6 +423,13 @@ function renderSharedFolderDetail() {
         "','" +
         escJs(f.id) +
         '\')">⎙<span>Print map</span></button>'
+      : '') +
+    (canEditShared(m) && !f.system && (demoMode || sharedFoldersManageable)
+      ? '<button class="btn compact-action" onclick="renameSharedFolder(\'' +
+        escJs(m.id) +
+        "','" +
+        escJs(f.id) +
+        '\')">✎<span>Naam wijzigen</span></button>'
       : '') +
     (f.system
       ? ''

@@ -35,7 +35,7 @@
 .site a {
   color: inherit;
 }
-.site h1,
+.site :is(h1, .page-h1),
 .site h2,
 .site h3 {
   font-family: var(--serif);
@@ -45,7 +45,7 @@
   letter-spacing: -0.01em;
   margin: 0;
 }
-.site h1 {
+.site :is(h1, .page-h1) {
   font-size: clamp(38px, 5.6vw, 66px);
 }
 .site h2 {
@@ -1687,7 +1687,7 @@
     linear-gradient(180deg, rgba(6, 10, 11, 0.55) 0%, rgba(6, 10, 11, 0) 30%);
   z-index: -1;
 }
-.site-page-head.has-photo h1 {
+.site-page-head.has-photo :is(h1, .page-h1) {
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
 }
 .site-page-head.has-photo .site-lead,

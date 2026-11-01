@@ -1157,3 +1157,35 @@ body.savour-light .theme-toggle .theme-sun {
     background: rgba(255, 255, 255, 0.7) !important;
   }
 }
+
+/* Tekst invoeren: ruim tekstvak, ook voor lange receptenlijsten */
+#importTextInput {
+  min-height: 460px !important;
+}
+@media (max-width: 760px) {
+  #importTextInput {
+    min-height: 300px !important;
+  }
+}
+/* Licht thema: elk invoervak en het importvak hebben een duidelijk kader */
+body.savour-light #appShell .field input,
+body.savour-light #appShell .field textarea,
+body.savour-light #appShell .field select,
+body.savour-light #appShell .structured-row input,
+body.savour-light #appShell .structured-row textarea,
+body.savour-light .modal input,
+body.savour-light .modal textarea,
+body.savour-light .modal select {
+  border: 1px solid #a9a69b !important;
+}
+body.savour-light #appShell .add-flow-panel {
+  padding: var(--sv-space-5);
+  border: 1px solid #cbc9c0;
+  border-radius: var(--sv-radius-xl);
+  background: #fff;
+}
+body.savour-light .ai-import-note {
+  background: #f5f4ef;
+  border-color: #dedcd4;
+  color: #4b4f4c;
+}

@@ -400,8 +400,28 @@ ${serviceBand(lang)}
 ${ctaBlock(lang, inApp)}`;
 }
 
+// Zoekmachines kappen lange titels en beschrijvingen af (Bing meldt het als fout): 60 en 160 tekens.
+function fitTitle(title, max = 60) {
+  const short = String(title).replace(/\s*[—–|-]\s*Savour$/, '');
+  if (String(title).length <= max) return title;
+  if (short.length <= max) return short;
+  const part = short.split(/\s*[:,—–]\s*/)[0];
+  if (part.length >= 25 && part.length <= max) return part;
+  return short.slice(0, max).replace(/\s+\S*$/, '');
+}
+function fitDesc(desc, max = 160) {
+  const d = String(desc);
+  if (d.length <= max) return d;
+  const cut = d.slice(0, max);
+  const end = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('! '), cut.lastIndexOf('? '));
+  if (end >= 80) return cut.slice(0, end + 1);
+  return cut.slice(0, max - 1).replace(/[\s,;:]+\S*$/, '') + '…';
+}
+
 // ---- Losse pagina's ----
-function pageHead(lang, { title, desc, canonical, alternates, schema, hidden }) {
+function pageHead(lang, { title: longTitle, desc: longDesc, canonical, alternates, schema, hidden }) {
+  const title = fitTitle(longTitle);
+  const desc = fitDesc(longDesc);
   return `<!doctype html>
 <html lang="${lang}">
 <head>
@@ -790,8 +810,8 @@ const HOME_META = {
       lang
     );
     swap(/<html lang="nl">/, `<html lang="${lang}">`);
-    swap(/<title>[^<]*<\/title>/, `<title>${esc(m.title)}</title>`);
-    swap(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(m.desc)}">`);
+    swap(/<title>[^<]*<\/title>/, `<title>${esc(fitTitle(m.title))}</title>`);
+    swap(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(fitDesc(m.desc))}">`);
     swap(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${home}">`);
     swap(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${esc(m.ogTitle)}">`);
     swap(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${esc(m.ogDesc)}">`);

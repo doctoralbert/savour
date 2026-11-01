@@ -296,6 +296,53 @@
   }
 }
 
+/* ---- Tekstgrootte van ingrediënten en bereiding (knoppen A− en A+, js/features/recipe.js) ---- */
+.rp-ingredients,
+.rp-steps {
+  zoom: var(--rp-zoom, 1);
+}
+@media print {
+  .rp-ingredients,
+  .rp-steps {
+    zoom: 1;
+  }
+}
+.rp-size {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--sv-control-h);
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  background: var(--sv-surface);
+  color: var(--sv-text);
+}
+.rp-size button {
+  min-width: 44px;
+  height: 44px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: 600 var(--sv-fs-md) / 1 var(--sv-font);
+  cursor: pointer;
+}
+.rp-size button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.rp-size-value {
+  min-width: 44px;
+  text-align: center;
+  font-size: var(--sv-fs-sm);
+  color: var(--sv-text-2);
+}
+.cook-size {
+  position: fixed;
+  z-index: 50;
+  top: var(--sv-space-4);
+  left: var(--sv-space-4);
+  box-shadow: 0 10px 30px #00000040;
+}
+
 /* ---- Kookmodus: alleen het recept, groot en rustig ---- */
 /* Alleen als de app zichtbaar is; op een openbaar recept (niet ingelogd) blijft de app verborgen. */
 body.cook-mode #appShell:not([style*='none']) {
@@ -359,8 +406,12 @@ body.cook-mode .rp-step-num {
   .cook-exit {
     top: auto;
     bottom: var(--sv-space-4);
-    right: 50%;
-    transform: translateX(50%);
+    right: var(--sv-space-4);
+  }
+  .cook-size {
+    top: auto;
+    bottom: var(--sv-space-4);
+    left: var(--sv-space-4);
   }
 }
 
