@@ -1516,6 +1516,15 @@ h2.has-help .help-btn {
   gap: 12px;
   margin-bottom: 12px;
 }
+.kt-section-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  align-items: baseline;
+}
+#appShell #sharedWrap .kt-actions .kt-new-folder-phone {
+  display: none !important;
+}
 .kt-section-head h2 {
   margin: 0;
   font-family: var(--sv-font-display);
@@ -1972,6 +1981,35 @@ h2.has-help .help-btn {
   }
   #appShell #sharedWrap .kt-actions .kt-add-desktop {
     display: none !important;
+  }
+  /* Telefoon: alleen icoontjes, strak naast elkaar */
+  #appShell #sharedWrap .kt-actions {
+    flex-wrap: nowrap !important;
+    gap: 4px;
+  }
+  #appShell #sharedWrap .kt-actions .btn {
+    flex: 0 0 38px !important;
+    width: 38px !important;
+    min-width: 38px !important;
+    max-width: 38px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    padding: 0 !important;
+    justify-content: center;
+  }
+  #appShell #sharedWrap .kt-actions .btn svg {
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+  }
+  #appShell #sharedWrap .kt-actions .kt-tool span {
+    display: none !important;
+  }
+  #appShell #sharedWrap .kt-actions .kt-new-folder-phone {
+    display: inline-flex !important;
+  }
+  #appShell #sharedWrap .kt-new-folder {
+    display: none;
   }
   #appShell #sharedWrap .kt-library .kt-add-phone {
     display: flex !important;

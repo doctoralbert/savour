@@ -287,8 +287,43 @@
     grid-template-columns: 1fr;
     gap: var(--sv-space-5);
   }
-  .rp-actions .btn.gold {
+  /* Telefoon: alleen icoontjes, strak naast elkaar, zodat het recept de ruimte krijgt */
+  .rp-actions {
+    flex-wrap: nowrap;
+    gap: 4px;
+    margin-top: var(--sv-space-3);
+  }
+  .rp-label {
+    display: none;
+  }
+  #appShell .rp-actions .btn {
+    width: 38px;
+    min-width: 38px;
+    height: 38px;
+    min-height: 38px !important;
+    padding: 0 !important;
+    gap: 0;
+    justify-content: center;
+  }
+  .rp-yield {
+    gap: var(--sv-space-2);
+    margin-top: var(--sv-space-2);
+  }
+  .rp-yield-label {
+    display: none;
+  }
+  .rp-yield .rp-multipliers {
+    display: flex;
     flex: 1 1 100%;
+    flex-wrap: nowrap;
+    gap: 3px;
+  }
+  .rp-yield .rp-multipliers button {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 28px;
+    padding: 0 2px;
+    font-size: 12px;
   }
   .rp-menu {
     left: auto;

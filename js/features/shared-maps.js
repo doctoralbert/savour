@@ -498,16 +498,16 @@ function renderShared(id) {
 
   const actions =
     (isOwner
-      ? `<button class="btn compact-action" onclick="inviteShared('${mid}')"><span>Koks uitnodigen</span></button>`
+      ? `<button class="btn compact-action kt-tool" onclick="inviteShared('${mid}')" aria-label="Koks uitnodigen" title="Koks uitnodigen">${icon('users')}<span>Koks uitnodigen</span></button>`
       : '') +
     (all.length
-      ? `<button class="btn compact-action kt-tool" onclick="printSharedMap('${mid}')">${icon('print')}<span>Printen</span></button>`
+      ? `<button class="btn compact-action kt-tool" onclick="printSharedMap('${mid}')" aria-label="Printen" title="Printen">${icon('print')}<span>Printen</span></button>`
       : '') +
     (isOwner
-      ? `<button class="btn compact-action kt-tool" onclick="showTeamTab('instellingen')">${icon('settings')}<span>Instellingen</span></button>`
+      ? `<button class="btn compact-action kt-tool" onclick="showTeamTab('instellingen')" aria-label="Instellingen" title="Instellingen">${icon('settings')}<span>Instellingen</span></button>`
       : '') +
     (canEdit
-      ? `<button class="btn gold compact-action kt-add-desktop" onclick="openSharedRecipePicker('${mid}')">＋<span>Recept toevoegen</span></button>`
+      ? `<button class="btn compact-action kt-tool kt-new-folder-phone" onclick="newSharedFolder('${mid}')" aria-label="Receptenmap toevoegen" title="Receptenmap toevoegen">${icon('folderPlus')}</button><button class="btn gold compact-action kt-add-desktop" onclick="openSharedRecipePicker('${mid}')">＋<span>Recept toevoegen</span></button>`
       : '');
 
   const shown = members.slice(0, 6);
@@ -526,9 +526,9 @@ function renderShared(id) {
   const folderTile = f =>
     `<div class="kt-folder-wrap"><button type="button" class="kt-folder" onclick="openSharedFolder('${mid}','${escJs(f.id)}')"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span><b>${esc(f.name)}</b><small>${sharedFolderCount(m, f)} recepten</small></span></button>${sharedFolderCount(m, f) ? `<button type="button" class="kt-folder-print" title="Map printen" aria-label="Map printen" onclick="printSharedFolder('${mid}','${escJs(f.id)}')">${icon('print', { size: 18 })}</button>` : ''}</div>`;
   const folders =
-    `<section class="kt-folders" aria-label="Mappen"><div class="kt-section-head"><h2>Mappen</h2>${canEdit && m.folders.length && sharedFoldersManageable ? `<button type="button" class="kt-link" onclick="openSharedFolderManage('${mid}')">Mappen beheren</button>` : ''}</div>` +
+    `<section class="kt-folders" aria-label="Mappen"><div class="kt-section-head"><h2>Mappen</h2><div class="kt-section-links">${canEdit ? `<button type="button" class="kt-link kt-new-folder" onclick="newSharedFolder('${mid}')">＋ Receptenmap toevoegen</button>` : ''}${canEdit && m.folders.length && sharedFoldersManageable ? `<button type="button" class="kt-link" onclick="openSharedFolderManage('${mid}')">Mappen beheren</button>` : ''}</div></div>` +
     (active.length || canEdit
-      ? `<div class="kt-folder-grid">${active.map(folderTile).join('')}${canEdit ? `<button type="button" class="kt-folder is-new" onclick="newSharedFolder('${mid}')"><span class="kt-plus" aria-hidden="true">＋</span><span><b>Receptenmap toevoegen</b><small>Bijv. per partie of menu</small></span></button>` : ''}</div>`
+      ? `<div class="kt-folder-grid">${active.map(folderTile).join('')}${canEdit && !active.length ? `<button type="button" class="kt-folder is-new" onclick="newSharedFolder('${mid}')"><span class="kt-plus" aria-hidden="true">＋</span><span><b>Receptenmap toevoegen</b><small>Bijv. per partie of menu</small></span></button>` : ''}</div>`
       : '<p class="muted">Nog geen mappen in dit keukenteam.</p>') +
     (archived.length
       ? `<details class="shared-folder-archive"><summary>Archief (${archived.length})</summary><div class="shared-folder-list">${archived.map(f => sharedFolderCard(m, f)).join('')}</div></details>`

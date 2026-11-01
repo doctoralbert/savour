@@ -107,11 +107,11 @@ function openRecipe(id, context = 'library') {
       ${own ? '' : r.example ? '<p class="rp-note">Voorbeeldrecept. Zo ziet een recept er in Savour uit.</p>' : r.linkSlug ? `<p class="rp-note rp-note-link">${icon('share', { size: 16 })}<span>${r.allowCopy ? 'Gedeeld recept. Voeg het toe aan je eigen recepten om het aan te passen.' : 'Gedeeld recept. Je kunt het bekijken, omrekenen en printen; alleen de maker kan het aanpassen.'}</span></p>` : `<p class="rp-note">Gedeeld door een gebruiker. Alleen de maker van het recept kan het bewerken.</p>`}
       ${own && recipeSourceIds.has(String(r.id)) ? `<button type="button" class="btn-quiet rp-source" onclick="showRecipeSource('${rid}')">Origineel kladje bekijken</button>` : ''}
       <div class="rp-actions">
-        <button type="button" class="btn gold" onclick="toggleCookMode()">${icon('cook')}Kookmodus</button>
-        ${own ? `<button type="button" class="btn" onclick="editRecipe('${rid}')">${icon('edit')}Bewerken</button>` : ''}
-        ${r.allowCopy ? `<button type="button" class="btn" onclick="copyLinkRecipe('${rid}')">${icon('plus')}Toevoegen aan mijn recepten</button>` : ''}
-        <button type="button" class="btn" onclick="printCurrentRecipe()">${icon('print')}Printen</button>
-        ${own ? `<button type="button" class="btn" onclick="shareRecipe('${rid}')">${icon('share')}Delen</button>` : ''}
+        <button type="button" class="btn gold" onclick="toggleCookMode()" aria-label="Kookmodus" title="Kookmodus">${icon('cook')}<span class="rp-label">Kookmodus</span></button>
+        ${own ? `<button type="button" class="btn" onclick="editRecipe('${rid}')" aria-label="Bewerken" title="Bewerken">${icon('edit')}<span class="rp-label">Bewerken</span></button>` : ''}
+        ${r.allowCopy ? `<button type="button" class="btn" onclick="copyLinkRecipe('${rid}')" aria-label="Toevoegen aan mijn recepten" title="Toevoegen aan mijn recepten">${icon('plus')}<span class="rp-label">Toevoegen aan mijn recepten</span></button>` : ''}
+        <button type="button" class="btn" onclick="printCurrentRecipe()" aria-label="Printen" title="Printen">${icon('print')}<span class="rp-label">Printen</span></button>
+        ${own ? `<button type="button" class="btn" onclick="shareRecipe('${rid}')" aria-label="Delen" title="Delen">${icon('share')}<span class="rp-label">Delen</span></button>` : ''}
         ${own ? `<button type="button" class="btn rp-icon-btn${isFav ? ' is-on' : ''}" id="rpFavorite" onclick="toggleRecipePageFavorite('${rid}')" aria-pressed="${isFav}" aria-label="Favoriet" title="Favoriet">${icon('star', { filled: isFav })}</button>` : ''}
         ${menuItems.length ? `<details class="rp-more"><summary class="btn rp-icon-btn" aria-label="Meer acties" title="Meer acties">${icon('more')}</summary><div class="rp-menu">${menuItems.join('')}</div></details>` : ''}
       </div>
