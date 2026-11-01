@@ -237,7 +237,7 @@ async function ownVisitorIds(user, current) {
 
 // Geen mensen: zoekmachines, linkvoorbeelden (WhatsApp, Facebook, ...) en testbrowsers. Tellen niet mee als bezoeker.
 const NOT_A_VISITOR =
-  /bot\b|bot\/|crawl|spider|slurp|headless|lighthouse|pagespeed|facebookexternalhit|meta-externalagent|preview|python|curl|wget|node-fetch|axios|vercel|uptime|monitor|electron|claude|chatgpt|gptbot|perplexity|prerender|inspectiontool|google-read-aloud/i;
+  /bot\b|bot\/|googleother|crawl|spider|slurp|headless|lighthouse|pagespeed|facebookexternalhit|meta-externalagent|preview|python|curl|wget|node-fetch|axios|vercel|uptime|monitor|electron|claude|chatgpt|gptbot|perplexity|prerender|inspectiontool|google-read-aloud/i;
 // Alleen echte browsers tellen: Chrome, Safari, Firefox, Edge (ook op iPhone). Tools die pagina's laden zonder
 // zo'n naam (bijv. SEO-scanners) krijgen bij elk bezoek een nieuw id en blazen de teller op.
 const REAL_BROWSER = /Chrome\/|CriOS|Safari\/|Firefox\/|FxiOS|Edg\//;
@@ -374,7 +374,8 @@ async function errorGroups() {
       'app_errors',
       `created_at=gte.${since}&select=created_at,message,source,line,stack,page,platform,user_agent,app_version&order=created_at.desc&offset=${page * 1000}&limit=1000`
     );
-    rows.push(...(batch || []));
+    // Fouten van robots horen niet in het logboek, ook niet als ze er ooit in terecht zijn gekomen.
+    rows.push(...(batch || []).filter(r => !NOT_A_VISITOR.test(r.user_agent || '')));
     if (!batch || batch.length < 1000) break;
   }
   const browser = ua =>
