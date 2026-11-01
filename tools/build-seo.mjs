@@ -469,7 +469,7 @@ ${alternates.map(([l, h]) => `<link rel="alternate" hreflang="${l}" href="${h}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${canonical}">
-<meta property="og:image" content="${SITE}/assets/savour-og.png?v=2">
+<meta property="og:image" content="${SITE}/assets/${lang === 'en' ? 'savour-og-en.png' : 'savour-og.png?v=2'}">
 <meta property="og:locale" content="${{ nl: 'nl_NL', en: 'en_GB', de: 'de_DE', es: 'es_ES', fr: 'fr_FR' }[lang] || 'en_GB'}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0d1314">
@@ -859,6 +859,7 @@ const HOME_META = {
     swap(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(fitDesc(m.desc))}">`);
     swap(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${home}">`);
     swap(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${esc(m.ogTitle)}">`);
+    if (lang === 'en') swap(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${SITE}/assets/savour-og-en.png">`);
     swap(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${esc(m.ogDesc)}">`);
     swap(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${home}">`);
     swap(/<meta property="og:locale" content="[^"]*">/, `<meta property="og:locale" content="${m.locale}">`);
