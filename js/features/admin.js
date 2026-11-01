@@ -133,6 +133,92 @@ function showAdminTab(tab) {
   } catch (_) {}
 }
 
+// ---- AdSense: inkomsten in het beheer (api/admin.js). Sleutels blijven op de server. ----
+
+async function startAdsenseConnect() {
+  const state = crypto.randomUUID();
+  try {
+    sessionStorage.setItem('savour_adsense_state', state);
+    const { url } = await adminApi('adsense_auth_url', { state });
+    location.href = url;
+  } catch (error) {
+    renderAdminAdsense({ state: 'error', message: error.message });
+  }
+}
+
+// Terug van Google op /admin?code=...: alleen met dezelfde controlecode als waarmee we vertrokken.
+async function finishAdsenseConnect() {
+  const q = new URLSearchParams(location.search);
+  const state = q.get('state');
+  if (!state) return;
+  let expected = '';
+  try {
+    expected = sessionStorage.getItem('savour_adsense_state') || '';
+    sessionStorage.removeItem('savour_adsense_state');
+  } catch (_) {}
+  history.replaceState(null, '', '/admin');
+  showAdminTab('advertenties');
+  if (!q.get('code') || state !== expected) return;
+  try {
+    await adminApi('adsense_connect', { code: q.get('code') });
+  } catch (error) {
+    console.error('AdSense koppelen mislukt', error);
+  }
+}
+
+async function disconnectAdsense() {
+  if (
+    !(await askConfirm(
+      'AdSense loskoppelen?\n\nDe advertenties blijven gewoon draaien; alleen de cijfers verdwijnen uit het beheer.',
+      { confirmLabel: 'Loskoppelen', danger: true }
+    ))
+  )
+    return;
+  await adminApi('adsense_disconnect');
+  loadAdminAdsense();
+}
+
+async function loadAdminAdsense() {
+  if (!$('adminAdsenseBody')) return;
+  try {
+    renderAdminAdsense(await adminApi('adsense'));
+  } catch (error) {
+    if (!error.expired) renderAdminAdsense({ state: 'error', message: error.message });
+  }
+}
+
+function renderAdminAdsense(r) {
+  const host = $('adminAdsenseBody');
+  const status = $('adminAdsenseStatus');
+  if (!host) return;
+  const money = v =>
+    new Intl.NumberFormat('nl-NL', { style: 'currency', currency: r.currency || 'EUR' }).format(Number(v) || 0);
+  const count = v => (Number(v) || 0).toLocaleString('nl-NL');
+  if (r.state !== 'ok') {
+    const texts = {
+      setup: 'Zet eerst GOOGLE_ADSENSE_CLIENT_ID en GOOGLE_ADSENSE_CLIENT_SECRET in Vercel.',
+      sql: 'Draai eerst supabase/2026-11-01-admin-settings.sql.',
+      connect: r.expired
+        ? 'De toegang is verlopen. Koppel AdSense opnieuw.'
+        : 'Klaar om te koppelen met je Google-account.',
+      error: r.message || 'AdSense kon niet worden geladen.'
+    };
+    if (status) status.textContent = 'Nog niet gekoppeld';
+    host.innerHTML = `<p class="admin-note">${adminEscape(texts[r.state] || texts.error)}</p>${r.state === 'connect' ? '<button type="button" class="btn gold" onclick="startAdsenseConnect()">Koppel AdSense</button>' : ''}`;
+    return;
+  }
+  if (status) status.textContent = 'Gekoppeld';
+  const period = (label, p) =>
+    `<div><span class="adsense-label">${label}</span><strong class="adsense-money">${adminEscape(money(p.ESTIMATED_EARNINGS))}</strong><small>${count(p.PAGE_VIEWS)} paginaweergaven · ${count(p.IMPRESSIONS)} vertoningen · ${count(p.CLICKS)} klikken</small></div>`;
+  const units = (r.units || [])
+    .map(
+      u =>
+        `<tr><td>${adminEscape(u.AD_UNIT_NAME)}</td><td>${adminEscape(money(u.ESTIMATED_EARNINGS))}</td><td>${count(u.IMPRESSIONS)}</td><td>${count(u.CLICKS)}</td></tr>`
+    )
+    .join('');
+  host.innerHTML = `<div class="admin-adsense-grid">${period('Vandaag', r.today)}${period('Laatste 7 dagen', r.week)}${period('Deze maand', r.month)}</div>${units ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Advertentieblok</th><th>Deze maand</th><th>Vertoningen</th><th>Klikken</th></tr></thead><tbody>${units}</tbody></table></div>` : ''}<p class="admin-footnote">Geschatte inkomsten volgens Google. <button type="button" class="btn-quiet" onclick="disconnectAdsense()">Loskoppelen</button></p>`;
+}
+
 async function adminShowDashboard(user) {
   adminSetVisible('adminLoginView', false);
   adminSetVisible('adminDashboardView', true);
@@ -142,6 +228,7 @@ async function adminShowDashboard(user) {
   } catch (_) {}
   showAdminTab(tab);
   if ($('adminSignedInAs')) $('adminSignedInAs').textContent = user?.email || '';
+  await finishAdsenseConnect();
   await loadAdminDashboard();
 }
 
@@ -305,6 +392,7 @@ async function loadAdminDashboard() {
   loadAdminMessages();
   loadAdminReferrals();
   loadAdminIntakes();
+  loadAdminAdsense();
   try {
     await loadAdminOverview();
   } finally {

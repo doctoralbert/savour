@@ -936,6 +936,103 @@ async function deleteAccount(userId, adminUser) {
   return { ok: true, email: target.email, recipes: recipeIds.length };
 }
 
+// ---- AdSense: inkomsten via de AdSense Management API ----
+// Client-id en -geheim staan in Vercel (GOOGLE_ADSENSE_CLIENT_ID, GOOGLE_ADSENSE_CLIENT_SECRET). De refresh-token komt
+// uit de knop "Koppel AdSense" en staat in admin_settings, die alleen de server kan lezen (supabase/2026-11-01-admin-settings.sql).
+const ADSENSE_ACCOUNT = 'accounts/pub-8120664667405598';
+const ADSENSE_TOKEN_KEY = 'adsense_refresh_token';
+const adsenseClientId = () => process.env.GOOGLE_ADSENSE_CLIENT_ID;
+const adsenseSecret = () => process.env.GOOGLE_ADSENSE_CLIENT_SECRET;
+
+function adsenseAuthUrl(origin, state) {
+  if (!adsenseClientId() || !adsenseSecret()) throw new Error('De AdSense-gegevens ontbreken nog in Vercel.');
+  const q = new URLSearchParams({
+    client_id: adsenseClientId(),
+    redirect_uri: `${origin}/admin`,
+    response_type: 'code',
+    scope: 'https://www.googleapis.com/auth/adsense.readonly',
+    access_type: 'offline',
+    prompt: 'consent',
+    state: String(state || '')
+  });
+  return { url: `https://accounts.google.com/o/oauth2/v2/auth?${q}` };
+}
+
+async function googleToken(params) {
+  const response = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ client_id: adsenseClientId(), client_secret: adsenseSecret(), ...params })
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.error || 'google_token');
+  return data;
+}
+
+async function adsenseConnect(code, origin) {
+  if (!code) throw new Error('Geen code van Google ontvangen.');
+  const token = await googleToken({ code, grant_type: 'authorization_code', redirect_uri: `${origin}/admin` });
+  if (!token.refresh_token) throw new Error('Google gaf geen blijvende toegang. Probeer het opnieuw.');
+  await remove('admin_settings', `key=eq.${ADSENSE_TOKEN_KEY}`);
+  await insert('admin_settings', { key: ADSENSE_TOKEN_KEY, value: token.refresh_token });
+  return { ok: true };
+}
+
+async function adsenseDisconnect() {
+  await remove('admin_settings', `key=eq.${ADSENSE_TOKEN_KEY}`);
+  return { ok: true };
+}
+
+async function adsenseRange(accessToken, dateRange, dimension) {
+  const q = new URLSearchParams({ dateRange });
+  for (const metric of ['ESTIMATED_EARNINGS', 'PAGE_VIEWS', 'IMPRESSIONS', 'CLICKS']) q.append('metrics', metric);
+  if (dimension) q.append('dimensions', dimension);
+  const response = await fetch(`https://adsense.googleapis.com/v2/${ADSENSE_ACCOUNT}/reports:generate?${q}`, {
+    headers: { Authorization: `Bearer ${accessToken}` }
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.error?.message || `AdSense-fout (${response.status})`);
+  const names = (data.headers || []).map(h => h.name);
+  const row = cells => Object.fromEntries(names.map((name, i) => [name, cells?.[i]?.value ?? '']));
+  return {
+    currency: (data.headers || []).find(h => h.currencyCode)?.currencyCode || 'EUR',
+    totals: row(data.totals?.cells),
+    rows: (data.rows || []).map(r => row(r.cells))
+  };
+}
+
+async function adsenseReport() {
+  if (!adsenseClientId() || !adsenseSecret()) return { state: 'setup' };
+  let rows;
+  try {
+    rows = await select('admin_settings', `key=eq.${ADSENSE_TOKEN_KEY}&select=value`);
+  } catch (e) {
+    return { state: 'sql' };
+  }
+  const refresh = rows?.[0]?.value;
+  if (!refresh) return { state: 'connect' };
+  let accessToken;
+  try {
+    accessToken = (await googleToken({ refresh_token: refresh, grant_type: 'refresh_token' })).access_token;
+  } catch (e) {
+    return { state: 'connect', expired: true };
+  }
+  const [today, week, month, units] = await Promise.all([
+    adsenseRange(accessToken, 'TODAY'),
+    adsenseRange(accessToken, 'LAST_7_DAYS'),
+    adsenseRange(accessToken, 'MONTH_TO_DATE'),
+    adsenseRange(accessToken, 'MONTH_TO_DATE', 'AD_UNIT_NAME')
+  ]);
+  return {
+    state: 'ok',
+    currency: month.currency,
+    today: today.totals,
+    week: week.totals,
+    month: month.totals,
+    units: units.rows
+  };
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const user = await getUserFromRequest(req);
@@ -959,6 +1056,11 @@ export default async function handler(req, res) {
     if (action === 'create_account')
       return res.status(200).json(await createAccount({ email, name, organization }, siteOrigin(req)));
     if (action === 'errors') return res.status(200).json(await errorGroups());
+    if (action === 'adsense') return res.status(200).json(await adsenseReport());
+    if (action === 'adsense_auth_url') return res.status(200).json(adsenseAuthUrl(siteOrigin(req), req.body?.state));
+    if (action === 'adsense_connect')
+      return res.status(200).json(await adsenseConnect(req.body?.code, siteOrigin(req)));
+    if (action === 'adsense_disconnect') return res.status(200).json(await adsenseDisconnect());
     if (action === 'messages') return res.status(200).json(await contactMessages());
     if (action === 'referrals') return res.status(200).json(await referralOverview());
     if (action === 'delete_message') return res.status(200).json(await deleteMessage(req.body?.id));

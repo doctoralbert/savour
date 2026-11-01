@@ -4781,3 +4781,17 @@ body {
     gap: 20px;
   }
 }
+
+/* AdSense-cijfers in het beheer */
+.admin-adsense-grid strong.adsense-money {
+  color: #e1c37a;
+  font-size: var(--sv-fs-xl);
+}
+.admin-adsense-grid small {
+  display: block;
+  margin-top: 6px;
+  color: #8e9892;
+}
+#adminAdsenseBody .admin-table-wrap {
+  margin-top: 14px;
+}
