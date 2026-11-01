@@ -100,13 +100,13 @@ function selectImportSource(type) {
 }
 
 // ---- Eerste keer inloggen: kort welkom met wat er kan, en meteen een begin maken ----
-// Eén keer per account (per apparaat), alleen als de bibliotheek nog leeg is.
+// Komt terug zolang de bibliotheek leeg is, tot je het zelf wegklikt (per account, per apparaat).
+const welcomeKey = () => `savour_welcome_${currentUser?.id}`;
+
 async function welcomeNewUser() {
   if (demoMode || !currentUser || recipes.length) return;
-  const key = `savour_welcome_${currentUser.id}`;
   try {
-    if (localStorage.getItem(key)) return;
-    localStorage.setItem(key, '1');
+    if (localStorage.getItem(welcomeKey())) return;
   } catch {
     return;
   }

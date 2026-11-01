@@ -612,6 +612,8 @@ window.SAVOUR_I18N.en = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.":
       'Unlimited recipes, AI that reads your notes and photos, and kitchen teams for your team.',
     Verbergen: 'Hide',
+    'Welkom bekijken': 'View welcome',
+    'Terug naar welkom': 'Back to welcome',
     Sauzen: 'Sauces',
     Patisserie: 'Pastry',
     Kaart: 'Menu',

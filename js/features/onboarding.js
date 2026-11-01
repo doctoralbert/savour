@@ -587,7 +587,7 @@ function renderExample() {
   const host = $('exampleWrap');
   if (!host) return;
   const banner = (text, button) =>
-    `<div class="example-banner"><div><b>Dit is een voorbeeld</b><span>${text}</span></div><div class="example-banner-actions">${button}<button type="button" class="btn-quiet" onclick="hideExamples()">Verbergen</button></div></div>`;
+    `<div class="example-banner"><div><b>Dit is een voorbeeld</b><span>${text}</span></div><div class="example-banner-actions">${button}<button type="button" class="btn-quiet" onclick="showWelcomeFlow()">Terug naar welkom</button><button type="button" class="btn-quiet" onclick="hideExamples()">Verbergen</button></div></div>`;
   if (exampleKind === 'folder') {
     host.innerHTML =
       banner(
@@ -613,7 +613,7 @@ function renderExample() {
       .join('');
 }
 
-// Welkomstscherm: één keer per account op dit apparaat, zolang de bibliotheek nog leeg is.
+// Welkomstscherm: vanzelf bij een lege bibliotheek, en altijd terug te halen via de startlijst of een voorbeeld.
 function showWelcomeFlow() {
   document.getElementById('welcomeFlow')?.remove();
   const first = String(account?.name || '')
@@ -626,13 +626,21 @@ function showWelcomeFlow() {
   ];
   document.body.insertAdjacentHTML(
     'beforeend',
-    `<div class="welcome-flow" id="welcomeFlow" role="dialog" aria-modal="true" aria-labelledby="welcomeFlowTitle"><div class="welcome-box"><button type="button" class="welcome-close" onclick="closeWelcomeFlow()" aria-label="Sluiten">×</button><div class="eyebrow">Welkom bij Savour</div><h1 id="welcomeFlowTitle">${first ? `<span>Hoi </span><span translate="no">${esc(first)}</span><span>, je keuken staat klaar.</span>` : 'Je keuken staat klaar.'}</h1><p>In drie stappen heb je al je recepten op één plek.</p><ol class="welcome-steps">${steps.map(([n, title, text]) => `<li><span>${n}</span><div><b>${title}</b><small>${text}</small></div></li>`).join('')}</ol><button type="button" class="btn gold welcome-main" onclick="welcomeChoice('file')">Importeer je eerste recepten</button><div class="welcome-more"><button type="button" onclick="welcomeChoice('example')">Bekijk eerst het voorbeeld</button><button type="button" onclick="welcomeChoice('camera')">Foto van een kladje</button><button type="button" onclick="welcomeChoice('new')">Zelf een recept invoeren</button></div></div></div>`
+    `<div class="welcome-flow" id="welcomeFlow" role="dialog" aria-modal="true" aria-labelledby="welcomeFlowTitle"><div class="welcome-box"><button type="button" class="welcome-close" onclick="dismissWelcomeFlow()" aria-label="Sluiten">×</button><div class="eyebrow">Welkom bij Savour</div><h1 id="welcomeFlowTitle">${first ? `<span>Hoi </span><span translate="no">${esc(first)}</span><span>, je keuken staat klaar.</span>` : 'Je keuken staat klaar.'}</h1><p>In drie stappen heb je al je recepten op één plek.</p><ol class="welcome-steps">${steps.map(([n, title, text]) => `<li><span>${n}</span><div><b>${title}</b><small>${text}</small></div></li>`).join('')}</ol><button type="button" class="btn gold welcome-main" onclick="welcomeChoice('file')">Importeer je eerste recepten</button><div class="welcome-more"><button type="button" onclick="welcomeChoice('example')">Bekijk eerst het voorbeeld</button><button type="button" onclick="welcomeChoice('camera')">Foto van een kladje</button><button type="button" onclick="welcomeChoice('new')">Zelf een recept invoeren</button></div></div></div>`
   );
   document.querySelector('#welcomeFlow .welcome-main')?.focus();
 }
 
 function closeWelcomeFlow() {
   document.getElementById('welcomeFlow')?.remove();
+}
+
+// Het kruisje: niet meer vanzelf tonen. Een keuze maken laat het wel terugkomen.
+function dismissWelcomeFlow() {
+  closeWelcomeFlow();
+  try {
+    localStorage.setItem(welcomeKey(), '1');
+  } catch {}
 }
 
 function welcomeChoice(choice) {
@@ -662,7 +670,7 @@ function renderStartChecklist() {
     ?.querySelector('.section-head')
     ?.insertAdjacentHTML(
       'afterend',
-      `<div id="startChecklist" class="start-checklist"><div class="start-checklist-head"><b>Aan de slag</b><span>${done} van ${steps.length} gedaan</span><button type="button" onclick="hideStartChecklist()" aria-label="Verbergen">×</button></div><div class="start-checklist-steps">${steps.map(([label, ok, action]) => `<button type="button" class="${ok ? 'is-done' : ''}" ${ok ? 'disabled' : `onclick="${action}"`}><i>${ok ? '✓' : ''}</i><span>${label}</span></button>`).join('')}</div></div>`
+      `<div id="startChecklist" class="start-checklist"><div class="start-checklist-head"><b>Aan de slag</b><span>${done} van ${steps.length} gedaan</span><button type="button" class="start-checklist-welcome" onclick="showWelcomeFlow()">Welkom bekijken</button><button type="button" onclick="hideStartChecklist()" aria-label="Verbergen">×</button></div><div class="start-checklist-steps">${steps.map(([label, ok, action]) => `<button type="button" class="${ok ? 'is-done' : ''}" ${ok ? 'disabled' : `onclick="${action}"`}><i>${ok ? '✓' : ''}</i><span>${label}</span></button>`).join('')}</div></div>`
     );
 }
 

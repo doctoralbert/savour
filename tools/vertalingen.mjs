@@ -1498,6 +1498,8 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Welkom bekijken","View welcome","Willkommen ansehen","Ver bienvenida"],
+  ["Terug naar welkom","Back to welcome","Zurück zum Willkommen","Volver a la bienvenida"],
   ["Sauzen","Sauces","Saucen","Salsas"],
   ["Patisserie","Pastry","Patisserie","Pastelería"],
   ["Kaart","Menu","Karte","Carta"],

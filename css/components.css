@@ -1328,6 +1328,14 @@ body.savour-light .ai-import-note {
   font-size: 20px;
   cursor: pointer;
 }
+.start-checklist-head .start-checklist-welcome {
+  min-height: 36px;
+  font-size: var(--sv-fs-sm);
+  text-decoration: underline;
+}
+.start-checklist-head .start-checklist-welcome + button {
+  margin-left: 0;
+}
 .start-checklist-steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

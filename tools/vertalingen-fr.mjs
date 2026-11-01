@@ -1,6 +1,8 @@
 // Franse vertalingen, naast tools/vertalingen.mjs: Nederlandse brontekst → Frans.
 // Nieuwe interfacetekst? Zet hier ook de Franse regel; node tools/build-i18n.mjs meldt wat ontbreekt.
 export const stringsFr = {
+ "Welkom bekijken": "Revoir l'accueil",
+ "Terug naar welkom": "Retour à l'accueil",
  "Sauzen": "Sauces",
  "Patisserie": "Pâtisserie",
  "Kaart": "Carte",
