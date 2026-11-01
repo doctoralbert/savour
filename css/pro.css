@@ -711,6 +711,7 @@
   gap: 4px;
 }
 .news-field input,
+.news-field select,
 .news-field textarea {
   box-sizing: border-box;
   width: 100%;

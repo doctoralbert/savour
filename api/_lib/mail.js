@@ -165,7 +165,8 @@ Savour · KvK 89674871 · Nederland · contact@savour.page`;
 }
 
 // Nieuwsbrief uit /admin. {voornaam} wordt per persoon ingevuld. Lege regel = nieuwe alinea, regels met "- " = lijstje.
-export function newsletterMail({ subject, heading, body, buttonLabel, buttonUrl, name, unsubscribeUrl }) {
+export function newsletterMail({ subject, heading, body, buttonLabel, buttonUrl, name, unsubscribeUrl, lang }) {
+  const en = lang === 'en';
   const first = String(name || '')
     .trim()
     .split(/\s+/)[0];
@@ -190,7 +191,7 @@ export function newsletterMail({ subject, heading, body, buttonLabel, buttonUrl,
     buttonLabel && buttonUrl
       ? `<p style="margin:22px 0 22px;text-align:center"><a href="${esc(buttonUrl)}" style="display:inline-block;background:#e8ca8d;color:#111;text-decoration:none;padding:13px 24px;border-radius:999px;font-weight:bold">${esc(buttonLabel)}</a></p>`
       : '';
-  const html = `<!doctype html><html lang="nl"><body style="margin:0;background:#f5f4ef;font-family:Helvetica,Arial,sans-serif;color:#151716">
+  const html = `<!doctype html><html lang="${en ? 'en' : 'nl'}"><body style="margin:0;background:#f5f4ef;font-family:Helvetica,Arial,sans-serif;color:#151716">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f5f4ef;padding:32px 12px"><tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#0d1314;border-radius:14px;overflow:hidden">
 <tr><td style="padding:34px 34px 8px;text-align:center;font-family:Georgia,serif;letter-spacing:.34em;color:#e8ca8d;font-size:20px">SAVOUR</td></tr>
@@ -199,11 +200,11 @@ ${heading ? `<h1 style="font-family:Georgia,serif;font-weight:normal;font-size:2
 ${blocks.map(blockHtml).join('\n')}
 ${button}
 </td></tr>
-<tr><td style="padding:16px 34px 26px;border-top:1px solid #243031;color:#87918b;font-size:12px;line-height:1.6">Je ontvangt deze mail omdat je een account hebt bij Savour. <a href="${esc(unsubscribeUrl)}" style="color:#87918b">Afmelden</a><br>Savour · KvK 89674871 · Nederland · contact@savour.page</td></tr>
+<tr><td style="padding:16px 34px 26px;border-top:1px solid #243031;color:#87918b;font-size:12px;line-height:1.6">${en ? 'You are receiving this email because you have a Savour account.' : 'Je ontvangt deze mail omdat je een account hebt bij Savour.'} <a href="${esc(unsubscribeUrl)}" style="color:#87918b">${en ? 'Unsubscribe' : 'Afmelden'}</a><br>Savour · KvK 89674871 · ${en ? 'The Netherlands' : 'Nederland'} · contact@savour.page</td></tr>
 </table></td></tr></table></body></html>`;
   const text = `${heading ? `${fill(heading)}\n\n` : ''}${fill(body)}${button ? `\n\n${buttonLabel}: ${buttonUrl}` : ''}
 
-Afmelden: ${unsubscribeUrl}
-Savour · KvK 89674871 · Nederland · contact@savour.page`;
+${en ? 'Unsubscribe' : 'Afmelden'}: ${unsubscribeUrl}
+Savour · KvK 89674871 · ${en ? 'The Netherlands' : 'Nederland'} · contact@savour.page`;
   return { subject: fill(subject), html, text };
 }

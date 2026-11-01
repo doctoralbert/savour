@@ -1288,7 +1288,8 @@ const newsToken = id =>
     .update(`afmelden:${id}`)
     .digest('hex')
     .slice(0, 32);
-const newsUnsubscribeUrl = id => `https://savour.page/api/admin?afmelden=${id}&t=${newsToken(id)}`;
+const newsUnsubscribeUrl = (id, lang) =>
+  `https://savour.page/api/admin?afmelden=${id}&t=${newsToken(id)}${lang === 'en' ? '&lang=en' : ''}`;
 
 function newsFields(mail = {}) {
   const clean = (v, max) =>
@@ -1296,6 +1297,7 @@ function newsFields(mail = {}) {
       .trim()
       .slice(0, max);
   const out = {
+    lang: mail.lang === 'en' ? 'en' : 'nl',
     subject: clean(mail.subject, 150),
     heading: clean(mail.heading, 150),
     body: clean(mail.body, 10000),
@@ -1335,7 +1337,7 @@ async function newsSend(mail, ids, adminEmail, test) {
   const people = await newsPeople();
   if (test) {
     const me = people.find(p => p.email === adminEmail) || { id: 'test', email: adminEmail, name: '' };
-    const m = newsletterMail({ ...fields, name: me.name, unsubscribeUrl: newsUnsubscribeUrl(me.id) });
+    const m = newsletterMail({ ...fields, name: me.name, unsubscribeUrl: newsUnsubscribeUrl(me.id, fields.lang) });
     await sendMailBatch([{ to: adminEmail, ...m, subject: `[Test] ${m.subject}` }]);
     return { ok: true, sent: 1 };
   }
@@ -1344,7 +1346,7 @@ async function newsSend(mail, ids, adminEmail, test) {
   if (!list.length) throw new Error('Kies minstens één ontvanger.');
   const sent = await sendMailBatch(
     list.map(p => {
-      const unsubscribeUrl = newsUnsubscribeUrl(p.id);
+      const unsubscribeUrl = newsUnsubscribeUrl(p.id, fields.lang);
       return {
         to: p.email,
         ...newsletterMail({ ...fields, name: p.name, unsubscribeUrl }),
@@ -1363,26 +1365,34 @@ async function newsSend(mail, ids, adminEmail, test) {
 // Link onderaan elke mail. Openen vraagt eerst om een klik, zodat een mailscanner niemand per ongeluk afmeldt.
 async function newsUnsubscribe(req, res) {
   const id = String(req.query.afmelden);
+  const en = req.query.lang === 'en';
   const page = (title, content) =>
     res
       .status(200)
       .setHeader('Content-Type', 'text/html; charset=utf-8')
       .send(
-        `<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${title} · Savour</title></head><body style="margin:0;background:#0d1314;color:#eee8dc;font-family:Helvetica,Arial,sans-serif;text-align:center;padding:64px 20px"><div style="font-family:Georgia,serif;letter-spacing:.34em;color:#e8ca8d;font-size:20px">SAVOUR</div><h1 style="font-family:Georgia,serif;font-weight:normal;font-size:26px">${title}</h1>${content}</body></html>`
+        `<!doctype html><html lang="${en ? 'en' : 'nl'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${title} · Savour</title></head><body style="margin:0;background:#0d1314;color:#eee8dc;font-family:Helvetica,Arial,sans-serif;text-align:center;padding:64px 20px"><div style="font-family:Georgia,serif;letter-spacing:.34em;color:#e8ca8d;font-size:20px">SAVOUR</div><h1 style="font-family:Georgia,serif;font-weight:normal;font-size:26px">${title}</h1>${content}</body></html>`
       );
   if (!/^[0-9a-f-]{36}$/.test(id) || req.query.t !== newsToken(id))
-    return page('Deze link klopt niet', '<p>Stuur ons gerust een mail: contact@savour.page</p>');
+    return page(
+      en ? 'This link is not valid' : 'Deze link klopt niet',
+      en ? '<p>Feel free to email us: contact@savour.page</p>' : '<p>Stuur ons gerust een mail: contact@savour.page</p>'
+    );
   if (req.method === 'POST') {
     const list = await settingList(NEWS_OPTOUT);
     if (!list.includes(id)) await saveSettingList(NEWS_OPTOUT, [...list, id]);
     return page(
-      'Je bent afgemeld',
-      '<p>Je krijgt geen nieuws meer van ons. Mails over je account blijven wel komen.</p>'
+      en ? 'You are unsubscribed' : 'Je bent afgemeld',
+      en
+        ? '<p>You will no longer receive news from us. Emails about your account will still arrive.</p>'
+        : '<p>Je krijgt geen nieuws meer van ons. Mails over je account blijven wel komen.</p>'
     );
   }
   return page(
-    'Afmelden voor nieuws van Savour?',
-    '<form method="post"><button style="background:#e8ca8d;color:#111;border:0;border-radius:999px;padding:13px 24px;font-size:15px;font-weight:bold;cursor:pointer">Afmelden</button></form>'
+    en ? 'Unsubscribe from Savour news?' : 'Afmelden voor nieuws van Savour?',
+    '<form method="post"><button style="background:#e8ca8d;color:#111;border:0;border-radius:999px;padding:13px 24px;font-size:15px;font-weight:bold;cursor:pointer">' +
+      (en ? 'Unsubscribe' : 'Afmelden') +
+      '</button></form>'
   );
 }
 

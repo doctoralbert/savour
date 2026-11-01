@@ -1731,29 +1731,31 @@ let newsPicked = new Set();
 let newsPreviewTimer = 0;
 
 const NEWS_WELCOME = {
-  subject: 'Welkom bij Savour: wat heb jij nodig in je keuken?',
-  heading: 'Fijn dat je erbij bent',
-  body: `Hoi {voornaam},
+  lang: 'en',
+  subject: 'Welcome to Savour: what do you need in your kitchen?',
+  heading: 'Glad to have you with us',
+  body: `Hi {voornaam},
 
-Jij bent een van de eerste koks met een account bij Savour. Daar zijn we blij mee. Savour is gemaakt door koks, voor koks, en we bouwen het het liefst samen met de mensen die ermee werken.
+You are one of the very first chefs with a Savour account, and we are really happy about that. Savour is made by chefs, for chefs, and we would rather build it together with the people who work with it.
 
-Daarom hebben we twee vragen aan jou:
+So we have two questions for you:
 
-1. Wat zou je graag aan Savour toegevoegd zien?
-2. Wat is er nodig om Savour elke dag in je keuken te gebruiken?
+1. What would you like to see added to Savour?
+2. What would it take for you to use Savour every day in your kitchen?
 
-Een paar woorden is al genoeg, en een eerlijk "dit werkt niet voor mij" is net zo waardevol. We lezen alles zelf en bouwen graag wat keukens echt nodig hebben.
+A few words are enough, and an honest "this doesn't work for me" is just as valuable. We read everything ourselves and love building what kitchens really need.
 
-Stuur je antwoord via de knop hieronder, of beantwoord gewoon deze mail.
+Send your answer with the button below, or simply reply to this email.
 
-Veel kookplezier,
-De koks achter Savour`,
-  button_label: 'Stuur je feedback',
-  button_url: 'https://savour.page/contact'
+Happy cooking,
+The chefs behind Savour`,
+  button_label: 'Send your feedback',
+  button_url: 'https://savour.page/en/contact'
 };
 
 const newsValue = id => $(id)?.value || '';
 const newsMail = () => ({
+  lang: newsValue('newsLang'),
   subject: newsValue('newsSubject'),
   heading: newsValue('newsHeading'),
   body: newsValue('newsText'),
@@ -1781,6 +1783,7 @@ function renderAdminNewsletter() {
   $('adminNewsBody').innerHTML = `<div class="news-grid"><div class="news-form">
     <div class="admin-note">Schrijf je mail, kies wie hem krijgt en stuur eerst een testmail. <code>{voornaam}</code> wordt per persoon ingevuld. Onderaan staat altijd een afmeldlink.</div>
     <button type="button" class="btn-quiet" onclick="fillNewsWelcome()">Welkomstmail eerste gebruikers invullen</button>
+    <label class="news-field"><span>Taal van de voettekst en afmeldpagina</span><select id="newsLang" onchange="queueNewsPreview()"><option value="nl">Nederlands</option><option value="en">Engels</option></select></label>
     ${input('newsSubject', 'Onderwerp')}${input('newsHeading', 'Kop in de mail')}
     <label class="news-field"><span>Tekst</span><textarea id="newsText" rows="14" oninput="queueNewsPreview()" placeholder="Lege regel = nieuwe alinea. Regels met - worden een lijstje."></textarea></label>
     ${input('newsButtonLabel', 'Tekst op de knop (mag leeg)')}${input('newsButtonUrl', 'Link van de knop', 'https://savour.page/contact')}
@@ -1822,6 +1825,7 @@ function pickNewsAll(on) {
 }
 
 function fillNewsWelcome() {
+  $('newsLang').value = NEWS_WELCOME.lang;
   $('newsSubject').value = NEWS_WELCOME.subject;
   $('newsHeading').value = NEWS_WELCOME.heading;
   $('newsText').value = NEWS_WELCOME.body;
