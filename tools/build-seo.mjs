@@ -17,6 +17,7 @@ import { FR } from './site-pages-fr.mjs';
 import { EXTRA_FR, APP_PAGE_FR, DELIVER_FR, DELIVER_FLOW_FR, SERVICE_FR, KLADJE_FR } from './site-fr-extra.mjs';
 import { stringsFr, patternsFr } from './vertalingen-fr.mjs';
 import { VERDIEPING } from './site-verdieping.mjs';
+import { VERDIEPING_TALEN } from './site-verdieping-talen.mjs';
 import { APP_PAGE } from './site-app.mjs';
 import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
 import { DELIVER, DELIVER_FLOW } from './site-deliver.mjs';
@@ -192,7 +193,7 @@ for (const [id, extra] of Object.entries(VERDIEPING)) {
       ? APP_PAGE
       : FEATURES.find(f => f.id === id) || AUDIENCES.find(a => a.id === id) || POSTS.find(p => p.en.slug === id);
   if (!item) throw new Error(`Verdieping: pagina ${id} niet gevonden`);
-  for (const [lang, sections] of Object.entries(extra)) item[lang].sections.push(...sections);
+  for (const [lang, sections] of Object.entries({ ...extra, ...VERDIEPING_TALEN[id] })) item[lang].sections.push(...sections);
 }
 
 // Beschrijving van de keukenfoto's, voor zoekmachines en schermlezers.
