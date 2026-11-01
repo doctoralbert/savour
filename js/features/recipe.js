@@ -3,6 +3,7 @@
 // Recepten waarvan het originele kladje bewaard is (tabel recipe_sources). Alleen de nummers; de foto zelf
 // wordt pas geladen als je "Origineel kladje bekijken" kiest.
 let recipeSourceIds = new Set();
+let recipeOpenContext = 'library';
 
 async function loadRecipeSourceIds() {
   recipeSourceIds = new Set();
@@ -30,6 +31,7 @@ function openRecipe(id, context = 'library') {
   currentId = id;
   const r = findRecipe(id);
   if (!r) return;
+  recipeOpenContext = context;
   if (context === 'sharedFolder') {
     recipeReturnView = 'sharedFolderDetail';
     recipeReturnShared = currentShared;
@@ -74,6 +76,9 @@ function openRecipe(id, context = 'library') {
             : null;
   const menuItems = [
     ingredients.length && `<button type="button" onclick="askRecipeFactor()">${icon('plus')}Eigen factor</button>`,
+    own &&
+      ingredients.length &&
+      `<button type="button" onclick="openIngredientLinks()">${icon('book')}Koppelen aan recept</button>`,
     own && `<button type="button" onclick="openFolderModal('${rid}')">${icon('folderPlus')}Toevoegen aan map</button>`,
     removeAction &&
       `<button type="button" class="rp-menu-danger" onclick="${removeAction.fn}">${icon('trash')}${removeAction.label}</button>`
@@ -118,6 +123,7 @@ function openRecipe(id, context = 'library') {
             ? `<ul class="rp-ingredients" id="rpIngredients">${ingredients.map((x, i) => (recipePartName(x) ? `<li class="rp-part-head">${esc(recipePartName(x))}</li>` : `<li data-ing="${i}"><label><input type="checkbox"><span class="rp-ing-line">${ingredientHtml(x)}</span></label></li>`)).join('')}</ul>`
             : '<p class="muted">Geen ingrediënten vastgelegd.</p>'
         }
+        <div id="rpSideNote"></div>
       </section>
       <section class="rp-section">
         <h2>Bereiding</h2>
@@ -129,7 +135,182 @@ function openRecipe(id, context = 'library') {
       </section>
     </div>
   </article>`;
+  renderIngredientLinks(r);
+  renderRecipeNote(r);
   go('detail');
+}
+
+// Notities en koppelingen staan los van het recept zelf; een eigen update, zodat het bewerken ongemoeid blijft.
+async function saveRecipeFields(r, row) {
+  if (demoMode) return true;
+  const { data, error } = await supabaseClient.from('recipes').update(row).eq('id', r.id).select('id');
+  if (!error && data?.length) return true;
+  toast(
+    /notes|ingredient_links/.test(error?.message || '')
+      ? 'Dit kan zodra de database is bijgewerkt.'
+      : 'Opslaan lukte niet; probeer het opnieuw'
+  );
+  return false;
+}
+
+// Notitie: een kleine aantekening naast het recept, zichtbaar voor iedereen die het recept kan zien.
+function renderRecipeNote(r) {
+  const host = $('rpSideNote');
+  if (!host) return;
+  const own = isOwnRecipe(r);
+  const note = String(r.notes || '').trim();
+  if (note)
+    host.innerHTML = `<aside class="rp-side-note"><div class="rp-side-note-head"><span>Notitie</span>${own ? '<button type="button" onclick="editRecipeNote()">Wijzigen</button>' : ''}</div><p translate="no">${esc(note)}</p></aside>`;
+  else
+    host.innerHTML = own
+      ? '<button type="button" class="rp-note-add" onclick="editRecipeNote()">＋ Notitie</button>'
+      : '';
+}
+
+function editRecipeNote() {
+  const r = findRecipe(currentId);
+  const host = $('rpSideNote');
+  if (!r || !host) return;
+  host.innerHTML = `<aside class="rp-side-note"><div class="rp-side-note-head"><span>Notitie</span></div><textarea id="rpNoteInput" rows="4" aria-label="${esc(t('Notitie'))}" placeholder="${esc(t('Bijv. bij meer dan 5 kg langer laten rusten'))}">${esc(r.notes || '')}</textarea><div class="rp-side-note-actions"><button type="button" class="btn small" onclick="renderRecipeNote(findRecipe(currentId))">Annuleren</button><button type="button" class="btn small gold" onclick="saveRecipeNote()">Opslaan</button></div></aside>`;
+  $('rpNoteInput').focus();
+}
+
+async function saveRecipeNote() {
+  const r = findRecipe(currentId);
+  const input = $('rpNoteInput');
+  if (!r || !input) return;
+  const notes = input.value.trim();
+  if (!(await saveRecipeFields(r, { notes }))) return;
+  r.notes = notes;
+  renderRecipeNote(r);
+}
+
+// Koppeling: het recept dat bij een ingrediënt hoort. Zelf gekozen, of vanzelf als de naam precies gelijk is aan
+// een recept. Een lege koppeling betekent: bewust geen recept. Alleen recepten die jij kunt openen tellen mee.
+function ingredientLinkTarget(r, line, byTitle) {
+  const name = ingredientNameOf(line).toLowerCase();
+  const chosen = r.links?.[name];
+  if (chosen === '') return null;
+  const target = chosen ? findRecipe(chosen) : byTitle.get(name);
+  return target && String(target.id) !== String(r.id) ? target : null;
+}
+
+function linkableRecipes(r) {
+  return [...recipes, ...sharedRecipes].filter(x => String(x.id) !== String(r.id));
+}
+
+function recipesByTitle(r) {
+  return new Map(
+    linkableRecipes(r).map(x => [
+      String(x.title || '')
+        .trim()
+        .toLowerCase(),
+      x
+    ])
+  );
+}
+
+function renderIngredientLinks(r) {
+  const byTitle = recipesByTitle(r);
+  document.querySelectorAll('#rpIngredients li[data-ing]').forEach(li => {
+    li.querySelector('.rp-ing-link')?.remove();
+    li.classList.remove('has-link');
+    const target = ingredientLinkTarget(r, r.ingredients[Number(li.dataset.ing)], byTitle);
+    if (!target) return;
+    li.classList.add('has-link');
+    li.insertAdjacentHTML(
+      'beforeend',
+      `<button type="button" class="rp-ing-link" title="${esc(target.title)}" onclick="openLinkedRecipe('${escJs(target.id)}')">${icon('book', { size: 14 })}<span>Recept</span></button>`
+    );
+  });
+}
+
+function openLinkedRecipe(id) {
+  const fromId = currentId;
+  const from = findRecipe(fromId);
+  const fromContext = recipeOpenContext;
+  openRecipe(id);
+  $('detailWrap')
+    .querySelector('.rp')
+    ?.insertAdjacentHTML(
+      'afterbegin',
+      `<button type="button" class="btn-quiet rp-link-back" onclick="openRecipe('${escJs(fromId)}','${escJs(fromContext)}')">← <span translate="no">${esc(from?.title || '')}</span></button>`
+    );
+  window.scrollTo(0, 0);
+}
+
+async function openIngredientLinks() {
+  document.querySelector('.rp-more')?.removeAttribute('open');
+  const r = findRecipe(currentId);
+  if (!r) return;
+  const byTitle = recipesByTitle(r);
+  const lines = r.ingredients.filter(x => !recipePartName(x));
+  const line = await askChoice(
+    'Koppelen aan recept\n\nKies het ingrediënt waar een eigen recept bij hoort, bijvoorbeeld een basissaus.',
+    lines.map(x => ({
+      value: x,
+      label: ingredientNameOf(x),
+      hint: ingredientLinkTarget(r, x, byTitle)?.title || ''
+    }))
+  );
+  if (line === null) return;
+  const name = ingredientNameOf(line).toLowerCase();
+  const target = await pickLinkedRecipe(r, ingredientNameOf(line), ingredientLinkTarget(r, line, byTitle));
+  if (target === null) return;
+  const links = { ...r.links, [name]: target };
+  if (!(await saveRecipeFields(r, { ingredient_links: links }))) return;
+  r.links = links;
+  renderIngredientLinks(r);
+}
+
+// Zoekvenster met je recepten. Geeft het recept-id, '' om de koppeling weg te halen, of null bij annuleren.
+function pickLinkedRecipe(r, name, current) {
+  const list = sortRecipesByTitle(linkableRecipes(r));
+  document.getElementById('linkPicker')?.remove();
+  document.body.insertAdjacentHTML(
+    'beforeend',
+    `<div class="modal sv-dialog open" id="linkPicker" role="dialog" aria-modal="true" aria-labelledby="linkPickerTitle"><form class="sv-dialog-box" novalidate><h2 id="linkPickerTitle" class="sv-dialog-title" translate="no">${esc(name)}</h2><input class="sv-dialog-input" type="text" autocomplete="off" placeholder="${esc(t('Zoek een recept'))}" aria-label="${esc(t('Zoek een recept'))}"><div class="sv-dialog-choices link-results"></div><div class="sv-dialog-actions">${current ? '<button type="button" class="btn" data-unlink>Koppeling weghalen</button>' : ''}<button type="button" class="btn" data-cancel>Annuleren</button></div></form></div>`
+  );
+  const el = document.getElementById('linkPicker');
+  const input = el.querySelector('input');
+  const results = el.querySelector('.link-results');
+  const show = () => {
+    const q = input.value.trim().toLowerCase();
+    const found = list.filter(x => recipeTitleOf(x).toLowerCase().includes(q));
+    results.innerHTML =
+      found
+        .slice(0, 30)
+        .map(
+          x =>
+            `<button type="button" class="sv-dialog-choice${current && String(current.id) === String(x.id) ? ' is-primary' : ''}" data-id="${esc(x.id)}" translate="no">${esc(recipeTitleOf(x))}</button>`
+        )
+        .join('') || '<p class="muted">Geen recepten gevonden.</p>';
+  };
+  show();
+  input.addEventListener('input', show);
+  return new Promise(resolve => {
+    const done = value => {
+      el.remove();
+      resolve(value);
+    };
+    results.addEventListener('click', e => {
+      const b = e.target.closest('[data-id]');
+      if (b) done(b.dataset.id);
+    });
+    el.querySelector('form').addEventListener('submit', e => {
+      e.preventDefault();
+      results.querySelector('[data-id]')?.click();
+    });
+    el.querySelector('[data-cancel]').addEventListener('click', () => done(null));
+    el.querySelector('[data-unlink]')?.addEventListener('click', () => done(''));
+    el.addEventListener('mousedown', e => {
+      if (e.target === el) done(null);
+    });
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Escape') done(null);
+    });
+    setTimeout(() => input.focus(), 0);
+  });
 }
 
 // Ster op de receptpagina: favoriet aan/uit en de knop direct bijwerken.

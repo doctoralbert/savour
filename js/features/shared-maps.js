@@ -515,7 +515,7 @@ function renderShared(id) {
   const brigade = `<button type="button" class="kt-brigade" onclick="showTeamTab('brigade')"><span class="kt-avatars">${avatars}</span><span class="kt-brigade-text"><b>${members.length} in de brigade</b><small>${esc(seatsLine)}</small></span><span class="kt-link">${isOwner ? 'Brigade beheren' : 'Brigade bekijken'} ›</span></button>`;
 
   const folderTile = f =>
-    `<button type="button" class="kt-folder" onclick="openSharedFolder('${mid}','${escJs(f.id)}')"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span><b>${esc(f.name)}</b><small>${sharedFolderCount(m, f)} recepten</small></span></button>`;
+    `<div class="kt-folder-wrap"><button type="button" class="kt-folder" onclick="openSharedFolder('${mid}','${escJs(f.id)}')"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span><b>${esc(f.name)}</b><small>${sharedFolderCount(m, f)} recepten</small></span></button>${sharedFolderCount(m, f) ? `<button type="button" class="kt-folder-print" title="Map printen" aria-label="Map printen" onclick="printSharedFolder('${mid}','${escJs(f.id)}')">${icon('print', { size: 18 })}</button>` : ''}</div>`;
   const folders =
     `<section class="kt-folders" aria-label="Mappen"><div class="kt-section-head"><h2>Mappen</h2>${canEdit && m.folders.length && sharedFoldersManageable ? `<button type="button" class="kt-link" onclick="openSharedFolderManage('${mid}')">Mappen beheren</button>` : ''}</div>` +
     (active.length || canEdit
@@ -616,9 +616,32 @@ function teamSettingsHtml(m, photoInput) {
       ? `<div class="team-setting"><div><b>Uitnodigingslink</b><span class="muted sharelink">https://savour.page/join/${esc(m.publicKey)}</span></div><button class="btn" onclick="inviteShared('${mid}')">Link delen</button></div>`
       : '') +
     `<div class="team-setting"><div><b>Logo op prints</b><span class="muted">Het logo van je zaak bovenaan elke print, voor het hele team.</span></div><button class="btn" onclick="go('settings');showSettingsTab('plan')">Logo instellen</button></div>` +
+    teamProSettingHtml(m) +
     `<div class="team-setting danger"><div><b>Keukenteam verwijderen</b><span class="muted">Alle recepten en mappen van dit keukenteam worden voor iedereen verwijderd.</span></div><button class="btn danger-action" onclick="deleteSharedMap('${mid}')">Verwijderen</button></div>` +
     `</div>`
   );
+}
+
+// Savour Pro voor iedereen: wat het teamabonnement geeft en hoe het er nu voor staat.
+function teamProSettingHtml(m) {
+  const mid = escJs(m.id);
+  const b = teamBrigade(m);
+  let status = '';
+  let action = `<button class="btn gold" onclick="openBrigadePlans()">Team kiezen</button>`;
+  if (b?.linked && b.active) {
+    status = `<p class="team-pro-status">Team ${esc(b.seats)}: ${esc(b.used)} van ${esc(b.seats)} plekken met Pro.</p>`;
+    action = `<button class="btn" onclick="showTeamTab('brigade')">Plekken beheren</button>`;
+  } else if (b?.active && b.elsewhere) {
+    status = `<p class="team-pro-status">Je Team ${esc(b.seats)} hoort bij ${esc(b.elsewhere.name)}.</p>`;
+    action = `<button class="btn" onclick="openTeamNav()">Naar ${esc(b.elsewhere.name)}</button>`;
+  } else if (b?.active) {
+    status = `<p class="team-pro-status">Je hebt Team ${esc(b.seats)}.</p>`;
+    action = `<button class="btn gold" onclick="linkBrigade('${mid}')">Koppelen aan ${esc(m.name)}</button>`;
+  }
+  const plans = TEAM_PLANS.map(
+    p => `<li><b>Team ${p.seats}</b><span>${p.month} per maand</span><small>${p.perPerson} per persoon</small></li>`
+  ).join('');
+  return `<section class="team-pro"><h3>Savour Pro voor iedereen</h3><p class="muted">Met een teamabonnement krijgt iedereen in je keuken Savour Pro: onbeperkt recepten, AI voor handgeschreven kladjes, eigen keukenteams en je logo op prints. Jij regelt het abonnement; je collega's betalen niets en houden hun eigen account.</p><ul class="team-pro-plans">${plans}</ul><p class="muted team-pro-small">Jij telt zelf als eerste plek mee. Een plek geef je altijd door aan iemand anders. Jaarlijks betalen kan ook: ${TEAM_PLANS.map(p => p.year).join(', ')} per jaar.</p>${status}<div class="team-pro-action">${action}</div></section>`;
 }
 
 // Pro-plek in het team geven of vrijgeven (savour_team_add_member / savour_team_remove_member).
@@ -704,11 +727,13 @@ function renderSharedFolderDetail() {
     list.length +
     ' recepten</span></div><div class="folder-map-actions">' +
     (list.length
-      ? '<button class="btn compact-action" onclick="printSharedFolder(\'' +
+      ? '<button class="btn compact-action kt-tool" onclick="printSharedFolder(\'' +
         escJs(m.id) +
         "','" +
         escJs(f.id) +
-        '\')">⎙<span>Print map</span></button>'
+        '\')">' +
+        icon('print') +
+        '<span>Map printen</span></button>'
       : '') +
     (canEditShared(m) && !f.system && (demoMode || sharedFoldersManageable)
       ? '<button class="btn compact-action" onclick="renameSharedFolder(\'' +

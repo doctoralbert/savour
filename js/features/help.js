@@ -200,7 +200,7 @@ function openHelp(topic) {
     );
     modal = $('helpModal');
   }
-  const article = h.article ? h.article[currentLanguage] || h.article.nl : '';
+  const article = h.article ? h.article[currentLanguage] || h.article.en || h.article.nl : '';
   modal.querySelector('.help-box').innerHTML =
     `<button type="button" class="help-close" onclick="closeHelp()" aria-label="${esc(t('Sluiten'))}">${icon('close')}</button><div class="eyebrow">${esc(t(h.eyebrow))}</div><h2>${esc(t(h.title))}</h2><div class="help-sections">${h.sections
       .map(([title, text]) => `<section><h3>${esc(t(title))}</h3><p>${esc(t(text))}</p></section>`)

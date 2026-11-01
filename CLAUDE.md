@@ -33,9 +33,9 @@ De server (`api/ai-import.js`) controleert Pro en de limiet. Instellen: `docs/sa
 - Foto's altijd via `compressPhoto()` voordat ze worden opgeslagen of naar de AI gaan.
 - Rechten in de interface (`canEditShared` e.d.) zijn alleen gemak; de echte beveiliging moet in Supabase RLS zitten.
 - API-routes in `api/` controleren het Supabase-token via `api/_lib/auth.js` als ze iets kosten of gegevens raken.
-- Teksten in de interface en code-commentaar zijn Nederlands. De app is ook in het Engels, Duits en Spaans
+- Teksten in de interface en code-commentaar zijn Nederlands. De app is ook in het Engels, Duits, Spaans en Frans
   (taalknop bovenin, `js/core/i18n.js`). Nieuwe interfacetekst? Voeg een regel toe in `tools/vertalingen.mjs`
-  en draai `node tools/build-i18n.mjs`. Recepten en namen van gebruikers worden nooit vertaald.
+  en de Franse regel in `tools/vertalingen-fr.mjs`, en draai `node tools/build-i18n.mjs`. Recepten en namen van gebruikers worden nooit vertaald.
 - Vindbaarheid (zoekmachines en AI): de losse pagina's (`/over-savour`, `/en/about`, ...) en `sitemap.xml` worden
   gemaakt door `node tools/build-seo.mjs` uit de teksten in `public-pages.js` en de Pro-pagina. Teksten daar
   aangepast? Draai daarna `node tools/build-i18n.mjs && node tools/build-seo.mjs`. Verder: `robots.txt`, `llms.txt`,

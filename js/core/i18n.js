@@ -1,4 +1,4 @@
-// Talen: Nederlands (basis), Engels, Duits en Spaans.
+// Talen: Nederlands (basis), Engels, Duits, Spaans en Frans.
 //
 // De app is in het Nederlands geschreven. Kiest de gebruiker een andere taal, dan wordt de woordenlijst
 // voor die taal geladen (js/i18n/<taal>.js) en vertaalt deze vertaler alle zichtbare interfaceteksten op
@@ -6,7 +6,7 @@
 // staan niet in de woordenlijst en blijven dus zoals ze zijn. Een element met translate="no" wordt altijd
 // overgeslagen.
 
-const I18N_LANGUAGES = { nl: 'Nederlands', en: 'English', de: 'Deutsch', es: 'Español' };
+const I18N_LANGUAGES = { nl: 'Nederlands', en: 'English', de: 'Deutsch', es: 'Español', fr: 'Français' };
 const I18N_ATTRIBUTES = ['placeholder', 'title', 'aria-label', 'alt'];
 let currentLanguage = 'nl';
 let i18nDictionary = null; // { strings: Map, patterns: [[RegExp, vervanging]] }
@@ -16,8 +16,8 @@ const i18nTextState = new WeakMap(); // tekstknoop -> { original, shown }
 
 function getSavedLanguage() {
   try {
-    // savour.page/en of /eng opent direct in het Engels (zo ook /de, /deu, /es, /esp, /nl, /nld).
-    const aliases = { eng: 'en', english: 'en', deu: 'de', esp: 'es', nld: 'nl' };
+    // savour.page/en of /eng opent direct in het Engels (zo ook /de, /deu, /es, /esp, /fr, /fra, /nl, /nld).
+    const aliases = { eng: 'en', english: 'en', deu: 'de', esp: 'es', fra: 'fr', nld: 'nl' };
     const part = location.pathname.match(/^\/([a-z]{2,7})\/?$/i)?.[1]?.toLowerCase();
     const fromPath = part && (aliases[part] || part);
     const saved = (I18N_LANGUAGES[fromPath] && fromPath) || localStorage.getItem('savour_lang') || 'nl';
@@ -162,7 +162,7 @@ async function setLanguage(lang) {
   document.documentElement.classList.remove('i18n-loading');
 }
 
-// Taalknop (NL/EN/DE/ES) op alle plekken met [data-lang-switch].
+// Taalknop (NL/EN/DE/ES/FR) op alle plekken met [data-lang-switch].
 function renderLanguageSwitches() {
   document.querySelectorAll('[data-lang-switch]').forEach(host => {
     host.innerHTML = `<details class="lang-menu"><summary aria-label="Taal / Language" title="Taal / Language" translate="no">${currentLanguage.toUpperCase()}</summary><div class="lang-options" translate="no">${Object.entries(

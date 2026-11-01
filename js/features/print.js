@@ -30,9 +30,15 @@ async function fetchPrintBrand(mapId) {
 
 function savedPrintOptions() {
   try {
-    return { photos: true, cover: true, size: 'a4', ...JSON.parse(localStorage.getItem(PRINT_OPTIONS_KEY) || '{}') };
+    return {
+      photos: true,
+      cover: true,
+      notes: true,
+      size: 'a4',
+      ...JSON.parse(localStorage.getItem(PRINT_OPTIONS_KEY) || '{}')
+    };
   } catch (_) {
-    return { photos: true, cover: true, size: 'a4' };
+    return { photos: true, cover: true, notes: true, size: 'a4' };
   }
 }
 
@@ -42,6 +48,7 @@ function askPrintOptions(list) {
   const o = savedPrintOptions();
   const hasPhotos = list.some(r => r.photo);
   const many = list.length > 1;
+  const hasNotes = list.some(r => r.notes);
   document.getElementById('printOptions')?.remove();
   document.body.insertAdjacentHTML(
     'beforeend',
@@ -52,6 +59,10 @@ function askPrintOptions(list) {
     }${
       many
         ? `<label class="print-option"><input type="checkbox" name="cover"${o.cover ? ' checked' : ''}><span>Met voorblad en inhoud</span></label>`
+        : ''
+    }${
+      hasNotes
+        ? `<label class="print-option"><input type="checkbox" name="notes"${o.notes ? ' checked' : ''}><span>Met notities</span></label>`
         : ''
     }<div class="print-sizes" role="radiogroup" aria-label="Papierformaat"><label class="print-option"><input type="radio" name="size" value="a4"${o.size !== 'a5' ? ' checked' : ''}><span>A4</span></label><label class="print-option"><input type="radio" name="size" value="a5"${o.size === 'a5' ? ' checked' : ''}><span>A5, voor een kleine map aan de pass</span></label></div><div class="sv-dialog-actions"><button type="button" class="btn" data-cancel>Annuleren</button><button type="submit" class="btn gold">Printen</button></div></form></div>`
   );
@@ -67,6 +78,7 @@ function askPrintOptions(list) {
       const chosen = {
         photos: form.photos ? form.photos.checked : o.photos,
         cover: form.cover ? form.cover.checked : o.cover,
+        notes: form.notes ? form.notes.checked : o.notes,
         size: form.querySelector('input[name="size"]:checked')?.value === 'a5' ? 'a5' : 'a4'
       };
       try {
@@ -169,6 +181,8 @@ function printBundleHtml(list, { brand = null, options = {}, title = '' } = {}) 
           r.photo && options.photos !== false ? `<img class="print-photo" src="${esc(r.photo)}" alt="">` : '';
         // Met inhoudsopgave: het nummer uit de inhoudsopgave onderaan de pagina, om snel te zoeken.
         const number = cover ? `<div class="print-recipe-number">${index + 1}</div>` : '';
+        const note =
+          r.notes && options.notes !== false ? `<div class="print-note"><b>Notitie</b><br>${esc(r.notes)}</div>` : '';
         return `<article class="print-bundle-recipe${cover ? ' has-number' : ''}">${number}${top}${photo}<h1>${esc(r.title)}</h1>${r.yield ? `<div class="print-yield"><span>Opbrengst</span> · <b>${esc(r.yield)}</b></div>` : ''}<div class="print-bundle-columns"><div><h3>Ingrediënten</h3>${
           ingredients.length
             ? ingredients
@@ -179,7 +193,7 @@ function printBundleHtml(list, { brand = null, options = {}, title = '' } = {}) 
                 })
                 .join('')
             : `<div class="muted">Geen ingrediënten vastgelegd.</div>`
-        }</div>${steps.length ? `<div><h3>Bereiding</h3>${steps.map((x, i) => (recipePartName(x) ? `<div class="step print-part">${esc(recipePartName(x))}</div>` : `<div class="step"><b>${recipeStepNumbers(steps)[i]}.</b> ${esc(x)}</div>`)).join('')}</div>` : ''}</div></article>`;
+        }${note}</div>${steps.length ? `<div><h3>Bereiding</h3>${steps.map((x, i) => (recipePartName(x) ? `<div class="step print-part">${esc(recipePartName(x))}</div>` : `<div class="step"><b>${recipeStepNumbers(steps)[i]}.</b> ${esc(x)}</div>`)).join('')}</div>` : ''}</div></article>`;
       })
       .join('')
   );

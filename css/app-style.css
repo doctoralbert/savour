@@ -1502,6 +1502,7 @@ h2.has-help .help-btn {
   gap: 8px;
   font-size: var(--sv-fs-base) !important;
 }
+#appShell #sharedFolderDetailWrap .kt-tool span,
 #appShell #sharedWrap .kt-actions .kt-tool span {
   display: inline;
 }
@@ -2013,4 +2014,70 @@ h2.has-help .help-btn {
   .kt-new-box h2 {
     font-size: 26px;
   }
+}
+
+/* ---- Keukenteam: map printen en Savour Pro in de instellingen ---- */
+.kt-folder-wrap {
+  position: relative;
+  display: grid;
+}
+.kt-folder-print {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--sv-line);
+  border-radius: 10px;
+  background: var(--sv-surface);
+  color: var(--sv-text-2);
+  cursor: pointer;
+}
+.kt-folder-print:hover {
+  border-color: var(--sv-gold);
+  color: var(--sv-gold);
+}
+.team-pro {
+  padding: 20px;
+  border: 1px solid var(--sv-gold);
+  border-radius: 16px;
+}
+.team-pro h3 {
+  margin: 0 0 8px;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-xl);
+}
+.team-pro p {
+  margin: 0;
+}
+.team-pro-plans {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+  padding: 0;
+  list-style: none;
+}
+.team-pro-plans li {
+  display: grid;
+  gap: 2px;
+  padding: 12px;
+  border: 1px solid var(--sv-line);
+  border-radius: 12px;
+}
+.team-pro-plans small {
+  color: var(--sv-text-2);
+}
+.team-pro-small {
+  font-size: var(--sv-fs-sm);
+}
+.team-pro-status {
+  margin-top: 12px !important;
+  color: var(--sv-gold);
+}
+.team-pro-action {
+  margin-top: 14px;
 }

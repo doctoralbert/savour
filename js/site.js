@@ -177,7 +177,7 @@
     var info = null;
     var euro = function (v) {
       var n = Number(v).toFixed(Number(v) % 1 ? 2 : 0);
-      return lang === 'de' || lang === 'es'
+      return lang === 'de' || lang === 'es' || lang === 'fr'
         ? n.replace('.', ',') + ' €'
         : '€' + (lang === 'nl' ? n.replace('.', ',') : n);
     };

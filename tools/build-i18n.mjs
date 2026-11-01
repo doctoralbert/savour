@@ -1,14 +1,18 @@
-// Maakt js/i18n/en.js, de.js en es.js uit tools/vertalingen.mjs. Draai: node tools/build-i18n.mjs
+// Maakt js/i18n/en.js, de.js, es.js en fr.js uit tools/vertalingen.mjs en tools/vertalingen-fr.mjs. Draai: node tools/build-i18n.mjs
 import fs from 'node:fs';
 import { strings, patterns } from './vertalingen.mjs';
+import { stringsFr, patternsFr } from './vertalingen-fr.mjs';
 const outDir = new URL('../js/i18n/', import.meta.url);
 fs.mkdirSync(outDir, { recursive: true });
-const names = { en: 'Engels', de: 'Duits', es: 'Spaans' };
-['en', 'de', 'es'].forEach((lang, i) => {
+const names = { en: 'Engels', de: 'Duits', es: 'Spaans', fr: 'Frans' };
+const key = text => text.replace(/\s+/g, ' ').trim();
+const missing = [...strings.map(r => r[0]).filter(t => !stringsFr[key(t)]), ...patterns.map(r => r[0]).filter(t => !patternsFr[t])];
+if (missing.length) throw new Error('Franse vertaling ontbreekt in tools/vertalingen-fr.mjs:\n' + missing.join('\n'));
+['en', 'de', 'es', 'fr'].forEach((lang, i) => {
   const col = i + 1;
   const map = {};
-  for (const row of strings) map[row[0].replace(/\s+/g, ' ').trim()] = row[col];
-  const pats = patterns.map(row => { new RegExp(row[0]); return [row[0], row[col]]; });
+  for (const row of strings) map[key(row[0])] = lang === 'fr' ? stringsFr[key(row[0])] : row[col];
+  const pats = patterns.map(row => { new RegExp(row[0]); return [row[0], lang === 'fr' ? patternsFr[row[0]] : row[col]]; });
   const body =
     `// ${names[lang]} — gegenereerd uit de vertaaltabel. Nederlands staat links, de vertaling rechts.\n` +
     `window.SAVOUR_I18N = window.SAVOUR_I18N || {};\n` +

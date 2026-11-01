@@ -485,3 +485,113 @@ body.cook-mode .rp-step-num {
   display: grid;
   gap: 6px;
 }
+
+/* ---- Notitie naast het recept en koppelingen naar andere recepten ---- */
+#rpSideNote {
+  margin-top: var(--sv-space-4);
+}
+.rp-side-note {
+  padding: var(--sv-space-3);
+  border-left: 3px solid var(--sv-gold);
+  border-radius: 0 var(--sv-radius-sm) var(--sv-radius-sm) 0;
+  background: var(--sv-surface-2);
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.rp-side-note-head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sv-space-2);
+  color: var(--sv-gold);
+  font-size: var(--sv-fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.rp-side-note-head button,
+.rp-note-add {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--sv-text-2);
+  font: inherit;
+  cursor: pointer;
+}
+.rp-side-note-head button {
+  letter-spacing: 0;
+  text-transform: none;
+  text-decoration: underline;
+}
+.rp-note-add {
+  min-height: 32px;
+  font-size: var(--sv-fs-sm);
+}
+.rp-note-add:hover {
+  color: var(--sv-gold);
+}
+.rp-side-note p {
+  margin: var(--sv-space-2) 0 0;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.rp-side-note textarea {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: var(--sv-space-2);
+  padding: var(--sv-space-2);
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius-sm);
+  background: var(--sv-surface);
+  color: var(--sv-text);
+  font: inherit;
+  resize: vertical;
+}
+.rp-side-note-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sv-space-2);
+  margin-top: var(--sv-space-2);
+}
+.rp-ingredients li.has-link {
+  display: flex;
+  align-items: center;
+  gap: var(--sv-space-2);
+}
+.rp-ingredients li.has-link label {
+  flex: 1;
+  min-width: 0;
+}
+.rp-ing-link {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 4px;
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  background: none;
+  color: var(--sv-gold);
+  font: inherit;
+  font-size: var(--sv-fs-xs);
+  cursor: pointer;
+}
+.rp-ing-link:hover {
+  border-color: var(--sv-gold);
+}
+.rp-link-back {
+  margin-bottom: var(--sv-space-3);
+}
+#svDialog .sv-dialog-choices,
+#linkPicker .sv-dialog-choices {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+#linkPicker .sv-dialog-choices {
+  margin-top: var(--sv-space-3);
+}
+body.cook-mode .rp-note-add,
+body.cook-mode .rp-side-note-head button {
+  display: none;
+}

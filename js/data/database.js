@@ -169,6 +169,8 @@ async function loadDatabaseState() {
     photo: r.photo_url || '',
     createdAt: r.created_at || '',
     updatedAt: r.updated_at || '',
+    notes: r.notes || '',
+    links: r.ingredient_links || {},
     dbId: r.id
   }));
   const seenFolderNames = new Set();
@@ -402,16 +404,17 @@ async function loadSharedRecipes() {
     ...new Set(sharedMaps.flatMap(m => [...m.recipeIds, ...m.folders.flatMap(f => f.recipeIds)]).map(String))
   ].filter(id => !own.has(id));
   const rows = [];
-  // updated_by (wie het laatst aanpaste) bestaat pas na supabase/2026-10-29-net-bijgewerkt.sql; zonder kan het ook.
+  // updated_by, notes en ingredient_links bestaan pas na supabase/2026-10-29-net-bijgewerkt.sql en
+  // supabase/2026-11-01-notities-koppelingen.sql; zonder kan het ook.
   let cols =
     'id,user_id,team_id,created_by,title,description,yield_text,ingredients,steps,photo_url,created_at,updated_at';
   let withEditor = true;
   for (let i = 0; i < ids.length; i += 100) {
     let { data, error } = await supabaseClient
       .from('recipes')
-      .select(withEditor ? cols + ',updated_by' : cols)
+      .select(withEditor ? cols + ',updated_by,notes,ingredient_links' : cols)
       .in('id', ids.slice(i, i + 100));
-    if (error && withEditor && /updated_by/.test(error.message || '')) {
+    if (error && withEditor && /updated_by|notes|ingredient_links/.test(error.message || '')) {
       withEditor = false;
       ({ data, error } = await supabaseClient
         .from('recipes')
@@ -448,6 +451,8 @@ async function loadSharedRecipes() {
     createdAt: r.created_at || '',
     updatedAt: r.updated_at || '',
     photo: r.photo_url || '',
+    notes: r.notes || '',
+    links: r.ingredient_links || {},
     shared: true,
     teamId: r.team_id || null,
     ownerId: r.user_id

@@ -1498,6 +1498,20 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
+  ["Koppelen aan recept","Link to recipe","Mit Rezept verknüpfen","Vincular a receta"],
+  ["Kies het ingrediënt waar een eigen recept bij hoort, bijvoorbeeld een basissaus.","Choose the ingredient that has its own recipe, such as a base sauce.","Wähle die Zutat, zu der ein eigenes Rezept gehört, zum Beispiel eine Grundsauce.","Elige el ingrediente que tiene su propia receta, por ejemplo una salsa base."],
+  ["Koppeling weghalen","Remove link","Verknüpfung entfernen","Quitar vínculo"],
+  ["Notitie","Note","Notiz","Nota"],
+  ["＋ Notitie","＋ Note","＋ Notiz","＋ Nota"],
+  ["Wijzigen","Change","Ändern","Cambiar"],
+  ["Bijv. bij meer dan 5 kg langer laten rusten","E.g. rest longer above 5 kg","Z. B. ab 5 kg länger ruhen lassen","P. ej., reposar más a partir de 5 kg"],
+  ["Dit kan zodra de database is bijgewerkt.","This will work once the database has been updated.","Das geht, sobald die Datenbank aktualisiert ist.","Esto funcionará cuando se actualice la base de datos."],
+  ["Opslaan lukte niet; probeer het opnieuw","Saving failed; please try again","Speichern fehlgeschlagen; versuche es noch einmal","No se ha podido guardar; inténtalo de nuevo"],
+  ["Met notities","With notes","Mit Notizen","Con notas"],
+  ["Map printen","Print folder","Ordner drucken","Imprimir carpeta"],
+  ["Savour Pro voor iedereen","Savour Pro for everyone","Savour Pro für alle","Savour Pro para todos"],
+  ["Met een teamabonnement krijgt iedereen in je keuken Savour Pro: onbeperkt recepten, AI voor handgeschreven kladjes, eigen keukenteams en je logo op prints. Jij regelt het abonnement; je collega's betalen niets en houden hun eigen account.","With a team plan, everyone in your kitchen gets Savour Pro: unlimited recipes, AI for handwritten notes, their own kitchen teams and your logo on prints. You manage the plan; your colleagues pay nothing and keep their own account.","Mit einem Team-Abo bekommt jeder in deiner Küche Savour Pro: unbegrenzt Rezepte, KI für handgeschriebene Notizen, eigene Küchenteams und dein Logo auf Ausdrucken. Du verwaltest das Abo; deine Kollegen zahlen nichts und behalten ihr eigenes Konto.","Con un plan de equipo, todos en tu cocina tienen Savour Pro: recetas ilimitadas, IA para notas escritas a mano, equipos de cocina propios y tu logo en las impresiones. Tú gestionas el plan; tus compañeros no pagan nada y conservan su propia cuenta."],
+  ["Plekken beheren","Manage seats","Plätze verwalten","Gestionar plazas"],
   ["＋ Deel toevoegen","＋ Add part","＋ Teil hinzufügen","＋ Añadir parte"],
   ["Deel toevoegen","Add part","Teil hinzufügen","Añadir parte"],
   ["Bestaat je recept uit meerdere delen, zoals deeg, vulling en saus? Voeg er zoveel toe als je wilt.","Does your recipe have several parts, like dough, filling and sauce? Add as many as you like.","Besteht dein Rezept aus mehreren Teilen, etwa Teig, Füllung und Sauce? Füge so viele hinzu, wie du möchtest.","¿Tu receta tiene varias partes, como masa, relleno y salsa? Añade tantas como quieras."],
@@ -3460,6 +3474,12 @@ export const strings = [
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
 export const patterns = [
+  ["^(€[\\d,.]+) per maand$","$1 per month","$1 pro Monat","$1 al mes"],
+  ["^(€[\\d,.]+) per persoon$","$1 per person","$1 pro Person","$1 por persona"],
+  ["^Team (\\d+): (\\d+) van (\\d+) plekken met Pro\\.$","Team $1: $2 of $3 seats with Pro.","Team $1: $2 von $3 Plätzen mit Pro.","Equipo $1: $2 de $3 plazas con Pro."],
+  ["^Je Team (\\d+) hoort bij (.+)\\.$","Your Team $1 belongs to $2.","Dein Team $1 gehört zu $2.","Tu Equipo $1 pertenece a $2."],
+  ["^Je hebt Team (\\d+)\\.$","You have Team $1.","Du hast Team $1.","Tienes Equipo $1."],
+  ["^Jij telt zelf als eerste plek mee\\. Een plek geef je altijd door aan iemand anders\\. Jaarlijks betalen kan ook: (.+) per jaar\\.$","You count as the first seat yourself. You can always pass a seat on to someone else. You can also pay yearly: $1 per year.","Du selbst zählst als erster Platz. Einen Platz kannst du jederzeit an jemand anderen weitergeben. Auch jährliche Zahlung ist möglich: $1 pro Jahr.","Tú cuentas como la primera plaza. Siempre puedes pasar una plaza a otra persona. También puedes pagar al año: $1 al año."],
   ["^(\d+) in de brigade$","$1 in the brigade","$1 in der Brigade","$1 en la brigada"],
   ["^Team (\d+) · nog (\d+) Pro-plekken vrij$","Team $1 · $2 Pro seats left","Team $1 · noch $2 Pro-Plätze frei","Equipo $1 · quedan $2 plazas Pro"],
   ["^Voor (.+) · nog (\d+) Pro-plekken vrij$","For $1 · $2 Pro seats left","Für $1 · noch $2 Pro-Plätze frei","Para $1 · quedan $2 plazas Pro"],

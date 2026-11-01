@@ -613,6 +613,22 @@ window.SAVOUR_I18N.es = {
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.":
       'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.',
     Verbergen: 'Ocultar',
+    'Koppelen aan recept': 'Vincular a receta',
+    'Kies het ingrediënt waar een eigen recept bij hoort, bijvoorbeeld een basissaus.':
+      'Elige el ingrediente que tiene su propia receta, por ejemplo una salsa base.',
+    'Koppeling weghalen': 'Quitar vínculo',
+    Notitie: 'Nota',
+    '＋ Notitie': '＋ Nota',
+    Wijzigen: 'Cambiar',
+    'Bijv. bij meer dan 5 kg langer laten rusten': 'P. ej., reposar más a partir de 5 kg',
+    'Dit kan zodra de database is bijgewerkt.': 'Esto funcionará cuando se actualice la base de datos.',
+    'Opslaan lukte niet; probeer het opnieuw': 'No se ha podido guardar; inténtalo de nuevo',
+    'Met notities': 'Con notas',
+    'Map printen': 'Imprimir carpeta',
+    'Savour Pro voor iedereen': 'Savour Pro para todos',
+    "Met een teamabonnement krijgt iedereen in je keuken Savour Pro: onbeperkt recepten, AI voor handgeschreven kladjes, eigen keukenteams en je logo op prints. Jij regelt het abonnement; je collega's betalen niets en houden hun eigen account.":
+      'Con un plan de equipo, todos en tu cocina tienen Savour Pro: recetas ilimitadas, IA para notas escritas a mano, equipos de cocina propios y tu logo en las impresiones. Tú gestionas el plan; tus compañeros no pagan nada y conservan su propia cuenta.',
+    'Plekken beheren': 'Gestionar plazas',
     '＋ Deel toevoegen': '＋ Añadir parte',
     'Deel toevoegen': 'Añadir parte',
     'Bestaat je recept uit meerdere delen, zoals deeg, vulling en saus? Voeg er zoveel toe als je wilt.':
@@ -1615,6 +1631,15 @@ window.SAVOUR_I18N.es = {
       'Antes del lanzamiento de Savour deben fijarse la entidad responsable, los datos de contacto, los proveedores de alojamiento y tratamiento y las posibles transferencias internacionales de datos.'
   },
   patterns: [
+    ['^(€[\\d,.]+) per maand$', '$1 al mes'],
+    ['^(€[\\d,.]+) per persoon$', '$1 por persona'],
+    ['^Team (\\d+): (\\d+) van (\\d+) plekken met Pro\\.$', 'Equipo $1: $2 de $3 plazas con Pro.'],
+    ['^Je Team (\\d+) hoort bij (.+)\\.$', 'Tu Equipo $1 pertenece a $2.'],
+    ['^Je hebt Team (\\d+)\\.$', 'Tienes Equipo $1.'],
+    [
+      '^Jij telt zelf als eerste plek mee\\. Een plek geef je altijd door aan iemand anders\\. Jaarlijks betalen kan ook: (.+) per jaar\\.$',
+      'Tú cuentas como la primera plaza. Siempre puedes pasar una plaza a otra persona. También puedes pagar al año: $1 al año.'
+    ],
     ['^(d+) in de brigade$', '$1 en la brigada'],
     ['^Team (d+) · nog (d+) Pro-plekken vrij$', 'Equipo $1 · quedan $2 plazas Pro'],
     ['^Voor (.+) · nog (d+) Pro-plekken vrij$', 'Para $1 · quedan $2 plazas Pro'],

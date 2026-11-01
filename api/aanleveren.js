@@ -69,7 +69,7 @@ async function request(body) {
   if (body.website) return { ok: true };
   const row = {
     token: randomBytes(24).toString('hex'),
-    language: ['nl', 'en', 'de', 'es'].includes(body.language) ? body.language : 'nl',
+    language: ['nl', 'en', 'de', 'es', 'fr'].includes(body.language) ? body.language : 'nl',
     name: clean(body.name, 120),
     email: clean(body.email, 240).toLowerCase(),
     restaurant: clean(body.restaurant, 160),
