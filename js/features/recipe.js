@@ -101,7 +101,7 @@ function openRecipe(id, context = 'library') {
     <header class="rp-head">
       <div class="eyebrow">${esc(r.category || (own ? 'Eigen recepten' : 'Gedeeld recept'))}</div>
       <h1 class="rp-title">${esc(r.title)}</h1>
-      ${meta.length ? `<p class="rp-meta">${meta.join(' · ')}</p>` : ''}
+      ${meta.length ? `<p class="rp-meta">${meta.map(x => '<span>' + x + '</span>').join(' · ')}</p>` : ''}
       ${own ? '' : r.linkSlug ? `<p class="rp-note rp-note-link">${icon('share', { size: 16 })}<span>${r.allowCopy ? 'Gedeeld recept. Voeg het toe aan je eigen recepten om het aan te passen.' : 'Gedeeld recept. Je kunt het bekijken, omrekenen en printen; alleen de maker kan het aanpassen.'}</span></p>` : `<p class="rp-note">Gedeeld door een gebruiker. Alleen de maker van het recept kan het bewerken.</p>`}
       ${own && recipeSourceIds.has(String(r.id)) ? `<button type="button" class="btn-quiet rp-source" onclick="showRecipeSource('${rid}')">Origineel kladje bekijken</button>` : ''}
       <div class="rp-actions">
