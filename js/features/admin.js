@@ -220,12 +220,7 @@ function renderAdminAdsense(r) {
           .join('')}</tbody></table></div>`
       : '';
   const pagePath = url => String(url || '').replace(/^https?:\/\/(www\.)?savour\.page/, '') || '/';
-    .map(
-      u =>
-        `<tr><td>${adminEscape(u.AD_UNIT_NAME)}</td><td>${adminEscape(money(u.ESTIMATED_EARNINGS))}</td><td>${count(u.IMPRESSIONS)}</td><td>${count(u.CLICKS)}</td></tr>`
-    )
-    .join('');
-  host.innerHTML = `<div class="admin-adsense-grid">${period('Vandaag', r.today)}${period('Laatste 7 dagen', r.week)}${period('Deze maand', r.month)}</div>${units ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Advertentieblok</th><th>Deze maand</th><th>Vertoningen</th><th>Klikken</th></tr></thead><tbody>${units}</tbody></table></div>` : ''}<p class="admin-footnote">Geschatte inkomsten volgens Google. <button type="button" class="btn-quiet" onclick="disconnectAdsense()">Loskoppelen</button></p>`;
+  host.innerHTML = `<div class="admin-adsense-grid">${period('Vandaag', r.today)}${period('Laatste 7 dagen', r.week)}${period('Deze maand', r.month)}</div>${table('Pagina', 'PAGE_URL', r.pages, pagePath)}${table('Advertentieblok', 'AD_UNIT_NAME', r.units)}${table('Land', 'COUNTRY_NAME', r.countries)}${table('Apparaat', 'PLATFORM_TYPE_NAME', r.devices)}<p class="admin-footnote">Geschatte inkomsten volgens Google. Alle schermen in de app staan samen onder <b>/</b>. <button type="button" class="btn-quiet" onclick="disconnectAdsense()">Loskoppelen</button></p>`;
 }
 
 async function adminShowDashboard(user) {
