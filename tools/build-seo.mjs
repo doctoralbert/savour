@@ -459,7 +459,7 @@ ${alternates.map(([l, h]) => `<link rel="alternate" hreflang="${l}" href="${h}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/site.css">
-<script type="application/ld+json">${JSON.stringify(schema)}</script>
+${ads ? ADSENSE_SCRIPT : ''}<script type="application/ld+json">${JSON.stringify(schema)}</script>
 <script src="/js/country.js" defer></script>
 <script src="/js/site.js" defer></script>
 </head>
@@ -486,7 +486,7 @@ function writePage(slug, html) {
 }
 
 const sitemap = [];
-function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = false }) {
+function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = false, ads = false }) {
   const canonical = url(slugs[lang]);
   const alternates = LANGS.filter(l => slugs[l]).map(l => [l, url(slugs[l])]);
   if (slugs.nl) alternates.push(['x-default', url(slugs.nl)]);
@@ -495,7 +495,7 @@ function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = fa
     ? `<div class="site-crumbs"><a href="${UI[lang].home}">Home</a>${crumbs.map(c => ` / ${c[1] ? `<a href="${c[1]}">${esc(c[0])}</a>` : esc(c[0])}`).join('')}</div>`
     : '';
   const html =
-    pageHead(lang, { title, desc, canonical, alternates, hidden, schema: [webPage(lang, title, desc, canonical), ...schema] }) +
+    pageHead(lang, { title, desc, canonical, alternates, hidden, ads, schema: [webPage(lang, title, desc, canonical), ...schema] }) +
     `<div class="site">${header(lang, alt, false)}<main>${body(crumbHtml)}</main>${hidden ? '' : ctaBlock(lang, false)}${footer(lang, alt, false)}</div>\n</body>\n</html>\n`;
   writePage(slugs[lang], html);
   if (!hidden) sitemap.push({ loc: canonical, alternates });
@@ -576,6 +576,10 @@ const pageTop = (crumbHtml, h1, lead, photo) => {
 // Twee staande foto's naast elkaar midden in de tekst (Voor wie-pagina's).
 const photoDuo = (a, b) =>
   `<figure class="site-photo-duo reveal">${[a, b].map(k => `<img src="${photoFile(k)}" alt="" loading="lazy" style="object-position:${PHOTOS[k][1]}">`).join('')}</figure>`;
+// AdSense: alleen in blogartikelen, na de tweede alinea (blok "Blog artikel"; niet in de app, recepten of andere pagina's).
+const ADSENSE_CLIENT = 'ca-pub-8120664667405598';
+const ADSENSE_SCRIPT = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}" crossorigin="anonymous"></script>\n`;
+const articleAd = `<div class="site-ad"><ins class="adsbygoogle" style="display:block;text-align:center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="${ADSENSE_CLIENT}" data-ad-slot="6575266109"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>`;
 const sectionsHtml = sections => sections.map(([t, d]) => `<h2 class="reveal">${esc(t)}</h2><p>${esc(d)}</p>`).join('');
 
 for (const lang of LANGS) {
@@ -657,6 +661,7 @@ for (const lang of LANGS) {
     const t = p[lang];
     const date = new Date(p.date).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' });
     page({
+      ads: true,
       lang,
       slugs: slugsOf(p),
       title: `${t.title} | Savour`,
@@ -677,7 +682,7 @@ for (const lang of LANGS) {
       ],
       body: c =>
         pageTop(c, t.h1, t.lead, BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}</p>${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p></div></article>`
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}</p>${sectionsHtml(t.sections.slice(0, 2))}${articleAd}${sectionsHtml(t.sections.slice(2))}<p><em>${esc(t.outro)}</em></p></div></article>`
     });
   }
   // App downloaden (tools/site-app.mjs)
