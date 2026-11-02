@@ -125,6 +125,7 @@ function openRecipe(id, context = 'library') {
             ? `<ul class="rp-ingredients" id="rpIngredients">${ingredients.map((x, i) => (recipePartName(x) ? `<li class="rp-part-head">${esc(recipePartName(x))}</li>` : `<li data-ing="${i}"><label><input type="checkbox"><span class="rp-ing-line">${ingredientHtml(x)}</span></label></li>`)).join('')}</ul>`
             : '<p class="muted">Geen ingrediënten vastgelegd.</p>'
         }
+        <div id="rpAllergens"></div>
         <div id="rpSideNote"></div>
       </section>
       <section class="rp-section">
@@ -139,6 +140,7 @@ function openRecipe(id, context = 'library') {
     ${appAdHtml()}
   </article>`;
   renderIngredientLinks(r);
+  renderRecipeAllergens(r);
   renderRecipeNote(r);
   go('detail');
 }

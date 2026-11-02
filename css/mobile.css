@@ -55,7 +55,7 @@
   /* ---- Onderste menu ---- */
   #appShell .mobile-bottom-nav,
   .mobile-bottom-nav {
-    grid-template-columns: repeat(4, 1fr) !important;
+    grid-template-columns: repeat(5, 1fr) !important;
     height: auto !important;
     min-height: 64px;
     padding: var(--sv-space-1) var(--sv-space-1) calc(var(--sv-space-1) + env(safe-area-inset-bottom)) !important;

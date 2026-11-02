@@ -193,7 +193,7 @@ function printBundleHtml(list, { brand = null, options = {}, title = '' } = {}) 
                 })
                 .join('')
             : `<div class="muted">Geen ingrediënten vastgelegd.</div>`
-        }${note}</div>${steps.length ? `<div><h3>Bereiding</h3>${steps.map((x, i) => (recipePartName(x) ? `<div class="step print-part">${esc(recipePartName(x))}</div>` : `<div class="step"><b>${recipeStepNumbers(steps)[i]}.</b> ${esc(x)}</div>`)).join('')}</div>` : ''}</div></article>`;
+        }${printAllergensHtml(r)}${note}</div>${steps.length ? `<div><h3>Bereiding</h3>${steps.map((x, i) => (recipePartName(x) ? `<div class="step print-part">${esc(recipePartName(x))}</div>` : `<div class="step"><b>${recipeStepNumbers(steps)[i]}.</b> ${esc(x)}</div>`)).join('')}</div>` : ''}</div></article>`;
       })
       .join('')
   );

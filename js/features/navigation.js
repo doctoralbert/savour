@@ -26,6 +26,7 @@ function go(id) {
   if (id === 'favorites') renderFavorites();
   if (id === 'folders' || id === 'folderManage') renderFolderManage();
   if (id === 'categories') renderCategories();
+  if (id === 'products') renderProducts();
   if (id === 'folderDetail') renderFolderDetail();
   if (id === 'shared') renderShared(currentShared);
   if (id === 'sharedManage') renderSharedManage();

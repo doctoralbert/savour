@@ -631,3 +631,319 @@ body.cook-mode .rp-note-add,
 body.cook-mode .rp-side-note-head button {
   display: none;
 }
+
+/* ---- Allergenen en producten (js/features/products.js) ---- */
+.allergen-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.allergen-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border: 1px solid var(--sv-gold);
+  border-radius: 999px;
+  color: var(--sv-text);
+  font-size: var(--sv-fs-xs);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.allergen-none,
+.allergen-open {
+  font-size: var(--sv-fs-xs);
+  color: var(--sv-text-2);
+}
+.allergen-open {
+  color: var(--sv-gold);
+}
+.rp-allergens {
+  display: grid;
+  gap: var(--sv-space-2);
+  margin-top: var(--sv-space-4);
+  padding: var(--sv-space-3);
+  border-left: 3px solid var(--sv-gold);
+  border-radius: 0 var(--sv-radius-sm) var(--sv-radius-sm) 0;
+  background: var(--sv-surface-2);
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.rp-allergens p {
+  margin: 0;
+}
+#rpAllergens > .rp-note-add {
+  margin-top: var(--sv-space-4);
+}
+.rp-allergens-open {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0;
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-xs);
+  line-height: 1.5;
+}
+.rp-allergens-open .sv-icon {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--sv-gold);
+}
+.allergen-check-box {
+  width: min(620px, 100%);
+  max-height: min(86vh, 900px);
+  overflow-y: auto;
+}
+.allergen-check-sum {
+  display: grid;
+  gap: var(--sv-space-2);
+  margin-top: var(--sv-space-3);
+}
+.allergen-check-sum p {
+  margin: 0;
+}
+.allergen-lines {
+  margin: var(--sv-space-4) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--sv-line);
+}
+.allergen-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sv-space-3);
+  padding: var(--sv-space-3) 0;
+  border-bottom: 1px solid var(--sv-line);
+}
+.allergen-line-main {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.allergen-line-main > b {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.allergen-line-state {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.allergen-line-product,
+.allergen-line-via {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-xs);
+}
+.allergen-line .btn,
+.allergen-relink {
+  flex: 0 0 auto;
+}
+.allergen-relink {
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: var(--sv-text-2);
+  font: inherit;
+  font-size: var(--sv-fs-sm);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.allergen-check-tip {
+  margin: var(--sv-space-3) 0 0;
+  font-size: var(--sv-fs-xs);
+  line-height: 1.55;
+}
+.product-editor-box {
+  width: min(560px, 100%);
+  max-height: min(90vh, 940px);
+  overflow-y: auto;
+}
+.product-field {
+  display: grid;
+  gap: 4px;
+  margin-top: var(--sv-space-4);
+}
+.product-field > span,
+.product-allergens legend {
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.product-field .sv-dialog-input {
+  margin-top: 0;
+}
+.product-field small {
+  font-size: var(--sv-fs-xs);
+}
+.product-allergens {
+  margin: var(--sv-space-4) 0 0;
+  padding: 0;
+  border: 0;
+}
+.product-hint {
+  margin: 4px 0 var(--sv-space-2);
+  color: var(--sv-gold);
+  font-size: var(--sv-fs-xs);
+}
+.allergen-pick {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 6px;
+  margin-top: var(--sv-space-2);
+}
+.allergen-pick-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  cursor: pointer;
+  font-size: var(--sv-fs-sm);
+}
+.allergen-pick-item:has(input:checked) {
+  border-color: var(--sv-gold);
+  background: var(--sv-surface-2);
+}
+.allergen-pick-item input {
+  accent-color: var(--gold);
+}
+.product-known {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: var(--sv-space-4);
+  padding: 12px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  font-size: var(--sv-fs-sm);
+  font-weight: 600;
+  line-height: 1.45;
+  cursor: pointer;
+}
+.product-known:has(input:checked) {
+  border-color: var(--sv-gold);
+}
+.product-known input {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin: 1px 0 0;
+  accent-color: var(--gold);
+}
+.product-known-tip {
+  margin: 4px 0 0;
+  font-size: var(--sv-fs-xs);
+}
+.product-editor-box .product-delete {
+  margin-right: auto;
+  color: #d5aaa0;
+}
+.products-intro {
+  margin: 8px 0 0;
+  max-width: 720px;
+  line-height: 1.6;
+}
+.products-scopes {
+  margin-top: 0;
+}
+.products-sum {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 0 0 var(--sv-space-4);
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.products-sum b {
+  color: var(--sv-text);
+}
+.products-todo-list,
+.products-list {
+  margin: var(--sv-space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.products-todo-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sv-space-3);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--sv-line);
+}
+.products-todo-list li > span,
+.products-name {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.products-todo-list small,
+.products-name small {
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-xs);
+  overflow-wrap: anywhere;
+}
+.products-todo .btn-quiet {
+  margin-top: var(--sv-space-3);
+}
+.products-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface-2);
+}
+.products-search input {
+  flex: 1;
+  min-height: var(--sv-control-h);
+  border: 0;
+  background: none;
+  color: var(--sv-text);
+  font: inherit;
+  outline: none;
+}
+.products-list li button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sv-space-3);
+  width: 100%;
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 1px solid var(--sv-line);
+  background: none;
+  color: var(--sv-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.products-list li button:hover b {
+  color: var(--sv-gold);
+}
+.products-list .allergen-chips {
+  justify-content: flex-end;
+}
+.print-allergens {
+  margin-top: 14px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+@media (max-width: 760px) {
+  .products-list li button {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .products-list .allergen-chips {
+    justify-content: flex-start;
+  }
+}

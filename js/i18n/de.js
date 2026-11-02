@@ -1732,7 +1732,87 @@ window.SAVOUR_I18N.de = {
     '＋ Recept toevoegen': '＋ Rezept hinzufügen',
     'Zoek in de receptenbibliotheek': 'In der Rezeptbibliothek suchen',
     'https://www.voorbeeld.nl/recept/beurre-blanc': 'https://www.beispiel.de/rezept/beurre-blanc',
-    "Foto's": 'Fotos'
+    "Foto's": 'Fotos',
+    Keuken: 'Küche',
+    'Producten & allergenen': 'Produkte & Allergene',
+    'Leg per product de allergenen vast. Savour koppelt de ingrediënten uit je recepten op naam en telt de allergenen per recept op, ook via basisrecepten.':
+      'Lege die Allergene pro Produkt fest. Savour verknüpft die Zutaten deiner Rezepte über den Namen und zählt die Allergene pro Rezept zusammen, auch über Grundrezepte.',
+    '＋ Product': '＋ Produkt',
+    Gluten: 'Gluten',
+    Schaaldieren: 'Krebstiere',
+    Eieren: 'Eier',
+    Vis: 'Fisch',
+    "Pinda's": 'Erdnüsse',
+    Soja: 'Soja',
+    Melk: 'Milch',
+    Noten: 'Schalenfrüchte',
+    Selderij: 'Sellerie',
+    Mosterd: 'Senf',
+    Sesamzaad: 'Sesam',
+    Sulfiet: 'Sulfite',
+    Lupine: 'Lupinen',
+    Weekdieren: 'Weichtiere',
+    Allergenen: 'Allergene',
+    '＋ Allergenen bepalen': '＋ Allergene bestimmen',
+    Details: 'Details',
+    'Bevat geen van de 14 allergenen.': 'Enthält keines der 14 Allergene.',
+    'Geen allergenen': 'Keine Allergene',
+    Invullen: 'Ausfüllen',
+    'Product kiezen': 'Produkt wählen',
+    'Nog geen product': 'Noch kein Produkt',
+    'Allergenen nog niet gecontroleerd': 'Allergene noch nicht geprüft',
+    'Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Koppelen aan recept; dan tellen de allergenen van dat recept mee.':
+      'Ein Produkt gilt für alle Rezepte mit demselben Zutatennamen. Nutzt eine Zeile ein eigenes Rezept, etwa einen Fond? Verknüpfe es über ⋯ Mit Rezept verknüpfen; dann zählen die Allergene dieses Rezepts mit.',
+    'Kies het product dat bij dit ingrediënt hoort, of maak een nieuw product.':
+      'Wähle das Produkt zu dieser Zutat oder lege ein neues Produkt an.',
+    'Zoek een product': 'Produkt suchen',
+    '＋ Nieuw product': '＋ Neues Produkt',
+    Product: 'Produkt',
+    'Nieuw product': 'Neues Produkt',
+    'Ook in recepten als': 'Auch in Rezepten als',
+    'Bijv. koude roomboter, boter': 'Z. B. kalte Butter, Butter',
+    'Gescheiden door komma’s. Elke naam koppelt de ingrediëntregels met die naam aan dit product.':
+      'Durch Kommas getrennt. Jeder Name verknüpft die Zutatenzeilen mit diesem Namen mit diesem Produkt.',
+    'Voorstel van Savour op basis van de naam. Controleer het etiket of de productspecificatie.':
+      'Vorschlag von Savour anhand des Namens. Prüfe das Etikett oder die Produktspezifikation.',
+    Opmerking: 'Anmerkung',
+    'Bijv. kan sporen van noten bevatten': 'Z. B. kann Spuren von Nüssen enthalten',
+    'Allergenen gecontroleerd op het etiket of de productspecificatie':
+      'Allergene auf dem Etikett oder in der Produktspezifikation geprüft',
+    'Pas na deze controle telt het product mee als compleet, ook als er geen allergenen in zitten.':
+      'Erst nach dieser Prüfung gilt das Produkt als vollständig, auch wenn es keine Allergene enthält.',
+    'Vul een naam in': 'Gib einen Namen ein',
+    'Allergenen nog niet gecontroleerd?': 'Allergene noch nicht geprüft?',
+    'De aangevinkte allergenen worden bewaard, maar het product telt pas als compleet als je het etiket hebt gecontroleerd en het vinkje zet.':
+      'Die angehakten Allergene werden gespeichert, aber das Produkt gilt erst als vollständig, wenn du das Etikett geprüft und das Häkchen gesetzt hast.',
+    'Zo bewaren': 'So speichern',
+    'De recepten blijven zoals ze zijn; de ingrediënten met deze naam hebben dan geen product meer.':
+      'Die Rezepte bleiben, wie sie sind; die Zutaten mit diesem Namen haben dann kein Produkt mehr.',
+    'Naam verplaatsen?': 'Namen verschieben?',
+    Verplaatsen: 'Verschieben',
+    'Mijn producten': 'Meine Produkte',
+    Productlijst: 'Produktliste',
+    'Producten en allergenen werken zodra de database is bijgewerkt.':
+      'Produkte und Allergene funktionieren, sobald die Datenbank aktualisiert ist.',
+    'Allergenen per recept': 'Allergene pro Rezept',
+    'Leg per product de allergenen vast. Savour telt ze op per recept, ook via basisrecepten, en zet ze op je prints. Je ziet altijd welke ingrediënten nog niet gecontroleerd zijn.':
+      'Lege die Allergene pro Produkt fest. Savour zählt sie pro Rezept zusammen, auch über Grundrezepte, und setzt sie auf deine Ausdrucke. Du siehst immer, welche Zutaten noch nicht geprüft sind.',
+    'Savour Pro bekijken': 'Savour Pro ansehen',
+    producten: 'Produkte',
+    'ingrediënten nog te koppelen': 'Zutaten noch zu verknüpfen',
+    'nog te controleren': 'noch zu prüfen',
+    'Nog te koppelen': 'Noch zu verknüpfen',
+    'Ingrediënten uit je recepten zonder product. Koppel ze aan een bestaand product of maak een nieuw product; dat geldt meteen voor alle recepten.':
+      'Zutaten aus deinen Rezepten ohne Produkt. Verknüpfe sie mit einem bestehenden Produkt oder lege ein neues an; das gilt sofort für alle Rezepte.',
+    Koppelen: 'Verknüpfen',
+    'in 1 recept': 'in 1 Rezept',
+    'Minder tonen': 'Weniger anzeigen',
+    'Nog te controleren': 'Noch zu prüfen',
+    'Geen producten gevonden.': 'Keine Produkte gefunden.',
+    'Nog geen producten. Koppel hierboven ingrediënten, of voeg een product toe.':
+      'Noch keine Produkte. Verknüpfe oben Zutaten oder füge ein Produkt hinzu.',
+    'Nog niet volledig gecontroleerd.': 'Noch nicht vollständig geprüft.',
+    'Verwijderen lukte niet; probeer het opnieuw': 'Löschen hat nicht geklappt; versuche es erneut'
   },
   patterns: [
     ['^(\\d+) recepten gevonden$', '$1 Rezepte gefunden'],
@@ -2044,6 +2124,23 @@ window.SAVOUR_I18N.de = {
     ['^(\\d+) recepten aanpassen$', '$1 Rezepte anpassen'],
     ['^(\\d+) recepten aangepast$', '$1 Rezepte angepasst'],
     ['^(\\d+) recept(?:en)? uit (\\d+) bestand(?:en)? verwerkt\\.?$', '$1 Rezept(e) aus $2 Datei(en) verarbeitet.'],
-    ['^(\\d+) ingrediënten · (\\d+) stappen · (.+)$', '$1 Zutaten · $2 Schritte · $3']
+    ['^(\\d+) ingrediënten · (\\d+) stappen · (.+)$', '$1 Zutaten · $2 Schritte · $3'],
+    [
+      '^Nog niet compleet: (\\d+) ingrediënt zonder gecontroleerde allergenen\\.$',
+      'Noch nicht vollständig: $1 Zutat ohne geprüfte Allergene.'
+    ],
+    [
+      '^Nog niet compleet: (\\d+) ingrediënten zonder gecontroleerde allergenen\\.$',
+      'Noch nicht vollständig: $1 Zutaten ohne geprüfte Allergene.'
+    ],
+    ['^in (\\d+) recepten$', 'in $1 Rezepten'],
+    ['^(\\d+) open$', '$1 offen'],
+    ['^Er is al een product (.+)$', 'Es gibt bereits ein Produkt $1'],
+    ['^(.+) is al een eigen product$', '$1 ist bereits ein eigenes Produkt'],
+    [
+      '^Een van deze namen hoort nu bij (.+)\\. Na opslaan hoort hij bij (.+)\\.$',
+      'Einer dieser Namen gehört jetzt zu $1. Nach dem Speichern gehört er zu $2.'
+    ],
+    ['^(.+) verwijderen\\?$', '$1 löschen?']
   ]
 };

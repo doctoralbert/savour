@@ -254,6 +254,7 @@ async function startDatabaseSession(user) {
       await loadDatabaseState();
       await loadPlanState();
       await loadRecipeSourceIds();
+      await loadProducts();
       saveOfflineSnapshot();
       renderProNav();
       renderAdminNav();
