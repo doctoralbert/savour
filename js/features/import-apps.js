@@ -485,6 +485,20 @@ function recipesFromEnex(doc, extra) {
   });
 }
 
+// ---- Google Keep (Google Takeout, .zip met een .html per notitie): titel en inhoud, zonder de datum erboven ----
+function keepNoteText(html) {
+  if (!/class="note\b/.test(html)) return '';
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  const content = doc.querySelector('.note .content');
+  if (!content) return '';
+  const title = (doc.querySelector('.note .title')?.textContent || doc.title || '').trim();
+  content.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
+  // Een lijstje in Keep (afvinklijst): elk item een regel.
+  const items = [...content.querySelectorAll('.listitem .text')].map(x => x.textContent.trim());
+  const body = items.length ? items.join('\n') : content.textContent;
+  return title ? `# ${title}\n${body}` : body;
+}
+
 // ---- Flavorish (.zip): recipes/*.json met { recipe, ingredients, instructions, imageFilename } ----
 async function recipeFromFlavorish(data, extra, findPhoto) {
   const entries = list =>
@@ -587,7 +601,12 @@ async function importAppExport(file) {
         else if (n.endsWith('.html') || n.endsWith('.htm')) {
           const html = await entry.async('string');
           const found = recipesFromHtml(html, sub);
-          drafts.push(...(found.length ? found : readRecipesLocally(htmlToRecipeText(html), sub)));
+          const keep = found.length ? '' : keepNoteText(html);
+          drafts.push(
+            ...(found.length ? found : readRecipesLocally(keep || htmlToRecipeText(html), sub)).map(d =>
+              keep && !d.steps?.length ? { ...d, _needsReview: true } : d
+            )
+          );
         } else if (n.endsWith('.mx2')) drafts.push(...recipesFromMx2(await entry.async('string'), sub));
         else if (n.endsWith('.txt') || n.endsWith('.mxp'))
           drafts.push(...readRecipesLocally(await entry.async('string'), sub));

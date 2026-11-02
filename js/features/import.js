@@ -455,7 +455,11 @@ function htmlToRecipeText(html) {
       else if (/^h[23]$/.test(tag)) lines.push('', `#b ${text(el)}`);
       else if (/^h[4-6]$/.test(tag)) lines.push(text(el));
       else if (tag === 'p' && isBoldTitle(el)) lines.push('', `#b ${text(el)}`);
-      else if (tag === 'p' && el.querySelector('br')) {
+      // Een <div> met alleen tekst (notitie-apps, websites) is een regel of alinea, net als een <p>.
+      else if (tag === 'div' && !el.querySelector('div, p, ul, ol, table, h1, h2, h3, h4, h5, h6, li, tr')) {
+        el.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
+        lines.push(...el.textContent.split('\n').map(l => l.replace(/\s+/g, ' ').trim()));
+      } else if (tag === 'p' && el.querySelector('br')) {
         // Zachte regeleinden (Shift+Enter) zijn echte regels: anders plakken twee recepten aan elkaar.
         el.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
         lines.push(...el.textContent.split('\n').map(l => l.replace(/\s+/g, ' ').trim()));
