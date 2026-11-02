@@ -1969,12 +1969,40 @@ button {
 .boot-mark {
   font-size: var(--sv-fs-2xl);
 }
+/* Gouden lijn onder het woordmerk: een glans die heen en weer loopt zolang Savour laadt. */
 .boot-line {
-  width: 46px;
+  position: relative;
+  width: 90px;
   height: 1px;
-  background: var(--gold);
   margin-top: 18px;
-  opacity: 0.7;
+  overflow: hidden;
+  background: rgba(232, 202, 141, 0.18);
+}
+.boot-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: var(--gold);
+  animation: boot-sweep 1.6s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+}
+@keyframes boot-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .boot-line {
+    width: 46px;
+    background: var(--gold);
+    opacity: 0.7;
+  }
+  .boot-line::after {
+    display: none;
+  }
 }
 .auth-restoring #landingView {
   display: none !important;
