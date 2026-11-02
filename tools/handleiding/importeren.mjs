@@ -13,46 +13,81 @@ export const group = {
   }
 };
 
-// Stappen in Savour, gelijk voor elke andere recepten-app.
-const STEPS = {
-  nl: [
-    'Kies in het menu “Recept toevoegen” en dan “Recept importeren”.',
-    'Kies “Uit een andere recepten-app” en kies het exportbestand. Een zip hoef je niet eerst uit te pakken.',
-    'Kies “Verwerken”. Savour leest alle recepten uit het bestand.',
-    'Controleer de recepten in het [controlescherm](#import-controleren) en kies “Alle recepten opslaan”.'
-  ],
-  en: [
-    'Choose “Add recipe” in the menu and then “Import recipe”.',
-    'Choose “From another recipe app” and pick the export file. There is no need to unzip a zip first.',
-    'Choose “Process”. Savour reads all recipes from the file.',
-    'Check the recipes in the [review screen](#import-controleren) and choose “Save all recipes”.'
-  ]
+// Sjabloon voor de pagina per recepten-app, in elke taal. Duits, Spaans en Frans: tools/handleiding/talen.mjs.
+export const APP_TPL = {
+  nl: {
+    slug: s => `handleiding-importeren-uit-${s}`,
+    menu: n => `Overstappen vanuit ${n}`,
+    h1: n => `Recepten importeren uit ${n}`,
+    title: n => `Recepten uit ${n} importeren in Savour | Handleiding`,
+    need: 'Wat je nodig hebt',
+    needText: (n, files) => `Een export uit ${n}: ${files}.`,
+    exportHead: n => `Exporteren uit ${n}`,
+    importHead: 'Importeren in Savour',
+    importIntro: 'Daarna in Savour:',
+    carriesHead: 'Wat er meegaat',
+    categoryHead: 'Categorie',
+    steps: [
+      'Kies in het menu “Recept toevoegen” en dan “Recept importeren”.',
+      'Kies “Uit een andere recepten-app” en kies het exportbestand. Een zip hoef je niet eerst uit te pakken.',
+      'Kies “Verwerken”. Savour leest alle recepten uit het bestand.',
+      'Controleer de recepten in het [controlescherm](#import-controleren) en kies “Alle recepten opslaan”.'
+    ],
+    category:
+      'De categorie: komt een trefwoord van een van je [categorieën](#categorie-trefwoorden) in de receptnaam voor, dan kiest Savour die. Anders neemt Savour de categorie uit de app over als je een categorie met precies die naam hebt, en zo niet, dan “Eigen recepten”. Je past het per recept aan in het controlescherm.'
+  },
+  en: {
+    slug: s => `en/guide-import-from-${s}`,
+    menu: n => `Moving from ${n}`,
+    h1: n => `Import recipes from ${n}`,
+    title: n => `Import your ${n} recipes into Savour | User guide`,
+    need: 'What you need',
+    needText: (n, files) => `An export from ${n}: ${files}.`,
+    exportHead: n => `Exporting from ${n}`,
+    importHead: 'Importing into Savour',
+    importIntro: 'Then in Savour:',
+    carriesHead: 'What comes across',
+    categoryHead: 'Category',
+    steps: [
+      'Choose “Add recipe” in the menu and then “Import recipe”.',
+      'Choose “From another recipe app” and pick the export file. There is no need to unzip a zip first.',
+      'Choose “Process”. Savour reads all recipes from the file.',
+      'Check the recipes in the [review screen](#import-controleren) and choose “Save all recipes”.'
+    ],
+    category:
+      'The category: if a keyword of one of your [categories](#categorie-trefwoorden) appears in the recipe name, Savour picks that one. Otherwise Savour uses the app’s category if you have a category with exactly that name, and if not, “My recipes”. You change it per recipe in the review screen.'
+  }
 };
 
-const CATEGORY = {
-  nl: 'De categorie: komt een trefwoord van een van je [categorieën](#categorie-trefwoorden) in de receptnaam voor, dan kiest Savour die. Anders neemt Savour de categorie uit de app over als je een categorie met precies die naam hebt, en zo niet, dan “Eigen recepten”. Je past het per recept aan in het controlescherm.',
-  en: 'The category: if a keyword of one of your [categories](#categorie-trefwoorden) appears in the recipe name, Savour picks that one. Otherwise Savour uses the app’s category if you have a category with exactly that name, and if not, “My recipes”. You change it per recipe in the review screen.'
-};
-
-// Eén pagina per recepten-app, steeds met dezelfde opbouw.
-function appPage({ id, name, slug, files, related = [], nl, en }) {
-  const build = (lang, t) => ({
-    slug: lang === 'nl' ? `handleiding-importeren-uit-${slug}` : `en/guide-import-from-${slug}`,
-    menu: lang === 'nl' ? `Overstappen vanuit ${name}` : `Moving from ${name}`,
-    h1: lang === 'nl' ? `Recepten importeren uit ${name}` : `Import recipes from ${name}`,
-    title: lang === 'nl' ? `Recepten uit ${name} importeren in Savour | Handleiding` : `Import your ${name} recipes into Savour | User guide`,
+// Eén pagina in één taal voor een recepten-app. t: { files, desc, lead, need?, export, exportSteps?, carries, carriesList?, extra? }
+export function appPageLang(tpl, name, slug, t) {
+  return {
+    slug: tpl.slug(slug),
+    menu: tpl.menu(name),
+    h1: tpl.h1(name),
+    title: tpl.title(name),
     desc: t.desc,
     lead: t.lead,
     sections: [
-      [lang === 'nl' ? 'Wat je nodig hebt' : 'What you need', t.need ?? (lang === 'nl' ? `Een export uit ${name}: ${files[lang]}.` : `An export from ${name}: ${files[lang]}.`)],
-      [lang === 'nl' ? `Exporteren uit ${name}` : `Exporting from ${name}`, t.export, t.exportSteps],
-      [lang === 'nl' ? 'Importeren in Savour' : 'Importing into Savour', lang === 'nl' ? 'Daarna in Savour:' : 'Then in Savour:', STEPS[lang]],
-      [lang === 'nl' ? 'Wat er meegaat' : 'What comes across', t.carries, t.carriesList],
-      [lang === 'nl' ? 'Categorie' : 'Category', CATEGORY[lang]],
+      [tpl.need, t.need ?? tpl.needText(name, t.files)],
+      [tpl.exportHead(name), t.export, t.exportSteps],
+      [tpl.importHead, tpl.importIntro, tpl.steps],
+      [tpl.carriesHead, t.carries, t.carriesList],
+      [tpl.categoryHead, tpl.category],
       ...(t.extra || [])
     ]
-  });
-  return { id, related: [...related, 'overstappen', 'import-controleren'], nl: build('nl', nl), en: build('en', en) };
+  };
+}
+
+// Eén pagina per recepten-app, steeds met dezelfde opbouw. app: naam en slug, zodat andere talen hem kunnen opbouwen.
+function appPage({ id, name, slug, files, related = [], nl, en }) {
+  return {
+    id,
+    app: { name, slug },
+    related: [...related, 'overstappen', 'import-controleren'],
+    nl: appPageLang(APP_TPL.nl, name, slug, { ...nl, files: files.nl }),
+    en: appPageLang(APP_TPL.en, name, slug, { ...en, files: files.en })
+  };
 }
 
 export const pages = [

@@ -1230,6 +1230,10 @@ window.SAVOUR_I18N.en = {
     'Hoe krijgen mijn teamleden Pro?': 'How do the members of my organisation get Pro?',
     'Je voegt ze toe via Mijn team in het menu, of op je telefoon via Mijn account → Abonnement. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.':
       'You add them via My team in the menu, or on your phone via My account → Subscription. They get an invitation by email and have Savour Pro as soon as they log in or sign up with exactly that email address. You count as the first seat yourself.',
+    'In Mijn account → Savour Pro → Abonnement beheren. Daar wijzig je ook je betaalmethode en download je facturen.':
+      'In My account → Savour Pro → Manage subscription. There you can also change your payment method and download invoices.',
+    'Je voegt ze toe via Mijn team in het menu, of op je telefoon via Mijn account → Savour Pro. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.':
+      'You add them via My team in the menu, or on your phone via My account → Savour Pro. They get an invitation by email and have Savour Pro as soon as they log in or sign up with exactly that email address. You count as the first seat yourself.',
     'Mijn team': 'My team',
     "Collega's toevoegen": 'Add colleagues',
     'Aan de slag': 'Get started',

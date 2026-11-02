@@ -160,8 +160,8 @@ export const pages = [
           'Kies “Logo in zwart-wit printen” voor een keukenprinter of als je logo in kleur te druk is op papier.'
         ],
         [
-          'In een keukenteam',
-          'Print je recepten uit een [keukenteam](#keukenteams), dan staat het logo van de eigenaar erop. Zo heeft het hele team dezelfde prints.'
+          'Eigen prints en keukenteams',
+          'Met “Logo op mijn eigen prints” kies je of het logo op recepten en mappen buiten een keukenteam staat. Onder Keukenteams zet je het logo per keukenteam aan of uit; dat kan ook in de instellingen van het keukenteam. In een keukenteam staat het logo van de eigenaar op de prints, zodat het hele team dezelfde prints heeft.'
         ],
         [
           'Meer lezen',
@@ -185,8 +185,8 @@ export const pages = [
           'Choose “Print logo in black and white” for a kitchen printer or if your colour logo is too busy on paper.'
         ],
         [
-          'In a kitchen team',
-          'When you print recipes from a [kitchen team](#keukenteams), the owner’s logo is on them. That way the whole team has the same prints.'
+          'Your own prints and kitchen teams',
+          'With “Logo on my own prints” you choose whether the logo appears on recipes and folders outside a kitchen team. Under Kitchen teams you turn the logo on or off for each kitchen team; you can also do this in the kitchen team’s settings. In a kitchen team the owner’s logo is on the prints, so the whole team has the same prints.'
         ],
         [
           'Read more',

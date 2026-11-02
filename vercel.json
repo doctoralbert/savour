@@ -20,6 +20,21 @@
       "source": "/en/guide",
       "destination": "/en/user-guide",
       "permanent": true
+    },
+    {
+      "source": "/de/anleitung",
+      "destination": "/de/handbuch",
+      "permanent": true
+    },
+    {
+      "source": "/es/guia",
+      "destination": "/es/manual",
+      "permanent": true
+    },
+    {
+      "source": "/fr/guide",
+      "destination": "/fr/manuel",
+      "permanent": true
     }
   ],
   "rewrites": [

@@ -51,6 +51,15 @@ const read = p => fs.readFileSync(new URL(p, ROOT), 'utf8');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const url = slug => `${SITE}/${slug}`.replace(/\/$/, '') || SITE;
 const href = slug => '/' + slug;
+// Alle sitepagina's met hun adres per taal (gevuld door page()). Zo wijst een link in een vertaalde tekst, die het
+// Nederlandse adres gebruikt, vanzelf naar dezelfde pagina in de taal van die tekst.
+const PATH_INDEX = new Map();
+const localPath = (path, lang) => {
+  const [p, hash] = path.split('#');
+  if (p === '/' || p === '') return homePath(lang) + (hash ? `#${hash}` : '');
+  const hit = PATH_INDEX.get(p.replace(/\/$/, ''));
+  return (hit?.[lang] ? href(hit[lang]) : p) + (hash ? `#${hash}` : '');
+};
 // Dezelfde organisatie als in de kop van index.html (@id), zodat zoekmachines alle pagina's aan deze Savour koppelen.
 const ORG = {
   '@type': 'Organization',
@@ -457,7 +466,7 @@ ${ctaBlock(lang, inApp)}`;
 
 // Zoekmachines kappen lange titels en beschrijvingen af (Bing meldt het als fout): 60 en 160 tekens.
 function fitTitle(title, max = 60) {
-  const short = String(title).replace(/\s*[—–|-]\s*(Handleiding Savour|Handleiding|Savour user guide|User guide|Savour)$/, '');
+  const short = String(title).replace(/\s*[—–|-]\s*(Handleiding Savour|Handleiding|Savour user guide|User guide|Handbuch Savour|Handbuch|Manual de Savour|Manual|Manuel Savour|Manuel|Savour)$/, '');
   if (String(title).length <= max) return title;
   if (short.length <= max) return short;
   // Eerst het deel voor een dubbele punt of gedachtestreepje (de hele kop), pas daarna voor een komma.
@@ -531,6 +540,7 @@ function writePage(slug, html) {
 
 const sitemap = [];
 function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = false, ads = false }) {
+  for (const l of LANGS) if (slugs[l]) PATH_INDEX.set(href(slugs[l]), slugs);
   const canonical = url(slugs[lang]);
   const alternates = LANGS.filter(l => slugs[l]).map(l => [l, url(slugs[l])]);
   if (slugs.nl) alternates.push(['x-default', url(slugs.nl)]);
@@ -848,7 +858,7 @@ for (const lang of LANGS) {
     // Links in de tekst: [tekst](#pagina-id), [tekst](#pagina-id#kopje) of [tekst](/pad). Een onbekende pagina
     // laat de bouw stoppen, zodat er nooit een dode link in de handleiding staat.
     const guideLink = target => {
-      if (!target.startsWith('#')) return target;
+      if (!target.startsWith('#')) return /^https?:/.test(target) ? target : localPath(target, lang);
       const [id, anchor] = target.slice(1).split('#');
       const to = GUIDE.find(g => g.id === id);
       if (!to) throw new Error(`Handleiding: onbekende link naar #${id}`);
@@ -955,7 +965,7 @@ for (const lang of LANGS) {
         pageTop(c, rp.h1, rp.lead, 'hout') +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose site-releases">${RELEASES.map(
           r =>
-            `<section id="v${esc(r.version)}"><h2>${lang === 'nl' ? 'Versie' : 'Version'} ${esc(r.version)}</h2><p class="site-meta">${new Date(r.date).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' })}</p><ul>${r[lang].map(x => `<li>${esc(x)}</li>`).join('')}</ul></section>`
+            `<section id="v${esc(r.version)}"><h2>${esc(gu.version)} ${esc(r.version)}</h2><p class="site-meta">${new Date(r.date).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' })}</p><ul>${r[lang].map(x => `<li>${esc(x)}</li>`).join('')}</ul></section>`
         ).join('')}</div></article>`
     });
   }

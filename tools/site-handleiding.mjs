@@ -10,6 +10,14 @@ import * as printen from './handleiding/printen.mjs';
 import * as samenwerken from './handleiding/samenwerken.mjs';
 import * as account from './handleiding/account.mjs';
 import * as tips from './handleiding/tips.mjs';
+import { appPageLang } from './handleiding/importeren.mjs';
+import { TALEN, RELEASES_TALEN } from './handleiding/talen.mjs';
+import { OVERLAY as DE } from './handleiding/de/index.mjs';
+import { OVERLAY as ES } from './handleiding/es/index.mjs';
+import { OVERLAY as FR } from './handleiding/fr/index.mjs';
+
+// Talen met een eigen vertaling van alle pagina's (tools/handleiding/{de,es,fr}). Ontbreekt een pagina, dan stopt de bouw.
+const OVERLAYS = { de: DE, es: ES, fr: FR };
 
 export const GUIDE_UI = {
   nl: {
@@ -23,7 +31,8 @@ export const GUIDE_UI = {
     inGroup: 'In dit onderdeel:',
     allTopics: 'Alle onderwerpen van de handleiding',
     onPage: 'Op deze pagina',
-    related: 'Zie ook'
+    related: 'Zie ook',
+    version: 'Versie'
   },
   en: {
     footer: 'User guide',
@@ -36,12 +45,10 @@ export const GUIDE_UI = {
     inGroup: 'In this section:',
     allTopics: 'All topics in the user guide',
     onPage: 'On this page',
-    related: 'See also'
+    related: 'See also',
+    version: 'Version'
   },
-  // Geen eigen versie in deze talen: de footer linkt naar de Engelse pagina's.
-  de: { footer: 'Handbuch (Englisch)', releases: 'Release Notes (Englisch)' },
-  es: { footer: 'Manual (en inglés)', releases: 'Notas de versión (en inglés)' },
-  fr: { footer: 'Guide (en anglais)', releases: 'Notes de version (en anglais)' }
+  ...Object.fromEntries(Object.entries(TALEN).map(([l, t]) => [l, t.ui]))
 };
 
 export const GUIDE_HOME = {
@@ -58,21 +65,41 @@ export const GUIDE_HOME = {
     desc: 'The complete Savour user guide: import recipes from Word, PDF and photos, edit, organise, scale, cook mode, print, share and kitchen teams.',
     h1: 'User guide',
     lead: 'Everything about working with Savour, step by step: from your first import to a kitchen team cooking from the same recipes.'
-  }
+  },
+  ...Object.fromEntries(Object.entries(TALEN).map(([l, t]) => [l, t.home]))
 };
 
 // De pagina's staan per onderdeel in tools/handleiding/*.mjs. Volgorde hier = volgorde in het overzicht en
 // van vorige/volgende. Links in de tekst: [tekst](#pagina-id) of [tekst](/pad); build-seo controleert ze.
 const MODULES = [start, importeren, recepten, ordenen, keuken, printen, samenwerken, account, tips];
 
-export const GUIDE_GROUPS = [...MODULES.map(m => m.group), tips.helpGroup];
+export const GUIDE_GROUPS = [...MODULES.map(m => m.group), tips.helpGroup].map(gr => {
+  const out = { ...gr };
+  for (const [lang, o] of Object.entries(OVERLAYS)) {
+    if (!o.groups[gr.id]) throw new Error(`Handleiding ${lang}: onderdeel ${gr.id} ontbreekt`);
+    out[lang] = o.groups[gr.id];
+  }
+  return out;
+});
+
+const SUFFIX = { nl: 'Handleiding Savour', en: 'Savour user guide', ...Object.fromEntries(Object.entries(TALEN).map(([l, t]) => [l, t.titleSuffix])) };
 
 const withDefaults = (p, group) => {
   const out = { ...p, group: p.group || group };
-  for (const lang of ['nl', 'en']) {
-    const t = { ...p[lang] };
+  for (const [lang, o] of Object.entries(OVERLAYS)) {
+    if (p.app) {
+      const t = o.apps[p.id];
+      if (!t) throw new Error(`Handleiding ${lang}: app-pagina ${p.id} ontbreekt`);
+      out[lang] = appPageLang(TALEN[lang].app, p.app.name, p.app.slug, t);
+    } else {
+      if (!o.pages[p.id]) throw new Error(`Handleiding ${lang}: pagina ${p.id} ontbreekt`);
+      out[lang] = o.pages[p.id];
+    }
+  }
+  for (const lang of Object.keys(SUFFIX)) {
+    const t = { ...out[lang] };
     t.h1 ||= t.menu;
-    t.title ||= `${t.h1} | ${lang === 'nl' ? 'Handleiding Savour' : 'Savour user guide'}`;
+    t.title ||= `${t.h1} | ${SUFFIX[lang]}`;
     out[lang] = t;
   }
   return out;
@@ -97,10 +124,11 @@ export const RELEASES_PAGE = {
     desc: 'Every Savour version and what is new or improved in it: importing, scaling, kitchen teams, printing, sharing and more.',
     h1: 'Release notes',
     lead: 'What’s new in each version of Savour. The latest version is at the top.'
-  }
+  },
+  ...Object.fromEntries(Object.entries(TALEN).map(([l, t]) => [l, t.releasesPage]))
 };
 
-export const RELEASES = [
+const RELEASES_NL_EN = [
   {
     version: '3.7.0',
     date: '2026-11-02',
@@ -254,3 +282,10 @@ export const RELEASES = [
     ]
   }
 ];
+
+// Elke versie ook in het Duits, Spaans en Frans (tools/handleiding/talen.mjs).
+export const RELEASES = RELEASES_NL_EN.map(r => {
+  const t = RELEASES_TALEN[r.version];
+  if (!t) throw new Error(`Release notes ${r.version}: vertaling ontbreekt`);
+  return { ...r, ...t };
+});
