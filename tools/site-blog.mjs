@@ -1,7 +1,10 @@
 // Blogartikelen (naast de twee in tools/site-content.mjs). Praktisch, uit de keuken, en eerlijk over wat
 // Savour wel en (nog) niet kan. tools/build-seo.mjs maakt er pagina's van in het Nederlands en Engels;
 // de Duitse en Spaanse versies staan in tools/site-pages-de.mjs en tools/site-pages-es.mjs.
+import { TEMP_POSTS } from './site-blog-temperaturen.mjs';
+
 export const BLOG = [
+  ...TEMP_POSTS,
   {
     id: 'vergelijking',
     date: '2026-11-02',

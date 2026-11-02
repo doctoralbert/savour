@@ -11,6 +11,9 @@ import { UI, KLADJE, FEATURES, AUDIENCES, STORY, HOME, POSTS } from './site-cont
 import { EXTRA_LANGS } from './site-content-extra.mjs';
 import { KLADJE_REAL } from './site-kladje.mjs';
 import { BLOG } from './site-blog.mjs';
+import { TEMP_POSTS_DE } from './site-blog-temperaturen-de.mjs';
+import { TEMP_POSTS_ES } from './site-blog-temperaturen-es.mjs';
+import { TEMP_POSTS_FR } from './site-blog-temperaturen-fr.mjs';
 import { DE } from './site-pages-de.mjs';
 import { ES } from './site-pages-es.mjs';
 import { FR } from './site-pages-fr.mjs';
@@ -23,6 +26,10 @@ import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
 import { DELIVER, DELIVER_FLOW } from './site-deliver.mjs';
 import { GUIDE_UI, GUIDE_HOME, GUIDE_GROUPS, GUIDE, RELEASES_PAGE, RELEASES } from './site-handleiding.mjs';
 const PAGES = { de: DE, es: ES, fr: FR };
+// Blogs over kerntemperaturen en sous-vide in het Duits, Spaans en Frans (tools/site-blog-temperaturen-*.mjs).
+Object.assign(DE.posts, TEMP_POSTS_DE);
+Object.assign(ES.posts, TEMP_POSTS_ES);
+Object.assign(FR.posts, TEMP_POSTS_FR);
 EXTRA_LANGS.fr = EXTRA_FR;
 APP_PAGE.fr = APP_PAGE_FR;
 DELIVER.fr = DELIVER_FR;
@@ -453,8 +460,11 @@ function fitTitle(title, max = 60) {
   const short = String(title).replace(/\s*[—–|-]\s*(Handleiding Savour|Handleiding|Savour user guide|User guide|Savour)$/, '');
   if (String(title).length <= max) return title;
   if (short.length <= max) return short;
-  const part = short.split(/\s*[:,—–]\s*/)[0];
-  if (part.length >= 25 && part.length <= max) return part;
+  // Eerst het deel voor een dubbele punt of gedachtestreepje (de hele kop), pas daarna voor een komma.
+  for (const sep of [/\s*[:—–]\s*/, /\s*,\s*/]) {
+    const part = short.split(sep)[0];
+    if (part.length >= 25 && part.length <= max) return part;
+  }
   return short.slice(0, max).replace(/\s+\S*$/, '');
 }
 function fitDesc(desc, max = 160) {
@@ -633,7 +643,37 @@ const photoDuo = (lang, a, b) =>
 const ADSENSE_CLIENT = 'ca-pub-8120664667405598';
 const ADSENSE_SCRIPT = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}" crossorigin="anonymous"></script>\n`;
 const articleAd = `<div class="site-ad"><ins class="adsbygoogle" style="display:block;text-align:center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="${ADSENSE_CLIENT}" data-ad-slot="6575266109"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>`;
-const sectionsHtml = sections => sections.map(([t, d]) => `<h2 class="reveal">${esc(t)}</h2><p>${esc(d)}</p>`).join('');
+// Een sectie is [kop, tekst] met eventueel als derde deel een opsomming (lijst met teksten) of een tabel
+// ({ head: [...], rows: [[...]] }). Tekst mag alinea's (witregel) en links ([tekst](https://… of /pad)) bevatten.
+const proseText = s =>
+  esc(s).replace(/\[([^\]]+)\]\(((?:https?:\/\/|\/)[^)\s]+)\)/g, (_, label, to) =>
+    /^https?:/.test(to) ? `<a href="${to}" rel="noopener">${label}</a>` : `<a href="${to}">${label}</a>`
+  );
+const sectionExtra = x =>
+  !x
+    ? ''
+    : Array.isArray(x)
+      ? `<ul>${x.map(li => `<li>${proseText(li)}</li>`).join('')}</ul>`
+      : `<div class="site-table-wrap"><table class="site-table"><thead><tr>${x.head.map(h => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${x.rows
+          .map(
+            r =>
+              `<tr>${r
+                .map((c, i) =>
+                  i ? `<td data-label="${esc(x.head[i] || '')}">${proseText(c)}</td>` : `<th scope="row">${proseText(c)}</th>`
+                )
+                .join('')}</tr>`
+          )
+          .join('')}</tbody></table></div>${x.note ? `<p class="site-table-note">${proseText(x.note)}</p>` : ''}`;
+const sectionsHtml = sections =>
+  sections
+    .map(
+      ([t, d, x]) =>
+        `<h2 class="reveal">${esc(t)}</h2>${String(d)
+          .split('\n\n')
+          .map(p => `<p>${proseText(p)}</p>`)
+          .join('')}${sectionExtra(x)}`
+    )
+    .join('');
 
 for (const lang of LANGS) {
   const u = UI[lang];

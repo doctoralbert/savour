@@ -788,6 +788,81 @@
   margin-top: 12px;
 }
 
+/* Tabellen in blogartikelen (temperaturen en tijden). Op de telefoon schuift de tabel zelf opzij. */
+.site-table-wrap {
+  margin: 18px 0 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.site-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.site-table th,
+.site-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.site-table thead th {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted, #6b6f69);
+  border-bottom: 2px solid var(--gold);
+  white-space: nowrap;
+}
+.site-table tbody th {
+  font-weight: 600;
+  color: var(--ink);
+}
+.site-table td:nth-child(2) {
+  white-space: nowrap;
+}
+.site-table-note {
+  font-size: 14px;
+  color: var(--muted, #6b6f69);
+}
+/* Telefoon: elke rij een kaartje, met de kolomnaam voor elke waarde. */
+@media (max-width: 640px) {
+  .site-table thead {
+    display: none;
+  }
+  .site-table,
+  .site-table tbody,
+  .site-table tr {
+    display: block;
+    width: 100%;
+  }
+  .site-table tr {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .site-table th,
+  .site-table td {
+    display: flex;
+    gap: 12px;
+    padding: 3px 0;
+    border: 0;
+    white-space: normal;
+  }
+  .site-table tbody th {
+    padding-bottom: 6px;
+  }
+  .site-table td::before {
+    content: attr(data-label);
+    flex: 0 0 38%;
+    font-size: 13px;
+    color: var(--muted, #6b6f69);
+  }
+  .site-table td:nth-child(2) {
+    white-space: normal;
+  }
+}
+
 /* Handleiding: overzicht per onderdeel, "Op deze pagina" en "Zie ook" */
 .site-guide-jump {
   display: flex;
