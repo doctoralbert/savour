@@ -728,6 +728,67 @@
   color: var(--gold);
 }
 
+/* Handleiding: vorige/volgende en de lijst met hoofdstukken onder elk hoofdstuk */
+.site-guide-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 48px 0 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.site-prose .site-guide-pager a {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 48%;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+}
+.site-prose .site-guide-pager a.next {
+  margin-left: auto;
+  text-align: right;
+}
+.site-guide-pager small {
+  color: var(--gold);
+  font-weight: 500;
+  font-size: 13px;
+}
+.site-guide-toc {
+  margin-top: 40px;
+  padding: 24px 28px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.site-prose .site-guide-toc h2 {
+  font-size: 20px;
+  margin: 0 0 10px;
+}
+.site-prose .site-guide-toc ol {
+  margin: 0;
+  padding-left: 22px;
+}
+.site-guide-toc li {
+  padding: 3px 0;
+}
+.site-prose .site-guide-toc a {
+  text-decoration: none;
+}
+.site-releases section + section {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+.site-prose.site-releases h2 {
+  margin-bottom: 0;
+}
+@media (max-width: 600px) {
+  .site-guide-toc {
+    padding: 18px 20px;
+  }
+}
+
 /* ---- Footer (donker) ---- */
 .site-foot {
   background: var(--night);

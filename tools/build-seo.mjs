@@ -21,6 +21,7 @@ import { VERDIEPING_TALEN } from './site-verdieping-talen.mjs';
 import { APP_PAGE } from './site-app.mjs';
 import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
 import { DELIVER, DELIVER_FLOW } from './site-deliver.mjs';
+import { GUIDE_UI, GUIDE_HOME, GUIDE, RELEASES_PAGE, RELEASES } from './site-handleiding.mjs';
 const PAGES = { de: DE, es: ES, fr: FR };
 EXTRA_LANGS.fr = EXTRA_FR;
 APP_PAGE.fr = APP_PAGE_FR;
@@ -276,6 +277,12 @@ function header(lang, alt, inApp) {
 </div></header>`;
 }
 
+// Handleiding en release notes staan alleen onderin de footer. Talen zonder eigen versie linken naar het Engels.
+function guideLinks(lang) {
+  const own = GUIDE_HOME[lang] ? lang : 'en';
+  return `<a href="${href(GUIDE_HOME[own].slug)}">${esc(GUIDE_UI[lang].footer)}</a><a href="${href(RELEASES_PAGE[own].slug)}">${esc(GUIDE_UI[lang].releases)}</a>`;
+}
+
 function footer(lang, alt, inApp) {
   const u = UI[lang];
   const q = homePath(lang);
@@ -288,7 +295,7 @@ function footer(lang, alt, inApp) {
 <div><h4>${u.footerCols.company}</h4><ul>${li(href(STORY[lang].slug), u.about)}${li(href(legacy('pro')[lang]), u.pricing)}${li(href(blogSlug[lang]), u.blog)}${li(href(legacy('contact')[lang]), u.contact)}</ul></div>
 <div><h4>${u.footerCols.help}</h4><ul>${li(href(legacy('faq')[lang]), u.faq)}${li(href(legacy('guide')[lang]), u.guide)}${li(href(APP_PAGE[lang].slug), APP_PAGE[lang].menu)}${li(`${q}?info=bug`, u.bug)}<li><a href="${q}?auth=login" data-auth="login">${u.login}</a></li></ul></div>
 </div>
-<div class="site-foot-bottom"><span>© 2026 ${esc(u.company)}</span><nav>${`<a href="${href(legacy('terms')[lang])}">${u.terms}</a><a href="${href(legacy('privacy')[lang])}">${u.privacy}</a>`}</nav>${langSwitch(lang, alt, inApp)}</div>
+<div class="site-foot-bottom"><span>© 2026 ${esc(u.company)}</span><nav>${`<a href="${href(legacy('terms')[lang])}">${u.terms}</a><a href="${href(legacy('privacy')[lang])}">${u.privacy}</a>`}${guideLinks(lang)}</nav>${langSwitch(lang, alt, inApp)}</div>
 </div></footer>`;
 }
 
@@ -529,7 +536,7 @@ function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = fa
     ? [
         ['Home', SITE + homePath(lang)],
         ...crumbs.filter(c => c[1]).map(c => [c[0], SITE + c[1]]),
-        ...(last[1] ? [[title.replace(/ \| Savour$/, ''), canonical]] : [[last[0], canonical]])
+        ...(last[1] ? [[title.replace(/ \| [^|]*Savour$/, ''), canonical]] : [[last[0], canonical]])
       ]
     : [];
   const breadcrumb = trail.length
@@ -789,6 +796,75 @@ for (const lang of LANGS) {
       desc: meta.desc,
       schema,
       body: c => pageTop(c, h1, lead, PAGE_PHOTO[p.nl]) + `<article class="site-article"><div class="site-wrap site-narrow site-prose">${note ? `<p class="site-meta">${esc(note)}</p>` : ''}${body}</div></article>`
+    });
+  }
+
+  // ---- Handleiding en release notes (alleen NL en EN; alleen gelinkt vanuit de footer) ----
+  if (GUIDE_HOME[lang]) {
+    const gu = GUIDE_UI[lang];
+    const home = GUIDE_HOME[lang];
+    const pair = get => Object.fromEntries(Object.keys(GUIDE_HOME).map(l => [l, get(l)]));
+    const guideSection = ([h, text, list]) =>
+      `<h2>${esc(h)}</h2><p>${esc(text)}</p>${list ? `<ul>${list.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}`;
+    const toc = current =>
+      `<nav class="site-guide-toc" aria-label="${esc(gu.chapters)}"><h2>${esc(gu.chapters)}</h2><ol>${GUIDE.map(g =>
+        g.id === current ? `<li aria-current="page"><b>${esc(g[lang].menu)}</b></li>` : `<li><a href="${href(g[lang].slug)}">${esc(g[lang].menu)}</a></li>`
+      ).join('')}</ol></nav>`;
+    page({
+      lang,
+      slugs: pair(l => GUIDE_HOME[l].slug),
+      title: home.title,
+      desc: home.desc,
+      crumbs: [[home.h1]],
+      body: c =>
+        pageTop(c, home.h1, home.lead, 'bloemenveld') +
+        `<article class="site-article"><div class="site-wrap site-narrow"><ul class="site-posts">${GUIDE.map(
+          g => `<li><h2><a href="${href(g[lang].slug)}">${esc(g[lang].h1)}</a></h2><p>${esc(g[lang].lead)}</p><a class="site-link" href="${href(g[lang].slug)}">${esc(gu.open)}</a></li>`
+        ).join('')}<li><h2><a href="${href(RELEASES_PAGE[lang].slug)}">${esc(RELEASES_PAGE[lang].h1)}</a></h2><p>${esc(RELEASES_PAGE[lang].lead)}</p></li></ul></div></article>`
+    });
+    for (const [n, g] of GUIDE.entries()) {
+      const t = g[lang];
+      const prev = GUIDE[n - 1]?.[lang];
+      const next = GUIDE[n + 1]?.[lang];
+      page({
+        lang,
+        slugs: pair(l => g[l].slug),
+        title: t.title,
+        desc: t.desc,
+        crumbs: [[home.h1, href(home.slug)]],
+        schema: [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'TechArticle',
+            headline: t.h1,
+            description: t.desc,
+            inLanguage: lang,
+            about: { '@id': SITE + '/#app' },
+            author: ORG,
+            publisher: ORG,
+            mainEntityOfPage: url(t.slug)
+          }
+        ],
+        body: c =>
+          pageTop(c, t.h1, t.lead, BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
+          `<article class="site-article"><div class="site-wrap site-narrow site-prose">${t.sections.map(guideSection).join('')}<nav class="site-guide-pager">${
+            prev ? `<a href="${href(prev.slug)}"><small>← ${esc(gu.prev)}</small>${esc(prev.menu)}</a>` : `<a href="${href(home.slug)}"><small>←</small>${esc(gu.overview)}</a>`
+          }${next ? `<a class="next" href="${href(next.slug)}"><small>${esc(gu.next)} →</small>${esc(next.menu)}</a>` : ''}</nav>${toc(g.id)}</div></article>`
+      });
+    }
+    const rp = RELEASES_PAGE[lang];
+    page({
+      lang,
+      slugs: pair(l => RELEASES_PAGE[l].slug),
+      title: rp.title,
+      desc: rp.desc,
+      crumbs: [[rp.h1]],
+      body: c =>
+        pageTop(c, rp.h1, rp.lead, 'hout') +
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose site-releases">${RELEASES.map(
+          r =>
+            `<section id="v${esc(r.version)}"><h2>${lang === 'nl' ? 'Versie' : 'Version'} ${esc(r.version)}</h2><p class="site-meta">${new Date(r.date).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' })}</p><ul>${r[lang].map(x => `<li>${esc(x)}</li>`).join('')}</ul></section>`
+        ).join('')}</div></article>`
     });
   }
 }
