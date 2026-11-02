@@ -2,6 +2,8 @@
 
 > Savour (https://savour.page) is a professional recipe management platform (receptbeheer, receptenapp) for chefs, kitchen teams, restaurants and the hospitality industry (horeca). It turns scattered recipes — Word documents, PDFs, photos of handwritten notes — into one organised, searchable recipe library that works on desktop, tablet and phone, and can be shared with the whole kitchen brigade. Made by chefs from the Netherlands, for chefs. Its core idea: turning coffee-stained handwritten notes and old recipe notebooks into recipes that are right.
 
+Note on the name: this file is about Savour at savour.page, a recipe management platform for professional kitchens from the Netherlands. It is not affiliated with other companies, apps or restaurants called Savour.
+
 Savour is built for professional kitchens, especially fine dining. Two audiences: chefs (head chefs, sous-chefs, pastry chefs) and kitchen brigades. It is not a consumer recipe site; it is a tool to manage a kitchen's own recipes.
 
 ## Core values

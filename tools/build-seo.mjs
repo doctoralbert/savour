@@ -43,6 +43,15 @@ const read = p => fs.readFileSync(new URL(p, ROOT), 'utf8');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const url = slug => `${SITE}/${slug}`.replace(/\/$/, '') || SITE;
 const href = slug => '/' + slug;
+// Dezelfde organisatie als in de kop van index.html (@id), zodat zoekmachines alle pagina's aan deze Savour koppelen.
+const ORG = {
+  '@type': 'Organization',
+  '@id': SITE + '/#organization',
+  name: 'Savour',
+  url: SITE + '/',
+  logo: { '@type': 'ImageObject', url: `${SITE}/assets/savour-icon.png` },
+  email: 'contact@savour.page'
+};
 
 // ---- Teksten uit de app (bestaande informatiepagina's en de Pro-pagina) ----
 const ctx = { console, fetch: () => Promise.reject(new Error('offline')), demoMode: false, recipes: [] };
@@ -493,8 +502,8 @@ const webPage = (lang, title, desc, canonical) => ({
   description: desc,
   url: canonical,
   inLanguage: lang,
-  isPartOf: { '@type': 'WebSite', name: 'Savour', url: SITE + '/' },
-  publisher: { '@type': 'Organization', name: 'Savour', url: SITE + '/', email: 'contact@savour.page' }
+  isPartOf: { '@type': 'WebSite', '@id': SITE + '/#website', name: 'Savour', url: SITE + '/' },
+  publisher: ORG
 });
 
 function writePage(slug, html) {
@@ -513,11 +522,30 @@ function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = fa
   const crumbHtml = crumbs?.length
     ? `<div class="site-crumbs"><a href="${UI[lang].home}">Home</a>${crumbs.map(c => ` / ${c[1] ? `<a href="${c[1]}">${esc(c[0])}</a>` : esc(c[0])}`).join('')}</div>`
     : '';
+  // Kruimelpad ook voor zoekmachines: Home › (tussenpagina's met een link) › deze pagina. Heeft het laatste
+  // kruimeltje een link (blogartikel › Blog), dan komt de titel van de pagina zelf erachter.
+  const last = crumbs?.[crumbs.length - 1];
+  const trail = crumbs?.length
+    ? [
+        ['Home', SITE + homePath(lang)],
+        ...crumbs.filter(c => c[1]).map(c => [c[0], SITE + c[1]]),
+        ...(last[1] ? [[title.replace(/ \| Savour$/, ''), canonical]] : [[last[0], canonical]])
+      ]
+    : [];
+  const breadcrumb = trail.length
+    ? [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: trail.map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item }))
+        }
+      ]
+    : [];
   const html =
-    pageHead(lang, { title, desc, canonical, alternates, hidden, ads, schema: [webPage(lang, title, desc, canonical), ...schema] }) +
+    pageHead(lang, { title, desc, canonical, alternates, hidden, ads, schema: [webPage(lang, title, desc, canonical), ...breadcrumb, ...schema] }) +
     `<div class="site">${header(lang, alt, false)}<main>${body(crumbHtml)}</main>${hidden ? '' : ctaBlock(lang, false)}${footer(lang, alt, false)}</div>\n</body>\n</html>\n`;
   writePage(slugs[lang], html);
-  if (!hidden) sitemap.push({ loc: canonical, alternates });
+  if (!hidden) sitemap.push({ loc: canonical, alternates, file: `site/${slugs[lang]}/index.html` });
 }
 
 // Echte kladjes (opgepoetst, niets aan de tekst veranderd) op Over ons, als polaroids op een prikbord. Recepten worden nooit vertaald.
@@ -694,8 +722,9 @@ for (const lang of LANGS) {
           description: t.desc,
           datePublished: p.date,
           inLanguage: lang,
-          author: { '@type': 'Organization', name: 'Savour' },
-          publisher: { '@type': 'Organization', name: 'Savour', logo: { '@type': 'ImageObject', url: `${SITE}/assets/savour-icon.png` } },
+          image: SITE + photoFile(BLOG_PHOTOS[n % BLOG_PHOTOS.length]).replace(/\?.*/, ''),
+          author: ORG,
+          publisher: ORG,
           mainEntityOfPage: url(t.slug)
         }
       ],
@@ -920,15 +949,37 @@ const HOME_META = {
 }
 
 // ---- Sitemap ----
+// lastmod is de dag waarop de tekst van een pagina echt veranderde, niet de dag van het bouwen: zoekmachines
+// negeren een datum die bij elke bouwronde verspringt. Per pagina bewaren we een vingerafdruk van de inhoud
+// (zonder versienummers en witruimte) in tools/sitemap-datums.json; alleen bij een andere afdruk komt er een nieuwe datum.
 const today = new Date().toISOString().slice(0, 10);
+const DATES_FILE = new URL('tools/sitemap-datums.json', ROOT);
+const dates = fs.existsSync(DATES_FILE) ? JSON.parse(fs.readFileSync(DATES_FILE, 'utf8')) : {};
+const { createHash: sitemapHash } = await import('node:crypto');
+const lastmod = (loc, file, onlySite) => {
+  let t = read(file);
+  // Startpagina's: alleen de kop en de startpagina zelf; de app eronder verandert los van de tekst.
+  if (onlySite) t = t.slice(0, t.indexOf('</head>')) + (t.match(/<!-- SITE:START[\s\S]*?<!-- SITE:END -->/) || [''])[0];
+  const print = sitemapHash('sha1')
+    .update(t.replace(/\?v=[^"'&\s)]*/g, '').replace(/\s+/g, ''))
+    .digest('hex')
+    .slice(0, 16);
+  if (dates[loc]?.hash !== print) dates[loc] = { hash: print, date: today };
+  return dates[loc].date;
+};
 const homeAlts = [['nl', SITE + '/'], ['en', SITE + '/en'], ['de', SITE + '/de'], ['es', SITE + '/es'], ['fr', SITE + '/fr'], ['x-default', SITE + '/']];
-const entry = (loc, alts, priority) =>
-  `  <url><loc>${loc}</loc>${alts.map(([l, h]) => `<xhtml:link rel="alternate" hreflang="${l}" href="${h}"/>`).join('')}<lastmod>${today}</lastmod><priority>${priority}</priority></url>`;
+const entry = (loc, alts, priority, date) =>
+  `  <url><loc>${loc}</loc>${alts.map(([l, h]) => `<xhtml:link rel="alternate" hreflang="${l}" href="${h}"/>`).join('')}<lastmod>${date}</lastmod><priority>${priority}</priority></url>`;
 const low = /\/((en|de|es|fr)\/)?(voorwaarden|terms|privacy|contact|agb|datenschutz|kontakt|terminos|privacidad|contacto|conditions|confidentialite)$/;
 const urls = [
-  ...homeAlts.slice(0, 5).map(([, h], n) => entry(h, homeAlts, n ? '0.8' : '1.0')),
-  ...sitemap.map(s => entry(s.loc, s.alternates, low.test(s.loc) ? '0.3' : '0.7'))
+  ...homeAlts.slice(0, 5).map(([l, h], n) => entry(h, homeAlts, n ? '0.8' : '1.0', lastmod(h, l === 'nl' ? 'index.html' : `site/index-${l}.html`, true))),
+  ...sitemap.map(s => entry(s.loc, s.alternates, low.test(s.loc) ? '0.3' : '0.7', lastmod(s.loc, s.file)))
 ];
+fs.writeFileSync(
+  DATES_FILE,
+  JSON.stringify(Object.fromEntries(Object.entries(dates).filter(([loc]) => urls.some(u => u.includes(`<loc>${loc}</loc>`)))), null, 1) + '\n',
+  'utf8'
+);
 fs.writeFileSync(
   new URL('sitemap.xml', ROOT),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join('\n')}\n</urlset>\n`,
