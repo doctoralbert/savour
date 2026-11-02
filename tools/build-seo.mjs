@@ -21,7 +21,7 @@ import { VERDIEPING_TALEN } from './site-verdieping-talen.mjs';
 import { APP_PAGE } from './site-app.mjs';
 import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
 import { DELIVER, DELIVER_FLOW } from './site-deliver.mjs';
-import { GUIDE_UI, GUIDE_HOME, GUIDE, RELEASES_PAGE, RELEASES } from './site-handleiding.mjs';
+import { GUIDE_UI, GUIDE_HOME, GUIDE_GROUPS, GUIDE, RELEASES_PAGE, RELEASES } from './site-handleiding.mjs';
 const PAGES = { de: DE, es: ES, fr: FR };
 EXTRA_LANGS.fr = EXTRA_FR;
 APP_PAGE.fr = APP_PAGE_FR;
@@ -292,7 +292,7 @@ function footer(lang, alt, inApp) {
 <div><h4>${u.footerCols.features}</h4><ul>${FEATURES.map(f => li(href(f[lang].slug), f[lang].menu)).join('')}</ul></div>
 <div><h4>${u.footerCols.audience}</h4><ul>${AUDIENCES.map(a => li(href(a[lang].slug), a[lang].menu)).join('')}</ul></div>
 <div><h4>${u.footerCols.company}</h4><ul>${li(href(STORY[lang].slug), u.about)}${li(href(legacy('pro')[lang]), u.pricing)}${li(href(blogSlug[lang]), u.blog)}${li(href(legacy('contact')[lang]), u.contact)}${li(guideHref(lang, RELEASES_PAGE), GUIDE_UI[lang].releases)}</ul></div>
-<div><h4>${u.footerCols.help}</h4><ul>${li(href(legacy('faq')[lang]), u.faq)}${li(href(legacy('guide')[lang]), u.guide)}${li(guideHref(lang, GUIDE_HOME), GUIDE_UI[lang].footer)}${li(href(APP_PAGE[lang].slug), APP_PAGE[lang].menu)}${li(`${q}?info=bug`, u.bug)}<li><a href="${q}?auth=login" data-auth="login">${u.login}</a></li></ul></div>
+<div><h4>${u.footerCols.help}</h4><ul>${li(href(legacy('faq')[lang]), u.faq)}${GUIDE_HOME[lang] ? '' : li(href(legacy('guide')[lang]), u.guide)}${li(guideHref(lang, GUIDE_HOME), GUIDE_UI[lang].footer)}${li(href(APP_PAGE[lang].slug), APP_PAGE[lang].menu)}${li(`${q}?info=bug`, u.bug)}<li><a href="${q}?auth=login" data-auth="login">${u.login}</a></li></ul></div>
 </div>
 <div class="site-foot-bottom"><span>© 2026 ${esc(u.company)}</span><nav>${`<a href="${href(legacy('terms')[lang])}">${u.terms}</a><a href="${href(legacy('privacy')[lang])}">${u.privacy}</a>`}</nav>${langSwitch(lang, alt, inApp)}</div>
 </div></footer>`;
@@ -450,7 +450,7 @@ ${ctaBlock(lang, inApp)}`;
 
 // Zoekmachines kappen lange titels en beschrijvingen af (Bing meldt het als fout): 60 en 160 tekens.
 function fitTitle(title, max = 60) {
-  const short = String(title).replace(/\s*[—–|-]\s*Savour$/, '');
+  const short = String(title).replace(/\s*[—–|-]\s*(Handleiding Savour|Handleiding|Savour user guide|User guide|Savour)$/, '');
   if (String(title).length <= max) return title;
   if (short.length <= max) return short;
   const part = short.split(/\s*[:,—–]\s*/)[0];
@@ -755,6 +755,8 @@ for (const lang of LANGS) {
   }
   // Bestaande informatiepagina's (inhoud uit de app)
   for (const p of LEGACY) {
+    // De oude Gids is in het Nederlands en Engels opgegaan in de handleiding (vercel.json stuurt /gids door).
+    if (p.id === 'guide' && GUIDE_HOME[lang]) continue;
     // Titel, beschrijving en kop: NL en EN hier in LEGACY, DE en ES in tools/site-pages-*.mjs.
     const meta =
       lang === 'nl' || lang === 'en'
@@ -803,12 +805,41 @@ for (const lang of LANGS) {
     const gu = GUIDE_UI[lang];
     const home = GUIDE_HOME[lang];
     const pair = get => Object.fromEntries(Object.keys(GUIDE_HOME).map(l => [l, get(l)]));
+    // Links in de tekst: [tekst](#pagina-id), [tekst](#pagina-id#kopje) of [tekst](/pad). Een onbekende pagina
+    // laat de bouw stoppen, zodat er nooit een dode link in de handleiding staat.
+    const guideLink = target => {
+      if (!target.startsWith('#')) return target;
+      const [id, anchor] = target.slice(1).split('#');
+      const to = GUIDE.find(g => g.id === id);
+      if (!to) throw new Error(`Handleiding: onbekende link naar #${id}`);
+      return href(to[lang].slug) + (anchor ? `#${anchor}` : '');
+    };
+    const guideText = s =>
+      esc(s).replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, label, target) => {
+        const to = guideLink(target);
+        return /^https?:/.test(to) ? `<a href="${to}" rel="noopener">${label}</a>` : `<a href="${to}">${label}</a>`;
+      });
+    const anchorId = h =>
+      h
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
     const guideSection = ([h, text, list]) =>
-      `<h2>${esc(h)}</h2><p>${esc(text)}</p>${list ? `<ul>${list.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}`;
-    const toc = current =>
-      `<nav class="site-guide-toc" aria-label="${esc(gu.chapters)}"><h2>${esc(gu.chapters)}</h2><ol>${GUIDE.map(g =>
-        g.id === current ? `<li aria-current="page"><b>${esc(g[lang].menu)}</b></li>` : `<li><a href="${href(g[lang].slug)}">${esc(g[lang].menu)}</a></li>`
-      ).join('')}</ol></nav>`;
+      `<h2 id="${anchorId(h)}">${esc(h)}</h2>${String(text)
+        .split('\n\n')
+        .map(p => `<p>${guideText(p)}</p>`)
+        .join('')}${list ? `<ul>${list.map(x => `<li>${guideText(x)}</li>`).join('')}</ul>` : ''}`;
+    const groupOf = g => GUIDE_GROUPS.find(gr => gr.id === g.group);
+    const groupNav = current => {
+      const gr = groupOf(current);
+      return `<nav class="site-guide-toc" aria-label="${esc(gr[lang].name)}"><h2>${esc(gu.inGroup)} ${esc(gr[lang].name)}</h2><ol>${GUIDE.filter(g => g.group === gr.id)
+        .map(g =>
+          g.id === current.id ? `<li aria-current="page"><b>${esc(g[lang].menu)}</b></li>` : `<li><a href="${href(g[lang].slug)}">${esc(g[lang].menu)}</a></li>`
+        )
+        .join('')}</ol><a class="site-link" href="${href(home.slug)}">${esc(gu.allTopics)}</a></nav>`;
+    };
     page({
       lang,
       slugs: pair(l => GUIDE_HOME[l].slug),
@@ -817,20 +848,42 @@ for (const lang of LANGS) {
       crumbs: [[home.h1]],
       body: c =>
         pageTop(c, home.h1, home.lead, 'bloemenveld') +
-        `<article class="site-article"><div class="site-wrap site-narrow"><ul class="site-posts">${GUIDE.map(
-          g => `<li><h2><a href="${href(g[lang].slug)}">${esc(g[lang].h1)}</a></h2><p>${esc(g[lang].lead)}</p><a class="site-link" href="${href(g[lang].slug)}">${esc(gu.open)}</a></li>`
-        ).join('')}<li><h2><a href="${href(RELEASES_PAGE[lang].slug)}">${esc(RELEASES_PAGE[lang].h1)}</a></h2><p>${esc(RELEASES_PAGE[lang].lead)}</p></li></ul></div></article>`
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose site-guide-home"><nav class="site-guide-jump" aria-label="${esc(gu.chapters)}">${GUIDE_GROUPS.map(
+          gr => `<a href="#${gr.id}">${esc(gr[lang].name)}</a>`
+        ).join('')}</nav>${GUIDE_GROUPS.map(
+          gr =>
+            `<section class="site-guide-group" id="${gr.id}"><h2>${esc(gr[lang].name)}</h2><p>${guideText(gr[lang].intro)}</p><ul class="site-guide-list">${GUIDE.filter(g => g.group === gr.id)
+              .map(g => `<li><a href="${href(g[lang].slug)}">${esc(g[lang].menu)}</a><span>${esc(g[lang].lead)}</span></li>`)
+              .join('')}</ul></section>`
+        ).join('')}<section class="site-guide-group"><h2>${esc(RELEASES_PAGE[lang].h1)}</h2><p>${esc(RELEASES_PAGE[lang].lead)} <a href="${href(RELEASES_PAGE[lang].slug)}">${esc(gu.open)}</a></p></section></div></article>`
     });
     for (const [n, g] of GUIDE.entries()) {
       const t = g[lang];
       const prev = GUIDE[n - 1]?.[lang];
       const next = GUIDE[n + 1]?.[lang];
+      const gr = groupOf(g);
+      const onPage =
+        t.sections.length >= 4
+          ? `<nav class="site-guide-onpage" aria-label="${esc(gu.onPage)}"><b>${esc(gu.onPage)}</b>${t.sections.map(([h]) => `<a href="#${anchorId(h)}">${esc(h)}</a>`).join('')}</nav>`
+          : '';
+      const related = g.related?.length
+        ? `<aside class="site-guide-related"><h2>${esc(gu.related)}</h2><ul>${g.related
+            .map(id => {
+              const to = GUIDE.find(x => x.id === id);
+              if (!to) throw new Error(`Handleiding: onbekende verwante pagina ${id}`);
+              return `<li><a href="${href(to[lang].slug)}">${esc(to[lang].menu)}</a></li>`;
+            })
+            .join('')}</ul></aside>`
+        : '';
       page({
         lang,
         slugs: pair(l => g[l].slug),
         title: t.title,
         desc: t.desc,
-        crumbs: [[home.h1, href(home.slug)]],
+        crumbs: [
+          [home.h1, href(home.slug)],
+          [gr[lang].name, `${href(home.slug)}#${gr.id}`]
+        ],
         schema: [
           {
             '@context': 'https://schema.org',
@@ -846,9 +899,9 @@ for (const lang of LANGS) {
         ],
         body: c =>
           pageTop(c, t.h1, t.lead, BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
-          `<article class="site-article"><div class="site-wrap site-narrow site-prose">${t.sections.map(guideSection).join('')}<nav class="site-guide-pager">${
+          `<article class="site-article"><div class="site-wrap site-narrow site-prose">${onPage}${t.sections.map(guideSection).join('')}${related}<nav class="site-guide-pager">${
             prev ? `<a href="${href(prev.slug)}"><small>← ${esc(gu.prev)}</small>${esc(prev.menu)}</a>` : `<a href="${href(home.slug)}"><small>←</small>${esc(gu.overview)}</a>`
-          }${next ? `<a class="next" href="${href(next.slug)}"><small>${esc(gu.next)} →</small>${esc(next.menu)}</a>` : ''}</nav>${toc(g.id)}</div></article>`
+          }${next ? `<a class="next" href="${href(next.slug)}"><small>${esc(gu.next)} →</small>${esc(next.menu)}</a>` : ''}</nav>${groupNav(g)}</div></article>`
       });
     }
     const rp = RELEASES_PAGE[lang];

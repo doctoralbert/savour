@@ -783,9 +783,94 @@
 .site-prose.site-releases h2 {
   margin-bottom: 0;
 }
+.site-prose .site-guide-toc > .site-link {
+  display: inline-block;
+  margin-top: 12px;
+}
+
+/* Handleiding: overzicht per onderdeel, "Op deze pagina" en "Zie ook" */
+.site-guide-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 8px;
+}
+.site-prose .site-guide-jump a {
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.site-prose .site-guide-jump a:hover {
+  border-color: var(--gold);
+}
+.site-guide-group {
+  scroll-margin-top: 90px;
+  padding-top: 8px;
+}
+.site-prose .site-guide-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 28px;
+}
+.site-prose .site-guide-list li {
+  margin: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.site-prose .site-guide-list a {
+  display: block;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+.site-prose .site-guide-list a:hover {
+  color: var(--gold);
+}
+.site-guide-list span {
+  display: block;
+  margin-top: 2px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--muted, #6b6f69);
+}
+.site-guide-onpage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 16px;
+  margin: 0 0 28px;
+  padding: 16px 20px;
+  border-left: 3px solid var(--gold);
+  background: rgba(232, 202, 141, 0.08);
+  font-size: 15px;
+}
+.site-guide-onpage b {
+  width: 100%;
+}
+.site-prose .site-guide-onpage a {
+  text-decoration: none;
+}
+.site-prose h2[id] {
+  scroll-margin-top: 90px;
+}
+.site-guide-related {
+  margin-top: 40px;
+}
+.site-prose .site-guide-related h2 {
+  font-size: 20px;
+}
 @media (max-width: 600px) {
   .site-guide-toc {
     padding: 18px 20px;
+  }
+  .site-prose .site-guide-list {
+    grid-template-columns: 1fr;
   }
 }
 

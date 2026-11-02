@@ -10,6 +10,18 @@
       "maxDuration": 20
     }
   },
+  "redirects": [
+    {
+      "source": "/gids",
+      "destination": "/handleiding",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide",
+      "destination": "/en/user-guide",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/r/:slug/preview.png",
