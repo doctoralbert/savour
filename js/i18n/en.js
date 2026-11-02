@@ -1684,7 +1684,33 @@ window.SAVOUR_I18N.en = {
       'Depending on the applicable privacy law, you may have rights such as access, correction, deletion, restriction of processing and data portability.',
     '7. Definitieve bedrijfsgegevens': '7. Final company details',
     'Voor de livegang van Savour moeten de verantwoordelijke rechtspersoon, contactgegevens, hosting- en verwerkingspartijen en eventuele internationale gegevensdoorgiften definitief worden ingevuld.':
-      'Before Savour goes live, the responsible legal entity, contact details, hosting and processing parties and any international data transfers must be finalised.'
+      'Before Savour goes live, the responsible legal entity, contact details, hosting and processing parties and any international data transfers must be finalised.',
+    'Doorgaan met Google': 'Continue with Google',
+    'of met je e-mailadres': 'or with your email address',
+    'Inloggen is mislukt. Probeer het opnieuw of gebruik je e-mailadres.':
+      'Login failed. Try again or use your email address.',
+    'Bekijk of beheer je Savour Pro of teamabonnement en nodig je team uit.':
+      'View or manage your Savour Pro or team plan and invite your team.',
+    'Zet het logo en de naam van je restaurant op je prints. Kies of het logo op je eigen prints staat; per keukenteam zet je het aan of uit in de instellingen van dat keukenteam.':
+      'Put your restaurant’s logo and name on your prints. Choose whether the logo appears on your own prints; for each kitchen team you switch it on or off in that team’s settings.',
+    'Logo op mijn eigen prints (recepten en mappen buiten een keukenteam)':
+      'Logo on my own prints (recipes and folders outside a kitchen team)',
+    'Kies per keukenteam of het logo op de prints van dat team staat. Dit kan ook in de instellingen van het keukenteam.':
+      'Choose for each kitchen team whether the logo appears on that team’s prints. You can also do this in the kitchen team’s settings.',
+    'Logo op de prints van dit keukenteam': 'Logo on this kitchen team’s prints',
+    'Logo staat op de prints van dit keukenteam': 'The logo is on this kitchen team’s prints',
+    'Prints van dit keukenteam zonder logo': 'This kitchen team’s prints without a logo',
+    'Opslaan lukte niet. Probeer het opnieuw.': 'Saving didn’t work. Please try again.',
+    'In de demo wordt niets opgeslagen': 'Nothing is saved in the demo',
+    "Word, PDF en tekst lees je gratis in. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro.":
+      'You import Word, PDF and text for free. Photos, handwritten and scanned recipes are read by AI: only in Savour Pro.',
+    'Foto-import gebruikt de Savour AI-laag. Tekst-, Word- en PDF-import worden eerst lokaal uitgelezen; controleer elk geïmporteerd recept vóór het opslaan.':
+      'Photo import uses Savour’s AI layer. Text, Word and PDF imports are read locally first; check every imported recipe before saving.',
+    '＋ Receptenmap toevoegen': '＋ Add recipe folder',
+    '＋ Recept toevoegen': '＋ Add recipe',
+    'Zoek in de receptenbibliotheek': 'Search the recipe library',
+    'https://www.voorbeeld.nl/recept/beurre-blanc': 'https://www.example.com/recipe/beurre-blanc',
+    "Foto's": 'Photos'
   },
   patterns: [
     ['^(\\d+) recepten gevonden$', '$1 recipes found'],
@@ -1729,7 +1755,7 @@ window.SAVOUR_I18N.en = {
     ],
     ['^(.+) zit nu in het team als sous-chef(, met Pro)?$', '$1 is now in the team as sous-chef$2'],
     ['^(.+) zit nu in het team als kok(, met Pro)?$', '$1 is now in the team as cook$2'],
-    ['^(\\d+) recepten? toegevoegd aan het keukenteam$', '$1 recipe(s) added to the kitchen team'],
+    ['^(\\d+) recept(?:en)? toegevoegd aan het keukenteam$', '$1 recipe(s) added to the kitchen team'],
     ['^(.+) heeft nu Pro via het team$', '$1 now has Pro through the team'],
     ['^(\\d+) recepten gedownload$', '$1 recipes downloaded'],
     ['^(\\d+) van (\\d+) recepten$', '$1 of $2 recipes'],
@@ -1795,7 +1821,7 @@ window.SAVOUR_I18N.en = {
     ['^(\\d+) recepten over om te controleren\\.$', '$1 recipes left to review.'],
     ['^(\\d+) recepten opgeslagen\\.?$', '$1 recipes saved'],
     ['^(\\d+) recepten opgeslagen · (\\d+) niet opgeslagen$', '$1 recipes saved · $2 not saved'],
-    ['^Klaar · (\\d+) recepten? controleerbaar\\.?$', 'Done · $1 recipes ready to review'],
+    ['^Klaar · (\\d+) recept(?:en)? controleerbaar\\.?$', 'Done · $1 recipes ready to review'],
     ['^(\\d+) dubbele? recept(en)? overgeslagen$', '$1 duplicate recipe(s) skipped'],
     ['^Niet verwerkt: (.+)$', 'Not processed: $1'],
     ['^Niet opgeslagen: (.+)$', 'Not saved: $1'],
@@ -1989,32 +2015,7 @@ window.SAVOUR_I18N.en = {
     ['^Voorgesteld op trefwoord “(.+)”$', 'Suggested by keyword “$1”'],
     ['^(\\d+) recepten aanpassen$', 'Update $1 recipes'],
     ['^(\\d+) recepten aangepast$', '$1 recipes updated'],
-    ['Doorgaan met Google', 'Continue with Google'],
-    ['of met je e-mailadres', 'or with your email address'],
-    [
-      'Inloggen is mislukt. Probeer het opnieuw of gebruik je e-mailadres.',
-      'Login failed. Try again or use your email address.'
-    ],
-    [
-      'Bekijk of beheer je Savour Pro of teamabonnement en nodig je team uit.',
-      'View or manage your Savour Pro or team plan and invite your team.'
-    ],
-    [
-      'Zet het logo en de naam van je restaurant op je prints. Kies of het logo op je eigen prints staat; per keukenteam zet je het aan of uit in de instellingen van dat keukenteam.',
-      'Put your restaurant’s logo and name on your prints. Choose whether the logo appears on your own prints; for each kitchen team you switch it on or off in that team’s settings.'
-    ],
-    [
-      'Logo op mijn eigen prints (recepten en mappen buiten een keukenteam)',
-      'Logo on my own prints (recipes and folders outside a kitchen team)'
-    ],
-    [
-      'Kies per keukenteam of het logo op de prints van dat team staat. Dit kan ook in de instellingen van het keukenteam.',
-      'Choose for each kitchen team whether the logo appears on that team’s prints. You can also do this in the kitchen team’s settings.'
-    ],
-    ['Logo op de prints van dit keukenteam', 'Logo on this kitchen team’s prints'],
-    ['Logo staat op de prints van dit keukenteam', 'The logo is on this kitchen team’s prints'],
-    ['Prints van dit keukenteam zonder logo', 'This kitchen team’s prints without a logo'],
-    ['Opslaan lukte niet. Probeer het opnieuw.', 'Saving didn’t work. Please try again.'],
-    ['In de demo wordt niets opgeslagen', 'Nothing is saved in the demo']
+    ['^(\\d+) recept(?:en)? uit (\\d+) bestand(?:en)? verwerkt\\.?$', '$1 recipe(s) processed from $2 file(s).'],
+    ['^(\\d+) ingrediënten · (\\d+) stappen · (.+)$', '$1 ingredients · $2 steps · $3']
   ]
 };

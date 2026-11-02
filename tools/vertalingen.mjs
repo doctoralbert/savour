@@ -3514,7 +3514,34 @@ export const strings = [
     'Before Savour goes live, the responsible legal entity, contact details, hosting and processing parties and any international data transfers must be finalised.',
     'Vor dem Start von Savour müssen die verantwortliche juristische Person, Kontaktdaten, Hosting- und Verarbeitungspartner sowie etwaige internationale Datenübermittlungen endgültig festgelegt werden.',
     'Antes del lanzamiento de Savour deben fijarse la entidad responsable, los datos de contacto, los proveedores de alojamiento y tratamiento y las posibles transferencias internacionales de datos.'
-  ]
+  ],
+  // ---- Inloggen met Google ----
+  ['Doorgaan met Google', 'Continue with Google', 'Weiter mit Google', 'Continuar con Google'],
+  ['of met je e-mailadres', 'or with your email address', 'oder mit deiner E-Mail-Adresse', 'o con tu correo electrónico'],
+  [
+    'Inloggen is mislukt. Probeer het opnieuw of gebruik je e-mailadres.',
+    'Login failed. Try again or use your email address.',
+    'Anmeldung fehlgeschlagen. Versuche es erneut oder nutze deine E-Mail-Adresse.',
+    'No se pudo iniciar sesión. Inténtalo de nuevo o usa tu correo electrónico.'
+  ],
+  // ---- Logo op prints per keukenteam, menu General (2026-11-02) ----
+  ["Bekijk of beheer je Savour Pro of teamabonnement en nodig je team uit.","View or manage your Savour Pro or team plan and invite your team.","Sieh dir dein Savour Pro oder Teamabo an, verwalte es und lade dein Team ein.","Consulta o gestiona tu Savour Pro o plan de equipo e invita a tu equipo."],
+  ["Zet het logo en de naam van je restaurant op je prints. Kies of het logo op je eigen prints staat; per keukenteam zet je het aan of uit in de instellingen van dat keukenteam.","Put your restaurant’s logo and name on your prints. Choose whether the logo appears on your own prints; for each kitchen team you switch it on or off in that team’s settings.","Setze Logo und Namen deines Restaurants auf deine Ausdrucke. Wähle, ob das Logo auf deinen eigenen Ausdrucken steht; pro Küchenteam schaltest du es in dessen Einstellungen ein oder aus.","Pon el logo y el nombre de tu restaurante en tus impresiones. Elige si el logo aparece en tus propias impresiones; para cada equipo de cocina lo activas o desactivas en sus ajustes."],
+  ["Logo op mijn eigen prints (recepten en mappen buiten een keukenteam)","Logo on my own prints (recipes and folders outside a kitchen team)","Logo auf meinen eigenen Ausdrucken (Rezepte und Ordner außerhalb eines Küchenteams)","Logo en mis propias impresiones (recetas y carpetas fuera de un equipo de cocina)"],
+  ["Kies per keukenteam of het logo op de prints van dat team staat. Dit kan ook in de instellingen van het keukenteam.","Choose for each kitchen team whether the logo appears on that team’s prints. You can also do this in the kitchen team’s settings.","Wähle pro Küchenteam, ob das Logo auf dessen Ausdrucken steht. Das geht auch in den Einstellungen des Küchenteams.","Elige para cada equipo de cocina si el logo aparece en sus impresiones. También puedes hacerlo en los ajustes del equipo."],
+  ["Logo op de prints van dit keukenteam","Logo on this kitchen team’s prints","Logo auf den Ausdrucken dieses Küchenteams","Logo en las impresiones de este equipo de cocina"],
+  ["Logo staat op de prints van dit keukenteam","The logo is on this kitchen team’s prints","Das Logo steht auf den Ausdrucken dieses Küchenteams","El logo aparece en las impresiones de este equipo de cocina"],
+  ["Prints van dit keukenteam zonder logo","This kitchen team’s prints without a logo","Ausdrucke dieses Küchenteams ohne Logo","Impresiones de este equipo de cocina sin logo"],
+  ["Opslaan lukte niet. Probeer het opnieuw.","Saving didn’t work. Please try again.","Speichern hat nicht geklappt. Versuch es noch einmal.","No se pudo guardar. Inténtalo de nuevo."],
+  ["In de demo wordt niets opgeslagen","Nothing is saved in the demo","In der Demo wird nichts gespeichert","En la demo no se guarda nada"],
+  // ---- Ontbrekende vertalingen, gevonden met een controle in de demo (2026-11-02) ----
+  ["Word, PDF en tekst lees je gratis in. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro.","You import Word, PDF and text for free. Photos, handwritten and scanned recipes are read by AI: only in Savour Pro.","Word, PDF und Text liest du kostenlos ein. Fotos, handschriftliche und gescannte Rezepte liest die KI: nur in Savour Pro.","Importas Word, PDF y texto gratis. Las fotos y recetas manuscritas o escaneadas las lee la IA: solo en Savour Pro."],
+  ["Foto-import gebruikt de Savour AI-laag. Tekst-, Word- en PDF-import worden eerst lokaal uitgelezen; controleer elk geïmporteerd recept vóór het opslaan.","Photo import uses Savour’s AI layer. Text, Word and PDF imports are read locally first; check every imported recipe before saving.","Der Foto-Import nutzt die KI von Savour. Text-, Word- und PDF-Importe werden zuerst lokal gelesen; prüfe jedes importierte Rezept vor dem Speichern.","La importación de fotos usa la IA de Savour. Las importaciones de texto, Word y PDF se leen primero localmente; revisa cada receta importada antes de guardarla."],
+  ["＋ Receptenmap toevoegen","＋ Add recipe folder","＋ Rezeptordner hinzufügen","＋ Añadir carpeta de recetas"],
+  ["＋ Recept toevoegen","＋ Add recipe","＋ Rezept hinzufügen","＋ Añadir receta"],
+  ["Zoek in de receptenbibliotheek","Search the recipe library","In der Rezeptbibliothek suchen","Buscar en la biblioteca de recetas"],
+  ["https://www.voorbeeld.nl/recept/beurre-blanc","https://www.example.com/recipe/beurre-blanc","https://www.beispiel.de/rezept/beurre-blanc","https://www.ejemplo.es/receta/beurre-blanc"],
+  ["Foto's","Photos","Fotos","Fotos"]
 ];
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
@@ -3552,7 +3579,7 @@ export const patterns = [
   ["^(\\d+) van (\\d+) plekken met Pro, in keukenteam (.+)\\. Mensen toevoegen en Pro geven doe je in het keukenteam, op het tabblad Team\\.$","$1 of $2 seats with Pro, in kitchen team $3. You add people and give Pro in the kitchen team, on the Team tab.","$1 von $2 Plätzen mit Pro, im Küchenteam $3. Leute hinzufügen und Pro vergeben machst du im Küchenteam, im Tab Team.","$1 de $2 plazas con Pro, en el equipo de cocina $3. Añades personas y das Pro en el equipo de cocina, en la pestaña Equipo."],
   ["^(.+) zit nu in het team als sous-chef(, met Pro)?$","$1 is now in the team as sous-chef$2","$1 ist jetzt als Sous-Chef im Team$2","$1 está ahora en el equipo como segundo de cocina$2"],
   ["^(.+) zit nu in het team als kok(, met Pro)?$","$1 is now in the team as cook$2","$1 ist jetzt als Koch im Team$2","$1 está ahora en el equipo como cocinero$2"],
-  ["^(\\d+) recepten? toegevoegd aan het keukenteam$","$1 recipe(s) added to the kitchen team","$1 Rezept(e) zum Küchenteam hinzugefügt","$1 receta(s) añadida(s) al equipo de cocina"],
+  ["^(\\d+) recept(?:en)? toegevoegd aan het keukenteam$","$1 recipe(s) added to the kitchen team","$1 Rezept(e) zum Küchenteam hinzugefügt","$1 receta(s) añadida(s) al equipo de cocina"],
   ["^(.+) heeft nu Pro via het team$","$1 now has Pro through the team","$1 hat jetzt Pro über das Team","$1 ya tiene Pro a través de el equipo"],
   ["^(\\d+) recepten gedownload$", "$1 recipes downloaded", "$1 Rezepte heruntergeladen", "$1 recetas descargadas"],
   ["^(\\d+) van (\\d+) recepten$", "$1 of $2 recipes", "$1 von $2 Rezepten", "$1 de $2 recetas"],
@@ -3692,7 +3719,7 @@ export const patterns = [
     '$1 recetas guardadas · $2 sin guardar'
   ],
   [
-    '^Klaar · (\\d+) recepten? controleerbaar\\.?$',
+    '^Klaar · (\\d+) recept(?:en)? controleerbaar\\.?$',
     'Done · $1 recipes ready to review',
     'Fertig · $1 Rezepte zur Prüfung',
     'Listo · $1 recetas para revisar'
@@ -4020,23 +4047,6 @@ export const patterns = [
   ],
   ['^(\\d+) recepten aanpassen$', 'Update $1 recipes', '$1 Rezepte anpassen', 'Actualizar $1 recetas'],
   ['^(\\d+) recepten aangepast$', '$1 recipes updated', '$1 Rezepte angepasst', '$1 recetas actualizadas'],
-  // ---- Inloggen met Google ----
-  ['Doorgaan met Google', 'Continue with Google', 'Weiter mit Google', 'Continuar con Google'],
-  ['of met je e-mailadres', 'or with your email address', 'oder mit deiner E-Mail-Adresse', 'o con tu correo electrónico'],
-  [
-    'Inloggen is mislukt. Probeer het opnieuw of gebruik je e-mailadres.',
-    'Login failed. Try again or use your email address.',
-    'Anmeldung fehlgeschlagen. Versuche es erneut oder nutze deine E-Mail-Adresse.',
-    'No se pudo iniciar sesión. Inténtalo de nuevo o usa tu correo electrónico.'
-  ],
-  // ---- Logo op prints per keukenteam, menu General (2026-11-02) ----
-  ["Bekijk of beheer je Savour Pro of teamabonnement en nodig je team uit.","View or manage your Savour Pro or team plan and invite your team.","Sieh dir dein Savour Pro oder Teamabo an, verwalte es und lade dein Team ein.","Consulta o gestiona tu Savour Pro o plan de equipo e invita a tu equipo."],
-  ["Zet het logo en de naam van je restaurant op je prints. Kies of het logo op je eigen prints staat; per keukenteam zet je het aan of uit in de instellingen van dat keukenteam.","Put your restaurant’s logo and name on your prints. Choose whether the logo appears on your own prints; for each kitchen team you switch it on or off in that team’s settings.","Setze Logo und Namen deines Restaurants auf deine Ausdrucke. Wähle, ob das Logo auf deinen eigenen Ausdrucken steht; pro Küchenteam schaltest du es in dessen Einstellungen ein oder aus.","Pon el logo y el nombre de tu restaurante en tus impresiones. Elige si el logo aparece en tus propias impresiones; para cada equipo de cocina lo activas o desactivas en sus ajustes."],
-  ["Logo op mijn eigen prints (recepten en mappen buiten een keukenteam)","Logo on my own prints (recipes and folders outside a kitchen team)","Logo auf meinen eigenen Ausdrucken (Rezepte und Ordner außerhalb eines Küchenteams)","Logo en mis propias impresiones (recetas y carpetas fuera de un equipo de cocina)"],
-  ["Kies per keukenteam of het logo op de prints van dat team staat. Dit kan ook in de instellingen van het keukenteam.","Choose for each kitchen team whether the logo appears on that team’s prints. You can also do this in the kitchen team’s settings.","Wähle pro Küchenteam, ob das Logo auf dessen Ausdrucken steht. Das geht auch in den Einstellungen des Küchenteams.","Elige para cada equipo de cocina si el logo aparece en sus impresiones. También puedes hacerlo en los ajustes del equipo."],
-  ["Logo op de prints van dit keukenteam","Logo on this kitchen team’s prints","Logo auf den Ausdrucken dieses Küchenteams","Logo en las impresiones de este equipo de cocina"],
-  ["Logo staat op de prints van dit keukenteam","The logo is on this kitchen team’s prints","Das Logo steht auf den Ausdrucken dieses Küchenteams","El logo aparece en las impresiones de este equipo de cocina"],
-  ["Prints van dit keukenteam zonder logo","This kitchen team’s prints without a logo","Ausdrucke dieses Küchenteams ohne Logo","Impresiones de este equipo de cocina sin logo"],
-  ["Opslaan lukte niet. Probeer het opnieuw.","Saving didn’t work. Please try again.","Speichern hat nicht geklappt. Versuch es noch einmal.","No se pudo guardar. Inténtalo de nuevo."],
-  ["In de demo wordt niets opgeslagen","Nothing is saved in the demo","In der Demo wird nichts gespeichert","En la demo no se guarda nada"]
+  ["^(\\d+) recept(?:en)? uit (\\d+) bestand(?:en)? verwerkt\\.?$","$1 recipe(s) processed from $2 file(s).","$1 Rezept(e) aus $2 Datei(en) verarbeitet.","$1 receta(s) procesada(s) de $2 archivo(s)."],
+  ["^(\\d+) ingrediënten · (\\d+) stappen · (.+)$","$1 ingredients · $2 steps · $3","$1 Zutaten · $2 Schritte · $3","$1 ingredientes · $2 pasos · $3"]
 ];
