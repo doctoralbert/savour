@@ -107,7 +107,7 @@ export const pages = [
         ],
         [
           'Instellen',
-          'Kies op de pagina [Savour Pro](/savour-pro) een organisatie, of ga naar Mijn account → Abonnement en team. Nodig daar je team uit voor de plekken.'
+          'Kies op de pagina [Savour Pro](/savour-pro) een organisatie, of ga naar Mijn account → Savour Pro. Nodig daar je team uit voor de plekken.'
         ],
         [
           'Organisatie of keukenteam',
@@ -128,7 +128,7 @@ export const pages = [
         ],
         [
           'Setting it up',
-          'Choose an organisation on the [Savour Pro](/en/pro) page, or go to My account → Subscription and organisation. Invite your team to the seats there.'
+          'Choose an organisation on the [Savour Pro](/en/pro) page, or go to My account → Savour Pro. Invite your team to the seats there.'
         ],
         [
           'Organisation or kitchen team',
@@ -145,11 +145,11 @@ export const pages = [
       menu: 'Je abonnement beheren',
       title: 'Je Savour Pro-abonnement beheren en facturen | Handleiding',
       desc: 'Zo beheer je je abonnement in Savour: Pro afsluiten, wisselen tussen maand en jaar, betaalgegevens en facturen, en het logo voor je prints instellen.',
-      lead: 'Alles over je abonnement op één plek: Mijn account → Abonnement en team.',
+      lead: 'Alles over je abonnement op één plek: Mijn account → Savour Pro.',
       sections: [
         [
           'Waar',
-          'Ga naar Mijn account → Abonnement en team. Daar zie je of je Savour Pro, een proefweek of een organisatie hebt, en tot wanneer.'
+          'Ga naar Mijn account → Savour Pro. Daar zie je of je Savour Pro, een proefweek of een organisatie hebt, en tot wanneer.'
         ],
         [
           'Pro afsluiten',
@@ -157,11 +157,11 @@ export const pages = [
         ],
         [
           'Wijzigen en facturen',
-          'Kies onder Abonnement en team “Abonnement beheren”. Daar wijzig je je betaalgegevens, bekijk je je facturen en zeg je op.'
+          'Kies onder Savour Pro “Abonnement beheren”. Daar wijzig je je betaalgegevens, bekijk je je facturen en zeg je op.'
         ],
         [
           'Logo op prints',
-          'Onder Abonnement en team stel je ook het [logo voor je prints](#printen-logo) in.'
+          'Het [logo voor je prints](#printen-logo) stel je in onder het tabblad Logo op prints.'
         ]
       ]
     },
@@ -170,11 +170,11 @@ export const pages = [
       menu: 'Managing your subscription',
       title: 'Manage your Savour Pro subscription and invoices | User guide',
       desc: 'How to manage your subscription in Savour: getting Pro, monthly or yearly, payment details and invoices, and setting up the logo for your prints.',
-      lead: 'Everything about your subscription in one place: My account → Subscription and organisation.',
+      lead: 'Everything about your subscription in one place: My account → Savour Pro.',
       sections: [
         [
           'Where',
-          'Go to My account → Subscription and organisation. It shows whether you have Savour Pro, a trial week or an organisation, and until when.'
+          'Go to My account → Savour Pro. It shows whether you have Savour Pro, a trial week or an organisation, and until when.'
         ],
         [
           'Getting Pro',
@@ -182,11 +182,11 @@ export const pages = [
         ],
         [
           'Changes and invoices',
-          'Choose “Manage subscription” under Subscription and organisation. There you change your payment details, view your invoices and cancel.'
+          'Choose “Manage subscription” under Savour Pro. There you change your payment details, view your invoices and cancel.'
         ],
         [
           'Logo on prints',
-          'Subscription and organisation is also where you set up the [logo for your prints](#printen-logo).'
+          'You set up the [logo for your prints](#printen-logo) in the Logo on prints tab.'
         ]
       ]
     }
@@ -203,7 +203,7 @@ export const pages = [
       sections: [
         [
           'Opzeggen',
-          'Zeg op via Mijn account → Abonnement en team. Je houdt Pro tot het einde van de betaalde periode.'
+          'Zeg op via Mijn account → Savour Pro. Je houdt Pro tot het einde van de betaalde periode.'
         ],
         [
           'Je recepten blijven',
@@ -228,7 +228,7 @@ export const pages = [
       sections: [
         [
           'Cancelling',
-          'Cancel via My account → Subscription and organisation. You keep Pro until the end of the paid period.'
+          'Cancel via My account → Savour Pro. You keep Pro until the end of the paid period.'
         ],
         [
           'Your recipes stay',
@@ -257,7 +257,7 @@ export const pages = [
       sections: [
         [
           'Waar',
-          'Kies in het menu Instellingen, of op je telefoon het icoontje van Mijn account bovenin. Mijn account heeft de tabbladen Account, Abonnement en team, Weergave, Categorieën en Opschonen.'
+          'Kies in het menu Instellingen, of op je telefoon het icoontje van Mijn account bovenin. Mijn account heeft de tabbladen Account, Savour Pro, Logo op prints, Weergave, Categorieën en Opschonen.'
         ],
         [
           'Profiel',
@@ -273,7 +273,7 @@ export const pages = [
         ],
         [
           'De andere tabbladen',
-          '[Abonnement en team](#abonnement-beheren), [Weergave](#weergave-en-taal), [Categorieën](#categorieen) en [Opschonen](#opschonen).'
+          '[Savour Pro](#abonnement-beheren), [Logo op prints](#printen-logo), [Weergave](#weergave-en-taal), [Categorieën](#categorieen) en [Opschonen](#opschonen).'
         ]
       ]
     },
@@ -286,7 +286,7 @@ export const pages = [
       sections: [
         [
           'Where',
-          'Choose Settings in the menu, or on your phone the My account icon at the top. My account has the tabs Account, Subscription and organisation, Appearance, Categories and Clean up.'
+          'Choose Settings in the menu, or on your phone the My account icon at the top. My account has the tabs Account, Savour Pro, Logo on prints, Appearance, Categories and Clean up.'
         ],
         [
           'Profile',
@@ -302,7 +302,7 @@ export const pages = [
         ],
         [
           'The other tabs',
-          '[Subscription and organisation](#abonnement-beheren), [Appearance](#weergave-en-taal), [Categories](#categorieen) and [Clean up](#opschonen).'
+          '[Savour Pro](#abonnement-beheren), [Logo on prints](#printen-logo), [Appearance](#weergave-en-taal), [Categories](#categorieen) and [Clean up](#opschonen).'
         ]
       ]
     }
@@ -377,7 +377,7 @@ export const pages = [
         ],
         [
           'Een abonnement',
-          'Heb je Savour Pro, [zeg dat dan eerst op](#pro-stoppen) onder Abonnement en team.'
+          'Heb je Savour Pro, [zeg dat dan eerst op](#pro-stoppen) onder Savour Pro.'
         ]
       ]
     },
@@ -402,7 +402,7 @@ export const pages = [
         ],
         [
           'A subscription',
-          'If you have Savour Pro, [cancel it first](#pro-stoppen) under Subscription and organisation.'
+          'If you have Savour Pro, [cancel it first](#pro-stoppen) under Savour Pro.'
         ]
       ]
     }

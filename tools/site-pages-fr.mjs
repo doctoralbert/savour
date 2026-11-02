@@ -507,7 +507,7 @@ export const FR = {
         ['On voit toujours si c\'est à jour', "En bas de chaque page figure la date d'impression. Toute la cuisine voit ainsi si un classeur est la dernière version. Les en-têtes et pieds de page du navigateur disparaissent pour une page nette."],
         ['Choisis ce que tu imprimes', "Dans une équipe de cuisine, tu choisis avant d'imprimer les recettes voulues, groupées par dossier. Seulement ce qu'il faut pour cette partie ou cet événement."]
       ],
-      outro: "Imprimer avec ton logo fait partie de Savour Pro. Cela se règle dans Paramètres → Abonnement et organisation."
+      outro: "Imprimer avec ton logo fait partie de Savour Pro. Cela se règle dans Paramètres → Logo sur les impressions."
     },
     'en/blog/recipes-without-wifi': {
       slug: 'fr/blog/recettes-sans-wifi',

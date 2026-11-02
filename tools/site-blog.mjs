@@ -529,7 +529,7 @@ export const BLOG = [
           "In een keukenteam kies je vóór het printen zelf welke recepten je wilt, gegroepeerd per map. Alleen wat nodig is voor die partie of dat evenement."
         ]
       ],
-      outro: "Printen met je eigen logo is onderdeel van Savour Pro. Je stelt het in onder Instellingen → Abonnement en team."
+      outro: "Printen met je eigen logo is onderdeel van Savour Pro. Je stelt het in onder Instellingen → Logo op prints."
     },
     en: {
       slug: "en/blog/recipe-book-with-your-logo",

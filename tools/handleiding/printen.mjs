@@ -153,7 +153,7 @@ export const pages = [
       sections: [
         [
           'Instellen',
-          'Ga naar Mijn account → Abonnement en team → Logo op prints. Kies je logo en vul de naam in die op de print komt. Dit kan met [Savour Pro](#gratis-en-pro), ook in de proefweek.'
+          'Ga naar Mijn account → Logo op prints. Kies je logo en vul de naam in die op de print komt. Dit kan met [Savour Pro](#gratis-en-pro), ook in de proefweek.'
         ],
         [
           'Zwart-wit',
@@ -178,7 +178,7 @@ export const pages = [
       sections: [
         [
           'Setting it up',
-          'Go to My account → Subscription and organisation → Logo on prints. Choose your logo and enter the name that goes on the print. This works with [Savour Pro](#gratis-en-pro), including the trial week.'
+          'Go to My account → Logo on prints. Choose your logo and enter the name that goes on the print. This works with [Savour Pro](#gratis-en-pro), including the trial week.'
         ],
         [
           'Black and white',

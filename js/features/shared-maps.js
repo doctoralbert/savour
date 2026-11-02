@@ -420,6 +420,7 @@ function renderShared(id) {
     const body = currentTeamTab === 'brigade' ? teamBrigadeHtml(m) : teamSettingsHtml(m, photoInput);
     $('sharedWrap').innerHTML =
       `<div class="panel team-page kt"><button type="button" class="back kt-back" onclick="showTeamTab('home')">← ${esc(m.name)}</button><div class="kt-sub-head"><div class="eyebrow shared-eyebrow">Keukenteam · ${esc(m.name)}</div><h1>${title}</h1></div>${body}</div>`;
+    if (currentTeamTab === 'instellingen') syncTeamLogoToggle(m.id);
     return;
   }
 
@@ -538,7 +539,7 @@ function teamSettingsHtml(m, photoInput) {
     (m.publicKey
       ? `<div class="team-setting"><div><b>Uitnodigingslink</b><span class="muted sharelink">https://savour.page/join/${esc(m.publicKey)}</span></div><button class="btn" onclick="inviteShared('${mid}')">Link delen</button></div>`
       : '') +
-    `<div class="team-setting"><div><b>Logo op prints</b><span class="muted">Het logo van je zaak bovenaan elke print, voor het hele team.</span></div><button class="btn" onclick="go('settings');showSettingsTab('plan')">Logo instellen</button></div>` +
+    `<div class="team-setting"><div><b>Logo op prints</b><span class="muted">Het logo van je zaak bovenaan elke print, voor het hele team.</span><label class="print-option" data-team-logo-row="${esc(m.id)}" hidden><input type="checkbox" data-team-logo="${esc(m.id)}" onchange="setTeamPrintLogo('${mid}', this.checked, this)"><span>Logo op de prints van dit keukenteam</span></label></div><button class="btn" onclick="go('settings');showSettingsTab('logo')">Logo instellen</button></div>` +
     teamProSettingHtml(m) +
     `<div class="team-setting danger"><div><b>Keukenteam verwijderen</b><span class="muted">Alle recepten en mappen van dit keukenteam worden voor iedereen verwijderd.</span></div><button class="btn danger-action" onclick="deleteSharedMap('${mid}')">Verwijderen</button></div>` +
     `</div>`
@@ -821,10 +822,7 @@ function renderSharedNav() {
             f =>
               `<button class="nav-team-folder" onclick="openSharedFolder('${escJs(m.id)}','${escJs(f.id)}')"><span class="ico">•</span>${esc(f.name)}</button>`
           )
-          .join('') +
-        (canEditShared(m)
-          ? `<button class="nav-team-folder nav-team-add" onclick="newSharedFolder('${escJs(m.id)}')"><span class="ico">＋</span>Receptenmap toevoegen</button>`
-          : '')
+          .join('')
     )
     .join('');
   if (showsExampleTeam()) el.innerHTML = exampleNavButton('team', EXAMPLE_TEAM.name);

@@ -331,9 +331,24 @@
 .print-a5 .print-cover-list {
   columns: 1;
 }
+/* Logo op prints: keuze per keukenteam */
+#printBrandTeams {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line, #243031);
+}
+.print-brand-teams-title {
+  margin: 0 0 4px;
+}
+.team-setting .print-option[hidden] {
+  display: none;
+}
+
 /* Keuzes vlak voor het printen */
 .print-options .print-option,
-.print-brand-fields .print-option {
+.print-brand-fields .print-option,
+#printBrandTeams .print-option,
+.team-setting .print-option {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -341,7 +356,9 @@
   cursor: pointer;
 }
 .print-options .print-option input,
-.print-brand-fields .print-option input {
+.print-brand-fields .print-option input,
+#printBrandTeams .print-option input,
+.team-setting .print-option input {
   width: 18px;
   height: 18px;
   accent-color: var(--gold);
@@ -1289,8 +1306,9 @@ h2.has-help .help-btn {
 .category-page-item {
   display: grid !important;
   grid-template-columns: minmax(0, 1fr) 170px;
-  gap: 24px;
+  gap: 32px;
   align-items: start;
+  padding: 18px 0 !important;
 }
 .category-page-actions {
   display: flex !important;

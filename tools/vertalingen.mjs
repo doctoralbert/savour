@@ -4028,5 +4028,16 @@ export const patterns = [
     'Login failed. Try again or use your email address.',
     'Anmeldung fehlgeschlagen. Versuche es erneut oder nutze deine E-Mail-Adresse.',
     'No se pudo iniciar sesión. Inténtalo de nuevo o usa tu correo electrónico.'
-  ]
+  ],
+  // ---- Logo op prints per keukenteam, menu General (2026-11-02) ----
+  ["General","General","Allgemein","General"],
+  ["Bekijk of beheer je Savour Pro of teamabonnement en nodig je team uit.","View or manage your Savour Pro or team plan and invite your team.","Sieh dir dein Savour Pro oder Teamabo an, verwalte es und lade dein Team ein.","Consulta o gestiona tu Savour Pro o plan de equipo e invita a tu equipo."],
+  ["Zet het logo en de naam van je restaurant op je prints. Kies of het logo op je eigen prints staat; per keukenteam zet je het aan of uit in de instellingen van dat keukenteam.","Put your restaurant’s logo and name on your prints. Choose whether the logo appears on your own prints; for each kitchen team you switch it on or off in that team’s settings.","Setze Logo und Namen deines Restaurants auf deine Ausdrucke. Wähle, ob das Logo auf deinen eigenen Ausdrucken steht; pro Küchenteam schaltest du es in dessen Einstellungen ein oder aus.","Pon el logo y el nombre de tu restaurante en tus impresiones. Elige si el logo aparece en tus propias impresiones; para cada equipo de cocina lo activas o desactivas en sus ajustes."],
+  ["Logo op mijn eigen prints (recepten en mappen buiten een keukenteam)","Logo on my own prints (recipes and folders outside a kitchen team)","Logo auf meinen eigenen Ausdrucken (Rezepte und Ordner außerhalb eines Küchenteams)","Logo en mis propias impresiones (recetas y carpetas fuera de un equipo de cocina)"],
+  ["Kies per keukenteam of het logo op de prints van dat team staat. Dit kan ook in de instellingen van het keukenteam.","Choose for each kitchen team whether the logo appears on that team’s prints. You can also do this in the kitchen team’s settings.","Wähle pro Küchenteam, ob das Logo auf dessen Ausdrucken steht. Das geht auch in den Einstellungen des Küchenteams.","Elige para cada equipo de cocina si el logo aparece en sus impresiones. También puedes hacerlo en los ajustes del equipo."],
+  ["Logo op de prints van dit keukenteam","Logo on this kitchen team’s prints","Logo auf den Ausdrucken dieses Küchenteams","Logo en las impresiones de este equipo de cocina"],
+  ["Logo staat op de prints van dit keukenteam","The logo is on this kitchen team’s prints","Das Logo steht auf den Ausdrucken dieses Küchenteams","El logo aparece en las impresiones de este equipo de cocina"],
+  ["Prints van dit keukenteam zonder logo","This kitchen team’s prints without a logo","Ausdrucke dieses Küchenteams ohne Logo","Impresiones de este equipo de cocina sin logo"],
+  ["Opslaan lukte niet. Probeer het opnieuw.","Saving didn’t work. Please try again.","Speichern hat nicht geklappt. Versuch es noch einmal.","No se pudo guardar. Inténtalo de nuevo."],
+  ["In de demo wordt niets opgeslagen","Nothing is saved in the demo","In der Demo wird nichts gespeichert","En la demo no se guarda nada"]
 ];

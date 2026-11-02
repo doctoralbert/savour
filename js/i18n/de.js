@@ -2018,6 +2018,28 @@ window.SAVOUR_I18N.de = {
     [
       'Inloggen is mislukt. Probeer het opnieuw of gebruik je e-mailadres.',
       'Anmeldung fehlgeschlagen. Versuche es erneut oder nutze deine E-Mail-Adresse.'
-    ]
+    ],
+    ['General', 'Allgemein'],
+    [
+      'Bekijk of beheer je Savour Pro of teamabonnement en nodig je team uit.',
+      'Sieh dir dein Savour Pro oder Teamabo an, verwalte es und lade dein Team ein.'
+    ],
+    [
+      'Zet het logo en de naam van je restaurant op je prints. Kies of het logo op je eigen prints staat; per keukenteam zet je het aan of uit in de instellingen van dat keukenteam.',
+      'Setze Logo und Namen deines Restaurants auf deine Ausdrucke. Wähle, ob das Logo auf deinen eigenen Ausdrucken steht; pro Küchenteam schaltest du es in dessen Einstellungen ein oder aus.'
+    ],
+    [
+      'Logo op mijn eigen prints (recepten en mappen buiten een keukenteam)',
+      'Logo auf meinen eigenen Ausdrucken (Rezepte und Ordner außerhalb eines Küchenteams)'
+    ],
+    [
+      'Kies per keukenteam of het logo op de prints van dat team staat. Dit kan ook in de instellingen van het keukenteam.',
+      'Wähle pro Küchenteam, ob das Logo auf dessen Ausdrucken steht. Das geht auch in den Einstellungen des Küchenteams.'
+    ],
+    ['Logo op de prints van dit keukenteam', 'Logo auf den Ausdrucken dieses Küchenteams'],
+    ['Logo staat op de prints van dit keukenteam', 'Das Logo steht auf den Ausdrucken dieses Küchenteams'],
+    ['Prints van dit keukenteam zonder logo', 'Ausdrucke dieses Küchenteams ohne Logo'],
+    ['Opslaan lukte niet. Probeer het opnieuw.', 'Speichern hat nicht geklappt. Versuch es noch einmal.'],
+    ['In de demo wordt niets opgeslagen', 'In der Demo wird nichts gespeichert']
   ]
 };

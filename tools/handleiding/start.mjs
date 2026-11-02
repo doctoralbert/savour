@@ -301,11 +301,11 @@ export const pages = [
         ],
         [
           'Android',
-          'Open savour.page in Chrome. Tik rechtsboven op ⋮ en kies “App installeren” of “Toevoegen aan startscherm”. Ben je ingelogd, dan kan het ook via Tools → App installeren in het menu van Savour.'
+          'Open savour.page in Chrome. Tik rechtsboven op ⋮ en kies “App installeren” of “Toevoegen aan startscherm”. Ben je ingelogd, dan kan het ook via General → App installeren in het menu van Savour.'
         ],
         [
           'Computer',
-          'In Chrome of Edge klik je rechts in de adresbalk op het installatie-icoon, of je kiest in Savour onder Tools “App installeren”. Op een Mac met Safari kies je Archief → “Voeg toe aan Dock”.'
+          'In Chrome of Edge klik je rechts in de adresbalk op het installatie-icoon, of je kiest in Savour onder General “App installeren”. Op een Mac met Safari kies je Archief → “Voeg toe aan Dock”.'
         ],
         [
           'Ook zonder internet',
@@ -334,11 +334,11 @@ export const pages = [
         ],
         [
           'Android',
-          'Open savour.page in Chrome. Tap ⋮ at the top right and choose “Install app” or “Add to Home screen”. When you are logged in, you can also use Tools → Install app in Savour’s menu.'
+          'Open savour.page in Chrome. Tap ⋮ at the top right and choose “Install app” or “Add to Home screen”. When you are logged in, you can also use General → Install app in Savour’s menu.'
         ],
         [
           'Computer',
-          'In Chrome or Edge, click the install icon on the right of the address bar, or choose “Install app” under Tools in Savour. On a Mac with Safari, choose File → “Add to Dock”.'
+          'In Chrome or Edge, click the install icon on the right of the address bar, or choose “Install app” under General in Savour. On a Mac with Safari, choose File → “Add to Dock”.'
         ],
         [
           'Without internet too',
@@ -380,7 +380,7 @@ export const pages = [
           'Hier staan de [keukenteams](#keukenteams) waar je lid van bent, met “Keukenteam maken” om er zelf een te beginnen (Savour Pro).'
         ],
         [
-          'Tools',
+          'General',
           'Onderaan staan [Savour Pro](#gratis-en-pro), [Collega uitnodigen](#collega-uitnodigen), [App installeren](#app-installeren) en Instellingen, waar je [je account](#account-profiel), [abonnement](#abonnement-beheren), [weergave](#weergave-en-taal), [categorieën](#categorieen) en [opschonen](#opschonen) vindt.'
         ],
         [
@@ -423,7 +423,7 @@ export const pages = [
           'Here are the [kitchen teams](#keukenteams) you belong to, with “Create kitchen team” to start your own (Savour Pro).'
         ],
         [
-          'Tools',
+          'General',
           'At the bottom are [Savour Pro](#gratis-en-pro), [Invite a colleague](#collega-uitnodigen), [Install app](#app-installeren) and Settings, where you find [your account](#account-profiel), [subscription](#abonnement-beheren), [appearance](#weergave-en-taal), [categories](#categorieen) and [clean-up](#opschonen).'
         ],
         [

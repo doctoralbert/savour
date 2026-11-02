@@ -607,7 +607,7 @@ export const ES = {
         ['Siempre se ve si está al día', 'Abajo, en cada página, aparece la fecha de impresión. Así todos en la cocina ven si una carpeta es la última versión. Los encabezados y pies del navegador desaparecen para que la página quede limpia.'],
         ['Elige tú qué imprimir', 'En un equipo de cocina eliges antes de imprimir qué recetas quieres, agrupadas por carpeta. Solo lo que hace falta para esa partida o ese evento.']
       ],
-      outro: 'Imprimir con tu propio logo forma parte de Savour Pro. Se configura en Ajustes → Suscripción y equipo.'
+      outro: 'Imprimir con tu propio logo forma parte de Savour Pro. Se configura en Ajustes → Logo en las impresiones.'
     },
     'en/blog/recipes-without-wifi': {
       slug: 'es/blog/recetas-sin-wifi',

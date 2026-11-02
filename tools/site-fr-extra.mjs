@@ -76,8 +76,8 @@ export const APP_PAGE_FR = {
   sections: [
     ["Sans boutique d'applications", "Savour est une application web : rien à télécharger depuis une boutique. Tu ajoutes Savour à ton écran d'accueil et il s'ouvre ensuite comme n'importe quelle application, dans sa propre fenêtre et avec sa propre icône."],
     ['iPhone et iPad', "Ouvre savour.page dans Safari. Touche Partager en bas (le carré avec la flèche vers le haut), choisis « Sur l'écran d'accueil » et touche « Ajouter »."],
-    ['Android', "Ouvre savour.page dans Chrome. Touche ⋮ en haut à droite et choisis « Installer l'application » ou « Ajouter à l'écran d'accueil ». Si tu es connecté, tu peux aussi utiliser Outils → Installer l'application."],
-    ['Ordinateur', "Dans Chrome ou Edge, clique sur l'icône d'installation à droite de la barre d'adresse, ou choisis « Installer l'application » sous Outils dans Savour. Sur Mac avec Safari, choisis Fichier → « Ajouter au Dock »."],
+    ['Android', "Ouvre savour.page dans Chrome. Touche ⋮ en haut à droite et choisis « Installer l'application » ou « Ajouter à l'écran d'accueil ». Si tu es connecté, tu peux aussi utiliser Général → Installer l'application."],
+    ['Ordinateur', "Dans Chrome ou Edge, clique sur l'icône d'installation à droite de la barre d'adresse, ou choisis « Installer l'application » sous Général dans Savour. Sur Mac avec Safari, choisis Fichier → « Ajouter au Dock »."],
     ['Aussi sans internet', "Connecte-toi une fois avec « Rester connecté » coché et ouvre tes recettes. Savour ouvre ensuite ta bibliothèque même si le wifi de la cuisine lâche. Tu pourras de nouveau modifier dès que la connexion revient."],
     ["Bientôt sur l'App Store et Google Play", "Nous travaillons pour proposer Savour aussi sur l'App Store et Google Play. Ton compte et tes recettes restent les mêmes : ce que tu enregistres maintenant dans Savour sera aussi dans l'application de la boutique."]
   ]

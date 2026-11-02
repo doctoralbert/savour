@@ -1,5 +1,5 @@
 // Printen van recepten en mappen.
-// Met Pro of een team staat bovenaan het logo (links) en de naam van je restaurant (midden) (Instellingen → Abonnement en team).
+// Met Pro of een team staat bovenaan het logo (links) en de naam van je restaurant (midden) (Instellingen → Logo op prints).
 // Database: supabase/2026-10-24-logo-op-prints.sql. Zonder die SQL print Savour zoals voorheen, zonder logo.
 
 const PRINT_OPTIONS_KEY = 'savour_print_options';
@@ -329,15 +329,75 @@ function printSharedFolder(mapId, folderId) {
 
 // ---- Instellingen: logo op prints ----
 
+// Logo aan/uit voor eigen prints en per keukenteam (supabase/2026-11-02-logo-persoonlijk-en-keukenteam.sql).
+// false = die SQL is nog niet uitgevoerd: dan zonder schakelaars, en staat het logo overal aan zoals voorheen.
+let printLogoToggles = true;
+
 async function loadOwnPrintBrand() {
   printBrandOwn = null;
   if (!currentUser || demoMode) return;
-  const { data, error } = await supabaseClient
+  let { data, error } = await supabaseClient
     .from('print_brands')
-    .select('name,logo,bw')
+    .select('name,logo,bw,on_personal')
     .eq('user_id', currentUser.id)
     .maybeSingle();
+  if (error && /on_personal/.test(error.message || '')) {
+    printLogoToggles = false;
+    ({ data, error } = await supabaseClient
+      .from('print_brands')
+      .select('name,logo,bw')
+      .eq('user_id', currentUser.id)
+      .maybeSingle());
+  }
   printBrandOwn = error ? false : data || null;
+}
+
+// Per eigen keukenteam: staat het logo op de prints? { mapId: true/false }, of null als dat niet kan worden gelezen.
+async function loadTeamPrintLogos() {
+  if (!currentUser || demoMode || !printLogoToggles) return null;
+  const { data, error } = await supabaseClient
+    .from('shared_maps')
+    .select('id,print_logo')
+    .eq('owner_id', currentUser.id);
+  if (error) {
+    if (/print_logo/.test(error.message || '')) printLogoToggles = false;
+    return null;
+  }
+  return Object.fromEntries((data || []).map(r => [String(r.id), r.print_logo !== false]));
+}
+
+async function setTeamPrintLogo(mapId, on, input) {
+  if (demoMode) {
+    toast(t('In de demo wordt niets opgeslagen'));
+    return;
+  }
+  const { error } = await supabaseClient
+    .from('shared_maps')
+    .update({ print_logo: !!on })
+    .eq('id', mapId)
+    .eq('owner_id', currentUser.id);
+  if (error) {
+    console.warn('Logo-instelling van keukenteam niet opgeslagen:', error);
+    if (input) input.checked = !on;
+    toast(t('Opslaan lukte niet. Probeer het opnieuw.'));
+    return;
+  }
+  document.querySelectorAll(`[data-team-logo="${CSS.escape(String(mapId))}"]`).forEach(x => (x.checked = !!on));
+  toast(on ? t('Logo staat op de prints van dit keukenteam') : t('Prints van dit keukenteam zonder logo'));
+}
+
+// Schakelaar in de instellingen van een keukenteam; wordt na het tekenen ingevuld.
+async function syncTeamLogoToggle(mapId) {
+  const box = document.querySelector(`[data-team-logo-row="${CSS.escape(String(mapId))}"]`);
+  if (!box) return;
+  const logos = await loadTeamPrintLogos();
+  const input = box.querySelector('input');
+  if (!logos || !(String(mapId) in logos)) {
+    box.hidden = true;
+    return;
+  }
+  input.checked = logos[String(mapId)];
+  box.hidden = false;
 }
 
 async function renderPrintBrandSettings() {
@@ -363,7 +423,26 @@ async function renderPrintBrandSettings() {
   }
   const b = printBrandOwn || {};
   const name = b.name ?? (account?.organization || s.team?.name || '');
-  host.innerHTML = `<p class="muted">${s.source === 'team_owner' ? 'Dit logo staat op de prints van iedereen in je team.' : 'Dit logo staat bovenaan elke pagina die je print: het logo links, de naam in het midden.'}</p><div class="print-brand-setup"><div class="print-sheet-frame" id="printBrandPreview" aria-label="Voorbeeld van een geprinte pagina">${printSheetHtml({ name, logo: b.logo, bw: b.bw })}</div><div class="print-brand-fields"><div class="field"><label>Naam op de print</label><input id="printBrandName" value="${esc(name)}" placeholder="Bijv. Restaurant De Zwaan" maxlength="120" autocomplete="organization" oninput="previewPrintBrand()"></div><div class="actions"><label class="btn">${b.logo ? 'Ander logo kiezen' : 'Logo kiezen'}<input type="file" id="printBrandFile" accept="image/png,image/jpeg,image/webp" onchange="choosePrintLogo(this)" style="display:none"></label>${b.logo ? '<button class="btn" onclick="removePrintLogo()">Logo weghalen</button>' : ''}</div><label class="print-option"><input type="checkbox" id="printBrandBw"${b.bw ? ' checked' : ''} onchange="previewPrintBrand()"><span>Logo in zwart-wit printen (beter op een keukenprinter)</span></label><div class="actions"><button class="btn gold" onclick="savePrintBrand()">Opslaan</button></div></div></div>`;
+  host.innerHTML = `<p class="muted">${s.source === 'team_owner' ? 'Dit logo staat op de prints van iedereen in je team.' : 'Dit logo staat bovenaan elke pagina die je print: het logo links, de naam in het midden.'}</p><div class="print-brand-setup"><div class="print-sheet-frame" id="printBrandPreview" aria-label="Voorbeeld van een geprinte pagina">${printSheetHtml({ name, logo: b.logo, bw: b.bw })}</div><div class="print-brand-fields"><div class="field"><label>Naam op de print</label><input id="printBrandName" value="${esc(name)}" placeholder="Bijv. Restaurant De Zwaan" maxlength="120" autocomplete="organization" oninput="previewPrintBrand()"></div><div class="actions"><label class="btn">${b.logo ? 'Ander logo kiezen' : 'Logo kiezen'}<input type="file" id="printBrandFile" accept="image/png,image/jpeg,image/webp" onchange="choosePrintLogo(this)" style="display:none"></label>${b.logo ? '<button class="btn" onclick="removePrintLogo()">Logo weghalen</button>' : ''}</div><label class="print-option"><input type="checkbox" id="printBrandBw"${b.bw ? ' checked' : ''} onchange="previewPrintBrand()"><span>Logo in zwart-wit printen (beter op een keukenprinter)</span></label>${printLogoToggles ? `<label class="print-option"><input type="checkbox" id="printBrandPersonal"${b.on_personal === false ? '' : ' checked'}><span>Logo op mijn eigen prints (recepten en mappen buiten een keukenteam)</span></label>` : ''}<div class="actions"><button class="btn gold" onclick="savePrintBrand()">Opslaan</button></div></div></div><div id="printBrandTeams"></div>`;
+  renderPrintBrandTeams();
+}
+
+// Per eigen keukenteam: logo op de prints van dat team aan of uit (direct opgeslagen).
+async function renderPrintBrandTeams() {
+  const host = $('printBrandTeams');
+  if (!host) return;
+  const own = sharedMaps.filter(m => String(m.ownerId) === String(currentUser?.id));
+  const logos = own.length ? await loadTeamPrintLogos() : null;
+  if (!logos) {
+    host.innerHTML = '';
+    return;
+  }
+  host.innerHTML = `<h4 class="print-brand-teams-title">Keukenteams</h4><p class="muted">Kies per keukenteam of het logo op de prints van dat team staat. Dit kan ook in de instellingen van het keukenteam.</p>${own
+    .map(
+      m =>
+        `<label class="print-option"><input type="checkbox" data-team-logo="${esc(m.id)}"${logos[String(m.id)] === false ? '' : ' checked'} onchange="setTeamPrintLogo('${escJs(m.id)}', this.checked, this)"><span translate="no">${esc(m.name)}</span></label>`
+    )
+    .join('')}`;
 }
 
 // Nieuw gekozen logo, nog niet opgeslagen.
@@ -424,13 +503,14 @@ async function savePrintBrand(removeLogo = false) {
     bw: !!$('printBrandBw')?.checked,
     updated_at: new Date().toISOString()
   };
+  if (printLogoToggles && $('printBrandPersonal')) row.on_personal = $('printBrandPersonal').checked;
   const { error } = await supabaseClient.from('print_brands').upsert(row, { onConflict: 'user_id' });
   if (error) {
     console.warn('Logo kon niet worden opgeslagen:', error);
     toast('Opslaan lukte niet. Probeer een kleiner logo.');
     return;
   }
-  printBrandOwn = { name: row.name, logo: row.logo, bw: row.bw };
+  printBrandOwn = { name: row.name, logo: row.logo, bw: row.bw, on_personal: row.on_personal };
   printLogoDraft = null;
   toast(removeLogo ? 'Logo weggehaald' : 'Opgeslagen. Je volgende print heeft dit logo.');
   renderPrintBrandSettings();
