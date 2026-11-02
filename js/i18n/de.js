@@ -2019,7 +2019,6 @@ window.SAVOUR_I18N.de = {
       'Inloggen is mislukt. Probeer het opnieuw of gebruik je e-mailadres.',
       'Anmeldung fehlgeschlagen. Versuche es erneut oder nutze deine E-Mail-Adresse.'
     ],
-    ['General', 'Allgemein'],
     [
       'Bekijk of beheer je Savour Pro of teamabonnement en nodig je team uit.',
       'Sieh dir dein Savour Pro oder Teamabo an, verwalte es und lade dein Team ein.'

@@ -2027,7 +2027,6 @@ window.SAVOUR_I18N.fr = {
       'Inloggen is mislukt. Probeer het opnieuw of gebruik je e-mailadres.',
       'La connexion a échoué. Réessaie ou utilise ton adresse e-mail.'
     ],
-    ['General', 'Général'],
     [
       'Bekijk of beheer je Savour Pro of teamabonnement en nodig je team uit.',
       'Consulte ou gère ton Savour Pro ou ton abonnement d’équipe et invite ton équipe.'

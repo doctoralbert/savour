@@ -344,7 +344,7 @@ function renderProPage(host) {
     <p><strong>Hoe zeg ik op?</strong><br>In Mijn account → Savour Pro → Abonnement beheren. Daar wijzig je ook je betaalmethode en download je facturen.</p>`;
 }
 
-// ---- Zijbalk: "Savour Pro" (upgraden) of "Mijn abonnement" (al Pro), en Admin voor beheerders ----
+// ---- Zijbalk: "Savour Pro" (upgraden of je abonnement), en Admin voor beheerders ----
 
 function hasOwnPro() {
   return ['subscription', 'gift', 'team_owner', 'team_member'].includes(savourPlan.source);
@@ -353,8 +353,7 @@ function hasOwnPro() {
 function renderProNav() {
   const label = $('navProLabel');
   if (!label) return;
-  const paid = savourPlan.hasCustomer && ['subscription', 'team_owner'].includes(savourPlan.source);
-  label.textContent = paid ? 'Abonnement beheren' : hasOwnPro() ? 'Mijn abonnement' : 'Savour Pro';
+  label.textContent = 'Savour Pro';
   // "Mijn team" in het menu: alleen als je eigenaar of lid van een team bent. De eigenaar ziet hoeveel plekken bezet zijn.
   const team = savourPlan.team;
   const teamBtn = $('navTeam');

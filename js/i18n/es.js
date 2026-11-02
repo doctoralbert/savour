@@ -2003,7 +2003,6 @@ window.SAVOUR_I18N.es = {
       'Inloggen is mislukt. Probeer het opnieuw of gebruik je e-mailadres.',
       'No se pudo iniciar sesión. Inténtalo de nuevo o usa tu correo electrónico.'
     ],
-    ['General', 'General'],
     [
       'Bekijk of beheer je Savour Pro of teamabonnement en nodig je team uit.',
       'Consulta o gestiona tu Savour Pro o plan de equipo e invita a tu equipo.'

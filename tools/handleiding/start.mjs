@@ -301,11 +301,11 @@ export const pages = [
         ],
         [
           'Android',
-          'Open savour.page in Chrome. Tik rechtsboven op ⋮ en kies “App installeren” of “Toevoegen aan startscherm”. Ben je ingelogd, dan kan het ook via General → App installeren in het menu van Savour.'
+          'Open savour.page in Chrome. Tik rechtsboven op ⋮ en kies “App installeren” of “Toevoegen aan startscherm”. Ben je ingelogd, dan kan het ook via Algemeen → App installeren in het menu van Savour.'
         ],
         [
           'Computer',
-          'In Chrome of Edge klik je rechts in de adresbalk op het installatie-icoon, of je kiest in Savour onder General “App installeren”. Op een Mac met Safari kies je Archief → “Voeg toe aan Dock”.'
+          'In Chrome of Edge klik je rechts in de adresbalk op het installatie-icoon, of je kiest in Savour onder Algemeen “App installeren”. Op een Mac met Safari kies je Archief → “Voeg toe aan Dock”.'
         ],
         [
           'Ook zonder internet',
@@ -380,7 +380,7 @@ export const pages = [
           'Hier staan de [keukenteams](#keukenteams) waar je lid van bent, met “Keukenteam maken” om er zelf een te beginnen (Savour Pro).'
         ],
         [
-          'General',
+          'Algemeen',
           'Onderaan staan [Savour Pro](#gratis-en-pro), [Collega uitnodigen](#collega-uitnodigen), [App installeren](#app-installeren) en Instellingen, waar je [je account](#account-profiel), [abonnement](#abonnement-beheren), [weergave](#weergave-en-taal), [categorieën](#categorieen) en [opschonen](#opschonen) vindt.'
         ],
         [

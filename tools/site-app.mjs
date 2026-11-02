@@ -12,8 +12,8 @@ export const APP_PAGE = {
     sections: [
       ['Zonder app store', 'Savour is een web-app: je hoeft niets te downloaden uit een winkel. Je zet Savour op je beginscherm, en daarna opent het als een gewone app, in een eigen venster en met een eigen icoon.'],
       ['iPhone en iPad', 'Open savour.page in Safari. Tik onderaan op Delen (het vierkantje met de pijl omhoog), kies “Zet op beginscherm” en tik op “Voeg toe”.'],
-      ['Android', 'Open savour.page in Chrome. Tik rechtsboven op ⋮ en kies “App installeren” of “Toevoegen aan startscherm”. Ben je ingelogd, dan kan het ook via General → App installeren.'],
-      ['Computer', 'In Chrome of Edge klik je rechts in de adresbalk op het installatie-icoon, of je kiest in Savour onder General “App installeren”. Op een Mac met Safari kies je Archief → “Voeg toe aan Dock”.'],
+      ['Android', 'Open savour.page in Chrome. Tik rechtsboven op ⋮ en kies “App installeren” of “Toevoegen aan startscherm”. Ben je ingelogd, dan kan het ook via Algemeen → App installeren.'],
+      ['Computer', 'In Chrome of Edge klik je rechts in de adresbalk op het installatie-icoon, of je kiest in Savour onder Algemeen “App installeren”. Op een Mac met Safari kies je Archief → “Voeg toe aan Dock”.'],
       ['Ook zonder internet', 'Log één keer in met “Ingelogd blijven” aangevinkt en open je recepten. Daarna opent Savour je bibliotheek ook als de wifi in de keuken wegvalt. Aanpassen kan weer zodra je verbinding hebt.'],
       ['Binnenkort in de App Store en Google Play', 'We werken eraan om Savour ook in de App Store en Google Play aan te bieden. Je account en recepten blijven hetzelfde: wat je nu in Savour zet, staat straks ook in de app uit de winkel.']
     ]

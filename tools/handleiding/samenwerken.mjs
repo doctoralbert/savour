@@ -525,7 +525,7 @@ export const pages = [
       sections: [
         [
           'Je persoonlijke link',
-          'Kies in het menu onder General “Collega uitnodigen”. Kopieer je persoonlijke link of deel hem via WhatsApp of een andere app.'
+          'Kies in het menu onder Algemeen “Collega uitnodigen”. Kopieer je persoonlijke link of deel hem via WhatsApp of een andere app.'
         ],
         [
           'Wanneer je het cadeau krijgt',

@@ -1995,7 +1995,6 @@ window.SAVOUR_I18N.en = {
       'Inloggen is mislukt. Probeer het opnieuw of gebruik je e-mailadres.',
       'Login failed. Try again or use your email address.'
     ],
-    ['General', 'General'],
     [
       'Bekijk of beheer je Savour Pro of teamabonnement en nodig je team uit.',
       'View or manage your Savour Pro or team plan and invite your team.'
