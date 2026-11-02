@@ -2013,7 +2013,6 @@ window.SAVOUR_I18N.de = {
     ['^Voorgesteld op trefwoord “(.+)”$', 'Vorgeschlagen über Stichwort „$1“'],
     ['^(\\d+) recepten aanpassen$', '$1 Rezepte anpassen'],
     ['^(\\d+) recepten aangepast$', '$1 Rezepte angepasst'],
-    ['Doorgaan met Apple', 'Weiter mit Apple'],
     ['Doorgaan met Google', 'Weiter mit Google'],
     ['of met je e-mailadres', 'oder mit deiner E-Mail-Adresse'],
     [

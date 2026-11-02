@@ -256,12 +256,12 @@ function showLanding() {
   document.querySelectorAll('#appShell .view').forEach(v => v.classList.remove('active'));
 }
 
-// ---- Inloggen of account maken met Apple of Google ----
-// De knoppen verschijnen alleen voor wat in Supabase aan staat (Authentication → Providers), zodat niemand op
+// ---- Inloggen of account maken met Google ----
+// De knop verschijnt alleen als Google in Supabase aan staat (Authentication → Providers), zodat niemand op
 // een knop drukt die nog niet werkt. Supabase stuurt de gebruiker daarna terug met de inloggegevens achter het
 // #-teken; handleAuthRedirect hieronder herkent dat aan de bewaarde OAUTH_KEY.
 const OAUTH_KEY = 'savour_oauth';
-const OAUTH_NAMES = { apple: 'Apple', google: 'Google' };
+const OAUTH_NAMES = { google: 'Google' };
 let oauthProviders = null;
 
 async function loadOauthProviders() {
@@ -321,8 +321,8 @@ function takeOauthPending() {
   return '';
 }
 
-// Na Apple of Google: nieuw account? Dan naam, uitnodiging van een collega en de melding aan contact@savour.page,
-// net als bij een account met e-mailadres. Apple geeft vaak geen naam; die kan de gebruiker later bij Mijn account invullen.
+// Na Google: nieuw account? Dan naam, uitnodiging van een collega en de melding aan contact@savour.page,
+// net als bij een account met e-mailadres.
 async function finishOauthLogin(user) {
   const meta = user.user_metadata || {};
   const isNew = Date.now() - new Date(user.created_at).getTime() < 15 * 60 * 1000;
@@ -378,7 +378,7 @@ async function handleAuthRedirect(redirect) {
   // Het opstartscherm weg, zodat de vraag hieronder zichtbaar is (met de startpagina erachter).
   document.body.classList.remove('auth-booting');
   showLanding();
-  // Terug van Apple of Google (en niet uit een e-maillink)?
+  // Terug van Google (en niet uit een e-maillink)?
   const oauth = redirect.tokenHash ? '' : takeOauthPending();
   if (redirect.error && oauth) {
     console.warn('Inloggen met', oauth, 'niet gelukt:', redirect.code, redirect.error);

@@ -1523,7 +1523,6 @@ export const patternsFr = {
  "^Voorgesteld op trefwoord “(.+)”$": "Proposé par le mot-clé « $1 »",
  "^(\\d+) recepten aanpassen$": "Mettre à jour $1 recettes",
  "^(\\d+) recepten aangepast$": "$1 recettes mises à jour",
- "Doorgaan met Apple": "Continuer avec Apple",
  "Doorgaan met Google": "Continuer avec Google",
  "of met je e-mailadres": "ou avec ton adresse e-mail",
  "Inloggen is mislukt. Probeer het opnieuw of gebruik je e-mailadres.": "La connexion a échoué. Réessaie ou utilise ton adresse e-mail."

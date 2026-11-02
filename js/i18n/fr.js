@@ -2021,7 +2021,6 @@ window.SAVOUR_I18N.fr = {
     ['^Voorgesteld op trefwoord “(.+)”$', 'Proposé par le mot-clé « $1 »'],
     ['^(\\d+) recepten aanpassen$', 'Mettre à jour $1 recettes'],
     ['^(\\d+) recepten aangepast$', '$1 recettes mises à jour'],
-    ['Doorgaan met Apple', 'Continuer avec Apple'],
     ['Doorgaan met Google', 'Continuer avec Google'],
     ['of met je e-mailadres', 'ou avec ton adresse e-mail'],
     [

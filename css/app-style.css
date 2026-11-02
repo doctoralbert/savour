@@ -463,7 +463,7 @@
   align-self: center;
 }
 
-/* Inloggen of account maken met Apple of Google (alleen zichtbaar als het in Supabase aan staat) */
+/* Inloggen of account maken met Google (alleen zichtbaar als het in Supabase aan staat) */
 .auth-oauth {
   display: grid;
   gap: 10px;

@@ -4020,8 +4020,7 @@ export const patterns = [
   ],
   ['^(\\d+) recepten aanpassen$', 'Update $1 recipes', '$1 Rezepte anpassen', 'Actualizar $1 recetas'],
   ['^(\\d+) recepten aangepast$', '$1 recipes updated', '$1 Rezepte angepasst', '$1 recetas actualizadas'],
-  // ---- Inloggen met Apple of Google ----
-  ['Doorgaan met Apple', 'Continue with Apple', 'Weiter mit Apple', 'Continuar con Apple'],
+  // ---- Inloggen met Google ----
   ['Doorgaan met Google', 'Continue with Google', 'Weiter mit Google', 'Continuar con Google'],
   ['of met je e-mailadres', 'or with your email address', 'oder mit deiner E-Mail-Adresse', 'o con tu correo electrónico'],
   [
