@@ -1,5 +1,5 @@
 // Handleiding (user guide) en release notes voor de publieke site, in het Nederlands en Engels. Alleen gelinkt
-// vanuit de footer. tools/build-seo.mjs maakt er losse pagina's van (/handleiding, /en/user-guide, ...).
+// vanuit de footer (kolommen Hulp en Savour). tools/build-seo.mjs maakt er losse pagina's van (/handleiding, /en/user-guide, ...).
 // Een sectie is [kop, tekst] of [kop, tekst, [opsomming]]. Beschrijf alleen wat de app echt doet.
 
 export const GUIDE_UI = {

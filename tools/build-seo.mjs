@@ -277,10 +277,9 @@ function header(lang, alt, inApp) {
 </div></header>`;
 }
 
-// Handleiding en release notes staan alleen onderin de footer. Talen zonder eigen versie linken naar het Engels.
-function guideLinks(lang) {
-  const own = GUIDE_HOME[lang] ? lang : 'en';
-  return `<a href="${href(GUIDE_HOME[own].slug)}">${esc(GUIDE_UI[lang].footer)}</a><a href="${href(RELEASES_PAGE[own].slug)}">${esc(GUIDE_UI[lang].releases)}</a>`;
+// Handleiding (kolom Hulp) en release notes (kolom Savour) staan alleen in de footer. Talen zonder eigen versie linken naar het Engels.
+function guideHref(lang, pages) {
+  return href(pages[GUIDE_HOME[lang] ? lang : 'en'].slug);
 }
 
 function footer(lang, alt, inApp) {
@@ -292,10 +291,10 @@ function footer(lang, alt, inApp) {
 <div class="site-foot-brand"><span translate="no">SAVOUR</span><p>${esc(u.footerTag)} ${esc(u.madeBy || (lang === 'nl' ? 'Gemaakt door chefs, voor chefs.' : 'Made by chefs, for chefs.'))}</p><a class="site-btn" href="${q}?auth=signup" data-auth="signup">${u.start}</a></div>
 <div><h4>${u.footerCols.features}</h4><ul>${FEATURES.map(f => li(href(f[lang].slug), f[lang].menu)).join('')}</ul></div>
 <div><h4>${u.footerCols.audience}</h4><ul>${AUDIENCES.map(a => li(href(a[lang].slug), a[lang].menu)).join('')}</ul></div>
-<div><h4>${u.footerCols.company}</h4><ul>${li(href(STORY[lang].slug), u.about)}${li(href(legacy('pro')[lang]), u.pricing)}${li(href(blogSlug[lang]), u.blog)}${li(href(legacy('contact')[lang]), u.contact)}</ul></div>
-<div><h4>${u.footerCols.help}</h4><ul>${li(href(legacy('faq')[lang]), u.faq)}${li(href(legacy('guide')[lang]), u.guide)}${li(href(APP_PAGE[lang].slug), APP_PAGE[lang].menu)}${li(`${q}?info=bug`, u.bug)}<li><a href="${q}?auth=login" data-auth="login">${u.login}</a></li></ul></div>
+<div><h4>${u.footerCols.company}</h4><ul>${li(href(STORY[lang].slug), u.about)}${li(href(legacy('pro')[lang]), u.pricing)}${li(href(blogSlug[lang]), u.blog)}${li(href(legacy('contact')[lang]), u.contact)}${li(guideHref(lang, RELEASES_PAGE), GUIDE_UI[lang].releases)}</ul></div>
+<div><h4>${u.footerCols.help}</h4><ul>${li(href(legacy('faq')[lang]), u.faq)}${li(href(legacy('guide')[lang]), u.guide)}${li(guideHref(lang, GUIDE_HOME), GUIDE_UI[lang].footer)}${li(href(APP_PAGE[lang].slug), APP_PAGE[lang].menu)}${li(`${q}?info=bug`, u.bug)}<li><a href="${q}?auth=login" data-auth="login">${u.login}</a></li></ul></div>
 </div>
-<div class="site-foot-bottom"><span>© 2026 ${esc(u.company)}</span><nav>${`<a href="${href(legacy('terms')[lang])}">${u.terms}</a><a href="${href(legacy('privacy')[lang])}">${u.privacy}</a>`}${guideLinks(lang)}</nav>${langSwitch(lang, alt, inApp)}</div>
+<div class="site-foot-bottom"><span>© 2026 ${esc(u.company)}</span><nav>${`<a href="${href(legacy('terms')[lang])}">${u.terms}</a><a href="${href(legacy('privacy')[lang])}">${u.privacy}</a>`}</nav>${langSwitch(lang, alt, inApp)}</div>
 </div></footer>`;
 }
 
