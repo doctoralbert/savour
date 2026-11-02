@@ -211,6 +211,56 @@ export const DE = {
     ]
   },
   posts: {
+    "en/blog/savour-vs-paprika-meez-galley": {
+      "slug": "de/blog/savour-paprika-meez-galley-vergleich",
+      "title": "Savour, Paprika, Meez und Galley im Vergleich: welche Rezept-App passt zu deiner Küche?",
+      "desc": "Paprika, Meez, Galley und Savour nebeneinander: für wen jede App gemacht ist, was sie kann, was sie kostet und welche zu Hobbykoch, Restaurantgruppe, Großküche oder Brigade passt.",
+      "h1": "Savour, Paprika, Meez und Galley im Vergleich: welche Rezept-App passt zu deiner Küche?",
+      "lead": "Vier Apps, die alle ‚Rezepte verwalten‘, aber für ganz verschiedene Küchen. Die wichtigste Frage ist nicht, welche am meisten kann, sondern für wen sie gemacht ist.",
+      "sections": [
+        [
+          "Vier Apps, vier Zielgruppen",
+          "Paprika ist für Hobbyköche gemacht. Meez für Restaurantgruppen mit mehreren Standorten. Galley für Großküchen, Contract Catering und Restaurantketten, die in großen Mengen kochen. Savour für den Küchenchef und die Brigade in einer professionellen Küche. Auf dem Papier überschneiden sie sich, aber jede löst ein anderes Problem. Wer eine App für eine andere Art Küche wählt, zahlt für Funktionen, die er nie nutzt, oder vermisst genau das, was er täglich braucht."
+        ],
+        [
+          "Paprika: für den Hobbykoch",
+          "Paprika ist eine Rezept-App für zu Hause. Du speicherst Rezepte von Websites mit dem eingebauten Browser, planst Wochenmenüs, erstellst Einkaufslisten nach Regal sortiert, führst einen Vorratsschrank und rechnest Portionen um, auch zwischen metrischen und amerikanischen Maßen. Es gibt Versionen für iPhone und iPad, Android, Mac und Windows, die jeweils einzeln und einmalig gekauft werden, ohne Abo. Rezepte synchronisieren zwischen deinen eigenen Geräten. Geteilt wird pro Rezept, etwa per E-Mail oder Link; Küchenteams mit Rollen gibt es nicht."
+        ],
+        [
+          "Meez: für Restaurantgruppen mit mehreren Standorten",
+          "Meez beschreibt sich als Rezeptverwaltung und Kalkulation für Restaurantgruppen, mit Gruppen und Marken von 5 bis über 100 Standorten als Zielgruppe: Executive Chefs, kulinarische Leitung, Finanzen und Schulung. Neben Rezepten, Hochrechnen und Schulung mit Fotos und Videos geht es ums Geld: Kosten pro Rezept, die den Einkaufspreisen folgen, die neun wichtigsten Allergene (die US-Liste), Lagerverwaltung, Rechnungsverarbeitung und Anbindungen an Systeme wie Restaurant365. Meez läuft im Browser, auf Englisch und mit Preisen in Dollar."
+        ],
+        [
+          "Galley: für Großküchen und Catering",
+          "Galley nennt sich eine ‚Culinary Resource Planning‘-Plattform für Gemeinschaftsverpflegung (Betriebsrestaurants, Hochschulen, Gesundheitswesen und Contract Catering) und Restaurantgruppen mit vielen Standorten. Rezepte sind dort der Anfang einer Kette: Kalkulation in Echtzeit, Menüplanung, Produktionsplanung nach Gästezahlen, Nährwerte und Allergene, Rechnungen, Lager und Einkauf, mit Anbindung an Großhändler. Galley verkauft über ein Gespräch mit einem Berater und eine Demo, mit Einführung durch das eigene Team."
+        ],
+        [
+          "Savour: für den Küchenchef und die Brigade",
+          "Savour ist von Köchen für die professionelle Küche selbst gemacht: Küchenchef, Sous-Chef und die Brigade, die jeden Tag aus denselben Rezepten arbeiten. Es geht darum, deinen bestehenden Rezeptordner schnell und fehlerfrei zu digitalisieren, übersichtlich zu ordnen und auf jedem Handy in der Küche griffbereit zu haben. Savour läuft im Browser auf Computer, Tablet und Handy, öffnet auch ohne Internet und ist auf Deutsch, Englisch, Niederländisch, Spanisch und Französisch verfügbar."
+        ],
+        [
+          "Vergleich: Rezepte hineinbekommen",
+          "Paprika ist dafür gebaut, Rezepte von Websites zu speichern. Meez hat einen KI-Import und einen Upload-Service; Galley übernimmt die Übertragung bei der Einführung. Savour liest Word, PDF und Text kostenlos mit dem eigenen Savour-Leser ein, auch ganze Ordner auf einmal (eine Küche übertrug 1.400 Rezepte aus Word in etwa 2 Minuten). Mit Savour Pro liest die KI auch Fotos handschriftlicher Notizen. Die wichtigste Regel: Savour erfindet nie Mengen, Zutaten oder Schritte; im Zweifel siehst du es und entscheidest du."
+        ],
+        [
+          "Vergleich: Kalkulation, Allergene und Lager",
+          "Hier sind Meez und Galley am stärksten: Kosten, die den Rechnungen folgen, Allergene, Nährwerte, Lager und Einkauf. Paprika kann das nicht, abgesehen von einem Vorratsschrank für zu Hause. Savour kann es auch noch nicht. Kosten pro Rezept und Allergene auf einen Blick stehen ganz oben auf unserer Liste. Dreht sich in deiner Küche vor allem alles um Margen über Dutzende Standorte, sind Meez oder Galley heute die bessere Wahl."
+        ],
+        [
+          "Vergleich: Zusammenarbeit im Team",
+          "Paprika ist für eine Person oder einen Haushalt gemacht. Meez und Galley sind auf Organisationen ausgelegt, mit Rechten pro Standort, Rolle oder Konzept. Savour liegt dazwischen: Küchenteams mit drei Rollen, Eigentümer (verwaltet), Bearbeiter (fügt hinzu und bearbeitet) und Betrachter (liest nur). Dein neuer Commis kann also alles nachschlagen, aber nicht aus Versehen deine Hollandaise ändern. Änderst du eine Sauce für die neue Karte, sieht es jeder sofort auf dem eigenen Handy."
+        ],
+        [
+          "Vergleich: was es kostet",
+          "Paprika: einmaliger Kauf pro Plattform, ohne Abo. Meez: keine kostenlose Version, aber 14 Tage Test; Starter ab $19 im Monat (bei Jahreszahlung), Pro ab $89 und Premium ab $179 im Monat, Enterprise individuell. Galley: eine Firmenlizenz plus ein fester Monatsbetrag pro Standort und eine einmalige Einführung, auf Angebot. Savour: kostenlos bis 100 Rezepte, Savour Pro 2,99 € im Monat oder 29 € im Jahr, Küchenteams für 5, 10 oder 25 Personen für 8,99 €, 14,99 € oder 29,99 € im Monat. Neue Konten bekommen 7 Tage Pro gratis, ohne Zahlungsdaten. Beendest du Pro, bleiben alle deine Rezepte erhalten."
+        ],
+        [
+          "Welche passt zu dir?",
+          "Du kochst zu Hause und willst Wochenmenüs und Einkaufslisten: Paprika. Du leitest eine Restaurantgruppe mit mehreren Standorten und alles dreht sich um Kosten und Marge: Meez. Du kochst in großen Mengen für Betriebe, Schulen oder Kliniken, mit Produktionsplanung und Einkauf: Galley. Du arbeitest in einer professionellen Küche und willst vor allem, dass deine ganze Brigade aus denselben, stimmigen Rezepten arbeitet, ohne großes Projekt oder hohen Monatspreis: probier Savour."
+        ]
+      ],
+      "outro": "Funktionen und Preise von Paprika, Meez und Galley stammen von ihren eigenen Websites und wurden am 2. November 2026 geprüft. Sie können sich ändern; den aktuellen Stand findest du auf ihren Seiten."
+    },
     "en/blog/have-your-recipe-folder-moved-over": {
       "slug": "de/blog/rezeptordner-uebertragen-lassen",
       "title": "Den Rezeptordner übertragen lassen: warum Küchen es aufschieben und wie es doch klappt",
