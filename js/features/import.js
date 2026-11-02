@@ -41,17 +41,19 @@ const IMPORT_SOURCES = {
   apps: {
     option: 'importOptionApps',
     label: 'Andere recepten-app',
-    types: 'Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat en andere exports.',
-    accept: '.paprikarecipes,.paprikarecipe,.zip,.json,.crumb,.mx2,.mxp,.html,.htm,.csv,.txt',
-    test: /\.(paprikarecipes|paprikarecipe|zip|crumb|mx2|mxp|json|html?|csv|txt)$/i
+    types:
+      'Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat en andere exports.',
+    accept:
+      '.paprikarecipes,.paprikarecipe,.melarecipes,.melarecipe,.zip,.mcb,.json,.crumb,.mx2,.mxp,.fdx,.fdxz,.enex,.yml,.yaml,.xml,.html,.htm,.csv,.txt',
+    test: /\.(paprikarecipes|paprikarecipe|melarecipes|melarecipe|zip|mcb|crumb|mx2|mxp|fdx|fdxz|enex|ya?ml|xml|json|html?|csv|txt)$/i
   },
   all: {
     option: 'importOptionAll',
     label: 'Alle bestanden door elkaar',
     types: 'Word, PDF, foto’s en andere tekstbestanden, ook een hele map.',
     accept:
-      '.doc,.docx,.pdf,.txt,.md,.rtf,.odt,.html,.htm,.csv,.json,.pages,.paprikarecipes,.paprikarecipe,.zip,.crumb,.mx2,.mxp,image/jpeg,image/png,image/webp',
-    test: /\.(docx?|pdf|txt|md|rtf|odt|html?|csv|json|pages|paprikarecipes|paprikarecipe|zip|crumb|mx2|mxp|jpe?g|png|webp)$/i
+      '.doc,.docx,.pdf,.txt,.md,.rtf,.odt,.html,.htm,.csv,.json,.pages,.paprikarecipes,.paprikarecipe,.melarecipes,.melarecipe,.zip,.mcb,.crumb,.mx2,.mxp,.fdx,.fdxz,.enex,.yml,.yaml,.xml,image/jpeg,image/png,image/webp',
+    test: /\.(docx?|pdf|txt|md|rtf|odt|html?|csv|json|pages|paprikarecipes|paprikarecipe|melarecipes|melarecipe|zip|mcb|crumb|mx2|mxp|fdx|fdxz|enex|ya?ml|xml|jpe?g|png|webp)$/i
   }
 };
 const IMPORT_ALLOWED = IMPORT_SOURCES.all.test;

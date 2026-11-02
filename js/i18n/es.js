@@ -818,8 +818,8 @@ window.SAVOUR_I18N.es = {
       'Este correo ya tiene una cuenta. Inicia sesión o elige «¿Has olvidado tu contraseña?».',
     'Probleem melden': 'Informar de un problema',
     'Webpagina of andere recepten-app': 'Página web u otra app de recetas',
-    'Plak de link van een recept op een website, of zet je recepten over uit een andere app: Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat en meer. Maak in die app een export en kies het bestand bij "Uit een andere recepten-app".':
-      'Pega el enlace de una receta en una web o pasa tus recetas desde otra app: Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat y más. Haz una exportación en esa app y elige el archivo en «Desde otra app de recetas».',
+    'Plak de link van een recept op een website, of zet je recepten over uit een andere app: Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat en meer. Maak in die app een export en kies het bestand bij "Uit een andere recepten-app".':
+      'Pega el enlace de una receta en una web o pasa tus recetas desde otra app: Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat y más. Haz una exportación en esa app y elige el archivo en «Desde otra app de recetas».',
     'niet omgerekend': 'sin convertir',
     porties: 'raciones',
     Notities: 'Notas',
@@ -839,10 +839,10 @@ window.SAVOUR_I18N.es = {
     'Plak de link van een recept op een website. Savour haalt het recept eruit.':
       'Pega el enlace de una receta en una web. Savour extrae la receta.',
     'Uit een andere recepten-app': 'Desde otra app de recetas',
-    'Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat en meer.':
-      'Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat y más.',
-    'Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat en andere exports.':
-      'Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat y otras exportaciones.',
+    'Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat en meer.':
+      'Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat y más.',
+    'Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat en andere exports.':
+      'Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat y otras exportaciones.',
     'Link naar het recept': 'Enlace a la receta',
     'Andere recepten-app kiezen': 'Elegir exportación de otra app',
     'Bron: Andere recepten-app': 'Fuente: otra app de recetas',

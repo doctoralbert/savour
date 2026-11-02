@@ -1,9 +1,11 @@
 // Recepten importeren vanaf een webpagina en uit andere recepten-apps.
 // - Webpagina: api/import-url.js haalt de pagina op; de meeste receptensites zetten het recept in vaste vorm
 //   (schema.org Recipe) in de pagina. Anders leest de Savour-lezer de tekst.
-// - Andere apps: Paprika (.paprikarecipes, .paprikarecipe), Mealie en Tandoor (.zip met JSON), Recipe Keeper en
-//   Copy Me That (.zip of .html), Crouton (.crumb), MasterCook (.mx2, .mxp), Plan to Eat en andere (.csv), en elk
-//   JSON- of HTML-bestand met schema.org-recepten.
+// - Andere apps: Paprika (.paprikarecipes, .paprikarecipe), Mela (.melarecipes, .melarecipe), Mealie, Tandoor en
+//   Flavorish (.zip met JSON), Recipe Keeper en Copy Me That (.zip of .html), Crouton (.crumb), MasterCook (.mx2, .mxp),
+//   Cookmate (.mcb), Living Cookbook (.fdx, .fdxz), Evernote (.enex), CookBookManager (.zip met .yml), Plan to Eat en
+//   andere (.csv), en elk JSON- of HTML-bestand met schema.org-recepten.
+// - Een zip met losse documenten (Word, PDF, tekst) of foto's: elk bestand wordt gelezen alsof het los gekozen was.
 // Alles komt in het controlescherm; er wordt niets opgeslagen voordat de chef op Opslaan klikt, en niets verzonnen.
 
 // ---- Eén recept in vaste vorm naar een Savour-concept ----
@@ -276,20 +278,45 @@ function recipesFromMx2(xml, extra) {
 
 // ---- Bestanden uit andere apps ----
 
-let jszipLoading = null;
-function ensureJSZip() {
-  if (window.JSZip) return Promise.resolve();
-  jszipLoading ||= new Promise((resolve, reject) => {
+const importScripts = {};
+function loadImportScript(src, ready) {
+  if (ready()) return Promise.resolve();
+  importScripts[src] ||= new Promise((resolve, reject) => {
     const s = document.createElement('script');
-    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+    s.src = src;
     s.onload = () => resolve();
     s.onerror = () => {
-      jszipLoading = null;
+      delete importScripts[src];
       reject(new Error('De importmodule kon niet worden geladen.'));
     };
     document.head.appendChild(s);
   });
-  return jszipLoading;
+  return importScripts[src];
+}
+
+function ensureJSZip() {
+  return loadImportScript('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js', () => window.JSZip);
+}
+
+function ensureYaml() {
+  return loadImportScript('https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js', () => window.jsyaml);
+}
+
+async function recipesFromYaml(text, extra) {
+  await ensureYaml();
+  const data = jsyaml.load(text);
+  return (Array.isArray(data) ? data : [data]).map(d => recipeFromCookbookManager(d, extra)).filter(Boolean);
+}
+
+// Een XML-bestand: Cookmate-kookboek, Living Cookbook (.fdx) of Evernote (.enex).
+async function recipesFromXml(xml, extra, findPhoto) {
+  const doc = xmlDoc(xml);
+  if (!doc) return [];
+  const root = doc.documentElement.tagName.toLowerCase();
+  if (root === 'cookbook') return recipesFromCookmate(doc, extra, findPhoto);
+  if (root === 'en-export') return recipesFromEnex(doc, extra);
+  if (doc.getElementsByTagName('Recipe').length) return recipesFromFdx(doc, extra, findPhoto);
+  return [];
 }
 
 async function gunzipText(bytes) {
@@ -305,16 +332,210 @@ async function recipeFromPaprika(bytes, extra) {
     { ...data, recipeIngredient: data.ingredients, recipeInstructions: data.directions, recipeYield: data.servings },
     extra
   );
-  if (draft && data.photo_data) {
-    try {
-      const blob = await (await fetch(`data:image/jpeg;base64,${data.photo_data}`)).blob();
-      draft.photo = await compressPhoto(new File([blob], 'foto.jpg', { type: 'image/jpeg' }));
-    } catch (_) {}
-  }
+  if (draft && data.photo_data) draft.photo = await photoFromBase64(data.photo_data);
   return draft;
 }
 
-const APP_EXPORT_EXT = /\.(paprikarecipes|paprikarecipe|zip|crumb|mx2|mxp)$/i;
+// ---- Foto's uit een export (base64 of een los bestand in de zip), verkleind zoals elke foto in Savour ----
+
+const IMAGE_TYPES = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', gif: 'image/gif' };
+
+async function photoFromBytes(bytes, name = 'foto.jpg') {
+  const type = IMAGE_TYPES[String(name).split('.').pop().toLowerCase()] || 'image/jpeg';
+  try {
+    return await compressPhoto(new File([bytes], name, { type }));
+  } catch (_) {
+    return '';
+  }
+}
+
+async function photoFromBase64(b64) {
+  try {
+    const blob = await (await fetch(`data:image/jpeg;base64,${String(b64).replace(/\s+/g, '')}`)).blob();
+    return await photoFromBytes(blob);
+  } catch (_) {
+    return '';
+  }
+}
+
+// Kopje in een lijst ("# Saus" in Mela, "[Saus]") zoals Savour het schrijft: "Saus:".
+function sectionLines(value) {
+  return String(value ?? '')
+    .split('\n')
+    .map(line => {
+      const m = line.match(/^\s*(?:#+\s*(.+?)|\[([^\]]+)\])\s*$/);
+      return m ? `${(m[1] || m[2]).trim().replace(/:$/, '')}:` : line;
+    })
+    .join('\n');
+}
+
+function xmlDoc(xml) {
+  const doc = new DOMParser().parseFromString(xml, 'application/xml');
+  return doc.getElementsByTagName('parsererror').length ? null : doc;
+}
+
+// ---- Mela: een .melarecipe is één JSON-recept; .melarecipes is een zip vol daarvan ----
+async function recipeFromMela(data, extra) {
+  const draft = recipeFromStructured(
+    {
+      title: data.title,
+      ingredients: sectionLines(data.ingredients),
+      instructions: sectionLines(data.instructions),
+      notes: data.notes,
+      yield: data.yield,
+      categories: data.categories
+    },
+    extra
+  );
+  if (draft && Array.isArray(data.images) && data.images[0]) draft.photo = await photoFromBase64(data.images[0]);
+  return draft;
+}
+
+// ---- Cookmate (.mcb, een zip met een XML-kookboek): <cookbook><recipe> met <li>-regels ----
+async function recipesFromCookmate(doc, extra, findPhoto) {
+  const out = [];
+  for (const r of [...doc.getElementsByTagName('recipe')]) {
+    const field = name => {
+      const el = [...r.children].find(c => c.tagName.toLowerCase() === name);
+      if (!el) return '';
+      const items = [...el.getElementsByTagName('li')];
+      return items.length ? items.map(li => li.textContent).join('\n') : el.textContent;
+    };
+    const draft = recipeFromStructured(
+      {
+        title: field('title'),
+        ingredients: field('ingredient'),
+        instructions: field('recipetext'),
+        yield: field('quantity'),
+        notes: field('comments'),
+        category: field('category')
+      },
+      extra
+    );
+    if (!draft) continue;
+    const image = field('imagepath').trim();
+    if (image && findPhoto) draft.photo = await findPhoto(image);
+    out.push(draft);
+  }
+  return out;
+}
+
+// ---- Living Cookbook (.fdx, XML; .fdxz is een zip met een .fdx en foto's) ----
+async function recipesFromFdx(doc, extra, findPhoto) {
+  const out = [];
+  for (const r of [...doc.getElementsByTagName('Recipe')]) {
+    const a = name => r.getAttribute(name) || '';
+    const texts = tag => [...r.getElementsByTagName(tag)].map(el => el.textContent.trim()).filter(Boolean);
+    const ingredients = [...r.getElementsByTagName('RecipeIngredient')].map(i => {
+      const line = ['Quantity', 'Unit', 'Ingredient']
+        .map(n => i.getAttribute(n) || '')
+        .filter(Boolean)
+        .join(' ');
+      return i.getAttribute('Heading') === 'Y' ? `${line.replace(/:$/, '')}:` : line;
+    });
+    const draft = recipeFromStructured(
+      {
+        title: a('Name'),
+        ingredients: ingredients.filter(Boolean),
+        instructions: texts('ProcedureText'),
+        notes: [a('Comments'), ...texts('RecipeTip'), ...texts('RecipeAuthorNote')].filter(Boolean).join('\n'),
+        yield: a('Servings') || a('Yield')
+      },
+      extra
+    );
+    if (!draft) continue;
+    const image = r.getElementsByTagName('RecipeImage')[0];
+    if (image?.textContent.trim()) draft.photo = await photoFromBase64(image.textContent);
+    else if (image?.getAttribute('FileName') && findPhoto)
+      draft.photo = await findPhoto(image.getAttribute('FileName'));
+    out.push(draft);
+  }
+  return out;
+}
+
+// ---- Evernote (.enex): elke notitie is een recept in vrije tekst; de Savour-lezer leest het ----
+// Evernote zet elke regel in een eigen <div> binnen <en-note>; maak daar alinea's van, zodat elke regel een regel blijft.
+function enexNoteHtml(content) {
+  const doc = new DOMParser().parseFromString(
+    content.replace(/<\?xml[^>]*>|<!DOCTYPE[^>]*>/gi, '').replace(/<(\/?)en-note\b/gi, '<$1div'),
+    'text/html'
+  );
+  doc.querySelectorAll('div').forEach(div => {
+    if (div.querySelector('div, p, ul, ol, table, h1, h2, h3, h4, h5, h6')) return;
+    const p = doc.createElement('p');
+    p.innerHTML = div.innerHTML;
+    div.replaceWith(p);
+  });
+  return doc.body.innerHTML;
+}
+
+function recipesFromEnex(doc, extra) {
+  return [...doc.getElementsByTagName('note')].flatMap(note => {
+    const title = note.getElementsByTagName('title')[0]?.textContent.trim() || '';
+    const text = htmlToRecipeText(enexNoteHtml(note.getElementsByTagName('content')[0]?.textContent || '')).trim();
+    if (!text) return [];
+    const drafts = readRecipesLocally(title ? `# ${title}\n${text}` : text, extra);
+    // Eén recept in de notitie: dan is de titel van de notitie de receptnaam.
+    if (drafts.length === 1 && title) drafts[0].title = title.slice(0, 200);
+    // Notities zonder ingrediënten of bereiding zijn vaak geen recept: nakijken.
+    drafts.forEach(d => {
+      if (!d.ingredients?.length || !d.steps?.length) d._needsReview = true;
+    });
+    return drafts;
+  });
+}
+
+// ---- Flavorish (.zip): recipes/*.json met { recipe, ingredients, instructions, imageFilename } ----
+async function recipeFromFlavorish(data, extra, findPhoto) {
+  const entries = list =>
+    (Array.isArray(list) ? [...list] : [])
+      .sort((x, y) => (Number(x?.sort_order) || 0) - (Number(y?.sort_order) || 0))
+      .map(e =>
+        e?.is_group_header
+          ? `${String(e.text || '')
+              .trim()
+              .replace(/:$/, '')}:`
+          : e?.text
+      )
+      .filter(Boolean);
+  const r = data.recipe || {};
+  const draft = recipeFromStructured(
+    {
+      title: r.title,
+      ingredients: entries(data.ingredients),
+      instructions: entries(data.instructions),
+      notes: r.notes,
+      yield: r.servings,
+      category: r.category
+    },
+    extra
+  );
+  if (draft && data.imageFilename && findPhoto) draft.photo = await findPhoto(data.imageFilename);
+  return draft;
+}
+
+// ---- CookBookManager.com (.zip met één .yml per recept) ----
+function recipeFromCookbookManager(data, extra) {
+  if (!data || typeof data !== 'object' || !data.name) return null;
+  const lines = v => (Array.isArray(v) ? v.map(x => String(x ?? '')) : String(v ?? '').split('\n'));
+  return recipeFromStructured(
+    {
+      name: data.name,
+      recipeIngredient: lines(data.ingredients),
+      recipeInstructions: lines(data.directions),
+      notes: [data.notes, data.video].filter(Boolean).join('\n'),
+      recipeYield: data.servings,
+      recipeCategory: Array.isArray(data.tags) ? data.tags[0] : data.tags
+    },
+    extra
+  );
+}
+
+const APP_EXPORT_EXT =
+  /\.(paprikarecipes|paprikarecipe|melarecipes|melarecipe|zip|mcb|crumb|mx2|mxp|fdx|fdxz|enex|ya?ml|xml)$/i;
+// Losse documenten in een zip: gelezen alsof ze los gekozen waren (Word, PDF, tekst).
+const ZIP_DOCUMENT_EXT = /\.(docx?|pdf|md|markdown|rtf|odt)$/i;
+const ZIP_IMAGE_EXT = /\.(jpe?g|png|webp)$/i;
 
 // Leest een export uit een andere app. Geeft concepten terug (kan leeg zijn).
 async function importAppExport(file) {
@@ -323,21 +544,46 @@ async function importAppExport(file) {
   if (name.endsWith('.paprikarecipe'))
     return [await recipeFromPaprika(await file.arrayBuffer(), extra)].filter(Boolean);
   if (name.endsWith('.crumb')) return recipesFromJson(JSON.parse(await file.text()), extra);
+  if (name.endsWith('.melarecipe')) return [await recipeFromMela(JSON.parse(await file.text()), extra)].filter(Boolean);
   if (name.endsWith('.mx2')) return recipesFromMx2(await file.text(), extra);
   if (name.endsWith('.mxp')) return readRecipesLocally(await file.text(), extra);
-  // Zip (Paprika, Mealie, Tandoor, Recipe Keeper, Copy Me That): elk bestand erin bekijken, ook een zip in een zip.
+  if (/\.(fdx|enex|xml)$/.test(name)) return nonEmptyExport(await recipesFromXml(await file.text(), extra));
+  if (/\.ya?ml$/.test(name)) return nonEmptyExport(await recipesFromYaml(await file.text(), extra));
+  // Zip (Paprika, Mela, Mealie, Tandoor, Flavorish, Recipe Keeper, Copy Me That, Cookmate, Living Cookbook,
+  // CookBookManager, of losse documenten): elk bestand erin bekijken, ook een zip in een zip.
   await ensureJSZip();
   const drafts = [];
+  const images = [];
   const readZip = async (data, depth) => {
     const zip = await JSZip.loadAsync(data);
+    // Foto bij een recept, op bestandsnaam (Cookmate, Flavorish, Living Cookbook).
+    const findPhoto = async path => {
+      const base = String(path).split(/[\\/]/).pop().toLowerCase();
+      const hit = Object.values(zip.files).find(e => !e.dir && e.name.split('/').pop().toLowerCase() === base);
+      return hit ? photoFromBytes(await hit.async('uint8array'), base) : '';
+    };
     for (const entry of Object.values(zip.files)) {
       if (entry.dir || drafts.length >= 2000) continue;
       const n = entry.name.toLowerCase();
-      const sub = { sourceFile: `${file.name} · ${entry.name.split('/').pop()}` };
+      const short = entry.name.split('/').pop();
+      // Verborgen bestanden van de Mac (__MACOSX, ._naam) overslaan.
+      if (n.startsWith('__macosx/') || short.startsWith('._')) continue;
+      const sub = { sourceFile: `${file.name} · ${short}` };
       try {
         if (n.endsWith('.paprikarecipe')) drafts.push(await recipeFromPaprika(await entry.async('uint8array'), sub));
-        else if (n.endsWith('.json') || n.endsWith('.crumb'))
-          drafts.push(...recipesFromJson(JSON.parse(await entry.async('string')), sub));
+        else if (n.endsWith('.melarecipe'))
+          drafts.push(await recipeFromMela(JSON.parse(await entry.async('string')), sub));
+        else if (n.endsWith('.json') || n.endsWith('.crumb')) {
+          const json = JSON.parse(await entry.async('string'));
+          if (json?.recipe && Array.isArray(json.ingredients))
+            drafts.push(await recipeFromFlavorish(json, sub, findPhoto));
+          else drafts.push(...recipesFromJson(json, sub));
+        } else if (/\.(xml|fdx|enex)$/.test(n))
+          drafts.push(...(await recipesFromXml(await entry.async('string'), sub, findPhoto)));
+        else if (/\.ya?ml$/.test(n)) drafts.push(...(await recipesFromYaml(await entry.async('string'), sub)));
+        else if (ZIP_DOCUMENT_EXT.test(n))
+          drafts.push(...(await readImportFile(new File([await entry.async('blob')], short))));
+        else if (ZIP_IMAGE_EXT.test(n)) images.push({ entry, short });
         else if (n.endsWith('.html') || n.endsWith('.htm')) {
           const html = await entry.async('string');
           const found = recipesFromHtml(html, sub);
@@ -345,13 +591,34 @@ async function importAppExport(file) {
         } else if (n.endsWith('.mx2')) drafts.push(...recipesFromMx2(await entry.async('string'), sub));
         else if (n.endsWith('.txt') || n.endsWith('.mxp'))
           drafts.push(...readRecipesLocally(await entry.async('string'), sub));
-        else if (n.endsWith('.zip') && depth < 2) await readZip(await entry.async('uint8array'), depth + 1);
+        else if (/\.(zip|fdxz|mcb|melarecipes)$/.test(n) && depth < 2)
+          await readZip(await entry.async('uint8array'), depth + 1);
       } catch (e) {
         console.warn('Bestand in export overgeslagen', entry.name, e);
       }
     }
   };
   await readZip(await file.arrayBuffer(), 0);
+  // Alleen foto's in de zip (geen receptbestanden): elke foto is een recept, net als bij losse foto's.
+  // Staan er wel recepten in, dan zijn de foto's de foto's bij die recepten en worden ze niet apart gelezen.
+  if (!drafts.filter(Boolean).length)
+    for (const { entry, short } of images.slice(0, 200)) {
+      try {
+        drafts.push(
+          ...(await importImageFile(
+            new File([await entry.async('blob')], short, { type: IMAGE_TYPES[short.split('.').pop().toLowerCase()] })
+          ))
+        );
+      } catch (e) {
+        // Foto's lezen kan alleen met Pro: die melding direct doorgeven in plaats van "niets gevonden".
+        if (e?.code === 'pro_required') throw e;
+        console.warn('Foto in zip overgeslagen', entry.name, e);
+      }
+    }
+  return nonEmptyExport(drafts);
+}
+
+function nonEmptyExport(drafts) {
   const list = drafts.filter(Boolean);
   if (!list.length) throw new Error(t('In deze export zijn geen recepten gevonden.'));
   return list;

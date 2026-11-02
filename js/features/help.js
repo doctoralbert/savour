@@ -65,7 +65,7 @@ const HELP_TOPICS = {
       ],
       [
         'Webpagina of andere recepten-app',
-        'Plak de link van een recept op een website, of zet je recepten over uit een andere app: Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Plan to Eat en meer. Maak in die app een export en kies het bestand bij "Uit een andere recepten-app".'
+        'Plak de link van een recept op een website, of zet je recepten over uit een andere app: Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat en meer. Maak in die app een export en kies het bestand bij "Uit een andere recepten-app".'
       ],
       [
         "Foto's",
