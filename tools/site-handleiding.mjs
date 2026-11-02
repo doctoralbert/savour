@@ -57,14 +57,15 @@ export const GUIDE = [
       sections: [
         [
           'Waar begin je',
-          'Kies in het menu “Recept toevoegen”. Je ziet de bronnen waaruit je kunt importeren. Elke bron opent een bestandskiezer die alleen de passende bestanden toont. Met “Alle bestanden door elkaar” kies je alles tegelijk, ook een hele map met verschillende soorten bestanden.',
+          'Kies in het menu “Recept toevoegen” en dan “Recept importeren”. Je ziet de bronnen waaruit je kunt importeren. Elke bron opent een bestandskiezer die alleen de passende bestanden toont; je kunt bestanden ook hierheen slepen. Met “Alle bestanden door elkaar” kies je alles tegelijk, en met “Hele map kiezen” een hele map met verschillende soorten bestanden.',
           [
             'Word: .doc en .docx',
             'PDF',
             'Foto’s van handgeschreven of gescande recepten (Savour Pro)',
             'Andere bestanden: tekst (.txt, .md, .rtf), OpenDocument (.odt), Pages, HTML, CSV en JSON',
             'Een link naar een recept op een website',
-            'Een export uit een andere recepten-app'
+            'Een export uit een andere recepten-app',
+            'Tekst die je zelf typt of plakt, bij “Tekst invoeren”'
           ]
         ],
         [
@@ -112,14 +113,15 @@ export const GUIDE = [
       sections: [
         [
           'Where to start',
-          'Choose “Add recipe” in the menu. You will see the sources you can import from. Each source opens a file picker that only shows matching files. With “All files mixed” you pick everything at once, including a whole folder with different kinds of files.',
+          'Choose “Add recipe” in the menu and then “Import recipe”. You will see the sources you can import from. Each source opens a file picker that only shows matching files; you can also drag files in. With “All files mixed” you pick everything at once, and with “Choose a whole folder” a whole folder with different kinds of files.',
           [
             'Word: .doc and .docx',
             'PDF',
             'Photos of handwritten or scanned recipes (Savour Pro)',
             'Other files: text (.txt, .md, .rtf), OpenDocument (.odt), Pages, HTML, CSV and JSON',
             'A link to a recipe on a website',
-            'An export from another recipe app'
+            'An export from another recipe app',
+            'Text you type or paste yourself, under “Enter text”'
           ]
         ],
         [
@@ -170,7 +172,7 @@ export const GUIDE = [
       sections: [
         [
           'Een nieuw recept',
-          'Kies “Recept toevoegen” en dan zelf invoeren, of open een bestaand recept en kies “Bewerken”. Een recept heeft een naam, een categorie, een opbrengst, ingrediënten, bereidingsstappen en eventueel een foto.'
+          'Kies “Recept toevoegen” en dan “Zelf invoeren”, of open een bestaand recept en kies “Bewerken”. Een recept heeft een naam, een categorie, een opbrengst, ingrediënten, bereidingsstappen en eventueel een foto.'
         ],
         [
           'Opbrengst',
@@ -222,7 +224,7 @@ export const GUIDE = [
       sections: [
         [
           'A new recipe',
-          'Choose “Add recipe” and enter it yourself, or open an existing recipe and choose “Edit”. A recipe has a name, a category, a yield, ingredients, method steps and optionally a photo.'
+          'Choose “Add recipe” and then “Enter manually”, or open an existing recipe and choose “Edit”. A recipe has a name, a category, a yield, ingredients, method steps and optionally a photo.'
         ],
         [
           'Yield',
@@ -285,7 +287,7 @@ export const GUIDE = [
         ],
         [
           'Categorieën',
-          'Een categorie zegt wat voor recept het is, zoals sauzen, ijs of garnituren. Je beheert de lijst zelf: toevoegen, naam wijzigen of verwijderen.',
+          'Een categorie zegt wat voor recept het is, zoals sauzen, ijs of garnituren. Je beheert de lijst zelf onder Mijn account → Categorieën: toevoegen, naam wijzigen of verwijderen.',
           [
             '“Standaardlijst” zet in één keer een lijst neer die past bij de professionele keuken; je eigen categorieën blijven staan.',
             'Trefwoorden: geef per categorie woorden op, bijvoorbeeld sorbet voor IJs. Staat zo’n woord in de receptnaam, dan stelt Savour die categorie voor.',
@@ -302,7 +304,7 @@ export const GUIDE = [
         ],
         [
           'Opruimen',
-          'Met “Verwijder recepten” verwijder je meerdere recepten tegelijk. Onder Instellingen → Opschonen zoekt Savour nummers voor receptnamen en dubbele recepten. Je ziet altijd eerst wat er verandert; Savour verwijdert nooit zelf iets zonder dat jij het vraagt.'
+          'Met “Verwijder recepten” verwijder je meerdere recepten tegelijk. Onder Mijn account → Opschonen zoekt Savour nummers voor receptnamen en dubbele recepten. Je ziet altijd eerst wat er verandert; Savour verwijdert nooit zelf iets zonder dat jij het vraagt.'
         ]
       ]
     },
@@ -324,7 +326,7 @@ export const GUIDE = [
         ],
         [
           'Categories',
-          'A category says what kind of recipe it is, such as sauces, ice cream or garnishes. You manage the list yourself: add, rename or delete.',
+          'A category says what kind of recipe it is, such as sauces, ice cream or garnishes. You manage the list yourself under My account → Categories: add, rename or delete.',
           [
             '“Default list” adds a list suited to professional kitchens in one go; your own categories stay.',
             'Keywords: give each category words, for example sorbet for Ice cream. When such a word is in a recipe name, Savour suggests that category.',
@@ -341,7 +343,7 @@ export const GUIDE = [
         ],
         [
           'Cleaning up',
-          '“Delete recipes” removes several recipes at once. Under Settings → Clean up, Savour finds numbers in front of recipe names and duplicate recipes. You always see what will change first; Savour never deletes anything on its own without you asking.'
+          '“Delete recipes” removes several recipes at once. Under My account → Clean up, Savour finds numbers in front of recipe names and duplicate recipes. You always see what will change first; Savour never deletes anything on its own without you asking.'
         ]
       ]
     }
@@ -443,7 +445,7 @@ export const GUIDE = [
         ],
         [
           'Savour als app',
-          'Je hebt geen app store nodig. Zet Savour op het beginscherm van je telefoon of tablet, dan opent het als een gewone app. In de app vind je de knop om Savour te installeren; op de pagina “App downloaden” staat per toestel hoe het werkt.'
+          'Je hebt geen app store nodig. Zet Savour op het beginscherm van je telefoon of tablet, dan opent het als een gewone app. Onder Mijn account staat de knop “App installeren”; op de pagina “App downloaden” staat per toestel hoe het werkt.'
         ],
         [
           'Op elk apparaat',
@@ -473,7 +475,7 @@ export const GUIDE = [
         ],
         [
           'Savour as an app',
-          'No app store needed. Add Savour to the home screen of your phone or tablet and it opens like a regular app. The app has a button to install Savour, and the “App” page shows how it works on each device.'
+          'No app store needed. Add Savour to the home screen of your phone or tablet and it opens like a regular app. Under My account you find the “Install app” button, and the “App” page shows how it works on each device.'
         ],
         [
           'On every device',
@@ -507,11 +509,11 @@ export const GUIDE = [
         ],
         [
           'Met het logo van je restaurant',
-          'Met Savour Pro staat het logo van je restaurant op je prints. Stel het in onder Instellingen, met de naam die op de print komt. Kies “Logo in zwart-wit printen” voor een keukenprinter. In een keukenteam geldt het logo van de eigenaar.'
+          'Met Savour Pro staat het logo van je restaurant op je prints. Stel het in onder Mijn account → Abonnement en team → Logo op prints, met de naam die op de print komt. Kies “Logo in zwart-wit printen” voor een keukenprinter. In een keukenteam geldt het logo van de eigenaar.'
         ],
         [
           'Al je recepten',
-          'Onder Mijn account print je al je recepten in één keer in de printopmaak van Savour. Met Savour Pro download je ze ook als Word-bestand of als back-up.'
+          'Onder Mijn account print je al je recepten in één keer in de printopmaak van Savour. Met Savour Pro download je ze ook: elk recept als eigen Word-bestand, alles in één Word-bestand, of als back-up.'
         ]
       ]
     },
@@ -538,11 +540,11 @@ export const GUIDE = [
         ],
         [
           'With your restaurant’s logo',
-          'With Savour Pro your restaurant’s logo is on your prints. Set it up under Settings, with the name that appears on the print. Choose “Print logo in black and white” for a kitchen printer. In a kitchen team the owner’s logo is used.'
+          'With Savour Pro your restaurant’s logo is on your prints. Set it up under My account → Subscription and organisation → Logo on prints, with the name that appears on the print. Choose “Print logo in black and white” for a kitchen printer. In a kitchen team the owner’s logo is used.'
         ],
         [
           'All your recipes',
-          'Under My account you print all your recipes at once in Savour’s print layout. With Savour Pro you can also download them as a Word file or as a backup.'
+          'Under My account you print all your recipes at once in Savour’s print layout. With Savour Pro you can also download them: each recipe as its own Word file, everything in one Word file, or as a backup.'
         ]
       ]
     }
@@ -688,15 +690,15 @@ export const GUIDE = [
         ],
         [
           'Je account',
-          'Onder Mijn account pas je je naam, profielfoto, e-mailadres en wachtwoord aan, of log je uit. Daar beheer je ook je abonnement en kun je je account verwijderen.'
+          'Onder Mijn account pas je je naam, profielfoto, e-mailadres en wachtwoord aan, of log je uit. Onder “Abonnement en team” beheer je je abonnement, en onderaan kun je je account definitief verwijderen.'
         ],
         [
           'Weergave en taal',
-          'Kies het donkere of lichte thema; je keuze wordt in je account bewaard. Met de taalknop bovenin zet je Savour in het Nederlands, Engels, Duits, Spaans of Frans. Je recepten worden nooit vertaald.'
+          'Kies onder “Weergave” het donkere of lichte thema; je keuze wordt in je account bewaard. Met de taalknop bovenin zet je Savour in het Nederlands, Engels, Duits, Spaans of Frans. Je recepten worden nooit vertaald.'
         ],
         [
           'Een collega uitnodigen',
-          'Nodig een collega uit voor Savour. Maakt die een account aan, dan krijg jij 14 dagen Savour Pro cadeau.'
+          'Kies onder Mijn account “Collega uitnodigen” en stuur je persoonlijke link. Maakt je collega een account aan, bevestigt die het e-mailadres en logt die in, dan krijg jij 14 dagen Savour Pro cadeau.'
         ]
       ]
     },
@@ -734,15 +736,15 @@ export const GUIDE = [
         ],
         [
           'Your account',
-          'Under My account you change your name, profile photo, email address and password, or log out. That is also where you manage your subscription and can delete your account.'
+          'Under My account you change your name, profile photo, email address and password, or log out. Under “Subscription and organisation” you manage your subscription, and at the bottom you can delete your account permanently.'
         ],
         [
           'Theme and language',
-          'Choose the dark or light theme; your choice is saved in your account. The language button at the top switches Savour to English, Dutch, German, Spanish or French. Your recipes are never translated.'
+          'Choose the dark or light theme under “Appearance”; your choice is saved in your account. The language button at the top switches Savour to English, Dutch, German, Spanish or French. Your recipes are never translated.'
         ],
         [
           'Inviting a colleague',
-          'Invite a colleague to Savour. When they create an account, you get 14 days of Savour Pro as a thank-you.'
+          'Choose “Invite a colleague” under My account and send your personal link. When your colleague creates an account, confirms their email address and logs in, you get 14 days of Savour Pro as a thank-you.'
         ]
       ]
     }
