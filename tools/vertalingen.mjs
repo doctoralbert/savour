@@ -4019,5 +4019,15 @@ export const patterns = [
     'Sugerida por la palabra clave «$1»'
   ],
   ['^(\\d+) recepten aanpassen$', 'Update $1 recipes', '$1 Rezepte anpassen', 'Actualizar $1 recetas'],
-  ['^(\\d+) recepten aangepast$', '$1 recipes updated', '$1 Rezepte angepasst', '$1 recetas actualizadas']
+  ['^(\\d+) recepten aangepast$', '$1 recipes updated', '$1 Rezepte angepasst', '$1 recetas actualizadas'],
+  // ---- Inloggen met Apple of Google ----
+  ['Doorgaan met Apple', 'Continue with Apple', 'Weiter mit Apple', 'Continuar con Apple'],
+  ['Doorgaan met Google', 'Continue with Google', 'Weiter mit Google', 'Continuar con Google'],
+  ['of met je e-mailadres', 'or with your email address', 'oder mit deiner E-Mail-Adresse', 'o con tu correo electrónico'],
+  [
+    'Inloggen is mislukt. Probeer het opnieuw of gebruik je e-mailadres.',
+    'Login failed. Try again or use your email address.',
+    'Anmeldung fehlgeschlagen. Versuche es erneut oder nutze deine E-Mail-Adresse.',
+    'No se pudo iniciar sesión. Inténtalo de nuevo o usa tu correo electrónico.'
+  ]
 ];

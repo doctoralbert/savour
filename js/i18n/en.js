@@ -1988,6 +1988,13 @@ window.SAVOUR_I18N.en = {
     ['^Trefwoorden voor (.+)$', 'Keywords for $1'],
     ['^Voorgesteld op trefwoord “(.+)”$', 'Suggested by keyword “$1”'],
     ['^(\\d+) recepten aanpassen$', 'Update $1 recipes'],
-    ['^(\\d+) recepten aangepast$', '$1 recipes updated']
+    ['^(\\d+) recepten aangepast$', '$1 recipes updated'],
+    ['Doorgaan met Apple', 'Continue with Apple'],
+    ['Doorgaan met Google', 'Continue with Google'],
+    ['of met je e-mailadres', 'or with your email address'],
+    [
+      'Inloggen is mislukt. Probeer het opnieuw of gebruik je e-mailadres.',
+      'Login failed. Try again or use your email address.'
+    ]
   ]
 };

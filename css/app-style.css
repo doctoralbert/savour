@@ -463,6 +463,54 @@
   align-self: center;
 }
 
+/* Inloggen of account maken met Apple of Google (alleen zichtbaar als het in Supabase aan staat) */
+.auth-oauth {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 10px;
+}
+.auth-oauth[hidden],
+.auth-oauth-btn[hidden] {
+  display: none;
+}
+.auth-oauth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 46px;
+  border: 1px solid var(--line, #243031);
+  border-radius: 999px;
+  background: #fff;
+  color: #111;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.auth-oauth-btn:hover {
+  background: #f1f1f1;
+}
+.auth-oauth-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.auth-or {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.auth-or::before,
+.auth-or::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line, #243031);
+}
+
 /* Inloggen: ingelogd blijven en wachtwoord onthouden */
 .auth-checks {
   display: flex;

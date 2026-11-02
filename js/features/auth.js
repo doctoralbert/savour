@@ -28,6 +28,7 @@ function openAuth(mode) {
   $('authStay').checked = mode === 'signup' || staySignedIn();
   $('authRemember').checked = mode === 'signup' || rememberPassword();
   if (mode === 'login') fillRememberedLogin();
+  renderOauthButtons();
 }
 
 const REMEMBER_PASSWORD_KEY = 'savour_remember_password';
@@ -255,6 +256,97 @@ function showLanding() {
   document.querySelectorAll('#appShell .view').forEach(v => v.classList.remove('active'));
 }
 
+// ---- Inloggen of account maken met Apple of Google ----
+// De knoppen verschijnen alleen voor wat in Supabase aan staat (Authentication → Providers), zodat niemand op
+// een knop drukt die nog niet werkt. Supabase stuurt de gebruiker daarna terug met de inloggegevens achter het
+// #-teken; handleAuthRedirect hieronder herkent dat aan de bewaarde OAUTH_KEY.
+const OAUTH_KEY = 'savour_oauth';
+const OAUTH_NAMES = { apple: 'Apple', google: 'Google' };
+let oauthProviders = null;
+
+async function loadOauthProviders() {
+  if (oauthProviders) return oauthProviders;
+  try {
+    const response = await fetch(`${SUPABASE_URL}/auth/v1/settings`, { headers: { apikey: SUPABASE_KEY } });
+    const external = (await response.json())?.external || {};
+    oauthProviders = Object.keys(OAUTH_NAMES).filter(p => external[p] === true);
+    return oauthProviders;
+  } catch (_) {
+    return [];
+  }
+}
+
+async function renderOauthButtons() {
+  const box = $('authOauth');
+  if (!box) return;
+  const providers = await loadOauthProviders();
+  box.querySelectorAll('[data-provider]').forEach(btn => {
+    btn.hidden = !providers.includes(btn.dataset.provider);
+    btn.disabled = false;
+  });
+  box.hidden = !providers.length;
+}
+
+async function oauthLogin(provider) {
+  if (!OAUTH_NAMES[provider]) return;
+  document.querySelectorAll('#authOauth [data-provider]').forEach(btn => (btn.disabled = true));
+  try {
+    // Bij account maken staan de vinkjes verborgen en aan; bij inloggen telt "Ingelogd blijven" zoals gekozen.
+    localStorage.setItem(STAY_SIGNED_IN_KEY, $('authStay').checked ? '1' : '0');
+    localStorage.setItem(OAUTH_KEY, JSON.stringify({ provider, at: Date.now() }));
+  } catch (_) {}
+  // Terug naar dezelfde pagina (bijv. /join/... of /pro), zonder ?auth=..., zodat het venster niet opnieuw opent.
+  const { error } = await supabaseClient.auth.signInWithOAuth({
+    provider,
+    options: {
+      redirectTo: `${location.origin}${location.pathname}`,
+      queryParams: provider === 'google' ? { prompt: 'select_account' } : undefined
+    }
+  });
+  if (error) {
+    console.error('Inloggen met', provider, 'mislukt:', error);
+    takeOauthPending();
+    renderOauthButtons();
+    toast(t('Inloggen is mislukt. Probeer het opnieuw of gebruik je e-mailadres.'));
+  }
+}
+
+// Leest (en wist) de bewaarde aanvraag; alleen geldig als die recent is.
+function takeOauthPending() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(OAUTH_KEY) || 'null');
+    localStorage.removeItem(OAUTH_KEY);
+    if (OAUTH_NAMES[saved?.provider] && Date.now() - Number(saved.at || 0) < 30 * 60 * 1000) return saved.provider;
+  } catch (_) {}
+  return '';
+}
+
+// Na Apple of Google: nieuw account? Dan naam, uitnodiging van een collega en de melding aan contact@savour.page,
+// net als bij een account met e-mailadres. Apple geeft vaak geen naam; die kan de gebruiker later bij Mijn account invullen.
+async function finishOauthLogin(user) {
+  const meta = user.user_metadata || {};
+  const isNew = Date.now() - new Date(user.created_at).getTime() < 15 * 60 * 1000;
+  const updates = {};
+  const name = String(meta.name || meta.full_name || '').trim();
+  if (!meta.name && name) updates.name = name;
+  if (isNew && invitedBy() && !meta.invited_by) updates.invited_by = invitedBy();
+  if (Object.keys(updates).length) {
+    const { data, error } = await supabaseClient.auth.updateUser({ data: updates });
+    if (error) console.error('Accountgegevens na inloggen niet bewaard:', error);
+    else if (data?.user) user = data.user;
+  }
+  if (isNew)
+    fetch('/api/bug-report', {
+      method: 'POST',
+      keepalive: true,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ kind: 'signup', email: user.email, language: currentLanguage })
+    }).catch(() => {});
+  const ok = await startDatabaseSession(user);
+  if (ok) toast(authWelcome(account.name || user.email));
+  return true;
+}
+
 // ---- Links uit e-mails (account bevestigen, wachtwoord herstellen) ----
 // Supabase stuurt de gebruiker terug met inloggegevens achter het #-teken in de link.
 // De Supabase-client leest die niet automatisch (detectSessionInUrl staat uit), dus dat doet Savour hier zelf.
@@ -286,6 +378,16 @@ async function handleAuthRedirect(redirect) {
   // Het opstartscherm weg, zodat de vraag hieronder zichtbaar is (met de startpagina erachter).
   document.body.classList.remove('auth-booting');
   showLanding();
+  // Terug van Apple of Google (en niet uit een e-maillink)?
+  const oauth = redirect.tokenHash ? '' : takeOauthPending();
+  if (redirect.error && oauth) {
+    console.warn('Inloggen met', oauth, 'niet gelukt:', redirect.code, redirect.error);
+    // Zelf afgebroken: gewoon terug naar het inlogvenster, zonder foutmelding.
+    if (!/access_denied|cancel/i.test(`${redirect.code} ${redirect.error}`))
+      toast(t('Inloggen is mislukt. Probeer het opnieuw of gebruik je e-mailadres.'));
+    openAuth('login');
+    return false;
+  }
   if (redirect.error) {
     console.warn('Link uit e-mail niet geldig:', redirect.code, redirect.error);
     await askConfirm(
@@ -320,6 +422,7 @@ async function handleAuthRedirect(redirect) {
     toast(t('Deze link is ongeldig of verlopen. Vraag een nieuwe aan.'));
     return false;
   }
+  if (oauth && !redirect.type) return finishOauthLogin(data.session.user);
   // Wachtwoord vergeten, of een account dat de beheerder heeft aangemaakt (uitnodiging): eerst een wachtwoord kiezen.
   if (redirect.type === 'recovery' || redirect.type === 'invite') {
     const ok = await startDatabaseSession(data.session.user);
