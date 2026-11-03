@@ -577,7 +577,9 @@ function readerLineChecks(ingredients) {
       add({ line, to: '', why: 'Lijkt een omrekening of alternatief voor een andere regel', action: 'remove' });
       continue;
     }
-    if (READER_STEP_IN_LINE.test(lower) && line.split(/\s+/).length >= 4) {
+    // Een opmerking tussen haakjes ("5 rawit peper (mee laten trekken)") maakt er geen bereidingsstap van.
+    const plain = lower.replace(/\([^)]*\)?/g, ' ').trim();
+    if (READER_STEP_IN_LINE.test(plain) && plain.split(/\s+/).length >= 4) {
       add({ line, to: line, why: 'Lijkt een stap van de bereiding', action: 'step' });
       continue;
     }

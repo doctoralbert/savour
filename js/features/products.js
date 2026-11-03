@@ -127,7 +127,13 @@ const ALLERGEN_HINTS = [
   [/soja|tofu|miso|edamame|tamari|ketjap|kecap|shoyu|kikk?oman|oestersaus|oyster ?sauce|(^|[^a-zà-ÿ])soy/, ['soja']],
   [/selderij|celery|celeriac/, ['selderij']],
   [/mosterd|mustard|wasabi|piccalil/, ['mosterd']], // wasabipoeder en -pasta bevatten bijna altijd mosterd
-  [/sesam|tahin|sesame|togarashi|hummus|humus/, ['sesam']],
+  [/sesam|tahin|sesame|togarashi|hummus|humus|za.?atar|zatar|bulgogi/, ['sesam']],
+  // Bulgogi-marinade: sojasaus. Soezen- en choux-beslag: bloem, ei en boter. Drop bevat tarwebloem.
+  [/bulgogi/, ['soja', 'gluten']],
+  [/soezen|choux/, ['gluten', 'ei', 'melk']],
+  [/(^|[^a-zà-ÿ])drop($|[^a-zà-ÿ])|katjes drop/, ['gluten']],
+  [/piri.?piri/, ['nachtschade']],
+  [/pocini/, ['paddenstoelen']],
   [
     /wijn|azijn|port($|[^a-zà-ÿ])|sherry|cognac|madeira|wine|vinegar|gedroogde abrikoos|gedroogde abrikozen|verjus|malaga|sauternes|aceto|gastri(c|que)|(^|[^a-zà-ÿ])px($|[^a-zà-ÿ])|pedro xim|noilly|nouilly|nolly|vieux|mizkan|mitsukan|sushi su/,
     ['sulfiet']
@@ -138,7 +144,7 @@ const ALLERGEN_HINTS = [
     ['varkensvlees']
   ],
   [
-    /rund|biefstuk|ossenhaas|entrec[oô]te|rib-?eye|kalf|ossenstaart|ossenwang|picanha|bavette|beef|veal|(^|[^a-zà-ÿ])veau|boeuf|bœuf|(^|[^a-zà-ÿ])jdv($|[^a-zà-ÿ])|(^|[^a-zà-ÿ])(been)?merg($|[^a-zà-ÿ])|mergpijp/,
+    /rund|biefstuk|ossenhaas|entrec[oô]te|rib-?eye|kalf|ossenstaart|ossenwang|picanha|bavette|beef|veal|(^|[^a-zà-ÿ])veau|boeuf|bœuf|(^|[^a-zà-ÿ])jdv($|[^a-zà-ÿ])|(^|[^a-zà-ÿ])(been)?merg($|[^a-zà-ÿ])|mergpijp|sukade|sucade/,
     ['rundvlees']
   ],
   [
@@ -229,6 +235,7 @@ const ALLERGEN_HINT_NOT = [
   [/ginger ?beer|gemberbier/, 'gluten'],
   [/ginger ?beer|gemberbier/, 'alcohol'],
   [/havermout/, 'alcohol'], // "vermout" staat in havermout
+  [/(hert|herten|ree|wild|everzwijn)\s?su[kc]ade/, 'rundvlees'],
   [/amaretti|amaretto ?koek/, 'alcohol'],
   [/cacao\s?boter|cocoa butter|cacao butter/, 'fodmap'],
   [/cream(y)? sherry/, 'melk'],

@@ -70,6 +70,91 @@ const FAMILY_FRUIT = [
   ['Combava', 'combava, kaffir limoen'],
   ['Duindoornbes', 'duindoornbes, duindoorn, sea buckthorn, argousier']
 ];
+// Gewone groente, fruit en specerijen: één product per soort. Zonder wettelijk allergeen; wat een trefwoord wel
+// vindt (aubergine: nachtschade, kers: steenfruit), komt er bij het maken van het product bij.
+const FAMILY_VEG = [
+  ['Kool', 'kool, witte kool, wittekool'],
+  ['Rode kool', 'rode kool, rodekool'],
+  ['Spitskool', 'spitskool'],
+  ['Savooiekool', 'savooiekool, savooikool, savoye kool'],
+  ['Chinese kool', 'chinese kool, chinese kolen, chinese kooltjes, napa kool'],
+  ['Paksoi', 'paksoi, pak choi, paksoy, bok choy'],
+  ['Spruitjes', 'spruitjes, spruitje, spruiten'],
+  ['Broccoli', 'broccoli, broccolini, bimi'],
+  ['Romanesco', 'romanesco'],
+  ['Cavolo nero', 'cavolo nero, palmkool'],
+  ['Koolrabi', 'koolrabi, koolrabie'],
+  ['Koolraap', 'koolraap, knolraap, rapen, raap'],
+  ['Pastinaak', 'pastinaak, pastinaken'],
+  ['Peterseliewortel', 'peterseliewortel'],
+  ['Schorseneren', 'schorseneer, schorseneren'],
+  ['Aardpeer', 'aardpeer, topinamboer, jerusalem artichoke'],
+  ['Meiknol', 'meiknol, meiraap'],
+  ['Crosnes', 'crosnes, japanse artisjok'],
+  ['Radijs', 'radijs, radijsjes'],
+  ['Rettich', 'rettich, daikon, rammenas'],
+  ['Biet', 'biet, rode biet, bieten, gele biet, chioggia biet, chioggia'],
+  ['Bataat', 'bataat, zoete aardappel, zoet aardappel, sweet potato'],
+  [
+    'Pompoen',
+    'pompoen, flespompoen, butternut, butternut pompoen, hokkaido, hokkaido pompoen, muskaatpompoen, hakido pompoen'
+  ],
+  ['Courgette', 'courgette, zucchini'],
+  ['Komkommer', 'komkommer, wilde komkommer, snackkomkommer'],
+  ['Venkel', 'venkel, venkelknol'],
+  ['Witlof', 'witlof, witloof, chicorei'],
+  ['Andijvie', 'andijvie'],
+  ['Rucola', 'rucola, rucola sla'],
+  ['Spinazie', 'spinazie, baby spinazie, babyspinazie'],
+  ['Snijbiet', 'snijbiet'],
+  ['Raapstelen', 'raapstelen'],
+  ['Asperge', 'asperge, witte asperge, groene asperge'],
+  ['Artisjok', 'artisjok, artisjokbodem'],
+  ['Avocado', 'avocado'],
+  ['Rabarber', 'rabarber'],
+  ['Taugé', 'taugé, tauge, taugeh'],
+  ['Zeekool', 'zeekool'],
+  ['Zeesla', 'zeesla'],
+  ['Banaan', 'banaan, bananen, pisang'],
+  ['Mango', 'mango'],
+  ['Papaja', 'papaja, papaya'],
+  ['Ananas', 'ananas'],
+  ['Meloen', 'meloen, galiameloen, cantaloupe, charentais'],
+  ['Watermeloen', 'watermeloen'],
+  ['Druif', 'druif, druiven, pitloze druiven'],
+  ['Lychee', 'lychee, lychees, litchi'],
+  ['Kaki', 'kaki, kaki s, sharonfruit'],
+  ['Kweepeer', 'kweepeer'],
+  ['Moerbei', 'moerbei, moerbeien'],
+  ['Guave', 'guave, guava'],
+  ['Passievrucht', 'passievrucht, passievruchten, passie, maracuja'],
+  ['Granaatappel', 'granaatappel'],
+  ['Framboos', 'framboos, frambozen'],
+  ['Aardbei', 'aardbei, aardbeien'],
+  ['Bosbes', 'bosbes, bosbessen, blauwe bes, blauwe bessen, blueberry'],
+  ['Braam', 'braam, bramen'],
+  ['Aalbes', 'aalbes, aalbessen, rode bes, rode bessen'],
+  ['Cranberry', 'cranberry, cranberries, veenbes'],
+  ['Kruisbes', 'kruisbes, kruisbessen'],
+  ['Cacaonibs', 'cacaonibs, cacao nibs'],
+  // Specerijen
+  ['Kaneel', 'kaneel, kaneelstok, kaneelstokje, pijpkaneel'],
+  ['Kardemom', 'kardemom, kardemon, cardemom'],
+  ['Kruidnagel', 'kruidnagel'],
+  ['Steranijs', 'steranijs'],
+  ['Foelie', 'foelie'],
+  ['Komijn', 'komijn, komijnzaad, djinten, cumin'],
+  ['Venkelzaad', 'venkelzaad'],
+  ['Anijszaad', 'anijszaad, anijs'],
+  ['Karwijzaad', 'karwijzaad, karwij, kummel'],
+  ['Sumak', 'sumak, sumac'],
+  ['Saffraan', 'saffraan, safraan'],
+  ['Kurkuma', 'kurkuma, geelwortel, koenjit'],
+  ['Piment', 'piment, allspice'],
+  ['Jeneverbes', 'jeneverbes, jeneverbessen'],
+  ['Peperkorrels', 'peperkorrels, peperkorrel, zwarte peperkorrels'],
+  ['Vanille', 'vanille, vanillestokje, vanillestok, vanille stokje']
+];
 const FAMILY_HERBS = [
   ['Tijm', 'tijm, thijm, citroentijm, citroenthijm, bergsteentijm, bergsteenthijm, wilde tijm, thyme'],
   ['Rozemarijn', 'rozemarijn, rosmarijn, rosemary'],
@@ -279,6 +364,9 @@ const FAMILY_KNOWN = [
   ['Zoetzuur', ['sulfiet'], 'zoetzuur, zoet zuur, zoetzuur basis, zoet zuur basis, zoet zuur mild'],
   ['Jus de veau', ['rundvlees'], 'jdv, jus de veau, jus d veau, jus de veaux'],
   ['Merg', ['rundvlees'], 'merg, beenmerg, mergpijp'],
+  ['Demi-glace', ['rundvlees'], 'demi glace, demi glacé, demi-glace, demiglace'],
+  // Sukade is in de keuken een stuk rundvlees (niet de gekonfijte citrusschil).
+  ['Sukade', ['rundvlees'], 'sukade, sucade, runder sukade, runder sucade, rundersukade'],
   ['Palmsuiker', [], 'palmsuiker, palm sugar, gula djawa, gula jawa, gula kelapa, gula merah'],
   ['Raapzaadolie', [], 'raapzaadolie, rapsodie, rapsoli, koolzaadolie'],
   ['Nootmuskaat', [], 'nootmuskaat, mootmuskaat, muskaatnoot, nutmeg'],
@@ -360,7 +448,8 @@ function familyLookup() {
   if (familyIndex) return familyIndex;
   const list = text => text.split(', ').map(n => familyStemKey(n).replace(/ /g, ''));
   const produce = new Map();
-  for (const [name, names] of FAMILY_FRUIT) for (const n of list(names)) produce.set(n, { name, allergens: [] });
+  for (const [name, names] of [...FAMILY_FRUIT, ...FAMILY_VEG])
+    for (const n of list(names)) produce.set(n, { name, allergens: [] });
   for (const [name, names] of FAMILY_HERBS)
     for (const n of list(names)) produce.set(n, { name, allergens: [], herb: true });
   const fish = new Map();
@@ -373,8 +462,8 @@ function familyLookup() {
 
 // Haalt vormen, kleuren en "zonder vel" weg en splitst "citroensap" in "citroen sap". Geeft de woorden die
 // overblijven; leeg als er alleen vormen stonden.
-function familyCoreWords(key) {
-  const keepColor = FAMILY_KEEP_COLOR.test(key);
+function familyCoreWords(key, withColor = false) {
+  const keepColor = withColor || FAMILY_KEEP_COLOR.test(key);
   const { produce, fish, known } = familyLookup();
   const whole = w => produce.has(familyStem(w)) || fish.has(familyStem(w)) || known.has(familyStem(w));
   const words = key
@@ -435,22 +524,28 @@ function productFamily(name) {
   if (fish.has(coreKey)) return own(fish.get(coreKey), 'fish');
   // Citrus en kruiden per woord, eerst twee woorden samen ("citroen tijm" is tijm). Staat er verder alleen iets als
   // "gepekelde" of "bosje", dan is het die vrucht of dat kruid. Meerdere kruiden samen zijn Kruiden.
-  const hits = [];
-  let other = false;
-  for (let i = 0; i < core.length; i++) {
-    const pair = i + 1 < core.length && produce.get(familyStem(core[i] + core[i + 1]));
-    if (pair) {
-      hits.push(pair);
-      i++;
-      continue;
+  // Eerst met de kleur erbij ("rode bessen sap" is Aalbes, "blauwe bessen" Bosbes), dan zonder.
+  for (const words of [familyCoreWords(plain, true), core]) {
+    const hits = [];
+    let other = false;
+    for (let i = 0; i < words.length; i++) {
+      const pair =
+        i + 1 < words.length &&
+        (produce.get(familyStem(words[i]) + familyStem(words[i + 1])) ||
+          produce.get(familyStem(words[i] + words[i + 1])));
+      if (pair) {
+        hits.push(pair);
+        i++;
+        continue;
+      }
+      const hit = produce.get(familyStem(words[i]));
+      if (hit) hits.push(hit);
+      else if (!FAMILY_PRODUCE_WORDS.has(words[i]) && !FAMILY_COLORS.has(words[i])) other = true;
     }
-    const hit = produce.get(familyStem(core[i]));
-    if (hit) hits.push(hit);
-    else if (!FAMILY_PRODUCE_WORDS.has(core[i])) other = true;
-  }
-  if (hits.length && !other) {
-    if (new Set(hits.map(h => h.name)).size === 1) return own(hits[0], 'produce');
-    if (hits.every(h => h.herb)) return own(known.get(familyStem('kruiden')), 'known');
+    if (hits.length && !other) {
+      if (new Set(hits.map(h => h.name)).size === 1) return own(hits[0], 'produce');
+      if (hits.every(h => h.herb)) return own(known.get(familyStem('kruiden')), 'known');
+    }
   }
   const stems = core.map(familyStem);
   const fishHit = stems.map(s => fish.get(s)).find(Boolean);

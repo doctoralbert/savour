@@ -70,7 +70,11 @@ alles apart afwegen.`,
       {
         t: 'Loh pak ho',
         i: ['6000 rettich', '2000 sjalot', '666 rijstebloem'],
-        s: ['in gaatjes bak met en bestrooien met zout', 'papje maken met:', 'dan rettich aan bakken. Hier het papje in garen.']
+        s: [
+          'in gaatjes bak met en bestrooien met zout',
+          'papje maken met:',
+          'dan rettich aan bakken. Hier het papje in garen.'
+        ]
       },
       { t: 'Polenta ( per plaat)', i: ['4,5 Liter water', '1350 polenta'], s: ['alles apart afwegen.'] }
     ]
@@ -524,7 +528,14 @@ Bereidingswijze
 - 2 fl witte port
 - 4 kg ui
 - 350 gr boter`,
-    expect: [{ t: 'Albufeira saus', i: ['2 L kip jus', '2 L JDV', '2 fl witte port', '4 kg ui', '350 gr boter'], s: 0, c: 'high' }]
+    expect: [
+      {
+        t: 'Albufeira saus',
+        i: ['2 L kip jus', '2 L JDV', '2 fl witte port', '4 kg ui', '350 gr boter'],
+        s: 0,
+        c: 'high'
+      }
+    ]
   },
   {
     name: 'Echt bestand: stap vóór het kopje Werkwijze is geen ingrediënt',
@@ -1201,9 +1212,25 @@ fixCases.push(
   { name: 'Getal in de bereiding wordt wel verbeterd', step: true, from: 'Bakken op 18oc', to: 'Bakken op 180c' },
   // De woordenlijst komt in import.js alleen uit namen en ingrediënten; hier de bron zoals die daar zou zijn.
   { name: 'Productnaam blijft staan (elastic)', from: '10 gram elastic', to: '10 gram elastic', bron: '' },
-  { name: 'Bekende spelfout: vinaigraitte', from: 'Mosterd Vinaigraitte 1 liter', to: 'Mosterd Vinaigrette 1 liter', bron: '' },
-  { name: 'Bekende spelfout in de bereiding', step: true, from: 'In de mouse spuiten', to: 'In de mousse spuiten', bron: '' },
-  { name: 'Langer woord met spelfout erin blijft staan', from: '10 gram mousefilter', to: '10 gram mousefilter', bron: '' },
+  {
+    name: 'Bekende spelfout: vinaigraitte',
+    from: 'Mosterd Vinaigraitte 1 liter',
+    to: 'Mosterd Vinaigrette 1 liter',
+    bron: ''
+  },
+  {
+    name: 'Bekende spelfout in de bereiding',
+    step: true,
+    from: 'In de mouse spuiten',
+    to: 'In de mousse spuiten',
+    bron: ''
+  },
+  {
+    name: 'Langer woord met spelfout erin blijft staan',
+    from: '10 gram mousefilter',
+    to: '10 gram mousefilter',
+    bron: ''
+  },
   {
     name: 'Accent wordt nooit weggehaald',
     from: '100 gram crème fraîche',
@@ -1275,14 +1302,18 @@ const lineCases = [
   ['ui', null],
   ['Voor de saus:', null],
   ['500 ml melk, lauw', null],
-  ['3 kroppen kropsla', null]
+  ['3 kroppen kropsla', null],
+  ['5 rawit peper (5 minuten mee laten trekken in het vocht)', null],
+  ['…gram kipkarkassen', 'replace', 'kipkarkassen']
 ];
 for (const [from, action, to] of lineCases) {
   const got = ctx.readerLineChecks([from])[0] || null;
   const ok = action === null ? !got : got && got.action === action && got.to === to;
   if (!ok) {
     failed++;
-    console.log(`✗ Regel "${from}"\n   kreeg ${JSON.stringify(got)}, verwacht ${action ? `${action} "${to}"` : 'niets'}`);
+    console.log(
+      `✗ Regel "${from}"\n   kreeg ${JSON.stringify(got)}, verwacht ${action ? `${action} "${to}"` : 'niets'}`
+    );
   } else console.log(`✓ Regel "${from}"`);
 }
 const total = cases.length + fixCases.length + titleCases.length + lineCases.length;
