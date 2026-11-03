@@ -102,7 +102,7 @@ const ALLERGEN_HINTS = [
     ['ei']
   ],
   [
-    /(^|[^a-zà-ÿ])(patent|tarwe|spelt|rogge|zelfrijzende?\s?)?bloem($|[^a-zà-ÿ])|tarwe|meel|brood|paneermeel|pasta|spelt|rogge|gerst|haver|couscous|bulgur|seitan|flour|wheat|bread|panko|bier|beer|croissant|bladerdeeg|brioche|noedel|noodle|vermicelli|soja ?saus|soya ?saus|soy ?sauce|shoyu|ketjap|fregola|orzo|griesmeel|semolina|gort|(^|[^a-zà-ÿ])filo|kataifi|wonton|tempura|bastogne|speculaas|ontbijtkoek|peperkoek|kruidno|pepernot|roux|oestersaus|oyster ?sauce|ponzu/,
+    /(^|[^a-zà-ÿ])(patent|tarwe|spelt|rogge|zelfrijzende?\s?)?bloem($|[^a-zà-ÿ])|tarwe|meel|brood|paneermeel|pasta|spelt|rogge|gerst|haver|couscous|bulgur|seitan|flour|wheat|bread|panko|bier|beer|croissant|bladerdeeg|brioche|noedel|noodle|vermicelli|soja ?saus|soya ?saus|soy ?sauce|shoyu|ketjap|fregola|orzo|griesmeel|semolina|gort|(^|[^a-zà-ÿ])filo|kataifi|wonton|tempura|bastogne|speculaas|ontbijtkoek|peperkoek|kruidno|pepernot|roux|oestersaus|oyster ?sauce|ponzu|spaghetti|macaroni|tagliatelle|lasagne|lasagna|penne|fusilli|farfalle|linguine|pappardelle|tortellini|ravioli|cannelloni|rigatoni|gnocchi|(^|[^a-zà-ÿ])mie($|[^a-zà-ÿ])|crouton|beschuit|cracker|biscuit|pannenkoek|wafel/,
     ['gluten']
   ],
   [
@@ -203,7 +203,7 @@ const ALLERGEN_HINTS = [
 ];
 // "Pistache pasta", "curry pasta": een smeersel. "Verse pasta" en losse "pasta" zijn wel deegwaar.
 const PASTE_NOT_NOODLE =
-  /^(?!(verse|droge|gedroogde|gekookte|volkoren|glutenvrije|zelfgemaakte|italiaanse)\s?pasta$)[a-zà-ÿ].*[a-zà-ÿ][\s-]?pasta$/;
+  /^(?!(verse|droge|gedroogde|gekookte|volkoren|glutenvrije|zelfgemaakte|italiaanse|witte|bruine)\s?pasta$)[a-zà-ÿ].*[a-zà-ÿ][\s-]?pasta$/;
 const PLANT_NOT_DAIRY =
   /pindakaas|roomse|(pure|puur)\s?choc|choc\w*\s(puur|pure)|(amandel|haver|soja|rijst|kokos|cashew|cashewnoot|noten|hazelnoot|erwten|oat|almond)\s?(melk|drink|room|milk|yoghurt)|cacao\s?boter|cocoa butter|cacao butter|alpro|plantaardige|vegan/;
 // Waar een trefwoord misleidt: azijn bevat geen alcohol meer, koffie- en vanillebonen zijn geen peulvruchten,
@@ -229,6 +229,11 @@ const ALLERGEN_HINT_NOT = [
     'gluten'
   ],
   [/eekhoorntjesbrood|sint-?jansbrood/, 'gluten'],
+  // Rijst- en glasnoedels zijn van rijst of mungbonen; "glutenvrij" staat er met reden bij.
+  [
+    /(rijst|glas|mungbonen|konjac|shirataki)\s?(noedel|vermicelli|noodle)|rice noodle|glutenvrij|gluten-?free/,
+    'gluten'
+  ],
   // Zetmeel van aardappel, maïs, rijst of tapioca; speculaaskruiden zonder koek; ginger beer is frisdrank.
   [/(aardappel|mais|maïs|rijst|tapioca|pijlwortel)\s?zetmeel/, 'gluten'],
   [/speculaas\s?(poeder|kruiden)/, 'gluten'],
@@ -305,9 +310,14 @@ let ingredientBaseLoading = null;
 function loadIngredientBase() {
   if (ingredientBase) return Promise.resolve(ingredientBase);
   if (!ingredientBaseLoading)
-    ingredientBaseLoading = fetch('/js/data/ingredient-base.json')
-      .then(r => (r.ok ? r.json() : null))
-      .then(data => {
+    ingredientBaseLoading = Promise.all(
+      ['/js/data/ingredient-base.json', '/js/data/ingredient-nevo.json'].map(url =>
+        fetch(url)
+          .then(r => (r.ok ? r.json() : null))
+          .catch(() => null)
+      )
+    )
+      .then(([data, nevo]) => {
         if (!data?.items) throw new Error('geen basislijst');
         const index = new Map();
         for (const item of data.items)
@@ -322,7 +332,26 @@ function loadIngredientBase() {
           const k = productKey(n);
           if (k && !index.has(k)) index.set(k, [allergens.join(','), head, '', '', '', '', 0, 'savour']);
         }
-        ingredientBase = { index };
+        // Aanvulling met de Nederlandse namen uit NEVO (tools/build-ingredient-nevo.mjs). Elke NEVO-naam wijst naar
+        // zijn kern: "pastinaak gekookt" en "kropsla rauw" vinden Pastinaak en Kropsla. Staat de kern al in de
+        // basislijst, dan gelden die allergenen.
+        const main = new Map();
+        for (const [allergens, name, names] of nevo?.items || []) {
+          const mainKey = productKey(name);
+          if (!mainKey) continue;
+          const item = index.get(mainKey) || [allergens, name, '', '', '', '', 0, 'nevo'];
+          for (const k of [
+            mainKey,
+            ...String(names || '')
+              .split('|')
+              .map(productKey)
+          ])
+            if (k && !index.has(k)) {
+              index.set(k, item);
+              if (k !== mainKey) main.set(k, mainKey);
+            }
+        }
+        ingredientBase = { index, main, nevo: nevo?.version || '' };
         return ingredientBase;
       })
       .catch(() => {
@@ -343,7 +372,13 @@ function ingredientBaseMatch(name) {
       const k = words.slice(start, start + len).join(' ');
       if (len < words.length && k.length < 4) continue;
       const item = index.get(k);
-      if (item) return { name: k, allergens: item[0] ? item[0].split(',') : [], own: item[7] === 'savour' };
+      if (item)
+        return {
+          name: ingredientBase.main?.get(k) || k,
+          allergens: item[0] ? item[0].split(',') : [],
+          own: item[7] === 'savour',
+          nevo: item[7] === 'nevo' || !!ingredientBase.main?.has(k)
+        };
     }
   // Geen losse naam gevonden, maar Savour kent het hoofdproduct: "spitskool" is Kool, "gepekeld buikspek" Varken.
   const fam = productFamily(name);
@@ -355,10 +390,13 @@ function ingredientBaseMatch(name) {
 // Uitleg boven de allergenen bij een nieuw product, met de bronvermelding die de licentie van Open Food Facts vraagt.
 function productHintHtml({ base, codes }) {
   if (!base && !codes.length) return '';
-  const source =
-    base && !base.own
-      ? '<p class="product-source">Basislijst: © <a href="https://world.openfoodfacts.org/terms-of-use" target="_blank" rel="noopener">Open Food Facts contributors</a>, ODbL</p>'
-      : '';
+  const source = !base
+    ? ''
+    : base.nevo
+      ? `<p class="product-source">Basislijst: <a href="https://www.rivm.nl/nederlands-voedingsstoffenbestand" target="_blank" rel="noopener">NEVO online versie ${esc(ingredientBase?.nevo || '')}, RIVM, Bilthoven</a></p>`
+      : !base.own
+        ? '<p class="product-source">Basislijst: © <a href="https://world.openfoodfacts.org/terms-of-use" target="_blank" rel="noopener">Open Food Facts contributors</a>, ODbL</p>'
+        : '';
   const found = base
     ? `<p class="product-hint"><span>Gevonden in de basislijst</span>: <b translate="no">${esc(base.name)}</b></p>`
     : '';

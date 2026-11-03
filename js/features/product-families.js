@@ -107,7 +107,7 @@ const FAMILY_VEG = [
   ['Taugé', 'taugé, tauge, taugeh'],
   ['Zeekool', 'zeekool'],
   ['Zeesla', 'zeesla'],
-  ['Banaan', 'banaan, bananen, pisang'],
+  ['Banaan', 'banaan, bananen, pisang, bananenchips, bananen chips'],
   ['Mango', 'mango'],
   ['Papaja', 'papaja, papaya'],
   ['Ananas', 'ananas'],
@@ -183,7 +183,7 @@ const FAMILY_HERBS = [
   ['Zuring', 'zuring, veldzuring, bloedzuring, sorrel'],
   ['Bonenkruid', 'bonenkruid, bonnenkruid'],
   ['Hysop', 'hysop'],
-  ['Lavendel', 'lavendel'],
+  ['Lavendel', 'lavendel, lavendelzaad, lavendelbloesem'],
   ['Kamille', 'kamille'],
   ['Bernagie', 'bernagie, komkommerkruid'],
   ['Pimpernel', 'pimpernel'],
@@ -395,6 +395,8 @@ const FAMILY_KNOWN = [
   ['Lactosevrije yoghurt', ['melk'], 'lactosevrije yoghurt, yoghurt lactosevrij, yoghurt lactose vrij'],
   ['Amaretti', ['noten', 'ei'], 'amaretti, amaretto koekjes, amarettikoekjes, amaretti koekjes'],
   ['Roze peper', [], 'roze peper, roze peperkorrels, roze peper korrels, baies roses'],
+  ['Baharat', [], 'baharat'],
+  ['Koffiebonen', [], 'koffiebonen, koffieboon, koffie bonen'],
   // Gemengde kruiden, of twee kruiden samen ("tijm rozemarijn laurier"): zie productFamily.
   [
     'Kruiden',
@@ -535,7 +537,7 @@ const FAMILY_HEADS = [
     /champignon|paddenstoel|shiitake|cèpe|cepe|eekhoorntjesbrood|porcini|pocini|morille|morielje|cantharel|girolle|oesterzwam|beukenzwam|enoki|shimeji|portobello|eryngii|mushroom/
   ],
   ['Truffel', ['paddenstoelen'], /truffel|truffe/],
-  ['Amandel', ['noten'], /amandel|almond/],
+  ['Amandel', ['noten'], /amandel|amamdel|almond/],
   ['Hazelnoot', ['noten'], /hazelno|hazelnut/],
   ['Walnoot', ['noten'], /walno|walnut/],
   ['Pistache', ['noten'], /pistach|pitache/],

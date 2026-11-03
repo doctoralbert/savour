@@ -178,7 +178,9 @@ function autoLinkPlan(scope) {
         plan.product.push({ ...x, product: existing });
         continue;
       }
-      create(fam?.kind === 'base' ? fam : null, x, base.allergens);
+      // NEVO geeft de kern van de naam: "kropsla rauw" en "sla krop- gekookt" worden samen product Kropsla.
+      const own = base.nevo ? { key: compactKey(base.name), name: capitalizeFirst(base.name) } : null;
+      create(own || (fam?.kind === 'base' ? fam : null), x, base.allergens);
       continue;
     }
     // Niet in de basislijst, maar een trefwoord zegt wat erin zit ("zelfrijzendbakmeel": gluten). Zonder trefwoord
