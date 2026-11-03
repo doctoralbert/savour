@@ -116,7 +116,7 @@ const ALLERGEN_HINTS = [
   ],
   [/soja|tofu|miso|edamame|tamari|ketjap|kecap|shoyu|(^|[^a-zà-ÿ])soy/, ['soja']],
   [/selderij|celery|celeriac/, ['selderij']],
-  [/mosterd|mustard/, ['mosterd']],
+  [/mosterd|mustard|wasabi/, ['mosterd']], // wasabipoeder en -pasta bevatten bijna altijd mosterd
   [/sesam|tahin|sesame/, ['sesam']],
   [
     /wijn|azijn|port($|[^a-zà-ÿ])|sherry|cognac|madeira|wine|vinegar|gedroogde abrikoos|gedroogde abrikozen/,
@@ -338,6 +338,10 @@ const PRODUCT_PREP_WORDS =
   /(^|\s)(gezeefde?|gesmolten|(fijn|grof)?\s?gehakte?|(fijn|grof)?\s?gesneden|geraspte?|geschilde?|gewassen|koude?|zachte?|lauwe?|ontdooide?|ingekookte?|gesnipperde?|op kamertemperatuur|in (blokjes|blokken|reepjes|plakjes|stukjes|ringen|partjes)|brunoise|julienne|julliene|blokjes|blokken|reepjes|plakjes|schijfjes|schijf|schijven|ringen|partjes|stukjes)(?=\s|$)/g;
 // Woordjes die overblijven als de rest van de regel is weggehaald: "gelatine per (100 gram massa)".
 const PRODUCT_TRAILING_WORDS = /(\s(in|van|a|à|per|tot|met|of|en|op|circa|ca\.?|\+\/-|±|x))+$/;
+// Een hoeveelheid die nog niet is ingevuld, vóór de naam: "…. gram wasabi poeder", "b gram yuzu", "x bos kruiden".
+// Ook "of butter =" (een alternatief uit een Engels recept) en "lavendel meringue:" houden alleen de naam.
+const PRODUCT_EMPTY_AMOUNT =
+  /^(?:[….·_\s]+|[a-z]\s+(?=(?:gram|gr|ml|cl|dl|kg|stuks?|bos|bosje|el|tl)\s)|x\s+)*(?:(?:gram|gr|ml|cl|dl|kg|stuks?|bos|bosje)\s+(?=\S))?/;
 // Hoeveelheden zonder getal, als heel woord: "snufje zout" wordt "zout", niet "je zout".
 const PRODUCT_AMOUNT_WORDS =
   /(^|\s)(naar smaak|naar behoefte|scheutjes?|scheut|snufjes?|snuf|mespuntjes?|mespunt|eventueel|evt\.?|to taste|as needed|pinch|dash)(?=\s|$)/gi;
@@ -368,6 +372,10 @@ function computeProductKey(text) {
     .replace(/[*•·]/g, ' ')
     .replace(/(^|\s)\d+(?:[.,]\d+)?\s?(mm|cm)(?=\s|$)/g, ' ')
     .replace(/\s+/g, ' ')
+    .trim()
+    .replace(PRODUCT_EMPTY_AMOUNT, '')
+    .replace(/^of (?=.*=$)/, '')
+    .replace(/\s*[=:]+$/, '')
     .trim();
   const words = s.split(' ');
   const cut = words.findIndex(
@@ -1189,8 +1197,13 @@ function todoButtons(scope, key) {
     scope === 'own'
       ? `<button type="button" class="btn small" onclick="linkTodoRecipe('${escJs(key)}')">Recept</button>`
       : '';
+  // Een tikfout ("a") is geen ingrediënt: die regel mag uit de recepten.
+  const remove =
+    scope === 'own' && key.length <= 3
+      ? `<button type="button" class="btn small" onclick="removeTodoLines('${escJs(key)}')">Weghalen</button>`
+      : '';
   if (!p)
-    return `<span class="products-todo-actions"><button type="button" class="btn small" onclick="linkTodoIngredient('${escJs(key)}')">Product</button>${recipe}</span>`;
+    return `<span class="products-todo-actions"><button type="button" class="btn small" onclick="linkTodoIngredient('${escJs(key)}')">Product</button>${recipe}${remove}</span>`;
   return `<span class="products-todo-actions"><button type="button" class="btn small gold" onclick="linkTodoTo('${escJs(key)}','${escJs(p.id)}')">Koppelen aan ${esc(p.name)}</button><button type="button" class="btn small" onclick="linkTodoIngredient('${escJs(key)}')">Ander product</button>${recipe}</span>`;
 }
 
@@ -1203,6 +1216,37 @@ async function linkTodoRecipe(key) {
     toast(`${key} gekoppeld aan ${target.title}`);
     renderProducts();
   }
+}
+
+// Een regel die geen ingrediënt is (een tikfout als "a") uit je recepten halen. Savour zegt eerst in welke recepten.
+async function removeTodoLines(key) {
+  const hits = recipesForProductScope(productScope).filter(
+    r => !r.teamId && (r.ingredients || []).some(line => !recipePartName(line) && ingredientKey(line) === key)
+  );
+  if (!hits.length) return;
+  const titles =
+    hits
+      .slice(0, 5)
+      .map(r => r.title)
+      .join(', ') + (hits.length > 5 ? ' …' : '');
+  const ok = await askConfirm(
+    `Regel "${key}" weghalen?
+
+Deze regel staat in ${hits.length === 1 ? '1 recept' : `${hits.length} recepten`}: ${titles}. Savour haalt alleen deze regel weg.`,
+    { confirmLabel: 'Weghalen' }
+  );
+  if (!ok) return;
+  let done = 0;
+  for (const r of hits) {
+    const ingredients = r.ingredients.filter(line => recipePartName(line) || ingredientKey(line) !== key);
+    if (await saveRecipeFields(r, { ingredients })) {
+      r.ingredients = ingredients;
+      done++;
+    }
+  }
+  saveOfflineSnapshot();
+  if (done) toast(done === 1 ? 'Weggehaald uit 1 recept' : `Weggehaald uit ${done} recepten`);
+  renderProducts();
 }
 
 // Koppelt namen (productKey → recept) in alle eigen recepten van deze lijst. Een regel die al gekoppeld is, of het

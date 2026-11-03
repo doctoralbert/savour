@@ -3547,6 +3547,7 @@ export const strings = [
   ["Foto's","Photos","Fotos","Fotos"],
   // ---- Producten & allergenen (2026-11-03) ----
   ["Ander product","Other product","Anderes Produkt","Otro producto"],
+  ["Weggehaald uit 1 recept","Removed from 1 recipe","Aus 1 Rezept entfernt","Quitado de 1 receta"],
   ["Onderdeel van dit recept","Part of this recipe","Teil dieses Rezepts","Parte de esta receta"],
   ["Dubbele of foute producten samenvoegen en verbeteren","Merge and correct duplicate or wrong products","Doppelte oder falsche Produkte zusammenführen und verbessern","Unir y corregir productos duplicados o erróneos"],
   ["Producten opruimen","Tidy up products","Produkte aufräumen","Ordenar productos"],
@@ -4244,6 +4245,9 @@ export const patterns = [
   ["^(\\d+) naam herkent Savour niet zeker\\. Die blijven staan bij Nog te koppelen\\.$","Savour is not sure about $1 name. It stays under Still to link.","$1 Namen erkennt Savour nicht sicher. Er bleibt unter Noch zu verknüpfen.","Savour no reconoce con seguridad $1 nombre. Se queda en Por vincular."],
   ["^(\\d+) producten opgeruimd$","$1 products tidied up","$1 Produkte aufgeräumt","$1 productos ordenados"],
   ["^(.+) gekoppeld aan (.+)$","$1 linked to $2","$1 verknüpft mit $2","$1 vinculado a $2"],
+  ["^Weggehaald uit (\\d+) recepten$","Removed from $1 recipes","Aus $1 Rezepten entfernt","Quitado de $1 recetas"],
+  ["^Regel \"(.+)\" weghalen\\?$","Remove line \"$1\"?","Zeile „$1“ entfernen?","¿Quitar la línea «$1»?"],
+  ["^Deze regel staat in (.+?): (.+)\\. Savour haalt alleen deze regel weg\\.$","This line is in $1: $2. Savour only removes this line.","Diese Zeile steht in $1: $2. Savour entfernt nur diese Zeile.","Esta línea está en $1: $2. Savour solo quita esta línea."],
   ["^in (\\d+) recepten$","in $1 recipes","in $1 Rezepten","en $1 recetas"],
   ["^(\\d+) open$","$1 open","$1 offen","$1 pendientes"],
   ["^Er is al een product (.+)$","There is already a product $1","Es gibt bereits ein Produkt $1","Ya existe un producto $1"],

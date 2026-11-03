@@ -1742,6 +1742,7 @@ window.SAVOUR_I18N.fr = {
     'https://www.voorbeeld.nl/recept/beurre-blanc': 'https://www.exemple.fr/recette/beurre-blanc',
     "Foto's": 'Photos',
     'Ander product': 'Autre produit',
+    'Weggehaald uit 1 recept': 'Retiré d’1 recette',
     'Onderdeel van dit recept': 'Partie de cette recette',
     'Dubbele of foute producten samenvoegen en verbeteren': 'Fusionner et corriger les produits en double ou erronés',
     'Producten opruimen': 'Ranger les produits',
@@ -2293,6 +2294,12 @@ window.SAVOUR_I18N.fr = {
     ],
     ['^(\\d+) producten opgeruimd$', '$1 produits rangés'],
     ['^(.+) gekoppeld aan (.+)$', '$1 relié à $2'],
+    ['^Weggehaald uit (\\d+) recepten$', 'Retiré de $1 recettes'],
+    ['^Regel "(.+)" weghalen\\?$', 'Retirer la ligne « $1 » ?'],
+    [
+      '^Deze regel staat in (.+?): (.+)\\. Savour haalt alleen deze regel weg\\.$',
+      'Cette ligne figure dans $1 : $2. Savour ne retire que cette ligne.'
+    ],
     ['^in (\\d+) recepten$', 'dans $1 recettes'],
     ['^(\\d+) open$', '$1 en attente'],
     ['^Er is al een product (.+)$', 'Il existe déjà un produit $1'],

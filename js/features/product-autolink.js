@@ -5,7 +5,7 @@
 //   3. de familie (product-families.js): "boerenkool zonder stronk" → Boerenkool, "limoenrasp" → Citrus,
 //      "kabeljauwfilet zonder vel" → Kabeljauw, "bonk" → Aardappel;
 //   4. een product vooraan of achteraan in de naam ("zwarte peper heel" → Zwarte peper) of een kleine tikfout;
-//   5. een nieuw product uit de basislijst, met de allergenen die Savour erbij kent;
+//   5. een nieuw product uit de basislijst, of op een trefwoord ("zelfrijzendbakmeel": gluten);
 //   6. anders blijft de naam staan, net als namen die te algemeen zijn ("sap", "coulis") en combinaties.
 // De kok ziet eerst alles wat Savour gaat doen en kan elk product daarna nog aanpassen.
 //
@@ -59,6 +59,10 @@ function productsByFamily(scope) {
   return map;
 }
 
+// Achter een product geplakt, maar een ander product: kippenbouillon is geen kip, appelazijn geen appel.
+const COMPOUND_OWN_PRODUCT =
+  /^(en|s)?(azijn|olie|bouillon|fond|saus|likeur|poeder|pasta|melk|room|boter|deeg|meel|bloem|vet|jus|creme|crème|gel|ijs|mousse|chips|thee|extract|aroma|essence|wijn|bier|kaas|brood|koek|taart|zout|suiker|mayo|mayonaise|ketchup|chutney|jam|confituur|compote|gelei|sorbet|schuim|crumble|praline|ganache|karamel|siroop)/;
+
 function autoLinkPlan(scope) {
   const names = [];
   for (const p of productsIn(scope))
@@ -92,6 +96,21 @@ function autoLinkPlan(scope) {
     return best && !tie ? best : null;
   };
 
+  // Een samengesteld woord dat begint met een product: "aardappelschijf" → Aardappel, "appelstroop" → Appel.
+  // Alleen als de wettelijke allergenen precies gelijk zijn, zodat "bloemkool" nooit bloem (gluten) wordt.
+  const compound = key => {
+    const c = compactKey(key);
+    const eu = allergensEu(allergenHints(key));
+    let best = null;
+    for (const [k, p] of names) {
+      const pk = compactKey(k);
+      if (pk.length < 4 || c.length - pk.length < 3 || !c.startsWith(pk) || (best && pk.length <= best[0])) continue;
+      if (COMPOUND_OWN_PRODUCT.test(c.slice(pk.length))) continue;
+      const own = allergensEu(p.allergens);
+      if (own.length === eu.length && own.every(a => eu.includes(a))) best = [pk.length, p];
+    }
+    return best ? best[1] : null;
+  };
   const plan = { recipe: [], product: [], create: new Map(), rest: [], generic: [] };
   const create = (fam, x, allergens) => {
     const id = fam?.key || compactKey(x.key);
@@ -140,7 +159,7 @@ function autoLinkPlan(scope) {
       create(fam, x, fam.allergens);
       continue;
     }
-    const product = [productSuggestionFor(scope, key), fuzzy(key)].find(fits);
+    const product = [productSuggestionFor(scope, key), fuzzy(key), compound(key)].find(fits);
     if (product) {
       plan.product.push({ ...x, product });
       continue;
@@ -154,6 +173,12 @@ function autoLinkPlan(scope) {
         continue;
       }
       create(fam?.kind === 'base' ? fam : null, x, base.allergens);
+      continue;
+    }
+    // Niet in de basislijst, maar een trefwoord zegt wat erin zit ("zelfrijzendbakmeel": gluten). Zonder trefwoord
+    // weet Savour niet of het allergeenvrij is; dan blijft de naam staan.
+    if (allergenHints(key).length) {
+      create(fam?.kind === 'base' ? fam : null, x, []);
       continue;
     }
     plan.rest.push(x);

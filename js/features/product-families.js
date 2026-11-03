@@ -13,7 +13,7 @@ const FAMILY_FORM_WORDS = new Set(
     'ontdooide geel gele groen groene rood rode wit witte zwart zwarte bruin bruine blauw blauwe pitten gepelde ' +
     'gepeld gedopte heel hele gezouten ongezouten geroosterd geroosterde gepofte gegaarde gegaard gekookt gekookte ' +
     'gebakken bolletjes partjes parten segmenten kook gesnipperd fijn grof dun dunne half ring stengels stengel ' +
-    'cooked fresh raw'
+    'cooked fresh raw schijf schijfjes schijven blokjes plakjes reepjes stukjes'
   ).split(' ')
 );
 // Woorden die samen met het volgende woord wegvallen: "zonder vel", "uit blik", "met schil".
@@ -24,7 +24,25 @@ const FAMILY_COLORS = new Set(
   'geel gele groen groene rood rode wit witte zwart zwarte bruin bruine blauw blauwe'.split(' ')
 );
 // Achter een woord geplakt: "citroensap", "bloemkoolroosjes", "kabeljauwfilet".
-const FAMILY_SUFFIXES = ['roosjes', 'coulis', 'puree', 'filet', 'rasp', 'schil', 'zeste', 'blad', 'sap'];
+const FAMILY_SUFFIXES = [
+  'schijfjes',
+  'schijven',
+  'schijf',
+  'blokjes',
+  'plakjes',
+  'reepjes',
+  'stukjes',
+  'partjes',
+  'roosjes',
+  'coulis',
+  'puree',
+  'filet',
+  'rasp',
+  'schil',
+  'zeste',
+  'blad',
+  'sap'
+];
 
 const FAMILY_GROUPS = [
   {
@@ -121,7 +139,29 @@ const FAMILY_KNOWN = [
   ['Lecite (Texturas)', ['soja'], 'lecite'],
   ['Pro Espuma Cold', ['melk', 'lactose'], 'pro espuma, pro espuma cold, pro espuma koud'],
   ['Pro Espuma Hot', [], 'pro espuma hot, pro espuma warm, pro espuma caliente'],
-  ['Beurre noisette', ['melk', 'lactose'], 'beurre noisette, bruine boter']
+  ['Beurre noisette', ['melk', 'lactose'], 'beurre noisette, bruine boter'],
+  [
+    'Sla',
+    [],
+    'sla, kropsla, botersla, ijsbergsla, eikenbladsla, rode eikenbladsla, bindsla, romaine, romeinse sla, ' +
+      'little gem, lollo rosso, lollo bionda, frisée, friseesla, krulsla, veldsla, mesclun, pluksla, slamix'
+  ],
+  ['IJsblokjes', [], 'ijsblokje, ijsklontje, ijsklont, crushed ice, gemalen ijs, ice cubes'],
+  ['Tonic', [], 'tonic, tonic water, tonicwater, indian tonic'],
+  ['Bruiswater', [], 'bruiswater, spuitwater, sodawater, soda water, spa rood, mineraalwater bruis'],
+  // Couverture is chocolade: dezelfde producten als in de startlijst.
+  ['Melkchocolade', ['melk', 'lactose', 'soja'], 'melkchocolade, melkcouverture, melk couverture, couverture melk'],
+  [
+    'Pure chocolade',
+    ['soja'],
+    'pure chocolade, puur chocolade, chocolade puur, pure couverture, puur couverture, couverture puur, donkere couverture'
+  ],
+  [
+    'Witte chocolade',
+    ['melk', 'lactose', 'soja'],
+    'witte chocolade, chocolade witte, witte couverture, couverture wit'
+  ],
+  ['Zelfrijzend bakmeel', ['gluten'], 'zelfrijzend bakmeel, zelfrijzendbakmeel, zelfrijzende bloem, self raising flour']
 ];
 
 // Te algemeen om te weten wat erin zit: welk sap, welke olie? Savour maakt hier geen product van.
@@ -134,9 +174,10 @@ const FAMILY_GENERIC = new Set(
   ).split(', ')
 );
 
-// Geen ingrediënt maar een stukje uitleg of rekenwerk dat in de naam terecht is gekomen.
+// Geen ingrediënt maar een stukje uitleg of rekenwerk dat in de naam terecht is gekomen. Een lege hoeveelheid
+// ervoor ("…. gram wasabi poeder") haalt productKey al weg; dan blijft het gewoon een product.
 const FAMILY_JUNK =
-  /=|:$|^(of|x|b|per|al|aan|en)\s|^[….\d]|(^|\s)(mengen|maken|zie|bruineren|in de oven|magimix|cut small|van de zelfde)($|\s)/;
+  /^(per|al|aan|en)\s|(^|\s)(mengen|maken|zie|bruineren|in de oven|magimix|cut small|van de zelfde)($|\s)/;
 
 // Enkelvoud en meervoud gelijk maken: peren/peer → per, abrikozen/abrikoos → abrikos, olijven/olijf → olijf.
 function familyStem(word) {
@@ -196,7 +237,7 @@ function productFamily(name) {
   const key = productKey(name);
   if (!key) return null;
   const nothing = kind => ({ key: '', name: '', allergens: [], kind });
-  if (FAMILY_JUNK.test(String(name).toLowerCase().trim()) || FAMILY_JUNK.test(key)) return nothing('junk');
+  if (FAMILY_JUNK.test(key)) return nothing('junk');
   if (FAMILY_GENERIC.has(key)) return nothing('generic');
   const { members, fish, known } = familyLookup();
   const compact = words => words.map(familyStem).join('');
