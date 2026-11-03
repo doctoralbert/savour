@@ -340,7 +340,8 @@ function productCleanupPlan(scope) {
           ? plain.name
           : [...names].sort((a, b) => b[1] - a[1] || a[0].length - b[0].length)[0][0];
     const target = members.find(p => sameName(p.name, name)) || members[0];
-    if (members.length === 1 && sameName(target.name, name) && !messy(target.name)) continue;
+    if (members.length === 1 && (target.name === name || (sameName(target.name, name) && !messy(target.name))))
+      continue;
     const key = productKey(name);
     const aliases = [
       ...new Set(members.flatMap(p => [p.name, ...p.aliases].map(productKey)).filter(k => k && k !== key))

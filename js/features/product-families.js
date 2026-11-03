@@ -234,17 +234,21 @@ const FAMILY_KNOWN = [
   ['Tonic', [], 'tonic, tonic water, tonicwater, indian tonic'],
   ['Bruiswater', [], 'bruiswater, spuitwater, sodawater, soda water, spa rood, mineraalwater bruis'],
   // Couverture is chocolade: dezelfde producten als in de startlijst.
-  ['Melkchocolade', ['melk', 'lactose', 'soja'], 'melkchocolade, melkcouverture, melk couverture, couverture melk'],
+  [
+    'Melkchocolade',
+    ['melk', 'lactose', 'soja'],
+    'melkchocolade, melkcouverture, melk couverture, couverture melk, milk chocolate'
+  ],
   [
     'Pure chocolade',
     ['soja'],
     'pure chocolade, puur chocolade, chocolade puur, pure couverture, puur couverture, couverture puur, ' +
-      'donkere couverture, donkere chocolade, zwarte chocolade, pure choco'
+      'donkere couverture, donkere chocolade, zwarte chocolade, pure choco, dark chocolate'
   ],
   [
     'Witte chocolade',
     ['melk', 'lactose', 'soja'],
-    'witte chocolade, chocolade witte, witte couverture, couverture wit'
+    'witte chocolade, chocolade witte, witte couverture, couverture wit, white chocolate'
   ],
   [
     'Zelfrijzend bakmeel',

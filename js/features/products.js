@@ -83,7 +83,8 @@ const ALLERGEN_EXTRA_GROUPS = [
 
 // Voorstellen op basis van de productnaam. Alleen een begin: de kok controleert altijd het etiket.
 // Uitzonderingen eerst (nootmuskaat is geen noot).
-const ALLERGEN_HINT_SKIP = /nootmuskaat|notenmuskaat|muskaatnoot|boekweit|cacaoboter|pindakaas-?vrij/;
+const ALLERGEN_HINT_SKIP =
+  /nootmuskaat|notenmuskaat|muskaatnoot|boekweit|cacao\s?boter|cocoa butter|cacao butter|pindakaas-?vrij/;
 const ALLERGEN_HINTS = [
   [/amandelmelk|amandeldrink/, ['noten']],
   [/havermelk|haverdrink/, ['gluten']],
@@ -198,7 +199,7 @@ const ALLERGEN_HINTS = [
 const PASTE_NOT_NOODLE =
   /^(?!(verse|droge|gedroogde|gekookte|volkoren|glutenvrije|zelfgemaakte|italiaanse)\s?pasta$)[a-zà-ÿ].*[a-zà-ÿ][\s-]?pasta$/;
 const PLANT_NOT_DAIRY =
-  /pindakaas|roomse|(pure|puur)\s?choc|choc\w*\s(puur|pure)|(amandel|haver|soja|rijst|kokos|cashew|cashewnoot|noten|hazelnoot|erwten|oat|almond)\s?(melk|drink|room|milk)/;
+  /pindakaas|roomse|(pure|puur)\s?choc|choc\w*\s(puur|pure)|(amandel|haver|soja|rijst|kokos|cashew|cashewnoot|noten|hazelnoot|erwten|oat|almond)\s?(melk|drink|room|milk|yoghurt)|cacao\s?boter|cocoa butter|cacao butter|alpro|plantaardige|vegan/;
 // Waar een trefwoord misleidt: azijn bevat geen alcohol meer, koffie- en vanillebonen zijn geen peulvruchten,
 // en in harde, gerijpte kaas is de lactose afgebroken (het melkeiwit blijft, dus melk wel).
 const ALLERGEN_HINT_NOT = [
@@ -228,6 +229,8 @@ const ALLERGEN_HINT_NOT = [
   [/ginger ?beer|gemberbier/, 'gluten'],
   [/ginger ?beer|gemberbier/, 'alcohol'],
   [/havermout/, 'alcohol'], // "vermout" staat in havermout
+  [/amaretti|amaretto ?koek/, 'alcohol'],
+  [/cacao\s?boter|cocoa butter|cacao butter/, 'fodmap'],
   [/cream(y)? sherry/, 'melk'],
   [/cream(y)? sherry/, 'lactose'],
   // Bonenkruid is een kruid, maggiplant (lavas) bevat geen glutamaat, en kastanjes zijn geen paddenstoelen.
@@ -395,7 +398,7 @@ function computeProductKey(text) {
     .replace(/\s+/g, ' ')
     .trim()
     .replace(PRODUCT_EMPTY_AMOUNT, '')
-    .replace(/^of (?=.*=$)/, '')
+    .replace(/^of\s+/, '')
     .replace(/\s*[=:]+$/, '')
     .trim();
   const words = s.split(' ');
