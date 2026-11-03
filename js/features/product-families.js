@@ -238,7 +238,8 @@ const FAMILY_KNOWN = [
   [
     'Pure chocolade',
     ['soja'],
-    'pure chocolade, puur chocolade, chocolade puur, pure couverture, puur couverture, couverture puur, donkere couverture'
+    'pure chocolade, puur chocolade, chocolade puur, pure couverture, puur couverture, couverture puur, ' +
+      'donkere couverture, donkere chocolade, zwarte chocolade, pure choco'
   ],
   [
     'Witte chocolade',
@@ -295,6 +296,22 @@ const FAMILY_KNOWN = [
   ['Transglutaminase', [], 'transglutaminase, transglutaminaat, activa'],
   ['Tapioca', [], 'tapioca, tapiocapoeder, tapiocazetmeel'],
   ['Roux', ['gluten'], 'roux, roux korrels'],
+  // Lijken op een ander product, maar zijn het niet: cacaoboter is geen boter, kikkererwtenmeel geen bloem.
+  ['Cacaoboter', [], 'cacaoboter, cacao boter, cocoa butter, cacao butter'],
+  [
+    'Kikkererwtenmeel',
+    ['peulvruchten'],
+    'kikkererwtenmeel, kikkererwten meel, kikkererwten bloem, kikkererwtenbloem, gram flour, besan'
+  ],
+  [
+    'Sojayoghurt',
+    ['soja'],
+    'sojayoghurt, soja yoghurt, alpro yoghurt, alpro veganistische yoghurt, plantaardige yoghurt, vegan yoghurt'
+  ],
+  ['Lactosevrije yoghurt', ['melk'], 'lactosevrije yoghurt, yoghurt lactosevrij, yoghurt lactose vrij'],
+  ['Amaretti', ['noten', 'ei'], 'amaretti, amaretto koekjes, amarettikoekjes, amaretti koekjes'],
+  ['Roze peper', [], 'roze peper, roze peperkorrels, roze peper korrels, baies roses'],
+  ['Kastanjechampignons', ['paddenstoelen'], 'kastanjechampignon, kastanje champignon'],
   // Gemengde kruiden, of twee kruiden samen ("tijm rozemarijn laurier"): zie productFamily.
   [
     'Kruiden',
@@ -311,7 +328,7 @@ const FAMILY_GENERIC = new Set(
     'glazuur, basis, massa, mix, poeder, schuim, crumble, dressing, marinade, vinaigrette, garnituur, garnering, ' +
     'decoratie, fruit, vruchten, groente, groenten, specerijen, vocht, kookvocht, smaakstoffen, ijs, fruit coulis, ' +
     'vruchten coulis, vruchten puree, rood fruit, rood fruit coulis, gedroogde fruit, fruit couli boiron, droge puree, ' +
-    'circa, bodem, appareil, aanmaak, drank, terrine, boiron couli, karamel, caramel, basis karamel, tipo, ' +
+    'circa, bodem, appareil, basis massa, basismassa, massa basis, basis mix, aanmaak, drank, terrine, boiron couli, karamel, caramel, basis karamel, tipo, ' +
     'diverse paddenstoelen, gedroogde paddenstoelen, kookvocht, blancheer vocht, liquor'
   ).split(', ')
 );

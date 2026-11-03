@@ -64,7 +64,7 @@ function productsByFamily(scope) {
 
 // Achter een product geplakt, maar een ander product: kippenbouillon is geen kip, appelazijn geen appel.
 const COMPOUND_OWN_PRODUCT =
-  /^(en|s)?(azijn|olie|bouillon|fond|saus|likeur|poeder|pasta|melk|room|boter|deeg|meel|bloem|vet|jus|creme|crème|gel|ijs|mousse|chips|thee|extract|aroma|essence|wijn|bier|kaas|brood|koek|taart|zout|suiker|mayo|mayonaise|ketchup|chutney|jam|confituur|compote|gelei|sorbet|schuim|crumble|praline|ganache|karamel|siroop)/;
+  /^(en|s)?(azijn|olie|bouillon|fond|saus|likeur|poeder|pasta|melk|room|boter|deeg|meel|bloem|vet|jus|creme|crème|gel|ijs|mousse|chips|thee|extract|aroma|essence|wijn|bier|kaas|brood|koek|taart|zout|suiker|mayo|mayonaise|ketchup|chutney|jam|confituur|compote|gelei|sorbet|schuim|crumble|praline|ganache|karamel|siroop|champignon|paddenstoel|zwam|zaad|pitten|koekjes|zetmeel)/;
 
 function autoLinkPlan(scope) {
   const names = [];

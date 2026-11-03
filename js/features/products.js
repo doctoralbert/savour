@@ -93,13 +93,15 @@ const ALLERGEN_HINTS = [
     ['melk']
   ],
   // Advocaat, bearnaise, hollandaise en custard: eieren.
-  [/advocaat|bearnaise|béarnaise|hollandaise|custard|bitterkoek/, ['ei']],
+  [/advocaat|bearnaise|béarnaise|hollandaise|custard|bitterkoek|amaretti|croissant/, ['ei']],
+  // Croissants zijn met boter gemaakt.
+  [/croissant/, ['melk']],
   [
     /(^|[^a-zà-ÿ])eieren|(^|[^a-zà-ÿ])ei($|[^a-zà-ÿ])|eidooier|dooier|eiwit|egg|yolk|mayonaise|mayonnaise|meringue/,
     ['ei']
   ],
   [
-    /(^|[^a-zà-ÿ])(patent|tarwe|spelt|rogge|zelfrijzende?\s?)?bloem($|[^a-zà-ÿ])|tarwe|meel|brood|paneermeel|pasta|spelt|rogge|gerst|haver|couscous|bulgur|seitan|flour|wheat|bread|panko|bier|beer|croissant|bladerdeeg|brioche|noedel|noodle|vermicelli|soja ?saus|soya ?saus|soy ?sauce|shoyu|ketjap|fregola|orzo|griesmeel|semolina|gort|(^|[^a-zà-ÿ])filo|kataifi|wonton|tempura|bastogne|speculaas|ontbijtkoek|peperkoek|kruidno|pepernot|roux|oestersaus|oyster ?sauce/,
+    /(^|[^a-zà-ÿ])(patent|tarwe|spelt|rogge|zelfrijzende?\s?)?bloem($|[^a-zà-ÿ])|tarwe|meel|brood|paneermeel|pasta|spelt|rogge|gerst|haver|couscous|bulgur|seitan|flour|wheat|bread|panko|bier|beer|croissant|bladerdeeg|brioche|noedel|noodle|vermicelli|soja ?saus|soya ?saus|soy ?sauce|shoyu|ketjap|fregola|orzo|griesmeel|semolina|gort|(^|[^a-zà-ÿ])filo|kataifi|wonton|tempura|bastogne|speculaas|ontbijtkoek|peperkoek|kruidno|pepernot|roux|oestersaus|oyster ?sauce|ponzu/,
     ['gluten']
   ],
   [
@@ -118,7 +120,7 @@ const ALLERGEN_HINTS = [
   ],
   [/pinda|peanut|saté|gado.?gado/, ['pinda']],
   [
-    /amandel|hazelno|walno|cashew|pistache|pecan|macadamia|parano|almond|hazelnut|walnut|praliné|praline|frangipane|marsepein|gianduja|(^|[^a-zà-ÿ])noten/,
+    /amandel|hazelno|walno|cashew|pistach|pecan|macadamia|parano|almond|hazelnut|walnut|praliné|praline|frangipane|marsepein|gianduja|nougat|(^|[^a-zà-ÿ])noga|bitterkoek|amaretti|(^|[^a-zà-ÿ])noten/,
     ['noten']
   ],
   [/soja|tofu|miso|edamame|tamari|ketjap|kecap|shoyu|kikk?oman|oestersaus|oyster ?sauce|(^|[^a-zà-ÿ])soy/, ['soja']],
@@ -126,7 +128,7 @@ const ALLERGEN_HINTS = [
   [/mosterd|mustard|wasabi|piccalil/, ['mosterd']], // wasabipoeder en -pasta bevatten bijna altijd mosterd
   [/sesam|tahin|sesame|togarashi|hummus|humus/, ['sesam']],
   [
-    /wijn|azijn|port($|[^a-zà-ÿ])|sherry|cognac|madeira|wine|vinegar|gedroogde abrikoos|gedroogde abrikozen|verjus|malaga|gastri(c|que)|(^|[^a-zà-ÿ])px($|[^a-zà-ÿ])|pedro xim|noilly|nouilly|nolly|vieux|mizkan|mitsukan|sushi su/,
+    /wijn|azijn|port($|[^a-zà-ÿ])|sherry|cognac|madeira|wine|vinegar|gedroogde abrikoos|gedroogde abrikozen|verjus|malaga|sauternes|aceto|gastri(c|que)|(^|[^a-zà-ÿ])px($|[^a-zà-ÿ])|pedro xim|noilly|nouilly|nolly|vieux|mizkan|mitsukan|sushi su/,
     ['sulfiet']
   ],
   [/lupine|lupin/, ['lupine']],
@@ -139,7 +141,7 @@ const ALLERGEN_HINTS = [
     ['rundvlees']
   ],
   [
-    /wijn|bier|(^|[^a-zà-ÿ])port($|[^a-zà-ÿ])|sherry|cognac|armagnac|(^|[^a-zà-ÿ])rum|likeur|amaretto|vodka|(^|[^a-zà-ÿ])gin($|[^a-zà-ÿ])|whisky|calvados|madeira|(^|[^a-zà-ÿ])sake|mirin|marnier|cointreau|kirsch|advocaat|marsala|noilly|nouilly|nolly|pernod|pastis|champagne|prosecco|(^|[^a-zà-ÿ])cava($|[^a-zà-ÿ])|wine|beer|brandy|bailey|triple sec|strega|kahl?ua|kahula|grand ma|malibu|pisang ambon|limoncello|sambuca|ouzo|campari|aperol|vermout|martini|vieux|malaga|(^|[^a-zà-ÿ])px($|[^a-zà-ÿ])|pedro xim|liquor|liqueur/,
+    /wijn|bier|(^|[^a-zà-ÿ])port($|[^a-zà-ÿ])|sherry|cognac|armagnac|(^|[^a-zà-ÿ])rum|likeur|amaretto|vodka|(^|[^a-zà-ÿ])gin($|[^a-zà-ÿ])|whisky|calvados|madeira|(^|[^a-zà-ÿ])sake|mirin|marnier|cointreau|kirsch|advocaat|marsala|noilly|nouilly|nolly|pernod|pastis|champagne|prosecco|(^|[^a-zà-ÿ])cava($|[^a-zà-ÿ])|wine|beer|brandy|bailey|triple sec|strega|kahl?ua|kahula|grand ma|malibu|pisang ambon|limoncello|sambuca|ouzo|campari|aperol|(^|[^a-zà-ÿ])vermout|martini|vieux|malaga|sauternes|wodka|eau de vie|napoleon|cr[eè]me de (menthe|mint|cassis|cacao|p[eê]che|m[uû]re|framboise)|(^|[^a-zà-ÿ])px($|[^a-zà-ÿ])|pedro xim|liquor|liqueur/,
     ['alcohol']
   ],
   [
@@ -173,7 +175,7 @@ const ALLERGEN_HINTS = [
     ['gevogelte']
   ],
   [
-    /champignon|paddenstoel|shiitake|oesterzwam|beukenzwam|cantharel|girolle|eekhoorntjesbrood|porcini|cèpe|morielje|truffel|enoki|shimeji|portobello|mushroom/,
+    /champignon|paddenstoel|shiitake|oesterzwam|beukenzwam|cantharel|girolle|eekhoorntjesbrood|porcini|cèpe|cepe|morielje|morille|morel|truffel|truffe|enoki|shimeji|portobello|mushroom/,
     ['paddenstoelen']
   ],
   [/pijnboompit|pine ?nut|pinoli|(^|[^a-zà-ÿ])pignon|pesto/, ['pijnboompitten']],
@@ -220,6 +222,18 @@ const ALLERGEN_HINT_NOT = [
     'gluten'
   ],
   [/eekhoorntjesbrood|sint-?jansbrood/, 'gluten'],
+  // Zetmeel van aardappel, maïs, rijst of tapioca; speculaaskruiden zonder koek; ginger beer is frisdrank.
+  [/(aardappel|mais|maïs|rijst|tapioca|pijlwortel)\s?zetmeel/, 'gluten'],
+  [/speculaas\s?(poeder|kruiden)/, 'gluten'],
+  [/ginger ?beer|gemberbier/, 'gluten'],
+  [/ginger ?beer|gemberbier/, 'alcohol'],
+  [/havermout/, 'alcohol'], // "vermout" staat in havermout
+  [/cream(y)? sherry/, 'melk'],
+  [/cream(y)? sherry/, 'lactose'],
+  // Bonenkruid is een kruid, maggiplant (lavas) bevat geen glutamaat, en kastanjes zijn geen paddenstoelen.
+  [/bon+enkruid/, 'peulvruchten'],
+  [/maggiplant|lavas/, 'glutamaat'],
+  [/^(tamme )?kastanjes?( puree| sous ?vide)?$|^kastanjes? (gepoft|gekookt)/, 'paddenstoelen'],
   [/cornichon/, 'mais'],
   [/(oost[- ]?indische?|water|tuin)\s?kers/, 'steenfruit'],
   [/fodmap-?arm|low.?fodmap|umeboshi|(curry|kerrie|tomaten|miso|sesam|tamarinde)\s?pasta/, 'fodmap'],
@@ -1204,9 +1218,11 @@ function todoButtons(scope, key) {
     scope === 'own'
       ? `<button type="button" class="btn small" onclick="linkTodoRecipe('${escJs(key)}')">Recept</button>`
       : '';
-  // Een tikfout ("a") is geen ingrediënt: die regel mag uit de recepten.
+  // Een tikfout ("a") of een begrip als "basis massa" is geen ingrediënt: die regel mag uit de recepten.
+  const kind = productFamily(key)?.kind;
   const remove =
-    scope === 'own' && key.length <= 3 && !['known', 'produce', 'fish'].includes(productFamily(key)?.kind)
+    scope === 'own' &&
+    (['generic', 'junk'].includes(kind) || (key.length <= 3 && !['known', 'produce', 'fish'].includes(kind)))
       ? `<button type="button" class="btn small" onclick="removeTodoLines('${escJs(key)}')">Weghalen</button>`
       : '';
   if (!p)
