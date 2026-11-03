@@ -328,7 +328,11 @@ function productCleanupPlan(scope) {
     // Naam: bij een groep, vissoort of vakkennis de vaste naam. Anders een product dat al zo heet ("Tomaat" naast
     // "Tomatensap"), of de kern die het vaakst voorkomt ("Kersen" uit "Kersen coulis" en "Kersen puree").
     const sameName = (a, b) => compactKey(productKey(a)) === compactKey(productKey(b));
-    const plain = members.find(p => names.has(p.name) || [...names.keys()].some(n => sameName(n, p.name)));
+    // Een rommelige naam ("Of butter =", "…. gram wasabi poeder") wordt netjes, ook als er niets samen te voegen is.
+    const messy = n => /[=:…]|^[^a-zà-ÿ]|^(of|x|b|grams?|gram)\s/i.test(n.trim());
+    const plain = members.find(
+      p => !messy(p.name) && (names.has(p.name) || [...names.keys()].some(n => sameName(n, p.name)))
+    );
     const name =
       fam.kind !== 'base'
         ? fam.name
@@ -336,8 +340,6 @@ function productCleanupPlan(scope) {
           ? plain.name
           : [...names].sort((a, b) => b[1] - a[1] || a[0].length - b[0].length)[0][0];
     const target = members.find(p => sameName(p.name, name)) || members[0];
-    // Een rommelige naam ("Of butter =", "…. gram wasabi poeder") wordt netjes, ook als er niets samen te voegen is.
-    const messy = n => /[=:…]|^[^a-zà-ÿ]|^(of|x|b|grams?|gram)\s/i.test(n.trim());
     if (members.length === 1 && sameName(target.name, name) && !messy(target.name)) continue;
     const key = productKey(name);
     const aliases = [
