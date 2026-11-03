@@ -181,7 +181,7 @@ const STARTER_PRODUCTS = (() => {
     b('Gember', [], ['verse gember']),
     b('Gemberpoeder', [], ['gember poeder']),
     b('Laos'),
-    b('Bieslook'),
+    b('Bieslook', ['ui']),
     b('Munt', [], ['verse munt']),
     b('Watermunt'),
     b('Anijszaad'),

@@ -1782,6 +1782,7 @@ window.SAVOUR_I18N.de = {
     Rundvlees: 'Rindfleisch',
     Alcohol: 'Alkohol',
     Ui: 'Zwiebel',
+    Uiachtigen: 'Zwiebelgewächse',
     Knoflook: 'Knoblauch',
     Peulvruchten: 'Hülsenfrüchte',
     Maïs: 'Mais',

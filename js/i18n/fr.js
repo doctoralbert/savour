@@ -1790,6 +1790,7 @@ window.SAVOUR_I18N.fr = {
     Rundvlees: 'Bœuf',
     Alcohol: 'Alcool',
     Ui: 'Oignon',
+    Uiachtigen: 'Famille de l’oignon',
     Knoflook: 'Ail',
     Peulvruchten: 'Légumineuses',
     Maïs: 'Maïs',

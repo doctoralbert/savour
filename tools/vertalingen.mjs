@@ -3591,6 +3591,7 @@ export const strings = [
   ["Rundvlees","Beef","Rindfleisch","Ternera"],
   ["Alcohol","Alcohol","Alkohol","Alcohol"],
   ["Ui","Onion","Zwiebel","Cebolla"],
+  ["Uiachtigen","Onion family","Zwiebelgewächse","Familia de la cebolla"],
   ["Knoflook","Garlic","Knoblauch","Ajo"],
   ["Peulvruchten","Legumes","Hülsenfrüchte","Legumbres"],
   ["Maïs","Corn","Mais","Maíz"],

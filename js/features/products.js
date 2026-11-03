@@ -36,7 +36,7 @@ const ALLERGENS = [
   ['wild', 'Wild', true],
   ['gevogelte', 'Gevogelte', true],
   ['alcohol', 'Alcohol', true],
-  ['ui', 'Ui', true],
+  ['ui', 'Uiachtigen', true], // ui, sjalot, prei, bieslook, daslook, knoflook ...
   ['knoflook', 'Knoflook', true],
   ['peulvruchten', 'Peulvruchten', true],
   ['mais', 'Maïs', true],
@@ -132,7 +132,10 @@ const ALLERGEN_HINTS = [
     /wijn|bier|(^|[^a-zà-ÿ])port($|[^a-zà-ÿ])|sherry|cognac|armagnac|(^|[^a-zà-ÿ])rum|likeur|amaretto|vodka|(^|[^a-zà-ÿ])gin($|[^a-zà-ÿ])|whisky|calvados|madeira|(^|[^a-zà-ÿ])sake|mirin|marnier|cointreau|kirsch|advocaat|marsala|noilly|pernod|pastis|champagne|prosecco|(^|[^a-zà-ÿ])cava($|[^a-zà-ÿ])|wine|beer|brandy/,
     ['alcohol']
   ],
-  [/(^|[^a-zà-ÿ])(ui|uien|uitjes|zilveruitjes)($|[^a-zà-ÿ])|sjalot|bosui|lente-?ui|prei|onion|shallot/, ['ui']],
+  [
+    /(^|[^a-zà-ÿ])(ui|uien|uitjes|zilveruitjes)($|[^a-zà-ÿ])|sjalot|bosui|lente-?ui|prei|bieslook|daslook|knoflook|rocambole|onion|shallot|leek|chive|ramson|garlic|aioli/,
+    ['ui']
+  ],
   [/knoflook|garlic|aioli/, ['knoflook']],
   [
     /bonen|(^|[^a-zà-ÿ])boon($|[^a-zà-ÿ])|linzen|kikkererwt|erwt|peulvrucht|edamame|peultjes|kapucijner|hummus|falafel|bean|lentil|chickpea/,
@@ -235,6 +238,7 @@ function withDerived(key, codes) {
   const found = new Set(codes);
   if (found.has('melk')) found.add('lactose');
   for (const [re, code] of ALLERGEN_HINT_NOT) if (re.test(key)) found.delete(code);
+  if (found.has('knoflook')) found.add('ui'); // knoflook is een uiachtige
   if (['lactose', 'fructose', 'ui', 'knoflook', 'peulvruchten'].some(c => found.has(c))) found.add('fodmap');
   for (const [re, code] of ALLERGEN_HINT_NOT) if (code === 'fodmap' && re.test(key)) found.delete(code);
   return ALLERGENS.map(a => a[0]).filter(c => found.has(c));
@@ -500,6 +504,7 @@ function recipeAllergenInfo(r, scope = productScopeOf(r), seen = new Set(), byTi
       lines.push({ i, line, key, status: product ? 'unchecked' : 'unknown', product: product || null });
     }
   });
+  if (found.has('knoflook')) found.add('ui'); // knoflook is een uiachtige, ook als alleen knoflook is aangevinkt
   return { allergens: ALLERGENS.map(a => a[0]).filter(a => found.has(a) && allergenShown(a, scope)), unknown, lines };
 }
 

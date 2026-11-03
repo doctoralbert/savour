@@ -1428,6 +1428,7 @@ export const stringsFr = {
  "Rundvlees": "Bœuf",
  "Alcohol": "Alcool",
  "Ui": "Oignon",
+ "Uiachtigen": "Famille de l’oignon",
  "Knoflook": "Ail",
  "Peulvruchten": "Légumineuses",
  "Maïs": "Maïs",

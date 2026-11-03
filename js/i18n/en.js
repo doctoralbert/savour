@@ -1764,6 +1764,7 @@ window.SAVOUR_I18N.en = {
     Rundvlees: 'Beef',
     Alcohol: 'Alcohol',
     Ui: 'Onion',
+    Uiachtigen: 'Onion family',
     Knoflook: 'Garlic',
     Peulvruchten: 'Legumes',
     Maïs: 'Corn',

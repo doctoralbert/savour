@@ -1769,6 +1769,7 @@ window.SAVOUR_I18N.es = {
     Rundvlees: 'Ternera',
     Alcohol: 'Alcohol',
     Ui: 'Cebolla',
+    Uiachtigen: 'Familia de la cebolla',
     Knoflook: 'Ajo',
     Peulvruchten: 'Legumbres',
     Maïs: 'Maíz',
