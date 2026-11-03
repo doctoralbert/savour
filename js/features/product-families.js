@@ -639,3 +639,19 @@ function productFamily(name, noHead = false) {
 }
 
 const capitalizeFirst = s => s.charAt(0).toLocaleUpperCase('nl-NL') + s.slice(1);
+
+// Savours eigen woordenlijst als aanvulling op de basislijst: elke naam met het product waar hij bij hoort en de
+// allergenen die Savour daarvan kent. Geeft [[naam, product, allergenen], ...].
+function savourVocabulary() {
+  const out = [];
+  const add = (head, list, allergens = []) =>
+    [head, ...String(list || '').split(',')]
+      .map(s => s.trim())
+      .filter(Boolean)
+      .forEach(n => out.push([n, head, [].concat(allergens)]));
+  for (const [head, list] of [...FAMILY_FRUIT, ...FAMILY_VEG, ...FAMILY_HERBS]) add(head, list);
+  for (const [head, allergens, list] of [...FAMILY_FISH, ...FAMILY_KNOWN]) add(head, list, allergens);
+  for (const p of typeof STARTER_PRODUCTS === 'undefined' ? [] : STARTER_PRODUCTS)
+    add(p.name, p.aliases.join(','), p.allergens);
+  return out;
+}

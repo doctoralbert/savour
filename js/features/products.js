@@ -316,6 +316,12 @@ function loadIngredientBase() {
               const k = productKey(n);
               if (k && !index.has(k)) index.set(k, item);
             }
+        // Aanvulling met Savours eigen lijst (product-families.js): namen die Open Food Facts niet in het
+        // Nederlands kent, zoals spitskool en kropsla. Apart gemarkeerd, zodat de bronvermelding klopt.
+        for (const [n, head, allergens] of savourVocabulary()) {
+          const k = productKey(n);
+          if (k && !index.has(k)) index.set(k, [allergens.join(','), head, '', '', '', '', 0, 'savour']);
+        }
         ingredientBase = { index };
         return ingredientBase;
       })
@@ -337,17 +343,22 @@ function ingredientBaseMatch(name) {
       const k = words.slice(start, start + len).join(' ');
       if (len < words.length && k.length < 4) continue;
       const item = index.get(k);
-      if (item) return { name: k, allergens: item[0] ? item[0].split(',') : [] };
+      if (item) return { name: k, allergens: item[0] ? item[0].split(',') : [], own: item[7] === 'savour' };
     }
+  // Geen losse naam gevonden, maar Savour kent het hoofdproduct: "spitskool" is Kool, "gepekeld buikspek" Varken.
+  const fam = productFamily(name);
+  if (fam && ['head', 'produce', 'fish', 'known'].includes(fam.kind))
+    return { name: productKey(fam.name), allergens: fam.allergens || [], own: true };
   return null;
 }
 
 // Uitleg boven de allergenen bij een nieuw product, met de bronvermelding die de licentie van Open Food Facts vraagt.
 function productHintHtml({ base, codes }) {
   if (!base && !codes.length) return '';
-  const source = base
-    ? '<p class="product-source">Basislijst: © <a href="https://world.openfoodfacts.org/terms-of-use" target="_blank" rel="noopener">Open Food Facts contributors</a>, ODbL</p>'
-    : '';
+  const source =
+    base && !base.own
+      ? '<p class="product-source">Basislijst: © <a href="https://world.openfoodfacts.org/terms-of-use" target="_blank" rel="noopener">Open Food Facts contributors</a>, ODbL</p>'
+      : '';
   const found = base
     ? `<p class="product-hint"><span>Gevonden in de basislijst</span>: <b translate="no">${esc(base.name)}</b></p>`
     : '';
