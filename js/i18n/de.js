@@ -1734,6 +1734,19 @@ window.SAVOUR_I18N.de = {
     'https://www.voorbeeld.nl/recept/beurre-blanc': 'https://www.beispiel.de/rezept/beurre-blanc',
     "Foto's": 'Fotos',
     'Ander product': 'Anderes Produkt',
+    'Welke allergenen wil je bijhouden?': 'Welche Allergene möchtest du erfassen?',
+    'Wettelijk verplicht zijn de 14 allergenen van de EU. Je kunt aanvullen met kenmerken waar gasten vaak naar vragen, zoals lactose, ui, gevogelte of histamine. Je kunt dit later altijd aanpassen.':
+      'Gesetzlich vorgeschrieben sind die 14 Allergene der EU. Du kannst Merkmale ergänzen, nach denen Gäste oft fragen, etwa Laktose, Zwiebel, Geflügel oder Histamin. Das kannst du später jederzeit ändern.',
+    'Alleen de 14 wettelijke': 'Nur die 14 gesetzlichen',
+    Aanvullen: 'Ergänzen',
+    'Welke allergenen?': 'Welche Allergene?',
+    'De 14 wettelijke allergenen houdt Savour altijd bij. Vink aan wat je daarnaast wilt zien. Wat je uitzet, blijft bewaard maar zie je niet meer.':
+      'Die 14 gesetzlichen Allergene erfasst Savour immer. Kreuze an, was du zusätzlich sehen willst. Was du ausschaltest, bleibt gespeichert, wird aber nicht mehr angezeigt.',
+    Vlees: 'Fleisch',
+    'Groente, fruit en zaden': 'Gemüse, Obst und Samen',
+    'Intoleranties en overig': 'Unverträglichkeiten und Sonstiges',
+    'Alles aanvinken': 'Alle ankreuzen',
+    'Alles uitvinken': 'Alle abwählen',
     Startlijst: 'Startliste',
     'Savour zet ruim 200 veelgebruikte keukenproducten voor je klaar, zoals bloem, slagroom, eidooier en zout, met hun allergenen en de schrijfwijzen uit recepten. Je beantwoordt eerst drie korte vragen. Daarna bevestig je de producten zelf.':
       'Savour legt über 200 gängige Küchenprodukte für dich an, etwa Mehl, Sahne, Eigelb und Salz, mit ihren Allergenen und den Schreibweisen aus Rezepten. Zuerst beantwortest du drei kurze Fragen. Danach bestätigst du die Produkte selbst.',

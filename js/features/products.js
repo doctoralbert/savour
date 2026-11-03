@@ -57,6 +57,29 @@ const ALLERGEN_LABEL = new Map(ALLERGENS);
 const ALLERGEN_EXTRA = new Set(ALLERGENS.filter(a => a[2]).map(a => a[0]));
 const allergensEu = codes => codes.filter(c => !ALLERGEN_EXTRA.has(c));
 const allergensExtra = codes => codes.filter(c => ALLERGEN_EXTRA.has(c));
+// De extra kenmerken in groepen, voor het keuzevenster.
+const ALLERGEN_EXTRA_GROUPS = [
+  ['Melk', ['lactose']],
+  ['Vlees', ['varkensvlees', 'rundvlees', 'lam', 'wild', 'gevogelte']],
+  [
+    'Groente, fruit en zaden',
+    [
+      'ui',
+      'knoflook',
+      'peulvruchten',
+      'mais',
+      'nachtschade',
+      'paddenstoelen',
+      'pijnboompitten',
+      'kokos',
+      'maanzaad',
+      'kiwi',
+      'steenfruit',
+      'koriander'
+    ]
+  ],
+  ['Intoleranties en overig', ['alcohol', 'glutamaat', 'histamine', 'fructose', 'fodmap']]
+];
 
 // Voorstellen op basis van de productnaam. Alleen een begin: de kok controleert altijd het etiket.
 // Uitzonderingen eerst (nootmuskaat is geen noot).
@@ -181,6 +204,16 @@ let productScope = 'own';
 let productSearch = '';
 let productTodoAll = false;
 let productLabelOnly = false; // Alleen producten van de startlijst die op het etiket moeten worden nagekeken.
+// Welke extra kenmerken een productlijst bijhoudt, per lijst ('own' of een keukenteam): [] is alleen de 14 wettelijke
+// allergenen. Nog niet gekozen: dan toont Savour alles wat er is. Wat verborgen is, blijft bewaard.
+let productExtras = new Map();
+let productSettingsReady = true; // false als de tabel product_settings nog niet bestaat.
+
+function allergenShown(code, scope) {
+  if (!ALLERGEN_EXTRA.has(code) || !productExtras.has(scope)) return true;
+  return productExtras.get(scope).includes(code);
+}
+const shownAllergens = (codes, scope) => codes.filter(c => allergenShown(c, scope));
 
 function allergenHints(name) {
   return withDerived(productKey(name), allergenKeywords(name));
@@ -332,16 +365,27 @@ function productSuggestionFor(scope, key) {
 
 async function loadProducts() {
   productsReady = true;
+  productExtras = new Map();
   if (demoMode) {
     products = demoProducts();
     return;
   }
   products = [];
   if (!currentUser) return;
-  const { data, error } = await supabaseClient
-    .from('products')
-    .select('id,user_id,team_id,name,aliases,allergens,allergens_known,allergen_note,updated_at')
-    .order('name');
+  const [{ data, error }, settings] = await Promise.all([
+    supabaseClient
+      .from('products')
+      .select('id,user_id,team_id,name,aliases,allergens,allergens_known,allergen_note,updated_at')
+      .order('name'),
+    supabaseClient.from('product_settings').select('user_id,team_id,allergen_extras')
+  ]);
+  productSettingsReady = !settings.error;
+  (settings.data || []).forEach(row =>
+    productExtras.set(
+      row.team_id ? String(row.team_id) : 'own',
+      Array.isArray(row.allergen_extras) ? row.allergen_extras : []
+    )
+  );
   if (error) {
     productsReady = false;
     return;
@@ -456,7 +500,7 @@ function recipeAllergenInfo(r, scope = productScopeOf(r), seen = new Set(), byTi
       lines.push({ i, line, key, status: product ? 'unchecked' : 'unknown', product: product || null });
     }
   });
-  return { allergens: ALLERGENS.map(a => a[0]).filter(a => found.has(a)), unknown, lines };
+  return { allergens: ALLERGENS.map(a => a[0]).filter(a => found.has(a) && allergenShown(a, scope)), unknown, lines };
 }
 
 function allergenChips(codes, cls = '') {
@@ -525,7 +569,7 @@ function openRecipeAllergenCheck() {
         const sub = x.sub;
         state = `<span class="allergen-line-via">${icon('book', { size: 14 })}<span translate="no">${esc(x.target.title)}</span></span>${sub ? (sub.allergens.length ? allergenChips(sub.allergens) : sub.unknown.length ? '' : '<span class="allergen-none">Geen allergenen</span>') + (sub.unknown.length ? `<span class="allergen-open">${sub.unknown.length} open</span>` : '') : ''}`;
       } else if (x.status === 'product') {
-        state = `<span class="allergen-line-product" translate="no">${esc(x.product.name)}</span>${x.product.allergens.length ? allergenChips(x.product.allergens) : '<span class="allergen-none">Geen allergenen</span>'}`;
+        state = `<span class="allergen-line-product" translate="no">${esc(x.product.name)}</span>${shownAllergens(x.product.allergens, scope).length ? allergenChips(shownAllergens(x.product.allergens, scope)) : '<span class="allergen-none">Geen allergenen</span>'}`;
         if (edit)
           action = `<button type="button" class="btn-quiet allergen-relink" data-relink="${esc(x.key)}">Wijzigen</button>`;
       } else if (x.status === 'unchecked') {
@@ -683,7 +727,11 @@ async function openProductEditor({ product = null, scope = productScope, name = 
   // Nieuw product: voorstel op basis van de naam, nooit al als gecontroleerd aangevinkt.
   const suggestion = product ? { base: null, codes: [] } : allergenSuggestion(p.name);
   const hints = suggestion.codes;
-  const chosen = new Set(product ? p.allergens : hints);
+  const listScope = product?.scope || scope;
+  const chosen = new Set(product ? p.allergens : hints.filter(c => allergenShown(c, listScope)));
+  // Extra kenmerken die deze lijst niet bijhoudt, zie je niet; staat er al een aangevinkt, dan wel.
+  const pickable = ALLERGENS.filter(([code]) => allergenShown(code, listScope) || chosen.has(code));
+  const hidden = p.allergens.filter(c => !pickable.some(a => a[0] === c));
   document.getElementById('productEditor')?.remove();
   document.body.insertAdjacentHTML(
     'beforeend',
@@ -691,11 +739,11 @@ async function openProductEditor({ product = null, scope = productScope, name = 
       false,
       true
     ]
+      .filter(extra => !extra || pickable.some(a => a[2]))
       .map(
         extra =>
-          `${extra ? '<p class="allergen-pick-head">Extra, niet wettelijk verplicht</p>' : ''}<div class="allergen-pick">${ALLERGENS.filter(
-            a => !!a[2] === extra
-          )
+          `${extra ? '<p class="allergen-pick-head">Extra, niet wettelijk verplicht</p>' : ''}<div class="allergen-pick">${pickable
+            .filter(a => !!a[2] === extra)
             .map(
               ([code, label]) =>
                 `<label class="allergen-pick-item"><input type="checkbox" name="allergen" value="${code}" ${chosen.has(code) ? 'checked' : ''} ${edit ? '' : 'disabled'}><span>${esc(label)}</span></label>`
@@ -743,7 +791,7 @@ async function openProductEditor({ product = null, scope = productScope, name = 
               .filter(a => a && a !== productKey(newName))
           )
         ].slice(0, 50),
-        allergens: [...form.querySelectorAll('[name=allergen]:checked')].map(x => x.value),
+        allergens: [...form.querySelectorAll('[name=allergen]:checked')].map(x => x.value).concat(hidden),
         known: form.known.checked,
         note: form.note.value.trim().slice(0, 300)
       };
@@ -925,8 +973,8 @@ function renderProducts() {
   const unchecked = list.filter(p => !p.known);
   const todoShown = productTodoAll ? todo : todo.slice(0, 12);
   host.innerHTML = `${scopes.length > 1 ? productScopeTabs(scopes, scope) : ''}
-    <p class="products-sum"><span><b>${list.length}</b> producten</span><span><b>${todo.length}</b> ingrediënten nog te koppelen</span>${unchecked.length ? `<span><b>${unchecked.length}</b> nog te controleren</span>` : ''}</p>
-    ${edit ? starterPanelHtml(scope) : ''}
+    <p class="products-sum"><span><b>${list.length}</b> producten</span><span><b>${todo.length}</b> ingrediënten nog te koppelen</span>${unchecked.length ? `<span><b>${unchecked.length}</b> nog te controleren</span>` : ''}${edit && productSettingsReady && productExtras.has(scope) ? `<button type="button" class="btn-quiet products-extras-btn" onclick="chooseAllergenExtras()">Welke allergenen?</button>` : ''}</p>
+    ${edit ? (productSettingsReady && !productExtras.has(scope) ? allergenChoicePanelHtml() : starterPanelHtml(scope)) : ''}
     ${
       todo.length && edit
         ? `<div class="panel products-todo"><h3>Nog te koppelen</h3><p class="muted">Ingrediënten uit je recepten zonder product. Koppel ze aan een bestaand product of maak een nieuw product; dat geldt meteen voor alle recepten.</p><ul class="products-todo-list">${todoShown.map(x => `<li><span><b translate="no">${esc(x.key)}</b><small>${x.count === 1 ? 'in 1 recept' : `in ${x.count} recepten`}</small></span>${todoButtons(scope, x.key)}</li>`).join('')}</ul>${todo.length > 12 ? `<button type="button" class="btn-quiet" onclick="productTodoAll=!productTodoAll;renderProducts()">${productTodoAll ? 'Minder tonen' : `Alle ${todo.length} tonen`}</button>` : ''}</div>`
@@ -955,7 +1003,7 @@ function renderProductList() {
     ? `<ul class="products-list">${shown
         .map(
           p =>
-            `<li><button type="button" onclick="openProductFromList('${escJs(p.id)}')"><span class="products-name"><b translate="no">${esc(p.name)}</b>${p.aliases.length ? `<small translate="no">${esc(p.aliases.join(', '))}</small>` : ''}</span><span class="allergen-chips">${p.known ? (p.allergens.length ? allergenChips(p.allergens) : '<span class="allergen-none">Geen allergenen</span>') : `${p.allergens.length ? allergenChips(p.allergens, 'is-suggested') : ''}<span class="allergen-open">${isStarterProduct(p) && starterNeedsLabel(p) ? 'Etiket nakijken' : 'Nog te controleren'}</span>`}</span></button></li>`
+            `<li><button type="button" onclick="openProductFromList('${escJs(p.id)}')"><span class="products-name"><b translate="no">${esc(p.name)}</b>${p.aliases.length ? `<small translate="no">${esc(p.aliases.join(', '))}</small>` : ''}</span><span class="allergen-chips">${p.known ? (shownAllergens(p.allergens, p.scope).length ? allergenChips(shownAllergens(p.allergens, p.scope)) : '<span class="allergen-none">Geen allergenen</span>') : `${shownAllergens(p.allergens, p.scope).length ? allergenChips(shownAllergens(p.allergens, p.scope), 'is-suggested') : ''}<span class="allergen-open">${isStarterProduct(p) && starterNeedsLabel(p) ? 'Etiket nakijken' : 'Nog te controleren'}</span>`}</span></button></li>`
         )
         .join(
           ''
@@ -988,6 +1036,78 @@ async function linkTodoTo(key, id) {
 
 async function linkTodoIngredient(key) {
   if (await linkIngredientToProduct(productScope, key, key)) renderProducts();
+}
+
+// ---- Welke allergenen houdt deze lijst bij? ----
+
+// Eerste keer: de kok kiest tussen alleen de wettelijke allergenen of aanvullen. Pas daarna de startlijst.
+function allergenChoicePanelHtml() {
+  return `<div class="panel products-starter"><h3>Welke allergenen wil je bijhouden?</h3><p class="muted">Wettelijk verplicht zijn de 14 allergenen van de EU. Je kunt aanvullen met kenmerken waar gasten vaak naar vragen, zoals lactose, ui, gevogelte of histamine. Je kunt dit later altijd aanpassen.</p><div class="products-choice-actions"><button type="button" class="btn" onclick="setAllergenExtras(productScope, [])">Alleen de 14 wettelijke</button><button type="button" class="btn gold" onclick="chooseAllergenExtras()">Aanvullen</button></div></div>`;
+}
+
+function chooseAllergenExtras() {
+  const scope = productScope;
+  const current = new Set(productExtras.get(scope) || []);
+  document.getElementById('extrasChoice')?.remove();
+  document.body.insertAdjacentHTML(
+    'beforeend',
+    `<div class="modal sv-dialog open" id="extrasChoice" role="dialog" aria-modal="true" aria-labelledby="extrasChoiceTitle"><form class="sv-dialog-box product-editor-box" novalidate><h2 id="extrasChoiceTitle" class="sv-dialog-title">Welke allergenen?</h2><p class="sv-dialog-text">De 14 wettelijke allergenen houdt Savour altijd bij. Vink aan wat je daarnaast wilt zien. Wat je uitzet, blijft bewaard maar zie je niet meer.</p>${ALLERGEN_EXTRA_GROUPS.map(([title, codes]) => `<p class="allergen-pick-head">${esc(title)}</p><div class="allergen-pick">${codes.map(code => `<label class="allergen-pick-item"><input type="checkbox" name="extra" value="${code}" ${current.has(code) ? 'checked' : ''}><span>${esc(ALLERGEN_LABEL.get(code))}</span></label>`).join('')}</div>`).join('')}<button type="button" class="btn-quiet extras-all" data-all>Alles aanvinken</button><div class="sv-dialog-actions"><button type="button" class="btn" data-cancel>Annuleren</button><button type="submit" class="btn gold">Opslaan</button></div></form></div>`
+  );
+  const el = $('extrasChoice');
+  const form = el.querySelector('form');
+  const boxes = [...form.querySelectorAll('[name=extra]')];
+  const allBtn = form.querySelector('[data-all]');
+  const syncAll = () => (allBtn.textContent = t(boxes.every(b => b.checked) ? 'Alles uitvinken' : 'Alles aanvinken'));
+  syncAll();
+  boxes.forEach(b => b.addEventListener('change', syncAll));
+  allBtn.addEventListener('click', () => {
+    const on = !boxes.every(b => b.checked);
+    boxes.forEach(b => (b.checked = on));
+    syncAll();
+  });
+  const close = () => el.remove();
+  form.querySelector('[data-cancel]').addEventListener('click', close);
+  el.addEventListener('mousedown', ev => {
+    if (ev.target === el) close();
+  });
+  el.addEventListener('keydown', ev => {
+    if (ev.key === 'Escape') close();
+  });
+  form.addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const picked = ALLERGENS.map(a => a[0]).filter(c => boxes.some(b => b.checked && b.value === c));
+    if (await setAllergenExtras(scope, picked)) close();
+  });
+}
+
+async function setAllergenExtras(scope, extras) {
+  if (!canEditProducts(scope)) return false;
+  if (!demoMode) {
+    const forScope = q => (scope === 'own' ? q.eq('user_id', currentUser.id) : q.eq('team_id', scope));
+    const { data, error } = await forScope(
+      supabaseClient.from('product_settings').update({ allergen_extras: extras })
+    ).select('user_id');
+    let failed = error;
+    if (!failed && !data?.length)
+      ({ error: failed } = await supabaseClient.from('product_settings').insert({
+        allergen_extras: extras,
+        user_id: scope === 'own' ? currentUser.id : null,
+        team_id: scope === 'own' ? null : scope
+      }));
+    if (failed) {
+      console.warn('Allergenenkeuze opslaan:', failed);
+      toast(
+        /does not exist|schema cache|could not find the table|product_settings_extras_check/i.test(failed.message || '')
+          ? 'Dit kan zodra de database is bijgewerkt.'
+          : 'Opslaan lukte niet; probeer het opnieuw'
+      );
+      return false;
+    }
+  }
+  productExtras.set(scope, extras);
+  saveOfflineSnapshot();
+  renderProducts();
+  return true;
 }
 
 function openProducts() {

@@ -36,7 +36,8 @@ async function saveOfflineSnapshot() {
       categories,
       sharedMaps,
       sharedRecipes,
-      products
+      products,
+      productExtras: [...productExtras]
     };
     await offlineStore('readwrite', store => store.put(JSON.parse(JSON.stringify(snap)), 'last'));
   } catch (e) {
@@ -83,6 +84,7 @@ async function startOfflineSession(userId) {
   sharedMaps = snap.sharedMaps || [];
   sharedRecipes = snap.sharedRecipes || [];
   products = snap.products || [];
+  productExtras = new Map(snap.productExtras || []);
   $('landingView').style.display = 'none';
   $('appShell').style.display = 'grid';
   showApp('recipes');

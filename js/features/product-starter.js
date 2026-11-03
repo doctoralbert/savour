@@ -381,7 +381,14 @@ async function startStarterList() {
     if (taken.has(key)) continue;
     const aliases = x.aliases.filter(a => !taken.has(productKey(a)) && productKey(a) !== key);
     [key, ...aliases.map(productKey)].forEach(k => taken.add(k));
-    rows.push({ scope, name: x.name, aliases, allergens: x.allergens, known: false, note: '' });
+    rows.push({
+      scope,
+      name: x.name,
+      aliases,
+      allergens: x.allergens.filter(c => allergenShown(c, scope)),
+      known: false,
+      note: ''
+    });
   }
   if (!rows.length) {
     toast('Alle producten van de startlijst staan er al');
@@ -441,7 +448,7 @@ function openStarterCheck() {
   document.getElementById('starterCheck')?.remove();
   document.body.insertAdjacentHTML(
     'beforeend',
-    `<div class="modal sv-dialog open" id="starterCheck" role="dialog" aria-modal="true" aria-labelledby="starterCheckTitle"><div class="sv-dialog-box allergen-check-box"><h2 id="starterCheckTitle" class="sv-dialog-title">Basisproducten bevestigen</h2><p class="sv-dialog-text">Loop de lijst na. Klopt een product niet, open het dan via de lijst en pas het aan. Na bevestigen tellen deze producten als gecontroleerd.</p><ul class="allergen-lines">${list.map(p => `<li class="allergen-line"><div class="allergen-line-main"><b translate="no">${esc(p.name)}</b><div class="allergen-line-state">${p.allergens.length ? allergenChips(p.allergens) : '<span class="allergen-none">Geen allergenen</span>'}</div></div></li>`).join('')}</ul><div class="sv-dialog-actions"><button type="button" class="btn" data-close>Annuleren</button><button type="button" class="btn gold" data-ok>Klopt, alles bevestigen</button></div></div></div>`
+    `<div class="modal sv-dialog open" id="starterCheck" role="dialog" aria-modal="true" aria-labelledby="starterCheckTitle"><div class="sv-dialog-box allergen-check-box"><h2 id="starterCheckTitle" class="sv-dialog-title">Basisproducten bevestigen</h2><p class="sv-dialog-text">Loop de lijst na. Klopt een product niet, open het dan via de lijst en pas het aan. Na bevestigen tellen deze producten als gecontroleerd.</p><ul class="allergen-lines">${list.map(p => `<li class="allergen-line"><div class="allergen-line-main"><b translate="no">${esc(p.name)}</b><div class="allergen-line-state">${shownAllergens(p.allergens, scope).length ? allergenChips(shownAllergens(p.allergens, scope)) : '<span class="allergen-none">Geen allergenen</span>'}</div></div></li>`).join('')}</ul><div class="sv-dialog-actions"><button type="button" class="btn" data-close>Annuleren</button><button type="button" class="btn gold" data-ok>Klopt, alles bevestigen</button></div></div></div>`
   );
   const el = $('starterCheck');
   const close = () => el.remove();

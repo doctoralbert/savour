@@ -669,6 +669,20 @@ body.cook-mode .rp-side-note-head button {
   border-style: dashed;
   color: var(--sv-text-2);
 }
+.products-choice-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sv-space-2);
+  margin-top: var(--sv-space-3);
+}
+.products-sum .products-extras-btn {
+  margin: 0 0 0 auto;
+  padding: 0;
+  font-size: var(--sv-fs-sm);
+}
+.extras-all {
+  margin-top: var(--sv-space-3);
+}
 .products-starter-row {
   display: flex;
   flex-wrap: wrap;
