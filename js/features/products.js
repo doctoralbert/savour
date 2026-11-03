@@ -118,11 +118,16 @@ const ALLERGEN_HINTS = [
   ],
   [/koriander|cilantro|coriander/, ['koriander']]
 ];
-// Waar een trefwoord misleidt: azijn bevat geen alcohol meer, koffie- en vanillebonen zijn geen peulvruchten.
+// Waar een trefwoord misleidt: azijn bevat geen alcohol meer, koffie- en vanillebonen zijn geen peulvruchten,
+// en in harde, gerijpte kaas is de lactose afgebroken (het melkeiwit blijft, dus melk wel).
 const ALLERGEN_HINT_NOT = [
   [/azijn|vinegar/, 'alcohol'],
   [/koffie|espresso|vanille|cacao|tonka/, 'peulvruchten'],
-  [/lactosevrij|lactose-vrij/, 'lactose']
+  [/lactosevrij|lactose-vrij/, 'lactose'],
+  [
+    /parmezaan|parmigiano|grana padano|pecorino|gruyère|gruyere|comté|comte|emmentaler|gouda|goudse|edammer|maasdammer|oude kaas|belegen kaas/,
+    'lactose'
+  ]
 ];
 
 let products = [];
