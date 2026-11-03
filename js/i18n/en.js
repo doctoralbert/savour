@@ -1716,6 +1716,41 @@ window.SAVOUR_I18N.en = {
     'https://www.voorbeeld.nl/recept/beurre-blanc': 'https://www.example.com/recipe/beurre-blanc',
     "Foto's": 'Photos',
     'Ander product': 'Other product',
+    'Nog niet overgenomen': 'Not adopted yet',
+    'Voorstellen overnemen': 'Adopt suggestions',
+    'Dit zijn de allergenen die Savour bij deze producten voorstelt. Klopt iets niet bij jouw merk, open het product dan in de lijst en pas het aan.':
+      'These are the allergens Savour suggests for these products. If something is different for your brand, open the product in the list and change it.',
+    'Alles overnemen': 'Adopt all',
+    'producten nog niet overgenomen': 'products not adopted yet',
+    'Bekijken en overnemen': 'Review and adopt',
+    van: 'of',
+    'recepten hebben complete allergenen': 'recipes have complete allergens',
+    'namen nog te koppelen': 'names still to link',
+    'Alles automatisch koppelen': 'Link everything automatically',
+    'Savour koppelt elke naam aan het product of eigen recept dat erbij hoort en maakt nieuwe producten met hun allergenen. Je ziet eerst wat er gebeurt.':
+      'Savour links each name to the matching product or your own recipe and creates new products with their allergens. You first see what will happen.',
+    'Namen uit je recepten zonder product, de meest gebruikte bovenaan. Eén keer koppelen geldt voor al je recepten.':
+      'Names from your recipes without a product, most used first. Linking once applies to all your recipes.',
+    'Dit gaat Savour doen. Klik op een regel om te zien welke namen het zijn. Elk product kun je daarna nog aanpassen.':
+      'This is what Savour will do. Click a line to see which names. You can still change each product afterwards.',
+    'namen koppelen aan je eigen recept': 'names to link to your own recipe',
+    'namen koppelen aan een bestaand product': 'names to link to an existing product',
+    'nieuwe producten maken': 'new products to create',
+    'Alles koppelen': 'Link everything',
+    'Bezig met koppelen…': 'Linking…',
+    'Savour vond geen namen meer om automatisch te koppelen': 'Savour found no more names to link automatically',
+    'Allergenen kloppen': 'Allergens are correct',
+    'Zet dit uit als je het nog wilt nakijken; dan telt het product nog niet mee.':
+      'Switch this off if you still want to check it; the product then does not count yet.',
+    'Product nog niet laten meetellen?': 'Not count the product yet?',
+    'De aangevinkte allergenen worden bewaard. Het product telt pas mee als je "Allergenen kloppen" aanzet.':
+      'The ticked allergens are saved. The product only counts once you switch on "Allergens are correct".',
+    'Voorstel van Savour op basis van de naam. Pas het aan als het bij jouw merk anders is.':
+      'Savour’s suggestion based on the name. Change it if it is different for your brand.',
+    'Savour kent hier geen allergenen bij. Weet je dat er wel iets in zit, vink het dan aan.':
+      'Savour knows no allergens for this. If you know it contains something, tick it.',
+    'Savour zet ruim 200 veelgebruikte keukenproducten voor je klaar, zoals bloem, slagroom, eidooier en zout, met hun allergenen en de schrijfwijzen uit recepten. Je beantwoordt eerst drie korte vragen. Elk product kun je later aanpassen.':
+      'Savour prepares over 200 common kitchen products for you, such as flour, cream, egg yolk and salt, with their allergens and the spellings used in recipes. First you answer three short questions. You can change each product later.',
     'Welke allergenen wil je bijhouden?': 'Which allergens do you want to track?',
     'Wettelijk verplicht zijn de 14 allergenen van de EU. Je kunt aanvullen met kenmerken waar gasten vaak naar vragen, zoals lactose, ui, gevogelte of histamine. Je kunt dit later altijd aanpassen.':
       'The 14 EU allergens are required by law. You can add characteristics guests often ask about, such as lactose, onion, poultry or histamine. You can always change this later.',
@@ -2191,6 +2226,16 @@ window.SAVOUR_I18N.en = {
     [
       '^(\\d+) producten van de startlijst die je nog niet hebt gecontroleerd worden verwijderd\\. Bevestigde producten blijven staan\\.$',
       '$1 products from the starter list that you have not checked yet will be deleted. Confirmed products stay.'
+    ],
+    ['^(\\d+) producten overgenomen$', '$1 products adopted'],
+    ['^(\\d+) namen gekoppeld$', '$1 names linked'],
+    [
+      '^(\\d+) namen herkent Savour niet zeker\\. Die blijven staan bij Nog te koppelen\\.$',
+      'Savour is not sure about $1 names. They stay under Still to link.'
+    ],
+    [
+      '^(\\d+) naam herkent Savour niet zeker\\. Die blijven staan bij Nog te koppelen\\.$',
+      'Savour is not sure about $1 name. It stays under Still to link.'
     ],
     ['^in (\\d+) recepten$', 'in $1 recipes'],
     ['^(\\d+) open$', '$1 open'],

@@ -1734,6 +1734,42 @@ window.SAVOUR_I18N.de = {
     'https://www.voorbeeld.nl/recept/beurre-blanc': 'https://www.beispiel.de/rezept/beurre-blanc',
     "Foto's": 'Fotos',
     'Ander product': 'Anderes Produkt',
+    'Nog niet overgenomen': 'Noch nicht übernommen',
+    'Voorstellen overnemen': 'Vorschläge übernehmen',
+    'Dit zijn de allergenen die Savour bij deze producten voorstelt. Klopt iets niet bij jouw merk, open het product dan in de lijst en pas het aan.':
+      'Das sind die Allergene, die Savour für diese Produkte vorschlägt. Ist bei deiner Marke etwas anders, öffne das Produkt in der Liste und ändere es.',
+    'Alles overnemen': 'Alle übernehmen',
+    'producten nog niet overgenomen': 'Produkte noch nicht übernommen',
+    'Bekijken en overnemen': 'Ansehen und übernehmen',
+    van: 'von',
+    'recepten hebben complete allergenen': 'Rezepten haben vollständige Allergene',
+    'namen nog te koppelen': 'Namen noch zu verknüpfen',
+    'Alles automatisch koppelen': 'Alles automatisch verknüpfen',
+    'Savour koppelt elke naam aan het product of eigen recept dat erbij hoort en maakt nieuwe producten met hun allergenen. Je ziet eerst wat er gebeurt.':
+      'Savour verknüpft jeden Namen mit dem passenden Produkt oder eigenen Rezept und legt neue Produkte mit ihren Allergenen an. Du siehst zuerst, was passiert.',
+    'Namen uit je recepten zonder product, de meest gebruikte bovenaan. Eén keer koppelen geldt voor al je recepten.':
+      'Namen aus deinen Rezepten ohne Produkt, die meistgenutzten oben. Einmal verknüpfen gilt für alle Rezepte.',
+    'Dit gaat Savour doen. Klik op een regel om te zien welke namen het zijn. Elk product kun je daarna nog aanpassen.':
+      'Das wird Savour tun. Klicke auf eine Zeile, um die Namen zu sehen. Jedes Produkt kannst du danach noch ändern.',
+    'namen koppelen aan je eigen recept': 'Namen mit deinem eigenen Rezept verknüpfen',
+    'namen koppelen aan een bestaand product': 'Namen mit einem vorhandenen Produkt verknüpfen',
+    'nieuwe producten maken': 'neue Produkte anlegen',
+    'Alles koppelen': 'Alles verknüpfen',
+    'Bezig met koppelen…': 'Wird verknüpft…',
+    'Savour vond geen namen meer om automatisch te koppelen':
+      'Savour hat keine Namen mehr zum automatischen Verknüpfen gefunden',
+    'Allergenen kloppen': 'Allergene stimmen',
+    'Zet dit uit als je het nog wilt nakijken; dan telt het product nog niet mee.':
+      'Schalte das aus, wenn du es noch prüfen willst; dann zählt das Produkt noch nicht.',
+    'Product nog niet laten meetellen?': 'Produkt noch nicht mitzählen?',
+    'De aangevinkte allergenen worden bewaard. Het product telt pas mee als je "Allergenen kloppen" aanzet.':
+      'Die angekreuzten Allergene werden gespeichert. Das Produkt zählt erst, wenn du „Allergene stimmen“ einschaltest.',
+    'Voorstel van Savour op basis van de naam. Pas het aan als het bij jouw merk anders is.':
+      'Vorschlag von Savour anhand des Namens. Ändere ihn, wenn es bei deiner Marke anders ist.',
+    'Savour kent hier geen allergenen bij. Weet je dat er wel iets in zit, vink het dan aan.':
+      'Savour kennt hierzu keine Allergene. Weißt du, dass etwas drin ist, kreuze es an.',
+    'Savour zet ruim 200 veelgebruikte keukenproducten voor je klaar, zoals bloem, slagroom, eidooier en zout, met hun allergenen en de schrijfwijzen uit recepten. Je beantwoordt eerst drie korte vragen. Elk product kun je later aanpassen.':
+      'Savour legt über 200 gängige Küchenprodukte für dich an, etwa Mehl, Sahne, Eigelb und Salz, mit ihren Allergenen und den Schreibweisen aus Rezepten. Zuerst beantwortest du drei kurze Fragen. Jedes Produkt kannst du später ändern.',
     'Welke allergenen wil je bijhouden?': 'Welche Allergene möchtest du erfassen?',
     'Wettelijk verplicht zijn de 14 allergenen van de EU. Je kunt aanvullen met kenmerken waar gasten vaak naar vragen, zoals lactose, ui, gevogelte of histamine. Je kunt dit later altijd aanpassen.':
       'Gesetzlich vorgeschrieben sind die 14 Allergene der EU. Du kannst Merkmale ergänzen, nach denen Gäste oft fragen, etwa Laktose, Zwiebel, Geflügel oder Histamin. Das kannst du später jederzeit ändern.',
@@ -2215,6 +2251,16 @@ window.SAVOUR_I18N.de = {
     [
       '^(\\d+) producten van de startlijst die je nog niet hebt gecontroleerd worden verwijderd\\. Bevestigde producten blijven staan\\.$',
       '$1 Produkte der Startliste, die du noch nicht geprüft hast, werden gelöscht. Bestätigte Produkte bleiben.'
+    ],
+    ['^(\\d+) producten overgenomen$', '$1 Produkte übernommen'],
+    ['^(\\d+) namen gekoppeld$', '$1 Namen verknüpft'],
+    [
+      '^(\\d+) namen herkent Savour niet zeker\\. Die blijven staan bij Nog te koppelen\\.$',
+      '$1 Namen erkennt Savour nicht sicher. Sie bleiben unter Noch zu verknüpfen.'
+    ],
+    [
+      '^(\\d+) naam herkent Savour niet zeker\\. Die blijven staan bij Nog te koppelen\\.$',
+      '$1 Namen erkennt Savour nicht sicher. Er bleibt unter Noch zu verknüpfen.'
     ],
     ['^in (\\d+) recepten$', 'in $1 Rezepten'],
     ['^(\\d+) open$', '$1 offen'],

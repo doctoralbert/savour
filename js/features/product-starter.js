@@ -1,13 +1,12 @@
 // Startlijst producten (2026-11-03): veelgebruikte keukenproducten met hun allergenen, zodat een kok niet bij nul
 // begint. Samengesteld uit de ingrediënten die in professionele recepten het vaakst voorkomen.
 //
-// Betrouwbaar: alles komt binnen als "nog te controleren". Enkelvoudige producten (zout, ei, slagroom) kan de kok
-// na het bekijken in één keer bevestigen; merkafhankelijke producten (label: true) kijkt hij per stuk na op het
-// etiket. Fonds, gelatine en chocolade hangen af van de keuken; daar stelt Savour eerst een vraag over.
+// De voorstellen gaan meteen mee (zo wil de eigenaar het: soja en gluten in sojasaus hoeft niemand na te lezen);
+// wie een ander merk gebruikt, past het product aan. Fonds, gelatine en chocolade hangen af van de keuken; daar
+// stelt Savour eerst een vraag over.
 
 const STARTER_PRODUCTS = (() => {
-  const b = (name, allergens = [], aliases = []) => ({ name, allergens, aliases, label: false });
-  const e = (name, allergens = [], aliases = []) => ({ name, allergens, aliases, label: true });
+  const b = (name, allergens = [], aliases = []) => ({ name, allergens, aliases });
   const ml = ['melk', 'lactose'];
   return [
     // Zuivel en ei
@@ -29,7 +28,7 @@ const STARTER_PRODUCTS = (() => {
     b('Eidooier', ['ei'], ['dooier', 'dooiers', 'eigeel', 'eidooiers']),
     b('Eiwit', ['ei'], ['eiwitten']),
     b('Ei', ['ei'], ['eieren', 'heel ei', 'ei heel', 'hele eieren']),
-    e('Flora', ['peulvruchten'], ['flora plantaardig']),
+    b('Flora', ['peulvruchten'], ['flora plantaardig']),
     // Textuur (Sosa en vergelijkbaar)
     b('Albumina', ['ei']),
     b('Cortina'),
@@ -53,8 +52,8 @@ const STARTER_PRODUCTS = (() => {
     b('Geleisuiker', [], ['gelei suiker']),
     b('Stroop'),
     b('Ahornsiroop', [], ['ahorn siroop']),
-    e('Gembersiroop', [], ['gember siroop']),
-    e('Vlierbloesemsiroop'),
+    b('Gembersiroop', [], ['gember siroop']),
+    b('Vlierbloesemsiroop'),
     // Bloem en bindmiddelen
     b('Bloem', ['gluten'], ['tarwebloem', 'patentbloem']),
     b('Maïzena', ['mais'], ['maizena']),
@@ -63,9 +62,9 @@ const STARTER_PRODUCTS = (() => {
     b('Tapioca', [], ['tapioca korrels', 'tapiocameel', 'tapioca meel']),
     b('Gist', [], ['verse gist', 'droge gist']),
     b('Citroenzuur'),
-    e('Bakpoeder'),
-    e('Panko', ['gluten']),
-    e('Kleurzout', [], ['nitrietzout']),
+    b('Bakpoeder'),
+    b('Panko', ['gluten']),
+    b('Kleurzout', [], ['nitrietzout']),
     // Olie en vet
     b('Olijfolie', [], ['olijf olie']),
     b('Zonnebloemolie', [], ['zonnebloem olie']),
@@ -83,46 +82,46 @@ const STARTER_PRODUCTS = (() => {
     b('Perensap'),
     b('Tomatensap', ['nachtschade']),
     b('Natuurazijn', [], ['natuur azijn']),
-    e('Witte wijnazijn', ['sulfiet'], ['witte wijn azijn', 'wittewijnazijn']),
-    e('Rode wijnazijn', ['sulfiet'], ['rode wijn azijn']),
-    e('Aceto balsamico', ['sulfiet'], ['balsamico azijn', 'balsamico']),
-    e('Rijstazijn', [], ['rijst azijn']),
-    e('Sushi-azijn', [], ['sushi azijn', 'sushiazijn']),
-    e('Yuzusap', [], ['yuzu sap']),
+    b('Witte wijnazijn', ['sulfiet'], ['witte wijn azijn', 'wittewijnazijn']),
+    b('Rode wijnazijn', ['sulfiet'], ['rode wijn azijn']),
+    b('Aceto balsamico', ['sulfiet'], ['balsamico azijn', 'balsamico']),
+    b('Rijstazijn', [], ['rijst azijn']),
+    b('Sushi-azijn', [], ['sushi azijn', 'sushiazijn']),
+    b('Yuzusap', [], ['yuzu sap']),
     // Alcohol
     b('Witte wijn', ['sulfiet', 'alcohol'], ['droge witte wijn']),
     b('Rode wijn', ['sulfiet', 'alcohol']),
     b('Champagne', ['sulfiet', 'alcohol']),
-    e('Witte port', ['sulfiet', 'alcohol']),
-    e('Rode port', ['sulfiet', 'alcohol']),
-    e('Sake', ['alcohol']),
-    e('Mirin', ['alcohol']),
-    e('Malibu', ['alcohol']),
-    e('Gin', ['alcohol']),
-    e('Pernod', ['alcohol']),
-    e('Cognac', ['alcohol']),
-    e('Rum', ['alcohol']),
-    e('Crème de cassis', ['alcohol'], ['creme de cassis']),
-    e('Tia Maria', ['alcohol']),
-    e('Kahlúa', ['alcohol'], ['kahlua']),
-    e('Amaretto', ['alcohol']),
+    b('Witte port', ['sulfiet', 'alcohol']),
+    b('Rode port', ['sulfiet', 'alcohol']),
+    b('Sake', ['alcohol']),
+    b('Mirin', ['alcohol']),
+    b('Malibu', ['alcohol']),
+    b('Gin', ['alcohol']),
+    b('Pernod', ['alcohol']),
+    b('Cognac', ['alcohol']),
+    b('Rum', ['alcohol']),
+    b('Crème de cassis', ['alcohol'], ['creme de cassis']),
+    b('Tia Maria', ['alcohol']),
+    b('Kahlúa', ['alcohol'], ['kahlua']),
+    b('Amaretto', ['alcohol']),
     // Sauzen en smaakmakers
-    e('Dashi', ['vis'], ['dashi bouillon']),
-    e('Sojasaus', ['gluten', 'soja'], ['soja saus']),
-    e('Ketjap manis', ['gluten', 'soja'], ['ketjap']),
-    e('Miso', ['soja']),
-    e('Ponzu', ['vis', 'soja']),
-    e('Vissaus', ['vis']),
-    e('Mosterd', ['mosterd'], ['fijne mosterd', 'dijonmosterd', 'dijon mosterd']),
-    e('Mayonaise', ['ei', 'mosterd'], ['mayonnaise']),
-    e('Tahin', ['sesam'], ['tahini']),
-    e('Tomatenpuree', ['nachtschade'], ['tomaten puree']),
-    e('Sambal oelek', ['nachtschade'], ['sambal']),
-    e('Ketchup', ['nachtschade']),
-    e('Tabasco', ['nachtschade']),
-    e('Umeboshi-pasta', [], ['umeboshi pasta']),
-    e('Augurk', [], ['augurken']),
-    e('Zuurkool'),
+    b('Dashi', ['vis'], ['dashi bouillon']),
+    b('Sojasaus', ['gluten', 'soja'], ['soja saus']),
+    b('Ketjap manis', ['gluten', 'soja'], ['ketjap']),
+    b('Miso', ['soja']),
+    b('Ponzu', ['vis', 'soja']),
+    b('Vissaus', ['vis']),
+    b('Mosterd', ['mosterd'], ['fijne mosterd', 'dijonmosterd', 'dijon mosterd']),
+    b('Mayonaise', ['ei', 'mosterd'], ['mayonnaise']),
+    b('Tahin', ['sesam'], ['tahini']),
+    b('Tomatenpuree', ['nachtschade'], ['tomaten puree']),
+    b('Sambal oelek', ['nachtschade'], ['sambal']),
+    b('Ketchup', ['nachtschade']),
+    b('Tabasco', ['nachtschade']),
+    b('Umeboshi-pasta', [], ['umeboshi pasta']),
+    b('Augurk', [], ['augurken']),
+    b('Zuurkool'),
     b('Kappertjes'),
     b('Taggiasche olijven'),
     // Cacao, noten en koffie
@@ -135,7 +134,7 @@ const STARTER_PRODUCTS = (() => {
     b('Pistachenoten', ['noten'], ['pistache', 'pistache noten']),
     b('Hazelnoten', ['noten'], ['hazelnoot']),
     b('Hazelnootpoeder', ['noten'], ['hazelnoot poeder']),
-    e('Amandelmelk', ['noten'], ['amandel melk']),
+    b('Amandelmelk', ['noten'], ['amandel melk']),
     b('Kokosmelk', [], ['kokos melk']),
     b('Kokosroom', [], ['kokos room']),
     b('Kokos', [], ['klapper', 'kokos klapper', 'klapper kokos']),
@@ -146,6 +145,7 @@ const STARTER_PRODUCTS = (() => {
     b('Zeezout'),
     b('Zwarte peper'),
     b('Witte peper'),
+    b('Peper', [], ['gemalen peper', 'versgemalen peper', 'peper uit de molen']),
     b('Peperkorrels', [], ['peperkorrel', 'zwarte peperkorrels', 'zwarte peper korrels']),
     b('Laurier', [], ['laurierblad', 'laurier blad', 'blad laurier', 'laurierblaadjes']),
     b('Steranijs', [], ['ster anijs']),
@@ -207,12 +207,12 @@ const STARTER_PRODUCTS = (() => {
     b('Mosterdzaad', ['mosterd'], ['mosterd zaad']),
     b('Sesamzaad', ['sesam'], ['sesam', 'zwarte sesam', 'witte sesam']),
     b('Maanzaad', [], ['blauwmaanzaad']),
-    e('Kerriepoeder', [], ['kerrie', 'kerrie poeder']),
-    e('Ras el hanout', [], ['ras hanout']),
-    e('Garam masala'),
-    e('Vijfkruidenpoeder', [], ['five spices', 'five spice']),
-    e('Koekkruiden', [], ['speculaaskruiden']),
-    e('Pastramikruiden', [], ['pastrami kruiden']),
+    b('Kerriepoeder', [], ['kerrie', 'kerrie poeder']),
+    b('Ras el hanout', [], ['ras hanout']),
+    b('Garam masala'),
+    b('Vijfkruidenpoeder', [], ['five spices', 'five spice']),
+    b('Koekkruiden', [], ['speculaaskruiden']),
+    b('Pastramikruiden', [], ['pastrami kruiden']),
     // Groente en fruit
     b(
       'Knoflook',
@@ -253,7 +253,7 @@ const STARTER_PRODUCTS = (() => {
     b('Mango'),
     b('Banaan', [], ['bananen']),
     b('Bosaardbei', [], ['fraise des bois', 'bosaardbeien']),
-    e('Rozijnen', ['sulfiet']),
+    b('Rozijnen', ['sulfiet']),
     // Vlees, vis en overig
     b('Ganzenlever'),
     b('Kippenlever'),
@@ -291,38 +291,14 @@ const STARTER_HINT_CODES = new Set([
   'fodmap'
 ]);
 
-let starterLabelKeys = null;
-
-// Moet dit product van de startlijst per stuk op het etiket worden nagekeken? Voor producten die niet van de
-// startlijst komen: ja, want daar weet Savour niets van.
-function starterNeedsLabel(p) {
-  if (!starterLabelKeys) {
-    starterLabelKeys = new Map(STARTER_PRODUCTS.map(x => [productKey(x.name), x.label]));
-    for (const [name] of [...STARTER_FONDS, ...STARTER_CHOCOLATE]) starterLabelKeys.set(productKey(name), true);
-  }
-  const key = productKey(p.name);
-  if (key === 'gelatine') return !p.allergens.length;
-  return starterLabelKeys.has(key) ? starterLabelKeys.get(key) : true;
-}
-
-function isStarterProduct(p) {
-  starterNeedsLabel(p);
-  return starterLabelKeys.has(productKey(p.name)) || productKey(p.name) === 'gelatine';
-}
-
 function starterListFor({ gelatine, fonds, chocolate }) {
   const list = [...STARTER_PRODUCTS];
   const gel = { varken: ['varkensvlees'], rund: ['rundvlees'], vis: ['vis'] }[gelatine] || [];
-  list.push({ name: 'Gelatine', allergens: gel, aliases: STARTER_GELATINE_ALIASES, label: !gel.length });
+  list.push({ name: 'Gelatine', allergens: gel, aliases: STARTER_GELATINE_ALIASES });
   if (fonds !== 'zelf')
-    for (const [name, aliases, allergens = []] of STARTER_FONDS) list.push({ name, allergens, aliases, label: true });
+    for (const [name, aliases, allergens = []] of STARTER_FONDS) list.push({ name, allergens, aliases });
   for (const [name, allergens, aliases] of STARTER_CHOCOLATE)
-    list.push({
-      name,
-      allergens: chocolate === 'callebaut' ? [...allergens, 'soja'] : allergens,
-      aliases,
-      label: true
-    });
+    list.push({ name, allergens: chocolate === 'callebaut' ? [...allergens, 'soja'] : allergens, aliases });
   // Kenmerken die de trefwoorden goed herkennen (wild, gevogelte, histamine, FODMAP ...) vult Savour aan; wat volgt
   // uit een ander kenmerk (melk geeft lactose, ui geeft FODMAP) ook.
   return list.map(x => ({
@@ -341,13 +317,8 @@ function starterMissing(scope) {
 }
 
 function starterPanelHtml(scope) {
-  const open = productsIn(scope).filter(p => !p.known && isStarterProduct(p));
-  const simple = open.filter(p => !starterNeedsLabel(p));
-  const label = open.filter(p => starterNeedsLabel(p));
-  if (starterMissing(scope) >= 10)
-    return `<div class="panel products-starter"><h3>Startlijst</h3><p class="muted">Savour zet ruim 200 veelgebruikte keukenproducten voor je klaar, zoals bloem, slagroom, eidooier en zout, met hun allergenen en de schrijfwijzen uit recepten. Je beantwoordt eerst drie korte vragen. Daarna bevestig je de producten zelf.</p><button type="button" class="btn gold" onclick="startStarterList()">Startlijst maken</button></div>`;
-  if (!open.length) return '';
-  return `<div class="panel products-starter"><h3>Startlijst controleren</h3>${simple.length ? `<p class="products-starter-row"><span><b>${simple.length}</b> <span>basisproducten met vaste allergenen</span></span><button type="button" class="btn small gold" onclick="openStarterCheck()">Bekijken en bevestigen</button></p>` : ''}${label.length ? `<p class="products-starter-row"><span><b>${label.length}</b> <span>producten: kijk het etiket na</span></span><button type="button" class="btn small" onclick="productSearch='';productLabelOnly=true;renderProductList();$('productList')?.scrollIntoView({behavior:'smooth',block:'start'})">Tonen</button></p>` : ''}<button type="button" class="btn-quiet" onclick="undoStarterList()">Startlijst ongedaan maken</button></div>`;
+  if (starterMissing(scope) < 10) return '';
+  return `<div class="panel products-starter"><h3>Startlijst</h3><p class="muted">Savour zet ruim 200 veelgebruikte keukenproducten voor je klaar, zoals bloem, slagroom, eidooier en zout, met hun allergenen en de schrijfwijzen uit recepten. Je beantwoordt eerst drie korte vragen. Elk product kun je later aanpassen.</p><button type="button" class="btn gold" onclick="startStarterList()">Startlijst maken</button></div>`;
 }
 
 async function startStarterList() {
@@ -357,12 +328,12 @@ async function startStarterList() {
     { value: 'varken', label: 'Varkensgelatine' },
     { value: 'rund', label: 'Rundergelatine' },
     { value: 'vis', label: 'Visgelatine' },
-    { value: 'weet', label: 'Weet ik niet', hint: 'Dan kijk je het etiket na' }
+    { value: 'weet', label: 'Weet ik niet' }
   ]);
   if (!gelatine) return;
   const fonds = await askChoice('Maak je fonds en bouillon zelf, of koop je ze in?', [
     { value: 'zelf', label: 'Zelf, als recept in Savour', hint: 'Koppel ze aan je eigen recept' },
-    { value: 'inkoop', label: 'Ingekocht', hint: 'Dan kijk je het etiket na' }
+    { value: 'inkoop', label: 'Ingekocht' }
   ]);
   if (!fonds) return;
   const chocolate = await askChoice('Welk merk chocolade gebruik je meestal?', [
@@ -386,7 +357,7 @@ async function startStarterList() {
       name: x.name,
       aliases,
       allergens: x.allergens.filter(c => allergenShown(c, scope)),
-      known: false,
+      known: true,
       note: ''
     });
   }
@@ -403,7 +374,7 @@ async function startStarterList() {
 // Veel producten tegelijk toevoegen, in één keer naar de database.
 async function insertProducts(rows) {
   if (demoMode) {
-    rows.forEach((p, i) => products.push({ ...p, id: 'demo-p-start-' + Date.now() + '-' + i }));
+    rows.forEach((p, i) => products.push({ ...p, id: 'demo-p-' + Date.now() + '-' + i }));
     return rows.length;
   }
   const { data, error } = await supabaseClient
@@ -413,8 +384,8 @@ async function insertProducts(rows) {
         name: p.name,
         aliases: p.aliases,
         allergens: p.allergens,
-        allergens_known: false,
-        allergen_note: '',
+        allergens_known: !!p.known,
+        allergen_note: p.note || '',
         user_id: p.scope === 'own' ? currentUser.id : null,
         team_id: p.scope === 'own' ? null : p.scope
       }))
@@ -429,7 +400,7 @@ async function insertProducts(rows) {
           ? 'Opslaan is geweigerd. Controleer of je Savour Pro hebt of sous-chef bent in dit keukenteam.'
           : 'Opslaan lukte niet; probeer het opnieuw'
     );
-    if (error) console.warn('Startlijst opslaan:', error);
+    if (error) console.warn('Producten opslaan:', error);
     return 0;
   }
   products = [...products, ...data.map(productFromRow)];
@@ -437,28 +408,22 @@ async function insertProducts(rows) {
   return data.length;
 }
 
-// Basisproducten bekijken en in één keer bevestigen. De kok ziet elk product met zijn allergenen voordat hij
-// bevestigt; merkafhankelijke producten staan hier niet tussen.
-function openStarterCheck() {
+// Producten die nog niet zijn overgenomen: bekijken en in één keer overnemen.
+function openUncheckedReview() {
   const scope = productScope;
   const list = productsIn(scope)
-    .filter(p => !p.known && isStarterProduct(p) && !starterNeedsLabel(p))
+    .filter(p => !p.known)
     .sort((a, b) => a.name.localeCompare(b.name, 'nl'));
   if (!list.length) return;
-  document.getElementById('starterCheck')?.remove();
+  document.getElementById('uncheckedReview')?.remove();
   document.body.insertAdjacentHTML(
     'beforeend',
-    `<div class="modal sv-dialog open" id="starterCheck" role="dialog" aria-modal="true" aria-labelledby="starterCheckTitle"><div class="sv-dialog-box allergen-check-box"><h2 id="starterCheckTitle" class="sv-dialog-title">Basisproducten bevestigen</h2><p class="sv-dialog-text">Loop de lijst na. Klopt een product niet, open het dan via de lijst en pas het aan. Na bevestigen tellen deze producten als gecontroleerd.</p><ul class="allergen-lines">${list.map(p => `<li class="allergen-line"><div class="allergen-line-main"><b translate="no">${esc(p.name)}</b><div class="allergen-line-state">${shownAllergens(p.allergens, scope).length ? allergenChips(shownAllergens(p.allergens, scope)) : '<span class="allergen-none">Geen allergenen</span>'}</div></div></li>`).join('')}</ul><div class="sv-dialog-actions"><button type="button" class="btn" data-close>Annuleren</button><button type="button" class="btn gold" data-ok>Klopt, alles bevestigen</button></div></div></div>`
+    `<div class="modal sv-dialog open" id="uncheckedReview" role="dialog" aria-modal="true" aria-labelledby="uncheckedReviewTitle"><div class="sv-dialog-box allergen-check-box">${modalCloseHtml()}<h2 id="uncheckedReviewTitle" class="sv-dialog-title">Voorstellen overnemen</h2><p class="sv-dialog-text">Dit zijn de allergenen die Savour bij deze producten voorstelt. Klopt iets niet bij jouw merk, open het product dan in de lijst en pas het aan.</p><ul class="allergen-lines">${list.map(p => `<li class="allergen-line"><div class="allergen-line-main"><b translate="no">${esc(p.name)}</b><div class="allergen-line-state">${shownAllergens(p.allergens, scope).length ? allergenChips(shownAllergens(p.allergens, scope)) : '<span class="allergen-none">Geen allergenen</span>'}</div></div></li>`).join('')}</ul><div class="sv-dialog-actions"><button type="button" class="btn" data-close>Annuleren</button><button type="button" class="btn gold" data-ok>Alles overnemen</button></div></div></div>`
   );
-  const el = $('starterCheck');
+  const el = $('uncheckedReview');
   const close = () => el.remove();
+  closableModal(el, close);
   el.querySelector('[data-close]').addEventListener('click', close);
-  el.addEventListener('mousedown', ev => {
-    if (ev.target === el) close();
-  });
-  el.addEventListener('keydown', ev => {
-    if (ev.key === 'Escape') close();
-  });
   el.querySelector('[data-ok]').addEventListener('click', async () => {
     const ids = list.map(p => p.id);
     if (!demoMode) {
@@ -471,30 +436,7 @@ function openStarterCheck() {
     products = products.map(p => (ids.includes(p.id) ? { ...p, known: true } : p));
     saveOfflineSnapshot();
     close();
-    toast(`${ids.length} producten bevestigd`);
+    toast(`${ids.length} producten overgenomen`);
     renderProducts();
   });
-}
-
-// Alleen wat nog niet is gecontroleerd gaat weg; bevestigde producten blijven altijd staan.
-async function undoStarterList() {
-  const scope = productScope;
-  const list = productsIn(scope).filter(p => !p.known && isStarterProduct(p));
-  if (!list.length) return;
-  const ok = await askConfirm(
-    `Startlijst ongedaan maken?\n\n${list.length} producten van de startlijst die je nog niet hebt gecontroleerd worden verwijderd. Bevestigde producten blijven staan.`,
-    { confirmLabel: 'Verwijderen' }
-  );
-  if (!ok) return;
-  const ids = list.map(p => p.id);
-  if (!demoMode) {
-    const { error } = await supabaseClient.from('products').delete().in('id', ids);
-    if (error) {
-      toast('Verwijderen lukte niet; probeer het opnieuw');
-      return;
-    }
-  }
-  products = products.filter(p => !ids.includes(p.id));
-  saveOfflineSnapshot();
-  renderProducts();
 }
