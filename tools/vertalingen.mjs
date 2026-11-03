@@ -3546,6 +3546,11 @@ export const strings = [
   ["https://www.voorbeeld.nl/recept/beurre-blanc","https://www.example.com/recipe/beurre-blanc","https://www.beispiel.de/rezept/beurre-blanc","https://www.ejemplo.es/receta/beurre-blanc"],
   ["Foto's","Photos","Fotos","Fotos"],
   // ---- Producten & allergenen (2026-11-03) ----
+  ["Opslaan is geweigerd. Controleer of je Savour Pro hebt of sous-chef bent in dit keukenteam.","Saving was refused. Check that you have Savour Pro or are a sous-chef in this kitchen team.","Speichern wurde abgelehnt. Prüfe, ob du Savour Pro hast oder Sous-Chef in diesem Küchenteam bist.","Se rechazó el guardado. Comprueba que tienes Savour Pro o eres sous-chef en este equipo de cocina."],
+  ["Gevonden in de basislijst","Found in the base list","In der Basisliste gefunden","Encontrado en la lista base"],
+  ["Voorstel op basis van de naam. Controleer het etiket of de productspecificatie.","Suggestion based on the name. Check the label or the product specification.","Vorschlag anhand des Namens. Prüfe das Etikett oder die Produktspezifikation.","Propuesta según el nombre. Comprueba la etiqueta o la ficha técnica."],
+  ["In de basislijst staan hier geen allergenen bij. Dat is geen garantie: controleer het etiket.","The base list shows no allergens for this. That is no guarantee: check the label.","In der Basisliste stehen hierzu keine Allergene. Das ist keine Garantie: Prüfe das Etikett.","La lista base no indica alérgenos para esto. No es una garantía: comprueba la etiqueta."],
+  ["Basislijst: ©","Base list: ©","Basisliste: ©","Lista base: ©"],
   ["Keuken","Kitchen","Küche","Cocina"],
   ["Producten & allergenen","Products & allergens","Produkte & Allergene","Productos y alérgenos"],
   ["Leg per product de allergenen vast. Savour koppelt de ingrediënten uit je recepten op naam en telt de allergenen per recept op, ook via basisrecepten.","Record the allergens for each product. Savour links the ingredients in your recipes by name and adds up the allergens per recipe, including through base recipes.","Lege die Allergene pro Produkt fest. Savour verknüpft die Zutaten deiner Rezepte über den Namen und zählt die Allergene pro Rezept zusammen, auch über Grundrezepte.","Registra los alérgenos de cada producto. Savour vincula los ingredientes de tus recetas por nombre y suma los alérgenos por receta, también a través de recetas base."],

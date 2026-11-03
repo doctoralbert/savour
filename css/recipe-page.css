@@ -947,3 +947,17 @@ body.cook-mode .rp-side-note-head button {
     justify-content: flex-start;
   }
 }
+.product-hints .product-hint {
+  margin: 4px 0 0;
+}
+.product-hints b {
+  color: var(--sv-text);
+}
+.product-source {
+  margin: 4px 0 var(--sv-space-2);
+  color: var(--sv-text-3);
+  font-size: 11px;
+}
+.product-source a {
+  color: inherit;
+}

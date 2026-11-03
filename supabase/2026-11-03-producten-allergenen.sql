@@ -13,6 +13,8 @@
 --
 -- Uitvoeren: Supabase-dashboard → SQL Editor → dit hele bestand plakken → Run. Veilig om vaker uit te voeren.
 -- Vereist: 2026-11-01-keukenteam-alleen-met-pro.sql is eerder uitgevoerd.
+-- Let op: voer daarna ook 2026-11-03-producten-opslaan-herstel.sql uit (de Pro-controle hieronder werkt niet
+-- voor ingelogde gebruikers; het herstel vervangt die regels).
 
 begin;
 

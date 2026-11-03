@@ -1373,6 +1373,11 @@ export const stringsFr = {
  "https://www.voorbeeld.nl/recept/beurre-blanc": "https://www.exemple.fr/recette/beurre-blanc",
  "Foto's": "Photos",
  // ---- Producten & allergenen (2026-11-03) ----
+ "Opslaan is geweigerd. Controleer of je Savour Pro hebt of sous-chef bent in dit keukenteam.": "L’enregistrement a été refusé. Vérifie que tu as Savour Pro ou que tu es sous-chef dans cette équipe de cuisine.",
+ "Gevonden in de basislijst": "Trouvé dans la liste de base",
+ "Voorstel op basis van de naam. Controleer het etiket of de productspecificatie.": "Proposition d’après le nom. Vérifie l’étiquette ou la fiche technique.",
+ "In de basislijst staan hier geen allergenen bij. Dat is geen garantie: controleer het etiket.": "La liste de base n’indique aucun allergène ici. Ce n’est pas une garantie : vérifie l’étiquette.",
+ "Basislijst: ©": "Liste de base : ©",
  "Keuken": "Cuisine",
  "Producten & allergenen": "Produits et allergènes",
  "Leg per product de allergenen vast. Savour koppelt de ingrediënten uit je recepten op naam en telt de allergenen per recept op, ook via basisrecepten.": "Indique les allergènes de chaque produit. Savour relie les ingrédients de tes recettes par leur nom et additionne les allergènes par recette, aussi via les recettes de base.",

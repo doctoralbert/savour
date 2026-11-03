@@ -1720,6 +1720,14 @@ window.SAVOUR_I18N.es = {
     'Zoek in de receptenbibliotheek': 'Buscar en la biblioteca de recetas',
     'https://www.voorbeeld.nl/recept/beurre-blanc': 'https://www.ejemplo.es/receta/beurre-blanc',
     "Foto's": 'Fotos',
+    'Opslaan is geweigerd. Controleer of je Savour Pro hebt of sous-chef bent in dit keukenteam.':
+      'Se rechazó el guardado. Comprueba que tienes Savour Pro o eres sous-chef en este equipo de cocina.',
+    'Gevonden in de basislijst': 'Encontrado en la lista base',
+    'Voorstel op basis van de naam. Controleer het etiket of de productspecificatie.':
+      'Propuesta según el nombre. Comprueba la etiqueta o la ficha técnica.',
+    'In de basislijst staan hier geen allergenen bij. Dat is geen garantie: controleer het etiket.':
+      'La lista base no indica alérgenos para esto. No es una garantía: comprueba la etiqueta.',
+    'Basislijst: ©': 'Lista base: ©',
     Keuken: 'Cocina',
     'Producten & allergenen': 'Productos y alérgenos',
     'Leg per product de allergenen vast. Savour koppelt de ingrediënten uit je recepten op naam en telt de allergenen per recept op, ook via basisrecepten.':

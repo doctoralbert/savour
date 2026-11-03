@@ -49,7 +49,7 @@ const ALLERGEN_HINTS = [
     ['gluten']
   ],
   [
-    /(^|[^a-zà-ÿ])vis|zalm|kabeljauw|tonijn|ansjovis|makreel|forel|tarbot|zeebaars|heilbot|schol|zeetong|snoekbaars|bonito|fish|salmon|cod|tuna|anchov|vissaus/,
+    /(^|[^a-zà-ÿ])vis|zalm|kabeljauw|tonijn|ansjovis|makreel|forel|tarbot|zeebaars|heilbot|schol|zeetong|snoekbaars|bonito|fish|salmon|cod|tuna|anchov|vissaus|worcester/,
     ['vis']
   ],
   [/garnaal|garnalen|kreeft|krab|langoustine|scampi|shrimp|prawn|lobster|crab/, ['schaaldieren']],
@@ -87,6 +87,74 @@ function allergenHints(name) {
   const found = new Set();
   for (const [re, codes] of ALLERGEN_HINTS) if (re.test(key)) codes.forEach(c => found.add(c));
   return ALLERGENS.map(a => a[0]).filter(c => found.has(c));
+}
+
+// Basislijst met ingrediënten uit Open Food Facts (tools/build-ingredient-base.mjs): namen in vijf talen en de
+// allergenen. Pas geladen als iemand een product toevoegt; zonder internet werkt Savour met de trefwoorden hierboven.
+let ingredientBase = null;
+let ingredientBaseLoading = null;
+
+function loadIngredientBase() {
+  if (ingredientBase) return Promise.resolve(ingredientBase);
+  if (!ingredientBaseLoading)
+    ingredientBaseLoading = fetch('/js/data/ingredient-base.json')
+      .then(r => (r.ok ? r.json() : null))
+      .then(data => {
+        if (!data?.items) throw new Error('geen basislijst');
+        const index = new Map();
+        for (const item of data.items)
+          for (let l = 1; l <= 5; l++)
+            for (const n of String(item[l] || '').split('|')) {
+              const k = productKey(n);
+              if (k && !index.has(k)) index.set(k, item);
+            }
+        ingredientBase = { index };
+        return ingredientBase;
+      })
+      .catch(() => {
+        ingredientBaseLoading = null;
+        return null;
+      });
+  return ingredientBaseLoading;
+}
+
+// Zoekt een naam in de basislijst: eerst de hele naam, dan een deel ervan, van achteren ("koude roomboter" →
+// "roomboter", "witte peper" → "peper"). Geeft { name, allergens } of null.
+function ingredientBaseMatch(name) {
+  const index = ingredientBase?.index;
+  const words = productKey(name).split(' ').filter(Boolean);
+  if (!index || !words.length) return null;
+  for (let len = words.length; len > 0; len--)
+    for (let start = words.length - len; start >= 0; start--) {
+      const k = words.slice(start, start + len).join(' ');
+      if (len < words.length && k.length < 4) continue;
+      const item = index.get(k);
+      if (item) return { name: k, allergens: item[0] ? item[0].split(',') : [] };
+    }
+  return null;
+}
+
+// Uitleg boven de allergenen bij een nieuw product, met de bronvermelding die de licentie van Open Food Facts vraagt.
+function productHintHtml({ base, codes }) {
+  if (!base && !codes.length) return '';
+  const source = base
+    ? '<p class="product-source">Basislijst: © <a href="https://world.openfoodfacts.org/terms-of-use" target="_blank" rel="noopener">Open Food Facts contributors</a>, ODbL</p>'
+    : '';
+  const found = base
+    ? `<p class="product-hint"><span>Gevonden in de basislijst</span>: <b translate="no">${esc(base.name)}</b></p>`
+    : '';
+  const advice = codes.length
+    ? '<p class="product-hint">Voorstel op basis van de naam. Controleer het etiket of de productspecificatie.</p>'
+    : '<p class="product-hint">In de basislijst staan hier geen allergenen bij. Dat is geen garantie: controleer het etiket.</p>';
+  return found + advice + source;
+}
+
+// Voorstel voor een nieuw product: de basislijst plus de eigen trefwoorden (die ook sulfiet in wijn en ei in
+// mayonaise kennen). Altijd een voorstel; de kok controleert het etiket.
+function allergenSuggestion(name) {
+  const base = ingredientBaseMatch(name);
+  const codes = new Set([...(base?.allergens || []), ...allergenHints(name)]);
+  return { base, codes: ALLERGENS.map(a => a[0]).filter(c => codes.has(c)) };
 }
 
 // Naam van een product of ingrediënt om op te zoeken: kleine letters, zonder toevoeging na een komma, zonder
@@ -345,8 +413,13 @@ async function linkIngredientToProduct(scope, key, name, current = null) {
 }
 
 // Zoekvenster met de producten van deze lijst. Geeft { id }, { create: naam } of null bij annuleren.
-function pickProduct(scope, name, current) {
+async function pickProduct(scope, name, current) {
+  await loadIngredientBase();
   const key = productKey(name);
+  // Staat een deel van de naam in de basislijst ("roomboter" in "koude roomboter"), dan is dat het voor de hand
+  // liggende nieuwe product; de volledige naam wordt dan een alias.
+  const base = ingredientBaseMatch(key);
+  const baseName = base && base.name !== key ? base.name.charAt(0).toLocaleUpperCase('nl-NL') + base.name.slice(1) : '';
   const words = key.split(' ').filter(w => w.length > 2);
   const list = productsIn(scope).sort((a, b) => a.name.localeCompare(b.name, 'nl'));
   // Voorstel: een product waarvan de naam in de ingrediëntnaam staat ("roomboter" in "koude roomboter") of andersom.
@@ -372,7 +445,11 @@ function pickProduct(scope, name, current) {
           .sort((a, b) => b[1] - a[1])
           .map(x => x[0]);
     const newName = input.value.trim() || key || name;
+    const strong = !q && list.some(p => score(p) === 2);
     results.innerHTML =
+      (!q && baseName && !list.some(p => productKey(p.name) === productKey(baseName))
+        ? `<button type="button" class="sv-dialog-choice${strong ? '' : ' is-primary'}" data-create="${esc(baseName)}">＋ Nieuw product <span translate="no">${esc(baseName)}</span></button>`
+        : '') +
       `<button type="button" class="sv-dialog-choice" data-create="${esc(newName)}">＋ Nieuw product <span translate="no">${esc(newName)}</span></button>` +
       found
         .slice(0, 30)
@@ -414,7 +491,8 @@ function pickProduct(scope, name, current) {
 }
 
 // Product toevoegen of wijzigen. Geeft het opgeslagen product, of null bij annuleren.
-function openProductEditor({ product = null, scope = productScope, name = '', alias = '' } = {}) {
+async function openProductEditor({ product = null, scope = productScope, name = '', alias = '' } = {}) {
+  if (!product) await loadIngredientBase();
   const edit = canEditProducts(product?.scope || scope);
   const p = product || {
     id: '',
@@ -429,15 +507,27 @@ function openProductEditor({ product = null, scope = productScope, name = '', al
   if (alias && productKey(alias) !== productKey(p.name) && !aliases.some(a => productKey(a) === productKey(alias)))
     aliases.push(alias);
   // Nieuw product: voorstel op basis van de naam, nooit al als gecontroleerd aangevinkt.
-  const hints = product ? [] : allergenHints(p.name);
+  const suggestion = product ? { base: null, codes: [] } : allergenSuggestion(p.name);
+  const hints = suggestion.codes;
   const chosen = new Set(product ? p.allergens : hints);
   document.getElementById('productEditor')?.remove();
   document.body.insertAdjacentHTML(
     'beforeend',
-    `<div class="modal sv-dialog open" id="productEditor" role="dialog" aria-modal="true" aria-labelledby="productEditorTitle"><form class="sv-dialog-box product-editor-box" novalidate><h2 id="productEditorTitle" class="sv-dialog-title">${product ? 'Product' : 'Nieuw product'}</h2><label class="product-field"><span>Naam</span><input class="sv-dialog-input" name="name" value="${esc(p.name)}" autocomplete="off" required ${edit ? '' : 'readonly'} translate="no"></label><label class="product-field"><span>Ook in recepten als</span><input class="sv-dialog-input" name="aliases" value="${esc(aliases.join(', '))}" autocomplete="off" placeholder="${esc(t('Bijv. koude roomboter, boter'))}" ${edit ? '' : 'readonly'} translate="no"><small class="muted">Gescheiden door komma’s. Elke naam koppelt de ingrediëntregels met die naam aan dit product.</small></label><fieldset class="product-allergens"><legend>Allergenen</legend>${hints.length ? '<p class="product-hint">Voorstel van Savour op basis van de naam. Controleer het etiket of de productspecificatie.</p>' : ''}<div class="allergen-pick">${ALLERGENS.map(([code, label]) => `<label class="allergen-pick-item"><input type="checkbox" name="allergen" value="${code}" ${chosen.has(code) ? 'checked' : ''} ${edit ? '' : 'disabled'}><span>${esc(label)}</span></label>`).join('')}</div></fieldset><label class="product-field"><span>Opmerking</span><input class="sv-dialog-input" name="note" value="${esc(p.note)}" autocomplete="off" maxlength="300" placeholder="${esc(t('Bijv. kan sporen van noten bevatten'))}" ${edit ? '' : 'readonly'}></label><label class="product-known"><input type="checkbox" name="known" ${p.known ? 'checked' : ''} ${edit ? '' : 'disabled'}><span>Allergenen gecontroleerd op het etiket of de productspecificatie</span></label><p class="muted product-known-tip">Pas na deze controle telt het product mee als compleet, ook als er geen allergenen in zitten.</p><div class="sv-dialog-actions">${product && edit ? '<button type="button" class="btn product-delete" data-delete>Verwijderen</button>' : ''}<button type="button" class="btn" data-cancel>${edit ? 'Annuleren' : 'Sluiten'}</button>${edit ? '<button type="submit" class="btn gold">Opslaan</button>' : ''}</div></form></div>`
+    `<div class="modal sv-dialog open" id="productEditor" role="dialog" aria-modal="true" aria-labelledby="productEditorTitle"><form class="sv-dialog-box product-editor-box" novalidate><h2 id="productEditorTitle" class="sv-dialog-title">${product ? 'Product' : 'Nieuw product'}</h2><label class="product-field"><span>Naam</span><input class="sv-dialog-input" name="name" value="${esc(p.name)}" autocomplete="off" required ${edit ? '' : 'readonly'} translate="no"></label><label class="product-field"><span>Ook in recepten als</span><input class="sv-dialog-input" name="aliases" value="${esc(aliases.join(', '))}" autocomplete="off" placeholder="${esc(t('Bijv. koude roomboter, boter'))}" ${edit ? '' : 'readonly'} translate="no"><small class="muted">Gescheiden door komma’s. Elke naam koppelt de ingrediëntregels met die naam aan dit product.</small></label><fieldset class="product-allergens"><legend>Allergenen</legend><div class="product-hints">${product ? '' : productHintHtml(suggestion)}</div><div class="allergen-pick">${ALLERGENS.map(([code, label]) => `<label class="allergen-pick-item"><input type="checkbox" name="allergen" value="${code}" ${chosen.has(code) ? 'checked' : ''} ${edit ? '' : 'disabled'}><span>${esc(label)}</span></label>`).join('')}</div></fieldset><label class="product-field"><span>Opmerking</span><input class="sv-dialog-input" name="note" value="${esc(p.note)}" autocomplete="off" maxlength="300" placeholder="${esc(t('Bijv. kan sporen van noten bevatten'))}" ${edit ? '' : 'readonly'}></label><label class="product-known"><input type="checkbox" name="known" ${p.known ? 'checked' : ''} ${edit ? '' : 'disabled'}><span>Allergenen gecontroleerd op het etiket of de productspecificatie</span></label><p class="muted product-known-tip">Pas na deze controle telt het product mee als compleet, ook als er geen allergenen in zitten.</p><div class="sv-dialog-actions">${product && edit ? '<button type="button" class="btn product-delete" data-delete>Verwijderen</button>' : ''}<button type="button" class="btn" data-cancel>${edit ? 'Annuleren' : 'Sluiten'}</button>${edit ? '<button type="submit" class="btn gold">Opslaan</button>' : ''}</div></form></div>`
   );
   const el = $('productEditor');
   const form = el.querySelector('form');
+  // Nieuw product: past de kok de naam aan en heeft hij nog niets zelf aangevinkt, dan volgt het voorstel de naam.
+  if (!product && edit) {
+    let touched = false;
+    form.querySelectorAll('[name=allergen]').forEach(x => x.addEventListener('change', () => (touched = true)));
+    form.name.addEventListener('change', () => {
+      if (touched) return;
+      const next = allergenSuggestion(form.name.value);
+      form.querySelectorAll('[name=allergen]').forEach(x => (x.checked = next.codes.includes(x.value)));
+      form.querySelector('.product-hints').innerHTML = productHintHtml(next);
+    });
+  }
   return new Promise(resolve => {
     const done = value => {
       el.remove();
@@ -554,11 +644,16 @@ async function writeProduct(p) {
     .select('id,user_id,team_id,name,aliases,allergens,allergens_known,allergen_note')
     .single();
   if (error || !data) {
+    // Tabel ontbreekt: SQL nog niet uitgevoerd. Geweigerd (geen rechten of geen Pro): dat zeggen we ook zo.
+    const msg = error?.message || '';
     toast(
-      /products|relation/.test(error?.message || '')
+      /does not exist|schema cache|could not find the table/i.test(msg)
         ? 'Dit kan zodra de database is bijgewerkt.'
-        : 'Opslaan lukte niet; probeer het opnieuw'
+        : error?.code === '42501' || /row-level security|permission denied/i.test(msg)
+          ? 'Opslaan is geweigerd. Controleer of je Savour Pro hebt of sous-chef bent in dit keukenteam.'
+          : 'Opslaan lukte niet; probeer het opnieuw'
     );
+    if (error) console.warn('Product opslaan:', error);
     return null;
   }
   const saved = productFromRow(data);
