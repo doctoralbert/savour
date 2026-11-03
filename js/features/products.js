@@ -89,37 +89,44 @@ const ALLERGEN_HINTS = [
   [/havermelk|haverdrink/, ['gluten']],
   [/sojamelk|sojadrink|sojaroom/, ['soja']],
   [
-    /melk|room|boter|beurre|kaas|yoghurt|kwark|crème fraîche|creme fraiche|mascarpone|ricotta|mozzarella|parmezaan|parmigiano|zuivel|ghee|milk|cream|butter|cheese|yogurt|yoghurt|burrata|brie|gruyère|gruyere|comté|comte|feta|chocolade|chocolate/,
+    /melk|room|boter|beurre|kaas|pesto|yoghurt|kwark|crème fraîche|creme fraiche|mascarpone|ricotta|mozzarella|parmezaan|parmigiano|zuivel|ghee|milk|cream|butter|cheese|yogurt|yoghurt|burrata|brie|gruyère|gruyere|comté|comte|feta|chocolade|chocolate|(^|[^a-zà-ÿ])choco($|[^a-zà-ÿ])|hangop|custard|bailey|bearnaise|béarnaise|hollandaise|rommedou|rommedoe|limburger|manchego|mimolette/,
     ['melk']
   ],
+  // Advocaat, bearnaise, hollandaise en custard: eieren.
+  [/advocaat|bearnaise|béarnaise|hollandaise|custard|bitterkoek/, ['ei']],
   [
     /(^|[^a-zà-ÿ])eieren|(^|[^a-zà-ÿ])ei($|[^a-zà-ÿ])|eidooier|dooier|eiwit|egg|yolk|mayonaise|mayonnaise|meringue/,
     ['ei']
   ],
   [
-    /(^|[^a-zà-ÿ])(patent|tarwe|spelt|rogge|zelfrijzende?\s?)?bloem($|[^a-zà-ÿ])|tarwe|meel|brood|paneermeel|pasta|spelt|rogge|gerst|haver|couscous|bulgur|seitan|flour|wheat|bread|panko|bier|beer|croissant|bladerdeeg|brioche|noedel|noodle|vermicelli|soja ?saus|soya ?saus|soy ?sauce|shoyu|ketjap/,
+    /(^|[^a-zà-ÿ])(patent|tarwe|spelt|rogge|zelfrijzende?\s?)?bloem($|[^a-zà-ÿ])|tarwe|meel|brood|paneermeel|pasta|spelt|rogge|gerst|haver|couscous|bulgur|seitan|flour|wheat|bread|panko|bier|beer|croissant|bladerdeeg|brioche|noedel|noodle|vermicelli|soja ?saus|soya ?saus|soy ?sauce|shoyu|ketjap|fregola|orzo|griesmeel|semolina|gort|(^|[^a-zà-ÿ])filo|kataifi|wonton|tempura|bastogne|speculaas|ontbijtkoek|peperkoek|kruidno|pepernot|roux|oestersaus|oyster ?sauce/,
     ['gluten']
   ],
   [
     /(^|[^a-zà-ÿ])vis|zalm|kabeljauw|tonijn|ansjovis|makreel|forel|tarbot|zeebaars|heilbot|schol|zeetong|snoekbaars|bonito|fish|salmon|cod|tuna|anchov|vissaus|wor[cs]{1,2}h?este?r/,
     ['vis']
   ],
-  [/garnaal|garnalen|kreeft|krab|schaaldier|langoustine|scampi|shrimp|prawn|lobster|crab/, ['schaaldieren']],
+  [
+    /garnaal|garnalen|kreeft|krab|schaaldier|langoustine|scampi|shrimp|prawn|lobster|crab|trasi|terasi|belacan|tom ?yam|kimchi/,
+    ['schaaldieren']
+  ],
+  // Tom yam en kimchi bevatten meestal vissaus.
+  [/tom ?yam|kimchi/, ['vis']],
   [
     /mossel|oester|inktvis|octopus|jakobsschelp|coquille|kokkel|alikruik|slak|squid|mussel|oyster|scallop|clam/,
     ['weekdieren']
   ],
-  [/pinda|peanut|saté/, ['pinda']],
+  [/pinda|peanut|saté|gado.?gado/, ['pinda']],
   [
     /amandel|hazelno|walno|cashew|pistache|pecan|macadamia|parano|almond|hazelnut|walnut|praliné|praline|frangipane|marsepein|gianduja|(^|[^a-zà-ÿ])noten/,
     ['noten']
   ],
-  [/soja|tofu|miso|edamame|tamari|ketjap|kecap|shoyu|(^|[^a-zà-ÿ])soy/, ['soja']],
+  [/soja|tofu|miso|edamame|tamari|ketjap|kecap|shoyu|kikk?oman|oestersaus|oyster ?sauce|(^|[^a-zà-ÿ])soy/, ['soja']],
   [/selderij|celery|celeriac/, ['selderij']],
-  [/mosterd|mustard|wasabi/, ['mosterd']], // wasabipoeder en -pasta bevatten bijna altijd mosterd
-  [/sesam|tahin|sesame/, ['sesam']],
+  [/mosterd|mustard|wasabi|piccalil/, ['mosterd']], // wasabipoeder en -pasta bevatten bijna altijd mosterd
+  [/sesam|tahin|sesame|togarashi|hummus|humus/, ['sesam']],
   [
-    /wijn|azijn|port($|[^a-zà-ÿ])|sherry|cognac|madeira|wine|vinegar|gedroogde abrikoos|gedroogde abrikozen/,
+    /wijn|azijn|port($|[^a-zà-ÿ])|sherry|cognac|madeira|wine|vinegar|gedroogde abrikoos|gedroogde abrikozen|verjus|malaga|gastri(c|que)|(^|[^a-zà-ÿ])px($|[^a-zà-ÿ])|pedro xim|noilly|nouilly|nolly|vieux|mizkan|mitsukan|sushi su/,
     ['sulfiet']
   ],
   [/lupine|lupin/, ['lupine']],
@@ -128,11 +135,11 @@ const ALLERGEN_HINTS = [
     ['varkensvlees']
   ],
   [
-    /rund|biefstuk|ossenhaas|entrec[oô]te|rib-?eye|kalf|ossenstaart|ossenwang|picanha|bavette|beef|veal|(^|[^a-zà-ÿ])veau|boeuf|bœuf/,
+    /rund|biefstuk|ossenhaas|entrec[oô]te|rib-?eye|kalf|ossenstaart|ossenwang|picanha|bavette|beef|veal|(^|[^a-zà-ÿ])veau|boeuf|bœuf|(^|[^a-zà-ÿ])jdv($|[^a-zà-ÿ])|(^|[^a-zà-ÿ])(been)?merg($|[^a-zà-ÿ])|mergpijp/,
     ['rundvlees']
   ],
   [
-    /wijn|bier|(^|[^a-zà-ÿ])port($|[^a-zà-ÿ])|sherry|cognac|armagnac|(^|[^a-zà-ÿ])rum|likeur|amaretto|vodka|(^|[^a-zà-ÿ])gin($|[^a-zà-ÿ])|whisky|calvados|madeira|(^|[^a-zà-ÿ])sake|mirin|marnier|cointreau|kirsch|advocaat|marsala|noilly|pernod|pastis|champagne|prosecco|(^|[^a-zà-ÿ])cava($|[^a-zà-ÿ])|wine|beer|brandy/,
+    /wijn|bier|(^|[^a-zà-ÿ])port($|[^a-zà-ÿ])|sherry|cognac|armagnac|(^|[^a-zà-ÿ])rum|likeur|amaretto|vodka|(^|[^a-zà-ÿ])gin($|[^a-zà-ÿ])|whisky|calvados|madeira|(^|[^a-zà-ÿ])sake|mirin|marnier|cointreau|kirsch|advocaat|marsala|noilly|nouilly|nolly|pernod|pastis|champagne|prosecco|(^|[^a-zà-ÿ])cava($|[^a-zà-ÿ])|wine|beer|brandy|bailey|triple sec|strega|kahl?ua|kahula|grand ma|malibu|pisang ambon|limoncello|sambuca|ouzo|campari|aperol|vermout|martini|vieux|malaga|(^|[^a-zà-ÿ])px($|[^a-zà-ÿ])|pedro xim|liquor|liqueur/,
     ['alcohol']
   ],
   [
@@ -141,7 +148,7 @@ const ALLERGEN_HINTS = [
   ],
   [/knoflook|garlic|aioli/, ['knoflook']],
   [
-    /bonen|(^|[^a-zà-ÿ])boon($|[^a-zà-ÿ])|linzen|kikkererwt|erwt|peulvrucht|edamame|peultjes|kapucijner|hummus|falafel|bean|lentil|chickpea/,
+    /bonen|bonnen|(^|[^a-zà-ÿ])boon($|[^a-zà-ÿ])|linzen|kikkererwt|erwt|peulvrucht|edamame|peultjes|(^|[^a-zà-ÿ])peulen|kapucijner|hummus|humus|falafel|bean|lentil|chickpea/,
     ['peulvruchten']
   ],
   [/ma[iï]s|maizena|maïzena|polenta|popcorn|cornflakes|(^|[^a-zà-ÿ])corn/, ['mais']],
@@ -335,13 +342,13 @@ function allergenSuggestion(name) {
 
 // Bewerkingen en snijwijzen veranderen het product niet: gezeefde bloem is bloem, venkel brunoise is venkel.
 const PRODUCT_PREP_WORDS =
-  /(^|\s)(gezeefde?|gesmolten|(fijn|grof)?\s?gehakte?|(fijn|grof)?\s?gesneden|geraspte?|geschilde?|gewassen|koude?|zachte?|lauwe?|ontdooide?|ingekookte?|gesnipperde?|op kamertemperatuur|in (blokjes|blokken|reepjes|plakjes|stukjes|ringen|partjes)|brunoise|julienne|julliene|blokjes|blokken|reepjes|plakjes|schijfjes|schijf|schijven|ringen|partjes|stukjes)(?=\s|$)/g;
+  /(^|\s)(gezeefde?|gesmolten|(fijn|grof|rag)?\s?gehakte?|(fijn|grof|rag)?\s?gesneden|fijngesneden|fijngehakte?|geraspte?|geschilde?|gewassen|koude?|zachte?|lauwe?|ontdooide?|ingekookte?|gesnipperde?|gehalveerde?|gekneusde?|geplukte?|gecutterde?|op kamertemperatuur|in (blok|blokjes|blokken|reepjes|plakjes|stukjes|stukken|ringen|partjes|vieren)|brunoise|bruinoise|brunoïse|julienne|julliene|julienne|chiffonade|blokjes|blokken|reepjes|plakjes|schijfjes|schijf|schijven|ringen|partjes|stukjes|naturel|diepvries|d\/v|huisgemaakte?|zelfgemaakte?)(?=\s|$)/g;
 // Woordjes die overblijven als de rest van de regel is weggehaald: "gelatine per (100 gram massa)".
 const PRODUCT_TRAILING_WORDS = /(\s(in|van|a|à|per|tot|met|of|en|op|circa|ca\.?|\+\/-|±|x))+$/;
 // Een hoeveelheid die nog niet is ingevuld, vóór de naam: "…. gram wasabi poeder", "b gram yuzu", "x bos kruiden".
 // Ook "of butter =" (een alternatief uit een Engels recept) en "lavendel meringue:" houden alleen de naam.
 const PRODUCT_EMPTY_AMOUNT =
-  /^(?:[….·_\s]+|[a-z]\s+(?=(?:gram|gr|ml|cl|dl|kg|stuks?|bos|bosje|el|tl)\s)|x\s+)*(?:(?:gram|gr|ml|cl|dl|kg|stuks?|bos|bosje)\s+(?=\S))?/;
+  /^(?:[….·_+\-\s]+|\d+(?=[a-z])|[a-z]\s+(?=(?:gram|gr|ml|cl|dl|kg|stuks?|bos|bosje|el|tl)\s)|x\s+|(?:gram|kilo)(?=[a-z]{4,}))*(?:(?:gram|grams|gr|ml|cl|dl|kg|kilo|deciliter|liter|ltr|stuks?|bos|bosje|bosjes|bossen|el|tl|eetl|tsp|tbsp|fles|flessen|flesje|flesjes|pak|pakje|pakjes|pakken|pot|potten|potje|zak|zakken|zakje|zakjes|blik|blikken|krop|kroppen|plaat|platen|tak|takken|stokje|stokjes|teen|teentje|teentjes|tenen|bol|bollen|druppel|druppels|scheut|scheutje|beetje|halve|klein)\s+(?:of\s+)?(?=\S))*/;
 // Hoeveelheden zonder getal, als heel woord: "snufje zout" wordt "zout", niet "je zout".
 const PRODUCT_AMOUNT_WORDS =
   /(^|\s)(naar smaak|naar behoefte|scheutjes?|scheut|snufjes?|snuf|mespuntjes?|mespunt|eventueel|evt\.?|to taste|as needed|pinch|dash)(?=\s|$)/gi;
@@ -1199,7 +1206,7 @@ function todoButtons(scope, key) {
       : '';
   // Een tikfout ("a") is geen ingrediënt: die regel mag uit de recepten.
   const remove =
-    scope === 'own' && key.length <= 3
+    scope === 'own' && key.length <= 3 && !['known', 'produce', 'fish'].includes(productFamily(key)?.kind)
       ? `<button type="button" class="btn small" onclick="removeTodoLines('${escJs(key)}')">Weghalen</button>`
       : '';
   if (!p)

@@ -2,7 +2,7 @@
 // niet honderden namen met de hand hoeft te koppelen. Per naam, in deze volgorde:
 //   1. een eigen recept met dezelfde naam ("groente fond" → recept Groentefond): de allergenen van dat recept tellen mee;
 //   2. een bestaand product met dezelfde naam, zonder spaties of in meervoud ("olijf olie", "tomaten");
-//   3. de familie (product-families.js): "boerenkool zonder stronk" → Boerenkool, "limoenrasp" → Citrus,
+//   3. de familie (product-families.js): "boerenkool zonder stronk" → Boerenkool, "limoenrasp" → Limoen,
 //      "kabeljauwfilet zonder vel" → Kabeljauw, "bonk" → Aardappel;
 //   4. een product vooraan of achteraan in de naam ("zwarte peper heel" → Zwarte peper) of een kleine tikfout;
 //   5. een nieuw product uit de basislijst, of op een trefwoord ("zelfrijzendbakmeel": gluten);
@@ -44,8 +44,11 @@ function ownRecipesByTitle(scope) {
   }
   return byTitle;
 }
+// Afkortingen die koks gebruiken voor een basisrecept.
+const RECIPE_ABBREVIATIONS = { jdv: 'jus de veau', jdc: 'jus de canard' };
 const recipeForName = (byTitle, key) =>
-  byTitle.get(compactKey(key)) || byTitle.get(compactKey(key.replace(/^recept /, '')));
+  byTitle.get(compactKey(key)) ||
+  byTitle.get(compactKey(RECIPE_ABBREVIATIONS[key] || key.replace(/^(recept|receptuur)\s+/, '')));
 
 // Bestaande producten per familie. Een product dat zelf de naam van de familie heeft ("Boerenkool") gaat voor.
 function productsByFamily(scope) {
@@ -128,7 +131,10 @@ function autoLinkPlan(scope) {
   };
   for (const x of productTodo(scope)) {
     const key = x.key;
-    if (/\s(en|of|met)\s|[&/+]/.test(key)) {
+    // Combinaties ("zout en peper") niet, tenzij het één vrucht of kruid is ("limoen rasp en sap") of een
+    // kruidenmengsel ("tijm en rozemarijn").
+    const combo = /\s(en|of|met)\s|[&/+]/.test(key);
+    if (combo && !['produce', 'known'].includes(productFamily(key)?.kind)) {
       plan.rest.push(x);
       continue;
     }
@@ -279,8 +285,9 @@ async function runAutoLink(scope, plan, creates) {
 
 function productCleanupPlan(scope) {
   const byTitle = ownRecipesByTitle(scope);
-  const plan = { recipe: [], merge: [], remove: [], fix: [] };
+  const plan = { recipe: [], split: [], merge: [], remove: [], fix: [] };
   const clusters = new Map();
+  const touched = new Set();
   for (const p of productsIn(scope)) {
     const recipe = recipeForName(byTitle, productKey(p.name));
     if (recipe) {
@@ -288,7 +295,26 @@ function productCleanupPlan(scope) {
       continue;
     }
     const f = productFamily(p.name);
-    if (f?.kind === 'junk' || f?.kind === 'generic') {
+    const vague = f?.kind === 'junk' || f?.kind === 'generic';
+    // Uit elkaar halen: namen die bij een ander product horen ("citroensap" in Citrus hoort bij Citroen). Is het
+    // product zelf te algemeen (Citrus) of een mengsel (Kruiden), dan gaat alles wat ergens anders hoort weg.
+    const wide = vague || (f?.kind === 'known' && f.name === 'Kruiden');
+    const moves = new Map();
+    const keep = [];
+    for (const a of p.aliases) {
+      const fa = productFamily(a);
+      const strong = ['produce', 'fish', 'known'].includes(fa?.kind);
+      if (fa?.key && fa.key !== f?.key && (strong || wide)) {
+        if (!moves.has(fa.key)) moves.set(fa.key, { fam: fa, aliases: [] });
+        moves.get(fa.key).aliases.push(a);
+      } else if (!vague) keep.push(a);
+    }
+    if (moves.size) {
+      plan.split.push({ product: p, moves: [...moves.values()], keep, drop: vague });
+      touched.add(p.id);
+      continue;
+    }
+    if (vague) {
       plan.remove.push({ product: p, kind: f.kind });
       continue;
     }
@@ -298,7 +324,6 @@ function productCleanupPlan(scope) {
     c.members.push(p);
     c.names.set(f.name, (c.names.get(f.name) || 0) + 1);
   }
-  const touched = new Set();
   for (const { fam, members, names } of clusters.values()) {
     // Naam: bij een groep, vissoort of vakkennis de vaste naam. Anders een product dat al zo heet ("Tomaat" naast
     // "Tomatensap"), of de kern die het vaakst voorkomt ("Kersen" uit "Kersen coulis" en "Kersen puree").
@@ -311,7 +336,9 @@ function productCleanupPlan(scope) {
           ? plain.name
           : [...names].sort((a, b) => b[1] - a[1] || a[0].length - b[0].length)[0][0];
     const target = members.find(p => sameName(p.name, name)) || members[0];
-    if (members.length === 1 && sameName(target.name, name)) continue;
+    // Een rommelige naam ("Of butter =", "…. gram wasabi poeder") wordt netjes, ook als er niets samen te voegen is.
+    const messy = n => /[=:…]|^[^a-zà-ÿ]|^(of|x|b|grams?|gram)\s/i.test(n.trim());
+    if (members.length === 1 && sameName(target.name, name) && !messy(target.name)) continue;
     const key = productKey(name);
     const aliases = [
       ...new Set(members.flatMap(p => [p.name, ...p.aliases].map(productKey)).filter(k => k && k !== key))
@@ -344,7 +371,7 @@ function openProductCleanup() {
   const scope = productScope;
   if (!canEditProducts(scope)) return;
   const plan = productCleanupPlan(scope);
-  const total = plan.recipe.length + plan.merge.length + plan.remove.length + plan.fix.length;
+  const total = plan.recipe.length + plan.split.length + plan.merge.length + plan.remove.length + plan.fix.length;
   if (!total) {
     toast('Je producten zijn al netjes');
     return;
@@ -361,6 +388,13 @@ function openProductCleanup() {
       'merge',
       i,
       `<span translate="no">${esc(x.members.map(p => p.name).join(', '))}</span><span class="autolink-arrow">→</span><b translate="no">${esc(x.name)}</b><small>${esc(allergenNames(shownAllergens(x.allergens, scope)))}</small>`
+    )
+  );
+  const splits = plan.split.map((x, i) =>
+    check(
+      'split',
+      i,
+      `<b translate="no">${esc(x.product.name)}</b><span class="autolink-arrow">→</span><span translate="no">${esc(x.moves.map(m => m.fam.name).join(', '))}</span>${x.drop ? `<small>${t('daarna weg')}</small>` : ''}`
     )
   );
   const recipesRows = plan.recipe.map((x, i) =>
@@ -384,6 +418,10 @@ function openProductCleanup() {
   document.body.insertAdjacentHTML(
     'beforeend',
     `<div class="modal sv-dialog open" id="productCleanup" role="dialog" aria-modal="true" aria-labelledby="productCleanupTitle"><div class="sv-dialog-box allergen-check-box">${modalCloseHtml()}<h2 id="productCleanupTitle" class="sv-dialog-title">Producten opruimen</h2><p class="sv-dialog-text">Dit gaat Savour doen. Klik op een regel om te zien wat het is, en zet een vinkje uit als je iets wilt laten staan.</p>${section(
+      'producten uit elkaar halen',
+      splits,
+      'Namen die bij een ander product horen, gaan naar dat product. Bestaat het nog niet, dan maakt Savour het.'
+    )}${section(
       'producten samenvoegen',
       merges,
       'Varianten worden één product. De oude namen blijven als schrijfwijze bewaard en de allergenen tellen op.'
@@ -404,7 +442,13 @@ function openProductCleanup() {
   el.querySelector('[data-ok]').addEventListener('click', async ev => {
     const chosen = kind =>
       [...el.querySelectorAll(`input[data-kind="${kind}"]:checked`)].map(b => plan[kind][Number(b.dataset.i)]);
-    const picked = { recipe: chosen('recipe'), merge: chosen('merge'), fix: chosen('fix'), remove: chosen('remove') };
+    const picked = {
+      recipe: chosen('recipe'),
+      split: chosen('split'),
+      merge: chosen('merge'),
+      fix: chosen('fix'),
+      remove: chosen('remove')
+    };
     ev.target.disabled = true;
     ev.target.textContent = t('Bezig met opruimen…');
     const done = await runProductCleanup(scope, picked);
@@ -441,9 +485,44 @@ async function runProductCleanup(scope, plan) {
     for (const p of x.members) if (p.id !== x.target.id) await deleteProduct(p);
     return true;
   });
-  // 3. Allergenen verbeteren.
+  // 3. Uit elkaar halen, één product tegelijk: eerst de namen bij het juiste product (of een nieuw product), pas
+  // daarna weg bij het oude. Allergenen die de namen doen vermoeden, komen erbij.
+  for (const x of plan.split) {
+    let ok = true;
+    const byFamily = productsByFamily(scope);
+    const rows = [];
+    for (const m of x.moves) {
+      const hints = m.aliases.flatMap(allergenHints);
+      const target = byFamily.get(m.fam.key);
+      if (target && target.id !== x.product.id) {
+        const allergens = withDerived(productKey(target.name), [...target.allergens, ...hints]).filter(
+          a => target.allergens.includes(a) || allergenShown(a, scope)
+        );
+        const aliases = [...new Set([...target.aliases, ...m.aliases])].slice(0, 500);
+        if (!(await writeProduct({ ...target, aliases, allergens }))) ok = false;
+      } else {
+        const key = productKey(m.fam.name);
+        rows.push({
+          scope,
+          name: m.fam.name,
+          aliases: [...new Set(m.aliases.filter(a => a !== key))].slice(0, 500),
+          allergens: withDerived(key, [...m.fam.allergens, ...allergenKeywords(m.fam.name), ...hints]).filter(a =>
+            allergenShown(a, scope)
+          ),
+          known: true,
+          note: ''
+        });
+      }
+    }
+    if (rows.length && !(await insertProducts(rows))) ok = false;
+    if (!ok) continue;
+    if (x.drop) await deleteProduct(x.product);
+    else await writeProduct({ ...x.product, aliases: x.keep });
+    done++;
+  }
+  // 4. Allergenen verbeteren.
   await inBatches(plan.fix, x => writeProduct({ ...x.product, allergens: x.allergens }));
-  // 4. Weghalen.
+  // 5. Weghalen.
   await inBatches(plan.remove, x => deleteProduct(x.product));
   saveOfflineSnapshot();
   return done;

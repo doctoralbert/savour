@@ -1742,6 +1742,10 @@ window.SAVOUR_I18N.fr = {
     'https://www.voorbeeld.nl/recept/beurre-blanc': 'https://www.exemple.fr/recette/beurre-blanc',
     "Foto's": 'Photos',
     'Ander product': 'Autre produit',
+    'producten uit elkaar halen': 'produits à séparer',
+    'Namen die bij een ander product horen, gaan naar dat product. Bestaat het nog niet, dan maakt Savour het.':
+      'Les noms qui appartiennent à un autre produit vont vers ce produit. S’il n’existe pas encore, Savour le crée.',
+    'daarna weg': 'puis retiré',
     'Weggehaald uit 1 recept': 'Retiré d’1 recette',
     'Onderdeel van dit recept': 'Partie de cette recette',
     'Dubbele of foute producten samenvoegen en verbeteren': 'Fusionner et corriger les produits en double ou erronés',

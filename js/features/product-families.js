@@ -1,6 +1,6 @@
 // Slimmer herkennen (2026-11-03): welk product hoort bij een naam, ook als de naam een vorm, snijwijze, kleur of
 // tikfout bevat. "Boerenkool zonder stronk" is boerenkool, "kabeljauwfilet zonder vel" is kabeljauw, "limoenrasp"
-// valt onder Citrus en "citroenthijm" onder Kruiden. Gebruikt door Alles automatisch koppelen en Producten opruimen.
+// is Limoen en "citroenthijm" is Tijm. Gebruikt door Alles automatisch koppelen en Producten opruimen.
 // Allergenen van samengevoegde producten tellen altijd op: liever een allergeen te veel dan te weinig.
 
 // Vormen, bewerkingen en kleuren: hetzelfde product met dezelfde allergenen. "Gedroogd" en "gerookt" staan hier
@@ -13,7 +13,7 @@ const FAMILY_FORM_WORDS = new Set(
     'ontdooide geel gele groen groene rood rode wit witte zwart zwarte bruin bruine blauw blauwe pitten gepelde ' +
     'gepeld gedopte heel hele gezouten ongezouten geroosterd geroosterde gepofte gegaarde gegaard gekookt gekookte ' +
     'gebakken bolletjes partjes parten segmenten kook gesnipperd fijn grof dun dunne half ring stengels stengel ' +
-    'cooked fresh raw schijf schijfjes schijven blokjes plakjes reepjes stukjes'
+    'cooked fresh raw rug schijf schijfjes schijven blokjes plakjes reepjes stukjes'
   ).split(' ')
 );
 // Woorden die samen met het volgende woord wegvallen: "zonder vel", "uit blik", "met schil".
@@ -34,6 +34,7 @@ const FAMILY_SUFFIXES = [
   'stukjes',
   'partjes',
   'roosjes',
+  'rug',
   'coulis',
   'puree',
   'filet',
@@ -44,27 +45,101 @@ const FAMILY_SUFFIXES = [
   'sap'
 ];
 
-const FAMILY_GROUPS = [
-  {
-    name: 'Citrus',
-    members:
-      'citrus, citroen, limoen, lime, lemon, sinaasappel, orange, bloedsinaasappel, mandarijn, tangerine, ' +
-      'clementine, grapefruit, pompelmoes, pomelo, yuzu, bergamot, kalamansi, calamansi, kumquat, sudachi, ' +
-      'combava, duindoornbes'
-  },
-  {
-    // Zonder kruiden met een eigen allergeen: bieslook en daslook (uiachtig), koriander, selderijblad.
-    name: 'Kruiden',
-    members:
-      'kruiden, tuinkruiden, fijne kruiden, gemengde kruiden, bos kruiden, kruiden na keuze, provençaalse kruiden, ' +
-      'italiaanse kruiden, peterselie, bladpeterselie, krulpeterselie, platte peterselie, kervel, dragon, estragon, ' +
-      'basilicum, thaise basilicum, citroenbasilicum, munt, pepermunt, watermunt, marokkaanse munt, muntblad, ' +
-      'citroenmelisse, melisse, tijm, thijm, citroentijm, citroenthijm, bergsteentijm, bergsteenthijm, rozemarijn, ' +
-      'salie, oregano, marjolein, majoraan, laurier, laurierblad, lavas, maggiplant, dille, venkelgroen, bonenkruid, ' +
-      'hysop, shiso, zuring, veldzuring, bloedzuring, citroengras, citroenverbena, verveine, ijzerkruid, ' +
-      'argentijnse munt verbena, munt verbena, kaffir limoenblad, limoenblad, citroenblad, curryblad, lavendel'
-  }
+// Citrusvruchten en kruiden: één product per soort, met alles wat erbij hoort ("citroensap", "rasp van citroen",
+// "gepekelde citroen" → Citroen; "citroentijm" en "bergsteentijm" → Tijm). [naam, namen]. Geen van deze heeft een
+// wettelijk allergeen; kruiden met een eigen allergeen (bieslook en daslook: uiachtig, koriander, selderijblad)
+// staan er bewust niet in.
+const FAMILY_FRUIT = [
+  [
+    'Appel',
+    'appel, elstar, bildstar, granny smith, granny smit, grany smit, jonagold, goudreinet, braeburn, pink lady, golden delicious, boskoop, cox, apple'
+  ],
+  ['Peer', 'peer, conference, conference peer, doyenne du comice, gieser wildeman, stoofpeer, kweekpeer, pear'],
+  ['Citroen', 'citroen, lemon, citron'],
+  ['Limoen', 'limoen, lime, limes'],
+  ['Sinaasappel', 'sinaasappel, sinasappel, sinaas, sinas, orange, appelsien'],
+  ['Bloedsinaasappel', 'bloedsinaasappel, bloedsinasappel, blood orange'],
+  ['Mandarijn', 'mandarijn, tangerine, clementine, satsuma'],
+  ['Grapefruit', 'grapefruit, pompelmoes'],
+  ['Pomelo', 'pomelo'],
+  ['Yuzu', 'yuzu'],
+  ['Kalamansi', 'kalamansi, kalamansie, calamansi'],
+  ['Kumquat', 'kumquat'],
+  ['Bergamot', 'bergamot'],
+  ['Sudachi', 'sudachi'],
+  ['Combava', 'combava, kaffir limoen'],
+  ['Duindoornbes', 'duindoornbes, duindoorn, sea buckthorn, argousier']
 ];
+const FAMILY_HERBS = [
+  ['Tijm', 'tijm, thijm, citroentijm, citroenthijm, bergsteentijm, bergsteenthijm, wilde tijm, thyme'],
+  ['Rozemarijn', 'rozemarijn, rosmarijn, rosemary'],
+  ['Salie', 'salie, sage, ananassalie'],
+  ['Basilicum', 'basilicum, thaise basilicum, citroenbasilicum, paarse basilicum, griekse basilicum, basil'],
+  ['Munt', 'munt, pepermunt, watermunt, marokkaanse munt, nana munt, appelmunt, muntblad, mint'],
+  ['Munt verbena', 'munt verbena, argentijnse munt verbena'],
+  ['Peterselie', 'peterselie, bladpeterselie, krulpeterselie, platte peterselie, peterseliestelen, parsley'],
+  ['Kervel', 'kervel, cerfeuil, chervil'],
+  ['Dragon', 'dragon, estragon, tarragon'],
+  ['Dille', 'dille, dill'],
+  ['Venkelgroen', 'venkelgroen, venkelloof'],
+  ['Laurier', 'laurier, laurierblad, laurierblaadje, bay leaf'],
+  ['Lavas', 'lavas, maggiplant, lovage'],
+  ['Marjolein', 'marjolein, majoraan, marjoraan'],
+  ['Oregano', 'oregano, wilde marjolein'],
+  ['Citroenmelisse', 'citroenmelisse, melisse'],
+  ['Citroengras', 'citroengras, sereh, serreh, lemongrass'],
+  ['Citroenverbena', 'citroenverbena, verveine'],
+  ['IJzerkruid', 'ijzerkruid'],
+  [
+    'Limoenblad',
+    'limoenblad, limoenblaadje, kaffir limoenblad, kaffirlimoenblad, djeroek poeroet, djeroek purut, makrut, ' +
+      'kaffir, kaffier, keffir, kaffir blad, kaffierblad, kaffier blad, keffir blad, kaffirblad'
+  ],
+  ['Galangal', 'galangal, galanga, galangel, laos, lengkuas, kencur'],
+  ['Gember', 'gember, gemberwortel, verse gember, ginger'],
+  ['Pandan', 'pandan, pandanblad, pandan blad'],
+  ['Citroenkruid', 'citroenkruid'],
+  ['Bergmunt', 'bergmunt'],
+  ['Citroenblad', 'citroenblad, citroenblaadje'],
+  ['Curryblad', 'curryblad, kerrieblad'],
+  ['Shiso', 'shiso, perilla'],
+  ['Zuring', 'zuring, veldzuring, bloedzuring, sorrel'],
+  ['Bonenkruid', 'bonenkruid, bonnenkruid'],
+  ['Hysop', 'hysop'],
+  ['Lavendel', 'lavendel'],
+  ['Kamille', 'kamille'],
+  ['Bernagie', 'bernagie, komkommerkruid'],
+  ['Pimpernel', 'pimpernel'],
+  ['Oost-Indische kers', 'oost indische kers, oost indisch kers, capucine, nasturtium'],
+  ['Tuinkers', 'tuinkers, cress'],
+  ['Waterkers', 'waterkers, watercress'],
+  // Zeekruiden en wilde kruiden.
+  ['Zeekraal', 'zeekraal, salicornia'],
+  ['Lamsoor', 'lamsoor'],
+  ['Zeevenkel', 'zeevenkel'],
+  ['Oesterblad', 'oesterblad, oysterleaf'],
+  ['IJskruid', 'ijskruid, ijsplant'],
+  ['Postelein', 'postelein, winterpostelein, claytonia'],
+  ['Duizendblad', 'duizendblad'],
+  ['Brandnetel', 'brandnetel'],
+  ['Vogelmuur', 'vogelmuur'],
+  ['Zevenblad', 'zevenblad'],
+  ['Hondsdraf', 'hondsdraf'],
+  ['Vlierbloesem', 'vlierbloesem, vlierbloem'],
+  ['Viooltjes', 'viooltje, viola'],
+  ['Goudsbloem', 'goudsbloem, calendula'],
+  ['Anijsplant', 'anijsplant, anijsblad'],
+  ['Agastache', 'agastache, anijsnetel']
+];
+// Mag bij een citrusvrucht of kruid staan zonder dat het een ander product wordt.
+const FAMILY_PRODUCE_WORDS = new Set(
+  (
+    'gepekelde gepekeld geperste geperst geblancheerde geblancheerd gekneusd gekneusde chiffonade stelen steel ' +
+    'steeltjes bosje bosjes bos takken tak kwart halve een van de het tuin droog gedroogd gedroogde plat platte ' +
+    'krul stuks stukken plakken plak zestes roze citrus bl bloemen bloem bloesem blaadjes partje schijfje gesneden ' +
+    'gehakt gehakte fijngehakt gerasp bladeren en of tops zaad zaadjes vriezer heel mild zoet zure zuur'
+  ).split(' ')
+);
 
 // Vis, schaal- en weekdieren: één product per soort. [naam, allergeen, namen]
 const FAMILY_FISH = [
@@ -122,23 +197,32 @@ const FAMILY_KNOWN = [
     'Aardappel',
     ['nachtschade'],
     'aardappel, bonk, bintje, agria, opperdoezer, opperdoezer ronde, nicola, ratte, la ratte, roseval, vitelotte, ' +
-      'eigenheimer, frieslander, annabelle, krieltjes, kriel, potato'
+      'eigenheimer, frieslander, annabelle, krieltjes, kriel, potato, violet aardappel, violetaardappel, ' +
+      'la ratte aardappel, roseval aardappel'
   ],
   [
     'Bouquet (wortel, ui, prei, knolselderij)',
     ['selderij', 'ui'],
     'bouquet, bouquet groenten, bouquet garni, mirepoix'
   ],
-  ['Iota (Texturas)', [], 'iota, iota carrageen'],
+  ['Iota (Texturas)', [], 'iota, ilota, iota carrageen'],
   ['Kappa (Texturas)', [], 'kappa, kappa carrageen'],
   ['Gellan (Texturas)', [], 'gellan'],
-  ['Xanthaan', [], 'xanthaan, xantana, xanthan, xantaan'],
+  ['Xanthaan', [], 'xanthaan, xantana, xanthan, xantaan, xanthaangom, xanthan gum'],
   ['Algin (Texturas)', [], 'algin'],
   ['Calcic (Texturas)', [], 'calcic'],
   ['Gluco (Texturas)', [], 'gluco'],
   ['Lecite (Texturas)', ['soja'], 'lecite'],
-  ['Pro Espuma Cold', ['melk', 'lactose'], 'pro espuma, pro espuma cold, pro espuma koud'],
-  ['Pro Espuma Hot', [], 'pro espuma hot, pro espuma warm, pro espuma caliente'],
+  [
+    'Pro Espuma Cold',
+    ['melk', 'lactose'],
+    'pro espuma, pro espuma cold, pro espuma koud, por espuma, proespuma, proesuma, proespuma per'
+  ],
+  [
+    'Pro Espuma Hot',
+    [],
+    'pro espuma hot, pro espuma warm, pro espuma caliente, proespuma calent, proespuma caliente, proespuma hot'
+  ],
   ['Beurre noisette', ['melk', 'lactose'], 'beurre noisette, bruine boter'],
   [
     'Sla',
@@ -161,30 +245,90 @@ const FAMILY_KNOWN = [
     ['melk', 'lactose', 'soja'],
     'witte chocolade, chocolade witte, witte couverture, couverture wit'
   ],
-  ['Zelfrijzend bakmeel', ['gluten'], 'zelfrijzend bakmeel, zelfrijzendbakmeel, zelfrijzende bloem, self raising flour']
+  [
+    'Zelfrijzend bakmeel',
+    ['gluten'],
+    'zelfrijzend bakmeel, zelfrijzendbakmeel, zelfrijzende bloem, self raising flour'
+  ],
+  ['Eiwit', ['ei'], 'eiwit, egg white, gepasteuriseerd eiwit'],
+  ['Eidooier', ['ei'], 'eidooier, dooier, eigeel, eigele, eigelen, egg yolk, yolk'],
+  ['Ei', ['ei'], 'ei, eieren, egg, eggs, scharrelei, kippenei'],
+  [
+    'Tomaat',
+    ['nachtschade', 'histamine'],
+    'tomaat, trostomaat, cherrytomaat, pelati, pelatti, pomodori pelati, tomato'
+  ],
+  ['Wortel', [], 'wortel, peen, bospeen, winterwortel, waspeen, bundelwortel, carrot'],
+  ['Cornichons', [], 'cornichon, chornison, cornichon zuur'],
+  ['Sojasaus', ['gluten', 'soja'], 'sojasaus, soja saus, soya saus, soy sauce, kikkoman, kikoman, kikkoman soja'],
+  ['Oestersaus', ['weekdieren', 'gluten', 'soja'], 'oestersaus, oyster sauce, oystersauce'],
+  ['Trasi', ['schaaldieren'], 'trasi, terasi, belacan, garnalenpasta'],
+  ['Kimchi', ['vis', 'schaaldieren'], 'kimchi'],
+  ['Tom yam pasta', ['schaaldieren', 'vis'], 'tom yam, tom yum, tom yam pasta'],
+  ['Shichimi togarashi', ['sesam'], 'togarashi, shichimi, shichimi togarashi'],
+  ['Pedro Ximénez', ['sulfiet', 'alcohol'], 'px, pedro ximenez, pedro ximenes, pedro ximénez, px sherry'],
+  ['Noilly Prat', ['sulfiet', 'alcohol'], 'noilly prat, nouilly prat, nouily prat, nollyprat, noilly'],
+  ['Baileys', ['melk', 'lactose', 'alcohol'], 'baileys, bailey, bailey s'],
+  ['Advocaat', ['ei', 'alcohol'], 'advocaat'],
+  ['Gastrique', ['sulfiet'], 'gastric, gastrique'],
+  ['Zoetzuur', ['sulfiet'], 'zoetzuur, zoet zuur, zoetzuur basis, zoet zuur basis, zoet zuur mild'],
+  ['Jus de veau', ['rundvlees'], 'jdv, jus de veau, jus d veau, jus de veaux'],
+  ['Merg', ['rundvlees'], 'merg, beenmerg, mergpijp'],
+  ['Palmsuiker', [], 'palmsuiker, palm sugar, gula djawa, gula jawa, gula kelapa, gula merah'],
+  ['Raapzaadolie', [], 'raapzaadolie, rapsodie, rapsoli, koolzaadolie'],
+  ['Nootmuskaat', [], 'nootmuskaat, mootmuskaat, muskaatnoot, nutmeg'],
+  ['Tonkaboon', [], 'tonka, tonkaboon, tonka poeder'],
+  ['Szechuanpeper', [], 'szechuan, szechuanpeper, sichuan peper, sichuanpeper'],
+  ['Aonori', [], 'aonori'],
+  ['Custard', ['melk', 'lactose', 'ei'], 'custard'],
+  ['Hangop', ['melk', 'lactose'], 'hangop'],
+  ['Hummus', ['peulvruchten', 'sesam'], 'hummus, humus'],
+  ['Sushi azijn', ['sulfiet'], 'sushi azijn, sushi su, mizkan, mitsukan'],
+  ['Verjus', ['sulfiet'], 'verjus'],
+  // Texturas en andere hulpmiddelen uit de moderne keuken.
+  ['Citras (Texturas)', [], 'citras'],
+  ['Elastic (Sosa)', [], 'elastic, elastique'],
+  ['Instant gel', [], 'instangel, instant gel'],
+  ['Dextrose', [], 'dextrose, dextrosepoeder, druivensuiker'],
+  ['Maltodextrine', [], 'malto, maltopoeder, maltodextrine'],
+  ['Isomalt', [], 'isomalt, isomaltose'],
+  ['Transglutaminase', [], 'transglutaminase, transglutaminaat, activa'],
+  ['Tapioca', [], 'tapioca, tapiocapoeder, tapiocazetmeel'],
+  ['Roux', ['gluten'], 'roux, roux korrels'],
+  // Gemengde kruiden, of twee kruiden samen ("tijm rozemarijn laurier"): zie productFamily.
+  [
+    'Kruiden',
+    [],
+    'kruiden, verse kruiden, tuinkruiden, fijne kruiden, fines herbes, gemengde kruiden, bos kruiden, kruiden na keuze, ' +
+      'provençaalse kruiden, italiaanse kruiden, herbes de provence'
+  ]
 ];
 
 // Te algemeen om te weten wat erin zit: welk sap, welke olie? Savour maakt hier geen product van.
 const FAMILY_GENERIC = new Set(
   (
-    'sap, coulis, couli, puree, saus, jus, fond, bouillon, olie, siroop, gel, creme, crème, deeg, vulling, ' +
+    'citrus, sap, coulis, couli, puree, saus, jus, fond, bouillon, olie, siroop, gel, creme, crème, deeg, vulling, ' +
     'glazuur, basis, massa, mix, poeder, schuim, crumble, dressing, marinade, vinaigrette, garnituur, garnering, ' +
     'decoratie, fruit, vruchten, groente, groenten, specerijen, vocht, kookvocht, smaakstoffen, ijs, fruit coulis, ' +
-    'vruchten coulis, vruchten puree, rood fruit, rood fruit coulis, gedroogde fruit, fruit couli boiron, droge puree'
+    'vruchten coulis, vruchten puree, rood fruit, rood fruit coulis, gedroogde fruit, fruit couli boiron, droge puree, ' +
+    'circa, bodem, appareil, aanmaak, drank, terrine, boiron couli, karamel, caramel, basis karamel, tipo, ' +
+    'diverse paddenstoelen, gedroogde paddenstoelen, kookvocht, blancheer vocht, liquor'
   ).split(', ')
 );
 
 // Geen ingrediënt maar een stukje uitleg of rekenwerk dat in de naam terecht is gekomen. Een lege hoeveelheid
 // ervoor ("…. gram wasabi poeder") haalt productKey al weg; dan blijft het gewoon een product.
 const FAMILY_JUNK =
-  /^(per|al|aan|en)\s|(^|\s)(mengen|maken|zie|bruineren|in de oven|magimix|cut small|van de zelfde)($|\s)/;
+  /^(per|al|aan|en|op|recept is|op basis)(\s|$)|(^|\s)(mengen|maken|zie|bruineren|in de oven|magimix|cut small|van de zelfde|laten trekken|leggen|verwerken|spatelen|snijden|verwijderen|besmeren|aanmaken|inkoken|verwarmen|patronen|houtskool|houtsnippers|aluminiumfolie|bakpapier|plastic|siliconen|gastronorm|kooltjes|slussi|\d+c)($|\s)/;
 
 // Enkelvoud en meervoud gelijk maken: peren/peer → per, abrikozen/abrikoos → abrikos, olijven/olijf → olijf.
 function familyStem(word) {
   let s = word.replace(/['’]s$/, '');
-  if (s.length > 4) s = s.replace(/(en|s)$/, '');
+  // "citroenen" → "citroen" → "citro", net als "citroen"; "duindoornbessen" en "duindoornbes" komen ook samen.
+  while (s.length > 4 && s.endsWith('en')) s = s.slice(0, -2);
   s = s.replace(/z$/, 's').replace(/v$/, 'f');
   s = s.replace(/([^aeiou])\1$/, '$1');
+  if (s.length > 4) s = s.replace(/s$/, '');
   return s.replace(/([aeou])\1/g, '$1');
 }
 const familyStemKey = key => key.split(' ').filter(Boolean).map(familyStem).join(' ');
@@ -194,13 +338,15 @@ let familyIndex = null;
 function familyLookup() {
   if (familyIndex) return familyIndex;
   const list = text => text.split(', ').map(n => familyStemKey(n).replace(/ /g, ''));
-  const members = new Map();
-  for (const g of FAMILY_GROUPS) for (const n of list(g.members)) members.set(n, g);
+  const produce = new Map();
+  for (const [name, names] of FAMILY_FRUIT) for (const n of list(names)) produce.set(n, { name, allergens: [] });
+  for (const [name, names] of FAMILY_HERBS)
+    for (const n of list(names)) produce.set(n, { name, allergens: [], herb: true });
   const fish = new Map();
   for (const [name, code, names] of FAMILY_FISH) for (const n of list(names)) fish.set(n, { name, allergens: [code] });
   const known = new Map();
   for (const [name, allergens, names] of FAMILY_KNOWN) for (const n of list(names)) known.set(n, { name, allergens });
-  familyIndex = { members, fish, known };
+  familyIndex = { produce, fish, known };
   return familyIndex;
 }
 
@@ -208,12 +354,16 @@ function familyLookup() {
 // overblijven; leeg als er alleen vormen stonden.
 function familyCoreWords(key) {
   const keepColor = FAMILY_KEEP_COLOR.test(key);
+  const { produce, fish, known } = familyLookup();
+  const whole = w => produce.has(familyStem(w)) || fish.has(familyStem(w)) || known.has(familyStem(w));
   const words = key
-    .replace(/['’`]/g, ' ')
+    .replace(/['’`.→!?]/g, ' ')
     .replace(/[-/]/g, ' ')
     .split(' ')
-    .filter(Boolean)
+    .filter(w => /[a-zà-ÿ0-9]/.test(w))
     .flatMap(w => {
+      // "Limoenblad" is een eigen kruid; "limoensap" is limoen plus sap.
+      if (whole(w)) return [w];
       const suffix = FAMILY_SUFFIXES.find(s => w.length > s.length + 2 && w.endsWith(s));
       return suffix ? [w.slice(0, -suffix.length), suffix] : [w];
     });
@@ -231,7 +381,7 @@ function familyCoreWords(key) {
 }
 
 // Het product waar een naam bij hoort volgens deze regels: { key, name, allergens, kind } of null. De key is de
-// naam zonder spaties, in enkelvoud. kind: 'junk', 'generic', 'group', 'fish', 'known' of 'base' (de naam zonder
+// naam zonder spaties, in enkelvoud. kind: 'junk', 'generic', 'produce', 'fish', 'known' of 'base' (de naam zonder
 // vormen: "Boerenkool").
 function productFamily(name) {
   const key = productKey(name);
@@ -239,7 +389,7 @@ function productFamily(name) {
   const nothing = kind => ({ key: '', name: '', allergens: [], kind });
   if (FAMILY_JUNK.test(key)) return nothing('junk');
   if (FAMILY_GENERIC.has(key)) return nothing('generic');
-  const { members, fish, known } = familyLookup();
+  const { produce, fish, known } = familyLookup();
   const compact = words => words.map(familyStem).join('');
   const own = (hit, kind) => ({
     key: compact(productKey(hit.name).split(' ')),
@@ -249,18 +399,39 @@ function productFamily(name) {
   });
   const whole = compact(key.replace(/[-/]/g, ' ').split(' ').filter(Boolean));
   if (known.has(whole)) return own(known.get(whole), 'known');
-  if (members.has(whole)) return own(members.get(whole), 'group');
+  if (produce.has(whole)) return own(produce.get(whole), 'produce');
   if (fish.has(whole)) return own(fish.get(whole), 'fish');
   // "Jus d'orange", "sap van witte grapefruit" en "van mozzarella".
-  const plain = key.replace(/^(jus d e |jus de |jus d |sap van (de )?|van )/, '');
+  const plain = key.replace(
+    /^(jus d e |jus de |jus d |sap en rasp van |rasp en sap van |sap van (de )?|rasp van |schil van |wit van |van )/,
+    ''
+  );
   const core = familyCoreWords(plain);
   if (!core.length || FAMILY_GENERIC.has(core.join(' '))) return nothing('generic');
   const coreKey = compact(core);
   if (known.has(coreKey)) return own(known.get(coreKey), 'known');
-  if (members.has(coreKey)) return own(members.get(coreKey), 'group');
+  if (produce.has(coreKey)) return own(produce.get(coreKey), 'produce');
   if (fish.has(coreKey)) return own(fish.get(coreKey), 'fish');
+  // Citrus en kruiden per woord, eerst twee woorden samen ("citroen tijm" is tijm). Staat er verder alleen iets als
+  // "gepekelde" of "bosje", dan is het die vrucht of dat kruid. Meerdere kruiden samen zijn Kruiden.
+  const hits = [];
+  let other = false;
+  for (let i = 0; i < core.length; i++) {
+    const pair = i + 1 < core.length && produce.get(familyStem(core[i] + core[i + 1]));
+    if (pair) {
+      hits.push(pair);
+      i++;
+      continue;
+    }
+    const hit = produce.get(familyStem(core[i]));
+    if (hit) hits.push(hit);
+    else if (!FAMILY_PRODUCE_WORDS.has(core[i])) other = true;
+  }
+  if (hits.length && !other) {
+    if (new Set(hits.map(h => h.name)).size === 1) return own(hits[0], 'produce');
+    if (hits.every(h => h.herb)) return own(known.get(familyStem('kruiden')), 'known');
+  }
   const stems = core.map(familyStem);
-  if (stems.every(s => members.has(s))) return own(members.get(stems[0]), 'group');
   const fishHit = stems.map(s => fish.get(s)).find(Boolean);
   if (fishHit && core.every((w, i) => fish.has(stems[i]) || FAMILY_FISH_WORDS.has(w))) return own(fishHit, 'fish');
   return { key: coreKey, name: capitalizeFirst(core.join(' ')), allergens: [], kind: 'base' };

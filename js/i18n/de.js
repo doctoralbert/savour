@@ -1734,6 +1734,10 @@ window.SAVOUR_I18N.de = {
     'https://www.voorbeeld.nl/recept/beurre-blanc': 'https://www.beispiel.de/rezept/beurre-blanc',
     "Foto's": 'Fotos',
     'Ander product': 'Anderes Produkt',
+    'producten uit elkaar halen': 'Produkte aufteilen',
+    'Namen die bij een ander product horen, gaan naar dat product. Bestaat het nog niet, dan maakt Savour het.':
+      'Namen, die zu einem anderen Produkt gehören, gehen zu diesem Produkt. Gibt es das noch nicht, legt Savour es an.',
+    'daarna weg': 'danach entfernt',
     'Weggehaald uit 1 recept': 'Aus 1 Rezept entfernt',
     'Onderdeel van dit recept': 'Teil dieses Rezepts',
     'Dubbele of foute producten samenvoegen en verbeteren':

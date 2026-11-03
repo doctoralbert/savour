@@ -3547,6 +3547,9 @@ export const strings = [
   ["Foto's","Photos","Fotos","Fotos"],
   // ---- Producten & allergenen (2026-11-03) ----
   ["Ander product","Other product","Anderes Produkt","Otro producto"],
+  ["producten uit elkaar halen","products to split up","Produkte aufteilen","productos a separar"],
+  ["Namen die bij een ander product horen, gaan naar dat product. Bestaat het nog niet, dan maakt Savour het.","Names that belong to another product move to that product. If it does not exist yet, Savour creates it.","Namen, die zu einem anderen Produkt gehören, gehen zu diesem Produkt. Gibt es das noch nicht, legt Savour es an.","Los nombres que pertenecen a otro producto pasan a ese producto. Si aún no existe, Savour lo crea."],
+  ["daarna weg","then removed","danach entfernt","después se quita"],
   ["Weggehaald uit 1 recept","Removed from 1 recipe","Aus 1 Rezept entfernt","Quitado de 1 receta"],
   ["Onderdeel van dit recept","Part of this recipe","Teil dieses Rezepts","Parte de esta receta"],
   ["Dubbele of foute producten samenvoegen en verbeteren","Merge and correct duplicate or wrong products","Doppelte oder falsche Produkte zusammenführen und verbessern","Unir y corregir productos duplicados o erróneos"],

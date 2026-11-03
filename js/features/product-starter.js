@@ -172,7 +172,6 @@ const STARTER_PRODUCTS = (() => {
         'vanillestokjes',
         'vanille stokjes',
         'vanille stok',
-        'stokjes vanille',
         'vanille poeder',
         'vanillestokpoeder',
         'vanille stok poeder'
@@ -214,11 +213,7 @@ const STARTER_PRODUCTS = (() => {
     b('Koekkruiden', [], ['speculaaskruiden']),
     b('Pastramikruiden', [], ['pastrami kruiden']),
     // Groente en fruit
-    b(
-      'Knoflook',
-      ['knoflook'],
-      ['knoflookteen', 'knoflooktenen', 'knoflook teen', 'bol knoflook', 'bollen knoflook', 'knoflook bol']
-    ),
+    b('Knoflook', ['knoflook'], ['knoflookteen', 'knoflooktenen', 'knoflook teen', 'knoflook bol']),
     b('Zwarte knoflook', ['knoflook']),
     b('Sjalot', ['ui'], ['sjalotten']),
     b('Ui', ['ui'], ['uien', 'gele ui']),
