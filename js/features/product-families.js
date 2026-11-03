@@ -72,19 +72,11 @@ const FAMILY_FRUIT = [
 ];
 // Gewone groente, fruit en specerijen: één product per soort. Zonder wettelijk allergeen; wat een trefwoord wel
 // vindt (aubergine: nachtschade, kers: steenfruit), komt er bij het maken van het product bij.
+// Koolsoorten staan bij de hoofdproducten (FAMILY_HEADS): spitskool, savooiekool en paksoi zijn allemaal Kool.
 const FAMILY_VEG = [
-  ['Kool', 'kool, witte kool, wittekool'],
-  ['Rode kool', 'rode kool, rodekool'],
-  ['Spitskool', 'spitskool'],
-  ['Savooiekool', 'savooiekool, savooikool, savoye kool'],
-  ['Chinese kool', 'chinese kool, chinese kolen, chinese kooltjes, napa kool'],
-  ['Paksoi', 'paksoi, pak choi, paksoy, bok choy'],
-  ['Spruitjes', 'spruitjes, spruitje, spruiten'],
   ['Broccoli', 'broccoli, broccolini, bimi'],
   ['Romanesco', 'romanesco'],
-  ['Cavolo nero', 'cavolo nero, palmkool'],
-  ['Koolrabi', 'koolrabi, koolrabie'],
-  ['Koolraap', 'koolraap, knolraap, rapen, raap'],
+  ['Knolraap', 'knolraap, rapen, raap'],
   ['Pastinaak', 'pastinaak, pastinaken'],
   ['Peterseliewortel', 'peterseliewortel'],
   ['Schorseneren', 'schorseneer, schorseneren'],
@@ -403,7 +395,6 @@ const FAMILY_KNOWN = [
   ['Lactosevrije yoghurt', ['melk'], 'lactosevrije yoghurt, yoghurt lactosevrij, yoghurt lactose vrij'],
   ['Amaretti', ['noten', 'ei'], 'amaretti, amaretto koekjes, amarettikoekjes, amaretti koekjes'],
   ['Roze peper', [], 'roze peper, roze peperkorrels, roze peper korrels, baies roses'],
-  ['Kastanjechampignons', ['paddenstoelen'], 'kastanjechampignon, kastanje champignon'],
   // Gemengde kruiden, of twee kruiden samen ("tijm rozemarijn laurier"): zie productFamily.
   [
     'Kruiden',
@@ -490,10 +481,99 @@ function familyCoreWords(key, withColor = false) {
   return core;
 }
 
+// Hoofdproducten (2026-11-03): soorten, snitten, gedroogde vormen en poeders van één hoofdingrediënt vallen eronder,
+// zodat de lijst niet uit duizenden producten bestaat. Entrecote en sukade zijn Rundvlees, amandelpoeder is Amandel,
+// spitskool is Kool, gedroogde morilles zijn Paddenstoelen. Alleen als de allergenen gelijk zijn (headFits): een
+// amandellikeur (alcohol) blijft apart, anders krijgt Amandel een allergeen dat er niet in zit.
+// [naam, allergenen, herkenning op de naam]
+const FAMILY_HEADS = [
+  // Bouillons en fonds: één product per soort, vóór het vlees zelf.
+  [
+    'Groentebouillon',
+    [],
+    /^(basis )?groenten?\s?(bouillon|fond)|^groente bouillon|vegetable stock|^basis bouillon$|^bouillon groente/
+  ],
+  ['Kippenbouillon', ['gevogelte'], /^(kip|kippen)\s?(bouillon|fond|consomm)|chicken stock/],
+  ['Gevogeltebouillon', ['gevogelte'], /^gevogelte\s?(bouillon|fond)|bouillon de volaille|fond de volaille/],
+  ['Runderbouillon', ['rundvlees'], /^(rund|runder)\s?(bouillon|fond)|beef stock/],
+  ['Visbouillon', ['vis'], /^vis\s?(bouillon|fond|fumet)|^visfumet|fumet de poisson|fish stock/],
+  [
+    'Schaaldierenbouillon',
+    ['schaaldieren'],
+    /^(schaaldieren|kreeften?|garnalen|krabben)\s?(bouillon|fond|bisque)|sterk gereduceerde kreeftenfond/
+  ],
+  ['Kalf', ['rundvlees'], /^kalf|veal/],
+  [
+    'Rundvlees',
+    ['rundvlees'],
+    /^(rund|runder|ossen|ossestaart)|rundvlees|entrec[oô]te|biefstuk|rib ?eye|picanha|bavette|su[kc]ade|short ?ribs|onderborst|borst van een rund|staartstuk|tournedos|ossenhaas|beef|brisket|flank ?steak/
+  ],
+  [
+    'Varken',
+    ['varkensvlees'],
+    /varken|pork|(^|\s)(buik|katen|ontbijt|vet|rauw|gerookt|gepekeld|zuurkool)?spek($|\s)|buikspek|katenspek|ontbijtspek|speklardons|(^|\s)ham($|\s)|pata negra|pancetta|lardo|guanciale|prosciutto|serrano/
+  ],
+  ['Kip', ['gevogelte'], /^kip|^kippen|^kuiken|chicken/],
+  ['Eend', ['gevogelte'], /^eend|duck|canard/],
+  ['Gans', ['gevogelte'], /^gans|^ganzen|^ganze/],
+  ['Kwartel', ['gevogelte'], /kwartel/],
+  ['Parelhoen', ['gevogelte'], /parelhoen/],
+  ['Duif', ['gevogelte'], /(^|\s)duif|duiven/],
+  ['Hert', ['wild'], /(^|\s)hert|herten/],
+  ['Konijn', ['wild'], /konijn/],
+  ['Lam', ['lam'], /^lam(s|\s|$)|^lamsvlees|lamb/],
+  // Peper: zwart, wit, groen, gemalen of in korrels. Spaanse peper en cayenne blijven apart (nachtschade).
+  [
+    'Peper',
+    [],
+    /^(?!.*(jalap|galap|chili|chilli|rawit|spaanse|cayenne|gochugaru|paprika|piment|szechuan))(.*peper(?!munt|koek|no)|.*pepper)/
+  ],
+  ['Gember', [], /gember|ginger/],
+  [
+    'Paddenstoelen',
+    ['paddenstoelen'],
+    /champignon|paddenstoel|shiitake|cèpe|cepe|eekhoorntjesbrood|porcini|pocini|morille|morielje|cantharel|girolle|oesterzwam|beukenzwam|enoki|shimeji|portobello|eryngii|mushroom/
+  ],
+  ['Truffel', ['paddenstoelen'], /truffel|truffe/],
+  ['Amandel', ['noten'], /amandel|almond/],
+  ['Hazelnoot', ['noten'], /hazelno|hazelnut/],
+  ['Walnoot', ['noten'], /walno|walnut/],
+  ['Pistache', ['noten'], /pistach|pitache/],
+  ['Pecannoot', ['noten'], /pecan/],
+  ['Cashewnoot', ['noten'], /cashew/],
+  ['Macadamia', ['noten'], /macadamia/],
+  ['Pinda', ['pinda'], /pinda|peanut/],
+  ['Kokos', ['kokos'], /kokos|klapper|coconut/],
+  ['Sesam', ['sesam'], /sesam/],
+  ['Kool', [], /kool($|\s)|kolen($|\s)|^kool|paksoi|pak choi|bok choy|spruit/],
+  // Kaassoorten (na Pinda, zodat pindakaas daar blijft).
+  [
+    'Kaas',
+    ['melk', 'lactose'],
+    /kaas|cheddar|gorgonzola|mozzarella|manchego|mimolette|rommedo|parmezaan|parmazaan|parmigiano|grana padano|pecorino|gruy[eè]re|comt[eé]|emmentaler|gouda|edammer|(^|\s)brie|camembert|roquefort|stilton|taleggio|halloumi|(^|\s)feta|burrata|ricotta|mascarpone|mascerpone|fromage|bokkesprong|cheese/
+  ]
+];
+// Blijft een eigen product, ook als het hoofdingrediënt erin zit: olie, azijn, drank.
+const FAMILY_HEAD_APART = /olie|azijn|likeur|wijn|bier|beer|thee|zuurkool|chorizo|worst/;
+// Kenmerken die niet tellen bij "dezelfde allergenen": een poeder of pasta kan FODMAP of histamine erbij hebben.
+const FAMILY_SOFT_ALLERGENS = new Set(['fodmap', 'histamine']);
+
+// Mag een product met deze allergenen onder het hoofdproduct?
+function headFits(fam, allergens) {
+  return allergens.every(a => fam.allergens.includes(a) || FAMILY_SOFT_ALLERGENS.has(a));
+}
+
+// Familie van een naam met bekende allergenen: past een variant niet onder het hoofdproduct (een eigen allergeen),
+// dan telt de naam zonder hoofdproduct.
+function productFamilyFor(name, allergens) {
+  const fam = productFamily(name);
+  return fam?.kind === 'head' && !headFits(fam, allergens) ? productFamily(name, true) : fam;
+}
+
 // Het product waar een naam bij hoort volgens deze regels: { key, name, allergens, kind } of null. De key is de
-// naam zonder spaties, in enkelvoud. kind: 'junk', 'generic', 'produce', 'fish', 'known' of 'base' (de naam zonder
-// vormen: "Boerenkool").
-function productFamily(name) {
+// naam zonder spaties, in enkelvoud. kind: 'junk', 'generic', 'head', 'produce', 'fish', 'known' of 'base' (de naam
+// zonder vormen: "Boerenkool"). Met noHead telt het hoofdproduct niet mee (een variant met een eigen allergeen).
+function productFamily(name, noHead = false) {
   const key = productKey(name);
   if (!key) return null;
   const nothing = kind => ({ key: '', name: '', allergens: [], kind });
@@ -509,6 +589,11 @@ function productFamily(name) {
   });
   const whole = compact(key.replace(/[-/]/g, ' ').split(' ').filter(Boolean));
   if (known.has(whole)) return own(known.get(whole), 'known');
+  // Een combinatie ("peper en zout") hoort niet onder één hoofdproduct.
+  if (!noHead && !FAMILY_HEAD_APART.test(key) && !/\s(en|of|met)\s|[&/+]/.test(key)) {
+    const head = FAMILY_HEADS.find(([, , re]) => re.test(key));
+    if (head) return own({ name: head[0], allergens: head[1] }, 'head');
+  }
   if (produce.has(whole)) return own(produce.get(whole), 'produce');
   if (fish.has(whole)) return own(fish.get(whole), 'fish');
   // "Jus d'orange", "sap van witte grapefruit" en "van mozzarella".

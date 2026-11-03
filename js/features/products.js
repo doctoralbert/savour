@@ -163,7 +163,7 @@ const ALLERGEN_HINTS = [
   [/ma[iï]s|maizena|maïzena|polenta|popcorn|cornflakes|(^|[^a-zà-ÿ])corn/, ['mais']],
   [/glutamaat|e ?621|(^|[^a-zà-ÿ])msg($|[^a-zà-ÿ])|ve-?tsin|ajinomoto|maggi/, ['glutamaat']],
   [
-    /tomaat|tomaten|paprika|aardappel|aubergine|chili|rawit|jalape|cayenne|espelette|spaanse peper|goji|sambal|harissa|tabasco|sriracha|potato|tomato/,
+    /tomaat|tomaten|paprika|aardappel|aubergine|chili|chilli|gochugaru|galapeno|rawit|jalape|cayenne|espelette|spaanse peper|goji|sambal|harissa|tabasco|sriracha|potato|tomato/,
     ['nachtschade']
   ],
   [/kiwi/, ['kiwi']],

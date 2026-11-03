@@ -54,7 +54,7 @@ const recipeForName = (byTitle, key) =>
 function productsByFamily(scope) {
   const map = new Map();
   for (const p of productsIn(scope)) {
-    const f = productFamily(p.name);
+    const f = productFamilyFor(p.name, p.allergens);
     if (!f?.key) continue;
     const plain = productKey(p.name) === productKey(f.name);
     if (!map.has(f.key) || plain) map.set(f.key, p);
@@ -151,7 +151,7 @@ function autoLinkPlan(scope) {
       plan.product.push({ ...x, product: exact });
       continue;
     }
-    const fam = productFamily(key);
+    const fam = productFamilyFor(key, allergenHints(key));
     if (fam?.kind === 'junk' || fam?.kind === 'generic') {
       (fam.kind === 'generic' ? plan.generic : plan.rest).push(x);
       continue;
@@ -283,8 +283,35 @@ async function runAutoLink(scope, plan, creates) {
 
 // ---- Producten opruimen ----
 
+// Producten op een naam van één woord ("chocolade", "amarant"), om te zien of een schrijfwijze over iets anders gaat.
+function productsByWord(scope) {
+  const map = new Map();
+  for (const p of productsIn(scope))
+    for (const n of [p.name, ...p.aliases]) {
+      const k = productKey(n);
+      if (k && !k.includes(' ') && !map.has(familyStem(k))) map.set(familyStem(k), p);
+    }
+  return map;
+}
+
+// Een schrijfwijze met een woord dat zelf een ander product is, en niet in de naam van dit product staat: geeft dat
+// andere product, of null. "Volle melk" blijft dus bij Melk, "chocolade melk" niet.
+function foreignAlias(alias, p, byWord) {
+  // Combinaties ("peper en zout") horen bij beide en blijven waar ze staan.
+  if (/\s(en|of|met)\s|[&/+]/.test(productKey(alias))) return null;
+  const own = new Set(familyCoreWords(productKey(p.name)).map(familyStem));
+  for (const w of familyCoreWords(productKey(alias))) {
+    const s = familyStem(w);
+    if (own.has(s) || FAMILY_PRODUCE_WORDS.has(w)) continue;
+    const other = byWord.get(s);
+    if (other && other.id !== p.id) return other;
+  }
+  return null;
+}
+
 function productCleanupPlan(scope) {
   const byTitle = ownRecipesByTitle(scope);
+  const byWord = productsByWord(scope);
   const plan = { recipe: [], split: [], merge: [], remove: [], fix: [] };
   const clusters = new Map();
   const touched = new Set();
@@ -294,19 +321,28 @@ function productCleanupPlan(scope) {
       plan.recipe.push({ product: p, recipe });
       continue;
     }
-    const f = productFamily(p.name);
+    const f = productFamilyFor(p.name, p.allergens);
     const vague = f?.kind === 'junk' || f?.kind === 'generic';
     // Uit elkaar halen: namen die bij een ander product horen ("citroensap" in Citrus hoort bij Citroen). Is het
     // product zelf te algemeen (Citrus) of een mengsel (Kruiden), dan gaat alles wat ergens anders hoort weg.
     const wide = vague || (f?.kind === 'known' && f.name === 'Kruiden');
     const moves = new Map();
     const keep = [];
+    const move = (fam, a) => {
+      if (!moves.has(fam.key)) moves.set(fam.key, { fam, aliases: [] });
+      moves.get(fam.key).aliases.push(a);
+    };
     for (const a of p.aliases) {
       const fa = productFamily(a);
-      const strong = ['produce', 'fish', 'known'].includes(fa?.kind);
-      if (fa?.key && fa.key !== f?.key && (strong || wide)) {
-        if (!moves.has(fa.key)) moves.set(fa.key, { fam: fa, aliases: [] });
-        moves.get(fa.key).aliases.push(a);
+      const strong = ['produce', 'fish', 'known', 'head'].includes(fa?.kind);
+      if (fa?.key && fa.key !== f?.key && (strong || wide)) move(fa, a);
+      else if (!vague && fa?.key && f?.key && fa.key !== f.key && foreignAlias(a, p, byWord)) {
+        // "chocolade melk" bij Melk: er staat een ander ingrediënt in. Past het bij dat product, dan daarheen;
+        // anders een eigen product.
+        const other = foreignAlias(a, p, byWord);
+        const hints = allergenHints(a);
+        const fits = hints.every(x => other.allergens.includes(x) || FAMILY_SOFT_ALLERGENS.has(x));
+        move(fits ? productFamilyFor(other.name, other.allergens) || fa : fa, a);
       } else if (!vague) keep.push(a);
     }
     if (moves.size) {
@@ -346,10 +382,11 @@ function productCleanupPlan(scope) {
     const aliases = [
       ...new Set(members.flatMap(p => [p.name, ...p.aliases].map(productKey)).filter(k => k && k !== key))
     ].slice(0, 500);
+    // Per product wat de naam doet vermoeden, met de uitzonderingen van dat product zelf: "amandelmelk" is geen
+    // zuivel, ook niet als het onder Amandel komt.
     const all = [
-      ...members.flatMap(p => p.allergens),
-      ...fam.allergens,
-      ...members.flatMap(p => allergenKeywords(p.name))
+      ...members.flatMap(p => withDerived(productKey(p.name), [...p.allergens, ...allergenKeywords(p.name)])),
+      ...fam.allergens
     ];
     const allergens = withDerived(key, all).filter(a => allergenShown(a, scope) || all.includes(a));
     plan.merge.push({ target, members, name, aliases, allergens, known: members.every(p => p.known) });
