@@ -22,8 +22,8 @@ const LEADING_AMOUNT = new RegExp(`^(\\s*)(${NUMBER_SRC})(?:\\s*(?:-|–|tot|to)
 
 // Eenheden: familie, omrekening naar de basis (ml of g) en stijl (voor de weergave na omrekenen).
 const UNIT_DEFS = [
-  ['tl theelepel theelepels', 'spoon', 5, 'nl'],
-  ['el eetlepel eetlepels', 'spoon', 15, 'nl'],
+  ['tl theelepel theelepels theel', 'spoon', 5, 'nl'],
+  ['el eetlepel eetlepels eetl', 'spoon', 15, 'nl'],
   ['tsp tsp. teaspoon teaspoons', 'spoon', 5, 'en'],
   ['tbsp tbsp. tbs tbs. tablespoon tablespoons', 'spoon', 15, 'en'],
   ['cup cups', 'spoon', 240, 'en'],
@@ -32,7 +32,7 @@ const UNIT_DEFS = [
   ['dl deciliter deciliters', 'volume', 100, ''],
   ['l liter liters litre litres ltr', 'volume', 1000, ''],
   ['mg milligram', 'mass', 0.001, ''],
-  ['g gr gr. gram grams gramm', 'mass', 1, ''],
+  ['g gr gr. gm gram grams gramm', 'mass', 1, ''],
   ['kg kilo kilogram kilograms', 'mass', 1000, ''],
   ['oz ounce ounces', 'imperial', 28.35, ''],
   ['lb lbs pound pounds', 'imperial', 453.6, ''],
@@ -43,7 +43,7 @@ for (const [words, family, base, style] of UNIT_DEFS)
   for (const w of words.split(' ')) UNIT_INFO.set(w, { family, base, style, word: w });
 // Eenheden zonder omrekening (wel herkend, zodat de hoeveelheid vet staat): stuks, takjes, snufjes enzovoort.
 const COUNT_UNITS = new Set(
-  'st st. stuk stuks takje takjes teen teentjes tenen blad blaadjes bos bosje bosjes plak plakken vel vellen blik blikken pak pakken zakje zakjes snuf mespunt scheut piece pieces clove cloves sprig sprigs bunch bunches pinch pinches slice slices sheet sheets can cans tin tins pack packs leaf leaves stick sticks'.split(
+  'st st. stuk stuks takje takjes tak takken teen teentjes tenen blad blaadje blaadjes bladeren bos bosje bosjes bossen plak plakken vel vellen blik blikken blikje blikjes pak pakken pakje pakjes zak zakken zakje zakjes pot potten potje potjes fles flessen flesje flesjes doos dozen doosje bol bollen krop kroppen stengel stengels steel stelen stokje stokjes schijf schijven schijfje schijfjes plaat platen druppel druppels lepel lepels snuf mespunt scheut piece pieces clove cloves sprig sprigs bunch bunches pinch pinches slice slices sheet sheets can cans tin tins pack packs leaf leaves stick sticks'.split(
     ' '
   )
 );

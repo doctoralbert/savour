@@ -649,6 +649,27 @@ body.cook-mode .rp-side-note-head button {
   font-weight: 600;
   line-height: 1.4;
 }
+.allergen-chip.is-extra {
+  border-color: var(--sv-line-strong);
+  color: var(--sv-text-2);
+  font-weight: 500;
+}
+.allergen-extra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+.allergen-extra > span {
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-xs);
+}
+.allergen-pick-head {
+  margin: var(--sv-space-3) 0 0;
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-xs);
+}
 .allergen-none,
 .allergen-open {
   font-size: var(--sv-fs-xs);
@@ -793,7 +814,7 @@ body.cook-mode .rp-side-note-head button {
 }
 .allergen-pick {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(128px, 40%), 1fr));
   gap: 6px;
   margin-top: var(--sv-space-2);
 }
@@ -890,6 +911,12 @@ body.cook-mode .rp-side-note-head button {
   color: var(--sv-text-2);
   font-size: var(--sv-fs-xs);
   overflow-wrap: anywhere;
+}
+.products-todo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
 }
 .products-todo .btn-quiet {
   margin-top: var(--sv-space-3);
