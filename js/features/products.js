@@ -323,8 +323,21 @@ const PRODUCT_AMOUNT_WORDS =
 // bloem" allemaal "bloem" worden: kleine letters, zonder tekst tussen haakjes of na een komma, zonder "naar
 // smaak", zonder maten ("3 mm"), zonder alles vanaf een getal ("peren 12 stuks", "gelatine per 100 gram") en zonder
 // bewerkingen. "Type 405" en "tipo 00" blijven staan: dat is een soort bloem.
+// Een scherm vraagt dit duizenden keren voor dezelfde namen; daarom onthoudt Savour de uitkomst.
+const productKeyMemo = new Map();
 function productKey(text) {
-  let s = String(text || '')
+  const raw = String(text || '');
+  let k = productKeyMemo.get(raw);
+  if (k === undefined) {
+    if (productKeyMemo.size > 50000) productKeyMemo.clear();
+    k = computeProductKey(raw);
+    productKeyMemo.set(raw, k);
+  }
+  return k;
+}
+
+function computeProductKey(text) {
+  let s = text
     .toLocaleLowerCase('nl-NL')
     .replace(/\([^)]*\)?/g, ' ')
     .split(/[,;|]/)[0]
@@ -495,8 +508,16 @@ function combinedProduct(index, key) {
 }
 
 // Allergenen van een recept: per regel het product, het gekoppelde basisrecept of "onbekend".
-function recipeAllergenInfo(r, scope = productScopeOf(r), seen = new Set(), byTitle = recipesByTitle(r)) {
-  const index = productIndex(scope);
+function recipeAllergenInfo(
+  r,
+  scope = productScopeOf(r),
+  seen = new Set(),
+  byTitle = recipesByTitle(r),
+  indexes = new Map()
+) {
+  // Eén productindex per lijst voor het hele recept en zijn basisrecepten (en voor alle recepten in productOverview).
+  if (!indexes.has(scope)) indexes.set(scope, productIndex(scope));
+  const index = indexes.get(scope);
   const found = new Set();
   const unknown = [];
   const lines = [];
@@ -513,7 +534,13 @@ function recipeAllergenInfo(r, scope = productScopeOf(r), seen = new Set(), byTi
       }
       // Alleen het pad tot hier telt als "al gezien": zo herkent Savour een kring, maar telt een basisrecept dat
       // twee keer voorkomt wel twee keer mee in de weergave.
-      const sub = recipeAllergenInfo(target, target.teamId ? String(target.teamId) : scope, new Set(seen), byTitle);
+      const sub = recipeAllergenInfo(
+        target,
+        target.teamId ? String(target.teamId) : scope,
+        new Set(seen),
+        byTitle,
+        indexes
+      );
       sub.allergens.forEach(a => found.add(a));
       sub.unknown.forEach(u => unknown.push({ ...u, via: u.via || target.title }));
       lines.push({ i, line, key, status: 'recipe', target, sub });
@@ -993,9 +1020,10 @@ function productOverview(scope) {
   const counts = new Map();
   const byTitle = recipesByTitle({ id: null });
   let complete = 0;
+  const indexes = new Map();
   let total = 0;
   for (const r of recipesForProductScope(scope)) {
-    const info = recipeAllergenInfo(r, scope, new Set(), byTitle);
+    const info = recipeAllergenInfo(r, scope, new Set(), byTitle, indexes);
     if (info.lines.length) {
       total++;
       if (!info.unknown.length) complete++;
