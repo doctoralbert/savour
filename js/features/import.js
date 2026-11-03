@@ -1252,7 +1252,7 @@ function batchRows(lines) {
 }
 
 function renderBatchDrafts() {
-  const toCheck = batchDrafts.filter(r => r._needsReview || r._unclear?.length).length;
+  const toCheck = batchDrafts.filter(r => r._needsReview || r._unclear?.length || batchLineChecks(r).length).length;
   $('batchCount').innerHTML = batchDrafts.length
     ? `<span class="import-result"><b>${batchDrafts.length === 1 ? '1 recept gevonden' : `${batchDrafts.length} recepten gevonden`}</b><span class="${toCheck ? 'is-check' : 'is-ok'}">${toCheck ? `${toCheck} om na te kijken` : 'Alles duidelijk gelezen'}</span></span>`
     : '';
@@ -1261,9 +1261,65 @@ function renderBatchDrafts() {
     batchDrafts
       .map(
         (r, i) =>
-          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${r._maybeIncomplete ? ' <span class="batch-chip batch-chip-warn">Mogelijk onvolledig</span>' : r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : r._needsReview || r._unclear?.length ? ' <span class="batch-chip batch-chip-warn">Controleren</span>' : ''}${r._byAi ? ' <span class="batch-chip">AI</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img class="batch-photo" src="${esc(r.photo)}" alt=""><button type="button" class="btn small batch-rotate" onclick="rotateBatchPhoto(${i})">↻ Draai foto</button>` : ''}${r._unclear?.length ? `<div class="batch-unclear"><b>Niet goed leesbaar, controleer:</b><ul translate="no">${r._unclear.map(u => `<li>${esc(u)}</li>`).join('')}</ul></div>` : ''}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small>${r._fixes?.length ? `<small class="batch-fixes">Automatisch verbeterd: <span translate="no">${r._fixes.map(f => `${esc(f.from)} → ${esc(f.to)}`).join(' · ')}</span></small>` : ''}${r._transcription?.length ? `<details class="batch-transcript"><summary>Zo las de AI het</summary><pre translate="no">${esc(r._transcription.join('\n'))}</pre>${r._model ? `<small>Gelezen met <span translate="no">${esc(r._model)}</span></small>` : ''}</details>` : ''}<div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea class="batch-text" rows="${batchRows(r.ingredients)}" data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea class="batch-text" rows="${batchRows(r.steps)}" data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
+          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${r._maybeIncomplete ? ' <span class="batch-chip batch-chip-warn">Mogelijk onvolledig</span>' : r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : r._needsReview || r._unclear?.length ? ' <span class="batch-chip batch-chip-warn">Controleren</span>' : ''}${r._byAi ? ' <span class="batch-chip">AI</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img class="batch-photo" src="${esc(r.photo)}" alt=""><button type="button" class="btn small batch-rotate" onclick="rotateBatchPhoto(${i})">↻ Draai foto</button>` : ''}${r._unclear?.length ? `<div class="batch-unclear"><b>Niet goed leesbaar, controleer:</b><ul translate="no">${r._unclear.map(u => `<li>${esc(u)}</li>`).join('')}</ul></div>` : ''}${batchLineChecksHtml(r, i)}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small>${r._fixes?.length ? `<small class="batch-fixes">Automatisch verbeterd: <span translate="no">${r._fixes.map(f => `${esc(f.from)} → ${esc(f.to)}`).join(' · ')}</span></small>` : ''}${r._transcription?.length ? `<details class="batch-transcript"><summary>Zo las de AI het</summary><pre translate="no">${esc(r._transcription.join('\n'))}</pre>${r._model ? `<small>Gelezen met <span translate="no">${esc(r._model)}</span></small>` : ''}</details>` : ''}<div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea class="batch-text" rows="${batchRows(r.ingredients)}" data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea class="batch-text" rows="${batchRows(r.steps)}" data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
       )
       .join('') || `<div class="empty" style="grid-column:1/-1">Geen afzonderlijke recepten herkend.</div>`;
+}
+
+// Rommelige ingrediëntregels (readerLineChecks): per regel een voorstel. Wat de chef laat staan, vraagt Savour niet
+// opnieuw.
+function batchLineChecks(r) {
+  const checks = readerLineChecks(r.ingredients);
+  // Ook regels die geen ingrediënt zijn ("gas patronen", "laten trekken"), zoals bij Receptregels nakijken.
+  for (const line of r.ingredients || [])
+    if (
+      !checks.some(c => c.line === line) &&
+      !recipePartName(line) &&
+      productFamily(ingredientKey(line))?.kind === 'junk'
+    )
+      checks.push({ line, to: '', why: 'Geen ingrediënt', action: 'remove' });
+  return checks.filter(c => !(r._lineKeep || []).includes(c.line));
+}
+
+const LINE_CHECK_LABEL = { replace: 'Overnemen', step: 'Naar bereiding', remove: 'Weghalen' };
+
+function batchLineChecksHtml(r, i) {
+  const checks = batchLineChecks(r);
+  if (!checks.length) return '';
+  const rows = checks
+    .map(
+      (c, n) =>
+        `<li><span class="batch-line-from" translate="no">${esc(c.line)}</span>${c.action === 'replace' ? `<span class="autolink-arrow">→</span><b translate="no">${esc(c.to)}</b>` : ''}<small>${esc(t(c.why))}</small><span class="batch-line-actions"><button type="button" class="btn small gold" onclick="batchLineCheck(${i}, ${n}, 'ok')">${esc(t(LINE_CHECK_LABEL[c.action]))}</button><button type="button" class="btn small" onclick="batchLineCheck(${i}, ${n}, 'keep')">${esc(t('Laten staan'))}</button></span></li>`
+    )
+    .join('');
+  const title = checks.length === 1 ? t('1 regel om na te kijken') : t(`${checks.length} regels om na te kijken`);
+  const all =
+    checks.length > 1
+      ? `<button type="button" class="btn small" onclick="batchLineCheck(${i}, -1, 'ok')">${esc(t('Alle voorstellen overnemen'))}</button>`
+      : '';
+  return `<div class="batch-unclear batch-lines"><b>${title}</b><ul>${rows}</ul>${all}</div>`;
+}
+
+// Voorstel overnemen of laten staan. n = -1: alle voorstellen van dit recept.
+function batchLineCheck(i, n, choice) {
+  syncBatchDrafts();
+  const r = batchDrafts[i];
+  if (!r) return;
+  const checks = batchLineChecks(r);
+  for (const c of n < 0 ? checks : [checks[n]].filter(Boolean)) {
+    if (choice === 'keep') {
+      r._lineKeep = [...(r._lineKeep || []), c.line];
+      continue;
+    }
+    const at = r.ingredients.indexOf(c.line);
+    if (at < 0) continue;
+    if (c.action === 'replace') r.ingredients[at] = c.to;
+    else {
+      r.ingredients.splice(at, 1);
+      if (c.action === 'step') r.steps = [...r.steps, c.line];
+    }
+  }
+  renderBatchDrafts();
 }
 
 function syncBatchDrafts() {

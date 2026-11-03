@@ -1258,6 +1258,33 @@ for (const [from, to] of titleCases) {
     console.log(`✗ Receptnaam "${from}"\n   kreeg "${got}", verwacht "${to}"`);
   } else console.log(`✓ Receptnaam "${from}"`);
 }
-const total = cases.length + fixCases.length + titleCases.length;
+// ---- Rommelige ingrediëntregels (readerLineChecks): voorstel per regel, er verandert niets vanzelf ----
+const lineCases = [
+  ['…. gram wasabi poeder', 'replace', 'wasabi poeder'],
+  ['5limoenblad', 'replace', '5 limoenblad'],
+  ['gramslagroom', 'replace', 'gram slagroom'],
+  ['200 gramwater', 'replace', '200 gram water'],
+  ['+ beetje boter', 'replace', 'beetje boter'],
+  ['x citroenrasp', 'replace', 'citroenrasp'],
+  ['Of 100 grams of butter =', 'remove', ''],
+  ['a', 'remove', ''],
+  ['suiker met beetje water verwarmen tot', 'step', 'suiker met beetje water verwarmen tot'],
+  ['100gr suiker', null],
+  ['250 gram boter', null],
+  ['2 ei', null],
+  ['ui', null],
+  ['Voor de saus:', null],
+  ['500 ml melk, lauw', null],
+  ['3 kroppen kropsla', null]
+];
+for (const [from, action, to] of lineCases) {
+  const got = ctx.readerLineChecks([from])[0] || null;
+  const ok = action === null ? !got : got && got.action === action && got.to === to;
+  if (!ok) {
+    failed++;
+    console.log(`✗ Regel "${from}"\n   kreeg ${JSON.stringify(got)}, verwacht ${action ? `${action} "${to}"` : 'niets'}`);
+  } else console.log(`✓ Regel "${from}"`);
+}
+const total = cases.length + fixCases.length + titleCases.length + lineCases.length;
 console.log(`\n${total - failed} van ${total} geslaagd`);
 process.exit(failed ? 1 : 0);

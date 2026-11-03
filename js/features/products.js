@@ -1165,6 +1165,10 @@ function renderProducts() {
       ? `<p class="products-starter-row"><span>Dubbele of foute producten samenvoegen en verbeteren</span><button type="button" class="btn small" onclick="openProductCleanup()">Producten opruimen</button></p>`
       : ''
   }${
+    edit && scope === 'own'
+      ? `<p class="products-starter-row"><span>Onzinregels en tikfouten in je recepten weghalen</span><button type="button" class="btn small" onclick="openRecipeLineCheck()">Receptregels nakijken</button></p>`
+      : ''
+  }${
     edit && unchecked.length
       ? `<p class="products-starter-row"><span><b>${unchecked.length}</b> <span>producten nog niet overgenomen</span></span><button type="button" class="btn small" onclick="openUncheckedReview()">Bekijken en overnemen</button></p>`
       : ''
@@ -1221,16 +1225,15 @@ function todoButtons(scope, key) {
     scope === 'own'
       ? `<button type="button" class="btn small" onclick="linkTodoRecipe('${escJs(key)}')">Recept</button>`
       : '';
-  // Een tikfout ("a") of een begrip als "basis massa" is geen ingrediënt: die regel mag uit de recepten.
-  const kind = productFamily(key)?.kind;
+  // Een tikfout ("a"), een begrip als "basis massa" of een andere onzinregel: die regel mag uit de recepten. Savour
+  // vraagt altijd eerst en noemt de recepten.
   const remove =
-    scope === 'own' &&
-    (['generic', 'junk'].includes(kind) || (key.length <= 3 && !['known', 'produce', 'fish'].includes(kind)))
+    scope === 'own'
       ? `<button type="button" class="btn small" onclick="removeTodoLines('${escJs(key)}')">Weghalen</button>`
       : '';
   if (!p)
     return `<span class="products-todo-actions"><button type="button" class="btn small" onclick="linkTodoIngredient('${escJs(key)}')">Product</button>${recipe}${remove}</span>`;
-  return `<span class="products-todo-actions"><button type="button" class="btn small gold" onclick="linkTodoTo('${escJs(key)}','${escJs(p.id)}')">Koppelen aan ${esc(p.name)}</button><button type="button" class="btn small" onclick="linkTodoIngredient('${escJs(key)}')">Ander product</button>${recipe}</span>`;
+  return `<span class="products-todo-actions"><button type="button" class="btn small gold" onclick="linkTodoTo('${escJs(key)}','${escJs(p.id)}')">Koppelen aan ${esc(p.name)}</button><button type="button" class="btn small" onclick="linkTodoIngredient('${escJs(key)}')">Ander product</button>${recipe}${remove}</span>`;
 }
 
 // Een naam uit de lijst aan een eigen recept koppelen, in al je recepten tegelijk ("beurre noisette" → je recept).

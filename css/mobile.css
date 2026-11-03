@@ -383,6 +383,31 @@
   margin: var(--sv-space-1) 0 0;
   padding-left: 1.2em;
 }
+/* Rommelige regels bij het importeren: per regel een voorstel en twee knoppen. */
+.batch-lines ul {
+  padding-left: 0;
+  list-style: none;
+}
+.batch-lines li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  padding: 8px 0;
+  border-top: 1px solid var(--sv-line);
+}
+.batch-lines li small {
+  flex-basis: 100%;
+  color: var(--sv-text-2);
+}
+.batch-line-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.batch-lines > .btn {
+  margin-top: var(--sv-space-2);
+}
 /* Rustig, geen waarschuwing: de chef ziet wat Savour aan tikfouten heeft verbeterd. */
 .batch-fixes {
   display: block;

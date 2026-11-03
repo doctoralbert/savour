@@ -530,3 +530,95 @@ async function runProductCleanup(scope, plan) {
   saveOfflineSnapshot();
   return done;
 }
+
+// ---- Receptregels nakijken ----
+// Dezelfde controle als bij het importeren (readerLineChecks), nu over je bestaande recepten, plus regels die
+// geen ingrediënt zijn ("gas patronen", "laten trekken"). Elke regel met een vinkje; er verandert alleen wat je
+// aangevinkt laat, en per recept wordt alles in één keer opgeslagen.
+function recipeLineCheckPlan(scope) {
+  const rows = [];
+  for (const r of recipesForProductScope(scope)) {
+    if (r.teamId || !Array.isArray(r.ingredients)) continue;
+    const found = new Set();
+    for (const c of readerLineChecks(r.ingredients)) {
+      rows.push({ recipe: r, ...c });
+      found.add(c.line);
+    }
+    for (const line of r.ingredients) {
+      if (found.has(line) || recipePartName(line)) continue;
+      if (productFamily(ingredientKey(line))?.kind === 'junk')
+        rows.push({ recipe: r, line, to: '', why: 'Geen ingrediënt', action: 'remove' });
+    }
+  }
+  return rows;
+}
+
+function openRecipeLineCheck() {
+  const scope = productScope;
+  if (scope !== 'own' || !canEditProducts(scope)) return;
+  const rows = recipeLineCheckPlan(scope);
+  if (!rows.length) {
+    toast('Geen rommelige regels gevonden');
+    return;
+  }
+  const label = { replace: 'aanpassen', step: 'naar de bereiding', remove: 'weghalen' };
+  const groups = ['remove', 'step', 'replace']
+    .map(action => {
+      const items = rows
+        .map((x, i) => [x, i])
+        .filter(([x]) => x.action === action)
+        .map(
+          ([x, i]) =>
+            `<li class="cleanup-row"><label><input type="checkbox" checked data-i="${i}"><span class="cleanup-text"><span translate="no">${esc(x.line)}</span>${x.action === 'replace' ? `<span class="autolink-arrow">→</span><b translate="no">${esc(x.to)}</b>` : ''}<small translate="no">${esc(x.recipe.title)}</small></span></label></li>`
+        );
+      return items.length
+        ? `<details class="autolink-section"><summary><b>${items.length}</b> <span>${t(`regels ${label[action]}`)}</span></summary><ul class="autolink-list cleanup-list">${items.join('')}</ul></details>`
+        : '';
+    })
+    .join('');
+  document.getElementById('recipeLineCheck')?.remove();
+  document.body.insertAdjacentHTML(
+    'beforeend',
+    `<div class="modal sv-dialog open" id="recipeLineCheck" role="dialog" aria-modal="true" aria-labelledby="recipeLineCheckTitle"><div class="sv-dialog-box allergen-check-box">${modalCloseHtml()}<h2 id="recipeLineCheckTitle" class="sv-dialog-title">Receptregels nakijken</h2><p class="sv-dialog-text">Regels in je recepten die geen ingrediënt lijken, of een tikfout bevatten. Klik op een groep om de regels te zien, en zet een vinkje uit als je iets wilt laten staan.</p>${groups}<div class="sv-dialog-actions"><button type="button" class="btn" data-close>Annuleren</button><button type="button" class="btn gold" data-ok>Aanpassen</button></div></div></div>`
+  );
+  const el = $('recipeLineCheck');
+  const close = () => el.remove();
+  closableModal(el, close);
+  el.querySelector('[data-close]').addEventListener('click', close);
+  el.querySelector('[data-ok]').addEventListener('click', async ev => {
+    const chosen = [...el.querySelectorAll('input[data-i]:checked')].map(b => rows[Number(b.dataset.i)]);
+    ev.target.disabled = true;
+    ev.target.textContent = t('Bezig met aanpassen…');
+    const done = await runRecipeLineCheck(chosen);
+    close();
+    if (done) toast(done === 1 ? 'Regels aangepast in 1 recept' : `Regels aangepast in ${done} recepten`);
+    renderProducts();
+  });
+}
+
+async function runRecipeLineCheck(rows) {
+  const byRecipe = new Map();
+  for (const x of rows) byRecipe.set(x.recipe, [...(byRecipe.get(x.recipe) || []), x]);
+  let done = 0;
+  for (const [r, list] of byRecipe) {
+    const ingredients = [...r.ingredients];
+    const steps = [...(r.steps || [])];
+    for (const x of list) {
+      const at = ingredients.indexOf(x.line);
+      if (at < 0) continue;
+      if (x.action === 'replace') ingredients[at] = x.to;
+      else {
+        ingredients.splice(at, 1);
+        if (x.action === 'step') steps.push(x.line);
+      }
+    }
+    const fields = { ingredients, ...(steps.length !== (r.steps || []).length ? { steps } : {}) };
+    if (await saveRecipeFields(r, fields)) {
+      r.ingredients = ingredients;
+      r.steps = steps;
+      done++;
+    }
+  }
+  saveOfflineSnapshot();
+  return done;
+}

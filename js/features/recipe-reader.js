@@ -547,6 +547,69 @@ function readerAutoFix(recipe, vocab) {
   return fixed;
 }
 
+// ---- Rommelige ingrediëntregels (2026-11-03) ----
+// Savour neemt een recept letterlijk over, maar ziet wel als een regel rommelig is: een hoeveelheid die nog niet
+// is ingevuld ("…. gram wasabi poeder"), een getal tegen de naam ("5limoenblad"), een omrekening uit een Engels
+// recept ("Of 100 grams of butter ="), of een stukje bereiding tussen de ingrediënten. De chef krijgt per regel een
+// voorstel en kiest zelf; er verandert niets vanzelf. Geeft [{ line, to, why, action }], met action 'replace' (to
+// is de nieuwe regel), 'step' (naar de bereiding) of 'remove'.
+const READER_STEP_IN_LINE =
+  /(^|\s)(mengen|meng|laten trekken|laat trekken|leggen|snijden|verwijderen|besmeren|verwarmen|inkoken|koken tot|doordraaien|pureren|afkoelen|opkloppen|bakken tot|roosteren tot|maak hiervan|maak van|aanmaken|spatelen|verwerken)($|\s|\.)/;
+
+function readerLineChecks(ingredients) {
+  const out = [];
+  const seen = new Set();
+  const add = check => {
+    if (seen.has(check.line)) return;
+    seen.add(check.line);
+    out.push(check);
+  };
+  for (const raw of ingredients || []) {
+    const line = String(raw || '').trim();
+    // Kopjes ("Voor de saus:") en lege regels laten we met rust.
+    if (!line || /:$/.test(line)) continue;
+    const lower = line.toLowerCase();
+    if (/^[a-zà-ÿ]{1,2}\.?$/i.test(line) && !/^(ei|ui)$/i.test(line)) {
+      add({ line, to: '', why: 'Geen ingrediënt, waarschijnlijk een tikfout', action: 'remove' });
+      continue;
+    }
+    if (/=\s*$/.test(line) || /^(of|or)\s/i.test(line)) {
+      add({ line, to: '', why: 'Lijkt een omrekening of alternatief voor een andere regel', action: 'remove' });
+      continue;
+    }
+    if (READER_STEP_IN_LINE.test(lower) && line.split(/\s+/).length >= 4) {
+      add({ line, to: line, why: 'Lijkt een stap van de bereiding', action: 'step' });
+      continue;
+    }
+    let to = line;
+    let why = '';
+    if (/^[….·_]+/.test(to)) {
+      // "…. gram wasabi poeder": de hoeveelheid is nooit ingevuld.
+      to = to.replace(/^[….·_]+\s*(?:(?:gram|gr|g|ml|cl|dl|kg|stuks?)\s+)?/i, '');
+      why = 'De hoeveelheid ontbreekt; vul die zelf in';
+    } else if (/^\+-?\s*\S/.test(to)) {
+      to = to.replace(/^\+-?\s*/, '');
+      why = 'Teken vooraan weggehaald';
+    } else if (/^x\s+[a-zà-ÿ]/i.test(to)) {
+      to = to.replace(/^x\s+/i, '');
+      why = 'Het aantal ontbreekt (x); vul dat zelf in';
+    } else if (
+      /^\d+(?:[.,]\d+)?[a-zà-ÿ]{3,}/i.test(to) &&
+      !/^\d+(?:[.,]\d+)?(gram|gr|kg|ml|cl|dl|liter|st)\b/i.test(to)
+    ) {
+      // "5limoenblad" → "5 limoenblad"; "100gr suiker" is gewoon een hoeveelheid.
+      to = to.replace(/^(\d+(?:[.,]\d+)?)/, '$1 ');
+      why = 'Spatie tussen getal en naam';
+    } else if (/^(\d+(?:[.,]\d+)?\s?)?(gram|kilo)(?=[a-zà-ÿ]{4,})/i.test(to)) {
+      // "gramslagroom" → "gram slagroom".
+      to = to.replace(/^(\d+(?:[.,]\d+)?\s?)?(gram|kilo)/i, '$1$2 ');
+      why = 'Spatie tussen maat en naam';
+    }
+    if (why && to && to !== line) add({ line, to, why, action: 'replace' });
+  }
+  return out;
+}
+
 // ---- Tekst met mogelijk meerdere recepten ----
 
 // Splitst tekst in recepten. Een nieuw recept begint bij een Word-kop (# ), bij een receptnaam die

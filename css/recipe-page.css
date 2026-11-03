@@ -677,6 +677,7 @@ body.cook-mode .rp-side-note-head button {
 #uncheckedReview .sv-dialog-box,
 #autoLink .sv-dialog-box,
 #productCleanup .sv-dialog-box,
+#recipeLineCheck .sv-dialog-box,
 #linkPicker .sv-dialog-box {
   position: relative;
 }
