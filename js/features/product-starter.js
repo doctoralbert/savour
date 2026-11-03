@@ -140,6 +140,7 @@ const STARTER_PRODUCTS = (() => {
     b('Kokosroom', [], ['kokos room']),
     b('Kokos', [], ['klapper', 'kokos klapper', 'klapper kokos']),
     b('Kastanje', [], ['kastanjes']),
+    b('Pijnboompitten', [], ['pijnboompit', 'pinoli']),
     // Kruiden en specerijen
     b('Zout', [], ['fijn zout', 'keukenzout']),
     b('Zeezout'),
@@ -205,6 +206,7 @@ const STARTER_PRODUCTS = (() => {
     b('Gerookt paprikapoeder', ['nachtschade'], ['gerookte paprika poeder', 'gerookte paprikapoeder']),
     b('Mosterdzaad', ['mosterd'], ['mosterd zaad']),
     b('Sesamzaad', ['sesam'], ['sesam', 'zwarte sesam', 'witte sesam']),
+    b('Maanzaad', [], ['blauwmaanzaad']),
     e('Kerriepoeder', [], ['kerrie', 'kerrie poeder']),
     e('Ras el hanout', [], ['ras hanout']),
     e('Garam masala'),
@@ -267,7 +269,7 @@ const STARTER_GELATINE_ALIASES = ['blad gelatine', 'bl gelatine', 'gelatineblaad
 const STARTER_FONDS = [
   ['Kippenfond', ['kippen fond', 'kip fond', 'bouillon de volaille']],
   ['Groentefond', ['groente fond', 'groentebouillon']],
-  ['Jus de veau', ['jus d veau']],
+  ['Jus de veau', ['jus d veau'], ['rundvlees']],
   ['Bouillon', []]
 ];
 const STARTER_CHOCOLATE = [
@@ -275,6 +277,19 @@ const STARTER_CHOCOLATE = [
   ['Witte chocolade', ['melk', 'lactose'], ['witte choco']],
   ['Melkchocolade', ['melk', 'lactose'], ['melk chocolade']]
 ];
+
+const STARTER_HINT_CODES = new Set([
+  'lam',
+  'wild',
+  'gevogelte',
+  'paddenstoelen',
+  'pijnboompitten',
+  'kokos',
+  'maanzaad',
+  'histamine',
+  'fructose',
+  'fodmap'
+]);
 
 let starterLabelKeys = null;
 
@@ -300,7 +315,7 @@ function starterListFor({ gelatine, fonds, chocolate }) {
   const gel = { varken: ['varkensvlees'], rund: ['rundvlees'], vis: ['vis'] }[gelatine] || [];
   list.push({ name: 'Gelatine', allergens: gel, aliases: STARTER_GELATINE_ALIASES, label: !gel.length });
   if (fonds !== 'zelf')
-    for (const [name, aliases] of STARTER_FONDS) list.push({ name, allergens: [], aliases, label: true });
+    for (const [name, aliases, allergens = []] of STARTER_FONDS) list.push({ name, allergens, aliases, label: true });
   for (const [name, allergens, aliases] of STARTER_CHOCOLATE)
     list.push({
       name,
@@ -308,7 +323,15 @@ function starterListFor({ gelatine, fonds, chocolate }) {
       aliases,
       label: true
     });
-  return list;
+  // Kenmerken die de trefwoorden goed herkennen (wild, gevogelte, histamine, FODMAP ...) vult Savour aan; wat volgt
+  // uit een ander kenmerk (melk geeft lactose, ui geeft FODMAP) ook.
+  return list.map(x => ({
+    ...x,
+    allergens: withDerived(productKey(x.name), [
+      ...x.allergens,
+      ...allergenKeywords(x.name).filter(c => STARTER_HINT_CODES.has(c))
+    ])
+  }));
 }
 
 // Hoeveel producten van de startlijst ontbreken nog in deze lijst?

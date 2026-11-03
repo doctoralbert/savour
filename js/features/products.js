@@ -32,16 +32,26 @@ const ALLERGENS = [
   ['lactose', 'Lactose', true],
   ['varkensvlees', 'Varkensvlees', true],
   ['rundvlees', 'Rundvlees', true],
+  ['lam', 'Lam en schaap', true],
+  ['wild', 'Wild', true],
+  ['gevogelte', 'Gevogelte', true],
   ['alcohol', 'Alcohol', true],
   ['ui', 'Ui', true],
   ['knoflook', 'Knoflook', true],
   ['peulvruchten', 'Peulvruchten', true],
   ['mais', 'Maïs', true],
-  ['glutamaat', 'Glutamaat (E621)', true],
   ['nachtschade', 'Nachtschade', true],
+  ['paddenstoelen', 'Paddenstoelen', true],
+  ['pijnboompitten', 'Pijnboompitten', true],
+  ['kokos', 'Kokos', true],
+  ['maanzaad', 'Maanzaad', true],
   ['kiwi', 'Kiwi', true],
   ['steenfruit', 'Steenfruit', true],
-  ['koriander', 'Koriander', true]
+  ['koriander', 'Koriander', true],
+  ['glutamaat', 'Glutamaat (E621)', true],
+  ['histamine', 'Histamine', true],
+  ['fructose', 'Fructose', true],
+  ['fodmap', 'FODMAP', true]
 ];
 const ALLERGEN_LABEL = new Map(ALLERGENS);
 const ALLERGEN_EXTRA = new Set(ALLERGENS.filter(a => a[2]).map(a => a[0]));
@@ -49,8 +59,8 @@ const allergensEu = codes => codes.filter(c => !ALLERGEN_EXTRA.has(c));
 const allergensExtra = codes => codes.filter(c => ALLERGEN_EXTRA.has(c));
 
 // Voorstellen op basis van de productnaam. Alleen een begin: de kok controleert altijd het etiket.
-// Uitzonderingen eerst (kokosmelk is geen melk, nootmuskaat geen noot).
-const ALLERGEN_HINT_SKIP = /kokos(melk|room)|nootmuskaat|notenmuskaat|muskaatnoot|boekweit|cacaoboter|pindakaas-?vrij/;
+// Uitzonderingen eerst (nootmuskaat is geen noot).
+const ALLERGEN_HINT_SKIP = /nootmuskaat|notenmuskaat|muskaatnoot|boekweit|cacaoboter|pindakaas-?vrij/;
 const ALLERGEN_HINTS = [
   [/amandelmelk|amandeldrink/, ['noten']],
   [/havermelk|haverdrink/, ['gluten']],
@@ -116,7 +126,35 @@ const ALLERGEN_HINTS = [
     /perzik|abrikoos|abrikozen|(^|[^a-zà-ÿ])kers(en)?($|[^a-zà-ÿ])|kriek|pruim|nectarine|mirabel|amarena/,
     ['steenfruit']
   ],
-  [/koriander|cilantro|coriander/, ['koriander']]
+  [/koriander|cilantro|coriander/, ['koriander']],
+  [/(^|[^a-zà-ÿ])(lam|lams|schaap|schapen|mutton|lamb)/, ['lam']],
+  [
+    /(^|[^a-zà-ÿ])(hert|ree($|[^a-zà-ÿ])|reerug|reebout|reefilet|reebok|everzwijn|wild zwijn|haas($|[^a-zà-ÿ])|hazen|konijn|fazant|patrijs|wildbouillon|wildfond|venison)|(^|[^a-zà-ÿ])wild($|[^a-zà-ÿ])/,
+    ['wild']
+  ],
+  [
+    /(^|[^a-zà-ÿ])(kip|kippen|kuiken|kalkoen|eend|eenden|gans|ganzen|parelhoen|kwartel|duif|duiven|fazant|patrijs|poularde|poulet|poussin|hoen|volaille|chicken|turkey|duck|foie gras)/,
+    ['gevogelte']
+  ],
+  [
+    /champignon|paddenstoel|shiitake|oesterzwam|beukenzwam|cantharel|girolle|eekhoorntjesbrood|porcini|cèpe|morielje|truffel|enoki|shimeji|portobello|mushroom/,
+    ['paddenstoelen']
+  ],
+  [/pijnboompit|pine ?nut|pinoli|(^|[^a-zà-ÿ])pignon|pesto/, ['pijnboompitten']],
+  [/kokos|klapper|coconut/, ['kokos']],
+  [/maanzaad|papaver|poppy/, ['maanzaad']],
+  [
+    /parmezaan|parmigiano|grana padano|pecorino|gruyère|gruyere|comté|comte|emmentaler|oude kaas|wijn|(^|[^a-zà-ÿ])port($|[^a-zà-ÿ])|champagne|bier|azijn|aceto|balsamico|tomaat|tomaten|spinazie|aubergine|avocado|zuurkool|kimchi|ansjovis|tonijn|makreel|haring|sardine|gerookt|salami|chorizo|rauwe ham|parmaham|serrano|sojasaus|soja saus|ketjap|miso|vissaus|tempeh|wine|vinegar/,
+    ['histamine']
+  ],
+  [
+    /honing|agave|fructose|(^|[^a-zà-ÿ])(appel|appels|peer|peren|mango|watermeloen|rozijn|dadel|vijg)|honey|apple|pear/,
+    ['fructose']
+  ],
+  [
+    /bloemkool|champignon|paddenstoel|asperge|artisjok|cashew|pistache|sorbitol|maltitol|xylitol|isomalt|inuline|(^|[^a-zà-ÿ])(tarwe|rogge|spelt|brood|pasta|couscous)|(^|[^a-zà-ÿ])bloem($|[^a-zà-ÿ])/,
+    ['fodmap']
+  ]
 ];
 // Waar een trefwoord misleidt: azijn bevat geen alcohol meer, koffie- en vanillebonen zijn geen peulvruchten,
 // en in harde, gerijpte kaas is de lactose afgebroken (het melkeiwit blijft, dus melk wel).
@@ -124,6 +162,11 @@ const ALLERGEN_HINT_NOT = [
   [/azijn|vinegar/, 'alcohol'],
   [/koffie|espresso|vanille|cacao|tonka/, 'peulvruchten'],
   [/lactosevrij|lactose-vrij/, 'lactose'],
+  [/kokos|klapper|coconut/, 'melk'],
+  [/kokos|klapper|coconut/, 'lactose'],
+  [/schapen(kaas|melk|yoghurt)|lamsoor/, 'lam'],
+  [/(varkens|ossen|kalfs|runder)\s?haas/, 'wild'],
+  [/fodmap-?arm|low.?fodmap|umeboshi|(curry|kerrie|tomaten|miso|sesam|tamarinde)\s?pasta/, 'fodmap'],
   [
     /parmezaan|parmigiano|grana padano|pecorino|gruyère|gruyere|comté|comte|emmentaler|gouda|goudse|edammer|maasdammer|oude kaas|belegen kaas/,
     'lactose'
@@ -140,19 +183,27 @@ let productTodoAll = false;
 let productLabelOnly = false; // Alleen producten van de startlijst die op het etiket moeten worden nagekeken.
 
 function allergenHints(name) {
+  return withDerived(productKey(name), allergenKeywords(name));
+}
+
+// Alleen wat de trefwoorden zelf vinden, zonder wat daaruit volgt (melk → lactose → FODMAP).
+function allergenKeywords(name) {
   const key = productKey(name);
   if (!key || ALLERGEN_HINT_SKIP.test(key)) return [];
   const found = new Set();
   for (const [re, codes] of ALLERGEN_HINTS) if (re.test(key)) codes.forEach(c => found.add(c));
-  return withLactose(key, [...found]);
+  return [...found];
 }
 
-// Melk doet lactose vermoeden, behalve bij lactosevrije producten. Ook gebruikt voor de basislijst, die alleen de
+// Wat uit een ander kenmerk volgt: melk doet lactose vermoeden (behalve bij lactosevrije producten en harde kaas),
+// en lactose, fructose, ui, knoflook en peulvruchten zijn FODMAP's. Ook gebruikt voor de basislijst, die alleen de
 // 14 wettelijke allergenen kent. Geeft de codes in de vaste volgorde.
-function withLactose(key, codes) {
+function withDerived(key, codes) {
   const found = new Set(codes);
   if (found.has('melk')) found.add('lactose');
   for (const [re, code] of ALLERGEN_HINT_NOT) if (re.test(key)) found.delete(code);
+  if (['lactose', 'fructose', 'ui', 'knoflook', 'peulvruchten'].some(c => found.has(c))) found.add('fodmap');
+  for (const [re, code] of ALLERGEN_HINT_NOT) if (code === 'fodmap' && re.test(key)) found.delete(code);
   return ALLERGENS.map(a => a[0]).filter(c => found.has(c));
 }
 
@@ -220,7 +271,7 @@ function productHintHtml({ base, codes }) {
 // mayonaise kennen). Altijd een voorstel; de kok controleert het etiket.
 function allergenSuggestion(name) {
   const base = ingredientBaseMatch(name);
-  return { base, codes: withLactose(productKey(name), [...(base?.allergens || []), ...allergenHints(name)]) };
+  return { base, codes: withDerived(productKey(name), [...(base?.allergens || []), ...allergenHints(name)]) };
 }
 
 // Bewerkingen en snijwijzen veranderen het product niet: gezeefde bloem is bloem, venkel brunoise is venkel.
