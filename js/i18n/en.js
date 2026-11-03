@@ -1716,6 +1716,27 @@ window.SAVOUR_I18N.en = {
     'https://www.voorbeeld.nl/recept/beurre-blanc': 'https://www.example.com/recipe/beurre-blanc',
     "Foto's": 'Photos',
     'Ander product': 'Other product',
+    'Onderdeel van dit recept': 'Part of this recipe',
+    'Dubbele of foute producten samenvoegen en verbeteren': 'Merge and correct duplicate or wrong products',
+    'Producten opruimen': 'Tidy up products',
+    'namen zijn te algemeen': 'names are too general',
+    'Bij "sap" of "coulis" weet Savour niet wat erin zit. Staat het in je recept als onderdeel, dan telt het al mee. Anders: koppel het aan een eigen recept of een product. Tot die tijd is dat recept nog niet compleet.':
+      'With "juice" or "coulis" Savour does not know what is in it. If it is a part of your recipe, it already counts. Otherwise link it to one of your recipes or a product. Until then that recipe is not complete.',
+    'Dit gaat Savour doen. Klik op een regel om te zien wat het is, en zet een vinkje uit als je iets wilt laten staan.':
+      'This is what Savour will do. Click a line to see the details, and untick anything you want to keep as it is.',
+    'producten samenvoegen': 'products to merge',
+    'Varianten worden één product. De oude namen blijven als schrijfwijze bewaard en de allergenen tellen op.':
+      'Variants become one product. The old names are kept as spellings and the allergens add up.',
+    'producten worden een koppeling met je eigen recept': 'products become a link to your own recipe',
+    'Dit zijn je eigen recepten. De allergenen van het recept tellen dan mee.':
+      'These are your own recipes. The allergens of the recipe then count.',
+    'allergenen verbeteren': 'allergens to correct',
+    'Op basis van de naam: wat erbij komt en wat eraf gaat.': 'Based on the name: what is added and what is removed.',
+    'producten weghalen': 'products to remove',
+    'Geen ingrediënt, of te algemeen om te weten wat erin zit (zoals "sap" of "olie"). De namen komen terug bij Nog te koppelen.':
+      'Not an ingredient, or too general to know what is in it (such as "juice" or "oil"). The names go back to Still to link.',
+    'Bezig met opruimen…': 'Tidying up…',
+    'Je producten zijn al netjes': 'Your products are already tidy',
     'Nog niet overgenomen': 'Not adopted yet',
     'Voorstellen overnemen': 'Adopt suggestions',
     'Dit zijn de allergenen die Savour bij deze producten voorstelt. Klopt iets niet bij jouw merk, open het product dan in de lijst en pas het aan.':
@@ -2237,6 +2258,8 @@ window.SAVOUR_I18N.en = {
       '^(\\d+) naam herkent Savour niet zeker\\. Die blijven staan bij Nog te koppelen\\.$',
       'Savour is not sure about $1 name. It stays under Still to link.'
     ],
+    ['^(\\d+) producten opgeruimd$', '$1 products tidied up'],
+    ['^(.+) gekoppeld aan (.+)$', '$1 linked to $2'],
     ['^in (\\d+) recepten$', 'in $1 recipes'],
     ['^(\\d+) open$', '$1 open'],
     ['^Er is al een product (.+)$', 'There is already a product $1'],

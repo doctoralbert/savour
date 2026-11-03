@@ -675,7 +675,9 @@ body.cook-mode .rp-side-note-head button {
 #allergenCheck .sv-dialog-box,
 #extrasChoice .sv-dialog-box,
 #uncheckedReview .sv-dialog-box,
-#autoLink .sv-dialog-box {
+#autoLink .sv-dialog-box,
+#productCleanup .sv-dialog-box,
+#linkPicker .sv-dialog-box {
   position: relative;
 }
 .sv-dialog-x {
@@ -709,7 +711,8 @@ body.cook-mode .rp-side-note-head button {
   max-height: min(86vh, 760px);
   max-height: min(86dvh, 760px);
 }
-.product-picker-box .product-results {
+.product-picker-box .product-results,
+.product-picker-box .link-results {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -1156,4 +1159,52 @@ body.cook-mode .rp-side-note-head button {
 }
 .product-source a {
   color: inherit;
+}
+/* Producten opruimen: één regel per wijziging, met een vinkje. */
+.cleanup-explain {
+  margin: 0;
+  padding: 0 14px 6px;
+  font-size: var(--sv-fs-sm);
+}
+.cleanup-list .cleanup-row label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+  cursor: pointer;
+}
+.cleanup-text {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  min-width: 0;
+}
+.cleanup-row input {
+  flex: 0 0 auto;
+  margin: 0 4px 0 0;
+  accent-color: var(--sv-gold);
+}
+.cleanup-add {
+  color: var(--sv-gold);
+}
+.cleanup-remove {
+  color: var(--sv-text-2);
+  text-decoration: line-through;
+}
+.allergen-line-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.products-vague summary {
+  cursor: pointer;
+}
+.products-vague summary b {
+  color: var(--sv-gold);
+}
+.products-vague > p {
+  margin: var(--sv-space-3) 0 0;
 }

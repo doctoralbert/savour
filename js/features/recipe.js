@@ -276,7 +276,7 @@ function pickLinkedRecipe(r, name, current) {
   document.getElementById('linkPicker')?.remove();
   document.body.insertAdjacentHTML(
     'beforeend',
-    `<div class="modal sv-dialog open" id="linkPicker" role="dialog" aria-modal="true" aria-labelledby="linkPickerTitle"><form class="sv-dialog-box" novalidate><h2 id="linkPickerTitle" class="sv-dialog-title" translate="no">${esc(name)}</h2><input class="sv-dialog-input" type="text" autocomplete="off" placeholder="${esc(t('Zoek een recept'))}" aria-label="${esc(t('Zoek een recept'))}"><div class="sv-dialog-choices link-results"></div><div class="sv-dialog-actions">${current ? '<button type="button" class="btn" data-unlink>Koppeling weghalen</button>' : ''}<button type="button" class="btn" data-cancel>Annuleren</button></div></form></div>`
+    `<div class="modal sv-dialog open" id="linkPicker" role="dialog" aria-modal="true" aria-labelledby="linkPickerTitle"><form class="sv-dialog-box product-picker-box" novalidate>${modalCloseHtml()}<h2 id="linkPickerTitle" class="sv-dialog-title" translate="no">${esc(name)}</h2><input class="sv-dialog-input" type="text" autocomplete="off" placeholder="${esc(t('Zoek een recept'))}" aria-label="${esc(t('Zoek een recept'))}"><div class="sv-dialog-choices link-results"></div><div class="sv-dialog-actions">${current ? '<button type="button" class="btn" data-unlink>Koppeling weghalen</button>' : ''}<button type="button" class="btn" data-cancel>Annuleren</button></div></form></div>`
   );
   const el = document.getElementById('linkPicker');
   const input = el.querySelector('input');
@@ -286,7 +286,7 @@ function pickLinkedRecipe(r, name, current) {
     const found = list.filter(x => recipeTitleOf(x).toLowerCase().includes(q));
     results.innerHTML =
       found
-        .slice(0, 30)
+        .slice(0, q ? 60 : 40)
         .map(
           x =>
             `<button type="button" class="sv-dialog-choice${current && String(current.id) === String(x.id) ? ' is-primary' : ''}" data-id="${esc(x.id)}" translate="no">${esc(recipeTitleOf(x))}</button>`
@@ -310,12 +310,7 @@ function pickLinkedRecipe(r, name, current) {
     });
     el.querySelector('[data-cancel]').addEventListener('click', () => done(null));
     el.querySelector('[data-unlink]')?.addEventListener('click', () => done(''));
-    el.addEventListener('mousedown', e => {
-      if (e.target === el) done(null);
-    });
-    el.addEventListener('keydown', e => {
-      if (e.key === 'Escape') done(null);
-    });
+    closableModal(el, () => done(null));
     setTimeout(() => input.focus(), 0);
   });
 }

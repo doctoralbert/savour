@@ -89,7 +89,7 @@ const ALLERGEN_HINTS = [
   [/havermelk|haverdrink/, ['gluten']],
   [/sojamelk|sojadrink|sojaroom/, ['soja']],
   [
-    /melk|room|boter|kaas|yoghurt|kwark|crème fraîche|creme fraiche|mascarpone|ricotta|mozzarella|parmezaan|parmigiano|zuivel|ghee|milk|cream|butter|cheese|yogurt|yoghurt|burrata|brie|gruyère|gruyere|comté|comte|feta|chocolade|chocolate/,
+    /melk|room|boter|beurre|kaas|yoghurt|kwark|crème fraîche|creme fraiche|mascarpone|ricotta|mozzarella|parmezaan|parmigiano|zuivel|ghee|milk|cream|butter|cheese|yogurt|yoghurt|burrata|brie|gruyère|gruyere|comté|comte|feta|chocolade|chocolate/,
     ['melk']
   ],
   [
@@ -97,14 +97,14 @@ const ALLERGEN_HINTS = [
     ['ei']
   ],
   [
-    /(^|[^a-zà-ÿ])(patent|tarwe|spelt|rogge|zelfrijzende?\s?)?bloem($|[^a-zà-ÿ])|tarwe|meel|brood|paneermeel|pasta|spelt|rogge|gerst|haver|couscous|bulgur|seitan|flour|wheat|bread|panko|bier|beer|croissant|bladerdeeg|brioche|noedel|noodle|vermicelli/,
+    /(^|[^a-zà-ÿ])(patent|tarwe|spelt|rogge|zelfrijzende?\s?)?bloem($|[^a-zà-ÿ])|tarwe|meel|brood|paneermeel|pasta|spelt|rogge|gerst|haver|couscous|bulgur|seitan|flour|wheat|bread|panko|bier|beer|croissant|bladerdeeg|brioche|noedel|noodle|vermicelli|soja ?saus|soya ?saus|soy ?sauce|shoyu|ketjap/,
     ['gluten']
   ],
   [
-    /(^|[^a-zà-ÿ])vis|zalm|kabeljauw|tonijn|ansjovis|makreel|forel|tarbot|zeebaars|heilbot|schol|zeetong|snoekbaars|bonito|fish|salmon|cod|tuna|anchov|vissaus|worcester/,
+    /(^|[^a-zà-ÿ])vis|zalm|kabeljauw|tonijn|ansjovis|makreel|forel|tarbot|zeebaars|heilbot|schol|zeetong|snoekbaars|bonito|fish|salmon|cod|tuna|anchov|vissaus|wor[cs]{1,2}h?este?r/,
     ['vis']
   ],
-  [/garnaal|garnalen|kreeft|krab|langoustine|scampi|shrimp|prawn|lobster|crab/, ['schaaldieren']],
+  [/garnaal|garnalen|kreeft|krab|schaaldier|langoustine|scampi|shrimp|prawn|lobster|crab/, ['schaaldieren']],
   [
     /mossel|oester|inktvis|octopus|jakobsschelp|coquille|kokkel|alikruik|slak|squid|mussel|oyster|scallop|clam/,
     ['weekdieren']
@@ -114,7 +114,7 @@ const ALLERGEN_HINTS = [
     /amandel|hazelno|walno|cashew|pistache|pecan|macadamia|parano|almond|hazelnut|walnut|praliné|praline|frangipane|marsepein|gianduja|(^|[^a-zà-ÿ])noten/,
     ['noten']
   ],
-  [/soja|tofu|miso|edamame|tamari|(^|[^a-zà-ÿ])soy/, ['soja']],
+  [/soja|tofu|miso|edamame|tamari|ketjap|kecap|shoyu|(^|[^a-zà-ÿ])soy/, ['soja']],
   [/selderij|celery|celeriac/, ['selderij']],
   [/mosterd|mustard/, ['mosterd']],
   [/sesam|tahin|sesame/, ['sesam']],
@@ -124,16 +124,19 @@ const ALLERGEN_HINTS = [
   ],
   [/lupine|lupin/, ['lupine']],
   [
-    /varken|spek|(^|[^a-zà-ÿ])ham($|[^a-zà-ÿ])|chorizo|pancetta|lardo|guanciale|prosciutto|serrano|pata negra|salami|bacon|reuzel|pork/,
+    /varken|spek|(^|[^a-zà-ÿ])ham($|[^a-zà-ÿ])|chorizo|pancetta|lardo|guanciale|prosciutto|serrano|pata negra|salami|bacon|reuzel|pork|worst|saucijs/,
     ['varkensvlees']
   ],
-  [/rund|biefstuk|ossenhaas|entrec[oô]te|rib-?eye|kalf|ossenstaart|ossenwang|picanha|bavette|beef|veal/, ['rundvlees']],
+  [
+    /rund|biefstuk|ossenhaas|entrec[oô]te|rib-?eye|kalf|ossenstaart|ossenwang|picanha|bavette|beef|veal|(^|[^a-zà-ÿ])veau|boeuf|bœuf/,
+    ['rundvlees']
+  ],
   [
     /wijn|bier|(^|[^a-zà-ÿ])port($|[^a-zà-ÿ])|sherry|cognac|armagnac|(^|[^a-zà-ÿ])rum|likeur|amaretto|vodka|(^|[^a-zà-ÿ])gin($|[^a-zà-ÿ])|whisky|calvados|madeira|(^|[^a-zà-ÿ])sake|mirin|marnier|cointreau|kirsch|advocaat|marsala|noilly|pernod|pastis|champagne|prosecco|(^|[^a-zà-ÿ])cava($|[^a-zà-ÿ])|wine|beer|brandy/,
     ['alcohol']
   ],
   [
-    /(^|[^a-zà-ÿ])(ui|uien|uitjes|zilveruitjes)($|[^a-zà-ÿ])|sjalot|bosui|lente-?ui|prei|bieslook|daslook|knoflook|rocambole|onion|shallot|leek|chive|ramson|garlic|aioli/,
+    /(^|[^a-zà-ÿ])(ui|uien|uitjes|zilveruitjes)($|[^a-zà-ÿ])|sjalot|bosui|lente-?ui|prei|bieslook|daslook|knoflook|rocambole|onion|shallot|(^|[^a-zà-ÿ])leek|chive|ramson|garlic|aioli/,
     ['ui']
   ],
   [/knoflook|garlic|aioli/, ['knoflook']],
@@ -159,7 +162,7 @@ const ALLERGEN_HINTS = [
     ['wild']
   ],
   [
-    /(^|[^a-zà-ÿ])(kip|kippen|kuiken|kalkoen|eend|eenden|gans|ganzen|parelhoen|kwartel|duif|duiven|fazant|patrijs|poularde|poulet|poussin|hoen|volaille|chicken|turkey|duck|foie gras)/,
+    /(^|[^a-zà-ÿ])(kip|kippen|kuiken|kalkoen|eend|eenden|gans|ganzen|parelhoen|kwartel|duif|duiven|fazant|patrijs|poularde|poulet|poussin|hoen|volaille|chicken|turkey|duck|foie|gevogelte)/,
     ['gevogelte']
   ],
   [
@@ -182,6 +185,11 @@ const ALLERGEN_HINTS = [
     ['fodmap']
   ]
 ];
+// "Pistache pasta", "curry pasta": een smeersel. "Verse pasta" en losse "pasta" zijn wel deegwaar.
+const PASTE_NOT_NOODLE =
+  /^(?!(verse|droge|gedroogde|gekookte|volkoren|glutenvrije|zelfgemaakte|italiaanse)\s?pasta$)[a-zà-ÿ].*[a-zà-ÿ][\s-]?pasta$/;
+const PLANT_NOT_DAIRY =
+  /pindakaas|roomse|(pure|puur)\s?choc|choc\w*\s(puur|pure)|(amandel|haver|soja|rijst|kokos|cashew|cashewnoot|noten|hazelnoot|erwten|oat|almond)\s?(melk|drink|room|milk)/;
 // Waar een trefwoord misleidt: azijn bevat geen alcohol meer, koffie- en vanillebonen zijn geen peulvruchten,
 // en in harde, gerijpte kaas is de lactose afgebroken (het melkeiwit blijft, dus melk wel).
 const ALLERGEN_HINT_NOT = [
@@ -192,6 +200,21 @@ const ALLERGEN_HINT_NOT = [
   [/kokos|klapper|coconut/, 'lactose'],
   [/schapen(kaas|melk|yoghurt)|lamsoor/, 'lam'],
   [/(varkens|ossen|kalfs|runder)\s?haas/, 'wild'],
+  // Pindakaas, roomse kervel, pure chocolade en plantaardige melk zijn geen zuivel; beurre noisette is boter, geen
+  // hazelnoot.
+  [PLANT_NOT_DAIRY, 'melk'],
+  [PLANT_NOT_DAIRY, 'lactose'],
+  [/beurre noisette/, 'noten'],
+  // Een pasta van noten, curry of boemboe is een smeersel, geen deegwaar. Maïs-, rijst- en amandelmeel bevatten
+  // geen gluten, eekhoorntjesbrood is een paddenstoel.
+  [PASTE_NOT_NOODLE, 'gluten'],
+  [
+    /(mais|maïs|rijst|amandel|kikkererwten|boekweit|kokos|polenta|teff|quinoa|aardappel|hazelnoot|noten)\s?meel/,
+    'gluten'
+  ],
+  [/eekhoorntjesbrood|sint-?jansbrood/, 'gluten'],
+  [/cornichon/, 'mais'],
+  [/(oost[- ]?indische?|water|tuin)\s?kers/, 'steenfruit'],
   [/fodmap-?arm|low.?fodmap|umeboshi|(curry|kerrie|tomaten|miso|sesam|tamarinde)\s?pasta/, 'fodmap'],
   [
     /parmezaan|parmigiano|grana padano|pecorino|gruyère|gruyere|comté|comte|emmentaler|gouda|goudse|edammer|maasdammer|oude kaas|belegen kaas/,
@@ -507,6 +530,19 @@ function combinedProduct(index, key) {
   };
 }
 
+// Verwijst een regel naar een onderdeel van hetzelfde recept? "coulis" in een recept met het onderdeel "Bosbes
+// coulis:": de regels van dat onderdeel tellen al mee. Alleen bij de hele naam van het onderdeel of een algemeen
+// woord als "coulis" of "saus", zodat een echt ingrediënt nooit wegvalt.
+function partOfRecipe(r, key) {
+  const generic = FAMILY_GENERIC.has(key);
+  return (r.ingredients || []).some(line => {
+    const part = recipePartName(line);
+    if (!part) return false;
+    const k = productKey(part);
+    return k === key || (generic && k.split(' ').includes(key));
+  });
+}
+
 // Allergenen van een recept: per regel het product, het gekoppelde basisrecept of "onbekend".
 function recipeAllergenInfo(
   r,
@@ -550,6 +586,8 @@ function recipeAllergenInfo(
     if (product?.known) {
       product.allergens.forEach(a => found.add(a));
       lines.push({ i, line, key, status: 'product', product });
+    } else if (!product && partOfRecipe(r, key)) {
+      lines.push({ i, line, key, status: 'part', product: null });
     } else {
       unknown.push({ key, line, product: product || null });
       lines.push({ i, line, key, status: product ? 'unchecked' : 'unknown', product: product || null });
@@ -660,10 +698,12 @@ function openRecipeAllergenCheck() {
         state = `<span class="allergen-line-product" translate="no">${esc(x.product.name)}</span><span class="allergen-open">Allergenen nog niet gecontroleerd</span>`;
         if (edit)
           action = `<button type="button" class="btn small gold" data-product="${esc(x.product.id)}">Invullen</button>`;
+      } else if (x.status === 'part') {
+        state = '<span class="allergen-none">Onderdeel van dit recept</span>';
       } else {
         state = '<span class="allergen-open">Nog geen product</span>';
         if (edit)
-          action = `<button type="button" class="btn small gold" data-link="${esc(x.key)}">Product kiezen</button>`;
+          action = `<span class="allergen-line-actions"><button type="button" class="btn small gold" data-link="${esc(x.key)}">Product kiezen</button><button type="button" class="btn small" data-recipe-line="${x.i}">Recept</button></span>`;
       }
       return `<li class="allergen-line"><div class="allergen-line-main">${name}<div class="allergen-line-state">${state}</div></div>${action}</li>`;
     })
@@ -695,6 +735,21 @@ function openRecipeAllergenCheck() {
       const p = products.find(x => x.id === b.dataset.product);
       after(() => openProductEditor({ product: p, scope }));
     })
+  );
+  // Een eigen recept kiezen voor deze ene regel, zoals bij ⋯ Koppelen aan recept.
+  el.querySelectorAll('[data-recipe-line]').forEach(b =>
+    b.addEventListener('click', () =>
+      after(async () => {
+        const line = r.ingredients[Number(b.dataset.recipeLine)];
+        const id = await pickLinkedRecipe(r, ingredientNameOf(line), null);
+        if (!id) return false;
+        const links = { ...(r.links || {}), [ingredientNameOf(line).toLowerCase()]: String(id) };
+        if (!(await saveRecipeFields(r, { ingredient_links: links }))) return false;
+        r.links = links;
+        renderIngredientLinks(r);
+        return true;
+      })
+    )
   );
 }
 
@@ -1059,14 +1114,23 @@ function renderProducts() {
     return;
   }
   const list = productsIn(scope).sort((a, b) => a.name.localeCompare(b.name, 'nl'));
-  const { todo, complete, total } = productOverview(scope);
+  const overview = productOverview(scope);
+  const { complete, total } = overview;
+  // Te algemene namen ("sap", "coulis") apart: Savour weet niet wat erin zit, dus die staan niet tussen de rest.
+  const isGeneric = x => ['generic', 'junk'].includes(productFamily(x.key)?.kind);
+  const todo = overview.todo.filter(x => !isGeneric(x));
+  const vague = overview.todo.filter(isGeneric);
   const unchecked = list.filter(p => !p.known);
   const todoShown = productTodoAll ? todo : todo.slice(0, 12);
   const pct = total ? Math.round((complete / total) * 100) : 0;
   const choosing = edit && productSettingsReady && !productExtras.has(scope);
-  const status = `<div class="panel products-status"><p class="products-status-line"><b>${complete}</b> <span>van</span> <b>${total}</b> <span>recepten hebben complete allergenen</span></p><div class="products-progress" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><span style="width:${pct}%"></span></div><p class="products-sum"><span><b>${list.length}</b> producten</span><span><b>${todo.length}</b> namen nog te koppelen</span>${edit && productSettingsReady && productExtras.has(scope) ? `<button type="button" class="btn-quiet products-extras-btn" onclick="chooseAllergenExtras()">Welke allergenen?</button>` : ''}</p>${
+  const status = `<div class="panel products-status"><p class="products-status-line"><b>${complete}</b> <span>van</span> <b>${total}</b> <span>recepten hebben complete allergenen</span></p><div class="products-progress" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><span style="width:${pct}%"></span></div><p class="products-sum"><span><b>${list.length}</b> producten</span><span><b>${overview.todo.length}</b> namen nog te koppelen</span>${edit && productSettingsReady && productExtras.has(scope) ? `<button type="button" class="btn-quiet products-extras-btn" onclick="chooseAllergenExtras()">Welke allergenen?</button>` : ''}</p>${
     edit && todo.length
       ? `<div class="products-status-action"><button type="button" class="btn gold" onclick="openAutoLink()">Alles automatisch koppelen</button><p class="muted">Savour koppelt elke naam aan het product of eigen recept dat erbij hoort en maakt nieuwe producten met hun allergenen. Je ziet eerst wat er gebeurt.</p></div>`
+      : ''
+  }${
+    edit && list.length > 1
+      ? `<p class="products-starter-row"><span>Dubbele of foute producten samenvoegen en verbeteren</span><button type="button" class="btn small" onclick="openProductCleanup()">Producten opruimen</button></p>`
       : ''
   }${
     edit && unchecked.length
@@ -1079,6 +1143,10 @@ function renderProducts() {
     ${
       todo.length && edit
         ? `<div class="panel products-todo"><h3>Nog te koppelen</h3><p class="muted">Namen uit je recepten zonder product, de meest gebruikte bovenaan. Eén keer koppelen geldt voor al je recepten.</p><ul class="products-todo-list">${todoShown.map(x => `<li><span><b translate="no">${esc(x.key)}</b><small>${x.count === 1 ? 'in 1 recept' : `in ${x.count} recepten`}</small></span>${todoButtons(scope, x.key)}</li>`).join('')}</ul>${todo.length > 12 ? `<button type="button" class="btn-quiet" onclick="productTodoAll=!productTodoAll;renderProducts()">${productTodoAll ? 'Minder tonen' : `Alle ${todo.length} tonen`}</button>` : ''}</div>`
+        : ''
+    }${
+      vague.length && edit
+        ? `<details class="panel products-todo products-vague"><summary><b>${vague.length}</b> <span>namen zijn te algemeen</span></summary><p class="muted">Bij "sap" of "coulis" weet Savour niet wat erin zit. Staat het in je recept als onderdeel, dan telt het al mee. Anders: koppel het aan een eigen recept of een product. Tot die tijd is dat recept nog niet compleet.</p><ul class="products-todo-list">${vague.map(x => `<li><span><b translate="no">${esc(x.key)}</b><small>${x.count === 1 ? 'in 1 recept' : `in ${x.count} recepten`}</small></span>${todoButtons(scope, x.key)}</li>`).join('')}</ul></details>`
         : ''
     }
     <div class="panel products-list-panel"><div class="products-search"><span>⌕</span><input id="productSearchInput" value="${esc(productSearch)}" placeholder="${esc(t('Zoek een product'))}" autocomplete="off" oninput="productSearch=this.value;renderProductList()"></div><div id="productList"></div></div>`;
@@ -1117,9 +1185,47 @@ async function addProduct() {
 
 function todoButtons(scope, key) {
   const p = productSuggestionFor(scope, key);
+  const recipe =
+    scope === 'own'
+      ? `<button type="button" class="btn small" onclick="linkTodoRecipe('${escJs(key)}')">Recept</button>`
+      : '';
   if (!p)
-    return `<button type="button" class="btn small" onclick="linkTodoIngredient('${escJs(key)}')">Koppelen</button>`;
-  return `<span class="products-todo-actions"><button type="button" class="btn small gold" onclick="linkTodoTo('${escJs(key)}','${escJs(p.id)}')">Koppelen aan ${esc(p.name)}</button><button type="button" class="btn small" onclick="linkTodoIngredient('${escJs(key)}')">Ander product</button></span>`;
+    return `<span class="products-todo-actions"><button type="button" class="btn small" onclick="linkTodoIngredient('${escJs(key)}')">Product</button>${recipe}</span>`;
+  return `<span class="products-todo-actions"><button type="button" class="btn small gold" onclick="linkTodoTo('${escJs(key)}','${escJs(p.id)}')">Koppelen aan ${esc(p.name)}</button><button type="button" class="btn small" onclick="linkTodoIngredient('${escJs(key)}')">Ander product</button>${recipe}</span>`;
+}
+
+// Een naam uit de lijst aan een eigen recept koppelen, in al je recepten tegelijk ("beurre noisette" → je recept).
+async function linkTodoRecipe(key) {
+  const id = await pickLinkedRecipe({ id: null }, key, null);
+  const target = id && findRecipe(id);
+  if (!target) return;
+  if (await linkNamesToRecipes(productScope, new Map([[key, target]]))) {
+    toast(`${key} gekoppeld aan ${target.title}`);
+    renderProducts();
+  }
+}
+
+// Koppelt namen (productKey → recept) in alle eigen recepten van deze lijst. Een regel die al gekoppeld is, of het
+// recept zelf, blijft zoals hij is. Geeft het aantal gekoppelde namen.
+async function linkNamesToRecipes(scope, targets) {
+  if (!targets.size) return 0;
+  const linked = new Set();
+  for (const r of recipesForProductScope(scope)) {
+    if (r.teamId || !Array.isArray(r.ingredients)) continue;
+    const links = { ...(r.links || {}) };
+    let changed = false;
+    for (const line of r.ingredients) {
+      const key = ingredientKey(line);
+      const target = targets.get(key);
+      const name = ingredientNameOf(line).toLowerCase();
+      if (!target || String(target.id) === String(r.id) || name in links) continue;
+      links[name] = String(target.id);
+      linked.add(key);
+      changed = true;
+    }
+    if (changed && (await saveRecipeFields(r, { ingredient_links: links }))) r.links = links;
+  }
+  return linked.size;
 }
 
 async function linkTodoTo(key, id) {
