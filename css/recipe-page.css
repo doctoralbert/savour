@@ -665,6 +665,27 @@ body.cook-mode .rp-side-note-head button {
   color: var(--sv-text-2);
   font-size: var(--sv-fs-xs);
 }
+.allergen-chip.is-suggested {
+  border-style: dashed;
+  color: var(--sv-text-2);
+}
+.products-starter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sv-space-2) var(--sv-space-3);
+  margin: var(--sv-space-3) 0 0;
+  padding-bottom: var(--sv-space-3);
+  border-bottom: 1px solid var(--sv-line);
+}
+.products-starter-row b {
+  color: var(--sv-gold);
+}
+.products-starter .btn-quiet,
+.products-list-panel .btn-quiet {
+  margin-top: var(--sv-space-3);
+}
 .allergen-pick-head {
   margin: var(--sv-space-3) 0 0;
   color: var(--sv-text-2);

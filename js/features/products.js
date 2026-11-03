@@ -132,6 +132,7 @@ let productsReady = true;
 let productScope = 'own';
 let productSearch = '';
 let productTodoAll = false;
+let productLabelOnly = false; // Alleen producten van de startlijst die op het etiket moeten worden nagekeken.
 
 function allergenHints(name) {
   const key = productKey(name);
@@ -219,7 +220,7 @@ function allergenSuggestion(name) {
 
 // Bewerkingen en snijwijzen veranderen het product niet: gezeefde bloem is bloem, venkel brunoise is venkel.
 const PRODUCT_PREP_WORDS =
-  /(^|\s)(gezeefde?|gesmolten|(fijn|grof)?\s?gehakte?|(fijn|grof)?\s?gesneden|geraspte?|geschilde?|gewassen|koude?|zachte?|lauwe?|ontdooide?|ingekookte?|op kamertemperatuur|in (blokjes|blokken|reepjes|plakjes|stukjes|ringen|partjes)|brunoise|julienne|julliene|blokjes|blokken|reepjes|plakjes|schijfjes|schijf|schijven|ringen|partjes|stukjes)(?=\s|$)/g;
+  /(^|\s)(gezeefde?|gesmolten|(fijn|grof)?\s?gehakte?|(fijn|grof)?\s?gesneden|geraspte?|geschilde?|gewassen|koude?|zachte?|lauwe?|ontdooide?|ingekookte?|gesnipperde?|op kamertemperatuur|in (blokjes|blokken|reepjes|plakjes|stukjes|ringen|partjes)|brunoise|julienne|julliene|blokjes|blokken|reepjes|plakjes|schijfjes|schijf|schijven|ringen|partjes|stukjes)(?=\s|$)/g;
 // Woordjes die overblijven als de rest van de regel is weggehaald: "gelatine per (100 gram massa)".
 const PRODUCT_TRAILING_WORDS = /(\s(in|van|a|à|per|tot|met|of|en|op|circa|ca\.?|\+\/-|±|x))+$/;
 
@@ -869,17 +870,18 @@ function renderProducts() {
   const todoShown = productTodoAll ? todo : todo.slice(0, 12);
   host.innerHTML = `${scopes.length > 1 ? productScopeTabs(scopes, scope) : ''}
     <p class="products-sum"><span><b>${list.length}</b> producten</span><span><b>${todo.length}</b> ingrediënten nog te koppelen</span>${unchecked.length ? `<span><b>${unchecked.length}</b> nog te controleren</span>` : ''}</p>
+    ${edit ? starterPanelHtml(scope) : ''}
     ${
       todo.length && edit
         ? `<div class="panel products-todo"><h3>Nog te koppelen</h3><p class="muted">Ingrediënten uit je recepten zonder product. Koppel ze aan een bestaand product of maak een nieuw product; dat geldt meteen voor alle recepten.</p><ul class="products-todo-list">${todoShown.map(x => `<li><span><b translate="no">${esc(x.key)}</b><small>${x.count === 1 ? 'in 1 recept' : `in ${x.count} recepten`}</small></span>${todoButtons(scope, x.key)}</li>`).join('')}</ul>${todo.length > 12 ? `<button type="button" class="btn-quiet" onclick="productTodoAll=!productTodoAll;renderProducts()">${productTodoAll ? 'Minder tonen' : `Alle ${todo.length} tonen`}</button>` : ''}</div>`
         : ''
     }
-    <div class="panel products-list-panel"><div class="products-search"><span>⌕</span><input id="productSearchInput" value="${esc(productSearch)}" placeholder="${esc(t('Zoek een product'))}" autocomplete="off" oninput="productSearch=this.value;renderProductList()"></div><div id="productList"></div></div>`;
+    <div class="panel products-list-panel"><div class="products-search"><span>⌕</span><input id="productSearchInput" value="${esc(productSearch)}" placeholder="${esc(t('Zoek een product'))}" autocomplete="off" oninput="productSearch=this.value;productLabelOnly=false;renderProductList()"></div><div id="productList"></div></div>`;
   renderProductList();
 }
 
 function productScopeTabs(scopes, scope) {
-  return `<nav class="settings-tabs products-scopes" aria-label="Productlijst">${scopes.map(s => `<button type="button" class="${s.id === scope ? 'on' : ''}" onclick="productScope='${escJs(s.id)}';productSearch='';productTodoAll=false;renderProducts()"${s.team ? ' translate="no"' : ''}>${esc(s.name)}</button>`).join('')}</nav>`;
+  return `<nav class="settings-tabs products-scopes" aria-label="Productlijst">${scopes.map(s => `<button type="button" class="${s.id === scope ? 'on' : ''}" onclick="productScope='${escJs(s.id)}';productSearch='';productTodoAll=false;productLabelOnly=false;renderProducts()"${s.team ? ' translate="no"' : ''}>${esc(s.name)}</button>`).join('')}</nav>`;
 }
 
 function renderProductList() {
@@ -887,14 +889,21 @@ function renderProductList() {
   if (!host) return;
   const list = productsIn(productScope).sort((a, b) => a.name.localeCompare(b.name, 'nl'));
   const q = productKey(productSearch);
-  const shown = q ? list.filter(p => [p.name, ...p.aliases].some(n => productKey(n).includes(q))) : list;
+  const labelOnly = productLabelOnly && !q;
+  const shown = labelOnly
+    ? list.filter(p => !p.known && isStarterProduct(p) && starterNeedsLabel(p))
+    : q
+      ? list.filter(p => [p.name, ...p.aliases].some(n => productKey(n).includes(q)))
+      : list;
   host.innerHTML = shown.length
     ? `<ul class="products-list">${shown
         .map(
           p =>
-            `<li><button type="button" onclick="openProductFromList('${escJs(p.id)}')"><span class="products-name"><b translate="no">${esc(p.name)}</b>${p.aliases.length ? `<small translate="no">${esc(p.aliases.join(', '))}</small>` : ''}</span><span class="allergen-chips">${p.known ? (p.allergens.length ? allergenChips(p.allergens) : '<span class="allergen-none">Geen allergenen</span>') : '<span class="allergen-open">Nog te controleren</span>'}</span></button></li>`
+            `<li><button type="button" onclick="openProductFromList('${escJs(p.id)}')"><span class="products-name"><b translate="no">${esc(p.name)}</b>${p.aliases.length ? `<small translate="no">${esc(p.aliases.join(', '))}</small>` : ''}</span><span class="allergen-chips">${p.known ? (p.allergens.length ? allergenChips(p.allergens) : '<span class="allergen-none">Geen allergenen</span>') : `${p.allergens.length ? allergenChips(p.allergens, 'is-suggested') : ''}<span class="allergen-open">${isStarterProduct(p) && starterNeedsLabel(p) ? 'Etiket nakijken' : 'Nog te controleren'}</span>`}</span></button></li>`
         )
-        .join('')}</ul>`
+        .join(
+          ''
+        )}</ul>${labelOnly ? `<button type="button" class="btn-quiet" onclick="productLabelOnly=false;renderProductList()">Alle producten tonen</button>` : ''}`
     : `<p class="muted">${list.length ? 'Geen producten gevonden.' : 'Nog geen producten. Koppel hierboven ingrediënten, of voeg een product toe.'}</p>`;
 }
 
