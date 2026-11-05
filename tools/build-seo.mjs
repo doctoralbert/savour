@@ -24,7 +24,15 @@ import { VERDIEPING_TALEN } from './site-verdieping-talen.mjs';
 import { APP_PAGE } from './site-app.mjs';
 import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
 import { DELIVER, DELIVER_FLOW } from './site-deliver.mjs';
-import { GUIDE_UI, GUIDE_HOME, GUIDE_GROUPS, GUIDE, RELEASES_PAGE, RELEASES } from './site-handleiding.mjs';
+import {
+  GUIDE_UI,
+  GUIDE_HOME,
+  GUIDE,
+  GUIDE_CHAPTERS,
+  GUIDE_SUFFIX,
+  RELEASES_PAGE,
+  RELEASES
+} from './site-handleiding.mjs';
 const PAGES = { de: DE, es: ES, fr: FR };
 // Blogs over kerntemperaturen en sous-vide in het Duits, Spaans en Frans (tools/site-blog-temperaturen-*.mjs).
 Object.assign(DE.posts, TEMP_POSTS_DE);
@@ -181,8 +189,16 @@ const blogSlug = { nl: 'blog', en: 'en/blog' };
 // Import service (tools/site-service.mjs) als kernpunt tussen de functies, vóór "Binnenkort".
 {
   const svc = { id: 'inladen', service: true, nl: SERVICE.nl.feature, en: SERVICE.en.feature };
-  FEATURES.splice(FEATURES.findIndex(f => f.soon), 0, svc);
-  for (const [l, P] of [['de', DE], ['es', ES], ['fr', FR]]) {
+  FEATURES.splice(
+    FEATURES.findIndex(f => f.soon),
+    0,
+    svc
+  );
+  for (const [l, P] of [
+    ['de', DE],
+    ['es', ES],
+    ['fr', FR]
+  ]) {
     const { menu, short, ...rest } = SERVICE[l].feature;
     EXTRA_LANGS[l].items.inladen = [menu, short];
     P.features.inladen = rest;
@@ -219,14 +235,33 @@ for (const [id, extra] of Object.entries(VERDIEPING)) {
       ? APP_PAGE
       : FEATURES.find(f => f.id === id) || AUDIENCES.find(a => a.id === id) || POSTS.find(p => p.en.slug === id);
   if (!item) throw new Error(`Verdieping: pagina ${id} niet gevonden`);
-  for (const [lang, sections] of Object.entries({ ...extra, ...VERDIEPING_TALEN[id] })) item[lang].sections.push(...sections);
+  for (const [lang, sections] of Object.entries({ ...extra, ...VERDIEPING_TALEN[id] }))
+    item[lang].sections.push(...sections);
 }
 
 // Beschrijving van de keukenfoto's, voor zoekmachines en schermlezers.
 const PHOTO_ALT = {
-  wortels: { nl: 'Verse wortels op een werkbank in de keuken', en: 'Fresh carrots on a kitchen workbench', de: 'Frische Karotten auf einer Küchenarbeitsplatte', es: 'Zanahorias frescas en una mesa de cocina', fr: 'Carottes fraîches sur un plan de travail de cuisine' },
-  uien: { nl: 'Uien in de professionele keuken', en: 'Onions in a professional kitchen', de: 'Zwiebeln in der Profiküche', es: 'Cebollas en una cocina profesional', fr: 'Oignons dans une cuisine professionnelle' },
-  eend: { nl: 'Eend wordt bereid boven het vuur', en: 'Duck being cooked over the fire', de: 'Ente wird über dem Feuer zubereitet', es: 'Pato cocinándose sobre el fuego', fr: 'Canard cuit au-dessus du feu' }
+  wortels: {
+    nl: 'Verse wortels op een werkbank in de keuken',
+    en: 'Fresh carrots on a kitchen workbench',
+    de: 'Frische Karotten auf einer Küchenarbeitsplatte',
+    es: 'Zanahorias frescas en una mesa de cocina',
+    fr: 'Carottes fraîches sur un plan de travail de cuisine'
+  },
+  uien: {
+    nl: 'Uien in de professionele keuken',
+    en: 'Onions in a professional kitchen',
+    de: 'Zwiebeln in der Profiküche',
+    es: 'Cebollas en una cocina profesional',
+    fr: 'Oignons dans une cuisine professionnelle'
+  },
+  eend: {
+    nl: 'Eend wordt bereid boven het vuur',
+    en: 'Duck being cooked over the fire',
+    de: 'Ente wird über dem Feuer zubereitet',
+    es: 'Pato cocinándose sobre el fuego',
+    fr: 'Canard cuit au-dessus du feu'
+  }
 };
 
 // Alle taalversies van een pagina (voor hreflang en de taalknop).
@@ -239,14 +274,75 @@ const BLOG_TITLE = {
   es: ES.blogTitle,
   fr: FR.blogTitle
 };
-const SOON_MAIL = { nl: 'Wil je meedenken? Mail ons op', en: 'Want to share ideas? Email us at', de: DE.ui.soonMail, es: ES.ui.soonMail, fr: FR.ui.soonMail };
+const SOON_MAIL = {
+  nl: 'Wil je meedenken? Mail ons op',
+  en: 'Want to share ideas? Email us at',
+  de: DE.ui.soonMail,
+  es: ES.ui.soonMail,
+  fr: FR.ui.soonMail
+};
 // Contactformulier op de losse contactpagina (versturen via js/site.js naar /api/bug-report).
 const FORM_TEXT = {
-  nl: ['Stuur ons een bericht', 'Naam', 'E-mailadres', 'Onderwerp', 'Bericht', 'Waar kunnen we je mee helpen?', 'Bericht versturen', 'Bezig…', 'Bedankt. Je bericht is verstuurd; we reageren zo snel mogelijk.', 'Versturen is mislukt. Mail ons gerust op contact@savour.page.'],
-  en: ['Send us a message', 'Name', 'Email address', 'Subject', 'Message', 'How can we help?', 'Send message', 'Sending…', 'Thank you. Your message has been sent; we will reply as soon as possible.', 'Sending failed. Feel free to email us at contact@savour.page.'],
-  de: ['Schreib uns eine Nachricht', 'Name', 'E-Mail-Adresse', 'Betreff', 'Nachricht', 'Wie können wir helfen?', 'Nachricht senden', 'Wird gesendet…', 'Danke. Deine Nachricht wurde gesendet; wir antworten so schnell wie möglich.', 'Senden fehlgeschlagen. Schreib uns gern an contact@savour.page.'],
-  es: ['Envíanos un mensaje', 'Nombre', 'Correo electrónico', 'Asunto', 'Mensaje', '¿En qué podemos ayudarte?', 'Enviar mensaje', 'Enviando…', 'Gracias. Tu mensaje se ha enviado; te responderemos lo antes posible.', 'No se pudo enviar. Escríbenos a contact@savour.page.'],
-  fr: ['Envoie-nous un message', 'Nom', 'Adresse e-mail', 'Objet', 'Message', 'Comment pouvons-nous t\'aider ?', 'Envoyer le message', 'Envoi en cours…', 'Merci. Ton message a bien été envoyé ; nous te répondrons dès que possible.', 'L\'envoi a échoué. Écris-nous directement à contact@savour.page.']
+  nl: [
+    'Stuur ons een bericht',
+    'Naam',
+    'E-mailadres',
+    'Onderwerp',
+    'Bericht',
+    'Waar kunnen we je mee helpen?',
+    'Bericht versturen',
+    'Bezig…',
+    'Bedankt. Je bericht is verstuurd; we reageren zo snel mogelijk.',
+    'Versturen is mislukt. Mail ons gerust op contact@savour.page.'
+  ],
+  en: [
+    'Send us a message',
+    'Name',
+    'Email address',
+    'Subject',
+    'Message',
+    'How can we help?',
+    'Send message',
+    'Sending…',
+    'Thank you. Your message has been sent; we will reply as soon as possible.',
+    'Sending failed. Feel free to email us at contact@savour.page.'
+  ],
+  de: [
+    'Schreib uns eine Nachricht',
+    'Name',
+    'E-Mail-Adresse',
+    'Betreff',
+    'Nachricht',
+    'Wie können wir helfen?',
+    'Nachricht senden',
+    'Wird gesendet…',
+    'Danke. Deine Nachricht wurde gesendet; wir antworten so schnell wie möglich.',
+    'Senden fehlgeschlagen. Schreib uns gern an contact@savour.page.'
+  ],
+  es: [
+    'Envíanos un mensaje',
+    'Nombre',
+    'Correo electrónico',
+    'Asunto',
+    'Mensaje',
+    '¿En qué podemos ayudarte?',
+    'Enviar mensaje',
+    'Enviando…',
+    'Gracias. Tu mensaje se ha enviado; te responderemos lo antes posible.',
+    'No se pudo enviar. Escríbenos a contact@savour.page.'
+  ],
+  fr: [
+    'Envoie-nous un message',
+    'Nom',
+    'Adresse e-mail',
+    'Objet',
+    'Message',
+    "Comment pouvons-nous t'aider ?",
+    'Envoyer le message',
+    'Envoi en cours…',
+    'Merci. Ton message a bien été envoyé ; nous te répondrons dès que possible.',
+    "L'envoi a échoué. Écris-nous directement à contact@savour.page."
+  ]
 };
 function contactForm(lang) {
   const [title, name, email, subject, message, placeholder, send, busy, ok, fail] = FORM_TEXT[lang];
@@ -260,10 +356,12 @@ const LANG_NAME = { nl: 'Nederlands', en: 'English', de: 'Deutsch', es: 'Españo
 // andere taal en DE/ES naar de startpagina in die taal.
 function langSwitch(lang, alts, inApp) {
   // Eén knop met de huidige taal; klikken opent een klein venster met de talen (zoals in de app).
-  return `<details class="site-lang" translate="no"><summary aria-label="Taal / Language">${LANG_LABEL[lang]}</summary><div class="site-lang-menu">${HOME_LANGS.map(l => {
-    const target = inApp ? homePath(l) : alts?.[l] || homePath(l);
-    return `<a href="${target}" hreflang="${l}" data-set-lang="${l}"${l === lang ? ' aria-current="true"' : ''}><span>${LANG_LABEL[l]}</span>${LANG_NAME[l]}</a>`;
-  }).join('')}</div></details>`;
+  return `<details class="site-lang" translate="no"><summary aria-label="Taal / Language">${LANG_LABEL[lang]}</summary><div class="site-lang-menu">${HOME_LANGS.map(
+    l => {
+      const target = inApp ? homePath(l) : alts?.[l] || homePath(l);
+      return `<a href="${target}" hreflang="${l}" data-set-lang="${l}"${l === lang ? ' aria-current="true"' : ''}><span>${LANG_LABEL[l]}</span>${LANG_NAME[l]}</a>`;
+    }
+  ).join('')}</div></details>`;
 }
 
 // ---- Onderdelen ----
@@ -339,7 +437,8 @@ function ctaBlock(lang, inApp) {
 
 // ---- Import service ----
 // Bedragen staan als "€164,99" in site-service.mjs; in het Engels met een punt, in het Duits en Spaans met het euroteken erachter.
-const euro = (p, lang) => (lang === 'de' || lang === 'es' || lang === 'fr' ? p.slice(1) + ' €' : lang === 'en' ? p.replace(',', '.') : p);
+const euro = (p, lang) =>
+  lang === 'de' || lang === 'es' || lang === 'fr' ? p.slice(1) + ' €' : lang === 'en' ? p.replace(',', '.') : p;
 const serviceHref = lang => href(FEATURES.find(f => f.service)[lang].slug);
 // Pakketten voor de knoppen en de keuzelijst in het formulier: [label, prijs]; de laatste is "meer, in overleg".
 const servicePackages = lang => {
@@ -354,7 +453,10 @@ function intakeForm(lang) {
   const fm = s.form;
   const f = (id, label, input) => `<div class="site-field"><label for="${id}">${esc(label)}</label>${input}</div>`;
   const opts = list => list.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join('');
-  const packages = servicePackages(lang).map(([t, p], i, all) => [PACKAGE_KEYS[i], i === all.length - 1 ? fm.packageMore : `${t} · ${p}`]);
+  const packages = servicePackages(lang).map(([t, p], i, all) => [
+    PACKAGE_KEYS[i],
+    i === all.length - 1 ? fm.packageMore : `${t} · ${p}`
+  ]);
   const seats = fm.teamOptions.map((t, i) => [[5, 10, 25][i] || '', t]);
   return `<form class="site-form" data-intake-request data-lang="${lang}" data-busy="${esc(busy)}" data-ok="${esc(s.requestOk)}" data-fail="${esc(fail)}" novalidate><div class="site-field-pair">${f('ifPackage', fm.package, `<select id="ifPackage" name="package">${opts(packages)}</select>`)}${f('ifTeam', fm.team, `<select id="ifTeam" name="seats">${opts(seats)}</select>`)}</div>${f('ifName', name, '<input id="ifName" name="name" autocomplete="name" required maxlength="120">')}${f('ifEmail', email, '<input id="ifEmail" name="email" type="email" autocomplete="email" required maxlength="240">')}${f('ifPlace', fm.restaurant, '<input id="ifPlace" name="restaurant" autocomplete="organization" required maxlength="160">')}${f('ifMessage', fm.message, `<textarea id="ifMessage" name="notes" rows="3" maxlength="6000" placeholder="${esc(fm.placeholder)}"></textarea>`)}<div class="site-form-trap" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div><div class="site-form-row"><button class="site-btn solid" type="submit">${esc(fm.send)}</button><span class="site-form-status" aria-live="polite"></span></div></form>`;
 }
@@ -377,8 +479,13 @@ function serviceBlock(lang) {
 <h2 class="reveal">${esc(s.includedTitle)}</h2><ul class="svc-list">${s.included.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
 <h2 class="reveal">${esc(s.structureTitle)}</h2><p>${esc(s.structureText)}</p><div class="svc-structures">${s.structures.map(([t, folders]) => `<div><b>${esc(t)}</b><span>${folders.map(x => `<i>${esc(x)}</i>`).join('')}</span></div>`).join('')}</div>
 <h2 class="reveal">${esc(s.stepsTitle)}</h2><ol class="svc-steps">${s.steps.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join('')}</ol>
-<h2 class="reveal" id="pakketten">${esc(s.priceTitle)}</h2><p>${esc(s.priceIntro)}</p><div class="svc-prices">${servicePackages(lang)
-    .map(([t, p], i, all) => `<button type="button" class="svc-price${i === featured ? ' is-featured' : ''}" data-svc-open="${i}"><span>${esc(t)}</span><strong${i === all.length - 1 ? ' class="small"' : ''}>${esc(p)}</strong><em>${esc(s.choose)} →</em></button>`)
+<h2 class="reveal" id="pakketten">${esc(s.priceTitle)}</h2><p>${esc(s.priceIntro)}</p><div class="svc-prices">${servicePackages(
+    lang
+  )
+    .map(
+      ([t, p], i, all) =>
+        `<button type="button" class="svc-price${i === featured ? ' is-featured' : ''}" data-svc-open="${i}"><span>${esc(t)}</span><strong${i === all.length - 1 ? ' class="small"' : ''}>${esc(p)}</strong><em>${esc(s.choose)} →</em></button>`
+    )
     .join('')}</div><p class="site-note">${esc(s.example)}</p>
 <div class="site-faq svc-faq">${s.faqs.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}</div>
 ${serviceDialog(lang)}`;
@@ -390,12 +497,33 @@ function deliverBody(lang) {
   const w = DELIVER_FLOW[lang];
   const structures = SERVICE[lang].structures;
   const texts = {
-    uploading: d.uploading, uploaded: d.uploaded, failed: d.failed, tooBig: d.tooBig, busy: d.busy, needFiles: d.needFiles,
-    thanks: d.thanks, invalid: d.invalid, closed: d.closed, hello: d.hello, package: d.package,
-    perYear: w.perYear, once: w.once, free: w.free, paying: w.paying, processing: w.processing, reviewing: w.reviewing,
-    rejected: w.rejected, importing: w.importing, membersHint: [2, 5, 10, 25].reduce((o, n) => ({ ...o, [n]: w.membersHint(n) }), {}),
-    tooMany: [4, 9, 24].reduce((o, n) => ({ ...o, [n]: w.tooMany(n) }), {}), memberEmail: w.memberEmail, roleView: w.roleView,
-    roleEdit: w.roleEdit, remove: w.remove, service: w.service, resubmit: w.resubmit
+    uploading: d.uploading,
+    uploaded: d.uploaded,
+    failed: d.failed,
+    tooBig: d.tooBig,
+    busy: d.busy,
+    needFiles: d.needFiles,
+    thanks: d.thanks,
+    invalid: d.invalid,
+    closed: d.closed,
+    hello: d.hello,
+    package: d.package,
+    perYear: w.perYear,
+    once: w.once,
+    free: w.free,
+    paying: w.paying,
+    processing: w.processing,
+    reviewing: w.reviewing,
+    rejected: w.rejected,
+    importing: w.importing,
+    membersHint: [2, 5, 10, 25].reduce((o, n) => ({ ...o, [n]: w.membersHint(n) }), {}),
+    tooMany: [4, 9, 24].reduce((o, n) => ({ ...o, [n]: w.tooMany(n) }), {}),
+    memberEmail: w.memberEmail,
+    roleView: w.roleView,
+    roleEdit: w.roleEdit,
+    remove: w.remove,
+    service: w.service,
+    resubmit: w.resubmit
   };
   return `<div data-deliver data-lang="${lang}" data-texts="${esc(JSON.stringify(texts))}">
 <p class="svc-deliver-who" data-deliver-who hidden></p>
@@ -455,10 +583,20 @@ function homeBody(lang, inApp) {
 <div class="hero-shots"><div class="hero-laptop"><img src="/assets/app/bibliotheek-${lang}.jpg" alt="${esc(SHOT_ALT[lang][0])}" width="1440" height="900"></div><div class="hero-phone"><img src="/assets/app/recept-${lang}.jpg" alt="${esc(SHOT_ALT[lang][1])}" width="520" height="1125"></div></div>
 </div></section>
 <section class="site-section"><div class="site-wrap"><div class="site-two"><h2 class="reveal">${esc(KLADJE_REAL[lang].heading)}</h2><div>${h.story.map(p => `<p>${esc(p)}</p>`).join('')}<p><a class="site-link" href="${href(STORY[lang].slug)}">${esc(h.storyLink)}</a></p></div></div>${kladje(lang)}</div></section>
-<section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(h.featuresTitle)}</h2>${rows(FEATURES.filter(f => !f.soon), lang)}</div></section>
+<section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(h.featuresTitle)}</h2>${rows(
+    FEATURES.filter(f => !f.soon),
+    lang
+  )}</div></section>
 ${serviceBand(lang)}
 <section class="site-section"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.audienceTitle)}</h2>${rows(AUDIENCES, lang)}</div></section>
-<section class="site-section dark"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.soonTitle)}</h2><div><ul class="site-rows">${FEATURES.find(f => f.soon)[lang].sections.map(([t, d]) => `<li><a href="${href(FEATURES.find(f => f.soon)[lang].slug)}"><b>${esc(t)}</b><span>${esc(d)}</span><i aria-hidden="true">→</i></a></li>`).join('')}</ul></div></div></section>
+<section class="site-section dark"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.soonTitle)}</h2><div><ul class="site-rows">${FEATURES.find(
+    f => f.soon
+  )
+    [lang].sections.map(
+      ([t, d]) =>
+        `<li><a href="${href(FEATURES.find(f => f.soon)[lang].slug)}"><b>${esc(t)}</b><span>${esc(d)}</span><i aria-hidden="true">→</i></a></li>`
+    )
+    .join('')}</ul></div></div></section>
 <section class="site-section"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.priceTitle)}</h2><div><p>${esc(h.price)}</p><p><a class="site-link" href="${href(legacy('pro')[lang])}">${esc(h.priceLink)}</a></p></div></div></section>
 <section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.faqTitle)}</h2><div class="site-faq">${h.faq.map(([qq, a]) => `<details><summary>${esc(qq)}</summary><p>${esc(a)}</p></details>`).join('')}</div></div></section>
 ${ctaBlock(lang, inApp)}`;
@@ -466,7 +604,10 @@ ${ctaBlock(lang, inApp)}`;
 
 // Zoekmachines kappen lange titels en beschrijvingen af (Bing meldt het als fout): 60 en 160 tekens.
 function fitTitle(title, max = 60) {
-  const short = String(title).replace(/\s*[—–|-]\s*(Handleiding Savour|Handleiding|Savour user guide|User guide|Handbuch Savour|Handbuch|Manual de Savour|Manual|Manuel Savour|Manuel|Savour)$/, '');
+  const short = String(title).replace(
+    /\s*[—–|-]\s*(Handleiding Savour|Handleiding|Savour user guide|User guide|Handbuch Savour|Handbuch|Manual de Savour|Manual|Manuel Savour|Manuel|Savour)$/,
+    ''
+  );
   if (String(title).length <= max) return title;
   if (short.length <= max) return short;
   // Eerst het deel voor een dubbele punt of gedachtestreepje (de hele kop), pas daarna voor een komma.
@@ -568,7 +709,15 @@ function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = fa
       ]
     : [];
   const html =
-    pageHead(lang, { title, desc, canonical, alternates, hidden, ads, schema: [webPage(lang, title, desc, canonical), ...breadcrumb, ...schema] }) +
+    pageHead(lang, {
+      title,
+      desc,
+      canonical,
+      alternates,
+      hidden,
+      ads,
+      schema: [webPage(lang, title, desc, canonical), ...breadcrumb, ...schema]
+    }) +
     `<div class="site">${header(lang, alt, false)}<main>${body(crumbHtml)}</main>${hidden ? '' : ctaBlock(lang, false)}${footer(lang, alt, false)}</div>\n</body>\n</html>\n`;
   writePage(slugs[lang], html);
   if (!hidden) sitemap.push({ loc: canonical, alternates, file: `site/${slugs[lang]}/index.html` });
@@ -669,7 +818,9 @@ const sectionExtra = x =>
             r =>
               `<tr>${r
                 .map((c, i) =>
-                  i ? `<td data-label="${esc(x.head[i] || '')}">${proseText(c)}</td>` : `<th scope="row">${proseText(c)}</th>`
+                  i
+                    ? `<td data-label="${esc(x.head[i] || '')}">${proseText(c)}</td>`
+                    : `<th scope="row">${proseText(c)}</th>`
                 )
                 .join('')}</tr>`
           )
@@ -700,7 +851,9 @@ for (const lang of LANGS) {
       body: c =>
         pageTop(c, t.h1, t.lead, PAGE_PHOTO[f.nl.slug]) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose">${t.kladje ? `<div class="site-figure">${kladje(lang)}</div>` : ''}${sectionsHtml(t.sections)}${f.service ? serviceBlock(lang) : ''}${
-          f.soon ? `<p class="site-note">${SOON_MAIL[lang]} <a href="mailto:contact@savour.page">contact@savour.page</a>.</p>` : ''
+          f.soon
+            ? `<p class="site-note">${SOON_MAIL[lang]} <a href="mailto:contact@savour.page">contact@savour.page</a>.</p>`
+            : ''
         }</div></article>
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.related}</h2>${rows(others.slice(0, 3), lang)}</div></section>`
     });
@@ -714,7 +867,9 @@ for (const lang of LANGS) {
       slugs: Object.fromEntries(LANGS.map(l => [l, DELIVER[l].slug])),
       title: d.title,
       desc: d.lead,
-      body: c => pageTop(c, d.h1, d.lead, PAGE_PHOTO[SERVICE.nl.feature.slug]) + `<article class="site-article"><div class="site-wrap site-narrow site-prose">${deliverBody(lang)}</div></article>`
+      body: c =>
+        pageTop(c, d.h1, d.lead, PAGE_PHOTO[SERVICE.nl.feature.slug]) +
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${deliverBody(lang)}</div></article>`
     });
   }
   // Voor wie
@@ -729,7 +884,10 @@ for (const lang of LANGS) {
       body: c =>
         pageTop(c, t.h1, t.lead, PAGE_PHOTO[a.nl.slug]) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${photoDuo(lang, ...(a.nl.slug === 'voor-koks' ? ['wortels', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>
-<section class="site-related"><div class="site-wrap site-narrow"><h2>${u.features}</h2>${rows(FEATURES.filter(x => !x.soon), lang)}</div></section>`
+<section class="site-related"><div class="site-wrap site-narrow"><h2>${u.features}</h2>${rows(
+          FEATURES.filter(x => !x.soon),
+          lang
+        )}</div></section>`
     });
   }
   // Over ons
@@ -757,7 +915,8 @@ for (const lang of LANGS) {
     body: c =>
       pageTop(c, u.blog, u.blogLead, PAGE_PHOTO.blog) +
       `<article class="site-article"><div class="site-wrap site-narrow"><ul class="site-posts">${POSTS.map(
-        p => `<li><h2><a href="${href(p[lang].slug)}">${esc(p[lang].title)}</a></h2><p>${esc(p[lang].desc)}</p><a class="site-link" href="${href(p[lang].slug)}">${u.readArticle}</a></li>`
+        p =>
+          `<li><h2><a href="${href(p[lang].slug)}">${esc(p[lang].title)}</a></h2><p>${esc(p[lang].desc)}</p><a class="site-link" href="${href(p[lang].slug)}">${u.readArticle}</a></li>`
       ).join('')}</ul></div></article>`
   });
   for (const [n, p] of POSTS.entries()) {
@@ -810,7 +969,11 @@ for (const lang of LANGS) {
     // Titel, beschrijving en kop: NL en EN hier in LEGACY, DE en ES in tools/site-pages-*.mjs.
     const meta =
       lang === 'nl' || lang === 'en'
-        ? { title: p.title[lang === 'nl' ? 0 : 1], desc: p.desc[lang === 'nl' ? 0 : 1], h1: p.h1?.[lang === 'nl' ? 0 : 1] }
+        ? {
+            title: p.title[lang === 'nl' ? 0 : 1],
+            desc: p.desc[lang === 'nl' ? 0 : 1],
+            h1: p.h1?.[lang === 'nl' ? 0 : 1]
+          }
         : PAGES[lang].legacy[p.id];
     let body = p.id === 'pro' ? proBody : copy[p.id] || '';
     if (p.id === 'contact') body = body.replace(CONTACT_FORM, '%%FORM%%');
@@ -827,8 +990,13 @@ for (const lang of LANGS) {
     body = body.replace('%%FORM%%', contactForm(lang));
     if (p.id === 'pro') body += serviceTeaser(lang);
     // Vragenpagina: ook de vragen over de import service (komen zo ook in het FAQPage-schema).
-    if (p.id === 'faq') body += SERVICE[lang].faqs.map(([q, a]) => `<h2>${esc(q)}</h2>
-<p>${esc(a)}</p>`).join('');
+    if (p.id === 'faq')
+      body += SERVICE[lang].faqs
+        .map(
+          ([q, a]) => `<h2>${esc(q)}</h2>
+<p>${esc(a)}</p>`
+        )
+        .join('');
     const schema = [];
     if (p.id === 'faq')
       schema.push({
@@ -846,7 +1014,9 @@ for (const lang of LANGS) {
       title: meta.title,
       desc: meta.desc,
       schema,
-      body: c => pageTop(c, h1, lead, PAGE_PHOTO[p.nl]) + `<article class="site-article"><div class="site-wrap site-narrow site-prose">${note ? `<p class="site-meta">${esc(note)}</p>` : ''}${body}</div></article>`
+      body: c =>
+        pageTop(c, h1, lead, PAGE_PHOTO[p.nl]) +
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${note ? `<p class="site-meta">${esc(note)}</p>` : ''}${body}</div></article>`
     });
   }
 
@@ -857,18 +1027,6 @@ for (const lang of LANGS) {
     const pair = get => Object.fromEntries(Object.keys(GUIDE_HOME).map(l => [l, get(l)]));
     // Links in de tekst: [tekst](#pagina-id), [tekst](#pagina-id#kopje) of [tekst](/pad). Een onbekende pagina
     // laat de bouw stoppen, zodat er nooit een dode link in de handleiding staat.
-    const guideLink = target => {
-      if (!target.startsWith('#')) return /^https?:/.test(target) ? target : localPath(target, lang);
-      const [id, anchor] = target.slice(1).split('#');
-      const to = GUIDE.find(g => g.id === id);
-      if (!to) throw new Error(`Handleiding: onbekende link naar #${id}`);
-      return href(to[lang].slug) + (anchor ? `#${anchor}` : '');
-    };
-    const guideText = s =>
-      esc(s).replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, label, target) => {
-        const to = guideLink(target);
-        return /^https?:/.test(to) ? `<a href="${to}" rel="noopener">${label}</a>` : `<a href="${to}">${label}</a>`;
-      });
     const anchorId = h =>
       h
         .normalize('NFD')
@@ -876,20 +1034,54 @@ for (const lang of LANGS) {
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '');
-    const guideSection = ([h, text, list]) =>
-      `<h2 id="${anchorId(h)}">${esc(h)}</h2>${String(text)
+    // Elk onderwerp is een stuk van zijn hoofdstuk (id = pagina-id). Kopjes krijgen een id dat binnen het hoofdstuk
+    // uniek is; kopjesIds onthoudt per onderwerp welk id bij welk kopje hoort.
+    const chapterOf = new Map(GUIDE_CHAPTERS.flatMap(ch => ch.pages.map(g => [g.id, ch])));
+    const headIds = new Map();
+    for (const ch of GUIDE_CHAPTERS) {
+      const used = new Set(ch.pages.map(g => g.id));
+      for (const g of ch.pages) {
+        const ids = new Map();
+        for (const [h] of g[lang].sections) {
+          let id = anchorId(h);
+          for (let n = 2; used.has(id); n++) id = `${anchorId(h)}-${n}`;
+          used.add(id);
+          if (!ids.has(anchorId(h))) ids.set(anchorId(h), id);
+        }
+        headIds.set(g.id, ids);
+      }
+    }
+    const chapterHref = (ch, l = lang) => href(ch.pages[0][l].slug);
+    const guideHref = (g, anchor) => {
+      const ch = chapterOf.get(g.id);
+      if (anchor) return `${chapterHref(ch)}#${headIds.get(g.id).get(anchor) || anchor}`;
+      return g === ch.pages[0] ? chapterHref(ch) : `${chapterHref(ch)}#${g.id}`;
+    };
+    const chapterName = (ch, l = lang) => (ch.own ? ch.pages[0][l].h1 : ch.group[l].name);
+    const guideLink = target => {
+      if (!target.startsWith('#')) return /^https?:/.test(target) ? target : localPath(target, lang);
+      const [id, anchor] = target.slice(1).split('#');
+      const to = GUIDE.find(g => g.id === id);
+      if (!to) throw new Error(`Handleiding: onbekende link naar #${id}`);
+      return guideHref(to, anchor);
+    };
+    const guideText = s =>
+      esc(s).replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, label, target) => {
+        const to = guideLink(target);
+        return /^https?:/.test(to) ? `<a href="${to}" rel="noopener">${label}</a>` : `<a href="${to}">${label}</a>`;
+      });
+    const guideSection = (g, [h, text, list]) =>
+      `<h3 id="${headIds.get(g.id).get(anchorId(h)) || anchorId(h)}">${esc(h)}</h3>${String(text)
         .split('\n\n')
         .map(p => `<p>${guideText(p)}</p>`)
         .join('')}${list ? `<ul>${list.map(x => `<li>${guideText(x)}</li>`).join('')}</ul>` : ''}`;
-    const groupOf = g => GUIDE_GROUPS.find(gr => gr.id === g.group);
-    const groupNav = current => {
-      const gr = groupOf(current);
-      return `<nav class="site-guide-toc" aria-label="${esc(gr[lang].name)}"><h2>${esc(gu.inGroup)} ${esc(gr[lang].name)}</h2><ol>${GUIDE.filter(g => g.group === gr.id)
-        .map(g =>
-          g.id === current.id ? `<li aria-current="page"><b>${esc(g[lang].menu)}</b></li>` : `<li><a href="${href(g[lang].slug)}">${esc(g[lang].menu)}</a></li>`
-        )
-        .join('')}</ol><a class="site-link" href="${href(home.slug)}">${esc(gu.allTopics)}</a></nav>`;
-    };
+    const chapterNav = current =>
+      `<nav class="site-guide-toc" aria-label="${esc(gu.chapters)}"><h2>${esc(gu.chapters)}</h2><ol>${GUIDE_CHAPTERS.map(
+        ch =>
+          ch === current
+            ? `<li aria-current="page"><b>${esc(chapterName(ch))}</b></li>`
+            : `<li><a href="${chapterHref(ch)}">${esc(chapterName(ch))}</a></li>`
+      ).join('')}</ol><a class="site-link" href="${href(home.slug)}">${esc(gu.allTopics)}</a></nav>`;
     page({
       lang,
       slugs: pair(l => GUIDE_HOME[l].slug),
@@ -898,60 +1090,88 @@ for (const lang of LANGS) {
       crumbs: [[home.h1]],
       body: c =>
         pageTop(c, home.h1, home.lead, 'bloemenveld') +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose site-guide-home"><nav class="site-guide-jump" aria-label="${esc(gu.chapters)}">${GUIDE_GROUPS.map(
-          gr => `<a href="#${gr.id}">${esc(gr[lang].name)}</a>`
-        ).join('')}</nav>${GUIDE_GROUPS.map(
-          gr =>
-            `<section class="site-guide-group" id="${gr.id}"><h2>${esc(gr[lang].name)}</h2><p>${guideText(gr[lang].intro)}</p><ul class="site-guide-list">${GUIDE.filter(g => g.group === gr.id)
-              .map(g => `<li><a href="${href(g[lang].slug)}">${esc(g[lang].menu)}</a><span>${esc(g[lang].lead)}</span></li>`)
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose site-guide-home"><nav class="site-guide-jump" aria-label="${esc(gu.chapters)}">${GUIDE_CHAPTERS.map(
+          ch => `<a href="#${ch.id}">${esc(chapterName(ch))}</a>`
+        ).join('')}</nav>${GUIDE_CHAPTERS.map(
+          ch =>
+            `<section class="site-guide-group" id="${ch.id}"><h2><a href="${chapterHref(ch)}">${esc(chapterName(ch))}</a></h2><p>${guideText(ch.own ? ch.pages[0][lang].lead : ch.group[lang].intro)}</p><ul class="site-guide-list">${ch.pages
+              .map(g => `<li><a href="${guideHref(g)}">${esc(g[lang].menu)}</a><span>${esc(g[lang].lead)}</span></li>`)
               .join('')}</ul></section>`
-        ).join('')}<section class="site-guide-group"><h2>${esc(RELEASES_PAGE[lang].h1)}</h2><p>${esc(RELEASES_PAGE[lang].lead)} <a href="${href(RELEASES_PAGE[lang].slug)}">${esc(gu.open)}</a></p></section></div></article>`
+        ).join(
+          ''
+        )}<section class="site-guide-group"><h2>${esc(RELEASES_PAGE[lang].h1)}</h2><p>${esc(RELEASES_PAGE[lang].lead)} <a href="${href(RELEASES_PAGE[lang].slug)}">${esc(gu.open)}</a></p></section></div></article>`
     });
-    for (const [n, g] of GUIDE.entries()) {
-      const t = g[lang];
-      const prev = GUIDE[n - 1]?.[lang];
-      const next = GUIDE[n + 1]?.[lang];
-      const gr = groupOf(g);
+    // Titel: "Recepten importeren | Handleiding Savour", met hetzelfde achtervoegsel als de onderwerpen.
+    const suffix = GUIDE_SUFFIX[lang];
+    for (const [n, ch] of GUIDE_CHAPTERS.entries()) {
+      const first = ch.pages[0][lang];
+      const name = chapterName(ch);
+      const intro = ch.own ? first.lead : ch.group[lang].intro;
+      const prev = GUIDE_CHAPTERS[n - 1];
+      const next = GUIDE_CHAPTERS[n + 1];
+      // Wat voor elke app gelijk is (importeren, categorie), staat één keer vóór de apps.
+      const shared = ch.pages.find(g => g.app)?.[lang].sections.filter(s => s[3] === 'shared') || [];
+      const topic = g => {
+        const t = g[lang];
+        const own = t.sections.filter(s => s[3] !== 'shared');
+        // Het eerste onderwerp van Overstappen is het hoofdstuk zelf: de kop en inleiding staan al bovenaan.
+        const head = g === ch.pages[0] && ch.own ? '' : `<h2>${esc(t.h1)}</h2><p class="site-meta">${esc(t.lead)}</p>`;
+        return `<section class="site-guide-topic" id="${g.id}">${head}${own.map(s => guideSection(g, s)).join('')}</section>`;
+      };
+      const firstApp = ch.pages.find(g => g.app);
+      const sharedHtml = shared.length
+        ? `<section class="site-guide-topic">${shared.map(s => guideSection(firstApp, s)).join('')}</section>`
+        : '';
+      const topics = ch.pages.map(g => (g === firstApp ? sharedHtml : '') + topic(g)).join('');
       const onPage =
-        t.sections.length >= 4
-          ? `<nav class="site-guide-onpage" aria-label="${esc(gu.onPage)}"><b>${esc(gu.onPage)}</b>${t.sections.map(([h]) => `<a href="#${anchorId(h)}">${esc(h)}</a>`).join('')}</nav>`
+        ch.pages.length > 1
+          ? `<nav class="site-guide-onpage" aria-label="${esc(gu.onPage)}"><b>${esc(gu.onPage)}</b>${ch.pages
+              .map(
+                g =>
+                  `<a href="${g === ch.pages[0] ? '#' + g.id : guideHref(g).replace(/^[^#]*/, '')}">${esc(g[lang].menu)}</a>`
+              )
+              .join('')}</nav>`
           : '';
-      const related = g.related?.length
-        ? `<aside class="site-guide-related"><h2>${esc(gu.related)}</h2><ul>${g.related
+      // Zie ook: onderwerpen uit andere hoofdstukken waar dit hoofdstuk naar verwijst.
+      const relatedIds = [...new Set(ch.pages.flatMap(g => g.related || []))].filter(id => {
+        if (!GUIDE.some(x => x.id === id)) throw new Error(`Handleiding: onbekende verwante pagina ${id}`);
+        return chapterOf.get(id) !== ch;
+      });
+      const related = relatedIds.length
+        ? `<aside class="site-guide-related"><h2>${esc(gu.related)}</h2><ul>${relatedIds
+            .slice(0, 8)
             .map(id => {
               const to = GUIDE.find(x => x.id === id);
-              if (!to) throw new Error(`Handleiding: onbekende verwante pagina ${id}`);
-              return `<li><a href="${href(to[lang].slug)}">${esc(to[lang].menu)}</a></li>`;
+              return `<li><a href="${guideHref(to)}">${esc(to[lang].menu)}</a></li>`;
             })
             .join('')}</ul></aside>`
         : '';
       page({
         lang,
-        slugs: pair(l => g[l].slug),
-        title: t.title,
-        desc: t.desc,
-        crumbs: [
-          [home.h1, href(home.slug)],
-          [gr[lang].name, `${href(home.slug)}#${gr.id}`]
-        ],
+        slugs: pair(l => ch.pages[0][l].slug),
+        title: `${name} | ${suffix}`,
+        desc: first.desc,
+        crumbs: [[home.h1, href(home.slug)], [name]],
         schema: [
           {
             '@context': 'https://schema.org',
             '@type': 'TechArticle',
-            headline: t.h1,
-            description: t.desc,
+            headline: name,
+            description: first.desc,
             inLanguage: lang,
             about: { '@id': SITE + '/#app' },
             author: ORG,
             publisher: ORG,
-            mainEntityOfPage: url(t.slug)
+            mainEntityOfPage: url(first.slug)
           }
         ],
         body: c =>
-          pageTop(c, t.h1, t.lead, BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
-          `<article class="site-article"><div class="site-wrap site-narrow site-prose">${onPage}${t.sections.map(guideSection).join('')}${related}<nav class="site-guide-pager">${
-            prev ? `<a href="${href(prev.slug)}"><small>← ${esc(gu.prev)}</small>${esc(prev.menu)}</a>` : `<a href="${href(home.slug)}"><small>←</small>${esc(gu.overview)}</a>`
-          }${next ? `<a class="next" href="${href(next.slug)}"><small>${esc(gu.next)} →</small>${esc(next.menu)}</a>` : ''}</nav>${groupNav(g)}</div></article>`
+          pageTop(c, name, intro, BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
+          `<article class="site-article"><div class="site-wrap site-narrow site-prose">${onPage}${topics}${related}<nav class="site-guide-pager">${
+            prev
+              ? `<a href="${chapterHref(prev)}"><small>← ${esc(gu.prev)}</small>${esc(chapterName(prev))}</a>`
+              : `<a href="${href(home.slug)}"><small>←</small>${esc(gu.overview)}</a>`
+          }${next ? `<a class="next" href="${chapterHref(next)}"><small>${esc(gu.next)} →</small>${esc(chapterName(next))}</a>` : ''}</nav>${chapterNav(ch)}</div></article>`
       });
     }
     const rp = RELEASES_PAGE[lang];
@@ -971,6 +1191,29 @@ for (const lang of LANGS) {
   }
 }
 
+// ---- Doorverwijzingen voor de handleiding ----
+// Elk onderwerp staat nu in zijn hoofdstuk. Het oude adres van een losse pagina stuurt (301) door naar dat stuk, en
+// de oude map in site/ gaat weg. Handmatige doorverwijzingen in vercel.json blijven staan.
+{
+  const moves = GUIDE_CHAPTERS.flatMap(ch =>
+    ch.pages
+      .slice(1)
+      .flatMap(g =>
+        Object.keys(GUIDE_HOME).map(l => ({
+          source: href(g[l].slug),
+          destination: `${href(ch.pages[0][l].slug)}#${g.id}`,
+          permanent: true
+        }))
+      )
+  );
+  const file = new URL('vercel.json', ROOT);
+  const config = JSON.parse(fs.readFileSync(file, 'utf8'));
+  const sources = new Set(moves.map(m => m.source));
+  config.redirects = [...config.redirects.filter(r => !sources.has(r.source)), ...moves];
+  fs.writeFileSync(file, JSON.stringify(config, null, 2) + '\n', 'utf8');
+  for (const m of moves) fs.rmSync(new URL(`site${m.source}/`, ROOT), { recursive: true, force: true });
+}
+
 // ---- Startpagina per taal ----
 // index.html (savour.page/) krijgt alleen de Nederlandse startpagina. Voor /en, /de en /es maken we een kopie van
 // index.html met de startpagina, titel, beschrijving en vragen in die taal: site/index-en.html enz.
@@ -980,28 +1223,32 @@ const HOME_META = {
     title: 'Savour — recipe app for chefs: organise and share recipes',
     desc: 'Organise all your recipes in one app: import from Word, PDF and handwritten notes, share with your kitchen team and print whole folders. Free to try.',
     ogTitle: 'Savour — recipe management for professional kitchens',
-    ogDesc: 'From scribbled note to a recipe that works. Your whole recipe book in one place, on computer and phone, shared with your kitchen team.',
+    ogDesc:
+      'From scribbled note to a recipe that works. Your whole recipe book in one place, on computer and phone, shared with your kitchen team.',
     locale: 'en_GB'
   },
   de: {
-    title: 'Savour — Rezept-App für Köche: Rezepte organisieren und teilen',
-    desc: 'Organisiere alle Rezepte in einer App: aus Word, PDF und handschriftlichen Notizen importieren, mit dem Küchenteam teilen und ganze Ordner drucken. Kostenlos testen.',
+    title: 'Savour — Rezepturverwaltung für Köche: Rezepte organisieren und teilen',
+    desc: 'Rezepturverwaltung für Restaurant und Großküche: alle Rezepte aus Word, PDF und handschriftlichen Notizen importieren, mit dem Küchenteam teilen und ganze Ordner drucken.',
     ogTitle: 'Savour — Rezeptverwaltung für Profiküchen',
-    ogDesc: 'Von der Notiz zum Rezept, das stimmt. Dein ganzes Rezeptbuch an einem Ort, auf Computer und Handy, geteilt mit deinem Küchenteam.',
+    ogDesc:
+      'Von der Notiz zum Rezept, das stimmt. Dein ganzes Rezeptbuch an einem Ort, auf Computer und Handy, geteilt mit deinem Küchenteam.',
     locale: 'de_DE'
   },
   es: {
     title: 'Savour — app de recetas para chefs: organiza y comparte recetas',
     desc: 'Organiza todas tus recetas en una app: importa de Word, PDF y notas a mano, compártelas con tu equipo de cocina e imprime carpetas enteras. Pruébalo gratis.',
     ogTitle: 'Savour — gestión de recetas para cocinas profesionales',
-    ogDesc: 'De la nota a una receta que funciona. Todo tu recetario en un solo sitio, en ordenador y móvil, compartido con tu equipo de cocina.',
+    ogDesc:
+      'De la nota a una receta que funciona. Todo tu recetario en un solo sitio, en ordenador y móvil, compartido con tu equipo de cocina.',
     locale: 'es_ES'
   },
   fr: {
     title: 'Savour — application de recettes pour chefs : organiser et partager',
-    desc: "Organise toutes tes recettes dans une application : importe Word, PDF et notes manuscrites, partage-les avec ton équipe et imprime des dossiers entiers.",
+    desc: 'Organise toutes tes recettes dans une application : importe Word, PDF et notes manuscrites, partage-les avec ton équipe et imprime des dossiers entiers.',
     ogTitle: 'Savour — gestion des recettes pour cuisines professionnelles',
-    ogDesc: 'De la note griffonnée à la recette qui fonctionne. Tout ton livre de recettes au même endroit, sur ordinateur et téléphone, partagé avec ton équipe de cuisine.',
+    ogDesc:
+      'De la note griffonnée à la recette qui fonctionne. Tout ton livre de recettes au même endroit, sur ordinateur et téléphone, partagé avec ton équipe de cuisine.',
     locale: 'fr_FR'
   }
 };
@@ -1032,7 +1279,11 @@ const HOME_META = {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
         inLanguage: lang,
-        mainEntity: HOME[lang].faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }))
+        mainEntity: HOME[lang].faq.map(([q, a]) => ({
+          '@type': 'Question',
+          name: q,
+          acceptedAnswer: { '@type': 'Answer', text: a }
+        }))
       };
       const i = list.findIndex(x => x['@type'] === 'FAQPage');
       if (i >= 0) list[i] = faq;
@@ -1066,12 +1317,22 @@ const HOME_META = {
     swap(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(fitDesc(m.desc))}">`);
     swap(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${home}">`);
     swap(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${esc(m.ogTitle)}">`);
-    if (lang === 'en') swap(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${SITE}/assets/savour-og-en.png?v=2">`);
-    swap(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${esc(m.ogDesc)}">`);
+    if (lang === 'en')
+      swap(
+        /<meta property="og:image" content="[^"]*">/,
+        `<meta property="og:image" content="${SITE}/assets/savour-og-en.png?v=2">`
+      );
+    swap(
+      /<meta property="og:description" content="[^"]*">/,
+      `<meta property="og:description" content="${esc(m.ogDesc)}">`
+    );
     swap(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${home}">`);
     swap(/<meta property="og:locale" content="[^"]*">/, `<meta property="og:locale" content="${m.locale}">`);
     x = withFaq(x, lang);
-    x = x.replace('<!doctype html>', `<!doctype html>\n<!-- Gemaakt door tools/build-seo.mjs uit index.html: startpagina in het ${lang.toUpperCase()}. Niet met de hand aanpassen. -->`);
+    x = x.replace(
+      '<!doctype html>',
+      `<!doctype html>\n<!-- Gemaakt door tools/build-seo.mjs uit index.html: startpagina in het ${lang.toUpperCase()}. Niet met de hand aanpassen. -->`
+    );
     fs.writeFileSync(new URL(`site/index-${lang}.html`, ROOT), x, 'utf8');
   }
 }
@@ -1145,17 +1406,33 @@ const lastmod = (loc, file, onlySite) => {
   if (dates[loc]?.hash !== print) dates[loc] = { hash: print, date: today };
   return dates[loc].date;
 };
-const homeAlts = [['nl', SITE + '/'], ['en', SITE + '/en'], ['de', SITE + '/de'], ['es', SITE + '/es'], ['fr', SITE + '/fr'], ['x-default', SITE + '/']];
+const homeAlts = [
+  ['nl', SITE + '/'],
+  ['en', SITE + '/en'],
+  ['de', SITE + '/de'],
+  ['es', SITE + '/es'],
+  ['fr', SITE + '/fr'],
+  ['x-default', SITE + '/']
+];
 const entry = (loc, alts, priority, date) =>
   `  <url><loc>${loc}</loc>${alts.map(([l, h]) => `<xhtml:link rel="alternate" hreflang="${l}" href="${h}"/>`).join('')}<lastmod>${date}</lastmod><priority>${priority}</priority></url>`;
-const low = /\/((en|de|es|fr)\/)?(voorwaarden|terms|privacy|contact|agb|datenschutz|kontakt|terminos|privacidad|contacto|conditions|confidentialite)$/;
+const low =
+  /\/((en|de|es|fr)\/)?(voorwaarden|terms|privacy|contact|agb|datenschutz|kontakt|terminos|privacidad|contacto|conditions|confidentialite)$/;
 const urls = [
-  ...homeAlts.slice(0, 5).map(([l, h], n) => entry(h, homeAlts, n ? '0.8' : '1.0', lastmod(h, l === 'nl' ? 'index.html' : `site/index-${l}.html`, true))),
+  ...homeAlts
+    .slice(0, 5)
+    .map(([l, h], n) =>
+      entry(h, homeAlts, n ? '0.8' : '1.0', lastmod(h, l === 'nl' ? 'index.html' : `site/index-${l}.html`, true))
+    ),
   ...sitemap.map(s => entry(s.loc, s.alternates, low.test(s.loc) ? '0.3' : '0.7', lastmod(s.loc, s.file)))
 ];
 fs.writeFileSync(
   DATES_FILE,
-  JSON.stringify(Object.fromEntries(Object.entries(dates).filter(([loc]) => urls.some(u => u.includes(`<loc>${loc}</loc>`)))), null, 1) + '\n',
+  JSON.stringify(
+    Object.fromEntries(Object.entries(dates).filter(([loc]) => urls.some(u => u.includes(`<loc>${loc}</loc>`)))),
+    null,
+    1
+  ) + '\n',
   'utf8'
 );
 fs.writeFileSync(

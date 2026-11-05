@@ -82,7 +82,11 @@ export const GUIDE_GROUPS = [...MODULES.map(m => m.group), tips.helpGroup].map(g
   return out;
 });
 
-const SUFFIX = { nl: 'Handleiding Savour', en: 'Savour user guide', ...Object.fromEntries(Object.entries(TALEN).map(([l, t]) => [l, t.titleSuffix])) };
+export const GUIDE_SUFFIX = {
+  nl: 'Handleiding Savour',
+  en: 'Savour user guide',
+  ...Object.fromEntries(Object.entries(TALEN).map(([l, t]) => [l, t.titleSuffix]))
+};
 
 const withDefaults = (p, group) => {
   const out = { ...p, group: p.group || group };
@@ -96,10 +100,10 @@ const withDefaults = (p, group) => {
       out[lang] = o.pages[p.id];
     }
   }
-  for (const lang of Object.keys(SUFFIX)) {
+  for (const lang of Object.keys(GUIDE_SUFFIX)) {
     const t = { ...out[lang] };
     t.h1 ||= t.menu;
-    t.title ||= `${t.h1} | ${SUFFIX[lang]}`;
+    t.title ||= `${t.h1} | ${GUIDE_SUFFIX[lang]}`;
     out[lang] = t;
   }
   return out;
@@ -108,6 +112,19 @@ const withDefaults = (p, group) => {
 export const GUIDE = GUIDE_GROUPS.flatMap(gr =>
   MODULES.flatMap(m => m.pages.map(p => withDefaults(p, m.group.id))).filter(p => p.group === gr.id)
 );
+
+// Hoofdstukken op de site: elk onderdeel is één pagina met de onderwerpen als kopjes, zodat er geen honderd korte
+// pagina's zijn die op elkaar lijken. Overstappen uit een andere app is een eigen hoofdstuk. De eerste pagina van een
+// hoofdstuk geeft het adres; de oude adressen van de andere pagina's sturen door (vercel.json, via build-seo).
+const MOVING = g => g.app || g.id === 'overstappen' || g.id === 'import-pepperplate';
+export const GUIDE_CHAPTERS = GUIDE_GROUPS.flatMap(gr => {
+  const pages = GUIDE.filter(g => g.group === gr.id);
+  if (gr.id !== 'importeren') return [{ id: gr.id, group: gr, pages }];
+  return [
+    { id: gr.id, group: gr, pages: pages.filter(g => !MOVING(g)) },
+    { id: 'overstappen', group: gr, pages: pages.filter(MOVING), own: true }
+  ];
+});
 
 // Release notes: nieuwste bovenaan. Alleen wat gebruikers merken; versienummer major.minor.patch.
 export const RELEASES_PAGE = {

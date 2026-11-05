@@ -53,25 +53,55 @@ export const DE = {
       h1: 'Rezepte digitalisieren, ohne abzutippen',
       lead: 'Deine Rezepthefte, Word-Dateien und Notizen mit Kaffeeflecken werden in einem Schritt zu einem geordneten Rezeptbuch.',
       sections: [
-        ['Word und PDF auf einmal', 'Zieh eine Word-Datei oder ein PDF in Savour, auch wenn Hunderte Rezepte darin stehen. Der Savour-Leser erkennt, wo jedes Rezept beginnt und endet, und setzt Titel, Zutaten und Zubereitung an die richtige Stelle. Nummern vor Titeln und kleine Tippfehler wie 18oc statt 180 °C werden bereinigt. Ein Koch hat so 1.400 Rezepte in etwa zwei Minuten importiert.'],
-        ['Handschriftliche Rezepte und Fotos', 'Mach ein Foto von einer Notiz, einer Seite aus deinem Heft oder einem Scan aus einem alten Ordner. Die KI liest die Handschrift und macht daraus ein sauberes Rezept, auch wenn das Foto schief ist oder das Papier Flecken hat. Das ist Teil von Savour Pro.'],
-        [ "Ordnung in großen, chaotischen Rezeptordnern", "Ein Ordner mit Hunderten Rezepten verschiedener Köche, mit Nummern, losen Überschriften und Rezepten, die mitten auf einer Seite beginnen? Savour trennt sie selbst auf, erkennt Bestandteile wie Teig und Füllung, korrigiert häufige Schreibfehler und schlägt für jedes Rezept eine Kategorie vor. Rezepte, bei denen der Leser unsicher ist, liest die KI mit Savour Pro noch einmal. Du prüfst alles in einer Übersicht, bevor es gespeichert wird." ],
-        ['Nichts wird erfunden', 'Ein Rezept muss stimmen. Savour erfindet nie Mengen, Zutaten oder Schritte. Ist sich der Leser unsicher, wird das Rezept markiert und du prüfst es selbst, bevor es gespeichert wird.'],
-        ["Von einer Website oder aus einer anderen App","Füge den Link zu einem Rezept auf einer Website ein, und Savour holt das Rezept heraus. Du wechselst von einer anderen Rezept-App wie Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That oder Plan to Eat? Erstelle dort einen Export und übertrage die Datei auf einmal in Savour."],
-        ['Dann einfach weiterarbeiten', 'Jedes importierte Rezept kannst du bearbeiten, mit einem Foto versehen, in einen Ordner legen und mit deiner Brigade teilen.']
+        [
+          'Word und PDF auf einmal',
+          'Zieh eine Word-Datei oder ein PDF in Savour, auch wenn Hunderte Rezepte darin stehen. Der Savour-Leser erkennt, wo jedes Rezept beginnt und endet, und setzt Titel, Zutaten und Zubereitung an die richtige Stelle. Nummern vor Titeln und kleine Tippfehler wie 18oc statt 180 °C werden bereinigt. Ein Koch hat so 1.400 Rezepte in etwa zwei Minuten importiert.'
+        ],
+        [
+          'Handschriftliche Rezepte und Fotos',
+          'Mach ein Foto von einer Notiz, einer Seite aus deinem Heft oder einem Scan aus einem alten Ordner. Die KI liest die Handschrift und macht daraus ein sauberes Rezept, auch wenn das Foto schief ist oder das Papier Flecken hat. Das ist Teil von Savour Pro.'
+        ],
+        [
+          'Ordnung in großen, chaotischen Rezeptordnern',
+          'Ein Ordner mit Hunderten Rezepten verschiedener Köche, mit Nummern, losen Überschriften und Rezepten, die mitten auf einer Seite beginnen? Savour trennt sie selbst auf, erkennt Bestandteile wie Teig und Füllung, korrigiert häufige Schreibfehler und schlägt für jedes Rezept eine Kategorie vor. Rezepte, bei denen der Leser unsicher ist, liest die KI mit Savour Pro noch einmal. Du prüfst alles in einer Übersicht, bevor es gespeichert wird.'
+        ],
+        [
+          'Nichts wird erfunden',
+          'Ein Rezept muss stimmen. Savour erfindet nie Mengen, Zutaten oder Schritte. Ist sich der Leser unsicher, wird das Rezept markiert und du prüfst es selbst, bevor es gespeichert wird.'
+        ],
+        [
+          'Von einer Website oder aus einer anderen App',
+          'Füge den Link zu einem Rezept auf einer Website ein, und Savour holt das Rezept heraus. Du wechselst von einer anderen Rezept-App wie Paprika, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That oder Plan to Eat? Erstelle dort einen Export und übertrage die Datei auf einmal in Savour.'
+        ],
+        [
+          'Dann einfach weiterarbeiten',
+          'Jedes importierte Rezept kannst du bearbeiten, mit einem Foto versehen, in einen Ordner legen und mit deiner Brigade teilen.'
+        ]
       ]
     },
     organise: {
       slug: 'de/rezepte-organisieren',
-      title: 'Rezepte organisieren: Rezeptverwaltung für die Gastronomie | Savour',
-      desc: 'Rezeptverwaltung für Restaurants und Gastronomie: alle Rezepturen in einem Rezeptbuch, mit eigenen Ordnern und Kategorien, Suche nach Zutat und Favoriten.',
+      title: 'Rezepte organisieren: Rezepturverwaltung für die Gastronomie | Savour',
+      desc: 'Rezepturverwaltung für Restaurants, Gastronomie und Großküche: alle Rezepturen in einem Rezeptbuch, mit eigenen Ordnern und Kategorien, Suche nach Zutat und Favoriten.',
       h1: 'Rezepte so organisieren, wie deine Küche arbeitet',
       lead: 'Ein Rezeptbuch für alles, was du je gekocht hast, geordnet nach deiner Art.',
       sections: [
-        ['Deine Struktur', 'Saucen, Fonds, Garnituren, Patisserie, das Degustationsmenü dieser Saison. Du legst die Ordner und Kategorien an. Ein Rezept kann in mehreren Ordnern stehen, deine Jus gehört also sowohl zu den Fonds als auch zum Lammgang.'],
-        ['Suchen nach dem, was du noch weißt', 'Du weißt nur noch, dass Yuzu drin war? Savour durchsucht Titel, Zutaten und Zubereitung. Oder blättere von A bis Z durch dein ganzes Buch.'],
-        ['Ruhig und schnell', 'Keine überladenen Bildschirme. Eine Liste mit Titeln, ein Stern für deine Favoriten und ein Tippen zum Rezept. Gemacht zum Nachschlagen mitten im Service.'],
-        ['Auf jedem Gerät', 'Am Computer ordnen und importieren, in der Küche Handy oder Tablet mit großer Schrift im Kochmodus. Nichts zu installieren.']
+        [
+          'Deine Struktur',
+          'Saucen, Fonds, Garnituren, Patisserie, das Degustationsmenü dieser Saison. Du legst die Ordner und Kategorien an. Ein Rezept kann in mehreren Ordnern stehen, deine Jus gehört also sowohl zu den Fonds als auch zum Lammgang.'
+        ],
+        [
+          'Suchen nach dem, was du noch weißt',
+          'Du weißt nur noch, dass Yuzu drin war? Savour durchsucht Titel, Zutaten und Zubereitung. Oder blättere von A bis Z durch dein ganzes Buch.'
+        ],
+        [
+          'Ruhig und schnell',
+          'Keine überladenen Bildschirme. Eine Liste mit Titeln, ein Stern für deine Favoriten und ein Tippen zum Rezept. Gemacht zum Nachschlagen mitten im Service.'
+        ],
+        [
+          'Auf jedem Gerät',
+          'Am Computer ordnen und importieren, in der Küche Handy oder Tablet mit großer Schrift im Kochmodus. Nichts zu installieren.'
+        ]
       ]
     },
     share: {
@@ -81,10 +111,22 @@ export const DE = {
       h1: 'Rezepte mit deiner Brigade teilen',
       lead: 'Alle in der Küche arbeiten mit derselben Version. Keine Fotos von Fotos mehr im Gruppenchat.',
       sections: [
-        ['Küchenteams', 'Lege einen Ordner für deine Küche, deinen Posten oder das neue Menü an und lade dein Team ein. Was du änderst, sehen alle sofort.'],
-        ['Rechte pro Person', 'Du verwaltest den Ordner. Dein Sous-Chef oder Chef de Partie kann Rezepte hinzufügen und bearbeiten. Commis und Praktikanten können lesen, aber nichts ändern.'],
-        ['Neue Leute schneller eingearbeitet', 'Ein neuer Koch hat am ersten Tag alle Rezepte des Postens auf dem Handy, in der Version, die du freigegeben hast.'],
-        ['Einzelne Rezepte teilen', 'Willst du ein Rezept verschicken, etwa an einen Kollegen in einem anderen Restaurant? Teile es mit einem Link.']
+        [
+          'Küchenteams',
+          'Lege einen Ordner für deine Küche, deinen Posten oder das neue Menü an und lade dein Team ein. Was du änderst, sehen alle sofort.'
+        ],
+        [
+          'Rechte pro Person',
+          'Du verwaltest den Ordner. Dein Sous-Chef oder Chef de Partie kann Rezepte hinzufügen und bearbeiten. Commis und Praktikanten können lesen, aber nichts ändern.'
+        ],
+        [
+          'Neue Leute schneller eingearbeitet',
+          'Ein neuer Koch hat am ersten Tag alle Rezepte des Postens auf dem Handy, in der Version, die du freigegeben hast.'
+        ],
+        [
+          'Einzelne Rezepte teilen',
+          'Willst du ein Rezept verschicken, etwa an einen Kollegen in einem anderen Restaurant? Teile es mit einem Link.'
+        ]
       ]
     },
     scale: {
@@ -94,10 +136,22 @@ export const DE = {
       h1: 'Rezepte auf jede Menge hochrechnen',
       lead: 'Von einer Verkostung für 8 bis zum Dinner für 120, ohne Taschenrechner und ohne Fehler.',
       sections: [
-        ['In einem Schritt umrechnen', 'Gib die Menge ein, die du brauchst, und Savour rechnet jede Zutat um. Das Originalrezept bleibt, wie es ist.'],
-        ["Versteht Einheiten","Savour weiß, dass 3 Teelöffel ein Esslöffel sind und 1000 Gramm ein Kilo. 20 Teelöffel werden 6 ⅔ Esslöffel, und Löffel und Cups bleiben saubere Brüche statt langer Dezimalzahlen. Auch ohne Ausbeute rechnest du mit einem Tippen um: ½×, 2×, 3× oder 4×."],
-        ['Rechnen in Stück', 'Ein Rezept ergibt 50 Brownies und du brauchst 1.000 für eine Veranstaltung? Gib die Stückzahl ein und du siehst sofort, was du abwiegen musst.'],
-        ['Bereit für die Mise en place', 'Drucke das umgerechnete Rezept direkt aus oder öffne es auf dem Handy im Kochmodus.']
+        [
+          'In einem Schritt umrechnen',
+          'Gib die Menge ein, die du brauchst, und Savour rechnet jede Zutat um. Das Originalrezept bleibt, wie es ist.'
+        ],
+        [
+          'Versteht Einheiten',
+          'Savour weiß, dass 3 Teelöffel ein Esslöffel sind und 1000 Gramm ein Kilo. 20 Teelöffel werden 6 ⅔ Esslöffel, und Löffel und Cups bleiben saubere Brüche statt langer Dezimalzahlen. Auch ohne Ausbeute rechnest du mit einem Tippen um: ½×, 2×, 3× oder 4×.'
+        ],
+        [
+          'Rechnen in Stück',
+          'Ein Rezept ergibt 50 Brownies und du brauchst 1.000 für eine Veranstaltung? Gib die Stückzahl ein und du siehst sofort, was du abwiegen musst.'
+        ],
+        [
+          'Bereit für die Mise en place',
+          'Drucke das umgerechnete Rezept direkt aus oder öffne es auf dem Handy im Kochmodus.'
+        ]
       ]
     },
     print: {
@@ -107,39 +161,51 @@ export const DE = {
       h1: 'Rezepte drucken',
       lead: 'Drucke ein Rezept für die Wand oder einen kompletten Rezeptordner für den Ordner. Schnell, sauber und immer die Version, die stimmt.',
       sections: [
-        ['Ein einzelnes Rezept drucken', 'Öffne ein Rezept und wähle Drucken. Du bekommst eine ruhige Seite mit Titel, Ausbeute, Zutaten und Zubereitung. Hast du das Rezept hochgerechnet, zum Beispiel auf 40 Gedecke, druckst du genau diese Mengen.'],
-        ['Einen kompletten Rezeptordner drucken', 'Alle Eisrezepte sollen in den Ordner der Patisserie? Öffne den Ordner und drucke ihn auf einmal: jedes Rezept auf einer eigenen Seite, in der Reihenfolge deines Ordners. Nie mehr fünfzig Dateien einzeln.'],
+        [
+          'Ein einzelnes Rezept drucken',
+          'Öffne ein Rezept und wähle Drucken. Du bekommst eine ruhige Seite mit Titel, Ausbeute, Zutaten und Zubereitung. Hast du das Rezept hochgerechnet, zum Beispiel auf 40 Gedecke, druckst du genau diese Mengen.'
+        ],
+        [
+          'Einen kompletten Rezeptordner drucken',
+          'Alle Eisrezepte sollen in den Ordner der Patisserie? Öffne den Ordner und drucke ihn auf einmal: jedes Rezept auf einer eigenen Seite, in der Reihenfolge deines Ordners. Nie mehr fünfzig Dateien einzeln.'
+        ],
         ['Ruhiges Layout', 'Groß und übersichtlich. Lesbar aus einem Meter Entfernung, auch mit einem Fleck darauf.'],
-        ['Immer die neueste Version', 'Weil du aus Savour druckst, hängt immer die Version an der Wand, die jetzt stimmt. Unten steht das Druckdatum, damit du siehst, ob ein Ordner noch aktuell ist.'],
-        ['Mit dem Logo deines Restaurants', 'Mit Savour Pro stehen Logo und Name deines Restaurants oben auf jeder Seite. In einer Organisation gilt das Logo für alle. Wähle A4 für den Ordner oder A5 für eine kleine Mappe am Pass.']
+        [
+          'Immer die neueste Version',
+          'Weil du aus Savour druckst, hängt immer die Version an der Wand, die jetzt stimmt. Unten steht das Druckdatum, damit du siehst, ob ein Ordner noch aktuell ist.'
+        ],
+        [
+          'Mit dem Logo deines Restaurants',
+          'Mit Savour Pro stehen Logo und Name deines Restaurants oben auf jeder Seite. In einer Organisation gilt das Logo für alle. Wähle A4 für den Ordner oder A5 für eine kleine Mappe am Pass.'
+        ]
       ]
     },
     cloud: {
-      "slug": "de/rezeptdatenbank",
-      "title": "Rezeptdatenbank und Rezeptarchiv in der Cloud, auch offline | Savour",
-      "desc": "Savour ist deine Rezeptdatenbank und dein Rezeptarchiv in der Cloud: alle Rezepturen sicher online gespeichert, auf Computer, Tablet und Handy, und in der Küche auch ohne Internet abrufbar.",
-      "h1": "Deine Rezeptdatenbank, online und offline",
-      "lead": "Alle Rezepte an einem sicheren Ort in der Cloud. Auf jedem Gerät, auch wenn im Kühlhaus das WLAN ausfällt.",
-      "sections": [
+      slug: 'de/rezeptdatenbank',
+      title: 'Rezeptdatenbank und Rezeptarchiv in der Cloud, auch offline | Savour',
+      desc: 'Savour ist deine Rezeptdatenbank und dein Rezeptarchiv in der Cloud: alle Rezepturen sicher online gespeichert, auf Computer, Tablet und Handy, und in der Küche auch ohne Internet abrufbar.',
+      h1: 'Deine Rezeptdatenbank, online und offline',
+      lead: 'Alle Rezepte an einem sicheren Ort in der Cloud. Auf jedem Gerät, auch wenn im Kühlhaus das WLAN ausfällt.',
+      sections: [
         [
-          "Eine Rezeptdatenbank in der Cloud",
-          "Alle Rezepturen stehen an einem Ort in der Cloud, nicht mehr verstreut über Laptops, Handys und USB-Sticks. Geht dein Handy kaputt oder bekommst du einen neuen Laptop, meldest du dich an und alles ist wieder da. Was du am Computer änderst, siehst du sofort auf dem Handy."
+          'Eine Rezeptdatenbank in der Cloud',
+          'Alle Rezepturen stehen an einem Ort in der Cloud, nicht mehr verstreut über Laptops, Handys und USB-Sticks. Geht dein Handy kaputt oder bekommst du einen neuen Laptop, meldest du dich an und alles ist wieder da. Was du am Computer änderst, siehst du sofort auf dem Handy.'
         ],
         [
-          "Auf jedem Gerät",
-          "Am Computer importierst und ordnest du, in der Küche öffnest du dasselbe Rezept auf Handy oder Tablet. Savour läuft im Browser und kommt ohne App Store auf deinen Startbildschirm: auf iPhone, Android, Tablet und Computer."
+          'Auf jedem Gerät',
+          'Am Computer importierst und ordnest du, in der Küche öffnest du dasselbe Rezept auf Handy oder Tablet. Savour läuft im Browser und kommt ohne App Store auf deinen Startbildschirm: auf iPhone, Android, Tablet und Computer.'
         ],
         [
-          "Auch offline",
-          "Im Kühlhaus, im Keller oder auf einer Veranstaltung fällt das WLAN oft aus. Hast du Savour einmal mit Internet geöffnet, ist deine Bibliothek auf deinem Gerät gespeichert und du öffnest deine Rezepte auch ohne Verbindung. Bearbeiten geht wieder, sobald du online bist."
+          'Auch offline',
+          'Im Kühlhaus, im Keller oder auf einer Veranstaltung fällt das WLAN oft aus. Hast du Savour einmal mit Internet geöffnet, ist deine Bibliothek auf deinem Gerät gespeichert und du öffnest deine Rezepte auch ohne Verbindung. Bearbeiten geht wieder, sobald du online bist.'
         ],
         [
-          "Ein Archiv, das bleibt",
-          "Alte Saisonmenüs, Rezepte eines früheren Küchenchefs, das Degustationsmenü von vor drei Jahren: In Savour geht nichts verloren. Leg sie in einen Archivordner und sie bleiben durchsuchbar. Kündigst du Pro, bleiben alle deine Rezepte erhalten."
+          'Ein Archiv, das bleibt',
+          'Alte Saisonmenüs, Rezepte eines früheren Küchenchefs, das Degustationsmenü von vor drei Jahren: In Savour geht nichts verloren. Leg sie in einen Archivordner und sie bleiben durchsuchbar. Kündigst du Pro, bleiben alle deine Rezepte erhalten.'
         ],
         [
-          "Sicher und deins",
-          "Deine Rezepte sind nur für dich sichtbar und für die Personen, die du in ein Küchenteam einlädst; sie werden pro Konto getrennt gespeichert. Mit Savour Pro lädst du dein ganzes Rezeptbuch jederzeit herunter, als Word-Dateien oder als Backup."
+          'Sicher und deins',
+          'Deine Rezepte sind nur für dich sichtbar und für die Personen, die du in ein Küchenteam einlädst; sie werden pro Konto getrennt gespeichert. Mit Savour Pro lädst du dein ganzes Rezeptbuch jederzeit herunter, als Word-Dateien oder als Backup.'
         ]
       ]
     },
@@ -151,10 +217,22 @@ export const DE = {
       h1: 'Woran wir arbeiten',
       lead: 'Savour wächst mit der Küche. Das steht auf der Roadmap. Fehlt dir etwas? Sag es uns.',
       sections: [
-        ['Kosten pro Rezept', 'Sieh, was jedes Gericht und jede Portion kostet und was passiert, wenn sich der Preis eines Produkts ändert.'],
-        ['Allergene auf einen Blick', 'Pro Rezept und pro zusammengesetztem Gericht, damit du die Frage eines Gastes sofort am Tisch beantworten kannst.'],
-        ['Verlauf jedes Rezepts', 'Sieh, wer was in einem geteilten Rezept geändert hat, und stelle bei Bedarf eine frühere Version wieder her.'],
-        ['Eine App für iPhone und Android', 'Savour läuft jetzt im Browser auf jedem Gerät. Eine eigene App ziehen wir in Betracht, und deine Meinung zählt.']
+        [
+          'Kosten pro Rezept',
+          'Sieh, was jedes Gericht und jede Portion kostet und was passiert, wenn sich der Preis eines Produkts ändert.'
+        ],
+        [
+          'Allergene auf einen Blick',
+          'Pro Rezept und pro zusammengesetztem Gericht, damit du die Frage eines Gastes sofort am Tisch beantworten kannst.'
+        ],
+        [
+          'Verlauf jedes Rezepts',
+          'Sieh, wer was in einem geteilten Rezept geändert hat, und stelle bei Bedarf eine frühere Version wieder her.'
+        ],
+        [
+          'Eine App für iPhone und Android',
+          'Savour läuft jetzt im Browser auf jedem Gerät. Eine eigene App ziehen wir in Betracht, und deine Meinung zählt.'
+        ]
       ]
     }
   },
@@ -166,10 +244,22 @@ export const DE = {
       h1: 'Für Köche',
       lead: 'Ob du die Küche leitest, die Saucen machst oder in der Patisserie arbeitest: Deine Rezepte müssen stimmen und schnell zu finden sein.',
       sections: [
-        ['Deine Rezepte, ein Ort', 'Saisonmenüs, Degustationsmenüs, Grundrezepte von vor Jahren. In Savour steht alles in einem Rezeptbuch, geordnet so, wie du arbeitest.'],
-        ['Genau, aufs Gramm', 'In der Patisserie ist ein Rezept eine Formel. Savour bewahrt deine Rezepte genau so, wie du sie geschrieben hast, und erfindet nie Mengen. Ist der Leser beim Import unsicher, prüfst du es selbst.'],
-        ['Hochrechnen nach Gedecken und Stück', 'Von einer Verkostung für 8 bis zum Dinner für 120, oder von 50 Pralinen auf 800. Savour rechnet alles um.'],
-        ['Dein Wissen bleibt', 'Was du über Jahre aufgebaut hast, steht nicht mehr nur in einem Heft oder in deinem Kopf. Es bleibt, auch wenn du die Küche wechselst.']
+        [
+          'Deine Rezepte, ein Ort',
+          'Saisonmenüs, Degustationsmenüs, Grundrezepte von vor Jahren. In Savour steht alles in einem Rezeptbuch, geordnet so, wie du arbeitest.'
+        ],
+        [
+          'Genau, aufs Gramm',
+          'In der Patisserie ist ein Rezept eine Formel. Savour bewahrt deine Rezepte genau so, wie du sie geschrieben hast, und erfindet nie Mengen. Ist der Leser beim Import unsicher, prüfst du es selbst.'
+        ],
+        [
+          'Hochrechnen nach Gedecken und Stück',
+          'Von einer Verkostung für 8 bis zum Dinner für 120, oder von 50 Pralinen auf 800. Savour rechnet alles um.'
+        ],
+        [
+          'Dein Wissen bleibt',
+          'Was du über Jahre aufgebaut hast, steht nicht mehr nur in einem Heft oder in deinem Kopf. Es bleibt, auch wenn du die Küche wechselst.'
+        ]
       ]
     },
     brigade: {
@@ -179,10 +269,22 @@ export const DE = {
       h1: 'Für Küchenbrigaden',
       lead: 'Vom Chef de Partie bis zum Praktikanten: Dein ganzes Küchenteam kocht nach demselben Rezept, in jedem Restaurant, das du führst.',
       sections: [
-        ['Eine Version für alle', 'Passe eine Sauce für das neue Menü an, und alle im Küchenteam arbeiten sofort mit der neuen Version.'],
-        ['Rechte pro Person', 'Du verwaltest den Ordner. Dein Sous-Chef oder Chef de Partie kann Rezepte hinzufügen und bearbeiten. Commis und Praktikanten können lesen, aber nichts ändern.'],
-        ['Auf dem eigenen Handy', 'Kein gemeinsamer Ordner voller Flecken mehr. Jedes Mitglied der Brigade öffnet die Rezepte des Postens auf dem eigenen Handy, mit großer Schrift im Kochmodus.'],
-        ['Neue Leute schneller eingearbeitet', 'Praktikanten und neue Köche lesen, wie es hier gemacht wird, statt im Service fragen zu müssen. Mitglied eines Küchenteams zu sein ist kostenlos; mit einem Team-Abo hat jeder Savour Pro.']
+        [
+          'Eine Version für alle',
+          'Passe eine Sauce für das neue Menü an, und alle im Küchenteam arbeiten sofort mit der neuen Version.'
+        ],
+        [
+          'Rechte pro Person',
+          'Du verwaltest den Ordner. Dein Sous-Chef oder Chef de Partie kann Rezepte hinzufügen und bearbeiten. Commis und Praktikanten können lesen, aber nichts ändern.'
+        ],
+        [
+          'Auf dem eigenen Handy',
+          'Kein gemeinsamer Ordner voller Flecken mehr. Jedes Mitglied der Brigade öffnet die Rezepte des Postens auf dem eigenen Handy, mit großer Schrift im Kochmodus.'
+        ],
+        [
+          'Neue Leute schneller eingearbeitet',
+          'Praktikanten und neue Köche lesen, wie es hier gemacht wird, statt im Service fragen zu müssen. Mitglied eines Küchenteams zu sein ist kostenlos; mit einem Team-Abo hat jeder Savour Pro.'
+        ]
       ]
     }
   },
@@ -193,241 +295,315 @@ export const DE = {
     h1: 'Die Geschichte hinter Savour',
     lead: 'Savour wurde von einem Koch gebaut, nicht von einer Softwarefirma. Aus Frust über Rezepte, die überall waren, nur nicht da, wo man sie brauchte.',
     chapters: [
-      ['Fünfzehn Jahre Rezepte auf losen Zetteln', ['Der Koch hinter Savour steht seit fünfzehn Jahren in der Küche. Die ganze Zeit waren die Rezepte ein Durcheinander: Zettel mit Kaffeeflecken, Fotos auf verschiedenen Handys, von denen manche kaputtgingen, bevor die Rezepte gesichert waren, und Word-Dokumente verstreut über Ordner und Laptops.', 'Das Schwierigste war nicht einmal das Durcheinander selbst, sondern dass nichts an einem Ort war. Genau dann, wenn man ein Rezept brauchte, mitten in der Mise en place oder kurz vor dem Service, war es nirgends zu finden.']],
-      ['Fünfzigmal auf Drucken klicken', ['Als Küchenchef gibst du fast jedes Rezept an deine Köche weiter. Als endlich alles in einzelnen Word-Dateien stand, kam das nächste Problem: Der Service musste sie einzeln ausdrucken, weil es keine Möglichkeit gab, fünfzig auf einmal zu drucken.', 'Irgendwo zwischen diesen Papierstapeln entstand die Frage, mit der Savour begann: Warum gibt es dafür nichts, das in einer echten Küche einfach funktioniert?']],
-      ['Gebaut nach dem Service', ['Kein Entwickler, sondern ein Koch, der genau weiß, wo es wehtut. Savour wurde Schritt für Schritt gebaut, monatelang, an Wochenenden und nach dem Service.', 'Jede Funktion wurde mit unseren eigenen Rezepten in unserer eigenen Küche getestet: Hunderte Word-Rezepte auf einmal importieren, Fotos von fleckigen Notizen, die aus Versehen auf dem Kopf stehen, und Ordner, die das ganze Team öffnen kann. Ein Koch hat so 1.400 Rezepte in etwa zwei Minuten importiert.']],
-      ['Warum Savour 2,99 € kostet', ['Für die schwierigen Fälle, etwa ein Foto einer handschriftlichen Notiz, nutzt Savour KI. Das kostet jedes Mal Geld, deshalb gibt es Savour Pro.', 'Aber Savour sollte für jeden Koch bezahlbar bleiben, nicht nur für große Gruppen mit großem Budget. 2,99 € im Monat sind ungefähr das, was diese KI kostet. Was Savour selbst lesen kann, wie Word und PDF, bleibt kostenlos, genau wie das Speichern von bis zu 100 Rezepten.']],
-      ['Was Savour heute kann', ['Dein ganzes Rezeptbuch in wenigen Minuten importieren. Rezepte in Ordnern sortieren, zum Beispiel alle Eisrezepte, und diesen ganzen Ordner mit einem Knopfdruck drucken. Rezepte und Ordner mit Kollegen teilen, die selbst Rezepte hinzufügen können.', 'Und hochrechnen: Ein Rezept ergibt fünfzig Brownies und du brauchst tausend? Savour rechnet. Am Computer, auf dem Tablet und auf dem Handy in der Küche.']],
-      ['Was wir noch bauen wollen', ['Kosten pro Rezept und Allergene auf einen Blick stehen ganz oben auf der Liste. Wenn Savour auf Computer, Tablet und Handy gut läuft, prüfen wir, ob sich eine eigene App für iPhone und Android lohnt.', 'Das entscheiden wir nicht am Schreibtisch, sondern gemeinsam mit den Köchen, die Savour nutzen. Fehlt dir etwas in deiner Küche? Sag es uns.']]
+      [
+        'Fünfzehn Jahre Rezepte auf losen Zetteln',
+        [
+          'Der Koch hinter Savour steht seit fünfzehn Jahren in der Küche. Die ganze Zeit waren die Rezepte ein Durcheinander: Zettel mit Kaffeeflecken, Fotos auf verschiedenen Handys, von denen manche kaputtgingen, bevor die Rezepte gesichert waren, und Word-Dokumente verstreut über Ordner und Laptops.',
+          'Das Schwierigste war nicht einmal das Durcheinander selbst, sondern dass nichts an einem Ort war. Genau dann, wenn man ein Rezept brauchte, mitten in der Mise en place oder kurz vor dem Service, war es nirgends zu finden.'
+        ]
+      ],
+      [
+        'Fünfzigmal auf Drucken klicken',
+        [
+          'Als Küchenchef gibst du fast jedes Rezept an deine Köche weiter. Als endlich alles in einzelnen Word-Dateien stand, kam das nächste Problem: Der Service musste sie einzeln ausdrucken, weil es keine Möglichkeit gab, fünfzig auf einmal zu drucken.',
+          'Irgendwo zwischen diesen Papierstapeln entstand die Frage, mit der Savour begann: Warum gibt es dafür nichts, das in einer echten Küche einfach funktioniert?'
+        ]
+      ],
+      [
+        'Gebaut nach dem Service',
+        [
+          'Kein Entwickler, sondern ein Koch, der genau weiß, wo es wehtut. Savour wurde Schritt für Schritt gebaut, monatelang, an Wochenenden und nach dem Service.',
+          'Jede Funktion wurde mit unseren eigenen Rezepten in unserer eigenen Küche getestet: Hunderte Word-Rezepte auf einmal importieren, Fotos von fleckigen Notizen, die aus Versehen auf dem Kopf stehen, und Ordner, die das ganze Team öffnen kann. Ein Koch hat so 1.400 Rezepte in etwa zwei Minuten importiert.'
+        ]
+      ],
+      [
+        'Warum Savour 2,99 € kostet',
+        [
+          'Für die schwierigen Fälle, etwa ein Foto einer handschriftlichen Notiz, nutzt Savour KI. Das kostet jedes Mal Geld, deshalb gibt es Savour Pro.',
+          'Aber Savour sollte für jeden Koch bezahlbar bleiben, nicht nur für große Gruppen mit großem Budget. 2,99 € im Monat sind ungefähr das, was diese KI kostet. Was Savour selbst lesen kann, wie Word und PDF, bleibt kostenlos, genau wie das Speichern von bis zu 100 Rezepten.'
+        ]
+      ],
+      [
+        'Was Savour heute kann',
+        [
+          'Dein ganzes Rezeptbuch in wenigen Minuten importieren. Rezepte in Ordnern sortieren, zum Beispiel alle Eisrezepte, und diesen ganzen Ordner mit einem Knopfdruck drucken. Rezepte und Ordner mit Kollegen teilen, die selbst Rezepte hinzufügen können.',
+          'Und hochrechnen: Ein Rezept ergibt fünfzig Brownies und du brauchst tausend? Savour rechnet. Am Computer, auf dem Tablet und auf dem Handy in der Küche.'
+        ]
+      ],
+      [
+        'Was wir noch bauen wollen',
+        [
+          'Kosten pro Rezept und Allergene auf einen Blick stehen ganz oben auf der Liste. Wenn Savour auf Computer, Tablet und Handy gut läuft, prüfen wir, ob sich eine eigene App für iPhone und Android lohnt.',
+          'Das entscheiden wir nicht am Schreibtisch, sondern gemeinsam mit den Köchen, die Savour nutzen. Fehlt dir etwas in deiner Küche? Sag es uns.'
+        ]
+      ]
     ],
     notesCaption: 'Einige der Notizen, mit denen Savour begann.',
     appCaption: 'Dieselbe Art Rezept, jetzt in Savour.',
     roadmapLink: 'Sieh, woran wir arbeiten',
     valuesTitle: 'Wofür wir stehen',
     values: [
-      ['Ein Rezept muss stimmen', 'Savour erfindet nie Mengen oder Schritte. Im Zweifel siehst du es und entscheidest du.'],
+      [
+        'Ein Rezept muss stimmen',
+        'Savour erfindet nie Mengen oder Schritte. Im Zweifel siehst du es und entscheidest du.'
+      ],
       ['Dein Wissen gehört dir', 'Wenn du Pro irgendwann beendest, bleiben alle deine Rezepte einfach erhalten.'],
       ['Gemacht für die Küche', 'Schnell, ruhig und lesbar, auch mit nassen Händen mitten im Service.']
     ]
   },
   posts: {
-    "en/blog/savour-vs-paprika-meez-galley": {
-      "slug": "de/blog/savour-paprika-meez-galley-vergleich",
-      "title": "Savour, Paprika, Meez und Galley im Vergleich: welche Rezept-App passt zu deiner Küche?",
-      "desc": "Paprika, Meez, Galley und Savour nebeneinander: für wen jede App gemacht ist, was sie kann, was sie kostet und welche zu Hobbykoch, Restaurantgruppe, Großküche oder Brigade passt.",
-      "h1": "Savour, Paprika, Meez und Galley im Vergleich: welche Rezept-App passt zu deiner Küche?",
-      "lead": "Vier Apps, die alle ‚Rezepte verwalten‘, aber für ganz verschiedene Küchen. Die wichtigste Frage ist nicht, welche am meisten kann, sondern für wen sie gemacht ist.",
-      "sections": [
+    'en/blog/savour-vs-paprika-meez-galley': {
+      slug: 'de/blog/savour-paprika-meez-galley-vergleich',
+      title: 'Savour, Paprika, Meez und Galley im Vergleich: welche Rezept-App passt zu deiner Küche?',
+      desc: 'Paprika, Meez, Galley und Savour nebeneinander: für wen jede App gemacht ist, was sie kann, was sie kostet und welche zu Hobbykoch, Restaurantgruppe, Großküche oder Brigade passt.',
+      h1: 'Savour, Paprika, Meez und Galley im Vergleich: welche Rezept-App passt zu deiner Küche?',
+      lead: 'Vier Apps, die alle ‚Rezepte verwalten‘, aber für ganz verschiedene Küchen. Die wichtigste Frage ist nicht, welche am meisten kann, sondern für wen sie gemacht ist.',
+      sections: [
         [
-          "Vier Apps, vier Zielgruppen",
-          "Paprika ist für Hobbyköche gemacht. Meez für Restaurantgruppen mit mehreren Standorten. Galley für Großküchen, Contract Catering und Restaurantketten, die in großen Mengen kochen. Savour für den Küchenchef und die Brigade in einer professionellen Küche. Auf dem Papier überschneiden sie sich, aber jede löst ein anderes Problem. Wer eine App für eine andere Art Küche wählt, zahlt für Funktionen, die er nie nutzt, oder vermisst genau das, was er täglich braucht."
+          'Vier Apps, vier Zielgruppen',
+          'Paprika ist für Hobbyköche gemacht. Meez für Restaurantgruppen mit mehreren Standorten. Galley für Großküchen, Contract Catering und Restaurantketten, die in großen Mengen kochen. Savour für den Küchenchef und die Brigade in einer professionellen Küche. Auf dem Papier überschneiden sie sich, aber jede löst ein anderes Problem. Wer eine App für eine andere Art Küche wählt, zahlt für Funktionen, die er nie nutzt, oder vermisst genau das, was er täglich braucht.'
         ],
         [
-          "Paprika: für den Hobbykoch",
-          "Paprika ist eine Rezept-App für zu Hause. Du speicherst Rezepte von Websites mit dem eingebauten Browser, planst Wochenmenüs, erstellst Einkaufslisten nach Regal sortiert, führst einen Vorratsschrank und rechnest Portionen um, auch zwischen metrischen und amerikanischen Maßen. Es gibt Versionen für iPhone und iPad, Android, Mac und Windows, die jeweils einzeln und einmalig gekauft werden, ohne Abo. Rezepte synchronisieren zwischen deinen eigenen Geräten. Geteilt wird pro Rezept, etwa per E-Mail oder Link; Küchenteams mit Rollen gibt es nicht."
+          'Paprika: für den Hobbykoch',
+          'Paprika ist eine Rezept-App für zu Hause. Du speicherst Rezepte von Websites mit dem eingebauten Browser, planst Wochenmenüs, erstellst Einkaufslisten nach Regal sortiert, führst einen Vorratsschrank und rechnest Portionen um, auch zwischen metrischen und amerikanischen Maßen. Es gibt Versionen für iPhone und iPad, Android, Mac und Windows, die jeweils einzeln und einmalig gekauft werden, ohne Abo. Rezepte synchronisieren zwischen deinen eigenen Geräten. Geteilt wird pro Rezept, etwa per E-Mail oder Link; Küchenteams mit Rollen gibt es nicht.'
         ],
         [
-          "Meez: für Restaurantgruppen mit mehreren Standorten",
-          "Meez beschreibt sich als Rezeptverwaltung und Kalkulation für Restaurantgruppen, mit Gruppen und Marken von 5 bis über 100 Standorten als Zielgruppe: Executive Chefs, kulinarische Leitung, Finanzen und Schulung. Neben Rezepten, Hochrechnen und Schulung mit Fotos und Videos geht es ums Geld: Kosten pro Rezept, die den Einkaufspreisen folgen, die neun wichtigsten Allergene (die US-Liste), Lagerverwaltung, Rechnungsverarbeitung und Anbindungen an Systeme wie Restaurant365. Meez läuft im Browser, auf Englisch und mit Preisen in Dollar."
+          'Meez: für Restaurantgruppen mit mehreren Standorten',
+          'Meez beschreibt sich als Rezeptverwaltung und Kalkulation für Restaurantgruppen, mit Gruppen und Marken von 5 bis über 100 Standorten als Zielgruppe: Executive Chefs, kulinarische Leitung, Finanzen und Schulung. Neben Rezepten, Hochrechnen und Schulung mit Fotos und Videos geht es ums Geld: Kosten pro Rezept, die den Einkaufspreisen folgen, die neun wichtigsten Allergene (die US-Liste), Lagerverwaltung, Rechnungsverarbeitung und Anbindungen an Systeme wie Restaurant365. Meez läuft im Browser, auf Englisch und mit Preisen in Dollar.'
         ],
         [
-          "Galley: für Großküchen und Catering",
-          "Galley nennt sich eine ‚Culinary Resource Planning‘-Plattform für Gemeinschaftsverpflegung (Betriebsrestaurants, Hochschulen, Gesundheitswesen und Contract Catering) und Restaurantgruppen mit vielen Standorten. Rezepte sind dort der Anfang einer Kette: Kalkulation in Echtzeit, Menüplanung, Produktionsplanung nach Gästezahlen, Nährwerte und Allergene, Rechnungen, Lager und Einkauf, mit Anbindung an Großhändler. Galley verkauft über ein Gespräch mit einem Berater und eine Demo, mit Einführung durch das eigene Team."
+          'Galley: für Großküchen und Catering',
+          'Galley nennt sich eine ‚Culinary Resource Planning‘-Plattform für Gemeinschaftsverpflegung (Betriebsrestaurants, Hochschulen, Gesundheitswesen und Contract Catering) und Restaurantgruppen mit vielen Standorten. Rezepte sind dort der Anfang einer Kette: Kalkulation in Echtzeit, Menüplanung, Produktionsplanung nach Gästezahlen, Nährwerte und Allergene, Rechnungen, Lager und Einkauf, mit Anbindung an Großhändler. Galley verkauft über ein Gespräch mit einem Berater und eine Demo, mit Einführung durch das eigene Team.'
         ],
         [
-          "Savour: für den Küchenchef und die Brigade",
-          "Savour ist von Köchen für die professionelle Küche selbst gemacht: Küchenchef, Sous-Chef und die Brigade, die jeden Tag aus denselben Rezepten arbeiten. Es geht darum, deinen bestehenden Rezeptordner schnell und fehlerfrei zu digitalisieren, übersichtlich zu ordnen und auf jedem Handy in der Küche griffbereit zu haben. Savour läuft im Browser auf Computer, Tablet und Handy, öffnet auch ohne Internet und ist auf Deutsch, Englisch, Niederländisch, Spanisch und Französisch verfügbar."
+          'Savour: für den Küchenchef und die Brigade',
+          'Savour ist von Köchen für die professionelle Küche selbst gemacht: Küchenchef, Sous-Chef und die Brigade, die jeden Tag aus denselben Rezepten arbeiten. Es geht darum, deinen bestehenden Rezeptordner schnell und fehlerfrei zu digitalisieren, übersichtlich zu ordnen und auf jedem Handy in der Küche griffbereit zu haben. Savour läuft im Browser auf Computer, Tablet und Handy, öffnet auch ohne Internet und ist auf Deutsch, Englisch, Niederländisch, Spanisch und Französisch verfügbar.'
         ],
         [
-          "Vergleich: Rezepte hineinbekommen",
-          "Paprika ist dafür gebaut, Rezepte von Websites zu speichern. Meez hat einen KI-Import und einen Upload-Service; Galley übernimmt die Übertragung bei der Einführung. Savour liest Word, PDF und Text kostenlos mit dem eigenen Savour-Leser ein, auch ganze Ordner auf einmal (eine Küche übertrug 1.400 Rezepte aus Word in etwa 2 Minuten). Mit Savour Pro liest die KI auch Fotos handschriftlicher Notizen. Die wichtigste Regel: Savour erfindet nie Mengen, Zutaten oder Schritte; im Zweifel siehst du es und entscheidest du."
+          'Vergleich: Rezepte hineinbekommen',
+          'Paprika ist dafür gebaut, Rezepte von Websites zu speichern. Meez hat einen KI-Import und einen Upload-Service; Galley übernimmt die Übertragung bei der Einführung. Savour liest Word, PDF und Text kostenlos mit dem eigenen Savour-Leser ein, auch ganze Ordner auf einmal (eine Küche übertrug 1.400 Rezepte aus Word in etwa 2 Minuten). Mit Savour Pro liest die KI auch Fotos handschriftlicher Notizen. Die wichtigste Regel: Savour erfindet nie Mengen, Zutaten oder Schritte; im Zweifel siehst du es und entscheidest du.'
         ],
         [
-          "Vergleich: Kalkulation, Allergene und Lager",
-          "Hier sind Meez und Galley am stärksten: Kosten, die den Rechnungen folgen, Allergene, Nährwerte, Lager und Einkauf. Paprika kann das nicht, abgesehen von einem Vorratsschrank für zu Hause. Savour kann es auch noch nicht. Kosten pro Rezept und Allergene auf einen Blick stehen ganz oben auf unserer Liste. Dreht sich in deiner Küche vor allem alles um Margen über Dutzende Standorte, sind Meez oder Galley heute die bessere Wahl."
+          'Vergleich: Kalkulation, Allergene und Lager',
+          'Hier sind Meez und Galley am stärksten: Kosten, die den Rechnungen folgen, Allergene, Nährwerte, Lager und Einkauf. Paprika kann das nicht, abgesehen von einem Vorratsschrank für zu Hause. Savour kann es auch noch nicht. Kosten pro Rezept und Allergene auf einen Blick stehen ganz oben auf unserer Liste. Dreht sich in deiner Küche vor allem alles um Margen über Dutzende Standorte, sind Meez oder Galley heute die bessere Wahl.'
         ],
         [
-          "Vergleich: Zusammenarbeit im Team",
-          "Paprika ist für eine Person oder einen Haushalt gemacht. Meez und Galley sind auf Organisationen ausgelegt, mit Rechten pro Standort, Rolle oder Konzept. Savour liegt dazwischen: Küchenteams mit drei Rollen, Eigentümer (verwaltet), Bearbeiter (fügt hinzu und bearbeitet) und Betrachter (liest nur). Dein neuer Commis kann also alles nachschlagen, aber nicht aus Versehen deine Hollandaise ändern. Änderst du eine Sauce für die neue Karte, sieht es jeder sofort auf dem eigenen Handy."
+          'Vergleich: Zusammenarbeit im Team',
+          'Paprika ist für eine Person oder einen Haushalt gemacht. Meez und Galley sind auf Organisationen ausgelegt, mit Rechten pro Standort, Rolle oder Konzept. Savour liegt dazwischen: Küchenteams mit drei Rollen, Eigentümer (verwaltet), Bearbeiter (fügt hinzu und bearbeitet) und Betrachter (liest nur). Dein neuer Commis kann also alles nachschlagen, aber nicht aus Versehen deine Hollandaise ändern. Änderst du eine Sauce für die neue Karte, sieht es jeder sofort auf dem eigenen Handy.'
         ],
         [
-          "Vergleich: was es kostet",
-          "Paprika: einmaliger Kauf pro Plattform, ohne Abo. Meez: keine kostenlose Version, aber 14 Tage Test; Starter ab $19 im Monat (bei Jahreszahlung), Pro ab $89 und Premium ab $179 im Monat, Enterprise individuell. Galley: eine Firmenlizenz plus ein fester Monatsbetrag pro Standort und eine einmalige Einführung, auf Angebot. Savour: kostenlos bis 100 Rezepte, Savour Pro 2,99 € im Monat oder 29 € im Jahr, Küchenteams für 5, 10 oder 25 Personen für 8,99 €, 14,99 € oder 29,99 € im Monat. Neue Konten bekommen 7 Tage Pro gratis, ohne Zahlungsdaten. Beendest du Pro, bleiben alle deine Rezepte erhalten."
+          'Vergleich: was es kostet',
+          'Paprika: einmaliger Kauf pro Plattform, ohne Abo. Meez: keine kostenlose Version, aber 14 Tage Test; Starter ab $19 im Monat (bei Jahreszahlung), Pro ab $89 und Premium ab $179 im Monat, Enterprise individuell. Galley: eine Firmenlizenz plus ein fester Monatsbetrag pro Standort und eine einmalige Einführung, auf Angebot. Savour: kostenlos bis 100 Rezepte, Savour Pro 2,99 € im Monat oder 29 € im Jahr, Küchenteams für 5, 10 oder 25 Personen für 8,99 €, 14,99 € oder 29,99 € im Monat. Neue Konten bekommen 7 Tage Pro gratis, ohne Zahlungsdaten. Beendest du Pro, bleiben alle deine Rezepte erhalten.'
         ],
         [
-          "Welche passt zu dir?",
-          "Du kochst zu Hause und willst Wochenmenüs und Einkaufslisten: Paprika. Du leitest eine Restaurantgruppe mit mehreren Standorten und alles dreht sich um Kosten und Marge: Meez. Du kochst in großen Mengen für Betriebe, Schulen oder Kliniken, mit Produktionsplanung und Einkauf: Galley. Du arbeitest in einer professionellen Küche und willst vor allem, dass deine ganze Brigade aus denselben, stimmigen Rezepten arbeitet, ohne großes Projekt oder hohen Monatspreis: probier Savour."
+          'Welche passt zu dir?',
+          'Du kochst zu Hause und willst Wochenmenüs und Einkaufslisten: Paprika. Du leitest eine Restaurantgruppe mit mehreren Standorten und alles dreht sich um Kosten und Marge: Meez. Du kochst in großen Mengen für Betriebe, Schulen oder Kliniken, mit Produktionsplanung und Einkauf: Galley. Du arbeitest in einer professionellen Küche und willst vor allem, dass deine ganze Brigade aus denselben, stimmigen Rezepten arbeitet, ohne großes Projekt oder hohen Monatspreis: probier Savour.'
         ]
       ],
-      "outro": "Funktionen und Preise von Paprika, Meez und Galley stammen von ihren eigenen Websites und wurden am 2. November 2026 geprüft. Sie können sich ändern; den aktuellen Stand findest du auf ihren Seiten."
+      outro:
+        'Funktionen und Preise von Paprika, Meez und Galley stammen von ihren eigenen Websites und wurden am 2. November 2026 geprüft. Sie können sich ändern; den aktuellen Stand findest du auf ihren Seiten.'
     },
-    "en/blog/have-your-recipe-folder-moved-over": {
-      "slug": "de/blog/rezeptordner-uebertragen-lassen",
-      "title": "Den Rezeptordner übertragen lassen: warum Küchen es aufschieben und wie es doch klappt",
-      "desc": "Warum Küchen ihren Rezeptordner immer wieder aufschieben, was schiefgeht, wenn man es halb macht, und wie die Köche hinter Savour deine Rezepte einpflegen und alles für deine Brigade einrichten.",
-      "h1": "Den Rezeptordner übertragen lassen: warum Küchen es aufschieben und wie es doch klappt",
-      "lead": "Fast jeder Küchenchef will seine Rezepte digital haben. Fast niemand hat Zeit, sie zu übertragen. Deshalb machen die Köche hinter Savour das für dich.",
-      "sections": [
+    'en/blog/have-your-recipe-folder-moved-over': {
+      slug: 'de/blog/rezeptordner-uebertragen-lassen',
+      title: 'Den Rezeptordner übertragen lassen: warum Küchen es aufschieben und wie es doch klappt',
+      desc: 'Warum Küchen ihren Rezeptordner immer wieder aufschieben, was schiefgeht, wenn man es halb macht, und wie die Köche hinter Savour deine Rezepte einpflegen und alles für deine Brigade einrichten.',
+      h1: 'Den Rezeptordner übertragen lassen: warum Küchen es aufschieben und wie es doch klappt',
+      lead: 'Fast jeder Küchenchef will seine Rezepte digital haben. Fast niemand hat Zeit, sie zu übertragen. Deshalb machen die Köche hinter Savour das für dich.',
+      sections: [
         [
-          "Warum es liegen bleibt",
-          "Einen Rezeptordner zu übertragen ist keine Arbeit für zwischen zwei Services. Hunderte Rezepte, verteilt auf Word-Dateien, Hefte und Fotos, und jedes Rezept muss übernommen, geprüft und einsortiert werden. Also bleibt der Ordner liegen, bis jemand geht oder der Ordner weg ist."
+          'Warum es liegen bleibt',
+          'Einen Rezeptordner zu übertragen ist keine Arbeit für zwischen zwei Services. Hunderte Rezepte, verteilt auf Word-Dateien, Hefte und Fotos, und jedes Rezept muss übernommen, geprüft und einsortiert werden. Also bleibt der Ordner liegen, bis jemand geht oder der Ordner weg ist.'
         ],
         [
-          "Was schiefgeht, wenn man es halb macht",
-          "Lässt man einen Praktikanten alles abtippen, entstehen Tippfehler in den Mengen. Ein Scanner ohne Kontrolle macht aus 1 EL unbemerkt 1 l. Halb digitalisieren ist schlimmer als gar nicht: Niemand vertraut der App mehr und der Papierordner kommt zurück an den Pass."
+          'Was schiefgeht, wenn man es halb macht',
+          'Lässt man einen Praktikanten alles abtippen, entstehen Tippfehler in den Mengen. Ein Scanner ohne Kontrolle macht aus 1 EL unbemerkt 1 l. Halb digitalisieren ist schlimmer als gar nicht: Niemand vertraut der App mehr und der Papierordner kommt zurück an den Pass.'
         ],
         [
-          "Du bestimmst die Ordnung",
-          "Du wählst ein Paket und fragst den Import-Service an. Nach der Freigabe bezahlst du und lieferst alles: Word, PDF, Fotos von Heften und Notizen oder Exporte aus einer anderen App. Deine Ordnerstruktur nennst du selbst, nach Posten, nach Art oder nach Menü, genau so, wie deine Küche arbeitet."
+          'Du bestimmst die Ordnung',
+          'Du wählst ein Paket und fragst den Import-Service an. Nach der Freigabe bezahlst du und lieferst alles: Word, PDF, Fotos von Heften und Notizen oder Exporte aus einer anderen App. Deine Ordnerstruktur nennst du selbst, nach Posten, nach Art oder nach Menü, genau so, wie deine Küche arbeitet.'
         ],
         [
-          "Jedes Rezept geprüft",
-          "Wir lesen alles mit dem Savour-Leser ein und legen jedes Rezept neben das Original: Mengen, Einheiten, Ausbeute und Zubereitung. Wo die Quelle Zweifel lässt, schauen wir besonders genau hin. Es wird nie etwas erfunden; was nicht dasteht, ergänzen wir nicht."
+          'Jedes Rezept geprüft',
+          'Wir lesen alles mit dem Savour-Leser ein und legen jedes Rezept neben das Original: Mengen, Einheiten, Ausbeute und Zubereitung. Wo die Quelle Zweifel lässt, schauen wir besonders genau hin. Es wird nie etwas erfunden; was nicht dasteht, ergänzen wir nicht.'
         ],
         [
-          "Alles bereit für deine Brigade",
-          "Du nennst uns die E-Mail-Adressen deiner Kollegen. Alle bekommen ein Konto mit Savour Pro, Zugriff auf die Rezepte und eine E-Mail, um selbst ein Passwort zu wählen. Am ersten Tag öffnet deine ganze Brigade dasselbe Rezeptbuch, auf dem Handy, dem Tablet am Pass und dem Computer im Büro."
+          'Alles bereit für deine Brigade',
+          'Du nennst uns die E-Mail-Adressen deiner Kollegen. Alle bekommen ein Konto mit Savour Pro, Zugriff auf die Rezepte und eine E-Mail, um selbst ein Passwort zu wählen. Am ersten Tag öffnet deine ganze Brigade dasselbe Rezeptbuch, auf dem Handy, dem Tablet am Pass und dem Computer im Büro.'
         ],
         [
-          "Deine Rezepte bleiben deine",
-          "Die gelieferten Dateien liegen in einem geschützten Speicher, den nur Savour sehen kann, und werden gelöscht, sobald dein Team bereitsteht. Danach sind deine Rezepte nur noch in deinem Team."
+          'Deine Rezepte bleiben deine',
+          'Die gelieferten Dateien liegen in einem geschützten Speicher, den nur Savour sehen kann, und werden gelöscht, sobald dein Team bereitsteht. Danach sind deine Rezepte nur noch in deinem Team.'
         ],
         [
-          "Was es kostet",
-          "Einmalig 85 € bis 100 Rezepte, 100 € bis 500 Rezepte und 164,99 € bis 1.000 Rezepte, zusammen mit einem Jahres-Abo für dein Team mit 5, 10 oder 25 Personen. Mehr Rezepte nach Absprache. Die ersten fünf Küchen pflegen wir kostenlos ein."
+          'Was es kostet',
+          'Einmalig 85 € bis 100 Rezepte, 100 € bis 500 Rezepte und 164,99 € bis 1.000 Rezepte, zusammen mit einem Jahres-Abo für dein Team mit 5, 10 oder 25 Personen. Mehr Rezepte nach Absprache. Die ersten fünf Küchen pflegen wir kostenlos ein.'
         ]
       ],
-      "outro": "Mehr erfahren oder anfragen? Siehe „Import-Service“ auf savour.page."
+      outro: 'Mehr erfahren oder anfragen? Siehe „Import-Service“ auf savour.page.'
     },
-    "en/blog/recipe-database-in-the-cloud": {
-      "slug": "de/blog/rezeptdatenbank-in-der-cloud",
-      "title": "Eine Rezeptdatenbank für deine Küche: online, offline und in der Cloud",
-      "desc": "Warum jede Profiküche eine Rezeptdatenbank braucht, warum sie in die Cloud gehört, wie du auch offline an deine Rezepte kommst und wie du ein Rezeptarchiv aufbaust.",
-      "h1": "Eine Rezeptdatenbank für deine Küche: online, offline und in der Cloud",
-      "lead": "Die meisten Küchen haben ihre Rezepte an zehn Orten gleichzeitig. Eine Rezeptdatenbank bringt sie an einen Ort zurück, den du überall öffnen kannst.",
-      "sections": [
+    'en/blog/recipe-database-in-the-cloud': {
+      slug: 'de/blog/rezeptdatenbank-in-der-cloud',
+      title: 'Eine Rezeptdatenbank für deine Küche: online, offline und in der Cloud',
+      desc: 'Warum jede Profiküche eine Rezeptdatenbank braucht, warum sie in die Cloud gehört, wie du auch offline an deine Rezepte kommst und wie du ein Rezeptarchiv aufbaust.',
+      h1: 'Eine Rezeptdatenbank für deine Küche: online, offline und in der Cloud',
+      lead: 'Die meisten Küchen haben ihre Rezepte an zehn Orten gleichzeitig. Eine Rezeptdatenbank bringt sie an einen Ort zurück, den du überall öffnen kannst.',
+      sections: [
         [
-          "Das Problem: Rezepte an zehn Orten",
-          "Word-Dateien auf dem Laptop des früheren Küchenchefs, Fotos auf drei Handys, ein fleckiger Ordner am Pass. Jeder dieser Orte kann verschwinden: ein kaputtes Handy, ein Kollege, der geht, ein Ordner, der in der Spülküche landet."
+          'Das Problem: Rezepte an zehn Orten',
+          'Word-Dateien auf dem Laptop des früheren Küchenchefs, Fotos auf drei Handys, ein fleckiger Ordner am Pass. Jeder dieser Orte kann verschwinden: ein kaputtes Handy, ein Kollege, der geht, ein Ordner, der in der Spülküche landet.'
         ],
         [
-          "Was eine gute Rezeptdatenbank kann",
-          "Alle Rezepturen an einem Ort, durchsuchbar nach Titel, Zutat und Zubereitung. Jedes Rezept in derselben Form: Titel, Ausbeute, Zutaten und Schritte. Und mit Ordnern und Kategorien, damit du nicht durch Hunderte Rezepte scrollen musst."
+          'Was eine gute Rezeptdatenbank kann',
+          'Alle Rezepturen an einem Ort, durchsuchbar nach Titel, Zutat und Zubereitung. Jedes Rezept in derselben Form: Titel, Ausbeute, Zutaten und Schritte. Und mit Ordnern und Kategorien, damit du nicht durch Hunderte Rezepte scrollen musst.'
         ],
         [
-          "Warum in der Cloud",
-          "Liegt deine Datenbank in der Cloud, ist sie überall gleich: am Computer im Büro, am Tablet am Pass und auf dem Handy zu Hause. Eine Änderung ist sofort überall sichtbar, und ein neues Handy heißt nur: neu anmelden."
+          'Warum in der Cloud',
+          'Liegt deine Datenbank in der Cloud, ist sie überall gleich: am Computer im Büro, am Tablet am Pass und auf dem Handy zu Hause. Eine Änderung ist sofort überall sichtbar, und ein neues Handy heißt nur: neu anmelden.'
         ],
         [
-          "Und offline in der Küche",
-          "Küchen sind schlecht für WLAN: Stahl, Kühlhäuser, Keller. Wähle deshalb eine Rezept-App, die auch ohne Verbindung funktioniert. In Savour öffnest du deine Rezepte im Kühlhaus oder auf einer Veranstaltung, wenn du die App einmal online geöffnet hast."
+          'Und offline in der Küche',
+          'Küchen sind schlecht für WLAN: Stahl, Kühlhäuser, Keller. Wähle deshalb eine Rezept-App, die auch ohne Verbindung funktioniert. In Savour öffnest du deine Rezepte im Kühlhaus oder auf einer Veranstaltung, wenn du die App einmal online geöffnet hast.'
         ],
         [
-          "Ein Archiv, kein Papierkorb",
-          "Wirf alte Menüs nicht weg. Ein Archiv vergangener Saisons ist Gold wert, wenn ein Gericht zurückkommt oder ein Gast nach einem alten Dessert fragt. Leg sie in einen Archivordner: aus dem Blick, aber immer auffindbar."
+          'Ein Archiv, kein Papierkorb',
+          'Wirf alte Menüs nicht weg. Ein Archiv vergangener Saisons ist Gold wert, wenn ein Gericht zurückkommt oder ein Gast nach einem alten Dessert fragt. Leg sie in einen Archivordner: aus dem Blick, aber immer auffindbar.'
         ]
       ],
-      "outro": "Savour ist deine Rezeptdatenbank und dein Rezeptarchiv in der Cloud, auf Computer, Tablet und Handy, und auch offline abrufbar."
+      outro:
+        'Savour ist deine Rezeptdatenbank und dein Rezeptarchiv in der Cloud, auf Computer, Tablet und Handy, und auch offline abrufbar.'
     },
-    "en/blog/sorting-out-a-messy-recipe-folder": {
-      "slug": "de/blog/chaotischen-rezeptordner-ordnen",
-      "title": "Einen chaotischen Rezeptordner mit KI ordnen und dann auf einmal drucken",
-      "desc": "So wird aus einem Ordner voller getippter, gescannter und handgeschriebener Rezepte ein geordnetes Rezeptbuch: einlesen, KI für Notizen, prüfen, in Ordnern ordnen und den kompletten Ordner drucken.",
-      "h1": "Einen chaotischen Rezeptordner mit KI ordnen und dann auf einmal drucken",
-      "lead": "Jahre an Rezepten in einem Ordner: getippt, gescannt, handgeschrieben und voller Nummern. Abtippen dauert Wochen. Mit der richtigen Hilfe dauert es einen Nachmittag.",
-      "sections": [
+    'en/blog/sorting-out-a-messy-recipe-folder': {
+      slug: 'de/blog/chaotischen-rezeptordner-ordnen',
+      title: 'Einen chaotischen Rezeptordner mit KI ordnen und dann auf einmal drucken',
+      desc: 'So wird aus einem Ordner voller getippter, gescannter und handgeschriebener Rezepte ein geordnetes Rezeptbuch: einlesen, KI für Notizen, prüfen, in Ordnern ordnen und den kompletten Ordner drucken.',
+      h1: 'Einen chaotischen Rezeptordner mit KI ordnen und dann auf einmal drucken',
+      lead: 'Jahre an Rezepten in einem Ordner: getippt, gescannt, handgeschrieben und voller Nummern. Abtippen dauert Wochen. Mit der richtigen Hilfe dauert es einen Nachmittag.',
+      sections: [
         [
-          "Wo es meistens anfängt",
-          "Ein Ordner mit Rezepten verschiedener Köche, mit doppelten Titeln, losen Überschriften und einem Rezept, das mitten auf einer Seite weitergeht. Niemand weiß mehr, welche Version stimmt, und Suchen dauert länger als Kochen."
+          'Wo es meistens anfängt',
+          'Ein Ordner mit Rezepten verschiedener Köche, mit doppelten Titeln, losen Überschriften und einem Rezept, das mitten auf einer Seite weitergeht. Niemand weiß mehr, welche Version stimmt, und Suchen dauert länger als Kochen.'
         ],
         [
-          "Lass den Leser die schwere Arbeit machen",
-          "Gib die ganze Datei auf einmal in Savour. Der Savour-Leser teilt sie in einzelne Rezepte auf, entfernt Nummern vor Titeln, erkennt Bestandteile wie Teig und Füllung und korrigiert häufige Schreibfehler. Was er nicht sicher weiß, markiert er."
+          'Lass den Leser die schwere Arbeit machen',
+          'Gib die ganze Datei auf einmal in Savour. Der Savour-Leser teilt sie in einzelne Rezepte auf, entfernt Nummern vor Titeln, erkennt Bestandteile wie Teig und Füllung und korrigiert häufige Schreibfehler. Was er nicht sicher weiß, markiert er.'
         ],
         [
-          "KI für Notizen und Zweifelsfälle",
-          "Fotos handschriftlicher Notizen und Rezepte, bei denen der Leser unsicher ist, liest die KI (Savour Pro). Wichtig: Eine gute KI erfindet nie Mengen. Was nicht lesbar ist, wird zum Prüfen markiert."
+          'KI für Notizen und Zweifelsfälle',
+          'Fotos handschriftlicher Notizen und Rezepte, bei denen der Leser unsicher ist, liest die KI (Savour Pro). Wichtig: Eine gute KI erfindet nie Mengen. Was nicht lesbar ist, wird zum Prüfen markiert.'
         ],
         [
-          "Einmal prüfen, dann speichern",
-          "Du siehst alle Rezepte in einer Übersicht, jedes mit einer vorgeschlagenen Kategorie. Korrigiere, was nicht stimmt, und speichere alles auf einmal."
+          'Einmal prüfen, dann speichern',
+          'Du siehst alle Rezepte in einer Übersicht, jedes mit einer vorgeschlagenen Kategorie. Korrigiere, was nicht stimmt, und speichere alles auf einmal.'
         ],
         [
-          "In Ordnern ordnen",
-          "Lege Ordner pro Posten, Menü oder Saison an. Ein Rezept kann in mehreren Ordnern liegen, ohne doppelt zu existieren. Teile einen Ordner mit deiner Brigade, und alle arbeiten mit derselben Version."
+          'In Ordnern ordnen',
+          'Lege Ordner pro Posten, Menü oder Saison an. Ein Rezept kann in mehreren Ordnern liegen, ohne doppelt zu existieren. Teile einen Ordner mit deiner Brigade, und alle arbeiten mit derselben Version.'
         ],
         [
-          "Den kompletten Ordner auf einmal drucken",
-          "Muss der neue Ordner in die Mappe am Pass? Drucke den kompletten Rezeptordner auf einmal, mit Inhaltsverzeichnis und sauberem Layout. Mit Savour Pro steht das Logo deines Restaurants auf jeder Seite."
+          'Den kompletten Ordner auf einmal drucken',
+          'Muss der neue Ordner in die Mappe am Pass? Drucke den kompletten Rezeptordner auf einmal, mit Inhaltsverzeichnis und sauberem Layout. Mit Savour Pro steht das Logo deines Restaurants auf jeder Seite.'
         ]
       ],
-      "outro": "In Savour importierst du einen ganzen Rezeptordner auf einmal, ordnest alles in Ordnern und druckst einen kompletten Ordner mit einem Klick."
+      outro:
+        'In Savour importierst du einen ganzen Rezeptordner auf einmal, ordnest alles in Ordnern und druckst einen kompletten Ordner mit einem Klick.'
     },
     'en/blog/shared-folders-explained': {
-      "slug": "de/blog/geteilte-ordner-erklaert",
-      "title": "Küchenteams in Savour: so funktioniert dein gemeinsames Rezeptbuch",
-      "desc": "Alles, was du mit einem Küchenteam in Savour kannst: Rollen, Rezepte und Ordner hinzufügen, Ordner pro Posten oder Menü verwalten, Team einladen, drucken und Rezepte übernehmen.",
-      "h1": "Küchenteams: so funktioniert dein gemeinsames Rezeptbuch",
-      "lead": "Ein Küchenteam ist das Herz von Savour: ein Rezeptbuch für deine ganze Küche, auf jedem Handy, immer dieselbe Version. Das alles kannst du damit machen.",
-      "sections": [
+      slug: 'de/blog/geteilte-ordner-erklaert',
+      title: 'Küchenteams in Savour: so funktioniert dein gemeinsames Rezeptbuch',
+      desc: 'Alles, was du mit einem Küchenteam in Savour kannst: Rollen, Rezepte und Ordner hinzufügen, Ordner pro Posten oder Menü verwalten, Team einladen, drucken und Rezepte übernehmen.',
+      h1: 'Küchenteams: so funktioniert dein gemeinsames Rezeptbuch',
+      lead: 'Ein Küchenteam ist das Herz von Savour: ein Rezeptbuch für deine ganze Küche, auf jedem Handy, immer dieselbe Version. Das alles kannst du damit machen.',
+      sections: [
         [
-          "Ein Rezeptbuch für dein Team",
-          "Alle Mitglieder eines Küchenteams sehen dieselben Rezepte auf ihrem eigenen Handy, Tablet oder Computer. Ändert der Ersteller ein Rezept, sieht die ganze Brigade sofort die neue Version. Keine losen Kopien, keine alten Ausdrucke mehr an der Wand."
+          'Ein Rezeptbuch für dein Team',
+          'Alle Mitglieder eines Küchenteams sehen dieselben Rezepte auf ihrem eigenen Handy, Tablet oder Computer. Ändert der Ersteller ein Rezept, sieht die ganze Brigade sofort die neue Version. Keine losen Kopien, keine alten Ausdrucke mehr an der Wand.'
         ],
         [
-          "Rollen: Eigentümer, Editor und Betrachter",
-          "Der Eigentümer verwaltet den Ordner, die Mitglieder und ihre Rollen. Ein Editor fügt Rezepte und Ordner hinzu, entfernt sie und verwaltet die Ordner. Ein Betrachter kann ansehen, drucken und umrechnen. Nur der Ersteller eines Rezepts kann es bearbeiten, damit niemand aus Versehen das Rezept eines anderen ändert."
+          'Rollen: Eigentümer, Editor und Betrachter',
+          'Der Eigentümer verwaltet den Ordner, die Mitglieder und ihre Rollen. Ein Editor fügt Rezepte und Ordner hinzu, entfernt sie und verwaltet die Ordner. Ein Betrachter kann ansehen, drucken und umrechnen. Nur der Ersteller eines Rezepts kann es bearbeiten, damit niemand aus Versehen das Rezept eines anderen ändert.'
         ],
         [
-          "Rezepte hinzufügen",
-          "Wähle „Rezept hinzufügen“ und markiere Rezepte aus deiner eigenen Bibliothek. Das Rezept bleibt deins: Es ist im Küchenteam und gleichzeitig in deinen eigenen Rezepten."
+          'Rezepte hinzufügen',
+          'Wähle „Rezept hinzufügen“ und markiere Rezepte aus deiner eigenen Bibliothek. Das Rezept bleibt deins: Es ist im Küchenteam und gleichzeitig in deinen eigenen Rezepten.'
         ],
         [
-          "Ordner pro Posten oder Menü",
-          "Teile das Küchenteam in Ordner auf: einen pro Posten (Garde-Manger, Saucier, Patisserie) oder einen pro Menü. Mit „Ordner verwalten“ benennst du sie um, bringst sie in die Reihenfolge deiner Küche und archivierst Ordner, die du nicht mehr brauchst, etwa das Menü der letzten Saison. Archivierte Ordner und ihre Rezepte bleiben unter „Archiv“ erhalten."
+          'Ordner pro Posten oder Menü',
+          'Teile das Küchenteam in Ordner auf: einen pro Posten (Garde-Manger, Saucier, Patisserie) oder einen pro Menü. Mit „Ordner verwalten“ benennst du sie um, bringst sie in die Reihenfolge deiner Küche und archivierst Ordner, die du nicht mehr brauchst, etwa das Menü der letzten Saison. Archivierte Ordner und ihre Rezepte bleiben unter „Archiv“ erhalten.'
         ],
         [
-          "Dein Team einladen",
-          "Lade Kollegen per WhatsApp, Telegram, E-Mail oder Einladungslink ein. Nach der Anmeldung sind sie Mitglied als Betrachter; als Eigentümer gibst du ihnen danach eine andere Rolle. Mitglied eines Küchenteams zu sein ist kostenlos, auch ohne Savour Pro."
+          'Dein Team einladen',
+          'Lade Kollegen per WhatsApp, Telegram, E-Mail oder Einladungslink ein. Nach der Anmeldung sind sie Mitglied als Betrachter; als Eigentümer gibst du ihnen danach eine andere Rolle. Mitglied eines Küchenteams zu sein ist kostenlos, auch ohne Savour Pro.'
         ],
         [
-          "Drucken für den Ordner",
-          "Drucke den ganzen Küchenteam, einen Ordner oder eine eigene Auswahl auf einmal. Du bekommst ein Inhaltsverzeichnis, die Nummer jedes Rezepts unten auf der Seite zum schnellen Blättern und mit Savour Pro das Logo deines Restaurants oben."
+          'Drucken für den Ordner',
+          'Drucke den ganzen Küchenteam, einen Ordner oder eine eigene Auswahl auf einmal. Du bekommst ein Inhaltsverzeichnis, die Nummer jedes Rezepts unten auf der Seite zum schnellen Blättern und mit Savour Pro das Logo deines Restaurants oben.'
         ],
         [
-          "Umrechnen und Kochmodus",
-          "Rechne jedes Rezept auf die Ausbeute um, die du brauchst. Der Kochmodus zeigt nur das Rezept in großer Schrift und hält den Bildschirm an; hake Zutaten und Schritte beim Arbeiten ab."
+          'Umrechnen und Kochmodus',
+          'Rechne jedes Rezept auf die Ausbeute um, die du brauchst. Der Kochmodus zeigt nur das Rezept in großer Schrift und hält den Bildschirm an; hake Zutaten und Schritte beim Arbeiten ab.'
         ],
         [
-          "Ein Rezept übernehmen",
-          "Bei jedem Rezept eines Kollegen im Küchenteam siehst du „Zu meinen Rezepten hinzufügen“. Du bekommst eine eigene Kopie zum Anpassen, das Original bleibt beim Ersteller."
+          'Ein Rezept übernehmen',
+          'Bei jedem Rezept eines Kollegen im Küchenteam siehst du „Zu meinen Rezepten hinzufügen“. Du bekommst eine eigene Kopie zum Anpassen, das Original bleibt beim Ersteller.'
         ],
         [
-          "Auch ohne Internet",
-          "Rezepte, die du geöffnet hast, bleiben auf deinem Handy verfügbar. Auch in einer Kellerküche ohne WLAN kannst du sie lesen."
+          'Auch ohne Internet',
+          'Rezepte, die du geöffnet hast, bleiben auf deinem Handy verfügbar. Auch in einer Kellerküche ohne WLAN kannst du sie lesen.'
         ],
         [
-          "Verlassen oder löschen",
-          "Ein Mitglied kann ein Küchenteam jederzeit verlassen. Nur der Eigentümer kann ihn löschen; die Rezepte selbst bleiben dann einfach in der Bibliothek ihres Erstellers."
+          'Verlassen oder löschen',
+          'Ein Mitglied kann ein Küchenteam jederzeit verlassen. Nur der Eigentümer kann ihn löschen; die Rezepte selbst bleiben dann einfach in der Bibliothek ihres Erstellers.'
         ]
       ],
-      "outro": "Einen Küchenteam erstellst du mit Savour Pro; Mitglied sein kann jeder kostenlos. In jedem Küchenteam findest du diese Erklärung auch hinter dem i-Knopf."
+      outro:
+        'Einen Küchenteam erstellst du mit Savour Pro; Mitglied sein kann jeder kostenlos. In jedem Küchenteam findest du diese Erklärung auch hinter dem i-Knopf.'
     },
     'en/blog/recipe-management-for-restaurants': {
       slug: 'de/blog/rezeptverwaltung-gastronomie',
-      title: 'Rezeptverwaltung in der Gastronomie: wo du anfängst',
-      desc: 'Rezeptverwaltung für Restaurants, Hotels und Catering: wie du Rezepturen an einem Ort hältst, mit deinem Küchenteam teilst und aktuell hältst.',
-      h1: 'Rezeptverwaltung in der Gastronomie: wo du anfängst',
-      lead: 'In den meisten Restaurants ist Rezeptverwaltung kein System, sondern eine Sammlung: Ordner, Dateien, Fotos und das, was der Küchenchef im Kopf hat. Das geht gut, bis jemand geht oder das Menü wechselt.',
+      title: 'Rezepturverwaltung in Gastronomie und Großküche: wo du anfängst',
+      desc: 'Rezepturverwaltung für Restaurants, Hotels, Catering und Großküchen: wie du Rezepturen an einem Ort hältst, mit dem Küchenteam teilst und worauf du bei Software achtest.',
+      h1: 'Rezepturverwaltung in Gastronomie und Großküche: wo du anfängst',
+      lead: 'In den meisten Küchen ist Rezepturverwaltung kein System, sondern eine Sammlung: Ordner, Dateien, Fotos und das, was der Küchenchef im Kopf hat. Das geht gut, bis jemand geht oder das Menü wechselt.',
       sections: [
-        ['Was ist Rezeptverwaltung?', 'Rezeptverwaltung heißt: Jedes Rezept deines Restaurants steht an einem Ort, in einem festen Format, und alle in der Küche nutzen dieselbe Version. Es geht nicht um ausgefallene Software, sondern um Absprachen: wo es steht, wer es ändern darf und wie man es findet.'],
-        ['Schritt 1: Sammle, was du hast', 'Fang nicht mit einem leeren System an. Sammle deine Word-Dateien, PDFs und Notizen und importiere sie auf einmal. Eine Rezept-App, die Rezepte selbst erkennt, spart wochenlanges Abtippen.'],
-        ['Schritt 2: Wähle eine Struktur', 'Wähle eine Struktur, die zu deinem Restaurant passt: nach Posten, nach Menü oder Grundrezepte getrennt von den Gerichten. Halte es einfach; erweitern kannst du später immer noch. Beispiele findest du in unserem Artikel über das Ordnen von Rezeptordnern.'],
-        ['Schritt 3: Lege fest, wer was darf', 'Vereinbare, wer Rezepte ändern darf, meist Küchenchef und Sous-Chef, und lass den Rest des Teams nur lesen. So verhinderst du drei Versionen derselben Sauce.'],
-        ['Schritt 4: Mach es in der Küche einfach', 'Rezeptverwaltung funktioniert nur, wenn sie in der Küche schneller ist als der alte Zettel. Rezepte müssen sich auf dem Handy in großer Schrift öffnen lassen, und ein ganzer Ordner muss sich auf einmal drucken lassen.'],
-        ['Mehrere Restaurants oder Standorte', 'Führst du mehrere Restaurants oder ein Catering? Lege pro Standort ein Küchenteam mit denselben Grundrezepten an. Eine Änderung am Grundrezept stimmt dann überall gleichzeitig.']
+        [
+          'Was ist Rezepturverwaltung?',
+          'Rezepturverwaltung (oft auch Rezeptverwaltung genannt) heißt: Jede Rezeptur deiner Küche steht an einem Ort, in einem festen Format, und alle nutzen dieselbe Version. Es geht nicht um ausgefallene Software, sondern um Absprachen: wo es steht, wer es ändern darf und wie man es findet.'
+        ],
+        [
+          'Schritt 1: Sammle, was du hast',
+          'Fang nicht mit einem leeren System an. Sammle deine Word-Dateien, PDFs und Notizen und importiere sie auf einmal. Eine Rezept-App, die Rezepte selbst erkennt, spart wochenlanges Abtippen.'
+        ],
+        [
+          'Schritt 2: Wähle eine Struktur',
+          'Wähle eine Struktur, die zu deinem Restaurant passt: nach Posten, nach Menü oder Grundrezepte getrennt von den Gerichten. Halte es einfach; erweitern kannst du später immer noch. Beispiele findest du in unserem Artikel über das Ordnen von Rezeptordnern.'
+        ],
+        [
+          'Schritt 3: Lege fest, wer was darf',
+          'Vereinbare, wer Rezepte ändern darf, meist Küchenchef und Sous-Chef, und lass den Rest des Teams nur lesen. So verhinderst du drei Versionen derselben Sauce.'
+        ],
+        [
+          'Schritt 4: Mach es in der Küche einfach',
+          'Rezeptverwaltung funktioniert nur, wenn sie in der Küche schneller ist als der alte Zettel. Rezepte müssen sich auf dem Handy in großer Schrift öffnen lassen, und ein ganzer Ordner muss sich auf einmal drucken lassen.'
+        ],
+        [
+          'Mehrere Restaurants oder Standorte',
+          'Führst du mehrere Restaurants oder ein Catering? Lege pro Standort ein Küchenteam mit denselben Grundrezepten an. Eine Änderung am Grundrezept stimmt dann überall gleichzeitig.'
+        ],
+        [
+          'Rezepturverwaltung in der Großküche',
+          'In einer Großküche, Kantine oder Gemeinschaftsverpflegung kochst du dieselbe Rezeptur für 40 an einem Tag und für 400 am nächsten. Wichtig sind dann vor allem drei Dinge: Rezepturen, die sich ohne Rechenfehler hochrechnen lassen, eine feste Ausbeute pro Rezeptur und ausgedruckte Rezeptkarten, die am Posten hängen. Lege Grundrezepte wie Fonds, Saucen und Teige einmal an und verweise in den Gerichten darauf, statt sie in jeder Rezeptur neu aufzuschreiben.'
+        ],
+        [
+          'Worauf du bei Software achtest',
+          'Prüfe vor allem, wie deine bestehenden Rezepturen hineinkommen: Eine Software, die Word-Dateien, PDFs und Fotos von Notizen selbst liest, spart Wochen. Prüfe außerdem, ob das Team Rollen bekommt (wer ändert, wer nur liest), ob Rezepte auf dem Handy in der Küche gut lesbar sind, auch ohne WLAN, und ob du ganze Ordner auf einmal drucken kannst. Und frag nach, was mit deinen Rezepturen passiert, wenn du kündigst: Sie gehören dir.'
+        ],
+        [
+          'Was Savour (noch) nicht macht',
+          'Savour konzentriert sich auf die Rezepturen selbst: importieren, ordnen, hochrechnen, teilen und drucken. Eine Wareneinsatz- oder Kostenkalkulation ist noch nicht dabei. Brauchst du die heute schon, nutze sie neben Savour.'
+        ]
       ],
-      outro: 'Savour ist für die Rezeptverwaltung in Profiküchen gebaut: importieren, ordnen, mit dem Küchenteam teilen und drucken.'
+      outro:
+        'Savour ist für die Rezepturverwaltung in Profiküchen gebaut: importieren, ordnen, mit dem Küchenteam teilen und drucken. Kostenlos bis 100 Rezepte.'
     },
     'en/blog/shared-recipe-book-kitchen-team': {
       slug: 'de/blog/gemeinsames-rezeptbuch-kuechenteam',
@@ -436,13 +612,29 @@ export const DE = {
       h1: 'Was ein gemeinsames Rezeptbuch für dein Küchenteam bewirkt',
       lead: 'In vielen Küchen steht das wichtigste Rezept im Kopf einer einzigen Person. Wenn diese Person im Urlaub ist, schmeckst du es auf dem Teller.',
       sections: [
-        ['Weniger Fragen im Service', 'Wenn jeder das Rezept auf dem eigenen Handy öffnen kann, muss niemand mitten im Service fragen, wie viel Estragon in die Béarnaise gehört. Der Küchenchef hat Hände und Kopf frei für den Pass.'],
-        ['Jeden Tag derselbe Teller', 'Drei Versionen derselben Sauce entstehen von selbst: Jemand ändert etwas und schreibt es auf den eigenen Zettel. Mit einem gemeinsamen Rezept ist die neueste Version immer die einzige Version. Das merkst du an der Gleichmäßigkeit, auch am vollsten Abend.'],
-        ['Verantwortung ohne Chaos', 'Nicht jeder muss alles ändern können. Gib deinem Sous-Chef oder Chef de Partie das Recht, Rezepte zu bearbeiten, und lass Commis und Praktikanten nur lesen. Das Rezeptbuch bleibt das der Küche, nicht das von dem, der es zuletzt angefasst hat.'],
-        ['Wissen, das bleibt', 'Wenn ein Koch geht, geht das Wissen nicht mit. Was im Küchenteam steht, gehört der Küche. Für einen neuen Koch ist es der schnellste Weg zu lernen, wie es hier gemacht wird.'],
-        ['So fängst du an', 'Fang klein an: ein Küchenteam mit den Grundrezepten, die alle täglich nutzen, wie Fonds, Saucen und Standardgarnituren. Lade dein Team ein und vereinbare, wer was ändern darf. Erweitere dann pro Posten oder pro Menü.']
+        [
+          'Weniger Fragen im Service',
+          'Wenn jeder das Rezept auf dem eigenen Handy öffnen kann, muss niemand mitten im Service fragen, wie viel Estragon in die Béarnaise gehört. Der Küchenchef hat Hände und Kopf frei für den Pass.'
+        ],
+        [
+          'Jeden Tag derselbe Teller',
+          'Drei Versionen derselben Sauce entstehen von selbst: Jemand ändert etwas und schreibt es auf den eigenen Zettel. Mit einem gemeinsamen Rezept ist die neueste Version immer die einzige Version. Das merkst du an der Gleichmäßigkeit, auch am vollsten Abend.'
+        ],
+        [
+          'Verantwortung ohne Chaos',
+          'Nicht jeder muss alles ändern können. Gib deinem Sous-Chef oder Chef de Partie das Recht, Rezepte zu bearbeiten, und lass Commis und Praktikanten nur lesen. Das Rezeptbuch bleibt das der Küche, nicht das von dem, der es zuletzt angefasst hat.'
+        ],
+        [
+          'Wissen, das bleibt',
+          'Wenn ein Koch geht, geht das Wissen nicht mit. Was im Küchenteam steht, gehört der Küche. Für einen neuen Koch ist es der schnellste Weg zu lernen, wie es hier gemacht wird.'
+        ],
+        [
+          'So fängst du an',
+          'Fang klein an: ein Küchenteam mit den Grundrezepten, die alle täglich nutzen, wie Fonds, Saucen und Standardgarnituren. Lade dein Team ein und vereinbare, wer was ändern darf. Erweitere dann pro Posten oder pro Menü.'
+        ]
       ],
-      outro: 'In Savour legst du Küchenteams mit den Rechten an, die du wählst. Mitglied eines Küchenteams zu sein ist kostenlos.'
+      outro:
+        'In Savour legst du Küchenteams mit den Rechten an, die du wählst. Mitglied eines Küchenteams zu sein ist kostenlos.'
     },
     'en/blog/recipe-folder-examples': {
       slug: 'de/blog/rezeptordner-ordnen-beispiele',
@@ -451,14 +643,33 @@ export const DE = {
       h1: 'Rezeptordner ordnen: fünf Beispiele aus echten Küchen',
       lead: 'Es gibt keine Struktur, die für jede Küche passt. Einige haben sich in der Praxis aber bewährt. Wähle, was zu deinem Küchenalltag passt.',
       sections: [
-        ['1. Nach Posten', 'Garde-manger, Saucier, Entremetier, Patisserie. Im Service öffnet jeder nur, was sein Posten braucht. Passt gut in Küchen mit fester Brigade und festen Posten.'],
-        ['2. Nach Menü oder Saison', 'Ein Ordner für das Mittagsmenü, einer für das Degustationsmenü, einer für das Herbstmenü. Praktisch, wenn dein Menü oft wechselt. Verschiebe alte Menüs nach der Saison in einen Archivordner, damit dein aktuelles Buch übersichtlich bleibt.'],
-        ['3. Grundrezepte getrennt von den Gerichten', 'Ein Ordner mit der Basis, die sich selten ändert, wie Fonds, Jus, Teige und Grundsaucen, und Ordner für die Gerichte, die darauf aufbauen. Änderst du die Kalbsjus einmal, stimmt sie überall.'],
-        ['4. Patisserie nach Komponente', 'Teige, Cremes, Eis und Sorbet, Glasuren, Dekoration und Pralinen. In der Patisserie suchst du oft nach Komponente, nicht nach Gericht. Ein Rezept kann in mehreren Ordnern stehen: deine Crème pâtissière gehört zu den Cremes und zum Dessert, in dem sie steckt.'],
-        ['5. Nach Veranstaltung oder Kunde', 'Für Catering und Bankett: ein Ordner pro Veranstaltung oder Stammkunde, mit genau den Rezepten, die an dem Tag gemacht werden. Rechne sie auf die Gästezahl hoch und drucke den ganzen Ordner auf einmal für die Küche.'],
-        ['Ordner mit Kategorien kombinieren', 'Nutze Kategorien für das, was ein Rezept ist (Sauce, Garnitur, Dessert), und Ordner für den Einsatz. So kannst du immer auf zwei Wegen suchen, ohne dass ein Rezept doppelt existiert.']
+        [
+          '1. Nach Posten',
+          'Garde-manger, Saucier, Entremetier, Patisserie. Im Service öffnet jeder nur, was sein Posten braucht. Passt gut in Küchen mit fester Brigade und festen Posten.'
+        ],
+        [
+          '2. Nach Menü oder Saison',
+          'Ein Ordner für das Mittagsmenü, einer für das Degustationsmenü, einer für das Herbstmenü. Praktisch, wenn dein Menü oft wechselt. Verschiebe alte Menüs nach der Saison in einen Archivordner, damit dein aktuelles Buch übersichtlich bleibt.'
+        ],
+        [
+          '3. Grundrezepte getrennt von den Gerichten',
+          'Ein Ordner mit der Basis, die sich selten ändert, wie Fonds, Jus, Teige und Grundsaucen, und Ordner für die Gerichte, die darauf aufbauen. Änderst du die Kalbsjus einmal, stimmt sie überall.'
+        ],
+        [
+          '4. Patisserie nach Komponente',
+          'Teige, Cremes, Eis und Sorbet, Glasuren, Dekoration und Pralinen. In der Patisserie suchst du oft nach Komponente, nicht nach Gericht. Ein Rezept kann in mehreren Ordnern stehen: deine Crème pâtissière gehört zu den Cremes und zum Dessert, in dem sie steckt.'
+        ],
+        [
+          '5. Nach Veranstaltung oder Kunde',
+          'Für Catering und Bankett: ein Ordner pro Veranstaltung oder Stammkunde, mit genau den Rezepten, die an dem Tag gemacht werden. Rechne sie auf die Gästezahl hoch und drucke den ganzen Ordner auf einmal für die Küche.'
+        ],
+        [
+          'Ordner mit Kategorien kombinieren',
+          'Nutze Kategorien für das, was ein Rezept ist (Sauce, Garnitur, Dessert), und Ordner für den Einsatz. So kannst du immer auf zwei Wegen suchen, ohne dass ein Rezept doppelt existiert.'
+        ]
       ],
-      outro: 'In Savour legst du eigene Ordner und Kategorien an, und ein Rezept kann in mehreren Ordnern zugleich stehen.'
+      outro:
+        'In Savour legst du eigene Ordner und Kategorien an, und ein Rezept kann in mehreren Ordnern zugleich stehen.'
     },
     'en/blog/sharing-recipes-with-your-team': {
       slug: 'de/blog/rezepte-mit-team-teilen',
@@ -467,11 +678,26 @@ export const DE = {
       h1: 'Rezepte mit deinem Team teilen, ohne Fotos von Fotos',
       lead: 'Ein Foto eines Rezepts, weitergeleitet im Gruppenchat, noch einmal vom Bildschirm abfotografiert. Kommt dir bekannt vor. Und niemand weiß, welche Version stimmt.',
       sections: [
-        ['Einen ganzen Ordner teilen', 'Lege ein Küchenteam an, zum Beispiel „Saucier“ oder „Herbstmenü“, und lade deine Kollegen ein. Alle sehen dieselben Rezepte, und eine Änderung ist sofort für alle sichtbar.'],
-        ['Bestimme, was jeder darf', 'Es gibt drei Rollen. Der Eigentümer verwaltet den Ordner. Ein Bearbeiter kann Rezepte hinzufügen und ändern. Ein Leser kann alles lesen, aber nichts ändern. Du entscheidest, wer die Rezepte anfasst.'],
-        ['Ein einzelnes Rezept schicken', 'Willst du ein Rezept teilen, etwa mit einem Kollegen in einem anderen Restaurant oder einem Lieferanten? Teile es mit einem Link. Der Empfänger sieht das Rezept sauber, ohne Konto.'],
-        ['Kollegen, die mitbauen', 'Ein Küchenteam muss nicht nur von dir kommen. Gib deinem Sous-Chef Bearbeitungsrechte und lass das Team selbst Rezepte hinzufügen. Das Rezeptbuch wächst mit der Küche.'],
-        ['Was es kostet', 'Mitglied eines Küchenteams zu sein ist kostenlos. Selbst ein Küchenteam anzulegen ist Teil von Savour Pro. Mit einem Team-Abo hat jeder in deiner Küche Pro.']
+        [
+          'Einen ganzen Ordner teilen',
+          'Lege ein Küchenteam an, zum Beispiel „Saucier“ oder „Herbstmenü“, und lade deine Kollegen ein. Alle sehen dieselben Rezepte, und eine Änderung ist sofort für alle sichtbar.'
+        ],
+        [
+          'Bestimme, was jeder darf',
+          'Es gibt drei Rollen. Der Eigentümer verwaltet den Ordner. Ein Bearbeiter kann Rezepte hinzufügen und ändern. Ein Leser kann alles lesen, aber nichts ändern. Du entscheidest, wer die Rezepte anfasst.'
+        ],
+        [
+          'Ein einzelnes Rezept schicken',
+          'Willst du ein Rezept teilen, etwa mit einem Kollegen in einem anderen Restaurant oder einem Lieferanten? Teile es mit einem Link. Der Empfänger sieht das Rezept sauber, ohne Konto.'
+        ],
+        [
+          'Kollegen, die mitbauen',
+          'Ein Küchenteam muss nicht nur von dir kommen. Gib deinem Sous-Chef Bearbeitungsrechte und lass das Team selbst Rezepte hinzufügen. Das Rezeptbuch wächst mit der Küche.'
+        ],
+        [
+          'Was es kostet',
+          'Mitglied eines Küchenteams zu sein ist kostenlos. Selbst ein Küchenteam anzulegen ist Teil von Savour Pro. Mit einem Team-Abo hat jeder in deiner Küche Pro.'
+        ]
       ],
       outro: 'Küchenteams mit Rollen findest du in Savour unter „Küchenteams“.'
     },
@@ -482,11 +708,26 @@ export const DE = {
       h1: 'Roadmap: woran wir arbeiten',
       lead: 'Savour wird von einem Koch für Köche gebaut. Das heißt auch: Wir bauen, was die Küche wirklich braucht, nicht was in einer Präsentation gut klingt.',
       sections: [
-        ['Kosten pro Rezept', 'Sieh, was ein Gericht und eine Portion kosten und was passiert, wenn der Preis eines Produkts steigt. Das ist die meistgewünschte Funktion und steht ganz oben.'],
-        ['Allergene auf einen Blick', 'Pro Rezept und pro zusammengesetztem Gericht, damit du die Frage eines Gastes am Tisch beantworten kannst, ohne in die Küche zu laufen.'],
-        ['Verlauf jedes Rezepts', 'Sieh, wer was in einem geteilten Rezept geändert hat, und stelle bei Bedarf eine frühere Version wieder her. Drucken mit eigenem Logo ist bereits fertig und Teil von Savour Pro.'],
-        ['Eine App für iPhone und Android', 'Savour läuft jetzt im Browser auf Computer, Tablet und Handy, ohne Installation. Eine eigene App ziehen wir in Betracht. Ob sich das lohnt, hängt davon ab, was Köche sagen.'],
-        ['Wie wir entscheiden', 'Wir schauen, was Köche uns sagen und was in der Küche am meisten Zeit spart. Hast du eine Idee oder fehlt dir etwas? Schreib uns an contact@savour.page. Wir lesen alles.']
+        [
+          'Kosten pro Rezept',
+          'Sieh, was ein Gericht und eine Portion kosten und was passiert, wenn der Preis eines Produkts steigt. Das ist die meistgewünschte Funktion und steht ganz oben.'
+        ],
+        [
+          'Allergene auf einen Blick',
+          'Pro Rezept und pro zusammengesetztem Gericht, damit du die Frage eines Gastes am Tisch beantworten kannst, ohne in die Küche zu laufen.'
+        ],
+        [
+          'Verlauf jedes Rezepts',
+          'Sieh, wer was in einem geteilten Rezept geändert hat, und stelle bei Bedarf eine frühere Version wieder her. Drucken mit eigenem Logo ist bereits fertig und Teil von Savour Pro.'
+        ],
+        [
+          'Eine App für iPhone und Android',
+          'Savour läuft jetzt im Browser auf Computer, Tablet und Handy, ohne Installation. Eine eigene App ziehen wir in Betracht. Ob sich das lohnt, hängt davon ab, was Köche sagen.'
+        ],
+        [
+          'Wie wir entscheiden',
+          'Wir schauen, was Köche uns sagen und was in der Küche am meisten Zeit spart. Hast du eine Idee oder fehlt dir etwas? Schreib uns an contact@savour.page. Wir lesen alles.'
+        ]
       ],
       outro: 'Diese Roadmap ist eine Richtung, kein Versprechen mit Terminen. Wir halten sie hier aktuell.'
     },
@@ -497,10 +738,22 @@ export const DE = {
       h1: 'Einen neuen Koch mit Standardrezepten einarbeiten',
       lead: 'Ein neuer Koch will es richtig machen, weiß aber noch nicht, wie es hier läuft. Jede Frage im Service kostet jemand anderen Aufmerksamkeit.',
       sections: [
-        ['Gib die Rezepte vor der ersten Schicht', 'Füge einen neuen Koch als Leser zum Küchenteam des Postens hinzu. Er kann zu Hause lesen, was gemacht wird und wie, in der Version, die du freigegeben hast.'],
-        ['Lass vom Handy kochen', 'Im Kochmodus steht das Rezept in großer Schrift auf dem Bildschirm. Abhaken, was erledigt ist, scrollen mit nassen Händen. Kein fettiger Ausdruck, der mitten im Service unlesbar ist.'],
-        ['Eine Arbeitsweise', 'Wer nach einem Standardrezept lernt, lernt die Art deiner Küche. Nicht die seines vorherigen Restaurants oder die des Kollegen, der zufällig daneben stand.'],
-        ['Frag nach Rückmeldung', 'Neue sehen, was Stammkräfte nicht mehr sehen: eine Menge, die nicht stimmt, ein Schritt, der fehlt. Lass sie es melden und passe das Rezept für alle an.']
+        [
+          'Gib die Rezepte vor der ersten Schicht',
+          'Füge einen neuen Koch als Leser zum Küchenteam des Postens hinzu. Er kann zu Hause lesen, was gemacht wird und wie, in der Version, die du freigegeben hast.'
+        ],
+        [
+          'Lass vom Handy kochen',
+          'Im Kochmodus steht das Rezept in großer Schrift auf dem Bildschirm. Abhaken, was erledigt ist, scrollen mit nassen Händen. Kein fettiger Ausdruck, der mitten im Service unlesbar ist.'
+        ],
+        [
+          'Eine Arbeitsweise',
+          'Wer nach einem Standardrezept lernt, lernt die Art deiner Küche. Nicht die seines vorherigen Restaurants oder die des Kollegen, der zufällig daneben stand.'
+        ],
+        [
+          'Frag nach Rückmeldung',
+          'Neue sehen, was Stammkräfte nicht mehr sehen: eine Menge, die nicht stimmt, ein Schritt, der fehlt. Lass sie es melden und passe das Rezept für alle an.'
+        ]
       ],
       outro: 'In Savour fügst du neue Köche mit Leserechten zu einem Küchenteam hinzu. Für sie ist das kostenlos.'
     },
@@ -511,12 +764,25 @@ export const DE = {
       h1: 'Rezepte hochrechnen ohne Rechenfehler',
       lead: 'Hochrechnen sieht einfach aus: alles mal fünfzehn. Bis du um fünf Uhr nachmittags merkst, dass die Gelatine nicht mitgerechnet wurde.',
       sections: [
-        ['Wo es schiefgeht', 'Kopfrechnen unter Druck, gemischte Einheiten (Gramm, Deziliter, Stück) und das Original, das mit der hochgerechneten Version überschrieben wird. Danach weiß niemand mehr, was das Grundrezept war.'],
-        ['Rechne von der Ausbeute aus', 'Notiere bei jedem Rezept, was es ergibt: 0,5 Liter, 40 Portionen oder 50 Stück. Dann rechnest du nicht „mal fünfzehn“, sondern mit dem, was du brauchst.'],
-        ['Behalte das Original', 'Rechne eine Kopie hoch oder nur auf dem Bildschirm. Das Grundrezept bleibt genau so, wie es war, für das nächste Mal.'],
-        ['Vorsicht bei Gelen und Teigen', 'Gelatine, Agar, Triebmittel und Salz lassen sich in der Praxis nicht immer eins zu eins hochrechnen, vor allem bei großen Mengen. Probiere und teste eine große Charge immer, bevor du dich darauf verlässt.']
+        [
+          'Wo es schiefgeht',
+          'Kopfrechnen unter Druck, gemischte Einheiten (Gramm, Deziliter, Stück) und das Original, das mit der hochgerechneten Version überschrieben wird. Danach weiß niemand mehr, was das Grundrezept war.'
+        ],
+        [
+          'Rechne von der Ausbeute aus',
+          'Notiere bei jedem Rezept, was es ergibt: 0,5 Liter, 40 Portionen oder 50 Stück. Dann rechnest du nicht „mal fünfzehn“, sondern mit dem, was du brauchst.'
+        ],
+        [
+          'Behalte das Original',
+          'Rechne eine Kopie hoch oder nur auf dem Bildschirm. Das Grundrezept bleibt genau so, wie es war, für das nächste Mal.'
+        ],
+        [
+          'Vorsicht bei Gelen und Teigen',
+          'Gelatine, Agar, Triebmittel und Salz lassen sich in der Praxis nicht immer eins zu eins hochrechnen, vor allem bei großen Mengen. Probiere und teste eine große Charge immer, bevor du dich darauf verlässt.'
+        ]
       ],
-      outro: 'In Savour gibst du die gewünschte Menge ein und Savour rechnet jede Zutat um. Das Originalrezept bleibt, wie es ist.'
+      outro:
+        'In Savour gibst du die gewünschte Menge ein und Savour rechnet jede Zutat um. Das Originalrezept bleibt, wie es ist.'
     },
     'en/blog/from-word-to-recipe-book': {
       slug: 'de/blog/von-word-zum-rezeptbuch',
@@ -525,11 +791,26 @@ export const DE = {
       h1: 'Vom Word-Dokument zum Rezeptbuch in wenigen Minuten',
       lead: 'Viele Köche haben sie schon: eine große Word-Datei mit Rezepten aus Jahren. Abtippen dauert Wochen. Das muss nicht sein.',
       sections: [
-        ['Datei hineinziehen', 'Wähle deine Word-Datei oder dein PDF in Savour. Der Savour-Leser geht das ganze Dokument durch und teilt es selbst in einzelne Rezepte auf, auch wenn es Hunderte sind.'],
-        ['Was der Leser erkennt', 'Titel, auch fett oder nummeriert, Zutaten mit Menge und Einheit und die Zubereitung in Schritten. Nummern vor Titeln und kleine Tippfehler wie 18oc statt 180 °C werden bereinigt.'],
-        ['Wenn der Leser unsicher ist', 'Nicht jedes Dokument ist sauber formatiert. Ist der Leser bei einem Rezept unsicher, wird es markiert und du prüfst es selbst, bevor es gespeichert wird. Mit Savour Pro liest die KI diese Zweifelsfälle automatisch.'],
-        ['Wie schnell es geht', 'Ein Koch hat so 1.400 Rezepte aus Word in etwa zwei Minuten importiert. Danach kannst du sie sofort in Ordner legen, ergänzen und teilen.'],
-        ['Kostenlos oder Pro', 'Word, PDF und Text importierst du kostenlos mit dem Savour-Leser, bis zu 100 Rezepte. Mit Savour Pro speicherst du unbegrenzt Rezepte und die KI liest auch Fotos und handschriftliche Notizen.']
+        [
+          'Datei hineinziehen',
+          'Wähle deine Word-Datei oder dein PDF in Savour. Der Savour-Leser geht das ganze Dokument durch und teilt es selbst in einzelne Rezepte auf, auch wenn es Hunderte sind.'
+        ],
+        [
+          'Was der Leser erkennt',
+          'Titel, auch fett oder nummeriert, Zutaten mit Menge und Einheit und die Zubereitung in Schritten. Nummern vor Titeln und kleine Tippfehler wie 18oc statt 180 °C werden bereinigt.'
+        ],
+        [
+          'Wenn der Leser unsicher ist',
+          'Nicht jedes Dokument ist sauber formatiert. Ist der Leser bei einem Rezept unsicher, wird es markiert und du prüfst es selbst, bevor es gespeichert wird. Mit Savour Pro liest die KI diese Zweifelsfälle automatisch.'
+        ],
+        [
+          'Wie schnell es geht',
+          'Ein Koch hat so 1.400 Rezepte aus Word in etwa zwei Minuten importiert. Danach kannst du sie sofort in Ordner legen, ergänzen und teilen.'
+        ],
+        [
+          'Kostenlos oder Pro',
+          'Word, PDF und Text importierst du kostenlos mit dem Savour-Leser, bis zu 100 Rezepte. Mit Savour Pro speicherst du unbegrenzt Rezepte und die KI liest auch Fotos und handschriftliche Notizen.'
+        ]
       ],
       outro: 'Das Importieren findest du in Savour unter „Rezept hinzufügen“.'
     },
@@ -540,10 +821,22 @@ export const DE = {
       h1: 'Warum KI deine Rezepte nie erfinden darf',
       lead: 'KI ist gut darin, auszufüllen, was wahrscheinlich dasteht. In der Küche ist „wahrscheinlich“ nicht gut genug.',
       sections: [
-        ['Das Problem mit dem Raten', 'Liest du ein unscharfes Foto einer Notiz, könntest du raten, dass dort 150 Gramm Zucker steht. Waren es aber 150 Gramm Glukose, stimmt dein Marshmallow nicht mehr. Eine kluge Vermutung sieht genauso überzeugend aus wie die richtige Antwort.'],
-        ['Was Savour anders macht', 'Savour erfindet nie Mengen, Zutaten oder Schritte. Steht die Zubereitung nicht auf der Notiz, steht sie auch nicht im Rezept. Du ergänzt sie selbst.'],
-        ['Zweifel sichtbar machen', 'Wenn der Leser oder die KI unsicher ist, siehst du es. Das Rezept wird markiert und du prüfst es, bevor es gespeichert wird. Lieber eine Frage an dich als ein Fehler auf dem Teller.'],
-        ['Der Koch entscheidet', 'KI ist ein Werkzeug, um schneller zu arbeiten, kein Ersatz für Handwerk. Das letzte Wort über ein Rezept hat immer der Koch, der es gemacht hat.']
+        [
+          'Das Problem mit dem Raten',
+          'Liest du ein unscharfes Foto einer Notiz, könntest du raten, dass dort 150 Gramm Zucker steht. Waren es aber 150 Gramm Glukose, stimmt dein Marshmallow nicht mehr. Eine kluge Vermutung sieht genauso überzeugend aus wie die richtige Antwort.'
+        ],
+        [
+          'Was Savour anders macht',
+          'Savour erfindet nie Mengen, Zutaten oder Schritte. Steht die Zubereitung nicht auf der Notiz, steht sie auch nicht im Rezept. Du ergänzt sie selbst.'
+        ],
+        [
+          'Zweifel sichtbar machen',
+          'Wenn der Leser oder die KI unsicher ist, siehst du es. Das Rezept wird markiert und du prüfst es, bevor es gespeichert wird. Lieber eine Frage an dich als ein Fehler auf dem Teller.'
+        ],
+        [
+          'Der Koch entscheidet',
+          'KI ist ein Werkzeug, um schneller zu arbeiten, kein Ersatz für Handwerk. Das letzte Wort über ein Rezept hat immer der Koch, der es gemacht hat.'
+        ]
       ],
       outro: 'Das ist einer der Grundwerte von Savour: Ein Rezept muss stimmen.'
     },
@@ -554,11 +847,26 @@ export const DE = {
       h1: 'Alte Rezeptnotizen digitalisieren: so rettest du deine Hefte',
       lead: 'Fast jeder Koch hat sie: Hefte aus der Ausbildung, lose fleckige Blätter, Fotos von einem Whiteboard. So sorgst du dafür, dass dieses Wissen nicht verloren geht.',
       sections: [
-        ['Fang mit dem an, was du wirklich nutzt', 'Versuch nicht, alles an einem Wochenende zu schaffen. Fang mit den Rezepten an, die du diesen Monat brauchst: die Grundsaucen, die Fonds, die Teile deines aktuellen Menüs. Der Rest folgt, wenn du danach suchst.'],
-        ['Mach gute Fotos', 'Fotografiere bei Tageslicht, gerade von oben, eine Seite pro Foto. Ein Fleck oder eine schiefe Ecke ist kein Problem, ein Schatten über dem Text schon. Leg das Papier flach auf eine dunkle Unterlage.'],
-        ['Lesen lassen, nicht abtippen', 'Abtippen dauert schnell zehn Minuten pro Rezept und bringt neue Tippfehler. Mit einer App, die Handschrift liest, wie Savour, machst du aus dem Foto ein Rezept mit Zutaten und Zubereitung. Wichtig: Prüfe immer die Mengen. Eine gute App erfindet nichts und zeigt, wo sie unsicher ist.'],
-        ['Gib jedem Rezept dieselbe Form', 'Titel, Ausbeute, Zutaten mit Menge und Einheit und die Zubereitung in Schritten. Wenn alle Rezepte dieselbe Struktur haben, kann jeder in der Brigade sie lesen, ohne deine Handschrift zu kennen.'],
-        ['Bewahre das Original', 'Wirf das Heft nicht weg. Füge das Foto gern dem Rezept hinzu. Das Original erzählt manchmal mehr als das Rezept selbst: eine Notiz am Rand, ein Datum, ein Name.']
+        [
+          'Fang mit dem an, was du wirklich nutzt',
+          'Versuch nicht, alles an einem Wochenende zu schaffen. Fang mit den Rezepten an, die du diesen Monat brauchst: die Grundsaucen, die Fonds, die Teile deines aktuellen Menüs. Der Rest folgt, wenn du danach suchst.'
+        ],
+        [
+          'Mach gute Fotos',
+          'Fotografiere bei Tageslicht, gerade von oben, eine Seite pro Foto. Ein Fleck oder eine schiefe Ecke ist kein Problem, ein Schatten über dem Text schon. Leg das Papier flach auf eine dunkle Unterlage.'
+        ],
+        [
+          'Lesen lassen, nicht abtippen',
+          'Abtippen dauert schnell zehn Minuten pro Rezept und bringt neue Tippfehler. Mit einer App, die Handschrift liest, wie Savour, machst du aus dem Foto ein Rezept mit Zutaten und Zubereitung. Wichtig: Prüfe immer die Mengen. Eine gute App erfindet nichts und zeigt, wo sie unsicher ist.'
+        ],
+        [
+          'Gib jedem Rezept dieselbe Form',
+          'Titel, Ausbeute, Zutaten mit Menge und Einheit und die Zubereitung in Schritten. Wenn alle Rezepte dieselbe Struktur haben, kann jeder in der Brigade sie lesen, ohne deine Handschrift zu kennen.'
+        ],
+        [
+          'Bewahre das Original',
+          'Wirf das Heft nicht weg. Füge das Foto gern dem Rezept hinzu. Das Original erzählt manchmal mehr als das Rezept selbst: eine Notiz am Rand, ein Datum, ein Name.'
+        ]
       ],
       outro: 'Savour liest Word, PDF und Fotos handschriftlicher Rezepte und macht daraus ein Rezeptbuch.'
     },
@@ -569,13 +877,29 @@ export const DE = {
       h1: 'Rezepte organisieren in der Spitzengastronomie',
       lead: 'Eine Küche mit wechselndem Menü hat schnell Hunderte Rezepte. Ohne feste Struktur findet niemand etwas, außer dem, der es aufgeschrieben hat.',
       sections: [
-        ['Grundrezepte getrennt vom Menü', 'Halte Grundrezepte (Fonds, Jus, Teige, Grundsaucen) getrennt von den Gerichten auf der Karte. Die Basis ändert sich selten, das Menü jede Saison. Ein Gericht verweist auf die Basis, statt sie zu wiederholen.'],
-        ['Nach Posten ordnen', 'Wenn du mit Posten arbeitest, lege pro Posten einen Ordner an: Garde-manger, Saucier, Patisserie. Im Service öffnet jeder nur, was sein Posten braucht.'],
-        ['Kategorien zum Suchen, Ordner zum Arbeiten', 'Nutze Kategorien für das, was ein Rezept ist (Sauce, Garnitur, Dessert), und Ordner für den Einsatz (Mittagsmenü, Degustationsmenü, Veranstaltung). Ein Rezept kann in mehreren Ordnern stehen, ohne doppelt zu existieren.'],
-        ['Ein Verantwortlicher pro Rezept', 'Vereinbare, wer ein Rezept ändern darf. So verhinderst du drei Versionen derselben Sauce. In einer App mit Rechten, wie Savour, verwaltet der Küchenchef den Ordner und der Rest liest mit.'],
-        ['Nach jeder Saison aufräumen', 'Verschiebe alte Menüs in einen Archivordner, statt sie zu löschen. Dein aktuelles Buch bleibt übersichtlich und du verlierst nichts.']
+        [
+          'Grundrezepte getrennt vom Menü',
+          'Halte Grundrezepte (Fonds, Jus, Teige, Grundsaucen) getrennt von den Gerichten auf der Karte. Die Basis ändert sich selten, das Menü jede Saison. Ein Gericht verweist auf die Basis, statt sie zu wiederholen.'
+        ],
+        [
+          'Nach Posten ordnen',
+          'Wenn du mit Posten arbeitest, lege pro Posten einen Ordner an: Garde-manger, Saucier, Patisserie. Im Service öffnet jeder nur, was sein Posten braucht.'
+        ],
+        [
+          'Kategorien zum Suchen, Ordner zum Arbeiten',
+          'Nutze Kategorien für das, was ein Rezept ist (Sauce, Garnitur, Dessert), und Ordner für den Einsatz (Mittagsmenü, Degustationsmenü, Veranstaltung). Ein Rezept kann in mehreren Ordnern stehen, ohne doppelt zu existieren.'
+        ],
+        [
+          'Ein Verantwortlicher pro Rezept',
+          'Vereinbare, wer ein Rezept ändern darf. So verhinderst du drei Versionen derselben Sauce. In einer App mit Rechten, wie Savour, verwaltet der Küchenchef den Ordner und der Rest liest mit.'
+        ],
+        [
+          'Nach jeder Saison aufräumen',
+          'Verschiebe alte Menüs in einen Archivordner, statt sie zu löschen. Dein aktuelles Buch bleibt übersichtlich und du verlierst nichts.'
+        ]
       ],
-      outro: 'In Savour legst du eigene Ordner und Kategorien an und teilst Ordner mit deiner Brigade, mit den Rechten, die du wählst.'
+      outro:
+        'In Savour legst du eigene Ordner und Kategorien an und teilst Ordner mit deiner Brigade, mit den Rechten, die du wählst.'
     },
     // ---- Neue Artikel (in allen vier Sprachen) ----
     'en/blog/standardised-recipes': {
@@ -585,14 +909,33 @@ export const DE = {
       h1: 'Standardrezepturen: warum jede Küche sie braucht',
       lead: 'Eine Standardrezeptur ist nichts für Kantinen. Gerade in einer Küche mit hohem Anspruch sorgt sie dafür, dass jeder Teller schmeckt wie gedacht, egal wer am Posten steht.',
       sections: [
-        ['Was eine Standardrezeptur ist', 'Eine Standardrezeptur ist die festgelegte Version eines Rezepts, nach der alle arbeiten. Kein Spickzettel, sondern die Absprache der Küche: so machen wir das hier.'],
-        ['Was hineingehört', 'Mindestens ein klarer Titel, die Ausbeute (zum Beispiel 2 Liter oder 40 Portionen), alle Zutaten mit Menge und Einheit und die Zubereitung in Schritten. Gut zu ergänzen: kritische Punkte wie Temperaturen und Garzeiten und ein Foto des fertigen Produkts.'],
-        ['Gleichmäßigkeit auf dem Teller', 'Wenn jeder nach derselben Rezeptur arbeitet, schmeckt die Sauce am Dienstag genauso wie am Samstag. Abweichungen fallen auf, weil es eine feste Basis gibt, mit der man vergleichen kann.'],
-        ['Schneller einarbeiten', 'Neue Köche lernen die Art deiner Küche aus den Rezepturen, statt aus Fragen im Service. Das spart dem Rest der Brigade Zeit und Nerven.'],
-        ['Hochrechnen und kalkulieren', 'Mit einer festen Ausbeute kannst du zuverlässig hoch- und herunterrechnen. Und sobald die Mengen stimmen, ist sie auch die Grundlage für die Kalkulation pro Portion.'],
-        ['So fängst du an', 'Fang mit den Grundrezepten an, die täglich gemacht werden: Fonds, Saucen, Teige. Lege sie in einem festen Format an, an einem Ort, den alle öffnen können, und vereinbare, wer sie ändern darf.']
+        [
+          'Was eine Standardrezeptur ist',
+          'Eine Standardrezeptur ist die festgelegte Version eines Rezepts, nach der alle arbeiten. Kein Spickzettel, sondern die Absprache der Küche: so machen wir das hier.'
+        ],
+        [
+          'Was hineingehört',
+          'Mindestens ein klarer Titel, die Ausbeute (zum Beispiel 2 Liter oder 40 Portionen), alle Zutaten mit Menge und Einheit und die Zubereitung in Schritten. Gut zu ergänzen: kritische Punkte wie Temperaturen und Garzeiten und ein Foto des fertigen Produkts.'
+        ],
+        [
+          'Gleichmäßigkeit auf dem Teller',
+          'Wenn jeder nach derselben Rezeptur arbeitet, schmeckt die Sauce am Dienstag genauso wie am Samstag. Abweichungen fallen auf, weil es eine feste Basis gibt, mit der man vergleichen kann.'
+        ],
+        [
+          'Schneller einarbeiten',
+          'Neue Köche lernen die Art deiner Küche aus den Rezepturen, statt aus Fragen im Service. Das spart dem Rest der Brigade Zeit und Nerven.'
+        ],
+        [
+          'Hochrechnen und kalkulieren',
+          'Mit einer festen Ausbeute kannst du zuverlässig hoch- und herunterrechnen. Und sobald die Mengen stimmen, ist sie auch die Grundlage für die Kalkulation pro Portion.'
+        ],
+        [
+          'So fängst du an',
+          'Fang mit den Grundrezepten an, die täglich gemacht werden: Fonds, Saucen, Teige. Lege sie in einem festen Format an, an einem Ort, den alle öffnen können, und vereinbare, wer sie ändern darf.'
+        ]
       ],
-      outro: 'In Savour hat jedes Rezept dieselbe Form: Titel, Ausbeute, Zutaten und Zubereitung. Teile deine Rezepturen mit dem Team in einem Küchenteam.'
+      outro:
+        'In Savour hat jedes Rezept dieselbe Form: Titel, Ausbeute, Zutaten und Zubereitung. Teile deine Rezepturen mit dem Team in einem Küchenteam.'
     },
     'en/blog/recipe-book-with-your-logo': {
       slug: 'de/blog/rezeptbuch-mit-eigenem-logo',
@@ -601,13 +944,29 @@ export const DE = {
       h1: 'Ein Rezeptbuch mit dem Logo deines Restaurants',
       lead: 'Auch mit allen Rezepten auf dem Handy bleibt Papier in vielen Küchen wichtig. Dann soll es auch nach deinem Restaurant aussehen.',
       sections: [
-        ['Dein Logo und Name auf jeder Seite', 'Mit Savour Pro stellst du einmal Logo und Name deines Restaurants ein. Danach stehen sie oben auf jeder gedruckten Seite: das Logo links, der Name in der Mitte. Für Küchendrucker kannst du das Logo in Schwarzweiß drucken lassen.'],
-        ['Für das ganze Team', 'Mit einem Team-Abo gilt das Logo des Eigentümers für alle im Team. Jeder druckt also im selben Stil, wer auch immer druckt. Bei einem Küchenteam gilt das Logo des Restaurants, das den Ordner verwaltet.'],
-        ['Ein ganzer Ordner als Buch', 'Druckst du einen Ordner, kannst du ein Deckblatt mit Logo, Ordnername und Inhaltsverzeichnis hinzufügen. Wähle A4 für den Küchenordner oder A5 für eine kleine Mappe am Pass.'],
-        ['Immer erkennbar aktuell', 'Unten auf jeder Seite steht das Druckdatum. So sieht jeder in der Küche, ob eine Mappe noch die neueste Version ist. Kopf- und Fußzeilen des Browsers fallen weg, damit die Seite ruhig bleibt.'],
-        ['Selbst wählen, was du druckst', 'In einem Küchenteam wählst du vor dem Drucken selbst die Rezepte aus, nach Ordnern gruppiert. Also nur das, was für diesen Posten oder diese Veranstaltung gebraucht wird.']
+        [
+          'Dein Logo und Name auf jeder Seite',
+          'Mit Savour Pro stellst du einmal Logo und Name deines Restaurants ein. Danach stehen sie oben auf jeder gedruckten Seite: das Logo links, der Name in der Mitte. Für Küchendrucker kannst du das Logo in Schwarzweiß drucken lassen.'
+        ],
+        [
+          'Für das ganze Team',
+          'Mit einem Team-Abo gilt das Logo des Eigentümers für alle im Team. Jeder druckt also im selben Stil, wer auch immer druckt. Bei einem Küchenteam gilt das Logo des Restaurants, das den Ordner verwaltet.'
+        ],
+        [
+          'Ein ganzer Ordner als Buch',
+          'Druckst du einen Ordner, kannst du ein Deckblatt mit Logo, Ordnername und Inhaltsverzeichnis hinzufügen. Wähle A4 für den Küchenordner oder A5 für eine kleine Mappe am Pass.'
+        ],
+        [
+          'Immer erkennbar aktuell',
+          'Unten auf jeder Seite steht das Druckdatum. So sieht jeder in der Küche, ob eine Mappe noch die neueste Version ist. Kopf- und Fußzeilen des Browsers fallen weg, damit die Seite ruhig bleibt.'
+        ],
+        [
+          'Selbst wählen, was du druckst',
+          'In einem Küchenteam wählst du vor dem Drucken selbst die Rezepte aus, nach Ordnern gruppiert. Also nur das, was für diesen Posten oder diese Veranstaltung gebraucht wird.'
+        ]
       ],
-      outro: 'Drucken mit eigenem Logo ist Teil von Savour Pro. Einstellen kannst du es unter Einstellungen → Abo und Team.'
+      outro:
+        'Drucken mit eigenem Logo ist Teil von Savour Pro. Einstellen kannst du es unter Einstellungen → Abo und Team.'
     },
     'en/blog/recipes-without-wifi': {
       slug: 'de/blog/rezepte-ohne-wlan',
@@ -616,11 +975,26 @@ export const DE = {
       h1: 'Rezepte ohne WLAN: offline arbeiten in der Küche',
       lead: 'Küchen sind schlecht für WLAN: Stahl, Kühlräume, Keller. Und gerade dann, wenn du ein Rezept brauchst, lädt nichts.',
       sections: [
-        ['Savour als App installieren', 'Du brauchst keinen App Store. Öffne savour.page und füge es zum Startbildschirm hinzu: auf dem iPhone über Teilen → Zum Home-Bildschirm, auf Android über das Menü → App installieren, am Computer über das Symbol in der Adressleiste.'],
-        ['Einmal online öffnen', 'Melde dich einmal mit Internet an, mit angehaktem „Angemeldet bleiben“, und öffne deine Rezepte. Savour speichert deine Bibliothek dann auf dem Gerät.'],
-        ['Ohne Verbindung', 'Fällt das WLAN aus, öffnest du Savour über das Symbol auf deinem Startbildschirm. Du siehst deine zuletzt gespeicherten Rezepte, mit einem Hinweis, dass du offline bist. Nachschlagen und kochen geht einfach weiter.'],
-        ['Was offline nicht geht', 'Ändern und Importieren brauchen eine Verbindung, damit alle im Team dieselbe Version behalten. Sobald die Verbindung zurück ist, lädt Savour von selbst neu.'],
-        ['Gemeinsame Küchencomputer', 'Auf einem Computer, den mehrere Leute nutzen, lässt du „Angemeldet bleiben“ aus. Dann speichert Savour bewusst nichts auf dem Gerät und du bist abgemeldet, sobald das Fenster geschlossen wird.']
+        [
+          'Savour als App installieren',
+          'Du brauchst keinen App Store. Öffne savour.page und füge es zum Startbildschirm hinzu: auf dem iPhone über Teilen → Zum Home-Bildschirm, auf Android über das Menü → App installieren, am Computer über das Symbol in der Adressleiste.'
+        ],
+        [
+          'Einmal online öffnen',
+          'Melde dich einmal mit Internet an, mit angehaktem „Angemeldet bleiben“, und öffne deine Rezepte. Savour speichert deine Bibliothek dann auf dem Gerät.'
+        ],
+        [
+          'Ohne Verbindung',
+          'Fällt das WLAN aus, öffnest du Savour über das Symbol auf deinem Startbildschirm. Du siehst deine zuletzt gespeicherten Rezepte, mit einem Hinweis, dass du offline bist. Nachschlagen und kochen geht einfach weiter.'
+        ],
+        [
+          'Was offline nicht geht',
+          'Ändern und Importieren brauchen eine Verbindung, damit alle im Team dieselbe Version behalten. Sobald die Verbindung zurück ist, lädt Savour von selbst neu.'
+        ],
+        [
+          'Gemeinsame Küchencomputer',
+          'Auf einem Computer, den mehrere Leute nutzen, lässt du „Angemeldet bleiben“ aus. Dann speichert Savour bewusst nichts auf dem Gerät und du bist abgemeldet, sobald das Fenster geschlossen wird.'
+        ]
       ],
       outro: 'Offline arbeiten ist in jedem Savour-Konto enthalten, kostenlos und mit Pro.'
     },
@@ -631,15 +1005,37 @@ export const DE = {
       h1: 'Eine Rezept-App für die Gastronomie wählen',
       lead: 'Viele Rezept-Apps sind für Hobbyköche gemacht. In der Profiküche gelten andere Anforderungen. Diese sieben Fragen helfen dir bei der Wahl.',
       sections: [
-        ['1. Bekommst du deine bestehenden Rezepte hinein?', 'Eine App, in der du alles abtippen musst, benutzt am Ende niemand. Prüfe, ob du Word, PDF und Fotos handschriftlicher Rezepte auf einmal importieren kannst.'],
-        ['2. Bleibt dein Rezept genau, wie es war?', 'Frag, was die App macht, wenn sie unsicher ist. Eine gute App erfindet keine Mengen oder Schritte, sondern zeigt dir, was du prüfen musst.'],
-        ['3. Funktioniert sie auf dem Handy in der Küche?', 'Große Schrift, schnell suchen, mit nassen Händen bedienbar. Probiere es mitten in deiner eigenen Mise en place, nicht am Schreibtisch.'],
-        ['4. Kannst du mit Rechten teilen?', 'Das Team muss lesen können, aber nicht jeder muss alles ändern dürfen. Achte auf Rollen wie Eigentümer, Bearbeiter und Leser.'],
-        ['5. Kannst du sauber drucken?', 'Ein ganzer Ordner auf einmal, ruhig gestaltet, am liebsten mit dem Logo deines Restaurants.'],
-        ['6. Was passiert ohne Internet?', 'Kühlräume und Keller haben selten gutes WLAN. Prüfe, ob du deine Rezepte offline öffnen kannst.'],
-        ['7. Was passiert mit deinen Rezepten, wenn du kündigst?', 'Deine Rezepte sind dein Wissen. Lies nach, ob du sie behältst, wenn du aufhörst zu zahlen. Bei Savour bleibt alles einfach stehen.']
+        [
+          '1. Bekommst du deine bestehenden Rezepte hinein?',
+          'Eine App, in der du alles abtippen musst, benutzt am Ende niemand. Prüfe, ob du Word, PDF und Fotos handschriftlicher Rezepte auf einmal importieren kannst.'
+        ],
+        [
+          '2. Bleibt dein Rezept genau, wie es war?',
+          'Frag, was die App macht, wenn sie unsicher ist. Eine gute App erfindet keine Mengen oder Schritte, sondern zeigt dir, was du prüfen musst.'
+        ],
+        [
+          '3. Funktioniert sie auf dem Handy in der Küche?',
+          'Große Schrift, schnell suchen, mit nassen Händen bedienbar. Probiere es mitten in deiner eigenen Mise en place, nicht am Schreibtisch.'
+        ],
+        [
+          '4. Kannst du mit Rechten teilen?',
+          'Das Team muss lesen können, aber nicht jeder muss alles ändern dürfen. Achte auf Rollen wie Eigentümer, Bearbeiter und Leser.'
+        ],
+        [
+          '5. Kannst du sauber drucken?',
+          'Ein ganzer Ordner auf einmal, ruhig gestaltet, am liebsten mit dem Logo deines Restaurants.'
+        ],
+        [
+          '6. Was passiert ohne Internet?',
+          'Kühlräume und Keller haben selten gutes WLAN. Prüfe, ob du deine Rezepte offline öffnen kannst.'
+        ],
+        [
+          '7. Was passiert mit deinen Rezepten, wenn du kündigst?',
+          'Deine Rezepte sind dein Wissen. Lies nach, ob du sie behältst, wenn du aufhörst zu zahlen. Bei Savour bleibt alles einfach stehen.'
+        ]
       ],
-      outro: 'Savour kannst du kostenlos mit bis zu 100 Rezepten testen, mit 7 Tagen Savour Pro. Keine Zahlungsdaten nötig.'
+      outro:
+        'Savour kannst du kostenlos mit bis zu 100 Rezepten testen, mit 7 Tagen Savour Pro. Keine Zahlungsdaten nötig.'
     }
   }
 };

@@ -35,6 +35,2006 @@
       "source": "/fr/guide",
       "destination": "/fr/manuel",
       "permanent": true
+    },
+    {
+      "source": "/handleiding-account-maken",
+      "destination": "/handleiding-aan-de-slag#account-maken",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-create-account",
+      "destination": "/en/guide-getting-started#account-maken",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-konto-erstellen",
+      "destination": "/de/handbuch-erste-schritte#account-maken",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-crear-cuenta",
+      "destination": "/es/manual-primeros-pasos#account-maken",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-creer-un-compte",
+      "destination": "/fr/manuel-premiers-pas#account-maken",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-inloggen",
+      "destination": "/handleiding-aan-de-slag#inloggen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-log-in",
+      "destination": "/en/guide-getting-started#inloggen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-anmelden-und-passwort",
+      "destination": "/de/handbuch-erste-schritte#inloggen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-iniciar-sesion",
+      "destination": "/es/manual-primeros-pasos#inloggen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-connexion-et-mot-de-passe",
+      "destination": "/fr/manuel-premiers-pas#inloggen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-demo",
+      "destination": "/handleiding-aan-de-slag#demo",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-demo",
+      "destination": "/en/guide-getting-started#demo",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-demo",
+      "destination": "/de/handbuch-erste-schritte#demo",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-demo",
+      "destination": "/es/manual-primeros-pasos#demo",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-demo",
+      "destination": "/fr/manuel-premiers-pas#demo",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-app-installeren",
+      "destination": "/handleiding-aan-de-slag#app-installeren",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-install-app",
+      "destination": "/en/guide-getting-started#app-installeren",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-app-installieren",
+      "destination": "/de/handbuch-erste-schritte#app-installeren",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-instalar-app",
+      "destination": "/es/manual-primeros-pasos#app-installeren",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-installer-l-application",
+      "destination": "/fr/manuel-premiers-pas#app-installeren",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-menu-en-schermen",
+      "destination": "/handleiding-aan-de-slag#menu",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-menu-and-screens",
+      "destination": "/en/guide-getting-started#menu",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-menue-und-bildschirme",
+      "destination": "/de/handbuch-erste-schritte#menu",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-menu-y-pantallas",
+      "destination": "/es/manual-primeros-pasos#menu",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-menu-et-ecrans",
+      "destination": "/fr/manuel-premiers-pas#menu",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-eerste-week",
+      "destination": "/handleiding-aan-de-slag#eerste-week",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-first-week",
+      "destination": "/en/guide-getting-started#eerste-week",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-erste-woche",
+      "destination": "/de/handbuch-erste-schritte#eerste-week",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-primera-semana",
+      "destination": "/es/manual-primeros-pasos#eerste-week",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-premiere-semaine",
+      "destination": "/fr/manuel-premiers-pas#eerste-week",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-import-controleren",
+      "destination": "/handleiding-importeren#import-controleren",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-review-import",
+      "destination": "/en/guide-import-recipes#import-controleren",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-pruefen",
+      "destination": "/de/handbuch-importieren#import-controleren",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-revisar-importacion",
+      "destination": "/es/manual-importar#import-controleren",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-verifier-une-importation",
+      "destination": "/fr/manuel-importer#import-controleren",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-word",
+      "destination": "/handleiding-importeren#import-word",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-word",
+      "destination": "/en/guide-import-recipes#import-word",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-word",
+      "destination": "/de/handbuch-importieren#import-word",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-word",
+      "destination": "/es/manual-importar#import-word",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-word",
+      "destination": "/fr/manuel-importer#import-word",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-pdf",
+      "destination": "/handleiding-importeren#import-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-pdf",
+      "destination": "/en/guide-import-recipes#import-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-pdf",
+      "destination": "/de/handbuch-importieren#import-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-pdf",
+      "destination": "/es/manual-importar#import-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-pdf",
+      "destination": "/fr/manuel-importer#import-pdf",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-fotos-en-kladjes-importeren",
+      "destination": "/handleiding-importeren#import-fotos",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-photos-and-notes",
+      "destination": "/en/guide-import-recipes#import-fotos",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-fotos-und-notizen-importieren",
+      "destination": "/de/handbuch-importieren#import-fotos",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-fotos-y-notas",
+      "destination": "/es/manual-importar#import-fotos",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-photos-et-notes",
+      "destination": "/fr/manuel-importer#import-fotos",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-tekst-plakken",
+      "destination": "/handleiding-importeren#import-tekst",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-paste-text",
+      "destination": "/en/guide-import-recipes#import-tekst",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-text-einfuegen",
+      "destination": "/de/handbuch-importieren#import-tekst",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-pegar-texto",
+      "destination": "/es/manual-importar#import-tekst",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-coller-du-texte",
+      "destination": "/fr/manuel-importer#import-tekst",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-tekstbestanden-importeren",
+      "destination": "/handleiding-importeren#import-tekstbestanden",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-text-files",
+      "destination": "/en/guide-import-recipes#import-tekstbestanden",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-textdateien-importieren",
+      "destination": "/de/handbuch-importieren#import-tekstbestanden",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-archivos-de-texto",
+      "destination": "/es/manual-importar#import-tekstbestanden",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-fichiers-texte",
+      "destination": "/fr/manuel-importer#import-tekstbestanden",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-hele-map-of-zip-importeren",
+      "destination": "/handleiding-importeren#import-hele-map",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-folder-or-zip",
+      "destination": "/en/guide-import-recipes#import-hele-map",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-ganzen-ordner-oder-zip-importieren",
+      "destination": "/de/handbuch-importieren#import-hele-map",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-carpeta-o-zip",
+      "destination": "/es/manual-importar#import-hele-map",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-dossier-ou-zip",
+      "destination": "/fr/manuel-importer#import-hele-map",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-recept-van-website-importeren",
+      "destination": "/handleiding-importeren#import-website",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-website",
+      "destination": "/en/guide-import-recipes#import-website",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-rezept-von-webseite-importieren",
+      "destination": "/de/handbuch-importieren#import-website",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-receta-de-una-web",
+      "destination": "/es/manual-importar#import-website",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-une-recette-d-un-site",
+      "destination": "/fr/manuel-importer#import-website",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-csv-en-excel-importeren",
+      "destination": "/handleiding-importeren#import-csv",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-csv-and-excel",
+      "destination": "/en/guide-import-recipes#import-csv",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-csv-und-excel-importieren",
+      "destination": "/de/handbuch-importieren#import-csv",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-csv-y-excel",
+      "destination": "/es/manual-importar#import-csv",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-csv-et-excel",
+      "destination": "/fr/manuel-importer#import-csv",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-json-en-schema-org-importeren",
+      "destination": "/handleiding-importeren#import-json",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-json-and-schema-org",
+      "destination": "/en/guide-import-recipes#import-json",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-json-und-schema-org-importieren",
+      "destination": "/de/handbuch-importieren#import-json",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-json-y-schema-org",
+      "destination": "/es/manual-importar#import-json",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-json-et-schema-org",
+      "destination": "/fr/manuel-importer#import-json",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-notitie-apps",
+      "destination": "/handleiding-importeren#import-notitie-apps",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-notes-apps",
+      "destination": "/en/guide-import-recipes#import-notitie-apps",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-notiz-apps",
+      "destination": "/de/handbuch-importieren#import-notitie-apps",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-apps-de-notas",
+      "destination": "/es/manual-importar#import-notitie-apps",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-applications-de-notes",
+      "destination": "/fr/manuel-importer#import-notitie-apps",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-savour-lezer-en-ai",
+      "destination": "/handleiding-importeren#import-ai",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-savour-reader-and-ai",
+      "destination": "/en/guide-import-recipes#import-ai",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-savour-leser-und-ki",
+      "destination": "/de/handbuch-importieren#import-ai",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-lector-savour-e-ia",
+      "destination": "/es/manual-importar#import-ai",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-lecteur-savour-et-ia",
+      "destination": "/fr/manuel-importer#import-ai",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-import-service",
+      "destination": "/handleiding-importeren#import-service",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-service",
+      "destination": "/en/guide-import-recipes#import-service",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-service",
+      "destination": "/de/handbuch-importieren#import-service",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-servicio-de-importacion",
+      "destination": "/es/manual-importar#import-service",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-service-d-importation",
+      "destination": "/fr/manuel-importer#import-service",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-problemen-bij-importeren",
+      "destination": "/handleiding-importeren#import-problemen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-problems",
+      "destination": "/en/guide-import-recipes#import-problemen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-probleme-beim-importieren",
+      "destination": "/de/handbuch-importieren#import-problemen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-problemas-al-importar",
+      "destination": "/es/manual-importar#import-problemen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-problemes-a-l-importation",
+      "destination": "/fr/manuel-importer#import-problemen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-paprika",
+      "destination": "/handleiding-overstappen-naar-savour#import-paprika",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-paprika",
+      "destination": "/en/guide-moving-to-savour#import-paprika",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-paprika",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-paprika",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-paprika",
+      "destination": "/es/manual-cambiar-a-savour#import-paprika",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-paprika",
+      "destination": "/fr/manuel-passer-a-savour#import-paprika",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-mela",
+      "destination": "/handleiding-overstappen-naar-savour#import-mela",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-mela",
+      "destination": "/en/guide-moving-to-savour#import-mela",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-mela",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-mela",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-mela",
+      "destination": "/es/manual-cambiar-a-savour#import-mela",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-mela",
+      "destination": "/fr/manuel-passer-a-savour#import-mela",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-mealie",
+      "destination": "/handleiding-overstappen-naar-savour#import-mealie",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-mealie",
+      "destination": "/en/guide-moving-to-savour#import-mealie",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-mealie",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-mealie",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-mealie",
+      "destination": "/es/manual-cambiar-a-savour#import-mealie",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-mealie",
+      "destination": "/fr/manuel-passer-a-savour#import-mealie",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-tandoor",
+      "destination": "/handleiding-overstappen-naar-savour#import-tandoor",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-tandoor",
+      "destination": "/en/guide-moving-to-savour#import-tandoor",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-tandoor",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-tandoor",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-tandoor",
+      "destination": "/es/manual-cambiar-a-savour#import-tandoor",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-tandoor",
+      "destination": "/fr/manuel-passer-a-savour#import-tandoor",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-recipe-keeper",
+      "destination": "/handleiding-overstappen-naar-savour#import-recipe-keeper",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-recipe-keeper",
+      "destination": "/en/guide-moving-to-savour#import-recipe-keeper",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-recipe-keeper",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-recipe-keeper",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-recipe-keeper",
+      "destination": "/es/manual-cambiar-a-savour#import-recipe-keeper",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-recipe-keeper",
+      "destination": "/fr/manuel-passer-a-savour#import-recipe-keeper",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-copy-me-that",
+      "destination": "/handleiding-overstappen-naar-savour#import-copy-me-that",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-copy-me-that",
+      "destination": "/en/guide-moving-to-savour#import-copy-me-that",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-copy-me-that",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-copy-me-that",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-copy-me-that",
+      "destination": "/es/manual-cambiar-a-savour#import-copy-me-that",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-copy-me-that",
+      "destination": "/fr/manuel-passer-a-savour#import-copy-me-that",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-crouton",
+      "destination": "/handleiding-overstappen-naar-savour#import-crouton",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-crouton",
+      "destination": "/en/guide-moving-to-savour#import-crouton",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-crouton",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-crouton",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-crouton",
+      "destination": "/es/manual-cambiar-a-savour#import-crouton",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-crouton",
+      "destination": "/fr/manuel-passer-a-savour#import-crouton",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-mastercook",
+      "destination": "/handleiding-overstappen-naar-savour#import-mastercook",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-mastercook",
+      "destination": "/en/guide-moving-to-savour#import-mastercook",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-mastercook",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-mastercook",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-mastercook",
+      "destination": "/es/manual-cambiar-a-savour#import-mastercook",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-mastercook",
+      "destination": "/fr/manuel-passer-a-savour#import-mastercook",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-cookmate",
+      "destination": "/handleiding-overstappen-naar-savour#import-cookmate",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-cookmate",
+      "destination": "/en/guide-moving-to-savour#import-cookmate",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-cookmate",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-cookmate",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-cookmate",
+      "destination": "/es/manual-cambiar-a-savour#import-cookmate",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-cookmate",
+      "destination": "/fr/manuel-passer-a-savour#import-cookmate",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-living-cookbook",
+      "destination": "/handleiding-overstappen-naar-savour#import-living-cookbook",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-living-cookbook",
+      "destination": "/en/guide-moving-to-savour#import-living-cookbook",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-living-cookbook",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-living-cookbook",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-living-cookbook",
+      "destination": "/es/manual-cambiar-a-savour#import-living-cookbook",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-living-cookbook",
+      "destination": "/fr/manuel-passer-a-savour#import-living-cookbook",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-evernote",
+      "destination": "/handleiding-overstappen-naar-savour#import-evernote",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-evernote",
+      "destination": "/en/guide-moving-to-savour#import-evernote",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-evernote",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-evernote",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-evernote",
+      "destination": "/es/manual-cambiar-a-savour#import-evernote",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-evernote",
+      "destination": "/fr/manuel-passer-a-savour#import-evernote",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-google-keep",
+      "destination": "/handleiding-overstappen-naar-savour#import-google-keep",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-google-keep",
+      "destination": "/en/guide-moving-to-savour#import-google-keep",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-google-keep",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-google-keep",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-google-keep",
+      "destination": "/es/manual-cambiar-a-savour#import-google-keep",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-google-keep",
+      "destination": "/fr/manuel-passer-a-savour#import-google-keep",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-flavorish",
+      "destination": "/handleiding-overstappen-naar-savour#import-flavorish",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-flavorish",
+      "destination": "/en/guide-moving-to-savour#import-flavorish",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-flavorish",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-flavorish",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-flavorish",
+      "destination": "/es/manual-cambiar-a-savour#import-flavorish",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-flavorish",
+      "destination": "/fr/manuel-passer-a-savour#import-flavorish",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-cookbookmanager",
+      "destination": "/handleiding-overstappen-naar-savour#import-cookbookmanager",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-cookbookmanager",
+      "destination": "/en/guide-moving-to-savour#import-cookbookmanager",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-cookbookmanager",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-cookbookmanager",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-cookbookmanager",
+      "destination": "/es/manual-cambiar-a-savour#import-cookbookmanager",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-cookbookmanager",
+      "destination": "/fr/manuel-passer-a-savour#import-cookbookmanager",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-plan-to-eat",
+      "destination": "/handleiding-overstappen-naar-savour#import-plan-to-eat",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-plan-to-eat",
+      "destination": "/en/guide-moving-to-savour#import-plan-to-eat",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-plan-to-eat",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-plan-to-eat",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-plan-to-eat",
+      "destination": "/es/manual-cambiar-a-savour#import-plan-to-eat",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-plan-to-eat",
+      "destination": "/fr/manuel-passer-a-savour#import-plan-to-eat",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-importeren-uit-pepperplate",
+      "destination": "/handleiding-overstappen-naar-savour#import-pepperplate",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-import-from-pepperplate",
+      "destination": "/en/guide-moving-to-savour#import-pepperplate",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-import-aus-pepperplate",
+      "destination": "/de/handbuch-umstieg-auf-savour#import-pepperplate",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-importar-desde-pepperplate",
+      "destination": "/es/manual-cambiar-a-savour#import-pepperplate",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-importer-depuis-pepperplate",
+      "destination": "/fr/manuel-passer-a-savour#import-pepperplate",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-ingredienten-en-hoeveelheden",
+      "destination": "/handleiding-recept-bewerken#recept-ingredienten",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-ingredients-and-quantities",
+      "destination": "/en/guide-edit-recipes#recept-ingredienten",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-zutaten-und-mengen",
+      "destination": "/de/handbuch-rezept-bearbeiten#recept-ingredienten",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-ingredientes-y-cantidades",
+      "destination": "/es/manual-editar-receta#recept-ingredienten",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-ingredients-et-quantites",
+      "destination": "/fr/manuel-modifier-une-recette#recept-ingredienten",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-bereiding-schrijven",
+      "destination": "/handleiding-recept-bewerken#recept-bereiding",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-writing-the-method",
+      "destination": "/en/guide-edit-recipes#recept-bereiding",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-zubereitung-schreiben",
+      "destination": "/de/handbuch-rezept-bearbeiten#recept-bereiding",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-escribir-la-preparacion",
+      "destination": "/es/manual-editar-receta#recept-bereiding",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-ecrire-la-preparation",
+      "destination": "/fr/manuel-modifier-une-recette#recept-bereiding",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-recept-in-delen",
+      "destination": "/handleiding-recept-bewerken#recept-delen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-recipe-in-parts",
+      "destination": "/en/guide-edit-recipes#recept-delen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-rezept-in-teilen",
+      "destination": "/de/handbuch-rezept-bearbeiten#recept-delen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-receta-por-partes",
+      "destination": "/es/manual-editar-receta#recept-delen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-recette-en-plusieurs-parties",
+      "destination": "/fr/manuel-modifier-une-recette#recept-delen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-opbrengst",
+      "destination": "/handleiding-recept-bewerken#recept-opbrengst",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-yield",
+      "destination": "/en/guide-edit-recipes#recept-opbrengst",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-ausbeute",
+      "destination": "/de/handbuch-rezept-bearbeiten#recept-opbrengst",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-rendimiento",
+      "destination": "/es/manual-editar-receta#recept-opbrengst",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-rendement",
+      "destination": "/fr/manuel-modifier-une-recette#recept-opbrengst",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-foto-bij-recept",
+      "destination": "/handleiding-recept-bewerken#recept-foto",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-recipe-photo",
+      "destination": "/en/guide-edit-recipes#recept-foto",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-foto-zum-rezept",
+      "destination": "/de/handbuch-rezept-bearbeiten#recept-foto",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-foto-de-la-receta",
+      "destination": "/es/manual-editar-receta#recept-foto",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-photo-de-la-recette",
+      "destination": "/fr/manuel-modifier-une-recette#recept-foto",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-notities-bij-recept",
+      "destination": "/handleiding-recept-bewerken#recept-notities",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-recipe-notes",
+      "destination": "/en/guide-edit-recipes#recept-notities",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-notizen-zum-rezept",
+      "destination": "/de/handbuch-rezept-bearbeiten#recept-notities",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-notas-de-la-receta",
+      "destination": "/es/manual-editar-receta#recept-notities",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-notes-sur-une-recette",
+      "destination": "/fr/manuel-modifier-une-recette#recept-notities",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-koppelen-aan-basisrecept",
+      "destination": "/handleiding-recept-bewerken#recept-koppelen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-link-base-recipe",
+      "destination": "/en/guide-edit-recipes#recept-koppelen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-mit-grundrezept-verknuepfen",
+      "destination": "/de/handbuch-rezept-bearbeiten#recept-koppelen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-vincular-receta-base",
+      "destination": "/es/manual-editar-receta#recept-koppelen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-lier-a-une-recette-de-base",
+      "destination": "/fr/manuel-modifier-une-recette#recept-koppelen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-recept-bekijken",
+      "destination": "/handleiding-recept-bewerken#recept-bekijken",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-using-a-recipe",
+      "destination": "/en/guide-edit-recipes#recept-bekijken",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-rezept-oeffnen-und-nutzen",
+      "destination": "/de/handbuch-rezept-bearbeiten#recept-bekijken",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-abrir-y-usar-receta",
+      "destination": "/es/manual-editar-receta#recept-bekijken",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-ouvrir-et-utiliser-une-recette",
+      "destination": "/fr/manuel-modifier-une-recette#recept-bekijken",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-recepten-verwijderen",
+      "destination": "/handleiding-recept-bewerken#recept-verwijderen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-deleting-recipes",
+      "destination": "/en/guide-edit-recipes#recept-verwijderen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-rezepte-loeschen",
+      "destination": "/de/handbuch-rezept-bearbeiten#recept-verwijderen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-eliminar-recetas",
+      "destination": "/es/manual-editar-receta#recept-verwijderen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-supprimer-des-recettes",
+      "destination": "/fr/manuel-modifier-une-recette#recept-verwijderen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-recepten-zoeken",
+      "destination": "/handleiding-ordenen-en-zoeken#zoeken",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-search-recipes",
+      "destination": "/en/guide-organise-and-search#zoeken",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-rezepte-suchen",
+      "destination": "/de/handbuch-ordnen-und-suchen#zoeken",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-buscar-recetas",
+      "destination": "/es/manual-ordenar-y-buscar#zoeken",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-chercher-des-recettes",
+      "destination": "/fr/manuel-classer-et-chercher#zoeken",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-categorieen",
+      "destination": "/handleiding-ordenen-en-zoeken#categorieen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-categories",
+      "destination": "/en/guide-organise-and-search#categorieen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-kategorien",
+      "destination": "/de/handbuch-ordnen-und-suchen#categorieen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-categorias",
+      "destination": "/es/manual-ordenar-y-buscar#categorieen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-categories",
+      "destination": "/fr/manuel-classer-et-chercher#categorieen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-trefwoorden-en-categorieen-voorstellen",
+      "destination": "/handleiding-ordenen-en-zoeken#categorie-trefwoorden",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-keywords-and-suggested-categories",
+      "destination": "/en/guide-organise-and-search#categorie-trefwoorden",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-stichwoerter-und-kategorien-vorschlagen",
+      "destination": "/de/handbuch-ordnen-und-suchen#categorie-trefwoorden",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-palabras-clave-y-sugerir-categorias",
+      "destination": "/es/manual-ordenar-y-buscar#categorie-trefwoorden",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-mots-cles-et-propositions-de-categories",
+      "destination": "/fr/manuel-classer-et-chercher#categorie-trefwoorden",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-receptenmappen",
+      "destination": "/handleiding-ordenen-en-zoeken#mappen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-recipe-folders",
+      "destination": "/en/guide-organise-and-search#mappen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-rezeptordner",
+      "destination": "/de/handbuch-ordnen-und-suchen#mappen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-carpetas-de-recetas",
+      "destination": "/es/manual-ordenar-y-buscar#mappen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-dossiers-de-recettes",
+      "destination": "/fr/manuel-classer-et-chercher#mappen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-favorieten",
+      "destination": "/handleiding-ordenen-en-zoeken#favorieten",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-favourites",
+      "destination": "/en/guide-organise-and-search#favorieten",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-favoriten",
+      "destination": "/de/handbuch-ordnen-und-suchen#favorieten",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-favoritos",
+      "destination": "/es/manual-ordenar-y-buscar#favorieten",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-favoris",
+      "destination": "/fr/manuel-classer-et-chercher#favorieten",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-opschonen",
+      "destination": "/handleiding-ordenen-en-zoeken#opschonen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-clean-up",
+      "destination": "/en/guide-organise-and-search#opschonen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-aufraeumen",
+      "destination": "/de/handbuch-ordnen-und-suchen#opschonen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-limpiar",
+      "destination": "/es/manual-ordenar-y-buscar#opschonen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-nettoyer",
+      "destination": "/fr/manuel-classer-et-chercher#opschonen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-meer-omrekenen",
+      "destination": "/handleiding-omrekenen#omrekenen-meer",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-more-scaling-options",
+      "destination": "/en/guide-scale-recipes#omrekenen-meer",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-mehr-umrechnen",
+      "destination": "/de/handbuch-umrechnen#omrekenen-meer",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-mas-opciones-de-escala",
+      "destination": "/es/manual-escalar#omrekenen-meer",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-plus-d-options-de-conversion",
+      "destination": "/fr/manuel-convertir#omrekenen-meer",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-eenheden-en-afronding",
+      "destination": "/handleiding-omrekenen#eenheden",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-units-and-rounding",
+      "destination": "/en/guide-scale-recipes#eenheden",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-einheiten-und-runden",
+      "destination": "/de/handbuch-umrechnen#eenheden",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-unidades-y-redondeo",
+      "destination": "/es/manual-escalar#eenheden",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-unites-et-arrondis",
+      "destination": "/fr/manuel-convertir#eenheden",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-kookmodus-en-offline",
+      "destination": "/handleiding-omrekenen#kookmodus",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-cook-mode-and-offline",
+      "destination": "/en/guide-scale-recipes#kookmodus",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-kochmodus",
+      "destination": "/de/handbuch-umrechnen#kookmodus",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-modo-cocina",
+      "destination": "/es/manual-escalar#kookmodus",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-mode-cuisine",
+      "destination": "/fr/manuel-convertir#kookmodus",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-zonder-internet",
+      "destination": "/handleiding-omrekenen#offline",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-working-offline",
+      "destination": "/en/guide-scale-recipes#offline",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-ohne-internet",
+      "destination": "/de/handbuch-umrechnen#offline",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-sin-internet",
+      "destination": "/es/manual-escalar#offline",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-sans-internet",
+      "destination": "/fr/manuel-convertir#offline",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-receptenmap-printen",
+      "destination": "/handleiding-printen#printen-map",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-print-recipe-folder",
+      "destination": "/en/guide-print-recipes#printen-map",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-rezeptordner-drucken",
+      "destination": "/de/handbuch-drucken#printen-map",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-imprimir-carpeta-de-recetas",
+      "destination": "/es/manual-imprimir#printen-map",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-imprimer-un-dossier-de-recettes",
+      "destination": "/fr/manuel-imprimer#printen-map",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-printen-met-logo",
+      "destination": "/handleiding-printen#printen-logo",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-print-with-logo",
+      "destination": "/en/guide-print-recipes#printen-logo",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-mit-logo-drucken",
+      "destination": "/de/handbuch-drucken#printen-logo",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-imprimir-con-logo",
+      "destination": "/es/manual-imprimir#printen-logo",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-imprimer-avec-ton-logo",
+      "destination": "/fr/manuel-imprimer#printen-logo",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-recepten-downloaden",
+      "destination": "/handleiding-printen#downloaden",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-download-recipes",
+      "destination": "/en/guide-print-recipes#downloaden",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-rezepte-herunterladen",
+      "destination": "/de/handbuch-drucken#downloaden",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-descargar-recetas",
+      "destination": "/es/manual-imprimir#downloaden",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-telecharger-tes-recettes",
+      "destination": "/fr/manuel-imprimer#downloaden",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-recept-delen-met-link",
+      "destination": "/handleiding-delen-en-keukenteams#delen-link",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-share-recipe-link",
+      "destination": "/en/guide-sharing-and-kitchen-teams#delen-link",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-rezept-per-link-teilen",
+      "destination": "/de/handbuch-teilen-und-kuechenteams#delen-link",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-compartir-receta-con-enlace",
+      "destination": "/es/manual-compartir-y-equipos-de-cocina#delen-link",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-partager-une-recette-avec-un-lien",
+      "destination": "/fr/manuel-partager-et-equipes-de-cuisine#delen-link",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-keukenteam-maken",
+      "destination": "/handleiding-delen-en-keukenteams#keukenteam-maken",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-create-kitchen-team",
+      "destination": "/en/guide-sharing-and-kitchen-teams#keukenteam-maken",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-kuechenteam-erstellen",
+      "destination": "/de/handbuch-teilen-und-kuechenteams#keukenteam-maken",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-crear-equipo-de-cocina",
+      "destination": "/es/manual-compartir-y-equipos-de-cocina#keukenteam-maken",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-creer-une-equipe-de-cuisine",
+      "destination": "/fr/manuel-partager-et-equipes-de-cuisine#keukenteam-maken",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-rollen-in-keukenteam",
+      "destination": "/handleiding-delen-en-keukenteams#keukenteam-rollen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-kitchen-team-roles",
+      "destination": "/en/guide-sharing-and-kitchen-teams#keukenteam-rollen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-rollen-im-kuechenteam",
+      "destination": "/de/handbuch-teilen-und-kuechenteams#keukenteam-rollen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-roles-en-el-equipo",
+      "destination": "/es/manual-compartir-y-equipos-de-cocina#keukenteam-rollen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-roles-dans-l-equipe",
+      "destination": "/fr/manuel-partager-et-equipes-de-cuisine#keukenteam-rollen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-team-uitnodigen",
+      "destination": "/handleiding-delen-en-keukenteams#keukenteam-uitnodigen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-invite-your-team",
+      "destination": "/en/guide-sharing-and-kitchen-teams#keukenteam-uitnodigen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-team-einladen",
+      "destination": "/de/handbuch-teilen-und-kuechenteams#keukenteam-uitnodigen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-invitar-a-tu-equipo",
+      "destination": "/es/manual-compartir-y-equipos-de-cocina#keukenteam-uitnodigen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-inviter-ton-equipe",
+      "destination": "/fr/manuel-partager-et-equipes-de-cuisine#keukenteam-uitnodigen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-recepten-en-mappen-in-team",
+      "destination": "/handleiding-delen-en-keukenteams#keukenteam-mappen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-team-recipes-and-folders",
+      "destination": "/en/guide-sharing-and-kitchen-teams#keukenteam-mappen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-rezepte-und-ordner-im-team",
+      "destination": "/de/handbuch-teilen-und-kuechenteams#keukenteam-mappen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-recetas-y-carpetas-del-equipo",
+      "destination": "/es/manual-compartir-y-equipos-de-cocina#keukenteam-mappen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-recettes-et-dossiers-de-l-equipe",
+      "destination": "/fr/manuel-partager-et-equipes-de-cuisine#keukenteam-mappen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-recept-overnemen",
+      "destination": "/handleiding-delen-en-keukenteams#recept-overnemen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-copy-a-recipe",
+      "destination": "/en/guide-sharing-and-kitchen-teams#recept-overnemen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-rezept-uebernehmen",
+      "destination": "/de/handbuch-teilen-und-kuechenteams#recept-overnemen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-copiar-una-receta",
+      "destination": "/es/manual-compartir-y-equipos-de-cocina#recept-overnemen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-copier-une-recette",
+      "destination": "/fr/manuel-partager-et-equipes-de-cuisine#recept-overnemen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-keukenteam-verlaten-of-verwijderen",
+      "destination": "/handleiding-delen-en-keukenteams#keukenteam-verlaten",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-leave-or-delete-kitchen-team",
+      "destination": "/en/guide-sharing-and-kitchen-teams#keukenteam-verlaten",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-kuechenteam-verlassen-oder-loeschen",
+      "destination": "/de/handbuch-teilen-und-kuechenteams#keukenteam-verlaten",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-salir-o-eliminar-equipo",
+      "destination": "/es/manual-compartir-y-equipos-de-cocina#keukenteam-verlaten",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-quitter-ou-supprimer-une-equipe",
+      "destination": "/fr/manuel-partager-et-equipes-de-cuisine#keukenteam-verlaten",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-collega-uitnodigen",
+      "destination": "/handleiding-delen-en-keukenteams#collega-uitnodigen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-invite-a-colleague",
+      "destination": "/en/guide-sharing-and-kitchen-teams#collega-uitnodigen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-kollegen-einladen",
+      "destination": "/de/handbuch-teilen-und-kuechenteams#collega-uitnodigen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-invitar-a-un-colega",
+      "destination": "/es/manual-compartir-y-equipos-de-cocina#collega-uitnodigen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-inviter-un-collegue",
+      "destination": "/fr/manuel-partager-et-equipes-de-cuisine#collega-uitnodigen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-organisatie-abonnement",
+      "destination": "/handleiding-account-en-pro#organisatie",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-organisation-plan",
+      "destination": "/en/guide-account-and-pro#organisatie",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-organisations-abo",
+      "destination": "/de/handbuch-konto-und-pro#organisatie",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-suscripcion-de-organizacion",
+      "destination": "/es/manual-cuenta-y-pro#organisatie",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-abonnement-organisation",
+      "destination": "/fr/manuel-compte-et-pro#organisatie",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-abonnement-beheren",
+      "destination": "/handleiding-account-en-pro#abonnement-beheren",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-manage-subscription",
+      "destination": "/en/guide-account-and-pro#abonnement-beheren",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-abo-verwalten",
+      "destination": "/de/handbuch-konto-und-pro#abonnement-beheren",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-gestionar-suscripcion",
+      "destination": "/es/manual-cuenta-y-pro#abonnement-beheren",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-gerer-l-abonnement",
+      "destination": "/fr/manuel-compte-et-pro#abonnement-beheren",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-stoppen-met-pro",
+      "destination": "/handleiding-account-en-pro#pro-stoppen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-stopping-pro",
+      "destination": "/en/guide-account-and-pro#pro-stoppen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-pro-beenden",
+      "destination": "/de/handbuch-konto-und-pro#pro-stoppen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-dejar-pro",
+      "destination": "/es/manual-cuenta-y-pro#pro-stoppen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-arreter-pro",
+      "destination": "/fr/manuel-compte-et-pro#pro-stoppen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-mijn-account",
+      "destination": "/handleiding-account-en-pro#account-profiel",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-my-account",
+      "destination": "/en/guide-account-and-pro#account-profiel",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-mein-konto",
+      "destination": "/de/handbuch-konto-und-pro#account-profiel",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-mi-cuenta",
+      "destination": "/es/manual-cuenta-y-pro#account-profiel",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-mon-compte",
+      "destination": "/fr/manuel-compte-et-pro#account-profiel",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-weergave-en-taal",
+      "destination": "/handleiding-account-en-pro#weergave-en-taal",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-appearance-and-language",
+      "destination": "/en/guide-account-and-pro#weergave-en-taal",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-darstellung-und-sprache",
+      "destination": "/de/handbuch-konto-und-pro#weergave-en-taal",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-apariencia-e-idioma",
+      "destination": "/es/manual-cuenta-y-pro#weergave-en-taal",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-apparence-et-langue",
+      "destination": "/fr/manuel-compte-et-pro#weergave-en-taal",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-account-verwijderen",
+      "destination": "/handleiding-account-en-pro#account-verwijderen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-delete-account",
+      "destination": "/en/guide-account-and-pro#account-verwijderen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-konto-loeschen",
+      "destination": "/de/handbuch-konto-und-pro#account-verwijderen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-eliminar-cuenta",
+      "destination": "/es/manual-cuenta-y-pro#account-verwijderen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-supprimer-ton-compte",
+      "destination": "/fr/manuel-compte-et-pro#account-verwijderen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-privacy-en-je-recepten",
+      "destination": "/handleiding-account-en-pro#privacy-en-veiligheid",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-privacy-and-your-recipes",
+      "destination": "/en/guide-account-and-pro#privacy-en-veiligheid",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-datenschutz-und-deine-rezepte",
+      "destination": "/de/handbuch-konto-und-pro#privacy-en-veiligheid",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-privacidad-y-tus-recetas",
+      "destination": "/es/manual-cuenta-y-pro#privacy-en-veiligheid",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-confidentialite-et-tes-recettes",
+      "destination": "/fr/manuel-compte-et-pro#privacy-en-veiligheid",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-tip-opschalen-zonder-fouten",
+      "destination": "/handleiding-tip-recept-schrijven#tips-opschalen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-tip-scaling-without-mistakes",
+      "destination": "/en/guide-tip-writing-recipes#tips-opschalen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-tipp-hochrechnen-ohne-fehler",
+      "destination": "/de/handbuch-tipp-rezept-schreiben#tips-opschalen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-consejo-escalar-sin-errores",
+      "destination": "/es/manual-consejo-escribir-una-receta#tips-opschalen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-astuce-adapter-sans-erreur",
+      "destination": "/fr/manuel-astuce-ecrire-une-recette#tips-opschalen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-tip-van-kladje-naar-receptkaart",
+      "destination": "/handleiding-tip-recept-schrijven#tips-kladjes",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-tip-from-note-to-recipe-card",
+      "destination": "/en/guide-tip-writing-recipes#tips-kladjes",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-tipp-von-der-notiz-zur-rezeptkarte",
+      "destination": "/de/handbuch-tipp-rezept-schreiben#tips-kladjes",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-consejo-de-la-nota-a-la-ficha",
+      "destination": "/es/manual-consejo-escribir-una-receta#tips-kladjes",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-astuce-du-brouillon-a-la-fiche",
+      "destination": "/fr/manuel-astuce-ecrire-une-recette#tips-kladjes",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-tip-categorieen-en-mappen",
+      "destination": "/handleiding-tip-recept-schrijven#tips-ordenen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-tip-categories-and-folders",
+      "destination": "/en/guide-tip-writing-recipes#tips-ordenen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-tipp-kategorien-und-ordner",
+      "destination": "/de/handbuch-tipp-rezept-schreiben#tips-ordenen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-consejo-categorias-y-carpetas",
+      "destination": "/es/manual-consejo-escribir-una-receta#tips-ordenen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-astuce-categories-et-dossiers",
+      "destination": "/fr/manuel-astuce-ecrire-une-recette#tips-ordenen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-tip-samenwerken",
+      "destination": "/handleiding-tip-recept-schrijven#tips-team",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-tip-working-together",
+      "destination": "/en/guide-tip-writing-recipes#tips-team",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-tipp-zusammenarbeiten",
+      "destination": "/de/handbuch-tipp-rezept-schreiben#tips-team",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-consejo-trabajar-juntos",
+      "destination": "/es/manual-consejo-escribir-una-receta#tips-team",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-astuce-travailler-ensemble",
+      "destination": "/fr/manuel-astuce-ecrire-une-recette#tips-team",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-tip-allergenen",
+      "destination": "/handleiding-tip-recept-schrijven#tips-allergenen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-tip-allergens",
+      "destination": "/en/guide-tip-writing-recipes#tips-allergenen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-tipp-allergene",
+      "destination": "/de/handbuch-tipp-rezept-schreiben#tips-allergenen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-consejo-alergenos",
+      "destination": "/es/manual-consejo-escribir-una-receta#tips-allergenen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-astuce-allergenes",
+      "destination": "/fr/manuel-astuce-ecrire-une-recette#tips-allergenen",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-probleem-melden-en-contact",
+      "destination": "/handleiding-problemen-met-inloggen#probleem-melden",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-report-a-problem-and-contact",
+      "destination": "/en/guide-login-problems#probleem-melden",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-problem-melden-und-kontakt",
+      "destination": "/de/handbuch-probleme-beim-anmelden#probleem-melden",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-informar-de-un-problema-y-contacto",
+      "destination": "/es/manual-problemas-para-iniciar-sesion#probleem-melden",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-signaler-un-probleme-et-contact",
+      "destination": "/fr/manuel-problemes-de-connexion#probleem-melden",
+      "permanent": true
+    },
+    {
+      "source": "/handleiding-woordenlijst",
+      "destination": "/handleiding-problemen-met-inloggen#woordenlijst",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-glossary",
+      "destination": "/en/guide-login-problems#woordenlijst",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-glossar",
+      "destination": "/de/handbuch-probleme-beim-anmelden#woordenlijst",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-glosario",
+      "destination": "/es/manual-problemas-para-iniciar-sesion#woordenlijst",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-glossaire",
+      "destination": "/fr/manuel-problemes-de-connexion#woordenlijst",
+      "permanent": true
     }
   ],
   "rewrites": [

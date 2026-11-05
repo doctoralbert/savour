@@ -931,7 +931,9 @@
 .site-prose .site-guide-onpage a {
   text-decoration: none;
 }
-.site-prose h2[id] {
+.site-prose h2[id],
+.site-prose h3[id],
+.site-guide-topic[id] {
   scroll-margin-top: 90px;
 }
 .site-guide-related {

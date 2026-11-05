@@ -5,11 +5,13 @@ export const group = {
   id: 'importeren',
   nl: {
     name: 'Recepten importeren',
-    intro: 'Je recepten naar Savour halen: uit Word, PDF, foto’s, tekst, websites, notitie-apps en meer dan vijftien andere recepten-apps.'
+    intro:
+      'Je recepten naar Savour halen: uit Word, PDF, foto’s, tekst, websites, notitie-apps en meer dan vijftien andere recepten-apps.'
   },
   en: {
     name: 'Importing recipes',
-    intro: 'Bring your recipes into Savour: from Word, PDF, photos, text, websites, notes apps and more than fifteen other recipe apps.'
+    intro:
+      'Bring your recipes into Savour: from Word, PDF, photos, text, websites, notes apps and more than fifteen other recipe apps.'
   }
 };
 
@@ -71,9 +73,10 @@ export function appPageLang(tpl, name, slug, t) {
     sections: [
       [tpl.need, t.need ?? tpl.needText(name, t.files)],
       [tpl.exportHead(name), t.export, t.exportSteps],
-      [tpl.importHead, tpl.importIntro, tpl.steps],
+      // 'shared': voor elke app gelijk; in het hoofdstuk Overstappen staat dit één keer bovenaan.
+      [tpl.importHead, tpl.importIntro, tpl.steps, 'shared'],
       [tpl.carriesHead, t.carries, t.carriesList],
-      [tpl.categoryHead, tpl.category],
+      [tpl.categoryHead, tpl.category, undefined, 'shared'],
       ...(t.extra || [])
     ]
   };
@@ -542,10 +545,7 @@ export const pages = [
           'Pasting it neatly',
           'Put the title at the top, then the ingredients on separate lines with the quantity first, then the method. A blank line between two recipes helps the reader.'
         ],
-        [
-          'Rather fill it in yourself',
-          'To fill in a recipe field by field, use [Enter manually](#recept-maken).'
-        ]
+        ['Rather fill it in yourself', 'To fill in a recipe field by field, use [Enter manually](#recept-maken).']
       ]
     }
   },
@@ -1147,91 +1147,135 @@ export const pages = [
     id: 'import-paprika',
     name: 'Paprika',
     slug: 'paprika',
-    files: { nl: 'een .paprikarecipes-bestand (alle recepten) of een .paprikarecipe-bestand (één recept)', en: 'a .paprikarecipes file (all recipes) or a .paprikarecipe file (one recipe)' },
+    files: {
+      nl: 'een .paprikarecipes-bestand (alle recepten) of een .paprikarecipe-bestand (één recept)',
+      en: 'a .paprikarecipes file (all recipes) or a .paprikarecipe file (one recipe)'
+    },
     nl: {
       desc: 'Zo zet je je recepten uit Paprika Recipe Manager in Savour: exporteer als .paprikarecipes en importeer het bestand, met foto’s, notities en opbrengst.',
       lead: 'Van Paprika naar Savour in een paar minuten, met je foto’s erbij.',
-      export: 'Kies in Paprika de recepten die je wilt meenemen (of alles) en kies Exporteren. Kies als formaat “Paprika Recipe Format”. Op de computer vind je Exporteren in het menu Bestand; op een telefoon of tablet via het deelmenu. De precieze plek verschilt per versie.',
-      carries: 'Savour neemt over: de naam, ingrediënten, bereiding, opbrengst (servings), notities (onderaan de bereiding) en de foto van het recept.',
-      extra: [['Ook als HTML', 'Exporteerde je uit Paprika als HTML, dan kun je die bestanden of de zip ook kiezen; Savour leest de recepten uit de HTML.']]
+      export:
+        'Kies in Paprika de recepten die je wilt meenemen (of alles) en kies Exporteren. Kies als formaat “Paprika Recipe Format”. Op de computer vind je Exporteren in het menu Bestand; op een telefoon of tablet via het deelmenu. De precieze plek verschilt per versie.',
+      carries:
+        'Savour neemt over: de naam, ingrediënten, bereiding, opbrengst (servings), notities (onderaan de bereiding) en de foto van het recept.',
+      extra: [
+        [
+          'Ook als HTML',
+          'Exporteerde je uit Paprika als HTML, dan kun je die bestanden of de zip ook kiezen; Savour leest de recepten uit de HTML.'
+        ]
+      ]
     },
     en: {
       desc: 'How to move your recipes from Paprika Recipe Manager to Savour: export as .paprikarecipes and import the file, with photos, notes and yield.',
       lead: 'From Paprika to Savour in a few minutes, photos included.',
-      export: 'In Paprika, select the recipes you want to take along (or all) and choose Export. Choose “Paprika Recipe Format” as the format. On a computer Export is in the File menu; on a phone or tablet in the share menu. The exact place differs per version.',
-      carries: 'Savour takes over: the name, ingredients, method, yield (servings), notes (at the end of the method) and the recipe photo.',
-      extra: [['As HTML too', 'If you exported from Paprika as HTML, you can pick those files or the zip as well; Savour reads the recipes from the HTML.']]
+      export:
+        'In Paprika, select the recipes you want to take along (or all) and choose Export. Choose “Paprika Recipe Format” as the format. On a computer Export is in the File menu; on a phone or tablet in the share menu. The exact place differs per version.',
+      carries:
+        'Savour takes over: the name, ingredients, method, yield (servings), notes (at the end of the method) and the recipe photo.',
+      extra: [
+        [
+          'As HTML too',
+          'If you exported from Paprika as HTML, you can pick those files or the zip as well; Savour reads the recipes from the HTML.'
+        ]
+      ]
     }
   }),
   appPage({
     id: 'import-mela',
     name: 'Mela',
     slug: 'mela',
-    files: { nl: 'een .melarecipes-archief (meerdere recepten) of een .melarecipe-bestand (één recept)', en: 'a .melarecipes archive (several recipes) or a .melarecipe file (one recipe)' },
+    files: {
+      nl: 'een .melarecipes-archief (meerdere recepten) of een .melarecipe-bestand (één recept)',
+      en: 'a .melarecipes archive (several recipes) or a .melarecipe file (one recipe)'
+    },
     nl: {
       desc: 'Zo zet je je recepten uit Mela in Savour: exporteer als .melarecipes en importeer het archief, met foto, kopjes, notities en opbrengst.',
       lead: 'Je Mela-recepten met foto’s en kopjes naar Savour.',
-      export: 'Op de Mac klik je in Mela met de rechtermuisknop op “Alle” in het menu links en kies je de export van alle recepten. Kies waar je het .melarecipes-archief bewaart. Een kleinere selectie exporteer je op dezelfde manier vanuit een andere categorie, zoals Favorieten. Eén recept deel je als .melarecipe.',
-      carries: 'Savour neemt over: de naam, ingrediënten, bereiding, opbrengst, notities en de eerste foto. Kopjes in je ingrediënten of bereiding (“# Saus”) worden [delen van het recept](#recept-delen), zoals “Saus:”.'
+      export:
+        'Op de Mac klik je in Mela met de rechtermuisknop op “Alle” in het menu links en kies je de export van alle recepten. Kies waar je het .melarecipes-archief bewaart. Een kleinere selectie exporteer je op dezelfde manier vanuit een andere categorie, zoals Favorieten. Eén recept deel je als .melarecipe.',
+      carries:
+        'Savour neemt over: de naam, ingrediënten, bereiding, opbrengst, notities en de eerste foto. Kopjes in je ingrediënten of bereiding (“# Saus”) worden [delen van het recept](#recept-delen), zoals “Saus:”.'
     },
     en: {
       desc: 'How to move your recipes from Mela to Savour: export as .melarecipes and import the archive, with photo, headings, notes and yield.',
       lead: 'Your Mela recipes with photos and headings into Savour.',
-      export: 'On a Mac, right-click “All” in Mela’s left-hand menu and choose to export all recipes. Choose where to save the .melarecipes archive. Export a smaller selection the same way from another category, such as Favourites. Share a single recipe as .melarecipe.',
-      carries: 'Savour takes over: the name, ingredients, method, yield, notes and the first photo. Headings in your ingredients or method (“# Sauce”) become [parts of the recipe](#recept-delen), such as “Sauce:”.'
+      export:
+        'On a Mac, right-click “All” in Mela’s left-hand menu and choose to export all recipes. Choose where to save the .melarecipes archive. Export a smaller selection the same way from another category, such as Favourites. Share a single recipe as .melarecipe.',
+      carries:
+        'Savour takes over: the name, ingredients, method, yield, notes and the first photo. Headings in your ingredients or method (“# Sauce”) become [parts of the recipe](#recept-delen), such as “Sauce:”.'
     }
   }),
   appPage({
     id: 'import-mealie',
     name: 'Mealie',
     slug: 'mealie',
-    files: { nl: 'een export van je recepten als JSON, los of in een .zip', en: 'an export of your recipes as JSON, on its own or in a .zip' },
+    files: {
+      nl: 'een export van je recepten als JSON, los of in een .zip',
+      en: 'an export of your recipes as JSON, on its own or in a .zip'
+    },
     nl: {
       desc: 'Zo zet je je recepten uit Mealie in Savour: exporteer je recepten als JSON of zip en importeer het bestand. Ingrediënten met hoeveelheid en eenheid gaan mee.',
       lead: 'Van je eigen Mealie-server naar Savour.',
-      export: 'Exporteer in Mealie je recepten als JSON. Afhankelijk van je versie vind je dat bij het exporteren van recepten of bij gegevensbeheer. Je krijgt een .json-bestand of een .zip met JSON-bestanden.',
-      carries: 'Savour neemt over: de naam, ingrediënten (ook als hoeveelheid, eenheid, product en notitie apart staan), bereiding, opbrengst en notities.'
+      export:
+        'Exporteer in Mealie je recepten als JSON. Afhankelijk van je versie vind je dat bij het exporteren van recepten of bij gegevensbeheer. Je krijgt een .json-bestand of een .zip met JSON-bestanden.',
+      carries:
+        'Savour neemt over: de naam, ingrediënten (ook als hoeveelheid, eenheid, product en notitie apart staan), bereiding, opbrengst en notities.'
     },
     en: {
       desc: 'How to move your recipes from Mealie to Savour: export your recipes as JSON or a zip and import the file. Ingredients with quantity and unit come across.',
       lead: 'From your own Mealie server to Savour.',
-      export: 'Export your recipes from Mealie as JSON. Depending on your version you find this under exporting recipes or under data management. You get a .json file or a .zip with JSON files.',
-      carries: 'Savour takes over: the name, ingredients (also when quantity, unit, food and note are stored separately), method, yield and notes.'
+      export:
+        'Export your recipes from Mealie as JSON. Depending on your version you find this under exporting recipes or under data management. You get a .json file or a .zip with JSON files.',
+      carries:
+        'Savour takes over: the name, ingredients (also when quantity, unit, food and note are stored separately), method, yield and notes.'
     }
   }),
   appPage({
     id: 'import-tandoor',
     name: 'Tandoor',
     slug: 'tandoor',
-    files: { nl: 'een export als .json, of een .zip met JSON-bestanden', en: 'an export as .json, or a .zip with JSON files' },
+    files: {
+      nl: 'een export als .json, of een .zip met JSON-bestanden',
+      en: 'an export as .json, or a .zip with JSON files'
+    },
     nl: {
       desc: 'Zo zet je je recepten uit Tandoor Recipes in Savour: exporteer je recepten als JSON en importeer het bestand.',
       lead: 'Van Tandoor Recipes naar Savour.',
-      export: 'Open in Tandoor de instellingen en kies Exporteren. Kies een exporttype met recepten in JSON in schema.org-vorm, kies “Alle recepten” of een selectie en download het bestand als het klaar is.',
-      carries: 'Savour neemt over: de naam, ingrediënten, bereiding (ook in stappen), opbrengst en notities. Foto’s zitten niet in zo’n export.'
+      export:
+        'Open in Tandoor de instellingen en kies Exporteren. Kies een exporttype met recepten in JSON in schema.org-vorm, kies “Alle recepten” of een selectie en download het bestand als het klaar is.',
+      carries:
+        'Savour neemt over: de naam, ingrediënten, bereiding (ook in stappen), opbrengst en notities. Foto’s zitten niet in zo’n export.'
     },
     en: {
       desc: 'How to move your recipes from Tandoor Recipes to Savour: export your recipes as JSON and import the file.',
       lead: 'From Tandoor Recipes to Savour.',
-      export: 'Open the settings in Tandoor and choose Export. Choose an export type with recipes as JSON in schema.org form, choose “All recipes” or a selection and download the file when it is ready.',
-      carries: 'Savour takes over: the name, ingredients, method (including steps), yield and notes. Photos are not part of such an export.'
+      export:
+        'Open the settings in Tandoor and choose Export. Choose an export type with recipes as JSON in schema.org form, choose “All recipes” or a selection and download the file when it is ready.',
+      carries:
+        'Savour takes over: the name, ingredients, method (including steps), yield and notes. Photos are not part of such an export.'
     }
   }),
   appPage({
     id: 'import-recipe-keeper',
     name: 'Recipe Keeper',
     slug: 'recipe-keeper',
-    files: { nl: 'het .zip-bestand dat Recipe Keeper bij exporteren maakt', en: 'the .zip file Recipe Keeper makes when you export' },
+    files: {
+      nl: 'het .zip-bestand dat Recipe Keeper bij exporteren maakt',
+      en: 'the .zip file Recipe Keeper makes when you export'
+    },
     nl: {
       desc: 'Zo zet je je recepten uit Recipe Keeper in Savour: exporteer je recepten als zip en importeer die in één keer.',
       lead: 'Van Recipe Keeper naar Savour, met al je recepten in één zip.',
-      export: 'Kies in Recipe Keeper in de instellingen de export van je recepten. Je krijgt een .zip-bestand. Pak het niet uit.',
-      carries: 'Savour neemt over: de naam, ingrediënten, bereiding, opbrengst, categorie en notities, zoals ze in de export staan.'
+      export:
+        'Kies in Recipe Keeper in de instellingen de export van je recepten. Je krijgt een .zip-bestand. Pak het niet uit.',
+      carries:
+        'Savour neemt over: de naam, ingrediënten, bereiding, opbrengst, categorie en notities, zoals ze in de export staan.'
     },
     en: {
       desc: 'How to move your recipes from Recipe Keeper to Savour: export your recipes as a zip and import it in one go.',
       lead: 'From Recipe Keeper to Savour, with all your recipes in one zip.',
-      export: 'In Recipe Keeper, choose the export of your recipes in the settings. You get a .zip file. Don’t unzip it.',
+      export:
+        'In Recipe Keeper, choose the export of your recipes in the settings. You get a .zip file. Don’t unzip it.',
       carries: 'Savour takes over: the name, ingredients, method, yield, category and notes, as they are in the export.'
     }
   }),
@@ -1243,31 +1287,40 @@ export const pages = [
     nl: {
       desc: 'Zo zet je je recepten uit Copy Me That in Savour: exporteer als HTML, je krijgt een zip, en importeer die in Savour.',
       lead: 'Van Copy Me That naar Savour.',
-      export: 'Kies in Copy Me That bij je account de export van je recepten en kies de optie “HTML”. Je krijgt een .zip-bestand.',
-      carries: 'Savour neemt over: de naam, ingrediënten, bereiding, opbrengst en notities. Staat een recept niet in vaste vorm in de HTML, dan leest de Savour-lezer de tekst.'
+      export:
+        'Kies in Copy Me That bij je account de export van je recepten en kies de optie “HTML”. Je krijgt een .zip-bestand.',
+      carries:
+        'Savour neemt over: de naam, ingrediënten, bereiding, opbrengst en notities. Staat een recept niet in vaste vorm in de HTML, dan leest de Savour-lezer de tekst.'
     },
     en: {
       desc: 'How to move your recipes from Copy Me That to Savour: export as HTML, you get a zip, and import it into Savour.',
       lead: 'From Copy Me That to Savour.',
-      export: 'In Copy Me That, choose the export of your recipes in your account and pick the “HTML” option. You get a .zip file.',
-      carries: 'Savour takes over: the name, ingredients, method, yield and notes. If a recipe is not in a structured form in the HTML, the Savour reader reads the text.'
+      export:
+        'In Copy Me That, choose the export of your recipes in your account and pick the “HTML” option. You get a .zip file.',
+      carries:
+        'Savour takes over: the name, ingredients, method, yield and notes. If a recipe is not in a structured form in the HTML, the Savour reader reads the text.'
     }
   }),
   appPage({
     id: 'import-crouton',
     name: 'Crouton',
     slug: 'crouton',
-    files: { nl: 'een .zip met .crumb-bestanden, of één .crumb-bestand', en: 'a .zip of .crumb files, or a single .crumb file' },
+    files: {
+      nl: 'een .zip met .crumb-bestanden, of één .crumb-bestand',
+      en: 'a .zip of .crumb files, or a single .crumb file'
+    },
     nl: {
       desc: 'Zo zet je je recepten uit Crouton in Savour: exporteer je recepten als zip met .crumb-bestanden en importeer die.',
       lead: 'Van Crouton op iPhone, iPad of Mac naar Savour.',
-      export: 'Open Crouton op iOS of macOS en ga naar de instellingen. Kies de export van je recepten (de precieze naam verschilt per versie). Je krijgt een .zip met per recept een .crumb-bestand.',
+      export:
+        'Open Crouton op iOS of macOS en ga naar de instellingen. Kies de export van je recepten (de precieze naam verschilt per versie). Je krijgt een .zip met per recept een .crumb-bestand.',
       carries: 'Savour neemt over: de naam, ingrediënten met hoeveelheid en eenheid, bereiding, opbrengst en notities.'
     },
     en: {
       desc: 'How to move your recipes from Crouton to Savour: export your recipes as a zip of .crumb files and import it.',
       lead: 'From Crouton on iPhone, iPad or Mac to Savour.',
-      export: 'Open Crouton on iOS or macOS and go to the settings. Choose the export of your recipes (the exact name differs per version). You get a .zip with a .crumb file per recipe.',
+      export:
+        'Open Crouton on iOS or macOS and go to the settings. Choose the export of your recipes (the exact name differs per version). You get a .zip with a .crumb file per recipe.',
       carries: 'Savour takes over: the name, ingredients with quantity and unit, method, yield and notes.'
     }
   }),
@@ -1275,36 +1328,50 @@ export const pages = [
     id: 'import-mastercook',
     name: 'MasterCook',
     slug: 'mastercook',
-    files: { nl: 'een .mx2-bestand (MasterCook XML) of een .mxp-bestand', en: 'an .mx2 file (MasterCook XML) or an .mxp file' },
+    files: {
+      nl: 'een .mx2-bestand (MasterCook XML) of een .mxp-bestand',
+      en: 'an .mx2 file (MasterCook XML) or an .mxp file'
+    },
     nl: {
       desc: 'Zo zet je je recepten uit MasterCook in Savour: exporteer als .mx2 of .mxp en importeer het bestand.',
       lead: 'Van MasterCook naar Savour, ook met oude kookboeken.',
-      export: 'Open in MasterCook het kookboek en kies Bestand → Exporteren. Kies als formaat MasterCook (.mx2) of de oudere tekstexport (.mxp).',
-      carries: 'Savour neemt over: de naam, ingrediënten met hoeveelheid en eenheid, bereiding, porties en notities. Een .mxp-bestand leest de Savour-lezer als tekst; kijk die recepten iets beter na.'
+      export:
+        'Open in MasterCook het kookboek en kies Bestand → Exporteren. Kies als formaat MasterCook (.mx2) of de oudere tekstexport (.mxp).',
+      carries:
+        'Savour neemt over: de naam, ingrediënten met hoeveelheid en eenheid, bereiding, porties en notities. Een .mxp-bestand leest de Savour-lezer als tekst; kijk die recepten iets beter na.'
     },
     en: {
       desc: 'How to move your recipes from MasterCook to Savour: export as .mx2 or .mxp and import the file.',
       lead: 'From MasterCook to Savour, old cookbooks included.',
-      export: 'Open the cookbook in MasterCook and choose File → Export. Choose MasterCook (.mx2) or the older text export (.mxp) as the format.',
-      carries: 'Savour takes over: the name, ingredients with quantity and unit, method, servings and notes. The Savour reader reads an .mxp file as text; check those recipes a little more closely.'
+      export:
+        'Open the cookbook in MasterCook and choose File → Export. Choose MasterCook (.mx2) or the older text export (.mxp) as the format.',
+      carries:
+        'Savour takes over: the name, ingredients with quantity and unit, method, servings and notes. The Savour reader reads an .mxp file as text; check those recipes a little more closely.'
     }
   }),
   appPage({
     id: 'import-cookmate',
     name: 'Cookmate',
     slug: 'cookmate',
-    files: { nl: 'een .mcb-bestand, de export van Cookmate (vroeger My Cookbook)', en: 'an .mcb file, the export from Cookmate (formerly My Cookbook)' },
+    files: {
+      nl: 'een .mcb-bestand, de export van Cookmate (vroeger My Cookbook)',
+      en: 'an .mcb file, the export from Cookmate (formerly My Cookbook)'
+    },
     nl: {
       desc: 'Zo zet je je recepten uit Cookmate (My Cookbook) in Savour: exporteer als .mcb en importeer het bestand, met foto’s.',
       lead: 'Van Cookmate naar Savour, met de foto’s van je recepten.',
-      export: 'Kies in Cookmate de export of back-up van je recepten. Bewaar het .mcb-bestand op je telefoon of computer; Savour leest het zonder dat je het uitpakt.',
-      carries: 'Savour neemt over: de naam, ingrediënten, bereiding, opbrengst, opmerkingen (onderaan de bereiding) en de foto als die in de export zit.'
+      export:
+        'Kies in Cookmate de export of back-up van je recepten. Bewaar het .mcb-bestand op je telefoon of computer; Savour leest het zonder dat je het uitpakt.',
+      carries:
+        'Savour neemt over: de naam, ingrediënten, bereiding, opbrengst, opmerkingen (onderaan de bereiding) en de foto als die in de export zit.'
     },
     en: {
       desc: 'How to move your recipes from Cookmate (My Cookbook) to Savour: export as .mcb and import the file, with photos.',
       lead: 'From Cookmate to Savour, with your recipe photos.',
-      export: 'In Cookmate, choose the export or backup of your recipes. Save the .mcb file on your phone or computer; Savour reads it without unpacking.',
-      carries: 'Savour takes over: the name, ingredients, method, yield, comments (at the end of the method) and the photo if it is in the export.'
+      export:
+        'In Cookmate, choose the export or backup of your recipes. Save the .mcb file on your phone or computer; Savour reads it without unpacking.',
+      carries:
+        'Savour takes over: the name, ingredients, method, yield, comments (at the end of the method) and the photo if it is in the export.'
     }
   }),
   appPage({
@@ -1315,14 +1382,18 @@ export const pages = [
     nl: {
       desc: 'Zo zet je je recepten uit Living Cookbook in Savour: exporteer je kookboek als FDX of FDXZ en importeer het bestand, met foto’s en tips.',
       lead: 'Van Living Cookbook naar Savour.',
-      export: 'Exporteer in Living Cookbook je kookboek of je recepten in het formaat FDX of FDXZ (FDXZ is een gecomprimeerde versie met foto’s). Een .lcb-bestand (de kookboekdatabase zelf) kan Savour niet lezen.',
-      carries: 'Savour neemt over: de naam, ingrediënten met hoeveelheid en eenheid, bereidingsstappen, porties, opmerkingen, tips en de foto.'
+      export:
+        'Exporteer in Living Cookbook je kookboek of je recepten in het formaat FDX of FDXZ (FDXZ is een gecomprimeerde versie met foto’s). Een .lcb-bestand (de kookboekdatabase zelf) kan Savour niet lezen.',
+      carries:
+        'Savour neemt over: de naam, ingrediënten met hoeveelheid en eenheid, bereidingsstappen, porties, opmerkingen, tips en de foto.'
     },
     en: {
       desc: 'How to move your recipes from Living Cookbook to Savour: export your cookbook as FDX or FDXZ and import the file, with photos and tips.',
       lead: 'From Living Cookbook to Savour.',
-      export: 'In Living Cookbook, export your cookbook or recipes in the FDX or FDXZ format (FDXZ is a compressed version with photos). Savour cannot read an .lcb file (the cookbook database itself).',
-      carries: 'Savour takes over: the name, ingredients with quantity and unit, method steps, servings, comments, tips and the photo.'
+      export:
+        'In Living Cookbook, export your cookbook or recipes in the FDX or FDXZ format (FDXZ is a compressed version with photos). Savour cannot read an .lcb file (the cookbook database itself).',
+      carries:
+        'Savour takes over: the name, ingredients with quantity and unit, method steps, servings, comments, tips and the photo.'
     }
   }),
   appPage({
@@ -1334,70 +1405,93 @@ export const pages = [
     nl: {
       desc: 'Zo zet je recepten uit Evernote in Savour: exporteer je receptnotities als .enex, Savour leest elke notitie als recept.',
       lead: 'Recepten die je jarenlang in Evernote bewaarde, in één keer naar Savour.',
-      export: 'Kies in Evernote de notities met je recepten (of een hele notitieblok) en kies Bestand → Notities exporteren. Kies het formaat .enex en bewaar het bestand.',
-      carries: 'Elke notitie wordt één recept, met de titel van de notitie als receptnaam. De tekst leest de Savour-lezer: ingrediënten, bereiding en opbrengst. Notities zonder ingrediënten of bereiding (bijvoorbeeld een lijstje) worden als “nakijken” gemarkeerd, zodat je ze in het controlescherm makkelijk weghaalt. Labels (tags) en bijlagen gaan niet mee.'
+      export:
+        'Kies in Evernote de notities met je recepten (of een hele notitieblok) en kies Bestand → Notities exporteren. Kies het formaat .enex en bewaar het bestand.',
+      carries:
+        'Elke notitie wordt één recept, met de titel van de notitie als receptnaam. De tekst leest de Savour-lezer: ingrediënten, bereiding en opbrengst. Notities zonder ingrediënten of bereiding (bijvoorbeeld een lijstje) worden als “nakijken” gemarkeerd, zodat je ze in het controlescherm makkelijk weghaalt. Labels (tags) en bijlagen gaan niet mee.'
     },
     en: {
       desc: 'How to move recipes from Evernote to Savour: export your recipe notes as .enex and Savour reads each note as a recipe.',
       lead: 'Recipes you kept in Evernote for years, into Savour in one go.',
-      export: 'In Evernote, select the notes with your recipes (or a whole notebook) and choose File → Export Notes. Choose the .enex format and save the file.',
-      carries: 'Each note becomes one recipe, with the note title as the recipe name. The Savour reader reads the text: ingredients, method and yield. Notes without ingredients or method (a list, for example) are marked for review so you can remove them easily in the review screen. Tags and attachments don’t come across.'
+      export:
+        'In Evernote, select the notes with your recipes (or a whole notebook) and choose File → Export Notes. Choose the .enex format and save the file.',
+      carries:
+        'Each note becomes one recipe, with the note title as the recipe name. The Savour reader reads the text: ingredients, method and yield. Notes without ingredients or method (a list, for example) are marked for review so you can remove them easily in the review screen. Tags and attachments don’t come across.'
     }
   }),
   appPage({
     id: 'import-google-keep',
     name: 'Google Keep',
     slug: 'google-keep',
-    files: { nl: 'een .zip uit Google Takeout met je Keep-notities', en: 'a .zip from Google Takeout with your Keep notes' },
+    files: {
+      nl: 'een .zip uit Google Takeout met je Keep-notities',
+      en: 'a .zip from Google Takeout with your Keep notes'
+    },
     related: ['import-notitie-apps'],
     nl: {
       desc: 'Zo zet je recepten uit Google Keep in Savour: download je notities met Google Takeout als zip en importeer die. Elke notitie wordt een recept.',
       lead: 'Je receptnotities uit Google Keep naar Savour.',
-      export: 'Ga naar Google Takeout (takeout.google.com), kies alleen “Keep” en maak de export. Download de .zip als Google laat weten dat hij klaar is.',
+      export:
+        'Ga naar Google Takeout (takeout.google.com), kies alleen “Keep” en maak de export. Download de .zip als Google laat weten dat hij klaar is.',
       exportSteps: undefined,
-      carries: 'Elke notitie wordt één recept, met de titel van de notitie als receptnaam; de datum erboven valt weg. Afvinklijstjes worden een regel per item. Notities zonder bereiding (bijvoorbeeld een boodschappenlijst) worden als “nakijken” gemarkeerd, zodat je ze in het controlescherm weghaalt.'
+      carries:
+        'Elke notitie wordt één recept, met de titel van de notitie als receptnaam; de datum erboven valt weg. Afvinklijstjes worden een regel per item. Notities zonder bereiding (bijvoorbeeld een boodschappenlijst) worden als “nakijken” gemarkeerd, zodat je ze in het controlescherm weghaalt.'
     },
     en: {
       desc: 'How to move recipes from Google Keep to Savour: download your notes as a zip with Google Takeout and import it. Each note becomes a recipe.',
       lead: 'Your recipe notes from Google Keep into Savour.',
-      export: 'Go to Google Takeout (takeout.google.com), select only “Keep” and create the export. Download the .zip when Google tells you it is ready.',
-      carries: 'Each note becomes one recipe, with the note title as the recipe name; the date above it is left out. Checklists become one line per item. Notes without a method (a shopping list, for example) are marked for review so you can remove them in the review screen.'
+      export:
+        'Go to Google Takeout (takeout.google.com), select only “Keep” and create the export. Download the .zip when Google tells you it is ready.',
+      carries:
+        'Each note becomes one recipe, with the note title as the recipe name; the date above it is left out. Checklists become one line per item. Notes without a method (a shopping list, for example) are marked for review so you can remove them in the review screen.'
     }
   }),
   appPage({
     id: 'import-flavorish',
     name: 'Flavorish',
     slug: 'flavorish',
-    files: { nl: 'het .zip-bestand dat Flavorish bij exporteren maakt', en: 'the .zip file Flavorish makes when you export' },
+    files: {
+      nl: 'het .zip-bestand dat Flavorish bij exporteren maakt',
+      en: 'the .zip file Flavorish makes when you export'
+    },
     nl: {
       desc: 'Zo zet je je recepten uit Flavorish in Savour: exporteer je recepten als zip en importeer die, met foto’s en kopjes.',
       lead: 'Van Flavorish naar Savour, met je foto’s.',
-      export: 'Open in Flavorish het tabblad Account. Kies bij “Import & Export” de export van je recepten. Je krijgt een .zip met je recepten en foto’s.',
-      carries: 'Savour neemt over: de naam, ingrediënten en bereiding in de goede volgorde, kopjes als [delen van het recept](#recept-delen), porties, notities en de foto.'
+      export:
+        'Open in Flavorish het tabblad Account. Kies bij “Import & Export” de export van je recepten. Je krijgt een .zip met je recepten en foto’s.',
+      carries:
+        'Savour neemt over: de naam, ingrediënten en bereiding in de goede volgorde, kopjes als [delen van het recept](#recept-delen), porties, notities en de foto.'
     },
     en: {
       desc: 'How to move your recipes from Flavorish to Savour: export your recipes as a zip and import it, with photos and headings.',
       lead: 'From Flavorish to Savour, with your photos.',
-      export: 'Open the Account tab in Flavorish. Under “Import & Export” choose to export your recipes. You get a .zip with your recipes and photos.',
-      carries: 'Savour takes over: the name, ingredients and method in the right order, headings as [parts of the recipe](#recept-delen), servings, notes and the photo.'
+      export:
+        'Open the Account tab in Flavorish. Under “Import & Export” choose to export your recipes. You get a .zip with your recipes and photos.',
+      carries:
+        'Savour takes over: the name, ingredients and method in the right order, headings as [parts of the recipe](#recept-delen), servings, notes and the photo.'
     }
   }),
   appPage({
     id: 'import-cookbookmanager',
     name: 'CookBookManager',
     slug: 'cookbookmanager',
-    files: { nl: 'de YAML-export van CookBookManager.com: een .zip met een .yml-bestand per recept', en: 'the YAML export from CookBookManager.com: a .zip with one .yml file per recipe' },
+    files: {
+      nl: 'de YAML-export van CookBookManager.com: een .zip met een .yml-bestand per recept',
+      en: 'the YAML export from CookBookManager.com: a .zip with one .yml file per recipe'
+    },
     nl: {
       desc: 'Zo zet je je recepten uit CookBookManager.com in Savour: kies de YAML-export, je krijgt een zip, en importeer die in Savour.',
       lead: 'Van CookBookManager.com naar Savour.',
       export: 'Kies op CookBookManager.com de export van je recepten en kies het formaat YAML. Bewaar de .zip.',
-      carries: 'Savour neemt over: de naam, ingrediënten, bereiding, porties, notities (met een videolink als die er is) en het eerste label als categorie. Een ingrediëntregel die eindigt op een dubbele punt wordt een [deel van het recept](#recept-delen).'
+      carries:
+        'Savour neemt over: de naam, ingrediënten, bereiding, porties, notities (met een videolink als die er is) en het eerste label als categorie. Een ingrediëntregel die eindigt op een dubbele punt wordt een [deel van het recept](#recept-delen).'
     },
     en: {
       desc: 'How to move your recipes from CookBookManager.com to Savour: choose the YAML export, you get a zip, and import it into Savour.',
       lead: 'From CookBookManager.com to Savour.',
       export: 'On CookBookManager.com choose the export of your recipes and pick the YAML format. Save the .zip.',
-      carries: 'Savour takes over: the name, ingredients, method, servings, notes (with a video link if there is one) and the first tag as category. An ingredient line ending in a colon becomes a [part of the recipe](#recept-delen).'
+      carries:
+        'Savour takes over: the name, ingredients, method, servings, notes (with a video link if there is one) and the first tag as category. An ingredient line ending in a colon becomes a [part of the recipe](#recept-delen).'
     }
   }),
   appPage({
@@ -1410,13 +1504,15 @@ export const pages = [
       desc: 'Zo zet je je recepten uit Plan to Eat in Savour: exporteer je recepten als CSV en importeer het bestand.',
       lead: 'Van Plan to Eat naar Savour.',
       export: 'Kies in Plan to Eat bij je instellingen de export van je recepten als CSV en download het bestand.',
-      carries: 'Savour leest de kolommen voor titel, ingrediënten, bereiding, porties en notities. Hoe Savour kolommen herkent, staat bij [Excel en CSV](#import-csv).'
+      carries:
+        'Savour leest de kolommen voor titel, ingrediënten, bereiding, porties en notities. Hoe Savour kolommen herkent, staat bij [Excel en CSV](#import-csv).'
     },
     en: {
       desc: 'How to move your recipes from Plan to Eat to Savour: export your recipes as CSV and import the file.',
       lead: 'From Plan to Eat to Savour.',
       export: 'In Plan to Eat, choose the export of your recipes as CSV in your settings and download the file.',
-      carries: 'Savour reads the columns for title, ingredients, method, servings and notes. How Savour recognises columns is in [Excel and CSV](#import-csv).'
+      carries:
+        'Savour reads the columns for title, ingredients, method, servings and notes. How Savour recognises columns is in [Excel and CSV](#import-csv).'
     }
   }),
   {
@@ -1563,10 +1659,7 @@ export const pages = [
           'Een .doc of Pages-bestand lukt niet',
           'Sla een oud .doc-bestand in Word op als .docx. Een Pages-bestand exporteer je in Pages als Word of PDF.'
         ],
-        [
-          'Nummers voor de receptnamen',
-          'Haal ze na het opslaan in één keer weg met [Opschonen](#opschonen).'
-        ],
+        ['Nummers voor de receptnamen', 'Haal ze na het opslaan in één keer weg met [Opschonen](#opschonen).'],
         [
           'Recepten zijn dubbel',
           'Precies dezelfde recepten slaat Savour maar één keer op. Bijna-dubbele recepten vind je met [Opschonen](#opschonen).'
@@ -1608,10 +1701,7 @@ export const pages = [
           'A .doc or Pages file doesn’t work',
           'Save an old .doc file as .docx in Word. Export a Pages file in Pages as Word or PDF.'
         ],
-        [
-          'Numbers in front of recipe names',
-          'Remove them all at once after saving with [Clean up](#opschonen).'
-        ],
+        ['Numbers in front of recipe names', 'Remove them all at once after saving with [Clean up](#opschonen).'],
         [
           'Duplicate recipes',
           'Savour saves exactly identical recipes only once. Find near-duplicates with [Clean up](#opschonen).'
