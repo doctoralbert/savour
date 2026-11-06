@@ -862,22 +862,57 @@ async function giftPro(userId, days) {
 async function kitchenTeams() {
   const [maps, members, recipes] = await Promise.all([
     select('shared_maps', 'select=id,owner_id,name,created_at&order=created_at.desc'),
-    select('shared_map_members', 'select=shared_map_id'),
+    select('shared_map_members', 'select=shared_map_id,user_id'),
     select('recipes', 'select=team_id&team_id=not.is.null')
   ]);
   const tally = (rows, key) => (rows || []).reduce((m, r) => m.set(r[key], (m.get(r[key]) || 0) + 1), new Map());
-  const memberCount = tally(members, 'shared_map_id');
   const recipeCount = tally(recipes, 'team_id');
+  const memberIds = new Map();
+  for (const r of members || []) memberIds.set(r.shared_map_id, [...(memberIds.get(r.shared_map_id) || []), r.user_id]);
   return {
     teams: (maps || []).map(m => ({
       id: m.id,
       name: m.name,
       owner_id: m.owner_id,
       created_at: m.created_at,
-      members: memberCount.get(m.id) || 0,
+      members: (memberIds.get(m.id) || []).length,
+      // Eigenaar en leden samen, zonder dubbelen: voor Pro voor het hele team.
+      people: [...new Set([m.owner_id, ...(memberIds.get(m.id) || [])].filter(Boolean))],
       recipes: recipeCount.get(m.id) || 0
     }))
   };
+}
+
+// Pro voor een heel keukenteam: cadeau-Pro voor de eigenaar en elk lid. Wie al een betaald abonnement heeft, of
+// Pro via een organisatie, wordt overgeslagen (giftPro weigert dat).
+async function teamPeople(mapId) {
+  const [map] = await select('shared_maps', `select=owner_id&id=eq.${encodeURIComponent(mapId)}`);
+  if (!map) throw Object.assign(new Error('Keukenteam niet gevonden.'), { status: 404 });
+  const members = await select('shared_map_members', `select=user_id&shared_map_id=eq.${encodeURIComponent(mapId)}`);
+  return [...new Set([map.owner_id, ...(members || []).map(m => m.user_id)].filter(Boolean))];
+}
+async function giftTeam(mapId, days) {
+  let given = 0;
+  let skipped = 0;
+  for (const id of await teamPeople(mapId))
+    try {
+      await giftPro(id, days);
+      given++;
+    } catch (e) {
+      if (e.status !== 409) throw e;
+      skipped++;
+    }
+  return { given, skipped };
+}
+async function revokeTeamGift(mapId) {
+  let revoked = 0;
+  for (const id of await teamPeople(mapId)) {
+    const sub = await getSubscription(id);
+    if (sub?.plan !== 'gift') continue;
+    await revokeGift(id);
+    revoked++;
+  }
+  return { revoked };
 }
 
 async function revokeGift(userId) {
@@ -1460,6 +1495,9 @@ export default async function handler(req, res) {
       return res.status(200).json(await createAccount({ email, name, organization }, siteOrigin(req)));
     if (action === 'errors') return res.status(200).json(await errorGroups());
     if (action === 'kitchen_teams') return res.status(200).json(await kitchenTeams());
+    if (action === 'gift_team' && req.body?.map_id) return res.status(200).json(await giftTeam(req.body.map_id, days));
+    if (action === 'revoke_team_gift' && req.body?.map_id)
+      return res.status(200).json(await revokeTeamGift(req.body.map_id));
     if (action === 'adsense') return res.status(200).json(await adsenseReport());
     if (action === 'finance') return res.status(200).json(await financeOverview());
     if (action === 'newsletter')
