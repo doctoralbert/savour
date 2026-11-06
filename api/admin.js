@@ -21,7 +21,8 @@ import {
   ensureUser,
   storageList,
   storageDownloadUrl,
-  storageRemove
+  storageRemove,
+  countRows
 } from './_lib/supabase-admin.js';
 import { newsletterMail, sendMail, sendMailBatch } from './_lib/mail.js';
 import { intakeMail } from './_lib/intake-mail.js';
@@ -856,6 +857,29 @@ async function giftPro(userId, days) {
   return { until: until.toISOString() };
 }
 
+// Keukenteams (shared_maps) met hun eigenaar, aantal leden en aantal recepten. Of het team werkt, hangt af van
+// de Pro van de eigenaar; dat koppelt het beheerscherm aan de accountlijst uit het overzicht.
+async function kitchenTeams() {
+  const [maps, members, recipes] = await Promise.all([
+    select('shared_maps', 'select=id,owner_id,name,created_at&order=created_at.desc'),
+    select('shared_map_members', 'select=shared_map_id'),
+    select('recipes', 'select=team_id&team_id=not.is.null')
+  ]);
+  const tally = (rows, key) => (rows || []).reduce((m, r) => m.set(r[key], (m.get(r[key]) || 0) + 1), new Map());
+  const memberCount = tally(members, 'shared_map_id');
+  const recipeCount = tally(recipes, 'team_id');
+  return {
+    teams: (maps || []).map(m => ({
+      id: m.id,
+      name: m.name,
+      owner_id: m.owner_id,
+      created_at: m.created_at,
+      members: memberCount.get(m.id) || 0,
+      recipes: recipeCount.get(m.id) || 0
+    }))
+  };
+}
+
 async function revokeGift(userId) {
   const sub = await getSubscription(userId);
   if (sub?.plan !== 'gift') throw Object.assign(new Error('Dit account heeft geen cadeau-Pro.'), { status: 409 });
@@ -1396,8 +1420,23 @@ async function newsUnsubscribe(req, res) {
   );
 }
 
+// Openbare cijfers voor de startpagina (GET /api/admin?cijfers=1): alleen drie totalen, niets per gebruiker.
+// Vercel bewaart het antwoord een uur, zodat niet elke bezoeker de database laat tellen.
+async function siteFigures(res) {
+  if (!hasServiceRole()) return res.status(503).json({ error: 'Niet beschikbaar.' });
+  try {
+    const [recipes, teams, users] = await Promise.all([countRows('recipes'), countRows('shared_maps'), listUsers()]);
+    res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=3600, stale-while-revalidate=86400');
+    return res.status(200).json({ recipes, teams, accounts: users.length });
+  } catch (e) {
+    console.error('Cijfers startpagina', e);
+    return res.status(500).json({ error: 'Niet beschikbaar.' });
+  }
+}
+
 export default async function handler(req, res) {
   if (req.query?.afmelden) return newsUnsubscribe(req, res);
+  if (req.query?.cijfers && req.method === 'GET') return siteFigures(res);
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const user = await getUserFromRequest(req);
   // Geen (geldige) inlog-sleutel is iets anders dan geen beheerder: de pagina ververst dan zelf de sessie.
@@ -1420,6 +1459,7 @@ export default async function handler(req, res) {
     if (action === 'create_account')
       return res.status(200).json(await createAccount({ email, name, organization }, siteOrigin(req)));
     if (action === 'errors') return res.status(200).json(await errorGroups());
+    if (action === 'kitchen_teams') return res.status(200).json(await kitchenTeams());
     if (action === 'adsense') return res.status(200).json(await adsenseReport());
     if (action === 'finance') return res.status(200).json(await financeOverview());
     if (action === 'newsletter')
