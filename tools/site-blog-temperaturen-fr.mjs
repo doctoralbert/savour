@@ -50,7 +50,11 @@ export const TEMP_POSTS_FR = {
             ['Filet mignon de porc', '60–62 °C', 'Rosé et juteux'],
             ['Côte, carré', '62–63 °C', 'Légèrement rosé, 3 minutes de repos'],
             ['Haché, saucisse, burger', '71 °C', 'Cuit à cœur : les bactéries sont réparties dans tout le produit'],
-            ['Épaule, poitrine, joue (braisées)', '85–95 °C', 'Fondant et effiloché ; la température est pour la texture']
+            [
+              'Épaule, poitrine, joue (braisées)',
+              '85–95 °C',
+              'Fondant et effiloché ; la température est pour la texture'
+            ]
           ]
         }
       ],
@@ -92,7 +96,9 @@ export const TEMP_POSTS_FR = {
       ],
       [
         'Parasites : quand le poisson doit d’abord être congelé',
-        'Le poisson consommé cru ou presque cru peut contenir l’anisakis : sushi, ceviche, tartare, poisson mariné ou fumé à froid, et aussi le saumon mi-cuit à 45 °C. Selon le règlement (CE) 853/2004 (modifié par le [1276/2011](' + SRC.eu1276 + ')), ce poisson doit d’abord être congelé : au moins 24 heures à −20 °C ou moins, ou 15 heures à −35 °C. Chauffer à 60 °C à cœur pendant au moins 1 minute tue aussi les parasites. Le poisson d’élevage peut être exempté ; demande l’attestation à ton fournisseur.'
+        'Le poisson consommé cru ou presque cru peut contenir l’anisakis : sushi, ceviche, tartare, poisson mariné ou fumé à froid, et aussi le saumon mi-cuit à 45 °C. Selon le règlement (CE) 853/2004 (modifié par le [1276/2011](' +
+          SRC.eu1276 +
+          ')), ce poisson doit d’abord être congelé : au moins 24 heures à −20 °C ou moins, ou 15 heures à −35 °C. Chauffer à 60 °C à cœur pendant au moins 1 minute tue aussi les parasites. Le poisson d’élevage peut être exempté ; demande l’attestation à ton fournisseur.'
       ],
       [
         'Crustacés et coquillages',
@@ -110,7 +116,9 @@ export const TEMP_POSTS_FR = {
       ],
       [
         'Virus dans les coquillages',
-        'Moules, huîtres et coques peuvent contenir des norovirus et l’hépatite A. Ces virus résistent mieux à la chaleur que les bactéries. La norme européenne pour le traitement thermique industriel des coquillages est de 90 °C pendant 90 secondes dans la chair ; l’EFSA [a rendu un avis à ce sujet](' + SRC.efsaBivalves + '). Les huîtres crues ne sont jamais sans risque. Achète-les uniquement auprès de fournisseurs agréés et ne les sers pas aux clients vulnérables.'
+        'Moules, huîtres et coques peuvent contenir des norovirus et l’hépatite A. Ces virus résistent mieux à la chaleur que les bactéries. La norme européenne pour le traitement thermique industriel des coquillages est de 90 °C pendant 90 secondes dans la chair ; l’EFSA [a rendu un avis à ce sujet](' +
+          SRC.efsaBivalves +
+          '). Les huîtres crues ne sont jamais sans risque. Achète-les uniquement auprès de fournisseurs agréés et ne les sers pas aux clients vulnérables.'
       ],
       [
         'Clients vulnérables',
@@ -133,7 +141,8 @@ export const TEMP_POSTS_FR = {
         ]
       ]
     ],
-    outro: 'Dans Savour, tu notes la température à cœur à l’étape où elle s’applique, pour que toute ta brigade la voie, aussi en mode cuisine. Cet article est une aide ; ton propre plan HACCP et la réglementation en vigueur priment toujours.'
+    outro:
+      'Dans Savour, tu notes la température à cœur à l’étape où elle s’applique, pour que toute ta brigade la voie, aussi en mode cuisine. Cet article est une aide ; ton propre plan HACCP et la réglementation en vigueur priment toujours.'
   },
   'en/blog/sous-vide-temperatures-and-times': {
     slug: 'fr/blog/sous-vide-temperatures-et-temps',
@@ -178,7 +187,12 @@ export const TEMP_POSTS_FR = {
         {
           head: ['Produit', 'Bain', 'Temps', 'Résultat'],
           rows: [
-            ['Filet, entrecôte, faux-filet (3–4 cm)', '55 °C', '1 h 30–3 h', 'Rosé ; servir dans les 4 h ou appliquer le temps de pasteurisation'],
+            [
+              'Filet, entrecôte, faux-filet (3–4 cm)',
+              '55 °C',
+              '1 h 30–3 h',
+              'Rosé ; servir dans les 4 h ou appliquer le temps de pasteurisation'
+            ],
             ['Idem, à point', '60 °C', '1 h 30–3 h', 'Rose clair'],
             ['Bavette, hampe, aiguillette', '55 °C', '6–12 h', 'Rosé et plus tendre'],
             ['Paleron, macreuse, épaule', '55 °C', '24–48 h', 'Rosé et tendre comme un steak'],
@@ -292,6 +306,7 @@ export const TEMP_POSTS_FR = {
         ]
       ]
     ],
-    outro: 'Note la température du bain et le temps à l’étape de ta recette dans Savour ; quand tu recalcules, le temps ne change pas, car il dépend de l’épaisseur et non de la quantité. Cet article est une aide ; ton propre plan HACCP prime toujours.'
+    outro:
+      'Note la température du bain et le temps à l’étape de ta recette dans Savour ; quand tu recalcules, le temps ne change pas, car il dépend de l’épaisseur et non de la quantité. Cet article est une aide ; ton propre plan HACCP prime toujours.'
   }
 };

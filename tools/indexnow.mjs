@@ -4,13 +4,16 @@ import fs from 'node:fs';
 
 const HOST = 'savour.page';
 const STATE = new URL('indexnow-verzonden.json', import.meta.url);
-const key = fs.readdirSync('.').find(f => /^[0-9a-f]{32}\.txt$/.test(f))?.replace('.txt', '');
+const key = fs
+  .readdirSync('.')
+  .find(f => /^[0-9a-f]{32}\.txt$/.test(f))
+  ?.replace('.txt', '');
 if (!key) throw new Error('IndexNow-sleutel niet gevonden in de hoofdmap');
 const all = [...fs.readFileSync('sitemap.xml', 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
 const sent = process.argv.includes('--all') || !fs.existsSync(STATE) ? [] : JSON.parse(fs.readFileSync(STATE, 'utf8'));
 const urlList = all.filter(u => !sent.includes(u));
 if (!urlList.length) {
-  console.log('Geen nieuwe pagina\'s om aan te melden.');
+  console.log("Geen nieuwe pagina's om aan te melden.");
   process.exit(0);
 }
 const res = await fetch('https://api.indexnow.org/indexnow', {

@@ -8,7 +8,7 @@
 //
 // Uitvoer: { version, count, items: [[naam, allergenen, andere schrijfwijzen, Engels, bronnen], ...] }
 // Allergenen als codes van Savour gescheiden door komma's; schrijfwijzen en Engels gescheiden door "|";
-// bronnen als letters: o = Open Food Facts, s = Savour, n = NEVO.
+// bronnen als letters: o = Open Food Facts, s = Savour, n = NEVO, w = Wikipedia.
 
 import fs from 'fs';
 import vm from 'vm';
@@ -38,6 +38,7 @@ for (const [k, item] of base.index) {
 }
 const nevoNames = new Set(base.main.keys());
 const rows = [];
+const byName = new Map();
 for (const [item, keys] of keysOf) {
   const nl = String(item[1] || '')
     .split('|')
@@ -46,20 +47,29 @@ for (const [item, keys] of keysOf) {
   if (!nl.length) continue;
   const name = nl[0].charAt(0).toLocaleUpperCase('nl-NL') + nl[0].slice(1);
   const own = key(name);
-  const sources = item[7] === 'savour' ? 's' : item[7] === 'nevo' ? 'n' : 'o';
+  const sources = { savour: 's', nevo: 'n', wiki: 'w' }[item[7]] || 'o';
   const viaNevo = item[7] !== 'nevo' && keys.some(k => nevoNames.has(k));
-  rows.push([
-    name,
-    suggest(name).join(','),
-    [...new Set(keys.filter(k => k !== own))].join('|'),
-    String(item[2] || '')
-      .split('|')
-      .filter(Boolean)
-      .slice(0, 3)
-      .join('|'),
-    sources + (viaNevo ? 'n' : '')
-  ]);
+  // Savours eigen woordenlijst bewaart elke schrijfwijze als eigen regel met dezelfde naam: die worden één regel.
+  const row = byName.get(own) || { name, aliases: new Set(), en: new Set(), src: new Set() };
+  keys.filter(k => k !== own).forEach(k => row.aliases.add(k));
+  String(item[2] || '')
+    .split('|')
+    .filter(Boolean)
+    .forEach(e => row.en.add(e));
+  [...(sources + (viaNevo ? 'n' : ''))].forEach(s => row.src.add(s));
+  byName.set(own, row);
 }
+for (const r of byName.values())
+  rows.push([
+    r.name,
+    suggest(r.name).join(','),
+    [...r.aliases].join('|'),
+    [...r.en].slice(0, 3).join('|'),
+    'osnw'
+      .split('')
+      .filter(s => r.src.has(s))
+      .join('')
+  ]);
 rows.sort((a, b) => a[0].localeCompare(b[0], 'nl'));
 const out = { version: base.nevo, count: rows.length, items: rows };
 fs.mkdirSync(new URL('assets/data/', root), { recursive: true });

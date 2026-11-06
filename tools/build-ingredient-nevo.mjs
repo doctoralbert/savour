@@ -10,6 +10,7 @@
 
 import fs from 'fs';
 import vm from 'vm';
+import { kitchenIngredient } from './ingredient-clean.mjs';
 
 const file = process.argv[2];
 if (!file) {
@@ -66,7 +67,8 @@ function core(name) {
     prev = s;
     s = s.replace(STATE, ' ').replace(/\s+/g, ' ').trim();
   } while (s !== prev);
-  return s;
+  // NEVO zet de soort achter de groep: "kaas cheddar" is Cheddar, "noten pistache" is Pistache.
+  return s.replace(/^(kaas|noten) (?=\S{3,})/, '');
 }
 
 const lines = fs.readFileSync(file, 'utf8').replace(/^﻿/, '').split(/\r?\n/).filter(Boolean);
@@ -95,8 +97,11 @@ for (const line of lines.slice(1)) {
   const syn = f[cSyn] ? f[cSyn].split('/').map(readable) : [];
   // De naam met zijn bereidingen onder de kern; elk synoniem is een eigen ingrediënt, want NEVO zet spaghetti,
   // macaroni en mie samen onder "pasta witte".
-  add(core(full) || full, [f[cNl].toLowerCase(), full], f[cGroup]);
-  for (const s of syn) add(core(s) || s, [s], f[cGroup]);
+  // Alleen keukeningrediënten: geen merken, kant-en-klare producten, snoep of frisdrank (tools/ingredient-clean.mjs).
+  const main = core(full) || full;
+  if (kitchenIngredient(main, f[cGroup]) && kitchenIngredient(full, f[cGroup]))
+    add(main, [f[cNl].toLowerCase(), full], f[cGroup]);
+  for (const s of syn) if (kitchenIngredient(core(s) || s, f[cGroup])) add(core(s) || s, [s], f[cGroup]);
 }
 
 const items = [];

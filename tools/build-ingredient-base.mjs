@@ -12,6 +12,7 @@
 // Allergenen als codes van Savour gescheiden door komma's; namen per taal gescheiden door "|"; dichtheid in g/ml of 0.
 
 import fs from 'fs';
+import { kitchenIngredient, PREP_PREFIX } from './ingredient-clean.mjs';
 
 const file = process.argv[2];
 if (!file) {
@@ -49,7 +50,10 @@ const blocks = fs
     const out = { id: '', parents: [], names: {}, props: {} };
     for (const l of lines) {
       if (l.startsWith('<')) {
-        const m = l.slice(1).trim().match(/^([a-z]{2}):\s*(.+)$/);
+        const m = l
+          .slice(1)
+          .trim()
+          .match(/^([a-z]{2}):\s*(.+)$/);
         if (m) out.parents.push(idOf(m[1], m[2]));
         continue;
       }
@@ -81,17 +85,32 @@ function inherited(id, prop, depth = 0) {
   let value = '';
   if (b && depth < 25) {
     value = b.props[prop] || '';
-    if (!value)
-      for (const p of b.parents) if ((value = inherited(p, prop, depth + 1))) break;
+    if (!value) for (const p of b.parents) if ((value = inherited(p, prop, depth + 1))) break;
   }
   memo.set(key, value);
   return value;
 }
 
 const clean = s => s.replace(/\s+/g, ' ').replace(/\|/g, '/').trim();
+// Etiket- en fabriekstermen in het Engels, voor ingrediënten zonder Nederlandse naam (zie tools/ingredient-clean.mjs).
+const LABEL_EN =
+  /(^|[^a-z])e ?\d{3}|modified|hydroly|hydrogenat|fractionat|reconstitut|demineral|rehydrat|textur|inactivat|mechanically|flavou?r|emulsif|stabili|thicken|preserv|antioxid|colou?r|acidity|mineral|vitamin|fib(re|er)|protein|isolate|casein|permeate|whey|concentrate|extract|organic|halal|preparation/;
+const nlNames = new Set(blocks.flatMap(b => (b.names.nl || []).map(n => clean(n).toLowerCase())));
+// Alleen wat een kok inkoopt: geen aroma's, E-nummers of wei-eiwit, en geen "gekookte rijst" naast rijst.
+function kitchen(b) {
+  const nl = b.names.nl?.[0];
+  if (nl) {
+    const n = clean(nl).toLowerCase();
+    if (PREP_PREFIX.test(n) && nlNames.has(n.replace(PREP_PREFIX, ''))) return false;
+    return kitchenIngredient(n);
+  }
+  const en = b.names.en?.[0];
+  return !en || !LABEL_EN.test(en.toLowerCase());
+}
 const items = [];
 for (const b of blocks) {
   if (!LANGS.some(l => b.names[l]?.length)) continue;
+  if (!kitchen(b)) continue;
   const codes = new Set(
     inherited(b.id, 'allergens')
       .split(',')

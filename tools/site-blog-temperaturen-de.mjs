@@ -50,7 +50,11 @@ export const TEMP_POSTS_DE = {
             ['Schweinefilet', '60–62 °C', 'Rosa und saftig'],
             ['Kotelett, Rücken', '62–63 °C', 'Leicht rosa, 3 Minuten ruhen'],
             ['Hackfleisch, Wurst, Burger', '71 °C', 'Durchgegart: Bakterien sind im ganzen Produkt verteilt'],
-            ['Schulter, Bauch, Bäckchen (geschmort)', '85–95 °C', 'Zart und zupfbar; die Temperatur ist für die Struktur']
+            [
+              'Schulter, Bauch, Bäckchen (geschmort)',
+              '85–95 °C',
+              'Zart und zupfbar; die Temperatur ist für die Struktur'
+            ]
           ]
         }
       ],
@@ -92,7 +96,9 @@ export const TEMP_POSTS_DE = {
       ],
       [
         'Parasiten: wann Fisch zuerst eingefroren werden muss',
-        'Fisch, der roh oder fast roh gegessen wird, kann den Parasiten Anisakis enthalten: Sushi, Ceviche, Tatar, marinierter oder kaltgeräucherter Fisch und auch Mi-cuit-Lachs bei 45 °C. Nach EU-Verordnung 853/2004 (geändert durch [1276/2011](' + SRC.eu1276 + ')) muss solcher Fisch zuerst eingefroren werden: mindestens 24 Stunden bei −20 °C oder kälter oder 15 Stunden bei −35 °C. Erhitzen auf 60 °C Kerntemperatur für mindestens 1 Minute tötet die Parasiten ebenfalls. Für Zuchtfisch kann eine Ausnahme gelten; frag deinen Lieferanten nach der Erklärung.'
+        'Fisch, der roh oder fast roh gegessen wird, kann den Parasiten Anisakis enthalten: Sushi, Ceviche, Tatar, marinierter oder kaltgeräucherter Fisch und auch Mi-cuit-Lachs bei 45 °C. Nach EU-Verordnung 853/2004 (geändert durch [1276/2011](' +
+          SRC.eu1276 +
+          ')) muss solcher Fisch zuerst eingefroren werden: mindestens 24 Stunden bei −20 °C oder kälter oder 15 Stunden bei −35 °C. Erhitzen auf 60 °C Kerntemperatur für mindestens 1 Minute tötet die Parasiten ebenfalls. Für Zuchtfisch kann eine Ausnahme gelten; frag deinen Lieferanten nach der Erklärung.'
       ],
       [
         'Krusten- und Schalentiere',
@@ -110,7 +116,9 @@ export const TEMP_POSTS_DE = {
       ],
       [
         'Viren in Muscheln',
-        'Miesmuscheln, Austern und Herzmuscheln können Noroviren und Hepatitis A enthalten. Diese Viren vertragen mehr Hitze als Bakterien. Der EU-Standard für die industrielle Erhitzung von Muscheln ist 90 °C für 90 Sekunden im Fleisch; die EFSA [hat dazu ein Gutachten veröffentlicht](' + SRC.efsaBivalves + '). Rohe Austern sind nie ganz ohne Risiko. Kaufe sie nur bei zugelassenen Lieferanten und serviere sie nicht an empfindliche Gäste.'
+        'Miesmuscheln, Austern und Herzmuscheln können Noroviren und Hepatitis A enthalten. Diese Viren vertragen mehr Hitze als Bakterien. Der EU-Standard für die industrielle Erhitzung von Muscheln ist 90 °C für 90 Sekunden im Fleisch; die EFSA [hat dazu ein Gutachten veröffentlicht](' +
+          SRC.efsaBivalves +
+          '). Rohe Austern sind nie ganz ohne Risiko. Kaufe sie nur bei zugelassenen Lieferanten und serviere sie nicht an empfindliche Gäste.'
       ],
       [
         'Empfindliche Gäste',
@@ -133,7 +141,8 @@ export const TEMP_POSTS_DE = {
         ]
       ]
     ],
-    outro: 'In Savour schreibst du die Kerntemperatur zu dem Schritt, zu dem sie gehört, damit deine ganze Brigade sie sieht, auch im Kochmodus. Dieser Artikel ist eine Hilfe; dein eigener HACCP-Plan und die geltenden Vorschriften haben immer Vorrang.'
+    outro:
+      'In Savour schreibst du die Kerntemperatur zu dem Schritt, zu dem sie gehört, damit deine ganze Brigade sie sieht, auch im Kochmodus. Dieser Artikel ist eine Hilfe; dein eigener HACCP-Plan und die geltenden Vorschriften haben immer Vorrang.'
   },
   'en/blog/sous-vide-temperatures-and-times': {
     slug: 'de/blog/sous-vide-temperaturen-und-zeiten',
@@ -178,7 +187,12 @@ export const TEMP_POSTS_DE = {
         {
           head: ['Produkt', 'Bad', 'Zeit', 'Ergebnis'],
           rows: [
-            ['Filet, Entrecôte, Rib-Eye (3–4 cm)', '55 °C', '1½–3 Std.', 'Rosa; innerhalb von 4 Std. servieren oder Pasteurisierzeit einhalten'],
+            [
+              'Filet, Entrecôte, Rib-Eye (3–4 cm)',
+              '55 °C',
+              '1½–3 Std.',
+              'Rosa; innerhalb von 4 Std. servieren oder Pasteurisierzeit einhalten'
+            ],
             ['Dasselbe, medium', '60 °C', '1½–3 Std.', 'Hellrosa'],
             ['Bavette, Flank, Tafelspitz', '55 °C', '6–12 Std.', 'Rosa und zarter'],
             ['Schaufelstück, Schulter', '55 °C', '24–48 Std.', 'Rosa und zart wie ein Steak'],
@@ -292,6 +306,7 @@ export const TEMP_POSTS_DE = {
         ]
       ]
     ],
-    outro: 'Schreib Badtemperatur und Zeit zum Schritt in deinem Savour-Rezept; beim Umrechnen bleibt die Zeit gleich, denn sie hängt von der Dicke ab, nicht von der Menge. Dieser Artikel ist eine Hilfe; dein eigener HACCP-Plan hat immer Vorrang.'
+    outro:
+      'Schreib Badtemperatur und Zeit zum Schritt in deinem Savour-Rezept; beim Umrechnen bleibt die Zeit gleich, denn sie hängt von der Dicke ab, nicht von der Menge. Dieser Artikel ist eine Hilfe; dein eigener HACCP-Plan hat immer Vorrang.'
   }
 };

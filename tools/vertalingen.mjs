@@ -8,36 +8,171 @@ export const strings = [
     'Savour — gestión profesional de recetas'
   ],
   // ---- Startpagina (2026-10-22): zoektermen en echte keukentaal ----
-  ["Savour — receptenapp voor chefs: recepten organiseren en delen","Savour — recipe app for chefs: organise and share recipes","Savour — Rezept-App für Köche: Rezepte organisieren und teilen","Savour — app de recetas para chefs: organiza y comparte recetas"],
-  ["Receptenapp voor chefs en keukenteams","Recipe app for chefs and kitchen teams","Rezept-App für Köche und Küchenteams","App de recetas para chefs y equipos de cocina"],
-  ["Savour is een app en website om je recepten te organiseren. Al je recepturen uit Word, PDF en handgeschreven kladjes komen in één receptenboek, voor jou en je hele brigade.","Savour is an app and website to organise your recipes. All your recipes from Word, PDF and handwritten notes come together in one recipe book, for you and your whole brigade.","Savour ist eine App und Website, um deine Rezepte zu organisieren. Alle deine Rezepturen aus Word, PDF und handschriftlichen Notizen landen in einem Rezeptbuch, für dich und deine ganze Brigade.","Savour es una app y web para organizar tus recetas. Todas tus recetas de Word, PDF y notas escritas a mano en un solo recetario, para ti y toda tu brigada."],
-  ["1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.","1,400 recipes imported from Word in 2 minutes. Tested in our own kitchen.","1.400 Rezepte in 2 Minuten aus Word importiert. Getestet in unserer eigenen Küche.","1.400 recetas importadas de Word en 2 minutos. Probado en nuestra propia cocina."],
-  ["Gratis beginnen","Start for free","Kostenlos starten","Empieza gratis"],
-  ["40 proefrecepten, geen account nodig","40 sample recipes, no account needed","40 Beispielrezepte, kein Konto nötig","40 recetas de ejemplo, sin cuenta"],
-  ["Recepten digitaliseren zonder overtypen","Digitise your recipes without retyping","Rezepte digitalisieren ohne Abtippen","Digitaliza tus recetas sin volver a escribirlas"],
-  ["We zijn zelf chefs. Onze recepten lagen jarenlang overal: in Word-bestanden van honderden pagina's, op papiertjes met koffievlekken aan de muur, op foto's in drie verschillende telefoons.","We are chefs ourselves. For years our recipes were everywhere: in Word files hundreds of pages long, on coffee-stained notes on the wall, in photos on three different phones.","Wir sind selbst Köche. Unsere Rezepte lagen jahrelang überall: in Word-Dateien mit Hunderten Seiten, auf Zetteln mit Kaffeeflecken an der Wand, auf Fotos in drei verschiedenen Handys.","Somos chefs. Durante años nuestras recetas estaban por todas partes: en archivos de Word de cientos de páginas, en papeles con manchas de café en la pared, en fotos en tres móviles distintos."],
-  ["Met Savour zet je dat in één keer om. Sleep je Word-bestand of PDF erin en Savour herkent zelf de titels, ingrediënten en bereiding. Een foto van een handgeschreven recept leest de AI voor je uit. Hoeveelheden worden nooit verzonnen: twijfelt Savour, dan zie je dat meteen en kijk je het zelf na.","With Savour you convert it all in one go. Drop in your Word file or PDF and Savour recognises the titles, ingredients and method itself. A photo of a handwritten recipe is read for you by AI. Quantities are never made up: if Savour is unsure, you see it straight away and check it yourself.","Mit Savour wandelst du das in einem Schritt um. Zieh deine Word-Datei oder PDF hinein und Savour erkennt Titel, Zutaten und Zubereitung selbst. Ein Foto eines handgeschriebenen Rezepts liest die KI für dich aus. Mengen werden nie erfunden: Ist Savour unsicher, siehst du das sofort und prüfst es selbst.","Con Savour lo conviertes todo de una vez. Arrastra tu archivo de Word o PDF y Savour reconoce solo los títulos, ingredientes y elaboración. La IA lee por ti la foto de una receta escrita a mano. Nunca se inventan cantidades: si Savour duda, lo ves enseguida y lo revisas tú."],
-  ["Recepten organiseren zoals jouw keuken werkt","Organise recipes the way your kitchen works","Rezepte so organisieren, wie deine Küche arbeitet","Organiza las recetas como trabaja tu cocina"],
-  ["Sauzen, garnituren, patisserie, het lunchmenu: jij bepaalt de mappen en categorieën. Zoek op titel of op ingrediënt, of blader van A tot Z. Je beurre blanc vind je in drie seconden, ook midden in de service.","Sauces, garnishes, pastry, the lunch menu: you decide the folders and categories. Search by title or ingredient, or browse from A to Z. You find your beurre blanc in three seconds, even in the middle of service.","Saucen, Garnituren, Patisserie, das Mittagsmenü: Du bestimmst die Ordner und Kategorien. Suche nach Titel oder Zutat oder blättere von A bis Z. Deine Beurre blanc findest du in drei Sekunden, auch mitten im Service.","Salsas, guarniciones, pastelería, el menú del mediodía: tú decides las carpetas y categorías. Busca por título o ingrediente, o recorre de la A a la Z. Encuentras tu beurre blanc en tres segundos, incluso en pleno servicio."],
-  ["Recepturen delen met je keukenteam","Share recipes with your kitchen team","Rezepturen mit deinem Küchenteam teilen","Comparte recetas con tu equipo de cocina"],
-  ["Maak een keukenteam en nodig je koks uit. Jij beheert, je sous-chef mag aanpassen en de rest kan meekijken. Iedereen werkt met dezelfde versie, en een nieuwe kok heeft op de eerste dag alle recepten op de telefoon.","Create a kitchen team and invite your cooks. You manage it, your sous-chef can edit and the rest can view. Everyone works from the same version, and a new cook has every recipe on their phone on day one.","Erstelle ein Küchenteam und lade deine Köche ein. Du verwaltest, dein Sous-Chef darf bearbeiten und der Rest kann mitlesen. Alle arbeiten mit derselben Version, und neue Köche haben am ersten Tag alle Rezepte auf dem Handy.","Crea un equipo de cocina e invita a tus cocineros. Tú la gestionas, tu segundo de cocina puede editar y el resto puede ver. Todos trabajan con la misma versión, y un cocinero nuevo tiene todas las recetas en el móvil desde el primer día."],
-  ["Opschalen en printen voor de service","Scale and print for service","Hochrechnen und drucken für den Service","Escala e imprime para el servicio"],
-  ["Haal je 50 brownies uit één recept en heb je er 1.000 nodig? Savour rekent het om. Moeten alle ijsrecepten in de receptenklapper? Print de hele map in één keer, in plaats van 50 bestanden één voor één.","One recipe makes 50 brownies and you need 1,000? Savour does the maths. All the ice cream recipes need to go in the binder? Print the whole folder at once, instead of 50 files one by one.","Ein Rezept ergibt 50 Brownies und du brauchst 1.000? Savour rechnet es um. Alle Eisrezepte sollen in den Ordner? Drucke den ganzen Ordner auf einmal, statt 50 Dateien einzeln.","¿Una receta da 50 brownies y necesitas 1.000? Savour hace la cuenta. ¿Todas las recetas de helado van a la carpeta? Imprime la carpeta entera de una vez, en lugar de 50 archivos uno a uno."],
-  ["Op computer, tablet en telefoon","On computer, tablet and phone","Auf Computer, Tablet und Handy","En ordenador, tableta y móvil"],
-  ["Op kantoor importeer en orden je op de computer. In de keuken gebruik je je telefoon of tablet, met grote letters in de kookmodus. Er hoeft niets geïnstalleerd te worden.","In the office you import and organise on the computer. In the kitchen you use your phone or tablet, with large text in cook mode. Nothing to install.","Im Büro importierst und ordnest du am Computer. In der Küche nutzt du Handy oder Tablet, mit großer Schrift im Kochmodus. Es muss nichts installiert werden.","En la oficina importas y ordenas en el ordenador. En la cocina usas el móvil o la tableta, con letra grande en el modo cocina. No hay que instalar nada."],
-  ["Voor wie?","Who is it for?","Für wen?","¿Para quién?"],
-  ["Chef-koks en sous-chefs, patissiers, cateraars, horecaondernemers met meerdere zaken en koksopleidingen. Iedereen die recepturen moet bewaren, delen en terugvinden.","Head chefs and sous-chefs, pastry chefs, caterers, restaurant owners with several locations and culinary schools. Anyone who needs to keep, share and find recipes.","Küchenchefs und Sous-Chefs, Patissiers, Caterer, Gastronomen mit mehreren Betrieben und Kochschulen. Alle, die Rezepturen aufbewahren, teilen und wiederfinden müssen.","Jefes de cocina y segundos, pasteleros, empresas de catering, hosteleros con varios locales y escuelas de cocina. Cualquiera que necesite guardar, compartir y encontrar recetas."],
-  ["Vragen over Savour","Questions about Savour","Fragen zu Savour","Preguntas sobre Savour"],
-  ["Welke app gebruik ik om recepten te organiseren voor mijn restaurant?","Which app do I use to organise recipes for my restaurant?","Welche App nutze ich, um Rezepte für mein Restaurant zu organisieren?","¿Qué app uso para organizar las recetas de mi restaurante?"],
-  ["Savour is gemaakt voor professionele keukens: je importeert je bestaande recepten, ordent ze in mappen en deelt ze met je team. Je begint gratis.","Savour is made for professional kitchens: you import your existing recipes, organise them in folders and share them with your team. You start for free.","Savour ist für Profiküchen gemacht: Du importierst deine bestehenden Rezepte, ordnest sie in Ordnern und teilst sie mit deinem Team. Du startest kostenlos.","Savour está hecho para cocinas profesionales: importas tus recetas, las ordenas en carpetas y las compartes con tu equipo. Empiezas gratis."],
-  ["Hoe digitaliseer ik handgeschreven recepten?","How do I digitise handwritten recipes?","Wie digitalisiere ich handgeschriebene Rezepte?","¿Cómo digitalizo recetas escritas a mano?"],
-  ["Maak een foto van het recept en upload hem in Savour. De AI zet hem om in een net recept met ingrediënten en bereiding, dat je daarna controleert.","Take a photo of the recipe and upload it to Savour. The AI turns it into a clean recipe with ingredients and method, which you then check.","Mach ein Foto vom Rezept und lade es in Savour hoch. Die KI macht daraus ein sauberes Rezept mit Zutaten und Zubereitung, das du danach prüfst.","Haz una foto de la receta y súbela a Savour. La IA la convierte en una receta limpia con ingredientes y elaboración, que luego revisas."],
-  ["Kan ik recepten uit Word of PDF importeren?","Can I import recipes from Word or PDF?","Kann ich Rezepte aus Word oder PDF importieren?","¿Puedo importar recetas de Word o PDF?"],
-  ["Ja. Ook een bestand met honderden recepten tegelijk; Savour splitst ze zelf op.","Yes. Even a file with hundreds of recipes at once; Savour splits them up itself.","Ja. Auch eine Datei mit Hunderten Rezepten auf einmal; Savour trennt sie selbst auf.","Sí. Incluso un archivo con cientos de recetas a la vez; Savour las separa solo."],
-  ["Hoe deel ik recepten met mijn keukenteam?","How do I share recipes with my kitchen team?","Wie teile ich Rezepte mit meinem Küchenteam?","¿Cómo comparto recetas con mi equipo de cocina?"],
-  ["Met een keukenteam. Je nodigt collega's uit en geeft ze rechten om mee te kijken of mee te werken.","With a kitchen team. You invite colleagues and give them rights to view or to edit.","Mit einem Küchenteam. Du lädst Kollegen ein und gibst ihnen Rechte zum Ansehen oder Mitarbeiten.","Con un equipo de cocina. Invitas a tus compañeros y les das permiso para ver o colaborar."],
-  ["Is Savour ook voor thuiskoks?","Is Savour for home cooks too?","Ist Savour auch für Hobbyköche?","¿Savour también es para cocineros caseros?"],
-  ["Het kan, maar Savour is gebouwd voor de professionele keuken: grote receptenboeken, teams en de service.","It can be, but Savour is built for the professional kitchen: big recipe books, teams and service.","Das geht, aber Savour ist für die Profiküche gebaut: große Rezeptbücher, Teams und den Service.","Puede servir, pero Savour está hecho para la cocina profesional: grandes recetarios, equipos y el servicio."],
+  [
+    'Savour — receptenapp voor chefs: recepten organiseren en delen',
+    'Savour — recipe app for chefs: organise and share recipes',
+    'Savour — Rezept-App für Köche: Rezepte organisieren und teilen',
+    'Savour — app de recetas para chefs: organiza y comparte recetas'
+  ],
+  [
+    'Receptenapp voor chefs en keukenteams',
+    'Recipe app for chefs and kitchen teams',
+    'Rezept-App für Köche und Küchenteams',
+    'App de recetas para chefs y equipos de cocina'
+  ],
+  [
+    'Savour is een app en website om je recepten te organiseren. Al je recepturen uit Word, PDF en handgeschreven kladjes komen in één receptenboek, voor jou en je hele brigade.',
+    'Savour is an app and website to organise your recipes. All your recipes from Word, PDF and handwritten notes come together in one recipe book, for you and your whole brigade.',
+    'Savour ist eine App und Website, um deine Rezepte zu organisieren. Alle deine Rezepturen aus Word, PDF und handschriftlichen Notizen landen in einem Rezeptbuch, für dich und deine ganze Brigade.',
+    'Savour es una app y web para organizar tus recetas. Todas tus recetas de Word, PDF y notas escritas a mano en un solo recetario, para ti y toda tu brigada.'
+  ],
+  [
+    '1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.',
+    '1,400 recipes imported from Word in 2 minutes. Tested in our own kitchen.',
+    '1.400 Rezepte in 2 Minuten aus Word importiert. Getestet in unserer eigenen Küche.',
+    '1.400 recetas importadas de Word en 2 minutos. Probado en nuestra propia cocina.'
+  ],
+  ['Gratis beginnen', 'Start for free', 'Kostenlos starten', 'Empieza gratis'],
+  [
+    '40 proefrecepten, geen account nodig',
+    '40 sample recipes, no account needed',
+    '40 Beispielrezepte, kein Konto nötig',
+    '40 recetas de ejemplo, sin cuenta'
+  ],
+  [
+    'Recepten digitaliseren zonder overtypen',
+    'Digitise your recipes without retyping',
+    'Rezepte digitalisieren ohne Abtippen',
+    'Digitaliza tus recetas sin volver a escribirlas'
+  ],
+  [
+    "We zijn zelf chefs. Onze recepten lagen jarenlang overal: in Word-bestanden van honderden pagina's, op papiertjes met koffievlekken aan de muur, op foto's in drie verschillende telefoons.",
+    'We are chefs ourselves. For years our recipes were everywhere: in Word files hundreds of pages long, on coffee-stained notes on the wall, in photos on three different phones.',
+    'Wir sind selbst Köche. Unsere Rezepte lagen jahrelang überall: in Word-Dateien mit Hunderten Seiten, auf Zetteln mit Kaffeeflecken an der Wand, auf Fotos in drei verschiedenen Handys.',
+    'Somos chefs. Durante años nuestras recetas estaban por todas partes: en archivos de Word de cientos de páginas, en papeles con manchas de café en la pared, en fotos en tres móviles distintos.'
+  ],
+  [
+    'Met Savour zet je dat in één keer om. Sleep je Word-bestand of PDF erin en Savour herkent zelf de titels, ingrediënten en bereiding. Een foto van een handgeschreven recept leest de AI voor je uit. Hoeveelheden worden nooit verzonnen: twijfelt Savour, dan zie je dat meteen en kijk je het zelf na.',
+    'With Savour you convert it all in one go. Drop in your Word file or PDF and Savour recognises the titles, ingredients and method itself. A photo of a handwritten recipe is read for you by AI. Quantities are never made up: if Savour is unsure, you see it straight away and check it yourself.',
+    'Mit Savour wandelst du das in einem Schritt um. Zieh deine Word-Datei oder PDF hinein und Savour erkennt Titel, Zutaten und Zubereitung selbst. Ein Foto eines handgeschriebenen Rezepts liest die KI für dich aus. Mengen werden nie erfunden: Ist Savour unsicher, siehst du das sofort und prüfst es selbst.',
+    'Con Savour lo conviertes todo de una vez. Arrastra tu archivo de Word o PDF y Savour reconoce solo los títulos, ingredientes y elaboración. La IA lee por ti la foto de una receta escrita a mano. Nunca se inventan cantidades: si Savour duda, lo ves enseguida y lo revisas tú.'
+  ],
+  [
+    'Recepten organiseren zoals jouw keuken werkt',
+    'Organise recipes the way your kitchen works',
+    'Rezepte so organisieren, wie deine Küche arbeitet',
+    'Organiza las recetas como trabaja tu cocina'
+  ],
+  [
+    'Sauzen, garnituren, patisserie, het lunchmenu: jij bepaalt de mappen en categorieën. Zoek op titel of op ingrediënt, of blader van A tot Z. Je beurre blanc vind je in drie seconden, ook midden in de service.',
+    'Sauces, garnishes, pastry, the lunch menu: you decide the folders and categories. Search by title or ingredient, or browse from A to Z. You find your beurre blanc in three seconds, even in the middle of service.',
+    'Saucen, Garnituren, Patisserie, das Mittagsmenü: Du bestimmst die Ordner und Kategorien. Suche nach Titel oder Zutat oder blättere von A bis Z. Deine Beurre blanc findest du in drei Sekunden, auch mitten im Service.',
+    'Salsas, guarniciones, pastelería, el menú del mediodía: tú decides las carpetas y categorías. Busca por título o ingrediente, o recorre de la A a la Z. Encuentras tu beurre blanc en tres segundos, incluso en pleno servicio.'
+  ],
+  [
+    'Recepturen delen met je keukenteam',
+    'Share recipes with your kitchen team',
+    'Rezepturen mit deinem Küchenteam teilen',
+    'Comparte recetas con tu equipo de cocina'
+  ],
+  [
+    'Maak een keukenteam en nodig je koks uit. Jij beheert, je sous-chef mag aanpassen en de rest kan meekijken. Iedereen werkt met dezelfde versie, en een nieuwe kok heeft op de eerste dag alle recepten op de telefoon.',
+    'Create a kitchen team and invite your cooks. You manage it, your sous-chef can edit and the rest can view. Everyone works from the same version, and a new cook has every recipe on their phone on day one.',
+    'Erstelle ein Küchenteam und lade deine Köche ein. Du verwaltest, dein Sous-Chef darf bearbeiten und der Rest kann mitlesen. Alle arbeiten mit derselben Version, und neue Köche haben am ersten Tag alle Rezepte auf dem Handy.',
+    'Crea un equipo de cocina e invita a tus cocineros. Tú la gestionas, tu segundo de cocina puede editar y el resto puede ver. Todos trabajan con la misma versión, y un cocinero nuevo tiene todas las recetas en el móvil desde el primer día.'
+  ],
+  [
+    'Opschalen en printen voor de service',
+    'Scale and print for service',
+    'Hochrechnen und drucken für den Service',
+    'Escala e imprime para el servicio'
+  ],
+  [
+    'Haal je 50 brownies uit één recept en heb je er 1.000 nodig? Savour rekent het om. Moeten alle ijsrecepten in de receptenklapper? Print de hele map in één keer, in plaats van 50 bestanden één voor één.',
+    'One recipe makes 50 brownies and you need 1,000? Savour does the maths. All the ice cream recipes need to go in the binder? Print the whole folder at once, instead of 50 files one by one.',
+    'Ein Rezept ergibt 50 Brownies und du brauchst 1.000? Savour rechnet es um. Alle Eisrezepte sollen in den Ordner? Drucke den ganzen Ordner auf einmal, statt 50 Dateien einzeln.',
+    '¿Una receta da 50 brownies y necesitas 1.000? Savour hace la cuenta. ¿Todas las recetas de helado van a la carpeta? Imprime la carpeta entera de una vez, en lugar de 50 archivos uno a uno.'
+  ],
+  [
+    'Op computer, tablet en telefoon',
+    'On computer, tablet and phone',
+    'Auf Computer, Tablet und Handy',
+    'En ordenador, tableta y móvil'
+  ],
+  [
+    'Op kantoor importeer en orden je op de computer. In de keuken gebruik je je telefoon of tablet, met grote letters in de kookmodus. Er hoeft niets geïnstalleerd te worden.',
+    'In the office you import and organise on the computer. In the kitchen you use your phone or tablet, with large text in cook mode. Nothing to install.',
+    'Im Büro importierst und ordnest du am Computer. In der Küche nutzt du Handy oder Tablet, mit großer Schrift im Kochmodus. Es muss nichts installiert werden.',
+    'En la oficina importas y ordenas en el ordenador. En la cocina usas el móvil o la tableta, con letra grande en el modo cocina. No hay que instalar nada.'
+  ],
+  ['Voor wie?', 'Who is it for?', 'Für wen?', '¿Para quién?'],
+  [
+    'Chef-koks en sous-chefs, patissiers, cateraars, horecaondernemers met meerdere zaken en koksopleidingen. Iedereen die recepturen moet bewaren, delen en terugvinden.',
+    'Head chefs and sous-chefs, pastry chefs, caterers, restaurant owners with several locations and culinary schools. Anyone who needs to keep, share and find recipes.',
+    'Küchenchefs und Sous-Chefs, Patissiers, Caterer, Gastronomen mit mehreren Betrieben und Kochschulen. Alle, die Rezepturen aufbewahren, teilen und wiederfinden müssen.',
+    'Jefes de cocina y segundos, pasteleros, empresas de catering, hosteleros con varios locales y escuelas de cocina. Cualquiera que necesite guardar, compartir y encontrar recetas.'
+  ],
+  ['Vragen over Savour', 'Questions about Savour', 'Fragen zu Savour', 'Preguntas sobre Savour'],
+  [
+    'Welke app gebruik ik om recepten te organiseren voor mijn restaurant?',
+    'Which app do I use to organise recipes for my restaurant?',
+    'Welche App nutze ich, um Rezepte für mein Restaurant zu organisieren?',
+    '¿Qué app uso para organizar las recetas de mi restaurante?'
+  ],
+  [
+    'Savour is gemaakt voor professionele keukens: je importeert je bestaande recepten, ordent ze in mappen en deelt ze met je team. Je begint gratis.',
+    'Savour is made for professional kitchens: you import your existing recipes, organise them in folders and share them with your team. You start for free.',
+    'Savour ist für Profiküchen gemacht: Du importierst deine bestehenden Rezepte, ordnest sie in Ordnern und teilst sie mit deinem Team. Du startest kostenlos.',
+    'Savour está hecho para cocinas profesionales: importas tus recetas, las ordenas en carpetas y las compartes con tu equipo. Empiezas gratis.'
+  ],
+  [
+    'Hoe digitaliseer ik handgeschreven recepten?',
+    'How do I digitise handwritten recipes?',
+    'Wie digitalisiere ich handgeschriebene Rezepte?',
+    '¿Cómo digitalizo recetas escritas a mano?'
+  ],
+  [
+    'Maak een foto van het recept en upload hem in Savour. De AI zet hem om in een net recept met ingrediënten en bereiding, dat je daarna controleert.',
+    'Take a photo of the recipe and upload it to Savour. The AI turns it into a clean recipe with ingredients and method, which you then check.',
+    'Mach ein Foto vom Rezept und lade es in Savour hoch. Die KI macht daraus ein sauberes Rezept mit Zutaten und Zubereitung, das du danach prüfst.',
+    'Haz una foto de la receta y súbela a Savour. La IA la convierte en una receta limpia con ingredientes y elaboración, que luego revisas.'
+  ],
+  [
+    'Kan ik recepten uit Word of PDF importeren?',
+    'Can I import recipes from Word or PDF?',
+    'Kann ich Rezepte aus Word oder PDF importieren?',
+    '¿Puedo importar recetas de Word o PDF?'
+  ],
+  [
+    'Ja. Ook een bestand met honderden recepten tegelijk; Savour splitst ze zelf op.',
+    'Yes. Even a file with hundreds of recipes at once; Savour splits them up itself.',
+    'Ja. Auch eine Datei mit Hunderten Rezepten auf einmal; Savour trennt sie selbst auf.',
+    'Sí. Incluso un archivo con cientos de recetas a la vez; Savour las separa solo.'
+  ],
+  [
+    'Hoe deel ik recepten met mijn keukenteam?',
+    'How do I share recipes with my kitchen team?',
+    'Wie teile ich Rezepte mit meinem Küchenteam?',
+    '¿Cómo comparto recetas con mi equipo de cocina?'
+  ],
+  [
+    "Met een keukenteam. Je nodigt collega's uit en geeft ze rechten om mee te kijken of mee te werken.",
+    'With a kitchen team. You invite colleagues and give them rights to view or to edit.',
+    'Mit einem Küchenteam. Du lädst Kollegen ein und gibst ihnen Rechte zum Ansehen oder Mitarbeiten.',
+    'Con un equipo de cocina. Invitas a tus compañeros y les das permiso para ver o colaborar.'
+  ],
+  [
+    'Is Savour ook voor thuiskoks?',
+    'Is Savour for home cooks too?',
+    'Ist Savour auch für Hobbyköche?',
+    '¿Savour también es para cocineros caseros?'
+  ],
+  [
+    'Het kan, maar Savour is gebouwd voor de professionele keuken: grote receptenboeken, teams en de service.',
+    'It can be, but Savour is built for the professional kitchen: big recipe books, teams and service.',
+    'Das geht, aber Savour ist für die Profiküche gebaut: große Rezeptbücher, Teams und den Service.',
+    'Puede servir, pero Savour está hecho para la cocina profesional: grandes recetarios, equipos y el servicio.'
+  ],
   ['Annuleren', 'Cancel', 'Abbrechen', 'Cancelar'],
   ['Opslaan', 'Save', 'Speichern', 'Guardar'],
   ['Opslaan…', 'Saving…', 'Speichern…', 'Guardando…'],
@@ -278,12 +413,7 @@ export const strings = [
   ['Beheer mappen →', 'Manage folders →', 'Ordner verwalten →', 'Gestionar carpetas →'],
   ['Nog geen favorieten.', 'No favourites yet.', 'Noch keine Favoriten.', 'Aún no hay favoritos.'],
   ['Nog geen mappen.', 'No folders yet.', 'Noch keine Ordner.', 'Aún no hay carpetas.'],
-  [
-    'Nog geen keukenteams.',
-    'No kitchen teams yet.',
-    'Noch keine Küchenteams.',
-    'Aún no hay equipos de cocina.'
-  ],
+  ['Nog geen keukenteams.', 'No kitchen teams yet.', 'Noch keine Küchenteams.', 'Aún no hay equipos de cocina.'],
   [
     'Bekijk en beheer je recepten',
     'View and manage your recipes',
@@ -362,12 +492,7 @@ export const strings = [
   ['Openbare link delen', 'Share public link', 'Öffentlichen Link teilen', 'Compartir enlace público'],
   ['Verwijderen uit bibliotheek', 'Delete from library', 'Aus Bibliothek löschen', 'Eliminar de la biblioteca'],
   ['Uit map halen', 'Remove from folder', 'Aus Ordner entfernen', 'Quitar de la carpeta'],
-  [
-    'Uit keukenteam halen',
-    'Remove from kitchen team',
-    'Aus geteiltem Ordner entfernen',
-    'Quitar del equipo de cocina'
-  ],
+  ['Uit keukenteam halen', 'Remove from kitchen team', 'Aus geteiltem Ordner entfernen', 'Quitar del equipo de cocina'],
   ['Uit map verwijderen', 'Remove from folder', 'Aus Ordner entfernen', 'Quitar de la carpeta'],
   [
     'Uit keukenteam verwijderen',
@@ -910,7 +1035,12 @@ export const strings = [
     'Rezept aus diesem Ordner entfernen?',
     '¿Quitar la receta de esta carpeta?'
   ],
-  ["Recept uit dit keukenteam halen?", "Remove this recipe from the kitchen team?", "Rezept aus diesem Küchenteam entfernen?", "¿Quitar esta receta del equipo de cocina?"],
+  [
+    'Recept uit dit keukenteam halen?',
+    'Remove this recipe from the kitchen team?',
+    'Rezept aus diesem Küchenteam entfernen?',
+    '¿Quitar esta receta del equipo de cocina?'
+  ],
   [
     'Het blijft beschikbaar in Alle recepten.',
     'It remains available in All recipes.',
@@ -1184,7 +1314,12 @@ export const strings = [
     'Gib an, bei welcher Organisation du arbeitest',
     'Indica en qué organización trabajas'
   ],
-  ['Bij welke organisatie werk je?', 'Which organisation do you work for?', 'Bei welcher Organisation arbeitest du?', '¿En qué organización trabajas?'],
+  [
+    'Bij welke organisatie werk je?',
+    'Which organisation do you work for?',
+    'Bei welcher Organisation arbeitest du?',
+    '¿En qué organización trabajas?'
+  ],
   [
     'Bijvoorbeeld je restaurant, hotel of cateraar.',
     'For example your restaurant, hotel or caterer.',
@@ -1192,7 +1327,12 @@ export const strings = [
     'Por ejemplo tu restaurante, hotel o catering.'
   ],
   ['Naam van je team', 'Name of your team', 'Name deinem Team', 'Nombre de tu equipo'],
-  ['Deze naam zien je team.', 'Your members will see this name.', 'Diesen Namen sehen deine Mitglieder.', 'Tus compañeros verán este nombre.'],
+  [
+    'Deze naam zien je team.',
+    'Your members will see this name.',
+    'Diesen Namen sehen deine Mitglieder.',
+    'Tus compañeros verán este nombre.'
+  ],
   ['Verder naar betalen', 'Continue to payment', 'Weiter zur Zahlung', 'Continuar al pago'],
   [
     'Onbeperkt recepten, je eigen team en AI die je kladjes leest.',
@@ -1200,7 +1340,12 @@ export const strings = [
     'Unbegrenzt Rezepte, dein eigenes Team und KI, die deine Notizen liest.',
     'Recetas ilimitadas, tu propio equipo e IA que lee tus notas.'
   ],
-  ['Je probeert Savour Pro gratis.', 'You are trying Savour Pro for free.', 'Du testest Savour Pro kostenlos.', 'Estás probando Savour Pro gratis.'],
+  [
+    'Je probeert Savour Pro gratis.',
+    'You are trying Savour Pro for free.',
+    'Du testest Savour Pro kostenlos.',
+    'Estás probando Savour Pro gratis.'
+  ],
   ['Nieuw bij Savour?', 'New to Savour?', 'Neu bei Savour?', '¿Nuevo en Savour?'],
   [
     'Je probeert Savour Pro 7 dagen gratis, zonder betaalgegevens: AI-import en keukenteams, tot 100 recepten.',
@@ -1208,7 +1353,12 @@ export const strings = [
     'Teste Savour Pro 7 Tage kostenlos, ohne Zahlungsdaten: KI-Import und Küchenteams, bis zu 100 Rezepte.',
     'Prueba Savour Pro 7 días gratis, sin datos de pago: importación con IA y equipos de cocina, hasta 100 recetas.'
   ],
-  ['Savour voor je hele team', 'Savour for your whole team', 'Savour für dein ganzes Team', 'Savour para todo tu equipo'],
+  [
+    'Savour voor je hele team',
+    'Savour for your whole team',
+    'Savour für dein ganzes Team',
+    'Savour para todo tu equipo'
+  ],
   [
     "Met een teamabonnement krijgt iedereen in je keuken Savour Pro. Hoe groter je team, hoe lager de prijs per persoon. Je nodigt je collega's uit op hun e-mailadres en kunt plekken altijd aan iemand anders geven.",
     'With an team subscription everyone in your kitchen gets Savour Pro. The bigger your team, the lower the price per person. You invite colleagues by email and can always give a seat to someone else.',
@@ -1260,14 +1410,24 @@ export const strings = [
     'liest die KI zusätzlich, worüber der Leser unsicher ist: Fotos, handschriftliche Notizen, gescannte Seiten und Dokumente ohne klare Gliederung. Die KI erfindet nie Mengen oder Schritte; du prüfst jedes Rezept vor dem Speichern.',
     'la IA lee además lo que el lector no tiene claro: fotos, notas manuscritas, páginas escaneadas y documentos sin una estructura clara. La IA nunca inventa cantidades ni pasos; revisas cada receta antes de guardarla.'
   ],
-  ['Wat gebeurt er als ik stop met Pro?', 'What happens if I stop Pro?', 'Was passiert, wenn ich Pro beende?', '¿Qué pasa si dejo Pro?'],
+  [
+    'Wat gebeurt er als ik stop met Pro?',
+    'What happens if I stop Pro?',
+    'Was passiert, wenn ich Pro beende?',
+    '¿Qué pasa si dejo Pro?'
+  ],
   [
     'Je houdt al je recepten en keukenteams. Je kunt alleen geen nieuwe recepten meer toevoegen boven de 100 en geen nieuwe keukenteams maken.',
     'You keep all your recipes and kitchen teams. You just cannot add new recipes beyond 100 or create new kitchen teams.',
     'Du behältst alle Rezepte und Küchenteam. Du kannst nur keine neuen Rezepte über 100 hinzufügen und keine neues Küchenteam erstellen.',
     'Conservas todas tus recetas y equipos de cocina. Solo no puedes añadir recetas nuevas por encima de 100 ni crear equipos de cocina nuevas.'
   ],
-  ['Moeten mijn teamleden ook betalen?', 'Do my members have to pay too?', 'Müssen meine Mitglieder auch zahlen?', '¿Mis compañeros también tienen que pagar?'],
+  [
+    'Moeten mijn teamleden ook betalen?',
+    'Do my members have to pay too?',
+    'Müssen meine Mitglieder auch zahlen?',
+    '¿Mis compañeros también tienen que pagar?'
+  ],
   [
     'Nee. Lid zijn van een keukenteam is gratis. Wil je dat iedereen in je keuken Pro heeft, kies dan een teamabonnement.',
     'No. Being a member of a kitchen team is free. If you want everyone in your kitchen to have Pro, choose an team subscription.',
@@ -1280,7 +1440,12 @@ export const strings = [
     'Jedes Foto, jede gescannte Seite oder jeder Dateiteil, den die KI liest (etwa 8 Rezepte pro Teil). Was der Savour-Leser sicher liest, zählt nicht.',
     'Cada foto, página escaneada o parte de un archivo que lee la IA (unas 8 recetas por parte). Lo que el lector de Savour lee con seguridad no cuenta.'
   ],
-  ['Gratis beginnen. Pro voor je hele keuken.', 'Start for free. Pro for your whole kitchen.', 'Kostenlos starten. Pro für deine ganze Küche.', 'Empieza gratis. Pro para toda tu cocina.'],
+  [
+    'Gratis beginnen. Pro voor je hele keuken.',
+    'Start for free. Pro for your whole kitchen.',
+    'Kostenlos starten. Pro für deine ganze Küche.',
+    'Empieza gratis. Pro para toda tu cocina.'
+  ],
   [
     "Gratis bewaar je tot 100 recepten en importeer je Word, PDF en tekst met de Savour-lezer. Met Savour Pro bewaar je onbeperkt, maak je keukenteams voor je team en leest de AI foto's van handgeschreven recepten en gescande pagina's. Nieuw bij Savour? Je probeert Pro 7 dagen gratis.",
     'For free you store up to 100 recipes and import Word, PDF and text with the Savour reader. With Savour Pro you store unlimited recipes, create kitchen teams for your team and the AI reads photos of handwritten recipes and scanned pages. New to Savour? Try Pro free for 7 days.',
@@ -1293,13 +1458,23 @@ export const strings = [
     'oder 29 € pro Jahr · Teams ab 1,20 € pro Person',
     'o 29 € al año · equipos desde 1,20 € por persona'
   ],
-  ['Savour Pro · gratis proefperiode', 'Savour Pro · free trial', 'Savour Pro · kostenlose Testphase', 'Savour Pro · prueba gratuita'],
+  [
+    'Savour Pro · gratis proefperiode',
+    'Savour Pro · free trial',
+    'Savour Pro · kostenlose Testphase',
+    'Savour Pro · prueba gratuita'
+  ],
   ['Savour Pro · proefperiode', 'Savour Pro · trial', 'Savour Pro · Testphase', 'Savour Pro · prueba'],
   ['Je team', 'Your team', 'Dein Team', 'Tu equipo'],
   ['Mijn abonnement', 'My subscription', 'Mein Abo', 'Mi suscripción'],
   ['Stuur ons een bericht', 'Send us a message', 'Schreib uns eine Nachricht', 'Envíanos un mensaje'],
   // ---- Publieke pagina's: Over Savour, Gids, voorwaarden en privacy (AdSense-klaar, 2026-10-21) ----
-  ['Laatst bijgewerkt: 1 november 2026.', 'Last updated: 1 November 2026.', 'Zuletzt aktualisiert: 1. November 2026.', 'Última actualización: 1 de noviembre de 2026.'],
+  [
+    'Laatst bijgewerkt: 1 november 2026.',
+    'Last updated: 1 November 2026.',
+    'Zuletzt aktualisiert: 1. November 2026.',
+    'Última actualización: 1 de noviembre de 2026.'
+  ],
   ['Waarom Savour bestaat', 'Why Savour exists', 'Warum es Savour gibt', 'Por qué existe Savour'],
   [
     'In bijna elke keuken liggen recepten verspreid: in een map op kantoor, op losse kladjes bij de pass, in Word-bestanden van een vorige chef en in berichten op telefoons. Wie een recept zoekt, vindt vaak drie versies met andere hoeveelheden. Savour is gemaakt door chefs die daar zelf dagelijks tegenaan lopen, met één doel: één plek waar elk recept staat zoals het bedoeld is.',
@@ -1335,14 +1510,24 @@ export const strings = [
     'Savour lo hacen chefs, para chefs. Sabemos por experiencia dónde falla la cocina: recetas perdidas, versiones distintas y horas pasando recetas a limpio. Creamos Savour porque queríamos un lugar que lo resolviera, y que usamos a diario. Preguntas, ideas y comentarios siempre son bienvenidos en la página de contacto.'
   ],
   ['Gids', 'Guide', 'Leitfaden', 'Guía'],
-  ['Gids: werken met recepten', 'Guide: working with recipes', 'Leitfaden: Arbeiten mit Rezepten', 'Guía: trabajar con recetas'],
+  [
+    'Gids: werken met recepten',
+    'Guide: working with recipes',
+    'Leitfaden: Arbeiten mit Rezepten',
+    'Guía: trabajar con recetas'
+  ],
   [
     'Praktische tips voor recepten die in elke dienst hetzelfde uitpakken.',
     'Practical tips for recipes that turn out the same on every shift.',
     'Praktische Tipps für Rezepte, die in jeder Schicht gleich gelingen.',
     'Consejos prácticos para recetas que salen igual en cada servicio.'
   ],
-  ['Een recept dat iedereen hetzelfde maakt', 'A recipe everyone makes the same way', 'Ein Rezept, das jeder gleich zubereitet', 'Una receta que todos preparan igual'],
+  [
+    'Een recept dat iedereen hetzelfde maakt',
+    'A recipe everyone makes the same way',
+    'Ein Rezept, das jeder gleich zubereitet',
+    'Una receta que todos preparan igual'
+  ],
   [
     'Een goed keukenrecept laat geen ruimte voor interpretatie. Begin met een duidelijke naam en de opbrengst: hoeveel liter, hoeveel stuks of voor hoeveel couverts. Zet daaronder alle ingrediënten in de volgorde waarin je ze gebruikt, met de hoeveelheid in gram of milliliter in plaats van in lepels of kopjes. Schrijf de bereiding in korte stappen, één handeling per stap.',
     'A good kitchen recipe leaves no room for interpretation. Start with a clear name and the yield: how many litres, how many pieces or how many covers. Below that, list all ingredients in the order you use them, with quantities in grams or millilitres rather than spoons or cups. Write the method in short steps, one action per step.',
@@ -1368,35 +1553,60 @@ export const strings = [
     'Nicht alles skaliert eins zu eins. Reduktionszeiten werden länger, weil ein größerer Topf verhältnismäßig weniger verdampft. Salz, Säure und Gewürze schmeckst du bei großen Mengen neu ab. Beim Backen ändert sich die Backzeit, wenn du eine andere Form oder einen vollen Ofen nutzt. Geliermittel wie Gelatine und Agar rechnest du dagegen exakt mit der Flüssigkeitsmenge mit.',
     'No todo escala de forma lineal. Los tiempos de reducción se alargan, porque una olla más grande evapora proporcionalmente menos. La sal, el ácido y las especias se vuelven a probar en grandes cantidades. En repostería, el tiempo de horneado cambia si usas otro molde o el horno lleno. Los gelificantes como la gelatina y el agar sí se calculan exactamente según el líquido.'
   ],
-  ['Van kladje naar receptkaart', 'From scribble to recipe card', 'Vom Notizzettel zur Rezeptkarte', 'De la nota a la ficha de receta'],
+  [
+    'Van kladje naar receptkaart',
+    'From scribble to recipe card',
+    'Vom Notizzettel zur Rezeptkarte',
+    'De la nota a la ficha de receta'
+  ],
   [
     'Veel recepten beginnen als kladje bij de pass. Maak er zo snel mogelijk een vast recept van, zolang je nog weet wat je bedoelde. Fotografeer een handgeschreven recept bij goed licht, recht van boven en met de hele pagina in beeld. Controleer daarna vooral de getallen: een 3 en een 8 of een 1 en een 7 zijn op een vlekkerig kladje snel verwisseld.',
     'Many recipes start as a scribble at the pass. Turn them into a fixed recipe as soon as possible, while you still remember what you meant. Photograph a handwritten recipe in good light, straight from above and with the whole page in view. Then check the numbers in particular: a 3 and an 8 or a 1 and a 7 are easily mixed up on a stained note.',
     'Viele Rezepte beginnen als Notiz am Pass. Mach daraus so schnell wie möglich ein festes Rezept, solange du noch weißt, was gemeint war. Fotografiere ein handschriftliches Rezept bei gutem Licht, gerade von oben und mit der ganzen Seite im Bild. Prüfe danach vor allem die Zahlen: eine 3 und eine 8 oder eine 1 und eine 7 sind auf einem fleckigen Zettel schnell verwechselt.',
     'Muchas recetas empiezan como una nota en el pase. Conviértelas cuanto antes en una receta fija, mientras aún recuerdas lo que querías decir. Fotografía una receta manuscrita con buena luz, desde arriba y con toda la página a la vista. Después revisa sobre todo los números: un 3 y un 8 o un 1 y un 7 se confunden fácilmente en una nota manchada.'
   ],
-  ['Organiseren: categorieën en mappen', 'Organising: categories and folders', 'Organisieren: Kategorien und Ordner', 'Organizar: categorías y carpetas'],
+  [
+    'Organiseren: categorieën en mappen',
+    'Organising: categories and folders',
+    'Organisieren: Kategorien und Ordner',
+    'Organizar: categorías y carpetas'
+  ],
   [
     'Gebruik categorieën voor wat een recept is, zoals sauzen, garnituren of patisserie, en mappen voor hoe je werkt, zoals de huidige kaart, een evenement of de koude keuken. Zo staat een recept in één categorie, maar kan het in meerdere mappen terugkomen. Houd namen kort en herkenbaar, zodat iedereen in het team het recept met één zoekwoord terugvindt.',
     'Use categories for what a recipe is, such as sauces, garnishes or pastry, and folders for how you work, such as the current menu, an event or the cold kitchen. That way a recipe sits in one category but can appear in several folders. Keep names short and recognisable so everyone on the team finds a recipe with a single search word.',
     'Nutze Kategorien dafür, was ein Rezept ist, etwa Saucen, Beilagen oder Patisserie, und Ordner dafür, wie du arbeitest, etwa die aktuelle Karte, ein Event oder die kalte Küche. So steht ein Rezept in einer Kategorie, kann aber in mehreren Ordnern auftauchen. Halte Namen kurz und erkennbar, damit jeder im Team ein Rezept mit einem Suchwort findet.',
     'Usa las categorías para lo que es una receta, como salsas, guarniciones o pastelería, y las carpetas para cómo trabajas, como la carta actual, un evento o la cocina fría. Así una receta está en una categoría, pero puede aparecer en varias carpetas. Mantén los nombres cortos y reconocibles para que todo el equipo encuentre una receta con una sola palabra.'
   ],
-  ['Samenwerken met je brigade', 'Working with your brigade', 'Zusammenarbeit mit deiner Brigade', 'Trabajar con tu brigada'],
   [
-    'Een keuken werkt het best met één bron voor elk recept. Deel recepten via een keukenteam in plaats van losse foto\'s of berichten. Geef de sous-chef rechten om recepten te bewerken en de rest van het team rechten om ze te bekijken. Pas je een recept aan, dan werkt iedereen meteen met de nieuwe versie, en raakt niemand een oude versie kwijt in een appgroep.',
+    'Samenwerken met je brigade',
+    'Working with your brigade',
+    'Zusammenarbeit mit deiner Brigade',
+    'Trabajar con tu brigada'
+  ],
+  [
+    "Een keuken werkt het best met één bron voor elk recept. Deel recepten via een keukenteam in plaats van losse foto's of berichten. Geef de sous-chef rechten om recepten te bewerken en de rest van het team rechten om ze te bekijken. Pas je een recept aan, dan werkt iedereen meteen met de nieuwe versie, en raakt niemand een oude versie kwijt in een appgroep.",
     'A kitchen works best with one source for every recipe. Share recipes through a kitchen team instead of loose photos or messages. Give the sous-chef rights to edit recipes and the rest of the team rights to view them. When you change a recipe, everyone works with the new version straight away, and no old version gets lost in a group chat.',
     'Eine Küche funktioniert am besten mit einer Quelle für jedes Rezept. Teile Rezepte über ein Küchenteam statt über lose Fotos oder Nachrichten. Gib dem Sous-Chef das Recht, Rezepte zu bearbeiten, und dem restlichen Team das Recht, sie anzusehen. Änderst du ein Rezept, arbeitet jeder sofort mit der neuen Version, und keine alte Version geht in einem Gruppenchat verloren.',
     'Una cocina funciona mejor con una sola fuente para cada receta. Comparte recetas mediante un equipo de cocina en lugar de fotos o mensajes sueltos. Da al segundo de cocina permiso para editar recetas y al resto del equipo permiso para verlas. Cuando cambias una receta, todos trabajan al instante con la nueva versión y ninguna versión antigua se pierde en un chat de grupo.'
   ],
-  ['Allergenen en vaste afspraken', 'Allergens and fixed agreements', 'Allergene und feste Absprachen', 'Alérgenos y acuerdos fijos'],
+  [
+    'Allergenen en vaste afspraken',
+    'Allergens and fixed agreements',
+    'Allergene und feste Absprachen',
+    'Alérgenos y acuerdos fijos'
+  ],
   [
     'Zet bij elk recept onderdelen met allergenen duidelijk in de ingrediëntenlijst, ook als ze uit een ander basisrecept komen. Vermeld bij een samengesteld gerecht welke basisrecepten erin zitten, zodat je bij een vraag van een gast snel kunt nagaan wat er precies in zit.',
     'For every recipe, list components containing allergens clearly in the ingredient list, even when they come from another base recipe. For a composed dish, note which base recipes it contains, so that when a guest asks you can quickly check exactly what is in it.',
     'Führe bei jedem Rezept Bestandteile mit Allergenen deutlich in der Zutatenliste auf, auch wenn sie aus einem anderen Grundrezept stammen. Vermerke bei einem zusammengesetzten Gericht, welche Grundrezepte enthalten sind, damit du bei einer Gästefrage schnell nachsehen kannst, was genau drin ist.',
     'En cada receta, indica claramente en la lista de ingredientes los componentes con alérgenos, aunque procedan de otra receta base. En un plato compuesto, anota qué recetas base contiene, para que ante la pregunta de un cliente puedas comprobar rápidamente qué lleva exactamente.'
   ],
-  ['8. Gratis account en Savour Pro', '8. Free account and Savour Pro', '8. Kostenloses Konto und Savour Pro', '8. Cuenta gratuita y Savour Pro'],
+  [
+    '8. Gratis account en Savour Pro',
+    '8. Free account and Savour Pro',
+    '8. Kostenloses Konto und Savour Pro',
+    '8. Cuenta gratuita y Savour Pro'
+  ],
   [
     'Een gratis account bevat tot 100 recepten. Nieuwe accounts krijgen eenmalig 7 dagen Savour Pro zonder kosten, met ook dan maximaal 100 recepten; daarna gaat het account vanzelf terug naar gratis, zonder dat er iets wordt afgeschreven. Savour Pro is een betaald abonnement per maand of per jaar, voor één persoon of als teamabonnement met een vast aantal plekken, dat automatisch wordt verlengd tot je het opzegt. Opzeggen kan op elk moment via Mijn account; je houdt Savour Pro tot het einde van de betaalde periode. Na afloop blijven al je recepten en keukenteams bewaard. Savour Pro bevat maximaal 500 AI-imports per persoon per maand. Betalingen worden verwerkt door Stripe.',
     'A free account includes up to 100 recipes. New accounts get a one-time 7 days of Savour Pro free of charge, also limited to 100 recipes; after that the account automatically returns to free, without any charge. Savour Pro is a paid monthly or yearly subscription, for one person or as an team subscription with a fixed number of seats, which renews automatically until you cancel. You can cancel at any time via My account; you keep Savour Pro until the end of the paid period. Afterwards all your recipes and kitchen teams are kept. Savour Pro includes up to 500 AI imports per person per month. Payments are processed by Stripe.',
@@ -1410,7 +1620,12 @@ export const strings = [
     'Savour ist ein niederländisches Unternehmen. Du erreichst uns unter contact@savour.page. Für diese Bedingungen gilt niederländisches Recht.',
     'Savour es una empresa neerlandesa. Puedes contactarnos en contact@savour.page. Estas condiciones se rigen por la legislación neerlandesa.'
   ],
-  ['10. Herroepingsrecht (bedenktijd)', '10. Right of withdrawal (cooling-off period)', '10. Widerrufsrecht', '10. Derecho de desistimiento'],
+  [
+    '10. Herroepingsrecht (bedenktijd)',
+    '10. Right of withdrawal (cooling-off period)',
+    '10. Widerrufsrecht',
+    '10. Derecho de desistimiento'
+  ],
   [
     'Sluit je als consument een abonnement op Savour Pro af, dan heb je 14 dagen bedenktijd. Binnen 14 dagen na je eerste betaling kun je zonder opgave van reden afzien van de aankoop. Stuur daarvoor een e-mail naar contact@savour.page met je naam en het e-mailadres van je account, of zeg op via Mijn account en meld erbij dat je gebruikmaakt van je herroepingsrecht.',
     'If you take out a Savour Pro subscription as a consumer, you have a 14-day cooling-off period. Within 14 days of your first payment you can withdraw from the purchase without giving a reason. To do so, send an email to contact@savour.page with your name and your account email address, or cancel via My account and mention that you are using your right of withdrawal.',
@@ -1436,7 +1651,12 @@ export const strings = [
     '. Savour nutzt folgende Auftragsverarbeiter: Supabase (Datenbank und Anmeldung), Vercel (Hosting der Website), Stripe (Zahlungen), OpenAI (KI-Import, nur Savour Pro), Resend (E-Mail) und Google (Werbung). Mit diesen Partnern bestehen Vereinbarungen zum Schutz deiner Daten; einige verarbeiten Daten auch außerhalb der Europäischen Union, auf Grundlage der Standardvertragsklauseln der Europäischen Kommission.',
     '. Savour utiliza los siguientes encargados del tratamiento: Supabase (base de datos e inicio de sesión), Vercel (alojamiento web), Stripe (pagos), OpenAI (importación con IA, solo Savour Pro), Resend (correo) y Google (publicidad). Con ellos existen acuerdos para proteger tus datos; algunos los tratan también fuera de la Unión Europea, conforme a las cláusulas contractuales tipo de la Comisión Europea.'
   ],
-  ['9. Cookies, lokale opslag en advertenties', '9. Cookies, local storage and advertising', '9. Cookies, lokaler Speicher und Werbung', '9. Cookies, almacenamiento local y publicidad'],
+  [
+    '9. Cookies, lokale opslag en advertenties',
+    '9. Cookies, local storage and advertising',
+    '9. Cookies, lokaler Speicher und Werbung',
+    '9. Cookies, almacenamiento local y publicidad'
+  ],
   [
     'Savour gebruikt functionele opslag in je browser om de dienst te laten werken, bijvoorbeeld om je ingelogd te houden en je taal en weergave (licht of donker) te onthouden. Daarnaast tellen we bezoeken aan de website anoniem, met een willekeurige code in je browser, zodat we zien hoe vaak Savour wordt gebruikt. Daarvoor is geen toestemming nodig.',
     'Savour uses functional storage in your browser to make the service work, for example to keep you logged in and remember your language and display (light or dark). We also count visits to the website anonymously, with a random code in your browser, so we can see how often Savour is used. No consent is required for this.',
@@ -1449,8 +1669,18 @@ export const strings = [
     'Auf den öffentlichen Seiten von Savour und, bei Konten ohne Savour Pro, in der App kann Werbung von Google AdSense angezeigt werden. Google und seine Partner verwenden dafür Cookies, unter anderem um Werbung auf Basis früherer Besuche dieser und anderer Websites anzuzeigen. Besucher aus dem Europäischen Wirtschaftsraum, dem Vereinigten Königreich und der Schweiz sehen zuerst eine Meldung, in der sie zustimmen oder ablehnen können; ohne Zustimmung wird nur nicht personalisierte Werbung gezeigt. Du kannst deine Wahl jederzeit über die Datenschutzeinstellungen unten auf der Seite ändern oder personalisierte Werbung abschalten über',
     'En las páginas públicas de Savour y, para las cuentas sin Savour Pro, en la app pueden mostrarse anuncios de Google AdSense. Google y sus socios usan cookies para ello, entre otras cosas para mostrar anuncios basados en visitas anteriores a este y otros sitios. Los visitantes del Espacio Económico Europeo, el Reino Unido y Suiza ven primero un aviso en el que pueden dar o rechazar su consentimiento; sin consentimiento solo se muestran anuncios no personalizados. Puedes cambiar tu elección en cualquier momento en la configuración de privacidad al pie de la página o desactivar los anuncios personalizados en'
   ],
-  ['Google Advertentie-instellingen', 'Google Ad Settings', 'Google-Werbeeinstellungen', 'Configuración de anuncios de Google'],
-  ['. Meer over hoe Google gegevens gebruikt lees je op', '. Read more about how Google uses data at', '. Mehr darüber, wie Google Daten nutzt, liest du unter', '. Más sobre cómo usa Google los datos en'],
+  [
+    'Google Advertentie-instellingen',
+    'Google Ad Settings',
+    'Google-Werbeeinstellungen',
+    'Configuración de anuncios de Google'
+  ],
+  [
+    '. Meer over hoe Google gegevens gebruikt lees je op',
+    '. Read more about how Google uses data at',
+    '. Mehr darüber, wie Google Daten nutzt, liest du unter',
+    '. Más sobre cómo usa Google los datos en'
+  ],
   ['10. Wijzigingen', '10. Changes', '10. Änderungen', '10. Cambios'],
   [
     'Als Savour verandert, passen we dit privacybeleid aan. De datum bovenaan laat zien wanneer het voor het laatst is bijgewerkt. Bij belangrijke wijzigingen laten we het je weten.',
@@ -1459,8 +1689,18 @@ export const strings = [
     'Cuando Savour cambie, actualizaremos esta política de privacidad. La fecha de arriba indica cuándo se actualizó por última vez. Te avisaremos de los cambios importantes.'
   ],
   ['Recepten opschonen', 'Tidy up recipes', 'Rezepte bereinigen', 'Limpiar recetas'],
-  ['Dubbele recepten opschonen', 'Remove duplicate recipes', 'Doppelte Rezepte bereinigen', 'Limpiar recetas duplicadas'],
-  ['Van elk recept blijft er één staan.', 'One copy of each recipe is kept.', 'Von jedem Rezept bleibt eins erhalten.', 'Se conserva una copia de cada receta.'],
+  [
+    'Dubbele recepten opschonen',
+    'Remove duplicate recipes',
+    'Doppelte Rezepte bereinigen',
+    'Limpiar recetas duplicadas'
+  ],
+  [
+    'Van elk recept blijft er één staan.',
+    'One copy of each recipe is kept.',
+    'Von jedem Rezept bleibt eins erhalten.',
+    'Se conserva una copia de cada receta.'
+  ],
   [
     'Van elk recept blijft er één staan. Alleen kopieën die precies hetzelfde zijn (naam, opbrengst, ingrediënten en bereiding) worden verwijderd. Mappen, favorieten en keukenteams gaan over naar het recept dat blijft.',
     'One copy of each recipe is kept. Only copies that are exactly the same (name, yield, ingredients and method) are removed. Folders, favourites and kitchen teams move to the recipe that stays.',
@@ -1470,7 +1710,12 @@ export const strings = [
   ['Bericht', 'Message', 'Nachricht', 'Mensaje'],
   ['Waar kunnen we je mee helpen?', 'How can we help you?', 'Wie können wir dir helfen?', '¿En qué podemos ayudarte?'],
   ['Bericht versturen', 'Send message', 'Nachricht senden', 'Enviar mensaje'],
-  ['Het bericht kon niet worden verzonden.', 'The message could not be sent.', 'Die Nachricht konnte nicht gesendet werden.', 'No se pudo enviar el mensaje.'],
+  [
+    'Het bericht kon niet worden verzonden.',
+    'The message could not be sent.',
+    'Die Nachricht konnte nicht gesendet werden.',
+    'No se pudo enviar el mensaje.'
+  ],
   [
     'Bedankt. Je bericht is verstuurd; we reageren zo snel mogelijk.',
     'Thank you. Your message has been sent; we will reply as soon as possible.',
@@ -1485,11 +1730,36 @@ export const strings = [
     'Alle Plätze sind belegt. Eine größeres Team wählst du über Abo verwalten.',
     'Todas las plazas están ocupadas. Elige un equipo más grande en Gestionar suscripción.'
   ],
-  ['Alle plekken in je team zijn bezet.', 'All seats in your team are taken.', 'Alle Plätze in deinem Team sind belegt.', 'Todas las plazas de tu equipo están ocupadas.'],
-  ['Vul een geldig e-mailadres in.', 'Enter a valid email address.', 'Gib eine gültige E-Mail-Adresse ein.', 'Introduce un correo válido.'],
-  ['Lid kon niet worden toegevoegd.', 'Member could not be added.', 'Mitglied konnte nicht hinzugefügt werden.', 'No se pudo añadir al miembro.'],
-  ['Plek kon niet worden vrijgegeven.', 'Seat could not be freed.', 'Platz konnte nicht freigegeben werden.', 'No se pudo liberar la plaza.'],
-  ['Een keukenteam maken is Savour Pro', 'Creating a kitchen team is Savour Pro', 'Küchenteams erstellen ist Savour Pro', 'Crear un equipo de cocina es Savour Pro'],
+  [
+    'Alle plekken in je team zijn bezet.',
+    'All seats in your team are taken.',
+    'Alle Plätze in deinem Team sind belegt.',
+    'Todas las plazas de tu equipo están ocupadas.'
+  ],
+  [
+    'Vul een geldig e-mailadres in.',
+    'Enter a valid email address.',
+    'Gib eine gültige E-Mail-Adresse ein.',
+    'Introduce un correo válido.'
+  ],
+  [
+    'Lid kon niet worden toegevoegd.',
+    'Member could not be added.',
+    'Mitglied konnte nicht hinzugefügt werden.',
+    'No se pudo añadir al miembro.'
+  ],
+  [
+    'Plek kon niet worden vrijgegeven.',
+    'Seat could not be freed.',
+    'Platz konnte nicht freigegeben werden.',
+    'No se pudo liberar la plaza.'
+  ],
+  [
+    'Een keukenteam maken is Savour Pro',
+    'Creating a kitchen team is Savour Pro',
+    'Küchenteams erstellen ist Savour Pro',
+    'Crear un equipo de cocina es Savour Pro'
+  ],
   ['Bekijk Savour Pro', 'View Savour Pro', 'Savour Pro ansehen', 'Ver Savour Pro'],
   [
     "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.",
@@ -1498,516 +1768,1896 @@ export const strings = [
     'Recetas ilimitadas, IA que lee tus notas y fotos, y equipos de cocina para tu equipo.'
   ],
   ['Verbergen', 'Hide', 'Ausblenden', 'Ocultar'],
-  ["Proefperiode tot","Trial until","Testphase bis","Prueba hasta"],
-  ["Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot je Savour Pro neemt.","After that everything is kept, but this kitchen team cannot be used until you get Savour Pro.","Danach bleibt alles gespeichert, aber dieses Küchenteam ist erst wieder nutzbar, wenn du Savour Pro nimmst.","Después todo se conserva, pero este equipo de cocina no se puede usar hasta que contrates Savour Pro."],
-  ["Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot de eigenaar Savour Pro neemt.","After that everything is kept, but this kitchen team cannot be used until the owner gets Savour Pro.","Danach bleibt alles gespeichert, aber dieses Küchenteam ist erst wieder nutzbar, wenn der Eigentümer Savour Pro nimmt.","Después todo se conserva, pero este equipo de cocina no se puede usar hasta que el propietario contrate Savour Pro."],
-  ["Dit keukenteam staat op slot","This kitchen team is locked","Dieses Küchenteam ist gesperrt","Este equipo de cocina está bloqueado"],
-  ["Een keukenteam werkt alleen met Savour Pro. Er is niets weg: alle recepten, mappen en leden blijven bewaard. Neem je Savour Pro, dan gaat het meteen weer open.","A kitchen team only works with Savour Pro. Nothing is gone: all recipes, folders and members are kept. Get Savour Pro and it opens again right away.","Ein Küchenteam funktioniert nur mit Savour Pro. Nichts ist verloren: Alle Rezepte, Ordner und Mitglieder bleiben gespeichert. Mit Savour Pro ist es sofort wieder offen.","Un equipo de cocina solo funciona con Savour Pro. No se pierde nada: todas las recetas, carpetas y miembros se conservan. Con Savour Pro se vuelve a abrir al momento."],
-  ["De eigenaar heeft geen Savour Pro meer. Er is niets weg: zodra de eigenaar weer Pro heeft, gaat dit keukenteam meteen weer open.","The owner no longer has Savour Pro. Nothing is gone: as soon as the owner has Pro again, this kitchen team opens right away.","Der Eigentümer hat kein Savour Pro mehr. Nichts ist verloren: Sobald der Eigentümer wieder Pro hat, ist dieses Küchenteam sofort wieder offen.","El propietario ya no tiene Savour Pro. No se pierde nada: en cuanto vuelva a tener Pro, este equipo de cocina se abrirá de nuevo."],
-  ["Een keukenteam blijft bewaard, maar is pas weer te gebruiken als de eigenaar Savour Pro heeft.","A kitchen team is kept, but can only be used again once the owner has Savour Pro.","Ein Küchenteam bleibt gespeichert, ist aber erst wieder nutzbar, wenn der Eigentümer Savour Pro hat.","Un equipo de cocina se conserva, pero solo se puede volver a usar cuando el propietario tenga Savour Pro."],
-  ["Een keukenteam werkt zolang de eigenaar Savour Pro heeft.","A kitchen team works as long as the owner has Savour Pro.","Ein Küchenteam funktioniert, solange der Eigentümer Savour Pro hat.","Un equipo de cocina funciona mientras el propietario tenga Savour Pro."],
-  ["Een keukenteam uit je proefperiode blijft bewaard, maar werkt daarna pas weer met Savour Pro.","A kitchen team from your trial is kept, but after that only works with Savour Pro.","Ein Küchenteam aus deiner Testphase bleibt gespeichert, funktioniert danach aber erst wieder mit Savour Pro.","Un equipo de cocina de tu prueba se conserva, pero después solo funciona con Savour Pro."],
-  ["Af en toe sturen we je nieuws over Savour op het e-mailadres van je account. Afmelden kan met één klik onderaan elke mail.","We occasionally send news about Savour to your account email address. You can unsubscribe with one click at the bottom of every email.","Gelegentlich senden wir dir Neuigkeiten zu Savour an die E-Mail-Adresse deines Kontos. Abmelden kannst du dich mit einem Klick unten in jeder Mail.","De vez en cuando enviamos noticias sobre Savour al correo de tu cuenta. Puedes darte de baja con un clic al final de cada correo."],
-  ["Welkom bekijken","View welcome","Willkommen ansehen","Ver bienvenida"],
-  ["Terug naar welkom","Back to welcome","Zurück zum Willkommen","Volver a la bienvenida"],
-  ["Sauzen","Sauces","Saucen","Salsas"],
-  ["Patisserie","Pastry","Patisserie","Pastelería"],
-  ["Kaart","Menu","Karte","Carta"],
-  ["Voorbeeld","Example","Beispiel","Ejemplo"],
-  ["Dit is een voorbeeld","This is an example","Das ist ein Beispiel","Esto es un ejemplo"],
-  ["Zo ziet een receptenmap eruit. Hij verdwijnt zodra je je eigen map maakt.","This is what a recipe folder looks like. It disappears as soon as you create your own.","So sieht ein Rezeptordner aus. Er verschwindet, sobald du deinen eigenen anlegst.","Así es una carpeta de recetas. Desaparece en cuanto creas la tuya."],
-  ["Maak je eigen map","Create your own folder","Eigenen Ordner anlegen","Crea tu propia carpeta"],
-  ["Orden recepten zoals jouw keuken werkt: per partie, menu of seizoen.","Organise recipes the way your kitchen works: by section, menu or season.","Ordne Rezepte so, wie deine Küche arbeitet: nach Posten, Menü oder Saison.","Ordena las recetas como trabaja tu cocina: por partida, menú o temporada."],
-  ["Zo werkt een keukenteam. Het verdwijnt zodra je je eigen team maakt of ergens lid van wordt.","This is how a kitchen team works. It disappears as soon as you create your own team or join one.","So funktioniert ein Küchenteam. Es verschwindet, sobald du dein eigenes Team erstellst oder einem beitrittst.","Así funciona un equipo de cocina. Desaparece en cuanto creas tu equipo o te unes a uno."],
-  ["Maak je eigen keukenteam","Create your own kitchen team","Eigenes Küchenteam erstellen","Crea tu propio equipo de cocina"],
-  ["Eén receptenboek voor de hele brigade. Iedereen ziet elke wijziging meteen.","One recipe book for the whole brigade. Everyone sees every change straight away.","Ein Rezeptbuch für die ganze Brigade. Alle sehen jede Änderung sofort.","Un recetario para toda la brigada. Todos ven cada cambio al momento."],
-  ["Stagiair","Intern","Praktikant","Becario"],
-  ["Hoi","Hi","Hallo","Hola"],
-  [", je keuken staat klaar.",", your kitchen is ready.",", deine Küche ist bereit.",", tu cocina está lista."],
-  ["Je keuken staat klaar.","Your kitchen is ready.","Deine Küche ist bereit.","Tu cocina está lista."],
-  ["In drie stappen heb je al je recepten op één plek.","Three steps and all your recipes are in one place.","In drei Schritten hast du alle Rezepte an einem Ort.","En tres pasos tienes todas tus recetas en un solo sitio."],
-  ["Word, PDF of een foto van een kladje. Ook honderden tegelijk.","Word, PDF or a photo of a handwritten note. Even hundreds at once.","Word, PDF oder ein Foto einer Notiz. Auch Hunderte auf einmal.","Word, PDF o una foto de una nota. Incluso cientos a la vez."],
-  ["Orden ze in mappen","Organise them in folders","In Ordner sortieren","Ordénalas en carpetas"],
-  ["Per partie, menu of seizoen, zoals jouw keuken werkt.","By section, menu or season, the way your kitchen works.","Nach Posten, Menü oder Saison, so wie deine Küche arbeitet.","Por partida, menú o temporada, como trabaja tu cocina."],
-  ["Deel met je brigade","Share with your brigade","Mit deiner Brigade teilen","Comparte con tu brigada"],
-  ["Iedereen kookt van dezelfde versie, op de eigen telefoon.","Everyone cooks from the same version, on their own phone.","Alle kochen nach derselben Version, auf dem eigenen Handy.","Todos cocinan con la misma versión, en su propio móvil."],
-  ["Importeer je eerste recepten","Import your first recipes","Erste Rezepte importieren","Importa tus primeras recetas"],
-  ["Bekijk eerst het voorbeeld","See the example first","Erst das Beispiel ansehen","Ver primero el ejemplo"],
-  ["Een receptenmap maken","Create a recipe folder","Rezeptordner anlegen","Crear una carpeta de recetas"],
-  ["Je team uitnodigen","Invite your team","Dein Team einladen","Invitar a tu equipo"],
-  ["1 recept gevonden","1 recipe found","1 Rezept gefunden","1 receta encontrada"],
-  ["Alles duidelijk gelezen","Everything read clearly","Alles klar gelesen","Todo leído con claridad"],
-  ["Voorbeeldrecept. Zo ziet een recept er in Savour uit.","Example recipe. This is what a recipe looks like in Savour.","Beispielrezept. So sieht ein Rezept in Savour aus.","Receta de ejemplo. Así se ve una receta en Savour."],
-  ["Dit bestand kon niet worden geopend. Staat het in OneDrive of een andere cloudmap? Zet het dan eerst op deze computer.","This file could not be opened. Is it in OneDrive or another cloud folder? Put it on this computer first.","Diese Datei konnte nicht geöffnet werden. Liegt sie in OneDrive oder einem anderen Cloud-Ordner? Speichere sie zuerst auf diesem Computer.","No se ha podido abrir este archivo. ¿Está en OneDrive o en otra carpeta en la nube? Guárdalo primero en este ordenador."],
-  ["Meer omrekenen","More scaling options","Mehr umrechnen","Más opciones de escala"],
-  ["Samenwerken met je team","Working with your team","Zusammenarbeiten mit deinem Team","Trabajar con tu equipo"],
-  ["Factor","Factor","Faktor","Factor"],
-  ["Dit kon niet worden omgerekend. Controleer wat je hebt ingevuld.","This could not be converted. Check what you entered.","Das konnte nicht umgerechnet werden. Prüfe deine Eingabe.","No se ha podido convertir. Revisa lo que has introducido."],
-  ["Koppelen aan recept","Link to recipe","Mit Rezept verknüpfen","Vincular a receta"],
-  ["Kies het ingrediënt waar een eigen recept bij hoort, bijvoorbeeld een basissaus.","Choose the ingredient that has its own recipe, such as a base sauce.","Wähle die Zutat, zu der ein eigenes Rezept gehört, zum Beispiel eine Grundsauce.","Elige el ingrediente que tiene su propia receta, por ejemplo una salsa base."],
-  ["Koppeling weghalen","Remove link","Verknüpfung entfernen","Quitar vínculo"],
-  ["Notitie","Note","Notiz","Nota"],
-  ["＋ Notitie","＋ Note","＋ Notiz","＋ Nota"],
-  ["Wijzigen","Change","Ändern","Cambiar"],
-  ["Bijv. bij meer dan 5 kg langer laten rusten","E.g. rest longer above 5 kg","Z. B. ab 5 kg länger ruhen lassen","P. ej., reposar más a partir de 5 kg"],
-  ["Dit kan zodra de database is bijgewerkt.","This will work once the database has been updated.","Das geht, sobald die Datenbank aktualisiert ist.","Esto funcionará cuando se actualice la base de datos."],
-  ["Opslaan lukte niet; probeer het opnieuw","Saving failed; please try again","Speichern fehlgeschlagen; versuche es noch einmal","No se ha podido guardar; inténtalo de nuevo"],
-  ["Met notities","With notes","Mit Notizen","Con notas"],
-  ["Map printen","Print folder","Ordner drucken","Imprimir carpeta"],
-  ["Savour Pro voor iedereen","Savour Pro for everyone","Savour Pro für alle","Savour Pro para todos"],
-  ["Met een teamabonnement krijgt iedereen in je keuken Savour Pro: onbeperkt recepten, AI voor handgeschreven kladjes, eigen keukenteams en je logo op prints. Jij regelt het abonnement; je collega's betalen niets en houden hun eigen account.","With a team plan, everyone in your kitchen gets Savour Pro: unlimited recipes, AI for handwritten notes, their own kitchen teams and your logo on prints. You manage the plan; your colleagues pay nothing and keep their own account.","Mit einem Team-Abo bekommt jeder in deiner Küche Savour Pro: unbegrenzt Rezepte, KI für handgeschriebene Notizen, eigene Küchenteams und dein Logo auf Ausdrucken. Du verwaltest das Abo; deine Kollegen zahlen nichts und behalten ihr eigenes Konto.","Con un plan de equipo, todos en tu cocina tienen Savour Pro: recetas ilimitadas, IA para notas escritas a mano, equipos de cocina propios y tu logo en las impresiones. Tú gestionas el plan; tus compañeros no pagan nada y conservan su propia cuenta."],
-  ["Plekken beheren","Manage seats","Plätze verwalten","Gestionar plazas"],
-  ["＋ Deel toevoegen","＋ Add part","＋ Teil hinzufügen","＋ Añadir parte"],
-  ["Deel toevoegen","Add part","Teil hinzufügen","Añadir parte"],
-  ["Bestaat je recept uit meerdere delen, zoals deeg, vulling en saus? Voeg er zoveel toe als je wilt.","Does your recipe have several parts, like dough, filling and sauce? Add as many as you like.","Besteht dein Rezept aus mehreren Teilen, etwa Teig, Füllung und Sauce? Füge so viele hinzu, wie du möchtest.","¿Tu receta tiene varias partes, como masa, relleno y salsa? Añade tantas como quieras."],
-  ["Naam, bijv. deeg of saus","Name, e.g. dough or sauce","Name, z. B. Teig oder Sauce","Nombre, p. ej. masa o salsa"],
-  ["Naam van dit deel","Name of this part","Name dieses Teils","Nombre de esta parte"],
-  ["Deel verwijderen","Remove part","Teil entfernen","Quitar parte"],
-  ["Eén ingrediënt per regel","One ingredient per line","Eine Zutat pro Zeile","Un ingrediente por línea"],
-  ["Eén stap per regel","One step per line","Ein Schritt pro Zeile","Un paso por línea"],
-  ["Receptenmap toevoegen","Add recipe folder","Rezeptordner hinzufügen","Añadir carpeta de recetas"],
-  ["Eigen factor","Custom factor","Eigener Faktor","Factor propio"],
-  ["Met hoeveel wil je het recept vermenigvuldigen? Bijvoorbeeld 0,1 of 2,5.","What should the recipe be multiplied by? For example 0.1 or 2.5.","Womit möchtest du das Rezept multiplizieren? Zum Beispiel 0,1 oder 2,5.","¿Por cuánto quieres multiplicar la receta? Por ejemplo, 0,1 o 2,5."],
-  ["Vul een getal in tussen 0,01 en 1000.","Enter a number between 0.01 and 1000.","Gib eine Zahl zwischen 0,01 und 1000 ein.","Introduce un número entre 0,01 y 1000."],
-  ["Eigen factor ×","Custom factor ×","Eigener Faktor ×","Factor propio ×"],
-  ["Ik heb","I have","Ich habe","Tengo"],
-  ["Ingrediënt","Ingredient","Zutat","Ingrediente"],
+  ['Proefperiode tot', 'Trial until', 'Testphase bis', 'Prueba hasta'],
+  [
+    'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot je Savour Pro neemt.',
+    'After that everything is kept, but this kitchen team cannot be used until you get Savour Pro.',
+    'Danach bleibt alles gespeichert, aber dieses Küchenteam ist erst wieder nutzbar, wenn du Savour Pro nimmst.',
+    'Después todo se conserva, pero este equipo de cocina no se puede usar hasta que contrates Savour Pro.'
+  ],
+  [
+    'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot de eigenaar Savour Pro neemt.',
+    'After that everything is kept, but this kitchen team cannot be used until the owner gets Savour Pro.',
+    'Danach bleibt alles gespeichert, aber dieses Küchenteam ist erst wieder nutzbar, wenn der Eigentümer Savour Pro nimmt.',
+    'Después todo se conserva, pero este equipo de cocina no se puede usar hasta que el propietario contrate Savour Pro.'
+  ],
+  [
+    'Dit keukenteam staat op slot',
+    'This kitchen team is locked',
+    'Dieses Küchenteam ist gesperrt',
+    'Este equipo de cocina está bloqueado'
+  ],
+  [
+    'Een keukenteam werkt alleen met Savour Pro. Er is niets weg: alle recepten, mappen en leden blijven bewaard. Neem je Savour Pro, dan gaat het meteen weer open.',
+    'A kitchen team only works with Savour Pro. Nothing is gone: all recipes, folders and members are kept. Get Savour Pro and it opens again right away.',
+    'Ein Küchenteam funktioniert nur mit Savour Pro. Nichts ist verloren: Alle Rezepte, Ordner und Mitglieder bleiben gespeichert. Mit Savour Pro ist es sofort wieder offen.',
+    'Un equipo de cocina solo funciona con Savour Pro. No se pierde nada: todas las recetas, carpetas y miembros se conservan. Con Savour Pro se vuelve a abrir al momento.'
+  ],
+  [
+    'De eigenaar heeft geen Savour Pro meer. Er is niets weg: zodra de eigenaar weer Pro heeft, gaat dit keukenteam meteen weer open.',
+    'The owner no longer has Savour Pro. Nothing is gone: as soon as the owner has Pro again, this kitchen team opens right away.',
+    'Der Eigentümer hat kein Savour Pro mehr. Nichts ist verloren: Sobald der Eigentümer wieder Pro hat, ist dieses Küchenteam sofort wieder offen.',
+    'El propietario ya no tiene Savour Pro. No se pierde nada: en cuanto vuelva a tener Pro, este equipo de cocina se abrirá de nuevo.'
+  ],
+  [
+    'Een keukenteam blijft bewaard, maar is pas weer te gebruiken als de eigenaar Savour Pro heeft.',
+    'A kitchen team is kept, but can only be used again once the owner has Savour Pro.',
+    'Ein Küchenteam bleibt gespeichert, ist aber erst wieder nutzbar, wenn der Eigentümer Savour Pro hat.',
+    'Un equipo de cocina se conserva, pero solo se puede volver a usar cuando el propietario tenga Savour Pro.'
+  ],
+  [
+    'Een keukenteam werkt zolang de eigenaar Savour Pro heeft.',
+    'A kitchen team works as long as the owner has Savour Pro.',
+    'Ein Küchenteam funktioniert, solange der Eigentümer Savour Pro hat.',
+    'Un equipo de cocina funciona mientras el propietario tenga Savour Pro.'
+  ],
+  [
+    'Een keukenteam uit je proefperiode blijft bewaard, maar werkt daarna pas weer met Savour Pro.',
+    'A kitchen team from your trial is kept, but after that only works with Savour Pro.',
+    'Ein Küchenteam aus deiner Testphase bleibt gespeichert, funktioniert danach aber erst wieder mit Savour Pro.',
+    'Un equipo de cocina de tu prueba se conserva, pero después solo funciona con Savour Pro.'
+  ],
+  [
+    'Af en toe sturen we je nieuws over Savour op het e-mailadres van je account. Afmelden kan met één klik onderaan elke mail.',
+    'We occasionally send news about Savour to your account email address. You can unsubscribe with one click at the bottom of every email.',
+    'Gelegentlich senden wir dir Neuigkeiten zu Savour an die E-Mail-Adresse deines Kontos. Abmelden kannst du dich mit einem Klick unten in jeder Mail.',
+    'De vez en cuando enviamos noticias sobre Savour al correo de tu cuenta. Puedes darte de baja con un clic al final de cada correo.'
+  ],
+  ['Welkom bekijken', 'View welcome', 'Willkommen ansehen', 'Ver bienvenida'],
+  ['Terug naar welkom', 'Back to welcome', 'Zurück zum Willkommen', 'Volver a la bienvenida'],
+  ['Sauzen', 'Sauces', 'Saucen', 'Salsas'],
+  ['Patisserie', 'Pastry', 'Patisserie', 'Pastelería'],
+  ['Kaart', 'Menu', 'Karte', 'Carta'],
+  ['Voorbeeld', 'Example', 'Beispiel', 'Ejemplo'],
+  ['Dit is een voorbeeld', 'This is an example', 'Das ist ein Beispiel', 'Esto es un ejemplo'],
+  [
+    'Zo ziet een receptenmap eruit. Hij verdwijnt zodra je je eigen map maakt.',
+    'This is what a recipe folder looks like. It disappears as soon as you create your own.',
+    'So sieht ein Rezeptordner aus. Er verschwindet, sobald du deinen eigenen anlegst.',
+    'Así es una carpeta de recetas. Desaparece en cuanto creas la tuya.'
+  ],
+  ['Maak je eigen map', 'Create your own folder', 'Eigenen Ordner anlegen', 'Crea tu propia carpeta'],
+  [
+    'Orden recepten zoals jouw keuken werkt: per partie, menu of seizoen.',
+    'Organise recipes the way your kitchen works: by section, menu or season.',
+    'Ordne Rezepte so, wie deine Küche arbeitet: nach Posten, Menü oder Saison.',
+    'Ordena las recetas como trabaja tu cocina: por partida, menú o temporada.'
+  ],
+  [
+    'Zo werkt een keukenteam. Het verdwijnt zodra je je eigen team maakt of ergens lid van wordt.',
+    'This is how a kitchen team works. It disappears as soon as you create your own team or join one.',
+    'So funktioniert ein Küchenteam. Es verschwindet, sobald du dein eigenes Team erstellst oder einem beitrittst.',
+    'Así funciona un equipo de cocina. Desaparece en cuanto creas tu equipo o te unes a uno.'
+  ],
+  [
+    'Maak je eigen keukenteam',
+    'Create your own kitchen team',
+    'Eigenes Küchenteam erstellen',
+    'Crea tu propio equipo de cocina'
+  ],
+  [
+    'Eén receptenboek voor de hele brigade. Iedereen ziet elke wijziging meteen.',
+    'One recipe book for the whole brigade. Everyone sees every change straight away.',
+    'Ein Rezeptbuch für die ganze Brigade. Alle sehen jede Änderung sofort.',
+    'Un recetario para toda la brigada. Todos ven cada cambio al momento.'
+  ],
+  ['Stagiair', 'Intern', 'Praktikant', 'Becario'],
+  ['Hoi', 'Hi', 'Hallo', 'Hola'],
+  [', je keuken staat klaar.', ', your kitchen is ready.', ', deine Küche ist bereit.', ', tu cocina está lista.'],
+  ['Je keuken staat klaar.', 'Your kitchen is ready.', 'Deine Küche ist bereit.', 'Tu cocina está lista.'],
+  [
+    'In drie stappen heb je al je recepten op één plek.',
+    'Three steps and all your recipes are in one place.',
+    'In drei Schritten hast du alle Rezepte an einem Ort.',
+    'En tres pasos tienes todas tus recetas en un solo sitio.'
+  ],
+  [
+    'Word, PDF of een foto van een kladje. Ook honderden tegelijk.',
+    'Word, PDF or a photo of a handwritten note. Even hundreds at once.',
+    'Word, PDF oder ein Foto einer Notiz. Auch Hunderte auf einmal.',
+    'Word, PDF o una foto de una nota. Incluso cientos a la vez.'
+  ],
+  ['Orden ze in mappen', 'Organise them in folders', 'In Ordner sortieren', 'Ordénalas en carpetas'],
+  [
+    'Per partie, menu of seizoen, zoals jouw keuken werkt.',
+    'By section, menu or season, the way your kitchen works.',
+    'Nach Posten, Menü oder Saison, so wie deine Küche arbeitet.',
+    'Por partida, menú o temporada, como trabaja tu cocina.'
+  ],
+  ['Deel met je brigade', 'Share with your brigade', 'Mit deiner Brigade teilen', 'Comparte con tu brigada'],
+  [
+    'Iedereen kookt van dezelfde versie, op de eigen telefoon.',
+    'Everyone cooks from the same version, on their own phone.',
+    'Alle kochen nach derselben Version, auf dem eigenen Handy.',
+    'Todos cocinan con la misma versión, en su propio móvil.'
+  ],
+  [
+    'Importeer je eerste recepten',
+    'Import your first recipes',
+    'Erste Rezepte importieren',
+    'Importa tus primeras recetas'
+  ],
+  ['Bekijk eerst het voorbeeld', 'See the example first', 'Erst das Beispiel ansehen', 'Ver primero el ejemplo'],
+  ['Een receptenmap maken', 'Create a recipe folder', 'Rezeptordner anlegen', 'Crear una carpeta de recetas'],
+  ['Je team uitnodigen', 'Invite your team', 'Dein Team einladen', 'Invitar a tu equipo'],
+  ['1 recept gevonden', '1 recipe found', '1 Rezept gefunden', '1 receta encontrada'],
+  ['Alles duidelijk gelezen', 'Everything read clearly', 'Alles klar gelesen', 'Todo leído con claridad'],
+  [
+    'Voorbeeldrecept. Zo ziet een recept er in Savour uit.',
+    'Example recipe. This is what a recipe looks like in Savour.',
+    'Beispielrezept. So sieht ein Rezept in Savour aus.',
+    'Receta de ejemplo. Así se ve una receta en Savour.'
+  ],
+  [
+    'Dit bestand kon niet worden geopend. Staat het in OneDrive of een andere cloudmap? Zet het dan eerst op deze computer.',
+    'This file could not be opened. Is it in OneDrive or another cloud folder? Put it on this computer first.',
+    'Diese Datei konnte nicht geöffnet werden. Liegt sie in OneDrive oder einem anderen Cloud-Ordner? Speichere sie zuerst auf diesem Computer.',
+    'No se ha podido abrir este archivo. ¿Está en OneDrive o en otra carpeta en la nube? Guárdalo primero en este ordenador.'
+  ],
+  ['Meer omrekenen', 'More scaling options', 'Mehr umrechnen', 'Más opciones de escala'],
+  ['Samenwerken met je team', 'Working with your team', 'Zusammenarbeiten mit deinem Team', 'Trabajar con tu equipo'],
+  ['Factor', 'Factor', 'Faktor', 'Factor'],
+  [
+    'Dit kon niet worden omgerekend. Controleer wat je hebt ingevuld.',
+    'This could not be converted. Check what you entered.',
+    'Das konnte nicht umgerechnet werden. Prüfe deine Eingabe.',
+    'No se ha podido convertir. Revisa lo que has introducido.'
+  ],
+  ['Koppelen aan recept', 'Link to recipe', 'Mit Rezept verknüpfen', 'Vincular a receta'],
+  [
+    'Kies het ingrediënt waar een eigen recept bij hoort, bijvoorbeeld een basissaus.',
+    'Choose the ingredient that has its own recipe, such as a base sauce.',
+    'Wähle die Zutat, zu der ein eigenes Rezept gehört, zum Beispiel eine Grundsauce.',
+    'Elige el ingrediente que tiene su propia receta, por ejemplo una salsa base.'
+  ],
+  ['Koppeling weghalen', 'Remove link', 'Verknüpfung entfernen', 'Quitar vínculo'],
+  ['Notitie', 'Note', 'Notiz', 'Nota'],
+  ['＋ Notitie', '＋ Note', '＋ Notiz', '＋ Nota'],
+  ['Wijzigen', 'Change', 'Ändern', 'Cambiar'],
+  [
+    'Bijv. bij meer dan 5 kg langer laten rusten',
+    'E.g. rest longer above 5 kg',
+    'Z. B. ab 5 kg länger ruhen lassen',
+    'P. ej., reposar más a partir de 5 kg'
+  ],
+  [
+    'Dit kan zodra de database is bijgewerkt.',
+    'This will work once the database has been updated.',
+    'Das geht, sobald die Datenbank aktualisiert ist.',
+    'Esto funcionará cuando se actualice la base de datos.'
+  ],
+  [
+    'Opslaan lukte niet; probeer het opnieuw',
+    'Saving failed; please try again',
+    'Speichern fehlgeschlagen; versuche es noch einmal',
+    'No se ha podido guardar; inténtalo de nuevo'
+  ],
+  ['Met notities', 'With notes', 'Mit Notizen', 'Con notas'],
+  ['Map printen', 'Print folder', 'Ordner drucken', 'Imprimir carpeta'],
+  ['Savour Pro voor iedereen', 'Savour Pro for everyone', 'Savour Pro für alle', 'Savour Pro para todos'],
+  [
+    "Met een teamabonnement krijgt iedereen in je keuken Savour Pro: onbeperkt recepten, AI voor handgeschreven kladjes, eigen keukenteams en je logo op prints. Jij regelt het abonnement; je collega's betalen niets en houden hun eigen account.",
+    'With a team plan, everyone in your kitchen gets Savour Pro: unlimited recipes, AI for handwritten notes, their own kitchen teams and your logo on prints. You manage the plan; your colleagues pay nothing and keep their own account.',
+    'Mit einem Team-Abo bekommt jeder in deiner Küche Savour Pro: unbegrenzt Rezepte, KI für handgeschriebene Notizen, eigene Küchenteams und dein Logo auf Ausdrucken. Du verwaltest das Abo; deine Kollegen zahlen nichts und behalten ihr eigenes Konto.',
+    'Con un plan de equipo, todos en tu cocina tienen Savour Pro: recetas ilimitadas, IA para notas escritas a mano, equipos de cocina propios y tu logo en las impresiones. Tú gestionas el plan; tus compañeros no pagan nada y conservan su propia cuenta.'
+  ],
+  ['Plekken beheren', 'Manage seats', 'Plätze verwalten', 'Gestionar plazas'],
+  ['＋ Deel toevoegen', '＋ Add part', '＋ Teil hinzufügen', '＋ Añadir parte'],
+  ['Deel toevoegen', 'Add part', 'Teil hinzufügen', 'Añadir parte'],
+  [
+    'Bestaat je recept uit meerdere delen, zoals deeg, vulling en saus? Voeg er zoveel toe als je wilt.',
+    'Does your recipe have several parts, like dough, filling and sauce? Add as many as you like.',
+    'Besteht dein Rezept aus mehreren Teilen, etwa Teig, Füllung und Sauce? Füge so viele hinzu, wie du möchtest.',
+    '¿Tu receta tiene varias partes, como masa, relleno y salsa? Añade tantas como quieras.'
+  ],
+  [
+    'Naam, bijv. deeg of saus',
+    'Name, e.g. dough or sauce',
+    'Name, z. B. Teig oder Sauce',
+    'Nombre, p. ej. masa o salsa'
+  ],
+  ['Naam van dit deel', 'Name of this part', 'Name dieses Teils', 'Nombre de esta parte'],
+  ['Deel verwijderen', 'Remove part', 'Teil entfernen', 'Quitar parte'],
+  ['Eén ingrediënt per regel', 'One ingredient per line', 'Eine Zutat pro Zeile', 'Un ingrediente por línea'],
+  ['Eén stap per regel', 'One step per line', 'Ein Schritt pro Zeile', 'Un paso por línea'],
+  ['Receptenmap toevoegen', 'Add recipe folder', 'Rezeptordner hinzufügen', 'Añadir carpeta de recetas'],
+  ['Eigen factor', 'Custom factor', 'Eigener Faktor', 'Factor propio'],
+  [
+    'Met hoeveel wil je het recept vermenigvuldigen? Bijvoorbeeld 0,1 of 2,5.',
+    'What should the recipe be multiplied by? For example 0.1 or 2.5.',
+    'Womit möchtest du das Rezept multiplizieren? Zum Beispiel 0,1 oder 2,5.',
+    '¿Por cuánto quieres multiplicar la receta? Por ejemplo, 0,1 o 2,5.'
+  ],
+  [
+    'Vul een getal in tussen 0,01 en 1000.',
+    'Enter a number between 0.01 and 1000.',
+    'Gib eine Zahl zwischen 0,01 und 1000 ein.',
+    'Introduce un número entre 0,01 y 1000.'
+  ],
+  ['Eigen factor ×', 'Custom factor ×', 'Eigener Faktor ×', 'Factor propio ×'],
+  ['Ik heb', 'I have', 'Ich habe', 'Tengo'],
+  ['Ingrediënt', 'Ingredient', 'Zutat', 'Ingrediente'],
 
-  ["Kleiner","Smaller","Kleiner","Más pequeño"],
-  ["Groter","Larger","Größer","Más grande"],
-  ["Tekstgrootte","Text size","Textgröße","Tamaño del texto"],
-  ["Eén receptenboek voor de hele brigade.","One recipe book for the whole brigade.","Ein Rezeptbuch für die ganze Brigade.","Un recetario para toda la brigada."],
-  ["Eén receptenboek voor je hele brigade","One recipe book for your whole brigade","Ein Rezeptbuch für deine ganze Brigade","Un recetario para toda tu brigada"],
-  ["Koks uitnodigen","Invite cooks","Köche einladen","Invitar cocineros"],
-  ["Brigade beheren ›","Manage brigade ›","Brigade verwalten ›","Gestionar brigada ›"],
-  ["Brigade bekijken ›","View brigade ›","Brigade ansehen ›","Ver brigada ›"],
-  ["Brigade","Brigade","Brigade","Brigada"],
-  ["Iedereen ziet direct elke wijziging","Everyone sees every change straight away","Alle sehen jede Änderung sofort","Todos ven cada cambio al instante"],
-  ["Bijv. per partie of menu","E.g. by section or menu","Z. B. nach Posten oder Menü","P. ej. por partida o menú"],
-  ["Net bijgewerkt","Just updated","Gerade aktualisiert","Actualizado hace poco"],
-  ["Nog niets bijgewerkt.","Nothing updated yet.","Noch nichts aktualisiert.","Aún no hay cambios."],
-  ["Nieuw keukenteam","New kitchen team","Neues Küchenteam","Nuevo equipo de cocina"],
-  ["Geen losse prints of oude versies op de pass. Iedereen kookt van hetzelfde recept, op elk apparaat.","No loose printouts or old versions on the pass. Everyone cooks from the same recipe, on every device.","Keine losen Ausdrucke oder alten Versionen am Pass. Alle kochen nach demselben Rezept, auf jedem Gerät.","Sin copias sueltas ni versiones antiguas en el pase. Todos cocinan con la misma receta, en cualquier dispositivo."],
-  ["Geef je keuken een naam","Name your kitchen","Gib deiner Küche einen Namen","Ponle nombre a tu cocina"],
-  ["Nodig je koks uit","Invite your cooks","Lade deine Köche ein","Invita a tus cocineros"],
-  ["Met hun e-mailadres, direct hierna.","With their email address, right after this.","Mit ihrer E-Mail-Adresse, direkt danach.","Con su correo electrónico, justo después."],
-  ["Zet je recepten erin","Add your recipes","Füge deine Rezepte hinzu","Añade tus recetas"],
-  ["Uit je eigen recepten of importeer een hele map.","From your own recipes, or import a whole folder.","Aus deinen eigenen Rezepten oder importiere einen ganzen Ordner.","De tus propias recetas o importa una carpeta entera."],
-  ["Bijv. de naam van je restaurant","E.g. the name of your restaurant","Z. B. der Name deines Restaurants","P. ej. el nombre de tu restaurante"],
-  ["Recepten in het keukenteam blijven van de keuken, ook als een kok vertrekt.","Recipes in the kitchen team stay with the kitchen, even when a cook leaves.","Rezepte im Küchenteam bleiben bei der Küche, auch wenn ein Koch geht.","Las recetas del equipo se quedan en la cocina, aunque un cocinero se vaya."],
-  ["Wat mag diegene?","What can they do?","Was darf die Person?","¿Qué puede hacer?"],
-  ["Recepten bekijken, printen en omrekenen","View, print and scale recipes","Rezepte ansehen, drucken und umrechnen","Ver, imprimir y escalar recetas"],
-  ["Recepten en mappen toevoegen en aanpassen","Add and edit recipes and folders","Rezepte und Ordner hinzufügen und bearbeiten","Añadir y editar recetas y carpetas"],
-  ["Uitnodigen","Invite","Einladen","Invitar"],
-  ["Heeft diegene al een Savour-account, dan zit hij of zij er direct in. Zo niet, dan stuur je een uitnodiging per e-mail.","If they already have a Savour account, they are in straight away. If not, you send an invitation by email.","Hat die Person schon ein Savour-Konto, ist sie sofort dabei. Wenn nicht, schickst du eine Einladung per E-Mail.","Si ya tiene una cuenta de Savour, entra directamente. Si no, le envías una invitación por correo."],
-  ["Of deel de uitnodigingslink","Or share the invitation link","Oder teile den Einladungslink","O comparte el enlace de invitación"],
-  ["Bijvoorbeeld via WhatsApp naar een telefoonnummer. Na het aanmaken van een account kun je de rechten aanpassen.","For example via WhatsApp to a phone number. Once they have an account you can change their rights.","Zum Beispiel per WhatsApp an eine Telefonnummer. Sobald ein Konto besteht, kannst du die Rechte ändern.","Por ejemplo por WhatsApp a un número de teléfono. Cuando tenga cuenta, puedes cambiar sus permisos."],
-  ["zojuist","just now","gerade eben","ahora mismo"],
-  ["gisteren","yesterday","gestern","ayer"],
+  ['Kleiner', 'Smaller', 'Kleiner', 'Más pequeño'],
+  ['Groter', 'Larger', 'Größer', 'Más grande'],
+  ['Tekstgrootte', 'Text size', 'Textgröße', 'Tamaño del texto'],
+  [
+    'Eén receptenboek voor de hele brigade.',
+    'One recipe book for the whole brigade.',
+    'Ein Rezeptbuch für die ganze Brigade.',
+    'Un recetario para toda la brigada.'
+  ],
+  [
+    'Eén receptenboek voor je hele brigade',
+    'One recipe book for your whole brigade',
+    'Ein Rezeptbuch für deine ganze Brigade',
+    'Un recetario para toda tu brigada'
+  ],
+  ['Koks uitnodigen', 'Invite cooks', 'Köche einladen', 'Invitar cocineros'],
+  ['Brigade beheren ›', 'Manage brigade ›', 'Brigade verwalten ›', 'Gestionar brigada ›'],
+  ['Brigade bekijken ›', 'View brigade ›', 'Brigade ansehen ›', 'Ver brigada ›'],
+  ['Brigade', 'Brigade', 'Brigade', 'Brigada'],
+  [
+    'Iedereen ziet direct elke wijziging',
+    'Everyone sees every change straight away',
+    'Alle sehen jede Änderung sofort',
+    'Todos ven cada cambio al instante'
+  ],
+  ['Bijv. per partie of menu', 'E.g. by section or menu', 'Z. B. nach Posten oder Menü', 'P. ej. por partida o menú'],
+  ['Net bijgewerkt', 'Just updated', 'Gerade aktualisiert', 'Actualizado hace poco'],
+  ['Nog niets bijgewerkt.', 'Nothing updated yet.', 'Noch nichts aktualisiert.', 'Aún no hay cambios.'],
+  ['Nieuw keukenteam', 'New kitchen team', 'Neues Küchenteam', 'Nuevo equipo de cocina'],
+  [
+    'Geen losse prints of oude versies op de pass. Iedereen kookt van hetzelfde recept, op elk apparaat.',
+    'No loose printouts or old versions on the pass. Everyone cooks from the same recipe, on every device.',
+    'Keine losen Ausdrucke oder alten Versionen am Pass. Alle kochen nach demselben Rezept, auf jedem Gerät.',
+    'Sin copias sueltas ni versiones antiguas en el pase. Todos cocinan con la misma receta, en cualquier dispositivo.'
+  ],
+  ['Geef je keuken een naam', 'Name your kitchen', 'Gib deiner Küche einen Namen', 'Ponle nombre a tu cocina'],
+  ['Nodig je koks uit', 'Invite your cooks', 'Lade deine Köche ein', 'Invita a tus cocineros'],
+  [
+    'Met hun e-mailadres, direct hierna.',
+    'With their email address, right after this.',
+    'Mit ihrer E-Mail-Adresse, direkt danach.',
+    'Con su correo electrónico, justo después.'
+  ],
+  ['Zet je recepten erin', 'Add your recipes', 'Füge deine Rezepte hinzu', 'Añade tus recetas'],
+  [
+    'Uit je eigen recepten of importeer een hele map.',
+    'From your own recipes, or import a whole folder.',
+    'Aus deinen eigenen Rezepten oder importiere einen ganzen Ordner.',
+    'De tus propias recetas o importa una carpeta entera.'
+  ],
+  [
+    'Bijv. de naam van je restaurant',
+    'E.g. the name of your restaurant',
+    'Z. B. der Name deines Restaurants',
+    'P. ej. el nombre de tu restaurante'
+  ],
+  [
+    'Recepten in het keukenteam blijven van de keuken, ook als een kok vertrekt.',
+    'Recipes in the kitchen team stay with the kitchen, even when a cook leaves.',
+    'Rezepte im Küchenteam bleiben bei der Küche, auch wenn ein Koch geht.',
+    'Las recetas del equipo se quedan en la cocina, aunque un cocinero se vaya.'
+  ],
+  ['Wat mag diegene?', 'What can they do?', 'Was darf die Person?', '¿Qué puede hacer?'],
+  [
+    'Recepten bekijken, printen en omrekenen',
+    'View, print and scale recipes',
+    'Rezepte ansehen, drucken und umrechnen',
+    'Ver, imprimir y escalar recetas'
+  ],
+  [
+    'Recepten en mappen toevoegen en aanpassen',
+    'Add and edit recipes and folders',
+    'Rezepte und Ordner hinzufügen und bearbeiten',
+    'Añadir y editar recetas y carpetas'
+  ],
+  ['Uitnodigen', 'Invite', 'Einladen', 'Invitar'],
+  [
+    'Heeft diegene al een Savour-account, dan zit hij of zij er direct in. Zo niet, dan stuur je een uitnodiging per e-mail.',
+    'If they already have a Savour account, they are in straight away. If not, you send an invitation by email.',
+    'Hat die Person schon ein Savour-Konto, ist sie sofort dabei. Wenn nicht, schickst du eine Einladung per E-Mail.',
+    'Si ya tiene una cuenta de Savour, entra directamente. Si no, le envías una invitación por correo.'
+  ],
+  [
+    'Of deel de uitnodigingslink',
+    'Or share the invitation link',
+    'Oder teile den Einladungslink',
+    'O comparte el enlace de invitación'
+  ],
+  [
+    'Bijvoorbeeld via WhatsApp naar een telefoonnummer. Na het aanmaken van een account kun je de rechten aanpassen.',
+    'For example via WhatsApp to a phone number. Once they have an account you can change their rights.',
+    'Zum Beispiel per WhatsApp an eine Telefonnummer. Sobald ein Konto besteht, kannst du die Rechte ändern.',
+    'Por ejemplo por WhatsApp a un número de teléfono. Cuando tenga cuenta, puedes cambiar sus permisos.'
+  ],
+  ['zojuist', 'just now', 'gerade eben', 'ahora mismo'],
+  ['gisteren', 'yesterday', 'gestern', 'ayer'],
   ['Keukenteam toevoegen', 'Add kitchen team', 'Küchenteam hinzufügen', 'Añadir equipo de cocina'],
-  ["Je eigen mappen zie alleen jij. Wil je recepten delen met je keukenteam, gebruik dan een keukenteam.", "Only you see your own folders. To share recipes with your kitchen team, use a kitchen team.", "Deine eigenen Ordner siehst nur du. Willst du Rezepte mit deinem Küchenteam teilen, nutze ein Küchenteam.", "Tus propias carpetas solo las ves tú. Para compartir recetas con tu equipo, usa un equipo de cocina."],
+  [
+    'Je eigen mappen zie alleen jij. Wil je recepten delen met je keukenteam, gebruik dan een keukenteam.',
+    'Only you see your own folders. To share recipes with your kitchen team, use a kitchen team.',
+    'Deine eigenen Ordner siehst nur du. Willst du Rezepte mit deinem Küchenteam teilen, nutze ein Küchenteam.',
+    'Tus propias carpetas solo las ves tú. Para compartir recetas con tu equipo, usa un equipo de cocina.'
+  ],
   ['Keukenteam', 'Kitchen team', 'Küchenteam', 'Equipo de cocina'],
   ['＋ Teamlid uitnodigen', '＋ Invite team member', '＋ Teammitglied einladen', '＋ Invitar a un miembro'],
-  ["Je team heeft geen Pro meer via dit abonnement. Je eigen recepten en dit keukenteam blijven gewoon staan.","Your team no longer has Pro through this plan. Your own recipes and this kitchen team stay as they are.","Dein Team hat über dieses Abo kein Pro mehr. Deine eigenen Rezepte und dieses Küchenteam bleiben bestehen.","Tu equipo ya no tiene Pro con este plan. Tus recetas y este equipo de cocina se mantienen."],
-  ["Team opnieuw nemen","Take Team again","Team erneut abschließen","Volver a contratar Equipo"],
-  ["Team kiezen","Choose Team","Team wählen","Elegir Equipo"],
-  ["Jij hebt Savour Pro. Met Team 5, 10 of 25 krijgt iedereen in dit keukenteam Savour Pro: onbeperkt recepten en AI voor kladjes.","You have Savour Pro. With Team 5, 10 or 25 everyone in this kitchen team gets Savour Pro: unlimited recipes and AI for notes.","Du hast Savour Pro. Mit Team 5, 10 oder 25 bekommt jeder in diesem Küchenteam Savour Pro: unbegrenzt Rezepte und KI für Notizen.","Tienes Savour Pro. Con Equipo 5, 10 o 25 todos en este equipo de cocina tienen Savour Pro: recetas ilimitadas e IA para notas."],
-  ["Met Team 5, 10 of 25 krijgt iedereen in dit keukenteam Savour Pro: onbeperkt recepten en AI voor kladjes.","With Team 5, 10 or 25 everyone in this kitchen team gets Savour Pro: unlimited recipes and AI for notes.","Mit Team 5, 10 oder 25 bekommt jeder in diesem Küchenteam Savour Pro: unbegrenzt Rezepte und KI für Notizen.","Con Equipo 5, 10 o 25 todos en este equipo de cocina tienen Savour Pro: recetas ilimitadas e IA para notas."],
-  ["Alle recepten en mappen van dit keukenteam worden voor iedereen verwijderd. Je persoonlijke recepten blijven behouden.","All recipes and folders of this kitchen team are deleted for everyone. Your personal recipes are kept.","Alle Rezepte und Ordner dieses Küchenteams werden für alle gelöscht. Deine persönlichen Rezepte bleiben erhalten.","Todas las recetas y carpetas de este equipo de cocina se eliminan para todos. Tus recetas personales se conservan."],
-  ["Je teamabonnement wordt losgekoppeld en de Pro-plekken komen vrij. Je kunt het daarna aan een ander of nieuw keukenteam koppelen.","Your team plan is unlinked and the Pro seats become free. You can then link it to another or a new kitchen team.","Dein Team-Abo wird getrennt und die Pro-Plätze werden frei. Danach kannst du es mit einem anderen oder neuen Küchenteam verknüpfen.","Tu plan de equipo se desvincula y las plazas Pro quedan libres. Después puedes vincularlo a otro equipo de cocina o a uno nuevo."],
-  ["Een teamabonnement hoort bij één keukenteam. Wil je ook hier Pro voor iedereen, neem dan een tweede abonnement of verwijder eerst dat keukenteam.","A team plan belongs to one kitchen team. Want Pro for everyone here too? Take a second plan, or delete that kitchen team first.","Ein Team-Abo gehört zu einem Küchenteam. Möchtest du auch hier Pro für alle, nimm ein zweites Abo oder lösche zuerst das andere Küchenteam.","Un plan de equipo pertenece a un solo equipo de cocina. ¿Quieres Pro para todos aquí también? Contrata un segundo plan o elimina primero ese equipo."],
-  ["Je teamabonnement hoort al bij een ander keukenteam","Your team plan already belongs to another kitchen team","Dein Team-Abo gehört schon zu einem anderen Küchenteam","Tu plan de equipo ya pertenece a otro equipo de cocina"],
-  ["Nog geen keukenteam. Maak er een met “Keukenteam maken”, of word lid via een uitnodiging.","No kitchen team yet. Create one with “Create kitchen team”, or join through an invitation.","Noch kein Küchenteam. Erstelle eines mit „Küchenteam erstellen“ oder tritt über eine Einladung bei.","Aún no hay equipo de cocina. Crea uno con «Crear equipo de cocina» o únete con una invitación."],
-  ["Geen recepten voor deze selectie.","No recipes for this selection.","Keine Rezepte für diese Auswahl.","No hay recetas para esta selección."],
-  ["Nog geen recepten in dit keukenteam. Voeg ze toe met “Recept toevoegen”.","No recipes in this kitchen team yet. Add them with “Add recipe”.","Noch keine Rezepte in diesem Küchenteam. Füge sie mit „Rezept hinzufügen“ hinzu.","Aún no hay recetas en este equipo de cocina. Añádelas con «Añadir receta»."],
-  ["Nog geen recepten in dit keukenteam.","No recipes in this kitchen team yet.","Noch keine Rezepte in diesem Küchenteam.","Aún no hay recetas en este equipo de cocina."],
-  ["Pro-plek vrijgeven","Release Pro seat","Pro-Platz freigeben","Liberar plaza Pro"],
-  ["Pro geven","Give Pro","Pro geben","Dar Pro"],
-  ["Pro voor je hele team","Pro for your whole team","Pro für dein ganzes Team","Pro para todo tu equipo"],
-  ["Met Team 5, 10 of 25 heeft iedereen in dit keukenteam Savour Pro: onbeperkt recepten en AI voor kladjes.","With Team 5, 10 or 25 everyone in this kitchen team has Savour Pro: unlimited recipes and AI for notes.","Mit Team 5, 10 oder 25 hat jeder in diesem Küchenteam Savour Pro: unbegrenzt Rezepte und KI für Notizen.","Con Equipo 5, 10 o 25 todos en este equipo de cocina tienen Savour Pro: recetas ilimitadas e IA para notas."],
-  ["Bekijk Team","View Team","Team ansehen","Ver Equipo"],
-  ["Keukenteam verlaten","Leave kitchen team","Küchenteam verlassen","Salir del equipo de cocina"],
-  ["De eigenaar beheert het keukenteam en het team. Een sous-chef voegt recepten en mappen toe en bewerkt ze. Een kok bekijkt, print en rekent om. Recepten in het keukenteam blijven van het keukenteam, ook als iemand vertrekt.","The owner manages the kitchen team and the team. A sous-chef adds and edits recipes and folders. A cook views, prints and scales. Recipes in the kitchen team stay with the kitchen team, even when someone leaves.","Der Inhaber verwaltet das Küchenteam und das Team. Ein Sous-Chef fügt Rezepte und Ordner hinzu und bearbeitet sie. Ein Koch sieht an, druckt und rechnet um. Rezepte im Küchenteam bleiben beim Küchenteam, auch wenn jemand geht.","El propietario gestiona el equipo de cocina y el equipo. Un segundo de cocina añade y edita recetas y carpetas. Un cocinero consulta, imprime y escala. Las recetas del equipo de cocina se quedan en el equipo, aunque alguien se vaya."],
-  ["Sous-chef","Sous-chef","Sous-Chef","Segundo de cocina"],
-  ["Kok","Cook","Koch","Cocinero"],
-  ["Foto","Photo","Foto","Foto"],
-  ["Staat bovenaan het keukenteam.","Shown at the top of the kitchen team.","Steht oben im Küchenteam.","Aparece arriba en el equipo de cocina."],
-  ["Uitnodigingslink","Invitation link","Einladungslink","Enlace de invitación"],
-  ["Het logo van je zaak bovenaan elke print, voor het hele team.","Your restaurant’s logo at the top of every print, for the whole team.","Das Logo deines Betriebs oben auf jedem Ausdruck, für die ganze Brigade.","El logo de tu negocio arriba en cada impresión, para toda el equipo."],
-  ["Logo instellen","Set logo","Logo festlegen","Configurar logo"],
-  ["Alle recepten en mappen van dit keukenteam worden voor iedereen verwijderd.","All recipes and folders of this kitchen team are deleted for everyone.","Alle Rezepte und Ordner dieses Küchenteams werden für alle gelöscht.","Todas las recetas y carpetas de este equipo de cocina se eliminan para todos."],
-  ["Naar het team","Go to the team","Zum Team","Ir a el equipo"],
-  ["Koppel je teamabonnement aan een keukenteam. Dan beheer je daar je team en geef je Pro.","Link your team plan to a kitchen team. Then you manage your team and give Pro there.","Verknüpfe dein Team-Abo mit einem Küchenteam. Dort verwaltest du dann dein Team und vergibst Pro.","Vincula tu plan de equipo a un equipo de cocina. Allí gestionas tu equipo y das Pro."],
-  ["Koppel het aan dit keukenteam, dan krijgt je team hier Pro.","Link it to this kitchen team and your team gets Pro here.","Verknüpfe es mit diesem Küchenteam, dann bekommt dein Team hier Pro.","Vincúlalo a este equipo de cocina y tu equipo tendrá Pro aquí."],
-  ["Recept verwijderd uit het keukenteam","Recipe deleted from the kitchen team","Rezept aus dem Küchenteam gelöscht","Receta eliminada del equipo de cocina"],
-  ["Verwijderd uit het team","Removed from the team","Aus dem Team entfernt","Eliminado de el equipo"],
-  ["Lid kon niet worden verwijderd","Member could not be removed","Mitglied konnte nicht entfernt werden","No se pudo eliminar al miembro"],
+  [
+    'Je team heeft geen Pro meer via dit abonnement. Je eigen recepten en dit keukenteam blijven gewoon staan.',
+    'Your team no longer has Pro through this plan. Your own recipes and this kitchen team stay as they are.',
+    'Dein Team hat über dieses Abo kein Pro mehr. Deine eigenen Rezepte und dieses Küchenteam bleiben bestehen.',
+    'Tu equipo ya no tiene Pro con este plan. Tus recetas y este equipo de cocina se mantienen.'
+  ],
+  ['Team opnieuw nemen', 'Take Team again', 'Team erneut abschließen', 'Volver a contratar Equipo'],
+  ['Team kiezen', 'Choose Team', 'Team wählen', 'Elegir Equipo'],
+  [
+    'Jij hebt Savour Pro. Met Team 5, 10 of 25 krijgt iedereen in dit keukenteam Savour Pro: onbeperkt recepten en AI voor kladjes.',
+    'You have Savour Pro. With Team 5, 10 or 25 everyone in this kitchen team gets Savour Pro: unlimited recipes and AI for notes.',
+    'Du hast Savour Pro. Mit Team 5, 10 oder 25 bekommt jeder in diesem Küchenteam Savour Pro: unbegrenzt Rezepte und KI für Notizen.',
+    'Tienes Savour Pro. Con Equipo 5, 10 o 25 todos en este equipo de cocina tienen Savour Pro: recetas ilimitadas e IA para notas.'
+  ],
+  [
+    'Met Team 5, 10 of 25 krijgt iedereen in dit keukenteam Savour Pro: onbeperkt recepten en AI voor kladjes.',
+    'With Team 5, 10 or 25 everyone in this kitchen team gets Savour Pro: unlimited recipes and AI for notes.',
+    'Mit Team 5, 10 oder 25 bekommt jeder in diesem Küchenteam Savour Pro: unbegrenzt Rezepte und KI für Notizen.',
+    'Con Equipo 5, 10 o 25 todos en este equipo de cocina tienen Savour Pro: recetas ilimitadas e IA para notas.'
+  ],
+  [
+    'Alle recepten en mappen van dit keukenteam worden voor iedereen verwijderd. Je persoonlijke recepten blijven behouden.',
+    'All recipes and folders of this kitchen team are deleted for everyone. Your personal recipes are kept.',
+    'Alle Rezepte und Ordner dieses Küchenteams werden für alle gelöscht. Deine persönlichen Rezepte bleiben erhalten.',
+    'Todas las recetas y carpetas de este equipo de cocina se eliminan para todos. Tus recetas personales se conservan.'
+  ],
+  [
+    'Je teamabonnement wordt losgekoppeld en de Pro-plekken komen vrij. Je kunt het daarna aan een ander of nieuw keukenteam koppelen.',
+    'Your team plan is unlinked and the Pro seats become free. You can then link it to another or a new kitchen team.',
+    'Dein Team-Abo wird getrennt und die Pro-Plätze werden frei. Danach kannst du es mit einem anderen oder neuen Küchenteam verknüpfen.',
+    'Tu plan de equipo se desvincula y las plazas Pro quedan libres. Después puedes vincularlo a otro equipo de cocina o a uno nuevo.'
+  ],
+  [
+    'Een teamabonnement hoort bij één keukenteam. Wil je ook hier Pro voor iedereen, neem dan een tweede abonnement of verwijder eerst dat keukenteam.',
+    'A team plan belongs to one kitchen team. Want Pro for everyone here too? Take a second plan, or delete that kitchen team first.',
+    'Ein Team-Abo gehört zu einem Küchenteam. Möchtest du auch hier Pro für alle, nimm ein zweites Abo oder lösche zuerst das andere Küchenteam.',
+    'Un plan de equipo pertenece a un solo equipo de cocina. ¿Quieres Pro para todos aquí también? Contrata un segundo plan o elimina primero ese equipo.'
+  ],
+  [
+    'Je teamabonnement hoort al bij een ander keukenteam',
+    'Your team plan already belongs to another kitchen team',
+    'Dein Team-Abo gehört schon zu einem anderen Küchenteam',
+    'Tu plan de equipo ya pertenece a otro equipo de cocina'
+  ],
+  [
+    'Nog geen keukenteam. Maak er een met “Keukenteam maken”, of word lid via een uitnodiging.',
+    'No kitchen team yet. Create one with “Create kitchen team”, or join through an invitation.',
+    'Noch kein Küchenteam. Erstelle eines mit „Küchenteam erstellen“ oder tritt über eine Einladung bei.',
+    'Aún no hay equipo de cocina. Crea uno con «Crear equipo de cocina» o únete con una invitación.'
+  ],
+  [
+    'Geen recepten voor deze selectie.',
+    'No recipes for this selection.',
+    'Keine Rezepte für diese Auswahl.',
+    'No hay recetas para esta selección.'
+  ],
+  [
+    'Nog geen recepten in dit keukenteam. Voeg ze toe met “Recept toevoegen”.',
+    'No recipes in this kitchen team yet. Add them with “Add recipe”.',
+    'Noch keine Rezepte in diesem Küchenteam. Füge sie mit „Rezept hinzufügen“ hinzu.',
+    'Aún no hay recetas en este equipo de cocina. Añádelas con «Añadir receta».'
+  ],
+  [
+    'Nog geen recepten in dit keukenteam.',
+    'No recipes in this kitchen team yet.',
+    'Noch keine Rezepte in diesem Küchenteam.',
+    'Aún no hay recetas en este equipo de cocina.'
+  ],
+  ['Pro-plek vrijgeven', 'Release Pro seat', 'Pro-Platz freigeben', 'Liberar plaza Pro'],
+  ['Pro geven', 'Give Pro', 'Pro geben', 'Dar Pro'],
+  ['Pro voor je hele team', 'Pro for your whole team', 'Pro für dein ganzes Team', 'Pro para todo tu equipo'],
+  [
+    'Met Team 5, 10 of 25 heeft iedereen in dit keukenteam Savour Pro: onbeperkt recepten en AI voor kladjes.',
+    'With Team 5, 10 or 25 everyone in this kitchen team has Savour Pro: unlimited recipes and AI for notes.',
+    'Mit Team 5, 10 oder 25 hat jeder in diesem Küchenteam Savour Pro: unbegrenzt Rezepte und KI für Notizen.',
+    'Con Equipo 5, 10 o 25 todos en este equipo de cocina tienen Savour Pro: recetas ilimitadas e IA para notas.'
+  ],
+  ['Bekijk Team', 'View Team', 'Team ansehen', 'Ver Equipo'],
+  ['Keukenteam verlaten', 'Leave kitchen team', 'Küchenteam verlassen', 'Salir del equipo de cocina'],
+  [
+    'De eigenaar beheert het keukenteam en het team. Een sous-chef voegt recepten en mappen toe en bewerkt ze. Een kok bekijkt, print en rekent om. Recepten in het keukenteam blijven van het keukenteam, ook als iemand vertrekt.',
+    'The owner manages the kitchen team and the team. A sous-chef adds and edits recipes and folders. A cook views, prints and scales. Recipes in the kitchen team stay with the kitchen team, even when someone leaves.',
+    'Der Inhaber verwaltet das Küchenteam und das Team. Ein Sous-Chef fügt Rezepte und Ordner hinzu und bearbeitet sie. Ein Koch sieht an, druckt und rechnet um. Rezepte im Küchenteam bleiben beim Küchenteam, auch wenn jemand geht.',
+    'El propietario gestiona el equipo de cocina y el equipo. Un segundo de cocina añade y edita recetas y carpetas. Un cocinero consulta, imprime y escala. Las recetas del equipo de cocina se quedan en el equipo, aunque alguien se vaya.'
+  ],
+  ['Sous-chef', 'Sous-chef', 'Sous-Chef', 'Segundo de cocina'],
+  ['Kok', 'Cook', 'Koch', 'Cocinero'],
+  ['Foto', 'Photo', 'Foto', 'Foto'],
+  [
+    'Staat bovenaan het keukenteam.',
+    'Shown at the top of the kitchen team.',
+    'Steht oben im Küchenteam.',
+    'Aparece arriba en el equipo de cocina.'
+  ],
+  ['Uitnodigingslink', 'Invitation link', 'Einladungslink', 'Enlace de invitación'],
+  [
+    'Het logo van je zaak bovenaan elke print, voor het hele team.',
+    'Your restaurant’s logo at the top of every print, for the whole team.',
+    'Das Logo deines Betriebs oben auf jedem Ausdruck, für die ganze Brigade.',
+    'El logo de tu negocio arriba en cada impresión, para toda el equipo.'
+  ],
+  ['Logo instellen', 'Set logo', 'Logo festlegen', 'Configurar logo'],
+  [
+    'Alle recepten en mappen van dit keukenteam worden voor iedereen verwijderd.',
+    'All recipes and folders of this kitchen team are deleted for everyone.',
+    'Alle Rezepte und Ordner dieses Küchenteams werden für alle gelöscht.',
+    'Todas las recetas y carpetas de este equipo de cocina se eliminan para todos.'
+  ],
+  ['Naar het team', 'Go to the team', 'Zum Team', 'Ir a el equipo'],
+  [
+    'Koppel je teamabonnement aan een keukenteam. Dan beheer je daar je team en geef je Pro.',
+    'Link your team plan to a kitchen team. Then you manage your team and give Pro there.',
+    'Verknüpfe dein Team-Abo mit einem Küchenteam. Dort verwaltest du dann dein Team und vergibst Pro.',
+    'Vincula tu plan de equipo a un equipo de cocina. Allí gestionas tu equipo y das Pro.'
+  ],
+  [
+    'Koppel het aan dit keukenteam, dan krijgt je team hier Pro.',
+    'Link it to this kitchen team and your team gets Pro here.',
+    'Verknüpfe es mit diesem Küchenteam, dann bekommt dein Team hier Pro.',
+    'Vincúlalo a este equipo de cocina y tu equipo tendrá Pro aquí.'
+  ],
+  [
+    'Recept verwijderd uit het keukenteam',
+    'Recipe deleted from the kitchen team',
+    'Rezept aus dem Küchenteam gelöscht',
+    'Receta eliminada del equipo de cocina'
+  ],
+  ['Verwijderd uit het team', 'Removed from the team', 'Aus dem Team entfernt', 'Eliminado de el equipo'],
+  [
+    'Lid kon niet worden verwijderd',
+    'Member could not be removed',
+    'Mitglied konnte nicht entfernt werden',
+    'No se pudo eliminar al miembro'
+  ],
   [
     'Recept kon niet aan het keukenteam worden toegevoegd',
     'Recipe could not be added to the kitchen team',
     'Rezept konnte nicht zum Küchenteam hinzugefügt werden',
     'No se pudo añadir la receta al equipo de cocina'
   ],
-  ["Je hebt geen rechten om dit recept te verwijderen","You are not allowed to delete this recipe","Du darfst dieses Rezept nicht löschen","No tienes permiso para eliminar esta receta"],
-  ["Alle Pro-plekken zijn bezet","All Pro seats are taken","Alle Pro-Plätze sind belegt","Todas las plazas Pro están ocupadas"],
-  ["Pro geven lukte niet","Could not give Pro","Pro konnte nicht vergeben werden","No se pudo dar Pro"],
-  ["Vrijgeven lukte niet","Could not release","Freigeben fehlgeschlagen","No se pudo liberar"],
-  ["Koppelen lukte niet","Could not link","Verknüpfen fehlgeschlagen","No se pudo vincular"],
-  ["Je teamabonnement hoort nu bij dit keukenteam","Your team plan now belongs to this kitchen team","Dein Team-Abo gehört jetzt zu diesem Küchenteam","Tu plan de equipo ahora pertenece a este equipo de cocina"],
-  ["Een keukenteam maken kan met Savour Pro","Creating a kitchen team is part of Savour Pro","Ein Küchenteam erstellen ist Teil von Savour Pro","Crear un equipo de cocina es parte de Savour Pro"],
+  [
+    'Je hebt geen rechten om dit recept te verwijderen',
+    'You are not allowed to delete this recipe',
+    'Du darfst dieses Rezept nicht löschen',
+    'No tienes permiso para eliminar esta receta'
+  ],
+  [
+    'Alle Pro-plekken zijn bezet',
+    'All Pro seats are taken',
+    'Alle Pro-Plätze sind belegt',
+    'Todas las plazas Pro están ocupadas'
+  ],
+  ['Pro geven lukte niet', 'Could not give Pro', 'Pro konnte nicht vergeben werden', 'No se pudo dar Pro'],
+  ['Vrijgeven lukte niet', 'Could not release', 'Freigeben fehlgeschlagen', 'No se pudo liberar'],
+  ['Koppelen lukte niet', 'Could not link', 'Verknüpfen fehlgeschlagen', 'No se pudo vincular'],
+  [
+    'Je teamabonnement hoort nu bij dit keukenteam',
+    'Your team plan now belongs to this kitchen team',
+    'Dein Team-Abo gehört jetzt zu diesem Küchenteam',
+    'Tu plan de equipo ahora pertenece a este equipo de cocina'
+  ],
+  [
+    'Een keukenteam maken kan met Savour Pro',
+    'Creating a kitchen team is part of Savour Pro',
+    'Ein Küchenteam erstellen ist Teil von Savour Pro',
+    'Crear un equipo de cocina es parte de Savour Pro'
+  ],
   [
     'Keukenteam kon niet worden aangemaakt',
     'Kitchen team could not be created',
     'Küchenteam konnte nicht erstellt werden',
     'No se pudo crear el equipo de cocina'
   ],
-  ["Bevestig eerst je e-mailadres","Confirm your email address first","Bestätige zuerst deine E-Mail-Adresse","Confirma primero tu correo electrónico"],
-  ["We hebben je een e-mail gestuurd met een link om je account te bevestigen. Kijk ook in je spam. Geen mail gekregen? Dan sturen we een nieuwe.","We sent you an email with a link to confirm your account. Check your spam folder too. No email? We'll send a new one.","Wir haben dir eine E-Mail mit einem Link zur Bestätigung deines Kontos geschickt. Sieh auch im Spam nach. Keine E-Mail bekommen? Dann schicken wir eine neue.","Te hemos enviado un correo con un enlace para confirmar tu cuenta. Revisa también el spam. ¿No te ha llegado? Te enviamos uno nuevo."],
-  ["Nieuwe bevestigingsmail sturen","Send a new confirmation email","Neue Bestätigungs-E-Mail senden","Enviar un nuevo correo de confirmación"],
-  ["Er zijn tijdelijk te veel e-mails aangevraagd. Probeer het later opnieuw.","Too many emails have been requested for now. Please try again later.","Es wurden vorübergehend zu viele E-Mails angefordert. Versuche es später erneut.","Se han solicitado demasiados correos por ahora. Inténtalo más tarde."],
-  ["De bevestigingsmail kon niet worden verstuurd. Probeer het later opnieuw.","The confirmation email could not be sent. Please try again later.","Die Bestätigungs-E-Mail konnte nicht gesendet werden. Versuche es später erneut.","No se pudo enviar el correo de confirmación. Inténtalo más tarde."],
-  ["Nieuwe bevestigingsmail verstuurd. Kijk ook in je spam.","New confirmation email sent. Check your spam folder too.","Neue Bestätigungs-E-Mail gesendet. Sieh auch im Spam nach.","Nuevo correo de confirmación enviado. Revisa también el spam."],
-  ["E-mailadres of wachtwoord klopt niet.","Email address or password is incorrect.","E-Mail-Adresse oder Passwort ist falsch.","El correo o la contraseña no son correctos."],
-  ["Dit e-mailadres heeft al een account. Log in of kies \"Wachtwoord vergeten?\".","This email address already has an account. Log in or choose \"Forgot password?\".","Diese E-Mail-Adresse hat bereits ein Konto. Melde dich an oder wähle „Passwort vergessen?“.","Este correo ya tiene una cuenta. Inicia sesión o elige «¿Has olvidado tu contraseña?»."],
-  ["Probleem melden","Report a problem","Problem melden","Informar de un problema"],
-  ["Webpagina of andere recepten-app","Web page or another recipe app","Webseite oder andere Rezept-App","Página web u otra app de recetas"],
-  ["Plak de link van een recept op een website, of zet je recepten over uit een andere app: Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat en meer. Maak in die app een export en kies het bestand bij \"Uit een andere recepten-app\".","Paste the link to a recipe on a website, or move your recipes over from another app: Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat and more. Make an export in that app and choose the file under \"From another recipe app\".","Füge den Link zu einem Rezept auf einer Website ein oder übertrage deine Rezepte aus einer anderen App: Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat und mehr. Erstelle in dieser App einen Export und wähle die Datei unter „Aus einer anderen Rezept-App“.","Pega el enlace de una receta en una web o pasa tus recetas desde otra app: Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat y más. Haz una exportación en esa app y elige el archivo en «Desde otra app de recetas»."],
-  ["niet omgerekend","not scaled","nicht umgerechnet","sin convertir"],
-  ["porties","servings","Portionen","raciones"],
-  ["Notities","Notes","Notizen","Notas"],
-  ["Licht of donker","Light or dark","Hell oder dunkel","Claro u oscuro"],
-  ["Bron: webpagina","Source: web page","Quelle: Webseite","Fuente: página web"],
-  ["Plak eerst de link van een recept.","Paste the link to a recipe first.","Füge zuerst den Link zu einem Rezept ein.","Pega primero el enlace de una receta."],
-  ["In de demo kun je geen webpagina importeren. Maak een gratis account.","You can't import a web page in the demo. Create a free account.","In der Demo kannst du keine Webseite importieren. Erstelle ein kostenloses Konto.","En la demo no puedes importar una página web. Crea una cuenta gratuita."],
-  ["Webpagina wordt gelezen…","Reading the web page…","Webseite wird gelesen…","Leyendo la página web…"],
-  ["recept(en) gevonden op","recipe(s) found on","Rezept(e) gefunden auf","receta(s) encontrada(s) en"],
-  ["Deze pagina kon niet worden gelezen.","This page could not be read.","Diese Seite konnte nicht gelesen werden.","No se pudo leer esta página."],
-  ["Op deze pagina is geen recept gevonden.","No recipe was found on this page.","Auf dieser Seite wurde kein Rezept gefunden.","No se encontró ninguna receta en esta página."],
-  ["Log in om een recept van een website te importeren.","Log in to import a recipe from a website.","Melde dich an, um ein Rezept von einer Website zu importieren.","Inicia sesión para importar una receta de una web."],
-  ["In deze export zijn geen recepten gevonden.","No recipes were found in this export.","In diesem Export wurden keine Rezepte gefunden.","No se encontraron recetas en esta exportación."],
-  ["In dit bestand zijn geen recepten gevonden.","No recipes were found in this file.","In dieser Datei wurden keine Rezepte gefunden.","No se encontraron recetas en este archivo."],
-  ["Webpagina (link)","Web page (link)","Webseite (Link)","Página web (enlace)"],
-  ["Plak de link van een recept op een website. Savour haalt het recept eruit.","Paste the link to a recipe on a website. Savour pulls out the recipe.","Füge den Link zu einem Rezept auf einer Website ein. Savour holt das Rezept heraus.","Pega el enlace de una receta en una web. Savour extrae la receta."],
-  ["Uit een andere recepten-app","From another recipe app","Aus einer anderen Rezept-App","Desde otra app de recetas"],
-  ["Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat en meer.","Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat and more.","Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat und mehr.","Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat y más."],
-  ["Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat en andere exports.","Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat and other exports.","Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat und andere Exporte.","Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat y otras exportaciones."],
-  ["Link naar het recept","Link to the recipe","Link zum Rezept","Enlace a la receta"],
-  ["Andere recepten-app kiezen","Choose export from another app","Export einer anderen App wählen","Elegir exportación de otra app"],
-  ["Bron: Andere recepten-app","Source: another recipe app","Quelle: andere Rezept-App","Fuente: otra app de recetas"],
-  ["Deze website laat Savour de pagina niet ophalen. Kopieer de tekst van het recept en kies \"Tekst invoeren\".","This website doesn't let Savour fetch the page. Copy the recipe text and choose \"Enter text\".","Diese Website lässt Savour die Seite nicht abrufen. Kopiere den Rezepttext und wähle „Text eingeben“.","Esta web no permite que Savour cargue la página. Copia el texto de la receta y elige «Introducir texto»."],
-  ["De website reageerde niet op tijd.","The website did not respond in time.","Die Website hat nicht rechtzeitig geantwortet.","La web no respondió a tiempo."],
-  ["De website kon niet worden geopend.","The website could not be opened.","Die Website konnte nicht geöffnet werden.","No se pudo abrir la web."],
-  ["Deze website is niet gevonden.","This website was not found.","Diese Website wurde nicht gefunden.","No se encontró esta web."],
-  ["Dit is geen geldige link.","This is not a valid link.","Das ist kein gültiger Link.","Este enlace no es válido."],
-  ["Deze link kan niet worden geopend.","This link cannot be opened.","Dieser Link kann nicht geöffnet werden.","Este enlace no se puede abrir."],
-  ["Vul een link in.","Enter a link.","Gib einen Link ein.","Introduce un enlace."],
-  ["Dit e-mailadres heeft al een account","This email address already has an account","Diese E-Mail-Adresse hat bereits ein Konto","Este correo ya tiene una cuenta"],
-  ["Er is geen nieuwe bevestigingsmail verstuurd. Log in met dit e-mailadres, of kies \"Wachtwoord vergeten?\" als je het wachtwoord niet meer weet.","No new confirmation email was sent. Log in with this email address, or choose \"Forgot password?\" if you no longer know the password.","Es wurde keine neue Bestätigungs-E-Mail gesendet. Melde dich mit dieser E-Mail-Adresse an oder wähle „Passwort vergessen?“, wenn du das Passwort nicht mehr weißt.","No se ha enviado ningún correo de confirmación nuevo. Inicia sesión con este correo o elige «¿Has olvidado tu contraseña?» si ya no la recuerdas."],
-  ["Deze link werkt niet meer","This link no longer works","Dieser Link funktioniert nicht mehr","Este enlace ya no funciona"],
-  ["Een link uit een e-mail werkt één keer en maar een uur. Vroeg je meerdere keren een nieuwe aan, dan werkt alleen de nieuwste. Vraag hieronder een nieuwe link aan en gebruik de nieuwste mail.","A link from an email works once and only for an hour. If you requested a new one several times, only the newest works. Request a new link below and use the newest email.","Ein Link aus einer E-Mail funktioniert einmal und nur eine Stunde. Hast du mehrmals einen neuen angefordert, funktioniert nur der neueste. Fordere unten einen neuen Link an und nutze die neueste E-Mail.","Un enlace de un correo funciona una vez y solo durante una hora. Si pediste uno nuevo varias veces, solo funciona el más reciente. Pide un enlace nuevo abajo y usa el correo más reciente."],
-  ["Nieuwe link aanvragen","Request a new link","Neuen Link anfordern","Pedir un enlace nuevo"],
-  ["Nieuw wachtwoord instellen","Set a new password","Neues Passwort festlegen","Establecer una contraseña nueva"],
-  ["Klik op Doorgaan om een nieuw wachtwoord voor je Savour-account te kiezen.","Click Continue to choose a new password for your Savour account.","Klicke auf Weiter, um ein neues Passwort für dein Savour-Konto zu wählen.","Haz clic en Continuar para elegir una contraseña nueva para tu cuenta de Savour."],
-  ["Klik op Doorgaan om je account te bevestigen en in te loggen.","Click Continue to confirm your account and log in.","Klicke auf Weiter, um dein Konto zu bestätigen und dich anzumelden.","Haz clic en Continuar para confirmar tu cuenta e iniciar sesión."],
-  ["Je receptenboek is nog leeg","Your recipe book is still empty","Dein Rezeptbuch ist noch leer","Tu recetario aún está vacío"],
-  ["Importeer je Word-bestanden, PDF's of foto's van kladjes in één keer, of voer zelf een recept in.","Import your Word files, PDFs or photos of notes in one go, or enter a recipe yourself.","Importiere deine Word-Dateien, PDFs oder Fotos von Notizen auf einmal, oder gib ein Rezept selbst ein.","Importa tus archivos de Word, PDF o fotos de notas de una vez, o introduce una receta tú mismo."],
-  ["Recepten importeren","Import recipes","Rezepte importieren","Importar recetas"],
-  ["Deze link staat uit. Kies hoelang hij moet werken om hem weer aan te zetten.","This link is off. Choose how long it should work to turn it back on.","Dieser Link ist aus. Wähle, wie lange er funktionieren soll, um ihn wieder einzuschalten.","Este enlace está desactivado. Elige cuánto tiempo debe funcionar para volver a activarlo."],
-  ["De link werkt onbeperkt, tot je hem uitzet.","The link works indefinitely, until you turn it off.","Der Link funktioniert unbegrenzt, bis du ihn ausschaltest.","El enlace funciona sin límite, hasta que lo desactives."],
-  ["De link werkt tot","The link works until","Der Link funktioniert bis","El enlace funciona hasta"],
-  ["Link werkt","Link works","Link funktioniert","El enlace funciona"],
-  ["Link uitzetten","Turn link off","Link ausschalten","Desactivar enlace"],
-  ["De link kon niet worden aangepast","The link could not be changed","Der Link konnte nicht geändert werden","No se pudo cambiar el enlace"],
-  ["De link werkt weer","The link works again","Der Link funktioniert wieder","El enlace vuelve a funcionar"],
-  ["De link staat uit: niemand kan het recept nog openen","The link is off: nobody can open the recipe any more","Der Link ist aus: niemand kann das Rezept mehr öffnen","El enlace está desactivado: nadie puede abrir ya la receta"],
-  ["Deze link staat uit. Kies eerst hoelang hij moet werken.","This link is off. First choose how long it should work.","Dieser Link ist aus. Wähle zuerst, wie lange er funktionieren soll.","Este enlace está desactivado. Elige primero cuánto tiempo debe funcionar."],
-  ["1 dag","1 day","1 Tag","1 día"],
-  ["1 week","1 week","1 Woche","1 semana"],
-  ["Dit recept wordt niet meer gedeeld","This recipe is no longer shared","Dieses Rezept wird nicht mehr geteilt","Esta receta ya no se comparte"],
-  ["De maker heeft de link uitgezet, of de tijd waarin de link werkte is voorbij. Vraag de maker om een nieuwe link.","The maker turned the link off, or the time the link worked has passed. Ask the maker for a new link.","Der Ersteller hat den Link ausgeschaltet, oder die Zeit, in der er funktionierte, ist vorbei. Bitte den Ersteller um einen neuen Link.","El autor ha desactivado el enlace o ha pasado el tiempo en que funcionaba. Pide al autor un enlace nuevo."],
-  ["Stuur je persoonlijke link naar een collega. Maakt die een account aan, bevestigt die het e-mailadres en logt die in, dan krijg jij 14 dagen Savour Pro cadeau.","Send your personal link to a colleague. Once they create an account, confirm their email address and log in, you get 14 days of Savour Pro free.","Schick deinen persönlichen Link an einen Kollegen. Sobald er ein Konto erstellt, seine E-Mail-Adresse bestätigt und sich anmeldet, bekommst du 14 Tage Savour Pro geschenkt.","Envía tu enlace personal a un compañero. Cuando cree una cuenta, confirme su correo y inicie sesión, recibes 14 días de Savour Pro gratis."],
-  ["Nodig een collega uit en krijg 14 dagen Savour Pro cadeau, of zet Savour als app op je beginscherm.","Invite a colleague and get 14 days of Savour Pro free, or put Savour on your home screen as an app.","Lade einen Kollegen ein und bekomme 14 Tage Savour Pro geschenkt, oder lege Savour als App auf deinen Startbildschirm.","Invita a un compañero y recibe 14 días de Savour Pro gratis, o pon Savour como app en tu pantalla de inicio."],
-  ["14 dagen Savour Pro cadeau","14 days of Savour Pro free","14 Tage Savour Pro geschenkt","14 días de Savour Pro gratis"],
-  ["Een collega heeft via jouw link een account gemaakt. Bedankt! Je krijgt er 14 dagen Savour Pro bij.","A colleague created an account with your link. Thank you! You get 14 extra days of Savour Pro.","Ein Kollege hat über deinen Link ein Konto erstellt. Danke! Du bekommst 14 Tage Savour Pro dazu.","Un compañero ha creado una cuenta con tu enlace. ¡Gracias! Recibes 14 días más de Savour Pro."],
-  ["In de demo kun je geen recepten delen. Maak een gratis account om te delen.","You can't share recipes in the demo. Create a free account to share.","In der Demo kannst du keine Rezepte teilen. Erstelle ein kostenloses Konto, um zu teilen.","En la demo no puedes compartir recetas. Crea una cuenta gratuita para compartir."],
-  ["Foto maken met je camera","Take a photo with your camera","Foto mit der Kamera aufnehmen","Hacer una foto con la cámara"],
-  ["Fotografeer een handgeschreven recept of kladje. De AI zet het om in een net recept.","Photograph a handwritten recipe or note. The AI turns it into a clean recipe.","Fotografiere ein handgeschriebenes Rezept oder eine Notiz. Die KI macht daraus ein sauberes Rezept.","Fotografía una receta escrita a mano o una nota. La IA la convierte en una receta limpia."],
-  ["Maak een foto met je camera of kies foto’s van handgeschreven recepten. De AI leest ze uit.","Take a photo with your camera or choose photos of handwritten recipes. The AI reads them.","Mach ein Foto mit deiner Kamera oder wähle Fotos von handgeschriebenen Rezepten. Die KI liest sie aus.","Haz una foto con tu cámara o elige fotos de recetas escritas a mano. La IA las lee."],
-  ["◉ Foto maken","◉ Take photo","◉ Foto aufnehmen","◉ Hacer foto"],
-  ["Uit Word, PDF, tekst, een foto of een ander bestand. Ook honderden recepten tegelijk.","From Word, PDF, text, a photo or another file. Even hundreds of recipes at once.","Aus Word, PDF, Text, einem Foto oder einer anderen Datei. Auch Hunderte Rezepte auf einmal.","Desde Word, PDF, texto, una foto u otro archivo. Incluso cientos de recetas a la vez."],
-  ["Typ of plak tekst met één of meer recepten.","Type or paste text with one or more recipes.","Tippe oder füge Text mit einem oder mehreren Rezepten ein.","Escribe o pega texto con una o varias recetas."],
-  ["Alle bestanden door elkaar","All files mixed","Alle Dateien gemischt","Todos los archivos mezclados"],
-  ["Word, PDF, foto’s en andere bestanden in één keer, of een hele map.","Word, PDF, photos and other files in one go, or a whole folder.","Word, PDF, Fotos und andere Dateien auf einmal, oder ein ganzer Ordner.","Word, PDF, fotos y otros archivos de una vez, o una carpeta entera."],
-  ["Ook oude Word-bestanden en documenten met honderden recepten.","Including old Word files and documents with hundreds of recipes.","Auch alte Word-Dateien und Dokumente mit Hunderten Rezepten.","También archivos antiguos de Word y documentos con cientos de recetas."],
-  ["Een digitaal PDF-bestand of een gescande receptpagina.","A digital PDF file or a scanned recipe page.","Eine digitale PDF-Datei oder eine gescannte Rezeptseite.","Un archivo PDF digital o una página de receta escaneada."],
-  ["Foto’s","Photos","Fotos","Fotos"],
-  ["Foto’s van handgeschreven recepten of kladjes (.jpg, .png, .webp). De AI leest ze uit.","Photos of handwritten recipes or notes (.jpg, .png, .webp). The AI reads them.","Fotos von handgeschriebenen Rezepten oder Notizen (.jpg, .png, .webp). Die KI liest sie aus.","Fotos de recetas escritas a mano o notas (.jpg, .png, .webp). La IA las lee."],
-  ["Tekst (.txt, .md), .rtf, OpenOffice (.odt), webpagina (.html), .csv en Savour-importbestanden (.json).","Text (.txt, .md), .rtf, OpenOffice (.odt), web page (.html), .csv and Savour import files (.json).","Text (.txt, .md), .rtf, OpenOffice (.odt), Webseite (.html), .csv und Savour-Importdateien (.json).","Texto (.txt, .md), .rtf, OpenOffice (.odt), página web (.html), .csv y archivos de importación de Savour (.json)."],
-  ["Kies één of meer bestanden, of sleep ze hierheen","Choose one or more files, or drag them here","Wähle eine oder mehrere Dateien oder ziehe sie hierher","Elige uno o varios archivos, o arrástralos aquí"],
-  ["Word, PDF, foto’s en andere tekstbestanden.","Word, PDF, photos and other text files.","Word, PDF, Fotos und andere Textdateien.","Word, PDF, fotos y otros archivos de texto."],
-  ["Word, PDF, foto’s en andere tekstbestanden, ook een hele map.","Word, PDF, photos and other text files, also a whole folder.","Word, PDF, Fotos und andere Textdateien, auch ein ganzer Ordner.","Word, PDF, fotos y otros archivos de texto, también una carpeta entera."],
-  ["Word (.doc, .docx)","Word (.doc, .docx)","Word (.doc, .docx)","Word (.doc, .docx)"],
-  ["Foto's (.jpg, .png, .webp)","Photos (.jpg, .png, .webp)","Fotos (.jpg, .png, .webp)","Fotos (.jpg, .png, .webp)"],
-  [".txt, .md, .rtf, .odt, .html, .csv en Savour-importbestanden (.json)",".txt, .md, .rtf, .odt, .html, .csv and Savour import files (.json)",".txt, .md, .rtf, .odt, .html, .csv und Savour-Importdateien (.json)",".txt, .md, .rtf, .odt, .html, .csv y archivos de importación de Savour (.json)"],
-  ["Word-bestand kiezen","Choose Word file","Word-Datei wählen","Elegir archivo de Word"],
-  ["PDF-bestand kiezen","Choose PDF file","PDF-Datei wählen","Elegir archivo PDF"],
-  ["Foto's kiezen","Choose photos","Fotos wählen","Elegir fotos"],
-  ["Ander bestand kiezen","Choose other file","Andere Datei wählen","Elegir otro archivo"],
-  ["Alle bestanden door elkaar kiezen","Choose all files","Alle Dateien wählen","Elegir todos los archivos"],
-  ["Bron: Foto's","Source: photos","Quelle: Fotos","Fuente: fotos"],
-  ["Bron: Ander bestand","Source: other file","Quelle: andere Datei","Fuente: otro archivo"],
-  ["Bron: Alle bestanden door elkaar","Source: all files mixed","Quelle: alle Dateien gemischt","Fuente: todos los archivos mezclados"],
-  ["Geen bestanden van dit soort gekozen.","No files of this kind chosen.","Keine Dateien dieser Art gewählt.","No se eligieron archivos de este tipo."],
-  ["Word, PDF, tekst of andere bestanden","Word, PDF, text or other files","Word, PDF, Text oder andere Dateien","Word, PDF, texto u otros archivos"],
-  ["Importeer een heel bestand in één keer, ook met honderden recepten. De Savour-lezer splitst ze zelf op en herkent titel, opbrengst, ingrediënten en bereiding. Met \"Alle bestanden door elkaar\" kies je alles tegelijk, ook een hele map.","Import a whole file at once, even with hundreds of recipes. The Savour reader splits them itself and recognises title, yield, ingredients and method. With \"All files mixed\" you choose everything at once, even a whole folder.","Importiere eine ganze Datei auf einmal, auch mit Hunderten Rezepten. Der Savour-Leser teilt sie selbst auf und erkennt Titel, Ausbeute, Zutaten und Zubereitung. Mit „Alle Dateien gemischt“ wählst du alles auf einmal, auch einen ganzen Ordner.","Importa un archivo entero de una vez, incluso con cientos de recetas. El lector de Savour las separa solo y reconoce título, rendimiento, ingredientes y preparación. Con «Todos los archivos mezclados» eliges todo a la vez, incluso una carpeta entera."],
-  ["Upload foto's van handgeschreven of gescande recepten. De AI leest ze voor je uit (Savour Pro, tot 500 per maand). Het originele kladje blijft bewaard bij het recept.","Upload photos of handwritten or scanned recipes. The AI reads them for you (Savour Pro, up to 500 per month). The original note is kept with the recipe.","Lade Fotos von handgeschriebenen oder gescannten Rezepten hoch. Die KI liest sie für dich aus (Savour Pro, bis zu 500 pro Monat). Der ursprüngliche Zettel bleibt beim Rezept gespeichert.","Sube fotos de recetas escritas a mano o escaneadas. La IA las lee por ti (Savour Pro, hasta 500 al mes). La nota original se guarda con la receta."],
-  ["Dit .json-bestand is geen Savour-importbestand.","This .json file is not a Savour import file.","Diese .json-Datei ist keine Savour-Importdatei.","Este archivo .json no es un archivo de importación de Savour."],
-  ["Dit .json-bestand bevat geen recepten voor Savour.","This .json file contains no recipes for Savour.","Diese .json-Datei enthält keine Rezepte für Savour.","Este archivo .json no contiene recetas para Savour."],
-  ["Dit .doc-bestand kon niet worden gelezen. Sla het in Word op als .docx en probeer opnieuw.","This .doc file could not be read. Save it in Word as .docx and try again.","Diese .doc-Datei konnte nicht gelesen werden. Speichere sie in Word als .docx und versuche es erneut.","No se pudo leer este archivo .doc. Guárdalo en Word como .docx e inténtalo de nuevo."],
-  ["Recept kon niet worden verwijderd; probeer het opnieuw", "Recipe could not be deleted; please try again", "Rezept konnte nicht gelöscht werden; bitte versuche es erneut", "No se pudo eliminar la receta; inténtalo de nuevo"],
-  ["Bij elk recept van een collega in het keukenteam zie je “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie in je bibliotheek die je zelf kunt aanpassen; het origineel blijft van de maker.", "On every colleague’s recipe in the kitchen team you see “Add to my recipes”. You get your own copy in your library that you can change; the original stays with its creator.", "Bei jedem Rezept eines Kollegen im Küchenteam siehst du „Zu meinen Rezepten hinzufügen“. Du bekommst eine eigene Kopie in deiner Bibliothek, die du anpassen kannst; das Original bleibt beim Ersteller.", "En cada receta de un compañero en el equipo de cocina verás «Añadir a mis recetas». Obtienes tu propia copia en tu biblioteca que puedes modificar; el original sigue siendo de su autor."],
-  ["Recept uit dit keukenteam halen?", "Remove this recipe from the kitchen team?", "Rezept aus diesem Küchenteam entfernen?", "¿Quitar esta receta del equipo de cocina?"],
-  ["Het blijft gewoon in de eigen recepten van de maker.", "It simply stays in the creator’s own recipes.", "Es bleibt einfach in den eigenen Rezepten des Erstellers.", "Sigue estando en las recetas propias de su autor."],
-  ["Recept uit keukenteam gehaald; de maker houdt het in de eigen recepten", "Recipe removed from the kitchen team; the creator keeps it in their own recipes", "Rezept aus dem Küchenteam entfernt; der Ersteller behält es in seinen eigenen Rezepten", "Receta quitada del equipo de cocina; su autor la conserva en sus recetas"],
-  ["Recept uit deze map gehaald", "Recipe removed from this folder", "Rezept aus diesem Ordner entfernt", "Receta quitada de esta carpeta"],
-  ["Uit deze map halen", "Remove from this folder", "Aus diesem Ordner entfernen", "Quitar de esta carpeta"],
-  ["Uitleg", "Explanation", "Erklärung", "Explicación"],
-  ["Zo werkt je receptenbibliotheek", "How your recipe library works", "So funktioniert deine Rezeptbibliothek", "Así funciona tu biblioteca de recetas"],
-  ["Je hele receptenboek", "Your whole recipe book", "Dein ganzes Rezeptbuch", "Todo tu recetario"],
-  ["Al je eigen recepten op één plek, genummerd en op alfabet. Met de letters A–Z spring je naar een beginletter; met de categorieën bovenaan zie je alleen één soort recept.", "All your own recipes in one place, numbered and in alphabetical order. Use the letters A–Z to jump to a first letter; use the categories at the top to see one kind of recipe.", "Alle eigenen Rezepte an einem Ort, nummeriert und alphabetisch. Mit den Buchstaben A–Z springst du zu einem Anfangsbuchstaben; mit den Kategorien oben siehst du nur eine Art von Rezept.", "Todas tus recetas en un solo lugar, numeradas y por orden alfabético. Con las letras A–Z saltas a una inicial; con las categorías de arriba ves solo un tipo de receta."],
-  ["Zoek bovenin op receptnaam, ingrediënt, component of techniek. Je vindt zo ook het recept waar die ene saus in zit.", "Search at the top by recipe name, ingredient, component or technique. That way you also find the recipe that contains that one sauce.", "Suche oben nach Rezeptname, Zutat, Komponente oder Technik. So findest du auch das Rezept, in dem diese eine Sauce steckt.", "Busca arriba por nombre, ingrediente, componente o técnica. Así encuentras también la receta que lleva esa salsa."],
-  ["Een recept openen", "Opening a recipe", "Ein Rezept öffnen", "Abrir una receta"],
-  ["In een recept start je de kookmodus, reken je de opbrengst om, print of deel je het, en bewerk je het. Via ⋯ zet je het in een map of verwijder je het.", "In a recipe you start cook mode, scale the yield, print or share it, and edit it. Via ⋯ you put it in a folder or delete it.", "In einem Rezept startest du den Kochmodus, rechnest die Ausbeute um, druckst oder teilst es und bearbeitest es. Über ⋯ legst du es in einen Ordner oder löschst es.", "En una receta inicias el modo cocina, escalas el rendimiento, la imprimes o compartes y la editas. Con ⋯ la pones en una carpeta o la eliminas."],
-  ["Met het sterretje maak je een recept favoriet. Je favorieten staan apart onder Favorieten in het menu.", "Use the star to make a recipe a favourite. Your favourites are listed separately under Favourites in the menu.", "Mit dem Stern machst du ein Rezept zum Favoriten. Deine Favoriten stehen separat unter Favoriten im Menü.", "Con la estrella marcas una receta como favorita. Tus favoritas aparecen aparte en Favoritos en el menú."],
-  ["Opruimen", "Tidying up", "Aufräumen", "Ordenar"],
-  ["Met “Verwijder recepten” verwijder je meerdere recepten tegelijk. Dubbele recepten en nummers voor receptnamen vind je onder Instellingen → Opschonen.", "With “Delete recipes” you delete several recipes at once. Duplicate recipes and numbers in front of recipe names are found under Settings → Clean up.", "Mit „Rezepte löschen“ löschst du mehrere Rezepte auf einmal. Doppelte Rezepte und Nummern vor Rezeptnamen findest du unter Einstellungen → Aufräumen.", "Con «Eliminar recetas» eliminas varias recetas a la vez. Las recetas duplicadas y los números delante de los nombres están en Ajustes → Limpiar."],
-  ["Hoeveel recepten", "How many recipes", "Wie viele Rezepte", "Cuántas recetas"],
-  ["Een gratis account bewaart tot 100 recepten. Met Savour Pro bewaar je onbeperkt recepten.", "A free account stores up to 100 recipes. With Savour Pro you store unlimited recipes.", "Ein kostenloses Konto speichert bis zu 100 Rezepte. Mit Savour Pro speicherst du unbegrenzt Rezepte.", "Una cuenta gratuita guarda hasta 100 recetas. Con Savour Pro guardas recetas ilimitadas."],
-  ["Zo werken categorieën", "How categories work", "So funktionieren Kategorien", "Así funcionan las categorías"],
-  ["Waarvoor", "What for", "Wofür", "Para qué"],
-  ["Een categorie zegt wat voor recept het is, bijvoorbeeld sauzen, ijs of garnituren. Bovenaan bij Alle recepten filter je er direct op.", "A category says what kind of recipe it is, for example sauces, ice cream or garnishes. At the top of All recipes you filter on it directly.", "Eine Kategorie sagt, was für ein Rezept es ist, zum Beispiel Saucen, Eis oder Garnituren. Oben bei Alle Rezepte filterst du direkt danach.", "Una categoría indica qué tipo de receta es, por ejemplo salsas, helados o guarniciones. Arriba en Todas las recetas filtras directamente por ella."],
-  ["Zelf beheren", "Managing them yourself", "Selbst verwalten", "Gestionarlas tú"],
-  ["Voeg categorieën toe, wijzig de naam of verwijder ze. De lijst is persoonlijk en wordt ook gebruikt bij het invoeren en importeren van recepten.", "Add categories, rename or delete them. The list is personal and is also used when entering and importing recipes.", "Füge Kategorien hinzu, benenne sie um oder lösche sie. Die Liste ist persönlich und wird auch beim Eingeben und Importieren von Rezepten verwendet.", "Añade categorías, cámbiales el nombre o elimínalas. La lista es personal y se usa también al introducir e importar recetas."],
-  ["Met “Standaardlijst” zet je in één keer een lijst neer die past bij de professionele keuken. Je eigen categorieën blijven staan.", "With “Standard list” you add a list suited to the professional kitchen in one go. Your own categories stay.", "Mit „Standardliste“ legst du auf einmal eine Liste an, die zur Profiküche passt. Deine eigenen Kategorien bleiben erhalten.", "Con «Lista estándar» añades de una vez una lista pensada para la cocina profesional. Tus propias categorías se mantienen."],
-  ["Geef per categorie trefwoorden op, bijvoorbeeld sorbet voor IJs. Komt zo’n woord in de receptnaam voor, dan stelt Savour die categorie voor.", "Give each category keywords, for example sorbet for Ice cream. If such a word appears in the recipe name, Savour suggests that category.", "Gib pro Kategorie Stichwörter an, zum Beispiel Sorbet für Eis. Kommt so ein Wort im Rezeptnamen vor, schlägt Savour diese Kategorie vor.", "Indica palabras clave por categoría, por ejemplo sorbete para Helados. Si esa palabra aparece en el nombre de la receta, Savour propone esa categoría."],
-  ["Met “Categorieën voorstellen” zoekt Savour voor al je recepten een passende categorie op basis van de trefwoorden. Je bevestigt altijd zelf wat er verandert.", "With “Suggest categories” Savour finds a fitting category for all your recipes based on the keywords. You always confirm what changes yourself.", "Mit „Kategorien vorschlagen“ sucht Savour für alle deine Rezepte eine passende Kategorie anhand der Stichwörter. Was sich ändert, bestätigst du immer selbst.", "Con «Proponer categorías» Savour busca una categoría adecuada para todas tus recetas según las palabras clave. Siempre confirmas tú lo que cambia."],
-  ["Zo voeg je recepten toe", "How to add recipes", "So fügst du Rezepte hinzu", "Así añades recetas"],
-  ["Word, PDF of tekst", "Word, PDF or text", "Word, PDF oder Text", "Word, PDF o texto"],
-  ["Importeer een heel bestand in één keer, ook met honderden recepten. De Savour-lezer splitst ze zelf op en herkent titel, opbrengst, ingrediënten en bereiding.", "Import a whole file at once, even with hundreds of recipes. The Savour reader splits them up itself and recognises title, yield, ingredients and method.", "Importiere eine ganze Datei auf einmal, auch mit Hunderten von Rezepten. Der Savour-Leser teilt sie selbst auf und erkennt Titel, Ausbeute, Zutaten und Zubereitung.", "Importa un archivo entero de una vez, incluso con cientos de recetas. El lector de Savour las separa y reconoce título, rendimiento, ingredientes y elaboración."],
-  ["Maak een foto van een handgeschreven of gescand recept. De AI leest het voor je uit (Savour Pro, tot 500 per maand). Het originele kladje blijft bewaard bij het recept.", "Take a photo of a handwritten or scanned recipe. The AI reads it for you (Savour Pro, up to 500 per month). The original note is kept with the recipe.", "Fotografiere ein handgeschriebenes oder gescanntes Rezept. Die KI liest es für dich aus (Savour Pro, bis zu 500 pro Monat). Die Originalnotiz bleibt beim Rezept gespeichert.", "Haz una foto de una receta escrita a mano o escaneada. La IA la lee por ti (Savour Pro, hasta 500 al mes). La nota original se guarda con la receta."],
-  ["Typ een recept in de recepteditor: titel, categorie, opbrengst, ingrediënten en stappen.", "Type a recipe in the recipe editor: title, category, yield, ingredients and steps.", "Tippe ein Rezept im Rezepteditor: Titel, Kategorie, Ausbeute, Zutaten und Schritte.", "Escribe una receta en el editor: título, categoría, rendimiento, ingredientes y pasos."],
-  ["Eerst controleren", "Check first", "Erst prüfen", "Revisar primero"],
-  ["Je ziet altijd wat er is herkend voordat je opslaat. Savour verzint nooit hoeveelheden, ingrediënten of stappen; twijfelt het, dan zie je dat.", "You always see what was recognised before you save. Savour never invents quantities, ingredients or steps; when in doubt, you see it.", "Du siehst immer, was erkannt wurde, bevor du speicherst. Savour erfindet nie Mengen, Zutaten oder Schritte; bei Zweifeln siehst du das.", "Siempre ves lo que se ha reconocido antes de guardar. Savour nunca inventa cantidades, ingredientes ni pasos; si duda, lo verás."],
-  ["Zo werken je recepten mappen", "How your recipe folders work", "So funktionieren deine Rezeptordner", "Así funcionan tus carpetas de recetas"],
-  ["Je eigen mappen", "Your own folders", "Deine eigenen Ordner", "Tus propias carpetas"],
-  ["Orden je recepten zoals jij werkt: per partie, menu of seizoen. Een recept kan in meerdere mappen staan.", "Organise your recipes the way you work: by section, menu or season. A recipe can be in several folders.", "Ordne deine Rezepte so, wie du arbeitest: nach Posten, Menü oder Saison. Ein Rezept kann in mehreren Ordnern stehen.", "Ordena tus recetas como trabajas: por partida, menú o temporada. Una receta puede estar en varias carpetas."],
-  ["Recepten in een map", "Recipes in a folder", "Rezepte in einem Ordner", "Recetas en una carpeta"],
-  ["Open een map en kies welke recepten erin horen, of zet een recept vanuit het recept zelf in een map via ⋯.", "Open a folder and choose which recipes belong in it, or put a recipe in a folder from the recipe itself via ⋯.", "Öffne einen Ordner und wähle, welche Rezepte hineingehören, oder lege ein Rezept direkt aus dem Rezept über ⋯ in einen Ordner.", "Abre una carpeta y elige qué recetas van en ella, o pon una receta en una carpeta desde la propia receta con ⋯."],
-  ["Menu en volgorde", "Menu and order", "Menü und Reihenfolge", "Menú y orden"],
-  ["Kies welke mappen in het menu verschijnen en sleep ze in de volgorde die voor jou logisch is.", "Choose which folders appear in the menu and drag them into the order that makes sense to you.", "Wähle, welche Ordner im Menü erscheinen, und ziehe sie in die Reihenfolge, die für dich logisch ist.", "Elige qué carpetas aparecen en el menú y arrástralas al orden que te parezca lógico."],
-  ["Print een hele map in één keer: met voorblad, inhoudsopgave en het nummer van elk recept onderaan de pagina. Met Savour Pro staat het logo van je restaurant erop.", "Print a whole folder at once: with a cover, table of contents and the number of each recipe at the bottom of the page. With Savour Pro your restaurant’s logo is on it.", "Drucke einen ganzen Ordner auf einmal: mit Deckblatt, Inhaltsverzeichnis und der Nummer jedes Rezepts unten auf der Seite. Mit Savour Pro steht das Logo deines Restaurants darauf.", "Imprime una carpeta entera de una vez: con portada, índice y el número de cada receta al pie de la página. Con Savour Pro aparece el logo de tu restaurante."],
-  ["Samenwerken", "Working together", "Zusammenarbeiten", "Trabajar juntos"],
-  ["Je eigen mappen zie alleen jij. Wil je recepten delen met je keukenteam, gebruik dan een keukenteam.", "Only you see your own folders. To share recipes with your kitchen team, use a kitchen team.", "Deine eigenen Ordner siehst nur du. Willst du Rezepte mit deinem Küchenteam teilen, nutze ein Küchenteam.", "Tus propias carpetas solo las ves tú. Para compartir recetas con tu equipo, usa un equipo de cocina."],
-  ["Zo werken je instellingen", "How your settings work", "So funktionieren deine Einstellungen", "Así funcionan tus ajustes"],
-  ["Pas je naam en profielfoto aan, verander je wachtwoord of log uit.", "Change your name and profile photo, change your password or log out.", "Ändere deinen Namen und dein Profilbild, ändere dein Passwort oder melde dich ab.", "Cambia tu nombre y foto de perfil, cambia tu contraseña o cierra sesión."],
-  ["Printen en downloaden", "Printing and downloading", "Drucken und herunterladen", "Imprimir y descargar"],
-  ["Print al je recepten in één keer in de printopmaak van Savour. Met Savour Pro download je ze ook naar Word of als back-up.", "Print all your recipes at once in the Savour print layout. With Savour Pro you also download them to Word or as a backup.", "Drucke alle deine Rezepte auf einmal im Druckformat von Savour. Mit Savour Pro lädst du sie auch als Word oder Backup herunter.", "Imprime todas tus recetas de una vez con el formato de Savour. Con Savour Pro también las descargas en Word o como copia de seguridad."],
-  ["Bekijk of beheer je Savour Pro of teamabonnement, nodig je team uit en stel het logo voor je prints in.", "View or manage your Savour Pro or team subscription, invite your team and set the logo for your prints.", "Sieh oder verwalte dein Savour Pro oder Team-Abo, lade dein Team ein und lege das Logo für deine Ausdrucke fest.", "Consulta o gestiona tu Savour Pro o suscripción de organización, invita a tu equipo y configura el logo de tus impresiones."],
-  ["Kies het donkere of lichte thema; je keuze wordt bewaard in je account.", "Choose the dark or light theme; your choice is saved in your account.", "Wähle das dunkle oder helle Design; deine Wahl wird in deinem Konto gespeichert.", "Elige el tema oscuro o claro; tu elección se guarda en tu cuenta."],
-  ["Beheer je eigen categorieën en hun trefwoorden.", "Manage your own categories and their keywords.", "Verwalte deine eigenen Kategorien und ihre Stichwörter.", "Gestiona tus propias categorías y sus palabras clave."],
-  ["Savour zoekt nummers voor receptnamen en dubbele recepten. Je ziet altijd eerst wat er verandert.", "Savour looks for numbers in front of recipe names and duplicate recipes. You always see what changes first.", "Savour sucht Nummern vor Rezeptnamen und doppelte Rezepte. Du siehst immer zuerst, was sich ändert.", "Savour busca números delante de los nombres y recetas duplicadas. Siempre ves primero lo que cambia."],
-  ["Collega uitnodigen en app", "Inviting a colleague and the app", "Kollegen einladen und App", "Invitar a un colega y la app"],
-  ["Zo werkt een keukenteam", "How a kitchen team works", "So funktioniert ein Küchenteam", "Así funciona un equipo de cocina"],
-  ["Lees het hele artikel", "Read the full article", "Den ganzen Artikel lesen", "Leer el artículo completo"],
-  ["Eén receptenboek voor je team", "One recipe book for your team", "Ein Rezeptbuch für dein Team", "Un recetario para tu equipo"],
-  ["Een keukenteam is het receptenboek van je keuken. Iedereen die lid is, ziet dezelfde recepten op zijn eigen telefoon, tablet of computer. Past de maker een recept aan, dan ziet iedereen meteen de nieuwe versie.", "A kitchen team is your kitchen’s recipe book. Every member sees the same recipes on their own phone, tablet or computer. When the creator changes a recipe, everyone sees the new version straight away.", "Ein Küchenteam ist das Rezeptbuch deiner Küche. Jedes Mitglied sieht dieselben Rezepte auf dem eigenen Handy, Tablet oder Computer. Ändert der Ersteller ein Rezept, sieht jeder sofort die neue Version.", "Un equipo de cocina es el recetario de tu cocina. Cada miembro ve las mismas recetas en su propio móvil, tableta u ordenador. Si el autor cambia una receta, todos ven enseguida la nueva versión."],
-  ["Rollen", "Roles", "Rollen", "Roles"],
-  ["Eigenaar: beheert de map, de leden en hun rol. Editor: voegt recepten en mappen toe, haalt ze uit de map en beheert de mappen. Viewer: bekijkt, print en rekent om. Een recept bewerken kan altijd alleen de maker van dat recept.", "Owner: manages the folder, the members and their roles. Editor: adds recipes and folders, removes them and manages the folders. Viewer: views, prints and scales. Only the creator of a recipe can ever edit it.", "Eigentümer: verwaltet den Ordner, die Mitglieder und ihre Rollen. Editor: fügt Rezepte und Ordner hinzu, entfernt sie und verwaltet die Ordner. Betrachter: ansehen, drucken und umrechnen. Bearbeiten kann ein Rezept immer nur sein Ersteller.", "Propietario: gestiona la carpeta, los miembros y sus roles. Editor: añade recetas y carpetas, las quita y gestiona las carpetas. Lector: ver, imprimir y escalar. Solo el autor de una receta puede editarla."],
-  ["Recepten toevoegen", "Adding recipes", "Rezepte hinzufügen", "Añadir recetas"],
-  ["Kies “Recept toevoegen” en vink recepten uit je eigen bibliotheek aan. Het recept blijft van jou: het staat in het keukenteam en in je eigen recepten.", "Choose “Add recipe” and tick recipes from your own library. The recipe stays yours: it is in the kitchen team and in your own recipes.", "Wähle „Rezept hinzufügen“ und markiere Rezepte aus deiner eigenen Bibliothek. Das Rezept bleibt deins: Es ist im Küchenteam und in deinen eigenen Rezepten.", "Elige «Añadir receta» y marca recetas de tu propia biblioteca. La receta sigue siendo tuya: está en el equipo de cocina y en tus propias recetas."],
-  ["Mappen (receptenklappers)", "Folders (recipe binders)", "Ordner (Rezeptordner)", "Carpetas (archivadores)"],
-  ["Deel het keukenteam op in mappen, bijvoorbeeld per partie of per menu. Met “Mappen beheren” wijzig je de naam, zet je de mappen in jouw volgorde en archiveer je mappen die je niet meer gebruikt. Recepten in een gearchiveerde map blijven bewaard en staan onderaan onder “Archief”.", "Split the kitchen team into folders, for example per section or per menu. With “Manage folders” you rename them, put them in your order and archive folders you no longer use. Recipes in an archived folder are kept and appear at the bottom under “Archive”.", "Teile das Küchenteam in Ordner auf, zum Beispiel pro Posten oder pro Menü. Mit „Ordner verwalten“ benennst du sie um, bringst sie in deine Reihenfolge und archivierst Ordner, die du nicht mehr brauchst. Rezepte in einem archivierten Ordner bleiben erhalten und stehen unten unter „Archiv“.", "Divide el equipo de cocina en carpetas, por ejemplo por partida o por menú. Con «Gestionar carpetas» cambias el nombre, las ordenas a tu manera y archivas las que ya no usas. Las recetas de una carpeta archivada se conservan y aparecen abajo en «Archivo»."],
-  ["Nodig collega’s uit via WhatsApp, Telegram, e-mail of de uitnodigingslink. Na het inloggen worden ze lid als viewer; de eigenaar kan daarna hun rol aanpassen. Lid zijn van een keukenteam is gratis.", "Invite colleagues via WhatsApp, Telegram, email or the invitation link. After logging in they join as a viewer; the owner can then change their role. Being a member of a kitchen team is free.", "Lade Kollegen per WhatsApp, Telegram, E-Mail oder Einladungslink ein. Nach der Anmeldung sind sie Betrachter; der Eigentümer kann ihre Rolle danach ändern. Mitglied eines Küchenteams zu sein ist kostenlos.", "Invita a tus compañeros por WhatsApp, Telegram, correo o el enlace de invitación. Al iniciar sesión se unen como lector; el propietario puede cambiar después su rol. Ser miembro de un equipo de cocina es gratis."],
-  ["Print de hele keukenteam, één map of een eigen selectie in één keer: met een inhoudsopgave, het nummer van elk recept onderaan de pagina en, met Savour Pro, het logo van je restaurant.", "Print the whole kitchen team, one folder or your own selection at once: with a table of contents, the number of each recipe at the bottom of the page and, with Savour Pro, your restaurant’s logo.", "Drucke den ganzen Küchenteam, einen Ordner oder eine eigene Auswahl auf einmal: mit Inhaltsverzeichnis, der Nummer jedes Rezepts unten auf der Seite und mit Savour Pro dem Logo deines Restaurants.", "Imprime toda el equipo de cocina, una carpeta o tu propia selección de una vez: con índice, el número de cada receta al pie de la página y, con Savour Pro, el logo de tu restaurante."],
-  ["Omrekenen en kookmodus", "Scaling and cook mode", "Umrechnen und Kochmodus", "Escalar y modo cocina"],
-  ["Reken elk recept om naar een andere opbrengst. De kookmodus toont alleen het recept in grote letters en houdt je scherm aan; vink ingrediënten en stappen af terwijl je werkt.", "Scale any recipe to another yield. Cook mode shows only the recipe in large type and keeps your screen on; tick off ingredients and steps as you work.", "Rechne jedes Rezept auf eine andere Ausbeute um. Der Kochmodus zeigt nur das Rezept in großer Schrift und hält den Bildschirm an; hake Zutaten und Schritte beim Arbeiten ab.", "Escala cualquier receta a otro rendimiento. El modo cocina muestra solo la receta en letra grande y mantiene la pantalla encendida; marca ingredientes y pasos mientras trabajas."],
-  ["Recept overnemen", "Copying a recipe", "Rezept übernehmen", "Copiar una receta"],
-  ["Heeft de maker het toegestaan, dan zie je bij een recept “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie die je zelf kunt aanpassen.", "If the creator allows it, you see “Add to my recipes” on a recipe. You get your own copy that you can change.", "Wenn der Ersteller es erlaubt, siehst du bei einem Rezept „Zu meinen Rezepten hinzufügen“. Du bekommst eine eigene Kopie, die du anpassen kannst.", "Si el autor lo permite, verás «Añadir a mis recetas» en una receta. Obtienes tu propia copia, que puedes modificar."],
-  ["Zonder internet", "Without internet", "Ohne Internet", "Sin internet"],
-  ["Recepten die je hebt geopend, blijven op je apparaat beschikbaar, ook in een keuken zonder wifi.", "Recipes you have opened stay available on your device, even in a kitchen without wifi.", "Rezepte, die du geöffnet hast, bleiben auf deinem Gerät verfügbar, auch in einer Küche ohne WLAN.", "Las recetas que has abierto siguen disponibles en tu dispositivo, incluso en una cocina sin wifi."],
-  ["Map verlaten of verwijderen", "Leaving or deleting a folder", "Ordner verlassen oder löschen", "Salir o eliminar una carpeta"],
-  ["Een lid kan een keukenteam altijd verlaten. Alleen de eigenaar kan de map verwijderen; de recepten zelf blijven dan in de bibliotheek van hun maker.", "A member can always leave a kitchen team. Only the owner can delete it; the recipes themselves stay in their creator’s library.", "Ein Mitglied kann ein Küchenteam jederzeit verlassen. Nur der Eigentümer kann ihn löschen; die Rezepte selbst bleiben in der Bibliothek ihres Erstellers.", "Un miembro siempre puede salir de un equipo de cocina. Solo el propietario puede eliminarla; las recetas siguen en la biblioteca de su autor."],
-  ["Mappen beheren", "Manage folders", "Ordner verwalten", "Gestionar carpetas"],
-  ["Pas de naam aan, zet de mappen in jouw volgorde of archiveer mappen die je niet meer gebruikt. Recepten in een gearchiveerde map blijven bewaard.", "Rename folders, put them in your own order or archive folders you no longer use. Recipes in an archived folder are kept.", "Benenne Ordner um, bringe sie in deine Reihenfolge oder archiviere Ordner, die du nicht mehr brauchst. Rezepte in einem archivierten Ordner bleiben erhalten.", "Cambia el nombre, ordena las carpetas a tu manera o archiva las que ya no usas. Las recetas de una carpeta archivada se conservan."],
-  ["Omhoog", "Up", "Nach oben", "Subir"],
-  ["Omlaag", "Down", "Nach unten", "Bajar"],
-  ["Archiveren", "Archive", "Archivieren", "Archivar"],
-  ["Terugzetten", "Restore", "Wiederherstellen", "Restaurar"],
-  ["Archief", "Archive", "Archiv", "Archivo"],
-  ["Geen actieve mappen.", "No active folders.", "Keine aktiven Ordner.", "No hay carpetas activas."],
-  ["Mappen beheren is nog niet beschikbaar", "Managing folders is not available yet", "Ordner verwalten ist noch nicht verfügbar", "Gestionar carpetas aún no está disponible"],
-  ["Alleen de eigenaar of een editor kan mappen beheren", "Only the owner or an editor can manage folders", "Nur der Eigentümer oder ein Editor kann Ordner verwalten", "Solo el propietario o un editor puede gestionar carpetas"],
-  ["De map kon niet worden bijgewerkt", "The folder could not be updated", "Der Ordner konnte nicht aktualisiert werden", "No se pudo actualizar la carpeta"],
-  ["Naam gewijzigd", "Name changed", "Name geändert", "Nombre cambiado"],
-  ["Map gearchiveerd", "Folder archived", "Ordner archiviert", "Carpeta archivada"],
-  ["Map teruggezet", "Folder restored", "Ordner wiederhergestellt", "Carpeta restaurada"],
-  ["Nog geen mappen in dit keukenteam.", "No folders in this kitchen team yet.", "Noch keine Ordner in diesem Küchenteam.", "Aún no hay carpetas en este equipo de cocina."],
-  ["1 uur", "1 hour", "1 Stunde", "1 hora"],
-  ["Gedeeld door een gebruiker. Alleen de maker van het recept kan het bewerken.", "Shared by another user. Only the creator of the recipe can edit it.", "Von einem anderen Nutzer geteilt. Nur der Ersteller des Rezepts kann es bearbeiten.", "Compartida por otro usuario. Solo el autor de la receta puede editarla."],
-  ["Hoelang?", "For how long?", "Wie lange?", "¿Durante cuánto tiempo?"],
-  ["24 uur", "24 hours", "24 Stunden", "24 horas"],
-  ["7 dagen", "7 days", "7 Tage", "7 días"],
-  ["30 dagen", "30 days", "30 Tage", "30 días"],
-  ["Onbeperkt", "Unlimited", "Unbegrenzt", "Sin límite"],
-  ["Overnemen kan onbeperkt, tot je het uitzet.", "Copying is possible until you turn it off.", "Übernehmen ist möglich, bis du es ausschaltest.", "Se puede copiar hasta que lo desactives."],
-  ["Overnemen kan tot", "Copying is possible until", "Übernehmen ist möglich bis", "Se puede copiar hasta el"],
-  ["Ontvangers mogen dit recept overnemen", "Recipients may copy this recipe", "Empfänger dürfen dieses Rezept übernehmen", "Los destinatarios pueden copiar esta receta"],
-  ["Wie is ingelogd, kan het dan toevoegen aan de eigen recepten. Jouw recept blijft van jou.", "Anyone logged in can then add it to their own recipes. Your recipe stays yours.", "Wer angemeldet ist, kann es dann zu den eigenen Rezepten hinzufügen. Dein Rezept bleibt deins.", "Quien haya iniciado sesión puede añadirla a sus propias recetas. Tu receta sigue siendo tuya."],
-  ["Ontvangers kunnen dit recept nu overnemen", "Recipients can now copy this recipe", "Empfänger können dieses Rezept jetzt übernehmen", "Los destinatarios ya pueden copiar esta receta"],
-  ["Overnemen staat uit", "Copying is off", "Übernehmen ist aus", "Copiar está desactivado"],
-  ["Instelling kon niet worden opgeslagen", "Setting could not be saved", "Einstellung konnte nicht gespeichert werden", "No se pudo guardar el ajuste"],
-  ["Toevoegen aan mijn recepten", "Add to my recipes", "Zu meinen Rezepten hinzufügen", "Añadir a mis recetas"],
-  ["Toegevoegd aan je recepten", "Added to your recipes", "Zu deinen Rezepten hinzugefügt", "Añadida a tus recetas"],
-  ["Het recept kon niet worden toegevoegd", "The recipe could not be added", "Das Rezept konnte nicht hinzugefügt werden", "No se pudo añadir la receta"],
-  ["Log in om recepten over te nemen", "Log in to copy recipes", "Melde dich an, um Rezepte zu übernehmen", "Inicia sesión para copiar recetas"],
-  ["Je hebt dit recept al overgenomen", "You already copied this recipe", "Du hast dieses Rezept schon übernommen", "Ya copiaste esta receta"],
-  ["Mijn kopie openen", "Open my copy", "Meine Kopie öffnen", "Abrir mi copia"],
-  ["Nog een kopie maken", "Make another copy", "Noch eine Kopie erstellen", "Hacer otra copia"],
-  ["Gedeeld recept. Voeg het toe aan je eigen recepten om het aan te passen.", "Shared recipe. Add it to your own recipes to change it.", "Geteiltes Rezept. Füge es zu deinen eigenen Rezepten hinzu, um es anzupassen.", "Receta compartida. Añádela a tus propias recetas para modificarla."],
-  ["Log in of maak gratis een account; daarna staat het recept in je eigen bibliotheek.", "Log in or create a free account; the recipe then goes into your own library.", "Melde dich an oder erstelle kostenlos ein Konto; danach ist das Rezept in deiner eigenen Bibliothek.", "Inicia sesión o crea una cuenta gratis; después la receta estará en tu propia biblioteca."],
-  ["Alle recepten downloaden naar Word of als back-up", "Download all recipes to Word or as a backup", "Alle Rezepte als Word oder Backup herunterladen", "Descargar todas las recetas en Word o como copia de seguridad"],
-  ["Gedeeld recept. Je kunt het bekijken, omrekenen en printen; alleen de maker kan het aanpassen.", "Shared recipe. You can view, scale and print it; only the creator can change it.", "Geteiltes Rezept. Du kannst es ansehen, umrechnen und drucken; nur der Ersteller kann es ändern.", "Receta compartida. Puedes verla, escalarla e imprimirla; solo su autor puede modificarla."],
-  ["Dit gedeelde recept bestaat niet meer", "This shared recipe no longer exists", "Dieses geteilte Rezept existiert nicht mehr", "Esta receta compartida ya no existe"],
-  ["Dit gedeelde recept kon niet worden geladen", "This shared recipe could not be loaded", "Dieses geteilte Rezept konnte nicht geladen werden", "No se pudo cargar esta receta compartida"],
-  ["Gedeeld recept", "Shared recipe", "Geteiltes Rezept", "Receta compartida"],
-  ["Ook je eigen recepten zo overzichtelijk?", "Want your own recipes this clear?", "Deine eigenen Rezepte auch so übersichtlich?", "¿Quieres tus propias recetas así de claras?"],
-  ["Savour zet je Word-bestanden, PDF's en kladjes om in één receptenboek, op computer en telefoon, voor je hele keuken.", "Savour turns your Word files, PDFs and handwritten notes into one recipe book, on computer and phone, for your whole kitchen.", "Savour macht aus deinen Word-Dateien, PDFs und Notizzetteln ein Rezeptbuch, auf Computer und Handy, für deine ganze Küche.", "Savour convierte tus archivos de Word, PDF y notas en un solo recetario, en ordenador y móvil, para toda tu cocina."],
-  ["Meer over Savour", "More about Savour", "Mehr über Savour", "Más sobre Savour"],
-  ["Naar Savour", "Go to Savour", "Zu Savour", "Ir a Savour"],
-  ["Uitnodiging voor", "Invitation to", "Einladung zu", "Invitación a"],
-  ["Maak een Savour-account of log in om verder te gaan. Na het inloggen word je lid als viewer: je kunt de recepten bekijken, printen en omrekenen. De eigenaar kan je daarna meer rechten geven.", "Create a Savour account or log in to continue. After logging in you join as a viewer: you can view, print and scale the recipes. The owner can give you more rights afterwards.", "Erstelle ein Savour-Konto oder melde dich an, um fortzufahren. Nach der Anmeldung bist du Mitglied als Betrachter: Du kannst die Rezepte ansehen, drucken und umrechnen. Der Eigentümer kann dir danach mehr Rechte geben.", "Crea una cuenta de Savour o inicia sesión para continuar. Al iniciar sesión te unes como lector: puedes ver, imprimir y escalar las recetas. El propietario puede darte más permisos después."],
-  ["Ik bewaar mijn recepten in Savour, handig in de keuken. Probeer het via deze link, je krijgt 7 dagen Savour Pro gratis:", "I keep my recipes in Savour, handy in the kitchen. Try it with this link, you get 7 days of Savour Pro for free:", "Ich speichere meine Rezepte in Savour, praktisch in der Küche. Probier es über diesen Link, du bekommst 7 Tage Savour Pro gratis:", "Guardo mis recetas en Savour, muy práctico en la cocina. Pruébalo con este enlace, tienes 7 días de Savour Pro gratis:"],
-  ["Je bent uitgenodigd door een collega. Maak een account aan en probeer Savour Pro 7 dagen gratis.", "A colleague invited you. Create an account and try Savour Pro free for 7 days.", "Ein Kollege hat dich eingeladen. Erstelle ein Konto und teste Savour Pro 7 Tage gratis.", "Te ha invitado un colega. Crea una cuenta y prueba Savour Pro gratis durante 7 días."],
-  ["Collega uitnodigen", "Invite a colleague", "Kollegen einladen", "Invitar a un colega"],
-  ["Nodig een collega uit", "Invite a colleague", "Lade einen Kollegen ein", "Invita a un colega"],
-  ["Collega’s uitgenodigd:", "Colleagues invited:", "Eingeladene Kollegen:", "Colegas invitados:"],
-  ["Delen via WhatsApp", "Share via WhatsApp", "Über WhatsApp teilen", "Compartir por WhatsApp"],
-  ["Delen via…", "Share via…", "Teilen über…", "Compartir por…"],
-  ["Mail, berichten of een andere app", "Email, messages or another app", "Mail, Nachrichten oder eine andere App", "Correo, mensajes u otra app"],
-  ["Link gekopieerd, plak hem in een bericht aan je collega", "Link copied, paste it into a message to your colleague", "Link kopiert, füge ihn in eine Nachricht an deinen Kollegen ein", "Enlace copiado, pégalo en un mensaje a tu colega"],
-  ["Kopieer deze link", "Copy this link", "Kopiere diesen Link", "Copia este enlace"],
-  ["Klaar", "Done", "Fertig", "Listo"],
-  ["Maak een account aan om collega’s uit te nodigen", "Create an account to invite colleagues", "Erstelle ein Konto, um Kollegen einzuladen", "Crea una cuenta para invitar a colegas"],
-  ["Mooi", "Great", "Super", "Genial"],
-  ["Al je recepten printen of downloaden", "Print or download all your recipes", "Alle Rezepte drucken oder herunterladen", "Imprimir o descargar todas tus recetas"],
-  ["Print al je recepten in de printopmaak van Savour, of download ze. Je recepten blijven daarnaast gewoon in Savour staan.", "Print all your recipes in the Savour print layout, or download them. Your recipes also simply stay in Savour.", "Drucke alle Rezepte im Druckformat von Savour oder lade sie herunter. Deine Rezepte bleiben außerdem in Savour.", "Imprime todas tus recetas con el formato de impresión de Savour o descárgalas. Tus recetas también siguen en Savour."],
-  ["Alle recepten printen", "Print all recipes", "Alle Rezepte drucken", "Imprimir todas las recetas"],
-  ["Downloaden", "Download", "Herunterladen", "Descargar"],
-  ["Word per recept", "Word per recipe", "Word pro Rezept", "Word por receta"],
-  ["Elk recept een eigen Word-bestand in de printopmaak, samen in een .zip", "Each recipe its own Word file in the print layout, together in a .zip", "Jedes Rezept als eigene Word-Datei im Druckformat, zusammen in einer .zip", "Cada receta en su propio archivo de Word con el formato de impresión, juntas en un .zip"],
-  ["Alles in één Word-bestand", "Everything in one Word file", "Alles in einer Word-Datei", "Todo en un archivo de Word"],
-  ["Eenvoudige opmaak: titel, opbrengst, ingrediënten en bereiding", "Simple layout: title, yield, ingredients and method", "Einfaches Layout: Titel, Ausbeute, Zutaten und Zubereitung", "Formato sencillo: título, rendimiento, ingredientes y elaboración"],
-  ["Back-up", "Backup", "Backup", "Copia de seguridad"],
-  ["Recepten en mappen als JSON-bestand", "Recipes and folders as a JSON file", "Rezepte und Ordner als JSON-Datei", "Recetas y carpetas como archivo JSON"],
-  ["Je hebt nog geen recepten om te printen", "You have no recipes to print yet", "Du hast noch keine Rezepte zum Drucken", "Aún no tienes recetas para imprimir"],
-  ["Recepten downloaden", "Download recipes", "Rezepte herunterladen", "Descargar recetas"],
-  ["Download al je recepten in één keer: als Word-document om te lezen of te printen, of als back-up met je recepten en mappen. Je recepten blijven daarnaast gewoon in Savour staan.", "Download all your recipes at once: as a Word document to read or print, or as a backup with your recipes and folders. Your recipes also simply stay in Savour.", "Lade alle Rezepte auf einmal herunter: als Word-Dokument zum Lesen oder Drucken, oder als Backup mit Rezepten und Ordnern. Deine Rezepte bleiben außerdem in Savour.", "Descarga todas tus recetas de una vez: como documento de Word para leer o imprimir, o como copia de seguridad con tus recetas y carpetas. Tus recetas también siguen en Savour."],
-  ["Word-document", "Word document", "Word-Dokument", "Documento de Word"],
-  ["Back-up (JSON)", "Backup (JSON)", "Backup (JSON)", "Copia de seguridad (JSON)"],
-  ["Recepten downloaden is onderdeel van Savour Pro", "Downloading recipes is part of Savour Pro", "Rezepte herunterladen ist Teil von Savour Pro", "Descargar recetas forma parte de Savour Pro"],
-  ["Je recepten blijven altijd in Savour staan, ook zonder Pro: je kunt ze bekijken en printen. Met Savour Pro download je ze ook in één keer.", "Your recipes always stay in Savour, even without Pro: you can view and print them. With Savour Pro you can also download them all at once.", "Deine Rezepte bleiben immer in Savour, auch ohne Pro: Du kannst sie ansehen und drucken. Mit Savour Pro lädst du sie auch auf einmal herunter.", "Tus recetas siempre se quedan en Savour, también sin Pro: puedes verlas e imprimirlas. Con Savour Pro también las descargas todas de una vez."],
-  ["Je hebt nog geen recepten om te downloaden", "You have no recipes to download yet", "Du hast noch keine Rezepte zum Herunterladen", "Aún no tienes recetas para descargar"],
-  ["App installeren", "Install app", "App installieren", "Instalar app"],
-  ["Savour als app", "Savour as an app", "Savour als App", "Savour como app"],
-  ["Zet Savour op het beginscherm van je telefoon, tablet of computer. Dan opent het als een eigen app, ook zonder internet.", "Put Savour on the home screen of your phone, tablet or computer. It then opens as its own app, even without internet.", "Lege Savour auf den Startbildschirm deines Handys, Tablets oder Computers. Dann öffnet es sich als eigene App, auch ohne Internet.", "Pon Savour en la pantalla de inicio de tu móvil, tableta u ordenador. Así se abre como una app propia, también sin internet."],
-  ["Je gebruikt Savour al als app", "You are already using Savour as an app", "Du nutzt Savour bereits als App", "Ya estás usando Savour como app"],
-  ["Savour staat nu op je beginscherm", "Savour is now on your home screen", "Savour ist jetzt auf deinem Startbildschirm", "Savour ya está en tu pantalla de inicio"],
-  ["Begrepen", "Got it", "Verstanden", "Entendido"],
-  ["Savour op je beginscherm zetten", "Put Savour on your home screen", "Savour auf den Home-Bildschirm legen", "Poner Savour en tu pantalla de inicio"],
-  ["1. Tik onderaan in Safari op Delen (het vierkantje met de pijl omhoog).\n2. Kies “Zet op beginscherm”.\n3. Tik op “Voeg toe”.\n\nLog daarna één keer in met “Ingelogd blijven” aan. Dan werkt Savour ook zonder internet.", "1. In Safari, tap Share at the bottom (the square with the arrow pointing up).\n2. Choose “Add to Home Screen”.\n3. Tap “Add”.\n\nThen log in once with “Stay signed in” ticked. Savour then also works without internet.", "1. Tippe in Safari unten auf Teilen (das Quadrat mit dem Pfeil nach oben).\n2. Wähle „Zum Home-Bildschirm“.\n3. Tippe auf „Hinzufügen“.\n\nMelde dich danach einmal mit „Angemeldet bleiben“ an. Dann funktioniert Savour auch ohne Internet.", "1. En Safari, toca Compartir abajo (el cuadrado con la flecha hacia arriba).\n2. Elige «Añadir a pantalla de inicio».\n3. Toca «Añadir».\n\nDespués inicia sesión una vez con «Mantener la sesión iniciada» marcado. Así Savour también funciona sin internet."],
-  ["Open Savour eerst in je browser", "Open Savour in your browser first", "Öffne Savour zuerst in deinem Browser", "Abre Savour primero en tu navegador"],
-  ["In deze ingebouwde browser kun je niets installeren. Tik op ••• of het menu en kies “Open in browser” (Safari of Chrome). Kies daar opnieuw “App installeren”.", "You cannot install anything in this built-in browser. Tap ••• or the menu and choose “Open in browser” (Safari or Chrome). Then choose “Install app” again there.", "In diesem eingebauten Browser kannst du nichts installieren. Tippe auf ••• oder das Menü und wähle „Im Browser öffnen“ (Safari oder Chrome). Wähle dort erneut „App installieren“.", "En este navegador integrado no se puede instalar nada. Toca ••• o el menú y elige «Abrir en el navegador» (Safari o Chrome). Allí elige otra vez «Instalar app»."],
-  ["Savour op je startscherm zetten", "Put Savour on your home screen", "Savour auf den Startbildschirm legen", "Poner Savour en tu pantalla de inicio"],
-  ["Tik rechtsboven in Chrome op ⋮ en kies “App installeren” of “Toevoegen aan startscherm”.\n\nLog daarna één keer in met “Ingelogd blijven” aan. Dan werkt Savour ook zonder internet.", "In Chrome, tap ⋮ at the top right and choose “Install app” or “Add to Home screen”.\n\nThen log in once with “Stay signed in” ticked. Savour then also works without internet.", "Tippe in Chrome oben rechts auf ⋮ und wähle „App installieren“ oder „Zum Startbildschirm hinzufügen“.\n\nMelde dich danach einmal mit „Angemeldet bleiben“ an. Dann funktioniert Savour auch ohne Internet.", "En Chrome, toca ⋮ arriba a la derecha y elige «Instalar app» o «Añadir a pantalla de inicio».\n\nDespués inicia sesión una vez con «Mantener la sesión iniciada» marcado. Así Savour también funciona sin internet."],
-  ["Savour als app installeren", "Install Savour as an app", "Savour als App installieren", "Instalar Savour como app"],
-  ["Kies in Safari bovenin Archief → “Voeg toe aan Dock”.", "In Safari, choose File → “Add to Dock” at the top.", "Wähle in Safari oben Ablage → „Zum Dock hinzufügen“.", "En Safari, elige Archivo → «Añadir al Dock» arriba."],
-  ["Klik rechts in de adresbalk op het installatie-icoon (een schermpje met een pijl), of kies in het menu van je browser “Savour installeren”.", "Click the install icon on the right of the address bar (a small screen with an arrow), or choose “Install Savour” in your browser menu.", "Klicke rechts in der Adressleiste auf das Installationssymbol (ein Bildschirm mit Pfeil) oder wähle im Browsermenü „Savour installieren“.", "Haz clic en el icono de instalación a la derecha de la barra de direcciones (una pantalla con una flecha) o elige «Instalar Savour» en el menú del navegador."],
-  ["Alleen zichtbaar voor beheerders: accounts, abonnementen, omzet en bezoekers.", "Only visible to administrators: accounts, subscriptions, revenue and visitors.", "Nur für Administratoren sichtbar: Konten, Abos, Umsatz und Besucher.", "Solo visible para administradores: cuentas, suscripciones, ingresos y visitas."],
-  ["Naar het beheerscherm", "Go to admin", "Zur Verwaltung", "Ir a administración"],
-  ["Ingelogd blijven", "Stay signed in", "Angemeldet bleiben", "Mantener la sesión iniciada"],
-  ["Wachtwoord onthouden", "Remember password", "Passwort merken", "Recordar contraseña"],
-  ["Recepten printen", "Print recipes", "Rezepte drucken", "Imprimir recetas"],
-  ["Welke recepten wil je printen?", "Which recipes do you want to print?", "Welche Rezepte möchtest du drucken?", "¿Qué recetas quieres imprimir?"],
-  ["Zoek een recept", "Search a recipe", "Rezept suchen", "Buscar una receta"],
-  ["Niets", "None", "Keine", "Nada"],
-  ["Verder", "Continue", "Weiter", "Continuar"],
-  ["Overige recepten", "Other recipes", "Weitere Rezepte", "Otras recetas"],
-  ["Kies minstens één recept", "Choose at least one recipe", "Wähle mindestens ein Rezept", "Elige al menos una receta"],
-  ["Printen met het logo van je restaurant", "Printing with your restaurant's logo", "Drucken mit dem Logo deines Restaurants", "Imprimir con el logo de tu restaurante"],
-  ["Recept printen", "Print recipe", "Rezept drucken", "Imprimir receta"],
-  ["Met foto's", "With photos", "Mit Fotos", "Con fotos"],
-  ["Met voorblad en inhoud", "With cover page and contents", "Mit Deckblatt und Inhalt", "Con portada e índice"],
-  ["A5, voor een kleine map aan de pass", "A5, for a small binder at the pass", "A5, für eine kleine Mappe am Pass", "A5, para una carpeta pequeña en el pase"],
-  ["Papierformaat", "Paper size", "Papierformat", "Tamaño del papel"],
-  ["Gemaakt met Savour", "Made with Savour", "Erstellt mit Savour", "Hecho con Savour"],
-  ["Logo op prints", "Logo on prints", "Logo auf Ausdrucken", "Logo en las impresiones"],
-  ["Naam op de print", "Name on the print", "Name auf dem Ausdruck", "Nombre en la impresión"],
-  ["Bijv. Restaurant De Zwaan", "E.g. Restaurant The Swan", "Z. B. Restaurant Zum Schwan", "P. ej. Restaurante El Cisne"],
-  ["Logo kiezen", "Choose logo", "Logo wählen", "Elegir logo"],
-  ["Ander logo kiezen", "Choose another logo", "Anderes Logo wählen", "Elegir otro logo"],
-  ["Logo weghalen", "Remove logo", "Logo entfernen", "Quitar logo"],
-  ["Logo weghalen?", "Remove logo?", "Logo entfernen?", "¿Quitar el logo?"],
-  ["Weghalen", "Remove", "Entfernen", "Quitar"],
-  ["Logo in zwart-wit printen (beter op een keukenprinter)", "Print logo in black and white (better on a kitchen printer)", "Logo schwarz-weiß drucken (besser auf einem Küchendrucker)", "Imprimir el logo en blanco y negro (mejor en una impresora de cocina)"],
-  ["Opgeslagen. Je volgende print heeft dit logo.", "Saved. Your next print will have this logo.", "Gespeichert. Dein nächster Ausdruck hat dieses Logo.", "Guardado. Tu próxima impresión llevará este logo."],
-  ["Logo weggehaald", "Logo removed", "Logo entfernt", "Logo quitado"],
-  ["Opslaan lukte niet. Probeer een kleiner logo.", "Saving failed. Try a smaller logo.", "Speichern fehlgeschlagen. Versuche ein kleineres Logo.", "No se pudo guardar. Prueba con un logo más pequeño."],
-  ["Je prints krijgen dan alleen de naam van je restaurant.", "Your prints will then only show your restaurant's name.", "Deine Ausdrucke zeigen dann nur den Namen deines Restaurants.", "Tus impresiones mostrarán solo el nombre de tu restaurante."],
-  ["Dit logo staat op de prints van iedereen in je team.", "This logo appears on the prints of everyone in your team.", "Dieses Logo erscheint auf den Ausdrucken aller in deinem Team.", "Este logo aparece en las impresiones de todo tu equipo."],
-  ["Dit logo staat bovenaan elke pagina die je print: het logo links, de naam in het midden.", "This logo appears at the top of every page you print: the logo on the left, the name in the centre.", "Dieses Logo steht oben auf jeder Seite, die du druckst: das Logo links, der Name in der Mitte.", "Este logo aparece arriba en cada página que imprimes: el logo a la izquierda, el nombre en el centro."],
-  ["Logo op prints is binnenkort beschikbaar.", "Logo on prints is coming soon.", "Logo auf Ausdrucken ist bald verfügbar.", "El logo en las impresiones estará disponible pronto."],
-  ["Met Savour Pro print je recepten en mappen met het logo en de naam van je restaurant bovenaan. In de demo kun je dit niet instellen.", "With Savour Pro you print recipes and folders with your restaurant's logo and name at the top. You can't set this up in the demo.", "Mit Savour Pro druckst du Rezepte und Mappen mit Logo und Namen deines Restaurants oben auf der Seite. In der Demo kannst du das nicht einrichten.", "Con Savour Pro imprimes recetas y carpetas con el logo y el nombre de tu restaurante arriba. En la demo no puedes configurarlo."],
-  ["Print je recepturen als eigen receptenboek, met het logo en de naam van je restaurant bovenaan elke pagina. Dit is onderdeel van Savour Pro.", "Print your recipes as your own recipe book, with your restaurant's logo and name at the top of every page. This is part of Savour Pro.", "Drucke deine Rezepturen als eigenes Rezeptbuch, mit Logo und Namen deines Restaurants oben auf jeder Seite. Das ist Teil von Savour Pro.", "Imprime tus recetas como tu propio recetario, con el logo y el nombre de tu restaurante arriba en cada página. Forma parte de Savour Pro."],
-  ["Voorbeeld van een geprinte pagina", "Preview of a printed page", "Vorschau einer gedruckten Seite", "Vista previa de una página impresa"],
-  ["Origineel kladje bekijken","View original note","Original-Notiz ansehen","Ver la nota original"],
-  ["Origineel kladje","Original note","Original-Notiz","Nota original"],
-  ["Zo stond het recept op papier, voordat Savour het las.","This is how the recipe looked on paper, before Savour read it.","So stand das Rezept auf Papier, bevor Savour es gelesen hat.","Así estaba la receta en papel, antes de que Savour la leyera."],
-  ["Het origineel kon niet worden geladen.","The original could not be loaded.","Das Original konnte nicht geladen werden.","No se pudo cargar el original."],
-  ["Offline","Offline","Offline","Sin conexión"],
-  ["Abonnement en team","Subscription and organisation","Abo und Organisation","Suscripción y organización"],
-  ["Opschonen","Clean up","Aufräumen","Limpiar"],
-  ["Savour kijkt hier of er nummers voor receptnamen staan, zoals “12. Kalfsjus”, en of recepten dubbel in je bibliotheek staan. Je ziet altijd eerst wat er verandert.","Savour checks here whether recipe names start with numbers, such as “12. Veal jus”, and whether recipes appear twice in your library. You always see what will change first.","Savour prüft hier, ob Rezeptnamen mit Nummern beginnen, wie „12. Kalbsjus“, und ob Rezepte doppelt in deiner Bibliothek stehen. Du siehst immer zuerst, was sich ändert.","Savour comprueba aquí si los nombres empiezan con números, como “12. Jugo de ternera”, y si hay recetas duplicadas en tu biblioteca. Siempre ves primero lo que cambia."],
-  ["✓ Er is niets op te schonen: geen nummers voor receptnamen en geen dubbele recepten.","✓ Nothing to clean up: no numbers before recipe names and no duplicate recipes.","✓ Nichts aufzuräumen: keine Nummern vor Rezeptnamen und keine doppelten Rezepte.","✓ No hay nada que limpiar: ningún número delante de los nombres y ninguna receta duplicada."],
-  ["Welkom bij Savour","Welcome to Savour","Willkommen bei Savour","Bienvenido a Savour"],
-  ["Je receptenboek is nog leeg. Zo vul je het: importeer je Word-bestanden of PDF’s in één keer, maak een foto van een handgeschreven kladje, of voer een recept zelf in. Daarna orden je alles in mappen en deel je het met je keukenteam.","Your recipe book is still empty. Here is how to fill it: import your Word files or PDFs in one go, take a photo of a handwritten note, or enter a recipe yourself. Then organise everything in folders and share it with your kitchen team.","Dein Rezeptbuch ist noch leer. So füllst du es: Importiere deine Word-Dateien oder PDFs auf einmal, mach ein Foto einer handschriftlichen Notiz oder gib ein Rezept selbst ein. Danach ordnest du alles in Ordnern und teilst es mit deinem Küchenteam.","Tu recetario aún está vacío. Así lo llenas: importa tus archivos de Word o PDF de una vez, haz una foto de una nota escrita a mano o introduce una receta tú mismo. Después lo ordenas todo en carpetas y lo compartes con tu equipo de cocina."],
-  ["Word of PDF importeren","Import Word or PDF","Word oder PDF importieren","Importar Word o PDF"],
-  ["Ook honderden recepten tegelijk","Even hundreds of recipes at once","Auch Hunderte Rezepte auf einmal","Incluso cientos de recetas a la vez"],
-  ["De AI leest het voor je uit (Savour Pro)","The AI reads it for you (Savour Pro)","Die KI liest es für dich aus (Savour Pro)","La IA lo lee por ti (Savour Pro)"],
-  ["Zelf een recept invoeren","Enter a recipe yourself","Rezept selbst eingeben","Introducir una receta"],
-  ["Eerst rondkijken","Look around first","Erst umsehen","Primero echar un vistazo"],
-  ["Welkom bij Savour. Kies hieronder je wachtwoord","Welcome to Savour. Choose your password below","Willkommen bei Savour. Wähle unten dein Passwort","Bienvenido a Savour. Elige tu contraseña abajo"],
-  ["Hoe krijgen mijn teamleden Pro?","How do the members of my organisation get Pro?","Wie bekommen die Mitglieder meiner Organisation Pro?","¿Cómo obtienen Pro los miembros de mi organización?"],
-  ["Je voegt ze toe via Mijn team in het menu, of op je telefoon via Mijn account → Abonnement. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.","You add them via My team in the menu, or on your phone via My account → Subscription. They get an invitation by email and have Savour Pro as soon as they log in or sign up with exactly that email address. You count as the first seat yourself.","Du fügst sie über Mein Team im Menü hinzu, oder am Handy über Mein Konto → Abo. Sie bekommen eine Einladung per E-Mail und haben Savour Pro, sobald sie sich mit genau dieser E-Mail-Adresse anmelden oder registrieren. Du selbst zählst als erster Platz.","Los añades desde Mi equipo en el menú, o en el móvil desde Mi cuenta → Suscripción. Reciben una invitación por correo y tienen Savour Pro en cuanto inician sesión o se registran con exactamente ese correo. Tú cuentas como la primera plaza."],
+  [
+    'Bevestig eerst je e-mailadres',
+    'Confirm your email address first',
+    'Bestätige zuerst deine E-Mail-Adresse',
+    'Confirma primero tu correo electrónico'
+  ],
+  [
+    'We hebben je een e-mail gestuurd met een link om je account te bevestigen. Kijk ook in je spam. Geen mail gekregen? Dan sturen we een nieuwe.',
+    "We sent you an email with a link to confirm your account. Check your spam folder too. No email? We'll send a new one.",
+    'Wir haben dir eine E-Mail mit einem Link zur Bestätigung deines Kontos geschickt. Sieh auch im Spam nach. Keine E-Mail bekommen? Dann schicken wir eine neue.',
+    'Te hemos enviado un correo con un enlace para confirmar tu cuenta. Revisa también el spam. ¿No te ha llegado? Te enviamos uno nuevo.'
+  ],
+  [
+    'Nieuwe bevestigingsmail sturen',
+    'Send a new confirmation email',
+    'Neue Bestätigungs-E-Mail senden',
+    'Enviar un nuevo correo de confirmación'
+  ],
+  [
+    'Er zijn tijdelijk te veel e-mails aangevraagd. Probeer het later opnieuw.',
+    'Too many emails have been requested for now. Please try again later.',
+    'Es wurden vorübergehend zu viele E-Mails angefordert. Versuche es später erneut.',
+    'Se han solicitado demasiados correos por ahora. Inténtalo más tarde.'
+  ],
+  [
+    'De bevestigingsmail kon niet worden verstuurd. Probeer het later opnieuw.',
+    'The confirmation email could not be sent. Please try again later.',
+    'Die Bestätigungs-E-Mail konnte nicht gesendet werden. Versuche es später erneut.',
+    'No se pudo enviar el correo de confirmación. Inténtalo más tarde.'
+  ],
+  [
+    'Nieuwe bevestigingsmail verstuurd. Kijk ook in je spam.',
+    'New confirmation email sent. Check your spam folder too.',
+    'Neue Bestätigungs-E-Mail gesendet. Sieh auch im Spam nach.',
+    'Nuevo correo de confirmación enviado. Revisa también el spam.'
+  ],
+  [
+    'E-mailadres of wachtwoord klopt niet.',
+    'Email address or password is incorrect.',
+    'E-Mail-Adresse oder Passwort ist falsch.',
+    'El correo o la contraseña no son correctos.'
+  ],
+  [
+    'Dit e-mailadres heeft al een account. Log in of kies "Wachtwoord vergeten?".',
+    'This email address already has an account. Log in or choose "Forgot password?".',
+    'Diese E-Mail-Adresse hat bereits ein Konto. Melde dich an oder wähle „Passwort vergessen?“.',
+    'Este correo ya tiene una cuenta. Inicia sesión o elige «¿Has olvidado tu contraseña?».'
+  ],
+  ['Probleem melden', 'Report a problem', 'Problem melden', 'Informar de un problema'],
+  [
+    'Webpagina of andere recepten-app',
+    'Web page or another recipe app',
+    'Webseite oder andere Rezept-App',
+    'Página web u otra app de recetas'
+  ],
+  [
+    'Plak de link van een recept op een website, of zet je recepten over uit een andere app: Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat en meer. Maak in die app een export en kies het bestand bij "Uit een andere recepten-app".',
+    'Paste the link to a recipe on a website, or move your recipes over from another app: Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat and more. Make an export in that app and choose the file under "From another recipe app".',
+    'Füge den Link zu einem Rezept auf einer Website ein oder übertrage deine Rezepte aus einer anderen App: Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat und mehr. Erstelle in dieser App einen Export und wähle die Datei unter „Aus einer anderen Rezept-App“.',
+    'Pega el enlace de una receta en una web o pasa tus recetas desde otra app: Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat y más. Haz una exportación en esa app y elige el archivo en «Desde otra app de recetas».'
+  ],
+  ['niet omgerekend', 'not scaled', 'nicht umgerechnet', 'sin convertir'],
+  ['porties', 'servings', 'Portionen', 'raciones'],
+  ['Notities', 'Notes', 'Notizen', 'Notas'],
+  ['Licht of donker', 'Light or dark', 'Hell oder dunkel', 'Claro u oscuro'],
+  ['Bron: webpagina', 'Source: web page', 'Quelle: Webseite', 'Fuente: página web'],
+  [
+    'Plak eerst de link van een recept.',
+    'Paste the link to a recipe first.',
+    'Füge zuerst den Link zu einem Rezept ein.',
+    'Pega primero el enlace de una receta.'
+  ],
+  [
+    'In de demo kun je geen webpagina importeren. Maak een gratis account.',
+    "You can't import a web page in the demo. Create a free account.",
+    'In der Demo kannst du keine Webseite importieren. Erstelle ein kostenloses Konto.',
+    'En la demo no puedes importar una página web. Crea una cuenta gratuita.'
+  ],
+  ['Webpagina wordt gelezen…', 'Reading the web page…', 'Webseite wird gelesen…', 'Leyendo la página web…'],
+  ['recept(en) gevonden op', 'recipe(s) found on', 'Rezept(e) gefunden auf', 'receta(s) encontrada(s) en'],
+  [
+    'Deze pagina kon niet worden gelezen.',
+    'This page could not be read.',
+    'Diese Seite konnte nicht gelesen werden.',
+    'No se pudo leer esta página.'
+  ],
+  [
+    'Op deze pagina is geen recept gevonden.',
+    'No recipe was found on this page.',
+    'Auf dieser Seite wurde kein Rezept gefunden.',
+    'No se encontró ninguna receta en esta página.'
+  ],
+  [
+    'Log in om een recept van een website te importeren.',
+    'Log in to import a recipe from a website.',
+    'Melde dich an, um ein Rezept von einer Website zu importieren.',
+    'Inicia sesión para importar una receta de una web.'
+  ],
+  [
+    'In deze export zijn geen recepten gevonden.',
+    'No recipes were found in this export.',
+    'In diesem Export wurden keine Rezepte gefunden.',
+    'No se encontraron recetas en esta exportación.'
+  ],
+  [
+    'In dit bestand zijn geen recepten gevonden.',
+    'No recipes were found in this file.',
+    'In dieser Datei wurden keine Rezepte gefunden.',
+    'No se encontraron recetas en este archivo.'
+  ],
+  ['Webpagina (link)', 'Web page (link)', 'Webseite (Link)', 'Página web (enlace)'],
+  [
+    'Plak de link van een recept op een website. Savour haalt het recept eruit.',
+    'Paste the link to a recipe on a website. Savour pulls out the recipe.',
+    'Füge den Link zu einem Rezept auf einer Website ein. Savour holt das Rezept heraus.',
+    'Pega el enlace de una receta en una web. Savour extrae la receta.'
+  ],
+  [
+    'Uit een andere recepten-app',
+    'From another recipe app',
+    'Aus einer anderen Rezept-App',
+    'Desde otra app de recetas'
+  ],
+  [
+    'Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat en meer.',
+    'Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat and more.',
+    'Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat und mehr.',
+    'Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat y más.'
+  ],
+  [
+    'Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat en andere exports.',
+    'Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat and other exports.',
+    'Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat und andere Exporte.',
+    'Paprika, Mela, Mealie, Tandoor, Recipe Keeper, Crouton, MasterCook, Copy Me That, Cookmate, Living Cookbook, Evernote, Flavorish, CookBookManager, Plan to Eat y otras exportaciones.'
+  ],
+  ['Link naar het recept', 'Link to the recipe', 'Link zum Rezept', 'Enlace a la receta'],
+  [
+    'Andere recepten-app kiezen',
+    'Choose export from another app',
+    'Export einer anderen App wählen',
+    'Elegir exportación de otra app'
+  ],
+  [
+    'Bron: Andere recepten-app',
+    'Source: another recipe app',
+    'Quelle: andere Rezept-App',
+    'Fuente: otra app de recetas'
+  ],
+  [
+    'Deze website laat Savour de pagina niet ophalen. Kopieer de tekst van het recept en kies "Tekst invoeren".',
+    'This website doesn\'t let Savour fetch the page. Copy the recipe text and choose "Enter text".',
+    'Diese Website lässt Savour die Seite nicht abrufen. Kopiere den Rezepttext und wähle „Text eingeben“.',
+    'Esta web no permite que Savour cargue la página. Copia el texto de la receta y elige «Introducir texto».'
+  ],
+  [
+    'De website reageerde niet op tijd.',
+    'The website did not respond in time.',
+    'Die Website hat nicht rechtzeitig geantwortet.',
+    'La web no respondió a tiempo.'
+  ],
+  [
+    'De website kon niet worden geopend.',
+    'The website could not be opened.',
+    'Die Website konnte nicht geöffnet werden.',
+    'No se pudo abrir la web.'
+  ],
+  [
+    'Deze website is niet gevonden.',
+    'This website was not found.',
+    'Diese Website wurde nicht gefunden.',
+    'No se encontró esta web.'
+  ],
+  [
+    'Dit is geen geldige link.',
+    'This is not a valid link.',
+    'Das ist kein gültiger Link.',
+    'Este enlace no es válido.'
+  ],
+  [
+    'Deze link kan niet worden geopend.',
+    'This link cannot be opened.',
+    'Dieser Link kann nicht geöffnet werden.',
+    'Este enlace no se puede abrir.'
+  ],
+  ['Vul een link in.', 'Enter a link.', 'Gib einen Link ein.', 'Introduce un enlace.'],
+  [
+    'Dit e-mailadres heeft al een account',
+    'This email address already has an account',
+    'Diese E-Mail-Adresse hat bereits ein Konto',
+    'Este correo ya tiene una cuenta'
+  ],
+  [
+    'Er is geen nieuwe bevestigingsmail verstuurd. Log in met dit e-mailadres, of kies "Wachtwoord vergeten?" als je het wachtwoord niet meer weet.',
+    'No new confirmation email was sent. Log in with this email address, or choose "Forgot password?" if you no longer know the password.',
+    'Es wurde keine neue Bestätigungs-E-Mail gesendet. Melde dich mit dieser E-Mail-Adresse an oder wähle „Passwort vergessen?“, wenn du das Passwort nicht mehr weißt.',
+    'No se ha enviado ningún correo de confirmación nuevo. Inicia sesión con este correo o elige «¿Has olvidado tu contraseña?» si ya no la recuerdas.'
+  ],
+  [
+    'Deze link werkt niet meer',
+    'This link no longer works',
+    'Dieser Link funktioniert nicht mehr',
+    'Este enlace ya no funciona'
+  ],
+  [
+    'Een link uit een e-mail werkt één keer en maar een uur. Vroeg je meerdere keren een nieuwe aan, dan werkt alleen de nieuwste. Vraag hieronder een nieuwe link aan en gebruik de nieuwste mail.',
+    'A link from an email works once and only for an hour. If you requested a new one several times, only the newest works. Request a new link below and use the newest email.',
+    'Ein Link aus einer E-Mail funktioniert einmal und nur eine Stunde. Hast du mehrmals einen neuen angefordert, funktioniert nur der neueste. Fordere unten einen neuen Link an und nutze die neueste E-Mail.',
+    'Un enlace de un correo funciona una vez y solo durante una hora. Si pediste uno nuevo varias veces, solo funciona el más reciente. Pide un enlace nuevo abajo y usa el correo más reciente.'
+  ],
+  ['Nieuwe link aanvragen', 'Request a new link', 'Neuen Link anfordern', 'Pedir un enlace nuevo'],
+  ['Nieuw wachtwoord instellen', 'Set a new password', 'Neues Passwort festlegen', 'Establecer una contraseña nueva'],
+  [
+    'Klik op Doorgaan om een nieuw wachtwoord voor je Savour-account te kiezen.',
+    'Click Continue to choose a new password for your Savour account.',
+    'Klicke auf Weiter, um ein neues Passwort für dein Savour-Konto zu wählen.',
+    'Haz clic en Continuar para elegir una contraseña nueva para tu cuenta de Savour.'
+  ],
+  [
+    'Klik op Doorgaan om je account te bevestigen en in te loggen.',
+    'Click Continue to confirm your account and log in.',
+    'Klicke auf Weiter, um dein Konto zu bestätigen und dich anzumelden.',
+    'Haz clic en Continuar para confirmar tu cuenta e iniciar sesión.'
+  ],
+  [
+    'Je receptenboek is nog leeg',
+    'Your recipe book is still empty',
+    'Dein Rezeptbuch ist noch leer',
+    'Tu recetario aún está vacío'
+  ],
+  [
+    "Importeer je Word-bestanden, PDF's of foto's van kladjes in één keer, of voer zelf een recept in.",
+    'Import your Word files, PDFs or photos of notes in one go, or enter a recipe yourself.',
+    'Importiere deine Word-Dateien, PDFs oder Fotos von Notizen auf einmal, oder gib ein Rezept selbst ein.',
+    'Importa tus archivos de Word, PDF o fotos de notas de una vez, o introduce una receta tú mismo.'
+  ],
+  ['Recepten importeren', 'Import recipes', 'Rezepte importieren', 'Importar recetas'],
+  [
+    'Deze link staat uit. Kies hoelang hij moet werken om hem weer aan te zetten.',
+    'This link is off. Choose how long it should work to turn it back on.',
+    'Dieser Link ist aus. Wähle, wie lange er funktionieren soll, um ihn wieder einzuschalten.',
+    'Este enlace está desactivado. Elige cuánto tiempo debe funcionar para volver a activarlo.'
+  ],
+  [
+    'De link werkt onbeperkt, tot je hem uitzet.',
+    'The link works indefinitely, until you turn it off.',
+    'Der Link funktioniert unbegrenzt, bis du ihn ausschaltest.',
+    'El enlace funciona sin límite, hasta que lo desactives.'
+  ],
+  ['De link werkt tot', 'The link works until', 'Der Link funktioniert bis', 'El enlace funciona hasta'],
+  ['Link werkt', 'Link works', 'Link funktioniert', 'El enlace funciona'],
+  ['Link uitzetten', 'Turn link off', 'Link ausschalten', 'Desactivar enlace'],
+  [
+    'De link kon niet worden aangepast',
+    'The link could not be changed',
+    'Der Link konnte nicht geändert werden',
+    'No se pudo cambiar el enlace'
+  ],
+  ['De link werkt weer', 'The link works again', 'Der Link funktioniert wieder', 'El enlace vuelve a funcionar'],
+  [
+    'De link staat uit: niemand kan het recept nog openen',
+    'The link is off: nobody can open the recipe any more',
+    'Der Link ist aus: niemand kann das Rezept mehr öffnen',
+    'El enlace está desactivado: nadie puede abrir ya la receta'
+  ],
+  [
+    'Deze link staat uit. Kies eerst hoelang hij moet werken.',
+    'This link is off. First choose how long it should work.',
+    'Dieser Link ist aus. Wähle zuerst, wie lange er funktionieren soll.',
+    'Este enlace está desactivado. Elige primero cuánto tiempo debe funcionar.'
+  ],
+  ['1 dag', '1 day', '1 Tag', '1 día'],
+  ['1 week', '1 week', '1 Woche', '1 semana'],
+  [
+    'Dit recept wordt niet meer gedeeld',
+    'This recipe is no longer shared',
+    'Dieses Rezept wird nicht mehr geteilt',
+    'Esta receta ya no se comparte'
+  ],
+  [
+    'De maker heeft de link uitgezet, of de tijd waarin de link werkte is voorbij. Vraag de maker om een nieuwe link.',
+    'The maker turned the link off, or the time the link worked has passed. Ask the maker for a new link.',
+    'Der Ersteller hat den Link ausgeschaltet, oder die Zeit, in der er funktionierte, ist vorbei. Bitte den Ersteller um einen neuen Link.',
+    'El autor ha desactivado el enlace o ha pasado el tiempo en que funcionaba. Pide al autor un enlace nuevo.'
+  ],
+  [
+    'Stuur je persoonlijke link naar een collega. Maakt die een account aan, bevestigt die het e-mailadres en logt die in, dan krijg jij 14 dagen Savour Pro cadeau.',
+    'Send your personal link to a colleague. Once they create an account, confirm their email address and log in, you get 14 days of Savour Pro free.',
+    'Schick deinen persönlichen Link an einen Kollegen. Sobald er ein Konto erstellt, seine E-Mail-Adresse bestätigt und sich anmeldet, bekommst du 14 Tage Savour Pro geschenkt.',
+    'Envía tu enlace personal a un compañero. Cuando cree una cuenta, confirme su correo y inicie sesión, recibes 14 días de Savour Pro gratis.'
+  ],
+  [
+    'Nodig een collega uit en krijg 14 dagen Savour Pro cadeau, of zet Savour als app op je beginscherm.',
+    'Invite a colleague and get 14 days of Savour Pro free, or put Savour on your home screen as an app.',
+    'Lade einen Kollegen ein und bekomme 14 Tage Savour Pro geschenkt, oder lege Savour als App auf deinen Startbildschirm.',
+    'Invita a un compañero y recibe 14 días de Savour Pro gratis, o pon Savour como app en tu pantalla de inicio.'
+  ],
+  [
+    '14 dagen Savour Pro cadeau',
+    '14 days of Savour Pro free',
+    '14 Tage Savour Pro geschenkt',
+    '14 días de Savour Pro gratis'
+  ],
+  [
+    'Een collega heeft via jouw link een account gemaakt. Bedankt! Je krijgt er 14 dagen Savour Pro bij.',
+    'A colleague created an account with your link. Thank you! You get 14 extra days of Savour Pro.',
+    'Ein Kollege hat über deinen Link ein Konto erstellt. Danke! Du bekommst 14 Tage Savour Pro dazu.',
+    'Un compañero ha creado una cuenta con tu enlace. ¡Gracias! Recibes 14 días más de Savour Pro.'
+  ],
+  [
+    'In de demo kun je geen recepten delen. Maak een gratis account om te delen.',
+    "You can't share recipes in the demo. Create a free account to share.",
+    'In der Demo kannst du keine Rezepte teilen. Erstelle ein kostenloses Konto, um zu teilen.',
+    'En la demo no puedes compartir recetas. Crea una cuenta gratuita para compartir.'
+  ],
+  [
+    'Foto maken met je camera',
+    'Take a photo with your camera',
+    'Foto mit der Kamera aufnehmen',
+    'Hacer una foto con la cámara'
+  ],
+  [
+    'Fotografeer een handgeschreven recept of kladje. De AI zet het om in een net recept.',
+    'Photograph a handwritten recipe or note. The AI turns it into a clean recipe.',
+    'Fotografiere ein handgeschriebenes Rezept oder eine Notiz. Die KI macht daraus ein sauberes Rezept.',
+    'Fotografía una receta escrita a mano o una nota. La IA la convierte en una receta limpia.'
+  ],
+  [
+    'Maak een foto met je camera of kies foto’s van handgeschreven recepten. De AI leest ze uit.',
+    'Take a photo with your camera or choose photos of handwritten recipes. The AI reads them.',
+    'Mach ein Foto mit deiner Kamera oder wähle Fotos von handgeschriebenen Rezepten. Die KI liest sie aus.',
+    'Haz una foto con tu cámara o elige fotos de recetas escritas a mano. La IA las lee.'
+  ],
+  ['◉ Foto maken', '◉ Take photo', '◉ Foto aufnehmen', '◉ Hacer foto'],
+  [
+    'Uit Word, PDF, tekst, een foto of een ander bestand. Ook honderden recepten tegelijk.',
+    'From Word, PDF, text, a photo or another file. Even hundreds of recipes at once.',
+    'Aus Word, PDF, Text, einem Foto oder einer anderen Datei. Auch Hunderte Rezepte auf einmal.',
+    'Desde Word, PDF, texto, una foto u otro archivo. Incluso cientos de recetas a la vez.'
+  ],
+  [
+    'Typ of plak tekst met één of meer recepten.',
+    'Type or paste text with one or more recipes.',
+    'Tippe oder füge Text mit einem oder mehreren Rezepten ein.',
+    'Escribe o pega texto con una o varias recetas.'
+  ],
+  ['Alle bestanden door elkaar', 'All files mixed', 'Alle Dateien gemischt', 'Todos los archivos mezclados'],
+  [
+    'Word, PDF, foto’s en andere bestanden in één keer, of een hele map.',
+    'Word, PDF, photos and other files in one go, or a whole folder.',
+    'Word, PDF, Fotos und andere Dateien auf einmal, oder ein ganzer Ordner.',
+    'Word, PDF, fotos y otros archivos de una vez, o una carpeta entera.'
+  ],
+  [
+    'Ook oude Word-bestanden en documenten met honderden recepten.',
+    'Including old Word files and documents with hundreds of recipes.',
+    'Auch alte Word-Dateien und Dokumente mit Hunderten Rezepten.',
+    'También archivos antiguos de Word y documentos con cientos de recetas.'
+  ],
+  [
+    'Een digitaal PDF-bestand of een gescande receptpagina.',
+    'A digital PDF file or a scanned recipe page.',
+    'Eine digitale PDF-Datei oder eine gescannte Rezeptseite.',
+    'Un archivo PDF digital o una página de receta escaneada.'
+  ],
+  ['Foto’s', 'Photos', 'Fotos', 'Fotos'],
+  [
+    'Foto’s van handgeschreven recepten of kladjes (.jpg, .png, .webp). De AI leest ze uit.',
+    'Photos of handwritten recipes or notes (.jpg, .png, .webp). The AI reads them.',
+    'Fotos von handgeschriebenen Rezepten oder Notizen (.jpg, .png, .webp). Die KI liest sie aus.',
+    'Fotos de recetas escritas a mano o notas (.jpg, .png, .webp). La IA las lee.'
+  ],
+  [
+    'Tekst (.txt, .md), .rtf, OpenOffice (.odt), webpagina (.html), .csv en Savour-importbestanden (.json).',
+    'Text (.txt, .md), .rtf, OpenOffice (.odt), web page (.html), .csv and Savour import files (.json).',
+    'Text (.txt, .md), .rtf, OpenOffice (.odt), Webseite (.html), .csv und Savour-Importdateien (.json).',
+    'Texto (.txt, .md), .rtf, OpenOffice (.odt), página web (.html), .csv y archivos de importación de Savour (.json).'
+  ],
+  [
+    'Kies één of meer bestanden, of sleep ze hierheen',
+    'Choose one or more files, or drag them here',
+    'Wähle eine oder mehrere Dateien oder ziehe sie hierher',
+    'Elige uno o varios archivos, o arrástralos aquí'
+  ],
+  [
+    'Word, PDF, foto’s en andere tekstbestanden.',
+    'Word, PDF, photos and other text files.',
+    'Word, PDF, Fotos und andere Textdateien.',
+    'Word, PDF, fotos y otros archivos de texto.'
+  ],
+  [
+    'Word, PDF, foto’s en andere tekstbestanden, ook een hele map.',
+    'Word, PDF, photos and other text files, also a whole folder.',
+    'Word, PDF, Fotos und andere Textdateien, auch ein ganzer Ordner.',
+    'Word, PDF, fotos y otros archivos de texto, también una carpeta entera.'
+  ],
+  ['Word (.doc, .docx)', 'Word (.doc, .docx)', 'Word (.doc, .docx)', 'Word (.doc, .docx)'],
+  [
+    "Foto's (.jpg, .png, .webp)",
+    'Photos (.jpg, .png, .webp)',
+    'Fotos (.jpg, .png, .webp)',
+    'Fotos (.jpg, .png, .webp)'
+  ],
+  [
+    '.txt, .md, .rtf, .odt, .html, .csv en Savour-importbestanden (.json)',
+    '.txt, .md, .rtf, .odt, .html, .csv and Savour import files (.json)',
+    '.txt, .md, .rtf, .odt, .html, .csv und Savour-Importdateien (.json)',
+    '.txt, .md, .rtf, .odt, .html, .csv y archivos de importación de Savour (.json)'
+  ],
+  ['Word-bestand kiezen', 'Choose Word file', 'Word-Datei wählen', 'Elegir archivo de Word'],
+  ['PDF-bestand kiezen', 'Choose PDF file', 'PDF-Datei wählen', 'Elegir archivo PDF'],
+  ["Foto's kiezen", 'Choose photos', 'Fotos wählen', 'Elegir fotos'],
+  ['Ander bestand kiezen', 'Choose other file', 'Andere Datei wählen', 'Elegir otro archivo'],
+  ['Alle bestanden door elkaar kiezen', 'Choose all files', 'Alle Dateien wählen', 'Elegir todos los archivos'],
+  ["Bron: Foto's", 'Source: photos', 'Quelle: Fotos', 'Fuente: fotos'],
+  ['Bron: Ander bestand', 'Source: other file', 'Quelle: andere Datei', 'Fuente: otro archivo'],
+  [
+    'Bron: Alle bestanden door elkaar',
+    'Source: all files mixed',
+    'Quelle: alle Dateien gemischt',
+    'Fuente: todos los archivos mezclados'
+  ],
+  [
+    'Geen bestanden van dit soort gekozen.',
+    'No files of this kind chosen.',
+    'Keine Dateien dieser Art gewählt.',
+    'No se eligieron archivos de este tipo.'
+  ],
+  [
+    'Word, PDF, tekst of andere bestanden',
+    'Word, PDF, text or other files',
+    'Word, PDF, Text oder andere Dateien',
+    'Word, PDF, texto u otros archivos'
+  ],
+  [
+    'Importeer een heel bestand in één keer, ook met honderden recepten. De Savour-lezer splitst ze zelf op en herkent titel, opbrengst, ingrediënten en bereiding. Met "Alle bestanden door elkaar" kies je alles tegelijk, ook een hele map.',
+    'Import a whole file at once, even with hundreds of recipes. The Savour reader splits them itself and recognises title, yield, ingredients and method. With "All files mixed" you choose everything at once, even a whole folder.',
+    'Importiere eine ganze Datei auf einmal, auch mit Hunderten Rezepten. Der Savour-Leser teilt sie selbst auf und erkennt Titel, Ausbeute, Zutaten und Zubereitung. Mit „Alle Dateien gemischt“ wählst du alles auf einmal, auch einen ganzen Ordner.',
+    'Importa un archivo entero de una vez, incluso con cientos de recetas. El lector de Savour las separa solo y reconoce título, rendimiento, ingredientes y preparación. Con «Todos los archivos mezclados» eliges todo a la vez, incluso una carpeta entera.'
+  ],
+  [
+    "Upload foto's van handgeschreven of gescande recepten. De AI leest ze voor je uit (Savour Pro, tot 500 per maand). Het originele kladje blijft bewaard bij het recept.",
+    'Upload photos of handwritten or scanned recipes. The AI reads them for you (Savour Pro, up to 500 per month). The original note is kept with the recipe.',
+    'Lade Fotos von handgeschriebenen oder gescannten Rezepten hoch. Die KI liest sie für dich aus (Savour Pro, bis zu 500 pro Monat). Der ursprüngliche Zettel bleibt beim Rezept gespeichert.',
+    'Sube fotos de recetas escritas a mano o escaneadas. La IA las lee por ti (Savour Pro, hasta 500 al mes). La nota original se guarda con la receta.'
+  ],
+  [
+    'Dit .json-bestand is geen Savour-importbestand.',
+    'This .json file is not a Savour import file.',
+    'Diese .json-Datei ist keine Savour-Importdatei.',
+    'Este archivo .json no es un archivo de importación de Savour.'
+  ],
+  [
+    'Dit .json-bestand bevat geen recepten voor Savour.',
+    'This .json file contains no recipes for Savour.',
+    'Diese .json-Datei enthält keine Rezepte für Savour.',
+    'Este archivo .json no contiene recetas para Savour.'
+  ],
+  [
+    'Dit .doc-bestand kon niet worden gelezen. Sla het in Word op als .docx en probeer opnieuw.',
+    'This .doc file could not be read. Save it in Word as .docx and try again.',
+    'Diese .doc-Datei konnte nicht gelesen werden. Speichere sie in Word als .docx und versuche es erneut.',
+    'No se pudo leer este archivo .doc. Guárdalo en Word como .docx e inténtalo de nuevo.'
+  ],
+  [
+    'Recept kon niet worden verwijderd; probeer het opnieuw',
+    'Recipe could not be deleted; please try again',
+    'Rezept konnte nicht gelöscht werden; bitte versuche es erneut',
+    'No se pudo eliminar la receta; inténtalo de nuevo'
+  ],
+  [
+    'Bij elk recept van een collega in het keukenteam zie je “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie in je bibliotheek die je zelf kunt aanpassen; het origineel blijft van de maker.',
+    'On every colleague’s recipe in the kitchen team you see “Add to my recipes”. You get your own copy in your library that you can change; the original stays with its creator.',
+    'Bei jedem Rezept eines Kollegen im Küchenteam siehst du „Zu meinen Rezepten hinzufügen“. Du bekommst eine eigene Kopie in deiner Bibliothek, die du anpassen kannst; das Original bleibt beim Ersteller.',
+    'En cada receta de un compañero en el equipo de cocina verás «Añadir a mis recetas». Obtienes tu propia copia en tu biblioteca que puedes modificar; el original sigue siendo de su autor.'
+  ],
+  [
+    'Recept uit dit keukenteam halen?',
+    'Remove this recipe from the kitchen team?',
+    'Rezept aus diesem Küchenteam entfernen?',
+    '¿Quitar esta receta del equipo de cocina?'
+  ],
+  [
+    'Het blijft gewoon in de eigen recepten van de maker.',
+    'It simply stays in the creator’s own recipes.',
+    'Es bleibt einfach in den eigenen Rezepten des Erstellers.',
+    'Sigue estando en las recetas propias de su autor.'
+  ],
+  [
+    'Recept uit keukenteam gehaald; de maker houdt het in de eigen recepten',
+    'Recipe removed from the kitchen team; the creator keeps it in their own recipes',
+    'Rezept aus dem Küchenteam entfernt; der Ersteller behält es in seinen eigenen Rezepten',
+    'Receta quitada del equipo de cocina; su autor la conserva en sus recetas'
+  ],
+  [
+    'Recept uit deze map gehaald',
+    'Recipe removed from this folder',
+    'Rezept aus diesem Ordner entfernt',
+    'Receta quitada de esta carpeta'
+  ],
+  ['Uit deze map halen', 'Remove from this folder', 'Aus diesem Ordner entfernen', 'Quitar de esta carpeta'],
+  ['Uitleg', 'Explanation', 'Erklärung', 'Explicación'],
+  [
+    'Zo werkt je receptenbibliotheek',
+    'How your recipe library works',
+    'So funktioniert deine Rezeptbibliothek',
+    'Así funciona tu biblioteca de recetas'
+  ],
+  ['Je hele receptenboek', 'Your whole recipe book', 'Dein ganzes Rezeptbuch', 'Todo tu recetario'],
+  [
+    'Al je eigen recepten op één plek, genummerd en op alfabet. Met de letters A–Z spring je naar een beginletter; met de categorieën bovenaan zie je alleen één soort recept.',
+    'All your own recipes in one place, numbered and in alphabetical order. Use the letters A–Z to jump to a first letter; use the categories at the top to see one kind of recipe.',
+    'Alle eigenen Rezepte an einem Ort, nummeriert und alphabetisch. Mit den Buchstaben A–Z springst du zu einem Anfangsbuchstaben; mit den Kategorien oben siehst du nur eine Art von Rezept.',
+    'Todas tus recetas en un solo lugar, numeradas y por orden alfabético. Con las letras A–Z saltas a una inicial; con las categorías de arriba ves solo un tipo de receta.'
+  ],
+  [
+    'Zoek bovenin op receptnaam, ingrediënt, component of techniek. Je vindt zo ook het recept waar die ene saus in zit.',
+    'Search at the top by recipe name, ingredient, component or technique. That way you also find the recipe that contains that one sauce.',
+    'Suche oben nach Rezeptname, Zutat, Komponente oder Technik. So findest du auch das Rezept, in dem diese eine Sauce steckt.',
+    'Busca arriba por nombre, ingrediente, componente o técnica. Así encuentras también la receta que lleva esa salsa.'
+  ],
+  ['Een recept openen', 'Opening a recipe', 'Ein Rezept öffnen', 'Abrir una receta'],
+  [
+    'In een recept start je de kookmodus, reken je de opbrengst om, print of deel je het, en bewerk je het. Via ⋯ zet je het in een map of verwijder je het.',
+    'In a recipe you start cook mode, scale the yield, print or share it, and edit it. Via ⋯ you put it in a folder or delete it.',
+    'In einem Rezept startest du den Kochmodus, rechnest die Ausbeute um, druckst oder teilst es und bearbeitest es. Über ⋯ legst du es in einen Ordner oder löschst es.',
+    'En una receta inicias el modo cocina, escalas el rendimiento, la imprimes o compartes y la editas. Con ⋯ la pones en una carpeta o la eliminas.'
+  ],
+  [
+    'Met het sterretje maak je een recept favoriet. Je favorieten staan apart onder Favorieten in het menu.',
+    'Use the star to make a recipe a favourite. Your favourites are listed separately under Favourites in the menu.',
+    'Mit dem Stern machst du ein Rezept zum Favoriten. Deine Favoriten stehen separat unter Favoriten im Menü.',
+    'Con la estrella marcas una receta como favorita. Tus favoritas aparecen aparte en Favoritos en el menú.'
+  ],
+  ['Opruimen', 'Tidying up', 'Aufräumen', 'Ordenar'],
+  [
+    'Met “Verwijder recepten” verwijder je meerdere recepten tegelijk. Dubbele recepten en nummers voor receptnamen vind je onder Instellingen → Opschonen.',
+    'With “Delete recipes” you delete several recipes at once. Duplicate recipes and numbers in front of recipe names are found under Settings → Clean up.',
+    'Mit „Rezepte löschen“ löschst du mehrere Rezepte auf einmal. Doppelte Rezepte und Nummern vor Rezeptnamen findest du unter Einstellungen → Aufräumen.',
+    'Con «Eliminar recetas» eliminas varias recetas a la vez. Las recetas duplicadas y los números delante de los nombres están en Ajustes → Limpiar.'
+  ],
+  ['Hoeveel recepten', 'How many recipes', 'Wie viele Rezepte', 'Cuántas recetas'],
+  [
+    'Een gratis account bewaart tot 100 recepten. Met Savour Pro bewaar je onbeperkt recepten.',
+    'A free account stores up to 100 recipes. With Savour Pro you store unlimited recipes.',
+    'Ein kostenloses Konto speichert bis zu 100 Rezepte. Mit Savour Pro speicherst du unbegrenzt Rezepte.',
+    'Una cuenta gratuita guarda hasta 100 recetas. Con Savour Pro guardas recetas ilimitadas.'
+  ],
+  ['Zo werken categorieën', 'How categories work', 'So funktionieren Kategorien', 'Así funcionan las categorías'],
+  ['Waarvoor', 'What for', 'Wofür', 'Para qué'],
+  [
+    'Een categorie zegt wat voor recept het is, bijvoorbeeld sauzen, ijs of garnituren. Bovenaan bij Alle recepten filter je er direct op.',
+    'A category says what kind of recipe it is, for example sauces, ice cream or garnishes. At the top of All recipes you filter on it directly.',
+    'Eine Kategorie sagt, was für ein Rezept es ist, zum Beispiel Saucen, Eis oder Garnituren. Oben bei Alle Rezepte filterst du direkt danach.',
+    'Una categoría indica qué tipo de receta es, por ejemplo salsas, helados o guarniciones. Arriba en Todas las recetas filtras directamente por ella.'
+  ],
+  ['Zelf beheren', 'Managing them yourself', 'Selbst verwalten', 'Gestionarlas tú'],
+  [
+    'Voeg categorieën toe, wijzig de naam of verwijder ze. De lijst is persoonlijk en wordt ook gebruikt bij het invoeren en importeren van recepten.',
+    'Add categories, rename or delete them. The list is personal and is also used when entering and importing recipes.',
+    'Füge Kategorien hinzu, benenne sie um oder lösche sie. Die Liste ist persönlich und wird auch beim Eingeben und Importieren von Rezepten verwendet.',
+    'Añade categorías, cámbiales el nombre o elimínalas. La lista es personal y se usa también al introducir e importar recetas.'
+  ],
+  [
+    'Met “Standaardlijst” zet je in één keer een lijst neer die past bij de professionele keuken. Je eigen categorieën blijven staan.',
+    'With “Standard list” you add a list suited to the professional kitchen in one go. Your own categories stay.',
+    'Mit „Standardliste“ legst du auf einmal eine Liste an, die zur Profiküche passt. Deine eigenen Kategorien bleiben erhalten.',
+    'Con «Lista estándar» añades de una vez una lista pensada para la cocina profesional. Tus propias categorías se mantienen.'
+  ],
+  [
+    'Geef per categorie trefwoorden op, bijvoorbeeld sorbet voor IJs. Komt zo’n woord in de receptnaam voor, dan stelt Savour die categorie voor.',
+    'Give each category keywords, for example sorbet for Ice cream. If such a word appears in the recipe name, Savour suggests that category.',
+    'Gib pro Kategorie Stichwörter an, zum Beispiel Sorbet für Eis. Kommt so ein Wort im Rezeptnamen vor, schlägt Savour diese Kategorie vor.',
+    'Indica palabras clave por categoría, por ejemplo sorbete para Helados. Si esa palabra aparece en el nombre de la receta, Savour propone esa categoría.'
+  ],
+  [
+    'Met “Categorieën voorstellen” zoekt Savour voor al je recepten een passende categorie op basis van de trefwoorden. Je bevestigt altijd zelf wat er verandert.',
+    'With “Suggest categories” Savour finds a fitting category for all your recipes based on the keywords. You always confirm what changes yourself.',
+    'Mit „Kategorien vorschlagen“ sucht Savour für alle deine Rezepte eine passende Kategorie anhand der Stichwörter. Was sich ändert, bestätigst du immer selbst.',
+    'Con «Proponer categorías» Savour busca una categoría adecuada para todas tus recetas según las palabras clave. Siempre confirmas tú lo que cambia.'
+  ],
+  ['Zo voeg je recepten toe', 'How to add recipes', 'So fügst du Rezepte hinzu', 'Así añades recetas'],
+  ['Word, PDF of tekst', 'Word, PDF or text', 'Word, PDF oder Text', 'Word, PDF o texto'],
+  [
+    'Importeer een heel bestand in één keer, ook met honderden recepten. De Savour-lezer splitst ze zelf op en herkent titel, opbrengst, ingrediënten en bereiding.',
+    'Import a whole file at once, even with hundreds of recipes. The Savour reader splits them up itself and recognises title, yield, ingredients and method.',
+    'Importiere eine ganze Datei auf einmal, auch mit Hunderten von Rezepten. Der Savour-Leser teilt sie selbst auf und erkennt Titel, Ausbeute, Zutaten und Zubereitung.',
+    'Importa un archivo entero de una vez, incluso con cientos de recetas. El lector de Savour las separa y reconoce título, rendimiento, ingredientes y elaboración.'
+  ],
+  [
+    'Maak een foto van een handgeschreven of gescand recept. De AI leest het voor je uit (Savour Pro, tot 500 per maand). Het originele kladje blijft bewaard bij het recept.',
+    'Take a photo of a handwritten or scanned recipe. The AI reads it for you (Savour Pro, up to 500 per month). The original note is kept with the recipe.',
+    'Fotografiere ein handgeschriebenes oder gescanntes Rezept. Die KI liest es für dich aus (Savour Pro, bis zu 500 pro Monat). Die Originalnotiz bleibt beim Rezept gespeichert.',
+    'Haz una foto de una receta escrita a mano o escaneada. La IA la lee por ti (Savour Pro, hasta 500 al mes). La nota original se guarda con la receta.'
+  ],
+  [
+    'Typ een recept in de recepteditor: titel, categorie, opbrengst, ingrediënten en stappen.',
+    'Type a recipe in the recipe editor: title, category, yield, ingredients and steps.',
+    'Tippe ein Rezept im Rezepteditor: Titel, Kategorie, Ausbeute, Zutaten und Schritte.',
+    'Escribe una receta en el editor: título, categoría, rendimiento, ingredientes y pasos.'
+  ],
+  ['Eerst controleren', 'Check first', 'Erst prüfen', 'Revisar primero'],
+  [
+    'Je ziet altijd wat er is herkend voordat je opslaat. Savour verzint nooit hoeveelheden, ingrediënten of stappen; twijfelt het, dan zie je dat.',
+    'You always see what was recognised before you save. Savour never invents quantities, ingredients or steps; when in doubt, you see it.',
+    'Du siehst immer, was erkannt wurde, bevor du speicherst. Savour erfindet nie Mengen, Zutaten oder Schritte; bei Zweifeln siehst du das.',
+    'Siempre ves lo que se ha reconocido antes de guardar. Savour nunca inventa cantidades, ingredientes ni pasos; si duda, lo verás.'
+  ],
+  [
+    'Zo werken je recepten mappen',
+    'How your recipe folders work',
+    'So funktionieren deine Rezeptordner',
+    'Así funcionan tus carpetas de recetas'
+  ],
+  ['Je eigen mappen', 'Your own folders', 'Deine eigenen Ordner', 'Tus propias carpetas'],
+  [
+    'Orden je recepten zoals jij werkt: per partie, menu of seizoen. Een recept kan in meerdere mappen staan.',
+    'Organise your recipes the way you work: by section, menu or season. A recipe can be in several folders.',
+    'Ordne deine Rezepte so, wie du arbeitest: nach Posten, Menü oder Saison. Ein Rezept kann in mehreren Ordnern stehen.',
+    'Ordena tus recetas como trabajas: por partida, menú o temporada. Una receta puede estar en varias carpetas.'
+  ],
+  ['Recepten in een map', 'Recipes in a folder', 'Rezepte in einem Ordner', 'Recetas en una carpeta'],
+  [
+    'Open een map en kies welke recepten erin horen, of zet een recept vanuit het recept zelf in een map via ⋯.',
+    'Open a folder and choose which recipes belong in it, or put a recipe in a folder from the recipe itself via ⋯.',
+    'Öffne einen Ordner und wähle, welche Rezepte hineingehören, oder lege ein Rezept direkt aus dem Rezept über ⋯ in einen Ordner.',
+    'Abre una carpeta y elige qué recetas van en ella, o pon una receta en una carpeta desde la propia receta con ⋯.'
+  ],
+  ['Menu en volgorde', 'Menu and order', 'Menü und Reihenfolge', 'Menú y orden'],
+  [
+    'Kies welke mappen in het menu verschijnen en sleep ze in de volgorde die voor jou logisch is.',
+    'Choose which folders appear in the menu and drag them into the order that makes sense to you.',
+    'Wähle, welche Ordner im Menü erscheinen, und ziehe sie in die Reihenfolge, die für dich logisch ist.',
+    'Elige qué carpetas aparecen en el menú y arrástralas al orden que te parezca lógico.'
+  ],
+  [
+    'Print een hele map in één keer: met voorblad, inhoudsopgave en het nummer van elk recept onderaan de pagina. Met Savour Pro staat het logo van je restaurant erop.',
+    'Print a whole folder at once: with a cover, table of contents and the number of each recipe at the bottom of the page. With Savour Pro your restaurant’s logo is on it.',
+    'Drucke einen ganzen Ordner auf einmal: mit Deckblatt, Inhaltsverzeichnis und der Nummer jedes Rezepts unten auf der Seite. Mit Savour Pro steht das Logo deines Restaurants darauf.',
+    'Imprime una carpeta entera de una vez: con portada, índice y el número de cada receta al pie de la página. Con Savour Pro aparece el logo de tu restaurante.'
+  ],
+  ['Samenwerken', 'Working together', 'Zusammenarbeiten', 'Trabajar juntos'],
+  [
+    'Je eigen mappen zie alleen jij. Wil je recepten delen met je keukenteam, gebruik dan een keukenteam.',
+    'Only you see your own folders. To share recipes with your kitchen team, use a kitchen team.',
+    'Deine eigenen Ordner siehst nur du. Willst du Rezepte mit deinem Küchenteam teilen, nutze ein Küchenteam.',
+    'Tus propias carpetas solo las ves tú. Para compartir recetas con tu equipo, usa un equipo de cocina.'
+  ],
+  [
+    'Zo werken je instellingen',
+    'How your settings work',
+    'So funktionieren deine Einstellungen',
+    'Así funcionan tus ajustes'
+  ],
+  [
+    'Pas je naam en profielfoto aan, verander je wachtwoord of log uit.',
+    'Change your name and profile photo, change your password or log out.',
+    'Ändere deinen Namen und dein Profilbild, ändere dein Passwort oder melde dich ab.',
+    'Cambia tu nombre y foto de perfil, cambia tu contraseña o cierra sesión.'
+  ],
+  ['Printen en downloaden', 'Printing and downloading', 'Drucken und herunterladen', 'Imprimir y descargar'],
+  [
+    'Print al je recepten in één keer in de printopmaak van Savour. Met Savour Pro download je ze ook naar Word of als back-up.',
+    'Print all your recipes at once in the Savour print layout. With Savour Pro you also download them to Word or as a backup.',
+    'Drucke alle deine Rezepte auf einmal im Druckformat von Savour. Mit Savour Pro lädst du sie auch als Word oder Backup herunter.',
+    'Imprime todas tus recetas de una vez con el formato de Savour. Con Savour Pro también las descargas en Word o como copia de seguridad.'
+  ],
+  [
+    'Bekijk of beheer je Savour Pro of teamabonnement, nodig je team uit en stel het logo voor je prints in.',
+    'View or manage your Savour Pro or team subscription, invite your team and set the logo for your prints.',
+    'Sieh oder verwalte dein Savour Pro oder Team-Abo, lade dein Team ein und lege das Logo für deine Ausdrucke fest.',
+    'Consulta o gestiona tu Savour Pro o suscripción de organización, invita a tu equipo y configura el logo de tus impresiones.'
+  ],
+  [
+    'Kies het donkere of lichte thema; je keuze wordt bewaard in je account.',
+    'Choose the dark or light theme; your choice is saved in your account.',
+    'Wähle das dunkle oder helle Design; deine Wahl wird in deinem Konto gespeichert.',
+    'Elige el tema oscuro o claro; tu elección se guarda en tu cuenta.'
+  ],
+  [
+    'Beheer je eigen categorieën en hun trefwoorden.',
+    'Manage your own categories and their keywords.',
+    'Verwalte deine eigenen Kategorien und ihre Stichwörter.',
+    'Gestiona tus propias categorías y sus palabras clave.'
+  ],
+  [
+    'Savour zoekt nummers voor receptnamen en dubbele recepten. Je ziet altijd eerst wat er verandert.',
+    'Savour looks for numbers in front of recipe names and duplicate recipes. You always see what changes first.',
+    'Savour sucht Nummern vor Rezeptnamen und doppelte Rezepte. Du siehst immer zuerst, was sich ändert.',
+    'Savour busca números delante de los nombres y recetas duplicadas. Siempre ves primero lo que cambia.'
+  ],
+  [
+    'Collega uitnodigen en app',
+    'Inviting a colleague and the app',
+    'Kollegen einladen und App',
+    'Invitar a un colega y la app'
+  ],
+  [
+    'Zo werkt een keukenteam',
+    'How a kitchen team works',
+    'So funktioniert ein Küchenteam',
+    'Así funciona un equipo de cocina'
+  ],
+  ['Lees het hele artikel', 'Read the full article', 'Den ganzen Artikel lesen', 'Leer el artículo completo'],
+  [
+    'Eén receptenboek voor je team',
+    'One recipe book for your team',
+    'Ein Rezeptbuch für dein Team',
+    'Un recetario para tu equipo'
+  ],
+  [
+    'Een keukenteam is het receptenboek van je keuken. Iedereen die lid is, ziet dezelfde recepten op zijn eigen telefoon, tablet of computer. Past de maker een recept aan, dan ziet iedereen meteen de nieuwe versie.',
+    'A kitchen team is your kitchen’s recipe book. Every member sees the same recipes on their own phone, tablet or computer. When the creator changes a recipe, everyone sees the new version straight away.',
+    'Ein Küchenteam ist das Rezeptbuch deiner Küche. Jedes Mitglied sieht dieselben Rezepte auf dem eigenen Handy, Tablet oder Computer. Ändert der Ersteller ein Rezept, sieht jeder sofort die neue Version.',
+    'Un equipo de cocina es el recetario de tu cocina. Cada miembro ve las mismas recetas en su propio móvil, tableta u ordenador. Si el autor cambia una receta, todos ven enseguida la nueva versión.'
+  ],
+  ['Rollen', 'Roles', 'Rollen', 'Roles'],
+  [
+    'Eigenaar: beheert de map, de leden en hun rol. Editor: voegt recepten en mappen toe, haalt ze uit de map en beheert de mappen. Viewer: bekijkt, print en rekent om. Een recept bewerken kan altijd alleen de maker van dat recept.',
+    'Owner: manages the folder, the members and their roles. Editor: adds recipes and folders, removes them and manages the folders. Viewer: views, prints and scales. Only the creator of a recipe can ever edit it.',
+    'Eigentümer: verwaltet den Ordner, die Mitglieder und ihre Rollen. Editor: fügt Rezepte und Ordner hinzu, entfernt sie und verwaltet die Ordner. Betrachter: ansehen, drucken und umrechnen. Bearbeiten kann ein Rezept immer nur sein Ersteller.',
+    'Propietario: gestiona la carpeta, los miembros y sus roles. Editor: añade recetas y carpetas, las quita y gestiona las carpetas. Lector: ver, imprimir y escalar. Solo el autor de una receta puede editarla.'
+  ],
+  ['Recepten toevoegen', 'Adding recipes', 'Rezepte hinzufügen', 'Añadir recetas'],
+  [
+    'Kies “Recept toevoegen” en vink recepten uit je eigen bibliotheek aan. Het recept blijft van jou: het staat in het keukenteam en in je eigen recepten.',
+    'Choose “Add recipe” and tick recipes from your own library. The recipe stays yours: it is in the kitchen team and in your own recipes.',
+    'Wähle „Rezept hinzufügen“ und markiere Rezepte aus deiner eigenen Bibliothek. Das Rezept bleibt deins: Es ist im Küchenteam und in deinen eigenen Rezepten.',
+    'Elige «Añadir receta» y marca recetas de tu propia biblioteca. La receta sigue siendo tuya: está en el equipo de cocina y en tus propias recetas.'
+  ],
+  ['Mappen (receptenklappers)', 'Folders (recipe binders)', 'Ordner (Rezeptordner)', 'Carpetas (archivadores)'],
+  [
+    'Deel het keukenteam op in mappen, bijvoorbeeld per partie of per menu. Met “Mappen beheren” wijzig je de naam, zet je de mappen in jouw volgorde en archiveer je mappen die je niet meer gebruikt. Recepten in een gearchiveerde map blijven bewaard en staan onderaan onder “Archief”.',
+    'Split the kitchen team into folders, for example per section or per menu. With “Manage folders” you rename them, put them in your order and archive folders you no longer use. Recipes in an archived folder are kept and appear at the bottom under “Archive”.',
+    'Teile das Küchenteam in Ordner auf, zum Beispiel pro Posten oder pro Menü. Mit „Ordner verwalten“ benennst du sie um, bringst sie in deine Reihenfolge und archivierst Ordner, die du nicht mehr brauchst. Rezepte in einem archivierten Ordner bleiben erhalten und stehen unten unter „Archiv“.',
+    'Divide el equipo de cocina en carpetas, por ejemplo por partida o por menú. Con «Gestionar carpetas» cambias el nombre, las ordenas a tu manera y archivas las que ya no usas. Las recetas de una carpeta archivada se conservan y aparecen abajo en «Archivo».'
+  ],
+  [
+    'Nodig collega’s uit via WhatsApp, Telegram, e-mail of de uitnodigingslink. Na het inloggen worden ze lid als viewer; de eigenaar kan daarna hun rol aanpassen. Lid zijn van een keukenteam is gratis.',
+    'Invite colleagues via WhatsApp, Telegram, email or the invitation link. After logging in they join as a viewer; the owner can then change their role. Being a member of a kitchen team is free.',
+    'Lade Kollegen per WhatsApp, Telegram, E-Mail oder Einladungslink ein. Nach der Anmeldung sind sie Betrachter; der Eigentümer kann ihre Rolle danach ändern. Mitglied eines Küchenteams zu sein ist kostenlos.',
+    'Invita a tus compañeros por WhatsApp, Telegram, correo o el enlace de invitación. Al iniciar sesión se unen como lector; el propietario puede cambiar después su rol. Ser miembro de un equipo de cocina es gratis.'
+  ],
+  [
+    'Print de hele keukenteam, één map of een eigen selectie in één keer: met een inhoudsopgave, het nummer van elk recept onderaan de pagina en, met Savour Pro, het logo van je restaurant.',
+    'Print the whole kitchen team, one folder or your own selection at once: with a table of contents, the number of each recipe at the bottom of the page and, with Savour Pro, your restaurant’s logo.',
+    'Drucke den ganzen Küchenteam, einen Ordner oder eine eigene Auswahl auf einmal: mit Inhaltsverzeichnis, der Nummer jedes Rezepts unten auf der Seite und mit Savour Pro dem Logo deines Restaurants.',
+    'Imprime toda el equipo de cocina, una carpeta o tu propia selección de una vez: con índice, el número de cada receta al pie de la página y, con Savour Pro, el logo de tu restaurante.'
+  ],
+  ['Omrekenen en kookmodus', 'Scaling and cook mode', 'Umrechnen und Kochmodus', 'Escalar y modo cocina'],
+  [
+    'Reken elk recept om naar een andere opbrengst. De kookmodus toont alleen het recept in grote letters en houdt je scherm aan; vink ingrediënten en stappen af terwijl je werkt.',
+    'Scale any recipe to another yield. Cook mode shows only the recipe in large type and keeps your screen on; tick off ingredients and steps as you work.',
+    'Rechne jedes Rezept auf eine andere Ausbeute um. Der Kochmodus zeigt nur das Rezept in großer Schrift und hält den Bildschirm an; hake Zutaten und Schritte beim Arbeiten ab.',
+    'Escala cualquier receta a otro rendimiento. El modo cocina muestra solo la receta en letra grande y mantiene la pantalla encendida; marca ingredientes y pasos mientras trabajas.'
+  ],
+  ['Recept overnemen', 'Copying a recipe', 'Rezept übernehmen', 'Copiar una receta'],
+  [
+    'Heeft de maker het toegestaan, dan zie je bij een recept “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie die je zelf kunt aanpassen.',
+    'If the creator allows it, you see “Add to my recipes” on a recipe. You get your own copy that you can change.',
+    'Wenn der Ersteller es erlaubt, siehst du bei einem Rezept „Zu meinen Rezepten hinzufügen“. Du bekommst eine eigene Kopie, die du anpassen kannst.',
+    'Si el autor lo permite, verás «Añadir a mis recetas» en una receta. Obtienes tu propia copia, que puedes modificar.'
+  ],
+  ['Zonder internet', 'Without internet', 'Ohne Internet', 'Sin internet'],
+  [
+    'Recepten die je hebt geopend, blijven op je apparaat beschikbaar, ook in een keuken zonder wifi.',
+    'Recipes you have opened stay available on your device, even in a kitchen without wifi.',
+    'Rezepte, die du geöffnet hast, bleiben auf deinem Gerät verfügbar, auch in einer Küche ohne WLAN.',
+    'Las recetas que has abierto siguen disponibles en tu dispositivo, incluso en una cocina sin wifi.'
+  ],
+  [
+    'Map verlaten of verwijderen',
+    'Leaving or deleting a folder',
+    'Ordner verlassen oder löschen',
+    'Salir o eliminar una carpeta'
+  ],
+  [
+    'Een lid kan een keukenteam altijd verlaten. Alleen de eigenaar kan de map verwijderen; de recepten zelf blijven dan in de bibliotheek van hun maker.',
+    'A member can always leave a kitchen team. Only the owner can delete it; the recipes themselves stay in their creator’s library.',
+    'Ein Mitglied kann ein Küchenteam jederzeit verlassen. Nur der Eigentümer kann ihn löschen; die Rezepte selbst bleiben in der Bibliothek ihres Erstellers.',
+    'Un miembro siempre puede salir de un equipo de cocina. Solo el propietario puede eliminarla; las recetas siguen en la biblioteca de su autor.'
+  ],
+  ['Mappen beheren', 'Manage folders', 'Ordner verwalten', 'Gestionar carpetas'],
+  [
+    'Pas de naam aan, zet de mappen in jouw volgorde of archiveer mappen die je niet meer gebruikt. Recepten in een gearchiveerde map blijven bewaard.',
+    'Rename folders, put them in your own order or archive folders you no longer use. Recipes in an archived folder are kept.',
+    'Benenne Ordner um, bringe sie in deine Reihenfolge oder archiviere Ordner, die du nicht mehr brauchst. Rezepte in einem archivierten Ordner bleiben erhalten.',
+    'Cambia el nombre, ordena las carpetas a tu manera o archiva las que ya no usas. Las recetas de una carpeta archivada se conservan.'
+  ],
+  ['Omhoog', 'Up', 'Nach oben', 'Subir'],
+  ['Omlaag', 'Down', 'Nach unten', 'Bajar'],
+  ['Archiveren', 'Archive', 'Archivieren', 'Archivar'],
+  ['Terugzetten', 'Restore', 'Wiederherstellen', 'Restaurar'],
+  ['Archief', 'Archive', 'Archiv', 'Archivo'],
+  ['Geen actieve mappen.', 'No active folders.', 'Keine aktiven Ordner.', 'No hay carpetas activas.'],
+  [
+    'Mappen beheren is nog niet beschikbaar',
+    'Managing folders is not available yet',
+    'Ordner verwalten ist noch nicht verfügbar',
+    'Gestionar carpetas aún no está disponible'
+  ],
+  [
+    'Alleen de eigenaar of een editor kan mappen beheren',
+    'Only the owner or an editor can manage folders',
+    'Nur der Eigentümer oder ein Editor kann Ordner verwalten',
+    'Solo el propietario o un editor puede gestionar carpetas'
+  ],
+  [
+    'De map kon niet worden bijgewerkt',
+    'The folder could not be updated',
+    'Der Ordner konnte nicht aktualisiert werden',
+    'No se pudo actualizar la carpeta'
+  ],
+  ['Naam gewijzigd', 'Name changed', 'Name geändert', 'Nombre cambiado'],
+  ['Map gearchiveerd', 'Folder archived', 'Ordner archiviert', 'Carpeta archivada'],
+  ['Map teruggezet', 'Folder restored', 'Ordner wiederhergestellt', 'Carpeta restaurada'],
+  [
+    'Nog geen mappen in dit keukenteam.',
+    'No folders in this kitchen team yet.',
+    'Noch keine Ordner in diesem Küchenteam.',
+    'Aún no hay carpetas en este equipo de cocina.'
+  ],
+  ['1 uur', '1 hour', '1 Stunde', '1 hora'],
+  [
+    'Gedeeld door een gebruiker. Alleen de maker van het recept kan het bewerken.',
+    'Shared by another user. Only the creator of the recipe can edit it.',
+    'Von einem anderen Nutzer geteilt. Nur der Ersteller des Rezepts kann es bearbeiten.',
+    'Compartida por otro usuario. Solo el autor de la receta puede editarla.'
+  ],
+  ['Hoelang?', 'For how long?', 'Wie lange?', '¿Durante cuánto tiempo?'],
+  ['24 uur', '24 hours', '24 Stunden', '24 horas'],
+  ['7 dagen', '7 days', '7 Tage', '7 días'],
+  ['30 dagen', '30 days', '30 Tage', '30 días'],
+  ['Onbeperkt', 'Unlimited', 'Unbegrenzt', 'Sin límite'],
+  [
+    'Overnemen kan onbeperkt, tot je het uitzet.',
+    'Copying is possible until you turn it off.',
+    'Übernehmen ist möglich, bis du es ausschaltest.',
+    'Se puede copiar hasta que lo desactives.'
+  ],
+  ['Overnemen kan tot', 'Copying is possible until', 'Übernehmen ist möglich bis', 'Se puede copiar hasta el'],
+  [
+    'Ontvangers mogen dit recept overnemen',
+    'Recipients may copy this recipe',
+    'Empfänger dürfen dieses Rezept übernehmen',
+    'Los destinatarios pueden copiar esta receta'
+  ],
+  [
+    'Wie is ingelogd, kan het dan toevoegen aan de eigen recepten. Jouw recept blijft van jou.',
+    'Anyone logged in can then add it to their own recipes. Your recipe stays yours.',
+    'Wer angemeldet ist, kann es dann zu den eigenen Rezepten hinzufügen. Dein Rezept bleibt deins.',
+    'Quien haya iniciado sesión puede añadirla a sus propias recetas. Tu receta sigue siendo tuya.'
+  ],
+  [
+    'Ontvangers kunnen dit recept nu overnemen',
+    'Recipients can now copy this recipe',
+    'Empfänger können dieses Rezept jetzt übernehmen',
+    'Los destinatarios ya pueden copiar esta receta'
+  ],
+  ['Overnemen staat uit', 'Copying is off', 'Übernehmen ist aus', 'Copiar está desactivado'],
+  [
+    'Instelling kon niet worden opgeslagen',
+    'Setting could not be saved',
+    'Einstellung konnte nicht gespeichert werden',
+    'No se pudo guardar el ajuste'
+  ],
+  ['Toevoegen aan mijn recepten', 'Add to my recipes', 'Zu meinen Rezepten hinzufügen', 'Añadir a mis recetas'],
+  ['Toegevoegd aan je recepten', 'Added to your recipes', 'Zu deinen Rezepten hinzugefügt', 'Añadida a tus recetas'],
+  [
+    'Het recept kon niet worden toegevoegd',
+    'The recipe could not be added',
+    'Das Rezept konnte nicht hinzugefügt werden',
+    'No se pudo añadir la receta'
+  ],
+  [
+    'Log in om recepten over te nemen',
+    'Log in to copy recipes',
+    'Melde dich an, um Rezepte zu übernehmen',
+    'Inicia sesión para copiar recetas'
+  ],
+  [
+    'Je hebt dit recept al overgenomen',
+    'You already copied this recipe',
+    'Du hast dieses Rezept schon übernommen',
+    'Ya copiaste esta receta'
+  ],
+  ['Mijn kopie openen', 'Open my copy', 'Meine Kopie öffnen', 'Abrir mi copia'],
+  ['Nog een kopie maken', 'Make another copy', 'Noch eine Kopie erstellen', 'Hacer otra copia'],
+  [
+    'Gedeeld recept. Voeg het toe aan je eigen recepten om het aan te passen.',
+    'Shared recipe. Add it to your own recipes to change it.',
+    'Geteiltes Rezept. Füge es zu deinen eigenen Rezepten hinzu, um es anzupassen.',
+    'Receta compartida. Añádela a tus propias recetas para modificarla.'
+  ],
+  [
+    'Log in of maak gratis een account; daarna staat het recept in je eigen bibliotheek.',
+    'Log in or create a free account; the recipe then goes into your own library.',
+    'Melde dich an oder erstelle kostenlos ein Konto; danach ist das Rezept in deiner eigenen Bibliothek.',
+    'Inicia sesión o crea una cuenta gratis; después la receta estará en tu propia biblioteca.'
+  ],
+  [
+    'Alle recepten downloaden naar Word of als back-up',
+    'Download all recipes to Word or as a backup',
+    'Alle Rezepte als Word oder Backup herunterladen',
+    'Descargar todas las recetas en Word o como copia de seguridad'
+  ],
+  [
+    'Gedeeld recept. Je kunt het bekijken, omrekenen en printen; alleen de maker kan het aanpassen.',
+    'Shared recipe. You can view, scale and print it; only the creator can change it.',
+    'Geteiltes Rezept. Du kannst es ansehen, umrechnen und drucken; nur der Ersteller kann es ändern.',
+    'Receta compartida. Puedes verla, escalarla e imprimirla; solo su autor puede modificarla.'
+  ],
+  [
+    'Dit gedeelde recept bestaat niet meer',
+    'This shared recipe no longer exists',
+    'Dieses geteilte Rezept existiert nicht mehr',
+    'Esta receta compartida ya no existe'
+  ],
+  [
+    'Dit gedeelde recept kon niet worden geladen',
+    'This shared recipe could not be loaded',
+    'Dieses geteilte Rezept konnte nicht geladen werden',
+    'No se pudo cargar esta receta compartida'
+  ],
+  ['Gedeeld recept', 'Shared recipe', 'Geteiltes Rezept', 'Receta compartida'],
+  [
+    'Ook je eigen recepten zo overzichtelijk?',
+    'Want your own recipes this clear?',
+    'Deine eigenen Rezepte auch so übersichtlich?',
+    '¿Quieres tus propias recetas así de claras?'
+  ],
+  [
+    "Savour zet je Word-bestanden, PDF's en kladjes om in één receptenboek, op computer en telefoon, voor je hele keuken.",
+    'Savour turns your Word files, PDFs and handwritten notes into one recipe book, on computer and phone, for your whole kitchen.',
+    'Savour macht aus deinen Word-Dateien, PDFs und Notizzetteln ein Rezeptbuch, auf Computer und Handy, für deine ganze Küche.',
+    'Savour convierte tus archivos de Word, PDF y notas en un solo recetario, en ordenador y móvil, para toda tu cocina.'
+  ],
+  ['Meer over Savour', 'More about Savour', 'Mehr über Savour', 'Más sobre Savour'],
+  ['Naar Savour', 'Go to Savour', 'Zu Savour', 'Ir a Savour'],
+  ['Uitnodiging voor', 'Invitation to', 'Einladung zu', 'Invitación a'],
+  [
+    'Maak een Savour-account of log in om verder te gaan. Na het inloggen word je lid als viewer: je kunt de recepten bekijken, printen en omrekenen. De eigenaar kan je daarna meer rechten geven.',
+    'Create a Savour account or log in to continue. After logging in you join as a viewer: you can view, print and scale the recipes. The owner can give you more rights afterwards.',
+    'Erstelle ein Savour-Konto oder melde dich an, um fortzufahren. Nach der Anmeldung bist du Mitglied als Betrachter: Du kannst die Rezepte ansehen, drucken und umrechnen. Der Eigentümer kann dir danach mehr Rechte geben.',
+    'Crea una cuenta de Savour o inicia sesión para continuar. Al iniciar sesión te unes como lector: puedes ver, imprimir y escalar las recetas. El propietario puede darte más permisos después.'
+  ],
+  [
+    'Ik bewaar mijn recepten in Savour, handig in de keuken. Probeer het via deze link, je krijgt 7 dagen Savour Pro gratis:',
+    'I keep my recipes in Savour, handy in the kitchen. Try it with this link, you get 7 days of Savour Pro for free:',
+    'Ich speichere meine Rezepte in Savour, praktisch in der Küche. Probier es über diesen Link, du bekommst 7 Tage Savour Pro gratis:',
+    'Guardo mis recetas en Savour, muy práctico en la cocina. Pruébalo con este enlace, tienes 7 días de Savour Pro gratis:'
+  ],
+  [
+    'Je bent uitgenodigd door een collega. Maak een account aan en probeer Savour Pro 7 dagen gratis.',
+    'A colleague invited you. Create an account and try Savour Pro free for 7 days.',
+    'Ein Kollege hat dich eingeladen. Erstelle ein Konto und teste Savour Pro 7 Tage gratis.',
+    'Te ha invitado un colega. Crea una cuenta y prueba Savour Pro gratis durante 7 días.'
+  ],
+  ['Collega uitnodigen', 'Invite a colleague', 'Kollegen einladen', 'Invitar a un colega'],
+  ['Nodig een collega uit', 'Invite a colleague', 'Lade einen Kollegen ein', 'Invita a un colega'],
+  ['Collega’s uitgenodigd:', 'Colleagues invited:', 'Eingeladene Kollegen:', 'Colegas invitados:'],
+  ['Delen via WhatsApp', 'Share via WhatsApp', 'Über WhatsApp teilen', 'Compartir por WhatsApp'],
+  ['Delen via…', 'Share via…', 'Teilen über…', 'Compartir por…'],
+  [
+    'Mail, berichten of een andere app',
+    'Email, messages or another app',
+    'Mail, Nachrichten oder eine andere App',
+    'Correo, mensajes u otra app'
+  ],
+  [
+    'Link gekopieerd, plak hem in een bericht aan je collega',
+    'Link copied, paste it into a message to your colleague',
+    'Link kopiert, füge ihn in eine Nachricht an deinen Kollegen ein',
+    'Enlace copiado, pégalo en un mensaje a tu colega'
+  ],
+  ['Kopieer deze link', 'Copy this link', 'Kopiere diesen Link', 'Copia este enlace'],
+  ['Klaar', 'Done', 'Fertig', 'Listo'],
+  [
+    'Maak een account aan om collega’s uit te nodigen',
+    'Create an account to invite colleagues',
+    'Erstelle ein Konto, um Kollegen einzuladen',
+    'Crea una cuenta para invitar a colegas'
+  ],
+  ['Mooi', 'Great', 'Super', 'Genial'],
+  [
+    'Al je recepten printen of downloaden',
+    'Print or download all your recipes',
+    'Alle Rezepte drucken oder herunterladen',
+    'Imprimir o descargar todas tus recetas'
+  ],
+  [
+    'Print al je recepten in de printopmaak van Savour, of download ze. Je recepten blijven daarnaast gewoon in Savour staan.',
+    'Print all your recipes in the Savour print layout, or download them. Your recipes also simply stay in Savour.',
+    'Drucke alle Rezepte im Druckformat von Savour oder lade sie herunter. Deine Rezepte bleiben außerdem in Savour.',
+    'Imprime todas tus recetas con el formato de impresión de Savour o descárgalas. Tus recetas también siguen en Savour.'
+  ],
+  ['Alle recepten printen', 'Print all recipes', 'Alle Rezepte drucken', 'Imprimir todas las recetas'],
+  ['Downloaden', 'Download', 'Herunterladen', 'Descargar'],
+  ['Word per recept', 'Word per recipe', 'Word pro Rezept', 'Word por receta'],
+  [
+    'Elk recept een eigen Word-bestand in de printopmaak, samen in een .zip',
+    'Each recipe its own Word file in the print layout, together in a .zip',
+    'Jedes Rezept als eigene Word-Datei im Druckformat, zusammen in einer .zip',
+    'Cada receta en su propio archivo de Word con el formato de impresión, juntas en un .zip'
+  ],
+  [
+    'Alles in één Word-bestand',
+    'Everything in one Word file',
+    'Alles in einer Word-Datei',
+    'Todo en un archivo de Word'
+  ],
+  [
+    'Eenvoudige opmaak: titel, opbrengst, ingrediënten en bereiding',
+    'Simple layout: title, yield, ingredients and method',
+    'Einfaches Layout: Titel, Ausbeute, Zutaten und Zubereitung',
+    'Formato sencillo: título, rendimiento, ingredientes y elaboración'
+  ],
+  ['Back-up', 'Backup', 'Backup', 'Copia de seguridad'],
+  [
+    'Recepten en mappen als JSON-bestand',
+    'Recipes and folders as a JSON file',
+    'Rezepte und Ordner als JSON-Datei',
+    'Recetas y carpetas como archivo JSON'
+  ],
+  [
+    'Je hebt nog geen recepten om te printen',
+    'You have no recipes to print yet',
+    'Du hast noch keine Rezepte zum Drucken',
+    'Aún no tienes recetas para imprimir'
+  ],
+  ['Recepten downloaden', 'Download recipes', 'Rezepte herunterladen', 'Descargar recetas'],
+  [
+    'Download al je recepten in één keer: als Word-document om te lezen of te printen, of als back-up met je recepten en mappen. Je recepten blijven daarnaast gewoon in Savour staan.',
+    'Download all your recipes at once: as a Word document to read or print, or as a backup with your recipes and folders. Your recipes also simply stay in Savour.',
+    'Lade alle Rezepte auf einmal herunter: als Word-Dokument zum Lesen oder Drucken, oder als Backup mit Rezepten und Ordnern. Deine Rezepte bleiben außerdem in Savour.',
+    'Descarga todas tus recetas de una vez: como documento de Word para leer o imprimir, o como copia de seguridad con tus recetas y carpetas. Tus recetas también siguen en Savour.'
+  ],
+  ['Word-document', 'Word document', 'Word-Dokument', 'Documento de Word'],
+  ['Back-up (JSON)', 'Backup (JSON)', 'Backup (JSON)', 'Copia de seguridad (JSON)'],
+  [
+    'Recepten downloaden is onderdeel van Savour Pro',
+    'Downloading recipes is part of Savour Pro',
+    'Rezepte herunterladen ist Teil von Savour Pro',
+    'Descargar recetas forma parte de Savour Pro'
+  ],
+  [
+    'Je recepten blijven altijd in Savour staan, ook zonder Pro: je kunt ze bekijken en printen. Met Savour Pro download je ze ook in één keer.',
+    'Your recipes always stay in Savour, even without Pro: you can view and print them. With Savour Pro you can also download them all at once.',
+    'Deine Rezepte bleiben immer in Savour, auch ohne Pro: Du kannst sie ansehen und drucken. Mit Savour Pro lädst du sie auch auf einmal herunter.',
+    'Tus recetas siempre se quedan en Savour, también sin Pro: puedes verlas e imprimirlas. Con Savour Pro también las descargas todas de una vez.'
+  ],
+  [
+    'Je hebt nog geen recepten om te downloaden',
+    'You have no recipes to download yet',
+    'Du hast noch keine Rezepte zum Herunterladen',
+    'Aún no tienes recetas para descargar'
+  ],
+  ['App installeren', 'Install app', 'App installieren', 'Instalar app'],
+  ['Savour als app', 'Savour as an app', 'Savour als App', 'Savour como app'],
+  [
+    'Zet Savour op het beginscherm van je telefoon, tablet of computer. Dan opent het als een eigen app, ook zonder internet.',
+    'Put Savour on the home screen of your phone, tablet or computer. It then opens as its own app, even without internet.',
+    'Lege Savour auf den Startbildschirm deines Handys, Tablets oder Computers. Dann öffnet es sich als eigene App, auch ohne Internet.',
+    'Pon Savour en la pantalla de inicio de tu móvil, tableta u ordenador. Así se abre como una app propia, también sin internet.'
+  ],
+  [
+    'Je gebruikt Savour al als app',
+    'You are already using Savour as an app',
+    'Du nutzt Savour bereits als App',
+    'Ya estás usando Savour como app'
+  ],
+  [
+    'Savour staat nu op je beginscherm',
+    'Savour is now on your home screen',
+    'Savour ist jetzt auf deinem Startbildschirm',
+    'Savour ya está en tu pantalla de inicio'
+  ],
+  ['Begrepen', 'Got it', 'Verstanden', 'Entendido'],
+  [
+    'Savour op je beginscherm zetten',
+    'Put Savour on your home screen',
+    'Savour auf den Home-Bildschirm legen',
+    'Poner Savour en tu pantalla de inicio'
+  ],
+  [
+    '1. Tik onderaan in Safari op Delen (het vierkantje met de pijl omhoog).\n2. Kies “Zet op beginscherm”.\n3. Tik op “Voeg toe”.\n\nLog daarna één keer in met “Ingelogd blijven” aan. Dan werkt Savour ook zonder internet.',
+    '1. In Safari, tap Share at the bottom (the square with the arrow pointing up).\n2. Choose “Add to Home Screen”.\n3. Tap “Add”.\n\nThen log in once with “Stay signed in” ticked. Savour then also works without internet.',
+    '1. Tippe in Safari unten auf Teilen (das Quadrat mit dem Pfeil nach oben).\n2. Wähle „Zum Home-Bildschirm“.\n3. Tippe auf „Hinzufügen“.\n\nMelde dich danach einmal mit „Angemeldet bleiben“ an. Dann funktioniert Savour auch ohne Internet.',
+    '1. En Safari, toca Compartir abajo (el cuadrado con la flecha hacia arriba).\n2. Elige «Añadir a pantalla de inicio».\n3. Toca «Añadir».\n\nDespués inicia sesión una vez con «Mantener la sesión iniciada» marcado. Así Savour también funciona sin internet.'
+  ],
+  [
+    'Open Savour eerst in je browser',
+    'Open Savour in your browser first',
+    'Öffne Savour zuerst in deinem Browser',
+    'Abre Savour primero en tu navegador'
+  ],
+  [
+    'In deze ingebouwde browser kun je niets installeren. Tik op ••• of het menu en kies “Open in browser” (Safari of Chrome). Kies daar opnieuw “App installeren”.',
+    'You cannot install anything in this built-in browser. Tap ••• or the menu and choose “Open in browser” (Safari or Chrome). Then choose “Install app” again there.',
+    'In diesem eingebauten Browser kannst du nichts installieren. Tippe auf ••• oder das Menü und wähle „Im Browser öffnen“ (Safari oder Chrome). Wähle dort erneut „App installieren“.',
+    'En este navegador integrado no se puede instalar nada. Toca ••• o el menú y elige «Abrir en el navegador» (Safari o Chrome). Allí elige otra vez «Instalar app».'
+  ],
+  [
+    'Savour op je startscherm zetten',
+    'Put Savour on your home screen',
+    'Savour auf den Startbildschirm legen',
+    'Poner Savour en tu pantalla de inicio'
+  ],
+  [
+    'Tik rechtsboven in Chrome op ⋮ en kies “App installeren” of “Toevoegen aan startscherm”.\n\nLog daarna één keer in met “Ingelogd blijven” aan. Dan werkt Savour ook zonder internet.',
+    'In Chrome, tap ⋮ at the top right and choose “Install app” or “Add to Home screen”.\n\nThen log in once with “Stay signed in” ticked. Savour then also works without internet.',
+    'Tippe in Chrome oben rechts auf ⋮ und wähle „App installieren“ oder „Zum Startbildschirm hinzufügen“.\n\nMelde dich danach einmal mit „Angemeldet bleiben“ an. Dann funktioniert Savour auch ohne Internet.',
+    'En Chrome, toca ⋮ arriba a la derecha y elige «Instalar app» o «Añadir a pantalla de inicio».\n\nDespués inicia sesión una vez con «Mantener la sesión iniciada» marcado. Así Savour también funciona sin internet.'
+  ],
+  ['Savour als app installeren', 'Install Savour as an app', 'Savour als App installieren', 'Instalar Savour como app'],
+  [
+    'Kies in Safari bovenin Archief → “Voeg toe aan Dock”.',
+    'In Safari, choose File → “Add to Dock” at the top.',
+    'Wähle in Safari oben Ablage → „Zum Dock hinzufügen“.',
+    'En Safari, elige Archivo → «Añadir al Dock» arriba.'
+  ],
+  [
+    'Klik rechts in de adresbalk op het installatie-icoon (een schermpje met een pijl), of kies in het menu van je browser “Savour installeren”.',
+    'Click the install icon on the right of the address bar (a small screen with an arrow), or choose “Install Savour” in your browser menu.',
+    'Klicke rechts in der Adressleiste auf das Installationssymbol (ein Bildschirm mit Pfeil) oder wähle im Browsermenü „Savour installieren“.',
+    'Haz clic en el icono de instalación a la derecha de la barra de direcciones (una pantalla con una flecha) o elige «Instalar Savour» en el menú del navegador.'
+  ],
+  [
+    'Alleen zichtbaar voor beheerders: accounts, abonnementen, omzet en bezoekers.',
+    'Only visible to administrators: accounts, subscriptions, revenue and visitors.',
+    'Nur für Administratoren sichtbar: Konten, Abos, Umsatz und Besucher.',
+    'Solo visible para administradores: cuentas, suscripciones, ingresos y visitas.'
+  ],
+  ['Naar het beheerscherm', 'Go to admin', 'Zur Verwaltung', 'Ir a administración'],
+  ['Ingelogd blijven', 'Stay signed in', 'Angemeldet bleiben', 'Mantener la sesión iniciada'],
+  ['Wachtwoord onthouden', 'Remember password', 'Passwort merken', 'Recordar contraseña'],
+  ['Recepten printen', 'Print recipes', 'Rezepte drucken', 'Imprimir recetas'],
+  [
+    'Welke recepten wil je printen?',
+    'Which recipes do you want to print?',
+    'Welche Rezepte möchtest du drucken?',
+    '¿Qué recetas quieres imprimir?'
+  ],
+  ['Zoek een recept', 'Search a recipe', 'Rezept suchen', 'Buscar una receta'],
+  ['Niets', 'None', 'Keine', 'Nada'],
+  ['Verder', 'Continue', 'Weiter', 'Continuar'],
+  ['Overige recepten', 'Other recipes', 'Weitere Rezepte', 'Otras recetas'],
+  [
+    'Kies minstens één recept',
+    'Choose at least one recipe',
+    'Wähle mindestens ein Rezept',
+    'Elige al menos una receta'
+  ],
+  [
+    'Printen met het logo van je restaurant',
+    "Printing with your restaurant's logo",
+    'Drucken mit dem Logo deines Restaurants',
+    'Imprimir con el logo de tu restaurante'
+  ],
+  ['Recept printen', 'Print recipe', 'Rezept drucken', 'Imprimir receta'],
+  ["Met foto's", 'With photos', 'Mit Fotos', 'Con fotos'],
+  ['Met voorblad en inhoud', 'With cover page and contents', 'Mit Deckblatt und Inhalt', 'Con portada e índice'],
+  [
+    'A5, voor een kleine map aan de pass',
+    'A5, for a small binder at the pass',
+    'A5, für eine kleine Mappe am Pass',
+    'A5, para una carpeta pequeña en el pase'
+  ],
+  ['Papierformaat', 'Paper size', 'Papierformat', 'Tamaño del papel'],
+  ['Gemaakt met Savour', 'Made with Savour', 'Erstellt mit Savour', 'Hecho con Savour'],
+  ['Logo op prints', 'Logo on prints', 'Logo auf Ausdrucken', 'Logo en las impresiones'],
+  ['Naam op de print', 'Name on the print', 'Name auf dem Ausdruck', 'Nombre en la impresión'],
+  [
+    'Bijv. Restaurant De Zwaan',
+    'E.g. Restaurant The Swan',
+    'Z. B. Restaurant Zum Schwan',
+    'P. ej. Restaurante El Cisne'
+  ],
+  ['Logo kiezen', 'Choose logo', 'Logo wählen', 'Elegir logo'],
+  ['Ander logo kiezen', 'Choose another logo', 'Anderes Logo wählen', 'Elegir otro logo'],
+  ['Logo weghalen', 'Remove logo', 'Logo entfernen', 'Quitar logo'],
+  ['Logo weghalen?', 'Remove logo?', 'Logo entfernen?', '¿Quitar el logo?'],
+  ['Weghalen', 'Remove', 'Entfernen', 'Quitar'],
+  [
+    'Logo in zwart-wit printen (beter op een keukenprinter)',
+    'Print logo in black and white (better on a kitchen printer)',
+    'Logo schwarz-weiß drucken (besser auf einem Küchendrucker)',
+    'Imprimir el logo en blanco y negro (mejor en una impresora de cocina)'
+  ],
+  [
+    'Opgeslagen. Je volgende print heeft dit logo.',
+    'Saved. Your next print will have this logo.',
+    'Gespeichert. Dein nächster Ausdruck hat dieses Logo.',
+    'Guardado. Tu próxima impresión llevará este logo.'
+  ],
+  ['Logo weggehaald', 'Logo removed', 'Logo entfernt', 'Logo quitado'],
+  [
+    'Opslaan lukte niet. Probeer een kleiner logo.',
+    'Saving failed. Try a smaller logo.',
+    'Speichern fehlgeschlagen. Versuche ein kleineres Logo.',
+    'No se pudo guardar. Prueba con un logo más pequeño.'
+  ],
+  [
+    'Je prints krijgen dan alleen de naam van je restaurant.',
+    "Your prints will then only show your restaurant's name.",
+    'Deine Ausdrucke zeigen dann nur den Namen deines Restaurants.',
+    'Tus impresiones mostrarán solo el nombre de tu restaurante.'
+  ],
+  [
+    'Dit logo staat op de prints van iedereen in je team.',
+    'This logo appears on the prints of everyone in your team.',
+    'Dieses Logo erscheint auf den Ausdrucken aller in deinem Team.',
+    'Este logo aparece en las impresiones de todo tu equipo.'
+  ],
+  [
+    'Dit logo staat bovenaan elke pagina die je print: het logo links, de naam in het midden.',
+    'This logo appears at the top of every page you print: the logo on the left, the name in the centre.',
+    'Dieses Logo steht oben auf jeder Seite, die du druckst: das Logo links, der Name in der Mitte.',
+    'Este logo aparece arriba en cada página que imprimes: el logo a la izquierda, el nombre en el centro.'
+  ],
+  [
+    'Logo op prints is binnenkort beschikbaar.',
+    'Logo on prints is coming soon.',
+    'Logo auf Ausdrucken ist bald verfügbar.',
+    'El logo en las impresiones estará disponible pronto.'
+  ],
+  [
+    'Met Savour Pro print je recepten en mappen met het logo en de naam van je restaurant bovenaan. In de demo kun je dit niet instellen.',
+    "With Savour Pro you print recipes and folders with your restaurant's logo and name at the top. You can't set this up in the demo.",
+    'Mit Savour Pro druckst du Rezepte und Mappen mit Logo und Namen deines Restaurants oben auf der Seite. In der Demo kannst du das nicht einrichten.',
+    'Con Savour Pro imprimes recetas y carpetas con el logo y el nombre de tu restaurante arriba. En la demo no puedes configurarlo.'
+  ],
+  [
+    'Print je recepturen als eigen receptenboek, met het logo en de naam van je restaurant bovenaan elke pagina. Dit is onderdeel van Savour Pro.',
+    "Print your recipes as your own recipe book, with your restaurant's logo and name at the top of every page. This is part of Savour Pro.",
+    'Drucke deine Rezepturen als eigenes Rezeptbuch, mit Logo und Namen deines Restaurants oben auf jeder Seite. Das ist Teil von Savour Pro.',
+    'Imprime tus recetas como tu propio recetario, con el logo y el nombre de tu restaurante arriba en cada página. Forma parte de Savour Pro.'
+  ],
+  [
+    'Voorbeeld van een geprinte pagina',
+    'Preview of a printed page',
+    'Vorschau einer gedruckten Seite',
+    'Vista previa de una página impresa'
+  ],
+  ['Origineel kladje bekijken', 'View original note', 'Original-Notiz ansehen', 'Ver la nota original'],
+  ['Origineel kladje', 'Original note', 'Original-Notiz', 'Nota original'],
+  [
+    'Zo stond het recept op papier, voordat Savour het las.',
+    'This is how the recipe looked on paper, before Savour read it.',
+    'So stand das Rezept auf Papier, bevor Savour es gelesen hat.',
+    'Así estaba la receta en papel, antes de que Savour la leyera.'
+  ],
+  [
+    'Het origineel kon niet worden geladen.',
+    'The original could not be loaded.',
+    'Das Original konnte nicht geladen werden.',
+    'No se pudo cargar el original.'
+  ],
+  ['Offline', 'Offline', 'Offline', 'Sin conexión'],
+  ['Abonnement en team', 'Subscription and organisation', 'Abo und Organisation', 'Suscripción y organización'],
+  ['Opschonen', 'Clean up', 'Aufräumen', 'Limpiar'],
+  [
+    'Savour kijkt hier of er nummers voor receptnamen staan, zoals “12. Kalfsjus”, en of recepten dubbel in je bibliotheek staan. Je ziet altijd eerst wat er verandert.',
+    'Savour checks here whether recipe names start with numbers, such as “12. Veal jus”, and whether recipes appear twice in your library. You always see what will change first.',
+    'Savour prüft hier, ob Rezeptnamen mit Nummern beginnen, wie „12. Kalbsjus“, und ob Rezepte doppelt in deiner Bibliothek stehen. Du siehst immer zuerst, was sich ändert.',
+    'Savour comprueba aquí si los nombres empiezan con números, como “12. Jugo de ternera”, y si hay recetas duplicadas en tu biblioteca. Siempre ves primero lo que cambia.'
+  ],
+  [
+    '✓ Er is niets op te schonen: geen nummers voor receptnamen en geen dubbele recepten.',
+    '✓ Nothing to clean up: no numbers before recipe names and no duplicate recipes.',
+    '✓ Nichts aufzuräumen: keine Nummern vor Rezeptnamen und keine doppelten Rezepte.',
+    '✓ No hay nada que limpiar: ningún número delante de los nombres y ninguna receta duplicada.'
+  ],
+  ['Welkom bij Savour', 'Welcome to Savour', 'Willkommen bei Savour', 'Bienvenido a Savour'],
+  [
+    'Je receptenboek is nog leeg. Zo vul je het: importeer je Word-bestanden of PDF’s in één keer, maak een foto van een handgeschreven kladje, of voer een recept zelf in. Daarna orden je alles in mappen en deel je het met je keukenteam.',
+    'Your recipe book is still empty. Here is how to fill it: import your Word files or PDFs in one go, take a photo of a handwritten note, or enter a recipe yourself. Then organise everything in folders and share it with your kitchen team.',
+    'Dein Rezeptbuch ist noch leer. So füllst du es: Importiere deine Word-Dateien oder PDFs auf einmal, mach ein Foto einer handschriftlichen Notiz oder gib ein Rezept selbst ein. Danach ordnest du alles in Ordnern und teilst es mit deinem Küchenteam.',
+    'Tu recetario aún está vacío. Así lo llenas: importa tus archivos de Word o PDF de una vez, haz una foto de una nota escrita a mano o introduce una receta tú mismo. Después lo ordenas todo en carpetas y lo compartes con tu equipo de cocina.'
+  ],
+  ['Word of PDF importeren', 'Import Word or PDF', 'Word oder PDF importieren', 'Importar Word o PDF'],
+  [
+    'Ook honderden recepten tegelijk',
+    'Even hundreds of recipes at once',
+    'Auch Hunderte Rezepte auf einmal',
+    'Incluso cientos de recetas a la vez'
+  ],
+  [
+    'De AI leest het voor je uit (Savour Pro)',
+    'The AI reads it for you (Savour Pro)',
+    'Die KI liest es für dich aus (Savour Pro)',
+    'La IA lo lee por ti (Savour Pro)'
+  ],
+  ['Zelf een recept invoeren', 'Enter a recipe yourself', 'Rezept selbst eingeben', 'Introducir una receta'],
+  ['Eerst rondkijken', 'Look around first', 'Erst umsehen', 'Primero echar un vistazo'],
+  [
+    'Welkom bij Savour. Kies hieronder je wachtwoord',
+    'Welcome to Savour. Choose your password below',
+    'Willkommen bei Savour. Wähle unten dein Passwort',
+    'Bienvenido a Savour. Elige tu contraseña abajo'
+  ],
+  [
+    'Hoe krijgen mijn teamleden Pro?',
+    'How do the members of my organisation get Pro?',
+    'Wie bekommen die Mitglieder meiner Organisation Pro?',
+    '¿Cómo obtienen Pro los miembros de mi organización?'
+  ],
+  [
+    'Je voegt ze toe via Mijn team in het menu, of op je telefoon via Mijn account → Abonnement. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.',
+    'You add them via My team in the menu, or on your phone via My account → Subscription. They get an invitation by email and have Savour Pro as soon as they log in or sign up with exactly that email address. You count as the first seat yourself.',
+    'Du fügst sie über Mein Team im Menü hinzu, oder am Handy über Mein Konto → Abo. Sie bekommen eine Einladung per E-Mail und haben Savour Pro, sobald sie sich mit genau dieser E-Mail-Adresse anmelden oder registrieren. Du selbst zählst als erster Platz.',
+    'Los añades desde Mi equipo en el menú, o en el móvil desde Mi cuenta → Suscripción. Reciben una invitación por correo y tienen Savour Pro en cuanto inician sesión o se registran con exactamente ese correo. Tú cuentas como la primera plaza.'
+  ],
   // Pro-pagina: menu heet nu Savour Pro (2026-11-02)
-  ["In Mijn account → Savour Pro → Abonnement beheren. Daar wijzig je ook je betaalmethode en download je facturen.","In My account → Savour Pro → Manage subscription. There you can also change your payment method and download invoices.","Unter Mein Konto → Savour Pro → Abo verwalten. Dort änderst du auch die Zahlungsmethode und lädst Rechnungen herunter.","En Mi cuenta → Savour Pro → Gestionar suscripción. Allí también cambias el método de pago y descargas facturas."],
-  ["Je voegt ze toe via Mijn team in het menu, of op je telefoon via Mijn account → Savour Pro. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.","You add them via My team in the menu, or on your phone via My account → Savour Pro. They get an invitation by email and have Savour Pro as soon as they log in or sign up with exactly that email address. You count as the first seat yourself.","Du fügst sie über Mein Team im Menü hinzu, oder am Handy über Mein Konto → Savour Pro. Sie bekommen eine Einladung per E-Mail und haben Savour Pro, sobald sie sich mit genau dieser E-Mail-Adresse anmelden oder registrieren. Du selbst zählst als erster Platz.","Los añades desde Mi equipo en el menú, o en el móvil desde Mi cuenta → Savour Pro. Reciben una invitación por correo y tienen Savour Pro en cuanto inician sesión o se registran con exactamente ese correo. Tú cuentas como la primera plaza."],
+  [
+    'In Mijn account → Savour Pro → Abonnement beheren. Daar wijzig je ook je betaalmethode en download je facturen.',
+    'In My account → Savour Pro → Manage subscription. There you can also change your payment method and download invoices.',
+    'Unter Mein Konto → Savour Pro → Abo verwalten. Dort änderst du auch die Zahlungsmethode und lädst Rechnungen herunter.',
+    'En Mi cuenta → Savour Pro → Gestionar suscripción. Allí también cambias el método de pago y descargas facturas.'
+  ],
+  [
+    'Je voegt ze toe via Mijn team in het menu, of op je telefoon via Mijn account → Savour Pro. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.',
+    'You add them via My team in the menu, or on your phone via My account → Savour Pro. They get an invitation by email and have Savour Pro as soon as they log in or sign up with exactly that email address. You count as the first seat yourself.',
+    'Du fügst sie über Mein Team im Menü hinzu, oder am Handy über Mein Konto → Savour Pro. Sie bekommen eine Einladung per E-Mail und haben Savour Pro, sobald sie sich mit genau dieser E-Mail-Adresse anmelden oder registrieren. Du selbst zählst als erster Platz.',
+    'Los añades desde Mi equipo en el menú, o en el móvil desde Mi cuenta → Savour Pro. Reciben una invitación por correo y tienen Savour Pro en cuanto inician sesión o se registran con exactamente ese correo. Tú cuentas como la primera plaza.'
+  ],
   // ---- Teams: uitnodigen en uitleg (2026-10-23) ----
-  ["Mijn team","My team","Mein Team","Mi equipo"],
-  ["Collega's toevoegen","Add colleagues","Kollegen hinzufügen","Añadir compañeros"],
-  ["Aan de slag","Get started","Los geht’s","Empezar"],
-  ["Je team staat klaar","Your team is ready","Dein Team ist bereit","Tu equipo está lista"],
-  ["Vul het e-mailadres van een collega in en kies Toevoegen.","Enter a colleague’s email address and choose Add.","Gib die E-Mail-Adresse eines Kollegen ein und wähle Hinzufügen.","Introduce el correo de un compañero y elige Añadir."],
-  ["Je collega krijgt een uitnodiging van ons per mail.","Your colleague gets an invitation from us by email.","Dein Kollege bekommt von uns eine Einladung per E-Mail.","Tu compañero recibe una invitación nuestra por correo."],
-  ["Je collega heeft Savour Pro zodra die inlogt of zich aanmeldt met precies dat e-mailadres. Vertrekt iemand, geef dan de plek vrij voor een ander.","Your colleague has Savour Pro as soon as they log in or sign up with exactly that email address. If someone leaves, free up the seat for someone else.","Dein Kollege hat Savour Pro, sobald er sich mit genau dieser E-Mail-Adresse anmeldet oder registriert. Geht jemand, gib den Platz für jemand anderen frei.","Tu compañero tiene Savour Pro en cuanto inicia sesión o se registra con exactamente ese correo. Si alguien se va, libera la plaza para otra persona."],
-  ["Je hebt Savour Pro via je team: onbeperkt recepten, keukenteams en AI voor handgeschreven kladjes. Je hoeft niets te betalen; dat regelt je team.","You have Savour Pro through your team: unlimited recipes, kitchen teams and AI for handwritten notes. You do not have to pay anything; your team takes care of that.","Du hast Savour Pro über dein Team: unbegrenzt Rezepte, Küchenteams und KI für handschriftliche Notizen. Du musst nichts bezahlen; das regelt dein Team.","Tienes Savour Pro a través de tu equipo: recetas ilimitadas, equipos de cocina e IA para notas escritas a mano. No tienes que pagar nada; de eso se encarga tu equipo."],
+  ['Mijn team', 'My team', 'Mein Team', 'Mi equipo'],
+  ["Collega's toevoegen", 'Add colleagues', 'Kollegen hinzufügen', 'Añadir compañeros'],
+  ['Aan de slag', 'Get started', 'Los geht’s', 'Empezar'],
+  ['Je team staat klaar', 'Your team is ready', 'Dein Team ist bereit', 'Tu equipo está lista'],
+  [
+    'Vul het e-mailadres van een collega in en kies Toevoegen.',
+    'Enter a colleague’s email address and choose Add.',
+    'Gib die E-Mail-Adresse eines Kollegen ein und wähle Hinzufügen.',
+    'Introduce el correo de un compañero y elige Añadir.'
+  ],
+  [
+    'Je collega krijgt een uitnodiging van ons per mail.',
+    'Your colleague gets an invitation from us by email.',
+    'Dein Kollege bekommt von uns eine Einladung per E-Mail.',
+    'Tu compañero recibe una invitación nuestra por correo.'
+  ],
+  [
+    'Je collega heeft Savour Pro zodra die inlogt of zich aanmeldt met precies dat e-mailadres. Vertrekt iemand, geef dan de plek vrij voor een ander.',
+    'Your colleague has Savour Pro as soon as they log in or sign up with exactly that email address. If someone leaves, free up the seat for someone else.',
+    'Dein Kollege hat Savour Pro, sobald er sich mit genau dieser E-Mail-Adresse anmeldet oder registriert. Geht jemand, gib den Platz für jemand anderen frei.',
+    'Tu compañero tiene Savour Pro en cuanto inicia sesión o se registra con exactamente ese correo. Si alguien se va, libera la plaza para otra persona.'
+  ],
+  [
+    'Je hebt Savour Pro via je team: onbeperkt recepten, keukenteams en AI voor handgeschreven kladjes. Je hoeft niets te betalen; dat regelt je team.',
+    'You have Savour Pro through your team: unlimited recipes, kitchen teams and AI for handwritten notes. You do not have to pay anything; your team takes care of that.',
+    'Du hast Savour Pro über dein Team: unbegrenzt Rezepte, Küchenteams und KI für handschriftliche Notizen. Du musst nichts bezahlen; das regelt dein Team.',
+    'Tienes Savour Pro a través de tu equipo: recetas ilimitadas, equipos de cocina e IA para notas escritas a mano. No tienes que pagar nada; de eso se encarga tu equipo.'
+  ],
   // ---- Camera: foto van een kladje (2026-10-23) ----
-  ["Foto van een kladje","Photo of a note","Foto einer Notiz","Foto de una nota"],
-  ["Maak met je camera een foto van een handgeschreven recept. De AI zet het om in een net recept.","Take a photo of a handwritten recipe with your camera. The AI turns it into a clean recipe.","Mach mit deiner Kamera ein Foto eines handgeschriebenen Rezepts. Die KI macht daraus ein sauberes Rezept.","Haz una foto de una receta escrita a mano con tu cámara. La IA la convierte en una receta limpia."],
-  ["Foto van je kladje","Photo of your note","Foto deiner Notiz","Foto de tu nota"],
-  ["Leg het kladje plat, in goed licht, en fotografeer recht van boven.","Lay the note flat, in good light, and photograph it straight from above.","Leg die Notiz flach hin, in gutem Licht, und fotografiere gerade von oben.","Coloca la nota plana, con buena luz, y fotografíala desde arriba."],
-  ["Foto maken","Take photo","Foto aufnehmen","Hacer foto"],
-  ["Bron: foto met je camera","Source: photo from your camera","Quelle: Foto mit deiner Kamera","Fuente: foto con tu cámara"],
-  ["Camera niet beschikbaar. Kies een foto van je kladje.","Camera not available. Choose a photo of your note.","Kamera nicht verfügbar. Wähle ein Foto deiner Notiz.","Cámara no disponible. Elige una foto de tu nota."],
+  ['Foto van een kladje', 'Photo of a note', 'Foto einer Notiz', 'Foto de una nota'],
+  [
+    'Maak met je camera een foto van een handgeschreven recept. De AI zet het om in een net recept.',
+    'Take a photo of a handwritten recipe with your camera. The AI turns it into a clean recipe.',
+    'Mach mit deiner Kamera ein Foto eines handgeschriebenen Rezepts. Die KI macht daraus ein sauberes Rezept.',
+    'Haz una foto de una receta escrita a mano con tu cámara. La IA la convierte en una receta limpia.'
+  ],
+  ['Foto van je kladje', 'Photo of your note', 'Foto deiner Notiz', 'Foto de tu nota'],
+  [
+    'Leg het kladje plat, in goed licht, en fotografeer recht van boven.',
+    'Lay the note flat, in good light, and photograph it straight from above.',
+    'Leg die Notiz flach hin, in gutem Licht, und fotografiere gerade von oben.',
+    'Coloca la nota plana, con buena luz, y fotografíala desde arriba.'
+  ],
+  ['Foto maken', 'Take photo', 'Foto aufnehmen', 'Hacer foto'],
+  [
+    'Bron: foto met je camera',
+    'Source: photo from your camera',
+    'Quelle: Foto mit deiner Kamera',
+    'Fuente: foto con tu cámara'
+  ],
+  [
+    'Camera niet beschikbaar. Kies een foto van je kladje.',
+    'Camera not available. Choose a photo of your note.',
+    'Kamera nicht verfügbar. Wähle ein Foto deiner Notiz.',
+    'Cámara no disponible. Elige una foto de tu nota.'
+  ],
   // ---- Veelgestelde vragen: gratis en Pro (2026-10-22) ----
   [
     '. Je kunt een recept zelf invoeren of een bron importeren. Na import controleer je de herkende gegevens voordat je ze opslaat.',
@@ -2022,7 +3672,12 @@ export const strings = [
     'Mit einem kostenlosen Konto speicherst du bis zu 100 Rezepte, importierst Word, PDF und Text mit dem Savour-Leser und kannst Mitglied in Küchenteams anderer sein. Neue Konten testen außerdem 7 Tage Savour Pro kostenlos, ohne Zahlungsdaten; auch dann speicherst du bis zu 100 Rezepte.',
     'Con una cuenta gratuita guardas hasta 100 recetas, importas Word, PDF y texto con el lector de Savour y puedes ser miembro de equipos de cocina de otros. Las cuentas nuevas además prueban Savour Pro 7 días gratis, sin datos de pago; también entonces guardas hasta 100 recetas.'
   ],
-  ['Wat krijg ik met Savour Pro?', 'What do I get with Savour Pro?', 'Was bekomme ich mit Savour Pro?', '¿Qué obtengo con Savour Pro?'],
+  [
+    'Wat krijg ik met Savour Pro?',
+    'What do I get with Savour Pro?',
+    'Was bekomme ich mit Savour Pro?',
+    '¿Qué obtengo con Savour Pro?'
+  ],
   [
     "Onbeperkt recepten, zelf keukenteams maken en je team uitnodigen, en AI-import van foto's, handgeschreven en gescande recepten. Voor een hele keuken is er een teamabonnement: hoe groter het team, hoe lager de prijs per persoon.",
     'Unlimited recipes, creating your own kitchen teams and inviting your team, and AI import of photos, handwritten and scanned recipes. For a whole kitchen there is an team plan: the bigger the team, the lower the price per person.',
@@ -2384,12 +4039,7 @@ export const strings = [
     'Erstelle einen Ordner, den du mit deinem Küchenteam teilen kannst.',
     'Crea una carpeta para compartir con tu equipo de cocina.'
   ],
-  [
-    'Naam van het keukenteam',
-    'Name of the kitchen team',
-    'Name des Küchenteams',
-    'Nombre del equipo de cocina'
-  ],
+  ['Naam van het keukenteam', 'Name of the kitchen team', 'Name des Küchenteams', 'Nombre del equipo de cocina'],
   [
     'Bijv. Garde, Patisserie of Keuken algemeen',
     'E.g. Garde manger, Pastry or General kitchen',
@@ -2406,12 +4056,7 @@ export const strings = [
     'Verwalte die Küchenteam deines Teams. Wähle, welche im Menü stehen, und bestimme die Reihenfolge.',
     'Gestiona las carpetas que compartes con tu equipo. Elige cuáles aparecen en el menú y su orden.'
   ],
-  [
-    'Keukenteams bijgewerkt',
-    'Kitchen teams updated',
-    'Küchenteams aktualisiert',
-    'Equipos de cocina actualizadas'
-  ],
+  ['Keukenteams bijgewerkt', 'Kitchen teams updated', 'Küchenteams aktualisiert', 'Equipos de cocina actualizadas'],
   [
     'Nog geen keukenteams. Klik op “Keukenteam toevoegen”.',
     'No kitchen teams yet. Click “Add kitchen team”.',
@@ -2500,12 +4145,7 @@ export const strings = [
     'Noch kein Foto für dieses Küchenteam.',
     'Aún no hay foto para este equipo de cocina.'
   ],
-  [
-    '← Terug naar keukenteam',
-    '← Back to kitchen team',
-    '← Zurück zum Küchenteam',
-    '← Volver al equipo de cocina'
-  ],
+  ['← Terug naar keukenteam', '← Back to kitchen team', '← Zurück zum Küchenteam', '← Volver al equipo de cocina'],
   [
     '← Terug naar keukenteams',
     '← Back to kitchen teams',
@@ -3520,7 +5160,12 @@ export const strings = [
   ],
   // ---- Inloggen met Google ----
   ['Doorgaan met Google', 'Continue with Google', 'Weiter mit Google', 'Continuar con Google'],
-  ['of met je e-mailadres', 'or with your email address', 'oder mit deiner E-Mail-Adresse', 'o con tu correo electrónico'],
+  [
+    'of met je e-mailadres',
+    'or with your email address',
+    'oder mit deiner E-Mail-Adresse',
+    'o con tu correo electrónico'
+  ],
   [
     'Inloggen is mislukt. Probeer het opnieuw of gebruik je e-mailadres.',
     'Login failed. Try again or use your email address.',
@@ -3528,275 +5173,795 @@ export const strings = [
     'No se pudo iniciar sesión. Inténtalo de nuevo o usa tu correo electrónico.'
   ],
   // ---- Logo op prints per keukenteam, menu General (2026-11-02) ----
-  ["Bekijk of beheer je Savour Pro of teamabonnement en nodig je team uit.","View or manage your Savour Pro or team plan and invite your team.","Sieh dir dein Savour Pro oder Teamabo an, verwalte es und lade dein Team ein.","Consulta o gestiona tu Savour Pro o plan de equipo e invita a tu equipo."],
-  ["Zet het logo en de naam van je restaurant op je prints. Kies of het logo op je eigen prints staat; per keukenteam zet je het aan of uit in de instellingen van dat keukenteam.","Put your restaurant’s logo and name on your prints. Choose whether the logo appears on your own prints; for each kitchen team you switch it on or off in that team’s settings.","Setze Logo und Namen deines Restaurants auf deine Ausdrucke. Wähle, ob das Logo auf deinen eigenen Ausdrucken steht; pro Küchenteam schaltest du es in dessen Einstellungen ein oder aus.","Pon el logo y el nombre de tu restaurante en tus impresiones. Elige si el logo aparece en tus propias impresiones; para cada equipo de cocina lo activas o desactivas en sus ajustes."],
-  ["Logo op mijn eigen prints (recepten en mappen buiten een keukenteam)","Logo on my own prints (recipes and folders outside a kitchen team)","Logo auf meinen eigenen Ausdrucken (Rezepte und Ordner außerhalb eines Küchenteams)","Logo en mis propias impresiones (recetas y carpetas fuera de un equipo de cocina)"],
-  ["Kies per keukenteam of het logo op de prints van dat team staat. Dit kan ook in de instellingen van het keukenteam.","Choose for each kitchen team whether the logo appears on that team’s prints. You can also do this in the kitchen team’s settings.","Wähle pro Küchenteam, ob das Logo auf dessen Ausdrucken steht. Das geht auch in den Einstellungen des Küchenteams.","Elige para cada equipo de cocina si el logo aparece en sus impresiones. También puedes hacerlo en los ajustes del equipo."],
-  ["Logo op de prints van dit keukenteam","Logo on this kitchen team’s prints","Logo auf den Ausdrucken dieses Küchenteams","Logo en las impresiones de este equipo de cocina"],
-  ["Logo staat op de prints van dit keukenteam","The logo is on this kitchen team’s prints","Das Logo steht auf den Ausdrucken dieses Küchenteams","El logo aparece en las impresiones de este equipo de cocina"],
-  ["Prints van dit keukenteam zonder logo","This kitchen team’s prints without a logo","Ausdrucke dieses Küchenteams ohne Logo","Impresiones de este equipo de cocina sin logo"],
-  ["Opslaan lukte niet. Probeer het opnieuw.","Saving didn’t work. Please try again.","Speichern hat nicht geklappt. Versuch es noch einmal.","No se pudo guardar. Inténtalo de nuevo."],
-  ["In de demo wordt niets opgeslagen","Nothing is saved in the demo","In der Demo wird nichts gespeichert","En la demo no se guarda nada"],
+  [
+    'Bekijk of beheer je Savour Pro of teamabonnement en nodig je team uit.',
+    'View or manage your Savour Pro or team plan and invite your team.',
+    'Sieh dir dein Savour Pro oder Teamabo an, verwalte es und lade dein Team ein.',
+    'Consulta o gestiona tu Savour Pro o plan de equipo e invita a tu equipo.'
+  ],
+  [
+    'Zet het logo en de naam van je restaurant op je prints. Kies of het logo op je eigen prints staat; per keukenteam zet je het aan of uit in de instellingen van dat keukenteam.',
+    'Put your restaurant’s logo and name on your prints. Choose whether the logo appears on your own prints; for each kitchen team you switch it on or off in that team’s settings.',
+    'Setze Logo und Namen deines Restaurants auf deine Ausdrucke. Wähle, ob das Logo auf deinen eigenen Ausdrucken steht; pro Küchenteam schaltest du es in dessen Einstellungen ein oder aus.',
+    'Pon el logo y el nombre de tu restaurante en tus impresiones. Elige si el logo aparece en tus propias impresiones; para cada equipo de cocina lo activas o desactivas en sus ajustes.'
+  ],
+  [
+    'Logo op mijn eigen prints (recepten en mappen buiten een keukenteam)',
+    'Logo on my own prints (recipes and folders outside a kitchen team)',
+    'Logo auf meinen eigenen Ausdrucken (Rezepte und Ordner außerhalb eines Küchenteams)',
+    'Logo en mis propias impresiones (recetas y carpetas fuera de un equipo de cocina)'
+  ],
+  [
+    'Kies per keukenteam of het logo op de prints van dat team staat. Dit kan ook in de instellingen van het keukenteam.',
+    'Choose for each kitchen team whether the logo appears on that team’s prints. You can also do this in the kitchen team’s settings.',
+    'Wähle pro Küchenteam, ob das Logo auf dessen Ausdrucken steht. Das geht auch in den Einstellungen des Küchenteams.',
+    'Elige para cada equipo de cocina si el logo aparece en sus impresiones. También puedes hacerlo en los ajustes del equipo.'
+  ],
+  [
+    'Logo op de prints van dit keukenteam',
+    'Logo on this kitchen team’s prints',
+    'Logo auf den Ausdrucken dieses Küchenteams',
+    'Logo en las impresiones de este equipo de cocina'
+  ],
+  [
+    'Logo staat op de prints van dit keukenteam',
+    'The logo is on this kitchen team’s prints',
+    'Das Logo steht auf den Ausdrucken dieses Küchenteams',
+    'El logo aparece en las impresiones de este equipo de cocina'
+  ],
+  [
+    'Prints van dit keukenteam zonder logo',
+    'This kitchen team’s prints without a logo',
+    'Ausdrucke dieses Küchenteams ohne Logo',
+    'Impresiones de este equipo de cocina sin logo'
+  ],
+  [
+    'Opslaan lukte niet. Probeer het opnieuw.',
+    'Saving didn’t work. Please try again.',
+    'Speichern hat nicht geklappt. Versuch es noch einmal.',
+    'No se pudo guardar. Inténtalo de nuevo.'
+  ],
+  [
+    'In de demo wordt niets opgeslagen',
+    'Nothing is saved in the demo',
+    'In der Demo wird nichts gespeichert',
+    'En la demo no se guarda nada'
+  ],
   // ---- Ontbrekende vertalingen, gevonden met een controle in de demo (2026-11-02) ----
-  ["Word, PDF en tekst lees je gratis in. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro.","You import Word, PDF and text for free. Photos, handwritten and scanned recipes are read by AI: only in Savour Pro.","Word, PDF und Text liest du kostenlos ein. Fotos, handschriftliche und gescannte Rezepte liest die KI: nur in Savour Pro.","Importas Word, PDF y texto gratis. Las fotos y recetas manuscritas o escaneadas las lee la IA: solo en Savour Pro."],
-  ["Foto-import gebruikt de Savour AI-laag. Tekst-, Word- en PDF-import worden eerst lokaal uitgelezen; controleer elk geïmporteerd recept vóór het opslaan.","Photo import uses Savour’s AI layer. Text, Word and PDF imports are read locally first; check every imported recipe before saving.","Der Foto-Import nutzt die KI von Savour. Text-, Word- und PDF-Importe werden zuerst lokal gelesen; prüfe jedes importierte Rezept vor dem Speichern.","La importación de fotos usa la IA de Savour. Las importaciones de texto, Word y PDF se leen primero localmente; revisa cada receta importada antes de guardarla."],
-  ["＋ Receptenmap toevoegen","＋ Add recipe folder","＋ Rezeptordner hinzufügen","＋ Añadir carpeta de recetas"],
-  ["＋ Recept toevoegen","＋ Add recipe","＋ Rezept hinzufügen","＋ Añadir receta"],
-  ["Zoek in de receptenbibliotheek","Search the recipe library","In der Rezeptbibliothek suchen","Buscar en la biblioteca de recetas"],
-  ["https://www.voorbeeld.nl/recept/beurre-blanc","https://www.example.com/recipe/beurre-blanc","https://www.beispiel.de/rezept/beurre-blanc","https://www.ejemplo.es/receta/beurre-blanc"],
-  ["Foto's","Photos","Fotos","Fotos"],
+  [
+    "Word, PDF en tekst lees je gratis in. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro.",
+    'You import Word, PDF and text for free. Photos, handwritten and scanned recipes are read by AI: only in Savour Pro.',
+    'Word, PDF und Text liest du kostenlos ein. Fotos, handschriftliche und gescannte Rezepte liest die KI: nur in Savour Pro.',
+    'Importas Word, PDF y texto gratis. Las fotos y recetas manuscritas o escaneadas las lee la IA: solo en Savour Pro.'
+  ],
+  [
+    'Foto-import gebruikt de Savour AI-laag. Tekst-, Word- en PDF-import worden eerst lokaal uitgelezen; controleer elk geïmporteerd recept vóór het opslaan.',
+    'Photo import uses Savour’s AI layer. Text, Word and PDF imports are read locally first; check every imported recipe before saving.',
+    'Der Foto-Import nutzt die KI von Savour. Text-, Word- und PDF-Importe werden zuerst lokal gelesen; prüfe jedes importierte Rezept vor dem Speichern.',
+    'La importación de fotos usa la IA de Savour. Las importaciones de texto, Word y PDF se leen primero localmente; revisa cada receta importada antes de guardarla.'
+  ],
+  ['＋ Receptenmap toevoegen', '＋ Add recipe folder', '＋ Rezeptordner hinzufügen', '＋ Añadir carpeta de recetas'],
+  ['＋ Recept toevoegen', '＋ Add recipe', '＋ Rezept hinzufügen', '＋ Añadir receta'],
+  [
+    'Zoek in de receptenbibliotheek',
+    'Search the recipe library',
+    'In der Rezeptbibliothek suchen',
+    'Buscar en la biblioteca de recetas'
+  ],
+  [
+    'https://www.voorbeeld.nl/recept/beurre-blanc',
+    'https://www.example.com/recipe/beurre-blanc',
+    'https://www.beispiel.de/rezept/beurre-blanc',
+    'https://www.ejemplo.es/receta/beurre-blanc'
+  ],
+  ["Foto's", 'Photos', 'Fotos', 'Fotos'],
   // ---- Producten & allergenen (2026-11-03) ----
-  ["Ander product","Other product","Anderes Produkt","Otro producto"],
-  ["Overnemen","Accept","Übernehmen","Aceptar"],
-  ["Naar bereiding","Move to method","Zur Zubereitung","Pasar a preparación"],
-  ["Laten staan","Keep as is","So lassen","Dejar así"],
-  ["1 regel om na te kijken","1 line to check","1 Zeile zu prüfen","1 línea por revisar"],
-  ["Alle voorstellen overnemen","Accept all suggestions","Alle Vorschläge übernehmen","Aceptar todas las sugerencias"],
-  ["Geen ingrediënt, waarschijnlijk een tikfout","Not an ingredient, probably a typo","Keine Zutat, wahrscheinlich ein Tippfehler","No es un ingrediente, probablemente una errata"],
-  ["Lijkt een omrekening of alternatief voor een andere regel","Looks like a conversion or alternative for another line","Sieht aus wie eine Umrechnung oder Alternative zu einer anderen Zeile","Parece una conversión o alternativa de otra línea"],
-  ["Lijkt een stap van de bereiding","Looks like a step of the method","Sieht aus wie ein Zubereitungsschritt","Parece un paso de la preparación"],
-  ["De hoeveelheid ontbreekt; vul die zelf in","The amount is missing; fill it in yourself","Die Menge fehlt; trage sie selbst ein","Falta la cantidad; rellénala tú"],
-  ["Teken vooraan weggehaald","Sign at the start removed","Zeichen am Anfang entfernt","Signo inicial quitado"],
-  ["Het aantal ontbreekt (x); vul dat zelf in","The number is missing (x); fill it in yourself","Die Anzahl fehlt (x); trage sie selbst ein","Falta el número (x); rellénalo tú"],
-  ["Spatie tussen getal en naam","Space between number and name","Leerzeichen zwischen Zahl und Name","Espacio entre número y nombre"],
-  ["Spatie tussen maat en naam","Space between unit and name","Leerzeichen zwischen Maßeinheit und Name","Espacio entre unidad y nombre"],
-  ["Geen ingrediënt","Not an ingredient","Keine Zutat","No es un ingrediente"],
-  ["Onzinregels en tikfouten in je recepten weghalen","Remove nonsense lines and typos from your recipes","Unsinnige Zeilen und Tippfehler aus deinen Rezepten entfernen","Quitar líneas sin sentido y erratas de tus recetas"],
-  ["Receptregels nakijken","Check recipe lines","Rezeptzeilen prüfen","Revisar líneas de receta"],
-  ["Regels in je recepten die geen ingrediënt lijken, of een tikfout bevatten. Klik op een groep om de regels te zien, en zet een vinkje uit als je iets wilt laten staan.","Lines in your recipes that do not look like an ingredient, or contain a typo. Click a group to see the lines, and untick anything you want to keep.","Zeilen in deinen Rezepten, die keine Zutat zu sein scheinen oder einen Tippfehler enthalten. Klicke auf eine Gruppe, um die Zeilen zu sehen, und entferne das Häkchen bei allem, was bleiben soll.","Líneas de tus recetas que no parecen un ingrediente o contienen una errata. Haz clic en un grupo para ver las líneas y desmarca lo que quieras dejar."],
-  ["regels weghalen","lines to remove","Zeilen entfernen","líneas a quitar"],
-  ["regels naar de bereiding","lines to move to the method","Zeilen zur Zubereitung","líneas a la preparación"],
-  ["regels aanpassen","lines to adjust","Zeilen anpassen","líneas a ajustar"],
-  ["Aanpassen","Apply","Anpassen","Aplicar"],
-  ["Bezig met aanpassen…","Applying…","Wird angepasst…","Aplicando…"],
-  ["Geen rommelige regels gevonden","No messy lines found","Keine unordentlichen Zeilen gefunden","No se encontraron líneas desordenadas"],
-  ["Regels aangepast in 1 recept","Lines adjusted in 1 recipe","Zeilen in 1 Rezept angepasst","Líneas ajustadas en 1 receta"],
-  ["producten uit elkaar halen","products to split up","Produkte aufteilen","productos a separar"],
-  ["Namen die bij een ander product horen, gaan naar dat product. Bestaat het nog niet, dan maakt Savour het.","Names that belong to another product move to that product. If it does not exist yet, Savour creates it.","Namen, die zu einem anderen Produkt gehören, gehen zu diesem Produkt. Gibt es das noch nicht, legt Savour es an.","Los nombres que pertenecen a otro producto pasan a ese producto. Si aún no existe, Savour lo crea."],
-  ["daarna weg","then removed","danach entfernt","después se quita"],
-  ["Weggehaald uit 1 recept","Removed from 1 recipe","Aus 1 Rezept entfernt","Quitado de 1 receta"],
-  ["Onderdeel van dit recept","Part of this recipe","Teil dieses Rezepts","Parte de esta receta"],
-  ["Dubbele of foute producten samenvoegen en verbeteren","Merge and correct duplicate or wrong products","Doppelte oder falsche Produkte zusammenführen und verbessern","Unir y corregir productos duplicados o erróneos"],
-  ["Producten opruimen","Tidy up products","Produkte aufräumen","Ordenar productos"],
-  ["namen zijn te algemeen","names are too general","Namen sind zu allgemein","nombres son demasiado generales"],
-  ["Bij \"sap\" of \"coulis\" weet Savour niet wat erin zit. Staat het in je recept als onderdeel, dan telt het al mee. Anders: koppel het aan een eigen recept of een product. Tot die tijd is dat recept nog niet compleet.","With \"juice\" or \"coulis\" Savour does not know what is in it. If it is a part of your recipe, it already counts. Otherwise link it to one of your recipes or a product. Until then that recipe is not complete.","Bei „Saft“ oder „Coulis“ weiß Savour nicht, was drin ist. Ist es ein Teil deines Rezepts, zählt es schon mit. Sonst verknüpfe es mit einem eigenen Rezept oder einem Produkt. Bis dahin ist das Rezept nicht vollständig.","Con «zumo» o «coulis» Savour no sabe qué contiene. Si es una parte de tu receta, ya cuenta. Si no, vincúlalo a una receta propia o a un producto. Hasta entonces esa receta no está completa."],
-  ["Dit gaat Savour doen. Klik op een regel om te zien wat het is, en zet een vinkje uit als je iets wilt laten staan.","This is what Savour will do. Click a line to see the details, and untick anything you want to keep as it is.","Das wird Savour tun. Klicke auf eine Zeile für die Details und entferne das Häkchen bei allem, was bleiben soll.","Esto es lo que hará Savour. Haz clic en una línea para ver los detalles y desmarca lo que quieras dejar como está."],
-  ["producten samenvoegen","products to merge","Produkte zusammenführen","productos a unir"],
-  ["Varianten worden één product. De oude namen blijven als schrijfwijze bewaard en de allergenen tellen op.","Variants become one product. The old names are kept as spellings and the allergens add up.","Varianten werden ein Produkt. Die alten Namen bleiben als Schreibweise erhalten und die Allergene werden zusammengezählt.","Las variantes pasan a ser un producto. Los nombres antiguos se guardan como escrituras y los alérgenos se suman."],
-  ["producten worden een koppeling met je eigen recept","products become a link to your own recipe","Produkte werden eine Verknüpfung mit deinem eigenen Rezept","productos pasan a ser un vínculo con tu propia receta"],
-  ["Dit zijn je eigen recepten. De allergenen van het recept tellen dan mee.","These are your own recipes. The allergens of the recipe then count.","Das sind deine eigenen Rezepte. Die Allergene des Rezepts zählen dann mit.","Son tus propias recetas. Entonces cuentan los alérgenos de la receta."],
-  ["allergenen verbeteren","allergens to correct","Allergene verbessern","alérgenos a corregir"],
-  ["Op basis van de naam: wat erbij komt en wat eraf gaat.","Based on the name: what is added and what is removed.","Anhand des Namens: was dazukommt und was wegfällt.","Según el nombre: lo que se añade y lo que se quita."],
-  ["producten weghalen","products to remove","Produkte entfernen","productos a quitar"],
-  ["Geen ingrediënt, of te algemeen om te weten wat erin zit (zoals \"sap\" of \"olie\"). De namen komen terug bij Nog te koppelen.","Not an ingredient, or too general to know what is in it (such as \"juice\" or \"oil\"). The names go back to Still to link.","Keine Zutat oder zu allgemein, um zu wissen, was drin ist (wie „Saft“ oder „Öl“). Die Namen kommen zurück zu Noch zu verknüpfen.","No es un ingrediente, o es demasiado general para saber qué contiene (como «zumo» o «aceite»). Los nombres vuelven a Por vincular."],
-  ["Bezig met opruimen…","Tidying up…","Wird aufgeräumt…","Ordenando…"],
-  ["Je producten zijn al netjes","Your products are already tidy","Deine Produkte sind schon ordentlich","Tus productos ya están ordenados"],
-  ["Nog niet overgenomen","Not adopted yet","Noch nicht übernommen","Aún no adoptado"],
-  ["Voorstellen overnemen","Adopt suggestions","Vorschläge übernehmen","Adoptar sugerencias"],
-  ["Dit zijn de allergenen die Savour bij deze producten voorstelt. Klopt iets niet bij jouw merk, open het product dan in de lijst en pas het aan.","These are the allergens Savour suggests for these products. If something is different for your brand, open the product in the list and change it.","Das sind die Allergene, die Savour für diese Produkte vorschlägt. Ist bei deiner Marke etwas anders, öffne das Produkt in der Liste und ändere es.","Estos son los alérgenos que Savour sugiere para estos productos. Si algo es distinto en tu marca, abre el producto en la lista y cámbialo."],
-  ["Alles overnemen","Adopt all","Alle übernehmen","Adoptar todo"],
-  ["producten nog niet overgenomen","products not adopted yet","Produkte noch nicht übernommen","productos aún no adoptados"],
-  ["Bekijken en overnemen","Review and adopt","Ansehen und übernehmen","Revisar y adoptar"],
-  ["van","of","von","de"],
-  ["recepten hebben complete allergenen","recipes have complete allergens","Rezepten haben vollständige Allergene","recetas tienen alérgenos completos"],
-  ["namen nog te koppelen","names still to link","Namen noch zu verknüpfen","nombres por vincular"],
-  ["Alles automatisch koppelen","Link everything automatically","Alles automatisch verknüpfen","Vincular todo automáticamente"],
-  ["Savour koppelt elke naam aan het product of eigen recept dat erbij hoort en maakt nieuwe producten met hun allergenen. Je ziet eerst wat er gebeurt.","Savour links each name to the matching product or your own recipe and creates new products with their allergens. You first see what will happen.","Savour verknüpft jeden Namen mit dem passenden Produkt oder eigenen Rezept und legt neue Produkte mit ihren Allergenen an. Du siehst zuerst, was passiert.","Savour vincula cada nombre con el producto o la receta propia que corresponde y crea productos nuevos con sus alérgenos. Primero ves lo que va a pasar."],
-  ["Namen uit je recepten zonder product, de meest gebruikte bovenaan. Eén keer koppelen geldt voor al je recepten.","Names from your recipes without a product, most used first. Linking once applies to all your recipes.","Namen aus deinen Rezepten ohne Produkt, die meistgenutzten oben. Einmal verknüpfen gilt für alle Rezepte.","Nombres de tus recetas sin producto, los más usados primero. Vincular una vez vale para todas tus recetas."],
-  ["Dit gaat Savour doen. Klik op een regel om te zien welke namen het zijn. Elk product kun je daarna nog aanpassen.","This is what Savour will do. Click a line to see which names. You can still change each product afterwards.","Das wird Savour tun. Klicke auf eine Zeile, um die Namen zu sehen. Jedes Produkt kannst du danach noch ändern.","Esto es lo que hará Savour. Haz clic en una línea para ver los nombres. Después puedes cambiar cada producto."],
-  ["namen koppelen aan je eigen recept","names to link to your own recipe","Namen mit deinem eigenen Rezept verknüpfen","nombres a vincular con tu propia receta"],
-  ["namen koppelen aan een bestaand product","names to link to an existing product","Namen mit einem vorhandenen Produkt verknüpfen","nombres a vincular con un producto existente"],
-  ["nieuwe producten maken","new products to create","neue Produkte anlegen","productos nuevos a crear"],
-  ["Alles koppelen","Link everything","Alles verknüpfen","Vincular todo"],
-  ["Bezig met koppelen…","Linking…","Wird verknüpft…","Vinculando…"],
-  ["Savour vond geen namen meer om automatisch te koppelen","Savour found no more names to link automatically","Savour hat keine Namen mehr zum automatischen Verknüpfen gefunden","Savour no encontró más nombres para vincular automáticamente"],
-  ["Allergenen kloppen","Allergens are correct","Allergene stimmen","Los alérgenos son correctos"],
-  ["Zet dit uit als je het nog wilt nakijken; dan telt het product nog niet mee.","Switch this off if you still want to check it; the product then does not count yet.","Schalte das aus, wenn du es noch prüfen willst; dann zählt das Produkt noch nicht.","Desactívalo si aún quieres revisarlo; así el producto todavía no cuenta."],
-  ["Product nog niet laten meetellen?","Not count the product yet?","Produkt noch nicht mitzählen?","¿No contar el producto todavía?"],
-  ["De aangevinkte allergenen worden bewaard. Het product telt pas mee als je \"Allergenen kloppen\" aanzet.","The ticked allergens are saved. The product only counts once you switch on \"Allergens are correct\".","Die angekreuzten Allergene werden gespeichert. Das Produkt zählt erst, wenn du „Allergene stimmen“ einschaltest.","Los alérgenos marcados se guardan. El producto solo cuenta cuando activas «Los alérgenos son correctos»."],
-  ["Voorstel van Savour op basis van de naam. Pas het aan als het bij jouw merk anders is.","Savour’s suggestion based on the name. Change it if it is different for your brand.","Vorschlag von Savour anhand des Namens. Ändere ihn, wenn es bei deiner Marke anders ist.","Sugerencia de Savour según el nombre. Cámbiala si en tu marca es distinto."],
-  ["Savour kent hier geen allergenen bij. Weet je dat er wel iets in zit, vink het dan aan.","Savour knows no allergens for this. If you know it contains something, tick it.","Savour kennt hierzu keine Allergene. Weißt du, dass etwas drin ist, kreuze es an.","Savour no conoce alérgenos para esto. Si sabes que contiene algo, márcalo."],
-  ["Savour zet ruim 200 veelgebruikte keukenproducten voor je klaar, zoals bloem, slagroom, eidooier en zout, met hun allergenen en de schrijfwijzen uit recepten. Je beantwoordt eerst drie korte vragen. Elk product kun je later aanpassen.","Savour prepares over 200 common kitchen products for you, such as flour, cream, egg yolk and salt, with their allergens and the spellings used in recipes. First you answer three short questions. You can change each product later.","Savour legt über 200 gängige Küchenprodukte für dich an, etwa Mehl, Sahne, Eigelb und Salz, mit ihren Allergenen und den Schreibweisen aus Rezepten. Zuerst beantwortest du drei kurze Fragen. Jedes Produkt kannst du später ändern.","Savour te prepara más de 200 productos de cocina habituales, como harina, nata, yema y sal, con sus alérgenos y las formas de escribirlos en recetas. Primero respondes tres preguntas breves. Puedes cambiar cada producto más adelante."],
-  ["Welke allergenen wil je bijhouden?","Which allergens do you want to track?","Welche Allergene möchtest du erfassen?","¿Qué alérgenos quieres registrar?"],
-  ["Wettelijk verplicht zijn de 14 allergenen van de EU. Je kunt aanvullen met kenmerken waar gasten vaak naar vragen, zoals lactose, ui, gevogelte of histamine. Je kunt dit later altijd aanpassen.","The 14 EU allergens are required by law. You can add characteristics guests often ask about, such as lactose, onion, poultry or histamine. You can always change this later.","Gesetzlich vorgeschrieben sind die 14 Allergene der EU. Du kannst Merkmale ergänzen, nach denen Gäste oft fragen, etwa Laktose, Zwiebel, Geflügel oder Histamin. Das kannst du später jederzeit ändern.","Por ley son obligatorios los 14 alérgenos de la UE. Puedes añadir características por las que los clientes preguntan a menudo, como lactosa, cebolla, aves o histamina. Puedes cambiarlo más adelante."],
-  ["Alleen de 14 wettelijke","Only the 14 required by law","Nur die 14 gesetzlichen","Solo los 14 obligatorios"],
-  ["Aanvullen","Add more","Ergänzen","Añadir más"],
-  ["Welke allergenen?","Which allergens?","Welche Allergene?","¿Qué alérgenos?"],
-  ["De 14 wettelijke allergenen houdt Savour altijd bij. Vink aan wat je daarnaast wilt zien. Wat je uitzet, blijft bewaard maar zie je niet meer.","Savour always tracks the 14 allergens required by law. Tick what else you want to see. What you switch off is kept but no longer shown.","Die 14 gesetzlichen Allergene erfasst Savour immer. Kreuze an, was du zusätzlich sehen willst. Was du ausschaltest, bleibt gespeichert, wird aber nicht mehr angezeigt.","Savour siempre registra los 14 alérgenos obligatorios. Marca qué más quieres ver. Lo que desactives se guarda, pero ya no se muestra."],
-  ["Vlees","Meat","Fleisch","Carne"],
-  ["Groente, fruit en zaden","Vegetables, fruit and seeds","Gemüse, Obst und Samen","Verduras, fruta y semillas"],
-  ["Intoleranties en overig","Intolerances and other","Unverträglichkeiten und Sonstiges","Intolerancias y otros"],
-  ["Alles aanvinken","Tick all","Alle ankreuzen","Marcar todo"],
-  ["Alles uitvinken","Untick all","Alle abwählen","Desmarcar todo"],
-  ["Startlijst","Starter list","Startliste","Lista inicial"],
-  ["Savour zet ruim 200 veelgebruikte keukenproducten voor je klaar, zoals bloem, slagroom, eidooier en zout, met hun allergenen en de schrijfwijzen uit recepten. Je beantwoordt eerst drie korte vragen. Daarna bevestig je de producten zelf.","Savour prepares over 200 common kitchen products for you, such as flour, cream, egg yolk and salt, with their allergens and the spellings used in recipes. First you answer three short questions. Then you confirm the products yourself.","Savour legt über 200 gängige Küchenprodukte für dich an, etwa Mehl, Sahne, Eigelb und Salz, mit ihren Allergenen und den Schreibweisen aus Rezepten. Zuerst beantwortest du drei kurze Fragen. Danach bestätigst du die Produkte selbst.","Savour te prepara más de 200 productos de cocina habituales, como harina, nata, yema y sal, con sus alérgenos y las formas de escribirlos en recetas. Primero respondes tres preguntas breves. Después confirmas tú los productos."],
-  ["Startlijst maken","Create starter list","Startliste anlegen","Crear lista inicial"],
-  ["Startlijst controleren","Check starter list","Startliste prüfen","Revisar lista inicial"],
-  ["basisproducten met vaste allergenen","basic products with fixed allergens","Grundprodukte mit festen Allergenen","productos básicos con alérgenos fijos"],
-  ["Bekijken en bevestigen","Review and confirm","Ansehen und bestätigen","Revisar y confirmar"],
-  ["producten: kijk het etiket na","products: check the label","Produkte: Etikett prüfen","productos: revisa la etiqueta"],
-  ["Tonen","Show","Anzeigen","Mostrar"],
-  ["Startlijst ongedaan maken","Undo starter list","Startliste rückgängig machen","Deshacer lista inicial"],
-  ["Startlijst ongedaan maken?","Undo starter list?","Startliste rückgängig machen?","¿Deshacer la lista inicial?"],
-  ["Welke gelatine gebruik je?","Which gelatine do you use?","Welche Gelatine verwendest du?","¿Qué gelatina usas?"],
-  ["Varkensgelatine","Pork gelatine","Schweinegelatine","Gelatina de cerdo"],
-  ["Rundergelatine","Beef gelatine","Rindergelatine","Gelatina de ternera"],
-  ["Visgelatine","Fish gelatine","Fischgelatine","Gelatina de pescado"],
-  ["Weet ik niet","I don’t know","Weiß ich nicht","No lo sé"],
-  ["Dan kijk je het etiket na","Then you check the label","Dann prüfst du das Etikett","Entonces revisas la etiqueta"],
-  ["Maak je fonds en bouillon zelf, of koop je ze in?","Do you make stocks and broth yourself, or buy them?","Machst du Fonds und Brühe selbst oder kaufst du sie?","¿Haces tú los fondos y caldos o los compras?"],
-  ["Zelf, als recept in Savour","Myself, as a recipe in Savour","Selbst, als Rezept in Savour","Yo mismo, como receta en Savour"],
-  ["Koppel ze aan je eigen recept","Link them to your own recipe","Verknüpfe sie mit deinem eigenen Rezept","Vincúlalos a tu propia receta"],
-  ["Ingekocht","Bought in","Gekauft","Comprados"],
-  ["Welk merk chocolade gebruik je meestal?","Which brand of chocolate do you usually use?","Welche Schokoladenmarke verwendest du meistens?","¿Qué marca de chocolate usas normalmente?"],
-  ["Ander merk","Other brand","Andere Marke","Otra marca"],
-  ["Alle producten van de startlijst staan er al","All products from the starter list are already there","Alle Produkte der Startliste sind schon da","Todos los productos de la lista inicial ya están"],
-  ["Basisproducten bevestigen","Confirm basic products","Grundprodukte bestätigen","Confirmar productos básicos"],
-  ["Loop de lijst na. Klopt een product niet, open het dan via de lijst en pas het aan. Na bevestigen tellen deze producten als gecontroleerd.","Go through the list. If a product is not right, open it from the list and change it. After confirming, these products count as checked.","Geh die Liste durch. Stimmt ein Produkt nicht, öffne es über die Liste und ändere es. Nach dem Bestätigen gelten diese Produkte als geprüft.","Revisa la lista. Si un producto no es correcto, ábrelo desde la lista y cámbialo. Tras confirmar, estos productos cuentan como comprobados."],
-  ["Klopt, alles bevestigen","Correct, confirm all","Stimmt, alle bestätigen","Correcto, confirmar todo"],
-  ["Etiket nakijken","Check label","Etikett prüfen","Revisar etiqueta"],
-  ["Alle producten tonen","Show all products","Alle Produkte anzeigen","Mostrar todos los productos"],
-  ["Lactose","Lactose","Laktose","Lactosa"],
-  ["Varkensvlees","Pork","Schweinefleisch","Cerdo"],
-  ["Rundvlees","Beef","Rindfleisch","Ternera"],
-  ["Alcohol","Alcohol","Alkohol","Alcohol"],
-  ["Ui","Onion","Zwiebel","Cebolla"],
-  ["Uiachtigen","Onion family","Zwiebelgewächse","Familia de la cebolla"],
-  ["Knoflook","Garlic","Knoblauch","Ajo"],
-  ["Peulvruchten","Legumes","Hülsenfrüchte","Legumbres"],
-  ["Maïs","Corn","Mais","Maíz"],
-  ["Glutamaat (E621)","Glutamate (E621)","Glutamat (E621)","Glutamato (E621)"],
-  ["Nachtschade","Nightshades","Nachtschattengewächse","Solanáceas"],
-  ["Steenfruit","Stone fruit","Steinobst","Fruta de hueso"],
-  ["Koriander","Coriander","Koriander","Cilantro"],
-  ["Lam en schaap","Lamb and mutton","Lamm und Schaf","Cordero y oveja"],
-  ["Wild","Game","Wild","Caza"],
-  ["Gevogelte","Poultry","Geflügel","Aves"],
-  ["Paddenstoelen","Mushrooms","Pilze","Setas"],
-  ["Pijnboompitten","Pine nuts","Pinienkerne","Piñones"],
-  ["Kokos","Coconut","Kokos","Coco"],
-  ["Maanzaad","Poppy seed","Mohn","Semillas de amapola"],
-  ["Histamine","Histamine","Histamin","Histamina"],
-  ["Fructose","Fructose","Fruktose","Fructosa"],
-  ["FODMAP","FODMAP","FODMAP","FODMAP"],
-  ["Bevat ook","Also contains","Enthält auch","Contiene también"],
-  ["Extra, niet wettelijk verplicht","Extra, not required by law","Zusätzlich, nicht gesetzlich vorgeschrieben","Extra, no obligatorio por ley"],
-  ["Opslaan is geweigerd. Controleer of je Savour Pro hebt of sous-chef bent in dit keukenteam.","Saving was refused. Check that you have Savour Pro or are a sous-chef in this kitchen team.","Speichern wurde abgelehnt. Prüfe, ob du Savour Pro hast oder Sous-Chef in diesem Küchenteam bist.","Se rechazó el guardado. Comprueba que tienes Savour Pro o eres sous-chef en este equipo de cocina."],
-  ["Gevonden in de basislijst","Found in the base list","In der Basisliste gefunden","Encontrado en la lista base"],
-  ["Voorstel op basis van de naam. Controleer het etiket of de productspecificatie.","Suggestion based on the name. Check the label or the product specification.","Vorschlag anhand des Namens. Prüfe das Etikett oder die Produktspezifikation.","Propuesta según el nombre. Comprueba la etiqueta o la ficha técnica."],
-  ["In de basislijst staan hier geen allergenen bij. Dat is geen garantie: controleer het etiket.","The base list shows no allergens for this. That is no guarantee: check the label.","In der Basisliste stehen hierzu keine Allergene. Das ist keine Garantie: Prüfe das Etikett.","La lista base no indica alérgenos para esto. No es una garantía: comprueba la etiqueta."],
-  ["Basislijst: ©","Base list: ©","Basisliste: ©","Lista base: ©"],
-  ["Keuken","Kitchen","Küche","Cocina"],
-  ["Producten & allergenen","Products & allergens","Produkte & Allergene","Productos y alérgenos"],
-  ["Leg per product de allergenen vast. Savour koppelt de ingrediënten uit je recepten op naam en telt de allergenen per recept op, ook via basisrecepten.","Record the allergens for each product. Savour links the ingredients in your recipes by name and adds up the allergens per recipe, including through base recipes.","Lege die Allergene pro Produkt fest. Savour verknüpft die Zutaten deiner Rezepte über den Namen und zählt die Allergene pro Rezept zusammen, auch über Grundrezepte.","Registra los alérgenos de cada producto. Savour vincula los ingredientes de tus recetas por nombre y suma los alérgenos por receta, también a través de recetas base."],
-  ["＋ Product","＋ Product","＋ Produkt","＋ Producto"],
-  ["Gluten","Gluten","Gluten","Gluten"],
-  ["Schaaldieren","Crustaceans","Krebstiere","Crustáceos"],
-  ["Eieren","Eggs","Eier","Huevos"],
-  ["Vis","Fish","Fisch","Pescado"],
-  ["Pinda's","Peanuts","Erdnüsse","Cacahuetes"],
-  ["Soja","Soy","Soja","Soja"],
-  ["Melk","Milk","Milch","Leche"],
-  ["Noten","Nuts","Schalenfrüchte","Frutos de cáscara"],
-  ["Selderij","Celery","Sellerie","Apio"],
-  ["Mosterd","Mustard","Senf","Mostaza"],
-  ["Sesamzaad","Sesame","Sesam","Sésamo"],
-  ["Sulfiet","Sulphites","Sulfite","Sulfitos"],
-  ["Lupine","Lupin","Lupinen","Altramuces"],
-  ["Weekdieren","Molluscs","Weichtiere","Moluscos"],
-  ["Allergenen","Allergens","Allergene","Alérgenos"],
-  ["＋ Allergenen bepalen","＋ Determine allergens","＋ Allergene bestimmen","＋ Determinar alérgenos"],
-  ["Details","Details","Details","Detalles"],
-  ["Bevat geen van de 14 allergenen.","Contains none of the 14 allergens.","Enthält keines der 14 Allergene.","No contiene ninguno de los 14 alérgenos."],
-  ["Geen allergenen","No allergens","Keine Allergene","Sin alérgenos"],
-  ["Invullen","Fill in","Ausfüllen","Rellenar"],
-  ["Product kiezen","Choose product","Produkt wählen","Elegir producto"],
-  ["Nog geen product","No product yet","Noch kein Produkt","Aún sin producto"],
-  ["Allergenen nog niet gecontroleerd","Allergens not checked yet","Allergene noch nicht geprüft","Alérgenos aún sin comprobar"],
-  ["Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Koppelen aan recept; dan tellen de allergenen van dat recept mee.","A product applies to every recipe with the same ingredient name. Does a line use a recipe of your own, such as a stock? Link it via ⋯ Link to recipe; the allergens of that recipe then count too.","Ein Produkt gilt für alle Rezepte mit demselben Zutatennamen. Nutzt eine Zeile ein eigenes Rezept, etwa einen Fond? Verknüpfe es über ⋯ Mit Rezept verknüpfen; dann zählen die Allergene dieses Rezepts mit.","Un producto se aplica a todas las recetas con el mismo nombre de ingrediente. ¿Una línea usa una receta propia, como un fondo? Vincúlala con ⋯ Vincular a receta; así cuentan también los alérgenos de esa receta."],
-  ["Kies het product dat bij dit ingrediënt hoort, of maak een nieuw product.","Choose the product that belongs to this ingredient, or create a new product.","Wähle das Produkt zu dieser Zutat oder lege ein neues Produkt an.","Elige el producto de este ingrediente o crea un producto nuevo."],
-  ["Zoek een product","Search for a product","Produkt suchen","Buscar un producto"],
-  ["＋ Nieuw product","＋ New product","＋ Neues Produkt","＋ Producto nuevo"],
-  ["Product","Product","Produkt","Producto"],
-  ["Nieuw product","New product","Neues Produkt","Producto nuevo"],
-  ["Ook in recepten als","Also in recipes as","Auch in Rezepten als","También en recetas como"],
-  ["Bijv. koude roomboter, boter","E.g. cold butter, butter","Z. B. kalte Butter, Butter","P. ej. mantequilla fría, mantequilla"],
-  ["Gescheiden door komma’s. Elke naam koppelt de ingrediëntregels met die naam aan dit product.","Separated by commas. Each name links the ingredient lines with that name to this product.","Durch Kommas getrennt. Jeder Name verknüpft die Zutatenzeilen mit diesem Namen mit diesem Produkt.","Separados por comas. Cada nombre vincula a este producto las líneas de ingredientes con ese nombre."],
-  ["Voorstel van Savour op basis van de naam. Controleer het etiket of de productspecificatie.","Suggested by Savour based on the name. Check the label or the product specification.","Vorschlag von Savour anhand des Namens. Prüfe das Etikett oder die Produktspezifikation.","Propuesta de Savour según el nombre. Comprueba la etiqueta o la ficha técnica."],
-  ["Opmerking","Note","Anmerkung","Observación"],
-  ["Bijv. kan sporen van noten bevatten","E.g. may contain traces of nuts","Z. B. kann Spuren von Nüssen enthalten","P. ej. puede contener trazas de frutos de cáscara"],
-  ["Allergenen gecontroleerd op het etiket of de productspecificatie","Allergens checked on the label or product specification","Allergene auf dem Etikett oder in der Produktspezifikation geprüft","Alérgenos comprobados en la etiqueta o la ficha técnica"],
-  ["Pas na deze controle telt het product mee als compleet, ook als er geen allergenen in zitten.","Only after this check does the product count as complete, even if it contains no allergens.","Erst nach dieser Prüfung gilt das Produkt als vollständig, auch wenn es keine Allergene enthält.","Solo tras esta comprobación el producto cuenta como completo, aunque no contenga alérgenos."],
-  ["Vul een naam in","Enter a name","Gib einen Namen ein","Introduce un nombre"],
-  ["Allergenen nog niet gecontroleerd?","Allergens not checked yet?","Allergene noch nicht geprüft?","¿Alérgenos aún sin comprobar?"],
-  ["De aangevinkte allergenen worden bewaard, maar het product telt pas als compleet als je het etiket hebt gecontroleerd en het vinkje zet.","The ticked allergens are saved, but the product only counts as complete once you have checked the label and tick the box.","Die angehakten Allergene werden gespeichert, aber das Produkt gilt erst als vollständig, wenn du das Etikett geprüft und das Häkchen gesetzt hast.","Los alérgenos marcados se guardan, pero el producto solo cuenta como completo cuando hayas comprobado la etiqueta y marques la casilla."],
-  ["Zo bewaren","Save like this","So speichern","Guardar así"],
-  ["De recepten blijven zoals ze zijn; de ingrediënten met deze naam hebben dan geen product meer.","The recipes stay as they are; the ingredients with this name then no longer have a product.","Die Rezepte bleiben, wie sie sind; die Zutaten mit diesem Namen haben dann kein Produkt mehr.","Las recetas quedan igual; los ingredientes con este nombre ya no tendrán producto."],
-  ["Naam verplaatsen?","Move name?","Namen verschieben?","¿Mover el nombre?"],
-  ["Verplaatsen","Move","Verschieben","Mover"],
-  ["Mijn producten","My products","Meine Produkte","Mis productos"],
-  ["Productlijst","Product list","Produktliste","Lista de productos"],
-  ["Producten en allergenen werken zodra de database is bijgewerkt.","Products and allergens will work once the database has been updated.","Produkte und Allergene funktionieren, sobald die Datenbank aktualisiert ist.","Productos y alérgenos funcionarán cuando se actualice la base de datos."],
-  ["Allergenen per recept","Allergens per recipe","Allergene pro Rezept","Alérgenos por receta"],
-  ["Leg per product de allergenen vast. Savour telt ze op per recept, ook via basisrecepten, en zet ze op je prints. Je ziet altijd welke ingrediënten nog niet gecontroleerd zijn.","Record the allergens for each product. Savour adds them up per recipe, including through base recipes, and puts them on your prints. You always see which ingredients have not been checked yet.","Lege die Allergene pro Produkt fest. Savour zählt sie pro Rezept zusammen, auch über Grundrezepte, und setzt sie auf deine Ausdrucke. Du siehst immer, welche Zutaten noch nicht geprüft sind.","Registra los alérgenos de cada producto. Savour los suma por receta, también a través de recetas base, y los pone en tus impresiones. Siempre ves qué ingredientes faltan por comprobar."],
-  ["Savour Pro bekijken","View Savour Pro","Savour Pro ansehen","Ver Savour Pro"],
-  ["producten","products","Produkte","productos"],
-  ["ingrediënten nog te koppelen","ingredients still to link","Zutaten noch zu verknüpfen","ingredientes por vincular"],
-  ["nog te controleren","still to check","noch zu prüfen","por comprobar"],
-  ["Nog te koppelen","Still to link","Noch zu verknüpfen","Por vincular"],
-  ["Ingrediënten uit je recepten zonder product. Koppel ze aan een bestaand product of maak een nieuw product; dat geldt meteen voor alle recepten.","Ingredients from your recipes without a product. Link them to an existing product or create a new one; this applies to all recipes at once.","Zutaten aus deinen Rezepten ohne Produkt. Verknüpfe sie mit einem bestehenden Produkt oder lege ein neues an; das gilt sofort für alle Rezepte.","Ingredientes de tus recetas sin producto. Vincúlalos a un producto existente o crea uno nuevo; se aplica al instante a todas las recetas."],
-  ["Koppelen","Link","Verknüpfen","Vincular"],
-  ["in 1 recept","in 1 recipe","in 1 Rezept","en 1 receta"],
-  ["Minder tonen","Show less","Weniger anzeigen","Mostrar menos"],
-  ["Nog te controleren","Still to check","Noch zu prüfen","Por comprobar"],
-  ["Geen producten gevonden.","No products found.","Keine Produkte gefunden.","No se encontraron productos."],
-  ["Nog geen producten. Koppel hierboven ingrediënten, of voeg een product toe.","No products yet. Link ingredients above, or add a product.","Noch keine Produkte. Verknüpfe oben Zutaten oder füge ein Produkt hinzu.","Aún no hay productos. Vincula ingredientes arriba o añade un producto."],
-  ["Nog niet volledig gecontroleerd.","Not fully checked yet.","Noch nicht vollständig geprüft.","Aún no comprobado del todo."],
-  ["Verwijderen lukte niet; probeer het opnieuw","Deleting failed; please try again","Löschen hat nicht geklappt; versuche es erneut","No se pudo eliminar; inténtalo de nuevo"],
+  ['Ander product', 'Other product', 'Anderes Produkt', 'Otro producto'],
+  ['Overnemen', 'Accept', 'Übernehmen', 'Aceptar'],
+  ['Naar bereiding', 'Move to method', 'Zur Zubereitung', 'Pasar a preparación'],
+  ['Laten staan', 'Keep as is', 'So lassen', 'Dejar así'],
+  ['1 regel om na te kijken', '1 line to check', '1 Zeile zu prüfen', '1 línea por revisar'],
+  [
+    'Alle voorstellen overnemen',
+    'Accept all suggestions',
+    'Alle Vorschläge übernehmen',
+    'Aceptar todas las sugerencias'
+  ],
+  [
+    'Geen ingrediënt, waarschijnlijk een tikfout',
+    'Not an ingredient, probably a typo',
+    'Keine Zutat, wahrscheinlich ein Tippfehler',
+    'No es un ingrediente, probablemente una errata'
+  ],
+  [
+    'Lijkt een omrekening of alternatief voor een andere regel',
+    'Looks like a conversion or alternative for another line',
+    'Sieht aus wie eine Umrechnung oder Alternative zu einer anderen Zeile',
+    'Parece una conversión o alternativa de otra línea'
+  ],
+  [
+    'Lijkt een stap van de bereiding',
+    'Looks like a step of the method',
+    'Sieht aus wie ein Zubereitungsschritt',
+    'Parece un paso de la preparación'
+  ],
+  [
+    'De hoeveelheid ontbreekt; vul die zelf in',
+    'The amount is missing; fill it in yourself',
+    'Die Menge fehlt; trage sie selbst ein',
+    'Falta la cantidad; rellénala tú'
+  ],
+  ['Teken vooraan weggehaald', 'Sign at the start removed', 'Zeichen am Anfang entfernt', 'Signo inicial quitado'],
+  [
+    'Het aantal ontbreekt (x); vul dat zelf in',
+    'The number is missing (x); fill it in yourself',
+    'Die Anzahl fehlt (x); trage sie selbst ein',
+    'Falta el número (x); rellénalo tú'
+  ],
+  [
+    'Spatie tussen getal en naam',
+    'Space between number and name',
+    'Leerzeichen zwischen Zahl und Name',
+    'Espacio entre número y nombre'
+  ],
+  [
+    'Spatie tussen maat en naam',
+    'Space between unit and name',
+    'Leerzeichen zwischen Maßeinheit und Name',
+    'Espacio entre unidad y nombre'
+  ],
+  ['Geen ingrediënt', 'Not an ingredient', 'Keine Zutat', 'No es un ingrediente'],
+  [
+    'Onzinregels en tikfouten in je recepten weghalen',
+    'Remove nonsense lines and typos from your recipes',
+    'Unsinnige Zeilen und Tippfehler aus deinen Rezepten entfernen',
+    'Quitar líneas sin sentido y erratas de tus recetas'
+  ],
+  ['Receptregels nakijken', 'Check recipe lines', 'Rezeptzeilen prüfen', 'Revisar líneas de receta'],
+  [
+    'Regels in je recepten die geen ingrediënt lijken, of een tikfout bevatten. Klik op een groep om de regels te zien, en zet een vinkje uit als je iets wilt laten staan.',
+    'Lines in your recipes that do not look like an ingredient, or contain a typo. Click a group to see the lines, and untick anything you want to keep.',
+    'Zeilen in deinen Rezepten, die keine Zutat zu sein scheinen oder einen Tippfehler enthalten. Klicke auf eine Gruppe, um die Zeilen zu sehen, und entferne das Häkchen bei allem, was bleiben soll.',
+    'Líneas de tus recetas que no parecen un ingrediente o contienen una errata. Haz clic en un grupo para ver las líneas y desmarca lo que quieras dejar.'
+  ],
+  ['regels weghalen', 'lines to remove', 'Zeilen entfernen', 'líneas a quitar'],
+  ['regels naar de bereiding', 'lines to move to the method', 'Zeilen zur Zubereitung', 'líneas a la preparación'],
+  ['regels aanpassen', 'lines to adjust', 'Zeilen anpassen', 'líneas a ajustar'],
+  ['Aanpassen', 'Apply', 'Anpassen', 'Aplicar'],
+  ['Bezig met aanpassen…', 'Applying…', 'Wird angepasst…', 'Aplicando…'],
+  [
+    'Geen rommelige regels gevonden',
+    'No messy lines found',
+    'Keine unordentlichen Zeilen gefunden',
+    'No se encontraron líneas desordenadas'
+  ],
+  [
+    'Regels aangepast in 1 recept',
+    'Lines adjusted in 1 recipe',
+    'Zeilen in 1 Rezept angepasst',
+    'Líneas ajustadas en 1 receta'
+  ],
+  ['producten uit elkaar halen', 'products to split up', 'Produkte aufteilen', 'productos a separar'],
+  [
+    'Namen die bij een ander product horen, gaan naar dat product. Bestaat het nog niet, dan maakt Savour het.',
+    'Names that belong to another product move to that product. If it does not exist yet, Savour creates it.',
+    'Namen, die zu einem anderen Produkt gehören, gehen zu diesem Produkt. Gibt es das noch nicht, legt Savour es an.',
+    'Los nombres que pertenecen a otro producto pasan a ese producto. Si aún no existe, Savour lo crea.'
+  ],
+  ['daarna weg', 'then removed', 'danach entfernt', 'después se quita'],
+  ['Weggehaald uit 1 recept', 'Removed from 1 recipe', 'Aus 1 Rezept entfernt', 'Quitado de 1 receta'],
+  ['Onderdeel van dit recept', 'Part of this recipe', 'Teil dieses Rezepts', 'Parte de esta receta'],
+  [
+    'Dubbele of foute producten samenvoegen en verbeteren',
+    'Merge and correct duplicate or wrong products',
+    'Doppelte oder falsche Produkte zusammenführen und verbessern',
+    'Unir y corregir productos duplicados o erróneos'
+  ],
+  ['Producten opruimen', 'Tidy up products', 'Produkte aufräumen', 'Ordenar productos'],
+  ['namen zijn te algemeen', 'names are too general', 'Namen sind zu allgemein', 'nombres son demasiado generales'],
+  [
+    'Bij "sap" of "coulis" weet Savour niet wat erin zit. Staat het in je recept als onderdeel, dan telt het al mee. Anders: koppel het aan een eigen recept of een product. Tot die tijd is dat recept nog niet compleet.',
+    'With "juice" or "coulis" Savour does not know what is in it. If it is a part of your recipe, it already counts. Otherwise link it to one of your recipes or a product. Until then that recipe is not complete.',
+    'Bei „Saft“ oder „Coulis“ weiß Savour nicht, was drin ist. Ist es ein Teil deines Rezepts, zählt es schon mit. Sonst verknüpfe es mit einem eigenen Rezept oder einem Produkt. Bis dahin ist das Rezept nicht vollständig.',
+    'Con «zumo» o «coulis» Savour no sabe qué contiene. Si es una parte de tu receta, ya cuenta. Si no, vincúlalo a una receta propia o a un producto. Hasta entonces esa receta no está completa.'
+  ],
+  [
+    'Dit gaat Savour doen. Klik op een regel om te zien wat het is, en zet een vinkje uit als je iets wilt laten staan.',
+    'This is what Savour will do. Click a line to see the details, and untick anything you want to keep as it is.',
+    'Das wird Savour tun. Klicke auf eine Zeile für die Details und entferne das Häkchen bei allem, was bleiben soll.',
+    'Esto es lo que hará Savour. Haz clic en una línea para ver los detalles y desmarca lo que quieras dejar como está.'
+  ],
+  ['producten samenvoegen', 'products to merge', 'Produkte zusammenführen', 'productos a unir'],
+  [
+    'Varianten worden één product. De oude namen blijven als schrijfwijze bewaard en de allergenen tellen op.',
+    'Variants become one product. The old names are kept as spellings and the allergens add up.',
+    'Varianten werden ein Produkt. Die alten Namen bleiben als Schreibweise erhalten und die Allergene werden zusammengezählt.',
+    'Las variantes pasan a ser un producto. Los nombres antiguos se guardan como escrituras y los alérgenos se suman.'
+  ],
+  [
+    'producten worden een koppeling met je eigen recept',
+    'products become a link to your own recipe',
+    'Produkte werden eine Verknüpfung mit deinem eigenen Rezept',
+    'productos pasan a ser un vínculo con tu propia receta'
+  ],
+  [
+    'Dit zijn je eigen recepten. De allergenen van het recept tellen dan mee.',
+    'These are your own recipes. The allergens of the recipe then count.',
+    'Das sind deine eigenen Rezepte. Die Allergene des Rezepts zählen dann mit.',
+    'Son tus propias recetas. Entonces cuentan los alérgenos de la receta.'
+  ],
+  ['allergenen verbeteren', 'allergens to correct', 'Allergene verbessern', 'alérgenos a corregir'],
+  [
+    'Op basis van de naam: wat erbij komt en wat eraf gaat.',
+    'Based on the name: what is added and what is removed.',
+    'Anhand des Namens: was dazukommt und was wegfällt.',
+    'Según el nombre: lo que se añade y lo que se quita.'
+  ],
+  ['producten weghalen', 'products to remove', 'Produkte entfernen', 'productos a quitar'],
+  [
+    'Geen ingrediënt, of te algemeen om te weten wat erin zit (zoals "sap" of "olie"). De namen komen terug bij Nog te koppelen.',
+    'Not an ingredient, or too general to know what is in it (such as "juice" or "oil"). The names go back to Still to link.',
+    'Keine Zutat oder zu allgemein, um zu wissen, was drin ist (wie „Saft“ oder „Öl“). Die Namen kommen zurück zu Noch zu verknüpfen.',
+    'No es un ingrediente, o es demasiado general para saber qué contiene (como «zumo» o «aceite»). Los nombres vuelven a Por vincular.'
+  ],
+  ['Bezig met opruimen…', 'Tidying up…', 'Wird aufgeräumt…', 'Ordenando…'],
+  [
+    'Je producten zijn al netjes',
+    'Your products are already tidy',
+    'Deine Produkte sind schon ordentlich',
+    'Tus productos ya están ordenados'
+  ],
+  ['Nog niet overgenomen', 'Not adopted yet', 'Noch nicht übernommen', 'Aún no adoptado'],
+  ['Voorstellen overnemen', 'Adopt suggestions', 'Vorschläge übernehmen', 'Adoptar sugerencias'],
+  [
+    'Dit zijn de allergenen die Savour bij deze producten voorstelt. Klopt iets niet bij jouw merk, open het product dan in de lijst en pas het aan.',
+    'These are the allergens Savour suggests for these products. If something is different for your brand, open the product in the list and change it.',
+    'Das sind die Allergene, die Savour für diese Produkte vorschlägt. Ist bei deiner Marke etwas anders, öffne das Produkt in der Liste und ändere es.',
+    'Estos son los alérgenos que Savour sugiere para estos productos. Si algo es distinto en tu marca, abre el producto en la lista y cámbialo.'
+  ],
+  ['Alles overnemen', 'Adopt all', 'Alle übernehmen', 'Adoptar todo'],
+  [
+    'producten nog niet overgenomen',
+    'products not adopted yet',
+    'Produkte noch nicht übernommen',
+    'productos aún no adoptados'
+  ],
+  ['Bekijken en overnemen', 'Review and adopt', 'Ansehen und übernehmen', 'Revisar y adoptar'],
+  ['van', 'of', 'von', 'de'],
+  [
+    'recepten hebben complete allergenen',
+    'recipes have complete allergens',
+    'Rezepten haben vollständige Allergene',
+    'recetas tienen alérgenos completos'
+  ],
+  ['namen nog te koppelen', 'names still to link', 'Namen noch zu verknüpfen', 'nombres por vincular'],
+  [
+    'Alles automatisch koppelen',
+    'Link everything automatically',
+    'Alles automatisch verknüpfen',
+    'Vincular todo automáticamente'
+  ],
+  [
+    'Savour koppelt elke naam aan het product of eigen recept dat erbij hoort en maakt nieuwe producten met hun allergenen. Je ziet eerst wat er gebeurt.',
+    'Savour links each name to the matching product or your own recipe and creates new products with their allergens. You first see what will happen.',
+    'Savour verknüpft jeden Namen mit dem passenden Produkt oder eigenen Rezept und legt neue Produkte mit ihren Allergenen an. Du siehst zuerst, was passiert.',
+    'Savour vincula cada nombre con el producto o la receta propia que corresponde y crea productos nuevos con sus alérgenos. Primero ves lo que va a pasar.'
+  ],
+  [
+    'Namen uit je recepten zonder product, de meest gebruikte bovenaan. Eén keer koppelen geldt voor al je recepten.',
+    'Names from your recipes without a product, most used first. Linking once applies to all your recipes.',
+    'Namen aus deinen Rezepten ohne Produkt, die meistgenutzten oben. Einmal verknüpfen gilt für alle Rezepte.',
+    'Nombres de tus recetas sin producto, los más usados primero. Vincular una vez vale para todas tus recetas.'
+  ],
+  [
+    'Dit gaat Savour doen. Klik op een regel om te zien welke namen het zijn. Elk product kun je daarna nog aanpassen.',
+    'This is what Savour will do. Click a line to see which names. You can still change each product afterwards.',
+    'Das wird Savour tun. Klicke auf eine Zeile, um die Namen zu sehen. Jedes Produkt kannst du danach noch ändern.',
+    'Esto es lo que hará Savour. Haz clic en una línea para ver los nombres. Después puedes cambiar cada producto.'
+  ],
+  [
+    'namen koppelen aan je eigen recept',
+    'names to link to your own recipe',
+    'Namen mit deinem eigenen Rezept verknüpfen',
+    'nombres a vincular con tu propia receta'
+  ],
+  [
+    'namen koppelen aan een bestaand product',
+    'names to link to an existing product',
+    'Namen mit einem vorhandenen Produkt verknüpfen',
+    'nombres a vincular con un producto existente'
+  ],
+  ['nieuwe producten maken', 'new products to create', 'neue Produkte anlegen', 'productos nuevos a crear'],
+  ['Alles koppelen', 'Link everything', 'Alles verknüpfen', 'Vincular todo'],
+  ['Bezig met koppelen…', 'Linking…', 'Wird verknüpft…', 'Vinculando…'],
+  [
+    'Savour vond geen namen meer om automatisch te koppelen',
+    'Savour found no more names to link automatically',
+    'Savour hat keine Namen mehr zum automatischen Verknüpfen gefunden',
+    'Savour no encontró más nombres para vincular automáticamente'
+  ],
+  ['Allergenen kloppen', 'Allergens are correct', 'Allergene stimmen', 'Los alérgenos son correctos'],
+  [
+    'Zet dit uit als je het nog wilt nakijken; dan telt het product nog niet mee.',
+    'Switch this off if you still want to check it; the product then does not count yet.',
+    'Schalte das aus, wenn du es noch prüfen willst; dann zählt das Produkt noch nicht.',
+    'Desactívalo si aún quieres revisarlo; así el producto todavía no cuenta.'
+  ],
+  [
+    'Product nog niet laten meetellen?',
+    'Not count the product yet?',
+    'Produkt noch nicht mitzählen?',
+    '¿No contar el producto todavía?'
+  ],
+  [
+    'De aangevinkte allergenen worden bewaard. Het product telt pas mee als je "Allergenen kloppen" aanzet.',
+    'The ticked allergens are saved. The product only counts once you switch on "Allergens are correct".',
+    'Die angekreuzten Allergene werden gespeichert. Das Produkt zählt erst, wenn du „Allergene stimmen“ einschaltest.',
+    'Los alérgenos marcados se guardan. El producto solo cuenta cuando activas «Los alérgenos son correctos».'
+  ],
+  [
+    'Voorstel van Savour op basis van de naam. Pas het aan als het bij jouw merk anders is.',
+    'Savour’s suggestion based on the name. Change it if it is different for your brand.',
+    'Vorschlag von Savour anhand des Namens. Ändere ihn, wenn es bei deiner Marke anders ist.',
+    'Sugerencia de Savour según el nombre. Cámbiala si en tu marca es distinto.'
+  ],
+  [
+    'Savour kent hier geen allergenen bij. Weet je dat er wel iets in zit, vink het dan aan.',
+    'Savour knows no allergens for this. If you know it contains something, tick it.',
+    'Savour kennt hierzu keine Allergene. Weißt du, dass etwas drin ist, kreuze es an.',
+    'Savour no conoce alérgenos para esto. Si sabes que contiene algo, márcalo.'
+  ],
+  [
+    'Savour zet ruim 200 veelgebruikte keukenproducten voor je klaar, zoals bloem, slagroom, eidooier en zout, met hun allergenen en de schrijfwijzen uit recepten. Je beantwoordt eerst drie korte vragen. Elk product kun je later aanpassen.',
+    'Savour prepares over 200 common kitchen products for you, such as flour, cream, egg yolk and salt, with their allergens and the spellings used in recipes. First you answer three short questions. You can change each product later.',
+    'Savour legt über 200 gängige Küchenprodukte für dich an, etwa Mehl, Sahne, Eigelb und Salz, mit ihren Allergenen und den Schreibweisen aus Rezepten. Zuerst beantwortest du drei kurze Fragen. Jedes Produkt kannst du später ändern.',
+    'Savour te prepara más de 200 productos de cocina habituales, como harina, nata, yema y sal, con sus alérgenos y las formas de escribirlos en recetas. Primero respondes tres preguntas breves. Puedes cambiar cada producto más adelante.'
+  ],
+  [
+    'Welke allergenen wil je bijhouden?',
+    'Which allergens do you want to track?',
+    'Welche Allergene möchtest du erfassen?',
+    '¿Qué alérgenos quieres registrar?'
+  ],
+  [
+    'Wettelijk verplicht zijn de 14 allergenen van de EU. Je kunt aanvullen met kenmerken waar gasten vaak naar vragen, zoals lactose, ui, gevogelte of histamine. Je kunt dit later altijd aanpassen.',
+    'The 14 EU allergens are required by law. You can add characteristics guests often ask about, such as lactose, onion, poultry or histamine. You can always change this later.',
+    'Gesetzlich vorgeschrieben sind die 14 Allergene der EU. Du kannst Merkmale ergänzen, nach denen Gäste oft fragen, etwa Laktose, Zwiebel, Geflügel oder Histamin. Das kannst du später jederzeit ändern.',
+    'Por ley son obligatorios los 14 alérgenos de la UE. Puedes añadir características por las que los clientes preguntan a menudo, como lactosa, cebolla, aves o histamina. Puedes cambiarlo más adelante.'
+  ],
+  ['Alleen de 14 wettelijke', 'Only the 14 required by law', 'Nur die 14 gesetzlichen', 'Solo los 14 obligatorios'],
+  ['Aanvullen', 'Add more', 'Ergänzen', 'Añadir más'],
+  ['Welke allergenen?', 'Which allergens?', 'Welche Allergene?', '¿Qué alérgenos?'],
+  [
+    'De 14 wettelijke allergenen houdt Savour altijd bij. Vink aan wat je daarnaast wilt zien. Wat je uitzet, blijft bewaard maar zie je niet meer.',
+    'Savour always tracks the 14 allergens required by law. Tick what else you want to see. What you switch off is kept but no longer shown.',
+    'Die 14 gesetzlichen Allergene erfasst Savour immer. Kreuze an, was du zusätzlich sehen willst. Was du ausschaltest, bleibt gespeichert, wird aber nicht mehr angezeigt.',
+    'Savour siempre registra los 14 alérgenos obligatorios. Marca qué más quieres ver. Lo que desactives se guarda, pero ya no se muestra.'
+  ],
+  ['Vlees', 'Meat', 'Fleisch', 'Carne'],
+  ['Groente, fruit en zaden', 'Vegetables, fruit and seeds', 'Gemüse, Obst und Samen', 'Verduras, fruta y semillas'],
+  ['Intoleranties en overig', 'Intolerances and other', 'Unverträglichkeiten und Sonstiges', 'Intolerancias y otros'],
+  ['Alles aanvinken', 'Tick all', 'Alle ankreuzen', 'Marcar todo'],
+  ['Alles uitvinken', 'Untick all', 'Alle abwählen', 'Desmarcar todo'],
+  ['Startlijst', 'Starter list', 'Startliste', 'Lista inicial'],
+  [
+    'Savour zet ruim 200 veelgebruikte keukenproducten voor je klaar, zoals bloem, slagroom, eidooier en zout, met hun allergenen en de schrijfwijzen uit recepten. Je beantwoordt eerst drie korte vragen. Daarna bevestig je de producten zelf.',
+    'Savour prepares over 200 common kitchen products for you, such as flour, cream, egg yolk and salt, with their allergens and the spellings used in recipes. First you answer three short questions. Then you confirm the products yourself.',
+    'Savour legt über 200 gängige Küchenprodukte für dich an, etwa Mehl, Sahne, Eigelb und Salz, mit ihren Allergenen und den Schreibweisen aus Rezepten. Zuerst beantwortest du drei kurze Fragen. Danach bestätigst du die Produkte selbst.',
+    'Savour te prepara más de 200 productos de cocina habituales, como harina, nata, yema y sal, con sus alérgenos y las formas de escribirlos en recetas. Primero respondes tres preguntas breves. Después confirmas tú los productos.'
+  ],
+  ['Startlijst maken', 'Create starter list', 'Startliste anlegen', 'Crear lista inicial'],
+  ['Startlijst controleren', 'Check starter list', 'Startliste prüfen', 'Revisar lista inicial'],
+  [
+    'basisproducten met vaste allergenen',
+    'basic products with fixed allergens',
+    'Grundprodukte mit festen Allergenen',
+    'productos básicos con alérgenos fijos'
+  ],
+  ['Bekijken en bevestigen', 'Review and confirm', 'Ansehen und bestätigen', 'Revisar y confirmar'],
+  [
+    'producten: kijk het etiket na',
+    'products: check the label',
+    'Produkte: Etikett prüfen',
+    'productos: revisa la etiqueta'
+  ],
+  ['Tonen', 'Show', 'Anzeigen', 'Mostrar'],
+  ['Startlijst ongedaan maken', 'Undo starter list', 'Startliste rückgängig machen', 'Deshacer lista inicial'],
+  ['Startlijst ongedaan maken?', 'Undo starter list?', 'Startliste rückgängig machen?', '¿Deshacer la lista inicial?'],
+  ['Welke gelatine gebruik je?', 'Which gelatine do you use?', 'Welche Gelatine verwendest du?', '¿Qué gelatina usas?'],
+  ['Varkensgelatine', 'Pork gelatine', 'Schweinegelatine', 'Gelatina de cerdo'],
+  ['Rundergelatine', 'Beef gelatine', 'Rindergelatine', 'Gelatina de ternera'],
+  ['Visgelatine', 'Fish gelatine', 'Fischgelatine', 'Gelatina de pescado'],
+  ['Weet ik niet', 'I don’t know', 'Weiß ich nicht', 'No lo sé'],
+  [
+    'Dan kijk je het etiket na',
+    'Then you check the label',
+    'Dann prüfst du das Etikett',
+    'Entonces revisas la etiqueta'
+  ],
+  [
+    'Maak je fonds en bouillon zelf, of koop je ze in?',
+    'Do you make stocks and broth yourself, or buy them?',
+    'Machst du Fonds und Brühe selbst oder kaufst du sie?',
+    '¿Haces tú los fondos y caldos o los compras?'
+  ],
+  [
+    'Zelf, als recept in Savour',
+    'Myself, as a recipe in Savour',
+    'Selbst, als Rezept in Savour',
+    'Yo mismo, como receta en Savour'
+  ],
+  [
+    'Koppel ze aan je eigen recept',
+    'Link them to your own recipe',
+    'Verknüpfe sie mit deinem eigenen Rezept',
+    'Vincúlalos a tu propia receta'
+  ],
+  ['Ingekocht', 'Bought in', 'Gekauft', 'Comprados'],
+  [
+    'Welk merk chocolade gebruik je meestal?',
+    'Which brand of chocolate do you usually use?',
+    'Welche Schokoladenmarke verwendest du meistens?',
+    '¿Qué marca de chocolate usas normalmente?'
+  ],
+  ['Ander merk', 'Other brand', 'Andere Marke', 'Otra marca'],
+  [
+    'Alle producten van de startlijst staan er al',
+    'All products from the starter list are already there',
+    'Alle Produkte der Startliste sind schon da',
+    'Todos los productos de la lista inicial ya están'
+  ],
+  ['Basisproducten bevestigen', 'Confirm basic products', 'Grundprodukte bestätigen', 'Confirmar productos básicos'],
+  [
+    'Loop de lijst na. Klopt een product niet, open het dan via de lijst en pas het aan. Na bevestigen tellen deze producten als gecontroleerd.',
+    'Go through the list. If a product is not right, open it from the list and change it. After confirming, these products count as checked.',
+    'Geh die Liste durch. Stimmt ein Produkt nicht, öffne es über die Liste und ändere es. Nach dem Bestätigen gelten diese Produkte als geprüft.',
+    'Revisa la lista. Si un producto no es correcto, ábrelo desde la lista y cámbialo. Tras confirmar, estos productos cuentan como comprobados.'
+  ],
+  ['Klopt, alles bevestigen', 'Correct, confirm all', 'Stimmt, alle bestätigen', 'Correcto, confirmar todo'],
+  ['Etiket nakijken', 'Check label', 'Etikett prüfen', 'Revisar etiqueta'],
+  ['Alle producten tonen', 'Show all products', 'Alle Produkte anzeigen', 'Mostrar todos los productos'],
+  ['Lactose', 'Lactose', 'Laktose', 'Lactosa'],
+  ['Varkensvlees', 'Pork', 'Schweinefleisch', 'Cerdo'],
+  ['Rundvlees', 'Beef', 'Rindfleisch', 'Ternera'],
+  ['Alcohol', 'Alcohol', 'Alkohol', 'Alcohol'],
+  ['Ui', 'Onion', 'Zwiebel', 'Cebolla'],
+  ['Uiachtigen', 'Onion family', 'Zwiebelgewächse', 'Familia de la cebolla'],
+  ['Knoflook', 'Garlic', 'Knoblauch', 'Ajo'],
+  ['Peulvruchten', 'Legumes', 'Hülsenfrüchte', 'Legumbres'],
+  ['Maïs', 'Corn', 'Mais', 'Maíz'],
+  ['Glutamaat (E621)', 'Glutamate (E621)', 'Glutamat (E621)', 'Glutamato (E621)'],
+  ['Nachtschade', 'Nightshades', 'Nachtschattengewächse', 'Solanáceas'],
+  ['Steenfruit', 'Stone fruit', 'Steinobst', 'Fruta de hueso'],
+  ['Koriander', 'Coriander', 'Koriander', 'Cilantro'],
+  ['Lam en schaap', 'Lamb and mutton', 'Lamm und Schaf', 'Cordero y oveja'],
+  ['Wild', 'Game', 'Wild', 'Caza'],
+  ['Gevogelte', 'Poultry', 'Geflügel', 'Aves'],
+  ['Paddenstoelen', 'Mushrooms', 'Pilze', 'Setas'],
+  ['Pijnboompitten', 'Pine nuts', 'Pinienkerne', 'Piñones'],
+  ['Kokos', 'Coconut', 'Kokos', 'Coco'],
+  ['Maanzaad', 'Poppy seed', 'Mohn', 'Semillas de amapola'],
+  ['Histamine', 'Histamine', 'Histamin', 'Histamina'],
+  ['Fructose', 'Fructose', 'Fruktose', 'Fructosa'],
+  ['FODMAP', 'FODMAP', 'FODMAP', 'FODMAP'],
+  ['Bevat ook', 'Also contains', 'Enthält auch', 'Contiene también'],
+  [
+    'Extra, niet wettelijk verplicht',
+    'Extra, not required by law',
+    'Zusätzlich, nicht gesetzlich vorgeschrieben',
+    'Extra, no obligatorio por ley'
+  ],
+  [
+    'Opslaan is geweigerd. Controleer of je Savour Pro hebt of sous-chef bent in dit keukenteam.',
+    'Saving was refused. Check that you have Savour Pro or are a sous-chef in this kitchen team.',
+    'Speichern wurde abgelehnt. Prüfe, ob du Savour Pro hast oder Sous-Chef in diesem Küchenteam bist.',
+    'Se rechazó el guardado. Comprueba que tienes Savour Pro o eres sous-chef en este equipo de cocina.'
+  ],
+  ['Gevonden in de basislijst', 'Found in the base list', 'In der Basisliste gefunden', 'Encontrado en la lista base'],
+  [
+    'Voorstel op basis van de naam. Controleer het etiket of de productspecificatie.',
+    'Suggestion based on the name. Check the label or the product specification.',
+    'Vorschlag anhand des Namens. Prüfe das Etikett oder die Produktspezifikation.',
+    'Propuesta según el nombre. Comprueba la etiqueta o la ficha técnica.'
+  ],
+  [
+    'In de basislijst staan hier geen allergenen bij. Dat is geen garantie: controleer het etiket.',
+    'The base list shows no allergens for this. That is no guarantee: check the label.',
+    'In der Basisliste stehen hierzu keine Allergene. Das ist keine Garantie: Prüfe das Etikett.',
+    'La lista base no indica alérgenos para esto. No es una garantía: comprueba la etiqueta.'
+  ],
+  ['Basislijst: ©', 'Base list: ©', 'Basisliste: ©', 'Lista base: ©'],
+  ['Keuken', 'Kitchen', 'Küche', 'Cocina'],
+  ['Producten & allergenen', 'Products & allergens', 'Produkte & Allergene', 'Productos y alérgenos'],
+  [
+    'Leg per product de allergenen vast. Savour koppelt de ingrediënten uit je recepten op naam en telt de allergenen per recept op, ook via basisrecepten.',
+    'Record the allergens for each product. Savour links the ingredients in your recipes by name and adds up the allergens per recipe, including through base recipes.',
+    'Lege die Allergene pro Produkt fest. Savour verknüpft die Zutaten deiner Rezepte über den Namen und zählt die Allergene pro Rezept zusammen, auch über Grundrezepte.',
+    'Registra los alérgenos de cada producto. Savour vincula los ingredientes de tus recetas por nombre y suma los alérgenos por receta, también a través de recetas base.'
+  ],
+  ['＋ Product', '＋ Product', '＋ Produkt', '＋ Producto'],
+  ['Gluten', 'Gluten', 'Gluten', 'Gluten'],
+  ['Schaaldieren', 'Crustaceans', 'Krebstiere', 'Crustáceos'],
+  ['Eieren', 'Eggs', 'Eier', 'Huevos'],
+  ['Vis', 'Fish', 'Fisch', 'Pescado'],
+  ["Pinda's", 'Peanuts', 'Erdnüsse', 'Cacahuetes'],
+  ['Soja', 'Soy', 'Soja', 'Soja'],
+  ['Melk', 'Milk', 'Milch', 'Leche'],
+  ['Noten', 'Nuts', 'Schalenfrüchte', 'Frutos de cáscara'],
+  ['Selderij', 'Celery', 'Sellerie', 'Apio'],
+  ['Mosterd', 'Mustard', 'Senf', 'Mostaza'],
+  ['Sesamzaad', 'Sesame', 'Sesam', 'Sésamo'],
+  ['Sulfiet', 'Sulphites', 'Sulfite', 'Sulfitos'],
+  ['Lupine', 'Lupin', 'Lupinen', 'Altramuces'],
+  ['Weekdieren', 'Molluscs', 'Weichtiere', 'Moluscos'],
+  ['Allergenen', 'Allergens', 'Allergene', 'Alérgenos'],
+  ['＋ Allergenen bepalen', '＋ Determine allergens', '＋ Allergene bestimmen', '＋ Determinar alérgenos'],
+  ['Details', 'Details', 'Details', 'Detalles'],
+  [
+    'Bevat geen van de 14 allergenen.',
+    'Contains none of the 14 allergens.',
+    'Enthält keines der 14 Allergene.',
+    'No contiene ninguno de los 14 alérgenos.'
+  ],
+  ['Geen allergenen', 'No allergens', 'Keine Allergene', 'Sin alérgenos'],
+  ['Invullen', 'Fill in', 'Ausfüllen', 'Rellenar'],
+  ['Product kiezen', 'Choose product', 'Produkt wählen', 'Elegir producto'],
+  ['Nog geen product', 'No product yet', 'Noch kein Produkt', 'Aún sin producto'],
+  [
+    'Allergenen nog niet gecontroleerd',
+    'Allergens not checked yet',
+    'Allergene noch nicht geprüft',
+    'Alérgenos aún sin comprobar'
+  ],
+  [
+    'Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Koppelen aan recept; dan tellen de allergenen van dat recept mee.',
+    'A product applies to every recipe with the same ingredient name. Does a line use a recipe of your own, such as a stock? Link it via ⋯ Link to recipe; the allergens of that recipe then count too.',
+    'Ein Produkt gilt für alle Rezepte mit demselben Zutatennamen. Nutzt eine Zeile ein eigenes Rezept, etwa einen Fond? Verknüpfe es über ⋯ Mit Rezept verknüpfen; dann zählen die Allergene dieses Rezepts mit.',
+    'Un producto se aplica a todas las recetas con el mismo nombre de ingrediente. ¿Una línea usa una receta propia, como un fondo? Vincúlala con ⋯ Vincular a receta; así cuentan también los alérgenos de esa receta.'
+  ],
+  [
+    'Kies het product dat bij dit ingrediënt hoort, of maak een nieuw product.',
+    'Choose the product that belongs to this ingredient, or create a new product.',
+    'Wähle das Produkt zu dieser Zutat oder lege ein neues Produkt an.',
+    'Elige el producto de este ingrediente o crea un producto nuevo.'
+  ],
+  ['Zoek een product', 'Search for a product', 'Produkt suchen', 'Buscar un producto'],
+  ['＋ Nieuw product', '＋ New product', '＋ Neues Produkt', '＋ Producto nuevo'],
+  ['Product', 'Product', 'Produkt', 'Producto'],
+  ['Nieuw product', 'New product', 'Neues Produkt', 'Producto nuevo'],
+  ['Ook in recepten als', 'Also in recipes as', 'Auch in Rezepten als', 'También en recetas como'],
+  [
+    'Bijv. koude roomboter, boter',
+    'E.g. cold butter, butter',
+    'Z. B. kalte Butter, Butter',
+    'P. ej. mantequilla fría, mantequilla'
+  ],
+  [
+    'Gescheiden door komma’s. Elke naam koppelt de ingrediëntregels met die naam aan dit product.',
+    'Separated by commas. Each name links the ingredient lines with that name to this product.',
+    'Durch Kommas getrennt. Jeder Name verknüpft die Zutatenzeilen mit diesem Namen mit diesem Produkt.',
+    'Separados por comas. Cada nombre vincula a este producto las líneas de ingredientes con ese nombre.'
+  ],
+  [
+    'Voorstel van Savour op basis van de naam. Controleer het etiket of de productspecificatie.',
+    'Suggested by Savour based on the name. Check the label or the product specification.',
+    'Vorschlag von Savour anhand des Namens. Prüfe das Etikett oder die Produktspezifikation.',
+    'Propuesta de Savour según el nombre. Comprueba la etiqueta o la ficha técnica.'
+  ],
+  ['Opmerking', 'Note', 'Anmerkung', 'Observación'],
+  [
+    'Bijv. kan sporen van noten bevatten',
+    'E.g. may contain traces of nuts',
+    'Z. B. kann Spuren von Nüssen enthalten',
+    'P. ej. puede contener trazas de frutos de cáscara'
+  ],
+  [
+    'Allergenen gecontroleerd op het etiket of de productspecificatie',
+    'Allergens checked on the label or product specification',
+    'Allergene auf dem Etikett oder in der Produktspezifikation geprüft',
+    'Alérgenos comprobados en la etiqueta o la ficha técnica'
+  ],
+  [
+    'Pas na deze controle telt het product mee als compleet, ook als er geen allergenen in zitten.',
+    'Only after this check does the product count as complete, even if it contains no allergens.',
+    'Erst nach dieser Prüfung gilt das Produkt als vollständig, auch wenn es keine Allergene enthält.',
+    'Solo tras esta comprobación el producto cuenta como completo, aunque no contenga alérgenos.'
+  ],
+  ['Vul een naam in', 'Enter a name', 'Gib einen Namen ein', 'Introduce un nombre'],
+  [
+    'Allergenen nog niet gecontroleerd?',
+    'Allergens not checked yet?',
+    'Allergene noch nicht geprüft?',
+    '¿Alérgenos aún sin comprobar?'
+  ],
+  [
+    'De aangevinkte allergenen worden bewaard, maar het product telt pas als compleet als je het etiket hebt gecontroleerd en het vinkje zet.',
+    'The ticked allergens are saved, but the product only counts as complete once you have checked the label and tick the box.',
+    'Die angehakten Allergene werden gespeichert, aber das Produkt gilt erst als vollständig, wenn du das Etikett geprüft und das Häkchen gesetzt hast.',
+    'Los alérgenos marcados se guardan, pero el producto solo cuenta como completo cuando hayas comprobado la etiqueta y marques la casilla.'
+  ],
+  ['Zo bewaren', 'Save like this', 'So speichern', 'Guardar así'],
+  [
+    'De recepten blijven zoals ze zijn; de ingrediënten met deze naam hebben dan geen product meer.',
+    'The recipes stay as they are; the ingredients with this name then no longer have a product.',
+    'Die Rezepte bleiben, wie sie sind; die Zutaten mit diesem Namen haben dann kein Produkt mehr.',
+    'Las recetas quedan igual; los ingredientes con este nombre ya no tendrán producto.'
+  ],
+  ['Naam verplaatsen?', 'Move name?', 'Namen verschieben?', '¿Mover el nombre?'],
+  ['Verplaatsen', 'Move', 'Verschieben', 'Mover'],
+  ['Mijn producten', 'My products', 'Meine Produkte', 'Mis productos'],
+  ['Productlijst', 'Product list', 'Produktliste', 'Lista de productos'],
+  [
+    'Producten en allergenen werken zodra de database is bijgewerkt.',
+    'Products and allergens will work once the database has been updated.',
+    'Produkte und Allergene funktionieren, sobald die Datenbank aktualisiert ist.',
+    'Productos y alérgenos funcionarán cuando se actualice la base de datos.'
+  ],
+  ['Allergenen per recept', 'Allergens per recipe', 'Allergene pro Rezept', 'Alérgenos por receta'],
+  [
+    'Leg per product de allergenen vast. Savour telt ze op per recept, ook via basisrecepten, en zet ze op je prints. Je ziet altijd welke ingrediënten nog niet gecontroleerd zijn.',
+    'Record the allergens for each product. Savour adds them up per recipe, including through base recipes, and puts them on your prints. You always see which ingredients have not been checked yet.',
+    'Lege die Allergene pro Produkt fest. Savour zählt sie pro Rezept zusammen, auch über Grundrezepte, und setzt sie auf deine Ausdrucke. Du siehst immer, welche Zutaten noch nicht geprüft sind.',
+    'Registra los alérgenos de cada producto. Savour los suma por receta, también a través de recetas base, y los pone en tus impresiones. Siempre ves qué ingredientes faltan por comprobar.'
+  ],
+  ['Savour Pro bekijken', 'View Savour Pro', 'Savour Pro ansehen', 'Ver Savour Pro'],
+  ['producten', 'products', 'Produkte', 'productos'],
+  [
+    'ingrediënten nog te koppelen',
+    'ingredients still to link',
+    'Zutaten noch zu verknüpfen',
+    'ingredientes por vincular'
+  ],
+  ['nog te controleren', 'still to check', 'noch zu prüfen', 'por comprobar'],
+  ['Nog te koppelen', 'Still to link', 'Noch zu verknüpfen', 'Por vincular'],
+  [
+    'Ingrediënten uit je recepten zonder product. Koppel ze aan een bestaand product of maak een nieuw product; dat geldt meteen voor alle recepten.',
+    'Ingredients from your recipes without a product. Link them to an existing product or create a new one; this applies to all recipes at once.',
+    'Zutaten aus deinen Rezepten ohne Produkt. Verknüpfe sie mit einem bestehenden Produkt oder lege ein neues an; das gilt sofort für alle Rezepte.',
+    'Ingredientes de tus recetas sin producto. Vincúlalos a un producto existente o crea uno nuevo; se aplica al instante a todas las recetas.'
+  ],
+  ['Koppelen', 'Link', 'Verknüpfen', 'Vincular'],
+  ['in 1 recept', 'in 1 recipe', 'in 1 Rezept', 'en 1 receta'],
+  ['Minder tonen', 'Show less', 'Weniger anzeigen', 'Mostrar menos'],
+  ['Nog te controleren', 'Still to check', 'Noch zu prüfen', 'Por comprobar'],
+  ['Geen producten gevonden.', 'No products found.', 'Keine Produkte gefunden.', 'No se encontraron productos.'],
+  [
+    'Nog geen producten. Koppel hierboven ingrediënten, of voeg een product toe.',
+    'No products yet. Link ingredients above, or add a product.',
+    'Noch keine Produkte. Verknüpfe oben Zutaten oder füge ein Produkt hinzu.',
+    'Aún no hay productos. Vincula ingredientes arriba o añade un producto.'
+  ],
+  [
+    'Nog niet volledig gecontroleerd.',
+    'Not fully checked yet.',
+    'Noch nicht vollständig geprüft.',
+    'Aún no comprobado del todo.'
+  ],
+  [
+    'Verwijderen lukte niet; probeer het opnieuw',
+    'Deleting failed; please try again',
+    'Löschen hat nicht geklappt; versuche es erneut',
+    'No se pudo eliminar; inténtalo de nuevo'
+  ]
 ];
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
 export const patterns = [
-  ["^(\\d+) recepten gevonden$","$1 recipes found","$1 Rezepte gefunden","$1 recetas encontradas"],
-  ["^(\\d+) om na te kijken$","$1 to check","$1 zu prüfen","$1 por revisar"],
-  ["^(\\d+) van (\\d+) gedaan$","$1 of $2 done","$1 von $2 erledigt","$1 de $2 hechos"],
-  ["^(€[\\d,.]+) per maand$","$1 per month","$1 pro Monat","$1 al mes"],
-  ["^(€[\\d,.]+) per persoon$","$1 per person","$1 pro Person","$1 por persona"],
-  ["^Team (\\d+): (\\d+) van (\\d+) plekken met Pro\\.$","Team $1: $2 of $3 seats with Pro.","Team $1: $2 von $3 Plätzen mit Pro.","Equipo $1: $2 de $3 plazas con Pro."],
-  ["^Je Team (\\d+) hoort bij (.+)\\.$","Your Team $1 belongs to $2.","Dein Team $1 gehört zu $2.","Tu Equipo $1 pertenece a $2."],
-  ["^Je hebt Team (\\d+)\\.$","You have Team $1.","Du hast Team $1.","Tienes Equipo $1."],
-  ["^Jij telt zelf als eerste plek mee\\. Een plek geef je altijd door aan iemand anders\\. Jaarlijks betalen kan ook: (.+) per jaar\\.$","You count as the first seat yourself. You can always pass a seat on to someone else. You can also pay yearly: $1 per year.","Du selbst zählst als erster Platz. Einen Platz kannst du jederzeit an jemand anderen weitergeben. Auch jährliche Zahlung ist möglich: $1 pro Jahr.","Tú cuentas como la primera plaza. Siempre puedes pasar una plaza a otra persona. También puedes pagar al año: $1 al año."],
-  ["^(\\d+) in de brigade$","$1 in the brigade","$1 in der Brigade","$1 en la brigada"],
-  ["^Team (\\d+) · nog (\\d+) Pro-plekken vrij$","Team $1 · $2 Pro seats left","Team $1 · noch $2 Pro-Plätze frei","Equipo $1 · quedan $2 plazas Pro"],
-  ["^Voor (.+) · nog (\\d+) Pro-plekken vrij$","For $1 · $2 Pro seats left","Für $1 · noch $2 Pro-Plätze frei","Para $1 · quedan $2 plazas Pro"],
-  ["^Voor (.+)$","For $1","Für $1","Para $1"],
-  ["^Zoek in (\\d+) recepten$","Search in $1 recipes","In $1 Rezepten suchen","Buscar en $1 recetas"],
-  ["^(\\d+) van (\\d+) recepten$","$1 of $2 recipes","$1 von $2 Rezepten","$1 de $2 recetas"],
-  ["^Instellingen van (.+) ›$","$1 settings ›","Einstellungen von $1 ›","Ajustes de $1 ›"],
-  ["^Keukenteam · (.+)$","Kitchen team · $1","Küchenteam · $1","Equipo de cocina · $1"],
-  ["^(.+) · (\\d+) min geleden$","$1 · $2 min ago","$1 · vor $2 Min.","$1 · hace $2 min"],
-  ["^(.+) · (\\d+) u geleden$","$1 · $2 h ago","$1 · vor $2 Std.","$1 · hace $2 h"],
-  ["^(.+) · (\\d+) dagen geleden$","$1 · $2 days ago","$1 · vor $2 Tagen","$1 · hace $2 días"],
-  ["^Je Team (\\d+) is gestopt\\. Je team heeft geen Pro meer via dit abonnement; je eigen Pro en je keukenteams blijven gewoon staan\\.$","Your Team $1 has stopped. Your team no longer has Pro through this plan; your own Pro and your kitchen teams stay as they are.","Deine Team $1 ist beendet. Dein Team hat über dieses Abo kein Pro mehr; dein eigenes Pro und deine Küchenteams bleiben bestehen.","Tu Equipo $1 ha terminado. Tu equipo ya no tiene Pro con este plan; tu Pro y tus equipos de cocina se mantienen."],
-  ["^Je Team (\\d+) is gestopt$","Your Team $1 has stopped","Deine Team $1 ist beendet","Tu Equipo $1 ha terminado"],
-  ["^Je Team (\\d+) hoort bij (.+)$","Your Team $1 belongs to $2","Deine Team $1 gehört zu $2","Tu Equipo $1 pertenece a $2"],
-  ["^Naar (.+)$","Go to $1","Zu $1","Ir a $1"],
-  ["^Recepten (\\d+)$","Recipes $1","Rezepte $1","Recetas $1"],
-  ["^Mappen (\\d+)$","Folders $1","Ordner $1","Carpetas $1"],
-  ["^(\\d+) recepten · (\\d+) in het team$","$1 recipes · $2 in the team","$1 Rezepte · $2 im Team","$1 recetas · $2 en el equipo"],
-  ["^(\\d+) van (\\d+) plekken met Pro \\(jij telt mee\\)$","$1 of $2 seats with Pro (you count too)","$1 von $2 Plätzen mit Pro (du zählst mit)","$1 de $2 plazas con Pro (tú cuentas)"],
-  ["^Je hebt Team (\\d+)$","You have Team $1","Du hast Team $1","Tienes Equipo $1"],
-  ["^Koppelen aan (.+)$","Link to $1","Mit $1 verknüpfen","Vincular a $1"],
-  ["^(\\d+) van (\\d+) plekken met Pro, in keukenteam (.+)\\. Mensen toevoegen en Pro geven doe je in het keukenteam, op het tabblad Team\\.$","$1 of $2 seats with Pro, in kitchen team $3. You add people and give Pro in the kitchen team, on the Team tab.","$1 von $2 Plätzen mit Pro, im Küchenteam $3. Leute hinzufügen und Pro vergeben machst du im Küchenteam, im Tab Team.","$1 de $2 plazas con Pro, en el equipo de cocina $3. Añades personas y das Pro en el equipo de cocina, en la pestaña Equipo."],
-  ["^(.+) zit nu in het team als sous-chef(, met Pro)?$","$1 is now in the team as sous-chef$2","$1 ist jetzt als Sous-Chef im Team$2","$1 está ahora en el equipo como segundo de cocina$2"],
-  ["^(.+) zit nu in het team als kok(, met Pro)?$","$1 is now in the team as cook$2","$1 ist jetzt als Koch im Team$2","$1 está ahora en el equipo como cocinero$2"],
-  ["^(\\d+) recept(?:en)? toegevoegd aan het keukenteam$","$1 recipe(s) added to the kitchen team","$1 Rezept(e) zum Küchenteam hinzugefügt","$1 receta(s) añadida(s) al equipo de cocina"],
-  ["^(.+) heeft nu Pro via het team$","$1 now has Pro through the team","$1 hat jetzt Pro über das Team","$1 ya tiene Pro a través de el equipo"],
-  ["^(\\d+) recepten gedownload$", "$1 recipes downloaded", "$1 Rezepte heruntergeladen", "$1 recetas descargadas"],
-  ["^(\\d+) van (\\d+) recepten$", "$1 of $2 recipes", "$1 von $2 Rezepten", "$1 de $2 recetas"],
-  ["^(\\d+) recepten printen$", "Print $1 recipes", "$1 Rezepte drucken", "Imprimir $1 recetas"],
-  ["^Geprint op (.+)$", "Printed on $1", "Gedruckt am $1", "Impreso el $1"],
-  ["^Je print met het logo van je team \\((.+)\\)\\. Dat logo stelt de eigenaar van het team in\\.$", "You print with your team's logo ($1). The organisation owner sets that logo.", "Du druckst mit dem Logo deinem Team ($1). Dieses Logo legt der Inhaber dem Team fest.", "Imprimes con el logo de tu equipo ($1). El propietario de el equipo configura ese logo."],
+  ['^(\\d+) recepten gevonden$', '$1 recipes found', '$1 Rezepte gefunden', '$1 recetas encontradas'],
+  ['^(\\d+) om na te kijken$', '$1 to check', '$1 zu prüfen', '$1 por revisar'],
+  ['^(\\d+) van (\\d+) gedaan$', '$1 of $2 done', '$1 von $2 erledigt', '$1 de $2 hechos'],
+  ['^(€[\\d,.]+) per maand$', '$1 per month', '$1 pro Monat', '$1 al mes'],
+  ['^(€[\\d,.]+) per persoon$', '$1 per person', '$1 pro Person', '$1 por persona'],
+  [
+    '^Team (\\d+): (\\d+) van (\\d+) plekken met Pro\\.$',
+    'Team $1: $2 of $3 seats with Pro.',
+    'Team $1: $2 von $3 Plätzen mit Pro.',
+    'Equipo $1: $2 de $3 plazas con Pro.'
+  ],
+  [
+    '^Je Team (\\d+) hoort bij (.+)\\.$',
+    'Your Team $1 belongs to $2.',
+    'Dein Team $1 gehört zu $2.',
+    'Tu Equipo $1 pertenece a $2.'
+  ],
+  ['^Je hebt Team (\\d+)\\.$', 'You have Team $1.', 'Du hast Team $1.', 'Tienes Equipo $1.'],
+  [
+    '^Jij telt zelf als eerste plek mee\\. Een plek geef je altijd door aan iemand anders\\. Jaarlijks betalen kan ook: (.+) per jaar\\.$',
+    'You count as the first seat yourself. You can always pass a seat on to someone else. You can also pay yearly: $1 per year.',
+    'Du selbst zählst als erster Platz. Einen Platz kannst du jederzeit an jemand anderen weitergeben. Auch jährliche Zahlung ist möglich: $1 pro Jahr.',
+    'Tú cuentas como la primera plaza. Siempre puedes pasar una plaza a otra persona. También puedes pagar al año: $1 al año.'
+  ],
+  ['^(\\d+) in de brigade$', '$1 in the brigade', '$1 in der Brigade', '$1 en la brigada'],
+  [
+    '^Team (\\d+) · nog (\\d+) Pro-plekken vrij$',
+    'Team $1 · $2 Pro seats left',
+    'Team $1 · noch $2 Pro-Plätze frei',
+    'Equipo $1 · quedan $2 plazas Pro'
+  ],
+  [
+    '^Voor (.+) · nog (\\d+) Pro-plekken vrij$',
+    'For $1 · $2 Pro seats left',
+    'Für $1 · noch $2 Pro-Plätze frei',
+    'Para $1 · quedan $2 plazas Pro'
+  ],
+  ['^Voor (.+)$', 'For $1', 'Für $1', 'Para $1'],
+  ['^Zoek in (\\d+) recepten$', 'Search in $1 recipes', 'In $1 Rezepten suchen', 'Buscar en $1 recetas'],
+  ['^(\\d+) van (\\d+) recepten$', '$1 of $2 recipes', '$1 von $2 Rezepten', '$1 de $2 recetas'],
+  ['^Instellingen van (.+) ›$', '$1 settings ›', 'Einstellungen von $1 ›', 'Ajustes de $1 ›'],
+  ['^Keukenteam · (.+)$', 'Kitchen team · $1', 'Küchenteam · $1', 'Equipo de cocina · $1'],
+  ['^(.+) · (\\d+) min geleden$', '$1 · $2 min ago', '$1 · vor $2 Min.', '$1 · hace $2 min'],
+  ['^(.+) · (\\d+) u geleden$', '$1 · $2 h ago', '$1 · vor $2 Std.', '$1 · hace $2 h'],
+  ['^(.+) · (\\d+) dagen geleden$', '$1 · $2 days ago', '$1 · vor $2 Tagen', '$1 · hace $2 días'],
+  [
+    '^Je Team (\\d+) is gestopt\\. Je team heeft geen Pro meer via dit abonnement; je eigen Pro en je keukenteams blijven gewoon staan\\.$',
+    'Your Team $1 has stopped. Your team no longer has Pro through this plan; your own Pro and your kitchen teams stay as they are.',
+    'Deine Team $1 ist beendet. Dein Team hat über dieses Abo kein Pro mehr; dein eigenes Pro und deine Küchenteams bleiben bestehen.',
+    'Tu Equipo $1 ha terminado. Tu equipo ya no tiene Pro con este plan; tu Pro y tus equipos de cocina se mantienen.'
+  ],
+  ['^Je Team (\\d+) is gestopt$', 'Your Team $1 has stopped', 'Deine Team $1 ist beendet', 'Tu Equipo $1 ha terminado'],
+  [
+    '^Je Team (\\d+) hoort bij (.+)$',
+    'Your Team $1 belongs to $2',
+    'Deine Team $1 gehört zu $2',
+    'Tu Equipo $1 pertenece a $2'
+  ],
+  ['^Naar (.+)$', 'Go to $1', 'Zu $1', 'Ir a $1'],
+  ['^Recepten (\\d+)$', 'Recipes $1', 'Rezepte $1', 'Recetas $1'],
+  ['^Mappen (\\d+)$', 'Folders $1', 'Ordner $1', 'Carpetas $1'],
+  [
+    '^(\\d+) recepten · (\\d+) in het team$',
+    '$1 recipes · $2 in the team',
+    '$1 Rezepte · $2 im Team',
+    '$1 recetas · $2 en el equipo'
+  ],
+  [
+    '^(\\d+) van (\\d+) plekken met Pro \\(jij telt mee\\)$',
+    '$1 of $2 seats with Pro (you count too)',
+    '$1 von $2 Plätzen mit Pro (du zählst mit)',
+    '$1 de $2 plazas con Pro (tú cuentas)'
+  ],
+  ['^Je hebt Team (\\d+)$', 'You have Team $1', 'Du hast Team $1', 'Tienes Equipo $1'],
+  ['^Koppelen aan (.+)$', 'Link to $1', 'Mit $1 verknüpfen', 'Vincular a $1'],
+  [
+    '^(\\d+) van (\\d+) plekken met Pro, in keukenteam (.+)\\. Mensen toevoegen en Pro geven doe je in het keukenteam, op het tabblad Team\\.$',
+    '$1 of $2 seats with Pro, in kitchen team $3. You add people and give Pro in the kitchen team, on the Team tab.',
+    '$1 von $2 Plätzen mit Pro, im Küchenteam $3. Leute hinzufügen und Pro vergeben machst du im Küchenteam, im Tab Team.',
+    '$1 de $2 plazas con Pro, en el equipo de cocina $3. Añades personas y das Pro en el equipo de cocina, en la pestaña Equipo.'
+  ],
+  [
+    '^(.+) zit nu in het team als sous-chef(, met Pro)?$',
+    '$1 is now in the team as sous-chef$2',
+    '$1 ist jetzt als Sous-Chef im Team$2',
+    '$1 está ahora en el equipo como segundo de cocina$2'
+  ],
+  [
+    '^(.+) zit nu in het team als kok(, met Pro)?$',
+    '$1 is now in the team as cook$2',
+    '$1 ist jetzt als Koch im Team$2',
+    '$1 está ahora en el equipo como cocinero$2'
+  ],
+  [
+    '^(\\d+) recept(?:en)? toegevoegd aan het keukenteam$',
+    '$1 recipe(s) added to the kitchen team',
+    '$1 Rezept(e) zum Küchenteam hinzugefügt',
+    '$1 receta(s) añadida(s) al equipo de cocina'
+  ],
+  [
+    '^(.+) heeft nu Pro via het team$',
+    '$1 now has Pro through the team',
+    '$1 hat jetzt Pro über das Team',
+    '$1 ya tiene Pro a través de el equipo'
+  ],
+  ['^(\\d+) recepten gedownload$', '$1 recipes downloaded', '$1 Rezepte heruntergeladen', '$1 recetas descargadas'],
+  ['^(\\d+) van (\\d+) recepten$', '$1 of $2 recipes', '$1 von $2 Rezepten', '$1 de $2 recetas'],
+  ['^(\\d+) recepten printen$', 'Print $1 recipes', '$1 Rezepte drucken', 'Imprimir $1 recetas'],
+  ['^Geprint op (.+)$', 'Printed on $1', 'Gedruckt am $1', 'Impreso el $1'],
+  [
+    '^Je print met het logo van je team \\((.+)\\)\\. Dat logo stelt de eigenaar van het team in\\.$',
+    "You print with your team's logo ($1). The organisation owner sets that logo.",
+    'Du druckst mit dem Logo deinem Team ($1). Dieses Logo legt der Inhaber dem Team fest.',
+    'Imprimes con el logo de tu equipo ($1). El propietario de el equipo configura ese logo.'
+  ],
   ['^(\\d+) recepten$', '$1 recipes', '$1 Rezepte', '$1 recetas'],
   ['^(\\d+) recept$', '$1 recipe', '$1 Rezept', '$1 receta'],
   ['^(\\d+) favorieten$', '$1 favourites', '$1 Favoriten', '$1 favoritos'],
@@ -4040,14 +6205,49 @@ export const patterns = [
     'Nummern aus $1 Rezeptnamen entfernen?',
     '¿Quitar los números de $1 nombres de recetas?'
   ],
-  ['^Receptnamen aanpassen… (\\d+) / (\\d+)$', 'Updating recipe names… $1 / $2', 'Rezeptnamen werden angepasst… $1 / $2', 'Actualizando nombres… $1 / $2'],
-  ['^1 recept staat dubbel in je bibliotheek, bijvoorbeeld$', '1 recipe appears twice in your library, for example', '1 Rezept steht doppelt in deiner Bibliothek, zum Beispiel', '1 receta aparece duplicada en tu biblioteca, por ejemplo'],
-  ['^(\\d+) recepten staan dubbel in je bibliotheek, bijvoorbeeld$', '$1 recipes appear twice in your library, for example', '$1 Rezepte stehen doppelt in deiner Bibliothek, zum Beispiel', '$1 recetas aparecen duplicadas en tu biblioteca, por ejemplo'],
-  ['^\\. Van elk recept blijft er één staan\\.$', '. One copy of each recipe is kept.', '. Von jedem Rezept bleibt eins erhalten.', '. Se conserva una copia de cada receta.'],
-  ['^(\\d+) dubbele recepten verwijderen\\?$', 'Remove $1 duplicate recipes?', '$1 doppelte Rezepte löschen?', '¿Eliminar $1 recetas duplicadas?'],
+  [
+    '^Receptnamen aanpassen… (\\d+) / (\\d+)$',
+    'Updating recipe names… $1 / $2',
+    'Rezeptnamen werden angepasst… $1 / $2',
+    'Actualizando nombres… $1 / $2'
+  ],
+  [
+    '^1 recept staat dubbel in je bibliotheek, bijvoorbeeld$',
+    '1 recipe appears twice in your library, for example',
+    '1 Rezept steht doppelt in deiner Bibliothek, zum Beispiel',
+    '1 receta aparece duplicada en tu biblioteca, por ejemplo'
+  ],
+  [
+    '^(\\d+) recepten staan dubbel in je bibliotheek, bijvoorbeeld$',
+    '$1 recipes appear twice in your library, for example',
+    '$1 Rezepte stehen doppelt in deiner Bibliothek, zum Beispiel',
+    '$1 recetas aparecen duplicadas en tu biblioteca, por ejemplo'
+  ],
+  [
+    '^\\. Van elk recept blijft er één staan\\.$',
+    '. One copy of each recipe is kept.',
+    '. Von jedem Rezept bleibt eins erhalten.',
+    '. Se conserva una copia de cada receta.'
+  ],
+  [
+    '^(\\d+) dubbele recepten verwijderen\\?$',
+    'Remove $1 duplicate recipes?',
+    '$1 doppelte Rezepte löschen?',
+    '¿Eliminar $1 recetas duplicadas?'
+  ],
   ['^(\\d+) dubbele verwijderen$', 'Remove $1 duplicates', '$1 Duplikate löschen', 'Eliminar $1 duplicados'],
-  ['^(\\d+) dubbele recepten verwijderd$', '$1 duplicate recipes removed', '$1 doppelte Rezepte gelöscht', '$1 recetas duplicadas eliminadas'],
-  ['^(\\d+) receptnamen aangepast$', '$1 recipe names updated', '$1 Rezeptnamen angepasst', '$1 nombres de recetas actualizados'],
+  [
+    '^(\\d+) dubbele recepten verwijderd$',
+    '$1 duplicate recipes removed',
+    '$1 doppelte Rezepte gelöscht',
+    '$1 recetas duplicadas eliminadas'
+  ],
+  [
+    '^(\\d+) receptnamen aangepast$',
+    '$1 recipe names updated',
+    '$1 Rezeptnamen angepasst',
+    '$1 nombres de recetas actualizados'
+  ],
   [
     '^(\\d+) receptnamen aangepast, (\\d+) niet gelukt\\. Probeer het opnieuw\\.$',
     '$1 recipe names updated, $2 failed. Please try again.',
@@ -4096,27 +6296,92 @@ export const patterns = [
     '$1 von $2 Plätzen belegt (du zählst mit). Teammitglieder haben Pro, sobald sie sich mit dieser E-Mail-Adresse anmelden.',
     '$1 de $2 plazas en uso (contándote a ti). Los miembros tienen Pro en cuanto inician sesión con ese correo.'
   ],
-  ['^(.+) heeft nu Savour Pro via je team$', '$1 now has Savour Pro through your team', '$1 hat jetzt Savour Pro über dein Team', '$1 ya tiene Savour Pro a través de tu equipo'],
+  [
+    '^(.+) heeft nu Savour Pro via je team$',
+    '$1 now has Savour Pro through your team',
+    '$1 hat jetzt Savour Pro über dein Team',
+    '$1 ya tiene Savour Pro a través de tu equipo'
+  ],
   [
     "^Word, PDF en tekst lees je gratis in \\(nog (\\d+) van (\\d+) recepten in je gratis account\\)\\. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro\\.$",
     'You import Word, PDF and text for free ($1 of $2 recipes left in your free account). Photos, handwritten and scanned recipes are read by AI: only in Savour Pro.',
     'Word, PDF und Text liest du kostenlos ein (noch $1 von $2 Rezepten in deinem kostenlosen Konto). Fotos, handschriftliche und gescannte Rezepte liest die KI: nur in Savour Pro.',
     'Importas Word, PDF y texto gratis (te quedan $1 de $2 recetas en tu cuenta gratuita). Las fotos y recetas manuscritas o escaneadas las lee la IA: solo en Savour Pro.'
   ],
-  ["^Je ziet je recepten zoals ze op (.+) op dit toestel stonden. Wijzigen kan weer zodra je verbinding hebt.$","You are seeing your recipes as they were on this device on $1. You can edit again once you are back online.","Du siehst deine Rezepte so, wie sie am $1 auf diesem Gerät waren. Bearbeiten geht wieder, sobald du online bist.","Ves tus recetas tal como estaban en este dispositivo el $1. Podrás editar de nuevo cuando vuelvas a tener conexión."],
+  [
+    '^Je ziet je recepten zoals ze op (.+) op dit toestel stonden. Wijzigen kan weer zodra je verbinding hebt.$',
+    'You are seeing your recipes as they were on this device on $1. You can edit again once you are back online.',
+    'Du siehst deine Rezepte so, wie sie am $1 auf diesem Gerät waren. Bearbeiten geht wieder, sobald du online bist.',
+    'Ves tus recetas tal como estaban en este dispositivo el $1. Podrás editar de nuevo cuando vuelvas a tener conexión.'
+  ],
   // ---- Teams (2026-10-23) ----
-  ["^(\\d+) van (\\d+) plekken in gebruik \\(jij telt mee\\)\\.$","$1 of $2 seats in use (including you).","$1 von $2 Plätzen belegt (du zählst mit).","$1 de $2 plazas en uso (contándote a ti)."],
-  ["^Via je team: (.+)\\. De eigenaar van het team beheert de plekken; je hoeft niets te betalen\\.$","Through your team: $1. The organisation owner manages the seats; you do not have to pay anything.","Über dein Team: $1. Der Inhaber dem Team verwaltet die Plätze; du musst nichts bezahlen.","A través de tu equipo: $1. El propietario de el equipo gestiona las plazas; no tienes que pagar nada."],
-  ["^1 van (\\d+) plekken in gebruik\\. Voeg je collega's toe: zij krijgen een uitnodiging en hebben direct Savour Pro\\.$","1 of $1 seats in use. Add your colleagues: they get an invitation and have Savour Pro straight away.","1 von $1 Plätzen belegt. Füge deine Kollegen hinzu: Sie bekommen eine Einladung und haben sofort Savour Pro.","1 de $1 plazas en uso. Añade a tus compañeros: reciben una invitación y tienen Savour Pro al momento."],
-  ["^(.+) heeft nu Savour Pro\\. We hebben een uitnodiging gestuurd\\.$","$1 now has Savour Pro. We sent an invitation.","$1 hat jetzt Savour Pro. Wir haben eine Einladung geschickt.","$1 ya tiene Savour Pro. Hemos enviado una invitación."],
-  ["^(.+) heeft nu Savour Pro\\. De uitnodiging kon niet worden verstuurd; laat het je collega zelf weten\\.$","$1 now has Savour Pro. The invitation could not be sent; please let your colleague know yourself.","$1 hat jetzt Savour Pro. Die Einladung konnte nicht gesendet werden; sag es deinem Kollegen bitte selbst.","$1 ya tiene Savour Pro. No se pudo enviar la invitación; avisa tú a tu compañero."],
-  ["^Je hebt (\\d+) plekken; jij telt zelf als eerste mee\\. Voeg je collega's toe op hun e-mailadres: zij krijgen een uitnodiging van ons en hebben Savour Pro zodra ze inloggen of zich aanmelden met dat adres\\.$","You have $1 seats; you count as the first one. Add your colleagues by email: they get an invitation from us and have Savour Pro as soon as they log in or sign up with that address.","Du hast $1 Plätze; du zählst als erster mit. Füge deine Kollegen per E-Mail hinzu: Sie bekommen eine Einladung von uns und haben Savour Pro, sobald sie sich mit dieser Adresse anmelden oder registrieren.","Tienes $1 plazas; tú cuentas como la primera. Añade a tus compañeros por correo: reciben una invitación nuestra y tienen Savour Pro en cuanto inician sesión o se registran con esa dirección."],
-  ["^Welkom bij het team van (.+)$","Welcome to the team $1","Willkommen in der Team $1","Te damos la bienvenida a el equipo $1"],
+  [
+    '^(\\d+) van (\\d+) plekken in gebruik \\(jij telt mee\\)\\.$',
+    '$1 of $2 seats in use (including you).',
+    '$1 von $2 Plätzen belegt (du zählst mit).',
+    '$1 de $2 plazas en uso (contándote a ti).'
+  ],
+  [
+    '^Via je team: (.+)\\. De eigenaar van het team beheert de plekken; je hoeft niets te betalen\\.$',
+    'Through your team: $1. The organisation owner manages the seats; you do not have to pay anything.',
+    'Über dein Team: $1. Der Inhaber dem Team verwaltet die Plätze; du musst nichts bezahlen.',
+    'A través de tu equipo: $1. El propietario de el equipo gestiona las plazas; no tienes que pagar nada.'
+  ],
+  [
+    "^1 van (\\d+) plekken in gebruik\\. Voeg je collega's toe: zij krijgen een uitnodiging en hebben direct Savour Pro\\.$",
+    '1 of $1 seats in use. Add your colleagues: they get an invitation and have Savour Pro straight away.',
+    '1 von $1 Plätzen belegt. Füge deine Kollegen hinzu: Sie bekommen eine Einladung und haben sofort Savour Pro.',
+    '1 de $1 plazas en uso. Añade a tus compañeros: reciben una invitación y tienen Savour Pro al momento.'
+  ],
+  [
+    '^(.+) heeft nu Savour Pro\\. We hebben een uitnodiging gestuurd\\.$',
+    '$1 now has Savour Pro. We sent an invitation.',
+    '$1 hat jetzt Savour Pro. Wir haben eine Einladung geschickt.',
+    '$1 ya tiene Savour Pro. Hemos enviado una invitación.'
+  ],
+  [
+    '^(.+) heeft nu Savour Pro\\. De uitnodiging kon niet worden verstuurd; laat het je collega zelf weten\\.$',
+    '$1 now has Savour Pro. The invitation could not be sent; please let your colleague know yourself.',
+    '$1 hat jetzt Savour Pro. Die Einladung konnte nicht gesendet werden; sag es deinem Kollegen bitte selbst.',
+    '$1 ya tiene Savour Pro. No se pudo enviar la invitación; avisa tú a tu compañero.'
+  ],
+  [
+    "^Je hebt (\\d+) plekken; jij telt zelf als eerste mee\\. Voeg je collega's toe op hun e-mailadres: zij krijgen een uitnodiging van ons en hebben Savour Pro zodra ze inloggen of zich aanmelden met dat adres\\.$",
+    'You have $1 seats; you count as the first one. Add your colleagues by email: they get an invitation from us and have Savour Pro as soon as they log in or sign up with that address.',
+    'Du hast $1 Plätze; du zählst als erster mit. Füge deine Kollegen per E-Mail hinzu: Sie bekommen eine Einladung von uns und haben Savour Pro, sobald sie sich mit dieser Adresse anmelden oder registrieren.',
+    'Tienes $1 plazas; tú cuentas como la primera. Añade a tus compañeros por correo: reciben una invitación nuestra y tienen Savour Pro en cuanto inician sesión o se registran con esa dirección.'
+  ],
+  [
+    '^Welkom bij het team van (.+)$',
+    'Welcome to the team $1',
+    'Willkommen in der Team $1',
+    'Te damos la bienvenida a el equipo $1'
+  ],
   ['^(\\d+) van (\\d+) recepten$', '$1 of $2 recipes', '$1 von $2 Rezepten', '$1 de $2 recetas'],
-  ['^Savour Pro · nog 1 dag gratis$', 'Savour Pro · 1 free day left', 'Savour Pro · noch 1 Tag kostenlos', 'Savour Pro · queda 1 día gratis'],
-  ['^Savour Pro · nog (\\d+) dagen gratis$', 'Savour Pro · $1 free days left', 'Savour Pro · noch $1 Tage kostenlos', 'Savour Pro · quedan $1 días gratis'],
-  ['^Je gratis account bewaart tot (\\d+) recepten$', 'Your free account stores up to $1 recipes', 'Dein kostenloses Konto speichert bis zu $1 Rezepte', 'Tu cuenta gratuita guarda hasta $1 recetas'],
-  ['^In de proefperiode bewaar je tot (\\d+) recepten$', 'During the trial you store up to $1 recipes', 'In der Testphase speicherst du bis zu $1 Rezepte', 'Durante la prueba guardas hasta $1 recetas'],
+  [
+    '^Savour Pro · nog 1 dag gratis$',
+    'Savour Pro · 1 free day left',
+    'Savour Pro · noch 1 Tag kostenlos',
+    'Savour Pro · queda 1 día gratis'
+  ],
+  [
+    '^Savour Pro · nog (\\d+) dagen gratis$',
+    'Savour Pro · $1 free days left',
+    'Savour Pro · noch $1 Tage kostenlos',
+    'Savour Pro · quedan $1 días gratis'
+  ],
+  [
+    '^Je gratis account bewaart tot (\\d+) recepten$',
+    'Your free account stores up to $1 recipes',
+    'Dein kostenloses Konto speichert bis zu $1 Rezepte',
+    'Tu cuenta gratuita guarda hasta $1 recetas'
+  ],
+  [
+    '^In de proefperiode bewaar je tot (\\d+) recepten$',
+    'During the trial you store up to $1 recipes',
+    'In der Testphase speicherst du bis zu $1 Rezepte',
+    'Durante la prueba guardas hasta $1 recetas'
+  ],
   [
     '^Tot (.+), met maximaal (\\d+) recepten\\. Daarna ga je vanzelf terug naar gratis; je betaalt niets zonder dat je zelf kiest\\.$',
     'Until $1, with up to $2 recipes. After that you automatically go back to free; you never pay unless you choose to.',
@@ -4147,7 +6412,12 @@ export const patterns = [
     'Mit Pro erstellst du Küchenteams und lädst dein Team ein (ab $1 pro Monat). Mitglied im Ordner von jemand anderem zu sein bleibt kostenlos.',
     'Con Pro creas equipos de cocina e invitas a tu equipo (desde $1 al mes). Ser miembro de la carpeta de otra persona sigue siendo gratis.'
   ],
-  ['^Je gratis account heeft nog ruimte voor (\\d+) recepten$', 'Your free account has room for $1 more recipes', 'Dein kostenloses Konto hat noch Platz für $1 Rezepte', 'Tu cuenta gratuita tiene espacio para $1 recetas más'],
+  [
+    '^Je gratis account heeft nog ruimte voor (\\d+) recepten$',
+    'Your free account has room for $1 more recipes',
+    'Dein kostenloses Konto hat noch Platz für $1 Rezepte',
+    'Tu cuenta gratuita tiene espacio para $1 recetas más'
+  ],
   [
     '^Savour slaat de eerste (\\d+) op\\. De andere (\\d+) blijven hier staan; met Savour Pro bewaar je onbeperkt recepten\\.$',
     'Savour saves the first $1. The other $2 stay here; with Savour Pro you store unlimited recipes.',
@@ -4198,8 +6468,18 @@ export const patterns = [
     'Du hast diesen Monat alle $1 KI-Importe genutzt.',
     'Has usado las $1 importaciones con IA de este mes.'
   ],
-  ['^(\\d+) recepten passen bij meerdere categorieën$', '$1 recipes match several categories', '$1 Rezepte passen zu mehreren Kategorien', '$1 recetas encajan con varias categorías'],
-  ['^(.+): (\\d+) van (\\d+) delen met AI gelezen…$', '$1: $2 of $3 parts read with AI…', '$1: $2 von $3 Teilen mit KI gelesen…', '$1: $2 de $3 partes leídas con IA…'],
+  [
+    '^(\\d+) recepten passen bij meerdere categorieën$',
+    '$1 recipes match several categories',
+    '$1 Rezepte passen zu mehreren Kategorien',
+    '$1 recetas encajan con varias categorías'
+  ],
+  [
+    '^(.+): (\\d+) van (\\d+) delen met AI gelezen…$',
+    '$1: $2 of $3 parts read with AI…',
+    '$1: $2 von $3 Teilen mit KI gelesen…',
+    '$1: $2 de $3 partes leídas con IA…'
+  ],
   ['^Opslaan… (\\d+) / (\\d+)$', 'Saving… $1 / $2', 'Speichern… $1 / $2', 'Guardando… $1 / $2'],
   [
     '^(.+) wordt rechtgezet en twee keer gelezen…$',
@@ -4258,29 +6538,89 @@ export const patterns = [
   ],
   ['^(\\d+) recepten aanpassen$', 'Update $1 recipes', '$1 Rezepte anpassen', 'Actualizar $1 recetas'],
   ['^(\\d+) recepten aangepast$', '$1 recipes updated', '$1 Rezepte angepasst', '$1 recetas actualizadas'],
-  ["^(\\d+) recept(?:en)? uit (\\d+) bestand(?:en)? verwerkt\\.?$","$1 recipe(s) processed from $2 file(s).","$1 Rezept(e) aus $2 Datei(en) verarbeitet.","$1 receta(s) procesada(s) de $2 archivo(s)."],
-  ["^(\\d+) ingrediënten · (\\d+) stappen · (.+)$","$1 ingredients · $2 steps · $3","$1 Zutaten · $2 Schritte · $3","$1 ingredientes · $2 pasos · $3"],
+  [
+    '^(\\d+) recept(?:en)? uit (\\d+) bestand(?:en)? verwerkt\\.?$',
+    '$1 recipe(s) processed from $2 file(s).',
+    '$1 Rezept(e) aus $2 Datei(en) verarbeitet.',
+    '$1 receta(s) procesada(s) de $2 archivo(s).'
+  ],
+  [
+    '^(\\d+) ingrediënten · (\\d+) stappen · (.+)$',
+    '$1 ingredients · $2 steps · $3',
+    '$1 Zutaten · $2 Schritte · $3',
+    '$1 ingredientes · $2 pasos · $3'
+  ],
   // ---- Producten & allergenen (2026-11-03) ----
-  ["^Nog niet compleet: (\\d+) ingrediënt zonder gecontroleerde allergenen\\.$","Not complete yet: $1 ingredient without checked allergens.","Noch nicht vollständig: $1 Zutat ohne geprüfte Allergene.","Aún incompleto: $1 ingrediente sin alérgenos comprobados."],
-  ["^Nog niet compleet: (\\d+) ingrediënten zonder gecontroleerde allergenen\\.$","Not complete yet: $1 ingredients without checked allergens.","Noch nicht vollständig: $1 Zutaten ohne geprüfte Allergene.","Aún incompleto: $1 ingredientes sin alérgenos comprobados."],
-  ["^(\\d+) producten toegevoegd$","$1 products added","$1 Produkte hinzugefügt","$1 productos añadidos"],
-  ["^(\\d+) producten bevestigd$","$1 products confirmed","$1 Produkte bestätigt","$1 productos confirmados"],
-  ["^(\\d+) producten van de startlijst die je nog niet hebt gecontroleerd worden verwijderd\\. Bevestigde producten blijven staan\\.$","$1 products from the starter list that you have not checked yet will be deleted. Confirmed products stay.","$1 Produkte der Startliste, die du noch nicht geprüft hast, werden gelöscht. Bestätigte Produkte bleiben.","Se eliminarán $1 productos de la lista inicial que aún no has comprobado. Los productos confirmados se quedan."],
-  ["^(\\d+) producten overgenomen$","$1 products adopted","$1 Produkte übernommen","$1 productos adoptados"],
-  ["^(\\d+) namen gekoppeld$","$1 names linked","$1 Namen verknüpft","$1 nombres vinculados"],
-  ["^(\\d+) namen herkent Savour niet zeker\\. Die blijven staan bij Nog te koppelen\\.$","Savour is not sure about $1 names. They stay under Still to link.","$1 Namen erkennt Savour nicht sicher. Sie bleiben unter Noch zu verknüpfen.","Savour no reconoce con seguridad $1 nombres. Se quedan en Por vincular."],
-  ["^(\\d+) naam herkent Savour niet zeker\\. Die blijven staan bij Nog te koppelen\\.$","Savour is not sure about $1 name. It stays under Still to link.","$1 Namen erkennt Savour nicht sicher. Er bleibt unter Noch zu verknüpfen.","Savour no reconoce con seguridad $1 nombre. Se queda en Por vincular."],
-  ["^(\\d+) producten opgeruimd$","$1 products tidied up","$1 Produkte aufgeräumt","$1 productos ordenados"],
-  ["^(.+) gekoppeld aan (.+)$","$1 linked to $2","$1 verknüpft mit $2","$1 vinculado a $2"],
-  ["^Weggehaald uit (\\d+) recepten$","Removed from $1 recipes","Aus $1 Rezepten entfernt","Quitado de $1 recetas"],
-  ["^Regel \"(.+)\" weghalen\\?$","Remove line \"$1\"?","Zeile „$1“ entfernen?","¿Quitar la línea «$1»?"],
-  ["^Deze regel staat in (.+?): (.+)\\. Savour haalt alleen deze regel weg\\.$","This line is in $1: $2. Savour only removes this line.","Diese Zeile steht in $1: $2. Savour entfernt nur diese Zeile.","Esta línea está en $1: $2. Savour solo quita esta línea."],
-  ["^(\\d+) regels om na te kijken$","$1 lines to check","$1 Zeilen zu prüfen","$1 líneas por revisar"],
-  ["^Regels aangepast in (\\d+) recepten$","Lines adjusted in $1 recipes","Zeilen in $1 Rezepten angepasst","Líneas ajustadas en $1 recetas"],
-  ["^in (\\d+) recepten$","in $1 recipes","in $1 Rezepten","en $1 recetas"],
-  ["^(\\d+) open$","$1 open","$1 offen","$1 pendientes"],
-  ["^Er is al een product (.+)$","There is already a product $1","Es gibt bereits ein Produkt $1","Ya existe un producto $1"],
-  ["^(.+) is al een eigen product$","$1 is already a product of its own","$1 ist bereits ein eigenes Produkt","$1 ya es un producto propio"],
-  ["^Een van deze namen hoort nu bij (.+)\\. Na opslaan hoort hij bij (.+)\\.$","One of these names now belongs to $1. After saving it belongs to $2.","Einer dieser Namen gehört jetzt zu $1. Nach dem Speichern gehört er zu $2.","Uno de estos nombres pertenece ahora a $1. Al guardar pasará a $2."],
-  ["^(.+) verwijderen\\?$","Delete $1?","$1 löschen?","¿Eliminar $1?"],
+  [
+    '^Nog niet compleet: (\\d+) ingrediënt zonder gecontroleerde allergenen\\.$',
+    'Not complete yet: $1 ingredient without checked allergens.',
+    'Noch nicht vollständig: $1 Zutat ohne geprüfte Allergene.',
+    'Aún incompleto: $1 ingrediente sin alérgenos comprobados.'
+  ],
+  [
+    '^Nog niet compleet: (\\d+) ingrediënten zonder gecontroleerde allergenen\\.$',
+    'Not complete yet: $1 ingredients without checked allergens.',
+    'Noch nicht vollständig: $1 Zutaten ohne geprüfte Allergene.',
+    'Aún incompleto: $1 ingredientes sin alérgenos comprobados.'
+  ],
+  ['^(\\d+) producten toegevoegd$', '$1 products added', '$1 Produkte hinzugefügt', '$1 productos añadidos'],
+  ['^(\\d+) producten bevestigd$', '$1 products confirmed', '$1 Produkte bestätigt', '$1 productos confirmados'],
+  [
+    '^(\\d+) producten van de startlijst die je nog niet hebt gecontroleerd worden verwijderd\\. Bevestigde producten blijven staan\\.$',
+    '$1 products from the starter list that you have not checked yet will be deleted. Confirmed products stay.',
+    '$1 Produkte der Startliste, die du noch nicht geprüft hast, werden gelöscht. Bestätigte Produkte bleiben.',
+    'Se eliminarán $1 productos de la lista inicial que aún no has comprobado. Los productos confirmados se quedan.'
+  ],
+  ['^(\\d+) producten overgenomen$', '$1 products adopted', '$1 Produkte übernommen', '$1 productos adoptados'],
+  ['^(\\d+) namen gekoppeld$', '$1 names linked', '$1 Namen verknüpft', '$1 nombres vinculados'],
+  [
+    '^(\\d+) namen herkent Savour niet zeker\\. Die blijven staan bij Nog te koppelen\\.$',
+    'Savour is not sure about $1 names. They stay under Still to link.',
+    '$1 Namen erkennt Savour nicht sicher. Sie bleiben unter Noch zu verknüpfen.',
+    'Savour no reconoce con seguridad $1 nombres. Se quedan en Por vincular.'
+  ],
+  [
+    '^(\\d+) naam herkent Savour niet zeker\\. Die blijven staan bij Nog te koppelen\\.$',
+    'Savour is not sure about $1 name. It stays under Still to link.',
+    '$1 Namen erkennt Savour nicht sicher. Er bleibt unter Noch zu verknüpfen.',
+    'Savour no reconoce con seguridad $1 nombre. Se queda en Por vincular.'
+  ],
+  ['^(\\d+) producten opgeruimd$', '$1 products tidied up', '$1 Produkte aufgeräumt', '$1 productos ordenados'],
+  ['^(.+) gekoppeld aan (.+)$', '$1 linked to $2', '$1 verknüpft mit $2', '$1 vinculado a $2'],
+  ['^Weggehaald uit (\\d+) recepten$', 'Removed from $1 recipes', 'Aus $1 Rezepten entfernt', 'Quitado de $1 recetas'],
+  ['^Regel "(.+)" weghalen\\?$', 'Remove line "$1"?', 'Zeile „$1“ entfernen?', '¿Quitar la línea «$1»?'],
+  [
+    '^Deze regel staat in (.+?): (.+)\\. Savour haalt alleen deze regel weg\\.$',
+    'This line is in $1: $2. Savour only removes this line.',
+    'Diese Zeile steht in $1: $2. Savour entfernt nur diese Zeile.',
+    'Esta línea está en $1: $2. Savour solo quita esta línea.'
+  ],
+  ['^(\\d+) regels om na te kijken$', '$1 lines to check', '$1 Zeilen zu prüfen', '$1 líneas por revisar'],
+  [
+    '^Regels aangepast in (\\d+) recepten$',
+    'Lines adjusted in $1 recipes',
+    'Zeilen in $1 Rezepten angepasst',
+    'Líneas ajustadas en $1 recetas'
+  ],
+  ['^in (\\d+) recepten$', 'in $1 recipes', 'in $1 Rezepten', 'en $1 recetas'],
+  ['^(\\d+) open$', '$1 open', '$1 offen', '$1 pendientes'],
+  [
+    '^Er is al een product (.+)$',
+    'There is already a product $1',
+    'Es gibt bereits ein Produkt $1',
+    'Ya existe un producto $1'
+  ],
+  [
+    '^(.+) is al een eigen product$',
+    '$1 is already a product of its own',
+    '$1 ist bereits ein eigenes Produkt',
+    '$1 ya es un producto propio'
+  ],
+  [
+    '^Een van deze namen hoort nu bij (.+)\\. Na opslaan hoort hij bij (.+)\\.$',
+    'One of these names now belongs to $1. After saving it belongs to $2.',
+    'Einer dieser Namen gehört jetzt zu $1. Nach dem Speichern gehört er zu $2.',
+    'Uno de estos nombres pertenece ahora a $1. Al guardar pasará a $2.'
+  ],
+  ['^(.+) verwijderen\\?$', 'Delete $1?', '$1 löschen?', '¿Eliminar $1?']
 ];

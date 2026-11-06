@@ -3,7 +3,8 @@
 // zonder bron. Een sectie is [kop, tekst] met eventueel een lijst of tabel ({ head, rows, note }).
 
 export const SRC = {
-  fsisChart: 'https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart',
+  fsisChart:
+    'https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart',
   fsisPoultry: 'https://www.fsis.usda.gov/sites/default/files/media_file/2021-12/Appendix-A.pdf',
   eu1276: 'https://eur-lex.europa.eu/eli/reg/2011/1276/oj',
   efsaBivalves: 'https://www.efsa.europa.eu/en/news/efsa-advises-heat-treatment-bivalve-molluscs',
@@ -28,7 +29,9 @@ export const TEMP_POSTS = [
         ],
         [
           'Wat de Hygiënecode zegt',
-          'De Hygiënecode voor de horeca gaat bij verhitten uit van een kerntemperatuur van ten minste 75 °C. Warm houden doe je boven 60 °C en terugkoelen naar 7 °C of kouder binnen 5 uur. Werk je lager, zoals bij rosé eend, kip uit de sous-vide of een lauwe zalm, leg dan in je HACCP-plan vast welke combinatie van tijd en temperatuur je gebruikt. Meet met een geijkte kernthermometer en registreer het. De code zelf bestel je bij [KHN](' + SRC.khn + ').'
+          'De Hygiënecode voor de horeca gaat bij verhitten uit van een kerntemperatuur van ten minste 75 °C. Warm houden doe je boven 60 °C en terugkoelen naar 7 °C of kouder binnen 5 uur. Werk je lager, zoals bij rosé eend, kip uit de sous-vide of een lauwe zalm, leg dan in je HACCP-plan vast welke combinatie van tijd en temperatuur je gebruikt. Meet met een geijkte kernthermometer en registreer het. De code zelf bestel je bij [KHN](' +
+            SRC.khn +
+            ').'
         ],
         [
           'Gevogelte: kip, kalkoen en parelhoen',
@@ -63,7 +66,11 @@ export const TEMP_POSTS = [
               ['Varkenshaas', '60–62 °C', 'Rosé en sappig'],
               ['Kotelet, karbonade, varkensrug', '62–63 °C', 'Licht rosé, 3 minuten rust'],
               ['Gehakt, worst, burger', '71 °C', 'Door en door gaar: bacteriën zitten door het hele product'],
-              ['Schouder, buik, wang (stoven)', '85–95 °C', 'Zacht en draderig; de temperatuur is hier voor de structuur']
+              [
+                'Schouder, buik, wang (stoven)',
+                '85–95 °C',
+                'Zacht en draderig; de temperatuur is hier voor de structuur'
+              ]
             ]
           }
         ],
@@ -105,7 +112,9 @@ export const TEMP_POSTS = [
         ],
         [
           'Parasieten: wanneer vis eerst moet worden ingevroren',
-          'Vis die rauw of bijna rauw wordt gegeten, kan de parasiet Anisakis bevatten. Denk aan sushi, ceviche, tartaar, gemarineerde of koudgerookte vis, en ook aan mi-cuit zalm van 45 °C. Volgens EU-verordening 853/2004 (gewijzigd door [1276/2011](' + SRC.eu1276 + ')) moet zulke vis eerst worden ingevroren: minstens 24 uur op −20 °C of kouder, of 15 uur op −35 °C. Verhitten tot een kern van 60 °C gedurende minstens 1 minuut doodt de parasieten ook. Voor kweekvis kan een uitzondering gelden; vraag je leverancier om de verklaring.'
+          'Vis die rauw of bijna rauw wordt gegeten, kan de parasiet Anisakis bevatten. Denk aan sushi, ceviche, tartaar, gemarineerde of koudgerookte vis, en ook aan mi-cuit zalm van 45 °C. Volgens EU-verordening 853/2004 (gewijzigd door [1276/2011](' +
+            SRC.eu1276 +
+            ')) moet zulke vis eerst worden ingevroren: minstens 24 uur op −20 °C of kouder, of 15 uur op −35 °C. Verhitten tot een kern van 60 °C gedurende minstens 1 minuut doodt de parasieten ook. Voor kweekvis kan een uitzondering gelden; vraag je leverancier om de verklaring.'
         ],
         [
           'Schaal- en schelpdieren',
@@ -123,7 +132,9 @@ export const TEMP_POSTS = [
         ],
         [
           'Virussen in schelpdieren',
-          'Mosselen, oesters en kokkels kunnen norovirus en hepatitis A bevatten. Die virussen kunnen meer hitte hebben dan bacteriën. De EU-norm voor de industriële verwerking van schelpdieren is 90 °C gedurende 90 seconden in het vlees; de Europese voedselveiligheidsautoriteit EFSA heeft daar [een advies over gegeven](' + SRC.efsaBivalves + '). Rauwe oesters zijn nooit helemaal zonder risico. Koop ze alleen bij een erkende leverancier en serveer ze niet aan kwetsbare gasten.'
+          'Mosselen, oesters en kokkels kunnen norovirus en hepatitis A bevatten. Die virussen kunnen meer hitte hebben dan bacteriën. De EU-norm voor de industriële verwerking van schelpdieren is 90 °C gedurende 90 seconden in het vlees; de Europese voedselveiligheidsautoriteit EFSA heeft daar [een advies over gegeven](' +
+            SRC.efsaBivalves +
+            '). Rauwe oesters zijn nooit helemaal zonder risico. Koop ze alleen bij een erkende leverancier en serveer ze niet aan kwetsbare gasten.'
         ],
         [
           'Kwetsbare gasten',
@@ -146,7 +157,8 @@ export const TEMP_POSTS = [
           ]
         ]
       ],
-      outro: 'In Savour zet je de kerntemperatuur bij de stap waar hij hoort, zodat iedereen in je brigade hem ziet, ook in de kookmodus. Dit artikel is een hulpmiddel; je eigen HACCP-plan en de actuele Hygiënecode gaan altijd voor.'
+      outro:
+        'In Savour zet je de kerntemperatuur bij de stap waar hij hoort, zodat iedereen in je brigade hem ziet, ook in de kookmodus. Dit artikel is een hulpmiddel; je eigen HACCP-plan en de actuele Hygiënecode gaan altijd voor.'
     },
     en: {
       slug: 'en/blog/core-temperatures-meat-fish-shellfish',
@@ -238,7 +250,9 @@ export const TEMP_POSTS = [
         ],
         [
           'Parasites: when fish must be frozen first',
-          'Fish eaten raw or almost raw can carry the Anisakis parasite. Think sushi, ceviche, tartare, marinated or cold-smoked fish, and also mi-cuit salmon at 45 °C. Under EU Regulation 853/2004 (amended by [1276/2011](' + SRC.eu1276 + ')) such fish must be frozen first: at least 24 hours at −20 °C or colder, or 15 hours at −35 °C. Heating to a core of 60 °C for at least 1 minute also kills the parasites. Farmed fish can be exempt; ask your supplier for the statement.'
+          'Fish eaten raw or almost raw can carry the Anisakis parasite. Think sushi, ceviche, tartare, marinated or cold-smoked fish, and also mi-cuit salmon at 45 °C. Under EU Regulation 853/2004 (amended by [1276/2011](' +
+            SRC.eu1276 +
+            ')) such fish must be frozen first: at least 24 hours at −20 °C or colder, or 15 hours at −35 °C. Heating to a core of 60 °C for at least 1 minute also kills the parasites. Farmed fish can be exempt; ask your supplier for the statement.'
         ],
         [
           'Shellfish',
@@ -256,7 +270,9 @@ export const TEMP_POSTS = [
         ],
         [
           'Viruses in bivalves',
-          'Mussels, oysters and cockles can carry norovirus and hepatitis A. These viruses withstand more heat than bacteria. The EU standard for industrial heat treatment of bivalves is 90 °C for 90 seconds in the flesh; the European Food Safety Authority EFSA [has advised on it](' + SRC.efsaBivalves + '). Raw oysters are never entirely without risk. Buy them only from an approved supplier and don’t serve them to vulnerable guests.'
+          'Mussels, oysters and cockles can carry norovirus and hepatitis A. These viruses withstand more heat than bacteria. The EU standard for industrial heat treatment of bivalves is 90 °C for 90 seconds in the flesh; the European Food Safety Authority EFSA [has advised on it](' +
+            SRC.efsaBivalves +
+            '). Raw oysters are never entirely without risk. Buy them only from an approved supplier and don’t serve them to vulnerable guests.'
         ],
         [
           'Vulnerable guests',
@@ -279,7 +295,8 @@ export const TEMP_POSTS = [
           ]
         ]
       ],
-      outro: 'In Savour you put the core temperature on the step where it belongs, so everyone in your brigade sees it, in cook mode too. This article is a guide; your own HACCP plan and local food safety rules always come first.'
+      outro:
+        'In Savour you put the core temperature on the step where it belongs, so everyone in your brigade sees it, in cook mode too. This article is a guide; your own HACCP plan and local food safety rules always come first.'
     }
   },
   {
@@ -328,7 +345,12 @@ export const TEMP_POSTS = [
           {
             head: ['Product', 'Bad', 'Tijd', 'Resultaat'],
             rows: [
-              ['Ossenhaas, entrecote, rib-eye (3–4 cm)', '55 °C', '1½–3 uur', 'Rosé; binnen 4 uur serveren of de pasteurisatietijd aanhouden'],
+              [
+                'Ossenhaas, entrecote, rib-eye (3–4 cm)',
+                '55 °C',
+                '1½–3 uur',
+                'Rosé; binnen 4 uur serveren of de pasteurisatietijd aanhouden'
+              ],
               ['Idem, à point', '60 °C', '1½–3 uur', 'Lichtroze'],
               ['Bavette, flank, picanha', '55 °C', '6–12 uur', 'Rosé en malser'],
               ['Sukade, klapstuk, runderschouder', '55 °C', '24–48 uur', 'Rosé en mals als een biefstuk'],
@@ -442,7 +464,8 @@ export const TEMP_POSTS = [
           ]
         ]
       ],
-      outro: 'Zet badtemperatuur en tijd bij de stap in je recept in Savour; met omrekenen blijft de tijd gelijk, want die hangt af van de dikte en niet van de hoeveelheid. Dit artikel is een hulpmiddel; je eigen HACCP-plan gaat altijd voor.'
+      outro:
+        'Zet badtemperatuur en tijd bij de stap in je recept in Savour; met omrekenen blijft de tijd gelijk, want die hangt af van de dikte en niet van de hoeveelheid. Dit artikel is een hulpmiddel; je eigen HACCP-plan gaat altijd voor.'
     },
     en: {
       slug: 'en/blog/sous-vide-temperatures-and-times',
@@ -487,7 +510,12 @@ export const TEMP_POSTS = [
           {
             head: ['Product', 'Bath', 'Time', 'Result'],
             rows: [
-              ['Tenderloin, sirloin, rib-eye (3–4 cm)', '55 °C', '1½–3 hours', 'Medium-rare; serve within 4 hours or use the pasteurisation time'],
+              [
+                'Tenderloin, sirloin, rib-eye (3–4 cm)',
+                '55 °C',
+                '1½–3 hours',
+                'Medium-rare; serve within 4 hours or use the pasteurisation time'
+              ],
               ['Same, medium', '60 °C', '1½–3 hours', 'Light pink'],
               ['Bavette, flank, picanha', '55 °C', '6–12 hours', 'Pink and more tender'],
               ['Chuck, top blade, shoulder', '55 °C', '24–48 hours', 'Pink and tender like a steak'],
@@ -601,7 +629,8 @@ export const TEMP_POSTS = [
           ]
         ]
       ],
-      outro: 'Put the bath temperature and time on the step in your Savour recipe; when scaling, the time stays the same because it depends on thickness, not quantity. This article is a guide; your own HACCP plan always comes first.'
+      outro:
+        'Put the bath temperature and time on the step in your Savour recipe; when scaling, the time stays the same because it depends on thickness, not quantity. This article is a guide; your own HACCP plan always comes first.'
     }
   }
 ];

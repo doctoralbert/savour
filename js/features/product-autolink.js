@@ -179,7 +179,7 @@ function autoLinkPlan(scope) {
         continue;
       }
       // NEVO geeft de kern van de naam: "kropsla rauw" en "sla krop- gekookt" worden samen product Kropsla.
-      const own = base.nevo ? { key: compactKey(base.name), name: capitalizeFirst(base.name) } : null;
+      const own = base.nevo || base.named ? { key: compactKey(base.name), name: capitalizeFirst(base.name) } : null;
       create(own || (fam?.kind === 'base' ? fam : null), x, base.allergens);
       continue;
     }

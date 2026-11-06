@@ -229,6 +229,19 @@ const ALLERGEN_HINT_NOT = [
   [NO_MEAT, 'lam'],
   [NO_MEAT, 'wild'],
   [NO_MEAT, 'gevogelte'],
+  // Planten met een misleidend woord erin: oesterzwam is een paddenstoel, haverwortel en broodvrucht zijn geen graan,
+  // rumex en wijnruit geen drank, kemiri (kemirinoot) bevat geen mirin, duivenerwt is een peulvrucht.
+  [/oesterzwam/, 'weekdieren'],
+  [/hertshoorn/, 'wild'],
+  [/haverwortel|broodboom|broodvrucht/, 'gluten'],
+  [/rumex|wijnruit|kemiri/, 'alcohol'],
+  [/wijnruit/, 'sulfiet'],
+  [/wijnruit/, 'histamine'],
+  [/spekboon|worstkruid/, 'varkensvlees'],
+  [/viskruid/, 'vis'],
+  [/sat[eé]\s?kruid/, 'pinda'],
+  [/aardamandel/, 'noten'],
+  [/duivenerwt|duivenboon/, 'gevogelte'],
   // Een pasta van noten, curry of boemboe is een smeersel, geen deegwaar. Maïs-, rijst- en amandelmeel bevatten
   // geen gluten, eekhoorntjesbrood is een paddenstoel.
   [PASTE_NOT_NOODLE, 'gluten'],
@@ -319,13 +332,13 @@ function loadIngredientBase() {
   if (ingredientBase) return Promise.resolve(ingredientBase);
   if (!ingredientBaseLoading)
     ingredientBaseLoading = Promise.all(
-      ['/js/data/ingredient-base.json', '/js/data/ingredient-nevo.json'].map(url =>
+      ['/js/data/ingredient-base.json', '/js/data/ingredient-nevo.json', '/js/data/ingredient-extra.json'].map(url =>
         fetch(url)
           .then(r => (r.ok ? r.json() : null))
           .catch(() => null)
       )
     )
-      .then(([data, nevo]) => {
+      .then(([data, nevo, extra]) => {
         if (!data?.items) throw new Error('geen basislijst');
         const index = new Map();
         for (const item of data.items)
@@ -359,7 +372,24 @@ function loadIngredientBase() {
               if (k !== mainKey) main.set(k, mainKey);
             }
         }
-        ingredientBase = { index, main, nevo: nevo?.version || '' };
+        // Aanvulling (tools/build-ingredient-extra.mjs): namen uit Wikipedia en Savours eigen controlelijst. Een naam
+        // met een hoofdnaam is een andere schrijfwijze van wat Savour al kent ("Doyenné du Comice" → peer).
+        const alias = new Map();
+        for (const [allergens, name, names, source, head] of extra?.items || []) {
+          const headKey = head ? productKey(head) : '';
+          const item = (headKey && index.get(headKey)) || [allergens, name, '', '', '', '', 0, source];
+          for (const k of [
+            productKey(name),
+            ...String(names || '')
+              .split('|')
+              .map(productKey)
+          ])
+            if (k && !index.has(k)) {
+              index.set(k, item);
+              if (headKey && k !== headKey) alias.set(k, main.get(headKey) || headKey);
+            }
+        }
+        ingredientBase = { index, main, alias, nevo: nevo?.version || '' };
         return ingredientBase;
       })
       .catch(() => {
@@ -380,12 +410,20 @@ function ingredientBaseMatch(name) {
       const k = words.slice(start, start + len).join(' ');
       if (len < words.length && k.length < 4) continue;
       const item = index.get(k);
+      // Een deel van de naam gevonden ("pasta" in "thaise curry pasta"): de uitzonderingen op de hele naam gelden
+      // ook hier, anders krijgt currypasta de gluten van pasta.
+      const whole = words.join(' ');
       if (item)
         return {
-          name: ingredientBase.main?.get(k) || k,
-          allergens: item[0] ? item[0].split(',') : [],
+          name: ingredientBase.main?.get(k) || ingredientBase.alias?.get(k) || k,
+          allergens: (item[0] ? item[0].split(',') : []).filter(
+            c => !ALLERGEN_HINT_NOT.some(([re, code]) => code === c && re.test(whole))
+          ),
           own: item[7] === 'savour',
-          nevo: item[7] === 'nevo' || !!ingredientBase.main?.has(k)
+          nevo: item[7] === 'nevo' || !!ingredientBase.main?.has(k),
+          wiki: item[7] === 'wiki',
+          // Een andere schrijfwijze: het product krijgt de hoofdnaam ("spruit" → Spruitjes).
+          named: !!ingredientBase.alias?.has(k)
         };
     }
   // Geen losse naam gevonden, maar Savour kent het hoofdproduct: "spitskool" is Kool, "gepekeld buikspek" Varken.
@@ -402,9 +440,11 @@ function productHintHtml({ base, codes }) {
     ? ''
     : base.nevo
       ? `<p class="product-source">Basislijst: <a href="https://www.rivm.nl/nederlands-voedingsstoffenbestand" target="_blank" rel="noopener">NEVO online versie ${esc(ingredientBase?.nevo || '')}, RIVM, Bilthoven</a></p>`
-      : !base.own
-        ? '<p class="product-source">Basislijst: © <a href="https://world.openfoodfacts.org/terms-of-use" target="_blank" rel="noopener">Open Food Facts contributors</a>, ODbL</p>'
-        : '';
+      : base.wiki
+        ? '<p class="product-source">Basislijst: naam uit <a href="https://nl.wikipedia.org/wiki/Categorie:Lijsten_van_voedsel" target="_blank" rel="noopener">Wikipedia</a> (CC BY-SA)</p>'
+        : !base.own
+          ? '<p class="product-source">Basislijst: © <a href="https://world.openfoodfacts.org/terms-of-use" target="_blank" rel="noopener">Open Food Facts contributors</a>, ODbL</p>'
+          : '';
   const found = base
     ? `<p class="product-hint"><span>Gevonden in de basislijst</span>: <b translate="no">${esc(base.name)}</b></p>`
     : '';
