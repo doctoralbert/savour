@@ -30,6 +30,7 @@ import { stringsFr, patternsFr } from './vertalingen-fr.mjs';
 import { VERDIEPING } from './site-verdieping.mjs';
 import { VERDIEPING_TALEN } from './site-verdieping-talen.mjs';
 import { BLOG_RICH } from './site-blog-rich.mjs';
+import { FEATURE_RICH } from './site-feature-rich.mjs';
 import { APP_PAGE } from './site-app.mjs';
 import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
 import { DELIVER, DELIVER_FLOW } from './site-deliver.mjs';
@@ -953,6 +954,39 @@ const photoFile = key => {
   const [file] = PHOTOS[key];
   return `/assets/keuken/${file}?v=${fs.statSync(new URL(`assets/keuken/${file}`, ROOT)).size}`;
 };
+// Functie- en voor-wiepagina's (tools/site-feature-rich.mjs): drie voordelen onder de kop, afwisselend tekst en
+// een scherm uit de app, en vragen onderaan.
+const FAQ_TITLE = {
+  nl: 'Veelgestelde vragen',
+  en: 'Frequently asked questions',
+  de: 'Häufige Fragen',
+  es: 'Preguntas frecuentes',
+  fr: 'Questions fréquentes'
+};
+const featureRich = (id, lang) => (FEATURE_RICH[id]?.[lang] ? richMap(FEATURE_RICH[id][lang], lang) : null);
+const featureBand = (id, lang) => {
+  const r = featureRich(id, lang);
+  return r?.benefits
+    ? `<section class="feat-band"><div class="site-wrap"><ul>${r.benefits.map(([h, d]) => `<li class="reveal"><b>${esc(h)}</b><span>${esc(d)}</span></li>`).join('')}</ul></div></section>`
+    : '';
+};
+const featureShow = (id, lang) => {
+  const r = featureRich(id, lang);
+  return r?.showcase
+    ? `<section class="feat-show"><div class="site-wrap">${r.showcase
+        .map(
+          (x, i) =>
+            `<div class="feat-row${i % 2 ? ' flip' : ''} reveal"><div><h2>${esc(x.title)}</h2><p>${proseText(x.text)}</p></div><figure><img src="${x.shot}" alt="${esc(x.alt)}" loading="lazy"></figure></div>`
+        )
+        .join('')}</div></section>`
+    : '';
+};
+const featureFaq = (id, lang) => {
+  const r = featureRich(id, lang);
+  return r?.faq
+    ? `<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(FAQ_TITLE[lang])}</h2><div class="site-faq">${r.faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${proseText(a)}</p></details>`).join('')}</div></div></section>`
+    : '';
+};
 const pageTop = (crumbHtml, h1, lead, photo) => {
   const p = photo && PHOTOS[photo];
   const style = p
@@ -1059,11 +1093,12 @@ for (const lang of LANGS) {
       crumbs: [[u.features], [t.menu]],
       body: c =>
         pageTop(c, t.h1, t.lead, PAGE_PHOTO[f.nl.slug]) +
+        featureBand(f.id, lang) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose">${t.kladje ? `<div class="site-figure">${kladje(lang)}</div>` : ''}${sectionsHtml(t.sections)}${f.service ? serviceBlock(lang) : ''}${
           f.soon
             ? `<p class="site-note">${SOON_MAIL[lang]} <a href="mailto:contact@savour.page">contact@savour.page</a>.</p>`
             : ''
-        }</div></article>
+        }</div></article>${featureShow(f.id, lang)}${featureFaq(f.id, lang)}
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.related}</h2>${rows(others.slice(0, 3), lang)}</div></section>`
     });
   }
@@ -1092,7 +1127,8 @@ for (const lang of LANGS) {
       crumbs: [[u.audience], [t.menu]],
       body: c =>
         pageTop(c, t.h1, t.lead, PAGE_PHOTO[a.nl.slug]) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${photoDuo(lang, ...(a.nl.slug === 'voor-koks' ? ['wortels', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>
+        featureBand(a.id, lang) +
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${photoDuo(lang, ...(a.nl.slug === 'voor-koks' ? ['wortels', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>${featureShow(a.id, lang)}${featureFaq(a.id, lang)}
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.features}</h2>${rows(
           FEATURES.filter(x => !x.soon),
           lang
