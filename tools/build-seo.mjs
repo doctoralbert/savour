@@ -12,6 +12,14 @@ import { EXTRA_LANGS } from './site-content-extra.mjs';
 import { KLADJE_REAL } from './site-kladje.mjs';
 import { BLOG } from './site-blog.mjs';
 import { TEMP_POSTS_DE } from './site-blog-temperaturen-de.mjs';
+import {
+  ALLERGEN_POST,
+  ALLERGEN_POST_DE,
+  ALLERGEN_POST_ES,
+  ALLERGEN_POST_FR,
+  LIST_PAGE,
+  LIST_SLUGS
+} from './site-blog-allergenen.mjs';
 import { TEMP_POSTS_ES } from './site-blog-temperaturen-es.mjs';
 import { TEMP_POSTS_FR } from './site-blog-temperaturen-fr.mjs';
 import { DE } from './site-pages-de.mjs';
@@ -38,6 +46,9 @@ const PAGES = { de: DE, es: ES, fr: FR };
 Object.assign(DE.posts, TEMP_POSTS_DE);
 Object.assign(ES.posts, TEMP_POSTS_ES);
 Object.assign(FR.posts, TEMP_POSTS_FR);
+Object.assign(DE.posts, ALLERGEN_POST_DE);
+Object.assign(ES.posts, ALLERGEN_POST_ES);
+Object.assign(FR.posts, ALLERGEN_POST_FR);
 EXTRA_LANGS.fr = EXTRA_FR;
 APP_PAGE.fr = APP_PAGE_FR;
 DELIVER.fr = DELIVER_FR;
@@ -46,7 +57,7 @@ SERVICE.fr = SERVICE_FR;
 KLADJE_REAL.fr = KLADJE_FR;
 
 // Nieuwste blogartikelen eerst.
-POSTS.unshift(...BLOG);
+POSTS.unshift(ALLERGEN_POST, ...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
 // Achtergrondfoto achter de bovenkant van de homepage. Alleen als het bestand bestaat; zonder bestand is de
@@ -608,15 +619,31 @@ const FIGURES = {
     ['comptes', 'compte']
   ]
 };
+const FIGURES_LIVE = {
+  nl: 'Live uit de database',
+  en: 'Live from the database',
+  de: 'Live aus der Datenbank',
+  es: 'En directo de la base de datos',
+  fr: 'En direct de la base de données'
+};
+// Lijnpictogrammen bij de cijfers: receptenboek, keukenteam, account.
+const FIGURE_ICONS = {
+  recipes:
+    '<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/><path d="M9 7.5h6M9 11h4"/>',
+  teams:
+    '<circle cx="9" cy="8" r="3"/><path d="M3.5 19c.6-3 2.8-5 5.5-5s4.9 2 5.5 5"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14.3c2.5-.4 4.6 1.3 5 4.7"/>',
+  accounts: '<circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.7 3.6-6 7-6s6.2 2.3 7 6"/>'
+};
 function figuresBand(lang) {
   const [title, ...labels] = FIGURES[lang];
-  return `<section class="site-figures" data-site-figures hidden aria-label="${esc(title)}"><div class="site-wrap"><dl>${[
+  return `<section class="site-figures" data-site-figures hidden aria-label="${esc(title)}"><div class="site-wrap"><div class="site-figures-head"><span class="site-figures-kicker">${esc(title)}</span><span class="site-figures-live"><i aria-hidden="true"></i>${esc(FIGURES_LIVE[lang])}</span></div><dl>${[
     'recipes',
     'teams',
     'accounts'
   ]
     .map(
-      (k, i) => `<div><dt data-one="${esc(labels[i][1])}">${esc(labels[i][0])}</dt><dd data-figure="${k}"></dd></div>`
+      (k, i) =>
+        `<div><svg class="site-figures-icon" viewBox="0 0 24 24" aria-hidden="true">${FIGURE_ICONS[k]}</svg><dt data-one="${esc(labels[i][1])}">${esc(labels[i][0])}</dt><dd data-figure="${k}">0</dd></div>`
     )
     .join('')}</dl></div></section>`;
 }
@@ -812,6 +839,19 @@ const PHOTOS = {
   // Het bord staat midden in de foto: op de laptop ingezoomd en links uitgelijnd, zodat het rechts naast de tekst staat.
   bord: ['bord-pass.jpg', 'center 55%', '160% auto', '0% 58%']
 };
+// De allergenen zoals de app ze noemt (js/features/products.js), vertaald via tools/vertalingen.mjs.
+const ALLERGEN_LABELS = [
+  ...fs
+    .readFileSync(new URL('js/features/products.js', ROOT), 'utf8')
+    .matchAll(/^\s*\['(\w+)', (?:'([^']+)'|"([^"]+)")(, true)?\]/gm)
+].map(m => [m[1], m[2] || m[3], !!m[4]]);
+const allergenLabel = (nl, lang) =>
+  lang === 'nl'
+    ? nl
+    : lang === 'fr'
+      ? stringsFr[nl] || nl
+      : strings.find(r => r[0] === nl)?.[{ en: 1, de: 2, es: 3 }[lang]] || nl;
+const INGREDIENT_LIST = JSON.parse(fs.readFileSync(new URL('assets/data/ingredientenlijst.json', ROOT), 'utf8'));
 const PAGE_PHOTO = {
   'recepten-digitaliseren': 'hout',
   'recepten-organiseren': 'keuken',
@@ -964,7 +1004,7 @@ for (const lang of LANGS) {
       pageTop(c, u.blog, u.blogLead, PAGE_PHOTO.blog) +
       `<article class="site-article"><div class="site-wrap site-narrow"><ul class="site-posts">${POSTS.map(
         p =>
-          `<li><h2><a href="${href(p[lang].slug)}">${esc(p[lang].title)}</a></h2><p>${esc(p[lang].desc)}</p><a class="site-link" href="${href(p[lang].slug)}">${u.readArticle}</a></li>`
+          `<li><h2><a href="${href(p[lang].slug)}">${esc(p[lang].title)}</a></h2><p>${esc(p[lang].desc)}</p><div class="site-post-meta"><a class="site-link" href="${href(p[lang].slug)}">${u.readArticle}</a>${p.date ? `<time datetime="${p.date}">${new Date(p.date).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' })}</time>` : ''}</div></li>`
       ).join('')}</ul></div></article>`
   });
   for (const [n, p] of POSTS.entries()) {
@@ -994,6 +1034,34 @@ for (const lang of LANGS) {
       body: c =>
         pageTop(c, t.h1, t.lead, BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}</p>${sectionsHtml(t.sections.slice(0, 2))}${articleAd}${sectionsHtml(t.sections.slice(2))}<p><em>${esc(t.outro)}</em></p></div></article>`
+    });
+  }
+  // Ingrediëntenlijst met allergenen (tools/site-blog-allergenen.mjs); js/site.js laadt en doorzoekt de lijst.
+  {
+    const t = LIST_PAGE[lang];
+    const texts = {
+      search: t.search,
+      filter: t.filter,
+      name: t.name,
+      allergens: t.allergens,
+      also: t.also,
+      source: t.source,
+      none: t.none,
+      more: t.more,
+      empty: t.empty,
+      shown: t.shown('{n}', '{total}'),
+      sourceNames: t.sourceNames,
+      labels: Object.fromEntries(ALLERGEN_LABELS.map(([code, nl, extra]) => [code, [allergenLabel(nl, lang), !!extra]]))
+    };
+    page({
+      lang,
+      slugs: LIST_SLUGS,
+      title: t.title,
+      desc: t.desc,
+      crumbs: [[t.h1]],
+      body: c =>
+        pageTop(c, t.h1, t.lead) +
+        `<article class="site-article"><div class="site-wrap site-narrow"><div class="ing-list" data-ingredient-list data-src="/assets/data/ingredientenlijst.json?v=${INGREDIENT_LIST.count}" data-texts="${esc(JSON.stringify(texts))}"><div class="ing-tools"><input type="search" class="ing-search" placeholder="${esc(t.search)}" aria-label="${esc(t.search)}"><select class="ing-filter" aria-label="${esc(t.filter)}"></select></div><p class="ing-count" aria-live="polite">${esc(t.count(INGREDIENT_LIST.count.toLocaleString(LOCALE[lang])))}</p><ul class="ing-rows"><li class="ing-empty">${esc(t.loading)}</li></ul><button type="button" class="site-btn ing-more" hidden>${esc(t.more)}</button></div><div class="site-prose">${sectionsHtml(t.sections)}</div></div></article>`
     });
   }
   // App downloaden (tools/site-app.mjs)

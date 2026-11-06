@@ -205,7 +205,9 @@ const ALLERGEN_HINTS = [
 const PASTE_NOT_NOODLE =
   /^(?!(verse|droge|gedroogde|gekookte|volkoren|glutenvrije|zelfgemaakte|italiaanse|witte|bruine)\s?pasta$)[a-zà-ÿ].*[a-zà-ÿ][\s-]?pasta$/;
 const PLANT_NOT_DAIRY =
-  /pindakaas|roomse|(pure|puur)\s?choc|choc\w*\s(puur|pure)|(amandel|haver|soja|rijst|kokos|cashew|cashewnoot|noten|hazelnoot|erwten|oat|almond)\s?(melk|drink|room|milk|yoghurt)|cacao\s?boter|cocoa butter|cacao butter|alpro|plantaardige|vegan/;
+  /pindakaas|roomse|(pure|puur)\s?choc|choc\w*\s(puur|pure)|(amandel|haver|soja|rijst|kokos|cashew|cashewnoot|noten|hazelnoot|erwten|oat|almond)\s?(melk|drink|room|milk|yoghurt)|cacao\s?boter|cocoa butter|cacao butter|shea\s?(boter|butter)|boter(blad|sla|boon|bonen)|alpro|plantaardige|vegan/;
+// Vegetarisch en vegan: geen vlees, ook als de naam van een vleeswaar erin staat ("boterhamworst vegetarisch").
+const NO_MEAT = /vegetari|vegan|plantaardig|vleesvervanger/;
 // Waar een trefwoord misleidt: azijn bevat geen alcohol meer, koffie- en vanillebonen zijn geen peulvruchten,
 // en in harde, gerijpte kaas is de lactose afgebroken (het melkeiwit blijft, dus melk wel).
 const ALLERGEN_HINT_NOT = [
@@ -221,6 +223,12 @@ const ALLERGEN_HINT_NOT = [
   [PLANT_NOT_DAIRY, 'melk'],
   [PLANT_NOT_DAIRY, 'lactose'],
   [/beurre noisette/, 'noten'],
+  // Botersla, boterboon en sheaboter zijn geen zuivel (in PLANT_NOT_DAIRY); vegetarische vleeswaren geen vlees.
+  [NO_MEAT, 'varkensvlees'],
+  [NO_MEAT, 'rundvlees'],
+  [NO_MEAT, 'lam'],
+  [NO_MEAT, 'wild'],
+  [NO_MEAT, 'gevogelte'],
   // Een pasta van noten, curry of boemboe is een smeersel, geen deegwaar. Maïs-, rijst- en amandelmeel bevatten
   // geen gluten, eekhoorntjesbrood is een paddenstoel.
   [PASTE_NOT_NOODLE, 'gluten'],

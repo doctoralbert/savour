@@ -549,31 +549,225 @@
       .then(function (d) {
         if (!d) return;
         var fmt = new Intl.NumberFormat(document.documentElement.lang || 'nl');
+        var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         bands.forEach(function (band) {
-          var ok = true;
-          band.querySelectorAll('[data-figure]').forEach(function (el) {
-            var n = d[el.getAttribute('data-figure')];
-            if (typeof n !== 'number') ok = false;
-            else {
-              el.textContent = fmt.format(n);
-              var label = el.previousElementSibling;
-              if (n === 1 && label && label.dataset.one) label.textContent = label.dataset.one;
-            }
+          var cells = [].slice.call(band.querySelectorAll('[data-figure]'));
+          var values = cells.map(function (el) {
+            return d[el.getAttribute('data-figure')];
           });
-          if (ok) band.hidden = false;
+          if (
+            values.some(function (n) {
+              return typeof n !== 'number';
+            })
+          )
+            return;
+          cells.forEach(function (el, i) {
+            var label = el.previousElementSibling;
+            if (values[i] === 1 && label && label.dataset.one) label.textContent = label.dataset.one;
+          });
+          band.hidden = false;
+          // Optellen van 0 naar het echte getal (ruim een seconde), pas als de strook in beeld komt.
+          var show = function () {
+            if (still) {
+              cells.forEach(function (el, i) {
+                el.textContent = fmt.format(values[i]);
+              });
+              return;
+            }
+            var start = null;
+            var step = function (now) {
+              if (start == null) start = now;
+              var p = Math.min(1, (now - start) / 1400);
+              var ease = 1 - Math.pow(1 - p, 3);
+              cells.forEach(function (el, i) {
+                el.textContent = fmt.format(Math.round(values[i] * ease));
+              });
+              if (p < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+          };
+          if (!('IntersectionObserver' in window)) return show();
+          var io = new IntersectionObserver(
+            function (entries) {
+              if (
+                entries.some(function (e) {
+                  return e.isIntersecting;
+                })
+              ) {
+                io.disconnect();
+                show();
+              }
+            },
+            { threshold: 0.4 }
+          );
+          io.observe(band);
         });
       })
       .catch(function () {});
+  }
+
+  // Ingrediëntenlijst met allergenen (/ingredientenlijst-allergenen): de lijst die Savour leest, doorzoekbaar op
+  // naam, andere schrijfwijze of Engelse naam, en te filteren op één allergeen. Gegevens: tools/build-ingredientenlijst.mjs.
+  function setupIngredientList() {
+    var root = document.querySelector('[data-ingredient-list]');
+    if (!root || !window.fetch) return;
+    var T = JSON.parse(root.dataset.texts);
+    var input = root.querySelector('.ing-search');
+    var select = root.querySelector('.ing-filter');
+    var list = root.querySelector('.ing-rows');
+    var count = root.querySelector('.ing-count');
+    var more = root.querySelector('.ing-more');
+    var STEP = 60;
+    var items = [];
+    var found = [];
+    var shown = 0;
+    var esc = function (s) {
+      return String(s).replace(/[&<>"]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      });
+    };
+    var norm = function (s) {
+      return String(s || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, ' ')
+        .trim();
+    };
+    var codes = Object.keys(T.labels);
+    var option = function (c) {
+      return '<option value="' + c + '">' + esc(T.labels[c][0]) + '</option>';
+    };
+    select.innerHTML =
+      '<option value="">' +
+      esc(T.filter) +
+      '</option><optgroup label="EU 14">' +
+      codes
+        .filter(function (c) {
+          return !T.labels[c][1];
+        })
+        .map(option)
+        .join('') +
+      '</optgroup><optgroup label="+">' +
+      codes
+        .filter(function (c) {
+          return T.labels[c][1];
+        })
+        .map(option)
+        .join('') +
+      '</optgroup>';
+
+    function rowHtml(r) {
+      var chips = r.codes.length
+        ? r.codes
+            .map(function (c) {
+              var l = T.labels[c];
+              return l ? '<span class="ing-chip' + (l[1] ? ' extra' : '') + '">' + esc(l[0]) + '</span>' : '';
+            })
+            .join('')
+        : '<span class="ing-none">' + esc(T.none) + '</span>';
+      var also = r.aliases.slice(0, 8).join(', ') + (r.aliases.length > 8 ? ' …' : '');
+      var src = r.src
+        .split('')
+        .map(function (x) {
+          return T.sourceNames[x];
+        })
+        .join(' + ');
+      return (
+        '<li><div class="ing-name"><b translate="no">' +
+        esc(r.name) +
+        '</b>' +
+        (r.en ? '<span translate="no">' + esc(r.en) + '</span>' : '') +
+        '</div><div class="ing-chips">' +
+        chips +
+        '</div>' +
+        (also
+          ? '<p class="ing-also"><span>' + esc(T.also) + ':</span> <span translate="no">' + esc(also) + '</span></p>'
+          : '') +
+        '<p class="ing-src">' +
+        esc(T.source) +
+        ': ' +
+        esc(src) +
+        '</p></li>'
+      );
+    }
+    function showMore() {
+      var next = found.slice(shown, shown + STEP);
+      list.insertAdjacentHTML('beforeend', next.map(rowHtml).join(''));
+      shown += next.length;
+      more.hidden = shown >= found.length;
+    }
+    function run() {
+      var q = norm(input.value);
+      var code = select.value;
+      var rank = function (r) {
+        if (!q) return 0;
+        if (r.key === q) return 0;
+        if (r.key.indexOf(q) === 0) return 1;
+        if (r.key.indexOf(q) >= 0) return 2;
+        return r.search.indexOf(q) >= 0 ? 3 : -1;
+      };
+      found = items
+        .map(function (r) {
+          return [rank(r), r];
+        })
+        .filter(function (x) {
+          return x[0] >= 0 && (!code || x[1].codes.indexOf(code) >= 0);
+        })
+        .sort(function (a, b) {
+          return a[0] - b[0];
+        })
+        .map(function (x) {
+          return x[1];
+        });
+      var fmt = new Intl.NumberFormat(document.documentElement.lang || 'nl');
+      count.textContent = T.shown.replace('{n}', fmt.format(found.length)).replace('{total}', fmt.format(items.length));
+      list.innerHTML = found.length ? '' : '<li class="ing-empty">' + esc(T.empty) + '</li>';
+      shown = 0;
+      showMore();
+    }
+    fetch(root.dataset.src)
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (d) {
+        items = d.items.map(function (x) {
+          var aliases = x[2] ? x[2].split('|') : [];
+          var en = x[3] ? x[3].split('|')[0] : '';
+          return {
+            name: x[0],
+            codes: x[1] ? x[1].split(',') : [],
+            aliases: aliases,
+            en: en,
+            src: x[4],
+            key: norm(x[0]),
+            search: norm([x[0]].concat(aliases, x[3] ? x[3].split('|') : []).join(' | '))
+          };
+        });
+        var timer;
+        input.addEventListener('input', function () {
+          clearTimeout(timer);
+          timer = setTimeout(run, 120);
+        });
+        select.addEventListener('change', run);
+        more.addEventListener('click', showMore);
+        run();
+      })
+      .catch(function () {
+        list.innerHTML = '<li class="ing-empty">' + esc(T.empty) + '</li>';
+      });
   }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setup);
     document.addEventListener('DOMContentLoaded', setupDeliver);
     document.addEventListener('DOMContentLoaded', setupFigures);
+    document.addEventListener('DOMContentLoaded', setupIngredientList);
   } else {
     setup();
     setupDeliver();
     setupFigures();
+    setupIngredientList();
   }
   logStaticVisit();
 })();

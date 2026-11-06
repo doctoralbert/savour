@@ -857,6 +857,29 @@ async function giftPro(userId, days) {
   return { until: until.toISOString() };
 }
 
+// Keukenteams (shared_maps) met hun eigenaar, aantal leden en aantal recepten. Of het team werkt, hangt af van
+// de Pro van de eigenaar; dat koppelt het beheerscherm aan de accountlijst uit het overzicht.
+async function kitchenTeams() {
+  const [maps, members, recipes] = await Promise.all([
+    select('shared_maps', 'select=id,owner_id,name,created_at&order=created_at.desc'),
+    select('shared_map_members', 'select=shared_map_id'),
+    select('recipes', 'select=team_id&team_id=not.is.null')
+  ]);
+  const tally = (rows, key) => (rows || []).reduce((m, r) => m.set(r[key], (m.get(r[key]) || 0) + 1), new Map());
+  const memberCount = tally(members, 'shared_map_id');
+  const recipeCount = tally(recipes, 'team_id');
+  return {
+    teams: (maps || []).map(m => ({
+      id: m.id,
+      name: m.name,
+      owner_id: m.owner_id,
+      created_at: m.created_at,
+      members: memberCount.get(m.id) || 0,
+      recipes: recipeCount.get(m.id) || 0
+    }))
+  };
+}
+
 async function revokeGift(userId) {
   const sub = await getSubscription(userId);
   if (sub?.plan !== 'gift') throw Object.assign(new Error('Dit account heeft geen cadeau-Pro.'), { status: 409 });
@@ -1436,6 +1459,7 @@ export default async function handler(req, res) {
     if (action === 'create_account')
       return res.status(200).json(await createAccount({ email, name, organization }, siteOrigin(req)));
     if (action === 'errors') return res.status(200).json(await errorGroups());
+    if (action === 'kitchen_teams') return res.status(200).json(await kitchenTeams());
     if (action === 'adsense') return res.status(200).json(await adsenseReport());
     if (action === 'finance') return res.status(200).json(await financeOverview());
     if (action === 'newsletter')

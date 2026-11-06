@@ -129,6 +129,7 @@ function showAdminTab(tab) {
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.toggle('is-on', t.dataset.adminTab === tab));
   document.querySelectorAll('.admin-tabs button').forEach(b => b.classList.toggle('is-on', b.dataset.adminTab === tab));
   if (tab === 'nieuwsbrief' && !adminNews) loadAdminNewsletter();
+  if (tab === 'keukenteams') loadAdminTeams();
   try {
     sessionStorage.setItem('savour_admin_tab', tab);
   } catch (_) {}
@@ -1068,6 +1069,7 @@ async function loadAdminOverview() {
     if ($('adminMoneyNote')) $('adminMoneyNote').textContent = `bijgewerkt ${adminFormatDate(new Date())}`;
     renderAdminAccounts();
     renderAdminGrowth(adminAccounts);
+    renderAdminTeams();
   } catch (error) {
     if (!error.expired) console.error('Admin overzicht laden mislukt', error);
     if (money)
@@ -1234,6 +1236,73 @@ async function adminDeleteAccount(userId) {
   } catch (e) {
     alertAdmin(e.message);
   }
+}
+
+// ---- Keukenteams: hoeveel er zijn, of ze werken (de eigenaar heeft Pro) en Pro geven aan de eigenaar. ----
+let adminTeams = null;
+
+async function loadAdminTeams() {
+  const body = $('adminTeamsBody');
+  if (!body) return;
+  try {
+    adminTeams = (await adminApi('kitchen_teams')).teams || [];
+    renderAdminTeams();
+  } catch (e) {
+    if (!e.expired)
+      body.innerHTML = `<tr><td colspan="7">Keukenteams konden niet worden geladen: ${adminEscape(e.message)}</td></tr>`;
+  }
+}
+
+function renderAdminTeams() {
+  const body = $('adminTeamsBody');
+  if (!body || !adminTeams) return;
+  const ownerOf = id => adminAccounts.find(a => a.id === id);
+  // Zonder accountlijst (overzicht nog niet geladen) is onbekend of de eigenaar Pro heeft.
+  const works = t => {
+    const o = ownerOf(t.owner_id);
+    return o ? o.type !== 'free' : null;
+  };
+  const monthAgo = Date.now() - 30 * 86400000;
+  const tiles = [
+    ['Keukenteams', adminTeams.length, 'aangemaakt in totaal'],
+    ['Actief', adminTeams.filter(t => works(t) === true).length, 'eigenaar heeft Pro'],
+    ['Op slot', adminTeams.filter(t => works(t) === false).length, 'eigenaar heeft geen Pro meer'],
+    ['Nieuw', adminTeams.filter(t => new Date(t.created_at) > monthAgo).length, 'laatste 30 dagen'],
+    ['Leden', adminTeams.reduce((n, t) => n + t.members, 0), 'in alle teams samen'],
+    ['Teamrecepten', adminTeams.reduce((n, t) => n + t.recipes, 0), 'in alle teams samen']
+  ];
+  if ($('adminTeamStats'))
+    $('adminTeamStats').innerHTML = tiles
+      .map(
+        x =>
+          `<div class="admin-stat"><div class="label">${adminEscape(x[0])}</div><div class="value">${adminEscape(x[1])}</div><div class="sub">${adminEscape(x[2])}</div></div>`
+      )
+      .join('');
+  if ($('adminTeamCount')) $('adminTeamCount').textContent = `${adminTeams.length} keukenteams`;
+  body.innerHTML =
+    adminTeams
+      .map(t => {
+        const o = ownerOf(t.owner_id);
+        const until =
+          o?.until && ['gift', 'trial', 'pro'].includes(o.type)
+            ? `<small>tot ${adminFormatDate(o.until).split(' om')[0]}</small>`
+            : '';
+        const status =
+          works(t) == null
+            ? '<span class="admin-badge">onbekend</span>'
+            : works(t)
+              ? `<span class="admin-badge ${adminEscape(o.type)}">${adminEscape(o.label)}</span>${until}`
+              : '<span class="admin-badge warn">Op slot · geen Pro</span>';
+        const action = !o
+          ? ''
+          : o.type === 'gift'
+            ? `<button class="admin-ghost" onclick="adminGiftPro('${o.id}')">Verlengen</button><button class="admin-ghost" onclick="adminRevokeGift('${o.id}')">Cadeau intrekken</button>`
+            : o.paid_stripe || o.type === 'team'
+              ? ''
+              : `<button class="admin-ghost" onclick="adminGiftPro('${o.id}')">Pro geven</button>`;
+        return `<tr><td>${adminEscape(t.name || '—')}</td><td>${adminEscape(o?.name || '—')}<small>${adminEscape(o?.email || '')}</small></td><td>${status}</td><td>${adminEscape(t.members)}</td><td>${adminEscape(t.recipes)}</td><td>${adminFormatDate(t.created_at)}</td><td><div class="admin-actions">${action}</div></td></tr>`;
+      })
+      .join('') || '<tr><td colspan="7">Nog geen keukenteams.</td></tr>';
 }
 
 async function adminGiftPro(userId) {
