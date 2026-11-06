@@ -278,6 +278,41 @@ const PHOTO_ALT = {
 // Alle taalversies van een pagina (voor hreflang en de taalknop).
 const slugsOf = item => Object.fromEntries(LANGS.map(l => [l, typeof item[l] === 'string' ? item[l] : item[l].slug]));
 const LOCALE = { nl: 'nl-NL', en: 'en-GB', de: 'de-DE', es: 'es-ES', fr: 'fr-FR' };
+// Blogarchief over meerdere bladzijden: zoveel artikelen per bladzijde, met deze woorden in het adres en de knoppen.
+const BLOG_PER_PAGE = 8;
+const BLOG_PAGE_WORD = { nl: 'pagina', en: 'page', de: 'seite', es: 'pagina', fr: 'page' };
+const BLOG_PAGER = {
+  nl: { label: 'Bladzijden van het blog', page: 'Pagina', newer: 'Nieuwer', older: 'Ouder' },
+  en: { label: 'Blog pages', page: 'Page', newer: 'Newer', older: 'Older' },
+  de: { label: 'Seiten des Blogs', page: 'Seite', newer: 'Neuer', older: 'Älter' },
+  es: { label: 'Páginas del blog', page: 'Página', newer: 'Más recientes', older: 'Anteriores' },
+  fr: { label: 'Pages du blog', page: 'Page', newer: 'Plus récents', older: 'Plus anciens' }
+};
+// Datum (en bij uitgebreide artikelen de leestijd) onder een blogartikel.
+const READ_TIME = { nl: 'min lezen', en: 'min read', de: 'Min. Lesezeit', es: 'min de lectura', fr: 'min de lecture' };
+const postDate = (p, lang) =>
+  p.date
+    ? `<time datetime="${p.date}">${new Date(p.date).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' })}</time>`
+    : '';
+const BRIEF = { nl: 'In het kort', en: 'In short', de: 'Kurz gesagt', es: 'En resumen', fr: 'En bref' };
+const MORE = { nl: 'Lees ook', en: 'Read next', de: 'Weiterlesen', es: 'Sigue leyendo', fr: 'À lire aussi' };
+// Leestijd: alle tekst van het artikel, 200 woorden per minuut.
+const readMinutes = t => {
+  const words = [
+    t.lead,
+    ...(t.brief || []),
+    ...t.sections.flat(2).map(x => (typeof x === 'object' ? Object.values(x).flat().join(' ') : x))
+  ]
+    .join(' ')
+    .split(/\s+/).length;
+  return Math.max(1, Math.round(words / 200));
+};
+// Drie andere artikelen onder een uitgebreid artikel: de volgende in het archief.
+const moreReading = (n, lang) =>
+  `<nav class="post-more" aria-label="${esc(MORE[lang])}"><h2>${esc(MORE[lang])}</h2><ul>${[1, 2, 3]
+    .map(k => POSTS[(n + k) % POSTS.length])
+    .map(q => `<li><a href="${href(q[lang].slug)}">${esc(q[lang].title)}${postDate(q, lang)}</a></li>`)
+    .join('')}</ul></nav>`;
 const BLOG_TITLE = {
   nl: 'Blog over receptbeheer en de keuken — Savour',
   en: 'Blog about recipe management and the kitchen — Savour',
@@ -885,31 +920,49 @@ const proseText = s =>
   esc(s).replace(/\[([^\]]+)\]\(((?:https?:\/\/|\/)[^)\s]+)\)/g, (_, label, to) =>
     /^https?:/.test(to) ? `<a href="${to}" rel="noopener">${label}</a>` : `<a href="${to}">${label}</a>`
   );
+// Uitgebreide artikelen kunnen na de tekst ook blokken hebben die iets toevoegen (nooit alleen opvulling):
+//   { tip: [kop, tekst] }   een tip uit de keuken          { warn: [kop, tekst] }  iets om op te letten
+//   { quote: tekst }        de kernzin van het artikel     { shot: pad, alt, caption }  een echt scherm uit de app
+const BOX_ICON = {
+  tip: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>',
+  warn: '<path d="M12 4 2.5 20h19z"/><path d="M12 10v4.5M12 17.5v.01"/>'
+};
+const postBlock = x => {
+  for (const kind of ['tip', 'warn'])
+    if (x[kind])
+      return `<aside class="post-box${kind === 'warn' ? ' note' : ''}"><svg viewBox="0 0 24 24" aria-hidden="true">${BOX_ICON[kind]}</svg><div><b>${esc(x[kind][0])}</b><p>${proseText(x[kind][1])}</p></div></aside>`;
+  if (x.quote) return `<p class="post-quote reveal">${esc(x.quote)}</p>`;
+  if (x.shot)
+    return `<figure class="post-shot reveal"><img src="${x.shot}" alt="${esc(x.alt)}" loading="lazy"><figcaption>${esc(x.caption)}</figcaption></figure>`;
+  return null;
+};
 const sectionExtra = x =>
-  !x
+  !x || typeof x !== 'object'
     ? ''
-    : Array.isArray(x)
-      ? `<ul>${x.map(li => `<li>${proseText(li)}</li>`).join('')}</ul>`
-      : `<div class="site-table-wrap"><table class="site-table"><thead><tr>${x.head.map(h => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${x.rows
-          .map(
-            r =>
-              `<tr>${r
-                .map((c, i) =>
-                  i
-                    ? `<td data-label="${esc(x.head[i] || '')}">${proseText(c)}</td>`
-                    : `<th scope="row">${proseText(c)}</th>`
-                )
-                .join('')}</tr>`
-          )
-          .join('')}</tbody></table></div>${x.note ? `<p class="site-table-note">${proseText(x.note)}</p>` : ''}`;
+    : !Array.isArray(x) && postBlock(x) != null
+      ? postBlock(x)
+      : Array.isArray(x)
+        ? `<ul>${x.map(li => `<li>${proseText(li)}</li>`).join('')}</ul>`
+        : `<div class="site-table-wrap"><table class="site-table"><thead><tr>${x.head.map(h => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${x.rows
+            .map(
+              r =>
+                `<tr>${r
+                  .map((c, i) =>
+                    i
+                      ? `<td data-label="${esc(x.head[i] || '')}">${proseText(c)}</td>`
+                      : `<th scope="row">${proseText(c)}</th>`
+                  )
+                  .join('')}</tr>`
+            )
+            .join('')}</tbody></table></div>${x.note ? `<p class="site-table-note">${proseText(x.note)}</p>` : ''}`;
 const sectionsHtml = sections =>
   sections
     .map(
-      ([t, d, x]) =>
+      ([t, d, ...extra]) =>
         `<h2 class="reveal">${esc(t)}</h2>${String(d)
           .split('\n\n')
           .map(p => `<p>${proseText(p)}</p>`)
-          .join('')}${sectionExtra(x)}`
+          .join('')}${extra.map(sectionExtra).join('')}`
     )
     .join('');
 
@@ -982,20 +1035,40 @@ for (const lang of LANGS) {
 <section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(s.valuesTitle)}</h2><div class="site-values">${s.values.map(([t, d]) => `<div><h3>${esc(t)}</h3><p>${esc(d)}</p></div>`).join('')}</div></div></section>`
     });
   }
-  // Blog: overzicht en artikelen
-  page({
-    lang,
-    slugs: blogSlug,
-    title: BLOG_TITLE[lang],
-    desc: u.blogLead,
-    crumbs: [[u.blog]],
-    body: c =>
-      pageTop(c, u.blog, u.blogLead, PAGE_PHOTO.blog) +
-      `<article class="site-article"><div class="site-wrap site-narrow"><ul class="site-posts">${POSTS.map(
-        p =>
-          `<li><h2><a href="${href(p[lang].slug)}">${esc(p[lang].title)}</a></h2><p>${esc(p[lang].desc)}</p><div class="site-post-meta"><a class="site-link" href="${href(p[lang].slug)}">${u.readArticle}</a>${p.date ? `<time datetime="${p.date}">${new Date(p.date).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' })}</time>` : ''}</div></li>`
-      ).join('')}</ul></div></article>`
-  });
+  // Blog: overzicht over meerdere bladzijden (BLOG_PER_PAGE artikelen, nieuwste eerst) en de artikelen.
+  // Bladzijde 1 is /blog, daarna /blog/pagina-2 enz.: één deel achter /blog, dus de rewrite voor artikelen geldt ook.
+  const pages = Math.ceil(POSTS.length / BLOG_PER_PAGE);
+  const pageSlugs = i =>
+    i ? Object.fromEntries(LANGS.map(l => [l, `${blogSlug[l]}/${BLOG_PAGE_WORD[l]}-${i + 1}`])) : blogSlug;
+  for (let i = 0; i < pages; i++) {
+    const list = POSTS.slice(i * BLOG_PER_PAGE, (i + 1) * BLOG_PER_PAGE);
+    const pageLink = j => href(pageSlugs(j)[lang]);
+    const pager =
+      pages > 1
+        ? `<nav class="site-pager" aria-label="${esc(BLOG_PAGER[lang].label)}">${i ? `<a class="site-pager-step" href="${pageLink(i - 1)}" rel="prev">← ${esc(BLOG_PAGER[lang].newer)}</a>` : '<span></span>'}<span class="site-pager-pages">${Array.from(
+            { length: pages },
+            (_, j) => (j === i ? `<span aria-current="page">${j + 1}</span>` : `<a href="${pageLink(j)}">${j + 1}</a>`)
+          ).join(
+            ''
+          )}</span>${i < pages - 1 ? `<a class="site-pager-step" href="${pageLink(i + 1)}" rel="next">${esc(BLOG_PAGER[lang].older)} →</a>` : '<span></span>'}</nav>`
+        : '';
+    const name = i ? `${u.blog} · ${BLOG_PAGER[lang].page} ${i + 1}` : u.blog;
+    page({
+      lang,
+      slugs: pageSlugs(i),
+      title: i ? `${BLOG_TITLE[lang]} · ${BLOG_PAGER[lang].page} ${i + 1}` : BLOG_TITLE[lang],
+      desc: u.blogLead,
+      crumbs: i ? [[u.blog, href(blogSlug[lang])], [`${BLOG_PAGER[lang].page} ${i + 1}`]] : [[u.blog]],
+      body: c =>
+        pageTop(c, name, u.blogLead, PAGE_PHOTO.blog) +
+        `<article class="site-article"><div class="site-wrap site-narrow"><ul class="site-posts">${list
+          .map(
+            p =>
+              `<li><h2><a href="${href(p[lang].slug)}">${esc(p[lang].title)}</a></h2><p>${esc(p[lang].desc)}</p><div class="site-post-meta"><a class="site-link" href="${href(p[lang].slug)}">${u.readArticle}</a>${postDate(p, lang)}</div></li>`
+          )
+          .join('')}</ul>${pager}</div></article>`
+    });
+  }
   for (const [n, p] of POSTS.entries()) {
     const t = p[lang];
     const date = new Date(p.date).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' });
@@ -1022,7 +1095,7 @@ for (const lang of LANGS) {
       ],
       body: c =>
         pageTop(c, t.h1, t.lead, BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}</p>${sectionsHtml(t.sections.slice(0, 2))}${articleAd}${sectionsHtml(t.sections.slice(2))}<p><em>${esc(t.outro)}</em></p></div></article>`
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections.slice(0, 2))}${articleAd}${sectionsHtml(t.sections.slice(2))}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>`
     });
   }
   // Ingrediëntenlijst met allergenen (tools/site-blog-allergenen.mjs); js/site.js laadt en doorzoekt de lijst.

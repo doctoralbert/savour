@@ -13,6 +13,8 @@ export const LIST_SLUGS = {
 export const ALLERGEN_POST = {
   id: 'allergenen',
   date: '2026-11-06',
+  // Uitgebreide opmaak (tools/build-seo.mjs): in het kort, kaders, kernzin, scherm uit de app, leestijd en verder lezen.
+  rich: true,
   nl: {
     slug: 'blog/allergenen-in-savour',
     title: 'Allergenen in Savour: zo gaat de nieuwe functie werken',
@@ -423,3 +425,189 @@ export const LIST_PAGE = {
     ]
   }
 };
+
+// Uitgebreide opmaak van de allergenenblog, per taal: "In het kort" bovenaan en per sectie (nummer) extra blokken.
+// Alleen blokken die iets toevoegen: een echt scherm uit de demo (assets/app/allergenen-<taal>.jpg, recept Beurre
+// blanc), een tip en een aandachtspunt uit de praktijk, en de kernzin van het artikel.
+const RICH = {
+  nl: {
+    brief: [
+      'Savour telt per recept de allergenen op, ook die uit je basisrecepten.',
+      'Honderden ingrediëntnamen koppel je in één keer; je ziet eerst wat Savour gaat doen.',
+      'Zolang er iets niet gecontroleerd is, zegt Savour dat er ook bij. Nooit "allergeenvrij" op goed geluk.'
+    ],
+    extra: {
+      0: [
+        {
+          shot: '/assets/app/allergenen-nl.jpg',
+          alt: 'Recept Beurre blanc in Savour met het blok Allergenen: melk en sulfiet, nog niet compleet',
+          caption:
+            'Beurre blanc in de demo: melk uit de roomboter, sulfiet uit de wijn, en één regel die nog gecontroleerd moet worden.'
+        }
+      ],
+      3: [
+        {
+          tip: [
+            'Begin bij je basisrecepten',
+            'Kloppen de allergenen van je fonds, deeg en sauzen, dan kloppen ze vanzelf ook in elk gerecht dat ze gebruikt. Daar win je de meeste tijd.'
+          ]
+        }
+      ],
+      5: [
+        { quote: 'Een allergeen te veel is vervelend, een allergeen te weinig is gevaarlijk.' },
+        {
+          warn: [
+            'Ander merk, opnieuw kijken',
+            'Stap je over op een andere leverancier of een ander merk, controleer dan het product in Savour opnieuw. Eén bouillonblokje kan net iets anders bevatten.'
+          ]
+        }
+      ]
+    }
+  },
+  en: {
+    brief: [
+      'Savour adds up the allergens of every recipe, including those from your base recipes.',
+      'You link hundreds of ingredient names in one go, and you always see first what Savour will do.',
+      'As long as something is unchecked, Savour says so. Never "allergen-free" by guesswork.'
+    ],
+    extra: {
+      0: [
+        {
+          shot: '/assets/app/allergenen-en.jpg',
+          alt: 'Recipe Beurre blanc in Savour with the Allergens block: milk and sulphites, not complete yet',
+          caption:
+            'Beurre blanc in the demo: milk from the butter, sulphites from the wine, and one line still to be checked.'
+        }
+      ],
+      3: [
+        {
+          tip: [
+            'Start with your base recipes',
+            'Once the allergens of your stocks, doughs and sauces are right, they are right in every dish that uses them. That is where you save the most time.'
+          ]
+        }
+      ],
+      5: [
+        { quote: 'One allergen too many is annoying; one too few is dangerous.' },
+        {
+          warn: [
+            'New brand, check again',
+            'When you switch supplier or brand, check the product in Savour again. A different stock cube can contain something slightly different.'
+          ]
+        }
+      ]
+    }
+  },
+  de: {
+    brief: [
+      'Savour zählt pro Rezept die Allergene zusammen, auch die aus deinen Grundrezepten.',
+      'Hunderte Zutatennamen verknüpfst du in einem Schritt, und du siehst immer zuerst, was Savour tun wird.',
+      'Solange etwas nicht geprüft ist, sagt Savour das dazu. Nie „allergenfrei“ auf gut Glück.'
+    ],
+    extra: {
+      0: [
+        {
+          shot: '/assets/app/allergenen-de.jpg',
+          alt: 'Rezept Beurre blanc in Savour mit dem Block Allergene: Milch und Sulfite, noch nicht vollständig',
+          caption:
+            'Beurre blanc in der Demo: Milch aus der Butter, Sulfite aus dem Wein und eine Zeile, die noch geprüft werden muss.'
+        }
+      ],
+      3: [
+        {
+          tip: [
+            'Fang bei deinen Grundrezepten an',
+            'Stimmen die Allergene deiner Fonds, Teige und Saucen, dann stimmen sie automatisch in jedem Gericht, das sie verwendet. Dort sparst du die meiste Zeit.'
+          ]
+        }
+      ],
+      5: [
+        { quote: 'Ein Allergen zu viel ist lästig, eins zu wenig ist gefährlich.' },
+        {
+          warn: [
+            'Andere Marke, noch einmal prüfen',
+            'Wechselst du Lieferant oder Marke, prüfe das Produkt in Savour noch einmal. Ein anderer Brühwürfel kann etwas anderes enthalten.'
+          ]
+        }
+      ]
+    }
+  },
+  es: {
+    brief: [
+      'Savour suma los alérgenos de cada receta, también los de tus recetas base.',
+      'Enlazas cientos de nombres de ingredientes de una vez, y siempre ves primero lo que va a hacer Savour.',
+      'Mientras algo no esté comprobado, Savour lo indica. Nunca «sin alérgenos» a ojo.'
+    ],
+    extra: {
+      0: [
+        {
+          shot: '/assets/app/allergenen-es.jpg',
+          alt: 'Receta Beurre blanc en Savour con el bloque Alérgenos: leche y sulfitos, aún no completo',
+          caption:
+            'Beurre blanc en la demo: leche de la mantequilla, sulfitos del vino y una línea que aún hay que comprobar.'
+        }
+      ],
+      3: [
+        {
+          tip: [
+            'Empieza por tus recetas base',
+            'Si los alérgenos de tus fondos, masas y salsas son correctos, lo son también en cada plato que los usa. Ahí es donde más tiempo ahorras.'
+          ]
+        }
+      ],
+      5: [
+        { quote: 'Un alérgeno de más es molesto; uno de menos es peligroso.' },
+        {
+          warn: [
+            'Otra marca, vuelve a comprobar',
+            'Si cambias de proveedor o de marca, vuelve a comprobar el producto en Savour. Otra pastilla de caldo puede llevar algo distinto.'
+          ]
+        }
+      ]
+    }
+  },
+  fr: {
+    brief: [
+      'Savour additionne les allergènes de chaque recette, y compris ceux de tes recettes de base.',
+      'Tu relies des centaines de noms d’ingrédients en une fois, et tu vois toujours d’abord ce que Savour va faire.',
+      'Tant que quelque chose n’est pas vérifié, Savour le dit. Jamais « sans allergènes » au hasard.'
+    ],
+    extra: {
+      0: [
+        {
+          shot: '/assets/app/allergenen-fr.jpg',
+          alt: 'Recette Beurre blanc dans Savour avec le bloc Allergènes : lait et sulfites, pas encore complet',
+          caption: 'Beurre blanc dans la démo : le lait du beurre, les sulfites du vin et une ligne encore à vérifier.'
+        }
+      ],
+      3: [
+        {
+          tip: [
+            'Commence par tes recettes de base',
+            'Si les allergènes de tes fonds, pâtes et sauces sont justes, ils le sont aussi dans chaque plat qui les utilise. C’est là que tu gagnes le plus de temps.'
+          ]
+        }
+      ],
+      5: [
+        { quote: 'Un allergène de trop est gênant ; un de moins est dangereux.' },
+        {
+          warn: [
+            'Autre marque, vérifie à nouveau',
+            'Si tu changes de fournisseur ou de marque, vérifie à nouveau le produit dans Savour. Un autre cube de bouillon peut contenir autre chose.'
+          ]
+        }
+      ]
+    }
+  }
+};
+const KEY = 'en/blog/allergens-in-savour';
+for (const [lang, post] of [
+  ['nl', ALLERGEN_POST.nl],
+  ['en', ALLERGEN_POST.en],
+  ['de', ALLERGEN_POST_DE[KEY]],
+  ['es', ALLERGEN_POST_ES[KEY]],
+  ['fr', ALLERGEN_POST_FR[KEY]]
+]) {
+  post.brief = RICH[lang].brief;
+  for (const [i, blocks] of Object.entries(RICH[lang].extra)) post.sections[i].push(...blocks);
+}
