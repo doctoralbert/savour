@@ -137,7 +137,6 @@ function openRecipe(id, context = 'library') {
         }
       </section>
     </div>
-    ${appAdHtml()}
   </article>`;
   renderIngredientLinks(r);
   renderRecipeAllergens(r);

@@ -791,7 +791,7 @@ function fitDesc(desc, max = 160) {
 }
 
 // ---- Losse pagina's ----
-function pageHead(lang, { title: longTitle, desc: longDesc, canonical, alternates, schema, hidden, ads }) {
+function pageHead(lang, { title: longTitle, desc: longDesc, canonical, alternates, schema, hidden }) {
   const title = fitTitle(longTitle);
   const desc = fitDesc(longDesc);
   return `<!doctype html>
@@ -817,7 +817,7 @@ ${alternates.map(([l, h]) => `<link rel="alternate" hreflang="${l}" href="${h}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/site.css">
-${ads ? ADSENSE_SCRIPT : ''}<script type="application/ld+json">${JSON.stringify(schema)}</script>
+<script type="application/ld+json">${JSON.stringify(schema)}</script>
 <script src="/js/country.js" defer></script>
 <script src="/js/site.js" defer></script>
 </head>
@@ -844,7 +844,7 @@ function writePage(slug, html) {
 }
 
 const sitemap = [];
-function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = false, ads = false }) {
+function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = false }) {
   for (const l of LANGS) if (slugs[l]) PATH_INDEX.set(href(slugs[l]), slugs);
   const canonical = url(slugs[lang]);
   const alternates = LANGS.filter(l => slugs[l]).map(l => [l, url(slugs[l])]);
@@ -879,7 +879,6 @@ function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = fa
       canonical,
       alternates,
       hidden,
-      ads,
       schema: [webPage(lang, title, desc, canonical), ...breadcrumb, ...schema]
     }) +
     `<div class="site">${header(lang, alt, false)}<main>${body(crumbHtml)}</main>${hidden ? '' : ctaBlock(lang, false)}${footer(lang, alt, false)}</div>\n</body>\n</html>\n`;
@@ -997,10 +996,6 @@ const pageTop = (crumbHtml, h1, lead, photo) => {
 // Twee staande foto's naast elkaar midden in de tekst (Voor wie-pagina's).
 const photoDuo = (lang, a, b) =>
   `<figure class="site-photo-duo reveal">${[a, b].map(k => `<img src="${photoFile(k)}" alt="${esc(PHOTO_ALT[k]?.[lang] || PHOTO_ALT[k]?.en || '')}" loading="lazy" style="object-position:${PHOTOS[k][1]}">`).join('')}</figure>`;
-// AdSense: alleen in blogartikelen, na de tweede alinea (blok "Blog artikel"; niet in de app, recepten of andere pagina's).
-const ADSENSE_CLIENT = 'ca-pub-8120664667405598';
-const ADSENSE_SCRIPT = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}" crossorigin="anonymous"></script>\n`;
-const articleAd = `<div class="site-ad"><ins class="adsbygoogle" style="display:block;text-align:center" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="${ADSENSE_CLIENT}" data-ad-slot="6575266109"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>`;
 // Een sectie is [kop, tekst] met eventueel als derde deel een opsomming (lijst met teksten) of een tabel
 // ({ head: [...], rows: [[...]] }). Tekst mag alinea's (witregel) en links ([tekst](https://… of /pad)) bevatten.
 const proseText = s =>
@@ -1188,7 +1183,6 @@ for (const lang of LANGS) {
     const t = p[lang];
     const date = new Date(p.date).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' });
     page({
-      ads: true,
       lang,
       slugs: slugsOf(p),
       title: `${t.title} | Savour`,
@@ -1210,7 +1204,7 @@ for (const lang of LANGS) {
       ],
       body: c =>
         pageTop(c, t.h1, t.lead, BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections.slice(0, 2))}${articleAd}${sectionsHtml(t.sections.slice(2))}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>`
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>`
     });
   }
   // Ingrediëntenlijst met allergenen (tools/site-blog-allergenen.mjs); js/site.js laadt en doorzoekt de lijst.

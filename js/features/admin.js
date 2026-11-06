@@ -1293,16 +1293,62 @@ function renderAdminTeams() {
             : works(t)
               ? `<span class="admin-badge ${adminEscape(o.type)}">${adminEscape(o.label)}</span>${until}`
               : '<span class="admin-badge warn">Op slot · geen Pro</span>';
-        const action = !o
-          ? ''
-          : o.type === 'gift'
-            ? `<button class="admin-ghost" onclick="adminGiftPro('${o.id}')">Verlengen</button><button class="admin-ghost" onclick="adminRevokeGift('${o.id}')">Cadeau intrekken</button>`
-            : o.paid_stripe || o.type === 'team'
-              ? ''
-              : `<button class="admin-ghost" onclick="adminGiftPro('${o.id}')">Pro geven</button>`;
-        return `<tr><td>${adminEscape(t.name || '—')}</td><td>${adminEscape(o?.name || '—')}<small>${adminEscape(o?.email || '')}</small></td><td>${status}</td><td>${adminEscape(t.members)}</td><td>${adminEscape(t.recipes)}</td><td>${adminFormatDate(t.created_at)}</td><td><div class="admin-actions">${action}</div></td></tr>`;
+        // Hoeveel mensen in het team (eigenaar en leden) Pro hebben, en wie daarvan cadeau-Pro.
+        const people = (t.people || []).map(ownerOf).filter(Boolean);
+        const withPro = people.filter(p => p.type !== 'free').length;
+        const gifts = people.filter(p => p.type === 'gift').length;
+        const action = `<button class="admin-ghost" onclick="adminGiftTeam('${adminEscape(t.id)}')">Pro voor hele team</button>${
+          gifts
+            ? `<button class="admin-ghost" onclick="adminRevokeTeamGift('${adminEscape(t.id)}')">Team-cadeau intrekken</button>`
+            : ''
+        }`;
+        return `<tr><td>${adminEscape(t.name || '—')}</td><td>${adminEscape(o?.name || '—')}<small>${adminEscape(o?.email || '')}</small></td><td>${status}<small>${withPro} van ${people.length} met Pro</small></td><td>${adminEscape(t.members)}</td><td>${adminEscape(t.recipes)}</td><td>${adminFormatDate(t.created_at)}</td><td><div class="admin-actions">${action}</div></td></tr>`;
       })
       .join('') || '<tr><td colspan="7">Nog geen keukenteams.</td></tr>';
+}
+
+// Pro voor een heel keukenteam: de eigenaar en elk lid krijgen cadeau-Pro. Wie al betaalt, slaat de server over.
+async function adminGiftTeam(mapId) {
+  const t = (adminTeams || []).find(x => x.id === mapId);
+  const days = await askChoice(
+    `Savour Pro geven aan het hele keukenteam ${t?.name || ''} (${(t?.people || []).length} personen)\n\nHoe lang?`,
+    [
+      { label: '30 dagen', value: '30' },
+      { label: '3 maanden', value: '90' },
+      { label: '1 jaar', value: '365' },
+      { label: 'Onbeperkt', value: '3650' }
+    ]
+  );
+  if (!days) return;
+  try {
+    const r = await adminApi('gift_team', { map_id: mapId, days: Number(days) });
+    toast(
+      `${r.given} ${r.given === 1 ? 'persoon kreeg' : 'personen kregen'} Pro${r.skipped ? ` · ${r.skipped} heeft al een betaald abonnement` : ''}`
+    );
+    await loadAdminOverview();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
+}
+
+async function adminRevokeTeamGift(mapId) {
+  const t = (adminTeams || []).find(x => x.id === mapId);
+  if (
+    !(await askConfirm(
+      `Cadeau-Pro intrekken voor iedereen in ${t?.name || 'dit keukenteam'}?\n\nBetaalde abonnementen blijven staan, en alle recepten ook.`,
+      {
+        confirmLabel: 'Intrekken'
+      }
+    ))
+  )
+    return;
+  try {
+    const r = await adminApi('revoke_team_gift', { map_id: mapId });
+    toast(`Cadeau-Pro ingetrokken bij ${r.revoked} ${r.revoked === 1 ? 'persoon' : 'personen'}`);
+    await loadAdminOverview();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
 }
 
 async function adminGiftPro(userId) {

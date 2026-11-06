@@ -36,11 +36,9 @@ function contextAlphabetHtml(selected, handler) {
 }
 
 // removeFn: naam van de functie die een recept uit deze map haalt; dan staat er een kruisje achter elk recept.
-// withAd: advertentie na de zesde rij (of onderaan een kortere lijst) voor wie geen Pro heeft.
-function contextRecipeRowsHtml(list, context, removeFn = '', withAd = false) {
+function contextRecipeRowsHtml(list, context, removeFn = '') {
   const removeLabel = esc(t('Uit deze map halen'));
   const sorted = sortRecipesByTitle(list);
-  const adAfter = withAd ? Math.min(sorted.length, 6) - 1 : -1;
   return sorted
     .map((r, i) => {
       const id = escJs(r.id);
@@ -64,8 +62,7 @@ function contextRecipeRowsHtml(list, context, removeFn = '', withAd = false) {
         esc(recipeTitleOf(r)) +
         '</span>' +
         remove +
-        '<span class="savour-v13-arrow">›</span></div>' +
-        (i === adAfter ? appAdHtml() : '')
+        '<span class="savour-v13-arrow">›</span></div>'
       );
     })
     .join('');

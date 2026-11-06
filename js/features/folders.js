@@ -122,7 +122,7 @@ function renderFolderDetail() {
   const filtered = filterRecipesByLetter(list, window.folderAlphabet);
   const body = filtered.length
     ? '<div class="savour-v13-list">' +
-      contextRecipeRowsHtml(filtered, 'folder', f.system ? '' : 'removeRecipeFromFolder', true) +
+      contextRecipeRowsHtml(filtered, 'folder', f.system ? '' : 'removeRecipeFromFolder') +
       '</div>'
     : '<div class="empty">Deze map bevat geen recepten voor deze selectie.</div>';
   document.getElementById('folderDetailWrap').innerHTML =

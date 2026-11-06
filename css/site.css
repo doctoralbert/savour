@@ -3485,9 +3485,3 @@ body.cook-mode #publicRecipeShell .share-recipe-head h1 {
     grid-column: 1;
   }
 }
-
-/* Advertentie in een blogartikel */
-.site-ad {
-  overflow: hidden;
-  margin: 28px 0;
-}
