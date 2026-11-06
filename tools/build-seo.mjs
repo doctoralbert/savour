@@ -31,6 +31,7 @@ import { VERDIEPING } from './site-verdieping.mjs';
 import { VERDIEPING_TALEN } from './site-verdieping-talen.mjs';
 import { BLOG_RICH } from './site-blog-rich.mjs';
 import { FEATURE_RICH } from './site-feature-rich.mjs';
+import { PAGE_RICH } from './site-page-rich.mjs';
 import { APP_PAGE } from './site-app.mjs';
 import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
 import { DELIVER, DELIVER_FLOW } from './site-deliver.mjs';
@@ -334,6 +335,7 @@ const slugsOf = item => Object.fromEntries(LANGS.map(l => [l, typeof item[l] ===
 const LOCALE = { nl: 'nl-NL', en: 'en-GB', de: 'de-DE', es: 'es-ES', fr: 'fr-FR' };
 // Blogarchief over meerdere bladzijden: zoveel artikelen per bladzijde, met deze woorden in het adres en de knoppen.
 const BLOG_PER_PAGE = 8;
+const RELEASES_PER_PAGE = 4;
 const BLOG_PAGE_WORD = { nl: 'pagina', en: 'page', de: 'seite', es: 'pagina', fr: 'page' };
 const BLOG_PAGER = {
   nl: { label: 'Bladzijden van het blog', page: 'Pagina', newer: 'Nieuwer', older: 'Ouder' },
@@ -989,7 +991,17 @@ const FAQ_TITLE = {
   es: 'Preguntas frecuentes',
   fr: 'Questions fréquentes'
 };
-const featureRich = (id, lang) => (FEATURE_RICH[id]?.[lang] ? richMap(FEATURE_RICH[id][lang], lang) : null);
+const featureRich = (id, lang) => {
+  const r = FEATURE_RICH[id]?.[lang] || PAGE_RICH[id]?.[lang];
+  return r ? richMap(r, lang) : null;
+};
+// Donkere strook met echte cijfers (Prijzen, Over ons).
+const featureFacts = (id, lang) => {
+  const r = featureRich(id, lang);
+  return r?.facts
+    ? `<section class="feat-facts"><div class="site-wrap"><dl>${r.facts.map(([n, d]) => `<div class="reveal"><dt>${esc(n)}</dt><dd>${esc(d)}</dd></div>`).join('')}</dl></div></section>`
+    : '';
+};
 const featureBand = (id, lang) => {
   const r = featureRich(id, lang);
   return r?.benefits
@@ -1168,7 +1180,8 @@ for (const lang of LANGS) {
       crumbs: [[u.about]],
       body: c =>
         pageTop(c, s.h1, s.lead, PAGE_PHOTO[STORY.nl.slug]) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${aboutChapters(s, lang)}</div></article>
+        featureFacts('about', lang) +
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${aboutChapters(s, lang)}</div></article>${featureShow('about', lang)}${featureFaq('about', lang)}
 <section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(s.valuesTitle)}</h2><div class="site-values">${s.values.map(([t, d]) => `<div><h3>${esc(t)}</h3><p>${esc(d)}</p></div>`).join('')}</div></div></section>`
     });
   }
@@ -1332,7 +1345,9 @@ for (const lang of LANGS) {
       schema,
       body: c =>
         pageTop(c, h1, lead, PAGE_PHOTO[p.nl]) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${note ? `<p class="site-meta">${esc(note)}</p>` : ''}${body}</div></article>`
+        (p.id === 'pro' ? featureBand('pro', lang) + featureFacts('pro', lang) : '') +
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${note ? `<p class="site-meta">${esc(note)}</p>` : ''}${body}</div></article>` +
+        (p.id === 'pro' ? featureShow('pro', lang) : '')
     });
   }
 
@@ -1490,21 +1505,41 @@ for (const lang of LANGS) {
           }${next ? `<a class="next" href="${chapterHref(next)}"><small>${esc(gu.next)} →</small>${esc(chapterName(next))}</a>` : ''}</nav>${chapterNav(ch)}</div></article>`
       });
     }
+    // Release notes over meerdere bladzijden, zoals het blog: RELEASES_PER_PAGE versies per bladzijde, nieuwste eerst.
+    // Bladzijde 2 en verder: release-notes-pagina-2 (één deel, dus de gewone rewrite voor losse pagina's geldt).
     const rp = RELEASES_PAGE[lang];
-    page({
-      lang,
-      slugs: pair(l => RELEASES_PAGE[l].slug),
-      title: rp.title,
-      desc: rp.desc,
-      crumbs: [[rp.h1]],
-      body: c =>
-        pageTop(c, rp.h1, rp.lead, 'hout') +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose site-releases">${RELEASES.map(
-          r =>
-            `<section id="v${esc(r.version)}"><h2>${esc(gu.version)} ${esc(r.version)}</h2><p class="site-meta">${new Date(r.date).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' })}</p><ul>${r[lang].map(x => `<li>${esc(x)}</li>`).join('')}</ul></section>`
-        ).join('')}</div></article>`
-    });
+    const rPages = Math.ceil(RELEASES.length / RELEASES_PER_PAGE);
+    const rSlugs = i =>
+      pair(l => (i ? `${RELEASES_PAGE[l].slug}-${BLOG_PAGE_WORD[l]}-${i + 1}` : RELEASES_PAGE[l].slug));
+    for (let i = 0; i < rPages; i++) {
+      const list = RELEASES.slice(i * RELEASES_PER_PAGE, (i + 1) * RELEASES_PER_PAGE);
+      const pageLink = j => href(rSlugs(j)[lang]);
+      const pager = `<nav class="site-pager" aria-label="${esc(rp.h1)}">${i ? `<a class="site-pager-step" href="${pageLink(i - 1)}" rel="prev">← ${esc(BLOG_PAGER[lang].newer)}</a>` : '<span></span>'}<span class="site-pager-pages">${Array.from(
+        { length: rPages },
+        (_, j) => (j === i ? `<span aria-current="page">${j + 1}</span>` : `<a href="${pageLink(j)}">${j + 1}</a>`)
+      ).join(
+        ''
+      )}</span>${i < rPages - 1 ? `<a class="site-pager-step" href="${pageLink(i + 1)}" rel="next">${esc(BLOG_PAGER[lang].older)} →</a>` : '<span></span>'}</nav>`;
+      page({
+        lang,
+        slugs: rSlugs(i),
+        title: i ? `${rp.title} · ${BLOG_PAGER[lang].page} ${i + 1}` : rp.title,
+        desc: rp.desc,
+        crumbs: i ? [[rp.h1, href(rp.slug)], [`${BLOG_PAGER[lang].page} ${i + 1}`]] : [[rp.h1]],
+        body: c =>
+          pageTop(c, i ? `${rp.h1} · ${BLOG_PAGER[lang].page} ${i + 1}` : rp.h1, rp.lead, 'hout') +
+          `<article class="site-article"><div class="site-wrap site-narrow site-prose site-releases">${releaseList(list, lang, gu)}${rPages > 1 ? pager : ''}</div></article>`
+      });
+    }
   }
+}
+function releaseList(list, lang, gu) {
+  return `${list
+    .map(
+      r =>
+        `<section id="v${esc(r.version)}"><h2>${esc(gu.version)} ${esc(r.version)}</h2><p class="site-meta">${new Date(r.date).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' })}</p><ul>${r[lang].map(x => `<li>${esc(x)}</li>`).join('')}</ul></section>`
+    )
+    .join('')}`;
 }
 
 // ---- Doorverwijzingen voor de handleiding ----

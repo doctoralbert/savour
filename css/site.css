@@ -1169,6 +1169,47 @@
   }
 }
 
+.feat-facts {
+  background: radial-gradient(ellipse 60% 120% at 50% 0%, rgba(232, 202, 141, 0.12), transparent 70%), var(--night);
+  color: #f3efe6;
+  padding: 40px 0;
+}
+.feat-facts dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  text-align: center;
+}
+.feat-facts dl > div {
+  padding: 4px 16px;
+}
+.feat-facts dl > div + div {
+  border-left: 1px solid #2c3330;
+}
+.feat-facts dt {
+  font: 500 46px/1.1 var(--serif);
+  color: var(--gold-soft);
+}
+.feat-facts dd {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: #c9ccc4;
+}
+@media (max-width: 600px) {
+  .feat-facts dl {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .feat-facts dl > div + div {
+    border-left: 0;
+    border-top: 1px solid #2c3330;
+    padding-top: 18px;
+  }
+  .feat-facts dt {
+    font-size: 38px;
+  }
+}
+
 /* Bladzijden van het blogarchief */
 .site-pager {
   display: flex;
