@@ -839,18 +839,7 @@ const PHOTOS = {
   // Het bord staat midden in de foto: op de laptop ingezoomd en links uitgelijnd, zodat het rechts naast de tekst staat.
   bord: ['bord-pass.jpg', 'center 55%', '160% auto', '0% 58%']
 };
-// De allergenen zoals de app ze noemt (js/features/products.js), vertaald via tools/vertalingen.mjs.
-const ALLERGEN_LABELS = [
-  ...fs
-    .readFileSync(new URL('js/features/products.js', ROOT), 'utf8')
-    .matchAll(/^\s*\['(\w+)', (?:'([^']+)'|"([^"]+)")(, true)?\]/gm)
-].map(m => [m[1], m[2] || m[3], !!m[4]]);
-const allergenLabel = (nl, lang) =>
-  lang === 'nl'
-    ? nl
-    : lang === 'fr'
-      ? stringsFr[nl] || nl
-      : strings.find(r => r[0] === nl)?.[{ en: 1, de: 2, es: 3 }[lang]] || nl;
+// De ingrediëntenlijst met de allergenen per taal (tools/build-ingredientenlijst.mjs): { code: [extra, nl, en, de, es, fr] }.
 const INGREDIENT_LIST = JSON.parse(fs.readFileSync(new URL('assets/data/ingredientenlijst.json', ROOT), 'utf8'));
 const PAGE_PHOTO = {
   'recepten-digitaliseren': 'hout',
@@ -1051,7 +1040,9 @@ for (const lang of LANGS) {
       empty: t.empty,
       shown: t.shown('{n}', '{total}'),
       sourceNames: t.sourceNames,
-      labels: Object.fromEntries(ALLERGEN_LABELS.map(([code, nl, extra]) => [code, [allergenLabel(nl, lang), !!extra]]))
+      labels: Object.fromEntries(
+        Object.entries(INGREDIENT_LIST.labels).map(([code, l]) => [code, [l[1 + LANGS.indexOf(lang)], l[0]]])
+      )
     };
     page({
       lang,

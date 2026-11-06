@@ -12,6 +12,8 @@
 
 import fs from 'fs';
 import vm from 'vm';
+import { strings } from './vertalingen.mjs';
+import { stringsFr } from './vertalingen-fr.mjs';
 
 const root = new URL('..', import.meta.url);
 const read = p => fs.readFileSync(new URL(p, root), 'utf8');
@@ -71,7 +73,15 @@ for (const r of byName.values())
       .join('')
   ]);
 rows.sort((a, b) => a[0].localeCompare(b[0], 'nl'));
-const out = { version: base.nevo, count: rows.length, items: rows };
+// De allergenen met hun naam per taal (tools/vertalingen.mjs), zodat de pagina zonder de app gebouwd kan worden:
+// { code: [extra kenmerk, nl, en, de, es, fr] }.
+const labels = Object.fromEntries(
+  vm.runInContext('ALLERGENS', ctx).map(([code, nl, extra]) => {
+    const row = strings.find(r => r[0] === nl) || [];
+    return [code, [!!extra, nl, row[1] || nl, row[2] || nl, row[3] || nl, stringsFr[nl] || nl]];
+  })
+);
+const out = { version: base.nevo, count: rows.length, labels, items: rows };
 fs.mkdirSync(new URL('assets/data/', root), { recursive: true });
 fs.writeFileSync(new URL('assets/data/ingredientenlijst.json', root), JSON.stringify(out));
 console.log(`${rows.length} ingrediënten, ${rows.filter(r => r[1]).length} met een allergeen of kenmerk`);
