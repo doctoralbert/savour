@@ -27,11 +27,7 @@ for (const file of files) {
     if (m) stamps.push(Date.parse(m[1]));
   }
 }
-const git = execSync('git log --all --format=%ct')
-  .toString()
-  .trim()
-  .split('\n')
-  .map(x => Number(x) * 1000);
+const git = execSync('git log --all --format=%ct').toString().trim().split('\n').map(x => Number(x) * 1000);
 
 // Actieve tijd per maand. Tijd tot het volgende tijdstip telt mee als die binnen de pauzegrens valt.
 function active(list) {

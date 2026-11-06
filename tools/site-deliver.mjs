@@ -15,21 +15,18 @@ export const DELIVER = {
     matchLabel: 'Hoe weten we welk recept in welke map hoort?',
     matchPlaceholder: 'Bijvoorbeeld: elk Word-bestand is een partie, of de map staat bovenaan het recept…',
     filesTitle: '2. Upload je recepten',
-    filesHint:
-      'Word, PDF, foto’s van schriften en kladjes, Excel, zip-bestanden of exports uit andere apps. Maximaal 50 MB per bestand.',
+    filesHint: 'Word, PDF, foto’s van schriften en kladjes, Excel, zip-bestanden of exports uit andere apps. Maximaal 50 MB per bestand.',
     drop: 'Sleep bestanden hierheen of klik om te kiezen',
     uploading: 'Bezig met uploaden…',
     uploaded: 'Geüpload',
     failed: 'Uploaden mislukt',
     tooBig: 'Te groot (max. 50 MB)',
     notesTitle: '3. Nog iets dat we moeten weten?',
-    notesPlaceholder:
-      'Bijvoorbeeld: recepten die je niet nodig hebt, afkortingen die jullie gebruiken of een gewenste opleverdatum…',
+    notesPlaceholder: 'Bijvoorbeeld: recepten die je niet nodig hebt, afkortingen die jullie gebruiken of een gewenste opleverdatum…',
     submit: 'Aanlevering versturen',
     busy: 'Bezig…',
     needFiles: 'Upload eerst minstens één bestand.',
-    thanks:
-      'Bedankt! We hebben alles ontvangen en gaan aan de slag. Je hoort van ons zodra je recepten klaarstaan. Iets vergeten? Via deze link kun je nog bestanden toevoegen.',
+    thanks: 'Bedankt! We hebben alles ontvangen en gaan aan de slag. Je hoort van ons zodra je recepten klaarstaan. Iets vergeten? Via deze link kun je nog bestanden toevoegen.',
     invalid: 'Deze aanleverlink klopt niet of is niet meer geldig. Mail ons op contact@savour.page.',
     closed: 'Deze aanlevering is afgerond. Wil je nog iets aanleveren? Mail ons op contact@savour.page.',
     privacy: 'Je bestanden zijn alleen zichtbaar voor Savour en worden verwijderd zodra je recepten zijn ingeladen.'
@@ -47,8 +44,7 @@ export const DELIVER = {
     matchLabel: 'How do we know which recipe goes in which folder?',
     matchPlaceholder: 'For example: each Word file is a section, or the folder is written at the top of the recipe…',
     filesTitle: '2. Upload your recipes',
-    filesHint:
-      'Word, PDF, photos of notebooks and notes, Excel, zip files or exports from other apps. Up to 50 MB per file.',
+    filesHint: 'Word, PDF, photos of notebooks and notes, Excel, zip files or exports from other apps. Up to 50 MB per file.',
     drop: 'Drag files here or click to choose',
     uploading: 'Uploading…',
     uploaded: 'Uploaded',
@@ -59,8 +55,7 @@ export const DELIVER = {
     submit: 'Send',
     busy: 'Sending…',
     needFiles: 'Upload at least one file first.',
-    thanks:
-      'Thank you! We have received everything and are getting started. You will hear from us as soon as your recipes are ready. Forgot something? You can still add files through this link.',
+    thanks: 'Thank you! We have received everything and are getting started. You will hear from us as soon as your recipes are ready. Forgot something? You can still add files through this link.',
     invalid: 'This upload link is not valid (any more). Email us at contact@savour.page.',
     closed: 'This upload has been completed. Want to send something else? Email us at contact@savour.page.',
     privacy: 'Your files are only visible to Savour and are deleted as soon as your recipes have been imported.'
@@ -78,21 +73,18 @@ export const DELIVER = {
     matchLabel: 'Woran erkennen wir, welches Rezept in welchen Ordner gehört?',
     matchPlaceholder: 'Zum Beispiel: jede Word-Datei ist ein Posten, oder der Ordner steht oben im Rezept…',
     filesTitle: '2. Lade deine Rezepte hoch',
-    filesHint:
-      'Word, PDF, Fotos von Heften und Notizen, Excel, Zip-Dateien oder Exporte aus anderen Apps. Bis 50 MB pro Datei.',
+    filesHint: 'Word, PDF, Fotos von Heften und Notizen, Excel, Zip-Dateien oder Exporte aus anderen Apps. Bis 50 MB pro Datei.',
     drop: 'Dateien hierher ziehen oder klicken zum Auswählen',
     uploading: 'Wird hochgeladen…',
     uploaded: 'Hochgeladen',
     failed: 'Hochladen fehlgeschlagen',
     tooBig: 'Zu groß (max. 50 MB)',
     notesTitle: '3. Sonst noch etwas, das wir wissen sollten?',
-    notesPlaceholder:
-      'Zum Beispiel: Rezepte, die du nicht brauchst, Abkürzungen, die ihr verwendet, oder ein Wunschtermin…',
+    notesPlaceholder: 'Zum Beispiel: Rezepte, die du nicht brauchst, Abkürzungen, die ihr verwendet, oder ein Wunschtermin…',
     submit: 'Lieferung senden',
     busy: 'Wird gesendet…',
     needFiles: 'Lade zuerst mindestens eine Datei hoch.',
-    thanks:
-      'Danke! Wir haben alles erhalten und legen los. Du hörst von uns, sobald deine Rezepte bereitstehen. Etwas vergessen? Über diesen Link kannst du noch Dateien hinzufügen.',
+    thanks: 'Danke! Wir haben alles erhalten und legen los. Du hörst von uns, sobald deine Rezepte bereitstehen. Etwas vergessen? Über diesen Link kannst du noch Dateien hinzufügen.',
     invalid: 'Dieser Link ist nicht (mehr) gültig. Schreib uns an contact@savour.page.',
     closed: 'Diese Lieferung ist abgeschlossen. Möchtest du noch etwas liefern? Schreib uns an contact@savour.page.',
     privacy: 'Deine Dateien sind nur für Savour sichtbar und werden gelöscht, sobald deine Rezepte eingepflegt sind.'
@@ -110,8 +102,7 @@ export const DELIVER = {
     matchLabel: '¿Cómo sabemos qué receta va en qué carpeta?',
     matchPlaceholder: 'Por ejemplo: cada archivo Word es una partida, o la carpeta aparece arriba en la receta…',
     filesTitle: '2. Sube tus recetas',
-    filesHint:
-      'Word, PDF, fotos de libretas y notas, Excel, archivos zip o exportaciones de otras apps. Hasta 50 MB por archivo.',
+    filesHint: 'Word, PDF, fotos de libretas y notas, Excel, archivos zip o exportaciones de otras apps. Hasta 50 MB por archivo.',
     drop: 'Arrastra archivos aquí o haz clic para elegir',
     uploading: 'Subiendo…',
     uploaded: 'Subido',
@@ -122,8 +113,7 @@ export const DELIVER = {
     submit: 'Enviar',
     busy: 'Enviando…',
     needFiles: 'Sube primero al menos un archivo.',
-    thanks:
-      '¡Gracias! Lo hemos recibido todo y nos ponemos manos a la obra. Te avisaremos en cuanto tus recetas estén listas. ¿Se te olvidó algo? Puedes seguir añadiendo archivos con este enlace.',
+    thanks: '¡Gracias! Lo hemos recibido todo y nos ponemos manos a la obra. Te avisaremos en cuanto tus recetas estén listas. ¿Se te olvidó algo? Puedes seguir añadiendo archivos con este enlace.',
     invalid: 'Este enlace no es válido (o ya no lo es). Escríbenos a contact@savour.page.',
     closed: 'Este envío está completado. ¿Quieres enviar algo más? Escríbenos a contact@savour.page.',
     privacy: 'Tus archivos solo son visibles para Savour y se borran en cuanto tus recetas están cargadas.'
@@ -135,8 +125,7 @@ export const DELIVER_FLOW = {
   nl: {
     resubmit: 'Aanlevering wijzigen',
     payTitle: 'Rond je bestelling af',
-    payIntro:
-      'Je aanvraag is goedgekeurd. Kies hoe groot je team is en betaal. Daarna lever je op deze pagina je recepten aan.',
+    payIntro: 'Je aanvraag is goedgekeurd. Kies hoe groot je team is en betaal. Daarna lever je op deze pagina je recepten aan.',
     seatsLabel: 'Grootte van je team',
     seats: n => `Team ${n}`,
     seatsNote: n => `${n} personen met Savour Pro, jij telt mee`,
@@ -145,16 +134,14 @@ export const DELIVER_FLOW = {
     once: 'eenmalig',
     free: 'gratis',
     payButton: 'Veilig betalen',
-    payNote:
-      'Je betaalt via Stripe met iDEAL of creditcard. Je ontvangt de factuur per mail. Het teamabonnement is jaarlijks opzegbaar.',
+    payNote: 'Je betaalt via Stripe met iDEAL of creditcard. Je ontvangt de factuur per mail. Het teamabonnement is jaarlijks opzegbaar.',
     paying: 'Betaalpagina openen…',
     processing: 'Bedankt! We verwerken je betaling. Dit duurt meestal een paar seconden…',
     reviewing: 'We bekijken je aanvraag. Je krijgt een mail zodra je verder kunt.',
     rejected: 'Deze aanvraag is helaas afgewezen. Vragen? Mail ons op contact@savour.page.',
     importing: 'We zijn je recepten aan het inladen. Je krijgt een mail zodra je keukenteam klaarstaat.',
     membersTitle: '4. Wie werken er in je team?',
-    membersHint: n =>
-      `Je hebt ${n} plekken: jij en ${n - 1} collega's. Vul hun e-mailadressen in. Zij krijgen een account met Savour Pro en een mail om een wachtwoord te kiezen zodra je keukenteam klaarstaat.`,
+    membersHint: n => `Je hebt ${n} plekken: jij en ${n - 1} collega's. Vul hun e-mailadressen in. Zij krijgen een account met Savour Pro en een mail om een wachtwoord te kiezen zodra je keukenteam klaarstaat.`,
     addMember: '＋ Collega toevoegen',
     memberEmail: 'naam@restaurant.nl',
     roleView: 'Mag bekijken',
@@ -166,8 +153,7 @@ export const DELIVER_FLOW = {
   en: {
     resubmit: 'Update submission',
     payTitle: 'Complete your order',
-    payIntro:
-      'Your request has been approved. Choose the size of your team and pay. Then send us your recipes on this page.',
+    payIntro: 'Your request has been approved. Choose the size of your team and pay. Then send us your recipes on this page.',
     seatsLabel: 'Size of your team',
     seats: n => `Team ${n}`,
     seatsNote: n => `${n} people with Savour Pro, including you`,
@@ -176,16 +162,14 @@ export const DELIVER_FLOW = {
     once: 'one-off',
     free: 'free',
     payButton: 'Pay securely',
-    payNote:
-      'You pay through Stripe with iDEAL or card. You receive the invoice by email. The team plan can be cancelled yearly.',
+    payNote: 'You pay through Stripe with iDEAL or card. You receive the invoice by email. The team plan can be cancelled yearly.',
     paying: 'Opening the payment page…',
     processing: 'Thank you! We are processing your payment. This usually takes a few seconds…',
     reviewing: 'We are reviewing your request. You will receive an email as soon as you can continue.',
     rejected: 'Unfortunately this request has been declined. Questions? Email us at contact@savour.page.',
     importing: 'We are importing your recipes. You will receive an email as soon as your team is ready.',
     membersTitle: '4. Who works in your team?',
-    membersHint: n =>
-      `You have ${n} seats: you and ${n - 1} colleagues. Enter their email addresses. They get an account with Savour Pro and an email to choose a password as soon as your team is ready.`,
+    membersHint: n => `You have ${n} seats: you and ${n - 1} colleagues. Enter their email addresses. They get an account with Savour Pro and an email to choose a password as soon as your team is ready.`,
     addMember: '＋ Add colleague',
     memberEmail: 'name@restaurant.com',
     roleView: 'Can view',
@@ -197,8 +181,7 @@ export const DELIVER_FLOW = {
   de: {
     resubmit: 'Lieferung ändern',
     payTitle: 'Schließe deine Bestellung ab',
-    payIntro:
-      'Deine Anfrage ist freigegeben. Wähle die Größe deinem Team und bezahle. Danach lieferst du auf dieser Seite deine Rezepte.',
+    payIntro: 'Deine Anfrage ist freigegeben. Wähle die Größe deinem Team und bezahle. Danach lieferst du auf dieser Seite deine Rezepte.',
     seatsLabel: 'Größe deinem Team',
     seats: n => `Team ${n}`,
     seatsNote: n => `${n} Personen mit Savour Pro, du zählst mit`,
@@ -207,16 +190,14 @@ export const DELIVER_FLOW = {
     once: 'einmalig',
     free: 'kostenlos',
     payButton: 'Sicher bezahlen',
-    payNote:
-      'Du zahlst über Stripe per iDEAL oder Karte. Die Rechnung bekommst du per E-Mail. Das Team-Abo ist jährlich kündbar.',
+    payNote: 'Du zahlst über Stripe per iDEAL oder Karte. Die Rechnung bekommst du per E-Mail. Das Team-Abo ist jährlich kündbar.',
     paying: 'Bezahlseite wird geöffnet…',
     processing: 'Danke! Wir verarbeiten deine Zahlung. Das dauert meist nur ein paar Sekunden…',
     reviewing: 'Wir prüfen deine Anfrage. Du bekommst eine E-Mail, sobald es weitergeht.',
     rejected: 'Diese Anfrage wurde leider abgelehnt. Fragen? Schreib uns an contact@savour.page.',
     importing: 'Wir pflegen gerade deine Rezepte ein. Du bekommst eine E-Mail, sobald dein Team bereitsteht.',
     membersTitle: '4. Wer arbeitet in deinem Team?',
-    membersHint: n =>
-      `Du hast ${n} Plätze: dich und ${n - 1} Kollegen. Trag ihre E-Mail-Adressen ein. Sie bekommen ein Konto mit Savour Pro und eine E-Mail zum Wählen eines Passworts, sobald dein Team bereitsteht.`,
+    membersHint: n => `Du hast ${n} Plätze: dich und ${n - 1} Kollegen. Trag ihre E-Mail-Adressen ein. Sie bekommen ein Konto mit Savour Pro und eine E-Mail zum Wählen eines Passworts, sobald dein Team bereitsteht.`,
     addMember: '＋ Kollegen hinzufügen',
     memberEmail: 'name@restaurant.de',
     roleView: 'Darf ansehen',
@@ -228,8 +209,7 @@ export const DELIVER_FLOW = {
   es: {
     resubmit: 'Modificar envío',
     payTitle: 'Completa tu pedido',
-    payIntro:
-      'Tu solicitud está aprobada. Elige el tamaño de tu equipo y paga. Después nos envías tus recetas en esta página.',
+    payIntro: 'Tu solicitud está aprobada. Elige el tamaño de tu equipo y paga. Después nos envías tus recetas en esta página.',
     seatsLabel: 'Tamaño de tu equipo',
     seats: n => `Equipo ${n}`,
     seatsNote: n => `${n} personas con Savour Pro, tú incluido`,
@@ -238,16 +218,14 @@ export const DELIVER_FLOW = {
     once: 'pago único',
     free: 'gratis',
     payButton: 'Pagar de forma segura',
-    payNote:
-      'Pagas a través de Stripe con iDEAL o tarjeta. Recibes la factura por correo. El plan de equipo se puede cancelar cada año.',
+    payNote: 'Pagas a través de Stripe con iDEAL o tarjeta. Recibes la factura por correo. El plan de equipo se puede cancelar cada año.',
     paying: 'Abriendo la página de pago…',
     processing: '¡Gracias! Estamos procesando tu pago. Suele tardar unos segundos…',
     reviewing: 'Estamos revisando tu solicitud. Recibirás un correo en cuanto puedas continuar.',
     rejected: 'Lamentablemente esta solicitud ha sido rechazada. ¿Preguntas? Escríbenos a contact@savour.page.',
     importing: 'Estamos cargando tus recetas. Recibirás un correo en cuanto tu equipo esté lista.',
     membersTitle: '4. ¿Quién trabaja en tu equipo?',
-    membersHint: n =>
-      `Tienes ${n} plazas: tú y ${n - 1} compañeros. Escribe sus correos. Recibirán una cuenta con Savour Pro y un correo para elegir contraseña en cuanto tu equipo esté lista.`,
+    membersHint: n => `Tienes ${n} plazas: tú y ${n - 1} compañeros. Escribe sus correos. Recibirán una cuenta con Savour Pro y un correo para elegir contraseña en cuanto tu equipo esté lista.`,
     addMember: '＋ Añadir compañero',
     memberEmail: 'nombre@restaurante.es',
     roleView: 'Puede ver',

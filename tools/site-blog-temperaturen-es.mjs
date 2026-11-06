@@ -49,16 +49,8 @@ export const TEMP_POSTS_ES = {
           rows: [
             ['Solomillo de cerdo', '60–62 °C', 'Rosado y jugoso'],
             ['Chuleta, lomo', '62–63 °C', 'Ligeramente rosado, 3 minutos de reposo'],
-            [
-              'Picada, salchicha, hamburguesa',
-              '71 °C',
-              'Bien hecho: las bacterias están repartidas por todo el producto'
-            ],
-            [
-              'Paleta, panceta, carrillera (guisado)',
-              '85–95 °C',
-              'Tierno y deshilachado; la temperatura es por la textura'
-            ]
+            ['Picada, salchicha, hamburguesa', '71 °C', 'Bien hecho: las bacterias están repartidas por todo el producto'],
+            ['Paleta, panceta, carrillera (guisado)', '85–95 °C', 'Tierno y deshilachado; la temperatura es por la textura']
           ]
         }
       ],
@@ -100,9 +92,7 @@ export const TEMP_POSTS_ES = {
       ],
       [
         'Parásitos: cuándo hay que congelar el pescado',
-        'El pescado que se come crudo o casi crudo puede llevar anisakis: sushi, ceviche, tartar, pescado marinado o ahumado en frío, y también el salmón mi-cuit a 45 °C. Según el Reglamento (CE) 853/2004 (modificado por el [1276/2011](' +
-          SRC.eu1276 +
-          ')), ese pescado debe congelarse antes: al menos 24 horas a −20 °C o menos, o 15 horas a −35 °C. Calentarlo a 60 °C en el centro durante al menos 1 minuto también elimina los parásitos. El pescado de acuicultura puede estar exento; pide la declaración a tu proveedor.'
+        'El pescado que se come crudo o casi crudo puede llevar anisakis: sushi, ceviche, tartar, pescado marinado o ahumado en frío, y también el salmón mi-cuit a 45 °C. Según el Reglamento (CE) 853/2004 (modificado por el [1276/2011](' + SRC.eu1276 + ')), ese pescado debe congelarse antes: al menos 24 horas a −20 °C o menos, o 15 horas a −35 °C. Calentarlo a 60 °C en el centro durante al menos 1 minuto también elimina los parásitos. El pescado de acuicultura puede estar exento; pide la declaración a tu proveedor.'
       ],
       [
         'Marisco',
@@ -120,9 +110,7 @@ export const TEMP_POSTS_ES = {
       ],
       [
         'Virus en los bivalvos',
-        'Mejillones, ostras y berberechos pueden llevar norovirus y hepatitis A. Estos virus aguantan más calor que las bacterias. La norma de la UE para el tratamiento térmico industrial de bivalvos es 90 °C durante 90 segundos en la carne; la EFSA [ha emitido un dictamen](' +
-          SRC.efsaBivalves +
-          '). Las ostras crudas nunca están libres de riesgo. Cómpralas solo a proveedores autorizados y no las sirvas a clientes vulnerables.'
+        'Mejillones, ostras y berberechos pueden llevar norovirus y hepatitis A. Estos virus aguantan más calor que las bacterias. La norma de la UE para el tratamiento térmico industrial de bivalvos es 90 °C durante 90 segundos en la carne; la EFSA [ha emitido un dictamen](' + SRC.efsaBivalves + '). Las ostras crudas nunca están libres de riesgo. Cómpralas solo a proveedores autorizados y no las sirvas a clientes vulnerables.'
       ],
       [
         'Clientes vulnerables',
@@ -145,8 +133,7 @@ export const TEMP_POSTS_ES = {
         ]
       ]
     ],
-    outro:
-      'En Savour pones la temperatura interna en el paso donde corresponde, para que toda tu brigada la vea, también en el modo cocina. Este artículo es una ayuda; tu propio plan APPCC y la normativa vigente siempre tienen prioridad.'
+    outro: 'En Savour pones la temperatura interna en el paso donde corresponde, para que toda tu brigada la vea, también en el modo cocina. Este artículo es una ayuda; tu propio plan APPCC y la normativa vigente siempre tienen prioridad.'
   },
   'en/blog/sous-vide-temperatures-and-times': {
     slug: 'es/blog/sous-vide-temperaturas-y-tiempos',
@@ -191,12 +178,7 @@ export const TEMP_POSTS_ES = {
         {
           head: ['Producto', 'Baño', 'Tiempo', 'Resultado'],
           rows: [
-            [
-              'Solomillo, entrecot, lomo alto (3–4 cm)',
-              '55 °C',
-              '1½–3 h',
-              'Al punto menos; servir en 4 h o aplicar el tiempo de pasteurización'
-            ],
+            ['Solomillo, entrecot, lomo alto (3–4 cm)', '55 °C', '1½–3 h', 'Al punto menos; servir en 4 h o aplicar el tiempo de pasteurización'],
             ['Igual, al punto', '60 °C', '1½–3 h', 'Rosa claro'],
             ['Vacío, falda, picaña', '55 °C', '6–12 h', 'Rosado y más tierno'],
             ['Aguja, espaldilla', '55 °C', '24–48 h', 'Rosado y tierno como un filete'],
@@ -310,7 +292,6 @@ export const TEMP_POSTS_ES = {
         ]
       ]
     ],
-    outro:
-      'Pon la temperatura del baño y el tiempo en el paso de tu receta en Savour; al escalar, el tiempo no cambia, porque depende del grosor y no de la cantidad. Este artículo es una ayuda; tu propio plan APPCC siempre tiene prioridad.'
+    outro: 'Pon la temperatura del baño y el tiempo en el paso de tu receta en Savour; al escalar, el tiempo no cambia, porque depende del grosor y no de la cantidad. Este artículo es una ayuda; tu propio plan APPCC siempre tiene prioridad.'
   }
 };
