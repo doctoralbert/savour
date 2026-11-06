@@ -64,7 +64,7 @@
   "date": "2026-11-02"
  },
  "https://savour.page/blog": {
-  "hash": "a736cc228dd3bb05",
+  "hash": "0c09aa175069667a",
   "date": "2026-11-06"
  },
  "https://savour.page/blog/receptenmap-laten-overzetten": {
@@ -212,7 +212,7 @@
   "date": "2026-11-02"
  },
  "https://savour.page/en/blog": {
-  "hash": "12afaf7c0c060f56",
+  "hash": "704d3d2e15af19a1",
   "date": "2026-11-06"
  },
  "https://savour.page/en/blog/have-your-recipe-folder-moved-over": {
@@ -360,7 +360,7 @@
   "date": "2026-11-02"
  },
  "https://savour.page/de/blog": {
-  "hash": "e7543a2b1a41d40d",
+  "hash": "5e09939571c4754f",
   "date": "2026-11-06"
  },
  "https://savour.page/de/blog/rezeptordner-uebertragen-lassen": {
@@ -508,7 +508,7 @@
   "date": "2026-11-02"
  },
  "https://savour.page/es/blog": {
-  "hash": "1bc2fbce0b6a9104",
+  "hash": "d43f50d7105c4d00",
   "date": "2026-11-06"
  },
  "https://savour.page/es/blog/traspasar-tu-recetario": {
@@ -656,7 +656,7 @@
   "date": "2026-11-02"
  },
  "https://savour.page/fr/blog": {
-  "hash": "ab911c95075c5177",
+  "hash": "a72b1d4fa9503565",
   "date": "2026-11-06"
  },
  "https://savour.page/fr/blog/transferer-son-classeur-de-recettes": {
@@ -1080,7 +1080,7 @@
   "date": "2026-11-02"
  },
  "https://savour.page/blog/allergenen-in-savour": {
-  "hash": "40f447127085ef3c",
+  "hash": "8b883af39dea8368",
   "date": "2026-11-06"
  },
  "https://savour.page/ingredientenlijst-allergenen": {
@@ -1088,7 +1088,7 @@
   "date": "2026-11-06"
  },
  "https://savour.page/en/blog/allergens-in-savour": {
-  "hash": "9ca11d40e608355f",
+  "hash": "09db3b0daf9b5be9",
   "date": "2026-11-06"
  },
  "https://savour.page/en/ingredient-list-allergens": {
@@ -1096,7 +1096,7 @@
   "date": "2026-11-06"
  },
  "https://savour.page/de/blog/allergene-in-savour": {
-  "hash": "9278be173aae5bea",
+  "hash": "a15c65e36e8215a8",
   "date": "2026-11-06"
  },
  "https://savour.page/de/zutatenliste-allergene": {
@@ -1104,7 +1104,7 @@
   "date": "2026-11-06"
  },
  "https://savour.page/es/blog/alergenos-en-savour": {
-  "hash": "5f67570c7e6a014d",
+  "hash": "ebe05bcfe8b5bb1a",
   "date": "2026-11-06"
  },
  "https://savour.page/es/lista-ingredientes-alergenos": {
@@ -1112,11 +1112,51 @@
   "date": "2026-11-06"
  },
  "https://savour.page/fr/blog/allergenes-dans-savour": {
-  "hash": "de476d8e39a7ca4c",
+  "hash": "f3126ba80f05fbc2",
   "date": "2026-11-06"
  },
  "https://savour.page/fr/liste-ingredients-allergenes": {
   "hash": "8430b65d81b1ed76",
+  "date": "2026-11-06"
+ },
+ "https://savour.page/blog/pagina-2": {
+  "hash": "835af3e466ac04db",
+  "date": "2026-11-06"
+ },
+ "https://savour.page/blog/pagina-3": {
+  "hash": "f726a00f9bc73166",
+  "date": "2026-11-06"
+ },
+ "https://savour.page/en/blog/page-2": {
+  "hash": "fff83603feb6877b",
+  "date": "2026-11-06"
+ },
+ "https://savour.page/en/blog/page-3": {
+  "hash": "d3360662353a6a55",
+  "date": "2026-11-06"
+ },
+ "https://savour.page/de/blog/seite-2": {
+  "hash": "cead75016fba2721",
+  "date": "2026-11-06"
+ },
+ "https://savour.page/de/blog/seite-3": {
+  "hash": "298a32aa9383c983",
+  "date": "2026-11-06"
+ },
+ "https://savour.page/es/blog/pagina-2": {
+  "hash": "c09ae32c56e7608c",
+  "date": "2026-11-06"
+ },
+ "https://savour.page/es/blog/pagina-3": {
+  "hash": "a6ebdd7146b2930b",
+  "date": "2026-11-06"
+ },
+ "https://savour.page/fr/blog/page-2": {
+  "hash": "6eafc0203f20e4fa",
+  "date": "2026-11-06"
+ },
+ "https://savour.page/fr/blog/page-3": {
+  "hash": "707ecd305ba4d524",
   "date": "2026-11-06"
  }
 }
