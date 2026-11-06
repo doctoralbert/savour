@@ -45,7 +45,7 @@ export const ALLERGEN_POST = {
       ],
       [
         'De ingrediëntenlijst die Savour leest',
-        'De voorstellen komen uit één lijst met ruim 3.500 ingrediënten. Die is samengesteld uit vier bronnen: de ingrediëntenlijst van Open Food Facts, de lijsten met groenten, kruiden, paddenstoelen, sauzen en kazen op Wikipedia, de Nederlandse productnamen uit NEVO (het voedingsstoffenbestand van het RIVM) en Savours eigen woordenlijst met keukentermen zoals spitskool, sukade en couverture. NEVO zelf bevat geen allergenen; die zijn een aanvulling van Savour.\n\nDe hele lijst staat openbaar, met de allergenen die Savour voorstelt: [bekijk de ingrediëntenlijst van Savour](/ingredientenlijst-allergenen). Zo kun je zelf nagaan waar een voorstel vandaan komt. Zie je een fout, laat het ons weten.'
+        'De voorstellen komen uit één lijst met ruim 3.700 ingrediënten. Die is samengesteld uit vier bronnen: de ingrediëntenlijst van Open Food Facts, de lijsten met groenten, kruiden, paddenstoelen, sauzen en kazen op Wikipedia, de Nederlandse productnamen uit NEVO (het voedingsstoffenbestand van het RIVM) en Savours eigen woordenlijst met keukentermen zoals spitskool, sukade en couverture. NEVO zelf bevat geen allergenen; die zijn een aanvulling van Savour.\n\nDe hele lijst staat openbaar, met de allergenen die Savour voorstelt: [bekijk de ingrediëntenlijst van Savour](/ingredientenlijst-allergenen). Zo kun je zelf nagaan waar een voorstel vandaan komt. Zie je een fout, laat het ons weten.'
       ],
       [
         'Waarom Savour nooit zegt dat iets allergeenvrij is',
@@ -95,7 +95,7 @@ export const ALLERGEN_POST = {
       ],
       [
         'The ingredient list Savour reads',
-        'The suggestions come from one list of over 3,500 ingredients, built from four sources: the ingredient list of Open Food Facts, the Dutch Wikipedia lists of vegetables, herbs, mushrooms, sauces and cheeses, the Dutch product names from NEVO (the Dutch food composition database of RIVM) and Savour’s own list of kitchen terms. NEVO itself contains no allergens; those are added by Savour. The names are in Dutch, with English names where the source has them.\n\nThe whole list is public, with the allergens Savour suggests: [see Savour’s ingredient list](/en/ingredient-list-allergens). That way you can check where a suggestion comes from. Spot a mistake? Let us know.'
+        'The suggestions come from one list of over 3,700 ingredients, built from four sources: the ingredient list of Open Food Facts, the Dutch Wikipedia lists of vegetables, herbs, mushrooms, sauces and cheeses, the Dutch product names from NEVO (the Dutch food composition database of RIVM) and Savour’s own list of kitchen terms. NEVO itself contains no allergens; those are added by Savour. The names are in Dutch, with English names where the source has them.\n\nThe whole list is public, with the allergens Savour suggests: [see Savour’s ingredient list](/en/ingredient-list-allergens). That way you can check where a suggestion comes from. Spot a mistake? Let us know.'
       ],
       [
         'Why Savour never says something is allergen-free',
@@ -149,7 +149,7 @@ export const ALLERGEN_POST_DE = {
       ],
       [
         'Die Zutatenliste, die Savour liest',
-        'Die Vorschläge kommen aus einer Liste mit gut 3.500 Zutaten aus vier Quellen: der Zutatenliste von Open Food Facts, den Listen mit Gemüse, Kräutern, Pilzen, Saucen und Käse in der niederländischen Wikipedia, den niederländischen Produktnamen aus NEVO (der Nährwertdatenbank des RIVM) und Savours eigener Liste mit Küchenbegriffen. NEVO selbst enthält keine Allergene; die ergänzt Savour. Die Namen sind niederländisch, mit englischen Namen, wo die Quelle sie hat.\n\nDie ganze Liste ist öffentlich, mit den Allergenen, die Savour vorschlägt: [Zutatenliste von Savour ansehen](/de/zutatenliste-allergene). So kannst du selbst prüfen, woher ein Vorschlag kommt.'
+        'Die Vorschläge kommen aus einer Liste mit gut 3.700 Zutaten aus vier Quellen: der Zutatenliste von Open Food Facts, den Listen mit Gemüse, Kräutern, Pilzen, Saucen und Käse in der niederländischen Wikipedia, den niederländischen Produktnamen aus NEVO (der Nährwertdatenbank des RIVM) und Savours eigener Liste mit Küchenbegriffen. NEVO selbst enthält keine Allergene; die ergänzt Savour. Die Namen sind niederländisch, mit englischen Namen, wo die Quelle sie hat.\n\nDie ganze Liste ist öffentlich, mit den Allergenen, die Savour vorschlägt: [Zutatenliste von Savour ansehen](/de/zutatenliste-allergene). So kannst du selbst prüfen, woher ein Vorschlag kommt.'
       ],
       [
         'Warum Savour nie sagt, dass etwas allergenfrei ist',
@@ -202,7 +202,7 @@ export const ALLERGEN_POST_ES = {
       ],
       [
         'La lista de ingredientes que lee Savour',
-        'Las sugerencias salen de una lista de más de 3.500 ingredientes, de cuatro fuentes: la lista de ingredientes de Open Food Facts, las listas de verduras, hierbas, setas, salsas y quesos de la Wikipedia neerlandesa, los nombres de productos neerlandeses de NEVO (la base de datos de composición de alimentos del RIVM) y la lista propia de Savour con términos de cocina. NEVO no contiene alérgenos; esos los añade Savour. Los nombres están en neerlandés, con nombres en inglés cuando la fuente los tiene.\n\nLa lista completa es pública, con los alérgenos que sugiere Savour: [ver la lista de ingredientes de Savour](/es/lista-ingredientes-alergenos). Así puedes comprobar de dónde viene una sugerencia.'
+        'Las sugerencias salen de una lista de más de 3.700 ingredientes, de cuatro fuentes: la lista de ingredientes de Open Food Facts, las listas de verduras, hierbas, setas, salsas y quesos de la Wikipedia neerlandesa, los nombres de productos neerlandeses de NEVO (la base de datos de composición de alimentos del RIVM) y la lista propia de Savour con términos de cocina. NEVO no contiene alérgenos; esos los añade Savour. Los nombres están en neerlandés, con nombres en inglés cuando la fuente los tiene.\n\nLa lista completa es pública, con los alérgenos que sugiere Savour: [ver la lista de ingredientes de Savour](/es/lista-ingredientes-alergenos). Así puedes comprobar de dónde viene una sugerencia.'
       ],
       [
         'Por qué Savour nunca dice que algo no tiene alérgenos',
@@ -255,7 +255,7 @@ export const ALLERGEN_POST_FR = {
       ],
       [
         'La liste d’ingrédients que lit Savour',
-        'Les suggestions viennent d’une liste de plus de 3 500 ingrédients, issue de quatre sources : la liste d’ingrédients d’Open Food Facts, les listes de légumes, herbes, champignons, sauces et fromages de la Wikipédia néerlandaise, les noms de produits néerlandais de NEVO (la base de composition des aliments du RIVM) et la liste propre de Savour avec des termes de cuisine. NEVO ne contient pas d’allergènes ; c’est Savour qui les ajoute. Les noms sont en néerlandais, avec les noms anglais quand la source les donne.\n\nLa liste complète est publique, avec les allergènes que propose Savour : [voir la liste d’ingrédients de Savour](/fr/liste-ingredients-allergenes). Tu peux ainsi vérifier d’où vient une suggestion.'
+        'Les suggestions viennent d’une liste de plus de 3 700 ingrédients, issue de quatre sources : la liste d’ingrédients d’Open Food Facts, les listes de légumes, herbes, champignons, sauces et fromages de la Wikipédia néerlandaise, les noms de produits néerlandais de NEVO (la base de composition des aliments du RIVM) et la liste propre de Savour avec des termes de cuisine. NEVO ne contient pas d’allergènes ; c’est Savour qui les ajoute. Les noms sont en néerlandais, avec les noms anglais quand la source les donne.\n\nLa liste complète est publique, avec les allergènes que propose Savour : [voir la liste d’ingrédients de Savour](/fr/liste-ingredients-allergenes). Tu peux ainsi vérifier d’où vient une suggestion.'
       ],
       [
         'Pourquoi Savour ne dit jamais qu’un plat est sans allergènes',
@@ -279,7 +279,7 @@ export const ALLERGEN_POST_FR = {
 export const LIST_PAGE = {
   nl: {
     title: 'Ingrediëntenlijst met allergenen | Savour',
-    desc: 'De ingrediëntenlijst die Savour leest om allergenen voor te stellen: ruim 3.500 ingrediënten uit Open Food Facts, NEVO, Wikipedia en Savours eigen woordenlijst, met de 14 allergenen en extra kenmerken.',
+    desc: 'De ingrediëntenlijst die Savour leest om allergenen voor te stellen: ruim 3.700 ingrediënten uit Open Food Facts, NEVO, Wikipedia en Savours eigen woordenlijst, met de 14 allergenen en extra kenmerken.',
     h1: 'De ingrediëntenlijst van Savour',
     lead: 'Dit is de lijst die Savour leest om bij een nieuw product allergenen voor te stellen. Zoek een ingrediënt en zie welke allergenen Savour erbij voorstelt.',
     search: 'Zoek een ingrediënt',
@@ -294,7 +294,7 @@ export const LIST_PAGE = {
     more: 'Meer tonen',
     empty: 'Niets gevonden. Savour kent dit ingrediënt (nog) niet onder deze naam.',
     loading: 'Lijst laden…',
-    sourceNames: { o: 'Open Food Facts', s: 'Savour', n: 'NEVO', w: 'Wikipedia' },
+    sourceNames: { o: 'Open Food Facts', s: 'Savour', n: 'NEVO', w: 'Wikipedia / Wikidata' },
     sections: [
       [
         'Een voorstel, geen etiket',
@@ -302,13 +302,13 @@ export const LIST_PAGE = {
       ],
       [
         'Waar de lijst vandaan komt',
-        'Drie bronnen samen: de ingrediëntentaxonomie van [Open Food Facts](https://world.openfoodfacts.org) (© Open Food Facts contributors, Open Database License 1.0), de Nederlandse productnamen uit NEVO online versie 2025/9.0, RIVM, Bilthoven ([nevo-online.rivm.nl](https://nevo-online.rivm.nl)), de lijsten van [Wikipedia](https://nl.wikipedia.org/wiki/Categorie:Lijsten_van_voedsel) met groenten, keukenkruiden, paddenstoelen, sauzen, dranken en kazen (namen onder CC BY-SA 4.0), en Savours eigen woordenlijst met keukentermen. NEVO bevat geen allergenen: die zijn een aanvulling van Savour, geen gegevens van het RIVM. Zie je een fout? [Laat het ons weten](/contact).'
+        'Drie bronnen samen: de ingrediëntentaxonomie van [Open Food Facts](https://world.openfoodfacts.org) (© Open Food Facts contributors, Open Database License 1.0), de Nederlandse productnamen uit NEVO online versie 2025/9.0, RIVM, Bilthoven ([nevo-online.rivm.nl](https://nevo-online.rivm.nl)), de lijsten van [Wikipedia](https://nl.wikipedia.org/wiki/Categorie:Lijsten_van_voedsel) met groenten, keukenkruiden, paddenstoelen, sauzen, dranken en kazen (namen onder CC BY-SA 4.0), [Wikidata](https://www.wikidata.org) (CC0), en Savours eigen woordenlijst met keukentermen. NEVO bevat geen allergenen: die zijn een aanvulling van Savour, geen gegevens van het RIVM. Zie je een fout? [Laat het ons weten](/contact).'
       ]
     ]
   },
   en: {
     title: 'Ingredient list with allergens | Savour',
-    desc: 'The ingredient list Savour reads to suggest allergens: over 3,500 ingredients from Open Food Facts, NEVO, Wikipedia and Savour’s own list, with the 14 allergens and extra characteristics.',
+    desc: 'The ingredient list Savour reads to suggest allergens: over 3,700 ingredients from Open Food Facts, NEVO, Wikipedia and Savour’s own list, with the 14 allergens and extra characteristics.',
     h1: 'Savour’s ingredient list',
     lead: 'This is the list Savour reads to suggest allergens for a new product. Search an ingredient and see which allergens Savour suggests. The names are in Dutch, with English names where the source has them.',
     search: 'Search an ingredient',
@@ -323,7 +323,7 @@ export const LIST_PAGE = {
     more: 'Show more',
     empty: 'Nothing found. Savour does not know this ingredient under this name (yet).',
     loading: 'Loading list…',
-    sourceNames: { o: 'Open Food Facts', s: 'Savour', n: 'NEVO', w: 'Wikipedia' },
+    sourceNames: { o: 'Open Food Facts', s: 'Savour', n: 'NEVO', w: 'Wikipedia / Wikidata' },
     sections: [
       [
         'A suggestion, not a label',
@@ -331,13 +331,13 @@ export const LIST_PAGE = {
       ],
       [
         'Where the list comes from',
-        'Three sources together: the ingredient taxonomy of [Open Food Facts](https://world.openfoodfacts.org) (© Open Food Facts contributors, Open Database License 1.0), the Dutch product names from NEVO online version 2025/9.0, RIVM, Bilthoven ([nevo-online.rivm.nl](https://nevo-online.rivm.nl)), the [Wikipedia](https://nl.wikipedia.org/wiki/Categorie:Lijsten_van_voedsel) lists of vegetables, herbs, mushrooms, sauces, drinks and cheeses (names under CC BY-SA 4.0), and Savour’s own list of kitchen terms. NEVO contains no allergens: those are added by Savour, not data from RIVM. Spot a mistake? [Let us know](/en/contact).'
+        'Three sources together: the ingredient taxonomy of [Open Food Facts](https://world.openfoodfacts.org) (© Open Food Facts contributors, Open Database License 1.0), the Dutch product names from NEVO online version 2025/9.0, RIVM, Bilthoven ([nevo-online.rivm.nl](https://nevo-online.rivm.nl)), the [Wikipedia](https://nl.wikipedia.org/wiki/Categorie:Lijsten_van_voedsel) lists of vegetables, herbs, mushrooms, sauces, drinks and cheeses (names under CC BY-SA 4.0), [Wikidata](https://www.wikidata.org) (CC0), and Savour’s own list of kitchen terms. NEVO contains no allergens: those are added by Savour, not data from RIVM. Spot a mistake? [Let us know](/en/contact).'
       ]
     ]
   },
   de: {
     title: 'Zutatenliste mit Allergenen | Savour',
-    desc: 'Die Zutatenliste, die Savour liest, um Allergene vorzuschlagen: gut 3.500 Zutaten aus Open Food Facts, NEVO, Wikipedia und Savours eigener Liste, mit den 14 Allergenen und zusätzlichen Merkmalen.',
+    desc: 'Die Zutatenliste, die Savour liest, um Allergene vorzuschlagen: gut 3.700 Zutaten aus Open Food Facts, NEVO, Wikipedia und Savours eigener Liste, mit den 14 Allergenen und zusätzlichen Merkmalen.',
     h1: 'Die Zutatenliste von Savour',
     lead: 'Diese Liste liest Savour, um bei einem neuen Produkt Allergene vorzuschlagen. Suche eine Zutat und sieh, welche Allergene Savour vorschlägt. Die Namen sind niederländisch, mit englischen Namen, wo die Quelle sie hat.',
     search: 'Zutat suchen',
@@ -352,7 +352,7 @@ export const LIST_PAGE = {
     more: 'Mehr zeigen',
     empty: 'Nichts gefunden. Savour kennt diese Zutat unter diesem Namen (noch) nicht.',
     loading: 'Liste wird geladen…',
-    sourceNames: { o: 'Open Food Facts', s: 'Savour', n: 'NEVO', w: 'Wikipedia' },
+    sourceNames: { o: 'Open Food Facts', s: 'Savour', n: 'NEVO', w: 'Wikipedia / Wikidata' },
     sections: [
       [
         'Ein Vorschlag, kein Etikett',
@@ -360,13 +360,13 @@ export const LIST_PAGE = {
       ],
       [
         'Woher die Liste kommt',
-        'Vier Quellen zusammen: die Zutatentaxonomie von [Open Food Facts](https://world.openfoodfacts.org) (© Open Food Facts contributors, Open Database License 1.0), die niederländischen Produktnamen aus NEVO online Version 2025/9.0, RIVM, Bilthoven ([nevo-online.rivm.nl](https://nevo-online.rivm.nl)), die Listen der [Wikipedia](https://nl.wikipedia.org/wiki/Categorie:Lijsten_van_voedsel) mit Gemüse, Kräutern, Pilzen, Saucen, Getränken und Käse (Namen unter CC BY-SA 4.0) und Savours eigene Liste mit Küchenbegriffen. NEVO enthält keine Allergene: die ergänzt Savour, es sind keine Daten des RIVM.'
+        'Vier Quellen zusammen: die Zutatentaxonomie von [Open Food Facts](https://world.openfoodfacts.org) (© Open Food Facts contributors, Open Database License 1.0), die niederländischen Produktnamen aus NEVO online Version 2025/9.0, RIVM, Bilthoven ([nevo-online.rivm.nl](https://nevo-online.rivm.nl)), die Listen der [Wikipedia](https://nl.wikipedia.org/wiki/Categorie:Lijsten_van_voedsel) mit Gemüse, Kräutern, Pilzen, Saucen, Getränken und Käse (Namen unter CC BY-SA 4.0), [Wikidata](https://www.wikidata.org) (CC0) und Savours eigene Liste mit Küchenbegriffen. NEVO enthält keine Allergene: die ergänzt Savour, es sind keine Daten des RIVM.'
       ]
     ]
   },
   es: {
     title: 'Lista de ingredientes con alérgenos | Savour',
-    desc: 'La lista de ingredientes que lee Savour para sugerir alérgenos: más de 3.500 ingredientes de Open Food Facts, NEVO, Wikipedia y la lista propia de Savour, con los 14 alérgenos y características extra.',
+    desc: 'La lista de ingredientes que lee Savour para sugerir alérgenos: más de 3.700 ingredientes de Open Food Facts, NEVO, Wikipedia y la lista propia de Savour, con los 14 alérgenos y características extra.',
     h1: 'La lista de ingredientes de Savour',
     lead: 'Esta es la lista que lee Savour para sugerir alérgenos en un producto nuevo. Busca un ingrediente y mira qué alérgenos sugiere Savour. Los nombres están en neerlandés, con nombres en inglés cuando la fuente los tiene.',
     search: 'Buscar un ingrediente',
@@ -381,7 +381,7 @@ export const LIST_PAGE = {
     more: 'Mostrar más',
     empty: 'No se ha encontrado nada. Savour (aún) no conoce este ingrediente con este nombre.',
     loading: 'Cargando lista…',
-    sourceNames: { o: 'Open Food Facts', s: 'Savour', n: 'NEVO', w: 'Wikipedia' },
+    sourceNames: { o: 'Open Food Facts', s: 'Savour', n: 'NEVO', w: 'Wikipedia / Wikidata' },
     sections: [
       [
         'Una sugerencia, no una etiqueta',
@@ -389,13 +389,13 @@ export const LIST_PAGE = {
       ],
       [
         'De dónde viene la lista',
-        'Cuatro fuentes juntas: la taxonomía de ingredientes de [Open Food Facts](https://world.openfoodfacts.org) (© Open Food Facts contributors, Open Database License 1.0), los nombres de productos neerlandeses de NEVO online versión 2025/9.0, RIVM, Bilthoven ([nevo-online.rivm.nl](https://nevo-online.rivm.nl)), las listas de [Wikipedia](https://nl.wikipedia.org/wiki/Categorie:Lijsten_van_voedsel) de verduras, hierbas, setas, salsas, bebidas y quesos (nombres bajo CC BY-SA 4.0) y la lista propia de Savour con términos de cocina. NEVO no contiene alérgenos: los añade Savour, no son datos del RIVM.'
+        'Cuatro fuentes juntas: la taxonomía de ingredientes de [Open Food Facts](https://world.openfoodfacts.org) (© Open Food Facts contributors, Open Database License 1.0), los nombres de productos neerlandeses de NEVO online versión 2025/9.0, RIVM, Bilthoven ([nevo-online.rivm.nl](https://nevo-online.rivm.nl)), las listas de [Wikipedia](https://nl.wikipedia.org/wiki/Categorie:Lijsten_van_voedsel) de verduras, hierbas, setas, salsas, bebidas y quesos (nombres bajo CC BY-SA 4.0), [Wikidata](https://www.wikidata.org) (CC0) y la lista propia de Savour con términos de cocina. NEVO no contiene alérgenos: los añade Savour, no son datos del RIVM.'
       ]
     ]
   },
   fr: {
     title: 'Liste d’ingrédients avec allergènes | Savour',
-    desc: 'La liste d’ingrédients que lit Savour pour proposer des allergènes : plus de 3 500 ingrédients d’Open Food Facts, de NEVO, de Wikipédia et de la liste propre de Savour, avec les 14 allergènes et des caractéristiques en plus.',
+    desc: 'La liste d’ingrédients que lit Savour pour proposer des allergènes : plus de 3 700 ingrédients d’Open Food Facts, de NEVO, de Wikipédia et de la liste propre de Savour, avec les 14 allergènes et des caractéristiques en plus.',
     h1: 'La liste d’ingrédients de Savour',
     lead: 'Voici la liste que lit Savour pour proposer des allergènes pour un nouveau produit. Cherche un ingrédient et vois quels allergènes Savour propose. Les noms sont en néerlandais, avec les noms anglais quand la source les donne.',
     search: 'Chercher un ingrédient',
@@ -410,7 +410,7 @@ export const LIST_PAGE = {
     more: 'Afficher plus',
     empty: 'Rien trouvé. Savour ne connaît pas (encore) cet ingrédient sous ce nom.',
     loading: 'Chargement de la liste…',
-    sourceNames: { o: 'Open Food Facts', s: 'Savour', n: 'NEVO', w: 'Wikipedia' },
+    sourceNames: { o: 'Open Food Facts', s: 'Savour', n: 'NEVO', w: 'Wikipedia / Wikidata' },
     sections: [
       [
         'Une suggestion, pas une étiquette',
@@ -418,7 +418,7 @@ export const LIST_PAGE = {
       ],
       [
         'D’où vient la liste',
-        'Quatre sources réunies : la taxonomie des ingrédients d’[Open Food Facts](https://world.openfoodfacts.org) (© Open Food Facts contributors, Open Database License 1.0), les noms de produits néerlandais de NEVO online version 2025/9.0, RIVM, Bilthoven ([nevo-online.rivm.nl](https://nevo-online.rivm.nl)), les listes de [Wikipédia](https://nl.wikipedia.org/wiki/Categorie:Lijsten_van_voedsel) de légumes, herbes, champignons, sauces, boissons et fromages (noms sous CC BY-SA 4.0), et la liste propre de Savour avec des termes de cuisine. NEVO ne contient pas d’allergènes : ils sont ajoutés par Savour, ce ne sont pas des données du RIVM.'
+        'Quatre sources réunies : la taxonomie des ingrédients d’[Open Food Facts](https://world.openfoodfacts.org) (© Open Food Facts contributors, Open Database License 1.0), les noms de produits néerlandais de NEVO online version 2025/9.0, RIVM, Bilthoven ([nevo-online.rivm.nl](https://nevo-online.rivm.nl)), les listes de [Wikipédia](https://nl.wikipedia.org/wiki/Categorie:Lijsten_van_voedsel) de légumes, herbes, champignons, sauces, boissons et fromages (noms sous CC BY-SA 4.0), [Wikidata](https://www.wikidata.org) (CC0), et la liste propre de Savour avec des termes de cuisine. NEVO ne contient pas d’allergènes : ils sont ajoutés par Savour, ce ne sont pas des données du RIVM.'
       ]
     ]
   }

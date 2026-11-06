@@ -242,6 +242,14 @@ const ALLERGEN_HINT_NOT = [
   [/sat[eé]\s?kruid/, 'pinda'],
   [/aardamandel/, 'noten'],
   [/duivenerwt|duivenboon/, 'gevogelte'],
+  // Preiselbeeren zijn vossenbessen (geen bier of prei), een kippenoester is vlees, sake-rijst is rijst en
+  // pastasaus is saus voor pasta.
+  [/preiselbeer/, 'gluten'],
+  [/preiselbeer/, 'alcohol'],
+  [/preiselbeer/, 'ui'],
+  [/(kippen|kalfs|varkens)oester/, 'weekdieren'],
+  [/sake-?rijst/, 'alcohol'],
+  [/pastasaus/, 'gluten'],
   // Een pasta van noten, curry of boemboe is een smeersel, geen deegwaar. Maïs-, rijst- en amandelmeel bevatten
   // geen gluten, eekhoorntjesbrood is een paddenstoel.
   [PASTE_NOT_NOODLE, 'gluten'],
@@ -441,7 +449,7 @@ function productHintHtml({ base, codes }) {
     : base.nevo
       ? `<p class="product-source">Basislijst: <a href="https://www.rivm.nl/nederlands-voedingsstoffenbestand" target="_blank" rel="noopener">NEVO online versie ${esc(ingredientBase?.nevo || '')}, RIVM, Bilthoven</a></p>`
       : base.wiki
-        ? '<p class="product-source">Basislijst: naam uit <a href="https://nl.wikipedia.org/wiki/Categorie:Lijsten_van_voedsel" target="_blank" rel="noopener">Wikipedia</a> (CC BY-SA)</p>'
+        ? '<p class="product-source">Basislijst: naam uit <a href="https://nl.wikipedia.org/wiki/Categorie:Lijsten_van_voedsel" target="_blank" rel="noopener">Wikipedia</a> (CC BY-SA) of <a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a> (CC0)</p>'
         : !base.own
           ? '<p class="product-source">Basislijst: © <a href="https://world.openfoodfacts.org/terms-of-use" target="_blank" rel="noopener">Open Food Facts contributors</a>, ODbL</p>'
           : '';

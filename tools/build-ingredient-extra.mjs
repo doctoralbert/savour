@@ -5,6 +5,9 @@
 //  - Wikipedia (nl), de lijsten in Categorie:Lijsten van voedsel die over ingrediënten gaan: groenten, keukenkruiden,
 //    eetbare paddenstoelen, perenrassen, sauzen, alcoholische dranken en de kazen per land. Tekst onder
 //    CC BY-SA 4.0; Savour neemt alleen de namen over, met de bronvermelding.
+//  - Wikidata (CC0): ingrediënten met een Nederlandse naam uit nuttige soorten (kaas, specerij, saus, groente, fruit,
+//    vlees, vis, rijst, meel, stroop, chocolade, pepers); geen merken, rassen, bedrijven, gerechten of chemie.
+//    namen.json["wikidata"]: [[naam, [synoniemen], soort]] met soort "kaas", "vis", "appel" of leeg.
 //  - Menuella (food-wiki) en njam.tv (ingrediënten A-Z) alleen als controlelijst: welke gewone keukeningrediënten
 //    ontbreken nog? Die namen komen in Savours eigen lijst, zonder iets anders van die sites over te nemen.
 // Allergenen: dezelfde voorstellen als de app (allergenSuggestion), plus wat de lijst zelf zegt: een kaas bevat
@@ -58,14 +61,15 @@ const knownAs = name => {
 
 // Uit de lijsten: geen merken, geen kopjes en geen woorden die in een recept iets anders betekenen ("torta", "pavé").
 const SKIP =
-  /^(groentetuin|zwarte|almdudler|spekkoek|geneeskrachtige kruiden|valeriaan|sint-janskruid|dipsaus|witte saus|groene saus|jillz|dropshot|goldstrike|bruidstranen|els la vera|tote tante|captain morgan|pisa|kraamanijs|schrobbelèr|heet bier|radler|añu|marang|mexicaanse palmvaren|orval|trappist|nolly prat|zaad van de aleppoden|mopaneworm|gemengde rotsvissen|mandarijnpannenkoek|russische dressing|oud brood|dun brooddeeg|torta|montagna|italico|jura|dauphin|waterloo|providence|excelsior|rubens|damme|loo|nazareth|pavé|toma|tuma|motta|butte|dolomiti|carnia|crava|cuc|nis|brus|bross|strica|tabor|silter|salva|morello|pierino|bernardo|belmonte|boves|gioda|latteria|le creux|nantais|savoyard|castellano|burgos|lanzarote|la gomera|la serena|oropesa|serrat|le maréchal|sancerre|rochefort|tirolese|montanello|pastorino|pratolina|scacciata|primolino|perlanera|fiordivalle|del colle|degli albanesi|ormea|cesio|contrin|comelico|nevegal|ortler|toblach|sappada|piave|asco|aunis|autun|gien|mussy|niolo|noyan|oléron|ovalie|urt|tamié|thollon|moulis|morvan|arthon|amou|belloc|beaumont|chécy|dent du chat|la vache qui rit|caprice des dieux|saint-albray|saint-agur|saint-môret|chavroux|boursault|uniekaas|frico kaas|old amsterdam|maaslander|leerdammer|parrano|reypenaer|zaanlander|boer'n trots|de fryske|ruygentaler|bergens blonde|kernhem|ambiorix|bioferme|casse-croûte|kazemat|rodoric|sezoen|swalm|watou|passendale|patachouffe|huntsman|lymeswold|innkeepers choice|village green|blue monday|cotswold|derby|gloucester|cheshire|caithness|dunlop|tintern|whitehaven|harlech|ilchester|jean de brie|pic du vieux chaillol|tulipe noire extra vieille|grand condé|les fabuleux|isle)$/i;
+  /^(groentetuin|zwarte|almdudler|spekkoek|geneeskrachtige kruiden|valeriaan|sint-janskruid|dipsaus|witte saus|groene saus|jillz|dropshot|goldstrike|bruidstranen|els la vera|tote tante|captain morgan|pisa|kraamanijs|schrobbelèr|heet bier|radler|añu|marang|mexicaanse palmvaren|orval|trappist|nolly prat|zaad van de aleppoden|mopaneworm|gemengde rotsvissen|mandarijnpannenkoek|russische dressing|oud brood|dun brooddeeg|torta|montagna|italico|jura|dauphin|waterloo|providence|excelsior|rubens|damme|loo|nazareth|pavé|toma|tuma|motta|butte|dolomiti|carnia|crava|cuc|nis|brus|bross|strica|tabor|silter|salva|morello|pierino|bernardo|belmonte|boves|gioda|latteria|le creux|nantais|savoyard|castellano|burgos|lanzarote|la gomera|la serena|oropesa|serrat|le maréchal|sancerre|rochefort|tirolese|montanello|pastorino|pratolina|scacciata|primolino|perlanera|fiordivalle|del colle|degli albanesi|ormea|cesio|contrin|comelico|nevegal|ortler|toblach|sappada|piave|asco|aunis|autun|gien|mussy|niolo|noyan|oléron|ovalie|urt|tamié|thollon|moulis|morvan|arthon|amou|belloc|beaumont|chécy|dent du chat|la vache qui rit|caprice des dieux|saint-albray|saint-agur|saint-môret|chavroux|boursault|uniekaas|frico kaas|old amsterdam|maaslander|leerdammer|parrano|reypenaer|zaanlander|boer'n trots|de fryske|ruygentaler|bergens blonde|kernhem|ambiorix|bioferme|casse-croûte|kazemat|rodoric|sezoen|swalm|watou|passendale|patachouffe|huntsman|lymeswold|innkeepers choice|village green|blue monday|cotswold|derby|gloucester|cheshire|caithness|dunlop|tintern|whitehaven|harlech|ilchester|jean de brie|pic du vieux chaillol|tulipe noire extra vieille|grand condé|les fabuleux|isle|à la zingara|arriba saia|bean-to-bar|bladgewas|bloem-als-groente|bushmeat|cacaofantasie|capuliata|chicken tonight|chinese food|chocokikker|cinta senese|collops|coulis|droge vrucht|drumsticks|duppe|fruchtgemüse|gbotemi|gedroogde zeedieren|got fan|hondenvlees|ingelegde groente|kama|kruisbloemige groenten|kweekvlees|lollemanstip|moedersaus|olifantenvlees|orgaanvlees|pale, soft|procureur|puf|quelite|rauw vlees|rauwe vis|rood vlees|wit vlees|scorcolga|speciaalsaus|testikels als voedsel|uitmaling|vaste plant-groente|visprodukten|vlammetje|vleesdeeg|wildvlees|wintergroente|zeegroente|jhatka|niva|pomaat|rijstekoekje|aura|cathare|flandrien|le douanier|magor|malga|medoro|roumy|rochebaron|tibetaanse kaas|indiaase kaas)$/i;
 const PLURAL_HEADING = /^(bleus|bries|carrés|tommes|fourmes|camemberts|briques|olivets|rigottes)$/i;
 const CHEESE = /kazen$/;
 const LIST_CODES = {
   'Lijst van eetbare paddenstoelen': ['paddenstoelen'],
-  'Lijst van alcoholische dranken': ['alcohol']
+  'Lijst van alcoholische dranken': ['alcohol'],
+  'Wikidata vis': ['vis']
 };
-const MAIN_OF = { 'Lijst van perenrassen': 'peer' };
+const MAIN_OF = { 'Lijst van perenrassen': 'peer', 'Wikidata appelrassen': 'appel' };
 // Wat de naam niet zegt, maar een kok wel weet: vissoorten, schelpdieren en vleessnitten uit de controlelijsten.
 const NAME_CODES = {
   goudbrasem: ['vis'],
@@ -77,6 +81,31 @@ const NAME_CODES = {
   conch: ['weekdieren'],
   venusschelp: ['weekdieren'],
   eeuwei: ['ei'],
+  gochujang: ['soja', 'gluten'],
+  ssamjang: ['soja'],
+  doenjang: ['soja'],
+  doubanjiang: ['soja'],
+  kinako: ['soja'],
+  gomasio: ['sesam'],
+  romesco: ['noten'],
+  picada: ['noten'],
+  satsivi: ['noten'],
+  cacık: ['melk'],
+  haydari: ['melk'],
+  moretum: ['melk'],
+  schmaltz: ['gevogelte'],
+  tafelspitz: ['rundvlees'],
+  chateaubriand: ['rundvlees'],
+  'rib eye steak': ['rundvlees'],
+  'sirloin steak': ['rundvlees'],
+  pastrami: ['rundvlees'],
+  klapstuk: ['rundvlees'],
+  riblap: ['rundvlees'],
+  vanglap: ['rundvlees'],
+  bovenbil: ['rundvlees'],
+  eisbein: ['varkensvlees'],
+  casselerrib: ['varkensvlees'],
+  mett: ['varkensvlees'],
   'filet mignon': ['rundvlees'],
   'filet pur': ['rundvlees'],
   onglet: ['rundvlees'],
@@ -131,6 +160,12 @@ for (const [n, syn, list] of names.wiki) {
     .filter(Boolean);
   add(parts[0], [...parts.slice(1), ...syn], 'wiki', list);
 }
+// Wikidata (CC0): ingrediënten met een Nederlandse naam, al zonder merken, rassen, gerechten en soorten (taxon).
+// De soort zegt wat erin zit: een kaas bevat melk, een vis is vis; appelrassen zijn een andere naam voor Appel.
+const WIKIDATA_LIST = { kaas: 'Wikidata kazen', vis: 'Wikidata vis', appel: 'Wikidata appelrassen' };
+const LATIN = /^[A-Z][a-z]+ [a-z]+(us|um|is|ae|ii|ensis|oides|ata|ana|ica|ina|osa|ia)$/;
+for (const [n, syn, kind] of names.wikidata || [])
+  if (!LATIN.test(n) && !/[‘’]/.test(n)) add(n, syn, 'wiki', WIKIDATA_LIST[kind] || 'Wikidata');
 for (const [n] of names.menuella) add(n, [], 'savour');
 for (const n of names.njam) add(n, [], 'savour');
 
@@ -152,7 +187,7 @@ for (const r of rows.values()) {
 items.sort((a, b) => a[1].localeCompare(b[1], 'nl'));
 const out = {
   source:
-    'Wikipedia (nl), Categorie:Lijsten van voedsel (https://nl.wikipedia.org/wiki/Categorie:Lijsten_van_voedsel); Savour',
+    'Wikipedia (nl), Categorie:Lijsten van voedsel (https://nl.wikipedia.org/wiki/Categorie:Lijsten_van_voedsel); Wikidata (CC0); Savour',
   license: 'Namen uit Wikipedia onder CC BY-SA 4.0; allergenen zijn een aanvulling van Savour',
   items
 };
