@@ -1935,6 +1935,10 @@ export const strings = [
   ["Alleen zichtbaar voor beheerders: accounts, abonnementen, omzet en bezoekers.", "Only visible to administrators: accounts, subscriptions, revenue and visitors.", "Nur für Administratoren sichtbar: Konten, Abos, Umsatz und Besucher.", "Solo visible para administradores: cuentas, suscripciones, ingresos y visitas."],
   ["Naar het beheerscherm", "Go to admin", "Zur Verwaltung", "Ir a administración"],
   ["Ingelogd blijven", "Stay signed in", "Angemeldet bleiben", "Mantener la sesión iniciada"],
+  // Inlogscherm op de telefoon (2026-11-06)
+  ["Receptenplatform voor de professionele keuken", "Recipe platform for the professional kitchen", "Rezeptplattform für die Profiküche", "Plataforma de recetas para la cocina profesional"],
+  ["Ik heb al een account", "I already have an account", "Ich habe schon ein Konto", "Ya tengo una cuenta"],
+  ["of", "or", "oder", "o"],
   ["Wachtwoord onthouden", "Remember password", "Passwort merken", "Recordar contraseña"],
   ["Recepten printen", "Print recipes", "Rezepte drucken", "Imprimir recetas"],
   ["Welke recepten wil je printen?", "Which recipes do you want to print?", "Welche Rezepte möchtest du drucken?", "¿Qué recetas quieres imprimir?"],

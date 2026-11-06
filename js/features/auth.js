@@ -28,7 +28,17 @@ function openAuth(mode) {
   $('authStay').checked = mode === 'signup' || staySignedIn();
   $('authRemember').checked = mode === 'signup' || rememberPassword();
   if (mode === 'login') fillRememberedLogin();
+  // Onder het formulier: wisselen tussen inloggen en account maken.
+  if ($('authSwitch'))
+    $('authSwitch').textContent = mode === 'signup' ? t('Ik heb al een account') : t('Account aanmaken');
   renderOauthButtons();
+}
+
+// Van inloggen naar account maken en terug; een al ingevuld e-mailadres blijft staan.
+function switchAuthMode() {
+  const email = $('authEmail').value;
+  openAuth(authMode === 'signup' ? 'login' : 'signup');
+  if (email && !$('authEmail').value) $('authEmail').value = email;
 }
 
 const REMEMBER_PASSWORD_KEY = 'savour_remember_password';

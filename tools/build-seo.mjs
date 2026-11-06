@@ -464,6 +464,33 @@ function langSwitch(lang, alts, inApp) {
   ).join('')}</div></details>`;
 }
 
+// Menu op telefoon en tablet (tot 1040 px breed): achter de menuknop, over het hele scherm onder de kop.
+// Functies en Voor wie klappen open met korte uitleg; daaronder de vaste pagina's, inloggen, de demo en de taal.
+const MENU_LABEL = {
+  nl: ['Menu openen', 'Menu sluiten'],
+  en: ['Open menu', 'Close menu'],
+  de: ['Menü öffnen', 'Menü schließen'],
+  es: ['Abrir menú', 'Cerrar menú'],
+  fr: ['Ouvrir le menu', 'Fermer le menu']
+};
+function mobileMenu(lang, alt, inApp) {
+  const u = UI[lang];
+  const q = homePath(lang);
+  const group = (title, items, open) =>
+    `<details class="site-mm-group"${open ? ' open' : ''}><summary>${esc(title)}</summary><ul>${items
+      .map(
+        x =>
+          `<li><a href="${href(x[lang].slug)}"><b>${esc(x[lang].menu)}${x.soon ? `<small>${u.soon}</small>` : ''}</b><span>${esc(x[lang].short)}</span></a></li>`
+      )
+      .join('')}</ul></details>`;
+  const link = (h, label) => `<li><a href="${h}">${esc(label)}</a></li>`;
+  const langs = HOME_LANGS.map(l => {
+    const target = inApp ? homePath(l) : alt?.[l] || homePath(l);
+    return `<a href="${target}" hreflang="${l}" data-set-lang="${l}"${l === lang ? ' aria-current="true"' : ''}>${LANG_LABEL[l]}</a>`;
+  }).join('');
+  return `<div class="site-mm" hidden><div class="site-wrap">${group(u.features, FEATURES, false)}${group(u.audience, AUDIENCES, false)}<ul class="site-mm-links">${link(href(legacy('pro')[lang]), u.pricing)}${link(href(STORY[lang].slug), u.about)}${link(href(blogSlug[lang]), u.blog)}${link(guideHref(lang, GUIDE_HOME), GUIDE_UI[lang].footer)}</ul><div class="site-mm-actions"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?auth=login" data-auth="login">${u.login}</a><a class="site-mm-demo" href="${q}?demo=1" data-demo>${u.demo}</a></div><div class="site-mm-lang" translate="no">${langs}</div></div></div>`;
+}
+
 // ---- Onderdelen ----
 // inApp: de startpagina in index.html (knoppen openen inloggen/demo direct; taalknop wisselt zonder herladen).
 function header(lang, alt, inApp) {
@@ -487,8 +514,8 @@ function header(lang, alt, inApp) {
 <div class="site-item"><a href="${href(STORY[lang].slug)}">${u.about}</a></div>
 <div class="site-item"><a href="${href(blogSlug[lang])}">${u.blog}</a></div>
 </nav>
-<div class="site-actions">${langSwitch(lang, alt, inApp)}<a class="site-btn site-login" ${auth('login')}>${u.login}</a><a class="site-btn solid" ${auth('signup')}>${u.start}</a></div>
-</div></header>`;
+<div class="site-actions">${langSwitch(lang, alt, inApp)}<a class="site-btn site-login" ${auth('login')}>${u.login}</a><a class="site-btn solid" ${auth('signup')}>${u.start}</a><button type="button" class="site-menu-btn" aria-expanded="false" aria-label="${MENU_LABEL[lang][0]}" data-close-label="${MENU_LABEL[lang][1]}"><span></span></button></div>
+</div>${mobileMenu(lang, alt, inApp)}</header>`;
 }
 
 // Handleiding (kolom Hulp) en release notes (kolom Savour) staan alleen in de footer. Talen zonder eigen versie linken naar het Engels.

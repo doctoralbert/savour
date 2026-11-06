@@ -25,6 +25,45 @@
     });
   }
 
+  // Menuknop op telefoon en tablet: opent het menu over het scherm onder de kop. Sluiten met de knop, Escape,
+  // een link in het menu, of als het scherm breed genoeg wordt voor het gewone menu.
+  function setMenu(header, open) {
+    var btn = header.querySelector('.site-menu-btn');
+    var menu = header.querySelector('.site-mm');
+    if (!btn || !menu) return;
+    header.classList.toggle('menu-open', open);
+    menu.hidden = !open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (!btn.dataset.openLabel) btn.dataset.openLabel = btn.getAttribute('aria-label');
+    btn.setAttribute('aria-label', open ? btn.dataset.closeLabel : btn.dataset.openLabel);
+    document.body.classList.toggle('site-menu-open', open);
+    if (open)
+      document.documentElement.style.setProperty('--site-header-h', header.getBoundingClientRect().bottom + 'px');
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.site-menu-btn');
+    if (btn) {
+      var header = btn.closest('.site-header');
+      setMenu(header, !header.classList.contains('menu-open'));
+      return;
+    }
+    var link = e.target.closest && e.target.closest('.site-mm a');
+    if (link) setMenu(link.closest('.site-header'), false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    document.querySelectorAll('.site-header.menu-open').forEach(function (h) {
+      setMenu(h, false);
+      h.querySelector('.site-menu-btn').focus();
+    });
+  });
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 1040)
+      document.querySelectorAll('.site-header.menu-open').forEach(function (h) {
+        setMenu(h, false);
+      });
+  });
+
   // Contactformulier op de losse contactpagina: versturen naar /api/bug-report (kind: contact).
   document.addEventListener('submit', function (e) {
     var form = e.target;
