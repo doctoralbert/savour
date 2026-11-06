@@ -519,8 +519,8 @@ export const DE = {
           'Alle Mitglieder eines Küchenteams sehen dieselben Rezepte auf ihrem eigenen Handy, Tablet oder Computer. Ändert der Ersteller ein Rezept, sieht die ganze Brigade sofort die neue Version. Keine losen Kopien, keine alten Ausdrucke mehr an der Wand.'
         ],
         [
-          'Rollen: Eigentümer, Editor und Betrachter',
-          'Der Eigentümer verwaltet den Ordner, die Mitglieder und ihre Rollen. Ein Editor fügt Rezepte und Ordner hinzu, entfernt sie und verwaltet die Ordner. Ein Betrachter kann ansehen, drucken und umrechnen. Nur der Ersteller eines Rezepts kann es bearbeiten, damit niemand aus Versehen das Rezept eines anderen ändert.'
+          'Rollen: Eigentümer, Sous-Chef und Koch',
+          'Der Eigentümer verwaltet den Ordner, die Mitglieder und ihre Rollen. Ein Sous-Chef fügt Rezepte und Ordner hinzu, entfernt sie und verwaltet die Ordner. Ein Koch kann ansehen, drucken und umrechnen. Nur der Ersteller eines Rezepts kann es bearbeiten, damit niemand aus Versehen das Rezept eines anderen ändert.'
         ],
         [
           'Rezepte hinzufügen',
@@ -532,7 +532,7 @@ export const DE = {
         ],
         [
           'Dein Team einladen',
-          'Lade Kollegen per WhatsApp, Telegram, E-Mail oder Einladungslink ein. Nach der Anmeldung sind sie Mitglied als Betrachter; als Eigentümer gibst du ihnen danach eine andere Rolle. Mitglied eines Küchenteams zu sein ist kostenlos, auch ohne Savour Pro.'
+          'Lade Kollegen per WhatsApp, Telegram, E-Mail oder Einladungslink ein. Beim Einladen wählst du, ob jemand Sous-Chef oder Koch wird; als Eigentümer änderst du das später jederzeit. Mitglied eines Küchenteams zu sein ist kostenlos, auch ohne Savour Pro.'
         ],
         [
           'Drucken für den Ordner',
@@ -684,7 +684,7 @@ export const DE = {
         ],
         [
           'Bestimme, was jeder darf',
-          'Es gibt drei Rollen. Der Eigentümer verwaltet den Ordner. Ein Bearbeiter kann Rezepte hinzufügen und ändern. Ein Leser kann alles lesen, aber nichts ändern. Du entscheidest, wer die Rezepte anfasst.'
+          'Es gibt drei Rollen. Der Eigentümer verwaltet den Ordner. Ein Sous-Chef kann Rezepte hinzufügen und ändern. Ein Koch kann alles lesen, aber nichts ändern. Du entscheidest, wer die Rezepte anfasst.'
         ],
         [
           'Ein einzelnes Rezept schicken',
