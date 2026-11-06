@@ -357,6 +357,49 @@
   padding-left: 14px;
   border-left: 2px solid var(--gold);
 }
+/* Live cijfers onder de opening. */
+.site-figures {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 28px 0;
+}
+.site-figures[hidden] {
+  display: none;
+}
+.site-figures dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+  text-align: center;
+}
+.site-figures dl > div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: 4px;
+}
+.site-figures dd {
+  margin: 0;
+  font: 600 40px/1.1 var(--serif);
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+.site-figures dt {
+  font: 500 14px/1.4 var(--sans);
+  color: var(--ink-2);
+}
+@media (max-width: 600px) {
+  .site-figures dl {
+    gap: 12px;
+  }
+  .site-figures dd {
+    font-size: 28px;
+  }
+  .site-figures dt {
+    font-size: 12px;
+  }
+}
 .site-cta-row {
   display: flex;
   flex-wrap: wrap;

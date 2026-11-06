@@ -46,6 +46,19 @@ export function select(table, query) {
   return adminFetch(`/rest/v1/${table}?${query}`);
 }
 
+// Aantal rijen in een tabel, zonder de rijen zelf op te halen (de database telt en geeft het totaal in de kop).
+export async function countRows(table) {
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!key) throw new Error('SUPABASE_SERVICE_ROLE_KEY ontbreekt in Vercel Environment Variables.');
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=id`, {
+    method: 'HEAD',
+    headers: { apikey: key, Authorization: `Bearer ${key}`, Prefer: 'count=exact', Range: '0-0' }
+  });
+  const total = Number(String(response.headers.get('content-range') || '').split('/')[1]);
+  if (!response.ok || !Number.isFinite(total)) throw new Error(`Tellen mislukt (${table}, ${response.status})`);
+  return total;
+}
+
 export function insert(table, row) {
   return adminFetch(`/rest/v1/${table}`, { method: 'POST', body: row, prefer: 'return=minimal' });
 }

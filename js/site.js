@@ -537,12 +537,43 @@
     return out.length ? '?' + out.join('&') : '';
   }
 
+  // Startpagina: echte totalen (recepten, keukenteams, accounts) uit de database. Lukt dat niet, dan blijft
+  // de strook verborgen in plaats van oude of verzonnen getallen te tonen.
+  function setupFigures() {
+    var bands = document.querySelectorAll('[data-site-figures]');
+    if (!bands.length || !window.fetch) return;
+    fetch('/api/admin?cijfers=1')
+      .then(function (r) {
+        return r.ok ? r.json() : null;
+      })
+      .then(function (d) {
+        if (!d) return;
+        var fmt = new Intl.NumberFormat(document.documentElement.lang || 'nl');
+        bands.forEach(function (band) {
+          var ok = true;
+          band.querySelectorAll('[data-figure]').forEach(function (el) {
+            var n = d[el.getAttribute('data-figure')];
+            if (typeof n !== 'number') ok = false;
+            else {
+              el.textContent = fmt.format(n);
+              var label = el.previousElementSibling;
+              if (n === 1 && label && label.dataset.one) label.textContent = label.dataset.one;
+            }
+          });
+          if (ok) band.hidden = false;
+        });
+      })
+      .catch(function () {});
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setup);
     document.addEventListener('DOMContentLoaded', setupDeliver);
+    document.addEventListener('DOMContentLoaded', setupFigures);
   } else {
     setup();
     setupDeliver();
+    setupFigures();
   }
   logStaticVisit();
 })();

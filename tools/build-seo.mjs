@@ -573,6 +573,53 @@ const SHOT_ALT = {
   es: ['Biblioteca de recetas en Savour en un portátil', 'Pantalla de receta en Savour en un móvil'],
   fr: ['Bibliothèque de recettes Savour sur un ordinateur portable', 'Écran de recette Savour sur un téléphone']
 };
+// Strook met live cijfers onder de opening; js/site.js vult de getallen via /api/admin?cijfers=1.
+// Zonder antwoord (offline, fout) blijft de strook verborgen: er staan nooit verzonnen getallen.
+const FIGURES = {
+  // Per getal: [meervoud, enkelvoud] (bij precies 1).
+  nl: [
+    'Savour in cijfers',
+    ['recepten in Savour', 'recept in Savour'],
+    ['keukenteams aangemaakt', 'keukenteam aangemaakt'],
+    ['accounts', 'account']
+  ],
+  en: [
+    'Savour in numbers',
+    ['recipes in Savour', 'recipe in Savour'],
+    ['kitchen teams created', 'kitchen team created'],
+    ['accounts', 'account']
+  ],
+  de: [
+    'Savour in Zahlen',
+    ['Rezepte in Savour', 'Rezept in Savour'],
+    ['Küchenteams erstellt', 'Küchenteam erstellt'],
+    ['Konten', 'Konto']
+  ],
+  es: [
+    'Savour en cifras',
+    ['recetas en Savour', 'receta en Savour'],
+    ['equipos de cocina creados', 'equipo de cocina creado'],
+    ['cuentas', 'cuenta']
+  ],
+  fr: [
+    'Savour en chiffres',
+    ['recettes dans Savour', 'recette dans Savour'],
+    ['équipes de cuisine créées', 'équipe de cuisine créée'],
+    ['comptes', 'compte']
+  ]
+};
+function figuresBand(lang) {
+  const [title, ...labels] = FIGURES[lang];
+  return `<section class="site-figures" data-site-figures hidden aria-label="${esc(title)}"><div class="site-wrap"><dl>${[
+    'recipes',
+    'teams',
+    'accounts'
+  ]
+    .map(
+      (k, i) => `<div><dt data-one="${esc(labels[i][1])}">${esc(labels[i][0])}</dt><dd data-figure="${k}"></dd></div>`
+    )
+    .join('')}</dl></div></section>`;
+}
 function homeBody(lang, inApp) {
   const h = HOME[lang];
   const u = UI[lang];
@@ -582,6 +629,7 @@ function homeBody(lang, inApp) {
 <div class="site-cta-row"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?demo=1" data-demo>${u.demo}</a></div><p class="site-note" style="margin-top:10px">${esc(u.demoNote)}</p></div>
 <div class="hero-shots"><div class="hero-laptop"><img src="/assets/app/bibliotheek-${lang}.jpg" alt="${esc(SHOT_ALT[lang][0])}" width="1440" height="900"></div><div class="hero-phone"><img src="/assets/app/recept-${lang}.jpg" alt="${esc(SHOT_ALT[lang][1])}" width="520" height="1125"></div></div>
 </div></section>
+${figuresBand(lang)}
 <section class="site-section"><div class="site-wrap"><div class="site-two"><h2 class="reveal">${esc(KLADJE_REAL[lang].heading)}</h2><div>${h.story.map(p => `<p>${esc(p)}</p>`).join('')}<p><a class="site-link" href="${href(STORY[lang].slug)}">${esc(h.storyLink)}</a></p></div></div>${kladje(lang)}</div></section>
 <section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(h.featuresTitle)}</h2>${rows(
     FEATURES.filter(f => !f.soon),
@@ -1196,15 +1244,13 @@ for (const lang of LANGS) {
 // de oude map in site/ gaat weg. Handmatige doorverwijzingen in vercel.json blijven staan.
 {
   const moves = GUIDE_CHAPTERS.flatMap(ch =>
-    ch.pages
-      .slice(1)
-      .flatMap(g =>
-        Object.keys(GUIDE_HOME).map(l => ({
-          source: href(g[l].slug),
-          destination: `${href(ch.pages[0][l].slug)}#${g.id}`,
-          permanent: true
-        }))
-      )
+    ch.pages.slice(1).flatMap(g =>
+      Object.keys(GUIDE_HOME).map(l => ({
+        source: href(g[l].slug),
+        destination: `${href(ch.pages[0][l].slug)}#${g.id}`,
+        permanent: true
+      }))
+    )
   );
   const file = new URL('vercel.json', ROOT);
   const config = JSON.parse(fs.readFileSync(file, 'utf8'));

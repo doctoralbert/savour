@@ -21,7 +21,8 @@ import {
   ensureUser,
   storageList,
   storageDownloadUrl,
-  storageRemove
+  storageRemove,
+  countRows
 } from './_lib/supabase-admin.js';
 import { newsletterMail, sendMail, sendMailBatch } from './_lib/mail.js';
 import { intakeMail } from './_lib/intake-mail.js';
@@ -1396,8 +1397,23 @@ async function newsUnsubscribe(req, res) {
   );
 }
 
+// Openbare cijfers voor de startpagina (GET /api/admin?cijfers=1): alleen drie totalen, niets per gebruiker.
+// Vercel bewaart het antwoord een uur, zodat niet elke bezoeker de database laat tellen.
+async function siteFigures(res) {
+  if (!hasServiceRole()) return res.status(503).json({ error: 'Niet beschikbaar.' });
+  try {
+    const [recipes, teams, users] = await Promise.all([countRows('recipes'), countRows('shared_maps'), listUsers()]);
+    res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=3600, stale-while-revalidate=86400');
+    return res.status(200).json({ recipes, teams, accounts: users.length });
+  } catch (e) {
+    console.error('Cijfers startpagina', e);
+    return res.status(500).json({ error: 'Niet beschikbaar.' });
+  }
+}
+
 export default async function handler(req, res) {
   if (req.query?.afmelden) return newsUnsubscribe(req, res);
+  if (req.query?.cijfers && req.method === 'GET') return siteFigures(res);
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const user = await getUserFromRequest(req);
   // Geen (geldige) inlog-sleutel is iets anders dan geen beheerder: de pagina ververst dan zelf de sessie.
