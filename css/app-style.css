@@ -528,6 +528,141 @@
   background: var(--line, #243031);
 }
 
+/* Inloggen: logo en sluitknop alleen op de telefoon; "of" met de knop om te wisselen tussen inloggen en account maken. */
+.auth-brand,
+.auth-close {
+  display: none;
+}
+.auth-forgot {
+  margin-left: auto;
+}
+.auth-switch {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+}
+.auth-switch > span {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.auth-switch > span::before,
+.auth-switch > span::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line, #243031);
+}
+.auth-switch .btn {
+  width: 100%;
+  justify-content: center;
+}
+/* Telefoon: een volledig inlogscherm in plaats van een venster. Met !important, omdat foundation.css knoppen,
+   labels en vensters ook zo vastlegt. */
+@media (max-width: 600px) {
+  #authModal.open {
+    padding: 0 !important;
+    background: radial-gradient(
+        ellipse 90% 50% at 50% 0%,
+        color-mix(in srgb, var(--sv-gold) 14%, transparent),
+        transparent 70%
+      ),
+      var(--sv-bg) !important;
+  }
+  #authModal .modalbox {
+    position: relative !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    overflow-y: auto !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: max(28px, env(safe-area-inset-top)) 24px max(28px, env(safe-area-inset-bottom)) !important;
+  }
+  #authModal .auth-close {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: absolute !important;
+    top: max(18px, env(safe-area-inset-top)) !important;
+    right: 18px !important;
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 50% !important;
+    border: 1px solid var(--sv-line) !important;
+    background: transparent !important;
+    color: var(--sv-text) !important;
+    font-size: 24px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+  }
+  #authModal .auth-brand {
+    display: block !important;
+    margin: 18px 0 44px !important;
+  }
+  .auth-brand span {
+    display: block !important;
+    font: 500 30px/1 var(--sv-font-display) !important;
+    letter-spacing: 0.32em !important;
+    color: var(--sv-gold) !important;
+  }
+  .auth-brand small {
+    display: block !important;
+    margin-top: 10px !important;
+    font-size: 13px !important;
+    color: var(--sv-text-3) !important;
+  }
+  #authModal #authEyebrow {
+    display: none !important;
+  }
+  #authModal h2 {
+    font-size: 40px !important;
+    margin: 0 0 8px !important;
+  }
+  #authModal #authIntro {
+    margin-bottom: 26px !important;
+  }
+  #authModal .field label {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    color: var(--sv-text-3) !important;
+  }
+  #authModal .field input {
+    height: 52px !important;
+    font-size: 16px !important;
+  }
+  #authModal .auth-checks {
+    margin-top: 18px !important;
+  }
+  #authModal .actions {
+    margin-top: 24px !important;
+  }
+  #authModal .actions .btn.gold {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 16px !important;
+    font-size: 16px !important;
+  }
+  #authModal .auth-cancel {
+    display: none !important;
+  }
+  #authModal .auth-note {
+    text-align: center !important;
+    margin-top: 26px !important;
+  }
+}
+
 /* Inloggen: ingelogd blijven en wachtwoord onthouden */
 .auth-checks {
   display: flex;

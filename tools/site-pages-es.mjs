@@ -180,7 +180,7 @@ export const ES = {
       lead: 'Del jefe de partida al becario: todo tu equipo de cocina cocina con la misma receta, en cada restaurante que diriges.',
       sections: [
         ['Una versión para todos', 'Ajusta una salsa para el nuevo menú y todos en el equipo de cocina trabajan al momento con la nueva versión.'],
-        ['Permisos por persona', 'Tú gestionas la carpeta. Tu segundo o jefe de partida puede añadir y editar recetas. Ayudantes y becarios pueden consultar, pero no cambiar nada.'],
+        ['Tres roles, como en la cocina', 'Hay un propietario que gestiona el equipo de cocina, igual que el jefe. Los sous-chefs añaden platos nuevos y ajustan recetas. Los cocineros leen en su partida sin borrar nada por error.'],
         ['En su propio móvil', 'Se acabó la carpeta común llena de manchas. Cada miembro de la brigada abre las recetas de su partida en su propio móvil, con letra grande en el modo cocina.'],
         ['Gente nueva al día más rápido', 'Becarios y cocineros nuevos leen cómo se hacen las cosas aquí, en lugar de preguntar durante el servicio. Ser miembro de un equipo de cocina es gratis; con un plan de equipo todos tienen Savour Pro.']
       ]

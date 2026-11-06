@@ -294,6 +294,212 @@
   color: var(--gold-soft);
 }
 
+/* Menuknop en menu voor telefoon en tablet (tools/build-seo.mjs, mobileMenu; js/site.js opent en sluit). */
+.site-menu-btn,
+.site-mm {
+  display: none;
+}
+@media (max-width: 1040px) {
+  .site-header .site-lang,
+  .site-header .site-login {
+    display: none;
+  }
+  .site-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: transparent;
+    cursor: pointer;
+    flex: none;
+  }
+  .site-menu-btn span,
+  .site-menu-btn span::before,
+  .site-menu-btn span::after {
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: currentColor;
+    border-radius: 2px;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+  .site-menu-btn span {
+    position: relative;
+    color: var(--ink);
+  }
+  .site-menu-btn span::before,
+  .site-menu-btn span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+  .site-menu-btn span::before {
+    top: -6px;
+  }
+  .site-menu-btn span::after {
+    top: 6px;
+  }
+  .site-header.menu-open .site-menu-btn span {
+    background: transparent;
+  }
+  .site-header.menu-open .site-menu-btn span::before {
+    transform: translateY(6px) rotate(45deg);
+    background: var(--gold);
+  }
+  .site-header.menu-open .site-menu-btn span::after {
+    transform: translateY(-6px) rotate(-45deg);
+    background: var(--gold);
+  }
+  .site-header.menu-open .site-menu-btn {
+    border-color: var(--gold);
+  }
+  /* Een vervaging op de kop maakt van de kop het kader voor vaste elementen; open menu: over het hele scherm. */
+  .site-header.menu-open {
+    backdrop-filter: none;
+    background: var(--paper);
+  }
+  .site-mm:not([hidden]) {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: var(--site-header-h, 72px);
+    bottom: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    padding: 8px 0 40px;
+    animation: site-mm-in 0.18s ease;
+  }
+  @keyframes site-mm-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+  .site-mm-group {
+    border-bottom: 1px solid var(--line);
+  }
+  .site-mm-group summary {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    font: 500 22px/1.2 var(--serif);
+    cursor: pointer;
+  }
+  .site-mm-group summary::-webkit-details-marker {
+    display: none;
+  }
+  .site-mm-group summary::after {
+    content: '';
+    width: 9px;
+    height: 9px;
+    border-right: 1.5px solid var(--gold);
+    border-bottom: 1.5px solid var(--gold);
+    transform: rotate(45deg) translateY(-3px);
+    transition: transform 0.2s ease;
+  }
+  .site-mm-group[open] summary::after {
+    transform: rotate(-135deg) translateY(-3px);
+  }
+  .site-mm-group ul {
+    list-style: none;
+    margin: 0 0 14px;
+    padding: 0;
+  }
+  .site-mm-group li a {
+    display: block;
+    padding: 12px 0 12px 14px;
+    border-left: 2px solid var(--line);
+    text-decoration: none;
+  }
+  .site-mm-group li a:hover,
+  .site-mm-group li a:focus-visible {
+    border-left-color: var(--gold);
+  }
+  .site-mm-group b {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 16px/1.3 var(--sans);
+  }
+  .site-mm-group b small {
+    font: 600 10px/1 var(--sans);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 999px;
+    padding: 3px 7px;
+  }
+  .site-mm-group span {
+    display: block;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--ink-3);
+    margin-top: 3px;
+  }
+  .site-mm-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .site-mm-links a {
+    display: block;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    font: 500 22px/1.2 var(--serif);
+    text-decoration: none;
+  }
+  .site-mm-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 28px;
+  }
+  .site-mm-actions .site-btn {
+    justify-content: center;
+    padding: 14px 12px;
+  }
+  .site-mm-demo {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 10px 0;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .site-mm-lang {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .site-mm-lang a {
+    min-width: 44px;
+    padding: 9px 0;
+    text-align: center;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font: 600 13px/1 var(--sans);
+    text-decoration: none;
+  }
+  .site-mm-lang a[aria-current] {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  body.site-menu-open {
+    overflow: hidden;
+  }
+}
+
 /* Telefoon en tablet: geen menu bovenaan (alles staat in de footer), wel taal, inloggen en account maken. */
 @media (max-width: 1040px) {
   .site-nav {
@@ -875,6 +1081,133 @@
 .site-post-meta time {
   font: 500 13px/1.4 var(--sans);
   color: var(--ink-3);
+}
+
+/* Functie- en voor-wiepagina's: voordelen onder de kop en afwisselend tekst en een scherm uit de app. */
+.feat-band {
+  border-bottom: 1px solid var(--line);
+  padding: 28px 0;
+}
+.feat-band ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.feat-band li {
+  padding: 4px 0 4px 18px;
+  border-left: 2px solid var(--gold);
+}
+.feat-band b {
+  display: block;
+  font: 600 17px/1.3 var(--serif);
+  margin-bottom: 4px;
+}
+.feat-band span {
+  font-size: 15px;
+  color: var(--ink-2);
+}
+.feat-show {
+  padding: 24px 0 56px;
+}
+.feat-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: center;
+  padding: 36px 0;
+}
+.feat-row + .feat-row {
+  border-top: 1px solid var(--line);
+}
+.feat-row.flip > div {
+  order: 2;
+}
+.feat-row h2 {
+  font-size: 30px;
+  margin: 0 0 12px;
+}
+.feat-row p {
+  font-size: 17px;
+  color: var(--ink-2);
+  max-width: 460px;
+}
+.feat-row figure {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+.feat-row img {
+  display: block;
+  max-width: 100%;
+  max-height: 560px;
+  width: auto;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.28);
+}
+@media (max-width: 760px) {
+  .feat-band ul {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .feat-row {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 28px 0;
+  }
+  .feat-row.flip > div {
+    order: 0;
+  }
+  .feat-row h2 {
+    font-size: 24px;
+  }
+  .feat-row img {
+    max-height: 480px;
+  }
+}
+
+.feat-facts {
+  background: radial-gradient(ellipse 60% 120% at 50% 0%, rgba(232, 202, 141, 0.12), transparent 70%), var(--night);
+  color: #f3efe6;
+  padding: 40px 0;
+}
+.feat-facts dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  text-align: center;
+}
+.feat-facts dl > div {
+  padding: 4px 16px;
+}
+.feat-facts dl > div + div {
+  border-left: 1px solid #2c3330;
+}
+.feat-facts dt {
+  font: 500 46px/1.1 var(--serif);
+  color: var(--gold-soft);
+}
+.feat-facts dd {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: #c9ccc4;
+}
+@media (max-width: 600px) {
+  .feat-facts dl {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .feat-facts dl > div + div {
+    border-left: 0;
+    border-top: 1px solid #2c3330;
+    padding-top: 18px;
+  }
+  .feat-facts dt {
+    font-size: 38px;
+  }
 }
 
 /* Bladzijden van het blogarchief */
@@ -3399,4 +3732,3 @@ body.cook-mode #publicRecipeShell .share-recipe-head h1 {
     grid-column: 1;
   }
 }
-

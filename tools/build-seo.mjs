@@ -31,6 +31,8 @@ import { stringsFr, patternsFr } from './vertalingen-fr.mjs';
 import { VERDIEPING } from './site-verdieping.mjs';
 import { VERDIEPING_TALEN } from './site-verdieping-talen.mjs';
 import { BLOG_RICH } from './site-blog-rich.mjs';
+import { FEATURE_RICH } from './site-feature-rich.mjs';
+import { PAGE_RICH } from './site-page-rich.mjs';
 import { APP_PAGE } from './site-app.mjs';
 import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
 import { DELIVER, DELIVER_FLOW } from './site-deliver.mjs';
@@ -337,6 +339,7 @@ const slugsOf = item => Object.fromEntries(LANGS.map(l => [l, typeof item[l] ===
 const LOCALE = { nl: 'nl-NL', en: 'en-GB', de: 'de-DE', es: 'es-ES', fr: 'fr-FR' };
 // Blogarchief over meerdere bladzijden: zoveel artikelen per bladzijde, met deze woorden in het adres en de knoppen.
 const BLOG_PER_PAGE = 8;
+const RELEASES_PER_PAGE = 4;
 const BLOG_PAGE_WORD = { nl: 'pagina', en: 'page', de: 'seite', es: 'pagina', fr: 'page' };
 const BLOG_PAGER = {
   nl: { label: 'Bladzijden van het blog', page: 'Pagina', newer: 'Nieuwer', older: 'Ouder' },
@@ -467,6 +470,33 @@ function langSwitch(lang, alts, inApp) {
   ).join('')}</div></details>`;
 }
 
+// Menu op telefoon en tablet (tot 1040 px breed): achter de menuknop, over het hele scherm onder de kop.
+// Functies en Voor wie klappen open met korte uitleg; daaronder de vaste pagina's, inloggen, de demo en de taal.
+const MENU_LABEL = {
+  nl: ['Menu openen', 'Menu sluiten'],
+  en: ['Open menu', 'Close menu'],
+  de: ['Menü öffnen', 'Menü schließen'],
+  es: ['Abrir menú', 'Cerrar menú'],
+  fr: ['Ouvrir le menu', 'Fermer le menu']
+};
+function mobileMenu(lang, alt, inApp) {
+  const u = UI[lang];
+  const q = homePath(lang);
+  const group = (title, items, open) =>
+    `<details class="site-mm-group"${open ? ' open' : ''}><summary>${esc(title)}</summary><ul>${items
+      .map(
+        x =>
+          `<li><a href="${href(x[lang].slug)}"><b>${esc(x[lang].menu)}${x.soon ? `<small>${u.soon}</small>` : ''}</b><span>${esc(x[lang].short)}</span></a></li>`
+      )
+      .join('')}</ul></details>`;
+  const link = (h, label) => `<li><a href="${h}">${esc(label)}</a></li>`;
+  const langs = HOME_LANGS.map(l => {
+    const target = inApp ? homePath(l) : alt?.[l] || homePath(l);
+    return `<a href="${target}" hreflang="${l}" data-set-lang="${l}"${l === lang ? ' aria-current="true"' : ''}>${LANG_LABEL[l]}</a>`;
+  }).join('');
+  return `<div class="site-mm" hidden><div class="site-wrap">${group(u.features, FEATURES, false)}${group(u.audience, AUDIENCES, false)}<ul class="site-mm-links">${link(href(legacy('pro')[lang]), u.pricing)}${link(href(STORY[lang].slug), u.about)}${link(href(blogSlug[lang]), u.blog)}${link(guideHref(lang, GUIDE_HOME), GUIDE_UI[lang].footer)}</ul><div class="site-mm-actions"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?auth=login" data-auth="login">${u.login}</a><a class="site-mm-demo" href="${q}?demo=1" data-demo>${u.demo}</a></div><div class="site-mm-lang" translate="no">${langs}</div></div></div>`;
+}
+
 // ---- Onderdelen ----
 // inApp: de startpagina in index.html (knoppen openen inloggen/demo direct; taalknop wisselt zonder herladen).
 function header(lang, alt, inApp) {
@@ -490,8 +520,8 @@ function header(lang, alt, inApp) {
 <div class="site-item"><a href="${href(STORY[lang].slug)}">${u.about}</a></div>
 <div class="site-item"><a href="${href(blogSlug[lang])}">${u.blog}</a></div>
 </nav>
-<div class="site-actions">${langSwitch(lang, alt, inApp)}<a class="site-btn site-login" ${auth('login')}>${u.login}</a><a class="site-btn solid" ${auth('signup')}>${u.start}</a></div>
-</div></header>`;
+<div class="site-actions">${langSwitch(lang, alt, inApp)}<a class="site-btn site-login" ${auth('login')}>${u.login}</a><a class="site-btn solid" ${auth('signup')}>${u.start}</a><button type="button" class="site-menu-btn" aria-expanded="false" aria-label="${MENU_LABEL[lang][0]}" data-close-label="${MENU_LABEL[lang][1]}"><span></span></button></div>
+</div>${mobileMenu(lang, alt, inApp)}</header>`;
 }
 
 // Handleiding (kolom Hulp) en release notes (kolom Savour) staan alleen in de footer. Talen zonder eigen versie linken naar het Engels.
@@ -524,6 +554,11 @@ function kladje(lang) {
 <figcaption>${esc(k.caption)}</figcaption></figure>`;
 }
 
+// Functies onder een voor-wie-pagina: wat voor die lezer het meest telt, per pagina anders.
+const AUDIENCE_FEATURES = {
+  chefs: ['digitise', 'scale', 'cloud', 'inladen'],
+  brigade: ['share', 'organise', 'print']
+};
 const rows = (items, lang) =>
   `<ul class="site-rows">${items
     .map(x => {
@@ -956,6 +991,49 @@ const photoFile = key => {
   const [file] = PHOTOS[key];
   return `/assets/keuken/${file}?v=${fs.statSync(new URL(`assets/keuken/${file}`, ROOT)).size}`;
 };
+// Functie- en voor-wiepagina's (tools/site-feature-rich.mjs): drie voordelen onder de kop, afwisselend tekst en
+// een scherm uit de app, en vragen onderaan.
+const FAQ_TITLE = {
+  nl: 'Veelgestelde vragen',
+  en: 'Frequently asked questions',
+  de: 'Häufige Fragen',
+  es: 'Preguntas frecuentes',
+  fr: 'Questions fréquentes'
+};
+const featureRich = (id, lang) => {
+  const r = FEATURE_RICH[id]?.[lang] || PAGE_RICH[id]?.[lang];
+  return r ? richMap(r, lang) : null;
+};
+// Donkere strook met echte cijfers (Prijzen, Over ons).
+const featureFacts = (id, lang) => {
+  const r = featureRich(id, lang);
+  return r?.facts
+    ? `<section class="feat-facts"><div class="site-wrap"><dl>${r.facts.map(([n, d]) => `<div class="reveal"><dt>${esc(n)}</dt><dd>${esc(d)}</dd></div>`).join('')}</dl></div></section>`
+    : '';
+};
+const featureBand = (id, lang) => {
+  const r = featureRich(id, lang);
+  return r?.benefits
+    ? `<section class="feat-band"><div class="site-wrap"><ul>${r.benefits.map(([h, d]) => `<li class="reveal"><b>${esc(h)}</b><span>${esc(d)}</span></li>`).join('')}</ul></div></section>`
+    : '';
+};
+const featureShow = (id, lang) => {
+  const r = featureRich(id, lang);
+  return r?.showcase
+    ? `<section class="feat-show"><div class="site-wrap">${r.showcase
+        .map(
+          (x, i) =>
+            `<div class="feat-row${i % 2 ? ' flip' : ''} reveal"><div><h2>${esc(x.title)}</h2><p>${proseText(x.text)}</p></div><figure><img src="${x.shot}" alt="${esc(x.alt)}" loading="lazy"></figure></div>`
+        )
+        .join('')}</div></section>`
+    : '';
+};
+const featureFaq = (id, lang) => {
+  const r = featureRich(id, lang);
+  return r?.faq
+    ? `<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(FAQ_TITLE[lang])}</h2><div class="site-faq">${r.faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${proseText(a)}</p></details>`).join('')}</div></div></section>`
+    : '';
+};
 const pageTop = (crumbHtml, h1, lead, photo) => {
   const p = photo && PHOTOS[photo];
   const style = p
@@ -1049,7 +1127,10 @@ for (const lang of LANGS) {
   // Functies
   for (const f of FEATURES) {
     const t = f[lang];
-    const others = FEATURES.filter(x => x !== f && !x.soon);
+    // Ook interessant: de drie functies die na deze komen, zodat niet elke pagina dezelfde drie toont.
+    const live = FEATURES.filter(x => !x.soon);
+    const at = live.indexOf(f);
+    const others = [1, 2, 3].map(n => live[(at + n + live.length) % live.length]).filter(x => x !== f);
     page({
       lang,
       slugs: slugsOf(f),
@@ -1058,11 +1139,12 @@ for (const lang of LANGS) {
       crumbs: [[u.features], [t.menu]],
       body: c =>
         pageTop(c, t.h1, t.lead, PAGE_PHOTO[f.nl.slug]) +
+        featureBand(f.id, lang) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose">${t.kladje ? `<div class="site-figure">${kladje(lang)}</div>` : ''}${sectionsHtml(t.sections)}${f.service ? serviceBlock(lang) : ''}${
           f.soon
             ? `<p class="site-note">${SOON_MAIL[lang]} <a href="mailto:contact@savour.page">contact@savour.page</a>.</p>`
             : ''
-        }</div></article>
+        }</div></article>${featureShow(f.id, lang)}${featureFaq(f.id, lang)}
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.related}</h2>${rows(others.slice(0, 3), lang)}</div></section>`
     });
   }
@@ -1091,9 +1173,10 @@ for (const lang of LANGS) {
       crumbs: [[u.audience], [t.menu]],
       body: c =>
         pageTop(c, t.h1, t.lead, PAGE_PHOTO[a.nl.slug]) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${photoDuo(lang, ...(a.nl.slug === 'voor-koks' ? ['wortels', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>
+        featureBand(a.id, lang) +
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${photoDuo(lang, ...(a.nl.slug === 'voor-koks' ? ['wortels', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>${featureShow(a.id, lang)}${featureFaq(a.id, lang)}
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.features}</h2>${rows(
-          FEATURES.filter(x => !x.soon),
+          FEATURES.filter(x => (AUDIENCE_FEATURES[a.id] || []).includes(x.id)),
           lang
         )}</div></section>`
     });
@@ -1109,7 +1192,8 @@ for (const lang of LANGS) {
       crumbs: [[u.about]],
       body: c =>
         pageTop(c, s.h1, s.lead, PAGE_PHOTO[STORY.nl.slug]) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${aboutChapters(s, lang)}</div></article>
+        featureFacts('about', lang) +
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${aboutChapters(s, lang)}</div></article>${featureFaq('about', lang)}
 <section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(s.valuesTitle)}</h2><div class="site-values">${s.values.map(([t, d]) => `<div><h3>${esc(t)}</h3><p>${esc(d)}</p></div>`).join('')}</div></div></section>`
     });
   }
@@ -1273,7 +1357,9 @@ for (const lang of LANGS) {
       schema,
       body: c =>
         pageTop(c, h1, lead, PAGE_PHOTO[p.nl]) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${note ? `<p class="site-meta">${esc(note)}</p>` : ''}${body}</div></article>`
+        (p.id === 'pro' ? featureBand('pro', lang) + featureFacts('pro', lang) : '') +
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${note ? `<p class="site-meta">${esc(note)}</p>` : ''}${body}</div></article>` +
+        (p.id === 'pro' ? featureShow('pro', lang) : '')
     });
   }
 
@@ -1431,21 +1517,41 @@ for (const lang of LANGS) {
           }${next ? `<a class="next" href="${chapterHref(next)}"><small>${esc(gu.next)} →</small>${esc(chapterName(next))}</a>` : ''}</nav>${chapterNav(ch)}</div></article>`
       });
     }
+    // Release notes over meerdere bladzijden, zoals het blog: RELEASES_PER_PAGE versies per bladzijde, nieuwste eerst.
+    // Bladzijde 2 en verder: release-notes-pagina-2 (één deel, dus de gewone rewrite voor losse pagina's geldt).
     const rp = RELEASES_PAGE[lang];
-    page({
-      lang,
-      slugs: pair(l => RELEASES_PAGE[l].slug),
-      title: rp.title,
-      desc: rp.desc,
-      crumbs: [[rp.h1]],
-      body: c =>
-        pageTop(c, rp.h1, rp.lead, 'hout') +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose site-releases">${RELEASES.map(
-          r =>
-            `<section id="v${esc(r.version)}"><h2>${esc(gu.version)} ${esc(r.version)}</h2><p class="site-meta">${new Date(r.date).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' })}</p><ul>${r[lang].map(x => `<li>${esc(x)}</li>`).join('')}</ul></section>`
-        ).join('')}</div></article>`
-    });
+    const rPages = Math.ceil(RELEASES.length / RELEASES_PER_PAGE);
+    const rSlugs = i =>
+      pair(l => (i ? `${RELEASES_PAGE[l].slug}-${BLOG_PAGE_WORD[l]}-${i + 1}` : RELEASES_PAGE[l].slug));
+    for (let i = 0; i < rPages; i++) {
+      const list = RELEASES.slice(i * RELEASES_PER_PAGE, (i + 1) * RELEASES_PER_PAGE);
+      const pageLink = j => href(rSlugs(j)[lang]);
+      const pager = `<nav class="site-pager" aria-label="${esc(rp.h1)}">${i ? `<a class="site-pager-step" href="${pageLink(i - 1)}" rel="prev">← ${esc(BLOG_PAGER[lang].newer)}</a>` : '<span></span>'}<span class="site-pager-pages">${Array.from(
+        { length: rPages },
+        (_, j) => (j === i ? `<span aria-current="page">${j + 1}</span>` : `<a href="${pageLink(j)}">${j + 1}</a>`)
+      ).join(
+        ''
+      )}</span>${i < rPages - 1 ? `<a class="site-pager-step" href="${pageLink(i + 1)}" rel="next">${esc(BLOG_PAGER[lang].older)} →</a>` : '<span></span>'}</nav>`;
+      page({
+        lang,
+        slugs: rSlugs(i),
+        title: i ? `${rp.title} · ${BLOG_PAGER[lang].page} ${i + 1}` : rp.title,
+        desc: rp.desc,
+        crumbs: i ? [[rp.h1, href(rp.slug)], [`${BLOG_PAGER[lang].page} ${i + 1}`]] : [[rp.h1]],
+        body: c =>
+          pageTop(c, i ? `${rp.h1} · ${BLOG_PAGER[lang].page} ${i + 1}` : rp.h1, rp.lead, 'hout') +
+          `<article class="site-article"><div class="site-wrap site-narrow site-prose site-releases">${releaseList(list, lang, gu)}${rPages > 1 ? pager : ''}</div></article>`
+      });
+    }
   }
+}
+function releaseList(list, lang, gu) {
+  return `${list
+    .map(
+      r =>
+        `<section id="v${esc(r.version)}"><h2>${esc(gu.version)} ${esc(r.version)}</h2><p class="site-meta">${new Date(r.date).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' })}</p><ul>${r[lang].map(x => `<li>${esc(x)}</li>`).join('')}</ul></section>`
+    )
+    .join('')}`;
 }
 
 // ---- Doorverwijzingen voor de handleiding ----

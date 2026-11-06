@@ -165,7 +165,7 @@ export const FR = {
       lead: "Du chef de partie au stagiaire : toute ton équipe cuisine avec la même recette, dans chaque établissement que tu diriges.",
       sections: [
         ['Une version pour tous', "Ajuste une sauce pour la nouvelle carte et toute l'équipe travaille aussitôt avec la nouvelle version."],
-        ['Des droits par personne', "Tu gères l'espace. Ton sous-chef ou chef de partie peut ajouter et modifier des recettes. Les commis et stagiaires peuvent consulter, mais rien changer."],
+        ['Trois rôles, comme en cuisine', 'Un propriétaire gère l’équipe de cuisine, comme le chef. Les sous-chefs ajoutent les nouveaux plats et ajustent les recettes. Les cuisiniers lisent à leur poste sans rien effacer par erreur.'],
         ['Sur leur propre téléphone', "Fini le classeur commun couvert de taches. Chaque membre de la brigade ouvre les recettes de sa partie sur son téléphone, en grands caractères en mode cuisine."],
         ['Les nouveaux à niveau plus vite', "Stagiaires et nouveaux cuisiniers lisent comment on fait ici, au lieu de poser des questions pendant le service. Être membre d'une équipe de cuisine est gratuit ; avec un abonnement d'équipe, tout le monde a Savour Pro."]
       ]
