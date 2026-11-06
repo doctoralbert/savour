@@ -340,8 +340,8 @@ export const BLOG = [
           "Iedereen die lid is van een keukenteam, ziet dezelfde recepten op zijn eigen telefoon, tablet of computer. Past de maker een recept aan, dan ziet het hele team meteen de nieuwe versie. Geen losse kopieën, geen oude printjes meer aan de muur."
         ],
         [
-          "Rollen: eigenaar, editor en viewer",
-          "De eigenaar beheert de map, de leden en hun rol. Een editor voegt recepten en mappen toe, haalt ze eruit en beheert de mappen. Een viewer bekijkt, print en rekent om. Een recept bewerken kan altijd alleen de maker van dat recept: zo verandert niemand per ongeluk andermans receptuur."
+          "Rollen: eigenaar, sous-chef en kok",
+          "De eigenaar beheert de map, de leden en hun rol. Een sous-chef voegt recepten en mappen toe, haalt ze eruit en beheert de mappen. Een kok bekijkt, print en rekent om. Een recept bewerken kan altijd alleen de maker van dat recept: zo verandert niemand per ongeluk andermans receptuur."
         ],
         [
           "Recepten toevoegen",
@@ -353,7 +353,7 @@ export const BLOG = [
         ],
         [
           "Je team uitnodigen",
-          "Nodig collega’s uit via WhatsApp, Telegram, e-mail of de uitnodigingslink. Na het inloggen worden ze lid als viewer; daarna geef je ze als eigenaar een andere rol. Lid zijn van een keukenteam is gratis, ook zonder Savour Pro."
+          "Nodig collega’s uit via WhatsApp, Telegram, e-mail of de uitnodigingslink. Bij het uitnodigen kies je of iemand sous-chef of kok wordt; als eigenaar pas je dat later altijd aan. Lid zijn van een keukenteam is gratis, ook zonder Savour Pro."
         ],
         [
           "Printen voor de klapper",
@@ -390,8 +390,8 @@ export const BLOG = [
           "Everyone who is a member of a kitchen team sees the same recipes on their own phone, tablet or computer. When the creator changes a recipe, the whole team sees the new version straight away. No loose copies, no old printouts on the wall."
         ],
         [
-          "Roles: owner, editor and viewer",
-          "The owner manages the folder, the members and their roles. An editor adds recipes and folders, removes them and manages the folders. A viewer can view, print and scale. Only the creator of a recipe can edit it, so nobody changes someone else’s recipe by accident."
+          "Roles: owner, sous-chef and cook",
+          "The owner manages the folder, the members and their roles. A sous-chef adds recipes and folders, removes them and manages the folders. A cook can view, print and scale. Only the creator of a recipe can edit it, so nobody changes someone else’s recipe by accident."
         ],
         [
           "Adding recipes",
@@ -403,7 +403,7 @@ export const BLOG = [
         ],
         [
           "Inviting your team",
-          "Invite colleagues via WhatsApp, Telegram, email or the invitation link. After logging in they join as a viewer; as the owner you can then give them another role. Being a member of a kitchen team is free, also without Savour Pro."
+          "Invite colleagues via WhatsApp, Telegram, email or the invitation link. When you invite someone, you choose whether they become a sous-chef or a cook; as the owner you can always change that later. Being a member of a kitchen team is free, also without Savour Pro."
         ],
         [
           "Printing for the binder",
@@ -827,7 +827,7 @@ export const BLOG = [
       lead: 'Een foto van een recept, doorgestuurd in de groepsapp, opnieuw gefotografeerd van een ander scherm. Herkenbaar. En niemand weet welke versie de goede is.',
       sections: [
         ['Een hele map delen', 'Maak een keukenteam, bijvoorbeeld “Saucier” of “Najaarsmenu”, en nodig je collega’s uit. Iedereen ziet dezelfde recepten, en een aanpassing staat direct bij iedereen.'],
-        ['Kies per persoon wat mag', 'Er zijn drie rollen. De eigenaar beheert de map. Een bewerker mag recepten toevoegen en aanpassen. Een kijker kan alles lezen, maar niets veranderen. Zo bepaal jij wie aan de recepturen komt.'],
+        ['Kies per persoon wat mag', 'Er zijn drie rollen. De eigenaar beheert de map. Een sous-chef mag recepten toevoegen en aanpassen. Een kok kan alles lezen, maar niets veranderen. Zo bepaal jij wie aan de recepturen komt.'],
         ['Eén recept doorsturen', 'Wil je één recept delen, bijvoorbeeld met een collega in een andere zaak of een leverancier? Deel het met een link. De ontvanger ziet het recept netjes, zonder account.'],
         ['Collega’s die meebouwen', 'Een keukenteam hoeft niet alleen van jou te komen. Geef je sous-chef bewerkrechten en laat het team zelf recepten toevoegen. Zo groeit het receptenboek mee met de keuken.'],
         ['Wat het kost', 'Lid zijn van een keukenteam is gratis. Zelf een keukenteam maken is onderdeel van Savour Pro. Met een teamabonnement krijgt iedereen in je keuken Pro.']
@@ -842,7 +842,7 @@ export const BLOG = [
       lead: 'A photo of a recipe, forwarded in the group chat, photographed again from another screen. Sounds familiar. And nobody knows which version is right.',
       sections: [
         ['Share a whole folder', 'Create a kitchen team, for example “Saucier” or “Autumn menu”, and invite your colleagues. Everyone sees the same recipes, and a change shows up for everyone straight away.'],
-        ['Choose what each person may do', 'There are three roles. The owner manages the folder. An editor can add and change recipes. A viewer can read everything but change nothing. You decide who touches the recipes.'],
+        ['Choose what each person may do', 'There are three roles. The owner manages the folder. A sous-chef can add and change recipes. A cook can read everything but change nothing. You decide who touches the recipes.'],
         ['Send a single recipe', 'Want to share one recipe, for example with a colleague at another restaurant or a supplier? Share it with a link. The recipient sees the recipe neatly, without an account.'],
         ['Colleagues who build along', 'A kitchen team does not have to come from you alone. Give your sous-chef edit rights and let the team add recipes themselves. The recipe book grows with the kitchen.'],
         ['What it costs', 'Being a member of a kitchen team is free. Creating a kitchen team yourself is part of Savour Pro. With a team plan everyone in your kitchen gets Pro.']

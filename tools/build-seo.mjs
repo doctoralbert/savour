@@ -29,6 +29,7 @@ import { EXTRA_FR, APP_PAGE_FR, DELIVER_FR, DELIVER_FLOW_FR, SERVICE_FR, KLADJE_
 import { stringsFr, patternsFr } from './vertalingen-fr.mjs';
 import { VERDIEPING } from './site-verdieping.mjs';
 import { VERDIEPING_TALEN } from './site-verdieping-talen.mjs';
+import { BLOG_RICH } from './site-blog-rich.mjs';
 import { APP_PAGE } from './site-app.mjs';
 import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
 import { DELIVER, DELIVER_FLOW } from './site-deliver.mjs';
@@ -248,6 +249,58 @@ for (const [id, extra] of Object.entries(VERDIEPING)) {
   if (!item) throw new Error(`Verdieping: pagina ${id} niet gevonden`);
   for (const [lang, sections] of Object.entries({ ...extra, ...VERDIEPING_TALEN[id] }))
     item[lang].sections.push(...sections);
+}
+// Uitgebreide opmaak per blogartikel (tools/site-blog-rich.mjs): In het kort, blokken bij secties en extra secties.
+// In de teksten staan links als code, zodat ze in elke taal naar het goede adres gaan: @post:<Engels adres>,
+// @feature:<id>, @service, @list en @demo; {lang} in een pad wordt de taal ("/assets/app/mappen-{lang}.jpg").
+const richNeed = (v, what) => {
+  if (!v) throw new Error(`Blog-opmaak: ${what} niet gevonden`);
+  return v;
+};
+const richLink = (s, lang) =>
+  s
+    .replace(/\{lang\}/g, lang)
+    .replace(/@post:([\w/-]+)/g, (_, slug) =>
+      href(
+        richNeed(
+          POSTS.find(q => q.en.slug === slug),
+          slug
+        )[lang].slug
+      )
+    )
+    .replace(/@feature:(\w+)/g, (_, id) =>
+      href(
+        richNeed(
+          FEATURES.find(f => f.id === id),
+          id
+        )[lang].slug
+      )
+    )
+    .replace(/@service\b/g, () => href(SERVICE[lang].feature.slug))
+    .replace(/@list\b/g, () => href(LIST_SLUGS[lang]))
+    .replace(/@demo\b/g, () => `${lang === 'nl' ? '/' : '/' + lang}?demo=1`);
+const richMap = (x, lang) =>
+  typeof x === 'string'
+    ? richLink(x, lang)
+    : Array.isArray(x)
+      ? x.map(y => richMap(y, lang))
+      : x && typeof x === 'object'
+        ? Object.fromEntries(Object.entries(x).map(([k, v]) => [k, richMap(v, lang)]))
+        : x;
+for (const [slug, langs] of Object.entries(BLOG_RICH)) {
+  const p = richNeed(
+    POSTS.find(q => q.en.slug === slug),
+    `blog ${slug}`
+  );
+  p.rich = true;
+  for (const [lang, raw] of Object.entries(langs)) {
+    const r = richMap(raw, lang);
+    const t = p[lang];
+    if (r.brief) t.brief = r.brief;
+    for (const [i, blocks] of Object.entries(r.extra || {}))
+      richNeed(t.sections[i], `${slug} sectie ${i}`).push(...blocks);
+    if (r.add) t.sections.push(...r.add);
+  }
 }
 
 // Beschrijving van de keukenfoto's, voor zoekmachines en schermlezers.
@@ -917,9 +970,11 @@ const articleAd = `<div class="site-ad"><ins class="adsbygoogle" style="display:
 // Een sectie is [kop, tekst] met eventueel als derde deel een opsomming (lijst met teksten) of een tabel
 // ({ head: [...], rows: [[...]] }). Tekst mag alinea's (witregel) en links ([tekst](https://… of /pad)) bevatten.
 const proseText = s =>
-  esc(s).replace(/\[([^\]]+)\]\(((?:https?:\/\/|\/)[^)\s]+)\)/g, (_, label, to) =>
-    /^https?:/.test(to) ? `<a href="${to}" rel="noopener">${label}</a>` : `<a href="${to}">${label}</a>`
-  );
+  esc(s)
+    .replace(/\[([^\]]+)\]\(((?:https?:\/\/|\/)[^)\s]+)\)/g, (_, label, to) =>
+      /^https?:/.test(to) ? `<a href="${to}" rel="noopener">${label}</a>` : `<a href="${to}">${label}</a>`
+    )
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 // Uitgebreide artikelen kunnen na de tekst ook blokken hebben die iets toevoegen (nooit alleen opvulling):
 //   { tip: [kop, tekst] }   een tip uit de keuken          { warn: [kop, tekst] }  iets om op te letten
 //   { quote: tekst }        de kernzin van het artikel     { shot: pad, alt, caption }  een echt scherm uit de app
@@ -933,7 +988,31 @@ const postBlock = x => {
       return `<aside class="post-box${kind === 'warn' ? ' note' : ''}"><svg viewBox="0 0 24 24" aria-hidden="true">${BOX_ICON[kind]}</svg><div><b>${esc(x[kind][0])}</b><p>${proseText(x[kind][1])}</p></div></aside>`;
   if (x.quote) return `<p class="post-quote reveal">${esc(x.quote)}</p>`;
   if (x.shot)
-    return `<figure class="post-shot reveal"><img src="${x.shot}" alt="${esc(x.alt)}" loading="lazy"><figcaption>${esc(x.caption)}</figcaption></figure>`;
+    return `<figure class="post-shot${x.wide ? ' wide' : ''} reveal"><img src="${x.shot}" alt="${esc(x.alt)}" loading="lazy"><figcaption>${esc(x.caption)}</figcaption></figure>`;
+  // Twee beelden naast elkaar: { duo: [[pad, alt], [pad, alt]], caption }
+  if (x.duo)
+    return `<figure class="post-duo reveal"><div>${x.duo.map(([src, alt]) => `<img src="${src}" alt="${esc(alt)}" loading="lazy">`).join('')}</div><figcaption>${esc(x.caption)}</figcaption></figure>`;
+  // Stappen: { steps: [[kop, tekst], ...] }
+  if (x.steps)
+    return `<ol class="post-steps">${x.steps.map(([h, d]) => `<li><b>${esc(h)}</b><span>${proseText(d)}</span></li>`).join('')}</ol>`;
+  // Checklist: { check: [tekst, ...], title }
+  if (x.check)
+    return `<div class="post-check">${x.title ? `<b>${esc(x.title)}</b>` : ''}<ul>${x.check.map(li => `<li>${proseText(li)}</li>`).join('')}</ul></div>`;
+  // Twee kanten naast elkaar: { compare: [[kop, [punten]], [kop, [punten]]] }
+  if (x.compare)
+    return `<div class="post-compare">${x.compare.map(([h, items], i) => `<div class="${i ? 'is-good' : ''}"><b>${esc(h)}</b><ul>${items.map(li => `<li>${proseText(li)}</li>`).join('')}</ul></div>`).join('')}</div>`;
+  // Eén getal dat het verhaal draagt: { fact: [getal, uitleg] }
+  if (x.fact)
+    return `<p class="post-fact reveal"><strong>${esc(x.fact[0])}</strong><span>${proseText(x.fact[1])}</span></p>`;
+  // Voorbeeld zoals het in een recept staat: { example: [kop, [regels]] }
+  if (x.example)
+    return `<div class="post-example"><b>${esc(x.example[0])}</b><div translate="no">${x.example[1].map(l => `<p>${proseText(l)}</p>`).join('')}</div></div>`;
+  // Vragen en antwoorden: { faq: [[vraag, antwoord], ...] }
+  if (x.faq)
+    return `<div class="site-faq post-faq">${x.faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${proseText(a)}</p></details>`).join('')}</div>`;
+  // Verwijzing naar een pagina of artikel: { see: [kop, pad, tekst] }
+  if (x.see)
+    return `<a class="post-see" href="${x.see[1]}"><b>${esc(x.see[0])}</b><span>${esc(x.see[2])}</span><i aria-hidden="true">→</i></a>`;
   return null;
 };
 const sectionExtra = x =>

@@ -375,8 +375,8 @@ export const ES = {
           "Todos los miembros de un equipo de cocina ven las mismas recetas en su propio móvil, tableta u ordenador. Si el autor cambia una receta, toda el equipo ve enseguida la nueva versión. Sin copias sueltas ni impresiones viejas en la pared."
         ],
         [
-          "Roles: propietario, editor y lector",
-          "El propietario gestiona la carpeta, los miembros y sus roles. Un editor añade recetas y carpetas, las quita y gestiona las carpetas. Un lector puede ver, imprimir y escalar. Solo el autor de una receta puede editarla, así nadie cambia por error la receta de otro."
+          "Roles: propietario, segundo de cocina y cocinero",
+          "El propietario gestiona la carpeta, los miembros y sus roles. Un segundo de cocina añade recetas y carpetas, las quita y gestiona las carpetas. Un cocinero puede ver, imprimir y escalar. Solo el autor de una receta puede editarla, así nadie cambia por error la receta de otro."
         ],
         [
           "Añadir recetas",
@@ -388,7 +388,7 @@ export const ES = {
         ],
         [
           "Invitar a tu equipo",
-          "Invita a tus compañeros por WhatsApp, Telegram, correo o el enlace de invitación. Al iniciar sesión se unen como lector; después, como propietario, puedes darles otro rol. Ser miembro de un equipo de cocina es gratis, también sin Savour Pro."
+          "Invita a tus compañeros por WhatsApp, Telegram, correo o el enlace de invitación. Al invitar eliges si alguien será segundo de cocina o cocinero; como propietario puedes cambiarlo siempre más tarde. Ser miembro de un equipo de cocina es gratis, también sin Savour Pro."
         ],
         [
           "Imprimir para el archivador",
@@ -468,7 +468,7 @@ export const ES = {
       lead: 'La foto de una receta, reenviada en el grupo, fotografiada otra vez desde otra pantalla. Te suena. Y nadie sabe qué versión es la buena.',
       sections: [
         ['Comparte una carpeta entera', 'Crea un equipo de cocina, por ejemplo «Salsas» o «Menú de otoño», e invita a tus compañeros. Todos ven las mismas recetas y un cambio aparece al momento para todos.'],
-        ['Elige qué puede hacer cada uno', 'Hay tres roles. El propietario gestiona la carpeta. Un editor puede añadir y cambiar recetas. Un lector puede verlo todo, pero no cambiar nada. Tú decides quién toca las recetas.'],
+        ['Elige qué puede hacer cada uno', 'Hay tres roles. El propietario gestiona la carpeta. Un segundo de cocina puede añadir y cambiar recetas. Un cocinero puede verlo todo, pero no cambiar nada. Tú decides quién toca las recetas.'],
         ['Envía una receta suelta', '¿Quieres compartir una receta, por ejemplo con un compañero de otro restaurante o un proveedor? Compártela con un enlace. Quien la recibe la ve limpia, sin cuenta.'],
         ['Compañeros que construyen contigo', 'Un equipo de cocina no tiene por qué venir solo de ti. Da permiso de edición a tu segundo y deja que el equipo añada recetas. El recetario crece con la cocina.'],
         ['Lo que cuesta', 'Ser miembro de un equipo de cocina es gratis. Crear tú un equipo de cocina forma parte de Savour Pro. Con un plan de equipo todos en tu cocina tienen Pro.']
