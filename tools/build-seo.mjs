@@ -20,6 +20,7 @@ import {
   LIST_PAGE,
   LIST_SLUGS
 } from './site-blog-allergenen.mjs';
+import { NUMBERS_POST, NUMBERS_POST_DE, NUMBERS_POST_ES, NUMBERS_POST_FR } from './site-blog-cijfers.mjs';
 import { TEMP_POSTS_ES } from './site-blog-temperaturen-es.mjs';
 import { TEMP_POSTS_FR } from './site-blog-temperaturen-fr.mjs';
 import { DE } from './site-pages-de.mjs';
@@ -50,6 +51,9 @@ Object.assign(FR.posts, TEMP_POSTS_FR);
 Object.assign(DE.posts, ALLERGEN_POST_DE);
 Object.assign(ES.posts, ALLERGEN_POST_ES);
 Object.assign(FR.posts, ALLERGEN_POST_FR);
+Object.assign(DE.posts, NUMBERS_POST_DE);
+Object.assign(ES.posts, NUMBERS_POST_ES);
+Object.assign(FR.posts, NUMBERS_POST_FR);
 EXTRA_LANGS.fr = EXTRA_FR;
 APP_PAGE.fr = APP_PAGE_FR;
 DELIVER.fr = DELIVER_FR;
@@ -58,7 +62,7 @@ SERVICE.fr = SERVICE_FR;
 KLADJE_REAL.fr = KLADJE_FR;
 
 // Nieuwste blogartikelen eerst.
-POSTS.unshift(ALLERGEN_POST, ...BLOG);
+POSTS.unshift(NUMBERS_POST, ALLERGEN_POST, ...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
 // Achtergrondfoto achter de bovenkant van de homepage. Alleen als het bestand bestaat; zonder bestand is de
