@@ -344,6 +344,12 @@ const FAMILY_KNOWN = [
   ['Cornichons', [], 'cornichon, chornison, cornichon zuur'],
   ['Sojasaus', ['gluten', 'soja'], 'sojasaus, soja saus, soya saus, soy sauce, kikkoman, kikoman, kikkoman soja'],
   ['Oestersaus', ['weekdieren', 'gluten', 'soja'], 'oestersaus, oyster sauce, oystersauce'],
+  [
+    'Worcestersaus',
+    ['vis'],
+    'worcestersaus, worcester saus, worcestershiresaus, worcestershire saus, worcestershire sauce, worcester sauce, ' +
+      'worcestersauce, worchestersaus, worchester saus, lea perrins, lea en perrins'
+  ],
   ['Trasi', ['schaaldieren'], 'trasi, terasi, belacan, garnalenpasta'],
   ['Kimchi', ['vis', 'schaaldieren'], 'kimchi'],
   ['Tom yam pasta', ['schaaldieren', 'vis'], 'tom yam, tom yum, tom yam pasta'],
@@ -489,13 +495,13 @@ function familyCoreWords(key, withColor = false) {
 // amandellikeur (alcohol) blijft apart, anders krijgt Amandel een allergeen dat er niet in zit.
 // [naam, allergenen, herkenning op de naam]
 const FAMILY_HEADS = [
-  // Bouillons en fonds: één product per soort, vóór het vlees zelf.
+  // Bouillons en fonds: één product per soort, vóór het vlees zelf. Kippenbouillon en kippenfond vallen onder Kip;
+  // kippenbouillonpasta blijft apart door FODMAP.
   [
     'Groentebouillon',
     [],
     /^(basis )?groenten?\s?(bouillon|fond)|^groente bouillon|vegetable stock|^basis bouillon$|^bouillon groente/
   ],
-  ['Kippenbouillon', ['gevogelte'], /^(kip|kippen)\s?(bouillon|fond|consomm)|chicken stock/],
   ['Gevogeltebouillon', ['gevogelte'], /^gevogelte\s?(bouillon|fond)|bouillon de volaille|fond de volaille/],
   ['Runderbouillon', ['rundvlees'], /^(rund|runder)\s?(bouillon|fond)|beef stock/],
   ['Visbouillon', ['vis'], /^vis\s?(bouillon|fond|fumet)|^visfumet|fumet de poisson|fish stock/],
@@ -557,8 +563,9 @@ const FAMILY_HEADS = [
 ];
 // Blijft een eigen product, ook als het hoofdingrediënt erin zit: olie, azijn, drank.
 const FAMILY_HEAD_APART = /olie|azijn|likeur|wijn|bier|beer|thee|zuurkool|chorizo|worst/;
-// Kenmerken die niet tellen bij "dezelfde allergenen": een poeder of pasta kan FODMAP of histamine erbij hebben.
-const FAMILY_SOFT_ALLERGENS = new Set(['fodmap', 'histamine']);
+// Kenmerken die niet tellen bij "dezelfde allergenen": gerookt of gedroogd kan histamine erbij hebben. FODMAP telt
+// wel: amandelpasta en kippenbouillonpasta blijven een eigen product, anders krijgt Amandel of Kip FODMAP erbij.
+const FAMILY_SOFT_ALLERGENS = new Set(['histamine']);
 
 // Mag een product met deze allergenen onder het hoofdproduct?
 function headFits(fam, allergens) {

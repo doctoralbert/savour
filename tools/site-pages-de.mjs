@@ -274,8 +274,8 @@ export const DE = {
           'Passe eine Sauce für das neue Menü an, und alle im Küchenteam arbeiten sofort mit der neuen Version.'
         ],
         [
-          'Rechte pro Person',
-          'Du verwaltest den Ordner. Dein Sous-Chef oder Chef de Partie kann Rezepte hinzufügen und bearbeiten. Commis und Praktikanten können lesen, aber nichts ändern.'
+          'Drei Rollen, wie in der Küche',
+          'Es gibt einen Eigentümer, der das Küchenteam verwaltet, genau wie der Küchenchef. Sous-Chefs stellen neue Gerichte ein und passen Rezepte an. Köche lesen am Posten mit, ohne aus Versehen etwas zu löschen.'
         ],
         [
           'Auf dem eigenen Handy',

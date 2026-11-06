@@ -518,8 +518,15 @@ function computeProductKey(text) {
     (w, i) => i > 0 && /^[\d½⅓⅔¼¾⅛⅜⅝⅞]/.test(w) && !/^(type|tipo|nr\.?|no\.?|nummer)$/.test(words[i - 1])
   );
   if (cut > 0) s = words.slice(0, cut).join(' ');
+  // "butter = 10 grams of moisture" wordt pas na het afknippen "butter =": ook dan het "=" weg, zodat de sleutel
+  // van een regel en die van een opgeslagen schrijfwijze altijd gelijk zijn.
   for (let i = 0; i < 3; i++) {
-    const next = s.replace(PRODUCT_PREP_WORDS, ' ').replace(/\s+/g, ' ').trim().replace(PRODUCT_TRAILING_WORDS, '');
+    const next = s
+      .replace(PRODUCT_PREP_WORDS, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .replace(PRODUCT_TRAILING_WORDS, '')
+      .replace(/\s*[=:]+$/, '');
     if (!next || next === s) break;
     s = next;
   }

@@ -50,6 +50,22 @@ const recipeForName = (byTitle, key) =>
   byTitle.get(compactKey(key)) ||
   byTitle.get(compactKey(RECIPE_ABBREVIATIONS[key] || key.replace(/^(recept|receptuur)\s+/, '')));
 
+// Wat koppelen aan een eigen recept zou doen voor een naam: linkable = er is een regel die het recept krijgt,
+// stuck = er is een regel die het niet krijgt (in het recept zelf, of de kok koos al iets anders).
+function recipeLinkReach(scope, key, recipe) {
+  let linkable = false;
+  let stuck = false;
+  for (const r of recipesForProductScope(scope)) {
+    if (r.teamId) continue;
+    for (const line of r.ingredients || []) {
+      if (recipePartName(line) || ingredientKey(line) !== key) continue;
+      if (String(r.id) === String(recipe.id) || ingredientNameOf(line).toLowerCase() in (r.links || {})) stuck = true;
+      else linkable = true;
+    }
+  }
+  return { linkable, stuck };
+}
+
 // Bestaande producten per familie. Een product dat zelf de naam van de familie heeft ("Boerenkool") gaat voor.
 function productsByFamily(scope) {
   const map = new Map();
@@ -116,9 +132,16 @@ function autoLinkPlan(scope) {
   };
   const plan = { recipe: [], product: [], create: new Map(), rest: [], generic: [] };
   const create = (fam, x, allergens) => {
-    const id = fam?.key || compactKey(x.key);
+    let id = fam?.key || compactKey(x.key);
+    let name = fam?.name || capitalizeFirst(x.key);
+    // Bestaat er al een product met die naam dat niet past (ander allergeen), dan heet het nieuwe product naar de
+    // naam zelf: nooit twee producten "Kip".
+    if (byCompact.has(compactKey(productKey(name)))) {
+      id = compactKey(x.key);
+      name = capitalizeFirst(x.key);
+    }
     const c = plan.create.get(id) || {
-      name: fam?.name || capitalizeFirst(x.key),
+      name,
       keys: [],
       allergens: new Set(),
       count: 0
@@ -140,8 +163,11 @@ function autoLinkPlan(scope) {
     }
     const recipe = recipeForName(byTitle, key);
     if (recipe) {
-      plan.recipe.push({ ...x, recipe });
-      continue;
+      // Een regel in het recept zelf ("500 gram couscous" in recept Couscous) of waar de kok al iets koos (ook "niet
+      // koppelen") wordt geen koppeling. Voor die regels zoekt Savour een product; anders blijft de naam eeuwig staan.
+      const { linkable, stuck } = recipeLinkReach(scope, key, recipe);
+      if (linkable) plan.recipe.push({ ...x, recipe });
+      if (!stuck) continue;
     }
     // Nooit koppelen aan een product zonder een allergeen dat de naam doet vermoeden: "pinda olie" is geen olie.
     const hints = allergensEu(allergenHints(key));
@@ -241,7 +267,14 @@ async function openAutoLink() {
   el.querySelector('[data-ok]').addEventListener('click', async ev => {
     ev.target.disabled = true;
     ev.target.textContent = t('Bezig met koppelen…');
-    const done = await runAutoLink(scope, plan, creates);
+    // Gaat er onderweg iets mis, dan sluit het venster toch: wat al gekoppeld is, blijft gekoppeld.
+    let done = 0;
+    try {
+      done = await runAutoLink(scope, plan, creates);
+    } catch (err) {
+      console.warn('Automatisch koppelen:', err);
+      toast('Niet alles kon gekoppeld worden; probeer het opnieuw');
+    }
     close();
     if (done) toast(`${done} namen gekoppeld`);
     renderProducts();
@@ -314,14 +347,39 @@ function foreignAlias(alias, p, byWord) {
 function productCleanupPlan(scope) {
   const byTitle = ownRecipesByTitle(scope);
   const byWord = productsByWord(scope);
-  const plan = { recipe: [], split: [], merge: [], remove: [], fix: [] };
+  const plan = { recipe: [], apart: [], split: [], merge: [], remove: [], fix: [] };
   const clusters = new Map();
   const touched = new Set();
-  for (const p of productsIn(scope)) {
+  for (const original of productsIn(scope)) {
+    let p = original;
     const recipe = recipeForName(byTitle, productKey(p.name));
     if (recipe) {
       plan.recipe.push({ product: p, recipe });
       continue;
+    }
+    // Een schrijfwijze met een eigen allergeen onder een hoofdproduct ("amandel pasta": FODMAP, onder Amandel) wordt
+    // een eigen product. Wat alleen die naam meebracht, gaat er bij het hoofdproduct af. Daarna telt het product
+    // zonder die schrijfwijze, ook bij het samenvoegen.
+    const head = productFamily(p.name);
+    if (head?.kind === 'head') {
+      const out = p.aliases.filter(
+        a => productFamily(a)?.key === head.key && productFamilyFor(a, allergenHints(a))?.key !== head.key
+      );
+      if (out.length) {
+        const aliases = p.aliases.filter(a => !out.includes(a));
+        const expected = new Set(
+          withDerived(productKey(p.name), [
+            ...head.allergens,
+            ...allergenKeywords(p.name),
+            ...aliases.flatMap(allergenHints)
+          ])
+        );
+        const outHints = new Set(out.flatMap(allergenHints));
+        const allergens = p.allergens.filter(a => expected.has(a) || !outHints.has(a));
+        p = { ...p, aliases, allergens };
+        plan.apart.push({ product: p, out, removed: original.allergens.filter(a => !allergens.includes(a)) });
+        touched.add(p.id);
+      }
     }
     const f = productFamilyFor(p.name, p.allergens);
     const vague = f?.kind === 'junk' || f?.kind === 'generic';
@@ -413,7 +471,13 @@ function openProductCleanup() {
   const scope = productScope;
   if (!canEditProducts(scope)) return;
   const plan = productCleanupPlan(scope);
-  const total = plan.recipe.length + plan.split.length + plan.merge.length + plan.remove.length + plan.fix.length;
+  const total =
+    plan.recipe.length +
+    plan.apart.length +
+    plan.split.length +
+    plan.merge.length +
+    plan.remove.length +
+    plan.fix.length;
   if (!total) {
     toast('Je producten zijn al netjes');
     return;
@@ -455,6 +519,13 @@ function openProductCleanup() {
       `<b translate="no">${esc(x.product.name)}</b>${added.length ? `<small class="cleanup-add">+ ${esc(allergenNames(added))}</small>` : ''}${removed.length ? `<small class="cleanup-remove">− ${esc(allergenNames(removed))}</small>` : ''}`
     );
   });
+  const aparts = plan.apart.map((x, i) =>
+    check(
+      'apart',
+      i,
+      `<span translate="no">${esc(x.out.join(', '))}</span><span class="autolink-arrow">→</span><b>${t('eigen product')}</b><small translate="no">${esc(t('uit'))} ${esc(x.product.name)}${x.removed.length ? ` · − ${esc(allergenNames(x.removed))}` : ''}</small>`
+    )
+  );
   const removes = plan.remove.map((x, i) => check('remove', i, `<b translate="no">${esc(x.product.name)}</b>`));
   document.getElementById('productCleanup')?.remove();
   document.body.insertAdjacentHTML(
@@ -463,6 +534,10 @@ function openProductCleanup() {
       'producten uit elkaar halen',
       splits,
       'Namen die bij een ander product horen, gaan naar dat product. Bestaat het nog niet, dan maakt Savour het.'
+    )}${section(
+      'schrijfwijzen worden een eigen product',
+      aparts,
+      'Deze namen hebben een allergeen dat het hoofdproduct niet heeft, zoals FODMAP in amandelpasta of alcohol in likeur. Ze worden een eigen product; wat alleen die naam meebracht, gaat bij het hoofdproduct af.'
     )}${section(
       'producten samenvoegen',
       merges,
@@ -486,6 +561,7 @@ function openProductCleanup() {
       [...el.querySelectorAll(`input[data-kind="${kind}"]:checked`)].map(b => plan[kind][Number(b.dataset.i)]);
     const picked = {
       recipe: chosen('recipe'),
+      apart: chosen('apart'),
       split: chosen('split'),
       merge: chosen('merge'),
       fix: chosen('fix'),
@@ -514,6 +590,48 @@ async function runProductCleanup(scope, plan) {
     for (const n of [x.product.name, ...x.product.aliases]) if (productKey(n)) links.set(productKey(n), x.recipe);
   await linkNamesToRecipes(scope, links);
   await inBatches(plan.recipe, x => deleteProduct(x.product));
+  // 1b. Schrijfwijzen met een eigen allergeen: eerst het eigen product (of erbij bij een product dat er al is), pas
+  // daarna weg bij het hoofdproduct. Wordt het hoofdproduct ook samengevoegd, dan doet stap 2 dat laatste.
+  const merged = new Set(plan.merge.flatMap(x => x.members.map(p => p.id)));
+  for (const x of plan.apart) {
+    const groups = new Map();
+    for (const a of x.out) {
+      const fam = productFamilyFor(a, allergenHints(a));
+      const g = groups.get(fam.key) || { fam, aliases: [] };
+      g.aliases.push(a);
+      groups.set(fam.key, g);
+    }
+    let ok = true;
+    const byFamily = productsByFamily(scope);
+    const rows = [];
+    for (const { fam, aliases } of groups.values()) {
+      const hints = aliases.flatMap(allergenHints);
+      const target = byFamily.get(fam.key);
+      if (target && target.id !== x.product.id) {
+        const allergens = withDerived(productKey(target.name), [...target.allergens, ...hints]).filter(
+          a => target.allergens.includes(a) || allergenShown(a, scope)
+        );
+        const all = [...new Set([...target.aliases, ...aliases])].slice(0, 500);
+        if (!(await writeProduct({ ...target, aliases: all, allergens }))) ok = false;
+      } else {
+        const key = productKey(fam.name);
+        rows.push({
+          scope,
+          name: fam.name,
+          aliases: aliases.filter(a => productKey(a) !== key),
+          allergens: withDerived(key, [...fam.allergens, ...allergenKeywords(fam.name), ...hints]).filter(a =>
+            allergenShown(a, scope)
+          ),
+          known: true,
+          note: ''
+        });
+      }
+    }
+    if (rows.length && !(await insertProducts(rows))) ok = false;
+    if (!ok) continue;
+    if (!merged.has(x.product.id)) await writeProduct(x.product);
+    done++;
+  }
   // 2. Samenvoegen: eerst het ene product bijwerken, pas daarna de andere weghalen.
   await inBatches(plan.merge, async x => {
     const saved = await writeProduct({

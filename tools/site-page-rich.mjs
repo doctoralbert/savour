@@ -16,11 +16,6 @@ export const PAGE_RICH = {
         ['Opzeggen wanneer je wilt', 'Je houdt Pro tot het einde van de betaalde periode.'],
         ['Je recepten blijven', 'Stop je met Pro, dan blijft alles gewoon staan.']
       ],
-      facts: [
-        ['€0', 'tot 100 recepten, voor altijd'],
-        ['€2,99', 'per maand voor Savour Pro'],
-        ['€1,20', 'per persoon per maand met Team 25']
-      ],
       showcase: [
         shot(
           'print',
@@ -41,11 +36,6 @@ export const PAGE_RICH = {
         ['Try first', '7 days of Savour Pro free, without payment details.'],
         ['Cancel whenever you like', 'You keep Pro until the end of the paid period.'],
         ['Your recipes stay', 'If you stop Pro, everything simply stays.']
-      ],
-      facts: [
-        ['€0', 'up to 100 recipes, forever'],
-        ['€2.99', 'a month for Savour Pro'],
-        ['€1.20', 'per person a month with Team 25']
       ],
       showcase: [
         shot(
@@ -68,11 +58,6 @@ export const PAGE_RICH = {
         ['Kündigen, wann du willst', 'Du behältst Pro bis zum Ende des bezahlten Zeitraums.'],
         ['Deine Rezepte bleiben', 'Beendest du Pro, bleibt alles einfach erhalten.']
       ],
-      facts: [
-        ['0 €', 'bis 100 Rezepte, für immer'],
-        ['2,99 €', 'pro Monat für Savour Pro'],
-        ['1,20 €', 'pro Person und Monat mit Team 25']
-      ],
       showcase: [
         shot(
           'print',
@@ -94,11 +79,6 @@ export const PAGE_RICH = {
         ['Date de baja cuando quieras', 'Mantienes Pro hasta el final del periodo pagado.'],
         ['Tus recetas se quedan', 'Si dejas Pro, todo se queda como estaba.']
       ],
-      facts: [
-        ['0 €', 'hasta 100 recetas, para siempre'],
-        ['2,99 €', 'al mes por Savour Pro'],
-        ['1,20 €', 'por persona al mes con Team 25']
-      ],
       showcase: [
         shot(
           'print',
@@ -119,11 +99,6 @@ export const PAGE_RICH = {
         ['Essayer d’abord', '7 jours de Savour Pro gratuits, sans données de paiement.'],
         ['Résilier quand tu veux', 'Tu gardes Pro jusqu’à la fin de la période payée.'],
         ['Tes recettes restent', 'Si tu arrêtes Pro, tout reste en place.']
-      ],
-      facts: [
-        ['0 €', 'jusqu’à 100 recettes, pour toujours'],
-        ['2,99 €', 'par mois pour Savour Pro'],
-        ['1,20 €', 'par personne et par mois avec Team 25']
       ],
       showcase: [
         shot(
@@ -147,7 +122,7 @@ export const PAGE_RICH = {
       facts: [
         ['15', 'jaar in de keuken, voordat Savour er was'],
         ['1.400', 'recepten uit Word in ongeveer twee minuten'],
-        ['€2,99', 'per maand, zodat elke kok het kan betalen']
+        ['5', 'talen: Nederlands, Engels, Duits, Spaans en Frans']
       ],
       showcase: [
         photo(
@@ -182,7 +157,7 @@ export const PAGE_RICH = {
       facts: [
         ['15', 'years in the kitchen before Savour existed'],
         ['1,400', 'recipes from Word in about two minutes'],
-        ['€2.99', 'a month, so every cook can afford it']
+        ['5', 'languages: Dutch, English, German, Spanish and French']
       ],
       showcase: [
         photo(
@@ -217,7 +192,7 @@ export const PAGE_RICH = {
       facts: [
         ['15', 'Jahre in der Küche, bevor es Savour gab'],
         ['1.400', 'Rezepte aus Word in etwa zwei Minuten'],
-        ['2,99 €', 'pro Monat, damit es sich jeder Koch leisten kann']
+        ['5', 'Sprachen: Niederländisch, Englisch, Deutsch, Spanisch und Französisch']
       ],
       showcase: [
         photo(
@@ -252,7 +227,7 @@ export const PAGE_RICH = {
       facts: [
         ['15', 'años en la cocina antes de que existiera Savour'],
         ['1.400', 'recetas de Word en unos dos minutos'],
-        ['2,99 €', 'al mes, para que cualquier cocinero pueda pagarlo']
+        ['5', 'idiomas: neerlandés, inglés, alemán, español y francés']
       ],
       showcase: [
         photo(
@@ -284,7 +259,7 @@ export const PAGE_RICH = {
       facts: [
         ['15', 'ans en cuisine avant que Savour n’existe'],
         ['1 400', 'recettes depuis Word en environ deux minutes'],
-        ['2,99 €', 'par mois, pour que chaque cuisinier puisse se l’offrir']
+        ['5', 'langues : néerlandais, anglais, allemand, espagnol et français']
       ],
       showcase: [
         photo(

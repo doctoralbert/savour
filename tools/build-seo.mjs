@@ -20,6 +20,7 @@ import {
   LIST_PAGE,
   LIST_SLUGS
 } from './site-blog-allergenen.mjs';
+import { NUMBERS_POST, NUMBERS_POST_DE, NUMBERS_POST_ES, NUMBERS_POST_FR } from './site-blog-cijfers.mjs';
 import { TEMP_POSTS_ES } from './site-blog-temperaturen-es.mjs';
 import { TEMP_POSTS_FR } from './site-blog-temperaturen-fr.mjs';
 import { DE } from './site-pages-de.mjs';
@@ -52,6 +53,9 @@ Object.assign(FR.posts, TEMP_POSTS_FR);
 Object.assign(DE.posts, ALLERGEN_POST_DE);
 Object.assign(ES.posts, ALLERGEN_POST_ES);
 Object.assign(FR.posts, ALLERGEN_POST_FR);
+Object.assign(DE.posts, NUMBERS_POST_DE);
+Object.assign(ES.posts, NUMBERS_POST_ES);
+Object.assign(FR.posts, NUMBERS_POST_FR);
 EXTRA_LANGS.fr = EXTRA_FR;
 APP_PAGE.fr = APP_PAGE_FR;
 DELIVER.fr = DELIVER_FR;
@@ -60,7 +64,7 @@ SERVICE.fr = SERVICE_FR;
 KLADJE_REAL.fr = KLADJE_FR;
 
 // Nieuwste blogartikelen eerst.
-POSTS.unshift(ALLERGEN_POST, ...BLOG);
+POSTS.unshift(NUMBERS_POST, ALLERGEN_POST, ...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
 // Achtergrondfoto achter de bovenkant van de homepage. Alleen als het bestand bestaat; zonder bestand is de
@@ -550,6 +554,11 @@ function kladje(lang) {
 <figcaption>${esc(k.caption)}</figcaption></figure>`;
 }
 
+// Functies onder een voor-wie-pagina: wat voor die lezer het meest telt, per pagina anders.
+const AUDIENCE_FEATURES = {
+  chefs: ['digitise', 'scale', 'cloud', 'inladen'],
+  brigade: ['share', 'organise', 'print']
+};
 const rows = (items, lang) =>
   `<ul class="site-rows">${items
     .map(x => {
@@ -1118,7 +1127,10 @@ for (const lang of LANGS) {
   // Functies
   for (const f of FEATURES) {
     const t = f[lang];
-    const others = FEATURES.filter(x => x !== f && !x.soon);
+    // Ook interessant: de drie functies die na deze komen, zodat niet elke pagina dezelfde drie toont.
+    const live = FEATURES.filter(x => !x.soon);
+    const at = live.indexOf(f);
+    const others = [1, 2, 3].map(n => live[(at + n + live.length) % live.length]).filter(x => x !== f);
     page({
       lang,
       slugs: slugsOf(f),
@@ -1164,7 +1176,7 @@ for (const lang of LANGS) {
         featureBand(a.id, lang) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${photoDuo(lang, ...(a.nl.slug === 'voor-koks' ? ['wortels', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>${featureShow(a.id, lang)}${featureFaq(a.id, lang)}
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.features}</h2>${rows(
-          FEATURES.filter(x => !x.soon),
+          FEATURES.filter(x => (AUDIENCE_FEATURES[a.id] || []).includes(x.id)),
           lang
         )}</div></section>`
     });
@@ -1181,7 +1193,7 @@ for (const lang of LANGS) {
       body: c =>
         pageTop(c, s.h1, s.lead, PAGE_PHOTO[STORY.nl.slug]) +
         featureFacts('about', lang) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${aboutChapters(s, lang)}</div></article>${featureShow('about', lang)}${featureFaq('about', lang)}
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${aboutChapters(s, lang)}</div></article>${featureFaq('about', lang)}
 <section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(s.valuesTitle)}</h2><div class="site-values">${s.values.map(([t, d]) => `<div><h3>${esc(t)}</h3><p>${esc(d)}</p></div>`).join('')}</div></div></section>`
     });
   }

@@ -418,7 +418,7 @@ export const AUDIENCES = [
       lead: 'Van chef de partie tot stagiair: je hele keukenteam kookt van hetzelfde recept, in elk restaurant en elke horecazaak waar je werkt.',
       sections: [
         ['Eén versie voor iedereen', 'Pas je een saus aan voor het nieuwe menu, dan werkt iedereen in het keukenteam direct met de nieuwe versie.'],
-        ['Rechten per persoon', 'Jij beheert de map. Je sous-chef of chef de partie mag recepten toevoegen en aanpassen. Commis en stagiairs kunnen meekijken, maar niets veranderen.'],
+        ['Drie rollen, zoals in de keuken', 'Er is één eigenaar die het keukenteam beheert, net als de chef. Sous-chefs zetten nieuwe gerechten erin en passen recepten aan. Koks lezen mee op de werkvloer, zonder per ongeluk iets te wissen.'],
         ['Op je eigen telefoon', 'Geen receptenmap met vlekken meer. Elk lid van het team opent de recepten van de partie op de eigen telefoon, met grote letters in de kookmodus.'],
         ['Nieuwe mensen sneller ingewerkt', 'Stagiairs en nieuwe koks lezen hoe het hier gedaan wordt, in plaats van het te moeten vragen tijdens de service. Lid zijn van een keukenteam is gratis; met een teamabonnement krijgt iedereen Savour Pro.']
       ]
@@ -433,7 +433,7 @@ export const AUDIENCES = [
       lead: 'From chef de partie to intern: your whole kitchen team cooks from the same recipe, in every restaurant you run.',
       sections: [
         ['One version for everyone', 'Adjust a sauce for the new menu and everyone in the kitchen team works with the new version straight away.'],
-        ['Rights per person', 'You manage the folder. Your sous-chef or chef de partie can add and edit recipes. Commis and interns can view but not change anything.'],
+        ['Three roles, like in the kitchen', 'One owner runs the kitchen team, just like the chef. Sous-chefs add new dishes and edit recipes. Cooks read along on the line without accidentally deleting anything.'],
         ['On your own phone', 'No more shared binder full of stains. Every member of the brigade opens the section’s recipes on their own phone, with large text in cook mode.'],
         ['New people up to speed faster', 'Interns and new cooks read how things are done here, instead of having to ask during service. Being a member of a kitchen team is free; with a team plan everyone gets Savour Pro.']
       ]
