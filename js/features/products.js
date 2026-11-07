@@ -139,6 +139,8 @@ const ALLERGEN_HINTS = [
     ['sulfiet']
   ],
   [/lupine|lupin/, ['lupine']],
+  // Gelatine is van varken of rund (soms vis): beide als voorstel, de kok klikt weg wat niet bij zijn merk past.
+  [/gelatine|gelatina|g[eé]latine|galatine/, ['varkensvlees', 'rundvlees']],
   [
     /varken|spek|(^|[^a-zà-ÿ])ham($|[^a-zà-ÿ])|chorizo|pancetta|lardo|guanciale|prosciutto|serrano|pata negra|salami|bacon|reuzel|pork|worst|saucijs/,
     ['varkensvlees']
@@ -423,8 +425,12 @@ function loadIngredientBase() {
           const headKey = x.head ? productKey(x.head) : '';
           const nameKey = productKey(x.name);
           const item = [(x.allergens || []).join(','), x.name, '', '', '', '', 0, 'lijst'];
+          // Goedgekeurd door de beheerder gaat voor de vaste lijsten: "gelatine" is dan wat Savour zelf vastlegde,
+          // niet de naam uit Open Food Facts zonder allergenen.
           for (const k of [x.key, nameKey, ...(x.aliases || []).map(productKey)])
-            if (k && !index.has(k)) {
+            if (k) {
+              main.delete(k);
+              alias.delete(k);
               index.set(k, item);
               if (headKey && k !== headKey) alias.set(k, headKey);
               else if (!headKey && nameKey && k !== nameKey) main.set(k, nameKey);
@@ -875,7 +881,13 @@ function renderRecipeAllergens(r) {
   const open = info.unknown.length
     ? `<p class="rp-allergens-open">${icon('alert', { size: 14 })}<span>Nog niet compleet: ${info.unknown.length} ${info.unknown.length === 1 ? 'ingrediënt' : 'ingrediënten'} zonder gecontroleerde allergenen.</span></p>`
     : '';
-  host.innerHTML = `<aside class="rp-allergens"><div class="rp-side-note-head"><span>Allergenen</span><button type="button" onclick="openRecipeAllergenCheck()">${edit ? 'Controleren' : 'Details'}</button></div>${body}${open}</aside>`;
+  // Dicht: alleen het woord Allergenen met het aantal; open: alles. De keuze blijft bewaard in deze browser.
+  const count = info.allergens.length;
+  const summary = info.unknown.length
+    ? `<small class="is-open">${t('nog niet compleet')}</small>`
+    : `<small>${count ? (count === 1 ? t('1 allergeen') : t(`${count} allergenen`)) : t('geen van de 14')}</small>`;
+  const expanded = recipeAllergensOpen();
+  host.innerHTML = `<aside class="rp-allergens is-fold${expanded ? ' is-expanded' : ''}"><button type="button" class="rp-allergens-toggle" aria-expanded="${expanded}" onclick="toggleRecipeAllergens()"><span>Allergenen</span>${summary}<i aria-hidden="true">${expanded ? '−' : '+'}</i></button><div class="rp-allergens-body"${expanded ? '' : ' hidden'}>${body}${open}<p class="rp-allergens-links"><button type="button" class="btn-quiet" onclick="openAllergenCard()">Allergenenkaart</button><button type="button" class="btn-quiet" onclick="openRecipeAllergenCheck()">${edit ? 'Controleren' : 'Details'}</button></p></div></aside>`;
 }
 
 // Venster per recept: elke ingrediëntregel met het product (of basisrecept) en de allergenen.

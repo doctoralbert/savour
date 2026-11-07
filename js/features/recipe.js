@@ -84,6 +84,9 @@ function openRecipe(id, context = 'library') {
       ingredients.length &&
       `<button type="button" onclick="openIngredientLinks()">${icon('book')}Koppelen aan recept</button>`,
     own && `<button type="button" onclick="openFolderModal('${rid}')">${icon('folderPlus')}Toevoegen aan map</button>`,
+    ingredients.length &&
+      productsVisible(productScopeOf(r)) &&
+      `<button type="button" onclick="openAllergenCard()">${icon('alert')}Allergenenkaart</button>`,
     removeAction &&
       `<button type="button" class="rp-menu-danger" onclick="${removeAction.fn}">${icon('trash')}${removeAction.label}</button>`
   ].filter(Boolean);

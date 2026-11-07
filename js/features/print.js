@@ -49,6 +49,7 @@ function askPrintOptions(list) {
   const hasPhotos = list.some(r => r.photo);
   const many = list.length > 1;
   const hasNotes = list.some(r => r.notes);
+  const hasAllergens = list.some(r => printAllergensHtml(r));
   document.getElementById('printOptions')?.remove();
   document.body.insertAdjacentHTML(
     'beforeend',
@@ -63,6 +64,10 @@ function askPrintOptions(list) {
     }${
       hasNotes
         ? `<label class="print-option"><input type="checkbox" name="notes"${o.notes ? ' checked' : ''}><span>Met notities</span></label>`
+        : ''
+    }${
+      hasAllergens
+        ? `<label class="print-option"><input type="checkbox" name="allergens"${o.allergens !== false ? ' checked' : ''}><span>Met allergenen</span></label>`
         : ''
     }<div class="print-sizes" role="radiogroup" aria-label="Papierformaat"><label class="print-option"><input type="radio" name="size" value="a4"${o.size !== 'a5' ? ' checked' : ''}><span>A4</span></label><label class="print-option"><input type="radio" name="size" value="a5"${o.size === 'a5' ? ' checked' : ''}><span>A5, voor een kleine map aan de pass</span></label></div><div class="sv-dialog-actions"><button type="button" class="btn" data-cancel>Annuleren</button><button type="submit" class="btn gold">Printen</button></div></form></div>`
   );
@@ -79,6 +84,7 @@ function askPrintOptions(list) {
         photos: form.photos ? form.photos.checked : o.photos,
         cover: form.cover ? form.cover.checked : o.cover,
         notes: form.notes ? form.notes.checked : o.notes,
+        allergens: form.allergens ? form.allergens.checked : o.allergens !== false,
         size: form.querySelector('input[name="size"]:checked')?.value === 'a5' ? 'a5' : 'a4'
       };
       try {
@@ -193,7 +199,7 @@ function printBundleHtml(list, { brand = null, options = {}, title = '' } = {}) 
                 })
                 .join('')
             : `<div class="muted">Geen ingrediënten vastgelegd.</div>`
-        }${printAllergensHtml(r)}${note}</div>${steps.length ? `<div><h3>Bereiding</h3>${steps.map((x, i) => (recipePartName(x) ? `<div class="step print-part">${esc(recipePartName(x))}</div>` : `<div class="step"><b>${recipeStepNumbers(steps)[i]}.</b> ${esc(x)}</div>`)).join('')}</div>` : ''}</div></article>`;
+        }${options.allergens === false ? '' : printAllergensHtml(r)}${note}</div>${steps.length ? `<div><h3>Bereiding</h3>${steps.map((x, i) => (recipePartName(x) ? `<div class="step print-part">${esc(recipePartName(x))}</div>` : `<div class="step"><b>${recipeStepNumbers(steps)[i]}.</b> ${esc(x)}</div>`)).join('')}</div>` : ''}</div></article>`;
       })
       .join('')
   );

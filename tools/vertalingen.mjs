@@ -3658,6 +3658,19 @@ export const strings = [
   ["Dit heb je eerder weggehaald als geen ingrediënt.","You removed this before as not an ingredient.","Das hast du schon einmal als keine Zutat entfernt.","Ya lo quitaste antes porque no es un ingrediente."],
   ["Dit lijkt geen ingrediënt, maar een stukje uitleg of bereiding.","This does not look like an ingredient, but like a note or part of the method.","Das sieht nicht nach einer Zutat aus, sondern nach einer Notiz oder einem Teil der Zubereitung.","No parece un ingrediente, sino una nota o parte de la preparación."],
   ["Is wel een ingrediënt","It is an ingredient","Ist doch eine Zutat","Sí es un ingrediente"],
+  ["nog niet compleet","not complete yet","noch nicht vollständig","aún no completo"],
+  ["1 allergeen","1 allergen","1 Allergen","1 alérgeno"],
+  ["geen van de 14","none of the 14","keines der 14","ninguno de los 14"],
+  ["Allergenenkaart","Allergen chart","Allergenkarte","Carta de alérgenos"],
+  ["basisrecept","base recipe","Grundrezept","receta base"],
+  ["nog onbekend","not known yet","noch unbekannt","aún desconocido"],
+  ["voorstel","suggestion","Vorschlag","propuesta"],
+  ["Hele recept","Whole recipe","Ganzes Rezept","Receta completa"],
+  ["Nog niet compleet. Bij een vraagteken weet Savour nog niet wat erin zit.","Not complete yet. A question mark means Savour does not know yet what is in it.","Noch nicht vollständig. Bei einem Fragezeichen weiß Savour noch nicht, was drin ist.","Aún no completo. Un signo de interrogación significa que Savour aún no sabe qué contiene."],
+  ["Compleet: alle ingrediënten zijn nagekeken.","Complete: all ingredients have been checked.","Vollständig: alle Zutaten sind geprüft.","Completo: todos los ingredientes están revisados."],
+  ["bevat","contains","enthält","contiene"],
+  ["nog niet zeker","not sure yet","noch nicht sicher","aún no seguro"],
+  ["Met allergenen","With allergens","Mit Allergenen","Con alérgenos"],
   ["Alles automatisch koppelen","Link everything automatically","Alles automatisch verknüpfen","Vincular todo automáticamente"],
   ["Savour koppelt elke naam aan het product of eigen recept dat erbij hoort en maakt nieuwe producten met hun allergenen. Je ziet eerst wat er gebeurt.","Savour links each name to the matching product or your own recipe and creates new products with their allergens. You first see what will happen.","Savour verknüpft jeden Namen mit dem passenden Produkt oder eigenen Rezept und legt neue Produkte mit ihren Allergenen an. Du siehst zuerst, was passiert.","Savour vincula cada nombre con el producto o la receta propia que corresponde y crea productos nuevos con sus alérgenos. Primero ves lo que va a pasar."],
   ["Namen uit je recepten zonder product, de meest gebruikte bovenaan. Eén keer koppelen geldt voor al je recepten.","Names from your recipes without a product, most used first. Linking once applies to all your recipes.","Namen aus deinen Rezepten ohne Produkt, die meistgenutzten oben. Einmal verknüpfen gilt für alle Rezepte.","Nombres de tus recetas sin producto, los más usados primero. Vincular una vez vale para todas tus recetas."],
@@ -3815,6 +3828,7 @@ export const strings = [
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
 export const patterns = [
+  ["^(\\d+) allergenen$","$1 allergens","$1 Allergene","$1 alérgenos"],
   ["^Ja, weghalen uit alle (\\d+)$","Yes, remove from all $1","Ja, aus allen $1 entfernen","Sí, quitar de las $1"],
   ["^(\\d+) vragen heb je voor later bewaard\\.$","You saved $1 questions for later.","Du hast $1 Fragen für später aufgehoben.","Has guardado $1 preguntas para más tarde."],
   ["^Alle (\\d+) voorstellen tegelijk bekijken$","View all $1 suggestions at once","Alle $1 Vorschläge auf einmal ansehen","Ver las $1 propuestas a la vez"],

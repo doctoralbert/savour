@@ -1354,3 +1354,135 @@ body.cook-mode .rp-side-note-head button {
     align-items: stretch;
   }
 }
+
+/* ---- Allergenen bij een recept: dicht een rustig knopje, open de hele uitleg; en de allergenenkaart ---- */
+.rp-allergens.is-fold {
+  padding: 0;
+  border-left: 0;
+  background: transparent;
+}
+.rp-allergens-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--sv-line);
+  background: transparent;
+  color: var(--sv-text);
+  font: inherit;
+  font-size: var(--sv-fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: left;
+}
+.rp-allergens-toggle:hover {
+  border-color: var(--sv-line-strong);
+}
+.rp-allergens-toggle small {
+  color: var(--sv-text-2);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.rp-allergens-toggle small.is-open {
+  color: var(--sv-gold);
+}
+.rp-allergens-toggle i {
+  margin-left: auto;
+  font-style: normal;
+  color: var(--sv-text-2);
+}
+.rp-allergens-body {
+  padding: 12px;
+  border: 1px solid var(--sv-line);
+  border-top: 0;
+}
+.rp-allergens-links {
+  display: flex;
+  gap: 16px;
+  margin: 10px 0 0;
+}
+#allergenCard .sv-dialog-box.allergen-card-box {
+  position: relative;
+  width: min(960px, calc(100vw - 32px)) !important;
+  max-width: none !important;
+}
+.ac-wrap {
+  overflow-x: auto;
+  margin-top: var(--sv-space-3);
+}
+.ac-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: var(--sv-fs-sm);
+}
+.ac-table th,
+.ac-table td {
+  padding: 7px 4px;
+  border-bottom: 1px solid var(--sv-line);
+  text-align: center;
+  white-space: nowrap;
+}
+.ac-table thead th {
+  color: var(--sv-text-2);
+  font-weight: 600;
+  font-size: var(--sv-fs-xs);
+}
+.ac-table tbody th {
+  text-align: left;
+  font-weight: 400;
+  padding-right: 12px;
+  white-space: normal;
+  min-width: 150px;
+}
+.ac-table tbody th small {
+  display: block;
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-xs);
+}
+.ac-total th,
+.ac-total td {
+  border-bottom: 2px solid var(--sv-line-strong);
+}
+.ac-total th {
+  font-weight: 700 !important;
+}
+.ac-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--sv-gold);
+}
+.ac-maybe {
+  color: var(--sv-danger);
+  font-weight: 700;
+}
+.ac-note,
+.ac-legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: var(--sv-space-3) 0 0;
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.ac-table tbody th,
+.ac-table thead th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--sv-surface);
+}
+@media (max-width: 600px) {
+  .ac-table tbody th {
+    min-width: 116px;
+  }
+  .ac-table td,
+  .ac-table thead th {
+    min-width: 30px;
+  }
+}

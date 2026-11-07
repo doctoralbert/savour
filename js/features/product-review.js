@@ -259,3 +259,68 @@ async function toggleAllergenExtra(code, checked) {
     ALLERGENS.map(a => a[0]).filter(c => current.has(c))
   );
 }
+
+// ---- Bij een recept: openklappen en de allergenenkaart ----
+
+const RECIPE_ALLERGENS_OPEN = 'savour_recipe_allergens_open';
+function recipeAllergensOpen() {
+  try {
+    return localStorage.getItem(RECIPE_ALLERGENS_OPEN) === '1';
+  } catch (_) {
+    return false;
+  }
+}
+function toggleRecipeAllergens() {
+  const open = !recipeAllergensOpen();
+  try {
+    localStorage.setItem(RECIPE_ALLERGENS_OPEN, open ? '1' : '0');
+  } catch (_) {}
+  const r = findRecipe(currentId);
+  if (r) renderRecipeAllergens(r);
+}
+
+// Allergenenkaart: per ingrediënt van het recept een punt bij elk allergeen dat erin zit. Bovenaan het recept als
+// geheel. Een vraagteken: Savour weet het nog niet zeker. Het recept en zijn basisrecepten tellen mee.
+function openAllergenCard() {
+  const r = findRecipe(currentId);
+  if (!r) return;
+  const scope = productScopeOf(r);
+  const info = recipeAllergenInfo(r, scope);
+  const shown = ALLERGENS.filter(([c, , extra]) => !extra || (allergenShown(c, scope) && info.allergens.includes(c)));
+  const short = label => label.replace(/'s$/, '').slice(0, 3);
+  const dot = '<span class="ac-dot" aria-label="bevat"></span>';
+  const maybe = '<span class="ac-maybe" aria-label="nog niet zeker">?</span>';
+  const codesOf = x =>
+    x.status === 'product'
+      ? x.product.allergens
+      : x.status === 'recipe'
+        ? x.sub?.allergens || []
+        : x.status === 'unchecked'
+          ? x.product?.allergens || []
+          : [];
+  const rows = info.lines
+    .filter(x => x.status !== 'part')
+    .map(x => {
+      const codes = codesOf(x);
+      const unsure =
+        x.status === 'unknown' || x.status === 'unchecked' || (x.status === 'recipe' && x.sub?.unknown.length);
+      const name =
+        x.status === 'recipe'
+          ? `<b translate="no">${esc(x.target.title)}</b><small>${t('basisrecept')}</small>`
+          : `<b translate="no">${esc(x.product?.name || ingredientNameOf(x.line))}</b>${x.status === 'unknown' ? `<small>${t('nog onbekend')}</small>` : x.status === 'unchecked' ? `<small>${t('voorstel')}</small>` : ''}`;
+      return `<tr><th scope="row">${name}</th>${shown.map(([c]) => `<td>${codes.includes(c) ? dot : unsure ? (x.status === 'unknown' ? maybe : '') : ''}</td>`).join('')}</tr>`;
+    })
+    .join('');
+  const total = `<tr class="ac-total"><th scope="row">${t('Hele recept')}</th>${shown.map(([c]) => `<td>${info.allergens.includes(c) ? dot : ''}</td>`).join('')}</tr>`;
+  const head = `<tr><th></th>${shown.map(([c, label]) => `<th scope="col" title="${esc(t(label))}"><span>${esc(short(t(label)))}</span></th>`).join('')}</tr>`;
+  const note = info.unknown.length
+    ? `<p class="ac-note">${icon('alert', { size: 14 })}<span>${t('Nog niet compleet. Bij een vraagteken weet Savour nog niet wat erin zit.')}</span></p>`
+    : `<p class="ac-note">${t('Compleet: alle ingrediënten zijn nagekeken.')}</p>`;
+  document.getElementById('allergenCard')?.remove();
+  document.body.insertAdjacentHTML(
+    'beforeend',
+    `<div class="modal sv-dialog open" id="allergenCard" role="dialog" aria-modal="true" aria-labelledby="allergenCardTitle"><div class="sv-dialog-box allergen-card-box">${modalCloseHtml()}<h2 id="allergenCardTitle" class="sv-dialog-title">${t('Allergenenkaart')}</h2><p class="sv-dialog-text" translate="no">${esc(r.title)}</p><div class="ac-wrap"><table class="ac-table"><thead>${head}</thead><tbody>${total}${rows}</tbody></table></div>${note}<p class="ac-legend">${dot} ${t('bevat')} · ${maybe} ${t('nog niet zeker')}</p></div></div>`
+  );
+  const el = $('allergenCard');
+  closableModal(el, () => el.remove());
+}
