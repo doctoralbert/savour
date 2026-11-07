@@ -1275,7 +1275,7 @@ function batchLineChecks(r) {
     if (
       !checks.some(c => c.line === line) &&
       !recipePartName(line) &&
-      productFamily(ingredientKey(line))?.kind === 'junk'
+      isNotIngredient(ingredientKey(line))
     )
       checks.push({ line, to: '', why: 'Geen ingrediënt', action: 'remove' });
   return checks.filter(c => !(r._lineKeep || []).includes(c.line));

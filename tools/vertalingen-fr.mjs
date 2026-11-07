@@ -1480,6 +1480,9 @@ export const stringsFr = {
  "Waar gasten vaak naar vragen, voor hun geloof, dieet of een intolerantie. Wat je uitzet, blijft bewaard; je ziet het alleen niet meer.": "Ce que les clients demandent souvent, pour leur religion, leur régime ou une intolérance. Ce que tu désactives est conservé ; tu ne le vois simplement plus.",
  "Savour zoekt bij elk ingrediënt in je recepten de allergenen op en telt ze per recept op, ook via basisrecepten. Jij bevestigt wat Savour voorstelt. De allergenen komen ook op je prints.": "Savour recherche les allergènes de chaque ingrédient de tes recettes et les additionne par recette, y compris via les recettes de base. Tu confirmes ce que Savour propose. Les allergènes figurent aussi sur tes impressions.",
  "Allergenen werken zodra de database is bijgewerkt.": "Les allergènes fonctionnent dès que la base de données est mise à jour.",
+ "Dit heb je eerder weggehaald als geen ingrediënt.": "Tu l’as déjà retiré comme n’étant pas un ingrédient.",
+ "Dit lijkt geen ingrediënt, maar een stukje uitleg of bereiding.": "Cela ne ressemble pas à un ingrédient, mais à une note ou une partie de la préparation.",
+ "Is wel een ingrediënt": "C’est bien un ingrédient",
  "Alles automatisch koppelen": "Tout relier automatiquement",
  "Savour koppelt elke naam aan het product of eigen recept dat erbij hoort en maakt nieuwe producten met hun allergenen. Je ziet eerst wat er gebeurt.": "Savour relie chaque nom au produit ou à la recette correspondante et crée de nouveaux produits avec leurs allergènes. Tu vois d’abord ce qui va se passer.",
  "Namen uit je recepten zonder product, de meest gebruikte bovenaan. Eén keer koppelen geldt voor al je recepten.": "Noms de tes recettes sans produit, les plus utilisés en haut. Relier une fois vaut pour toutes tes recettes.",
@@ -1635,6 +1638,7 @@ export const stringsFr = {
  "Verwijderen lukte niet; probeer het opnieuw": "La suppression a échoué ; réessaie",
 };
 export const patternsFr = {
+ "^Ja, weghalen uit alle (\\d+)$": "Oui, retirer des $1",
  "^(\\d+) vragen heb je voor later bewaard\\.$": "Tu as gardé $1 questions pour plus tard.",
  "^Alle (\\d+) voorstellen tegelijk bekijken$": "Voir les $1 propositions d’un coup",
  "^Vraag (\\d+) van (\\d+)$": "Question $1 sur $2",

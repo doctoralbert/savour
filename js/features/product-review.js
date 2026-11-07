@@ -83,17 +83,38 @@ function reviewQueue(scope) {
   // Een naam die op een eigen recept lijkt ("groente fond" → Groentefond): eerst vragen, nooit vanzelf.
   const byTitle = ownRecipesByTitle(scope);
   for (const x of todo) {
+    // Geen ingrediënt (vaste regels of geleerd): dat vraagt Savour hieronder per naam, niet als "Wat is dit?".
+    if (isNotIngredient(x.key)) continue;
     const recipe = recipeForName(byTitle, x.key);
     if (recipe && recipeLinkReach(scope, x.key, recipe).linkable && !no.has(`recipe:${x.key}`))
       items.push({ id: `recipe:${x.key}`, type: 'recipe', key: x.key, recipe, count: x.count });
     else items.push({ id: `unknown:${x.key}`, type: 'unknown', key: x.key, count: x.count });
   }
-  if (scope === 'own')
+  if (scope === 'own') {
+    // Regels die geen ingrediënt zijn ("massa", "boiron coulis"): één vraag per naam, voor alle recepten tegelijk.
+    const notIngredient = new Map();
     for (const x of recipeLineCheckPlan(scope)) {
+      const key = ingredientKey(x.line);
+      if (x.why === 'Geen ingrediënt' && key) {
+        if (no.has(`not:${key}`)) continue;
+        if (!notIngredient.has(key)) notIngredient.set(key, []);
+        notIngredient.get(key).push(x);
+        continue;
+      }
       const id = `line:${x.recipe.id}:${x.line}`;
       if (!no.has(id)) items.push({ id, type: 'line', ...x, count: 1 });
     }
-  const order = { recipe: 0, unknown: 1, confirm: 2, line: 3 };
+    for (const [key, rows] of notIngredient)
+      items.push({
+        id: `not:${key}`,
+        type: 'not',
+        key,
+        rows,
+        learned: learnedNotIngredient(key),
+        count: new Set(rows.map(x => x.recipe.id)).size
+      });
+  }
+  const order = { recipe: 0, unknown: 1, not: 2, confirm: 3, line: 4 };
   return items.sort((a, b) => b.count - a.count || order[a.type] - order[b.type]);
 }
 
@@ -106,6 +127,12 @@ function reviewCardHtml(item, scope) {
   }
   if (item.type === 'recipe')
     return `<p class="review-kicker">Is dit je eigen recept?</p><h3 class="review-name" translate="no">${esc(item.key)}</h3><p class="review-sub"><span>${inRecipes(item.count)}</span> · <span>${t('lijkt op je recept')}</span> <b translate="no">${esc(item.recipe.title)}</b></p><div class="review-actions"><button type="button" class="btn gold" onclick="reviewRecipeYes('${escJs(item.key)}','${escJs(item.recipe.id)}')">Ja, dat recept</button><button type="button" class="btn" onclick="reviewRecipeNo('${escJs(item.key)}')">Nee</button>${skip}</div><p class="review-note">Dan tellen de allergenen van dat recept mee.</p>`;
+  if (item.type === 'not') {
+    const why = item.learned
+      ? t('Dit heb je eerder weggehaald als geen ingrediënt.')
+      : t('Dit lijkt geen ingrediënt, maar een stukje uitleg of bereiding.');
+    return `<p class="review-kicker">${t('Weghalen?')}</p><h3 class="review-name" translate="no">${esc(item.key)}</h3><p class="review-sub"><span>${inRecipes(item.count)}</span> · <span>${why}</span></p><div class="review-actions"><button type="button" class="btn gold" onclick="reviewNotYes('${escJs(item.id)}')">${t(item.count === 1 ? 'Ja, weghalen' : `Ja, weghalen uit alle ${item.count}`)}</button><button type="button" class="btn" onclick="reviewNotNo('${escJs(item.key)}')">Is wel een ingrediënt</button>${skip}</div>`;
+  }
   if (item.type === 'line') {
     const ask = { replace: 'Aanpassen?', step: 'Naar de bereiding?', remove: 'Weghalen?' }[item.action];
     const yes = { replace: 'Ja, aanpassen', step: 'Ja, verplaatsen', remove: 'Ja, weghalen' }[item.action];
@@ -169,6 +196,21 @@ function reviewRecipeNo(key) {
 async function reviewLineYes(id) {
   const x = reviewQueue(productScope).find(q => q.id === id);
   if (x && (await runRecipeLineCheck([x]))) renderProducts();
+}
+
+// "massa" uit alle recepten weg, en onthouden: bij nieuwe recepten stelt Savour het zelf voor.
+async function reviewNotYes(id) {
+  const x = reviewQueue(productScope).find(q => q.id === id);
+  if (!x) return;
+  rememberNotIngredient(x.key);
+  const done = await runRecipeLineCheck(x.rows);
+  if (done) toast(done === 1 ? 'Weggehaald uit 1 recept' : `Weggehaald uit ${done} recepten`);
+  renderProducts();
+}
+
+function reviewNotNo(key) {
+  rememberReviewNo(`not:${key}`);
+  renderProducts();
 }
 
 function reviewLineNo(id) {

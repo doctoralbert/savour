@@ -707,7 +707,7 @@ function recipeLineCheckPlan(scope) {
     }
     for (const line of r.ingredients) {
       if (found.has(line) || recipePartName(line)) continue;
-      if (productFamily(ingredientKey(line))?.kind === 'junk')
+      if (isNotIngredient(ingredientKey(line)))
         rows.push({ recipe: r, line, to: '', why: 'Geen ingrediënt', action: 'remove' });
     }
   }

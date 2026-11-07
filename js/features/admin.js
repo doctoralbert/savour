@@ -2186,7 +2186,8 @@ async function loadAdminIngredients() {
           };
         })
         .sort((a, b) => b.users - a.users || a.key.localeCompare(b.key, 'nl')),
-      done: (data.decided || []).sort((a, b) => String(b.reviewed_at).localeCompare(String(a.reviewed_at)))
+      done: (data.decided || []).sort((a, b) => String(b.reviewed_at).localeCompare(String(a.reviewed_at))),
+      notIngredient: data.not_ingredient || []
     };
     renderAdminIngredients();
   } catch (e) {
@@ -2227,6 +2228,16 @@ function renderAdminIngredients() {
   body.innerHTML =
     rows + more ||
     '<tr><td colspan="5">Geen nieuwe ingrediënten. Alles wat in recepten staat, kent Savour al.</td></tr>';
+  // Wat koks wegdrukten als "geen ingrediënt": met één klik voor iedereen, of negeren.
+  const notBody = $('adminNotIngredientBody');
+  if (notBody)
+    notBody.innerHTML =
+      (adminIngredients.notIngredient || [])
+        .map(
+          ([key, users], i) =>
+            `<tr><td><b translate="no">${adminEscape(key)}</b></td><td>${users}</td><td><div class="admin-actions"><button class="admin-ghost" onclick="adminNotIngredient(${i}, 'junk')">Geen ingrediënt, voor iedereen</button><button class="admin-ghost" onclick="adminNotIngredient(${i}, 'rejected')">Negeren</button></div></td></tr>`
+        )
+        .join('') || '<tr><td colspan="3">Nog niets weggedrukt door koks.</td></tr>';
   const doneBody = $('adminIngredientsDoneBody');
   if (!doneBody) return;
   const doneShown = done.filter(x => (!lang || x.lang === lang) && (!q || x.key.includes(q)));
@@ -2240,7 +2251,7 @@ function renderAdminIngredients() {
       .slice(0, 300)
       .map(
         x =>
-          `<tr><td><b translate="no">${adminEscape(x.name)}</b>${x.name.toLowerCase() !== x.key ? `<small translate="no">${adminEscape(x.key)}</small>` : ''}</td><td>${adminEscape(ADMIN_INGREDIENT_LANGS[x.lang] || x.lang)}</td><td>${x.status === 'approved' ? '<span class="admin-badge gift">Goedgekeurd</span>' : '<span class="admin-badge">Afgewezen</span>'}</td><td>${x.head ? `<small>Hoort bij ${adminEscape(x.head)}</small>` : ''}${x.status === 'approved' ? `<small>${adminEscape(adminAllergenNames(x.allergens || []) || 'Geen allergenen')}</small>` : ''}</td><td><div class="admin-actions"><button class="admin-ghost" onclick="adminUndoIngredient(${Number(x.id)})">Terugdraaien</button></div></td></tr>`
+          `<tr><td><b translate="no">${adminEscape(x.name)}</b>${x.name.toLowerCase() !== x.key ? `<small translate="no">${adminEscape(x.key)}</small>` : ''}</td><td>${adminEscape(ADMIN_INGREDIENT_LANGS[x.lang] || x.lang)}</td><td>${x.status === 'approved' ? '<span class="admin-badge gift">Goedgekeurd</span>' : x.status === 'junk' ? '<span class="admin-badge warn">Geen ingrediënt</span>' : '<span class="admin-badge">Afgewezen</span>'}</td><td>${x.head ? `<small>Hoort bij ${adminEscape(x.head)}</small>` : ''}${x.status === 'approved' ? `<small>${adminEscape(adminAllergenNames(x.allergens || []) || 'Geen allergenen')}</small>` : ''}</td><td><div class="admin-actions"><button class="admin-ghost" onclick="adminUndoIngredient(${Number(x.id)})">Terugdraaien</button></div></td></tr>`
       )
       .join('') || '<tr><td colspan="5">Nog niets besloten.</td></tr>';
 }
@@ -2296,6 +2307,22 @@ async function adminDecideIngredients(items) {
   } catch (e) {
     alertAdmin(e.message);
     return false;
+  }
+}
+
+async function adminNotIngredient(i, status) {
+  const [key, users] = adminIngredients?.notIngredient?.[i] || [];
+  if (!key) return;
+  try {
+    const { saved } = await adminApi('ingredient_decide', {
+      items: [{ key, name: capitalizeFirst(key), lang: 'nl', status, user_count: users }]
+    });
+    adminIngredients.notIngredient = adminIngredients.notIngredient.filter(x => x[0] !== key);
+    adminIngredients.done = [...(saved || []), ...adminIngredients.done.filter(x => x.key !== key)];
+    renderAdminIngredients();
+    toast(status === 'junk' ? `${key}: voor iedereen geen ingrediënt` : `${key} genegeerd`);
+  } catch (e) {
+    alertAdmin(e.message);
   }
 }
 

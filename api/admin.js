@@ -956,10 +956,12 @@ async function selectAll(table, query) {
 }
 
 async function ingredientCandidates() {
-  const [recipes, profiles, decided] = await Promise.all([
+  const [recipes, profiles, decided, feedback] = await Promise.all([
     selectAll('recipes', 'select=user_id,title,ingredients&order=id'),
     selectAll('profiles', 'select=id,country&order=id'),
-    selectAll('ingredient_list', 'select=id,lang,key,name,head,allergens,status,user_count,reviewed_at&order=id')
+    selectAll('ingredient_list', 'select=id,lang,key,name,head,allergens,status,user_count,reviewed_at&order=id'),
+    // Wat koks als "geen ingrediënt" wegdrukten. Bestaat de tabel nog niet, dan niets.
+    selectAll('ingredient_feedback', 'select=key,user_id&kind=eq.not_ingredient&order=key').catch(() => [])
   ]);
   const ids = [...new Set(recipes.map(r => r.user_id).filter(Boolean))];
   for (let i = ids.length - 1; i > 0; i--) {
@@ -1000,8 +1002,17 @@ async function ingredientCandidates() {
         .map(titleHash)
     )
   ];
+  // Per naam in hoeveel accounts een kok hem wegdrukte; alleen de naam en het aantal, nooit wie.
+  const decidedKeys = new Set(decided.map(d => d.key));
+  const notIngredient = new Map();
+  for (const x of feedback) {
+    if (decidedKeys.has(x.key)) continue;
+    if (!notIngredient.has(x.key)) notIngredient.set(x.key, new Set());
+    notIngredient.get(x.key).add(x.user_id);
+  }
   return {
     titles,
+    not_ingredient: [...notIngredient].map(([key, users]) => [key, users.size]).sort((a, b) => b[1] - a[1]),
     // Taal per account volgens het land, als eerste gok; de browser kijkt ook naar de namen zelf.
     accounts: ids.map(id => LANG_OF_COUNTRY[country.get(id)] || ''),
     lines: [...lines].map(([line, set]) => [line, [...set]]),
@@ -1061,7 +1072,7 @@ async function decideIngredients(items) {
     const lang = INGREDIENT_LANGS.includes(x?.lang) ? x.lang : null;
     const key = cleanText(x?.key).toLowerCase();
     const name = cleanText(x?.name) || key;
-    if (!lang || !key || !['approved', 'rejected'].includes(x?.status)) throw fail('Onvolledige keuze.');
+    if (!lang || !key || !['approved', 'rejected', 'junk'].includes(x?.status)) throw fail('Onvolledige keuze.');
     return {
       lang,
       key,

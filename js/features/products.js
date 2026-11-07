@@ -298,6 +298,25 @@ let productTodoAll = false;
 // allergenen. Nog niet gekozen: dan toont Savour alles wat er is. Wat verborgen is, blijft bewaard.
 let productExtras = new Map();
 let productSettingsReady = true; // false als de tabel product_settings nog niet bestaat.
+// Namen die geen ingrediënt zijn, geleerd (supabase/2026-11-07-geen-ingredient-leren.sql): wat deze kok wegdrukte, en
+// wat de beheerder voor iedereen bevestigde ("massa", "boiron coulis"). Savour stelt dan zelf voor ze weg te halen.
+let notIngredientOwn = new Set();
+let notIngredientAll = new Set();
+const learnedNotIngredient = key => notIngredientOwn.has(key) || notIngredientAll.has(key);
+// Geen ingrediënt: een stukje uitleg of bereiding (vaste regels in product-families.js) of geleerd.
+const isNotIngredient = key => !!key && (productFamily(key)?.kind === 'junk' || learnedNotIngredient(key));
+
+// Onthoudt dat een naam geen ingrediënt is, voor dit account. Lukt opslaan niet (tabel bestaat nog niet), dan
+// alleen voor dit bezoek.
+async function rememberNotIngredient(key) {
+  if (!key || notIngredientOwn.has(key)) return;
+  notIngredientOwn.add(key);
+  if (demoMode || !currentUser) return;
+  const { error } = await supabaseClient
+    .from('ingredient_feedback')
+    .upsert({ key, kind: 'not_ingredient' }, { onConflict: 'user_id,key,kind', ignoreDuplicates: true });
+  if (error) console.warn('Geen ingrediënt onthouden:', error.message);
+}
 
 function allergenShown(code, scope) {
   if (!ALLERGEN_EXTRA.has(code) || !productExtras.has(scope)) return true;
@@ -594,13 +613,17 @@ async function loadProducts() {
   }
   products = [];
   if (!currentUser) return;
-  const [{ data, error }, settings] = await Promise.all([
+  const [{ data, error }, settings, own, all] = await Promise.all([
     supabaseClient
       .from('products')
       .select('id,user_id,team_id,name,aliases,allergens,allergens_known,allergen_note,updated_at')
       .order('name'),
-    supabaseClient.from('product_settings').select('user_id,team_id,allergen_extras')
+    supabaseClient.from('product_settings').select('user_id,team_id,allergen_extras'),
+    supabaseClient.from('ingredient_feedback').select('key').eq('kind', 'not_ingredient'),
+    supabaseClient.from('ingredient_list').select('key').eq('status', 'junk').limit(10000)
   ]);
+  notIngredientOwn = new Set((own.data || []).map(x => x.key));
+  notIngredientAll = new Set((all.data || []).map(x => x.key));
   productSettingsReady = !settings.error;
   (settings.data || []).forEach(row =>
     productExtras.set(
@@ -1402,6 +1425,8 @@ Deze regel staat in ${hits.length === 1 ? '1 recept' : `${hits.length} recepten`
     { confirmLabel: 'Weghalen' }
   );
   if (!ok) return;
+  // Savour leert ervan: bij nieuwe recepten stelt het zelf voor deze regel weg te halen.
+  rememberNotIngredient(key);
   let done = 0;
   for (const r of hits) {
     const ingredients = r.ingredients.filter(line => recipePartName(line) || ingredientKey(line) !== key);
