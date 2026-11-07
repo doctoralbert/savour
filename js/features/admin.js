@@ -130,6 +130,7 @@ function showAdminTab(tab) {
   document.querySelectorAll('.admin-tabs button').forEach(b => b.classList.toggle('is-on', b.dataset.adminTab === tab));
   if (tab === 'nieuwsbrief' && !adminNews) loadAdminNewsletter();
   if (tab === 'keukenteams') loadAdminTeams();
+  if (tab === 'ingredienten' && !adminIngredients) loadAdminIngredients();
   try {
     sessionStorage.setItem('savour_admin_tab', tab);
   } catch (_) {}
@@ -1993,4 +1994,241 @@ async function sendNewsletter(test) {
     $('newsStatus').textContent = error.message;
   }
   ['newsTestBtn', 'newsSendBtn'].forEach(id => ($(id).disabled = false));
+}
+
+// ---- Ingrediëntenlijst: nieuwe namen uit recepten goedkeuren (api/admin.js → ingredient_candidates) ----
+// De server geeft alleen receptregels met willekeurige accountnummers. Hier worden het namen, met dezelfde regels als
+// in de app (ingredientKey, productFamily), en blijft over wat Savour nog niet kent. De taal per account schat
+// Savour uit de namen die het wel kent; anders uit het land van het account.
+const ADMIN_INGREDIENT_LANGS = { nl: 'Nederlands', en: 'Engels', de: 'Duits', es: 'Spaans', fr: 'Frans' };
+let adminIngredients = null;
+let adminIngredientLangIndex = null;
+
+// Welke talen een naam heeft in de vaste lijsten: Open Food Facts in vijf talen, NEVO in het Nederlands.
+async function adminIngredientLangs() {
+  if (adminIngredientLangIndex) return adminIngredientLangIndex;
+  const [base, nevo] = await Promise.all(
+    ['/js/data/ingredient-base.json', '/js/data/ingredient-nevo.json'].map(url =>
+      fetch(url)
+        .then(r => (r.ok ? r.json() : null))
+        .catch(() => null)
+    )
+  );
+  const map = new Map();
+  const add = (n, lang) => {
+    const k = productKey(n);
+    if (!k) return;
+    if (!map.has(k)) map.set(k, new Set());
+    map.get(k).add(lang);
+  };
+  const order = ['nl', 'en', 'de', 'es', 'fr'];
+  for (const item of base?.items || [])
+    order.forEach((lang, i) =>
+      String(item[i + 1] || '')
+        .split('|')
+        .forEach(n => add(n, lang))
+    );
+  for (const [, name, names] of nevo?.items || []) [name, ...String(names || '').split('|')].forEach(n => add(n, 'nl'));
+  adminIngredientLangIndex = map;
+  return map;
+}
+
+// Kent Savour deze naam al (basislijst, goedgekeurd, of een hoofdproduct als Kalf), of is het geen ingrediënt?
+function adminIngredientKnown(key) {
+  if (ingredientBase?.index?.has(key)) return true;
+  const kind = productFamily(key)?.kind;
+  return ['head', 'produce', 'fish', 'known', 'junk', 'generic'].includes(kind);
+}
+
+async function loadAdminIngredients() {
+  const body = $('adminIngredientsBody');
+  if (!body) return;
+  body.innerHTML = '<tr><td colspan="5">Laden…</td></tr>';
+  try {
+    // Opnieuw laden, zodat net goedgekeurde namen meetellen.
+    ingredientBase = null;
+    ingredientBaseLoading = null;
+    const [data, , langIndex] = await Promise.all([
+      adminApi('ingredient_candidates'),
+      loadIngredientBase(),
+      adminIngredientLangs()
+    ]);
+    const decided = new Set((data.decided || []).map(d => d.key));
+    const accountKeys = (data.accounts || []).map(() => new Set());
+    const unknown = new Map();
+    for (const [line, accounts] of data.lines || []) {
+      if (recipePartName(line)) continue;
+      const key = ingredientKey(line);
+      if (!key || key.length < 2 || /^[\d½¼¾]/.test(key)) continue;
+      accounts.forEach(a => accountKeys[a]?.add(key));
+      if (decided.has(key) || adminIngredientKnown(key)) continue;
+      if (!unknown.has(key)) unknown.set(key, new Set());
+      accounts.forEach(a => unknown.get(key).add(a));
+    }
+    const accountLang = accountKeys.map((keys, a) => {
+      const score = {};
+      for (const k of keys) for (const l of langIndex.get(k) || []) score[l] = (score[l] || 0) + 1;
+      const best = Object.entries(score).sort((x, y) => y[1] - x[1])[0];
+      return best?.[0] || data.accounts[a] || 'nl';
+    });
+    adminIngredients = {
+      todo: [...unknown]
+        .map(([key, set]) => {
+          const langs = {};
+          for (const a of set) langs[accountLang[a]] = (langs[accountLang[a]] || 0) + 1;
+          // Een deel van de naam dat Savour kent ("pasta" in "gochujang pasta") is alleen een hint, geen hoofdproduct:
+          // de beheerder vult dat zelf in. Allergenen alleen uit trefwoorden in de naam zelf.
+          const base = ingredientBaseMatch(key);
+          return {
+            key,
+            name: capitalizeFirst(key),
+            lang: Object.entries(langs).sort((x, y) => y[1] - x[1])[0][0],
+            users: set.size,
+            head: '',
+            like: base && base.name !== key ? capitalizeFirst(base.name) : '',
+            allergens: withDerived(key, allergenHints(key))
+          };
+        })
+        .sort((a, b) => b.users - a.users || a.key.localeCompare(b.key, 'nl')),
+      done: (data.decided || []).sort((a, b) => String(b.reviewed_at).localeCompare(String(a.reviewed_at)))
+    };
+    renderAdminIngredients();
+  } catch (e) {
+    if (!e.expired)
+      body.innerHTML = `<tr><td colspan="5">Ingrediënten konden niet worden geladen: ${adminEscape(e.message)}</td></tr>`;
+  }
+}
+
+const adminAllergenNames = codes => codes.map(c => ALLERGEN_LABEL.get(c) || c).join(', ');
+
+function renderAdminIngredients() {
+  const body = $('adminIngredientsBody');
+  if (!body || !adminIngredients) return;
+  const q = productKey($('adminIngredientSearch')?.value || '');
+  const lang = $('adminIngredientLang')?.value || '';
+  const min = Number($('adminIngredientMin')?.value || 1);
+  const { todo, done } = adminIngredients;
+  const shown = todo
+    .map((x, i) => [x, i])
+    .filter(([x]) => x.users >= min && (!lang || x.lang === lang) && (!q || x.key.includes(q)));
+  if ($('adminIngredientCount')) $('adminIngredientCount').textContent = `${todo.length} nieuw`;
+  const badge = $('adminIngredientBadge');
+  if (badge) {
+    badge.hidden = !todo.length;
+    badge.textContent = todo.length;
+  }
+  const rows = shown
+    .slice(0, 300)
+    .map(
+      ([x, i]) =>
+        `<tr><td><b translate="no">${adminEscape(x.name)}</b></td><td>${adminEscape(ADMIN_INGREDIENT_LANGS[x.lang] || x.lang)}</td><td>${x.users}</td><td>${x.like ? `<small>Lijkt op ${adminEscape(x.like)}</small>` : ''}<small>${adminEscape(adminAllergenNames(x.allergens) || 'Geen allergenen uit de naam')}</small></td><td><div class="admin-actions"><button class="admin-ghost" onclick="adminApproveIngredient(${i})">Goedkeuren</button><button class="admin-ghost" onclick="adminRejectIngredient(${i})">Afwijzen</button></div></td></tr>`
+    )
+    .join('');
+  const more =
+    shown.length > 300
+      ? `<tr><td colspan="5"><small>En nog ${shown.length - 300}. Zoek of filter om ze te zien.</small></td></tr>`
+      : '';
+  body.innerHTML =
+    rows + more ||
+    '<tr><td colspan="5">Geen nieuwe ingrediënten. Alles wat in recepten staat, kent Savour al.</td></tr>';
+  const doneBody = $('adminIngredientsDoneBody');
+  if (!doneBody) return;
+  const doneShown = done.filter(x => (!lang || x.lang === lang) && (!q || x.key.includes(q)));
+  const approved = done.filter(x => x.status === 'approved');
+  if ($('adminIngredientDoneCount'))
+    $('adminIngredientDoneCount').textContent = Object.keys(ADMIN_INGREDIENT_LANGS)
+      .map(l => `${l.toUpperCase()} ${approved.filter(x => x.lang === l).length}`)
+      .join(' · ');
+  doneBody.innerHTML =
+    doneShown
+      .slice(0, 300)
+      .map(
+        x =>
+          `<tr><td><b translate="no">${adminEscape(x.name)}</b>${x.name.toLowerCase() !== x.key ? `<small translate="no">${adminEscape(x.key)}</small>` : ''}</td><td>${adminEscape(ADMIN_INGREDIENT_LANGS[x.lang] || x.lang)}</td><td>${x.status === 'approved' ? '<span class="admin-badge gift">Goedgekeurd</span>' : '<span class="admin-badge">Afgewezen</span>'}</td><td>${x.head ? `<small>Hoort bij ${adminEscape(x.head)}</small>` : ''}${x.status === 'approved' ? `<small>${adminEscape(adminAllergenNames(x.allergens || []) || 'Geen allergenen')}</small>` : ''}</td><td><div class="admin-actions"><button class="admin-ghost" onclick="adminUndoIngredient(${Number(x.id)})">Terugdraaien</button></div></td></tr>`
+      )
+      .join('') || '<tr><td colspan="5">Nog niets besloten.</td></tr>';
+}
+
+// Venster bij goedkeuren: naam, taal, hoofdproduct en allergenen. De allergenen zijn een voorstel uit de naam.
+function adminIngredientDialog(x) {
+  return new Promise(resolve => {
+    document.getElementById('adminIngredientDialog')?.remove();
+    const box = ([code, label]) =>
+      `<label class="allergen-pick-item"><input type="checkbox" name="allergen" value="${code}" ${x.allergens.includes(code) ? 'checked' : ''}><span>${adminEscape(label)}</span></label>`;
+    const langs = Object.entries(ADMIN_INGREDIENT_LANGS)
+      .map(([k, v]) => `<option value="${k}"${k === x.lang ? ' selected' : ''}>${v}</option>`)
+      .join('');
+    const eu = ALLERGENS.filter(a => !a[2])
+      .map(box)
+      .join('');
+    const extra = ALLERGENS.filter(a => a[2])
+      .map(box)
+      .join('');
+    document.body.insertAdjacentHTML(
+      'beforeend',
+      `<div class="modal sv-dialog open" id="adminIngredientDialog" role="dialog" aria-modal="true" aria-labelledby="adminIngredientDialogTitle"><form class="sv-dialog-box product-editor-box" novalidate>${modalCloseHtml()}<h2 id="adminIngredientDialogTitle" class="sv-dialog-title">Ingrediënt goedkeuren</h2><p class="sv-dialog-text">De aangevinkte allergenen zijn een voorstel op basis van de naam. Controleer ze: wat je hier vastlegt, krijgt elke kok als voorstel bij deze naam.</p><div class="field"><label>Naam</label><input name="name" value="${adminEscape(x.name)}" maxlength="120"></div><div class="field"><label>Taal</label><select name="lang">${langs}</select></div><div class="field"><label>Hoort bij (hoofdproduct, mag leeg)</label><input name="head" value="${adminEscape(x.head)}" maxlength="120" placeholder="${adminEscape(x.like ? `Bijv. ${x.like}` : 'Bijv. Kalf of Amandel')}"></div><p class="allergen-pick-head">Allergenen</p><div class="allergen-pick">${eu}</div><p class="allergen-pick-head">Extra, niet wettelijk verplicht</p><div class="allergen-pick">${extra}</div><div class="sv-dialog-actions"><button type="button" class="btn" data-cancel>Annuleren</button><button type="submit" class="btn gold">Goedkeuren</button></div></form></div>`
+    );
+    const el = $('adminIngredientDialog');
+    const form = el.querySelector('form');
+    const close = value => {
+      el.remove();
+      resolve(value);
+    };
+    closableModal(el, () => close(null));
+    form.querySelector('[data-cancel]').addEventListener('click', () => close(null));
+    form.addEventListener('submit', ev => {
+      ev.preventDefault();
+      const f = new FormData(form);
+      close({
+        name: String(f.get('name') || '').trim() || x.name,
+        lang: String(f.get('lang') || x.lang),
+        head: String(f.get('head') || '').trim(),
+        allergens: f.getAll('allergen').map(String)
+      });
+    });
+  });
+}
+
+async function adminDecideIngredients(items) {
+  try {
+    const { saved } = await adminApi('ingredient_decide', { items });
+    const keys = new Set(items.map(x => x.key));
+    adminIngredients.todo = adminIngredients.todo.filter(x => !keys.has(x.key));
+    adminIngredients.done = [...(saved || []), ...adminIngredients.done.filter(x => !keys.has(x.key))];
+    renderAdminIngredients();
+    return true;
+  } catch (e) {
+    alertAdmin(e.message);
+    return false;
+  }
+}
+
+async function adminApproveIngredient(i) {
+  const x = adminIngredients?.todo[i];
+  if (!x) return;
+  const pick = await adminIngredientDialog(x);
+  if (!pick) return;
+  if (await adminDecideIngredients([{ ...pick, key: x.key, status: 'approved', user_count: x.users }]))
+    toast(`${pick.name} staat in de ingrediëntenlijst`);
+}
+
+async function adminRejectIngredient(i) {
+  const x = adminIngredients?.todo[i];
+  if (!x) return;
+  if (
+    await adminDecideIngredients([{ key: x.key, name: x.name, lang: x.lang, status: 'rejected', user_count: x.users }])
+  )
+    toast(`${x.name} afgewezen`);
+}
+
+async function adminUndoIngredient(id) {
+  const x = adminIngredients?.done.find(d => Number(d.id) === id);
+  if (!x || !(await askConfirm(`Keuze voor "${x.name}" terugdraaien? De naam komt weer bij de nieuwe ingrediënten.`)))
+    return;
+  try {
+    await adminApi('ingredient_undo', { id });
+    await loadAdminIngredients();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
 }

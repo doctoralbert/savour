@@ -339,14 +339,15 @@ let ingredientBaseLoading = null;
 function loadIngredientBase() {
   if (ingredientBase) return Promise.resolve(ingredientBase);
   if (!ingredientBaseLoading)
-    ingredientBaseLoading = Promise.all(
-      ['/js/data/ingredient-base.json', '/js/data/ingredient-nevo.json', '/js/data/ingredient-extra.json'].map(url =>
+    ingredientBaseLoading = Promise.all([
+      ...['/js/data/ingredient-base.json', '/js/data/ingredient-nevo.json', '/js/data/ingredient-extra.json'].map(url =>
         fetch(url)
           .then(r => (r.ok ? r.json() : null))
           .catch(() => null)
-      )
-    )
-      .then(([data, nevo, extra]) => {
+      ),
+      approvedIngredients()
+    ])
+      .then(([data, nevo, extra, approved]) => {
         if (!data?.items) throw new Error('geen basislijst');
         const index = new Map();
         for (const item of data.items)
@@ -397,6 +398,19 @@ function loadIngredientBase() {
               if (headKey && k !== headKey) alias.set(k, main.get(headKey) || headKey);
             }
         }
+        // Door de beheerder goedgekeurde namen uit recepten (/admin → Ingrediënten). Met een hoofdproduct ("kalfs jus"
+        // → Kalf) wordt het product naar het hoofdproduct genoemd; de allergenen zijn wat de beheerder vastlegde.
+        for (const x of approved || []) {
+          const headKey = x.head ? productKey(x.head) : '';
+          const nameKey = productKey(x.name);
+          const item = [(x.allergens || []).join(','), x.name, '', '', '', '', 0, 'lijst'];
+          for (const k of [x.key, nameKey, ...(x.aliases || []).map(productKey)])
+            if (k && !index.has(k)) {
+              index.set(k, item);
+              if (headKey && k !== headKey) alias.set(k, headKey);
+              else if (!headKey && nameKey && k !== nameKey) main.set(k, nameKey);
+            }
+        }
         ingredientBase = { index, main, alias, nevo: nevo?.version || '' };
         return ingredientBase;
       })
@@ -405,6 +419,21 @@ function loadIngredientBase() {
         return null;
       });
   return ingredientBaseLoading;
+}
+
+// Goedgekeurde ingrediënten uit de database (supabase/2026-11-06-ingredientenlijst-goedkeuren.sql). Zonder
+// verbinding, in de demo of voordat de tabel bestaat: gewoon de vaste lijst.
+function approvedIngredients() {
+  if (demoMode || typeof supabaseClient === 'undefined') return Promise.resolve(null);
+  return supabaseClient
+    .from('ingredient_list')
+    .select('key,name,head,aliases,allergens')
+    .eq('status', 'approved')
+    .limit(10000)
+    .then(
+      ({ data, error }) => (error ? null : data),
+      () => null
+    );
 }
 
 // Zoekt een naam in de basislijst: eerst de hele naam, dan een deel ervan, van achteren ("koude roomboter" →
@@ -427,7 +456,7 @@ function ingredientBaseMatch(name) {
           allergens: (item[0] ? item[0].split(',') : []).filter(
             c => !ALLERGEN_HINT_NOT.some(([re, code]) => code === c && re.test(whole))
           ),
-          own: item[7] === 'savour',
+          own: item[7] === 'savour' || item[7] === 'lijst',
           nevo: item[7] === 'nevo' || !!ingredientBase.main?.has(k),
           wiki: item[7] === 'wiki',
           // Een andere schrijfwijze: het product krijgt de hoofdnaam ("spruit" → Spruitjes).

@@ -22,7 +22,8 @@ import {
   storageList,
   storageDownloadUrl,
   storageRemove,
-  countRows
+  countRows,
+  upsert
 } from './_lib/supabase-admin.js';
 import { newsletterMail, sendMail, sendMailBatch } from './_lib/mail.js';
 import { intakeMail } from './_lib/intake-mail.js';
@@ -915,6 +916,146 @@ async function revokeTeamGift(mapId) {
   return { revoked };
 }
 
+// ---- Ingrediëntenlijst aanvullen (2026-11-06, supabase/2026-11-06-ingredientenlijst-goedkeuren.sql) ----
+// De beheerder keurt nieuwe ingrediëntnamen goed. De server geeft alleen de regels uit de recepten met per regel
+// willekeurige volgnummers van accounts: genoeg om te tellen in hoeveel accounts een naam staat, nooit wie, welk
+// recept of welke titel. De browser maakt er namen van (dezelfde regels als de app, js/features/products.js).
+const LANG_OF_COUNTRY = {
+  NL: 'nl',
+  BE: 'nl',
+  SR: 'nl',
+  DE: 'de',
+  AT: 'de',
+  CH: 'de',
+  ES: 'es',
+  MX: 'es',
+  AR: 'es',
+  CO: 'es',
+  FR: 'fr',
+  LU: 'fr'
+};
+const INGREDIENT_LANGS = ['nl', 'en', 'de', 'es', 'fr'];
+
+// Alle rijen, in stukken van 1000 (de database geeft er per keer niet meer).
+async function selectAll(table, query) {
+  const out = [];
+  for (let from = 0; ; from += 1000) {
+    const rows = (await select(table, `${query}&limit=1000&offset=${from}`)) || [];
+    out.push(...rows);
+    if (rows.length < 1000) return out;
+  }
+}
+
+async function ingredientCandidates() {
+  const [recipes, profiles, decided] = await Promise.all([
+    selectAll('recipes', 'select=user_id,ingredients&order=id'),
+    selectAll('profiles', 'select=id,country&order=id'),
+    selectAll('ingredient_list', 'select=id,lang,key,name,head,allergens,status,user_count,reviewed_at&order=id')
+  ]);
+  const ids = [...new Set(recipes.map(r => r.user_id).filter(Boolean))];
+  for (let i = ids.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [ids[i], ids[j]] = [ids[j], ids[i]];
+  }
+  const index = new Map(ids.map((id, i) => [id, i]));
+  const country = new Map(profiles.map(p => [p.id, String(p.country || '').toUpperCase()]));
+  const lines = new Map();
+  for (const r of recipes) {
+    if (!index.has(r.user_id) || !Array.isArray(r.ingredients)) continue;
+    for (const raw of r.ingredients) {
+      const line = String(raw || '')
+        .trim()
+        .toLowerCase()
+        .slice(0, 160);
+      if (!line) continue;
+      if (!lines.has(line)) lines.set(line, new Set());
+      lines.get(line).add(index.get(r.user_id));
+    }
+  }
+  return {
+    // Taal per account volgens het land, als eerste gok; de browser kijkt ook naar de namen zelf.
+    accounts: ids.map(id => LANG_OF_COUNTRY[country.get(id)] || ''),
+    lines: [...lines].map(([line, set]) => [line, [...set]]),
+    decided
+  };
+}
+
+// Dezelfde codes als ALLERGENS in js/features/products.js.
+const ALLERGEN_CODES = new Set([
+  'gluten',
+  'schaaldieren',
+  'ei',
+  'vis',
+  'pinda',
+  'soja',
+  'melk',
+  'noten',
+  'selderij',
+  'mosterd',
+  'sesam',
+  'sulfiet',
+  'lupine',
+  'weekdieren',
+  'lactose',
+  'varkensvlees',
+  'rundvlees',
+  'lam',
+  'wild',
+  'gevogelte',
+  'alcohol',
+  'ui',
+  'knoflook',
+  'peulvruchten',
+  'mais',
+  'nachtschade',
+  'paddenstoelen',
+  'pijnboompitten',
+  'kokos',
+  'maanzaad',
+  'kiwi',
+  'steenfruit',
+  'koriander',
+  'glutamaat',
+  'histamine',
+  'fructose',
+  'fodmap'
+]);
+const cleanText = (s, max = 120) =>
+  String(s || '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, max);
+
+// Goedkeuren of afwijzen, één of meer namen tegelijk. Bestaat de naam al in die taal, dan telt de nieuwe keuze.
+async function decideIngredients(items) {
+  const rows = (Array.isArray(items) ? items : []).slice(0, 500).map(x => {
+    const lang = INGREDIENT_LANGS.includes(x?.lang) ? x.lang : null;
+    const key = cleanText(x?.key).toLowerCase();
+    const name = cleanText(x?.name) || key;
+    if (!lang || !key || !['approved', 'rejected'].includes(x?.status)) throw fail('Onvolledige keuze.');
+    return {
+      lang,
+      key,
+      name,
+      head: cleanText(x.head) || null,
+      aliases: [...new Set((x.aliases || []).map(a => cleanText(a).toLowerCase()).filter(Boolean))].slice(0, 50),
+      allergens: [...new Set((x.allergens || []).filter(a => ALLERGEN_CODES.has(a)))],
+      status: x.status,
+      user_count: Math.max(0, Math.min(100000, Number(x.user_count) || 0)),
+      reviewed_at: new Date().toISOString()
+    };
+  });
+  if (!rows.length) return { saved: [] };
+  return { saved: (await upsert('ingredient_list', rows, 'lang,key')) || [] };
+}
+
+// Een keuze terugdraaien: de naam staat daarna weer bij de nieuwe namen.
+async function undoIngredient(id) {
+  if (!/^\d+$/.test(String(id || ''))) throw fail('Onbekende regel.');
+  await remove('ingredient_list', `id=eq.${id}`);
+  return { ok: true };
+}
+
 async function revokeGift(userId) {
   const sub = await getSubscription(userId);
   if (sub?.plan !== 'gift') throw Object.assign(new Error('Dit account heeft geen cadeau-Pro.'), { status: 409 });
@@ -1494,6 +1635,9 @@ export default async function handler(req, res) {
     if (action === 'create_account')
       return res.status(200).json(await createAccount({ email, name, organization }, siteOrigin(req)));
     if (action === 'errors') return res.status(200).json(await errorGroups());
+    if (action === 'ingredient_candidates') return res.status(200).json(await ingredientCandidates());
+    if (action === 'ingredient_decide') return res.status(200).json(await decideIngredients(req.body?.items));
+    if (action === 'ingredient_undo') return res.status(200).json(await undoIngredient(req.body?.id));
     if (action === 'kitchen_teams') return res.status(200).json(await kitchenTeams());
     if (action === 'gift_team' && req.body?.map_id) return res.status(200).json(await giftTeam(req.body.map_id, days));
     if (action === 'revoke_team_gift' && req.body?.map_id)
