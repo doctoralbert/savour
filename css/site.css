@@ -3732,3 +3732,47 @@ body.cook-mode #publicRecipeShell .share-recipe-head h1 {
     grid-column: 1;
   }
 }
+
+/* ---- Knoppen (2026-11-07): strak, zonder pil-vorm. Inloggen is gewone tekst met een vlak bij hover;
+   Gratis beginnen is de enige knop in de kop. Op telefoon staat Inloggen bovenin en Gratis beginnen
+   in het openingsblok en het menu. ---- */
+.site-btn {
+  border-radius: 6px;
+}
+.site-header .site-login {
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 10px 14px;
+  font-weight: 500;
+}
+.site-header .site-login:hover,
+.site-header .site-login:focus-visible {
+  background: rgba(238, 232, 220, 0.09);
+  color: var(--ink);
+}
+.site-header .site-btn.solid {
+  padding: 11px 18px;
+}
+.site-lang summary {
+  border-color: transparent;
+  border-radius: 6px;
+}
+.site-lang summary:hover,
+.site-lang[open] summary {
+  border-color: transparent;
+  background: rgba(238, 232, 220, 0.09);
+  color: var(--ink);
+}
+@media (max-width: 1040px) {
+  .site-header .site-login {
+    display: inline-flex;
+    padding: 9px 12px;
+  }
+  .site-header .site-actions > .site-btn.solid {
+    display: none;
+  }
+}
+.site-menu-btn {
+  border-radius: 6px;
+}

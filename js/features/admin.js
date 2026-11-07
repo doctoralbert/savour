@@ -1025,6 +1025,44 @@ let adminAccounts = [];
 const adminMoney = v =>
   v == null ? '—' : `€ ${Number(v).toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
+// Activiteit: hoeveel accounts iets doen, nieuwe recepten per week en wat er gedeeld wordt (api/admin.js → activity).
+async function loadAdminActivity() {
+  const host = $('adminActivity');
+  if (!host) return;
+  try {
+    renderAdminActivity(await adminApi('activity'));
+  } catch (e) {
+    if (!e.expired)
+      host.innerHTML = `<p class="admin-note">Activiteit kon niet worden geladen: ${adminEscape(e.message)}</p>`;
+  }
+}
+
+function renderAdminActivity(a) {
+  const host = $('adminActivity');
+  if (!host || !a) return;
+  const tile = (label, value, note) =>
+    `<div class="admin-stat"><div class="label">${adminEscape(label)}</div><div class="value">${adminEscape(value)}</div><div class="sub">${adminEscape(note)}</div></div>`;
+  const top = Math.max(1, ...a.weeks.map(w => w.recipes));
+  const day = iso => new Date(`${iso}T12:00:00`).toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' });
+  const bars = a.weeks
+    .map(
+      w =>
+        `<div class="admin-week" title="${adminEscape(`Week van ${day(w.week)}: ${w.recipes} recepten door ${w.accounts} accounts`)}"><b style="height:${Math.max(2, (w.recipes / top) * 100)}%"></b><span>${adminEscape(day(w.week))}</span><small>${w.recipes}</small></div>`
+    )
+    .join('');
+  host.innerHTML = `<div class="admin-stats-grid">
+      ${tile('Actief deze week', a.active_7, 'accounts die een recept toevoegden of aanpasten')}
+      ${tile('Actief deze maand', a.active_30, 'laatste 30 dagen')}
+      ${tile('Nieuwe recepten', a.recipes_7, `deze week · ${a.recipes_30} in 30 dagen`)}
+      ${tile('Recepten per account', a.median_recipes, 'mediaan: de helft heeft er meer')}
+      ${tile('In keukenteams', a.team_recipes, 'recepten die met een team gedeeld zijn')}
+      ${tile('Gedeelde links', a.shares, `${a.shares_30} nieuw in 30 dagen`)}
+      ${tile('Favorieten', a.favorites, 'hartjes gezet')}
+    </div>
+    <h3 class="adsense-title">Nieuwe recepten per week</h3>
+    <div class="admin-weeks">${bars}</div>`;
+}
+
 async function loadAdminOverview() {
   const money = $('adminMoney');
   try {
@@ -1044,6 +1082,7 @@ async function loadAdminOverview() {
     }
     adminAccounts = accounts || [];
     renderAdminFunnel(funnel);
+    loadAdminActivity();
     adminTotals = t;
     renderAdminFinance();
     const openai = t.openai_this_month ? `$ ${t.openai_this_month.usd.toFixed(2)}` : '—';
@@ -1654,6 +1693,43 @@ function financeHoursSummary(d) {
   return { rows, total: rows.reduce((sum, r) => sum + Number(r.hours), 0) };
 }
 
+// Alle Stripe-betalingen: wat er betaald is, wat terug is gegaan, de kosten en wanneer Stripe het geld vrijgeeft
+// (pas daarna komt het op je rekening). Betalingen van een beheerder zelf staan erbij, maar tellen niet als omzet.
+const CHARGE_STATUS = {
+  available: 'Vrijgegeven',
+  pending: 'Nog niet vrijgegeven',
+  refunded: 'Terugbetaald',
+  failed: 'Mislukt'
+};
+function financeChargesHtml(d) {
+  const charges = d.stripe?.charges || [];
+  if (!d.stripe) return '';
+  const counted = charges.filter(c => c.paid && !c.own);
+  const net = c => c.amount - c.refunded;
+  const total = counted.reduce((t, c) => t + net(c), 0);
+  const waiting = counted.filter(c => c.status === 'pending').reduce((t, c) => t + net(c) - c.fee, 0);
+  const own = charges.filter(c => c.paid && c.own).reduce((t, c) => t + net(c), 0);
+  const day = iso => (iso ? adminFormatDate(iso).split(' om')[0] : '—');
+  const rows = charges
+    .map(c => {
+      const status = CHARGE_STATUS[c.status] || c.status || '—';
+      const when =
+        c.status === 'pending' && c.available_on ? `<small>vrij op ${adminEscape(day(c.available_on))}</small>` : '';
+      const who = c.own ? '<span class="admin-badge">Eigen betaling · telt niet mee</span>' : '';
+      return `<tr><td>${adminEscape(day(c.date))}</td><td>${adminEscape(c.description || 'Betaling')}${who ? `<small>${who}</small>` : ''}</td><td>${adminEscape(adminMoney(c.amount))}</td><td>${c.refunded ? adminEscape(`− ${adminMoney(c.refunded)}`) : '—'}</td><td>${adminEscape(adminMoney(c.fee))}</td><td>${adminEscape(adminMoney(net(c) - c.fee))}</td><td>${adminEscape(status)}${when}</td></tr>`;
+    })
+    .join('');
+  return `<section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">STRIPE</div><h2>Betalingen</h2></div><span class="admin-count">${charges.length} betalingen</span></div>
+      <div class="admin-stats-grid">
+        ${finTile('Ontvangen van klanten', adminMoney(total), 'na terugbetalingen, sinds de start')}
+        ${finTile('Nog niet vrijgegeven', adminMoney(waiting), 'Stripe houdt nieuw geld eerst een paar dagen vast')}
+        ${finTile('Eigen betalingen', adminMoney(own), 'door een beheerder zelf, telt niet als omzet')}
+      </div>
+      ${rows ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Datum</th><th>Omschrijving</th><th>Betaald</th><th>Terug</th><th>Stripe-kosten</th><th>Netto</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table></div>` : '<p class="admin-note">Nog geen betalingen via Stripe.</p>'}
+      <p class="admin-footnote">Vrijgegeven geld zet Stripe vanzelf op je bankrekening (meestal binnen een paar werkdagen). Cadeau-Pro gaat niet via Stripe en telt nooit als omzet.</p>
+    </section>`;
+}
+
 function renderAdminFinance() {
   const host = $('adminFinanceBody');
   const d = adminFinance;
@@ -1768,6 +1844,7 @@ function renderAdminFinance() {
       </form>
       <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Bron</th><th>Uren</th><th>Toelichting</th><th></th></tr></thead><tbody>${hours.rows.map(h => `<tr><td>${adminEscape(h.source)}</td><td>${Number(h.hours).toLocaleString('nl-NL')}</td><td>${adminEscape(h.note || '')}</td><td>${h.auto ? '' : `<button type="button" class="btn-quiet" onclick="deleteFinanceRow('finance_delete_hours','${adminEscape(h.id)}')">Verwijderen</button>`}</td></tr>`).join('')}</tbody></table></div>
     </section>
+    ${financeChargesHtml(d)}
     <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">OVERZICHT</div><h2>Per maand</h2></div><button type="button" class="btn" onclick="downloadFinanceCsv()">Download voor boekhouder</button></div>
       <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Maand</th><th>Stripe</th><th>Advertenties</th><th>Omzet</th><th>Kosten</th><th>Winst</th></tr></thead><tbody>${all
         .slice()
@@ -2054,6 +2131,20 @@ async function loadAdminIngredients() {
       adminIngredientLangs()
     ]);
     const decided = new Set((data.decided || []).map(d => d.key));
+    // Een naam die gelijk is aan een receptnaam is een basisrecept, geen ingrediënt (vingerafdrukken van de server).
+    const titles = new Set(data.titles || []);
+    const hash = async text => {
+      const bytes = new TextEncoder().encode(
+        String(text)
+          .toLowerCase()
+          .replace(/[\s-]+/g, '')
+      );
+      const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', bytes));
+      return [...digest]
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('')
+        .slice(0, 16);
+    };
     const accountKeys = (data.accounts || []).map(() => new Set());
     const unknown = new Map();
     for (const [line, accounts] of data.lines || []) {
@@ -2065,6 +2156,7 @@ async function loadAdminIngredients() {
       if (!unknown.has(key)) unknown.set(key, new Set());
       accounts.forEach(a => unknown.get(key).add(a));
     }
+    for (const key of [...unknown.keys()]) if (titles.has(await hash(key))) unknown.delete(key);
     const accountLang = accountKeys.map((keys, a) => {
       const score = {};
       for (const k of keys) for (const l of langIndex.get(k) || []) score[l] = (score[l] || 0) + 1;

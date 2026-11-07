@@ -28,7 +28,7 @@ import {
 import { newsletterMail, sendMail, sendMailBatch } from './_lib/mail.js';
 import { intakeMail } from './_lib/intake-mail.js';
 import { INTAKE_BUCKET, PACKAGES, FREE_INTRO, deliverLink, packageLabel } from './_lib/intake.js';
-import { createHmac, randomBytes } from 'node:crypto';
+import { createHash, createHmac, randomBytes } from 'node:crypto';
 import { siteOrigin } from './_lib/origin.js';
 import { stripe, hasStripe, PLAN_MONTHLY_EUR } from './_lib/stripe.js';
 import { MEASURED_HOURS } from './_lib/uren.js';
@@ -86,6 +86,14 @@ async function openAiCostsThisMonth() {
 }
 
 // Wat er de afgelopen 30 dagen via Stripe is betaald (min terugbetalingen).
+// E-mailadres bij een Stripe-betaling: van het formulier, de bon of de klant.
+const chargeEmail = c =>
+  String(c.billing_details?.email || c.receipt_email || (typeof c.customer === 'object' ? c.customer?.email : '') || '')
+    .trim()
+    .toLowerCase();
+// Betaalde een beheerder zelf (een test of een eigen keukenteam)? Dat is geen omzet.
+const ownCharge = c => ADMIN_EMAILS.includes(chargeEmail(c));
+
 async function stripeRevenue30Days() {
   if (!hasStripe()) return null;
   try {
@@ -93,8 +101,9 @@ async function stripeRevenue30Days() {
     let total = 0;
     let after = '';
     for (let page = 0; page < 10; page++) {
-      const data = await stripe(`charges?limit=100&created[gte]=${since}${after}`, null, 'GET');
-      for (const c of data.data || []) if (c.paid) total += (c.amount - (c.amount_refunded || 0)) / 100;
+      const data = await stripe(`charges?limit=100&created[gte]=${since}&expand[]=data.customer${after}`, null, 'GET');
+      for (const c of data.data || [])
+        if (c.paid && !ownCharge(c)) total += (c.amount - (c.amount_refunded || 0)) / 100;
       if (!data.has_more) break;
       after = `&starting_after=${data.data[data.data.length - 1].id}`;
     }
@@ -948,7 +957,7 @@ async function selectAll(table, query) {
 
 async function ingredientCandidates() {
   const [recipes, profiles, decided] = await Promise.all([
-    selectAll('recipes', 'select=user_id,ingredients&order=id'),
+    selectAll('recipes', 'select=user_id,title,ingredients&order=id'),
     selectAll('profiles', 'select=id,country&order=id'),
     selectAll('ingredient_list', 'select=id,lang,key,name,head,allergens,status,user_count,reviewed_at&order=id')
   ]);
@@ -972,7 +981,27 @@ async function ingredientCandidates() {
       lines.get(line).add(index.get(r.user_id));
     }
   }
+  // Receptnamen alleen als vingerafdruk (SHA-256, zonder spaties): zo kan de browser "groente fond" herkennen als
+  // basisrecept zonder dat de beheerder de titels van anderen ziet.
+  const titleHash = t =>
+    createHash('sha256')
+      .update(
+        String(t || '')
+          .toLowerCase()
+          .replace(/[\s-]+/g, '')
+      )
+      .digest('hex')
+      .slice(0, 16);
+  const titles = [
+    ...new Set(
+      recipes
+        .map(r => r.title)
+        .filter(Boolean)
+        .map(titleHash)
+    )
+  ];
   return {
+    titles,
     // Taal per account volgens het land, als eerste gok; de browser kijkt ook naar de namen zelf.
     accounts: ids.map(id => LANG_OF_COUNTRY[country.get(id)] || ''),
     lines: [...lines].map(([line, set]) => [line, [...set]]),
@@ -1054,6 +1083,58 @@ async function undoIngredient(id) {
   if (!/^\d+$/.test(String(id || ''))) throw fail('Onbekende regel.');
   await remove('ingredient_list', `id=eq.${id}`);
   return { ok: true };
+}
+
+// ---- Activiteit: wat gebruikers doen (Overzicht). Alleen aantallen, zonder beheerders. ----
+// Recepten per week (nieuw), accounts die iets deden (recept toegevoegd of aangepast), gedeelde links en
+// keukenteamrecepten. Leest geen recepten: alleen wie (als telling) en wanneer.
+const weekStart = iso => {
+  const d = new Date(iso);
+  const day = (d.getUTCDay() + 6) % 7;
+  d.setUTCHours(0, 0, 0, 0);
+  d.setUTCDate(d.getUTCDate() - day);
+  return d.toISOString().slice(0, 10);
+};
+async function activity() {
+  const [users, recipes, shares, favorites] = await Promise.all([
+    listUsers(),
+    selectAll('recipes', 'select=user_id,team_id,created_at,updated_at&order=id'),
+    selectAll('public_recipe_shares', 'select=owner_id,enabled,created_at&order=id'),
+    selectAll('favorites', 'select=user_id&order=user_id')
+  ]);
+  const admins = new Set(
+    (users || []).filter(u => ADMIN_EMAILS.includes(String(u.email || '').toLowerCase())).map(u => u.id)
+  );
+  const real = recipes.filter(r => r.user_id && !admins.has(r.user_id));
+  const now = Date.now();
+  const since = days => now - days * 86400000;
+  const touched = (r, days) => Math.max(Date.parse(r.created_at) || 0, Date.parse(r.updated_at) || 0) > since(days);
+  const activeIn = days => new Set(real.filter(r => touched(r, days)).map(r => r.user_id)).size;
+  // Laatste 8 weken, oudste eerst.
+  const weeks = [];
+  for (let i = 7; i >= 0; i--) weeks.push(weekStart(new Date(now - i * 7 * 86400000).toISOString()));
+  const perWeek = weeks.map(week => {
+    const inWeek = real.filter(r => weekStart(r.created_at) === week);
+    return { week, recipes: inWeek.length, accounts: new Set(inWeek.map(r => r.user_id)).size };
+  });
+  const recipeCounts = new Map();
+  for (const r of real) recipeCounts.set(r.user_id, (recipeCounts.get(r.user_id) || 0) + 1);
+  const realShares = shares.filter(x => x.enabled && !admins.has(x.owner_id));
+  return {
+    active_7: activeIn(7),
+    active_30: activeIn(30),
+    recipes_7: real.filter(r => Date.parse(r.created_at) > since(7)).length,
+    recipes_30: real.filter(r => Date.parse(r.created_at) > since(30)).length,
+    team_recipes: real.filter(r => r.team_id).length,
+    shares: realShares.length,
+    shares_30: realShares.filter(x => Date.parse(x.created_at) > since(30)).length,
+    favorites: favorites.filter(x => !admins.has(x.user_id)).length,
+    median_recipes: (() => {
+      const list = [...recipeCounts.values()].sort((a, b) => a - b);
+      return list.length ? list[Math.floor(list.length / 2)] : 0;
+    })(),
+    weeks: perWeek
+  };
 }
 
 async function revokeGift(userId) {
@@ -1340,23 +1421,43 @@ async function stripeMonths(months) {
   if (!hasStripe()) return null;
   const since = Math.floor(Date.parse(`${months[0]}-01T00:00:00Z`) / 1000);
   const result = {};
+  // Elke betaling los, voor de tabel in Financiën: wat er betaald is, wat terug is gegaan en of Stripe het geld al
+  // heeft vrijgegeven. Betalingen van een beheerder zelf staan erin, maar tellen niet als omzet.
+  const charges = [];
   let after = '';
   for (let page = 0; page < 50; page++) {
     const data = await stripe(
-      `charges?limit=100&created[gte]=${since}&expand[]=data.balance_transaction${after}`,
+      `charges?limit=100&created[gte]=${since}&expand[]=data.balance_transaction&expand[]=data.customer${after}`,
       null,
       'GET'
     );
     for (const c of data.data || []) {
+      const own = ownCharge(c);
+      const bt = c.balance_transaction || {};
+      charges.push({
+        date: new Date(c.created * 1000).toISOString(),
+        amount: c.amount / 100,
+        refunded: (c.amount_refunded || 0) / 100,
+        fee: (bt.fee || 0) / 100,
+        paid: !!c.paid,
+        status: c.refunded ? 'refunded' : c.paid ? bt.status || 'pending' : c.status,
+        available_on: bt.available_on ? new Date(bt.available_on * 1000).toISOString() : null,
+        description: String(c.description || c.calculated_statement_descriptor || '').slice(0, 120),
+        own
+      });
       if (!c.paid) continue;
       const month = new Date(c.created * 1000).toISOString().slice(0, 7);
-      const row = (result[month] ||= { revenue: 0, fees: 0 });
-      row.revenue += (c.amount - (c.amount_refunded || 0)) / 100;
-      row.fees += (c.balance_transaction?.fee || 0) / 100;
+      const row = (result[month] ||= { revenue: 0, fees: 0, own: 0 });
+      const net = (c.amount - (c.amount_refunded || 0)) / 100;
+      if (own) row.own += net;
+      else row.revenue += net;
+      // Betaalkosten zijn ook bij een eigen betaling echte kosten.
+      row.fees += (bt.fee || 0) / 100;
     }
     if (!data.has_more) break;
     after = `&starting_after=${data.data[data.data.length - 1].id}`;
   }
+  result.charges = charges.sort((a, b) => b.date.localeCompare(a.date));
   return result;
 }
 
@@ -1638,6 +1739,7 @@ export default async function handler(req, res) {
     if (action === 'ingredient_candidates') return res.status(200).json(await ingredientCandidates());
     if (action === 'ingredient_decide') return res.status(200).json(await decideIngredients(req.body?.items));
     if (action === 'ingredient_undo') return res.status(200).json(await undoIngredient(req.body?.id));
+    if (action === 'activity') return res.status(200).json(await activity());
     if (action === 'kitchen_teams') return res.status(200).json(await kitchenTeams());
     if (action === 'gift_team' && req.body?.map_id) return res.status(200).json(await giftTeam(req.body.map_id, days));
     if (action === 'revoke_team_gift' && req.body?.map_id)
