@@ -1232,7 +1232,7 @@ function productScopes() {
   const teams = (sharedMaps || []).filter(
     m => !m.locked && (demoMode || productsIn(String(m.id)).length || canEditShared(m))
   );
-  return [{ id: 'own', name: 'Mijn producten' }, ...teams.map(m => ({ id: String(m.id), name: m.name, team: true }))];
+  return [{ id: 'own', name: 'Mijn recepten' }, ...teams.map(m => ({ id: String(m.id), name: m.name, team: true }))];
 }
 
 // Recepten die bij een lijst horen: je eigen recepten, of de recepten van dat keukenteam.
@@ -1276,6 +1276,7 @@ function productOverview(scope) {
   return { todo, complete, total };
 }
 
+// Het scherm Allergenen: bovenaan hoeveel recepten compleet zijn, daaronder drie tabbladen (js/features/product-review.js).
 function renderProducts() {
   const host = $('productsWrap');
   if (!host) return;
@@ -1283,58 +1284,33 @@ function renderProducts() {
   if (!scopes.some(s => s.id === productScope)) productScope = 'own';
   const scope = productScope;
   const edit = canEditProducts(scope);
-  if ($('productsAdd')) $('productsAdd').hidden = !edit;
   if (!productsReady) {
-    host.innerHTML =
-      '<div class="panel"><p class="muted">Producten en allergenen werken zodra de database is bijgewerkt.</p></div>';
+    host.innerHTML = '<div class="panel"><p class="muted">Allergenen werken zodra de database is bijgewerkt.</p></div>';
     return;
   }
   if (scope === 'own' && !edit && !productsIn('own').length) {
-    host.innerHTML = `${scopes.length > 1 ? productScopeTabs(scopes, scope) : ''}<div class="panel products-pro"><h3>Allergenen per recept <span class="pro-tag">Pro</span></h3><p class="muted">Leg per product de allergenen vast. Savour telt ze op per recept, ook via basisrecepten, en zet ze op je prints. Je ziet altijd welke ingrediënten nog niet gecontroleerd zijn.</p><button class="btn gold" onclick="openProNav()">Savour Pro bekijken</button></div>`;
+    host.innerHTML = `${scopes.length > 1 ? productScopeTabs(scopes, scope) : ''}<div class="panel products-pro"><h3>Allergenen per recept <span class="pro-tag">Pro</span></h3><p class="muted">Savour zoekt bij elk ingrediënt in je recepten de allergenen op en telt ze per recept op, ook via basisrecepten. Jij bevestigt wat Savour voorstelt. De allergenen komen ook op je prints.</p><button class="btn gold" onclick="openProNav()">Savour Pro bekijken</button></div>`;
     return;
   }
-  const list = productsIn(scope).sort((a, b) => a.name.localeCompare(b.name, 'nl'));
-  const overview = productOverview(scope);
-  const { complete, total } = overview;
-  // Te algemene namen ("sap", "coulis") apart: Savour weet niet wat erin zit, dus die staan niet tussen de rest.
-  const isGeneric = x => ['generic', 'junk'].includes(productFamily(x.key)?.kind);
-  const todo = overview.todo.filter(x => !isGeneric(x));
-  const vague = overview.todo.filter(isGeneric);
-  const unchecked = list.filter(p => !p.known);
-  const todoShown = productTodoAll ? todo : todo.slice(0, 12);
+  // Wat Savour zeker genoeg weet, koppelt het vanzelf (op de achtergrond; het scherm ververst daarna).
+  if (edit) autoLinkQuietly(scope);
+  const { complete, total } = productOverview(scope);
+  const queue = edit ? reviewQueue(scope) : [];
+  if (!productTab) productTab = queue.length ? 'review' : 'list';
+  if (!edit && productTab === 'review') productTab = 'list';
   const pct = total ? Math.round((complete / total) * 100) : 0;
-  const choosing = edit && productSettingsReady && !productExtras.has(scope);
-  const status = `<div class="panel products-status"><p class="products-status-line"><b>${complete}</b> <span>van</span> <b>${total}</b> <span>recepten hebben complete allergenen</span></p><div class="products-progress" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><span style="width:${pct}%"></span></div><p class="products-sum"><span><b>${list.length}</b> producten</span><span><b>${overview.todo.length}</b> namen nog te koppelen</span>${edit && productSettingsReady && productExtras.has(scope) ? `<button type="button" class="btn-quiet products-extras-btn" onclick="chooseAllergenExtras()">Welke allergenen?</button>` : ''}</p>${
-    edit && todo.length
-      ? `<div class="products-status-action"><button type="button" class="btn gold" onclick="openAutoLink()">Alles automatisch koppelen</button><p class="muted">Savour koppelt elke naam aan het product of eigen recept dat erbij hoort en maakt nieuwe producten met hun allergenen. Je ziet eerst wat er gebeurt.</p></div>`
-      : ''
-  }${
-    edit && list.length > 1
-      ? `<p class="products-starter-row"><span>Dubbele of foute producten samenvoegen en verbeteren</span><button type="button" class="btn small" onclick="openProductCleanup()">Producten opruimen</button></p>`
-      : ''
-  }${
-    edit && scope === 'own'
-      ? `<p class="products-starter-row"><span>Onzinregels en tikfouten in je recepten weghalen</span><button type="button" class="btn small" onclick="openRecipeLineCheck()">Receptregels nakijken</button></p>`
-      : ''
-  }${
-    edit && unchecked.length
-      ? `<p class="products-starter-row"><span><b>${unchecked.length}</b> <span>producten nog niet overgenomen</span></span><button type="button" class="btn small" onclick="openUncheckedReview()">Bekijken en overnemen</button></p>`
-      : ''
-  }</div>`;
-  host.innerHTML = `${scopes.length > 1 ? productScopeTabs(scopes, scope) : ''}
-    ${choosing ? allergenChoicePanelHtml() : edit ? starterPanelHtml(scope) : ''}
-    ${choosing ? '' : status}
-    ${
-      todo.length && edit
-        ? `<div class="panel products-todo"><h3>Nog te koppelen</h3><p class="muted">Namen uit je recepten zonder product, de meest gebruikte bovenaan. Eén keer koppelen geldt voor al je recepten.</p><ul class="products-todo-list">${todoShown.map(x => `<li><span><b translate="no">${esc(x.key)}</b><small>${x.count === 1 ? 'in 1 recept' : `in ${x.count} recepten`}</small></span>${todoButtons(scope, x.key)}</li>`).join('')}</ul>${todo.length > 12 ? `<button type="button" class="btn-quiet" onclick="productTodoAll=!productTodoAll;renderProducts()">${productTodoAll ? 'Minder tonen' : `Alle ${todo.length} tonen`}</button>` : ''}</div>`
-        : ''
-    }${
-      vague.length && edit
-        ? `<details class="panel products-todo products-vague"><summary><b>${vague.length}</b> <span>namen zijn te algemeen</span></summary><p class="muted">Bij "sap" of "coulis" weet Savour niet wat erin zit. Staat het in je recept als onderdeel, dan telt het al mee. Anders: koppel het aan een eigen recept of een product. Tot die tijd is dat recept nog niet compleet.</p><ul class="products-todo-list">${vague.map(x => `<li><span><b translate="no">${esc(x.key)}</b><small>${x.count === 1 ? 'in 1 recept' : `in ${x.count} recepten`}</small></span>${todoButtons(scope, x.key)}</li>`).join('')}</ul></details>`
-        : ''
-    }
-    <div class="panel products-list-panel"><div class="products-search"><span>⌕</span><input id="productSearchInput" value="${esc(productSearch)}" placeholder="${esc(t('Zoek een product'))}" autocomplete="off" oninput="productSearch=this.value;renderProductList()"></div><div id="productList"></div></div>`;
-  renderProductList();
+  const status = `<div class="panel products-status"><p class="products-status-line"><b>${complete}</b> <span>van</span> <b>${total}</b> <span>recepten hebben complete allergenen</span></p><div class="products-progress" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><span style="width:${pct}%"></span></div><p class="muted products-how">Savour koppelt de ingrediënten uit je recepten vanzelf. Jij bevestigt alleen wat Savour voorstelt.</p></div>`;
+  const tab = (id, label, count) =>
+    `<button type="button" class="${productTab === id ? 'on' : ''}" onclick="productTab='${id}';renderProducts()">${t(label)}${count ? ` <span class="products-tab-count">${count}</span>` : ''}</button>`;
+  const tabs = `<nav class="settings-tabs products-tabs" aria-label="Allergenen">${edit ? tab('review', 'Nakijken', queue.length) : ''}${tab('list', 'Ingrediënten')}${tab('allergens', 'Allergenen')}</nav>`;
+  const body =
+    productTab === 'review'
+      ? reviewTabHtml(scope, queue)
+      : productTab === 'allergens'
+        ? allergensTabHtml(scope, edit && productSettingsReady)
+        : ingredientsTabHtml(scope, edit);
+  host.innerHTML = `${scopes.length > 1 ? productScopeTabs(scopes, scope) : ''}${status}${tabs}${body}`;
+  if (productTab === 'list') renderProductList();
 }
 
 function productScopeTabs(scopes, scope) {
@@ -1344,17 +1320,30 @@ function productScopeTabs(scopes, scope) {
 function renderProductList() {
   const host = $('productList');
   if (!host) return;
+  document
+    .querySelectorAll('.products-filter button')
+    .forEach((b, i) => b.classList.toggle('on', ['', 'open', 'known'][i] === productStatusFilter));
   const list = productsIn(productScope).sort((a, b) => a.name.localeCompare(b.name, 'nl'));
   const q = productKey(productSearch);
-  const shown = q ? list.filter(p => [p.name, ...p.aliases].some(n => productKey(n).includes(q))) : list;
+  const shown = list.filter(
+    p =>
+      (!q || [p.name, ...p.aliases].some(n => productKey(n).includes(q))) &&
+      (!productStatusFilter || (productStatusFilter === 'known') === p.known)
+  );
   host.innerHTML = shown.length
     ? `<ul class="products-list">${shown
-        .map(
-          p =>
-            `<li><button type="button" onclick="openProductFromList('${escJs(p.id)}')"><span class="products-name"><b translate="no">${esc(p.name)}</b>${p.aliases.length ? `<small translate="no">${esc(p.aliases.join(', '))}</small>` : ''}</span><span class="allergen-chips">${p.known ? (shownAllergens(p.allergens, p.scope).length ? allergenChips(shownAllergens(p.allergens, p.scope)) : '<span class="allergen-none">Geen allergenen</span>') : `${shownAllergens(p.allergens, p.scope).length ? allergenChips(shownAllergens(p.allergens, p.scope), 'is-suggested') : ''}<span class="allergen-open">Nog niet overgenomen</span>`}</span></button></li>`
-        )
+        .map(p => {
+          const codes = shownAllergens(p.allergens, p.scope);
+          const chips = codes.length
+            ? allergenChips(codes, p.known ? '' : 'is-suggested')
+            : `<span class="allergen-none">${t('Geen allergenen')}</span>`;
+          const state = p.known
+            ? `<span class="products-state is-known">${t('Bevestigd')}</span>`
+            : `<span class="products-state">${t('Voorstel')}</span>`;
+          return `<li><button type="button" onclick="openProductFromList('${escJs(p.id)}')"><span class="products-name"><b translate="no">${esc(p.name)}</b>${p.aliases.length ? `<small translate="no">${esc(p.aliases.slice(0, 8).join(', '))}${p.aliases.length > 8 ? ' …' : ''}</small>` : ''}</span><span class="allergen-chips">${chips}</span>${state}</button></li>`;
+        })
         .join('')}</ul>`
-    : `<p class="muted">${list.length ? 'Geen producten gevonden.' : 'Nog geen producten. Koppel hierboven ingrediënten, of voeg een product toe.'}</p>`;
+    : `<p class="muted">${list.length ? t('Geen ingrediënten gevonden.') : t('Nog geen ingrediënten. Savour vult deze lijst vanzelf met de ingrediënten uit je recepten.')}</p>`;
 }
 
 async function openProductFromList(id) {

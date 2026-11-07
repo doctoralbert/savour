@@ -255,6 +255,8 @@ async function startDatabaseSession(user) {
       await loadPlanState();
       await loadRecipeSourceIds();
       await loadProducts();
+      // Wat Savour zeker weet, koppelt het vanzelf aan de allergenen (js/features/product-review.js).
+      setTimeout(() => autoLinkQuietly('own'), 2500);
       saveOfflineSnapshot();
       renderProNav();
       renderAdminNav();

@@ -281,7 +281,9 @@ async function openAutoLink() {
   });
 }
 
-async function runAutoLink(scope, plan, creates) {
+// quiet: vanzelf op de achtergrond (koppelen.js). Dan worden nieuwe ingrediënten een voorstel dat de kok nog
+// bevestigt, en koppelt Savour niets aan recepten: dat vraagt het eerst bij Nakijken.
+async function runAutoLink(scope, plan, creates, { quiet = false } = {}) {
   let done = 0;
   // 1. Namen bij bestaande producten. Doet een naam een extra kenmerk vermoeden ("gerookte makreel": histamine),
   // dan komt dat erbij: liever een allergeen te veel dan te weinig.
@@ -292,7 +294,9 @@ async function runAutoLink(scope, plan, creates) {
     const allergens = withDerived(productKey(p.name), [...p.allergens, ...keys.flatMap(allergenHints)]).filter(
       a => p.allergens.includes(a) || allergenShown(a, scope)
     );
-    return { ...p, aliases: [...new Set([...p.aliases, ...keys])].slice(0, 500), allergens };
+    // Komt er een allergeen bij een bevestigd ingrediënt, dan wordt het weer een voorstel: de kok kijkt het na.
+    const added = allergens.some(a => !p.allergens.includes(a));
+    return { ...p, aliases: [...new Set([...p.aliases, ...keys])].slice(0, 500), allergens, known: p.known && !added };
   });
   for (let i = 0; i < updates.length; i += 8) {
     const saved = await Promise.all(updates.slice(i, i + 8).map(writeProduct));
@@ -305,13 +309,13 @@ async function runAutoLink(scope, plan, creates) {
       name: c.name,
       aliases: c.keys.filter(k => k !== productKey(c.name)),
       allergens: withDerived(productKey(c.name), [...c.allergens]).filter(a => allergenShown(a, scope)),
-      known: true,
+      known: !quiet,
       note: ''
     }));
     if (await insertProducts(rows)) done += creates.reduce((n, c) => n + c.keys.length, 0);
   }
   // 3. Koppelingen naar eigen recepten.
-  done += await linkNamesToRecipes(scope, new Map(plan.recipe.map(x => [x.key, x.recipe])));
+  if (!quiet) done += await linkNamesToRecipes(scope, new Map(plan.recipe.map(x => [x.key, x.recipe])));
   saveOfflineSnapshot();
   return done;
 }

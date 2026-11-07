@@ -1209,3 +1209,148 @@ body.cook-mode .rp-side-note-head button {
 .products-vague > p {
   margin: var(--sv-space-3) 0 0;
 }
+
+/* ---- Allergenen: tabbladen Nakijken, Ingrediënten, Allergenen aanzetten (js/features/product-review.js) ---- */
+.products-how {
+  margin: var(--sv-space-2) 0 0;
+}
+.products-tabs {
+  margin: var(--sv-space-4) 0 var(--sv-space-3);
+}
+.products-tab-count {
+  display: inline-block;
+  min-width: 20px;
+  margin-left: 6px;
+  padding: 0 6px;
+  border-radius: 3px;
+  background: var(--sv-gold);
+  color: var(--sv-on-gold);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+.review-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: var(--sv-space-3);
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.review-progress i {
+  flex: 1;
+  height: 4px;
+  background: var(--sv-line);
+}
+.review-progress b {
+  display: block;
+  height: 100%;
+  background: var(--sv-gold);
+}
+.review-card {
+  padding: var(--sv-space-6) var(--sv-space-5);
+}
+.review-kicker {
+  margin: 0 0 6px;
+  color: var(--sv-gold);
+  font-size: var(--sv-fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.review-name {
+  margin: 0;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-2xl);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.review-name.review-line {
+  font-family: var(--sv-font);
+  font-size: var(--sv-fs-lg);
+}
+.review-sub {
+  margin: 6px 0 0;
+  color: var(--sv-text-2);
+}
+.review-allergens {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: var(--sv-space-4);
+}
+.review-allergens > span {
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: var(--sv-space-5);
+}
+.review-note {
+  margin: var(--sv-space-3) 0 0;
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-sm);
+}
+.review-bulk {
+  margin: var(--sv-space-3) 0 0;
+  text-align: center;
+}
+.review-done h3 {
+  margin-top: 0;
+}
+.products-list-tools {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.products-list-tools .products-search {
+  flex: 1;
+  margin: 0;
+}
+.products-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: var(--sv-space-3) 0;
+}
+.products-filter button {
+  border: 1px solid var(--sv-line);
+  background: transparent;
+  color: var(--sv-text-2);
+  padding: 6px 12px;
+  font: inherit;
+  font-size: var(--sv-fs-sm);
+  cursor: pointer;
+}
+.products-filter button.on {
+  border-color: var(--sv-gold);
+  color: var(--sv-gold);
+}
+.products-state {
+  flex: none;
+  margin-left: 10px;
+  color: var(--sv-gold);
+  font-size: var(--sv-fs-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.products-state.is-known {
+  color: var(--sv-text-3);
+}
+@media (max-width: 600px) {
+  .review-card {
+    padding: var(--sv-space-5) var(--sv-space-4);
+  }
+  .review-actions .btn {
+    flex: 1 1 auto;
+  }
+  .products-list-tools {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
