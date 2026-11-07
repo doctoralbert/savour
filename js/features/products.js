@@ -304,6 +304,36 @@ let productSettingsReady = true; // false als de tabel product_settings nog niet
 // wat de beheerder voor iedereen bevestigde ("massa", "boiron coulis"). Savour stelt dan zelf voor ze weg te halen.
 let notIngredientOwn = new Set();
 let notIngredientAll = new Set();
+// De gedeelde Savour-lijst (ingredient_list, goedgekeurd in /admin): telt direct voor elke keuken. Een keuken maakt
+// alleen een eigen versie als het bij hen anders is; die gaat dan voor. Ingrediënten die per merk verschillen
+// (BRAND_DEPENDENT) vraagt Savour één keer per keuken.
+let centralIndex = new Map();
+const BRAND_DEPENDENT =
+  /gelatine|galatine|soja\s?saus|sojasaus|soy sauce|ketjap|kecap|chocolade|couverture|bouillon|fond($|\s)|worst|vleeswaren|pesto|mayonaise|mayo($|\s)|paneermeel|panko|curry\s?pasta|kerriepasta|oestersaus|vissaus|fish sauce|worcester/;
+function setCentralList(rows) {
+  centralIndex = new Map();
+  for (const x of rows || []) {
+    if (x.status && x.status !== 'approved') continue;
+    const p = {
+      id: `savour:${x.key}`,
+      name: x.name || capitalizeFirst(x.key),
+      aliases: x.aliases || [],
+      allergens: x.allergens || [],
+      known: true,
+      note: '',
+      central: true
+    };
+    for (const k of [x.key, productKey(x.name), ...(x.aliases || []).map(productKey)])
+      if (k && !centralIndex.has(k)) centralIndex.set(k, p);
+  }
+}
+// Het ingrediënt uit de Savour-lijst voor een naam, of null. Per merk verschillend: nog niet bevestigd.
+function centralProduct(key, scope) {
+  const p = centralIndex.get(key);
+  if (!p) return null;
+  const brand = BRAND_DEPENDENT.test(key) || BRAND_DEPENDENT.test(productKey(p.name));
+  return { ...p, scope, known: !brand, brand };
+}
 const learnedNotIngredient = key => notIngredientOwn.has(key) || notIngredientAll.has(key);
 // Geen ingrediënt: een stukje uitleg of bereiding (vaste regels in product-families.js) of geleerd.
 const isNotIngredient = key => !!key && (productFamily(key)?.kind === 'junk' || learnedNotIngredient(key));
@@ -321,8 +351,8 @@ async function rememberNotIngredient(key) {
 }
 
 function allergenShown(code, scope) {
-  if (!ALLERGEN_EXTRA.has(code) || !productExtras.has(scope)) return true;
-  return productExtras.get(scope).includes(code);
+  if (!ALLERGEN_EXTRA.has(code)) return true;
+  return (productExtras.get(scope) || []).includes(code);
 }
 const shownAllergens = (codes, scope) => codes.filter(c => allergenShown(c, scope));
 
@@ -615,6 +645,7 @@ async function loadProducts() {
   productExtras = new Map();
   if (demoMode) {
     products = demoProducts();
+    setCentralList(DEMO_CENTRAL);
     return;
   }
   products = [];
@@ -626,10 +657,15 @@ async function loadProducts() {
       .order('name'),
     supabaseClient.from('product_settings').select('user_id,team_id,allergen_extras'),
     supabaseClient.from('ingredient_feedback').select('key').eq('kind', 'not_ingredient'),
-    supabaseClient.from('ingredient_list').select('key').eq('status', 'junk').limit(10000)
+    supabaseClient
+      .from('ingredient_list')
+      .select('key,name,aliases,allergens,status')
+      .in('status', ['approved', 'junk'])
+      .limit(20000)
   ]);
   notIngredientOwn = new Set((own.data || []).map(x => x.key));
-  notIngredientAll = new Set((all.data || []).map(x => x.key));
+  notIngredientAll = new Set((all.data || []).filter(x => x.status === 'junk').map(x => x.key));
+  setCentralList(all.data || []);
   productSettingsReady = !settings.error;
   (settings.data || []).forEach(row =>
     productExtras.set(
@@ -655,6 +691,18 @@ function productFromRow(row) {
     note: row.allergen_note || ''
   };
 }
+
+// Een paar namen uit de Savour-lijst voor de demo: peper telt direct, gelatine vraagt Savour per keuken.
+const DEMO_CENTRAL = [
+  { key: 'peper', name: 'Peper', aliases: ['witte peper', 'zwarte peper'], allergens: [], status: 'approved' },
+  {
+    key: 'gelatine',
+    name: 'Gelatine',
+    aliases: ['blad gelatine'],
+    allergens: ['varkensvlees', 'rundvlees'],
+    status: 'approved'
+  }
+];
 
 // Voorbeeldproducten in de demo: de beurre blanc is bijna compleet, zodat je ziet wat er nog mist.
 function demoProducts() {
@@ -791,7 +839,7 @@ function recipeAllergenInfo(
       lines.push({ i, line, key, status: 'recipe', target, sub });
       return;
     }
-    const product = index.get(key) || combinedProduct(index, key);
+    const product = index.get(key) || combinedProduct(index, key) || centralProduct(key, scope);
     if (product?.known) {
       product.allergens.forEach(a => found.add(a));
       lines.push({ i, line, key, status: 'product', product });
@@ -887,7 +935,7 @@ function renderRecipeAllergens(r) {
     ? `<small class="is-open">${t('nog niet compleet')}</small>`
     : `<small>${count ? (count === 1 ? t('1 allergeen') : t(`${count} allergenen`)) : t('geen van de 14')}</small>`;
   const expanded = recipeAllergensOpen();
-  host.innerHTML = `<aside class="rp-allergens is-fold${expanded ? ' is-expanded' : ''}"><button type="button" class="rp-allergens-toggle" aria-expanded="${expanded}" onclick="toggleRecipeAllergens()"><span>Allergenen</span>${summary}<i aria-hidden="true">${expanded ? '−' : '+'}</i></button><div class="rp-allergens-body"${expanded ? '' : ' hidden'}>${body}${open}<p class="rp-allergens-links"><button type="button" class="btn-quiet" onclick="openAllergenCard()">Allergenenkaart</button><button type="button" class="btn-quiet" onclick="openRecipeAllergenCheck()">${edit ? 'Controleren' : 'Details'}</button></p></div></aside>`;
+  host.innerHTML = `<aside class="rp-allergens is-fold${expanded ? ' is-expanded' : ''}"><button type="button" class="rp-allergens-toggle" aria-expanded="${expanded}" onclick="toggleRecipeAllergens()"><span>Allergenen</span>${summary}<i aria-hidden="true">${expanded ? '−' : '+'}</i></button><div class="rp-allergens-body"${expanded ? '' : ' hidden'}>${body}${open}<p class="rp-allergens-source">${t('Volgens de Savour-lijst en je eigen ingrediënten. Controleer bij twijfel het etiket van jouw merk.')}</p><p class="rp-allergens-links"><button type="button" class="btn-quiet" onclick="openAllergenCard()">Allergenenkaart</button><button type="button" class="btn-quiet" onclick="openRecipeAllergenCheck()">${edit ? 'Controleren' : 'Details'}</button></p></div></aside>`;
 }
 
 // Venster per recept: elke ingrediëntregel met het product (of basisrecept) en de allergenen.
@@ -1334,7 +1382,7 @@ function renderProducts() {
   if (!productTab) productTab = queue.length ? 'review' : 'list';
   if (!edit && productTab === 'review') productTab = 'list';
   const pct = total ? Math.round((complete / total) * 100) : 0;
-  const status = `<div class="panel products-status"><p class="products-status-line"><b>${complete}</b> <span>van</span> <b>${total}</b> <span>recepten hebben complete allergenen</span></p><div class="products-progress" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><span style="width:${pct}%"></span></div><p class="muted products-how">Savour koppelt de ingrediënten uit je recepten vanzelf. Jij bevestigt alleen wat Savour voorstelt.</p></div>`;
+  const status = `<div class="panel products-status"><p class="products-status-line"><b>${complete}</b> <span>van</span> <b>${total}</b> <span>recepten hebben complete allergenen</span></p><div class="products-progress" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><span style="width:${pct}%"></span></div><p class="muted products-how">Savour koppelt de ingrediënten uit je recepten vanzelf. Jij bevestigt alleen wat Savour voorstelt.</p></div><div class="products-brand-warning">${icon('alert', { size: 16 })}<p><b>${t('Let op: allergenen verschillen per merk.')}</b> <span>${t('Denk aan gelatine (varken, rund of vis), sojasaus (met of zonder gluten), chocolade (melk, soja, noten), bouillon en fond (selderij, gluten), worst en vleeswaren, pesto (noten), mayonaise (ei, mosterd) en paneermeel. Controleer het etiket van jouw merk en pas het ingrediënt zo nodig aan.')}</span></p></div>`;
   const tab = (id, label, count) =>
     `<button type="button" class="${productTab === id ? 'on' : ''}" onclick="productTab='${id}';renderProducts()">${t(label)}${count ? ` <span class="products-tab-count">${count}</span>` : ''}</button>`;
   const tabs = `<nav class="settings-tabs products-tabs" aria-label="Allergenen">${edit ? tab('review', 'Nakijken', queue.length) : ''}${tab('list', 'Ingrediënten')}${tab('allergens', 'Allergenen')}</nav>`;
@@ -1357,25 +1405,34 @@ function renderProductList() {
   if (!host) return;
   document
     .querySelectorAll('.products-filter button')
-    .forEach((b, i) => b.classList.toggle('on', ['', 'open', 'known'][i] === productStatusFilter));
-  const list = productsIn(productScope).sort((a, b) => a.name.localeCompare(b.name, 'nl'));
+    .forEach((b, i) => b.classList.toggle('on', ['', 'open', 'known', 'central'][i] === productStatusFilter));
+  const own = productsIn(productScope);
+  // Uit de Savour-lijst, gebruikt in deze keuken en (nog) zonder eigen versie.
+  const central = [...centralUsage(productScope).values()]
+    .filter(u => !own.some(x => productKey(x.name) === productKey(u.product.name)))
+    .map(u => ({ ...u.product, aliases: [...u.keys] }));
+  const list = [...own, ...central].sort((a, b) => a.name.localeCompare(b.name, 'nl'));
   const q = productKey(productSearch);
   const shown = list.filter(
-    p =>
-      (!q || [p.name, ...p.aliases].some(n => productKey(n).includes(q))) &&
-      (!productStatusFilter || (productStatusFilter === 'known') === p.known)
+    x =>
+      (!q || [x.name, ...x.aliases].some(n => productKey(n).includes(q))) &&
+      (!productStatusFilter ||
+        (productStatusFilter === 'central' ? x.central : !x.central && (productStatusFilter === 'known') === x.known))
   );
   host.innerHTML = shown.length
     ? `<ul class="products-list">${shown
-        .map(p => {
-          const codes = shownAllergens(p.allergens, p.scope);
+        .map(x => {
+          const codes = shownAllergens(x.allergens, productScope);
           const chips = codes.length
-            ? allergenChips(codes, p.known ? '' : 'is-suggested')
+            ? allergenChips(codes, x.known ? '' : 'is-suggested')
             : `<span class="allergen-none">${t('Geen allergenen')}</span>`;
-          const state = p.known
-            ? `<span class="products-state is-known">${t('Bevestigd')}</span>`
-            : `<span class="products-state">${t('Voorstel')}</span>`;
-          return `<li><button type="button" onclick="openProductFromList('${escJs(p.id)}')"><span class="products-name"><b translate="no">${esc(p.name)}</b>${p.aliases.length ? `<small translate="no">${esc(p.aliases.slice(0, 8).join(', '))}${p.aliases.length > 8 ? ' …' : ''}</small>` : ''}</span><span class="allergen-chips">${chips}</span>${state}</button></li>`;
+          const state = x.central
+            ? `<span class="products-state is-central">${t(x.brand ? 'Per merk nakijken' : 'Savour-lijst')}</span>`
+            : x.known
+              ? `<span class="products-state is-known">${t('Bevestigd')}</span>`
+              : `<span class="products-state">${t('Voorstel')}</span>`;
+          const open = x.central ? `openCentralProduct('${escJs(x.name)}')` : `openProductFromList('${escJs(x.id)}')`;
+          return `<li><button type="button" onclick="${open}"><span class="products-name"><b translate="no">${esc(x.name)}</b>${x.aliases.length ? `<small translate="no">${esc(x.aliases.slice(0, 8).join(', '))}${x.aliases.length > 8 ? ' …' : ''}</small>` : ''}</span><span class="allergen-chips">${chips}</span>${state}</button></li>`;
         })
         .join('')}</ul>`
     : `<p class="muted">${list.length ? t('Geen ingrediënten gevonden.') : t('Nog geen ingrediënten. Savour vult deze lijst vanzelf met de ingrediënten uit je recepten.')}</p>`;

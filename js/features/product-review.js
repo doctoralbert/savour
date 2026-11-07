@@ -70,6 +70,25 @@ function productUsage(scope) {
   return counts;
 }
 
+// Welke ingrediënten uit de Savour-lijst deze keuken gebruikt: id → { product, keys, count }.
+function centralUsage(scope) {
+  const used = new Map();
+  const byTitle = recipesByTitle({ id: null });
+  const indexes = new Map();
+  for (const r of recipesForProductScope(scope)) {
+    const seen = new Set();
+    for (const x of recipeAllergenInfo(r, scope, new Set(), byTitle, indexes).lines) {
+      if (!x.product?.central) continue;
+      const u = used.get(x.product.id) || { product: x.product, keys: new Set(), count: 0 };
+      u.keys.add(x.key);
+      if (!seen.has(x.product.id)) u.count++;
+      seen.add(x.product.id);
+      used.set(x.product.id, u);
+    }
+  }
+  return used;
+}
+
 // ---- Nakijken ----
 
 // Alle open vragen, de vraag die de meeste recepten helpt eerst.
@@ -79,6 +98,10 @@ function reviewQueue(scope) {
   const items = [];
   for (const p of productsIn(scope))
     if (!p.known) items.push({ id: `confirm:${p.id}`, type: 'confirm', product: p, count: usage.get(p.id) || 0 });
+  // Uit de Savour-lijst, maar per merk verschillend (gelatine, sojasaus): één keer per keuken bevestigen.
+  for (const u of centralUsage(scope).values())
+    if (u.product.brand)
+      items.push({ id: `brand:${u.product.id}`, type: 'brand', product: u.product, keys: [...u.keys], count: u.count });
   const todo = productTodo(scope);
   // Een naam die op een eigen recept lijkt ("groente fond" → Groentefond): eerst vragen, nooit vanzelf.
   const byTitle = ownRecipesByTitle(scope);
@@ -114,7 +137,7 @@ function reviewQueue(scope) {
         count: new Set(rows.map(x => x.recipe.id)).size
       });
   }
-  const order = { recipe: 0, unknown: 1, not: 2, confirm: 3, line: 4 };
+  const order = { recipe: 0, unknown: 1, brand: 2, not: 3, confirm: 4, line: 5 };
   return items.sort((a, b) => b.count - a.count || order[a.type] - order[b.type]);
 }
 
@@ -124,6 +147,10 @@ function reviewCardHtml(item, scope) {
   if (item.type === 'confirm') {
     const codes = shownAllergens(item.product.allergens, scope);
     return `<p class="review-kicker">Klopt dit?</p><h3 class="review-name" translate="no">${esc(item.product.name)}</h3><p class="review-sub">${item.count ? inRecipes(item.count) : t('nog in geen recept')}</p><div class="review-allergens"><span>Hier zit volgens Savour in:</span>${codes.length ? allergenChips(codes) : `<b>${t('geen allergenen')}</b>`}</div><div class="review-actions"><button type="button" class="btn gold" onclick="reviewConfirm('${escJs(item.product.id)}')">Klopt</button><button type="button" class="btn" onclick="reviewEdit('${escJs(item.product.id)}')">Aanpassen</button>${skip}</div><p class="review-note">Controleer het etiket als je twijfelt: elk merk is anders.</p>`;
+  }
+  if (item.type === 'brand') {
+    const codes = shownAllergens(item.product.allergens, scope);
+    return `<p class="review-kicker">${t('Verschilt per merk')}</p><h3 class="review-name" translate="no">${esc(item.product.name)}</h3><p class="review-sub">${inRecipes(item.count)}</p><div class="review-allergens"><span>${t('Volgens de Savour-lijst:')}</span>${codes.length ? allergenChips(codes) : `<b>${t('geen allergenen')}</b>`}</div><p class="review-sub">${t('Klopt dat ook voor het merk dat jij gebruikt? Kijk op het etiket.')}</p><div class="review-actions"><button type="button" class="btn gold" onclick="reviewBrandYes('${escJs(item.product.id)}')">${t('Klopt voor mijn merk')}</button><button type="button" class="btn" onclick="reviewBrandEdit('${escJs(item.product.id)}')">Aanpassen</button>${skip}</div>`;
   }
   if (item.type === 'recipe')
     return `<p class="review-kicker">Is dit je eigen recept?</p><h3 class="review-name" translate="no">${esc(item.key)}</h3><p class="review-sub"><span>${inRecipes(item.count)}</span> · <span>${t('lijkt op je recept')}</span> <b translate="no">${esc(item.recipe.title)}</b></p><div class="review-actions"><button type="button" class="btn gold" onclick="reviewRecipeYes('${escJs(item.key)}','${escJs(item.recipe.id)}')">Ja, dat recept</button><button type="button" class="btn" onclick="reviewRecipeNo('${escJs(item.key)}')">Nee</button>${skip}</div><p class="review-note">Dan tellen de allergenen van dat recept mee.</p>`;
@@ -173,6 +200,34 @@ async function reviewConfirm(id) {
     saveOfflineSnapshot();
     renderProducts();
   }
+}
+
+// Een eigen versie van een ingrediënt uit de Savour-lijst: zelfde naam en schrijfwijzen, bevestigd door deze keuken.
+async function reviewBrandYes(id) {
+  const item = reviewQueue(productScope).find(x => x.id === `brand:${id}`);
+  if (!item) return;
+  const p = item.product;
+  const key = productKey(p.name);
+  const saved = await insertProducts([
+    {
+      scope: productScope,
+      name: p.name,
+      aliases: [...new Set([...p.aliases, ...item.keys].map(productKey))].filter(k => k && k !== key).slice(0, 50),
+      allergens: [...p.allergens],
+      known: true,
+      note: ''
+    }
+  ]);
+  if (saved) {
+    saveOfflineSnapshot();
+    renderProducts();
+  }
+}
+
+async function reviewBrandEdit(id) {
+  const item = reviewQueue(productScope).find(x => x.id === `brand:${id}`);
+  if (!item) return;
+  if (await openProductEditor({ scope: productScope, name: item.product.name, alias: item.keys[0] })) renderProducts();
 }
 
 async function reviewEdit(id) {
@@ -225,15 +280,18 @@ let productStatusFilter = '';
 function ingredientsTabHtml(scope, edit) {
   const list = productsIn(scope);
   const open = list.filter(p => !p.known).length;
+  const central = [...centralUsage(scope).values()].filter(
+    u => !list.some(p => productKey(p.name) === productKey(u.product.name))
+  ).length;
   const filter = (id, label) =>
     `<button type="button" class="${productStatusFilter === id ? 'on' : ''}" onclick="productStatusFilter='${id}';renderProductList()">${t(label)}</button>`;
-  return `<div class="panel products-list-panel"><div class="products-list-tools"><div class="products-search"><span>⌕</span><input id="productSearchInput" value="${esc(productSearch)}" placeholder="${esc(t('Zoek een ingrediënt'))}" autocomplete="off" oninput="productSearch=this.value;renderProductList()"></div>${edit ? '<button type="button" class="btn gold" onclick="addProduct()">＋ Ingrediënt</button>' : ''}</div><div class="products-filter">${filter('', `Alle (${list.length})`)}${filter('open', `Voorstel (${open})`)}${filter('known', `Bevestigd (${list.length - open})`)}</div><div id="productList"></div></div>`;
+  return `<div class="panel products-list-panel"><div class="products-list-tools"><div class="products-search"><span>⌕</span><input id="productSearchInput" value="${esc(productSearch)}" placeholder="${esc(t('Zoek een ingrediënt'))}" autocomplete="off" oninput="productSearch=this.value;renderProductList()"></div>${edit ? '<button type="button" class="btn gold" onclick="addProduct()">＋ Ingrediënt</button>' : ''}</div><div class="products-filter">${filter('', `Alle (${list.length})`)}${filter('open', `Voorstel (${open})`)}${filter('known', `Bevestigd (${list.length - open})`)}${filter('central', `Savour-lijst (${central})`)}</div><p class="muted products-brand-note">${t('Staat een ingrediënt in de Savour-lijst, dan telt het meteen mee. Is het bij jouw merk anders? Open het en maak je eigen versie; die gaat dan voor.')}</p><div id="productList"></div></div>`;
 }
 
 // ---- Allergenen aanzetten ----
 
 function allergensTabHtml(scope, edit) {
-  const on = productExtras.has(scope) ? new Set(productExtras.get(scope)) : new Set([...ALLERGEN_EXTRA]);
+  const on = new Set(productExtras.get(scope) || []);
   const eu = ALLERGENS.filter(a => !a[2])
     .map(a => `<span class="allergen-chip">${esc(t(a[1]))}</span>`)
     .join('');
@@ -251,7 +309,7 @@ function allergensTabHtml(scope, edit) {
 
 async function toggleAllergenExtra(code, checked) {
   const scope = productScope;
-  const current = productExtras.has(scope) ? new Set(productExtras.get(scope)) : new Set([...ALLERGEN_EXTRA]);
+  const current = new Set(productExtras.get(scope) || []);
   if (checked) current.add(code);
   else current.delete(code);
   await setAllergenExtras(
@@ -323,4 +381,9 @@ function openAllergenCard() {
   );
   const el = $('allergenCard');
   closableModal(el, () => el.remove());
+}
+
+// Een ingrediënt uit de Savour-lijst openen: wat je opslaat, wordt je eigen versie voor deze keuken.
+async function openCentralProduct(name) {
+  if (await openProductEditor({ scope: productScope, name })) renderProducts();
 }

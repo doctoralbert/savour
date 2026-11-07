@@ -1486,3 +1486,34 @@ body.cook-mode .rp-side-note-head button {
     min-width: 30px;
   }
 }
+
+/* Uitleg per merk en de Savour-lijst (2026-11-07). */
+.products-brand-warning {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: var(--sv-space-3) 0 0;
+  padding: 12px 14px;
+  border: 1px solid var(--sv-line);
+  border-left: 3px solid var(--sv-gold);
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.products-brand-warning p {
+  margin: 0;
+}
+.products-brand-warning b {
+  color: var(--sv-text);
+}
+.products-brand-note {
+  margin: 0 0 var(--sv-space-3);
+  font-size: var(--sv-fs-sm);
+}
+.products-state.is-central {
+  color: var(--sv-text-2);
+}
+.rp-allergens-source {
+  margin: 10px 0 0;
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-xs);
+}

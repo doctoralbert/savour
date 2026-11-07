@@ -73,6 +73,7 @@ function startDemo() {
   favorites = recipes.slice(0, 3).map(r => r.id);
   // Voorbeeldproducten met allergenen (js/features/products.js).
   products = demoProducts();
+  setCentralList(DEMO_CENTRAL);
   productsReady = true;
   // Een collega met eigen recepten in het keukenteam, om samenwerken te laten zien.
   sharedRecipes = ['Bouillabaisse', 'Crème brûlée', 'Gepocheerde peer'].map((title, i) => ({
