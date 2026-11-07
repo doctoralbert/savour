@@ -2,7 +2,7 @@
 --
 -- Uit de grote ingrediëntenlijst (assets/data/ingredientenlijst.json): 2863 losse, onbewerkte producten waarvan
 -- de allergenen niet per merk verschillen (groente, fruit, kruiden, vis, vlees, noten, granen, zuivel). Die tellen
--- daarna direct voor iedereen. Bewerkte producten, Open Food Facts-only en wat per merk verschilt, blijven een
+-- daarna direct voor iedereen. Bewerkte producten, alcoholische dranken, mengsels en wat per merk verschilt, blijven een
 -- voorstel. Wat er al in de lijst staat (jouw goedkeuringen), blijft zoals het is. Terugdraaien kan per naam in
 -- /admin → Ingrediënten. Gemaakt met een eenmalig script uit de vaste lijsten.
 --
