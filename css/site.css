@@ -3776,3 +3776,37 @@ body.cook-mode #publicRecipeShell .share-recipe-head h1 {
 .site-menu-btn {
   border-radius: 6px;
 }
+
+/* ---- Geen ronde knoppen (2026-11-07): overal strakke hoeken, in de app, op de site en in het beheer. Ook
+   knop-achtige keuzes (tabbladen, omrekenen, perioden) en invoervelden. Met een id ervoor, zodat dit wint van de
+   oudere opmaak met !important. ---- */
+button,
+.btn,
+.site-btn,
+:is(body, #appShell, #adminDashboardView, #landingView, .modal, .public-shell, .site-header, .site-mm)
+  :is(
+    button,
+    .btn,
+    a.btn,
+    .site-btn,
+    .admin-ghost,
+    .admin-refresh,
+    input[type='text'],
+    input[type='search'],
+    input[type='email'],
+    input[type='password'],
+    input:not([type]),
+    select,
+    textarea,
+    summary,
+    .search,
+    .mobile-recipe-search,
+    .products-search
+  ) {
+  border-radius: 4px !important;
+}
+.allergen-chip,
+.admin-badge,
+.batch-chip {
+  border-radius: 3px !important;
+}

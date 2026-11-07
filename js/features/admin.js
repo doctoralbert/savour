@@ -128,6 +128,10 @@ function showAdminTab(tab) {
   if (!tabs.includes(tab)) tab = 'overzicht';
   document.querySelectorAll('.admin-tab').forEach(t => t.classList.toggle('is-on', t.dataset.adminTab === tab));
   document.querySelectorAll('.admin-tabs button').forEach(b => b.classList.toggle('is-on', b.dataset.adminTab === tab));
+  // Op telefoon schuift het menu opzij: het gekozen tabblad in beeld.
+  document
+    .querySelector(`.admin-tabs button[data-admin-tab="${tab}"]`)
+    ?.scrollIntoView({ block: 'nearest', inline: 'center' });
   if (tab === 'nieuwsbrief' && !adminNews) loadAdminNewsletter();
   if (tab === 'keukenteams') loadAdminTeams();
   if (tab === 'ingredienten' && !adminIngredients) loadAdminIngredients();
