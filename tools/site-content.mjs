@@ -30,7 +30,7 @@ export const UI = {
     pricing: 'Prijzen',
     about: 'Over ons',
     blog: 'Blog',
-    login: 'Inloggen',
+    login: 'Log in',
     start: 'Gratis beginnen',
     demo: 'Bekijk de demo',
     demoNote: '40 proefrecepten, geen account nodig',

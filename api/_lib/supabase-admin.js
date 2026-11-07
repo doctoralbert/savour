@@ -219,3 +219,13 @@ export function insertIgnore(table, rows, onConflict) {
     prefer: 'resolution=ignore-duplicates,return=minimal'
   });
 }
+
+// Rijen toevoegen of bijwerken op een unieke combinatie (on_conflict), bijv. een beslissing over een ingrediënt.
+// Geeft de opgeslagen rijen terug.
+export function upsert(table, rows, onConflict) {
+  return adminFetch(`/rest/v1/${table}?on_conflict=${onConflict}`, {
+    method: 'POST',
+    body: rows,
+    prefer: 'resolution=merge-duplicates,return=representation'
+  });
+}

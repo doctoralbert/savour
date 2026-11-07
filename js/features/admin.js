@@ -130,6 +130,7 @@ function showAdminTab(tab) {
   document.querySelectorAll('.admin-tabs button').forEach(b => b.classList.toggle('is-on', b.dataset.adminTab === tab));
   if (tab === 'nieuwsbrief' && !adminNews) loadAdminNewsletter();
   if (tab === 'keukenteams') loadAdminTeams();
+  if (tab === 'ingredienten' && !adminIngredients) loadAdminIngredients();
   try {
     sessionStorage.setItem('savour_admin_tab', tab);
   } catch (_) {}
@@ -1024,6 +1025,44 @@ let adminAccounts = [];
 const adminMoney = v =>
   v == null ? '—' : `€ ${Number(v).toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
+// Activiteit: hoeveel accounts iets doen, nieuwe recepten per week en wat er gedeeld wordt (api/admin.js → activity).
+async function loadAdminActivity() {
+  const host = $('adminActivity');
+  if (!host) return;
+  try {
+    renderAdminActivity(await adminApi('activity'));
+  } catch (e) {
+    if (!e.expired)
+      host.innerHTML = `<p class="admin-note">Activiteit kon niet worden geladen: ${adminEscape(e.message)}</p>`;
+  }
+}
+
+function renderAdminActivity(a) {
+  const host = $('adminActivity');
+  if (!host || !a) return;
+  const tile = (label, value, note) =>
+    `<div class="admin-stat"><div class="label">${adminEscape(label)}</div><div class="value">${adminEscape(value)}</div><div class="sub">${adminEscape(note)}</div></div>`;
+  const top = Math.max(1, ...a.weeks.map(w => w.recipes));
+  const day = iso => new Date(`${iso}T12:00:00`).toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' });
+  const bars = a.weeks
+    .map(
+      w =>
+        `<div class="admin-week" title="${adminEscape(`Week van ${day(w.week)}: ${w.recipes} recepten door ${w.accounts} accounts`)}"><b style="height:${Math.max(2, (w.recipes / top) * 100)}%"></b><span>${adminEscape(day(w.week))}</span><small>${w.recipes}</small></div>`
+    )
+    .join('');
+  host.innerHTML = `<div class="admin-stats-grid">
+      ${tile('Actief deze week', a.active_7, 'accounts die een recept toevoegden of aanpasten')}
+      ${tile('Actief deze maand', a.active_30, 'laatste 30 dagen')}
+      ${tile('Nieuwe recepten', a.recipes_7, `deze week · ${a.recipes_30} in 30 dagen`)}
+      ${tile('Recepten per account', a.median_recipes, 'mediaan: de helft heeft er meer')}
+      ${tile('In keukenteams', a.team_recipes, 'recepten die met een team gedeeld zijn')}
+      ${tile('Gedeelde links', a.shares, `${a.shares_30} nieuw in 30 dagen`)}
+      ${tile('Favorieten', a.favorites, 'hartjes gezet')}
+    </div>
+    <h3 class="adsense-title">Nieuwe recepten per week</h3>
+    <div class="admin-weeks">${bars}</div>`;
+}
+
 async function loadAdminOverview() {
   const money = $('adminMoney');
   try {
@@ -1043,6 +1082,7 @@ async function loadAdminOverview() {
     }
     adminAccounts = accounts || [];
     renderAdminFunnel(funnel);
+    loadAdminActivity();
     adminTotals = t;
     renderAdminFinance();
     const openai = t.openai_this_month ? `$ ${t.openai_this_month.usd.toFixed(2)}` : '—';
@@ -1653,6 +1693,43 @@ function financeHoursSummary(d) {
   return { rows, total: rows.reduce((sum, r) => sum + Number(r.hours), 0) };
 }
 
+// Alle Stripe-betalingen: wat er betaald is, wat terug is gegaan, de kosten en wanneer Stripe het geld vrijgeeft
+// (pas daarna komt het op je rekening). Betalingen van een beheerder zelf staan erbij, maar tellen niet als omzet.
+const CHARGE_STATUS = {
+  available: 'Vrijgegeven',
+  pending: 'Nog niet vrijgegeven',
+  refunded: 'Terugbetaald',
+  failed: 'Mislukt'
+};
+function financeChargesHtml(d) {
+  const charges = d.stripe?.charges || [];
+  if (!d.stripe) return '';
+  const counted = charges.filter(c => c.paid && !c.own);
+  const net = c => c.amount - c.refunded;
+  const total = counted.reduce((t, c) => t + net(c), 0);
+  const waiting = counted.filter(c => c.status === 'pending').reduce((t, c) => t + net(c) - c.fee, 0);
+  const own = charges.filter(c => c.paid && c.own).reduce((t, c) => t + net(c), 0);
+  const day = iso => (iso ? adminFormatDate(iso).split(' om')[0] : '—');
+  const rows = charges
+    .map(c => {
+      const status = CHARGE_STATUS[c.status] || c.status || '—';
+      const when =
+        c.status === 'pending' && c.available_on ? `<small>vrij op ${adminEscape(day(c.available_on))}</small>` : '';
+      const who = c.own ? '<span class="admin-badge">Eigen betaling · telt niet mee</span>' : '';
+      return `<tr><td>${adminEscape(day(c.date))}</td><td>${adminEscape(c.description || 'Betaling')}${who ? `<small>${who}</small>` : ''}</td><td>${adminEscape(adminMoney(c.amount))}</td><td>${c.refunded ? adminEscape(`− ${adminMoney(c.refunded)}`) : '—'}</td><td>${adminEscape(adminMoney(c.fee))}</td><td>${adminEscape(adminMoney(net(c) - c.fee))}</td><td>${adminEscape(status)}${when}</td></tr>`;
+    })
+    .join('');
+  return `<section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">STRIPE</div><h2>Betalingen</h2></div><span class="admin-count">${charges.length} betalingen</span></div>
+      <div class="admin-stats-grid">
+        ${finTile('Ontvangen van klanten', adminMoney(total), 'na terugbetalingen, sinds de start')}
+        ${finTile('Nog niet vrijgegeven', adminMoney(waiting), 'Stripe houdt nieuw geld eerst een paar dagen vast')}
+        ${finTile('Eigen betalingen', adminMoney(own), 'door een beheerder zelf, telt niet als omzet')}
+      </div>
+      ${rows ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Datum</th><th>Omschrijving</th><th>Betaald</th><th>Terug</th><th>Stripe-kosten</th><th>Netto</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table></div>` : '<p class="admin-note">Nog geen betalingen via Stripe.</p>'}
+      <p class="admin-footnote">Vrijgegeven geld zet Stripe vanzelf op je bankrekening (meestal binnen een paar werkdagen). Cadeau-Pro gaat niet via Stripe en telt nooit als omzet.</p>
+    </section>`;
+}
+
 function renderAdminFinance() {
   const host = $('adminFinanceBody');
   const d = adminFinance;
@@ -1767,6 +1844,7 @@ function renderAdminFinance() {
       </form>
       <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Bron</th><th>Uren</th><th>Toelichting</th><th></th></tr></thead><tbody>${hours.rows.map(h => `<tr><td>${adminEscape(h.source)}</td><td>${Number(h.hours).toLocaleString('nl-NL')}</td><td>${adminEscape(h.note || '')}</td><td>${h.auto ? '' : `<button type="button" class="btn-quiet" onclick="deleteFinanceRow('finance_delete_hours','${adminEscape(h.id)}')">Verwijderen</button>`}</td></tr>`).join('')}</tbody></table></div>
     </section>
+    ${financeChargesHtml(d)}
     <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">OVERZICHT</div><h2>Per maand</h2></div><button type="button" class="btn" onclick="downloadFinanceCsv()">Download voor boekhouder</button></div>
       <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Maand</th><th>Stripe</th><th>Advertenties</th><th>Omzet</th><th>Kosten</th><th>Winst</th></tr></thead><tbody>${all
         .slice()
@@ -1993,4 +2071,256 @@ async function sendNewsletter(test) {
     $('newsStatus').textContent = error.message;
   }
   ['newsTestBtn', 'newsSendBtn'].forEach(id => ($(id).disabled = false));
+}
+
+// ---- Ingrediëntenlijst: nieuwe namen uit recepten goedkeuren (api/admin.js → ingredient_candidates) ----
+// De server geeft alleen receptregels met willekeurige accountnummers. Hier worden het namen, met dezelfde regels als
+// in de app (ingredientKey, productFamily), en blijft over wat Savour nog niet kent. De taal per account schat
+// Savour uit de namen die het wel kent; anders uit het land van het account.
+const ADMIN_INGREDIENT_LANGS = { nl: 'Nederlands', en: 'Engels', de: 'Duits', es: 'Spaans', fr: 'Frans' };
+let adminIngredients = null;
+let adminIngredientLangIndex = null;
+
+// Welke talen een naam heeft in de vaste lijsten: Open Food Facts in vijf talen, NEVO in het Nederlands.
+async function adminIngredientLangs() {
+  if (adminIngredientLangIndex) return adminIngredientLangIndex;
+  const [base, nevo] = await Promise.all(
+    ['/js/data/ingredient-base.json', '/js/data/ingredient-nevo.json'].map(url =>
+      fetch(url)
+        .then(r => (r.ok ? r.json() : null))
+        .catch(() => null)
+    )
+  );
+  const map = new Map();
+  const add = (n, lang) => {
+    const k = productKey(n);
+    if (!k) return;
+    if (!map.has(k)) map.set(k, new Set());
+    map.get(k).add(lang);
+  };
+  const order = ['nl', 'en', 'de', 'es', 'fr'];
+  for (const item of base?.items || [])
+    order.forEach((lang, i) =>
+      String(item[i + 1] || '')
+        .split('|')
+        .forEach(n => add(n, lang))
+    );
+  for (const [, name, names] of nevo?.items || []) [name, ...String(names || '').split('|')].forEach(n => add(n, 'nl'));
+  adminIngredientLangIndex = map;
+  return map;
+}
+
+// Kent Savour deze naam al (basislijst, goedgekeurd, of een hoofdproduct als Kalf), of is het geen ingrediënt?
+function adminIngredientKnown(key) {
+  if (ingredientBase?.index?.has(key)) return true;
+  const kind = productFamily(key)?.kind;
+  return ['head', 'produce', 'fish', 'known', 'junk', 'generic'].includes(kind);
+}
+
+async function loadAdminIngredients() {
+  const body = $('adminIngredientsBody');
+  if (!body) return;
+  body.innerHTML = '<tr><td colspan="5">Laden…</td></tr>';
+  try {
+    // Opnieuw laden, zodat net goedgekeurde namen meetellen.
+    ingredientBase = null;
+    ingredientBaseLoading = null;
+    const [data, , langIndex] = await Promise.all([
+      adminApi('ingredient_candidates'),
+      loadIngredientBase(),
+      adminIngredientLangs()
+    ]);
+    const decided = new Set((data.decided || []).map(d => d.key));
+    // Een naam die gelijk is aan een receptnaam is een basisrecept, geen ingrediënt (vingerafdrukken van de server).
+    const titles = new Set(data.titles || []);
+    const hash = async text => {
+      const bytes = new TextEncoder().encode(
+        String(text)
+          .toLowerCase()
+          .replace(/[\s-]+/g, '')
+      );
+      const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', bytes));
+      return [...digest]
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('')
+        .slice(0, 16);
+    };
+    const accountKeys = (data.accounts || []).map(() => new Set());
+    const unknown = new Map();
+    for (const [line, accounts] of data.lines || []) {
+      if (recipePartName(line)) continue;
+      const key = ingredientKey(line);
+      if (!key || key.length < 2 || /^[\d½¼¾]/.test(key)) continue;
+      accounts.forEach(a => accountKeys[a]?.add(key));
+      if (decided.has(key) || adminIngredientKnown(key)) continue;
+      if (!unknown.has(key)) unknown.set(key, new Set());
+      accounts.forEach(a => unknown.get(key).add(a));
+    }
+    for (const key of [...unknown.keys()]) if (titles.has(await hash(key))) unknown.delete(key);
+    const accountLang = accountKeys.map((keys, a) => {
+      const score = {};
+      for (const k of keys) for (const l of langIndex.get(k) || []) score[l] = (score[l] || 0) + 1;
+      const best = Object.entries(score).sort((x, y) => y[1] - x[1])[0];
+      return best?.[0] || data.accounts[a] || 'nl';
+    });
+    adminIngredients = {
+      todo: [...unknown]
+        .map(([key, set]) => {
+          const langs = {};
+          for (const a of set) langs[accountLang[a]] = (langs[accountLang[a]] || 0) + 1;
+          // Een deel van de naam dat Savour kent ("pasta" in "gochujang pasta") is alleen een hint, geen hoofdproduct:
+          // de beheerder vult dat zelf in. Allergenen alleen uit trefwoorden in de naam zelf.
+          const base = ingredientBaseMatch(key);
+          return {
+            key,
+            name: capitalizeFirst(key),
+            lang: Object.entries(langs).sort((x, y) => y[1] - x[1])[0][0],
+            users: set.size,
+            head: '',
+            like: base && base.name !== key ? capitalizeFirst(base.name) : '',
+            allergens: withDerived(key, allergenHints(key))
+          };
+        })
+        .sort((a, b) => b.users - a.users || a.key.localeCompare(b.key, 'nl')),
+      done: (data.decided || []).sort((a, b) => String(b.reviewed_at).localeCompare(String(a.reviewed_at)))
+    };
+    renderAdminIngredients();
+  } catch (e) {
+    if (!e.expired)
+      body.innerHTML = `<tr><td colspan="5">Ingrediënten konden niet worden geladen: ${adminEscape(e.message)}</td></tr>`;
+  }
+}
+
+const adminAllergenNames = codes => codes.map(c => ALLERGEN_LABEL.get(c) || c).join(', ');
+
+function renderAdminIngredients() {
+  const body = $('adminIngredientsBody');
+  if (!body || !adminIngredients) return;
+  const q = productKey($('adminIngredientSearch')?.value || '');
+  const lang = $('adminIngredientLang')?.value || '';
+  const min = Number($('adminIngredientMin')?.value || 1);
+  const { todo, done } = adminIngredients;
+  const shown = todo
+    .map((x, i) => [x, i])
+    .filter(([x]) => x.users >= min && (!lang || x.lang === lang) && (!q || x.key.includes(q)));
+  if ($('adminIngredientCount')) $('adminIngredientCount').textContent = `${todo.length} nieuw`;
+  const badge = $('adminIngredientBadge');
+  if (badge) {
+    badge.hidden = !todo.length;
+    badge.textContent = todo.length;
+  }
+  const rows = shown
+    .slice(0, 300)
+    .map(
+      ([x, i]) =>
+        `<tr><td><b translate="no">${adminEscape(x.name)}</b></td><td>${adminEscape(ADMIN_INGREDIENT_LANGS[x.lang] || x.lang)}</td><td>${x.users}</td><td>${x.like ? `<small>Lijkt op ${adminEscape(x.like)}</small>` : ''}<small>${adminEscape(adminAllergenNames(x.allergens) || 'Geen allergenen uit de naam')}</small></td><td><div class="admin-actions"><button class="admin-ghost" onclick="adminApproveIngredient(${i})">Goedkeuren</button><button class="admin-ghost" onclick="adminRejectIngredient(${i})">Afwijzen</button></div></td></tr>`
+    )
+    .join('');
+  const more =
+    shown.length > 300
+      ? `<tr><td colspan="5"><small>En nog ${shown.length - 300}. Zoek of filter om ze te zien.</small></td></tr>`
+      : '';
+  body.innerHTML =
+    rows + more ||
+    '<tr><td colspan="5">Geen nieuwe ingrediënten. Alles wat in recepten staat, kent Savour al.</td></tr>';
+  const doneBody = $('adminIngredientsDoneBody');
+  if (!doneBody) return;
+  const doneShown = done.filter(x => (!lang || x.lang === lang) && (!q || x.key.includes(q)));
+  const approved = done.filter(x => x.status === 'approved');
+  if ($('adminIngredientDoneCount'))
+    $('adminIngredientDoneCount').textContent = Object.keys(ADMIN_INGREDIENT_LANGS)
+      .map(l => `${l.toUpperCase()} ${approved.filter(x => x.lang === l).length}`)
+      .join(' · ');
+  doneBody.innerHTML =
+    doneShown
+      .slice(0, 300)
+      .map(
+        x =>
+          `<tr><td><b translate="no">${adminEscape(x.name)}</b>${x.name.toLowerCase() !== x.key ? `<small translate="no">${adminEscape(x.key)}</small>` : ''}</td><td>${adminEscape(ADMIN_INGREDIENT_LANGS[x.lang] || x.lang)}</td><td>${x.status === 'approved' ? '<span class="admin-badge gift">Goedgekeurd</span>' : '<span class="admin-badge">Afgewezen</span>'}</td><td>${x.head ? `<small>Hoort bij ${adminEscape(x.head)}</small>` : ''}${x.status === 'approved' ? `<small>${adminEscape(adminAllergenNames(x.allergens || []) || 'Geen allergenen')}</small>` : ''}</td><td><div class="admin-actions"><button class="admin-ghost" onclick="adminUndoIngredient(${Number(x.id)})">Terugdraaien</button></div></td></tr>`
+      )
+      .join('') || '<tr><td colspan="5">Nog niets besloten.</td></tr>';
+}
+
+// Venster bij goedkeuren: naam, taal, hoofdproduct en allergenen. De allergenen zijn een voorstel uit de naam.
+function adminIngredientDialog(x) {
+  return new Promise(resolve => {
+    document.getElementById('adminIngredientDialog')?.remove();
+    const box = ([code, label]) =>
+      `<label class="allergen-pick-item"><input type="checkbox" name="allergen" value="${code}" ${x.allergens.includes(code) ? 'checked' : ''}><span>${adminEscape(label)}</span></label>`;
+    const langs = Object.entries(ADMIN_INGREDIENT_LANGS)
+      .map(([k, v]) => `<option value="${k}"${k === x.lang ? ' selected' : ''}>${v}</option>`)
+      .join('');
+    const eu = ALLERGENS.filter(a => !a[2])
+      .map(box)
+      .join('');
+    const extra = ALLERGENS.filter(a => a[2])
+      .map(box)
+      .join('');
+    document.body.insertAdjacentHTML(
+      'beforeend',
+      `<div class="modal sv-dialog open" id="adminIngredientDialog" role="dialog" aria-modal="true" aria-labelledby="adminIngredientDialogTitle"><form class="sv-dialog-box product-editor-box" novalidate>${modalCloseHtml()}<h2 id="adminIngredientDialogTitle" class="sv-dialog-title">Ingrediënt goedkeuren</h2><p class="sv-dialog-text">De aangevinkte allergenen zijn een voorstel op basis van de naam. Controleer ze: wat je hier vastlegt, krijgt elke kok als voorstel bij deze naam.</p><div class="field"><label>Naam</label><input name="name" value="${adminEscape(x.name)}" maxlength="120"></div><div class="field"><label>Taal</label><select name="lang">${langs}</select></div><div class="field"><label>Hoort bij (hoofdproduct, mag leeg)</label><input name="head" value="${adminEscape(x.head)}" maxlength="120" placeholder="${adminEscape(x.like ? `Bijv. ${x.like}` : 'Bijv. Kalf of Amandel')}"></div><p class="allergen-pick-head">Allergenen</p><div class="allergen-pick">${eu}</div><p class="allergen-pick-head">Extra, niet wettelijk verplicht</p><div class="allergen-pick">${extra}</div><div class="sv-dialog-actions"><button type="button" class="btn" data-cancel>Annuleren</button><button type="submit" class="btn gold">Goedkeuren</button></div></form></div>`
+    );
+    const el = $('adminIngredientDialog');
+    const form = el.querySelector('form');
+    const close = value => {
+      el.remove();
+      resolve(value);
+    };
+    closableModal(el, () => close(null));
+    form.querySelector('[data-cancel]').addEventListener('click', () => close(null));
+    form.addEventListener('submit', ev => {
+      ev.preventDefault();
+      const f = new FormData(form);
+      close({
+        name: String(f.get('name') || '').trim() || x.name,
+        lang: String(f.get('lang') || x.lang),
+        head: String(f.get('head') || '').trim(),
+        allergens: f.getAll('allergen').map(String)
+      });
+    });
+  });
+}
+
+async function adminDecideIngredients(items) {
+  try {
+    const { saved } = await adminApi('ingredient_decide', { items });
+    const keys = new Set(items.map(x => x.key));
+    adminIngredients.todo = adminIngredients.todo.filter(x => !keys.has(x.key));
+    adminIngredients.done = [...(saved || []), ...adminIngredients.done.filter(x => !keys.has(x.key))];
+    renderAdminIngredients();
+    return true;
+  } catch (e) {
+    alertAdmin(e.message);
+    return false;
+  }
+}
+
+async function adminApproveIngredient(i) {
+  const x = adminIngredients?.todo[i];
+  if (!x) return;
+  const pick = await adminIngredientDialog(x);
+  if (!pick) return;
+  if (await adminDecideIngredients([{ ...pick, key: x.key, status: 'approved', user_count: x.users }]))
+    toast(`${pick.name} staat in de ingrediëntenlijst`);
+}
+
+async function adminRejectIngredient(i) {
+  const x = adminIngredients?.todo[i];
+  if (!x) return;
+  if (
+    await adminDecideIngredients([{ key: x.key, name: x.name, lang: x.lang, status: 'rejected', user_count: x.users }])
+  )
+    toast(`${x.name} afgewezen`);
+}
+
+async function adminUndoIngredient(id) {
+  const x = adminIngredients?.done.find(d => Number(d.id) === id);
+  if (!x || !(await askConfirm(`Keuze voor "${x.name}" terugdraaien? De naam komt weer bij de nieuwe ingrediënten.`)))
+    return;
+  try {
+    await adminApi('ingredient_undo', { id });
+    await loadAdminIngredients();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
 }
