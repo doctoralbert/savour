@@ -24,6 +24,7 @@ import { NUMBERS_POST, NUMBERS_POST_DE, NUMBERS_POST_ES, NUMBERS_POST_FR } from 
 import { COST_POST, COST_POST_DE, COST_POST_ES, COST_POST_FR } from './site-blog-kosten.mjs';
 import { TEMP_QUICK } from './site-blog-temperaturen-kort.mjs';
 import { FOODCOST_POST, FOODCOST_POST_DE, FOODCOST_POST_ES, FOODCOST_POST_FR } from './site-blog-foodcost.mjs';
+import { AI_POST, AI_POST_DE, AI_POST_ES, AI_POST_FR } from './site-blog-ai.mjs';
 import { TEMP_POSTS_ES } from './site-blog-temperaturen-es.mjs';
 import { TEMP_POSTS_FR } from './site-blog-temperaturen-fr.mjs';
 import { DE } from './site-pages-de.mjs';
@@ -66,6 +67,9 @@ Object.assign(FR.posts, COST_POST_FR);
 Object.assign(DE.posts, FOODCOST_POST_DE);
 Object.assign(ES.posts, FOODCOST_POST_ES);
 Object.assign(FR.posts, FOODCOST_POST_FR);
+Object.assign(DE.posts, AI_POST_DE);
+Object.assign(ES.posts, AI_POST_ES);
+Object.assign(FR.posts, AI_POST_FR);
 EXTRA_LANGS.fr = EXTRA_FR;
 APP_PAGE.fr = APP_PAGE_FR;
 DELIVER.fr = DELIVER_FR;
@@ -74,7 +78,7 @@ SERVICE.fr = SERVICE_FR;
 KLADJE_REAL.fr = KLADJE_FR;
 
 // Nieuwste blogartikelen eerst.
-POSTS.unshift(FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
+POSTS.unshift(AI_POST, FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
 // Achtergrondfoto achter de bovenkant van de homepage. Alleen als het bestand bestaat; zonder bestand is de
@@ -598,7 +602,7 @@ const AUDIENCE_FEATURES = {
 // Blog en functie- en voor-wiepagina's verwijzen naar elkaar, beide kanten op: onder een functie- of voor-wiepagina
 // "Uit het blog" met deze artikelen (post-id's), onder een artikel de pagina's die ernaar verwijzen.
 const PAGE_POSTS = {
-  digitise: ['import', 'notes', 'overzetten', 'messy', 'trust'],
+  digitise: ['import', 'notes', 'overzetten', 'messy', 'trust', 'ai-horeca'],
   organise: ['folders', 'structure', 'messy', 'standard'],
   share: ['sharing', 'team', 'sharedfolders', 'onboarding'],
   scale: ['scaling', 'standard', 'kosten', 'kerntemperaturen'],
@@ -606,7 +610,7 @@ const PAGE_POSTS = {
   allergens: ['allergenen', 'foodcost'],
   cloud: ['database', 'offline'],
   inladen: ['overzetten', 'import'],
-  roadmap: ['foodcost', 'roadmap', 'allergenen'],
+  roadmap: ['ai-horeca', 'foodcost', 'roadmap', 'allergenen'],
   chefs: ['choose', 'vergelijking', 'kosten', 'kerntemperaturen', 'sous-vide', 'allergenen'],
   brigade: ['team', 'onboarding', 'hospitality', 'cijfers', 'kosten', 'foodcost', 'allergenen']
 };
