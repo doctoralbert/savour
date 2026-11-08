@@ -127,6 +127,7 @@ export const stringsFr = {
  "Uitloggen": "Se déconnecter",
  "Menu": "Menu",
  "Menu sluiten": "Fermer le menu",
+ "Keukenteams beheren": "Gérer les équipes de cuisine",
  "Inloggen": "Se connecter",
  "Mijn account": "Mon compte",
  "Account": "Compte",

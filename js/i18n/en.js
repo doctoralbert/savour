@@ -83,6 +83,7 @@ window.SAVOUR_I18N.en = {
     "Uitloggen": "Log out",
     "Menu": "Menu",
     "Menu sluiten": "Close menu",
+    "Keukenteams beheren": "Manage kitchen teams",
     "Inloggen": "Log in",
     "Mijn account": "My account",
     "Account": "Account",

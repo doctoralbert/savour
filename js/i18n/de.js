@@ -83,6 +83,7 @@ window.SAVOUR_I18N.de = {
     "Uitloggen": "Abmelden",
     "Menu": "Menü",
     "Menu sluiten": "Menü schließen",
+    "Keukenteams beheren": "Küchenteams verwalten",
     "Inloggen": "Anmelden",
     "Mijn account": "Mein Konto",
     "Account": "Konto",

@@ -83,6 +83,7 @@ window.SAVOUR_I18N.es = {
     "Uitloggen": "Cerrar sesión",
     "Menu": "Menú",
     "Menu sluiten": "Cerrar menú",
+    "Keukenteams beheren": "Gestionar equipos de cocina",
     "Inloggen": "Iniciar sesión",
     "Mijn account": "Mi cuenta",
     "Account": "Cuenta",

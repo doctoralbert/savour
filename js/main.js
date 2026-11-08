@@ -39,7 +39,10 @@ document.addEventListener('keydown', e => {
 
 // Telefoonmenu: een keuze in het menu (scherm, map, keukenteam, venster) sluit het menu.
 document.addEventListener('click', e => {
-  if (document.body.classList.contains('mobile-menu-open') && e.target.closest('#nav button, #nav .nav-section-link'))
+  if (
+    document.body.classList.contains('mobile-menu-open') &&
+    e.target.closest('#appMenuBody button:not(.app-mm-lang button)')
+  )
     toggleMobileMenu(false);
 });
 
