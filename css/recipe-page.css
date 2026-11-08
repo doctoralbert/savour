@@ -631,3 +631,61 @@ body.cook-mode .rp-note-add,
 body.cook-mode .rp-side-note-head button {
   display: none;
 }
+
+/* Omrekenen (2026-11-08): eigen factor in een klein vakje en een knopje naar Meer omrekenen. */
+.rp-factor-own {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid var(--sv-line-strong);
+  color: var(--sv-text-2);
+  font-weight: 600;
+}
+.rp-factor-own input {
+  width: 42px;
+  height: 100%;
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--sv-text);
+  font: inherit;
+  font-weight: 600;
+  text-align: right;
+  padding: 0 !important;
+  min-height: 0 !important;
+  box-shadow: none !important;
+}
+.rp-factor-own input:focus {
+  outline: none;
+}
+.rp-factor-own:focus-within,
+.rp-factor-own.is-on {
+  border-color: var(--sv-gold);
+  color: var(--sv-gold);
+}
+.rp-multipliers .rp-scale-more {
+  min-width: 36px;
+  border-color: transparent;
+  color: var(--sv-text-2);
+}
+.rp-multipliers .rp-scale-more:hover {
+  border-color: transparent;
+  background: rgba(238, 232, 220, 0.08);
+  color: var(--sv-text);
+}
+#rpYieldValue.is-scaled {
+  color: var(--sv-gold);
+  font-weight: 600;
+}
+@media (max-width: 600px) {
+  .rp-yield .rp-factor-own {
+    height: 28px;
+    flex: 1 1 0;
+    padding: 0 4px;
+    font-size: 12px;
+  }
+  .rp-yield .rp-factor-own input {
+    width: 100%;
+  }
+}

@@ -24,7 +24,8 @@ const ICON_PATHS = {
   plus: '<path d="M12 5v14M5 12h14"/>',
   cook: '<path d="M6 13h12v6a1 1 0 01-1 1H7a1 1 0 01-1-1v-6z"/><path d="M9 13V9.5A3 3 0 015 6.6 3 3 0 019.6 4a3 3 0 014.8 0A3 3 0 0119 6.6a3 3 0 01-4 2.9V13"/>',
   close: '<path d="M6 6l12 12M18 6L6 18"/>',
-  undo: '<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 010 12h-3"/>'
+  undo: '<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 010 12h-3"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/>'
 };
 
 // Geeft de SVG van een icoon terug; filled vult de vorm (bijv. een geselecteerde ster).

@@ -2737,7 +2737,8 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(6, 10, 11, 0.93) 0%, rgba(6, 10, 11, 0.72) 42%, rgba(6, 10, 11, 0.32) 100%),
+  background:
+    linear-gradient(90deg, rgba(6, 10, 11, 0.93) 0%, rgba(6, 10, 11, 0.72) 42%, rgba(6, 10, 11, 0.32) 100%),
     linear-gradient(0deg, rgba(6, 10, 11, 1) 0%, rgba(6, 10, 11, 0) 30%);
   z-index: -1;
 }
@@ -2877,7 +2878,8 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(6, 10, 11, 0.9) 0%, rgba(6, 10, 11, 0.66) 50%, rgba(6, 10, 11, 0.38) 100%),
+  background:
+    linear-gradient(90deg, rgba(6, 10, 11, 0.9) 0%, rgba(6, 10, 11, 0.66) 50%, rgba(6, 10, 11, 0.38) 100%),
     linear-gradient(0deg, rgba(6, 10, 11, 1) 0%, rgba(6, 10, 11, 0) 45%),
     linear-gradient(180deg, rgba(6, 10, 11, 0.55) 0%, rgba(6, 10, 11, 0) 30%);
   z-index: -1;
@@ -3809,4 +3811,28 @@ button,
 .admin-badge,
 .batch-chip {
   border-radius: 3px !important;
+}
+.share-yield-tool .rp-factor-own {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid var(--line-strong, rgba(238, 232, 220, 0.3));
+  color: var(--ink-2);
+  font-weight: 600;
+}
+.share-yield-tool .rp-factor-own input {
+  width: 42px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  text-align: right;
+}
+.share-yield-tool .rp-factor-own.is-on,
+.share-yield-tool .rp-factor-own:focus-within {
+  border-color: var(--gold);
+  color: var(--gold);
 }

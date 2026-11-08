@@ -39,6 +39,11 @@ function t(text) {
   return String(text ?? '');
 }
 
+// "1 stap" of "4 stappen": het juiste woord bij een aantal.
+function countLabel(n, one, many) {
+  return n === 1 ? `1 ${one}` : `${n} ${many}`;
+}
+
 function formatNumber(n) {
   return Math.abs(n - Math.round(n)) < 1e-9
     ? String(Math.round(n))

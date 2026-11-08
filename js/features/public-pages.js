@@ -214,9 +214,7 @@ function setPublicFactor(factor) {
 }
 
 function applyPublicFactor(factor) {
-  document
-    .querySelectorAll('.share-recipe-bar .rp-multipliers button')
-    .forEach(b => b.classList.toggle('is-on', Math.abs(+b.dataset.factor - factor) < 1e-9));
+  markRecipeFactor(document.querySelector('.share-recipe-bar') || document, factor);
   document.querySelectorAll('#pubIngredients [data-ing]').forEach(li => {
     li.innerHTML = ingredientHtml(publicRecipe.ingredients[Number(li.dataset.ing)], factor);
   });
