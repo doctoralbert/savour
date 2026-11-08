@@ -1675,3 +1675,18 @@ body.cook-mode .rp-multipliers .rp-factor-own input {
     align-items: flex-start;
   }
 }
+
+/* Allergenenkaart: namen voluit, van onder naar boven in de kolomkop (2026-11-08). */
+.ac-table thead th.ac-col {
+  vertical-align: bottom;
+  padding: 8px 2px 10px;
+}
+.ac-head {
+  display: inline-block;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  text-align: left;
+  line-height: 1.2;
+  font-weight: 600;
+}

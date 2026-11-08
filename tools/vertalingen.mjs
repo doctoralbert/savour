@@ -89,6 +89,7 @@ export const strings = [
   ['Menu', 'Menu', 'Menü', 'Menú'],
   ['Menu sluiten', 'Close menu', 'Menü schließen', 'Cerrar menú'],
   ['Keukenteams beheren', 'Manage kitchen teams', 'Küchenteams verwalten', 'Gestionar equipos de cocina'],
+  ['Mijn Savour', 'My Savour', 'Mein Savour', 'Mi Savour'],
   ['Inloggen', 'Log in', 'Anmelden', 'Iniciar sesión'],
   ['Mijn account', 'My account', 'Mein Konto', 'Mi cuenta'],
   ['Account', 'Account', 'Konto', 'Cuenta'],

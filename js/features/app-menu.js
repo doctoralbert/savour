@@ -1,6 +1,6 @@
 // Telefoonmenu van de app (testversie, 2026-11-08): hetzelfde menu als op de website, over het hele scherm met
 // bovenin SAVOUR en een kruisje. Account en uitloggen staan bovenaan, daarna zoeken, recepten, mappen,
-// keukenteams en de keuken; onderaan Pro, instellingen en de taal. Opent met de menuknop rechtsboven.
+// keukenteams en Tools; daarna Mijn Savour (Pro, collega uitnodigen, app, instellingen) en de taal. Opent met de menuknop rechtsboven.
 
 function toggleMobileMenu(force) {
   const menu = $('appMenu');
@@ -83,18 +83,19 @@ function renderAppMenu() {
   );
 
   const kitchenGroup = appMenuGroup(
-    t('Keuken'),
+    t('Tools'),
     [appMenuItem("go('products')", t('Allergenen'), '', active === 'products')],
     active === 'products'
   );
 
-  const link = (action, label) => `<li><button type="button" onclick="${action}">${esc(label)}</button></li>`;
+  const link = (action, label) => appMenuItem(action, label);
   const proLabel = ($('navProLabel')?.textContent || '').trim() || t('Savour Pro');
   const showTeam = $('navTeam') && $('navTeam').style.display !== 'none';
   const showInstall =
     !document.querySelector('[data-install-app]') ||
     document.querySelector('[data-install-app]').style.display !== 'none';
-  const links = `<ul class="app-mm-links">${link('openProNav()', proLabel)}${showTeam ? link('openTeamNav()', t('Mijn team')) : ''}${link('inviteColleague()', t('Collega uitnodigen'))}${showInstall ? link('installApp()', t('App installeren')) : ''}${link("go('settings')", t('Instellingen'))}${typeof adminLinkVisible !== 'undefined' && adminLinkVisible ? link("location.href='/admin'", 'Admin') : ''}</ul>`;
+  // Abonnement, collega's, de app en instellingen onder één kopje.
+  const mineGroup = `<details class="app-mm-group"${['pro', 'settings'].includes(active) ? ' open' : ''}><summary>${esc(t('Mijn Savour'))}</summary><ul>${link('openProNav()', proLabel)}${showTeam ? link('openTeamNav()', t('Mijn team')) : ''}${link('inviteColleague()', t('Collega uitnodigen'))}${showInstall ? link('installApp()', t('App installeren')) : ''}${link("go('settings')", t('Instellingen'))}${typeof adminLinkVisible !== 'undefined' && adminLinkVisible ? link("location.href='/admin'", 'Admin') : ''}</ul></details>`;
 
   const langs = `<div class="app-mm-lang" translate="no">${Object.keys(I18N_LANGUAGES)
     .map(
@@ -103,7 +104,7 @@ function renderAppMenu() {
     )
     .join('')}</div>`;
 
-  host.innerHTML = accountHtml + search + recipesGroup + foldersGroup + teamsGroup + kitchenGroup + links + langs;
+  host.innerHTML = accountHtml + search + recipesGroup + foldersGroup + teamsGroup + kitchenGroup + mineGroup + langs;
 }
 
 // Andere taal kiezen in het menu: het menu blijft open, nu in de nieuwe taal.

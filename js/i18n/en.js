@@ -84,6 +84,7 @@ window.SAVOUR_I18N.en = {
     "Menu": "Menu",
     "Menu sluiten": "Close menu",
     "Keukenteams beheren": "Manage kitchen teams",
+    "Mijn Savour": "My Savour",
     "Inloggen": "Log in",
     "Mijn account": "My account",
     "Account": "Account",

@@ -128,6 +128,7 @@ export const stringsFr = {
  "Menu": "Menu",
  "Menu sluiten": "Fermer le menu",
  "Keukenteams beheren": "Gérer les équipes de cuisine",
+ "Mijn Savour": "Mon Savour",
  "Inloggen": "Se connecter",
  "Mijn account": "Mon compte",
  "Account": "Compte",

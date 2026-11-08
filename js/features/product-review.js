@@ -345,8 +345,9 @@ function openAllergenCard() {
   const scope = productScopeOf(r);
   const info = recipeAllergenInfo(r, scope);
   const shown = ALLERGENS.filter(([c, , extra]) => !extra || (allergenShown(c, scope) && info.allergens.includes(c)));
-  // Afkorting uit de naam in de taal van de kok ("Glu", "Lai"); niet nog eens vertalen.
-  const short = label => (translateText(label) || label).replace(/'s$/, '').slice(0, 3);
+  // Voluit in de taal van de kok, rechtop in de kolomkop (afkortingen als "Glu" of "Sch" zijn voor een nieuwe
+  // gebruiker niet duidelijk); niet nog eens vertalen.
+  const full = label => translateText(label) || label;
   const dot = '<span class="ac-dot" aria-label="bevat"></span>';
   const maybe = '<span class="ac-maybe" aria-label="nog niet zeker">?</span>';
   const codesOf = x =>
@@ -371,7 +372,7 @@ function openAllergenCard() {
     })
     .join('');
   const total = `<tr class="ac-total"><th scope="row">${t('Hele recept')}</th>${shown.map(([c]) => `<td>${info.allergens.includes(c) ? dot : ''}</td>`).join('')}</tr>`;
-  const head = `<tr><th></th>${shown.map(([c, label]) => `<th scope="col" title="${esc(t(label))}"><span translate="no">${esc(short(t(label)))}</span></th>`).join('')}</tr>`;
+  const head = `<tr><th></th>${shown.map(([c, label]) => `<th scope="col" class="ac-col"><span class="ac-head" translate="no">${esc(full(t(label)))}</span></th>`).join('')}</tr>`;
   const note = info.unknown.length
     ? `<p class="ac-note">${icon('alert', { size: 14 })}<span>${t('Nog niet compleet. Bij een vraagteken weet Savour nog niet wat erin zit.')}</span></p>`
     : `<p class="ac-note">${t('Compleet: alle ingrediënten zijn nagekeken.')}</p>`;

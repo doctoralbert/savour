@@ -155,7 +155,11 @@ const RELEASES_NL_EN = [
       'Allergenenkaart per recept, en bij printen kies je of de allergenen erop komen.',
       'Omrekenen met ½×, 1×, 2×, 5×, 10× of een eigen factor; de opbrengst rekent mee.',
       'Elk recept heeft een eigen adres en de receptnaam in het tabblad.',
-      'Standaardcategorieën in je eigen taal, en de demo helemaal in het Engels, Duits, Spaans en Frans.'
+      'Standaardcategorieën in je eigen taal, en de demo helemaal in het Engels, Duits, Spaans en Frans.',
+      'Telefoon: één menu rechtsboven met alles op één plek (je account, zoeken, recepten, mappen, keukenteams en Tools); de balk onderin heeft nu vier knoppen.',
+      'De allergenenkaart toont de allergenen voluit in plaats van afgekort.',
+      'Inloggen gaat sneller: je recepten staan er meteen, de Savour-lijst laadt daarna.',
+      'De website kan ook licht, met de schermen van de app in het licht, en een nieuw app-icoon.'
     ],
     en: [
       'Allergens per recipe, including through base recipes. Savour recognises the ingredients from the Savour list; you only answer the questions under To check.',
@@ -163,7 +167,11 @@ const RELEASES_NL_EN = [
       'An allergen chart per recipe, and when printing you choose whether the allergens go on it.',
       'Scale with ½×, 1×, 2×, 5×, 10× or your own factor; the yield follows along.',
       'Every recipe has its own address and the recipe name in the browser tab.',
-      'Default categories in your own language, and the demo fully in English, German, Spanish and French.'
+      'Default categories in your own language, and the demo fully in English, German, Spanish and French.',
+      'Phone: one menu at the top right with everything in one place (your account, search, recipes, folders, kitchen teams and Tools); the bar at the bottom now has four buttons.',
+      'The allergen chart shows the allergens in full instead of abbreviated.',
+      'Logging in is faster: your recipes appear right away, the Savour list loads afterwards.',
+      'The website now has a light mode too, with the app screens in light, and a new app icon.'
     ]
   },
   {

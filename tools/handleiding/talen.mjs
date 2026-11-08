@@ -170,7 +170,11 @@ export const RELEASES_TALEN = {
       'Eine Allergenkarte pro Rezept, und beim Drucken wählst du, ob die Allergene darauf kommen.',
       'Umrechnen mit ½×, 1×, 2×, 5×, 10× oder einem eigenen Faktor; die Ausbeute rechnet mit.',
       'Jedes Rezept hat eine eigene Adresse und den Rezeptnamen im Browser-Tab.',
-      'Standardkategorien in deiner eigenen Sprache, und die Demo komplett auf Englisch, Deutsch, Spanisch und Französisch.'
+      'Standardkategorien in deiner eigenen Sprache, und die Demo komplett auf Englisch, Deutsch, Spanisch und Französisch.',
+      'Telefon: ein Menü oben rechts mit allem an einem Ort (dein Konto, Suche, Rezepte, Ordner, Küchenteams und Werkzeuge); die Leiste unten hat jetzt vier Knöpfe.',
+      'Die Allergenkarte zeigt die Allergene ausgeschrieben statt abgekürzt.',
+      'Die Anmeldung geht schneller: deine Rezepte sind sofort da, die Savour-Liste lädt danach.',
+      'Die Website gibt es jetzt auch hell, mit den App-Bildschirmen in hell, und ein neues App-Symbol.'
     ],
     es: [
       'Alérgenos por receta, también a través de recetas base. Savour reconoce los ingredientes con la lista de Savour; tú solo respondes las preguntas en Revisar.',
@@ -178,7 +182,11 @@ export const RELEASES_TALEN = {
       'Una tabla de alérgenos por receta, y al imprimir eliges si aparecen los alérgenos.',
       'Escalar con ½×, 1×, 2×, 5×, 10× o un factor propio; el rendimiento se ajusta.',
       'Cada receta tiene su propia dirección y su nombre en la pestaña del navegador.',
-      'Categorías predeterminadas en tu idioma, y la demo completa en inglés, alemán, español y francés.'
+      'Categorías predeterminadas en tu idioma, y la demo completa en inglés, alemán, español y francés.',
+      'Teléfono: un menú arriba a la derecha con todo en un solo lugar (tu cuenta, búsqueda, recetas, carpetas, equipos de cocina y Herramientas); la barra inferior tiene ahora cuatro botones.',
+      'La tabla de alérgenos muestra los alérgenos completos en lugar de abreviados.',
+      'Iniciar sesión es más rápido: tus recetas aparecen enseguida y la lista de Savour se carga después.',
+      'La web ahora también en modo claro, con las pantallas de la app en claro, y un nuevo icono de la app.'
     ],
     fr: [
       'Les allergènes par recette, y compris via les recettes de base. Savour reconnaît les ingrédients grâce à la liste Savour ; tu réponds seulement aux questions sous À vérifier.',
@@ -186,7 +194,11 @@ export const RELEASES_TALEN = {
       'Un tableau des allergènes par recette, et à l’impression tu choisis si les allergènes y figurent.',
       'Convertir avec ½×, 1×, 2×, 5×, 10× ou ton propre facteur ; le rendement suit.',
       'Chaque recette a sa propre adresse et son nom dans l’onglet du navigateur.',
-      'Les catégories par défaut dans ta langue, et la démo entièrement en anglais, allemand, espagnol et français.'
+      'Les catégories par défaut dans ta langue, et la démo entièrement en anglais, allemand, espagnol et français.',
+      'Téléphone : un seul menu en haut à droite avec tout au même endroit (ton compte, la recherche, les recettes, les dossiers, les équipes de cuisine et les Outils) ; la barre du bas a maintenant quatre boutons.',
+      'Le tableau des allergènes affiche les allergènes en entier au lieu d’abréviations.',
+      'La connexion est plus rapide : tes recettes s’affichent tout de suite, la liste Savour se charge ensuite.',
+      'Le site existe aussi en clair, avec les écrans de l’app en clair, et une nouvelle icône d’app.'
     ]
   },
   '3.7.0': {
