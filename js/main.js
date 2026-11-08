@@ -35,6 +35,18 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && document.body.classList.contains('cook-mode')) toggleCookMode(false);
   if (e.key === 'Escape') closeHelp();
   if (e.key === 'Escape' && document.body.classList.contains('mobile-menu-open')) toggleMobileMenu(false);
+  if (e.key === 'Escape') closeAppNav();
+});
+
+// Menukaart bovenin (computer): een keuze erin of een klik ernaast sluit hem.
+document.addEventListener('click', e => {
+  // Een knop die tijdens de klik opnieuw is getekend, hangt niet meer in de pagina: dan niets doen.
+  if (!appNavOpen || !e.target.isConnected) return;
+  if (
+    e.target.closest('#appNavPanel li button, .app-nav-logout') ||
+    !e.target.closest('#appNavPanel, #appNav, #appNavMe')
+  )
+    closeAppNav();
 });
 
 // Telefoonmenu: een keuze in het menu (scherm, map, keukenteam, venster) sluit het menu.

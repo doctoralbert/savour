@@ -319,6 +319,23 @@ function renderCategoryBar() {
         `<button class="btn ${(c === 'Alles' && activeCat === '') || c === activeCat ? 'gold' : ''}" onclick="filterCat('${escJs(c === 'Alles' ? '' : c)}')">${esc(c)}</button>`
     )
     .join('');
+  // Computer (bovenbalk zonder zijbalk): je mappen als snelknoppen onder de categorieën, in één klik open.
+  const settings = getCategorySettings();
+  const byId = new Map(getOrderedPersonalFolders().map(f => [String(f.id), f]));
+  const chosen = settings.order
+    .map(id => byId.get(String(id)))
+    .filter(Boolean)
+    .filter(f => settings.selected.includes(String(f.id)));
+  if (chosen.length)
+    $('categoryBar').insertAdjacentHTML(
+      'beforeend',
+      `<div class="folder-chips" role="group" aria-label="${esc(t('Recepten mappen'))}"><span>${esc(t('Mappen'))}</span>${chosen
+        .map(
+          f =>
+            `<button type="button" class="btn" onclick="filterFolderCategory('${escJs(f.id)}')"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>${esc(f.name)}</button>`
+        )
+        .join('')}</div>`
+    );
 }
 
 function filterCat(c) {

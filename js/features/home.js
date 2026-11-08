@@ -23,4 +23,5 @@ function refreshSidebar() {
   if (!currentUser) return;
   renderSharedNav();
   renderCategoryNav();
+  renderAppNav();
 }

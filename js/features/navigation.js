@@ -81,6 +81,7 @@ function go(id) {
     return;
   }
   if (document.body.classList.contains('mobile-menu-open')) toggleMobileMenu(false);
+  closeAppNav();
   // "Alle recepten" toont altijd de volledige bibliotheek, zonder mapfilter.
   if (id === 'recipes') activeFolderCategory = '';
   if (id !== 'detail' && document.body.classList.contains('cook-mode')) toggleCookMode(false);
@@ -93,6 +94,7 @@ function go(id) {
   syncAppAddress(id);
   document.querySelectorAll('[data-nav]').forEach(b => b.classList.toggle('active', b.dataset.nav === id));
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  renderAppNav();
   if (id === 'recipes') renderRecipes();
   if (id === 'favorites') renderFavorites();
   if (id === 'folders' || id === 'folderManage') renderFolderManage();

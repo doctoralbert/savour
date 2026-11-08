@@ -1,0 +1,332 @@
+/* Bovenbalk van de app op de computer (testversie, 2026-11-08): zoals de kop van de website. Geen zijbalk meer;
+   Recepten, Mappen, Keukenteams en Tools openen een menukaart over de volle breedte (js/features/app-menu.js).
+   De telefoon (tot 760px) houdt het menu rechtsboven. Wordt als laatste geladen. */
+.app-nav,
+.app-nav-me,
+.app-add-btn,
+.app-nav-panel {
+  display: none;
+}
+@media (min-width: 761px) {
+  /* showApp zet display: grid in de style; daarom !important. */
+  body #appShell.app {
+    display: block !important;
+  }
+  body #appShell .sidebar {
+    display: none !important;
+  }
+  body #appShell .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    height: 76px;
+    gap: 14px;
+    padding: 0 max(28px, calc((100vw - 1400px) / 2));
+    background: var(--sv-bg);
+    backdrop-filter: none;
+    border-bottom: 1px solid var(--sv-line);
+  }
+  /* Logo links, net als op de website. */
+  body #appShell .topbar .mobile-brand.sv-wordmark {
+    display: inline-flex !important;
+    align-items: center;
+    flex: none;
+    padding: 0 10px 0 0;
+    margin: 0;
+    border: 0;
+    background: none;
+    font: 400 24px/1 var(--sv-font-display) !important;
+    letter-spacing: 0.32em !important;
+    color: var(--sv-text) !important;
+    cursor: pointer;
+  }
+  body #appShell .topbar .profile {
+    display: none !important;
+  }
+  .app-nav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex: none;
+  }
+  .app-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--sv-text-2);
+    font: 500 15px/1 var(--sv-font-body, inherit);
+    white-space: nowrap;
+  }
+  .app-nav-btn i {
+    width: 7px;
+    height: 7px;
+    margin-top: -3px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    opacity: 0.7;
+    transition: transform 0.2s ease;
+  }
+  .app-nav-btn.is-open i {
+    transform: rotate(-135deg);
+    margin-top: 3px;
+  }
+  .app-nav-btn:hover,
+  .app-nav-btn.is-open {
+    background: color-mix(in srgb, var(--sv-text) 7%, transparent);
+    color: var(--sv-text);
+  }
+  .app-nav-btn.is-on {
+    color: var(--sv-gold);
+  }
+  body #appShell .topbar .search {
+    flex: 1;
+    min-width: 220px;
+    max-width: 520px;
+    margin-left: auto;
+  }
+  .app-add-btn {
+    display: inline-flex;
+    align-items: center;
+    flex: none;
+    height: 40px;
+    padding: 0 16px;
+    border: 1px solid var(--sv-gold);
+    border-radius: 999px;
+    background: var(--sv-gold);
+    color: var(--sv-on-gold, #111);
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .app-add-btn:hover {
+    filter: brightness(1.06);
+  }
+  .app-nav-me {
+    order: 20;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid var(--sv-gold);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--sv-gold);
+    font: 500 17px/1 var(--sv-font-display);
+  }
+  .app-nav-me:hover,
+  .app-nav-me.is-open {
+    background: color-mix(in srgb, var(--sv-gold) 14%, transparent);
+  }
+  /* De menukaart: over de volle breedte onder de balk, met links het kopje en rechts genummerde regels. */
+  .app-nav-panel:not([hidden]) {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--sv-surface-2, var(--sv-bg));
+    border-bottom: 1px solid var(--sv-line);
+    box-shadow: 0 24px 40px -24px rgba(0, 0, 0, 0.5);
+    animation: app-nav-in 0.16s ease;
+  }
+  @keyframes app-nav-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+  }
+  .app-nav-card {
+    display: grid;
+    grid-template-columns: minmax(200px, 280px) minmax(0, 1fr);
+    gap: 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px max(28px, calc((100vw - 1400px) / 2)) 34px;
+  }
+  .app-nav-intro span {
+    display: block;
+    font: 500 26px/1.2 var(--sv-font-display);
+    color: var(--sv-text);
+    overflow-wrap: anywhere;
+  }
+  .app-nav-intro p {
+    margin: 8px 0 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--sv-text-3);
+  }
+  .app-nav-logout {
+    margin-top: 16px;
+    padding: 8px 16px;
+    border: 1px solid var(--sv-line-strong);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--sv-text);
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .app-nav-card ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 0 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .app-nav-card li button {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr);
+    width: 100%;
+    padding: 13px 0;
+    border: 0;
+    border-top: 1px solid var(--sv-line);
+    border-radius: 0;
+    background: transparent;
+    color: var(--sv-text);
+    text-align: left;
+  }
+  .app-nav-card li em {
+    grid-row: span 2;
+    font: 500 12px/1.9 var(--sv-font-body, inherit);
+    font-style: normal;
+    color: var(--sv-gold);
+  }
+  .app-nav-card li b {
+    font: 400 19px/1.3 var(--sv-font-display);
+    transition: color 0.2s;
+  }
+  .app-nav-card li span {
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--sv-text-3);
+  }
+  .app-nav-card li button:hover b,
+  .app-nav-card li button.is-active b {
+    color: var(--sv-gold);
+  }
+  /* Inhoud iets ruimer nu de zijbalk weg is, maar niet eindeloos breed. */
+  body #appShell .content {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+/* Tablet: minder ruimte in de balk; dan de knop alleen een plus en het demolabel weg. */
+@media (min-width: 761px) and (max-width: 1180px) {
+  .app-add-btn {
+    width: 40px;
+    padding: 0;
+    justify-content: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: -999px;
+    position: relative;
+  }
+  .app-add-btn::before {
+    content: '+';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-indent: 0;
+    font-size: 22px;
+    font-weight: 400;
+  }
+  body #appShell .topbar .demo-mode-badge {
+    display: none !important;
+  }
+  .app-nav-btn {
+    padding: 0 8px;
+  }
+  body #appShell .topbar {
+    gap: 8px;
+    padding: 0 20px;
+  }
+  body #appShell .topbar .search {
+    min-width: 120px;
+  }
+  body #appShell .topbar .mobile-brand.sv-wordmark {
+    font-size: 20px !important;
+    letter-spacing: 0.24em !important;
+  }
+}
+/* Mappen als snelknoppen onder de categorieën (js/features/library.js); op de telefoon niet (daar het menu). */
+.folder-chips {
+  display: none;
+}
+@media (min-width: 761px) {
+  #categoryBar .folder-chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    flex-basis: 100%;
+    width: 100%;
+    margin-top: 6px;
+    padding-top: 14px;
+    border-top: 1px solid var(--sv-line);
+  }
+  #categoryBar .folder-chips > span {
+    margin-right: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sv-text-3);
+  }
+  #categoryBar .folder-chips .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  #categoryBar .folder-chips svg {
+    color: var(--sv-gold);
+  }
+}
+
+/* Taalkeuze in Mijn Savour; op een smalle tablet staat de taalknop alleen daar. */
+.app-nav-lang {
+  display: flex;
+  gap: 4px;
+  margin-top: 16px;
+}
+.app-nav-lang button {
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--sv-text-3);
+  font-size: 13px;
+  font-weight: 600;
+}
+.app-nav-lang button[aria-current] {
+  background: color-mix(in srgb, var(--sv-gold) 14%, transparent);
+  color: var(--sv-gold);
+}
+@media (min-width: 761px) and (max-width: 960px) {
+  body #appShell .topbar > .lang-switch {
+    display: none !important;
+  }
+}
+@media (min-width: 761px) and (max-width: 960px) {
+  .app-nav-btn {
+    gap: 5px;
+    padding: 0 6px;
+    font-size: 14px;
+  }
+}
+@media (min-width: 761px) and (max-width: 960px) {
+  body #appShell .topbar > .theme-toggle {
+    display: none !important;
+  }
+}
