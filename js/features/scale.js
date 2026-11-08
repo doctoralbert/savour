@@ -26,14 +26,26 @@ const UNIT_DEFS = [
   ['el eetlepel eetlepels eetl', 'spoon', 15, 'nl'],
   ['tsp tsp. teaspoon teaspoons', 'spoon', 5, 'en'],
   ['tbsp tbsp. tbs tbs. tablespoon tablespoons', 'spoon', 15, 'en'],
+  // Duits, Spaans en Frans (2026-11-08): recepten in die talen lezen en omrekenen.
+  ['teelöffel teelöffeln', 'spoon', 5, 'de'],
+  ['esslöffel esslöffeln', 'spoon', 15, 'de'],
+  ['cucharadita cucharaditas', 'spoon', 5, 'es'],
+  ['cucharada cucharadas', 'spoon', 15, 'es'],
+  ['càc cac', 'spoon', 5, 'fr'],
+  ['càs cas', 'spoon', 15, 'fr'],
   ['cup cups', 'spoon', 240, 'en'],
-  ['ml milliliter milliliters millilitre millilitres', 'volume', 1, ''],
-  ['cl centiliter centiliters', 'volume', 10, ''],
-  ['dl deciliter deciliters', 'volume', 100, ''],
-  ['l liter liters litre litres ltr', 'volume', 1000, ''],
-  ['mg milligram', 'mass', 0.001, ''],
-  ['g gr gr. gm gram grams gramm', 'mass', 1, ''],
-  ['kg kilo kilogram kilograms', 'mass', 1000, ''],
+  ['ml milliliter milliliters millilitre millilitres mililitro mililitros', 'volume', 1, ''],
+  ['cl centiliter centiliters centilitre centilitres centilitro centilitros', 'volume', 10, ''],
+  [
+    'dl deciliter deciliters decilitre decilitres décilitre décilitres deziliter decilitro decilitros',
+    'volume',
+    100,
+    ''
+  ],
+  ['l liter liters litre litres ltr litro litros', 'volume', 1000, ''],
+  ['mg milligram milligramme milligrammes miligramo miligramos', 'mass', 0.001, ''],
+  ['g gr gr. gm gram grams gramm gramme grammes gramo gramos', 'mass', 1, ''],
+  ['kg kilo kilogram kilograms kilogramm kilogramme kilogrammes kilogramo kilogramos', 'mass', 1000, ''],
   ['oz ounce ounces', 'imperial', 28.35, ''],
   ['lb lbs pound pounds', 'imperial', 453.6, ''],
   ['fl.oz floz', 'flimperial', 30, '']
@@ -43,7 +55,7 @@ for (const [words, family, base, style] of UNIT_DEFS)
   for (const w of words.split(' ')) UNIT_INFO.set(w, { family, base, style, word: w });
 // Eenheden zonder omrekening (wel herkend, zodat de hoeveelheid vet staat): stuks, takjes, snufjes enzovoort.
 const COUNT_UNITS = new Set(
-  'st st. stuk stuks takje takjes tak takken teen teentjes tenen blad blaadje blaadjes bladeren bos bosje bosjes bossen plak plakken vel vellen blik blikken blikje blikjes pak pakken pakje pakjes zak zakken zakje zakjes pot potten potje potjes fles flessen flesje flesjes doos dozen doosje bol bollen krop kroppen stengel stengels steel stelen stokje stokjes schijf schijven schijfje schijfjes plaat platen druppel druppels lepel lepels snuf mespunt scheut piece pieces clove cloves sprig sprigs bunch bunches pinch pinches slice slices sheet sheets can cans tin tins pack packs leaf leaves stick sticks'.split(
+  'st st. stuk stuks takje takjes tak takken teen teentjes tenen blad blaadje blaadjes bladeren bos bosje bosjes bossen plak plakken vel vellen blik blikken blikje blikjes pak pakken pakje pakjes zak zakken zakje zakjes pot potten potje potjes fles flessen flesje flesjes doos dozen doosje bol bollen krop kroppen stengel stengels steel stelen stokje stokjes schijf schijven schijfje schijfjes plaat platen druppel druppels lepel lepels snuf mespunt scheut piece pieces clove cloves sprig sprigs bunch bunches pinch pinches slice slices sheet sheets can cans tin tins pack packs leaf leaves stick sticks stück zehe zehen bund prise prisen scheibe scheiben blatt blätter dose dosen packung zweig zweige diente dientes pizca pizcas rama ramas hoja hojas lata latas rodaja rodajas manojo manojos gousse gousses pincée pincées branche branches feuille feuilles tranche tranches boîte boîtes botte bottes brin brins'.split(
     ' '
   )
 );
@@ -52,7 +64,7 @@ const QUANTITY_UNITS = new Set([...UNIT_INFO.keys(), ...COUNT_UNITS]);
 
 // Kwalitatieve hoeveelheden ("naar smaak", "snuf") worden bewust niet omgerekend.
 const QUALITATIVE_AMOUNT =
-  /naar smaak|naar behoefte|scheut|snuf|mespunt|eventueel|evt\.?|to taste|as needed|pinch|dash/i;
+  /naar smaak|naar behoefte|scheut|snuf|mespunt|eventueel|evt\.?|to taste|as needed|pinch|dash|nach geschmack|nach belieben|prise|al gusto|pizca|à volonté|selon le goût|pincée/i;
 
 function parseAmount(text) {
   const t = String(text ?? '').trim();
@@ -90,7 +102,11 @@ function parseIngredientAmount(line) {
   const value2 = m[3] ? parseAmount(m[3]) : null;
   let used = m[0].length;
   const after = s.slice(used);
-  const w = after.match(/^(\s*)(fl\.?\s*oz\.?|[a-zA-Zà-ÿ]+\.?)/);
+  // Franse lepels in meerdere woorden: "cuillères à soupe", "c. à c.".
+  const multi = after.match(/^(\s*)(cuill[eè]res?\s+à\s+(soupe|café)|c\.?\s*à\s*([sc])\.?)(?=\s|$)/i);
+  const w = multi
+    ? [multi[0], multi[1], (multi[3] || multi[4]).toLowerCase().startsWith('s') ? 'càs' : 'càc']
+    : after.match(/^(\s*)(fl\.?\s*oz\.?|[a-zA-Zà-ÿ]+\.?)/);
   let unitText = '';
   let unit = null;
   if (w) {
@@ -99,7 +115,7 @@ function parseIngredientAmount(line) {
     if (key === 'floz' || key === 'fl.oz') unit = UNIT_INFO.get('fl.oz');
     else unit = UNIT_INFO.get(keyDot) || UNIT_INFO.get(key) || null;
     if (unit || COUNT_UNITS.has(keyDot) || COUNT_UNITS.has(key)) {
-      unitText = w[2];
+      unitText = multi ? multi[2] : w[2];
       used += w[0].length;
     }
   }
@@ -176,6 +192,18 @@ const SPOON_WORDS = {
   en: {
     short: { 5: ['tsp', 'tsp'], 15: ['tbsp', 'tbsp'], 240: ['cup', 'cups'] },
     long: { 5: ['teaspoon', 'teaspoons'], 15: ['tablespoon', 'tablespoons'], 240: ['cup', 'cups'] }
+  },
+  de: {
+    short: { 5: ['TL', 'TL'], 15: ['EL', 'EL'] },
+    long: { 5: ['Teelöffel', 'Teelöffel'], 15: ['Esslöffel', 'Esslöffel'] }
+  },
+  es: {
+    short: { 5: ['cucharadita', 'cucharaditas'], 15: ['cucharada', 'cucharadas'] },
+    long: { 5: ['cucharadita', 'cucharaditas'], 15: ['cucharada', 'cucharadas'] }
+  },
+  fr: {
+    short: { 5: ['c. à c.', 'c. à c.'], 15: ['c. à s.', 'c. à s.'] },
+    long: { 5: ['cuillère à café', 'cuillères à café'], 15: ['cuillère à soupe', 'cuillères à soupe'] }
   }
 };
 
@@ -184,7 +212,7 @@ function pickUnit(valueInBase, unit, unitText) {
   const plural = v => v > 1 + 1e-9;
   if (unit.family === 'spoon') {
     const lang = unit.style;
-    const long = /lepel|spoon/i.test(unitText);
+    const long = /lepel|spoon|löffel|cuchar|cuill/i.test(unitText);
     const words = SPOON_WORDS[lang][long ? 'long' : 'short'];
     let size = 5;
     if (valueInBase >= 15 - 1e-9) size = 15;
@@ -195,7 +223,7 @@ function pickUnit(valueInBase, unit, unitText) {
       const clean = [0, 1 / 4, 1 / 3, 1 / 2, 2 / 3, 3 / 4, 1].some(f => Math.abs(cups - Math.floor(cups) - f) < 0.02);
       if (clean || cups >= 2) size = 240;
     }
-    if (lang === 'nl' && valueInBase > 150 + 1e-9) {
+    if (lang !== 'en' && valueInBase > 150 + 1e-9) {
       // Meer dan 10 eetlepels: dan liever milliliters.
       return { value: valueInBase, word: 'ml', fraction: false };
     }
@@ -392,8 +420,10 @@ function openRecipeScale() {
 
 // Alleen de naam van een ingrediënt: "1000 slagroom" wordt "slagroom".
 function ingredientNameOf(line) {
+  // "250 gramos de mantequilla", "100 grammes d'huile", "50 grams of butter": het woordje hoort bij de eenheid.
   const name = parseIngredientAmount(line)
     ?.rest.replace(/^[\s,.:;-]+/, '')
+    .replace(/^(?:de|del|of)\s+|^d['’]\s*/i, '')
     .trim();
   return name || String(line || '');
 }

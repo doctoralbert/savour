@@ -583,7 +583,7 @@ const PRODUCT_EMPTY_AMOUNT =
   /^(?:[….·_+\-\s]+|\d+(?=[a-z])|[a-z]\s+(?=(?:gram|gr|ml|cl|dl|kg|stuks?|bos|bosje|el|tl)\s)|x\s+|(?:gram|kilo)(?=[a-z]{4,}))*(?:(?:gram|grams|gr|ml|cl|dl|kg|kilo|deciliter|liter|ltr|stuks?|bos|bosje|bosjes|bossen|el|tl|eetl|tsp|tbsp|fles|flessen|flesje|flesjes|pak|pakje|pakjes|pakken|pot|potten|potje|zak|zakken|zakje|zakjes|blik|blikken|krop|kroppen|plaat|platen|tak|takken|stokje|stokjes|teen|teentje|teentjes|tenen|bol|bollen|druppel|druppels|scheut|scheutje|beetje|halve|klein)\s+(?:of\s+)?(?=\S))*/;
 // Hoeveelheden zonder getal, als heel woord: "snufje zout" wordt "zout", niet "je zout".
 const PRODUCT_AMOUNT_WORDS =
-  /(^|\s)(naar smaak|naar behoefte|scheutjes?|scheut|snufjes?|snuf|mespuntjes?|mespunt|eventueel|evt\.?|to taste|as needed|pinch|dash)(?=\s|$)/gi;
+  /(^|\s)(naar smaak|naar behoefte|scheutjes?|scheut|snufjes?|snuf|mespuntjes?|mespunt|eventueel|evt\.?|to taste|as needed|pinch|dash|nach geschmack|nach belieben|al gusto|à volonté|selon le goût)(?=\s|$)/gi;
 
 // Naam van een product of ingrediënt om op te zoeken, zodat "Bloem 500 gm", "bloem gezeefd 300gm" en "250 gram
 // bloem" allemaal "bloem" worden: kleine letters, zonder tekst tussen haakjes of na een komma, zonder "naar
@@ -709,7 +709,13 @@ function productFromRow(row) {
 
 // Een paar namen uit de Savour-lijst voor de demo: peper telt direct, gelatine vraagt Savour per keuken.
 const DEMO_CENTRAL = [
-  { key: 'peper', name: 'Peper', aliases: ['witte peper', 'zwarte peper'], allergens: [], status: 'approved' },
+  {
+    key: 'peper',
+    name: 'Peper',
+    aliases: ['witte peper', 'zwarte peper', 'white pepper', 'weißer pfeffer', 'pimienta blanca', 'poivre blanc'],
+    allergens: [],
+    status: 'approved'
+  },
   {
     key: 'gelatine',
     name: 'Gelatine',
@@ -719,23 +725,52 @@ const DEMO_CENTRAL = [
   }
 ];
 
-// Voorbeeldproducten in de demo: de beurre blanc is bijna compleet, zodat je ziet wat er nog mist.
+// Voorbeeldproducten in de demo: de beurre blanc is bijna compleet, zodat je ziet wat er nog mist. Met de namen
+// in elke taal van de demo (js/features/demo.js), zodat de allergenen ook in het Engels of Frans kloppen.
+const DEMO_PRODUCT_NAMES = {
+  sjalot: { nl: 'Sjalot', en: 'Shallot', de: 'Schalotte', es: 'Chalota', fr: 'Échalote' },
+  wijn: {
+    nl: 'Droge witte wijn',
+    en: 'Dry white wine',
+    de: 'Trockener Weißwein',
+    es: 'Vino blanco seco',
+    fr: 'Vin blanc sec'
+  },
+  azijn: {
+    nl: 'Witte wijnazijn',
+    en: 'White wine vinegar',
+    de: 'Weißweinessig',
+    es: 'Vinagre de vino blanco',
+    fr: 'Vinaigre de vin blanc'
+  },
+  boter: { nl: 'Roomboter', en: 'Butter', de: 'Butter', es: 'Mantequilla', fr: 'Beurre' },
+  zout: { nl: 'Zout', en: 'Salt', de: 'Salz', es: 'Sal', fr: 'Sel' }
+};
 function demoProducts() {
-  const p = (name, allergens, aliases = []) => ({
-    id: 'demo-p-' + productKey(name).replace(/\W+/g, '-'),
+  const lang = DEMO_PRODUCT_NAMES.sjalot[currentLanguage] ? currentLanguage : 'en';
+  const p = (id, allergens, aliases = []) => ({
+    id: 'demo-p-' + id,
     scope: 'own',
-    name,
+    name: DEMO_PRODUCT_NAMES[id][lang],
     aliases,
     allergens,
     known: true,
     note: ''
   });
   return [
-    p('Sjalot', [], ['sjalotten']),
-    p('Droge witte wijn', ['sulfiet']),
-    p('Witte wijnazijn', ['sulfiet']),
-    p('Roomboter', ['melk'], ['koude roomboter']),
-    p('Zout', [])
+    p('sjalot', [], ['sjalotten', 'shallots', 'schalotten', 'chalotas', 'échalotes']),
+    p(
+      'wijn',
+      ['sulfiet'],
+      ['droge witte wijn', 'dry white wine', 'trockener weißwein', 'vino blanco seco', 'vin blanc sec']
+    ),
+    p(
+      'azijn',
+      ['sulfiet'],
+      ['witte wijnazijn', 'white wine vinegar', 'weißweinessig', 'vinagre de vino blanco', 'vinaigre de vin blanc']
+    ),
+    p('boter', ['melk'], ['koude roomboter', 'cold butter', 'kalte butter', 'mantequilla fría', 'beurre froid']),
+    p('zout', [], ['salt', 'salz', 'sal', 'sel', 'salz nach geschmack', 'sal al gusto', 'sel à volonté'])
   ];
 }
 
