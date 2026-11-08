@@ -293,3 +293,28 @@ on conflict (lang, key) do nothing;
 `;
 fs.writeFileSync(new URL('../supabase/2026-11-08-ingredientenlijst-aanvulling.sql', import.meta.url), sql);
 console.log(`${rows.length} regels`);
+
+// Tweede stap: bestond een naam al (dan sloeg de insert hem over), dan krijgt die alsnog de schrijfwijzen van
+// hierboven, zoals "roter portwein" bij Portwein. Alleen erbij, nooit iets weg; allergenen blijven zoals ze waren.
+const updates = [];
+for (const [, langs] of ITEMS)
+  for (const [lang, [name, ...aliases]] of Object.entries(langs)) {
+    const list = [...new Set(aliases.map(key))];
+    if (list.length) updates.push(`  (${q(lang)}, ${q(key(name))}, ${arr(list)})`);
+  }
+const sql2 = `-- Savour-lijst aanvullen, stap 2 (2026-11-08): schrijfwijzen toevoegen aan namen die al bestonden, zoals
+-- "roter portwein" bij Portwein en "altbackenes weißbrot" bij Weißbrot. Alleen erbij, nooit iets weg; de allergenen
+-- blijven zoals ze waren. Gemaakt door tools/ingredientenlijst-aanvulling.mjs. ${updates.length} namen.
+
+update public.ingredient_list t
+set aliases = array(select distinct a from unnest(t.aliases || v.aliases) as a order by a)
+from (values
+${updates.join(',\n')}
+) as v(lang, key, aliases)
+where t.lang = v.lang
+  and t.key = v.key
+  and not (v.aliases <@ t.aliases)
+  and cardinality(t.aliases) + cardinality(v.aliases) <= 50;
+`;
+fs.writeFileSync(new URL('../supabase/2026-11-08-ingredientenlijst-aanvulling-2.sql', import.meta.url), sql2);
+console.log(`stap 2: ${updates.length} namen`);
