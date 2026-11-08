@@ -1516,3 +1516,40 @@ body.savour-light .ai-import-note {
     grid-column: 1 / -1;
   }
 }
+
+/* Inlogvenster boven de website in het lichte thema (js/features/auth.js zet .savour-light op #authModal). */
+#authModal.savour-light {
+  --sv-bg: #f5f4ef;
+  --sv-surface: #ffffff;
+  --sv-surface-2: #f0eee7;
+  --sv-line: #e2dfd6;
+  --sv-line-strong: #c9c5b9;
+  --sv-text: #151716;
+  --sv-text-2: #4f554f;
+  --sv-text-3: #6f746d;
+  --sv-gold: #8a6a22;
+  --sv-gold-strong: #171918;
+  --sv-on-gold: #ffffff;
+  --sv-focus: 0 0 0 3px #8a6a2240;
+  background: rgba(40, 34, 24, 0.45);
+  color: #151716;
+}
+#authModal.savour-light .modalbox {
+  background: #fffdf8;
+  border-color: #e2dfd6;
+  color: #151716;
+  box-shadow: 0 30px 80px -20px rgba(60, 45, 20, 0.45);
+}
+#authModal.savour-light :is(h2, label, p, span, small, a) {
+  color: inherit;
+}
+#authModal.savour-light :is(#authIntro, .auth-note, .auth-checks label) {
+  color: #4f554f;
+}
+#authModal.savour-light :is(#authEyebrow, .auth-forgot, .auth-brand span) {
+  color: #8a6a22 !important;
+}
+#authModal.savour-light .auth-close {
+  color: #151716 !important;
+  border-color: #e2dfd6 !important;
+}

@@ -2,6 +2,8 @@
 
 function openAuth(mode) {
   authMode = mode;
+  // Het venster volgt het thema van de website (licht of donker), want het opent boven de publieke pagina's.
+  $('authModal').classList.toggle('savour-light', document.documentElement.classList.contains('site-light'));
   $('authModal').classList.add('open');
   $('authFirstName').value = '';
   $('authLastName').value = '';

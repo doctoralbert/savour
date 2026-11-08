@@ -3911,7 +3911,7 @@ body.savour-light .lang-admin:hover {
 }
 
 /* ==== Licht thema voor de website (2026-11-08): knop in de kop (.site-theme), keuze in localStorage
-   ('savour_site_theme'), klasse html.site-light. Foto-koppen, donkere stroken en de footer blijven donker. ==== */
+   ('savour_site_theme'), klasse html.site-light. ==== */
 .site-theme {
   display: inline-flex;
   align-items: center;
@@ -3981,62 +3981,178 @@ html.site-light .site-menu-btn:hover,
 html.site-light .site-mm-lang a:hover {
   background: rgba(20, 24, 24, 0.07);
 }
-/* Wat ook in het lichte thema donker blijft. */
-html.site-light
-  .site
-  :is(
-    .site-hero,
-    .site-foot,
-    .site-section.dark,
-    .site-page-head.has-photo,
-    .svc-band,
-    .site-cta.with-photo,
-    .kladje-duo-card,
-    .hero-laptop,
-    .feat-facts
-  ) {
+/* Alles gaat mee in het lichte thema (2026-11-08, v2): foto's krijgen een licht, warm waas in plaats van een donker
+   verloop, de footer en stroken worden papier, en tekst wordt inkt met goud als accent. Alleen de rand om de
+   laptop en telefoon (het apparaat zelf) blijft donker. */
+html.site-light .site .hero-laptop {
   --paper: #0a0f10;
-  --paper-2: #101819;
   --ink: #eee8dc;
-  --ink-2: #b9beb7;
-  --ink-3: #87918b;
   --line: #243031;
-  --gold: #e8ca8d;
+  background: #1d2224;
+  border-color: #c9c1b2;
+  box-shadow: 0 30px 70px -20px rgba(60, 45, 20, 0.35);
+}
+html.site-light .site :is(.hero-phone, .site-phone-frame) {
+  background: #1d2224;
+  border-color: #c9c1b2;
+  box-shadow: 0 24px 50px -16px rgba(60, 45, 20, 0.4);
+}
+html.site-light .site .site-hero.has-photo::before,
+html.site-light .site .site-page-head.has-photo::before {
+  filter: saturate(0.9) brightness(1.25);
+}
+html.site-light .site .site-hero.has-photo::after {
+  background: linear-gradient(
+      90deg,
+      rgba(246, 242, 234, 0.95) 0%,
+      rgba(246, 242, 234, 0.8) 42%,
+      rgba(246, 242, 234, 0.42) 100%
+    ),
+    linear-gradient(0deg, #f6f2ea 0%, rgba(246, 242, 234, 0) 30%);
+}
+html.site-light .site .site-page-head.has-photo::after {
+  background: linear-gradient(
+      90deg,
+      rgba(246, 242, 234, 0.95) 0%,
+      rgba(246, 242, 234, 0.78) 50%,
+      rgba(246, 242, 234, 0.5) 100%
+    ),
+    linear-gradient(0deg, #f6f2ea 0%, rgba(246, 242, 234, 0) 45%);
+}
+@media (max-width: 760px) {
+  html.site-light .site .site-hero.has-photo::after {
+    background: linear-gradient(180deg, rgba(246, 242, 234, 0.84) 0%, rgba(246, 242, 234, 0.92) 60%, #f6f2ea 100%);
+  }
+  html.site-light .site .site-page-head.has-photo::after {
+    background: linear-gradient(180deg, rgba(246, 242, 234, 0.78) 0%, rgba(246, 242, 234, 0.86) 55%, #f6f2ea 100%);
+  }
+}
+html.site-light .site .site-page-head.has-photo :is(h1, .page-h1) {
+  text-shadow: none;
+}
+html.site-light .site .site-page-head.has-photo :is(.site-lead, .site-crumbs, .site-crumbs a) {
+  color: var(--ink-2);
+}
+/* Afsluitende uitnodiging en importservice: de foto blijft zichtbaar onder een licht waas. */
+html.site-light .site .site-cta.with-photo {
+  background:
+    linear-gradient(180deg, rgba(246, 242, 234, 0.8), rgba(246, 242, 234, 0.9)),
+    url('/assets/keuken/vuur-grill.jpg') center 40% / cover no-repeat;
+}
+html.site-light .site .svc-band {
+  background:
+    linear-gradient(90deg, rgba(246, 242, 234, 0.96) 0%, rgba(246, 242, 234, 0.86) 55%, rgba(246, 242, 234, 0.66) 100%),
+    url('/assets/keuken/brigade.jpg') center 35% / cover no-repeat;
+  box-shadow:
+    inset 0 1px 0 rgba(138, 106, 46, 0.35),
+    inset 0 -1px 0 rgba(138, 106, 46, 0.35);
+}
+html.site-light .site :is(.site-cta.with-photo h2, .svc-band h2) {
   color: var(--ink);
 }
-html.site-light
-  .site
-  :is(
-    .site-hero,
-    .site-foot,
-    .site-section.dark,
-    .site-page-head.has-photo,
-    .svc-band,
-    .site-cta.with-photo,
-    .kladje-duo-card,
-    .hero-laptop,
-    .feat-facts
-  )
-  .site-btn.solid {
-  background: #e8ca8d;
-  border-color: #e8ca8d;
-  color: #111;
+html.site-light .site :is(.site-cta.with-photo p, .svc-band p) {
+  color: var(--ink-2);
 }
-html.site-light
-  .site
-  :is(
-    .site-hero,
-    .site-foot,
-    .site-section.dark,
-    .site-page-head.has-photo,
-    .svc-band,
-    .site-cta.with-photo,
-    .kladje-duo-card,
-    .hero-laptop,
-    .feat-facts
-  )
-  .site-btn:not(.solid):hover {
-  color: #0a0f10;
+html.site-light .site :is(.svc-kicker, .svc-band-free) {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+html.site-light .site :is(.site-cta.with-photo, .svc-band, .svc-teaser, .svc-free) .site-btn.solid {
+  background: #1d201e;
+  border-color: #1d201e;
+  color: #f6f2ea;
+}
+html.site-light .site :is(.site-cta.with-photo, .svc-band, .svc-teaser, .svc-free) .site-btn.solid:hover {
+  background: #8a6a2e;
+  border-color: #8a6a2e;
+  color: #fff;
+}
+html.site-light .site .site-cta.with-photo .site-btn:not(.solid) {
+  border-color: #1d201e;
+  color: #1d201e;
+}
+html.site-light .site .site-cta.with-photo .site-btn:not(.solid):hover {
+  background: #1d201e;
+  color: #f6f2ea;
+}
+html.site-light .site .svc-free {
+  border-color: var(--gold);
+  background: rgba(138, 106, 46, 0.06);
+}
+/* Donkere stroken en cijfers worden een warm, iets donkerder papier. */
+html.site-light .site .site-section.dark {
+  background: #efe8db;
+}
+html.site-light .site .feat-facts {
+  background: radial-gradient(ellipse 60% 120% at 50% 0%, rgba(138, 106, 46, 0.1), transparent 70%), #efe8db;
+  color: var(--ink);
+}
+html.site-light .site .feat-facts dt {
+  color: var(--gold);
+}
+html.site-light .site .feat-facts dd {
+  color: var(--ink-2);
+}
+html.site-light .site .feat-facts dl > div + div {
+  border-left-color: var(--line);
+}
+/* Menukaart bovenin: inkt met goud bij aanwijzen. */
+html.site-light .site .site-menucard {
+  background: #f8f4ec;
+  box-shadow: 0 24px 40px -24px rgba(60, 45, 20, 0.3);
+}
+html.site-light .site .site-menucard b {
+  color: var(--ink);
+}
+html.site-light .site .site-menucard span {
+  color: var(--ink-2);
+}
+html.site-light .site .site-menucard :is(em, b small) {
+  color: var(--gold);
+}
+html.site-light .site .site-menucard a:hover b {
+  color: var(--gold);
+}
+/* Recept naast het kladje: zoals de app in het lichte thema. */
+html.site-light .site .kladje-duo-card {
+  background: #fffdf8;
+  color: var(--ink);
+}
+html.site-light .site .kladje-duo-card :is(h3, h4) {
+  color: var(--ink);
+}
+html.site-light .site .kladje-duo-card small {
+  color: var(--gold);
+}
+html.site-light .site .kladje-duo-card :is(ol, ul, li) {
+  color: var(--ink-2);
+}
+html.site-light .site .kladje-duo-tag:not(.gold) {
+  background: rgba(255, 253, 248, 0.9);
+  color: var(--ink);
+}
+/* Footer: licht papier met een dunne gouden lijn erboven. */
+html.site-light .site .site-foot {
+  background: #efe8db;
+  color: var(--ink-2);
+  border-top: 1px solid var(--line);
+}
+html.site-light .site .site-foot :is(a, p, li, small) {
+  color: var(--ink-2);
+}
+html.site-light .site .site-foot a:hover {
+  color: var(--gold);
+}
+html.site-light .site .site-foot :is(h2, h3, h4, .site-foot-brand span) {
+  color: var(--gold);
+}
+html.site-light .site .site-foot .site-foot-brand .site-btn {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+html.site-light .site .site-foot .site-foot-brand .site-btn:hover {
+  background: var(--gold);
+  color: #fff;
 }
 
 /* ---- Voordelenstrook onder de kop (2026-11-08): een zwevend paneel dat over de onderrand van de foto valt, met
@@ -4110,4 +4226,39 @@ html.site-light
     border-left: 0;
     border-top: 1px solid var(--line);
   }
+}
+html.site-light .site .site-foot-bottom {
+  border-top-color: var(--line);
+  color: var(--ink-3);
+}
+html.site-light .site .site-section.dark h2 {
+  color: var(--gold);
+}
+html.site-light .site .site-section.dark .site-rows li {
+  border-color: var(--line);
+}
+html.site-light .site .site-section.dark .site-rows b {
+  color: var(--ink);
+}
+html.site-light .site .site-section.dark .site-rows span {
+  color: var(--ink-2);
+}
+html.site-light .site .site-section.dark .site-rows i {
+  color: var(--gold);
+}
+html.site-light .site .site-menucard .site-menucard-intro p {
+  color: var(--ink-2);
+}
+html.site-light .site .site-menucard .site-menucard-intro span {
+  color: var(--gold);
+}
+html.site-light .site :is(.site-figures, .post-fact) {
+  background: radial-gradient(ellipse 60% 120% at 50% 0%, rgba(138, 106, 46, 0.1), transparent 70%), #efe8db;
+  color: var(--ink);
+}
+html.site-light .site :is(.site-figures-kicker, .site-figures dd, .post-fact strong) {
+  color: var(--gold);
+}
+html.site-light .site :is(.site-figures-live, .site-figures dt, .post-fact span) {
+  color: var(--ink-2);
 }

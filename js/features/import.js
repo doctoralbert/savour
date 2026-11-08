@@ -1278,11 +1278,7 @@ function batchLineChecks(r) {
   const checks = readerLineChecks(r.ingredients);
   // Ook regels die geen ingrediënt zijn ("gas patronen", "laten trekken"), zoals bij Receptregels nakijken.
   for (const line of r.ingredients || [])
-    if (
-      !checks.some(c => c.line === line) &&
-      !recipePartName(line) &&
-      isNotIngredient(ingredientKey(line))
-    )
+    if (!checks.some(c => c.line === line) && !recipePartName(line) && isNotIngredient(ingredientKey(line)))
       checks.push({ line, to: '', why: 'Geen ingrediënt', action: 'remove' });
   return checks.filter(c => !(r._lineKeep || []).includes(c.line));
 }

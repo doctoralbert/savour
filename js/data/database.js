@@ -251,10 +251,8 @@ async function startDatabaseSession(user) {
     try {
       await ensureProfile(user);
       await migrateLegacySharedMaps();
-      await loadDatabaseState();
-      await loadPlanState();
-      await loadRecipeSourceIds();
-      await loadProducts();
+      // Tegelijk in plaats van na elkaar: recepten, abonnement, originelen en ingrediënten hangen niet van elkaar af.
+      await Promise.all([loadDatabaseState(), loadPlanState(), loadRecipeSourceIds(), loadProducts()]);
       // Wat Savour zeker weet, koppelt het vanzelf aan de allergenen (js/features/product-review.js).
       setTimeout(() => autoLinkQuietly('own'), 2500);
       saveOfflineSnapshot();

@@ -95,6 +95,7 @@ function go(id) {
   if (id === 'recipes') renderRecipes();
   if (id === 'favorites') renderFavorites();
   if (id === 'folders' || id === 'folderManage') renderFolderManage();
+  if (id === 'folders') renderFolders();
   if (id === 'categories') renderCategories();
   if (id === 'products') renderProducts();
   if (id === 'folderDetail') renderFolderDetail();

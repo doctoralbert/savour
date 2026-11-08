@@ -743,18 +743,23 @@ async function loadProducts() {
   }
   products = [];
   if (!currentUser) return;
-  const [{ data, error }, settings, own, all] = await Promise.all([
+  // De Savour-lijst (± 15.000 namen) komt los binnen: de app opent meteen, de allergenen worden bijgewerkt zodra
+  // de lijst er is. Zo wacht inloggen niet op 2,5 MB aan ingrediënten.
+  loadIngredientList().then(all => {
+    if (!currentUser || demoMode || !all) return;
+    notIngredientAll = new Set(all.filter(x => x.status === 'junk').map(x => x.key));
+    setCentralList(all);
+    refreshAllergenViews();
+  });
+  const [{ data, error }, settings, own] = await Promise.all([
     supabaseClient
       .from('products')
       .select('id,user_id,team_id,name,aliases,allergens,allergens_known,allergen_note,updated_at')
       .order('name'),
     supabaseClient.from('product_settings').select('user_id,team_id,allergen_extras'),
-    supabaseClient.from('ingredient_feedback').select('key').eq('kind', 'not_ingredient'),
-    loadIngredientList()
+    supabaseClient.from('ingredient_feedback').select('key').eq('kind', 'not_ingredient')
   ]);
   notIngredientOwn = new Set((own.data || []).map(x => x.key));
-  notIngredientAll = new Set((all || []).filter(x => x.status === 'junk').map(x => x.key));
-  setCentralList(all || []);
   productSettingsReady = !settings.error;
   (settings.data || []).forEach(row =>
     productExtras.set(
@@ -767,6 +772,14 @@ async function loadProducts() {
     return;
   }
   products = (data || []).map(productFromRow);
+}
+
+// Na het laden van de Savour-lijst: alleen het allergenenblok van het open recept en het scherm Allergenen opnieuw
+// tekenen, zodat niemand van zijn plek in een recept springt.
+function refreshAllergenViews() {
+  const active = document.querySelector('#appShell .view.active')?.id;
+  if (active === 'detail' && currentId) renderRecipeAllergens(findRecipe(currentId));
+  else if (active === 'products') renderProducts();
 }
 
 function productFromRow(row) {

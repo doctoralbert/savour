@@ -3,7 +3,7 @@
 // opmaak altijd bij de pagina). Lettertypes, afbeeldingen en bibliotheken: meteen uit de cache en op de achtergrond
 // bijwerken. API-routes en de database gaan nooit via de cache.
 // Let op: een stylesheet of script krijgt nooit een pagina (HTML) als vervanging; dan zou de site zonder opmaak laden.
-const CACHE = 'savour-v3';
+const CACHE = 'savour-v4';
 
 self.addEventListener('install', event => {
   event.waitUntil(
