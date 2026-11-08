@@ -3834,6 +3834,15 @@ export const strings = [
   ["Nog geen producten. Koppel hierboven ingrediënten, of voeg een product toe.","No products yet. Link ingredients above, or add a product.","Noch keine Produkte. Verknüpfe oben Zutaten oder füge ein Produkt hinzu.","Aún no hay productos. Vincula ingredientes arriba o añade un producto."],
   ["Nog niet volledig gecontroleerd.","Not fully checked yet.","Noch nicht vollständig geprüft.","Aún no comprobado del todo."],
   ["Verwijderen lukte niet; probeer het opnieuw","Deleting failed; please try again","Löschen hat nicht geklappt; versuche es erneut","No se pudo eliminar; inténtalo de nuevo"],
+  // ---- Omrekenen en lege import (2026-11-08) ----
+  ["Meer omrekenen: op opbrengst of op wat je hebt","More scaling: by yield or by what you have","Mehr umrechnen: nach Ausbeute oder nach dem, was du hast","Más conversiones: por rendimiento o por lo que tienes"],
+  ["Vul een factor in tussen 0,01 en 1000, bijvoorbeeld 25.","Enter a factor between 0.01 and 1000, for example 25.","Gib einen Faktor zwischen 0,01 und 1000 ein, zum Beispiel 25.","Introduce un factor entre 0,01 y 1000, por ejemplo 25."],
+  ["1 ingrediënt","1 ingredient","1 Zutat","1 ingrediente"],
+  ["1 stap","1 step","1 Schritt","1 paso"],
+  ["1 recept heeft geen ingrediënten","1 recipe has no ingredients","1 Rezept hat keine Zutaten","1 receta no tiene ingredientes"],
+  ["Dat is meestal geen recept, bijvoorbeeld een webpagina zonder recept. Savour slaat dat recept niet op. De rest opslaan?","That is usually not a recipe, for example a web page without a recipe. Savour will not save that recipe. Save the rest?","Das ist meist kein Rezept, zum Beispiel eine Webseite ohne Rezept. Savour speichert dieses Rezept nicht. Den Rest speichern?","Normalmente no es una receta, por ejemplo una página web sin receta. Savour no guardará esa receta. ¿Guardar el resto?"],
+  ["Dat is meestal geen recept, bijvoorbeeld een webpagina zonder recept. Savour slaat die recepten niet op. De rest opslaan?","That is usually not a recipe, for example a web page without a recipe. Savour will not save those recipes. Save the rest?","Das ist meist kein Rezept, zum Beispiel eine Webseite ohne Rezept. Savour speichert diese Rezepte nicht. Den Rest speichern?","Normalmente no es una receta, por ejemplo una página web sin receta. Savour no guardará esas recetas. ¿Guardar el resto?"],
+  ["De rest opslaan","Save the rest","Den Rest speichern","Guardar el resto"],
 ];
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
@@ -4374,4 +4383,6 @@ export const patterns = [
   ["^(.+) is al een eigen product$","$1 is already a product of its own","$1 ist bereits ein eigenes Produkt","$1 ya es un producto propio"],
   ["^Een van deze namen hoort nu bij (.+)\\. Na opslaan hoort hij bij (.+)\\.$","One of these names now belongs to $1. After saving it belongs to $2.","Einer dieser Namen gehört jetzt zu $1. Nach dem Speichern gehört er zu $2.","Uno de estos nombres pertenece ahora a $1. Al guardar pasará a $2."],
   ["^(.+) verwijderen\\?$","Delete $1?","$1 löschen?","¿Eliminar $1?"],
+  // ---- Omrekenen en lege import (2026-11-08) ----
+  ["^(\\d+) recepten hebben geen ingrediënten$","$1 recipes have no ingredients","$1 Rezepte haben keine Zutaten","$1 recetas no tienen ingredientes"],
 ];

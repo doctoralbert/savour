@@ -1659,6 +1659,14 @@ export const stringsFr = {
  "Nog geen producten. Koppel hierboven ingrediënten, of voeg een product toe.": "Pas encore de produits. Relie des ingrédients ci-dessus ou ajoute un produit.",
  "Nog niet volledig gecontroleerd.": "Pas encore entièrement vérifié.",
  "Verwijderen lukte niet; probeer het opnieuw": "La suppression a échoué ; réessaie",
+ "Meer omrekenen: op opbrengst of op wat je hebt": "Plus de conversions : selon le rendement ou ce que tu as",
+ "Vul een factor in tussen 0,01 en 1000, bijvoorbeeld 25.": "Saisis un facteur entre 0,01 et 1000, par exemple 25.",
+ "1 ingrediënt": "1 ingrédient",
+ "1 stap": "1 étape",
+ "1 recept heeft geen ingrediënten": "1 recette n’a aucun ingrédient",
+ "Dat is meestal geen recept, bijvoorbeeld een webpagina zonder recept. Savour slaat dat recept niet op. De rest opslaan?": "Ce n’est généralement pas une recette, par exemple une page web sans recette. Savour n’enregistre pas cette recette. Enregistrer le reste ?",
+ "Dat is meestal geen recept, bijvoorbeeld een webpagina zonder recept. Savour slaat die recepten niet op. De rest opslaan?": "Ce n’est généralement pas une recette, par exemple une page web sans recette. Savour n’enregistre pas ces recettes. Enregistrer le reste ?",
+ "De rest opslaan": "Enregistrer le reste",
 };
 export const patternsFr = {
  "^Savour-lijst \\((\\d+)\\)$": "Liste Savour ($1)",
@@ -1866,4 +1874,5 @@ export const patternsFr = {
  "^(.+) is al een eigen product$": "$1 est déjà un produit à part",
  "^Een van deze namen hoort nu bij (.+)\\. Na opslaan hoort hij bij (.+)\\.$": "L’un de ces noms appartient maintenant à $1. Après l’enregistrement, il appartiendra à $2.",
  "^(.+) verwijderen\\?$": "Supprimer $1 ?",
+ "^(\\d+) recepten hebben geen ingrediënten$": "$1 recettes n’ont aucun ingrédient",
 };
