@@ -125,6 +125,8 @@ export const stringsFr = {
  "Omrekenen": "Convertir",
  "Basis": "Base",
  "Uitloggen": "Se déconnecter",
+ "Menu": "Menu",
+ "Menu sluiten": "Fermer le menu",
  "Inloggen": "Se connecter",
  "Mijn account": "Mon compte",
  "Account": "Compte",

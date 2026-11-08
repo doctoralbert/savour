@@ -81,6 +81,8 @@ window.SAVOUR_I18N.es = {
     "Omrekenen": "Recalcular",
     "Basis": "Base",
     "Uitloggen": "Cerrar sesión",
+    "Menu": "Menú",
+    "Menu sluiten": "Cerrar menú",
     "Inloggen": "Iniciar sesión",
     "Mijn account": "Mi cuenta",
     "Account": "Cuenta",

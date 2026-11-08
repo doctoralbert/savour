@@ -34,6 +34,13 @@ document.addEventListener('click', e => {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && document.body.classList.contains('cook-mode')) toggleCookMode(false);
   if (e.key === 'Escape') closeHelp();
+  if (e.key === 'Escape' && document.body.classList.contains('mobile-menu-open')) toggleMobileMenu(false);
+});
+
+// Telefoonmenu: een keuze in het menu (scherm, map, keukenteam, venster) sluit het menu.
+document.addEventListener('click', e => {
+  if (document.body.classList.contains('mobile-menu-open') && e.target.closest('#nav button, #nav .nav-section-link'))
+    toggleMobileMenu(false);
 });
 
 // Terug/vooruit in de browser: de actieve weergave opnieuw tekenen.

@@ -80,6 +80,7 @@ function go(id) {
     openPublicInfo(id);
     return;
   }
+  if (document.body.classList.contains('mobile-menu-open')) toggleMobileMenu(false);
   // "Alle recepten" toont altijd de volledige bibliotheek, zonder mapfilter.
   if (id === 'recipes') activeFolderCategory = '';
   if (id !== 'detail' && document.body.classList.contains('cook-mode')) toggleCookMode(false);
@@ -179,6 +180,22 @@ function showApp(viewId = 'recipes') {
   syncAppAddress(viewId);
   renderSharedNav();
   updateProfileHeader();
+}
+
+// Telefoon: de menuknop rechtsboven toont de zijbalk over het hele scherm onder de bovenbalk, zoals het menu op de
+// website. Zo staat alles (recepten, mappen, keukenteams, allergenen, Pro, instellingen) op één plek.
+function toggleMobileMenu(force) {
+  const open = typeof force === 'boolean' ? force : !document.body.classList.contains('mobile-menu-open');
+  const top = document.querySelector('#appShell .topbar')?.getBoundingClientRect().bottom || 64;
+  document.documentElement.style.setProperty('--mobile-menu-top', `${Math.max(0, Math.round(top))}px`);
+  document.body.classList.toggle('mobile-menu-open', open);
+  $('sidebar')?.classList.toggle('open', open);
+  const btn = $('mobileMenuBtn');
+  if (btn) {
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? t('Menu sluiten') : t('Menu'));
+  }
+  if (open) refreshSidebar();
 }
 
 function openMobileSearch() {

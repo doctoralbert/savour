@@ -86,6 +86,8 @@ export const strings = [
   ['Omrekenen', 'Convert', 'Umrechnen', 'Recalcular'],
   ['Basis', 'Base', 'Basis', 'Base'],
   ['Uitloggen', 'Log out', 'Abmelden', 'Cerrar sesión'],
+  ['Menu', 'Menu', 'Menü', 'Menú'],
+  ['Menu sluiten', 'Close menu', 'Menü schließen', 'Cerrar menú'],
   ['Inloggen', 'Log in', 'Anmelden', 'Iniciar sesión'],
   ['Mijn account', 'My account', 'Mein Konto', 'Mi cuenta'],
   ['Account', 'Account', 'Konto', 'Cuenta'],

@@ -81,6 +81,8 @@ window.SAVOUR_I18N.fr = {
     "Omrekenen": "Convertir",
     "Basis": "Base",
     "Uitloggen": "Se déconnecter",
+    "Menu": "Menu",
+    "Menu sluiten": "Fermer le menu",
     "Inloggen": "Se connecter",
     "Mijn account": "Mon compte",
     "Account": "Compte",
