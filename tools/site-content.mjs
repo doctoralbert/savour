@@ -341,14 +341,14 @@ export const FEATURES = [
     nl: {
       slug: 'binnenkort',
       menu: 'Binnenkort in Savour',
-      short: 'Kostprijs per recept, allergenen en de geschiedenis van elk recept.',
-      title: 'Binnenkort in Savour: kostprijs, allergenen en meer',
-      desc: 'Waar we aan werken: kostprijs per recept, allergenen per gerecht, de geschiedenis van elk recept en een app voor iPhone en Android.',
+      short: 'Kostprijs per recept, de geschiedenis van elk recept en meer.',
+      title: 'Binnenkort in Savour: kostprijs, receptgeschiedenis en meer',
+      desc: 'Waar we aan werken: kostprijs per recept, de geschiedenis van elk recept en een app voor iPhone en Android. Allergenen per recept staan inmiddels live.',
       h1: 'Waar we aan werken',
       lead: 'Savour groeit met de keuken mee. Dit staat op de planning. Mis je iets? Laat het ons weten.',
       sections: [
         ['Kostprijs per recept', 'Zie per gerecht en per portie wat het kost, en wat er gebeurt als de prijs van een product verandert.'],
-        ['Allergenen in één oogopslag', 'Per recept en per samengesteld gerecht, zodat je een vraag van een gast aan tafel direct kunt beantwoorden.'],
+        ['Allergenen: nu live', 'Sinds november 2026 zie je de allergenen per recept, ook via basisrecepten. [Zo werkt het](/allergenen-per-recept).'],
         ['Geschiedenis van elk recept', 'Zie wie wat heeft aangepast in een gedeeld recept, en zet zo nodig een eerdere versie terug.'],
         ['Een app voor iPhone en Android', 'Savour werkt nu in de browser op elk apparaat. Een losse app overwegen we, en jouw feedback telt mee.']
       ]
@@ -356,14 +356,14 @@ export const FEATURES = [
     en: {
       slug: 'en/roadmap',
       menu: 'Coming soon',
-      short: 'Cost per recipe, allergens and the history of every recipe.',
-      title: 'Coming soon to Savour: costing, allergens and more',
-      desc: 'What we are working on: cost per recipe, allergens per dish, the history of every recipe and an app for iPhone and Android.',
+      short: 'Cost per recipe, the history of every recipe and more.',
+      title: 'Coming soon to Savour: costing, recipe history and more',
+      desc: 'What we are working on: cost per recipe, the history of every recipe and an app for iPhone and Android. Allergens per recipe are now live.',
       h1: 'What we are working on',
       lead: 'Savour grows with the kitchen. This is on the roadmap. Missing something? Let us know.',
       sections: [
         ['Cost per recipe', 'See what each dish and each portion costs, and what happens when the price of a product changes.'],
-        ['Allergens at a glance', 'Per recipe and per composed dish, so you can answer a guest’s question at the table straight away.'],
+        ['Allergens: live now', 'Since November 2026 you see the allergens per recipe, including through base recipes. [How it works](/en/allergens-per-recipe).'],
         ['History of every recipe', 'See who changed what in a shared recipe, and restore an earlier version when needed.'],
         ['An app for iPhone and Android', 'Savour now works in the browser on every device. We are considering a separate app, and your feedback counts.']
       ]
@@ -471,7 +471,7 @@ export const STORY = {
         'En opschalen: haal je vijftig brownies uit één recept en heb je er duizend nodig, dan rekent Savour het om. Op de computer, de tablet en de telefoon in de keuken.'
       ]],
       ['Wat we nog willen bouwen', [
-        'Kostprijs per recept en allergenen in één oogopslag staan bovenaan de lijst. Werkt Savour goed op computer, tablet en telefoon, dan kijken we of een eigen app voor iPhone en Android de investering waard is.',
+        'Allergenen per recept staan sinds november 2026 live; kostprijs per recept staat nu bovenaan de lijst. Werkt Savour goed op computer, tablet en telefoon, dan kijken we of een eigen app voor iPhone en Android de investering waard is.',
         'Dat bepalen we niet achter een bureau, maar samen met de chefs die Savour gebruiken. Mis je iets in je keuken? Laat het ons weten.'
       ]]
     ],
@@ -513,7 +513,7 @@ export const STORY = {
         'And scale: one recipe makes fifty brownies and you need a thousand? Savour does the maths. On the computer, the tablet and the phone in the kitchen.'
       ]],
       ['What we still want to build', [
-        'Cost per recipe and allergens at a glance are at the top of the list. If Savour works well on computer, tablet and phone, we will see whether a separate app for iPhone and Android is worth the investment.',
+        'Allergens per recipe have been live since November 2026; cost per recipe is now at the top of the list. If Savour works well on computer, tablet and phone, we will see whether a separate app for iPhone and Android is worth the investment.',
         'We do not decide that behind a desk, but together with the chefs who use Savour. Missing something in your kitchen? Let us know.'
       ]]
     ],

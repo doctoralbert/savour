@@ -41,7 +41,7 @@ export const BLOG = [
         ],
         [
           "Vergelijkingspunt: kostprijs, allergenen en voorraad",
-          "Hier zijn Meez en Galley het sterkst: kostprijs die meebeweegt met facturen, allergenen, voedingswaarden, voorraad en inkoop. Paprika doet dat niet, op een voorraadkast voor thuis na. Savour doet dat nu ook nog niet. Kostprijs per recept en allergenen in één oogopslag staan bovenaan onze lijst. Draait jouw keuken vooral om marges over tientallen vestigingen, dan is Meez of Galley op dit moment de betere keuze."
+          "Hier zijn Meez en Galley het sterkst: kostprijs die meebeweegt met facturen, allergenen, voedingswaarden, voorraad en inkoop. Paprika doet dat niet, op een voorraadkast voor thuis na. Allergenen per recept heeft Savour sinds november 2026; kostprijs per recept staat bovenaan onze lijst. Draait jouw keuken vooral om marges over tientallen vestigingen, dan is Meez of Galley op dit moment de betere keuze."
         ],
         [
           "Vergelijkingspunt: samenwerken met je team",
@@ -91,7 +91,7 @@ export const BLOG = [
         ],
         [
           "Comparison: costing, allergens and inventory",
-          "This is where Meez and Galley are strongest: costs that follow your invoices, allergens, nutrition, inventory and purchasing. Paprika does not do this, apart from a pantry for home. Savour does not do it yet either. Cost per recipe and allergens at a glance are at the top of our list. If your kitchen is mainly about margins across dozens of locations, Meez or Galley is the better choice today."
+          "This is where Meez and Galley are strongest: costs that follow your invoices, allergens, nutrition, inventory and purchasing. Paprika does not do this, apart from a pantry for home. Savour has had allergens per recipe since November 2026; cost per recipe is at the top of our list. If your kitchen is mainly about margins across dozens of locations, Meez or Galley is the better choice today."
         ],
         [
           "Comparison: working with your team",

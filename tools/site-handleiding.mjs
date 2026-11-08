@@ -147,6 +147,26 @@ export const RELEASES_PAGE = {
 
 const RELEASES_NL_EN = [
   {
+    version: '3.8.0',
+    date: '2026-11-08',
+    nl: [
+      'Allergenen per recept, ook via basisrecepten. Savour herkent de ingrediënten zelf uit de Savour-lijst; jij beantwoordt alleen de vragen onder Nakijken.',
+      'Standaard de 14 allergenen; extra kenmerken zoals lactose of varkensvlees zet je zelf aan.',
+      'Allergenenkaart per recept, en bij printen kies je of de allergenen erop komen.',
+      'Omrekenen met ½×, 1×, 2×, 5×, 10× of een eigen factor; de opbrengst rekent mee.',
+      'Elk recept heeft een eigen adres en de receptnaam in het tabblad.',
+      'Standaardcategorieën in je eigen taal, en de demo helemaal in het Engels, Duits, Spaans en Frans.'
+    ],
+    en: [
+      'Allergens per recipe, including through base recipes. Savour recognises the ingredients from the Savour list; you only answer the questions under To check.',
+      'The 14 allergens by default; extra characteristics such as lactose or pork you switch on yourself.',
+      'An allergen chart per recipe, and when printing you choose whether the allergens go on it.',
+      'Scale with ½×, 1×, 2×, 5×, 10× or your own factor; the yield follows along.',
+      'Every recipe has its own address and the recipe name in the browser tab.',
+      'Default categories in your own language, and the demo fully in English, German, Spanish and French.'
+    ]
+  },
+  {
     version: '3.7.0',
     date: '2026-11-02',
     nl: [

@@ -64,7 +64,7 @@ export const EXTRA_LANGS = {
   "Rezeptdatenbank und Archiv",
   "Alle Rezepte sicher in der Cloud, online und offline auf jedem Gerät."
 ],
-      roadmap: ['Demnächst in Savour', 'Kosten pro Rezept, Allergene und der Verlauf jedes Rezepts.'],
+      roadmap: ['Demnächst in Savour', 'Kosten pro Rezept, der Verlauf jedes Rezepts und mehr.'],
       chefs: ['Köche', 'Für Küchenchefs, Sous-Chefs und Patissiers, die ihre Rezepturen bewahren wollen.'],
       brigade: ['Küchenbrigaden', 'Für das ganze Team: Chefs de Partie, Commis und Praktikanten.']
     }
@@ -131,7 +131,7 @@ export const EXTRA_LANGS = {
   "Base de datos y archivo",
   "Todas tus recetas seguras en la nube, con y sin conexión en cualquier dispositivo."
 ],
-      roadmap: ['Próximamente en Savour', 'Coste por receta, alérgenos y el historial de cada receta.'],
+      roadmap: ['Próximamente en Savour', 'Coste por receta, el historial de cada receta y más.'],
       chefs: ['Cocineros', 'Para jefes de cocina, segundos y pasteleros que quieren guardar sus recetas.'],
       brigade: ['Brigadas de cocina', 'Para todo el equipo: jefes de partida, ayudantes y becarios.']
     }

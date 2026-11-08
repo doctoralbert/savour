@@ -130,14 +130,14 @@ export const FR = {
     },
     roadmap: {
       slug: 'fr/bientot',
-      short: "Coût par recette, allergènes et historique de chaque recette.",
-      title: 'Bientôt dans Savour : coût des recettes, allergènes et plus',
-      desc: "Ce sur quoi nous travaillons : le coût par recette, les allergènes par plat, l'historique de chaque recette et une application pour iPhone et Android.",
+      short: "Coût par recette, historique de chaque recette et plus.",
+      title: 'Bientôt dans Savour : coût des recettes, historique et plus',
+      desc: "Ce sur quoi nous travaillons : le coût par recette, l'historique de chaque recette et une application pour iPhone et Android. Les allergènes par recette sont désormais disponibles.",
       h1: 'Ce sur quoi nous travaillons',
       lead: "Savour grandit avec la cuisine. Voici ce qui est prévu. Il te manque quelque chose ? Dis-le-nous.",
       sections: [
         ['Coût par recette', "Vois ce que coûte chaque plat et chaque portion, et ce qui se passe quand le prix d'un produit change."],
-        ['Les allergènes en un coup d\'œil', "Par recette et par plat composé, pour répondre aussitôt à la question d'un client en salle."],
+        ['Allergènes : disponibles', 'Depuis novembre 2026, tu vois les allergènes par recette, y compris via les recettes de base. [Comment ça marche](/fr/allergenes-par-recette).'],
         ['Historique de chaque recette', 'Vois qui a changé quoi dans une recette partagée et reviens à une version antérieure si besoin.'],
         ['Une application pour iPhone et Android', "Savour fonctionne déjà dans le navigateur de tous les appareils. Nous étudions une application propre, et ton avis compte."]
       ]
@@ -183,7 +183,7 @@ export const FR = {
       ['Construit après le service', ["Pas un développeur, mais un cuisinier qui sait exactement où ça coince. Savour a été construit pas à pas, pendant des mois, le week-end et après le service.", "Chaque fonction a été testée avec nos propres recettes, dans notre propre cuisine : importer des centaines de recettes Word d'un coup, des photos de notes tachées prises à l'envers par erreur et des dossiers que toute l'équipe peut ouvrir. Un cuisinier a ainsi importé 1 400 recettes en deux minutes environ."]],
       ['Pourquoi Savour coûte 2,99 €', ["Pour les cas difficiles, comme la photo d'une note manuscrite, Savour utilise l'IA. Cela coûte de l'argent à chaque fois, d'où Savour Pro.", "Mais Savour devait rester abordable pour chaque cuisinier, pas seulement pour les grands groupes aux gros budgets. 2,99 € par mois, c'est à peu près ce que coûte cette IA. Ce que Savour peut lire lui-même, comme Word et PDF, reste gratuit, tout comme la conservation de 100 recettes."]],
       ["Ce que Savour fait aujourd'hui", ["Importer tout ton livre de recettes en quelques minutes. Classer les recettes en dossiers, par exemple toutes tes recettes de glaces, et imprimer tout le dossier d'un seul bouton. Partager recettes et dossiers avec des collègues, qui peuvent eux-mêmes ajouter des recettes.", "Et adapter : une recette donne cinquante brownies et il t'en faut mille ? Savour fait le calcul. Sur l'ordinateur, la tablette et le téléphone en cuisine."]],
-      ['Ce que nous voulons encore construire', ["Le coût par recette et les allergènes en un coup d'œil sont en tête de liste. Si Savour fonctionne bien sur ordinateur, tablette et téléphone, nous verrons si une application propre pour iPhone et Android en vaut la peine.", "Cela ne se décide pas derrière un bureau, mais avec les cuisiniers qui utilisent Savour. Il manque quelque chose dans ta cuisine ? Dis-le-nous."]]
+      ['Ce que nous voulons encore construire', ["Les allergènes par recette sont disponibles depuis novembre 2026 ; le coût par recette est en tête de liste. Si Savour fonctionne bien sur ordinateur, tablette et téléphone, nous verrons si une application propre pour iPhone et Android en vaut la peine.", "Cela ne se décide pas derrière un bureau, mais avec les cuisiniers qui utilisent Savour. Il manque quelque chose dans ta cuisine ? Dis-le-nous."]]
     ],
     notesCaption: 'Quelques-unes des notes par lesquelles Savour a commencé.',
     appCaption: 'Le même type de recette, désormais dans Savour.',
@@ -229,7 +229,7 @@ export const FR = {
         ],
         [
           "Comparaison : coûts, allergènes et stocks",
-          "C’est là que Meez et Galley sont les plus forts : des coûts qui suivent tes factures, les allergènes, les valeurs nutritionnelles, les stocks et les achats. Paprika ne le fait pas, à part un garde-manger pour la maison. Savour ne le fait pas encore non plus. Le coût par recette et les allergènes en un coup d’œil sont en tête de notre liste. Si ta cuisine tourne surtout autour des marges sur des dizaines d’établissements, Meez ou Galley est aujourd’hui le meilleur choix."
+          "C’est là que Meez et Galley sont les plus forts : des coûts qui suivent tes factures, les allergènes, les valeurs nutritionnelles, les stocks et les achats. Paprika ne le fait pas, à part un garde-manger pour la maison. Savour a les allergènes par recette depuis novembre 2026 ; le coût par recette est en tête de notre liste. Si ta cuisine tourne surtout autour des marges sur des dizaines d’établissements, Meez ou Galley est aujourd’hui le meilleur choix."
         ],
         [
           "Comparaison : travailler avec ton équipe",

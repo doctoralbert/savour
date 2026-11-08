@@ -163,6 +163,32 @@ export const TALEN = {
 
 // Release notes per versie in het Duits, Spaans en Frans (zelfde volgorde als RELEASES in site-handleiding.mjs).
 export const RELEASES_TALEN = {
+  '3.8.0': {
+    de: [
+      'Allergene pro Rezept, auch über Grundrezepte. Savour erkennt die Zutaten selbst anhand der Savour-Liste; du beantwortest nur die Fragen unter Prüfen.',
+      'Standardmäßig die 14 Allergene; zusätzliche Merkmale wie Laktose oder Schweinefleisch schaltest du selbst ein.',
+      'Eine Allergenkarte pro Rezept, und beim Drucken wählst du, ob die Allergene darauf kommen.',
+      'Umrechnen mit ½×, 1×, 2×, 5×, 10× oder einem eigenen Faktor; die Ausbeute rechnet mit.',
+      'Jedes Rezept hat eine eigene Adresse und den Rezeptnamen im Browser-Tab.',
+      'Standardkategorien in deiner eigenen Sprache, und die Demo komplett auf Englisch, Deutsch, Spanisch und Französisch.'
+    ],
+    es: [
+      'Alérgenos por receta, también a través de recetas base. Savour reconoce los ingredientes con la lista de Savour; tú solo respondes las preguntas en Revisar.',
+      'Por defecto los 14 alérgenos; características extra como lactosa o cerdo las activas tú.',
+      'Una tabla de alérgenos por receta, y al imprimir eliges si aparecen los alérgenos.',
+      'Escalar con ½×, 1×, 2×, 5×, 10× o un factor propio; el rendimiento se ajusta.',
+      'Cada receta tiene su propia dirección y su nombre en la pestaña del navegador.',
+      'Categorías predeterminadas en tu idioma, y la demo completa en inglés, alemán, español y francés.'
+    ],
+    fr: [
+      'Les allergènes par recette, y compris via les recettes de base. Savour reconnaît les ingrédients grâce à la liste Savour ; tu réponds seulement aux questions sous À vérifier.',
+      'Les 14 allergènes par défaut ; les caractéristiques en plus, comme le lactose ou le porc, tu les actives toi-même.',
+      'Un tableau des allergènes par recette, et à l’impression tu choisis si les allergènes y figurent.',
+      'Convertir avec ½×, 1×, 2×, 5×, 10× ou ton propre facteur ; le rendement suit.',
+      'Chaque recette a sa propre adresse et son nom dans l’onglet du navigateur.',
+      'Les catégories par défaut dans ta langue, et la démo entièrement en anglais, allemand, espagnol et français.'
+    ]
+  },
   '3.7.0': {
     de: [
       'Umstieg aus noch mehr Rezept-Apps: Mela, Cookmate, Living Cookbook, Evernote, Google Keep, Flavorish und CookBookManager. Fotos und Zwischenüberschriften werden übernommen.',

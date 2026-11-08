@@ -32,6 +32,7 @@ import { VERDIEPING } from './site-verdieping.mjs';
 import { VERDIEPING_TALEN } from './site-verdieping-talen.mjs';
 import { BLOG_RICH } from './site-blog-rich.mjs';
 import { FEATURE_RICH } from './site-feature-rich.mjs';
+import { ALLERGEN_FEATURE, ALLERGEN_FEATURE_RICH } from './site-allergenen-functie.mjs';
 import { PAGE_RICH } from './site-page-rich.mjs';
 import { APP_PAGE } from './site-app.mjs';
 import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
@@ -221,6 +222,21 @@ const blogSlug = { nl: 'blog', en: 'en/blog' };
     EXTRA_LANGS[l].items.inladen = [menu, short];
     P.features.inladen = rest;
   }
+}
+// Allergenen per recept (tools/site-allergenen-functie.mjs), live sinds 2026-11-08: na "Printen", vóór de cloud.
+{
+  const A = ALLERGEN_FEATURE;
+  FEATURES.splice(FEATURES.findIndex(f => f.id === 'print') + 1, 0, { id: 'allergens', nl: A.nl, en: A.en });
+  for (const [l, P] of [
+    ['de', DE],
+    ['es', ES],
+    ['fr', FR]
+  ]) {
+    const { menu, short, ...rest } = A[l];
+    EXTRA_LANGS[l].items.allergens = [menu, short];
+    P.features.allergens = rest;
+  }
+  FEATURE_RICH.allergens = ALLERGEN_FEATURE_RICH;
 }
 
 // Duits en Spaans: menu en startpagina uit tools/site-content-extra.mjs, alle andere pagina's uit
@@ -556,8 +572,50 @@ function kladje(lang) {
 
 // Functies onder een voor-wie-pagina: wat voor die lezer het meest telt, per pagina anders.
 const AUDIENCE_FEATURES = {
-  chefs: ['digitise', 'scale', 'cloud', 'inladen'],
-  brigade: ['share', 'organise', 'print']
+  chefs: ['digitise', 'scale', 'allergens', 'cloud', 'inladen'],
+  brigade: ['share', 'organise', 'allergens', 'print']
+};
+// Blog en functie- en voor-wiepagina's verwijzen naar elkaar, beide kanten op: onder een functie- of voor-wiepagina
+// "Uit het blog" met deze artikelen (post-id's), onder een artikel de pagina's die ernaar verwijzen.
+const PAGE_POSTS = {
+  digitise: ['import', 'notes', 'overzetten', 'messy', 'trust'],
+  organise: ['folders', 'structure', 'messy', 'standard'],
+  share: ['sharing', 'team', 'sharedfolders', 'onboarding'],
+  scale: ['scaling', 'standard', 'kerntemperaturen'],
+  print: ['logo', 'messy'],
+  allergens: ['allergenen'],
+  cloud: ['database', 'offline'],
+  inladen: ['overzetten', 'import'],
+  roadmap: ['roadmap', 'allergenen'],
+  chefs: ['choose', 'vergelijking', 'kerntemperaturen', 'sous-vide', 'allergenen'],
+  brigade: ['team', 'onboarding', 'hospitality', 'cijfers', 'allergenen']
+};
+const FROM_BLOG = { nl: 'Uit het blog', en: 'From the blog', de: 'Aus dem Blog', es: 'Del blog', fr: 'Du blog' };
+const POST_PAGES = {
+  nl: 'Zo helpt Savour hierbij',
+  en: 'How Savour helps with this',
+  de: 'So hilft Savour dabei',
+  es: 'Así te ayuda Savour',
+  fr: 'Comment Savour t’aide'
+};
+const postById = id => {
+  const p = POSTS.find(q => q.id === id);
+  if (!p) throw new Error(`PAGE_POSTS: blog ${id} niet gevonden`);
+  return p;
+};
+const blogRelated = (id, lang) => {
+  const list = (PAGE_POSTS[id] || []).map(postById);
+  return list.length
+    ? `<section class="site-related"><div class="site-wrap site-narrow"><h2>${FROM_BLOG[lang]}</h2><ul class="site-rows">${list
+        .map(p => `<li><a href="${href(p[lang].slug)}"><b>${esc(p[lang].title)}</b><span>${esc(p[lang].desc)}</span><i aria-hidden="true">→</i></a></li>`)
+        .join('')}</ul></div></section>`
+    : '';
+};
+const postPages = (p, lang) => {
+  const list = [...FEATURES, ...AUDIENCES].filter(x => (PAGE_POSTS[x.id] || []).includes(p.id));
+  return list.length
+    ? `<section class="site-related"><div class="site-wrap site-narrow"><h2>${POST_PAGES[lang]}</h2>${rows(list, lang)}</div></section>`
+    : '';
 };
 const rows = (items, lang) =>
   `<ul class="site-rows">${items
@@ -975,6 +1033,7 @@ const PAGE_PHOTO = {
   'recepten-delen': 'brigade',
   'recepten-opschalen': 'wortels',
   'recepten-printen': 'uien',
+  'allergenen-per-recept': 'keuken',
   binnenkort: 'bloemen',
   'voor-koks': 'eend',
   'voor-keukenbrigades': 'brigade',
@@ -1145,7 +1204,7 @@ for (const lang of LANGS) {
             ? `<p class="site-note">${SOON_MAIL[lang]} <a href="mailto:contact@savour.page">contact@savour.page</a>.</p>`
             : ''
         }</div></article>${featureShow(f.id, lang)}${featureFaq(f.id, lang)}
-<section class="site-related"><div class="site-wrap site-narrow"><h2>${u.related}</h2>${rows(others.slice(0, 3), lang)}</div></section>`
+<section class="site-related"><div class="site-wrap site-narrow"><h2>${u.related}</h2>${rows(others.slice(0, 3), lang)}</div></section>${blogRelated(f.id, lang)}`
     });
   }
   // Aanleverpagina van de import service (alleen via een persoonlijke link)
@@ -1178,7 +1237,7 @@ for (const lang of LANGS) {
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.features}</h2>${rows(
           FEATURES.filter(x => (AUDIENCE_FEATURES[a.id] || []).includes(x.id)),
           lang
-        )}</div></section>`
+        )}</div></section>${blogRelated(a.id, lang)}`
     });
   }
   // Over ons
@@ -1256,7 +1315,7 @@ for (const lang of LANGS) {
       ],
       body: c =>
         pageTop(c, t.h1, t.lead, BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>`
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>${postPages(p, lang)}`
     });
   }
   // Ingrediëntenlijst met allergenen (tools/site-blog-allergenen.mjs); js/site.js laadt en doorzoekt de lijst.

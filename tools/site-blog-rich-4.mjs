@@ -181,7 +181,7 @@ export const RICH_4 = {
   'en/blog/roadmap': {
     nl: {
       brief: [
-        'Bovenaan de lijst: kostprijs per recept en allergenen in één oogopslag.',
+        'Update november 2026: allergenen per recept staan live. Bovenaan de lijst staat nu kostprijs per recept.',
         'Daarna de geschiedenis van elk recept, en misschien een eigen app.',
         'We bouwen wat in de keuken tijd scheelt. Mail je idee naar contact@savour.page.'
       ],
@@ -191,7 +191,7 @@ export const RICH_4 = {
             see: [
               'Allergenen: zo gaat het werken',
               '@post:en/blog/allergens-in-savour',
-              'De uitleg van de allergenenfunctie, die nu in onze testversie draait.'
+              'De uitleg van de allergenenfunctie, die nu live staat.'
             ]
           }
         ],
@@ -213,7 +213,7 @@ export const RICH_4 = {
     },
     en: {
       brief: [
-        'At the top of the list: cost per recipe and allergens at a glance.',
+        'Update November 2026: allergens per recipe are live. Cost per recipe is now at the top of the list.',
         'After that the history of every recipe, and perhaps an app of our own.',
         'We build what saves time in the kitchen. Email your idea to contact@savour.page.'
       ],
@@ -223,7 +223,7 @@ export const RICH_4 = {
             see: [
               'Allergens: how it will work',
               '@post:en/blog/allergens-in-savour',
-              'How the allergen feature works, now running in our test version.'
+              'How the allergen feature works, now live in Savour.'
             ]
           }
         ],
@@ -245,7 +245,7 @@ export const RICH_4 = {
     },
     de: {
       brief: [
-        'Ganz oben auf der Liste: Kosten pro Rezept und Allergene auf einen Blick.',
+        'Update November 2026: Allergene pro Rezept sind live. Ganz oben steht jetzt Kosten pro Rezept.',
         'Danach die Geschichte jedes Rezepts und vielleicht eine eigene App.',
         'Wir bauen, was in der Küche Zeit spart. Schick deine Idee an contact@savour.page.'
       ],
@@ -255,7 +255,7 @@ export const RICH_4 = {
             see: [
               'Allergene: so wird es funktionieren',
               '@post:en/blog/allergens-in-savour',
-              'Die Erklärung der Allergenfunktion, die jetzt in unserer Testversion läuft.'
+              'Die Erklärung der Allergenfunktion, die jetzt live ist.'
             ]
           }
         ],
@@ -277,7 +277,7 @@ export const RICH_4 = {
     },
     es: {
       brief: [
-        'Lo primero de la lista: coste por receta y alérgenos de un vistazo.',
+        'Actualización de noviembre de 2026: los alérgenos por receta ya están disponibles. Lo primero de la lista es ahora el coste por receta.',
         'Después, el historial de cada receta y quizá una app propia.',
         'Construimos lo que ahorra tiempo en la cocina. Envía tu idea a contact@savour.page.'
       ],
@@ -287,7 +287,7 @@ export const RICH_4 = {
             see: [
               'Alérgenos: así funcionará',
               '@post:en/blog/allergens-in-savour',
-              'La explicación de la función de alérgenos, que ya funciona en nuestra versión de prueba.'
+              'La explicación de la función de alérgenos, ya disponible en Savour.'
             ]
           }
         ],
@@ -309,7 +309,7 @@ export const RICH_4 = {
     },
     fr: {
       brief: [
-        'En haut de la liste : le coût par recette et les allergènes en un coup d’œil.',
+        'Mise à jour de novembre 2026 : les allergènes par recette sont disponibles. En haut de la liste, il y a maintenant le coût par recette.',
         'Ensuite l’historique de chaque recette, et peut-être une application à nous.',
         'Nous construisons ce qui fait gagner du temps en cuisine. Envoie ton idée à contact@savour.page.'
       ],
@@ -319,7 +319,7 @@ export const RICH_4 = {
             see: [
               'Les allergènes : comment ça va marcher',
               '@post:en/blog/allergens-in-savour',
-              'L’explication de la fonction allergènes, qui tourne déjà dans notre version de test.'
+              'L’explication de la fonction allergènes, désormais disponible dans Savour.'
             ]
           }
         ],

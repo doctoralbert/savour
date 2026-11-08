@@ -1,6 +1,7 @@
-// Blog over de allergenenfunctie (testversie, 2026-11) en de openbare ingrediëntenlijst die Savour leest
+// Blog over de allergenenfunctie (live sinds 2026-11-08) en de openbare ingrediëntenlijst die Savour leest
 // (/ingredientenlijst-allergenen, gegevens uit tools/build-ingredientenlijst.mjs). Alles wat hier staat, klopt met
-// js/features/products.js en product-autolink.js: pas de tekst aan als de functie verandert.
+// js/features/products.js, product-review.js en product-autolink.js: pas de tekst aan als de functie verandert.
+// Aantallen in de Savour-lijst: tabel ingredient_list in Supabase (goedgekeurd per taal, 2026-11-08).
 
 export const LIST_SLUGS = {
   nl: 'ingredientenlijst-allergenen',
@@ -12,108 +13,114 @@ export const LIST_SLUGS = {
 
 export const ALLERGEN_POST = {
   id: 'allergenen',
-  date: '2026-11-06',
+  date: '2026-11-08',
   // Uitgebreide opmaak (tools/build-seo.mjs): in het kort, kaders, kernzin, scherm uit de app, leestijd en verder lezen.
   rich: true,
   nl: {
     slug: 'blog/allergenen-in-savour',
-    title: 'Allergenen in Savour: zo gaat de nieuwe functie werken',
-    desc: 'Allergenen per recept, ook via basisrecepten: hoe Savour ingrediënten koppelt aan producten, waar de voorstellen vandaan komen en waarom Savour nooit zegt dat een recept vrij is van allergenen.',
-    h1: 'Allergenen in Savour: zo gaat de nieuwe functie werken',
-    lead: 'Een gast vraagt aan tafel of er noten in de saus zitten. Met de nieuwe allergenenfunctie zie je het antwoord in het recept, ook als de noten in een basisrecept zitten. Zo werkt het, en zo werkt het bewust niet.',
+    title: 'Allergenen in Savour: zo werkt het',
+    desc: 'Allergenen per recept, ook via basisrecepten. Savour herkent de ingrediënten in je recepten zelf; jij bevestigt alleen wat Savour niet zeker weet. Zo werkt het, en waarom Savour nooit zegt dat iets allergeenvrij is.',
+    h1: 'Allergenen in Savour: zo werkt het',
+    lead: 'Een gast vraagt aan tafel of er noten in de saus zitten. In Savour staat het antwoord nu bij het recept, ook als de noten in een basisrecept zitten. Zo werkt het, en zo werkt het bewust niet.',
     sections: [
       [
-        'Van ingrediënt naar product',
-        'De basis is een lijst met producten: de ingrediënten zoals je keuken ze inkoopt, zoals roomboter, bloem of sojasaus. Elk product heeft zijn allergenen. Receptregels koppelt Savour op naam aan een product: in "250 g koude roomboter, in blokjes" herkent Savour het product Roomboter. Zo telt Savour per recept op welke allergenen erin zitten.\n\nGebruik je een basisrecept, zoals een fond, een deeg of een saus, dan tellen de allergenen van dat basisrecept mee. Staat de mosterd in je vinaigrette, dan zie je mosterd ook bij de salade die de vinaigrette gebruikt.'
+        'Savour leest je ingrediënten zelf',
+        'Bij elke receptregel zoekt Savour het ingrediënt: in "250 g koude roomboter, in blokjes" is dat roomboter, met melk als allergeen. Daarvoor gebruikt Savour één gedeelde lijst met ingrediënten en hun allergenen: de Savour-lijst. Die bestaat in vijf talen. In het Nederlands staan er ruim 3.100 ingrediënten in, in het Engels, Duits, Spaans en Frans elk tussen de 2.600 en 2.900.\n\nJe hoeft dus niet zelf honderden ingrediënten in te voeren. Wat in de Savour-lijst staat, telt meteen mee. Gebruik je een basisrecept, zoals een fond, een deeg of een saus, dan tellen de allergenen van dat basisrecept mee. Zit de mosterd in je vinaigrette, dan zie je mosterd ook bij de salade die de vinaigrette gebruikt.'
       ],
       [
-        'De 14 allergenen, en wat gasten nog meer vragen',
-        'Savour werkt met de 14 allergenen uit de Europese regels: gluten, schaaldieren, eieren, vis, pinda’s, soja, melk, noten, selderij, mosterd, sesamzaad, sulfiet, lupine en weekdieren. Daarnaast kun je extra kenmerken bijhouden waar gasten om vragen, bijvoorbeeld lactose, varkensvlees, alcohol, uiachtigen, knoflook, paddenstoelen of FODMAP. Je kiest zelf of je alleen de 14 wettelijke allergenen wilt of ook die extra kenmerken.\n\nLactose staat bewust los van melk: lactosevrije room bevat nog steeds melkeiwit.'
-      ],
-      [
-        'Niet honderden namen met de hand koppelen',
-        'Een receptenboek met honderden recepten heeft al snel duizend verschillende ingrediëntnamen. Die wil niemand een voor een koppelen. Met Alles automatisch koppelen regelt Savour ze in één keer:',
+        'Jij beantwoordt alleen de vragen',
+        'Wat Savour niet zeker weet, staat onder Allergenen → Nakijken. Daar krijg je één vraag tegelijk:',
         [
-          'een basisrecept met dezelfde naam ("groente fond" wordt je recept Groentefond);',
-          'een product dat je al hebt, ook met een andere schrijfwijze of in het meervoud;',
-          'het hoofdproduct: "boerenkool zonder stronk" is Boerenkool, "kabeljauwfilet zonder vel" is Kabeljauw;',
-          'een nieuw product uit de ingrediëntenlijst van Savour, met de allergenen als voorstel;',
-          'blijft er twijfel, zoals bij "sap" of "coulis", dan laat Savour de naam staan. Welk sap? Dat weet alleen jij.'
+          'Klopt dit voorstel? Bijvoorbeeld: crème fraîche, met melk.',
+          'Klopt dit voor jouw merk? Bij ingrediënten die per merk verschillen.',
+          'Is dit je eigen recept? "Groente fond" in een regel wordt dan je recept Groentefond.',
+          'Is dit wel een ingrediënt? Woorden als "massa", "vulling" of "voor in het bakblik" haal je weg; Savour onthoudt dat voor nieuwe recepten.',
+          'Wat is dit? Bij een naam die Savour niet kent, zoals "sap": welk sap, dat weet alleen jij.'
         ]
       ],
       [
-        'Je ziet altijd eerst wat Savour gaat doen',
-        'Voordat er iets verandert, zie je de hele lijst: welke naam bij welk product komt en welke allergenen dat product krijgt. Wat je uitvinkt, laat Savour staan. Daarna kun je elk product nog aanpassen. Savour wijzigt nooit stilletjes iets in je recepten: de receptregels zelf blijven precies zoals je ze schreef.\n\nWie niet bij nul wil beginnen, neemt de startlijst over: ruim 200 producten die in professionele recepten het vaakst voorkomen. Bij fond, gelatine en chocolade stelt Savour eerst een vraag, want daar hangt het af van wat jouw keuken gebruikt.'
+        'Per merk verschillend',
+        'Sommige ingrediënten bevatten bij het ene merk iets anders dan bij het andere. Denk aan gelatine (varken, rund of vis), sojasaus (met of zonder gluten), chocolade (melk, soja, noten), bouillon en fond (selderij, gluten), worst en vleeswaren, pesto (noten), mayonaise (ei, mosterd) en paneermeel. Bij die ingrediënten vraagt Savour het één keer per keuken. Is het bij jouw merk anders, dan maak je je eigen versie; die gaat voor de Savour-lijst.'
       ],
       [
-        'De ingrediëntenlijst die Savour leest',
-        'De voorstellen komen uit één lijst met ruim 3.700 ingrediënten. Die is samengesteld uit vier bronnen: de ingrediëntenlijst van Open Food Facts, de lijsten met groenten, kruiden, paddenstoelen, sauzen en kazen op Wikipedia, de Nederlandse productnamen uit NEVO (het voedingsstoffenbestand van het RIVM) en Savours eigen woordenlijst met keukentermen zoals spitskool, sukade en couverture. NEVO zelf bevat geen allergenen; die zijn een aanvulling van Savour.\n\nDe hele lijst staat openbaar, met de allergenen die Savour voorstelt: [bekijk de ingrediëntenlijst van Savour](/ingredientenlijst-allergenen). Zo kun je zelf nagaan waar een voorstel vandaan komt. Zie je een fout, laat het ons weten.'
+        'De 14 allergenen, en wat je zelf aanzet',
+        'Standaard toont Savour de 14 allergenen uit de Europese regels: gluten, schaaldieren, eieren, vis, pinda’s, soja, melk, noten, selderij, mosterd, sesamzaad, sulfiet, lupine en weekdieren. Onder Allergenen → Allergenen zet je zelf aan waar gasten verder naar vragen, zoals lactose, varkensvlees, alcohol, knoflook of uiachtigen. Die staan standaard uit. Wat je weer uitzet, blijft bewaard; je ziet het alleen niet meer.\n\nLactose staat bewust los van melk: lactosevrije room bevat nog steeds melkeiwit.'
       ],
       [
         'Waarom Savour nooit zegt dat iets allergeenvrij is',
-        'Een allergeen te veel is vervelend, een allergeen te weinig is gevaarlijk. Daarom is Savour streng. Zolang een recept regels heeft zonder gecontroleerd product, staat erbij: "Nog niet compleet", met het aantal ingrediënten dat nog open staat. Pas als alle regels gecontroleerd zijn en er geen van de 14 allergenen in zit, staat er dat het recept geen van de 14 allergenen bevat. Bij de extra kenmerken meldt Savour alleen wat erin zit, nooit dat het er niet in zit.\n\nEen voorstel is ook maar een voorstel. Het etiket van je leverancier gaat altijd voor: een ander merk bouillon kan net iets anders bevatten.'
+        'Een allergeen te veel is vervelend, een allergeen te weinig is gevaarlijk. Daarom is Savour streng. Zolang een recept een ingrediënt heeft dat nog niet is nagekeken, staat erbij dat het recept nog niet compleet is, met een vraagteken op de plek waar Savour het nog niet weet. Pas als alles is nagekeken en er geen van de 14 allergenen in zit, staat er dat het recept geen van de 14 allergenen bevat. Bij de kenmerken die je zelf aanzet, meldt Savour alleen wat erin zit, nooit dat het er niet in zit.\n\nEen voorstel blijft een voorstel. Het etiket van je leverancier gaat altijd voor.'
       ],
       [
-        'In het keukenteam en op papier',
-        'Een keukenteam heeft één eigen productlijst voor het hele team. De eigenaar en de sous-chefs beheren die lijst; een kok ziet de allergenen bij elk recept en kan per regel zien waar ze vandaan komen. Print je een recept, dan staan de allergenen op de print, en als het recept nog niet volledig gecontroleerd is, staat dat er ook op.'
+        'Bij het recept, op de kaart en op papier',
+        'Bij elk recept staat een blok Allergenen dat je openklapt. Daaronder vind je de allergenenkaart: per ingrediëntregel welke allergenen erin zitten, zodat je in één oogopslag ziet waar de selderij vandaan komt. Print je een recept, dan kies je zelf of de allergenen erop komen. Is het recept nog niet compleet nagekeken, dan staat dat er ook op.'
       ],
       [
-        'Wanneer komt het?',
-        'De allergenenfunctie draait nu in onze testversie, met echte receptenboeken uit de keuken. We zetten hem live zodra de koppelingen goed genoeg zijn voor de drukte van een service. Allergenen bijhouden wordt onderdeel van Savour Pro, net als in een keukenteam van een eigenaar met Pro.'
+        'In het keukenteam',
+        'Een keukenteam heeft één eigen ingrediëntenlijst voor het hele team. De eigenaar en wie mag bewerken, beantwoorden de vragen en passen ingrediënten aan. Een kok ziet de allergenen bij elk recept en kan per regel zien waar ze vandaan komen.'
+      ],
+      [
+        'Waar de Savour-lijst vandaan komt',
+        'De Savour-lijst is samengesteld uit de ingrediëntenlijst van Open Food Facts, de lijsten met groenten, kruiden, paddenstoelen, sauzen en kazen op Wikipedia, de Nederlandse productnamen uit NEVO (het voedingsstoffenbestand van het RIVM) en Savours eigen woordenlijst met keukentermen zoals spitskool, sukade en couverture. NEVO zelf bevat geen allergenen; die zijn een aanvulling van Savour.\n\nKomt een ingrediënt in recepten voor dat nog niet in de lijst staat, dan bekijken wij het eerst voordat het erbij komt. Daarbij zien we alleen de naam van het ingrediënt, nooit je recepten. De hele lijst staat openbaar: [bekijk de ingrediëntenlijst van Savour](/ingredientenlijst-allergenen). Zie je een fout, laat het ons weten.'
+      ],
+      [
+        'Wat kost het?',
+        'Allergenen horen bij [Savour Pro](/savour-pro), en werken ook in een keukenteam van een eigenaar met Pro. Nieuwe accounts krijgen 7 dagen Pro gratis. Wil je eerst kijken? [Open de demo](/?demo=1): daar zie je de allergenen bij de voorbeeldrecepten. Meer over de functie staat op [Allergenen per recept](/allergenen-per-recept).'
       ]
     ],
-    outro:
-      'Deze uitleg beschrijft de functie zoals die nu in de testversie werkt. Wat er bij de lancering nog verandert, passen we hier aan.'
+    outro: 'Deze uitleg beschrijft de functie zoals hij nu live staat. Verandert er iets, dan passen we het hier aan.'
   },
   en: {
     slug: 'en/blog/allergens-in-savour',
-    title: 'Allergens in Savour: how the new feature will work',
-    desc: 'Allergens per recipe, including through base recipes: how Savour links ingredients to products, where the suggestions come from and why Savour never says a recipe is free of allergens.',
-    h1: 'Allergens in Savour: how the new feature will work',
-    lead: 'A guest asks at the table whether there are nuts in the sauce. With the new allergen feature, the answer is in the recipe, even when the nuts are in a base recipe. This is how it works, and how it deliberately does not.',
+    title: 'Allergens in Savour: how it works',
+    desc: 'Allergens per recipe, including through base recipes. Savour recognises the ingredients in your recipes by itself; you only confirm what Savour is not sure about. How it works, and why Savour never says something is allergen-free.',
+    h1: 'Allergens in Savour: how it works',
+    lead: 'A guest asks at the table whether there are nuts in the sauce. In Savour the answer is now on the recipe, even when the nuts are in a base recipe. This is how it works, and how it deliberately does not.',
     sections: [
       [
-        'From ingredient to product',
-        'It starts with a list of products: ingredients as your kitchen buys them, such as butter, flour or soy sauce. Each product has its allergens. Savour links recipe lines to a product by name: in "250 g cold butter, diced" Savour recognises the product Butter. That way Savour adds up the allergens of each recipe.\n\nIf you use a base recipe, such as a stock, a dough or a sauce, the allergens of that base recipe count too. If the mustard is in your vinaigrette, you also see mustard on the salad that uses it.'
+        'Savour reads your ingredients',
+        'For every recipe line Savour looks up the ingredient: in "250 g cold butter, diced" that is butter, with milk as the allergen. For this Savour uses one shared list of ingredients and their allergens: the Savour list. It exists in five languages. The Dutch list has over 3,100 ingredients; English, German, Spanish and French each have between 2,600 and 2,900.\n\nSo you do not have to enter hundreds of ingredients yourself. Whatever is on the Savour list counts straight away. If you use a base recipe, such as a stock, a dough or a sauce, its allergens count too. If the mustard is in your vinaigrette, you also see mustard on the salad that uses the vinaigrette.'
       ],
       [
-        'The 14 allergens, and what guests ask about',
-        'Savour works with the 14 allergens from the European rules: gluten, crustaceans, eggs, fish, peanuts, soy, milk, nuts, celery, mustard, sesame, sulphites, lupin and molluscs. You can also track extra characteristics guests ask about, for example lactose, pork, alcohol, the onion family, garlic, mushrooms or FODMAP. You choose whether you want only the 14 legal allergens or the extras too.\n\nLactose is deliberately separate from milk: lactose-free cream still contains milk protein.'
-      ],
-      [
-        'No linking hundreds of names by hand',
-        'A recipe book with hundreds of recipes quickly has a thousand different ingredient names. Nobody wants to link them one by one. With Link everything automatically, Savour handles them in one go:',
+        'You only answer the questions',
+        'Whatever Savour is not sure about is under Allergens → To check. There you get one question at a time:',
         [
-          'a base recipe with the same name ("veg stock" becomes your recipe Vegetable stock);',
-          'a product you already have, also with a different spelling or in the plural;',
-          'the main product: "kale without stalk" is Kale, "skinless cod fillet" is Cod;',
-          'a new product from Savour’s ingredient list, with the allergens as a suggestion;',
-          'if there is doubt, as with "juice" or "coulis", Savour leaves the name as it is. Which juice? Only you know.'
+          'Is this suggestion right? For example: crème fraîche, with milk.',
+          'Is this right for your brand? For ingredients that differ by brand.',
+          'Is this your own recipe? "Veg stock" in a line then becomes your recipe Vegetable stock.',
+          'Is this an ingredient at all? Words like "mix", "filling" or "for the tin" you remove; Savour remembers that for new recipes.',
+          'What is this? For a name Savour does not know, such as "juice": which juice, only you know.'
         ]
       ],
       [
-        'You always see first what Savour will do',
-        'Before anything changes, you see the whole list: which name goes to which product and which allergens that product gets. Anything you untick, Savour leaves alone. Afterwards you can still adjust every product. Savour never quietly changes your recipes: the recipe lines themselves stay exactly as you wrote them.\n\nIf you do not want to start from zero, take over the starter list: over 200 products that appear most often in professional recipes. For stock, gelatine and chocolate Savour asks a question first, because it depends on what your kitchen uses.'
+        'Different by brand',
+        'Some ingredients contain something different from one brand to the next. Think of gelatine (pork, beef or fish), soy sauce (with or without gluten), chocolate (milk, soy, nuts), stock and fond (celery, gluten), sausage and cold cuts, pesto (nuts), mayonnaise (egg, mustard) and breadcrumbs. For these ingredients Savour asks once per kitchen. If your brand is different, make your own version; it takes priority over the Savour list.'
       ],
       [
-        'The ingredient list Savour reads',
-        'The suggestions come from one list of over 3,700 ingredients, built from four sources: the ingredient list of Open Food Facts, the Dutch Wikipedia lists of vegetables, herbs, mushrooms, sauces and cheeses, the Dutch product names from NEVO (the Dutch food composition database of RIVM) and Savour’s own list of kitchen terms. NEVO itself contains no allergens; those are added by Savour. The names are in Dutch, with English names where the source has them.\n\nThe whole list is public, with the allergens Savour suggests: [see Savour’s ingredient list](/en/ingredient-list-allergens). That way you can check where a suggestion comes from. Spot a mistake? Let us know.'
+        'The 14 allergens, and what you switch on',
+        'By default Savour shows the 14 allergens from the European rules: gluten, crustaceans, eggs, fish, peanuts, soy, milk, nuts, celery, mustard, sesame, sulphites, lupin and molluscs. Under Allergens → Allergens you switch on what else guests ask about, such as lactose, pork, alcohol, garlic or the onion family. Those are off by default. Whatever you switch off again is kept; you just no longer see it.\n\nLactose is deliberately separate from milk: lactose-free cream still contains milk protein.'
       ],
       [
         'Why Savour never says something is allergen-free',
-        'One allergen too many is annoying; one too few is dangerous. That is why Savour is strict. As long as a recipe has lines without a checked product, it says "Not complete yet", with the number of ingredients still open. Only when every line is checked and none of the 14 allergens is in it does Savour say the recipe contains none of the 14 allergens. For the extra characteristics Savour only reports what is in it, never what is not.\n\nA suggestion is only a suggestion. Your supplier’s label always comes first: another brand of stock can contain something slightly different.'
+        'One allergen too many is annoying; one too few is dangerous. That is why Savour is strict. As long as a recipe has an ingredient that has not been reviewed, it says the recipe is not complete yet, with a question mark where Savour does not know. Only when everything is reviewed and none of the 14 allergens is in it does Savour say the recipe contains none of the 14 allergens. For the characteristics you switch on yourself, Savour only reports what is in it, never that it is not.\n\nA suggestion stays a suggestion. Your supplier’s label always comes first.'
       ],
       [
-        'In the kitchen team and on paper',
-        'A kitchen team has one product list for the whole team. The owner and the sous-chefs manage that list; a cook sees the allergens on every recipe and can see per line where they come from. When you print a recipe, the allergens are on the print, and if the recipe is not fully checked yet, that is on it too.'
+        'On the recipe, on the chart and on paper',
+        'Every recipe has an Allergens block that you fold open. Below it is the allergen chart: for each ingredient line which allergens it contains, so you see at a glance where the celery comes from. When you print a recipe, you choose whether the allergens go on it. If the recipe is not fully reviewed yet, that is on it too.'
       ],
       [
-        'When is it coming?',
-        'The allergen feature now runs in our test version, with real recipe books from the kitchen. We will put it live once the linking is good enough for the rush of a service. Tracking allergens will be part of Savour Pro, as well as in a kitchen team whose owner has Pro.'
+        'In the kitchen team',
+        'A kitchen team has one ingredient list for the whole team. The owner and those who can edit answer the questions and adjust ingredients. A cook sees the allergens on every recipe and can see per line where they come from.'
+      ],
+      [
+        'Where the Savour list comes from',
+        'The Savour list is built from the ingredient list of Open Food Facts, the Wikipedia lists of vegetables, herbs, mushrooms, sauces and cheeses, the Dutch product names from NEVO (the Dutch food composition database of RIVM) and Savour’s own list of kitchen terms. NEVO itself contains no allergens; those are added by Savour.\n\nIf an ingredient shows up in recipes that is not on the list yet, we review it before it is added. We only see the name of the ingredient, never your recipes. The whole list is public: [see Savour’s ingredient list](/en/ingredient-list-allergens). If you spot a mistake, let us know.'
+      ],
+      [
+        'What does it cost?',
+        'Allergens are part of [Savour Pro](/en/pro), and also work in a kitchen team whose owner has Pro. New accounts get 7 days of Pro for free. Want to look first? [Open the demo](/en?demo=1): the sample recipes show their allergens. More about the feature is on [Allergens per recipe](/en/allergens-per-recipe).'
       ]
     ],
-    outro:
-      'This explains the feature as it works in the test version today. If anything changes at launch, we will update it here.'
+    outro: 'This explains the feature as it is live today. If anything changes, we will update it here.'
   }
 };
 
@@ -121,159 +128,168 @@ export const ALLERGEN_POST = {
 export const ALLERGEN_POST_DE = {
   'en/blog/allergens-in-savour': {
     slug: 'de/blog/allergene-in-savour',
-    title: 'Allergene in Savour: so wird die neue Funktion arbeiten',
-    desc: 'Allergene pro Rezept, auch über Grundrezepte: wie Savour Zutaten mit Produkten verknüpft, woher die Vorschläge kommen und warum Savour nie sagt, dass ein Rezept allergenfrei ist.',
-    h1: 'Allergene in Savour: so wird die neue Funktion arbeiten',
-    lead: 'Ein Gast fragt am Tisch, ob Nüsse in der Sauce sind. Mit der neuen Allergenfunktion steht die Antwort im Rezept, auch wenn die Nüsse in einem Grundrezept stecken. So funktioniert es, und so bewusst nicht.',
+    title: 'Allergene in Savour: so funktioniert es',
+    desc: 'Allergene pro Rezept, auch über Grundrezepte. Savour erkennt die Zutaten in deinen Rezepten selbst; du bestätigst nur, was Savour nicht sicher weiß. So funktioniert es, und warum Savour nie sagt, dass etwas allergenfrei ist.',
+    h1: 'Allergene in Savour: so funktioniert es',
+    lead: 'Ein Gast fragt am Tisch, ob Nüsse in der Sauce sind. In Savour steht die Antwort jetzt beim Rezept, auch wenn die Nüsse in einem Grundrezept stecken. So funktioniert es, und so bewusst nicht.',
     sections: [
       [
-        'Von der Zutat zum Produkt',
-        'Die Grundlage ist eine Liste mit Produkten: Zutaten, wie deine Küche sie einkauft, etwa Butter, Mehl oder Sojasauce. Jedes Produkt hat seine Allergene. Rezeptzeilen verknüpft Savour über den Namen mit einem Produkt. So zählt Savour pro Rezept zusammen, welche Allergene darin stecken.\n\nVerwendest du ein Grundrezept, etwa einen Fond, einen Teig oder eine Sauce, zählen dessen Allergene mit. Steckt Senf in deiner Vinaigrette, siehst du Senf auch beim Salat, der sie verwendet.'
+        'Savour liest deine Zutaten selbst',
+        'Bei jeder Rezeptzeile sucht Savour die Zutat: in „250 g kalte Butter, gewürfelt“ ist das Butter, mit Milch als Allergen. Dafür nutzt Savour eine gemeinsame Liste mit Zutaten und ihren Allergenen: die Savour-Liste. Es gibt sie in fünf Sprachen. Die niederländische Liste hat gut 3.100 Zutaten, Englisch, Deutsch, Spanisch und Französisch jeweils zwischen 2.600 und 2.900.\n\nDu musst also nicht Hunderte Zutaten selbst eingeben. Was auf der Savour-Liste steht, zählt sofort mit. Nutzt du ein Grundrezept, etwa einen Fond, einen Teig oder eine Sauce, zählen dessen Allergene mit. Steckt der Senf in deiner Vinaigrette, siehst du Senf auch beim Salat, der die Vinaigrette verwendet.'
       ],
       [
-        'Die 14 Allergene, und was Gäste sonst noch fragen',
-        'Savour arbeitet mit den 14 Allergenen aus den europäischen Regeln: Gluten, Krebstiere, Eier, Fisch, Erdnüsse, Soja, Milch, Schalenfrüchte, Sellerie, Senf, Sesam, Sulfite, Lupinen und Weichtiere. Dazu kannst du zusätzliche Merkmale führen, nach denen Gäste fragen, zum Beispiel Laktose, Schweinefleisch, Alkohol, Zwiebelgewächse, Knoblauch, Pilze oder FODMAP. Du entscheidest, ob du nur die 14 gesetzlichen Allergene willst oder auch die zusätzlichen Merkmale.\n\nLaktose steht bewusst getrennt von Milch: laktosefreie Sahne enthält immer noch Milcheiweiß.'
-      ],
-      [
-        'Nicht Hunderte Namen von Hand verknüpfen',
-        'Ein Rezeptbuch mit Hunderten Rezepten hat schnell tausend verschiedene Zutatennamen. Mit „Alles automatisch verknüpfen“ erledigt Savour sie in einem Schritt:',
+        'Du beantwortest nur die Fragen',
+        'Was Savour nicht sicher weiß, steht unter Allergene → Prüfen. Dort bekommst du eine Frage nach der anderen:',
         [
-          'ein Grundrezept mit demselben Namen;',
-          'ein Produkt, das du schon hast, auch in anderer Schreibweise oder im Plural;',
-          'das Hauptprodukt: „Grünkohl ohne Strunk“ ist Grünkohl, „Kabeljaufilet ohne Haut“ ist Kabeljau;',
-          'ein neues Produkt aus der Zutatenliste von Savour, mit den Allergenen als Vorschlag;',
-          'bei Zweifel, etwa bei „Saft“ oder „Coulis“, lässt Savour den Namen stehen. Welcher Saft? Das weißt nur du.'
+          'Stimmt dieser Vorschlag? Zum Beispiel: Crème fraîche, mit Milch.',
+          'Stimmt das für deine Marke? Bei Zutaten, die je Marke verschieden sind.',
+          'Ist das dein eigenes Rezept? „Gemüse Fond“ in einer Zeile wird dann dein Rezept Gemüsefond.',
+          'Ist das überhaupt eine Zutat? Wörter wie „Masse“, „Füllung“ oder „für die Form“ entfernst du; Savour merkt sich das für neue Rezepte.',
+          'Was ist das? Bei einem Namen, den Savour nicht kennt, etwa „Saft“: welcher Saft, weißt nur du.'
         ]
       ],
       [
-        'Du siehst immer zuerst, was Savour tun wird',
-        'Bevor sich etwas ändert, siehst du die ganze Liste: welcher Name zu welchem Produkt kommt und welche Allergene das Produkt bekommt. Was du abwählst, lässt Savour stehen. Danach kannst du jedes Produkt noch anpassen. Savour ändert nie still etwas an deinen Rezepten: die Rezeptzeilen bleiben genau so, wie du sie geschrieben hast.\n\nWer nicht bei null anfangen will, übernimmt die Startliste: gut 200 Produkte, die in professionellen Rezepten am häufigsten vorkommen. Bei Fond, Gelatine und Schokolade stellt Savour zuerst eine Frage, denn das hängt von deiner Küche ab.'
+        'Je Marke verschieden',
+        'Manche Zutaten enthalten je nach Marke etwas anderes. Denk an Gelatine (Schwein, Rind oder Fisch), Sojasauce (mit oder ohne Gluten), Schokolade (Milch, Soja, Nüsse), Brühe und Fond (Sellerie, Gluten), Wurst und Aufschnitt, Pesto (Nüsse), Mayonnaise (Ei, Senf) und Paniermehl. Bei diesen Zutaten fragt Savour einmal pro Küche. Ist es bei deiner Marke anders, legst du deine eigene Version an; die geht der Savour-Liste vor.'
       ],
       [
-        'Die Zutatenliste, die Savour liest',
-        'Die Vorschläge kommen aus einer Liste mit gut 3.700 Zutaten aus vier Quellen: der Zutatenliste von Open Food Facts, den Listen mit Gemüse, Kräutern, Pilzen, Saucen und Käse in der niederländischen Wikipedia, den niederländischen Produktnamen aus NEVO (der Nährwertdatenbank des RIVM) und Savours eigener Liste mit Küchenbegriffen. NEVO selbst enthält keine Allergene; die ergänzt Savour. Die Namen sind niederländisch, mit englischen Namen, wo die Quelle sie hat.\n\nDie ganze Liste ist öffentlich, mit den Allergenen, die Savour vorschlägt: [Zutatenliste von Savour ansehen](/de/zutatenliste-allergene). So kannst du selbst prüfen, woher ein Vorschlag kommt.'
+        'Die 14 Allergene, und was du selbst einschaltest',
+        'Standardmäßig zeigt Savour die 14 Allergene aus den europäischen Regeln: Gluten, Krebstiere, Eier, Fisch, Erdnüsse, Soja, Milch, Schalenfrüchte, Sellerie, Senf, Sesam, Sulfite, Lupinen und Weichtiere. Unter Allergene → Allergene schaltest du ein, wonach Gäste sonst fragen, etwa Laktose, Schweinefleisch, Alkohol, Knoblauch oder Zwiebelgewächse. Diese sind standardmäßig aus. Was du wieder ausschaltest, bleibt gespeichert; du siehst es nur nicht mehr.\n\nLaktose steht bewusst getrennt von Milch: laktosefreie Sahne enthält trotzdem Milcheiweiß.'
       ],
       [
         'Warum Savour nie sagt, dass etwas allergenfrei ist',
-        'Ein Allergen zu viel ist lästig, eins zu wenig ist gefährlich. Deshalb ist Savour streng. Solange ein Rezept Zeilen ohne geprüftes Produkt hat, steht dort „Noch nicht vollständig“, mit der Zahl der offenen Zutaten. Erst wenn alle Zeilen geprüft sind und keins der 14 Allergene darin ist, sagt Savour, dass das Rezept keins der 14 Allergene enthält. Bei den zusätzlichen Merkmalen meldet Savour nur, was drin ist, nie, was nicht drin ist.\n\nEin Vorschlag bleibt ein Vorschlag. Das Etikett deines Lieferanten geht immer vor.'
+        'Ein Allergen zu viel ist lästig, eins zu wenig ist gefährlich. Deshalb ist Savour streng. Solange ein Rezept eine Zutat hat, die noch nicht geprüft ist, steht dabei, dass das Rezept noch nicht vollständig ist, mit einem Fragezeichen dort, wo Savour es noch nicht weiß. Erst wenn alles geprüft ist und keines der 14 Allergene enthalten ist, steht da, dass das Rezept keines der 14 Allergene enthält. Bei den Merkmalen, die du selbst einschaltest, meldet Savour nur, was enthalten ist, nie, dass etwas fehlt.\n\nEin Vorschlag bleibt ein Vorschlag. Das Etikett deines Lieferanten geht immer vor.'
       ],
       [
-        'Im Küchenteam und auf Papier',
-        'Ein Küchenteam hat eine eigene Produktliste für das ganze Team. Der Eigentümer und die Sous-Chefs verwalten sie; ein Koch sieht die Allergene bei jedem Rezept und pro Zeile, woher sie kommen. Druckst du ein Rezept, stehen die Allergene auf dem Ausdruck, und ist das Rezept noch nicht vollständig geprüft, steht das auch darauf.'
+        'Beim Rezept, auf der Karte und auf Papier',
+        'Bei jedem Rezept gibt es einen Block Allergene zum Aufklappen. Darunter findest du die Allergenkarte: für jede Zutatenzeile, welche Allergene darin sind, sodass du auf einen Blick siehst, woher der Sellerie kommt. Druckst du ein Rezept, wählst du selbst, ob die Allergene darauf kommen. Ist das Rezept noch nicht vollständig geprüft, steht das auch darauf.'
       ],
       [
-        'Wann kommt es?',
-        'Die Allergenfunktion läuft jetzt in unserer Testversion, mit echten Rezeptbüchern aus der Küche. Wir stellen sie live, sobald die Verknüpfungen gut genug für den Stress eines Service sind. Allergene werden Teil von Savour Pro, ebenso in einem Küchenteam, dessen Eigentümer Pro hat.'
+        'Im Küchenteam',
+        'Ein Küchenteam hat eine eigene Zutatenliste für das ganze Team. Der Eigentümer und alle, die bearbeiten dürfen, beantworten die Fragen und passen Zutaten an. Ein Koch sieht die Allergene bei jedem Rezept und kann pro Zeile sehen, woher sie kommen.'
+      ],
+      [
+        'Woher die Savour-Liste kommt',
+        'Die Savour-Liste ist zusammengestellt aus der Zutatenliste von Open Food Facts, den Wikipedia-Listen mit Gemüse, Kräutern, Pilzen, Saucen und Käse, den niederländischen Produktnamen aus NEVO (der Nährstoffdatenbank des RIVM) und Savours eigener Liste mit Küchenbegriffen. NEVO selbst enthält keine Allergene; die ergänzt Savour.\n\nTaucht in Rezepten eine Zutat auf, die noch nicht auf der Liste steht, prüfen wir sie, bevor sie dazukommt. Dabei sehen wir nur den Namen der Zutat, nie deine Rezepte. Die ganze Liste ist öffentlich: [Savours Zutatenliste ansehen](/de/zutatenliste-allergene). Siehst du einen Fehler, sag uns Bescheid.'
+      ],
+      [
+        'Was kostet es?',
+        'Allergene gehören zu [Savour Pro](/de/preise) und funktionieren auch in einem Küchenteam, dessen Eigentümer Pro hat. Neue Konten bekommen 7 Tage Pro gratis. Erst schauen? [Öffne die Demo](/de?demo=1): Dort siehst du die Allergene bei den Beispielrezepten. Mehr zur Funktion steht auf [Allergene pro Rezept](/de/allergene-pro-rezept).'
       ]
     ],
-    outro:
-      'Dieser Text beschreibt die Funktion, wie sie heute in der Testversion arbeitet. Ändert sich zum Start etwas, passen wir ihn hier an.'
+    outro: 'Dieser Text beschreibt die Funktion, wie sie jetzt live ist. Ändert sich etwas, passen wir ihn hier an.'
   }
 };
 
 export const ALLERGEN_POST_ES = {
   'en/blog/allergens-in-savour': {
     slug: 'es/blog/alergenos-en-savour',
-    title: 'Alérgenos en Savour: así funcionará la nueva función',
-    desc: 'Alérgenos por receta, también a través de recetas base: cómo Savour enlaza ingredientes con productos, de dónde vienen las sugerencias y por qué Savour nunca dice que una receta está libre de alérgenos.',
-    h1: 'Alérgenos en Savour: así funcionará la nueva función',
-    lead: 'Un cliente pregunta en la mesa si la salsa lleva frutos secos. Con la nueva función de alérgenos, la respuesta está en la receta, aunque los frutos secos estén en una receta base. Así funciona, y así no funciona a propósito.',
+    title: 'Alérgenos en Savour: así funciona',
+    desc: 'Alérgenos por receta, también a través de recetas base. Savour reconoce solo los ingredientes de tus recetas; tú solo confirmas lo que Savour no sabe con seguridad. Así funciona, y por qué Savour nunca dice que algo está libre de alérgenos.',
+    h1: 'Alérgenos en Savour: así funciona',
+    lead: 'Un cliente pregunta en la mesa si la salsa lleva frutos secos. En Savour la respuesta está ahora en la receta, aunque los frutos secos estén en una receta base. Así funciona, y así no funciona a propósito.',
     sections: [
       [
-        'Del ingrediente al producto',
-        'La base es una lista de productos: los ingredientes tal como los compra tu cocina, como mantequilla, harina o salsa de soja. Cada producto tiene sus alérgenos. Savour enlaza cada línea de la receta con un producto por su nombre. Así suma los alérgenos de cada receta.\n\nSi usas una receta base, como un fondo, una masa o una salsa, sus alérgenos también cuentan. Si la mostaza está en tu vinagreta, también ves mostaza en la ensalada que la usa.'
+        'Savour lee tus ingredientes',
+        'En cada línea de la receta, Savour busca el ingrediente: en «250 g de mantequilla fría, en dados» es mantequilla, con leche como alérgeno. Para ello Savour usa una lista compartida de ingredientes y sus alérgenos: la lista de Savour. Existe en cinco idiomas. La lista en neerlandés tiene más de 3.100 ingredientes; inglés, alemán, español y francés tienen cada uno entre 2.600 y 2.900.\n\nAsí no tienes que introducir cientos de ingredientes tú mismo. Lo que está en la lista de Savour cuenta enseguida. Si usas una receta base, como un fondo, una masa o una salsa, sus alérgenos también cuentan. Si la mostaza está en tu vinagreta, también ves mostaza en la ensalada que usa esa vinagreta.'
       ],
       [
-        'Los 14 alérgenos, y lo que además preguntan los clientes',
-        'Savour trabaja con los 14 alérgenos de las normas europeas: gluten, crustáceos, huevos, pescado, cacahuetes, soja, leche, frutos de cáscara, apio, mostaza, sésamo, sulfitos, altramuces y moluscos. Además puedes seguir características extra por las que preguntan los clientes, como lactosa, cerdo, alcohol, la familia de la cebolla, ajo, setas o FODMAP. Tú eliges si quieres solo los 14 alérgenos legales o también los extras.\n\nLa lactosa va aparte de la leche a propósito: la nata sin lactosa sigue teniendo proteína de leche.'
-      ],
-      [
-        'Sin enlazar cientos de nombres a mano',
-        'Un recetario con cientos de recetas tiene enseguida mil nombres de ingredientes distintos. Con «Enlazar todo automáticamente», Savour los resuelve de una vez:',
+        'Tú solo respondes las preguntas',
+        'Lo que Savour no sabe con seguridad está en Alérgenos → Revisar. Allí recibes una pregunta cada vez:',
         [
-          'una receta base con el mismo nombre;',
-          'un producto que ya tienes, también con otra grafía o en plural;',
-          'el producto principal: «col rizada sin tallo» es col rizada, «filete de bacalao sin piel» es bacalao;',
-          'un producto nuevo de la lista de ingredientes de Savour, con los alérgenos como sugerencia;',
-          'si hay dudas, como con «zumo» o «coulis», Savour deja el nombre como está. ¿Qué zumo? Solo tú lo sabes.'
+          '¿Es correcta esta sugerencia? Por ejemplo: crème fraîche, con leche.',
+          '¿Es correcto para tu marca? En ingredientes que cambian según la marca.',
+          '¿Es tu propia receta? «Fondo verduras» en una línea pasa a ser tu receta Fondo de verduras.',
+          '¿Es siquiera un ingrediente? Palabras como «masa», «relleno» o «para el molde» las quitas; Savour lo recuerda para recetas nuevas.',
+          '¿Qué es esto? Con un nombre que Savour no conoce, como «zumo»: qué zumo, solo tú lo sabes.'
         ]
       ],
       [
-        'Siempre ves primero lo que va a hacer Savour',
-        'Antes de que cambie nada, ves la lista entera: qué nombre va a qué producto y qué alérgenos recibe ese producto. Lo que desmarcas, Savour lo deja. Después puedes ajustar cada producto. Savour nunca cambia tus recetas en silencio: las líneas de la receta quedan exactamente como las escribiste.\n\nSi no quieres empezar de cero, usa la lista inicial: más de 200 productos que aparecen con más frecuencia en recetas profesionales. Con el fondo, la gelatina y el chocolate Savour pregunta primero, porque depende de lo que usa tu cocina.'
+        'Distinto según la marca',
+        'Algunos ingredientes contienen algo distinto de una marca a otra. Piensa en la gelatina (cerdo, vacuno o pescado), la salsa de soja (con o sin gluten), el chocolate (leche, soja, frutos secos), el caldo y el fondo (apio, gluten), embutidos, pesto (frutos secos), mayonesa (huevo, mostaza) y pan rallado. En estos ingredientes Savour pregunta una vez por cocina. Si tu marca es distinta, creas tu propia versión; esa va antes que la lista de Savour.'
       ],
       [
-        'La lista de ingredientes que lee Savour',
-        'Las sugerencias salen de una lista de más de 3.700 ingredientes, de cuatro fuentes: la lista de ingredientes de Open Food Facts, las listas de verduras, hierbas, setas, salsas y quesos de la Wikipedia neerlandesa, los nombres de productos neerlandeses de NEVO (la base de datos de composición de alimentos del RIVM) y la lista propia de Savour con términos de cocina. NEVO no contiene alérgenos; esos los añade Savour. Los nombres están en neerlandés, con nombres en inglés cuando la fuente los tiene.\n\nLa lista completa es pública, con los alérgenos que sugiere Savour: [ver la lista de ingredientes de Savour](/es/lista-ingredientes-alergenos). Así puedes comprobar de dónde viene una sugerencia.'
+        'Los 14 alérgenos, y lo que activas tú',
+        'Por defecto Savour muestra los 14 alérgenos de las normas europeas: gluten, crustáceos, huevos, pescado, cacahuetes, soja, leche, frutos de cáscara, apio, mostaza, sésamo, sulfitos, altramuces y moluscos. En Alérgenos → Alérgenos activas lo que además preguntan los clientes, como lactosa, cerdo, alcohol, ajo o la familia de la cebolla. Están desactivados por defecto. Lo que vuelves a desactivar se guarda; solo deja de verse.\n\nLa lactosa va aparte de la leche a propósito: la nata sin lactosa sigue teniendo proteína de leche.'
       ],
       [
-        'Por qué Savour nunca dice que algo no tiene alérgenos',
-        'Un alérgeno de más es molesto; uno de menos es peligroso. Por eso Savour es estricto. Mientras una receta tenga líneas sin un producto comprobado, pone «Aún no completo», con el número de ingredientes pendientes. Solo cuando todas las líneas están comprobadas y no hay ninguno de los 14 alérgenos, Savour dice que la receta no contiene ninguno de los 14 alérgenos. Con las características extra, Savour solo indica lo que lleva, nunca lo que no lleva.\n\nUna sugerencia es solo una sugerencia. La etiqueta de tu proveedor siempre manda.'
+        'Por qué Savour nunca dice que algo está libre de alérgenos',
+        'Un alérgeno de más es molesto; uno de menos es peligroso. Por eso Savour es estricto. Mientras una receta tenga un ingrediente sin revisar, indica que la receta aún no está completa, con un signo de interrogación donde Savour aún no lo sabe. Solo cuando todo está revisado y no hay ninguno de los 14 alérgenos, dice que la receta no contiene ninguno de los 14 alérgenos. En las características que activas tú, Savour solo indica lo que contiene, nunca lo que no.\n\nUna sugerencia sigue siendo una sugerencia. La etiqueta de tu proveedor siempre manda.'
       ],
       [
-        'En el equipo de cocina y en papel',
-        'Un equipo de cocina tiene una lista de productos para todo el equipo. El propietario y los sous-chefs la gestionan; un cocinero ve los alérgenos en cada receta y, por línea, de dónde vienen. Si imprimes una receta, los alérgenos salen en la impresión, y si la receta aún no está comprobada del todo, también lo pone.'
+        'En la receta, en la tabla y en papel',
+        'Cada receta tiene un bloque Alérgenos que despliegas. Debajo está la tabla de alérgenos: para cada línea de ingredientes, qué alérgenos contiene, para ver de un vistazo de dónde viene el apio. Al imprimir una receta eliges si los alérgenos aparecen. Si la receta aún no está revisada del todo, eso también aparece.'
       ],
       [
-        '¿Cuándo llega?',
-        'La función de alérgenos funciona ahora en nuestra versión de prueba, con recetarios reales de cocina. La pondremos en marcha cuando los enlaces sean lo bastante buenos para el ritmo de un servicio. Los alérgenos formarán parte de Savour Pro, y también de un equipo de cocina cuyo propietario tenga Pro.'
+        'En el equipo de cocina',
+        'Un equipo de cocina tiene una lista de ingredientes para todo el equipo. El propietario y quienes pueden editar responden las preguntas y ajustan ingredientes. Un cocinero ve los alérgenos en cada receta y puede ver por línea de dónde vienen.'
+      ],
+      [
+        'De dónde viene la lista de Savour',
+        'La lista de Savour se ha compuesto con la lista de ingredientes de Open Food Facts, las listas de Wikipedia de verduras, hierbas, setas, salsas y quesos, los nombres de productos neerlandeses de NEVO (la base de datos de composición de alimentos del RIVM) y la lista propia de Savour con términos de cocina. NEVO no contiene alérgenos; los añade Savour.\n\nSi en las recetas aparece un ingrediente que aún no está en la lista, lo revisamos antes de añadirlo. Solo vemos el nombre del ingrediente, nunca tus recetas. Toda la lista es pública: [ver la lista de ingredientes de Savour](/es/lista-ingredientes-alergenos). Si ves un error, avísanos.'
+      ],
+      [
+        '¿Cuánto cuesta?',
+        'Los alérgenos forman parte de [Savour Pro](/es/precios) y también funcionan en un equipo de cocina cuyo propietario tiene Pro. Las cuentas nuevas reciben 7 días de Pro gratis. ¿Quieres verlo antes? [Abre la demo](/es?demo=1): allí ves los alérgenos en las recetas de ejemplo. Más sobre la función en [Alérgenos por receta](/es/alergenos-por-receta).'
       ]
     ],
-    outro:
-      'Este texto describe la función tal como funciona hoy en la versión de prueba. Si algo cambia en el lanzamiento, lo actualizaremos aquí.'
+    outro: 'Este texto describe la función tal como está disponible ahora. Si algo cambia, lo actualizaremos aquí.'
   }
 };
 
 export const ALLERGEN_POST_FR = {
   'en/blog/allergens-in-savour': {
     slug: 'fr/blog/allergenes-dans-savour',
-    title: 'Les allergènes dans Savour : comment fonctionnera la nouvelle fonction',
-    desc: 'Les allergènes par recette, y compris via les recettes de base : comment Savour relie les ingrédients aux produits, d’où viennent les suggestions et pourquoi Savour ne dit jamais qu’une recette est sans allergènes.',
-    h1: 'Les allergènes dans Savour : comment fonctionnera la nouvelle fonction',
-    lead: 'Un client demande à table s’il y a des fruits à coque dans la sauce. Avec la nouvelle fonction allergènes, la réponse est dans la recette, même quand les fruits à coque sont dans une recette de base. Voici comment ça marche, et ce que ça ne fait volontairement pas.',
+    title: 'Les allergènes dans Savour : comment ça marche',
+    desc: 'Les allergènes par recette, y compris via les recettes de base. Savour reconnaît lui-même les ingrédients de tes recettes ; tu confirmes seulement ce dont Savour n’est pas sûr. Comment ça marche, et pourquoi Savour ne dit jamais qu’un plat est sans allergènes.',
+    h1: 'Les allergènes dans Savour : comment ça marche',
+    lead: 'Un client demande à table s’il y a des fruits à coque dans la sauce. Dans Savour, la réponse figure maintenant sur la recette, même quand les fruits à coque sont dans une recette de base. Voici comment ça marche, et ce que Savour ne fait volontairement pas.',
     sections: [
       [
-        'De l’ingrédient au produit',
-        'La base est une liste de produits : les ingrédients tels que ta cuisine les achète, comme le beurre, la farine ou la sauce soja. Chaque produit a ses allergènes. Savour relie chaque ligne de recette à un produit par son nom. Ainsi, Savour additionne les allergènes de chaque recette.\n\nSi tu utilises une recette de base, comme un fond, une pâte ou une sauce, ses allergènes comptent aussi. Si la moutarde est dans ta vinaigrette, tu vois aussi la moutarde sur la salade qui l’utilise.'
+        'Savour lit tes ingrédients',
+        'Pour chaque ligne de recette, Savour cherche l’ingrédient : dans « 250 g de beurre froid, en dés », c’est le beurre, avec le lait comme allergène. Savour utilise pour cela une liste commune d’ingrédients et de leurs allergènes : la liste Savour. Elle existe en cinq langues. La liste néerlandaise compte plus de 3 100 ingrédients ; l’anglais, l’allemand, l’espagnol et le français en comptent chacun entre 2 600 et 2 900.\n\nTu n’as donc pas à saisir des centaines d’ingrédients toi-même. Ce qui figure dans la liste Savour compte tout de suite. Si tu utilises une recette de base, comme un fond, une pâte ou une sauce, ses allergènes comptent aussi. Si la moutarde est dans ta vinaigrette, tu vois aussi la moutarde sur la salade qui utilise cette vinaigrette.'
       ],
       [
-        'Les 14 allergènes, et ce que demandent aussi les clients',
-        'Savour travaille avec les 14 allergènes des règles européennes : gluten, crustacés, œufs, poisson, arachides, soja, lait, fruits à coque, céleri, moutarde, sésame, sulfites, lupin et mollusques. Tu peux aussi suivre des caractéristiques en plus que demandent les clients, par exemple le lactose, le porc, l’alcool, la famille de l’oignon, l’ail, les champignons ou les FODMAP. Tu choisis si tu veux seulement les 14 allergènes légaux ou aussi ces extras.\n\nLe lactose est volontairement séparé du lait : une crème sans lactose contient toujours des protéines de lait.'
-      ],
-      [
-        'Ne pas relier des centaines de noms à la main',
-        'Un livre de recettes de plusieurs centaines de recettes compte vite mille noms d’ingrédients différents. Avec « Tout relier automatiquement », Savour les règle en une fois :',
+        'Tu réponds seulement aux questions',
+        'Ce dont Savour n’est pas sûr se trouve sous Allergènes → À vérifier. Tu y reçois une question à la fois :',
         [
-          'une recette de base du même nom ;',
-          'un produit que tu as déjà, même avec une autre orthographe ou au pluriel ;',
-          'le produit principal : « chou kale sans trognon » est du chou kale, « filet de cabillaud sans peau » est du cabillaud ;',
-          'un nouveau produit de la liste d’ingrédients de Savour, avec les allergènes en suggestion ;',
-          's’il y a un doute, comme pour « jus » ou « coulis », Savour laisse le nom tel quel. Quel jus ? Toi seul le sais.'
+          'Cette suggestion est-elle juste ? Par exemple : crème fraîche, avec lait.',
+          'Est-ce juste pour ta marque ? Pour les ingrédients qui varient selon la marque.',
+          'Est-ce ta propre recette ? « Fond légumes » dans une ligne devient alors ta recette Fond de légumes.',
+          'Est-ce vraiment un ingrédient ? Des mots comme « appareil », « garniture » ou « pour le moule », tu les retires ; Savour s’en souvient pour les nouvelles recettes.',
+          'Qu’est-ce que c’est ? Pour un nom que Savour ne connaît pas, comme « jus » : quel jus, toi seul le sais.'
         ]
       ],
       [
-        'Tu vois toujours d’abord ce que Savour va faire',
-        'Avant tout changement, tu vois la liste complète : quel nom va vers quel produit et quels allergènes ce produit reçoit. Ce que tu décoches, Savour le laisse. Ensuite, tu peux encore modifier chaque produit. Savour ne modifie jamais tes recettes en silence : les lignes de recette restent exactement comme tu les as écrites.\n\nSi tu ne veux pas partir de zéro, reprends la liste de départ : plus de 200 produits parmi les plus fréquents dans les recettes professionnelles. Pour le fond, la gélatine et le chocolat, Savour pose d’abord une question, car cela dépend de ce qu’utilise ta cuisine.'
+        'Différent selon la marque',
+        'Certains ingrédients contiennent autre chose d’une marque à l’autre. Pense à la gélatine (porc, bœuf ou poisson), la sauce soja (avec ou sans gluten), le chocolat (lait, soja, fruits à coque), le bouillon et le fond (céleri, gluten), la charcuterie, le pesto (fruits à coque), la mayonnaise (œuf, moutarde) et la chapelure. Pour ces ingrédients, Savour pose la question une fois par cuisine. Si ta marque est différente, tu crées ta propre version ; elle passe avant la liste Savour.'
       ],
       [
-        'La liste d’ingrédients que lit Savour',
-        'Les suggestions viennent d’une liste de plus de 3 700 ingrédients, issue de quatre sources : la liste d’ingrédients d’Open Food Facts, les listes de légumes, herbes, champignons, sauces et fromages de la Wikipédia néerlandaise, les noms de produits néerlandais de NEVO (la base de composition des aliments du RIVM) et la liste propre de Savour avec des termes de cuisine. NEVO ne contient pas d’allergènes ; c’est Savour qui les ajoute. Les noms sont en néerlandais, avec les noms anglais quand la source les donne.\n\nLa liste complète est publique, avec les allergènes que propose Savour : [voir la liste d’ingrédients de Savour](/fr/liste-ingredients-allergenes). Tu peux ainsi vérifier d’où vient une suggestion.'
+        'Les 14 allergènes, et ce que tu actives',
+        'Par défaut, Savour affiche les 14 allergènes des règles européennes : gluten, crustacés, œufs, poissons, arachides, soja, lait, fruits à coque, céleri, moutarde, sésame, sulfites, lupin et mollusques. Sous Allergènes → Allergènes, tu actives ce que les clients demandent en plus, comme le lactose, le porc, l’alcool, l’ail ou la famille de l’oignon. Ils sont désactivés par défaut. Ce que tu désactives reste enregistré ; tu ne le vois simplement plus.\n\nLe lactose est volontairement séparé du lait : la crème sans lactose contient toujours des protéines de lait.'
       ],
       [
         'Pourquoi Savour ne dit jamais qu’un plat est sans allergènes',
-        'Un allergène de trop est gênant ; un de moins est dangereux. C’est pourquoi Savour est strict. Tant qu’une recette a des lignes sans produit vérifié, elle indique « Pas encore complet », avec le nombre d’ingrédients restants. Ce n’est que lorsque toutes les lignes sont vérifiées et qu’aucun des 14 allergènes n’y figure que Savour dit que la recette ne contient aucun des 14 allergènes. Pour les caractéristiques en plus, Savour indique seulement ce qu’il y a, jamais ce qu’il n’y a pas.\n\nUne suggestion reste une suggestion. L’étiquette de ton fournisseur passe toujours en premier.'
+        'Un allergène de trop est gênant ; un de moins est dangereux. C’est pourquoi Savour est strict. Tant qu’une recette contient un ingrédient non vérifié, elle indique que la recette n’est pas encore complète, avec un point d’interrogation là où Savour ne sait pas encore. Ce n’est que lorsque tout est vérifié et qu’aucun des 14 allergènes n’y figure que Savour indique que la recette n’en contient aucun. Pour les caractéristiques que tu actives toi-même, Savour indique seulement ce qu’il y a, jamais ce qu’il n’y a pas.\n\nUne suggestion reste une suggestion. L’étiquette de ton fournisseur prime toujours.'
       ],
       [
-        'Dans l’équipe de cuisine et sur papier',
-        'Une équipe de cuisine a sa propre liste de produits pour toute l’équipe. Le propriétaire et les sous-chefs la gèrent ; un cuisinier voit les allergènes sur chaque recette et, ligne par ligne, d’où ils viennent. Quand tu imprimes une recette, les allergènes figurent sur l’impression, et si la recette n’est pas encore entièrement vérifiée, c’est indiqué aussi.'
+        'Sur la recette, sur le tableau et sur papier',
+        'Chaque recette a un bloc Allergènes que tu déplies. En dessous se trouve le tableau des allergènes : pour chaque ligne d’ingrédient, les allergènes qu’elle contient, pour voir d’un coup d’œil d’où vient le céleri. Quand tu imprimes une recette, tu choisis si les allergènes y figurent. Si la recette n’est pas encore entièrement vérifiée, c’est indiqué aussi.'
       ],
       [
-        'Quand est-ce que ça arrive ?',
-        'La fonction allergènes tourne maintenant dans notre version de test, avec de vrais livres de recettes de cuisine. Nous la mettrons en ligne quand les liaisons seront assez bonnes pour le rythme d’un service. Le suivi des allergènes fera partie de Savour Pro, ainsi que d’une équipe de cuisine dont le propriétaire a Pro.'
+        'Dans l’équipe de cuisine',
+        'Une équipe de cuisine a une liste d’ingrédients pour toute l’équipe. Le propriétaire et ceux qui peuvent modifier répondent aux questions et ajustent les ingrédients. Un cuisinier voit les allergènes sur chaque recette et peut voir, ligne par ligne, d’où ils viennent.'
+      ],
+      [
+        'D’où vient la liste Savour',
+        'La liste Savour est composée à partir de la liste d’ingrédients d’Open Food Facts, des listes Wikipédia de légumes, herbes, champignons, sauces et fromages, des noms de produits néerlandais de NEVO (la base de composition des aliments du RIVM) et de la propre liste de termes de cuisine de Savour. NEVO ne contient pas d’allergènes ; Savour les ajoute.\n\nSi un ingrédient qui n’est pas encore dans la liste apparaît dans des recettes, nous le vérifions avant de l’ajouter. Nous ne voyons que le nom de l’ingrédient, jamais tes recettes. Toute la liste est publique : [voir la liste d’ingrédients de Savour](/fr/liste-ingredients-allergenes). Si tu vois une erreur, dis-le-nous.'
+      ],
+      [
+        'Combien ça coûte ?',
+        'Les allergènes font partie de [Savour Pro](/fr/tarifs) et fonctionnent aussi dans une équipe de cuisine dont le propriétaire a Pro. Les nouveaux comptes reçoivent 7 jours de Pro gratuits. Envie de voir d’abord ? [Ouvre la démo](/fr?demo=1) : les recettes d’exemple y montrent leurs allergènes. Plus d’infos sur la fonction : [Allergènes par recette](/fr/allergenes-par-recette).'
       ]
     ],
-    outro:
-      'Ce texte décrit la fonction telle qu’elle marche aujourd’hui dans la version de test. Si quelque chose change au lancement, nous le mettrons à jour ici.'
+    outro: 'Ce texte décrit la fonction telle qu’elle est disponible aujourd’hui. Si quelque chose change, nous le mettrons à jour ici.'
   }
 };
 

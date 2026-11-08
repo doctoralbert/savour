@@ -211,9 +211,9 @@ export const DE = {
     },
     roadmap: {
       slug: 'de/demnaechst',
-      short: 'Kosten pro Rezept, Allergene und der Verlauf jedes Rezepts.',
-      title: 'Demnächst in Savour: Kalkulation, Allergene und mehr',
-      desc: 'Woran wir arbeiten: Kosten pro Rezept, Allergene pro Gericht, der Verlauf jedes Rezepts und eine App für iPhone und Android.',
+      short: 'Kosten pro Rezept, der Verlauf jedes Rezepts und mehr.',
+      title: 'Demnächst in Savour: Kalkulation, Rezeptverlauf und mehr',
+      desc: 'Woran wir arbeiten: Kosten pro Rezept, der Verlauf jedes Rezepts und eine App für iPhone und Android. Allergene pro Rezept sind inzwischen live.',
       h1: 'Woran wir arbeiten',
       lead: 'Savour wächst mit der Küche. Das steht auf der Roadmap. Fehlt dir etwas? Sag es uns.',
       sections: [
@@ -222,8 +222,8 @@ export const DE = {
           'Sieh, was jedes Gericht und jede Portion kostet und was passiert, wenn sich der Preis eines Produkts ändert.'
         ],
         [
-          'Allergene auf einen Blick',
-          'Pro Rezept und pro zusammengesetztem Gericht, damit du die Frage eines Gastes sofort am Tisch beantworten kannst.'
+          'Allergene: jetzt live',
+          'Seit November 2026 siehst du die Allergene pro Rezept, auch über Grundrezepte. [So funktioniert es](/de/allergene-pro-rezept).'
         ],
         [
           'Verlauf jedes Rezepts',
@@ -333,7 +333,7 @@ export const DE = {
       [
         'Was wir noch bauen wollen',
         [
-          'Kosten pro Rezept und Allergene auf einen Blick stehen ganz oben auf der Liste. Wenn Savour auf Computer, Tablet und Handy gut läuft, prüfen wir, ob sich eine eigene App für iPhone und Android lohnt.',
+          'Allergene pro Rezept sind seit November 2026 live; Kosten pro Rezept stehen ganz oben auf der Liste. Wenn Savour auf Computer, Tablet und Handy gut läuft, prüfen wir, ob sich eine eigene App für iPhone und Android lohnt.',
           'Das entscheiden wir nicht am Schreibtisch, sondern gemeinsam mit den Köchen, die Savour nutzen. Fehlt dir etwas in deiner Küche? Sag es uns.'
         ]
       ]
@@ -385,7 +385,7 @@ export const DE = {
         ],
         [
           'Vergleich: Kalkulation, Allergene und Lager',
-          'Hier sind Meez und Galley am stärksten: Kosten, die den Rechnungen folgen, Allergene, Nährwerte, Lager und Einkauf. Paprika kann das nicht, abgesehen von einem Vorratsschrank für zu Hause. Savour kann es auch noch nicht. Kosten pro Rezept und Allergene auf einen Blick stehen ganz oben auf unserer Liste. Dreht sich in deiner Küche vor allem alles um Margen über Dutzende Standorte, sind Meez oder Galley heute die bessere Wahl.'
+          'Hier sind Meez und Galley am stärksten: Kosten, die den Rechnungen folgen, Allergene, Nährwerte, Lager und Einkauf. Paprika kann das nicht, abgesehen von einem Vorratsschrank für zu Hause. Allergene pro Rezept hat Savour seit November 2026; Kosten pro Rezept stehen ganz oben auf unserer Liste. Dreht sich in deiner Küche vor allem alles um Margen über Dutzende Standorte, sind Meez oder Galley heute die bessere Wahl.'
         ],
         [
           'Vergleich: Zusammenarbeit im Team',

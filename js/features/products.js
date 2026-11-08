@@ -1,4 +1,4 @@
-// Producten en allergenen (testversie).
+// Producten en allergenen (live sinds 2026-11-08).
 //
 // Een product is een ingrediënt zoals de keuken het inkoopt (roomboter, slagroom, bloem), met de allergenen uit de
 // EU-lijst en de namen waaronder het in recepten staat. Receptregels worden op naam gekoppeld: "250 g koude
