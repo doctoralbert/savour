@@ -47,6 +47,8 @@
       setMenu(header, !header.classList.contains('menu-open'));
       return;
     }
+    var close = e.target.closest && e.target.closest('.site-mm-close');
+    if (close) return setMenu(close.closest('.site-header'), false);
     var link = e.target.closest && e.target.closest('.site-mm a');
     if (link) setMenu(link.closest('.site-header'), false);
   });
