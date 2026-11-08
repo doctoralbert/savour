@@ -142,7 +142,7 @@ export const DE = {
         ],
         [
           'Versteht Einheiten',
-          'Savour weiß, dass 3 Teelöffel ein Esslöffel sind und 1000 Gramm ein Kilo. 20 Teelöffel werden 6 ⅔ Esslöffel, und Löffel und Cups bleiben saubere Brüche statt langer Dezimalzahlen. Auch ohne Ausbeute rechnest du mit einem Tippen um: ½×, 2×, 3× oder 4×.'
+          'Savour weiß, dass 3 Teelöffel ein Esslöffel sind und 1000 Gramm ein Kilo. 20 Teelöffel werden 6 ⅔ Esslöffel, und Löffel und Cups bleiben saubere Brüche statt langer Dezimalzahlen. Auch ohne Ausbeute rechnest du mit einem Tippen um: ½×, 2×, 5× oder 10×, oder du gibst einen eigenen Faktor ein, etwa 25×. Die Ausbeute oben rechnet mit.'
         ],
         [
           'Rechnen in Stück',

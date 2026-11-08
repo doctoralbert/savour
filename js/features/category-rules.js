@@ -110,8 +110,9 @@ async function editCategoryKeywords(category) {
 // Bestaand account: ontbrekende standaardcategorieën toevoegen, na bevestiging.
 async function offerDefaultCategories() {
   if (!currentUser) return;
-  const missing = DEFAULT_CATEGORIES.filter(c => !categories.includes(c.name));
-  const emptyKeywords = DEFAULT_CATEGORIES.filter(c => categories.includes(c.name) && !keywordsOf(c.name).length);
+  const defaults = defaultCategoriesFor();
+  const missing = defaults.filter(c => !categories.includes(c.name));
+  const emptyKeywords = defaults.filter(c => categories.includes(c.name) && !keywordsOf(c.name).length);
   if (!missing.length && !emptyKeywords.length) {
     toast('Je hebt alle standaardcategorieën al');
     return;

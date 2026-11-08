@@ -1151,6 +1151,33 @@ Stoof 2 uur zacht.`,
       { t: 'Gremolata', i: ['1 citroen, rasp', '1 teentje knoflook', '1 bosje peterselie'], s: 1 },
       { t: 'Ossobuco', i: ['4 plakken kalfsschenkel', '2 dl witte wijn'], s: 1 }
     ]
+  },
+  {
+    // Opbrengst in het Engels op de tweede regel (feedback 2026-11-08): geen ingrediënt maar de opbrengst.
+    name: 'opbrengst "for 10 covers"',
+    text: `Hollandaise
+for 10 covers
+6 egg yolks
+500 g clarified butter
+Whisk the yolks over a bain-marie and mount with the butter.`,
+    expect: [{ t: 'Hollandaise', y: 'for 10 covers', i: ['6 egg yolks', '500 g clarified butter'], s: 1 }]
+  },
+  {
+    name: 'opbrengst "Serves 4" en "für 6 Personen"',
+    text: `Pommes purée
+Serves 4
+1 kg potatoes
+200 g butter
+Boil and mash the potatoes.
+
+Kartoffelsalat
+für 6 Personen
+1 kg Kartoffeln
+Kochen und schneiden.`,
+    expect: [
+      { t: 'Pommes purée', y: '4', i: ['1 kg potatoes', '200 g butter'], s: 1 },
+      { t: 'Kartoffelsalat', y: 'für 6 Personen', i: ['1 kg Kartoffeln'], s: 1 }
+    ]
   }
 ];
 

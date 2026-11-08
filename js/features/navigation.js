@@ -3,6 +3,18 @@
 // Pagina's die ook zonder account bereikbaar zijn.
 const PUBLIC_PAGE_IDS = ['about', 'faq', 'guide', 'terms', 'privacy', 'contact', 'bug'];
 
+// Adres en tabtitel volgen wat je ziet: een recept als /?recept=<id> met de receptnaam in de tab, de rest als /
+// met "Savour". Zo landen vernieuwen en een gekopieerde link op het juiste recept, ook na een gedeelde link
+// (/r/...). Alleen voor de app zelf; openbare pagina's hebben hun eigen adres.
+const APP_TITLE = document.title;
+function syncAppAddress(id) {
+  if (!currentUser || location.pathname.startsWith('/admin')) return;
+  const r = id === 'detail' && currentId ? findRecipe(currentId) : null;
+  const path = !r || r.example ? '/' : r.linkSlug ? `/r/${encodeURIComponent(r.linkSlug)}` : `/?recept=${encodeURIComponent(currentId)}`;
+  if (location.pathname + location.search !== path) history.replaceState(history.state, '', path);
+  document.title = r ? `${r.title} · Savour` : APP_TITLE;
+}
+
 // Centrale navigatie: activeert een weergave in de app en tekent de inhoud ervan.
 function go(id) {
   // Uitgelogd opent een informatiepagina in de publieke omgeving.
@@ -19,6 +31,7 @@ function go(id) {
   const view = $(id);
   if (!view) return;
   view.classList.add('active');
+  syncAppAddress(id);
   document.querySelectorAll('[data-nav]').forEach(b => b.classList.toggle('active', b.dataset.nav === id));
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (id === 'recipes') renderRecipes();
@@ -104,6 +117,7 @@ function showApp(viewId = 'recipes') {
   $('appShell').classList.remove('public-info-mode');
   activateView(viewId);
   renderActiveView(viewId);
+  syncAppAddress(viewId);
   renderSharedNav();
   updateProfileHeader();
 }

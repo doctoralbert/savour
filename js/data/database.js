@@ -268,6 +268,9 @@ async function startDatabaseSession(user) {
       if (window.__proRoute) openPublicInfo('pro');
       else if (window.__infoRoute) openPublicInfo(window.__infoRoute);
       else showApp('recipes');
+      // Vernieuwd of een link naar een recept (/?recept=<id>): dat recept weer openen.
+      const recept = new URLSearchParams(location.search).get('recept');
+      if (recept && findRecipe(recept)) openRecipe(recept);
       if (window.__teamRoute) {
         window.__teamRoute = false;
         history.replaceState(null, '', location.pathname);

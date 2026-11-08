@@ -214,7 +214,7 @@ export const FEATURES = [
       lead: 'Van een proeverij voor 8 naar een diner voor 120, zonder rekenmachine en zonder fouten.',
       sections: [
         ['Omrekenen in één keer', 'Vul de opbrengst in die je nodig hebt en Savour rekent alle hoeveelheden om. Het originele recept blijft gewoon staan.'],
-        ["Begrijpt eenheden","Savour weet dat 3 theelepels één eetlepel zijn en 1000 gram een kilo. 20 theelepels worden 6 ⅔ eetlepels, en lepels en cups blijven nette breuken in plaats van lange decimalen. Ook zonder opbrengst reken je met één tik ½×, 2×, 3× of 4× om."],
+        ["Begrijpt eenheden","Savour weet dat 3 theelepels één eetlepel zijn en 1000 gram een kilo. 20 theelepels worden 6 ⅔ eetlepels, en lepels en cups blijven nette breuken in plaats van lange decimalen. Ook zonder opbrengst reken je met één tik ½×, 2×, 5× of 10× om, of vul zelf een factor in, zoals 25×. De opbrengst bovenaan rekent mee."],
         ['Rekenen met stuks', 'Haal je 50 brownies uit één recept en heb je er 1.000 nodig voor een evenement? Vul het aantal stuks in en je ziet meteen wat je moet afwegen.'],
         ['Klaar voor de mise-en-place', 'Het omgerekende recept print je direct, of je zet het op je telefoon in de kookmodus.']
       ]
@@ -229,7 +229,7 @@ export const FEATURES = [
       lead: 'From a tasting for 8 to a dinner for 120, without a calculator and without mistakes.',
       sections: [
         ['Convert in one go', 'Enter the yield you need and Savour converts every quantity. The original recipe stays as it is.'],
-        ["Understands units","Savour knows that 3 teaspoons make a tablespoon and 1000 grams a kilo. 20 teaspoons become 6 ⅔ tablespoons, and spoons and cups stay clean fractions instead of long decimals. Even without a yield, scale with one tap: ½×, 2×, 3× or 4×."],
+        ["Understands units","Savour knows that 3 teaspoons make a tablespoon and 1000 grams a kilo. 20 teaspoons become 6 ⅔ tablespoons, and spoons and cups stay clean fractions instead of long decimals. Even without a yield, scale with one tap: ½×, 2×, 5× or 10×, or type your own factor, such as 25×. The yield at the top follows."],
         ['Counting in pieces', 'One recipe makes 50 brownies and you need 1,000 for an event? Enter the number of pieces and you immediately see what to weigh out.'],
         ['Ready for mise en place', 'Print the converted recipe straight away, or open it on your phone in cook mode.']
       ]

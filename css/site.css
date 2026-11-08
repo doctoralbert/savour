@@ -3836,3 +3836,30 @@ button,
   border-color: var(--gold);
   color: var(--gold);
 }
+
+/* ---- Knoppen bovenin de app (2026-11-08): thema, taal en Admin zonder kader; alleen een zacht vlak bij hover. ---- */
+body .theme-toggle,
+body .lang-menu > summary,
+body .lang-admin,
+body .site-lang summary {
+  border-color: transparent !important;
+  background: transparent;
+  border-radius: 4px !important;
+}
+body .theme-toggle:hover,
+body .theme-toggle:focus-visible,
+body .lang-menu > summary:hover,
+body .lang-menu[open] > summary,
+body .lang-admin:hover,
+body .lang-admin:focus-visible {
+  border-color: transparent !important;
+  background: rgba(238, 232, 220, 0.09);
+  color: var(--sv-text, #eee8dc);
+}
+body.savour-light .theme-toggle:hover,
+body.savour-light .lang-menu > summary:hover,
+body.savour-light .lang-menu[open] > summary,
+body.savour-light .lang-admin:hover {
+  background: rgba(20, 24, 24, 0.07);
+  color: var(--sv-text, #111);
+}

@@ -95,7 +95,7 @@ export const ES = {
       lead: 'De una degustación para 8 a una cena para 120, sin calculadora y sin errores.',
       sections: [
         ['Convierte de una vez', 'Introduce el rendimiento que necesitas y Savour convierte cada cantidad. La receta original se queda como está.'],
-        ["Entiende las unidades","Savour sabe que 3 cucharaditas son una cucharada y 1000 gramos un kilo. 20 cucharaditas se convierten en 6 ⅔ cucharadas, y las cucharas y tazas quedan como fracciones limpias en lugar de decimales largos. Incluso sin rendimiento, escala con un toque: ½×, 2×, 3× o 4×."],
+        ["Entiende las unidades","Savour sabe que 3 cucharaditas son una cucharada y 1000 gramos un kilo. 20 cucharaditas se convierten en 6 ⅔ cucharadas, y las cucharas y tazas quedan como fracciones limpias en lugar de decimales largos. Incluso sin rendimiento, escala con un toque: ½×, 2×, 5× o 10×, o escribe tu propio factor, como 25×. El rendimiento de arriba cambia también."],
         ['Contar por piezas', '¿Una receta da 50 brownies y necesitas 1.000 para un evento? Introduce el número de piezas y verás al momento qué tienes que pesar.'],
         ['Listo para la mise en place', 'Imprime la receta convertida al momento o ábrela en el móvil en modo cocina.']
       ]

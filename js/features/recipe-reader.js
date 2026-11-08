@@ -13,10 +13,12 @@ const READER_INLINE_HEADING =
   /^(ingredi[eë]nten|ingredients?|benodigdheden|bereiding(?:swijze)?|werkwijze|methode|method|instructies)\s*:\s*(\S.*)$/i;
 const READER_STEPS_HEADING =
   /^(?:bereiding(?:swijze)?|werkwijze|methode|method|instructies|instructions|directions|preparation|zo maak je het|aan de slag|stappen(?:plan)?|steps?)\s*[:=-]?\s*$/i;
+// Ook in het Engels, Duits, Spaans en Frans: "serves 4", "for 10 covers", "für 6 Personen", "para 4 personas",
+// "pour 8 couverts". Een getal is altijd nodig: "For the sauce" is geen opbrengst.
 const READER_YIELD_LABEL =
-  /^(?:opbrengst|yield|porties?|personen|couverts|aantal(?: personen| porties| stuks)?|serves|makes|recept (?:is )?voor|hoeveelheid|voor)\s*[:=-]?\s*(.+)$/i;
+  /^(?:opbrengst|yield|porties?|personen|couverts|aantal(?: personen| porties| stuks)?|serves|makes|recept (?:is )?voor|hoeveelheid|voor|for|ergibt|für|rendimiento|para|raciones|rendement|pour)\s*[:=-]?\s*(.+)$/i;
 const READER_YIELD_PLAIN =
-  /^\(?\s*(?:voor\s+)?\d+(?:[.,-]\d+)?\s*(?:personen|persoon|pers\.?|porties?|couverts|stuks|st\.?|liter|l|kg|gram|g)\s*\)?\.?$/i;
+  /^\(?\s*(?:voor|for|serves|makes|für|para|pour)?\s*\d+(?:[.,-]\d+)?\s*(?:personen|persoon|pers\.?|porties?|couverts|covers|cover|people|persons|portions?|servings?|stuks|st\.?|pieces|personas|raciones|porciones|comensales|personnes|parts|liter|l|kg|gram|g)\s*\)?\.?$/i;
 const READER_META_LINE =
   /^(?:bereidingstijd|voorbereidingstijd|kooktijd|baktijd|oventijd|wachttijd|rusttijd|tijd|oven(?:temperatuur)?|temperatuur|moeilijkheid(?:sgraad)?|allergenen|houdbaarheid|bewaren|tip|tips|opmerking(?:en)?|let op|notitie|note)s?\s*[:=-]/i;
 
@@ -173,9 +175,9 @@ function readerYieldFrom(line) {
   if (READER_YIELD_PLAIN.test(line)) return line.replace(/^\(|\)\.?$/g, '').trim();
   const m = line.match(READER_YIELD_LABEL);
   if (m && /\d/.test(m[1]) && line.length <= 60) {
-    // "Voor de saus" is geen opbrengst; "Voor 4 personen" wel.
-    if (/^voor\b/i.test(line) && !/^voor\s+\d/i.test(line)) return '';
-    return /^voor\s/i.test(line) ? line : m[1].trim();
+    // "Voor de saus" is geen opbrengst; "Voor 4 personen" wel. Zo ook "for", "für", "para" en "pour".
+    if (/^(?:voor|for|für|para|pour)\b/i.test(line) && !/^(?:voor|for|für|para|pour)\s+\d/i.test(line)) return '';
+    return /^(?:voor|for|für|para|pour)\s/i.test(line) ? line : m[1].trim();
   }
   return '';
 }
