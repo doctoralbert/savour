@@ -288,9 +288,15 @@ function setRecipeFactor(factor) {
 }
 
 function applyRecipeFactor(r, factor, rawTarget) {
-  document
-    .querySelectorAll('.rp-multipliers button')
-    .forEach(b => b.classList.toggle('is-on', Math.abs(+b.dataset.factor - factor) < 1e-9));
+  markRecipeFactor(document.getElementById('detail') || document, factor);
+  // De opbrengst bovenaan rekent mee: "4 porties" wordt bij 5× "20 porties".
+  const yieldEl = $('rpYieldValue');
+  if (yieldEl) {
+    const base = parseYield(r.yield);
+    yieldEl.textContent =
+      factor === 1 || !base ? r.yield : `${formatNumber(base.value * factor)}${base.unit ? ' ' + base.unit : ''}`;
+    yieldEl.classList.toggle('is-scaled', factor !== 1 && !!base);
+  }
   const list = $('rpIngredients');
   if (list)
     list.querySelectorAll('[data-ing]').forEach(li => {
@@ -411,20 +417,53 @@ function recipeStepNumbers(steps) {
   });
 }
 
-// Knoppen ¼× t/m 10× onder (of in plaats van) de opbrengst.
-function recipeMultipliersHtml(handler = 'setRecipeFactor') {
-  return `<div class="rp-multipliers" role="group" aria-label="${esc(t('Omrekenen'))}">${[
-    [0.25, '¼×'],
-    [0.5, '½×'],
-    [1.5, '1½×'],
-    [2, '2×'],
-    [3, '3×'],
-    [4, '4×'],
-    [5, '5×'],
-    [10, '10×']
-  ]
-    .map(([f, label]) => `<button type="button" data-factor="${f}" onclick="${handler}(${f})">${label}</button>`)
-    .join('')}</div>`;
+// Snelknoppen ½× 1× 2× 5× 10×, een vakje voor een eigen factor (×25) en, in de app, een knopje naar Meer
+// omrekenen (op opbrengst of op wat je hebt).
+const RECIPE_FACTORS = [
+  [0.5, '½×'],
+  [1, '1×'],
+  [2, '2×'],
+  [5, '5×'],
+  [10, '10×']
+];
+function recipeMultipliersHtml(handler = 'setRecipeFactor', { more = '' } = {}) {
+  return `<div class="rp-multipliers" role="group" aria-label="${esc(t('Omrekenen'))}">${RECIPE_FACTORS.map(
+    ([f, label]) => `<button type="button" data-factor="${f}" onclick="${handler}(${f})">${label}</button>`
+  ).join(
+    ''
+  )}<label class="rp-factor-own"><input inputmode="decimal" autocomplete="off" placeholder="25" aria-label="${esc(t('Eigen factor'))}" onchange="setOwnFactor(this, '${handler}')" onkeydown="if (event.key === 'Enter') this.blur()"><span>×</span></label>${
+    more
+      ? `<button type="button" class="rp-scale-more" onclick="${more}" title="${esc(t('Meer omrekenen: op opbrengst of op wat je hebt'))}" aria-label="${esc(t('Meer omrekenen'))}">${icon('info', { size: 15 })}</button>`
+      : ''
+  }</div>`;
+}
+
+// Eigen factor uit het vakje: leeg is terug naar het origineel.
+function setOwnFactor(input, handler) {
+  const fn = window[handler];
+  if (typeof fn !== 'function') return;
+  if (!input.value.trim()) return fn(1);
+  const factor = parseAmount(input.value);
+  if (!Number.isFinite(factor) || factor < 0.01 || factor > 1000) {
+    toast('Vul een factor in tussen 0,01 en 1000, bijvoorbeeld 25.');
+    input.value = '';
+    return;
+  }
+  fn(factor);
+}
+
+// Knoppen en eigen vakje laten zien welke factor er nu geldt.
+function markRecipeFactor(scope, factor) {
+  let preset = false;
+  scope.querySelectorAll('.rp-multipliers button[data-factor]').forEach(b => {
+    const on = Math.abs(+b.dataset.factor - factor) < 1e-9;
+    if (on) preset = true;
+    b.classList.toggle('is-on', on);
+  });
+  scope.querySelectorAll('.rp-factor-own input').forEach(input => {
+    input.value = preset ? '' : formatNumber(factor);
+    input.closest('.rp-factor-own').classList.toggle('is-on', !preset);
+  });
 }
 
 // Print het recept zoals het op het scherm staat: omgerekend als er een andere opbrengst is gekozen.

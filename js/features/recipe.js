@@ -93,12 +93,14 @@ function openRecipe(id, context = 'library') {
   const isFav = favorites.includes(r.id);
   const base = parseYield(r.yield);
   const meta = [
-    r.yield ? `Opbrengst ${esc(r.yield)}` : '',
-    ingredients.length ? `${ingredients.filter(x => !recipePartName(x)).length} ingrediënten` : '',
-    steps.length ? `${steps.filter(x => !recipePartName(x)).length} stappen` : ''
+    r.yield ? `<span>${t('Opbrengst')}</span> <span id="rpYieldValue" translate="no">${esc(r.yield)}</span>` : '',
+    ingredients.length
+      ? countLabel(ingredients.filter(x => !recipePartName(x)).length, 'ingrediënt', 'ingrediënten')
+      : '',
+    steps.length ? countLabel(steps.filter(x => !recipePartName(x)).length, 'stap', 'stappen') : ''
   ].filter(Boolean);
   const scaleBar = ingredients.length
-    ? `<div class="rp-yield" role="group" aria-label="Omrekenen"><span class="rp-yield-label">Omrekenen</span>${recipeMultipliersHtml()}<span id="rpFactor" class="rp-factor"></span><button type="button" id="rpYieldReset" class="btn-quiet" onclick="resetRecipeYield()" hidden>${icon('undo', { size: 16 })} Origineel</button></div>`
+    ? `<div class="rp-yield" role="group" aria-label="Omrekenen"><span class="rp-yield-label">Omrekenen</span>${recipeMultipliersHtml('setRecipeFactor', { more: 'openRecipeScale()' })}<span id="rpFactor" class="rp-factor"></span><button type="button" id="rpYieldReset" class="btn-quiet" onclick="resetRecipeYield()" hidden>${icon('undo', { size: 16 })} Origineel</button></div>`
     : '';
   window._savourScaled = null;
   $('detailWrap').innerHTML = `<article class="rp">

@@ -161,6 +161,8 @@ async function setLanguage(lang) {
   renderLanguageSwitches();
   document.documentElement.classList.remove('i18n-loading');
   window.refreshExampleLanguage?.();
+  // In de demo: de proefrecepten in de nieuwe taal (js/features/demo.js).
+  window.refreshDemoLanguage?.();
 }
 
 // Taalknop (NL/EN/DE/ES/FR) op alle plekken met [data-lang-switch].
