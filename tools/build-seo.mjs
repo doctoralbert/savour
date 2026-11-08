@@ -22,6 +22,8 @@ import {
 } from './site-blog-allergenen.mjs';
 import { NUMBERS_POST, NUMBERS_POST_DE, NUMBERS_POST_ES, NUMBERS_POST_FR } from './site-blog-cijfers.mjs';
 import { COST_POST, COST_POST_DE, COST_POST_ES, COST_POST_FR } from './site-blog-kosten.mjs';
+import { TEMP_QUICK } from './site-blog-temperaturen-kort.mjs';
+import { FOODCOST_POST, FOODCOST_POST_DE, FOODCOST_POST_ES, FOODCOST_POST_FR } from './site-blog-foodcost.mjs';
 import { TEMP_POSTS_ES } from './site-blog-temperaturen-es.mjs';
 import { TEMP_POSTS_FR } from './site-blog-temperaturen-fr.mjs';
 import { DE } from './site-pages-de.mjs';
@@ -61,6 +63,9 @@ Object.assign(FR.posts, NUMBERS_POST_FR);
 Object.assign(DE.posts, COST_POST_DE);
 Object.assign(ES.posts, COST_POST_ES);
 Object.assign(FR.posts, COST_POST_FR);
+Object.assign(DE.posts, FOODCOST_POST_DE);
+Object.assign(ES.posts, FOODCOST_POST_ES);
+Object.assign(FR.posts, FOODCOST_POST_FR);
 EXTRA_LANGS.fr = EXTRA_FR;
 APP_PAGE.fr = APP_PAGE_FR;
 DELIVER.fr = DELIVER_FR;
@@ -69,7 +74,7 @@ SERVICE.fr = SERVICE_FR;
 KLADJE_REAL.fr = KLADJE_FR;
 
 // Nieuwste blogartikelen eerst.
-POSTS.unshift(COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
+POSTS.unshift(FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
 // Achtergrondfoto achter de bovenkant van de homepage. Alleen als het bestand bestaat; zonder bestand is de
@@ -275,6 +280,12 @@ for (const [id, extra] of Object.entries(VERDIEPING)) {
   if (!item) throw new Error(`Verdieping: pagina ${id} niet gevonden`);
   for (const [lang, sections] of Object.entries({ ...extra, ...VERDIEPING_TALEN[id] }))
     item[lang].sections.push(...sections);
+}
+// Kerntemperaturen: eerst de tabel in één oogopslag (tools/site-blog-temperaturen-kort.mjs), dan het artikel.
+{
+  const p = POSTS.find(q => q.id === 'kerntemperaturen');
+  if (!p) throw new Error('Blog kerntemperaturen niet gevonden');
+  for (const lang of HOME_LANGS) p[lang].sections.unshift(TEMP_QUICK[lang]);
 }
 // Uitgebreide opmaak per blogartikel (tools/site-blog-rich.mjs): In het kort, blokken bij secties en extra secties.
 // In de teksten staan links als code, zodat ze in elke taal naar het goede adres gaan: @post:<Engels adres>,
@@ -587,12 +598,12 @@ const PAGE_POSTS = {
   share: ['sharing', 'team', 'sharedfolders', 'onboarding'],
   scale: ['scaling', 'standard', 'kosten', 'kerntemperaturen'],
   print: ['logo', 'messy'],
-  allergens: ['allergenen'],
+  allergens: ['allergenen', 'foodcost'],
   cloud: ['database', 'offline'],
   inladen: ['overzetten', 'import'],
-  roadmap: ['roadmap', 'allergenen'],
+  roadmap: ['foodcost', 'roadmap', 'allergenen'],
   chefs: ['choose', 'vergelijking', 'kosten', 'kerntemperaturen', 'sous-vide', 'allergenen'],
-  brigade: ['team', 'onboarding', 'hospitality', 'cijfers', 'kosten', 'allergenen']
+  brigade: ['team', 'onboarding', 'hospitality', 'cijfers', 'kosten', 'foodcost', 'allergenen']
 };
 const FROM_BLOG = { nl: 'Uit het blog', en: 'From the blog', de: 'Aus dem Blog', es: 'Del blog', fr: 'Du blog' };
 const POST_PAGES = {

@@ -345,7 +345,8 @@ function openAllergenCard() {
   const scope = productScopeOf(r);
   const info = recipeAllergenInfo(r, scope);
   const shown = ALLERGENS.filter(([c, , extra]) => !extra || (allergenShown(c, scope) && info.allergens.includes(c)));
-  const short = label => label.replace(/'s$/, '').slice(0, 3);
+  // Afkorting uit de naam in de taal van de kok ("Glu", "Lai"); niet nog eens vertalen.
+  const short = label => (translateText(label) || label).replace(/'s$/, '').slice(0, 3);
   const dot = '<span class="ac-dot" aria-label="bevat"></span>';
   const maybe = '<span class="ac-maybe" aria-label="nog niet zeker">?</span>';
   const codesOf = x =>
@@ -370,14 +371,14 @@ function openAllergenCard() {
     })
     .join('');
   const total = `<tr class="ac-total"><th scope="row">${t('Hele recept')}</th>${shown.map(([c]) => `<td>${info.allergens.includes(c) ? dot : ''}</td>`).join('')}</tr>`;
-  const head = `<tr><th></th>${shown.map(([c, label]) => `<th scope="col" title="${esc(t(label))}"><span>${esc(short(t(label)))}</span></th>`).join('')}</tr>`;
+  const head = `<tr><th></th>${shown.map(([c, label]) => `<th scope="col" title="${esc(t(label))}"><span translate="no">${esc(short(t(label)))}</span></th>`).join('')}</tr>`;
   const note = info.unknown.length
     ? `<p class="ac-note">${icon('alert', { size: 14 })}<span>${t('Nog niet compleet. Bij een vraagteken weet Savour nog niet wat erin zit.')}</span></p>`
     : `<p class="ac-note">${t('Compleet: alle ingrediënten zijn nagekeken.')}</p>`;
   document.getElementById('allergenCard')?.remove();
   document.body.insertAdjacentHTML(
     'beforeend',
-    `<div class="modal sv-dialog open" id="allergenCard" role="dialog" aria-modal="true" aria-labelledby="allergenCardTitle"><div class="sv-dialog-box allergen-card-box">${modalCloseHtml()}<h2 id="allergenCardTitle" class="sv-dialog-title">${t('Allergenenkaart')}</h2><p class="sv-dialog-text" translate="no">${esc(r.title)}</p><div class="ac-wrap"><table class="ac-table"><thead>${head}</thead><tbody>${total}${rows}</tbody></table></div>${note}<p class="ac-legend">${dot} ${t('bevat')} · ${maybe} ${t('nog niet zeker')}</p></div></div>`
+    `<div class="modal sv-dialog open" id="allergenCard" role="dialog" aria-modal="true" aria-labelledby="allergenCardTitle"><div class="sv-dialog-box allergen-card-box">${modalCloseHtml()}<h2 id="allergenCardTitle" class="sv-dialog-title">${t('Allergenenkaart')}</h2><p class="sv-dialog-text" translate="no">${esc(r.title)}</p><div class="ac-wrap"><table class="ac-table"><thead>${head}</thead><tbody>${total}${rows}</tbody></table></div>${note}<p class="ac-legend">${dot} <span>${t('bevat')}</span> · ${maybe} <span>${t('nog niet zeker')}</span></p></div></div>`
   );
   const el = $('allergenCard');
   closableModal(el, () => el.remove());

@@ -1667,6 +1667,12 @@ export const stringsFr = {
  "Dat is meestal geen recept, bijvoorbeeld een webpagina zonder recept. Savour slaat dat recept niet op. De rest opslaan?": "Ce n’est généralement pas une recette, par exemple une page web sans recette. Savour n’enregistre pas cette recette. Enregistrer le reste ?",
  "Dat is meestal geen recept, bijvoorbeeld een webpagina zonder recept. Savour slaat die recepten niet op. De rest opslaan?": "Ce n’est généralement pas une recette, par exemple une page web sans recette. Savour n’enregistre pas ces recettes. Enregistrer le reste ?",
  "De rest opslaan": "Enregistrer le reste",
+ "Standaardcategorieën in je eigen taal": "Catégories par défaut dans ta langue",
+ "Vertalen": "Traduire",
+ "Standaardcategorieën in je eigen taal?": "Catégories par défaut dans ta langue ?",
+ "Een deel van je categorieën heeft de standaardnaam in een andere taal. Savour kan ze in de taal zetten die je nu gebruikt. Je recepten blijven in dezelfde categorie en je eigen trefwoorden blijven staan.": "Certaines de tes catégories ont le nom par défaut dans une autre langue. Savour peut les mettre dans la langue que tu utilises maintenant. Tes recettes restent dans la même catégorie et tes propres mots-clés sont conservés.",
+ "1 categorie vertaald": "1 catégorie traduite",
+ "Categorieën konden niet worden vertaald": "Les catégories n’ont pas pu être traduites",
 };
 export const patternsFr = {
  "^Savour-lijst \\((\\d+)\\)$": "Liste Savour ($1)",
@@ -1875,4 +1881,5 @@ export const patternsFr = {
  "^Een van deze namen hoort nu bij (.+)\\. Na opslaan hoort hij bij (.+)\\.$": "L’un de ces noms appartient maintenant à $1. Après l’enregistrement, il appartiendra à $2.",
  "^(.+) verwijderen\\?$": "Supprimer $1 ?",
  "^(\\d+) recepten hebben geen ingrediënten$": "$1 recettes n’ont aucun ingrédient",
+ "^(\\d+) categorieën vertaald$": "$1 catégories traduites",
 };

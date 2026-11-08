@@ -664,7 +664,7 @@ async function loadProducts() {
   productExtras = new Map();
   if (demoMode) {
     products = demoProducts();
-    setCentralList(DEMO_CENTRAL);
+    setCentralList(demoCentral());
     return;
   }
   products = [];
@@ -708,6 +708,15 @@ function productFromRow(row) {
 }
 
 // Een paar namen uit de Savour-lijst voor de demo: peper telt direct, gelatine vraagt Savour per keuken.
+// demoCentral() geeft ze met de naam in de taal van de demo.
+const DEMO_CENTRAL_NAMES = {
+  peper: { en: 'Pepper', de: 'Pfeffer', es: 'Pimienta', fr: 'Poivre' },
+  gelatine: { es: 'Gelatina', fr: 'Gélatine' }
+};
+function demoCentral() {
+  const lang = typeof currentLanguage === 'undefined' ? 'nl' : currentLanguage;
+  return DEMO_CENTRAL.map(x => ({ ...x, name: DEMO_CENTRAL_NAMES[x.key]?.[lang] || x.name }));
+}
 const DEMO_CENTRAL = [
   {
     key: 'peper',

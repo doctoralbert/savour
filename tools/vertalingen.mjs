@@ -3843,6 +3843,13 @@ export const strings = [
   ["Dat is meestal geen recept, bijvoorbeeld een webpagina zonder recept. Savour slaat dat recept niet op. De rest opslaan?","That is usually not a recipe, for example a web page without a recipe. Savour will not save that recipe. Save the rest?","Das ist meist kein Rezept, zum Beispiel eine Webseite ohne Rezept. Savour speichert dieses Rezept nicht. Den Rest speichern?","Normalmente no es una receta, por ejemplo una página web sin receta. Savour no guardará esa receta. ¿Guardar el resto?"],
   ["Dat is meestal geen recept, bijvoorbeeld een webpagina zonder recept. Savour slaat die recepten niet op. De rest opslaan?","That is usually not a recipe, for example a web page without a recipe. Savour will not save those recipes. Save the rest?","Das ist meist kein Rezept, zum Beispiel eine Webseite ohne Rezept. Savour speichert diese Rezepte nicht. Den Rest speichern?","Normalmente no es una receta, por ejemplo una página web sin receta. Savour no guardará esas recetas. ¿Guardar el resto?"],
   ["De rest opslaan","Save the rest","Den Rest speichern","Guardar el resto"],
+  // ---- Categorieën vertalen (2026-11-08) ----
+  ["Standaardcategorieën in je eigen taal","Default categories in your own language","Standardkategorien in deiner Sprache","Categorías predeterminadas en tu idioma"],
+  ["Vertalen","Translate","Übersetzen","Traducir"],
+  ["Standaardcategorieën in je eigen taal?","Default categories in your own language?","Standardkategorien in deiner Sprache?","¿Categorías predeterminadas en tu idioma?"],
+  ["Een deel van je categorieën heeft de standaardnaam in een andere taal. Savour kan ze in de taal zetten die je nu gebruikt. Je recepten blijven in dezelfde categorie en je eigen trefwoorden blijven staan.","Some of your categories have the default name in another language. Savour can put them in the language you are using now. Your recipes stay in the same category and your own keywords are kept.","Einige deiner Kategorien haben den Standardnamen in einer anderen Sprache. Savour kann sie in die Sprache setzen, die du gerade nutzt. Deine Rezepte bleiben in derselben Kategorie und deine eigenen Stichwörter bleiben erhalten.","Algunas de tus categorías tienen el nombre predeterminado en otro idioma. Savour puede ponerlas en el idioma que usas ahora. Tus recetas siguen en la misma categoría y tus propias palabras clave se mantienen."],
+  ["1 categorie vertaald","1 category translated","1 Kategorie übersetzt","1 categoría traducida"],
+  ["Categorieën konden niet worden vertaald","Categories could not be translated","Kategorien konnten nicht übersetzt werden","No se pudieron traducir las categorías"],
 ];
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
@@ -4385,4 +4392,6 @@ export const patterns = [
   ["^(.+) verwijderen\\?$","Delete $1?","$1 löschen?","¿Eliminar $1?"],
   // ---- Omrekenen en lege import (2026-11-08) ----
   ["^(\\d+) recepten hebben geen ingrediënten$","$1 recipes have no ingredients","$1 Rezepte haben keine Zutaten","$1 recetas no tienen ingredientes"],
+  // ---- Categorieën vertalen (2026-11-08) ----
+  ["^(\\d+) categorieën vertaald$","$1 categories translated","$1 Kategorien übersetzt","$1 categorías traducidas"],
 ];

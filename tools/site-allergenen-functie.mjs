@@ -196,6 +196,12 @@ export const ALLERGEN_FEATURE_RICH = {
         'Het allergenenblok bij een recept in Savour',
         'Bij elk recept',
         'Melk uit de roomboter, sulfiet uit de wijn, en een duidelijke melding als nog niet alles is nagekeken. [Probeer het in de demo](@demo).'
+      ),
+      shot(
+        'allergenenkaart',
+        "De allergenenkaart van een recept in Savour",
+        "De allergenenkaart",
+        "Per ingrediëntregel zie je welke allergenen erin zitten, zodat je in één oogopslag weet waar de melk vandaan komt."
       )
     ],
     faq: [
@@ -216,6 +222,12 @@ export const ALLERGEN_FEATURE_RICH = {
         'The allergen block on a recipe in Savour',
         'On every recipe',
         'Milk from the butter, sulphites from the wine, and a clear note when not everything is checked yet. [Try it in the demo](@demo).'
+      ),
+      shot(
+        'allergenenkaart',
+        "The allergen chart of a recipe in Savour",
+        "The allergen chart",
+        "For each ingredient line you see which allergens it contains, so you know at a glance where the milk comes from."
       )
     ],
     faq: [
@@ -236,6 +248,12 @@ export const ALLERGEN_FEATURE_RICH = {
         'Der Allergenblock bei einem Rezept in Savour',
         'Bei jedem Rezept',
         'Milch aus der Butter, Sulfite aus dem Wein und ein klarer Hinweis, wenn noch nicht alles geprüft ist. [Probier es in der Demo](@demo).'
+      ),
+      shot(
+        'allergenenkaart',
+        "Die Allergenkarte eines Rezepts in Savour",
+        "Die Allergenkarte",
+        "Für jede Zutatenzeile siehst du, welche Allergene darin sind, und weißt auf einen Blick, woher die Milch kommt."
       )
     ],
     faq: [
@@ -256,6 +274,12 @@ export const ALLERGEN_FEATURE_RICH = {
         'El bloque de alérgenos en una receta de Savour',
         'En cada receta',
         'Leche de la mantequilla, sulfitos del vino y un aviso claro cuando aún no está todo revisado. [Pruébalo en la demo](@demo).'
+      ),
+      shot(
+        'allergenenkaart',
+        "La tabla de alérgenos de una receta en Savour",
+        "La tabla de alérgenos",
+        "Para cada línea de ingredientes ves qué alérgenos contiene, y sabes de un vistazo de dónde viene la leche."
       )
     ],
     faq: [
@@ -276,6 +300,12 @@ export const ALLERGEN_FEATURE_RICH = {
         'Le bloc allergènes d’une recette dans Savour',
         'Sur chaque recette',
         'Le lait du beurre, les sulfites du vin, et un avertissement clair quand tout n’est pas encore vérifié. [Essaie dans la démo](@demo).'
+      ),
+      shot(
+        'allergenenkaart',
+        "Le tableau des allergènes d’une recette dans Savour",
+        "Le tableau des allergènes",
+        "Pour chaque ligne d’ingrédient, tu vois les allergènes qu’elle contient et tu sais d’un coup d’œil d’où vient le lait."
       )
     ],
     faq: [

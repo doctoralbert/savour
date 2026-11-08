@@ -1574,3 +1574,21 @@ body.cook-mode .rp-side-note-head button {
     width: 100%;
   }
 }
+
+/* Standaardcategorieën vertalen (Categorieën) */
+.category-translate {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.category-translate p {
+  margin: 4px 0 0;
+}
+@media (max-width: 640px) {
+  .category-translate {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

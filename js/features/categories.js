@@ -4,20 +4,26 @@ function renderCategories() {
   if (!currentUser) return;
   const el = $('categoryPageList');
   if (!el) return;
-  el.innerHTML = categories.length
-    ? categories
-        .map(
-          c =>
-            `<div class="category-page-item"><div><b>${esc(c)}</b><small>${recipes.filter(r => r.category === c).length} recepten</small>${
-              keywordsOf(c).length
-                ? `<div class="category-keywords" translate="no">${keywordsOf(c)
-                    .map(k => `<span>${esc(k)}</span>`)
-                    .join('')}</div>`
-                : '<small class="category-keywords-empty">Geen trefwoorden</small>'
-            }</div><div class="category-page-actions"><button class="btn small" onclick="editCategoryKeywords('${escJs(c)}')">Trefwoorden</button><button class="btn small" onclick="renameCategory('${escJs(c)}')">Naam wijzigen</button><button class="btn small delete-recipe" onclick="removeCategory('${escJs(c)}')">Verwijderen</button></div></div>`
-        )
-        .join('')
-    : `<div class="empty">Nog geen categorieën. Voeg je eerste categorie toe.</div>`;
+  const translations = categoryTranslationsFor();
+  const offer = translations.length
+    ? `<div class="panel category-translate"><div><b>${esc(t('Standaardcategorieën in je eigen taal'))}</b><p class="muted" translate="no">${translations.map(x => `${esc(x.from)} → ${esc(x.to)}`).join(' · ')}</p></div><button type="button" class="btn gold small" onclick="runCategoryTranslation()">${esc(t('Vertalen'))}</button></div>`
+    : '';
+  el.innerHTML =
+    offer +
+    (categories.length
+      ? categories
+          .map(
+            c =>
+              `<div class="category-page-item"><div><b>${esc(c)}</b><small>${recipes.filter(r => r.category === c).length} recepten</small>${
+                keywordsOf(c).length
+                  ? `<div class="category-keywords" translate="no">${keywordsOf(c)
+                      .map(k => `<span>${esc(k)}</span>`)
+                      .join('')}</div>`
+                  : '<small class="category-keywords-empty">Geen trefwoorden</small>'
+              }</div><div class="category-page-actions"><button class="btn small" onclick="editCategoryKeywords('${escJs(c)}')">Trefwoorden</button><button class="btn small" onclick="renameCategory('${escJs(c)}')">Naam wijzigen</button><button class="btn small delete-recipe" onclick="removeCategory('${escJs(c)}')">Verwijderen</button></div></div>`
+          )
+          .join('')
+      : `<div class="empty">Nog geen categorieën. Voeg je eerste categorie toe.</div>`);
 }
 
 async function addCategory() {

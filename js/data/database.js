@@ -271,6 +271,7 @@ async function startDatabaseSession(user) {
       // Vernieuwd of een link naar een recept (/?recept=<id>): dat recept weer openen.
       const recept = new URLSearchParams(location.search).get('recept');
       if (recept && findRecipe(recept)) openRecipe(recept);
+      setTimeout(() => offerCategoryTranslation(), 1500);
       if (window.__teamRoute) {
         window.__teamRoute = false;
         history.replaceState(null, '', location.pathname);

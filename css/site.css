@@ -3863,3 +3863,22 @@ body.savour-light .lang-admin:hover {
   background: rgba(20, 24, 24, 0.07);
   color: var(--sv-text, #111);
 }
+
+/* ---- Brede schermen (2026-11-08): het tekstvlak van de openbare pagina's breder en de letter iets groter, zodat
+   meer van het scherm wordt gebruikt maar een regel prettig leesbaar blijft (rond de 85 tekens). ---- */
+@media (min-width: 1200px) {
+  .site-narrow {
+    max-width: 900px;
+  }
+  .site-article .site-prose {
+    font-size: 18.5px;
+  }
+}
+@media (min-width: 1500px) {
+  .site-narrow {
+    max-width: 980px;
+  }
+  .site-article .site-prose {
+    font-size: 19.5px;
+  }
+}

@@ -50,6 +50,7 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 
 ## Blog
 
+- [Coming soon to Savour: the food cost calculator](https://savour.page/en/blog/food-cost-calculator) · [NL](https://savour.page/blog/foodcost-calculator) · [DE](https://savour.page/de/blog/wareneinsatz-rechner) · [ES](https://savour.page/es/blog/calculadora-food-cost) · [FR](https://savour.page/fr/blog/calculateur-food-cost)
 - [What does a restaurant cost? Food, staff, rent and margin in numbers](https://savour.page/en/blog/restaurant-costs-and-margins) · [NL](https://savour.page/blog/kosten-en-marges-restaurant) · [DE](https://savour.page/de/blog/kosten-und-margen-restaurant) · [ES](https://savour.page/es/blog/costes-y-margenes-restaurante) · [FR](https://savour.page/fr/blog/couts-et-marges-restaurant)
 - [Dutch hospitality in numbers: what 2025 and 2026 say about kitchen work](https://savour.page/en/blog/hospitality-in-numbers) · [NL](https://savour.page/blog/horeca-in-cijfers) · [DE](https://savour.page/de/blog/gastronomie-in-zahlen) · [ES](https://savour.page/es/blog/hosteleria-en-cifras) · [FR](https://savour.page/fr/blog/restauration-en-chiffres)
 - [Allergens in Savour: how it works](https://savour.page/en/blog/allergens-in-savour) · [NL](https://savour.page/blog/allergenen-in-savour) · [DE](https://savour.page/de/blog/allergene-in-savour) · [ES](https://savour.page/es/blog/alergenos-en-savour) · [FR](https://savour.page/fr/blog/allergenes-dans-savour)

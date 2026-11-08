@@ -6,13 +6,71 @@ const PUBLIC_PAGE_IDS = ['about', 'faq', 'guide', 'terms', 'privacy', 'contact',
 // Adres en tabtitel volgen wat je ziet: een recept als /?recept=<id> met de receptnaam in de tab, de rest als /
 // met "Savour". Zo landen vernieuwen en een gekopieerde link op het juiste recept, ook na een gedeelde link
 // (/r/...). Alleen voor de app zelf; openbare pagina's hebben hun eigen adres.
+// Elk scherm krijgt ook een stap in de geschiedenis van de browser, zodat de terugknop (en vegen op de telefoon)
+// naar het vorige scherm of recept gaat in plaats van Savour te verlaten. Bewerken en importeren vervangen hun stap:
+// na opslaan gaat terug dus naar de lijst, niet naar het bewerkscherm.
 const APP_TITLE = document.title;
+const HISTORY_REPLACE_VIEWS = ['editor', 'import'];
+let restoringHistory = false;
 function syncAppAddress(id) {
   if (!currentUser || location.pathname.startsWith('/admin')) return;
   const r = id === 'detail' && currentId ? findRecipe(currentId) : null;
-  const path = !r || r.example ? '/' : r.linkSlug ? `/r/${encodeURIComponent(r.linkSlug)}` : `/?recept=${encodeURIComponent(currentId)}`;
-  if (location.pathname + location.search !== path) history.replaceState(history.state, '', path);
+  const path =
+    !r || r.example
+      ? '/'
+      : r.linkSlug
+        ? `/r/${encodeURIComponent(r.linkSlug)}`
+        : `/?recept=${encodeURIComponent(currentId)}`;
+  const state = {
+    sv: id,
+    r: r ? currentId : null,
+    c: r ? recipeOpenContext : null,
+    s: currentShared ?? null,
+    f: currentFolder ?? null
+  };
+  let now = history.state;
+  // Nog geen eigen stap (net geladen of na een inloglink) en je opent een recept: eerst de lijst als stap ervoor.
+  if (!now?.sv && id === 'detail' && !restoringHistory) {
+    now = {
+      sv: typeof recipeReturnView === 'string' ? recipeReturnView : 'recipes',
+      r: null,
+      c: null,
+      s: state.s,
+      f: state.f
+    };
+    try {
+      history.replaceState(now, '', '/');
+    } catch (_) {}
+  }
+  const same =
+    now?.sv === state.sv &&
+    String(now?.r ?? '') === String(state.r ?? '') &&
+    String(now?.f ?? '') === String(state.f ?? '') &&
+    String(now?.s ?? '') === String(state.s ?? '');
+  const replace =
+    restoringHistory ||
+    !now?.sv ||
+    same ||
+    HISTORY_REPLACE_VIEWS.includes(id) ||
+    HISTORY_REPLACE_VIEWS.includes(now.sv);
+  try {
+    if (replace) history.replaceState(state, '', path);
+    else history.pushState(state, '', path);
+  } catch (_) {}
   document.title = r ? `${r.title} · Savour` : APP_TITLE;
+}
+
+// Terug of vooruit in de browser: het scherm uit die stap weer openen.
+function restoreHistoryView(state) {
+  restoringHistory = true;
+  try {
+    currentShared = state.s ?? null;
+    currentFolder = state.f ?? null;
+    if (state.sv === 'detail' && state.r && findRecipe(state.r)) openRecipe(state.r, state.c || 'library');
+    else go(state.sv === 'detail' ? 'recipes' : state.sv);
+  } finally {
+    restoringHistory = false;
+  }
 }
 
 // Centrale navigatie: activeert een weergave in de app en tekent de inhoud ervan.

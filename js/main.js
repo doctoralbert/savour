@@ -37,7 +37,8 @@ document.addEventListener('keydown', e => {
 });
 
 // Terug/vooruit in de browser: de actieve weergave opnieuw tekenen.
-window.addEventListener('popstate', () => {
+window.addEventListener('popstate', e => {
+  if (currentUser && e.state?.sv && $('appShell')?.style.display !== 'none') return restoreHistoryView(e.state);
   const active = document.querySelector('#appShell .view.active')?.id;
   if (currentUser && active) renderActiveView(active);
 });

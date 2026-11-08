@@ -163,6 +163,8 @@ async function setLanguage(lang) {
   window.refreshExampleLanguage?.();
   // In de demo: de proefrecepten in de nieuwe taal (js/features/demo.js).
   window.refreshDemoLanguage?.();
+  // Ingelogd: vragen of de standaardcategorieën mee mogen naar de nieuwe taal (js/data/default-categories.js).
+  window.offerCategoryTranslation?.();
 }
 
 // Taalknop (NL/EN/DE/ES/FR) op alle plekken met [data-lang-switch].

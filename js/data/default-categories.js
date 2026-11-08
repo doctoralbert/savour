@@ -624,10 +624,16 @@ const DEFAULT_CATEGORY_I18N = {
     fr: ['Garde-manger', ['salade', 'terrine', 'tartare', 'carpaccio']]
   },
   'Vis & schaaldieren': {
-    en: ['Fish & seafood', ['fish', 'salmon', 'cod', 'prawn', 'shrimp', 'lobster', 'scallop', 'mussels', 'oyster', 'crab']],
+    en: [
+      'Fish & seafood',
+      ['fish', 'salmon', 'cod', 'prawn', 'shrimp', 'lobster', 'scallop', 'mussels', 'oyster', 'crab']
+    ],
     de: ['Fisch & Meeresfrüchte', ['fisch', 'lachs', 'kabeljau', 'garnele', 'hummer', 'jakobsmuschel', 'muscheln']],
     es: ['Pescados y mariscos', ['pescado', 'salmón', 'bacalao', 'gamba', 'langosta', 'vieira', 'mejillones']],
-    fr: ['Poissons et fruits de mer', ['poisson', 'saumon', 'cabillaud', 'crevette', 'homard', 'saint-jacques', 'moules']]
+    fr: [
+      'Poissons et fruits de mer',
+      ['poisson', 'saumon', 'cabillaud', 'crevette', 'homard', 'saint-jacques', 'moules']
+    ]
   },
   Vlees: {
     en: ['Meat', ['beef', 'pork', 'lamb', 'veal', 'steak', 'ribs', 'brisket']],
@@ -693,16 +699,89 @@ function defaultCategoriesFor(lang = typeof currentLanguage === 'undefined' ? 'n
   });
 }
 
+// Standaardcategorieën die nog de naam uit een andere taal hebben (bijv. "Soepen" terwijl je Savour in het Engels
+// gebruikt): [{ from, to, keywords }]. Alleen als de naam in jouw taal nog niet bestaat.
+function categoryTranslationsFor(lang = typeof currentLanguage === 'undefined' ? 'nl' : currentLanguage) {
+  const target = defaultCategoriesFor(lang);
+  return DEFAULT_CATEGORIES.map((c, i) => {
+    const names = [c.name, ...Object.values(DEFAULT_CATEGORY_I18N[c.name] || {}).map(x => x[0])];
+    const to = target[i].name;
+    const from = categories.find(n => n !== to && names.includes(n));
+    return from && !categories.includes(to) ? { from, to, keywords: target[i].keywords } : null;
+  }).filter(Boolean);
+}
+
+// Zet die categorieën in de taal die je nu gebruikt. De recepten blijven in dezelfde categorie (ze hangen aan het id),
+// je eigen trefwoorden blijven staan en die van de nieuwe taal komen erbij. Alleen na een ja van de gebruiker.
+async function translateCategories(list = categoryTranslationsFor()) {
+  if (!currentUser || !list.length) return 0;
+  if (demoMode) {
+    for (const x of list) {
+      categories = categories.map(n => (n === x.from ? x.to : n));
+      recipes.forEach(r => r.category === x.from && (r.category = x.to));
+      categoryKeywords[x.to] = [...new Set([...(categoryKeywords[x.from] || []), ...x.keywords])];
+      delete categoryKeywords[x.from];
+    }
+  } else {
+    const { data, error } = await loadCategoryRows();
+    if (error) throw error;
+    for (const x of list) {
+      const row = (data || []).find(c => c.name === x.from);
+      if (!row) continue;
+      const update = { name: x.to };
+      if (Array.isArray(row.keywords)) update.keywords = [...new Set([...row.keywords, ...x.keywords])];
+      const res = await supabaseClient.from('categories').update(update).eq('id', row.id).eq('user_id', currentUser.id);
+      if (res.error) throw res.error;
+    }
+    await loadDatabaseState();
+  }
+  renderCategoryBar();
+  renderCategories();
+  if (document.querySelector('#recipes.view.active')) renderRecipes();
+  return list.length;
+}
+
+// Na het wisselen van taal of het inloggen: één keer per taal vragen of de standaardcategorieën mee mogen.
+async function offerCategoryTranslation() {
+  if (!currentUser || demoMode) return;
+  const lang = currentLanguage;
+  const key = `savour_cat_lang_asked_${lang}`;
+  try {
+    if (localStorage.getItem(key)) return;
+  } catch (_) {}
+  if (!categoryTranslationsFor(lang).length) return;
+  try {
+    localStorage.setItem(key, '1');
+  } catch (_) {}
+  const ok = await askConfirm(
+    'Standaardcategorieën in je eigen taal?\n\nEen deel van je categorieën heeft de standaardnaam in een andere taal. Savour kan ze in de taal zetten die je nu gebruikt. Je recepten blijven in dezelfde categorie en je eigen trefwoorden blijven staan.',
+    { confirmLabel: 'Vertalen' }
+  );
+  if (ok) await runCategoryTranslation();
+}
+
+async function runCategoryTranslation() {
+  try {
+    const n = await translateCategories();
+    if (n) toast(n === 1 ? '1 categorie vertaald' : `${n} categorieën vertaald`);
+  } catch (e) {
+    console.error(e);
+    toast('Categorieën konden niet worden vertaald');
+  }
+}
+
 // Voegt de standaardcategorieën toe die nog ontbreken. Bestaat een categorie al zonder trefwoorden,
 // dan krijgt die de standaardtrefwoorden; eigen trefwoorden blijven altijd staan.
 async function addDefaultCategories(existing = []) {
   const byName = new Map(existing.map(c => [c.name, c]));
   const defaults = defaultCategoriesFor();
-  const missing = defaults.filter(c => !byName.has(c.name)).map(c => ({
-    user_id: currentUser.id,
-    name: c.name,
-    keywords: c.keywords
-  }));
+  const missing = defaults
+    .filter(c => !byName.has(c.name))
+    .map(c => ({
+      user_id: currentUser.id,
+      name: c.name,
+      keywords: c.keywords
+    }));
   if (missing.length) {
     let { error } = await supabaseClient.from('categories').insert(missing);
     // Zonder de trefwoorden-kolom (SQL nog niet uitgevoerd) alleen de namen toevoegen.
