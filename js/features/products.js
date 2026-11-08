@@ -480,15 +480,34 @@ function loadIngredientBase() {
 // verbinding, in de demo of voordat de tabel bestaat: gewoon de vaste lijst.
 function approvedIngredients() {
   if (demoMode || typeof supabaseClient === 'undefined') return Promise.resolve(null);
-  return supabaseClient
-    .from('ingredient_list')
-    .select('key,name,head,aliases,allergens')
-    .eq('status', 'approved')
-    .limit(10000)
-    .then(
-      ({ data, error }) => (error ? null : data),
-      () => null
-    );
+  return loadIngredientList().then(rows => (rows ? rows.filter(x => x.status === 'approved') : null));
+}
+
+// De hele Savour-lijst (goedgekeurd en "geen ingrediënt"), één keer per bezoek. De database geeft per vraag hooguit
+// 1000 rijen; daarom in stukken, tegelijk opgehaald.
+let ingredientListLoading = null;
+function loadIngredientList() {
+  if (ingredientListLoading) return ingredientListLoading;
+  const page = 1000;
+  const query = () =>
+    supabaseClient
+      .from('ingredient_list')
+      .select('key,name,head,aliases,allergens,status', { count: 'exact' })
+      .in('status', ['approved', 'junk'])
+      .order('id');
+  ingredientListLoading = query()
+    .range(0, page - 1)
+    .then(async first => {
+      if (first.error) return null;
+      const pages = Math.ceil((first.count || 0) / page);
+      const rest = await Promise.all(
+        Array.from({ length: Math.max(0, pages - 1) }, (_, i) => query().range((i + 1) * page, (i + 2) * page - 1))
+      );
+      return [...(first.data || []), ...rest.flatMap(r => r.data || [])];
+    })
+    .catch(() => null);
+  ingredientListLoading.then(rows => rows || (ingredientListLoading = null));
+  return ingredientListLoading;
 }
 
 // Zoekt een naam in de basislijst: eerst de hele naam, dan een deel ervan, van achteren ("koude roomboter" →
@@ -657,15 +676,11 @@ async function loadProducts() {
       .order('name'),
     supabaseClient.from('product_settings').select('user_id,team_id,allergen_extras'),
     supabaseClient.from('ingredient_feedback').select('key').eq('kind', 'not_ingredient'),
-    supabaseClient
-      .from('ingredient_list')
-      .select('key,name,aliases,allergens,status')
-      .in('status', ['approved', 'junk'])
-      .limit(20000)
+    loadIngredientList()
   ]);
   notIngredientOwn = new Set((own.data || []).map(x => x.key));
-  notIngredientAll = new Set((all.data || []).filter(x => x.status === 'junk').map(x => x.key));
-  setCentralList(all.data || []);
+  notIngredientAll = new Set((all || []).filter(x => x.status === 'junk').map(x => x.key));
+  setCentralList(all || []);
   productSettingsReady = !settings.error;
   (settings.data || []).forEach(row =>
     productExtras.set(

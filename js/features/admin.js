@@ -2129,6 +2129,7 @@ async function loadAdminIngredients() {
     // Opnieuw laden, zodat net goedgekeurde namen meetellen.
     ingredientBase = null;
     ingredientBaseLoading = null;
+    ingredientListLoading = null;
     const [data, , langIndex] = await Promise.all([
       adminApi('ingredient_candidates'),
       loadIngredientBase(),
