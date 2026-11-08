@@ -415,6 +415,7 @@ function renderAdminStats() {
       ['Mobiel web', d.platform_mobile],
       ['Native app', d.platform_app]
     ]);
+  adminRenderCountries(d.countries || []);
   // Herkomst: per groep (direct, gedeelde links, social media, ...) de bronnen, met een balkje ten opzichte van de
   // grootste bron. De groep met de meeste bezoekers bovenaan.
   const sb = $('adminSourcesBody');
@@ -2558,4 +2559,171 @@ function adminReadIngredient(key) {
   }
   if (s === key || !s) return null;
   return { name: capitalizeFirst(s), known: false, allergens: withDerived(s, allergenHints(s)) };
+}
+
+// ---- Bezoekers per land (2026-11-08): welke taal Savour hierna zou kunnen krijgen ----
+// Het land komt uit de tijdzone van de browser (js/country.js). Per land de taal die er het meest gesproken wordt;
+// in landen met meer talen (België, Zwitserland, Canada) staat de eerste taal die Savour al heeft.
+const SAVOUR_LANGS = ['nl', 'en', 'de', 'es', 'fr'];
+const ADMIN_COUNTRY_LANG = {
+  NL: 'nl',
+  BE: 'nl',
+  SR: 'nl',
+  CW: 'nl',
+  AW: 'nl',
+  US: 'en',
+  GB: 'en',
+  IE: 'en',
+  AU: 'en',
+  NZ: 'en',
+  CA: 'en',
+  ZA: 'en',
+  IN: 'en',
+  PK: 'en',
+  NG: 'en',
+  KE: 'en',
+  GH: 'en',
+  PH: 'en',
+  SG: 'en',
+  MT: 'en',
+  JM: 'en',
+  DE: 'de',
+  AT: 'de',
+  CH: 'de',
+  LI: 'de',
+  ES: 'es',
+  MX: 'es',
+  AR: 'es',
+  CO: 'es',
+  CL: 'es',
+  PE: 'es',
+  VE: 'es',
+  EC: 'es',
+  UY: 'es',
+  PY: 'es',
+  BO: 'es',
+  CR: 'es',
+  PA: 'es',
+  DO: 'es',
+  GT: 'es',
+  HN: 'es',
+  SV: 'es',
+  NI: 'es',
+  CU: 'es',
+  PR: 'es',
+  FR: 'fr',
+  LU: 'fr',
+  MC: 'fr',
+  SN: 'fr',
+  CI: 'fr',
+  CM: 'fr',
+  MA: 'fr',
+  TN: 'fr',
+  DZ: 'fr',
+  PT: 'pt',
+  BR: 'pt',
+  AO: 'pt',
+  MZ: 'pt',
+  IT: 'it',
+  SM: 'it',
+  PL: 'pl',
+  CZ: 'cs',
+  SK: 'sk',
+  HU: 'hu',
+  RO: 'ro',
+  MD: 'ro',
+  BG: 'bg',
+  GR: 'el',
+  CY: 'el',
+  HR: 'hr',
+  RS: 'sr',
+  SI: 'sl',
+  BA: 'bs',
+  ME: 'sr',
+  MK: 'mk',
+  AL: 'sq',
+  SE: 'sv',
+  NO: 'nb',
+  DK: 'da',
+  FI: 'fi',
+  IS: 'is',
+  EE: 'et',
+  LV: 'lv',
+  LT: 'lt',
+  RU: 'ru',
+  UA: 'uk',
+  BY: 'ru',
+  KZ: 'ru',
+  TR: 'tr',
+  IL: 'he',
+  SA: 'ar',
+  AE: 'ar',
+  EG: 'ar',
+  QA: 'ar',
+  KW: 'ar',
+  JO: 'ar',
+  LB: 'ar',
+  IQ: 'ar',
+  OM: 'ar',
+  BH: 'ar',
+  IR: 'fa',
+  CN: 'zh',
+  HK: 'zh',
+  TW: 'zh',
+  MO: 'zh',
+  JP: 'ja',
+  KR: 'ko',
+  TH: 'th',
+  VN: 'vi',
+  ID: 'id',
+  MY: 'ms',
+  BD: 'bn',
+  LK: 'si',
+  NP: 'ne'
+};
+const adminLanguageNames = (() => {
+  try {
+    return new Intl.DisplayNames(['nl'], { type: 'language' });
+  } catch (_) {
+    return null;
+  }
+})();
+const adminLangName = code => (code ? adminLanguageNames?.of(code) || code : 'Onbekend');
+
+function adminRenderCountries(countries) {
+  const body = $('adminCountriesBody');
+  if (!body) return;
+  const max = Math.max(1, ...countries.map(x => x.all));
+  body.innerHTML =
+    countries
+      .map(x => {
+        const lang = ADMIN_COUNTRY_LANG[x.country] || '';
+        const has = SAVOUR_LANGS.includes(lang);
+        const name = x.country ? adminCountryNames?.of(x.country) || x.country : 'Onbekend';
+        return `<tr><td>${adminFlag(x.country)} ${adminEscape(name)}</td><td class="admin-source-bar"><i style="width:${Math.round((x.all / max) * 100)}%"></i></td><td>${adminEscape(lang ? adminLangName(lang) : '—')}${lang ? (has ? ' <span class="admin-badge gift">in Savour</span>' : ' <span class="admin-badge warn">nog niet</span>') : ''}</td><td>${adminEscape(x.week)}</td><td>${adminEscape(x.month)}</td><td><b>${adminEscape(x.all)}</b></td></tr>`;
+      })
+      .join('') || '<tr><td colspan="6">Nog geen bezoekers met een land.</td></tr>';
+  // Talen die Savour nog niet heeft, opgeteld over de landen: de kandidaten voor een nieuwe taal.
+  const missing = new Map();
+  for (const x of countries) {
+    const lang = ADMIN_COUNTRY_LANG[x.country];
+    if (!lang || SAVOUR_LANGS.includes(lang)) continue;
+    const row = missing.get(lang) || { lang, all: 0, month: 0, countries: [] };
+    row.all += x.all;
+    row.month += x.month;
+    row.countries.push(x.country);
+    missing.set(lang, row);
+  }
+  const top = [...missing.values()].sort((a, b) => b.all - a.all);
+  const sum = $('adminLangCandidates');
+  if (sum)
+    sum.innerHTML = top.length
+      ? `<b>Talen die Savour nog niet heeft:</b> ${top
+          .slice(0, 6)
+          .map(
+            x =>
+              `${adminEscape(adminLangName(x.lang))} <span class="admin-muted">${adminEscape(x.all)} bezoekers, ${adminEscape(x.month)} deze maand (${adminEscape(x.countries.join(', '))})</span>`
+          )
+          .join(' · ')}`
+      : 'Alle bezoekers komen uit landen met een taal die Savour al heeft.';
 }

@@ -3,7 +3,7 @@
 export const EXTRA_FR = {
   ui: {
     home: '/fr', features: 'Fonctions', audience: 'Pour qui', pricing: 'Tarifs', about: 'À propos', blog: 'Blog', login: 'Se connecter', start: 'Essai gratuit',
-    demo: 'Voir la démo', demoNote: "40 recettes d'exemple, sans compte", menu: 'Menu', close: 'Fermer',
+    demo: 'Voir la démo', demoNote: "20 vraies recettes, sans compte", menu: 'Menu', close: 'Fermer',
     featuresIntro: "Tout ce que Savour fait pour toi en cuisine, de la première note griffonnée à la feuille au mur.",
     audienceIntro: 'Fait pour la cuisine professionnelle, du chef au stagiaire.',
     related: 'À lire aussi',

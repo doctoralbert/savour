@@ -349,10 +349,22 @@ async function visitorStats(ownIds = []) {
     if (new Date(p.last) > weekAgo) row.week++;
     bySource.set(name, row);
   }
+  // Landen: unieke bezoekers per land (geschat uit de tijdzone van de browser, js/country.js), all time, deze maand
+  // en deze week (op hun laatste bezoek). Voor de keuze welke taal Savour hierna krijgt.
+  const byCountry = new Map();
+  for (const p of people.values()) {
+    const code = String(p.country || '').toUpperCase() || '';
+    const row = byCountry.get(code) || { country: code, all: 0, month: 0, week: 0 };
+    row.all++;
+    if (amsterdamDay(p.last).startsWith(month)) row.month++;
+    if (new Date(p.last) > weekAgo) row.week++;
+    byCountry.set(code, row);
+  }
   return {
     days,
     stats: {
       sources: [...bySource.values()].sort((a, b) => b.all - a.all || b.month - a.month),
+      countries: [...byCountry.values()].sort((a, b) => b.all - a.all || b.month - a.month),
       visitors_all_time: unique(rows),
       visits_today: perDay.get(today)?.size || 0,
       visits_week: unique(rows.filter(v => new Date(v.visited_at) > weekAgo)),

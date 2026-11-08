@@ -957,3 +957,11 @@
   border-color: var(--sv-gold, #e8ca8d);
   color: var(--sv-gold, #e8ca8d);
 }
+
+.admin-muted {
+  color: var(--sv-text-3, #87918b);
+  font-size: 12px;
+}
+#adminLangCandidates b {
+  color: var(--sv-text, #eee8dc);
+}

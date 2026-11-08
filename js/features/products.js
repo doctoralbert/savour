@@ -329,10 +329,82 @@ function setCentralList(rows) {
 }
 // Het ingrediënt uit de Savour-lijst voor een naam, of null. Per merk verschillend: nog niet bevestigd.
 function centralProduct(key, scope) {
-  const p = centralIndex.get(key);
-  if (!p) return null;
+  const hit = centralIndex.get(key) ? { p: centralIndex.get(key), sure: true } : centralNear(key);
+  if (!hit) return null;
+  const { p, sure } = hit;
   const brand = BRAND_DEPENDENT.test(key) || BRAND_DEPENDENT.test(productKey(p.name));
-  return { ...p, scope, known: !brand, brand };
+  return { ...p, scope, known: sure && !brand, brand };
+}
+
+// Staat een naam niet letterlijk in de Savour-lijst, dan zoekt Savour verder (2026-11-08):
+//   zeker (telt meteen): het enkelvoud ("carrots" → carrot, "egg yolks" → egg yolk) en de naam zonder toevoeging
+//     erachter ("zalmfilet met vel" → zalmfilet, "demerara sugar for glazing" → demerara sugar);
+//   niet zeker (voorstel, de kok kijkt het na): zonder woorden ervoor ("rijpe trostomaten" → trostomaten,
+//     "plain flour" → flour). Zo telt kokosmelk nooit stilletjes als melk.
+const CENTRAL_TAIL =
+  /\s(?:met|zonder|voor|om|van|with|without|for|to|mit|ohne|für|zum|zur|con|sin|para|avec|sans|pour)\s.*$/;
+// Bijvoeglijke woorden ervoor die het ingrediënt niet veranderen: weglaten is zeker ("glatte petersilie").
+const CENTRAL_SAFE_WORDS = new Set(
+  (
+    'vers verse koud koude warm warme rijp rijpe fijne grove droog droge zachte ' +
+    'fresh cold warm ripe plain strong flat-leaf soft dried ' +
+    'frisch frische frischer kalt kaltes kalte reif reife weich weiche glatt glatte ' +
+    'fresco fresca frescos frescas frío fría maduro madura maduros maduras ' +
+    'frais fraîche froid froide mûr mûre mûres plat plate liso lisa ' +
+    // Bereid of afgemeten, maar hetzelfde ingrediënt: "grated ginger", "pincée de sel", "gemahlene Mandeln".
+    'geraspte geraspt gemalen gehakte snuf snufje grated crushed ground chopped pinch of ' +
+    'geriebener geriebene gemahlene gemahlen zerstoßene gehackte prise ' +
+    'rallado rallada molido molida machacada machacado picado picada pizca de ' +
+    'râpé râpée concassé concassée moulu moulue haché hachée pincée'
+  ).split(' ')
+);
+// Enkelvoud van één woord (Engels, Spaans, Frans: -s/-es; Nederlands, Duits: -en/-n/-e).
+function singularsOf(last) {
+  const forms = new Set([last]);
+  if (last.length > 3) {
+    if (/ies$/.test(last)) forms.add(last.replace(/ies$/, 'y'));
+    if (/(?:ch|sh|ss|x|o)es$/.test(last)) forms.add(last.replace(/es$/, ''));
+    if (/s$/.test(last) && !/ss$/.test(last)) forms.add(last.replace(/s$/, ''));
+    if (/en$/.test(last)) forms.add(last.replace(/en$/, ''));
+    if (/([bcdfgklmnprstvz])\1en$/.test(last)) forms.add(last.replace(/([bcdfgklmnprstvz])\1en$/, '$1'));
+    if (/n$/.test(last)) forms.add(last.replace(/n$/, ''));
+    if (/e$/.test(last)) forms.add(last.replace(/e$/, ''));
+    if (/eren$/.test(last)) forms.add(last.replace(/eren$/, 'eer'));
+  }
+  return [...forms];
+}
+// Alle vormen van een naam: het eerste en het laatste woord in enkelvoud ("yemas de huevo" → yema de huevo).
+function centralSingulars(phrase) {
+  const words = phrase.split(' ');
+  const out = new Set();
+  const firsts = singularsOf(words[0]);
+  const lasts = words.length > 1 ? singularsOf(words[words.length - 1]) : [''];
+  for (const a of firsts)
+    for (const b of lasts) out.add(words.length > 1 ? [a, ...words.slice(1, -1), b].join(' ') : a);
+  return [...out];
+}
+function centralNear(key) {
+  if (!key || !centralIndex.size) return null;
+  const find = phrase =>
+    centralSingulars(phrase)
+      .map(k => centralIndex.get(k))
+      .find(Boolean);
+  // Ook bijvoeglijke woorden erachter, zoals in het Spaans en Frans: "jengibre rallado", "persil plat", "agua fría".
+  const tail = key.replace(CENTRAL_TAIL, '').trim().split(' ');
+  while (tail.length > 1 && CENTRAL_SAFE_WORDS.has(tail[tail.length - 1])) tail.pop();
+  const base = tail.join(' ');
+  for (const phrase of base === key ? [key] : [key, base]) {
+    const p = find(phrase);
+    if (p) return { p, sure: true };
+  }
+  const words = base.split(' ');
+  for (let i = 1; i < words.length; i++) {
+    const phrase = words.slice(i).join(' ');
+    if (phrase.length < 3) continue;
+    const p = find(phrase);
+    if (p) return { p, sure: words.slice(0, i).every(w => CENTRAL_SAFE_WORDS.has(w)) };
+  }
+  return null;
 }
 const learnedNotIngredient = key => notIngredientOwn.has(key) || notIngredientAll.has(key);
 // Geen ingrediënt: een stukje uitleg of bereiding (vaste regels in product-families.js) of geleerd.
@@ -605,6 +677,8 @@ function productKey(text) {
 function computeProductKey(text) {
   let s = text
     .toLocaleLowerCase('nl-NL')
+    // Krul-apostrof en gewone apostrof zijn hetzelfde: "d’œuf" = "d'œuf".
+    .replace(/[’‘`´]/g, "'")
     .replace(/\([^)]*\)?/g, ' ')
     .split(/[,;|]/)[0]
     .replace(PRODUCT_AMOUNT_WORDS, ' ')

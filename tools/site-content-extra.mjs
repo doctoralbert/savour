@@ -5,7 +5,7 @@ export const EXTRA_LANGS = {
   de: {
     ui: {
       home: '/de', features: 'Funktionen', audience: 'Für wen', pricing: 'Preise', about: 'Über uns', blog: 'Blog', login: 'Anmelden', start: 'Kostenlos starten',
-      demo: 'Demo ansehen', demoNote: '40 Beispielrezepte, kein Konto nötig', menu: 'Menü', close: 'Schließen',
+      demo: 'Demo ansehen', demoNote: '20 echte Rezepte, kein Konto nötig', menu: 'Menü', close: 'Schließen',
       featuresIntro: 'Alles, was Savour in der Küche für dich tut, von der ersten Notiz bis zum Ausdruck an der Wand.',
       audienceIntro: 'Gemacht für die Profiküche, vom Küchenchef bis zum Praktikanten.',
       related: 'Siehe auch',
@@ -72,7 +72,7 @@ export const EXTRA_LANGS = {
   es: {
     ui: {
       home: '/es', features: 'Funciones', audience: 'Para quién', pricing: 'Precios', about: 'Sobre nosotros', blog: 'Blog', login: 'Iniciar sesión', start: 'Empieza gratis',
-      demo: 'Ver la demo', demoNote: '40 recetas de ejemplo, sin cuenta', menu: 'Menú', close: 'Cerrar',
+      demo: 'Ver la demo', demoNote: '20 recetas reales, sin cuenta', menu: 'Menú', close: 'Cerrar',
       featuresIntro: 'Todo lo que Savour hace por ti en la cocina, desde la primera nota hasta la hoja en la pared.',
       audienceIntro: 'Hecho para la cocina profesional, del jefe de cocina al becario.',
       related: 'Relacionado',

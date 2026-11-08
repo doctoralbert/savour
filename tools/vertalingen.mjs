@@ -13,7 +13,7 @@ export const strings = [
   ["Savour is een app en website om je recepten te organiseren. Al je recepturen uit Word, PDF en handgeschreven kladjes komen in één receptenboek, voor jou en je hele brigade.","Savour is an app and website to organise your recipes. All your recipes from Word, PDF and handwritten notes come together in one recipe book, for you and your whole brigade.","Savour ist eine App und Website, um deine Rezepte zu organisieren. Alle deine Rezepturen aus Word, PDF und handschriftlichen Notizen landen in einem Rezeptbuch, für dich und deine ganze Brigade.","Savour es una app y web para organizar tus recetas. Todas tus recetas de Word, PDF y notas escritas a mano en un solo recetario, para ti y toda tu brigada."],
   ["1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.","1,400 recipes imported from Word in 2 minutes. Tested in our own kitchen.","1.400 Rezepte in 2 Minuten aus Word importiert. Getestet in unserer eigenen Küche.","1.400 recetas importadas de Word en 2 minutos. Probado en nuestra propia cocina."],
   ["Gratis beginnen","Start for free","Kostenlos starten","Empieza gratis"],
-  ["40 proefrecepten, geen account nodig","40 sample recipes, no account needed","40 Beispielrezepte, kein Konto nötig","40 recetas de ejemplo, sin cuenta"],
+  ["20 echte recepten, geen account nodig","20 real recipes, no account needed","20 echte Rezepte, kein Konto nötig","20 recetas reales, sin cuenta"],
   ["Recepten digitaliseren zonder overtypen","Digitise your recipes without retyping","Rezepte digitalisieren ohne Abtippen","Digitaliza tus recetas sin volver a escribirlas"],
   ["We zijn zelf chefs. Onze recepten lagen jarenlang overal: in Word-bestanden van honderden pagina's, op papiertjes met koffievlekken aan de muur, op foto's in drie verschillende telefoons.","We are chefs ourselves. For years our recipes were everywhere: in Word files hundreds of pages long, on coffee-stained notes on the wall, in photos on three different phones.","Wir sind selbst Köche. Unsere Rezepte lagen jahrelang überall: in Word-Dateien mit Hunderten Seiten, auf Zetteln mit Kaffeeflecken an der Wand, auf Fotos in drei verschiedenen Handys.","Somos chefs. Durante años nuestras recetas estaban por todas partes: en archivos de Word de cientos de páginas, en papeles con manchas de café en la pared, en fotos en tres móviles distintos."],
   ["Met Savour zet je dat in één keer om. Sleep je Word-bestand of PDF erin en Savour herkent zelf de titels, ingrediënten en bereiding. Een foto van een handgeschreven recept leest de AI voor je uit. Hoeveelheden worden nooit verzonnen: twijfelt Savour, dan zie je dat meteen en kijk je het zelf na.","With Savour you convert it all in one go. Drop in your Word file or PDF and Savour recognises the titles, ingredients and method itself. A photo of a handwritten recipe is read for you by AI. Quantities are never made up: if Savour is unsure, you see it straight away and check it yourself.","Mit Savour wandelst du das in einem Schritt um. Zieh deine Word-Datei oder PDF hinein und Savour erkennt Titel, Zutaten und Zubereitung selbst. Ein Foto eines handgeschriebenen Rezepts liest die KI für dich aus. Mengen werden nie erfunden: Ist Savour unsicher, siehst du das sofort und prüfst es selbst.","Con Savour lo conviertes todo de una vez. Arrastra tu archivo de Word o PDF y Savour reconoce solo los títulos, ingredientes y elaboración. La IA lee por ti la foto de una receta escrita a mano. Nunca se inventan cantidades: si Savour duda, lo ves enseguida y lo revisas tú."],
@@ -111,10 +111,10 @@ export const strings = [
     'Cuenta demo · no se guarda nada'
   ],
   [
-    'Demo geladen · 40 proefrecepten',
-    'Demo loaded · 40 sample recipes',
-    'Demo geladen · 40 Beispielrezepte',
-    'Demo cargada · 40 recetas de ejemplo'
+    'Demo geladen · 20 echte recepten',
+    'Demo loaded · 20 real recipes',
+    'Demo geladen · 20 echte Rezepte',
+    'Demo cargada · 20 recetas reales'
   ],
   ['Demo-recept verwijderd', 'Demo recipe deleted', 'Demorezept gelöscht', 'Receta demo eliminada'],
   ['Jij', 'You', 'Du', 'Tú'],
@@ -3016,10 +3016,10 @@ export const strings = [
   ['Direct bekijken', 'See it now', 'Direkt ansehen', 'Verlo ahora'],
   ['Bekijk de demo', 'View the demo', 'Demo ansehen', 'Ver la demo'],
   [
-    '40 proefrecepten · A–Z · mappen · categorieën',
-    '40 sample recipes · A–Z · folders · categories',
-    '40 Beispielrezepte · A–Z · Ordner · Kategorien',
-    '40 recetas de ejemplo · A–Z · carpetas · categorías'
+    '20 echte recepten · A–Z · mappen · categorieën',
+    '20 real recipes · A–Z · folders · categories',
+    '20 echte Rezepte · A–Z · Ordner · Kategorien',
+    '20 recetas reales · A–Z · carpetas · categorías'
   ],
   [
     'Recepten zoals ze in een professionele keuken horen.',
