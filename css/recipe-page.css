@@ -1516,55 +1516,74 @@ body.cook-mode .rp-side-note-head button {
   margin: 10px 0 0;
   color: var(--sv-text-3);
   font-size: var(--sv-fs-xs);
+}
 
-/* Omrekenen (2026-11-08): eigen factor in een klein vakje en een knopje naar Meer omrekenen. */
-.rp-factor-own {
+/* Omrekenen (2026-11-08): eigen factor in een vakje zo groot als de knoppen, met alleen "×" rechts. Het woord
+   "Omrekenen" ervoor opent Meer omrekenen. */
+.rp-multipliers .rp-factor-own {
   display: inline-flex;
   align-items: center;
   gap: 2px;
+  width: 64px;
   height: 36px;
-  padding: 0 8px;
+  padding: 0 10px;
   border: 1px solid var(--sv-line-strong);
+  background: transparent;
   color: var(--sv-text-2);
   font-weight: 600;
+  cursor: text;
 }
-.rp-factor-own input {
-  width: 42px;
+.rp-multipliers .rp-factor-own input,
+#appShell .rp-multipliers .rp-factor-own input,
+body.cook-mode .rp-multipliers .rp-factor-own input {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
   height: 100%;
-  border: 0 !important;
-  background: transparent !important;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   color: var(--sv-text);
   font: inherit;
   font-weight: 600;
   text-align: right;
-  padding: 0 !important;
-  min-height: 0 !important;
-  box-shadow: none !important;
+  -webkit-appearance: none;
+  appearance: none;
 }
-.rp-factor-own input:focus {
+.rp-multipliers .rp-factor-own input:focus {
   outline: none;
 }
-.rp-factor-own:focus-within,
-.rp-factor-own.is-on {
+.rp-multipliers .rp-factor-own:hover,
+.rp-multipliers .rp-factor-own:focus-within,
+.rp-multipliers .rp-factor-own.is-on {
   border-color: var(--sv-gold);
   color: var(--sv-gold);
 }
-.rp-multipliers .rp-scale-more {
-  min-width: 36px;
-  border-color: transparent;
-  color: var(--sv-text-2);
+.rp-yield-more {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--sv-line-strong);
+  text-underline-offset: 4px;
 }
-.rp-multipliers .rp-scale-more:hover {
-  border-color: transparent;
-  background: rgba(238, 232, 220, 0.08);
-  color: var(--sv-text);
+.rp-yield-more:hover {
+  color: var(--sv-gold);
+  text-decoration-color: var(--sv-gold);
 }
 #rpYieldValue.is-scaled {
   color: var(--sv-gold);
   font-weight: 600;
 }
 @media (max-width: 600px) {
-  .rp-yield .rp-factor-own {
+  .rp-yield .rp-multipliers .rp-factor-own {
+    width: auto;
     height: 28px;
     flex: 1 1 0;
     padding: 0 4px;
@@ -1588,6 +1607,70 @@ body.cook-mode .rp-side-note-head button {
 }
 @media (max-width: 640px) {
   .category-translate {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Allergenen: uitleg hoe de lijsten samenwerken, en je eigen lijst meenemen naar het keukenteam (2026-11-08) */
+.products-explain > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--sv-text);
+}
+.products-explain ol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 28px;
+  margin: 16px 0 4px;
+  padding: 0;
+  list-style: none;
+  counter-reset: explain;
+}
+.products-explain li {
+  counter-increment: explain;
+  position: relative;
+  padding-left: 34px;
+}
+.products-explain li::before {
+  content: counter(explain);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--sv-gold);
+  border-radius: 50%;
+  color: var(--sv-gold);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+}
+.products-explain li b {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--sv-text);
+}
+.products-explain li span {
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.products-own-offer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-color: rgba(232, 202, 141, 0.45);
+}
+.products-own-offer p {
+  margin: 4px 0 0;
+}
+@media (max-width: 700px) {
+  .products-explain ol {
+    grid-template-columns: 1fr;
+  }
+  .products-own-offer {
     flex-direction: column;
     align-items: flex-start;
   }

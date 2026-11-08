@@ -530,6 +530,11 @@ function mobileMenu(lang, alt, inApp) {
 
 // ---- Onderdelen ----
 // inApp: de startpagina in index.html (knoppen openen inloggen/demo direct; taalknop wisselt zonder herladen).
+// Licht of donker voor de website (css/site.css, html.site-light). Staat ook bovenin index.html.
+const SITE_THEME_JS = "<script>(function(){try{if(localStorage.getItem('savour_site_theme')==='light')document.documentElement.classList.add('site-light')}catch(e){}window.savourSiteTheme=function(){var l=document.documentElement.classList.toggle('site-light');try{localStorage.setItem('savour_site_theme',l?'light':'dark')}catch(e){}}})()</script>";
+const THEME_LABEL = { nl: 'Licht of donker', en: 'Light or dark', de: 'Hell oder dunkel', es: 'Claro u oscuro', fr: 'Clair ou sombre' };
+const themeButton = lang =>
+  `<button type="button" class="site-theme" onclick="savourSiteTheme()" aria-label="${THEME_LABEL[lang]}" title="${THEME_LABEL[lang]}"><svg class="is-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><svg class="is-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>`;
 function header(lang, alt, inApp) {
   const u = UI[lang];
   const q = homePath(lang);
@@ -551,7 +556,7 @@ function header(lang, alt, inApp) {
 <div class="site-item"><a href="${href(STORY[lang].slug)}">${u.about}</a></div>
 <div class="site-item"><a href="${href(blogSlug[lang])}">${u.blog}</a></div>
 </nav>
-<div class="site-actions">${langSwitch(lang, alt, inApp)}<a class="site-btn site-login" ${auth('login')}>${u.login}</a><a class="site-btn solid" ${auth('signup')}>${u.start}</a><button type="button" class="site-menu-btn" aria-expanded="false" aria-label="${MENU_LABEL[lang][0]}" data-close-label="${MENU_LABEL[lang][1]}"><span></span></button></div>
+<div class="site-actions">${themeButton(lang)}${langSwitch(lang, alt, inApp)}<a class="site-btn site-login" ${auth('login')}>${u.login}</a><a class="site-btn solid" ${auth('signup')}>${u.start}</a><button type="button" class="site-menu-btn" aria-expanded="false" aria-label="${MENU_LABEL[lang][0]}" data-close-label="${MENU_LABEL[lang][1]}"><span></span></button></div>
 </div>${mobileMenu(lang, alt, inApp)}</header>`;
 }
 
@@ -910,6 +915,7 @@ function pageHead(lang, { title: longTitle, desc: longDesc, canonical, alternate
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+${SITE_THEME_JS}
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 ${hidden ? '<meta name="robots" content="noindex, nofollow">\n' : ''}<link rel="canonical" href="${canonical}">
@@ -923,7 +929,7 @@ ${alternates.map(([l, h]) => `<link rel="alternate" hreflang="${l}" href="${h}">
 <meta property="og:locale" content="${{ nl: 'nl_NL', en: 'en_GB', de: 'de_DE', es: 'es_ES', fr: 'fr_FR' }[lang] || 'en_GB'}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0d1314">
-<link rel="icon" href="/favicon.ico?v=2" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/favicon-96.png?v=2"><link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/favicon-192.png?v=2">
+<link rel="icon" href="/favicon.ico?v=3" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/favicon-96.png?v=3"><link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/favicon-192.png?v=2">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">

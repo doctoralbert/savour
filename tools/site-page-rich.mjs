@@ -295,8 +295,8 @@ export const PAGE_RICH = {
   roadmap: {
     nl: {
       benefits: [
-        ['Nu live', 'Allergenen per recept, ook via basisrecepten.'],
-        ['Gepland', 'Kostprijs per recept en de geschiedenis van elk recept.'],
+        ['Eerst', 'De foodcost calculator: kostprijs per gerecht en per menu.'],
+        ['Daarna', 'Menu engineering en de geschiedenis van elk recept.'],
         ['Misschien', 'Een eigen app voor iPhone en Android, als chefs dat willen.']
       ],
       showcase: [
@@ -304,8 +304,8 @@ export const PAGE_RICH = {
           ...shot(
             'allergenen',
             'Het allergenenblok bij een recept in Savour',
-            'Allergenen staan live',
-            'Melk uit de roomboter, sulfiet uit de wijn, en een duidelijke melding als nog niet alles gecontroleerd is. [Lees hoe het werkt](@post:en/blog/allergens-in-savour).'
+            'Laatst gelanceerd: allergenen',
+            'Sinds november 2026 zie je bij elk recept de allergenen, ook via basisrecepten. [Bekijk de functie](@feature:allergens) of [lees hoe het werkt](@post:en/blog/allergens-in-savour).'
           )
         }
       ],
@@ -326,16 +326,16 @@ export const PAGE_RICH = {
     },
     en: {
       benefits: [
-        ['Live now', 'Allergens per recipe, including through base recipes.'],
-        ['Planned', 'Cost per recipe and the history of every recipe.'],
+        ['First', 'The food cost calculator: cost per dish and per menu.'],
+        ['Next', 'Menu engineering and the history of every recipe.'],
         ['Maybe', 'An app of our own for iPhone and Android, if chefs want it.']
       ],
       showcase: [
         shot(
           'allergenen',
           'The allergen block on a recipe in Savour',
-          'Allergens are live',
-          'Milk from the butter, sulphites from the wine, and a clear note when not everything is checked yet. [Read how it works](@post:en/blog/allergens-in-savour).'
+          'Latest launch: allergens',
+          'Since November 2026 every recipe shows its allergens, including through base recipes. [See the feature](@feature:allergens) or [read how it works](@post:en/blog/allergens-in-savour).'
         )
       ],
       faq: [
@@ -355,16 +355,16 @@ export const PAGE_RICH = {
     },
     de: {
       benefits: [
-        ['Jetzt live', 'Allergene pro Rezept, auch über Grundrezepte.'],
-        ['Geplant', 'Kosten pro Rezept und die Geschichte jedes Rezepts.'],
+        ['Zuerst', 'Der Wareneinsatz-Rechner: Kosten pro Gericht und pro Karte.'],
+        ['Danach', 'Menu Engineering und der Verlauf jedes Rezepts.'],
         ['Vielleicht', 'Eine eigene App für iPhone und Android, wenn Köche das wollen.']
       ],
       showcase: [
         shot(
           'allergenen',
           'Der Allergenblock bei einem Rezept in Savour',
-          'Allergene sind live',
-          'Milch aus der Butter, Sulfite aus dem Wein und ein klarer Hinweis, wenn noch nicht alles geprüft ist. [Lies, wie es funktioniert](@post:en/blog/allergens-in-savour).'
+          'Zuletzt gestartet: Allergene',
+          'Seit November 2026 zeigt jedes Rezept seine Allergene, auch über Grundrezepte. [Zur Funktion](@feature:allergens) oder [lies, wie es funktioniert](@post:en/blog/allergens-in-savour).'
         )
       ],
       faq: [
@@ -384,16 +384,16 @@ export const PAGE_RICH = {
     },
     es: {
       benefits: [
-        ['Ya disponible', 'Alérgenos por receta, también a través de recetas base.'],
-        ['Previsto', 'Coste por receta y el historial de cada receta.'],
+        ['Primero', 'La calculadora de food cost: coste por plato y por carta.'],
+        ['Después', 'Ingeniería de menú y el historial de cada receta.'],
         ['Quizá', 'Una app propia para iPhone y Android, si los chefs la quieren.']
       ],
       showcase: [
         shot(
           'allergenen',
           'El bloque de alérgenos en una receta de Savour',
-          'Los alérgenos ya están disponibles',
-          'Leche de la mantequilla, sulfitos del vino y un aviso claro cuando aún no está todo comprobado. [Lee cómo funciona](@post:en/blog/allergens-in-savour).'
+          'Último lanzamiento: alérgenos',
+          'Desde noviembre de 2026 cada receta muestra sus alérgenos, también a través de recetas base. [Ver la función](@feature:allergens) o [lee cómo funciona](@post:en/blog/allergens-in-savour).'
         )
       ],
       faq: [
@@ -413,16 +413,16 @@ export const PAGE_RICH = {
     },
     fr: {
       benefits: [
-        ['Disponible', 'Les allergènes par recette, y compris via les recettes de base.'],
-        ['Prévu', 'Le coût par recette et l’historique de chaque recette.'],
+        ['D’abord', 'Le calculateur de food cost : coût par plat et par carte.'],
+        ['Ensuite', 'Le menu engineering et l’historique de chaque recette.'],
         ['Peut-être', 'Une application à nous pour iPhone et Android, si les chefs le veulent.']
       ],
       showcase: [
         shot(
           'allergenen',
           'Le bloc allergènes d’une recette dans Savour',
-          'Les allergènes sont disponibles',
-          'Le lait du beurre, les sulfites du vin, et un avertissement clair quand tout n’est pas encore vérifié. [Lis comment ça marche](@post:en/blog/allergens-in-savour).'
+          'Dernier lancement : les allergènes',
+          'Depuis novembre 2026, chaque recette affiche ses allergènes, y compris via les recettes de base. [Voir la fonction](@feature:allergens) ou [lis comment ça marche](@post:en/blog/allergens-in-savour).'
         )
       ],
       faq: [

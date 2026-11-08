@@ -2084,6 +2084,8 @@ async function sendNewsletter(test) {
 const ADMIN_INGREDIENT_LANGS = { nl: 'Nederlands', en: 'Engels', de: 'Duits', es: 'Spaans', fr: 'Frans' };
 let adminIngredients = null;
 let adminIngredientLangIndex = null;
+// Tabblad per taal (Nieuwe ingrediënten en Ingrediëntenlijst per taal).
+let adminIngredientTab = 'nl';
 
 // Welke talen een naam heeft in de vaste lijsten: Open Food Facts in vijf talen, NEVO in het Nederlands.
 async function adminIngredientLangs() {
@@ -2130,6 +2132,7 @@ async function loadAdminIngredients() {
     ingredientBase = null;
     ingredientBaseLoading = null;
     ingredientListLoading = null;
+    adminReadKnownByLetter = null;
     const [data, , langIndex] = await Promise.all([
       adminApi('ingredient_candidates'),
       loadIngredientBase(),
@@ -2183,7 +2186,8 @@ async function loadAdminIngredients() {
             users: set.size,
             head: '',
             like: base && base.name !== key ? capitalizeFirst(base.name) : '',
-            allergens: withDerived(key, allergenHints(key))
+            allergens: withDerived(key, allergenHints(key)),
+            read: adminReadIngredient(key)
           };
         })
         .sort((a, b) => b.users - a.users || a.key.localeCompare(b.key, 'nl')),
@@ -2203,12 +2207,27 @@ function renderAdminIngredients() {
   const body = $('adminIngredientsBody');
   if (!body || !adminIngredients) return;
   const q = productKey($('adminIngredientSearch')?.value || '');
-  const lang = $('adminIngredientLang')?.value || '';
+  const lang = adminIngredientTab;
   const min = Number($('adminIngredientMin')?.value || 1);
   const { todo, done } = adminIngredients;
+  const tabs = $('adminIngredientTabs');
+  if (tabs)
+    tabs.innerHTML = Object.entries(ADMIN_INGREDIENT_LANGS)
+      .map(([l, label]) => {
+        const n = todo.filter(x => x.lang === l).length;
+        return `<button type="button" class="${l === lang ? 'on' : ''}" onclick="adminIngredientTab='${l}';renderAdminIngredients()">${label}${n ? ` <span class="admin-tab-count">${n}</span>` : ''}</button>`;
+      })
+      .join('');
   const shown = todo
     .map((x, i) => [x, i])
-    .filter(([x]) => x.users >= min && (!lang || x.lang === lang) && (!q || x.key.includes(q)));
+    .filter(([x]) => x.users >= min && x.lang === lang && (!q || x.key.includes(q)));
+  // Wat Savour zelf aan een bekend ingrediënt kan koppelen, in één keer.
+  const linkable = shown.filter(([x]) => x.read?.known && x.read.sure);
+  const bulk = $('adminIngredientBulk');
+  if (bulk)
+    bulk.innerHTML = linkable.length
+      ? `<p><b>${linkable.length}</b> ${linkable.length === 1 ? 'naam kan' : 'namen kunnen'} Savour zelf koppelen aan een bekend ingrediënt, zoals <i translate="no">${adminEscape(linkable[0][0].name)} → ${adminEscape(linkable[0][0].read.name)}</i>.</p><button class="admin-refresh" onclick="adminLinkAllIngredients()">Alles koppelen</button>`
+      : '';
   if ($('adminIngredientCount')) $('adminIngredientCount').textContent = `${todo.length} nieuw`;
   const badge = $('adminIngredientBadge');
   if (badge) {
@@ -2219,16 +2238,16 @@ function renderAdminIngredients() {
     .slice(0, 300)
     .map(
       ([x, i]) =>
-        `<tr><td><b translate="no">${adminEscape(x.name)}</b></td><td>${adminEscape(ADMIN_INGREDIENT_LANGS[x.lang] || x.lang)}</td><td>${x.users}</td><td>${x.like ? `<small>Lijkt op ${adminEscape(x.like)}</small>` : ''}<small>${adminEscape(adminAllergenNames(x.allergens) || 'Geen allergenen uit de naam')}</small></td><td><div class="admin-actions"><button class="admin-ghost" onclick="adminApproveIngredient(${i})">Goedkeuren</button><button class="admin-ghost" onclick="adminRejectIngredient(${i})">Afwijzen</button></div></td></tr>`
+        `<tr><td><b translate="no">${adminEscape(x.name)}</b></td><td>${x.users}</td><td>${adminReadCell(x)}</td><td><div class="admin-actions">${x.read?.known ? `<button class="admin-ghost is-primary" onclick="adminLinkIngredient(${i})">Koppelen</button>` : ''}<button class="admin-ghost" onclick="adminApproveIngredient(${i})">Goedkeuren</button><button class="admin-ghost" onclick="adminRejectIngredient(${i})">Afwijzen</button></div></td></tr>`
     )
     .join('');
   const more =
     shown.length > 300
-      ? `<tr><td colspan="5"><small>En nog ${shown.length - 300}. Zoek of filter om ze te zien.</small></td></tr>`
+      ? `<tr><td colspan="4"><small>En nog ${shown.length - 300}. Zoek of filter om ze te zien.</small></td></tr>`
       : '';
   body.innerHTML =
     rows + more ||
-    '<tr><td colspan="5">Geen nieuwe ingrediënten. Alles wat in recepten staat, kent Savour al.</td></tr>';
+    `<tr><td colspan="4">Geen nieuwe ingrediënten in het ${adminEscape(ADMIN_INGREDIENT_LANGS[lang] || lang)}. Alles wat in recepten staat, kent Savour al.</td></tr>`;
   // Wat koks wegdrukten als "geen ingrediënt": met één klik voor iedereen, of negeren.
   const notBody = $('adminNotIngredientBody');
   if (notBody)
@@ -2241,7 +2260,7 @@ function renderAdminIngredients() {
         .join('') || '<tr><td colspan="3">Nog niets weggedrukt door koks.</td></tr>';
   const doneBody = $('adminIngredientsDoneBody');
   if (!doneBody) return;
-  const doneShown = done.filter(x => (!lang || x.lang === lang) && (!q || x.key.includes(q)));
+  const doneShown = done.filter(x => x.lang === lang && (!q || x.key.includes(q)));
   const approved = done.filter(x => x.status === 'approved');
   if ($('adminIngredientDoneCount'))
     $('adminIngredientDoneCount').textContent = Object.keys(ADMIN_INGREDIENT_LANGS)
@@ -2330,10 +2349,88 @@ async function adminNotIngredient(i, status) {
 async function adminApproveIngredient(i) {
   const x = adminIngredients?.todo[i];
   if (!x) return;
-  const pick = await adminIngredientDialog(x);
+  // Heeft Savour een opgeschoonde naam gelezen ("% pro sorbet" → Pro sorbet), dan staat die al in het venster.
+  const start = x.read && !x.read.known ? { ...x, name: x.read.name, allergens: x.read.allergens } : x;
+  const pick = await adminIngredientDialog(start);
   if (!pick) return;
-  if (await adminDecideIngredients([{ ...pick, key: x.key, status: 'approved', user_count: x.users }]))
-    toast(`${pick.name} staat in de ingrediëntenlijst`);
+  // Andere schrijfwijzen die Savour als dezelfde naam las, gaan mee: ze horen bij het nieuwe ingrediënt.
+  const same = productKey(pick.name);
+  const siblings = adminIngredients.todo.filter(
+    y => y !== x && y.lang === pick.lang && y.read && !y.read.known && productKey(y.read.name) === same
+  );
+  const items = [
+    { ...pick, key: x.key, status: 'approved', user_count: x.users },
+    ...siblings.map(y => ({
+      key: y.key,
+      name: capitalizeFirst(y.key),
+      lang: pick.lang,
+      head: pick.name,
+      allergens: pick.allergens,
+      status: 'approved',
+      user_count: y.users
+    }))
+  ];
+  if (await adminDecideIngredients(items))
+    toast(
+      siblings.length
+        ? `${pick.name} staat in de ingrediëntenlijst, met ${siblings.length} andere schrijfwijze${siblings.length === 1 ? '' : 'n'}`
+        : `${pick.name} staat in de ingrediëntenlijst`
+    );
+}
+
+// Wat Savour las, in de tabel: "→ Aardbei (bekend, met melk)" of "→ Pro sorbet (nieuwe naam)".
+function adminReadCell(x) {
+  const r = x.read;
+  const allergens = adminEscape(adminAllergenNames((r || x).allergens) || 'Geen allergenen');
+  if (!r)
+    return `<small>${x.like ? `Lijkt op ${adminEscape(x.like)} · ` : ''}${adminEscape(adminAllergenNames(x.allergens) || 'Geen allergenen uit de naam')}</small>`;
+  return `<span class="admin-read" translate="no">→ <b>${adminEscape(r.name)}</b></span><small>${r.known ? (r.sure ? 'Bekend ingrediënt' : 'Deel van de naam herkend, controleer de allergenen') : 'Nieuwe, opgeschoonde naam'} · ${allergens}</small>`;
+}
+
+// Koppelen aan het bekende ingrediënt: de naam wordt een schrijfwijze ervan, met dezelfde allergenen.
+const adminLinkItem = x => ({
+  key: x.key,
+  name: capitalizeFirst(x.key),
+  lang: x.lang,
+  head: x.read.name,
+  allergens: x.read.allergens,
+  status: 'approved',
+  user_count: x.users
+});
+
+async function adminLinkIngredient(i) {
+  const x = adminIngredients?.todo[i];
+  if (!x?.read?.known) return;
+  // Alleen een deel van de naam herkend: eerst het venster, zodat de beheerder de allergenen ziet en aanvult.
+  if (!x.read.sure) {
+    const pick = await adminIngredientDialog({ ...x, head: x.read.name, allergens: x.read.allergens });
+    if (!pick) return;
+    if (await adminDecideIngredients([{ ...pick, key: x.key, status: 'approved', user_count: x.users }]))
+      toast(`${pick.name} hoort nu bij ${pick.head || pick.name}`);
+    return;
+  }
+  if (await adminDecideIngredients([adminLinkItem(x)])) toast(`${x.name} hoort nu bij ${x.read.name}`);
+}
+
+async function adminLinkAllIngredients() {
+  const q = productKey($('adminIngredientSearch')?.value || '');
+  const min = Number($('adminIngredientMin')?.value || 1);
+  const list = (adminIngredients?.todo || []).filter(
+    x => x.read?.known && x.read.sure && x.lang === adminIngredientTab && x.users >= min && (!q || x.key.includes(q))
+  );
+  if (!list.length) return;
+  const sample = list
+    .slice(0, 6)
+    .map(x => `${x.name} → ${x.read.name}`)
+    .join(', ');
+  const ok = await askConfirm(
+    `${list.length} namen koppelen aan een bekend ingrediënt?\n\nBijvoorbeeld: ${sample}${list.length > 6 ? ', …' : ''}. Elke naam krijgt de allergenen van het ingrediënt waar hij bij hoort. Terugdraaien kan per naam onder Ingrediëntenlijst per taal.`,
+    { confirmLabel: 'Alles koppelen' }
+  );
+  if (!ok) return;
+  for (let i = 0; i < list.length; i += 400)
+    if (!(await adminDecideIngredients(list.slice(i, i + 400).map(adminLinkItem)))) return;
+  toast(`${list.length} namen gekoppeld`);
 }
 
 async function adminRejectIngredient(i) {
@@ -2355,4 +2452,110 @@ async function adminUndoIngredient(id) {
   } catch (e) {
     alertAdmin(e.message);
   }
+}
+
+// ---- Savour leest mee (2026-11-08): bij elke nieuwe naam een voorstel voor het ingrediënt dat erachter zit ----
+// "aardappel puree gekookt in zout water" → Aardappel, "aardbeien coulis en siroop" → Aardbei, "% pro sorbet" →
+// Pro sorbet, "lg framboos couli" → Framboos, "choco" → Chocolade. Stappen: schoonmaken (%, getallen, koppeltekens,
+// losse letters), vaste schrijfwijzen, knippen bij "en" en bij "van/in/met…", bereidingswoorden weghalen, dan het
+// langste bekende stuk zoeken, en anders een bekende naam met één of twee letters verschil (tikfout).
+// Kent Savour het hoofdingrediënt, dan is koppelen één klik; anders is het een opgeschoonde nieuwe naam.
+const ADMIN_READ_SAME = {
+  choco: 'chocolade',
+  chocola: 'chocolade',
+  colorose: 'colorozo',
+  colorozo: 'colorozozout',
+  'colorozo zout': 'colorozozout',
+  prosorbet: 'pro sorbet',
+  'pro sorbet stabilisator': 'pro sorbet'
+};
+// Woorden die zeggen hoe iets bereid of in welke vorm het is, niet wát het is.
+const ADMIN_READ_FORM = new Set(
+  (
+    'puree purée pureé creme crème cremeux crémeux coulis couli siroop sirop syrup koeken koekjes koek compote ' +
+    'gekookt gekookte gebakken gebakken geroosterd geroosterde gepureerd gepureerde doorgevreven gezeefd gezeefde ' +
+    'gesmolten gehakt gehakte gesneden fijngesneden fijngehakt geraspt geraspte gepeld gepelde gedroogd gedroogde ' +
+    'vers verse rauw rauwe koud koude warm warme biologisch biologische bio extra fijn fijne grof grove ' +
+    'stukjes blokjes plakjes reepjes partjes schijfjes snippers basis mix massa gel espuma schuim ' +
+    'cooked roasted chopped sliced diced fresh dried melted puree cream sauce'
+  ).split(' ')
+);
+const ADMIN_READ_CUT = /\s(?:en|and|und|y|et|of|or|oder|o|ou)\s.*$/;
+const ADMIN_READ_TAIL =
+  /\s(?:van|in|met|voor|uit|op|zonder|with|for|from|in|mit|für|aus|ohne|con|para|sin|avec|pour|sans)\s.*$/;
+
+let adminReadKnownByLetter = null;
+function adminReadKnown() {
+  if (adminReadKnownByLetter) return adminReadKnownByLetter;
+  const byLetter = new Map();
+  for (const k of ingredientBase?.index?.keys() || []) {
+    if (k.length < 4 || k.includes(' ')) continue;
+    const l = k[0];
+    if (!byLetter.has(l)) byLetter.set(l, []);
+    byLetter.get(l).push(k);
+  }
+  adminReadKnownByLetter = byLetter;
+  return byLetter;
+}
+
+// Bekende naam met hooguit 1 (korte woorden) of 2 (lange woorden) letters verschil; alleen als er één beste is.
+function adminReadTypo(word) {
+  if (word.length < 5) return '';
+  const max = word.length >= 8 ? 2 : 1;
+  let best = '';
+  let bestD = max + 1;
+  let tie = false;
+  for (const k of adminReadKnown().get(word[0]) || []) {
+    const d = editDistance(word, k, max);
+    if (d < bestD) {
+      best = k;
+      bestD = d;
+      tie = false;
+    } else if (d === bestD) tie = true;
+  }
+  return bestD <= max && !tie ? best : '';
+}
+
+function adminReadIngredient(key) {
+  let s = String(key || '')
+    .toLowerCase()
+    .replace(/[%*()[\]"“”'’.,;:!?]/g, ' ')
+    .replace(/[-_/]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  // Eerst knippen bij "en" en bij "van/in/met…", dan pas getallen en losse eenheden of tikletters ("lg", "kg").
+  s = s.replace(ADMIN_READ_CUT, '').replace(ADMIN_READ_TAIL, '');
+  s = s
+    .split(' ')
+    .filter(w => w && !/^\d/.test(w) && !(w.length <= 2 && /^(?:[a-z]{1,2})$/.test(w) && !['ei', 'ui'].includes(w)))
+    .join(' ');
+  const same = w => ADMIN_READ_SAME[w] || w;
+  s = same(s);
+  let words = s
+    .split(' ')
+    .map(same)
+    .filter(w => w && !ADMIN_READ_FORM.has(w));
+  if (!words.length) return null;
+  s = same(words.join(' '));
+  // Tikfouten per woord, alleen voor woorden die Savour zelf niet kent.
+  words = s.split(' ').map(w => (ingredientBase?.index?.has(w) ? w : adminReadTypo(w) || w));
+  s = same(words.join(' '));
+  const base = ingredientBaseMatch(s);
+  if (base) {
+    const name = productKey(base.name);
+    if (name === key) return null;
+    // Allergenen van het hoofdingrediënt plus wat de hele naam zelf zegt: "vanille ijs" → Vanille, maar met de
+    // melk van het ijs; zo gaat er bij koppelen nooit een allergeen verloren.
+    const own = withDerived(key, allergenHints(key));
+    return {
+      name: capitalizeFirst(name),
+      known: true,
+      // Zeker: de hele opgeschoonde naam is bekend ("framboos"). Niet zeker: alleen een deel ("vanille" in "vanille
+      // ijs"); dan kijkt de beheerder zelf, en gaat de naam niet mee met Alles koppelen.
+      sure: !!ingredientBase?.index?.has(productKey(s)),
+      allergens: [...new Set([...withDerived(name, base.allergens || []), ...own])]
+    };
+  }
+  if (s === key || !s) return null;
+  return { name: capitalizeFirst(s), known: false, allergens: withDerived(s, allergenHints(s)) };
 }

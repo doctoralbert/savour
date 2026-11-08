@@ -100,7 +100,7 @@ function openRecipe(id, context = 'library') {
     steps.length ? countLabel(steps.filter(x => !recipePartName(x)).length, 'stap', 'stappen') : ''
   ].filter(Boolean);
   const scaleBar = ingredients.length
-    ? `<div class="rp-yield" role="group" aria-label="Omrekenen"><span class="rp-yield-label">Omrekenen</span>${recipeMultipliersHtml('setRecipeFactor', { more: 'openRecipeScale()' })}<span id="rpFactor" class="rp-factor"></span><button type="button" id="rpYieldReset" class="btn-quiet" onclick="resetRecipeYield()" hidden>${icon('undo', { size: 16 })} Origineel</button></div>`
+    ? `<div class="rp-yield" role="group" aria-label="Omrekenen"><button type="button" class="rp-yield-label rp-yield-more" onclick="openRecipeScale()" title="${esc(t('Meer omrekenen: op opbrengst of op wat je hebt'))}">Omrekenen</button>${recipeMultipliersHtml('setRecipeFactor')}<span id="rpFactor" class="rp-factor"></span><button type="button" id="rpYieldReset" class="btn-quiet" onclick="resetRecipeYield()" hidden>${icon('undo', { size: 16 })} Origineel</button></div>`
     : '';
   window._savourScaled = null;
   $('detailWrap').innerHTML = `<article class="rp">

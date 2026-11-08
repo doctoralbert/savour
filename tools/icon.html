@@ -1,4 +1,6 @@
 <!doctype html>
+<!-- Klein formaat (favicon, tabblad): ?stack toont het woordmerk in twee regels, SAV boven OUR, met het gouden
+     streepje ertussen, zodat het op 16 tot 48 pixels leesbaar blijft. -->
 <!-- App-icoon en favicon (2026-11-08): het woordmerk SAVOUR van de site, zoals op het laadscherm, in plaats van de S.
      Gemaakt als schermafdruk van 512 × 512 en verkleind naar assets/savour-icon.png, assets/icons/* en favicon.ico.
      Het woord blijft binnen het midden (80%), zodat het ook als ronde of afgeronde app-icoon niet wordt afgesneden. -->
@@ -9,7 +11,14 @@
   .mark{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--gap)}
   .word{font:500 var(--size)/1 'Playfair Display',Georgia,serif;letter-spacing:.34em;margin-right:-.34em;color:#f2eee4}
   .line{width:var(--line);height:var(--thick);background:#e8ca8d}
+  .stack{display:none;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+  .stack .word{font-size:150px;letter-spacing:.08em;margin-right:-.08em}
+  .stack .line{width:250px;height:16px}
+  body.is-stack .mark{display:none}
+  body.is-stack .stack{display:flex}
 </style></head>
 <body style="--size:64px;--gap:34px;--line:72px;--thick:4px">
 <div class="mark"><div class="word">SAVOUR</div><div class="line"></div></div>
+<div class="stack"><div class="word">SAV</div><div class="line"></div><div class="word">OUR</div></div>
+<script>if (/stack/.test(location.search)) document.body.classList.add('is-stack');</script>
 </body></html>

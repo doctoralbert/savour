@@ -447,8 +447,8 @@ function recipeStepNumbers(steps) {
   });
 }
 
-// Snelknoppen ½× 1× 2× 5× 10×, een vakje voor een eigen factor (×25) en, in de app, een knopje naar Meer
-// omrekenen (op opbrengst of op wat je hebt).
+// Snelknoppen ½× 1× 2× 5× 10× en een vakje voor een eigen factor, net zo groot als de knoppen, met alleen "×".
+// Meer omrekenen (op opbrengst of op wat je hebt) open je in de app met het woord "Omrekenen" ervoor.
 const RECIPE_FACTORS = [
   [0.5, '½×'],
   [1, '1×'],
@@ -456,16 +456,12 @@ const RECIPE_FACTORS = [
   [5, '5×'],
   [10, '10×']
 ];
-function recipeMultipliersHtml(handler = 'setRecipeFactor', { more = '' } = {}) {
+function recipeMultipliersHtml(handler = 'setRecipeFactor') {
   return `<div class="rp-multipliers" role="group" aria-label="${esc(t('Omrekenen'))}">${RECIPE_FACTORS.map(
     ([f, label]) => `<button type="button" data-factor="${f}" onclick="${handler}(${f})">${label}</button>`
   ).join(
     ''
-  )}<label class="rp-factor-own"><input inputmode="decimal" autocomplete="off" placeholder="25" aria-label="${esc(t('Eigen factor'))}" onchange="setOwnFactor(this, '${handler}')" onkeydown="if (event.key === 'Enter') this.blur()"><span>×</span></label>${
-    more
-      ? `<button type="button" class="rp-scale-more" onclick="${more}" title="${esc(t('Meer omrekenen: op opbrengst of op wat je hebt'))}" aria-label="${esc(t('Meer omrekenen'))}">${icon('info', { size: 15 })}</button>`
-      : ''
-  }</div>`;
+  )}<label class="rp-factor-own" title="${esc(t('Eigen factor'))}"><input inputmode="decimal" autocomplete="off" aria-label="${esc(t('Eigen factor'))}" onchange="setOwnFactor(this, '${handler}')" onkeydown="if (event.key === 'Enter') this.blur()"><span aria-hidden="true">×</span></label></div>`;
 }
 
 // Eigen factor uit het vakje: leeg is terug naar het origineel.

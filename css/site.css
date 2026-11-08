@@ -2737,8 +2737,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(90deg, rgba(6, 10, 11, 0.93) 0%, rgba(6, 10, 11, 0.72) 42%, rgba(6, 10, 11, 0.32) 100%),
+  background: linear-gradient(90deg, rgba(6, 10, 11, 0.93) 0%, rgba(6, 10, 11, 0.72) 42%, rgba(6, 10, 11, 0.32) 100%),
     linear-gradient(0deg, rgba(6, 10, 11, 1) 0%, rgba(6, 10, 11, 0) 30%);
   z-index: -1;
 }
@@ -2878,8 +2877,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(90deg, rgba(6, 10, 11, 0.9) 0%, rgba(6, 10, 11, 0.66) 50%, rgba(6, 10, 11, 0.38) 100%),
+  background: linear-gradient(90deg, rgba(6, 10, 11, 0.9) 0%, rgba(6, 10, 11, 0.66) 50%, rgba(6, 10, 11, 0.38) 100%),
     linear-gradient(0deg, rgba(6, 10, 11, 1) 0%, rgba(6, 10, 11, 0) 45%),
     linear-gradient(180deg, rgba(6, 10, 11, 0.55) 0%, rgba(6, 10, 11, 0) 30%);
   z-index: -1;
@@ -3816,14 +3814,17 @@ button,
   display: inline-flex;
   align-items: center;
   gap: 2px;
+  width: 64px;
   height: 36px;
-  padding: 0 8px;
+  padding: 0 10px;
   border: 1px solid var(--line-strong, rgba(238, 232, 220, 0.3));
   color: var(--ink-2);
   font-weight: 600;
 }
 .share-yield-tool .rp-factor-own input {
-  width: 42px;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
   border: 0;
   background: transparent;
   color: var(--ink);
@@ -3871,7 +3872,7 @@ body.savour-light .lang-admin:hover {
     max-width: 900px;
   }
   .site-article .site-prose {
-    font-size: 18.5px;
+    font-size: 17.5px;
   }
 }
 @media (min-width: 1500px) {
@@ -3879,6 +3880,234 @@ body.savour-light .lang-admin:hover {
     max-width: 980px;
   }
   .site-article .site-prose {
-    font-size: 19.5px;
+    font-size: 18px;
+  }
+}
+
+/* ---- Telefoon (2026-11-08): menuknop en taalkeuze in het menu zonder kader; alleen een zacht vlak bij aanraken. ---- */
+@media (max-width: 1040px) {
+  body .site-menu-btn {
+    border-color: transparent !important;
+    border-radius: 4px !important;
+  }
+  body .site-menu-btn:hover,
+  body .site-menu-btn:focus-visible {
+    background: rgba(238, 232, 220, 0.09);
+  }
+  body .site-mm-lang a {
+    border-color: transparent !important;
+    border-radius: 4px !important;
+    color: var(--ink-2);
+  }
+  body .site-mm-lang a:hover {
+    background: rgba(238, 232, 220, 0.09);
+    color: var(--ink);
+  }
+  body .site-mm-lang a[aria-current] {
+    border-color: transparent !important;
+    background: rgba(232, 202, 141, 0.12);
+    color: var(--gold);
+  }
+}
+
+/* ==== Licht thema voor de website (2026-11-08): knop in de kop (.site-theme), keuze in localStorage
+   ('savour_site_theme'), klasse html.site-light. Foto-koppen, donkere stroken en de footer blijven donker. ==== */
+.site-theme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.site-theme:hover,
+.site-theme:focus-visible {
+  background: rgba(238, 232, 220, 0.09);
+  color: var(--ink);
+}
+.site-theme svg {
+  width: 18px;
+  height: 18px;
+}
+.site-theme .is-sun,
+html.site-light .site-theme .is-moon {
+  display: none;
+}
+html.site-light .site-theme .is-sun {
+  display: block;
+}
+html.site-light .site {
+  --paper: #f6f2ea;
+  --paper-2: #efe8db;
+  --ink: #1d201e;
+  --ink-2: #4f534d;
+  --ink-3: #6f716a;
+  --line: #ddd4c3;
+  --gold: #8a6a2e;
+  --gold-soft: #e8ca8d;
+  background: #f6f2ea;
+  color: var(--ink);
+}
+html.site-light #landingView.landing {
+  background: #f6f2ea;
+  color: #1d201e;
+}
+html.site-light .site-header {
+  background: rgba(246, 242, 234, 0.94);
+}
+html.site-light .site-menucard,
+html.site-light .site-mm {
+  background: #f1ebdf;
+}
+html.site-light .site-btn.solid {
+  background: #1d201e;
+  border-color: #1d201e;
+  color: #f6f2ea;
+}
+html.site-light .site-btn.solid:hover {
+  background: #8a6a2e;
+  border-color: #8a6a2e;
+  color: #fff;
+}
+html.site-light .site-btn:hover {
+  color: #f6f2ea;
+}
+html.site-light .site-theme:hover,
+html.site-light .site-menu-btn:hover,
+html.site-light .site-mm-lang a:hover {
+  background: rgba(20, 24, 24, 0.07);
+}
+/* Wat ook in het lichte thema donker blijft. */
+html.site-light
+  .site
+  :is(
+    .site-hero,
+    .site-foot,
+    .site-section.dark,
+    .site-page-head.has-photo,
+    .svc-band,
+    .site-cta.with-photo,
+    .kladje-duo-card,
+    .hero-laptop,
+    .feat-facts
+  ) {
+  --paper: #0a0f10;
+  --paper-2: #101819;
+  --ink: #eee8dc;
+  --ink-2: #b9beb7;
+  --ink-3: #87918b;
+  --line: #243031;
+  --gold: #e8ca8d;
+  color: var(--ink);
+}
+html.site-light
+  .site
+  :is(
+    .site-hero,
+    .site-foot,
+    .site-section.dark,
+    .site-page-head.has-photo,
+    .svc-band,
+    .site-cta.with-photo,
+    .kladje-duo-card,
+    .hero-laptop,
+    .feat-facts
+  )
+  .site-btn.solid {
+  background: #e8ca8d;
+  border-color: #e8ca8d;
+  color: #111;
+}
+html.site-light
+  .site
+  :is(
+    .site-hero,
+    .site-foot,
+    .site-section.dark,
+    .site-page-head.has-photo,
+    .svc-band,
+    .site-cta.with-photo,
+    .kladje-duo-card,
+    .hero-laptop,
+    .feat-facts
+  )
+  .site-btn:not(.solid):hover {
+  color: #0a0f10;
+}
+
+/* ---- Voordelenstrook onder de kop (2026-11-08): een zwevend paneel dat over de onderrand van de foto valt, met
+   genummerde punten, een gouden streepje en dunne scheidingslijnen. ---- */
+.site .feat-band {
+  position: relative;
+  z-index: 2;
+  border-bottom: 0;
+  padding: 0 0 8px;
+  margin-top: -56px;
+}
+.site .feat-band ul {
+  counter-reset: feat;
+  gap: 0;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+.site .feat-band li {
+  counter-increment: feat;
+  position: relative;
+  padding: 30px 30px 32px;
+  border-left: 0;
+}
+.site .feat-band li + li {
+  border-left: 1px solid var(--line);
+}
+.site .feat-band li::before {
+  content: counter(feat, decimal-leading-zero);
+  display: block;
+  margin-bottom: 14px;
+  color: var(--gold);
+  font: 600 12px/1 var(--sans);
+  letter-spacing: 0.18em;
+}
+.site .feat-band li::after {
+  content: '';
+  position: absolute;
+  left: 30px;
+  top: 52px;
+  width: 28px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+.site .feat-band b {
+  margin: 10px 0 8px;
+  font: 500 21px/1.25 var(--serif);
+  color: var(--ink);
+}
+.site .feat-band span {
+  display: block;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+@media (max-width: 760px) {
+  .site .feat-band {
+    margin-top: -32px;
+  }
+  .site .feat-band li {
+    padding: 22px 22px 24px;
+  }
+  .site .feat-band li::after {
+    left: 22px;
+    top: 44px;
+  }
+  .site .feat-band li + li {
+    border-left: 0;
+    border-top: 1px solid var(--line);
   }
 }

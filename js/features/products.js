@@ -1451,7 +1451,7 @@ function renderProducts() {
       : productTab === 'allergens'
         ? allergensTabHtml(scope, edit && productSettingsReady)
         : ingredientsTabHtml(scope, edit);
-  host.innerHTML = `${scopes.length > 1 ? productScopeTabs(scopes, scope) : ''}${status}${tabs}${body}`;
+  host.innerHTML = `${scopes.length > 1 ? productScopeTabs(scopes, scope) : ''}${status}${productsExplainHtml(scope)}${ownListOfferHtml(scope)}${tabs}${body}`;
   if (productTab === 'list') renderProductList();
 }
 

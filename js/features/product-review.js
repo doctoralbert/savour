@@ -388,3 +388,90 @@ function openAllergenCard() {
 async function openCentralProduct(name) {
   if (await openProductEditor({ scope: productScope, name })) renderProducts();
 }
+
+// ---- Uitleg en je eigen lijst naar het keukenteam (2026-11-08) ----
+
+// Korte uitleg hoe de lijsten samenwerken. Open zolang er nog weinig eigen ingrediënten zijn.
+function productsExplainHtml(scope) {
+  const open = productsIn(scope).length < 5;
+  const item = (title, text) => `<li><b>${esc(t(title))}</b><span>${esc(t(text))}</span></li>`;
+  return `<details class="panel products-explain"${open ? ' open' : ''}><summary>${esc(t('Hoe werkt de ingrediëntenlijst?'))}</summary><ol>${item(
+    'De Savour-lijst',
+    'Savour kent duizenden ingrediënten met hun allergenen. Die tellen meteen mee in elk recept, ook voor nieuwe gebruikers. Je hoeft ze niet zelf in te voeren.'
+  )}${item(
+    'Je eigen ingrediënten',
+    'Is het bij jouw merk anders, of kent Savour een ingrediënt niet? Dan maak je een eigen versie. Die gaat altijd voor de Savour-lijst.'
+  )}${item(
+    'Het keukenteam',
+    'Een keukenteam heeft een eigen ingrediëntenlijst, los van je persoonlijke lijst. Als eigenaar neem je je eigen lijst in één keer mee naar het team.'
+  )}${item('Nakijken', 'Wat Savour niet zeker weet, vraagt Savour één keer, onder Nakijken. Er verandert nooit iets in een recept zonder jouw ja.')}</ol></details>`;
+}
+
+// Eigen ingrediënten die het keukenteam nog niet heeft (op naam of schrijfwijze).
+function ownProductsMissingIn(scope) {
+  const have = new Set();
+  productsIn(scope).forEach(p => [p.name, ...p.aliases].forEach(n => have.add(productKey(n))));
+  return productsIn('own').filter(p => !have.has(productKey(p.name)));
+}
+
+function ownListOfferHtml(scope) {
+  if (scope === 'own') return '';
+  const m = findSharedMap(scope);
+  if (!(demoMode || isSharedMapOwner(m)) || !canEditProducts(scope)) return '';
+  const missing = ownProductsMissingIn(scope);
+  if (!missing.length) return '';
+  return `<div class="panel products-own-offer"><div><b>${esc(t('Je eigen ingrediëntenlijst meenemen'))}</b><p class="muted">${esc(
+    missing.length === 1
+      ? t('Je eigen lijst heeft 1 ingrediënt dat dit keukenteam nog niet heeft.')
+      : t(`Je eigen lijst heeft ${missing.length} ingrediënten die dit keukenteam nog niet heeft.`)
+  )} ${esc(t('Neem ze mee, dan gelden jouw merken en allergenen ook in het team. Je eigen lijst blijft staan.'))}</p></div><button type="button" class="btn gold" onclick="copyOwnProductsToTeam('${escJs(scope)}')">${esc(t('Kopiëren naar het keukenteam'))}</button></div>`;
+}
+
+// Kopieert je eigen ingrediënten naar het keukenteam. Schrijfwijzen die het team al bij een ander ingrediënt heeft,
+// gaan niet mee, zodat er niets dubbel komt te staan.
+async function copyOwnProductsToTeam(scope) {
+  const missing = ownProductsMissingIn(scope);
+  if (!missing.length || !canEditProducts(scope)) return;
+  const ok = await askConfirm(
+    `${missing.length === 1 ? '1 ingrediënt' : `${missing.length} ingrediënten`} naar het keukenteam kopiëren?
+
+Het team krijgt een eigen kopie. Wat je daarna in je eigen lijst verandert, verandert niet in het team.`,
+    { confirmLabel: 'Kopiëren' }
+  );
+  if (!ok) return;
+  const taken = new Set();
+  productsIn(scope).forEach(p => [p.name, ...p.aliases].forEach(n => taken.add(productKey(n))));
+  const rows = missing.map(p => {
+    taken.add(productKey(p.name));
+    const aliases = p.aliases.filter(a => !taken.has(productKey(a)));
+    aliases.forEach(a => taken.add(productKey(a)));
+    return { name: p.name, aliases, allergens: p.allergens, known: p.known, note: p.note || '' };
+  });
+  if (demoMode) {
+    rows.forEach((r, i) => products.push({ ...r, id: `demo-p-${Date.now()}-${i}`, scope }));
+  } else {
+    const { data, error } = await supabaseClient
+      .from('products')
+      .insert(
+        rows.map(r => ({
+          name: r.name,
+          aliases: r.aliases,
+          allergens: r.allergens,
+          allergens_known: r.known,
+          allergen_note: r.note,
+          user_id: null,
+          team_id: scope
+        }))
+      )
+      .select('id,user_id,team_id,name,aliases,allergens,allergens_known,allergen_note');
+    if (error) {
+      console.warn('Ingrediënten kopiëren:', error);
+      toast('Kopiëren lukte niet; probeer het opnieuw');
+      return;
+    }
+    (data || []).forEach(row => products.push(productFromRow(row)));
+    saveOfflineSnapshot();
+  }
+  toast(rows.length === 1 ? '1 ingrediënt gekopieerd' : `${rows.length} ingrediënten gekopieerd`);
+  renderProducts();
+}

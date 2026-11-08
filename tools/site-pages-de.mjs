@@ -218,12 +218,12 @@ export const DE = {
       lead: 'Savour wächst mit der Küche. Das steht auf der Roadmap. Fehlt dir etwas? Sag es uns.',
       sections: [
         [
-          'Kosten pro Rezept',
-          'Sieh, was jedes Gericht und jede Portion kostet und was passiert, wenn sich der Preis eines Produkts ändert.'
+          'Wareneinsatz-Rechner',
+          'Sieh, was jedes Gericht, jede Portion und deine ganze Karte kostet, mit den Preisen deines Lieferanten und deinem eigenen Rabatt. [Mehr lesen](/de/blog/wareneinsatz-rechner).'
         ],
         [
-          'Allergene: jetzt live',
-          'Seit November 2026 siehst du die Allergene pro Rezept, auch über Grundrezepte. [So funktioniert es](/de/allergene-pro-rezept).'
+          'Menu Engineering',
+          'Welche Gerichte verkaufen sich gut und bringen gut Geld? Verknüpft mit deinen Rezepten und Allergenen.'
         ],
         [
           'Verlauf jedes Rezepts',

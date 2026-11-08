@@ -347,8 +347,8 @@ export const FEATURES = [
       h1: 'Waar we aan werken',
       lead: 'Savour groeit met de keuken mee. Dit staat op de planning. Mis je iets? Laat het ons weten.',
       sections: [
-        ['Kostprijs per recept', 'Zie per gerecht en per portie wat het kost, en wat er gebeurt als de prijs van een product verandert.'],
-        ['Allergenen: nu live', 'Sinds november 2026 zie je de allergenen per recept, ook via basisrecepten. [Zo werkt het](/allergenen-per-recept).'],
+        ['Foodcost calculator', 'Zie per gerecht, per portie en voor je hele menu wat het kost, met de prijzen van je leverancier en je eigen korting. [Lees meer](/blog/foodcost-calculator).'],
+        ['Menu engineering', 'Welke gerechten verkopen goed én verdienen goed? Gekoppeld aan je recepten en allergenen.'],
         ['Geschiedenis van elk recept', 'Zie wie wat heeft aangepast in een gedeeld recept, en zet zo nodig een eerdere versie terug.'],
         ['Een app voor iPhone en Android', 'Savour werkt nu in de browser op elk apparaat. Een losse app overwegen we, en jouw feedback telt mee.']
       ]
@@ -362,8 +362,8 @@ export const FEATURES = [
       h1: 'What we are working on',
       lead: 'Savour grows with the kitchen. This is on the roadmap. Missing something? Let us know.',
       sections: [
-        ['Cost per recipe', 'See what each dish and each portion costs, and what happens when the price of a product changes.'],
-        ['Allergens: live now', 'Since November 2026 you see the allergens per recipe, including through base recipes. [How it works](/en/allergens-per-recipe).'],
+        ['Food cost calculator', 'See what each dish, each portion and your whole menu costs, with your supplier’s prices and your own discount. [Read more](/en/blog/food-cost-calculator).'],
+        ['Menu engineering', 'Which dishes sell well and earn well? Linked to your recipes and allergens.'],
         ['History of every recipe', 'See who changed what in a shared recipe, and restore an earlier version when needed.'],
         ['An app for iPhone and Android', 'Savour now works in the browser on every device. We are considering a separate app, and your feedback counts.']
       ]

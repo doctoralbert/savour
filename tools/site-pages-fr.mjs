@@ -136,8 +136,8 @@ export const FR = {
       h1: 'Ce sur quoi nous travaillons',
       lead: "Savour grandit avec la cuisine. Voici ce qui est prévu. Il te manque quelque chose ? Dis-le-nous.",
       sections: [
-        ['Coût par recette', "Vois ce que coûte chaque plat et chaque portion, et ce qui se passe quand le prix d'un produit change."],
-        ['Allergènes : disponibles', 'Depuis novembre 2026, tu vois les allergènes par recette, y compris via les recettes de base. [Comment ça marche](/fr/allergenes-par-recette).'],
+        ['Calculateur de food cost', 'Vois ce que coûtent chaque plat, chaque portion et toute ta carte, avec les prix de ton fournisseur et ta propre remise. [En savoir plus](/fr/blog/calculateur-food-cost).'],
+        ['Menu engineering', 'Quels plats se vendent bien et rapportent bien ? Relié à tes recettes et à tes allergènes.'],
         ['Historique de chaque recette', 'Vois qui a changé quoi dans une recette partagée et reviens à une version antérieure si besoin.'],
         ['Une application pour iPhone et Android', "Savour fonctionne déjà dans le navigateur de tous les appareils. Nous étudions une application propre, et ton avis compte."]
       ]
