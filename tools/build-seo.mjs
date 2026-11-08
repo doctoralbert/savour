@@ -21,6 +21,7 @@ import {
   LIST_SLUGS
 } from './site-blog-allergenen.mjs';
 import { NUMBERS_POST, NUMBERS_POST_DE, NUMBERS_POST_ES, NUMBERS_POST_FR } from './site-blog-cijfers.mjs';
+import { COST_POST, COST_POST_DE, COST_POST_ES, COST_POST_FR } from './site-blog-kosten.mjs';
 import { TEMP_POSTS_ES } from './site-blog-temperaturen-es.mjs';
 import { TEMP_POSTS_FR } from './site-blog-temperaturen-fr.mjs';
 import { DE } from './site-pages-de.mjs';
@@ -57,6 +58,9 @@ Object.assign(FR.posts, ALLERGEN_POST_FR);
 Object.assign(DE.posts, NUMBERS_POST_DE);
 Object.assign(ES.posts, NUMBERS_POST_ES);
 Object.assign(FR.posts, NUMBERS_POST_FR);
+Object.assign(DE.posts, COST_POST_DE);
+Object.assign(ES.posts, COST_POST_ES);
+Object.assign(FR.posts, COST_POST_FR);
 EXTRA_LANGS.fr = EXTRA_FR;
 APP_PAGE.fr = APP_PAGE_FR;
 DELIVER.fr = DELIVER_FR;
@@ -65,7 +69,7 @@ SERVICE.fr = SERVICE_FR;
 KLADJE_REAL.fr = KLADJE_FR;
 
 // Nieuwste blogartikelen eerst.
-POSTS.unshift(NUMBERS_POST, ALLERGEN_POST, ...BLOG);
+POSTS.unshift(COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
 // Achtergrondfoto achter de bovenkant van de homepage. Alleen als het bestand bestaat; zonder bestand is de
@@ -581,14 +585,14 @@ const PAGE_POSTS = {
   digitise: ['import', 'notes', 'overzetten', 'messy', 'trust'],
   organise: ['folders', 'structure', 'messy', 'standard'],
   share: ['sharing', 'team', 'sharedfolders', 'onboarding'],
-  scale: ['scaling', 'standard', 'kerntemperaturen'],
+  scale: ['scaling', 'standard', 'kosten', 'kerntemperaturen'],
   print: ['logo', 'messy'],
   allergens: ['allergenen'],
   cloud: ['database', 'offline'],
   inladen: ['overzetten', 'import'],
   roadmap: ['roadmap', 'allergenen'],
-  chefs: ['choose', 'vergelijking', 'kerntemperaturen', 'sous-vide', 'allergenen'],
-  brigade: ['team', 'onboarding', 'hospitality', 'cijfers', 'allergenen']
+  chefs: ['choose', 'vergelijking', 'kosten', 'kerntemperaturen', 'sous-vide', 'allergenen'],
+  brigade: ['team', 'onboarding', 'hospitality', 'cijfers', 'kosten', 'allergenen']
 };
 const FROM_BLOG = { nl: 'Uit het blog', en: 'From the blog', de: 'Aus dem Blog', es: 'Del blog', fr: 'Du blog' };
 const POST_PAGES = {
