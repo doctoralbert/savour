@@ -1280,3 +1280,49 @@
     display: none !important;
   }
 }
+
+/* ---- Een keukenfoto op elke overzichtspagina (2026-11-09). Nieuwe foto? Zet hem in assets/keuken en geef hier
+   het scherm zijn --view-photo. ---- */
+#products {
+  --view-photo: url('/assets/keuken/eend-vuur.jpg');
+}
+#folders {
+  --view-photo: url('/assets/keuken/vuur-grill.jpg');
+}
+/* Mijn account: de foto rechts in de profielkaart, net als de fotoband op de andere pagina's. */
+@media (min-width: 761px) {
+  .settings-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 132px;
+  }
+  .settings-hero::before {
+    content: '';
+    position: absolute;
+    inset: -12px -12px -12px 38%;
+    z-index: -2;
+    background: var(--view-photo) center 55% / cover no-repeat;
+    filter: blur(3px) saturate(0.85) brightness(0.8);
+  }
+  .settings-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(90deg, #0d1415 0%, #0d1415 38%, rgba(13, 20, 21, 0.72) 56%, rgba(13, 20, 21, 0.35) 100%),
+      linear-gradient(0deg, rgba(13, 20, 21, 0.55) 0%, rgba(13, 20, 21, 0) 60%);
+  }
+  body.savour-light .settings-hero::before {
+    filter: blur(3px) saturate(0.85) brightness(1.1);
+    opacity: 0.55;
+  }
+  body.savour-light .settings-hero::after {
+    background:
+      linear-gradient(90deg, #fff 0%, #fff 38%, rgba(255, 255, 255, 0.7) 56%, rgba(255, 255, 255, 0.3) 100%);
+  }
+  .settings-hero-plan {
+    background: color-mix(in srgb, var(--sv-bg) 70%, transparent);
+  }
+}
