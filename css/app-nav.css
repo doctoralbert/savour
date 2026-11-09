@@ -996,14 +996,11 @@
   }
 }
 
-/* ---- Alle recepten op de computer (2026-11-09): niets dubbel (toevoegen en zoeken staan al in de bovenbalk
-   en boven de letters), geen kader rond categorieën en mappen, en een icoon bij elke categorie. ---- */
+/* ---- Alle recepten op de computer (2026-11-09): Recept toevoegen niet dubbel (staat al in de bovenbalk; de
+   zoekbalk bovenin blijft overal staan), geen kader rond categorieën en mappen, en een icoon bij elke categorie. ---- */
 @media (min-width: 761px) {
   #recipes .recipe-page-actions .btn.gold {
     display: none !important;
-  }
-  #appShell:has(#recipes.view.active) .topbar .search {
-    visibility: hidden;
   }
   #recipes .panel.mobile-category-panel {
     margin: 0 0 10px !important;
