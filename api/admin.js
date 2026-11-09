@@ -864,6 +864,99 @@ async function overview(user, ownVisitor) {
   };
 }
 
+// ---- AI-gebruik per account: om spam of misbruik van de AI-import te zien (supabase/2026-11-09-ai-proef-15.sql).
+// ai_usage telt per maand; ai_usage_log heeft per gelukte import een tijdstip (voor "laatste uur" en "vandaag").
+// Proefaccounts mogen 15 AI-imports doen, betaald Pro 500 per maand (api/ai-import.js).
+const AI_TRIAL_LIMIT = 15;
+async function aiUsageOverview() {
+  const tz = 'Europe/Amsterdam';
+  const month = new Intl.DateTimeFormat('sv-SE', { timeZone: tz, year: 'numeric', month: '2-digit' })
+    .format(new Date())
+    .slice(0, 7);
+  const dayOf = d => new Intl.DateTimeFormat('sv-SE', { timeZone: tz }).format(new Date(d));
+  const today = dayOf(Date.now());
+  const since = new Date(Date.now() - 31 * 86400000).toISOString();
+  const [users, profiles, usage, stats, subs, orgs, members, log] = await Promise.all([
+    listUsers(),
+    select('profiles', 'select=id,name'),
+    selectAll('ai_usage', 'select=user_id,month,count'),
+    rpc('savour_admin_user_stats', {}),
+    select('subscriptions', 'select=*'),
+    select('organizations', 'select=*'),
+    select('organization_members', 'select=*'),
+    // Zonder de SQL van 2026-11-09 bestaat het logboek nog niet: dan alleen de maandtellingen.
+    selectAll('ai_usage_log', `select=user_id,at&at=gte.${since}&order=at.desc`).catch(() => null)
+  ]);
+  const byId = (rows, key = 'id') => new Map((rows || []).map(r => [r[key], r]));
+  const userOf = byId(users);
+  const profileOf = byId(profiles);
+  const statsOf = byId(stats, 'user_id');
+  const subOf = byId(subs, 'user_id');
+  const ownOrgOf = byId(orgs, 'owner_id');
+  const orgById = byId(orgs);
+  const memberOrgOfEmail = new Map(
+    (members || []).map(m => [String(m.email).toLowerCase(), orgById.get(m.organization_id)])
+  );
+  const per = new Map();
+  const row = id => {
+    if (!per.has(id)) per.set(id, { month: 0, total: 0, hour: 0, today: 0, week: 0, last_at: null });
+    return per.get(id);
+  };
+  for (const u of usage || []) {
+    const r = row(u.user_id);
+    r.total += Number(u.count || 0);
+    if (u.month === month) r.month += Number(u.count || 0);
+  }
+  const hourAgo = Date.now() - 3600000;
+  const weekAgo = Date.now() - 7 * 86400000;
+  for (const l of log || []) {
+    const r = row(l.user_id);
+    const t = new Date(l.at).getTime();
+    if (t > hourAgo) r.hour++;
+    if (dayOf(t) === today) r.today++;
+    if (t > weekAgo) r.week++;
+    if (!r.last_at || t > new Date(r.last_at).getTime()) r.last_at = l.at;
+  }
+  const accounts = [...per.entries()]
+    .filter(([id, r]) => r.total > 0 && userOf.has(id))
+    .map(([id, r]) => {
+      const u = userOf.get(id);
+      const type = accountType(u, subOf.get(id), ownOrgOf.get(id), memberOrgOfEmail.get(String(u.email).toLowerCase()));
+      const recipes = Number(statsOf.get(id)?.recipes || 0);
+      const ageDays = (Date.now() - new Date(u.created_at).getTime()) / 86400000;
+      const flags = [];
+      if (r.hour >= 30) flags.push('Veel in één uur');
+      if (r.today >= 100) flags.push('Veel vandaag');
+      if (type.type === 'trial' && r.total >= AI_TRIAL_LIMIT) flags.push('Proefgrens bereikt');
+      if (r.month >= 10 && recipes < r.month / 2) flags.push('Weinig recepten bewaard');
+      if (ageDays < 2 && r.month >= 10 && ['trial', 'free'].includes(type.type)) flags.push('Nieuw account, veel AI');
+      return {
+        id,
+        email: u.email,
+        name: profileOf.get(id)?.name || u.user_metadata?.name || '',
+        created_at: u.created_at,
+        confirmed: !!(u.email_confirmed_at || u.confirmed_at),
+        type: type.type,
+        label: type.label,
+        recipes,
+        limit: type.type === 'trial' ? AI_TRIAL_LIMIT : 500,
+        ...r,
+        flags
+      };
+    })
+    .sort((a, b) => b.flags.length - a.flags.length || b.today - a.today || b.month - a.month);
+  return {
+    month,
+    log: !!log,
+    accounts,
+    totals: {
+      today: accounts.reduce((n, a) => n + a.today, 0),
+      month: accounts.reduce((n, a) => n + a.month, 0),
+      flagged: accounts.filter(a => a.flags.length).length
+    }
+  };
+}
+
 // Pro cadeau geven (bijv. 30 dagen om te testen). Nooit over een betaald abonnement heen.
 async function giftPro(userId, days) {
   const sub = await getSubscription(userId);
@@ -1254,6 +1347,7 @@ async function deleteAccount(userId, adminUser) {
   await dropOne('recipe_sources', `user_id=eq.${id}`);
   await dropOne('recipes', `user_id=eq.${id}`);
   await dropOne('ai_usage', `user_id=eq.${id}`);
+  await dropOne('ai_usage_log', `user_id=eq.${id}`);
   await dropOne('subscriptions', `user_id=eq.${id}`);
   await dropOne('organization_members', `email=eq.${encodeURIComponent(String(target.email || '').toLowerCase())}`);
   await dropOne('organizations', `owner_id=eq.${id}`);
@@ -1790,6 +1884,7 @@ export default async function handler(req, res) {
     if (action === 'adsense_disconnect') return res.status(200).json(await adsenseDisconnect());
     if (action === 'messages') return res.status(200).json(await contactMessages());
     if (action === 'referrals') return res.status(200).json(await referralOverview());
+    if (action === 'ai_usage') return res.status(200).json(await aiUsageOverview());
     if (action === 'delete_message') return res.status(200).json(await deleteMessage(req.body?.id));
     if (action === 'mark_message')
       return res.status(200).json(await markMessage(req.body?.id, req.body?.read !== false));

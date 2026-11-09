@@ -965,3 +965,21 @@
 #adminLangCandidates b {
   color: var(--sv-text, #eee8dc);
 }
+
+/* AI-gebruik in de admin (2026-11-09): een gouden rij en labels bij accounts om naar te kijken. */
+.admin-ai-table tr.is-flagged td {
+  background: rgba(232, 202, 141, 0.07);
+}
+.admin-ai-table tr.is-flagged td:first-child {
+  box-shadow: inset 2px 0 0 #e8ca8d;
+}
+.admin-ai-flag {
+  display: inline-block;
+  margin: 0 4px 4px 0;
+  padding: 2px 8px;
+  border: 1px solid rgba(232, 202, 141, 0.6);
+  border-radius: 999px;
+  color: #e8ca8d;
+  font-size: 12px;
+  white-space: nowrap;
+}

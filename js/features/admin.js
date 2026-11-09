@@ -135,6 +135,7 @@ function showAdminTab(tab) {
   if (tab === 'nieuwsbrief' && !adminNews) loadAdminNewsletter();
   if (tab === 'keukenteams') loadAdminTeams();
   if (tab === 'ingredienten' && !adminIngredients) loadAdminIngredients();
+  if (tab === 'ai') loadAdminAi();
   try {
     sessionStorage.setItem('savour_admin_tab', tab);
   } catch (_) {}
@@ -488,6 +489,7 @@ async function loadAdminDashboard() {
   loadAdminErrors();
   loadAdminMessages();
   loadAdminReferrals();
+  loadAdminAi();
   loadAdminIntakes();
   loadAdminAdsense();
   loadAdminFinance();
@@ -570,6 +572,40 @@ async function loadAdminReferrals() {
   } catch (e) {
     top.innerHTML = `<tr><td colspan="4">Referral kon niet worden geladen: ${adminEscape(e.message)}</td></tr>`;
     list.innerHTML = '';
+  }
+}
+
+// AI-gebruik per account (api/admin.js, aiUsageOverview): wie veel AI-imports doet, en of dat klopt met wat er
+// bewaard wordt. Markeringen zijn een seintje om te kijken, Savour doet er zelf niets mee.
+async function loadAdminAi() {
+  const body = $('adminAiBody');
+  if (!body) return;
+  try {
+    const d = await adminApi('ai_usage');
+    const list = d.accounts || [];
+    if ($('adminAiCount'))
+      $('adminAiCount').textContent =
+        `${d.totals.today} vandaag · ${d.totals.month} deze maand · ${d.totals.flagged} om naar te kijken`;
+    const badge = $('adminAiBadge');
+    if (badge) {
+      badge.hidden = !d.totals.flagged;
+      badge.textContent = d.totals.flagged || '';
+    }
+    const dash = v => (d.log ? adminEscape(v) : '–');
+    body.innerHTML =
+      list
+        .map(
+          a =>
+            `<tr class="${a.flags.length ? 'is-flagged' : ''}"><td>${adminEscape(a.name || a.email)}<small class="admin-referral-mail">${adminEscape(a.name ? a.email : '')} · sinds ${adminFormatDate(a.created_at)}${a.confirmed ? '' : ' · niet bevestigd'}</small></td><td>${adminEscape(a.label)}</td><td>${dash(a.hour)}</td><td>${dash(a.today)}</td><td>${dash(a.week)}</td><td><b>${adminEscape(a.type === 'trial' ? a.total : a.month)}</b> / ${adminEscape(a.limit)}${a.type === 'trial' ? '<small class="admin-referral-mail">in de proefweek</small>' : ''}</td><td>${adminEscape(a.recipes)}</td><td>${a.last_at ? adminFormatDate(a.last_at) + ' ' + new Date(a.last_at).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }) : '–'}</td><td>${a.flags.map(f => `<span class="admin-ai-flag">${adminEscape(f)}</span>`).join('') || '<span class="admin-muted">–</span>'}</td></tr>`
+        )
+        .join('') || '<tr><td colspan="9">Nog geen AI-imports.</td></tr>';
+    if (!d.log)
+      body.insertAdjacentHTML(
+        'afterbegin',
+        '<tr><td colspan="9" class="admin-muted">Draai supabase/2026-11-09-ai-proef-15.sql voor de kolommen per uur, dag en week.</td></tr>'
+      );
+  } catch (e) {
+    body.innerHTML = `<tr><td colspan="9">AI-gebruik kon niet worden geladen: ${adminEscape(e.message)}</td></tr>`;
   }
 }
 

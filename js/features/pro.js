@@ -63,6 +63,11 @@ async function checkRecipeRoom(count = 1) {
 
 // Leest het abonnement in één keer uit de database (savour_my_plan). Bestaat die functie nog niet (SQL niet
 // uitgevoerd), dan zoals voorheen alleen het eigen abonnement en de AI-teller.
+// "deze maand" of, in de proefweek met de grens van 15, "in de proefweek".
+function aiUsagePeriod(s = savourPlan) {
+  return s.source === 'trial' && s.limit < 500 ? 'in de proefweek' : 'deze maand';
+}
+
 async function loadPlanState() {
   savourPlan = { ...EMPTY_PLAN };
   printBrandOwn = undefined;
@@ -84,7 +89,9 @@ async function loadPlanState() {
       trialEnd: p.trial_end ? new Date(p.trial_end) : null,
       team: p.team || null,
       recipeLimit: p.recipe_limit || FREE_RECIPE_LIMIT,
-      used: p.used || 0
+      used: p.used || 0,
+      // In de proefweek 15 AI-imports in totaal, met Pro 500 per maand (supabase/2026-11-09-ai-proef-15.sql).
+      limit: p.ai_limit || 500
     };
     return;
   }
@@ -277,7 +284,7 @@ function renderProPage(host) {
     savourPlan.source === 'trial'
       ? `<div class="pro-current"><b>Je probeert Savour Pro gratis.</b> <span>Tot ${esc(formatProDate(savourPlan.trialEnd))}, met maximaal ${FREE_RECIPE_LIMIT} recepten. Daarna ga je vanzelf terug naar gratis; je betaalt niets zonder dat je zelf kiest.</span></div>`
       : isPro()
-        ? `<div class="pro-current"><b>Je hebt Savour Pro.</b> <span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt deze maand.</span></div>`
+        ? `<div class="pro-current"><b>Je hebt Savour Pro.</b> <span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt ${aiUsagePeriod()}.</span></div>`
         : '';
   host.innerHTML =
     current +
@@ -439,7 +446,7 @@ function renderPlanSettings() {
   if (!host) return;
   const s = savourPlan;
   const until = formatProDate(s.periodEnd);
-  const ai = `<small>${s.used} van ${s.limit} AI-imports gebruikt deze maand.</small>`;
+  const ai = `<small>${s.used} van ${s.limit} AI-imports gebruikt ${aiUsagePeriod(s)}.</small>`;
   const manage = s.hasCustomer ? '<button class="btn" onclick="openProPortal()">Abonnement beheren</button>' : '';
   const more = '<button class="btn gold" onclick="openPublicInfo(\'pro\')">Bekijk Savour Pro</button>';
   let row;
@@ -529,7 +536,7 @@ function renderImportPlanNotice() {
   if (!host) return;
   const left = recipeRoomLeft();
   host.innerHTML = isPro()
-    ? `<div class="import-plan is-pro"><b>Savour Pro${savourPlan.source === 'trial' ? ' · proefperiode' : ''}</b><span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt deze maand. Eerst leest de Savour-lezer alles, gratis. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee.${left === Infinity ? '' : ` In de proefperiode bewaar je tot ${savourPlan.recipeLimit} recepten (nog ${left}).`}</span></div>`
+    ? `<div class="import-plan is-pro"><b>Savour Pro${savourPlan.source === 'trial' ? ' · proefperiode' : ''}</b><span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt ${aiUsagePeriod()}. Eerst leest de Savour-lezer alles, gratis. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee.${left === Infinity ? '' : ` In de proefperiode bewaar je tot ${savourPlan.recipeLimit} recepten (nog ${left}).`}</span></div>`
     : `<div class="import-plan"><b>Je importeert met de Savour-lezer</b><span>Word, PDF en tekst lees je gratis in${left === Infinity ? '' : ` (nog ${left} van ${savourPlan.recipeLimit} recepten in je gratis account)`}. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro.</span><button class="btn small gold" onclick="openPublicInfo('pro')">Bekijk Savour Pro</button></div>`;
   document.querySelectorAll('[data-pro-only]').forEach(el => el.classList.toggle('is-locked', !isPro()));
 }
