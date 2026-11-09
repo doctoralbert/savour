@@ -853,6 +853,7 @@ async function adminReadIntake(id) {
   const list = [];
   const failed = [];
   let n = 0;
+  aiBatchChoice = null; // de vraag "veel AI-imports" opnieuw stellen per aanlevering
   for (const f of i.files || []) {
     n++;
     adminIntakeDrafts[id].busy = `Lezen: ${n} van ${i.files.length} bestanden…`;

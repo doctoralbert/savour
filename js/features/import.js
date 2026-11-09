@@ -836,6 +836,10 @@ async function importScannedPdf(file) {
   const pdfjs = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.min.mjs');
   pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.worker.min.mjs';
   const pdf = await pdfjs.getDocument({ data: await file.arrayBuffer() }).promise;
+  if (!(await allowAiParts(file, Math.min(pdf.numPages, 10), { scanned: true })))
+    throw Object.assign(new Error(t('Gescande PDF overgeslagen: die kan alleen de AI lezen.')), {
+      code: 'ai_skipped'
+    });
   const drafts = [];
   for (let i = 1; i <= Math.min(pdf.numPages, 10); i++) {
     $('importStatus').textContent = `${file.name}: pagina ${i} van ${Math.min(pdf.numPages, 10)} wordt gelezen…`;
@@ -944,6 +948,52 @@ function applyImportFixes(drafts, sourceText) {
   });
 }
 
+// Vraag vooraf bij grote bestanden: moet de AI meer dan AI_ASK_ABOVE delen lezen (of meer dan er nog over
+// zijn), dan kiest de chef eerst. Eén keer per import; de keuze geldt voor alle bestanden van die import.
+const AI_ASK_ABOVE = 5;
+let aiBatchChoice = null; // 'ai' | 'lezer' | null (nog niet gevraagd)
+let aiChoiceQueue = Promise.resolve();
+
+function aiImportsLeft() {
+  const limit = Number(savourPlan.limit);
+  return limit > 0 ? Math.max(0, limit - (Number(savourPlan.used) || 0)) : Infinity;
+}
+
+// true = de AI mag deze delen lezen; false = alleen de Savour-lezer.
+async function allowAiParts(file, parts, { scanned = false } = {}) {
+  const left = aiImportsLeft();
+  // Niets meer over: geen AI-aanroepen die toch geweigerd worden. Een gescande PDF krijgt de gewone melding.
+  if (left === 0) return scanned;
+  if (parts <= AI_ASK_ABOVE && parts <= left) return true;
+  // Bestanden worden tegelijk gelezen: één venster tegelijk, en wie na de keuze komt gebruikt die keuze.
+  const ask = aiChoiceQueue.then(async () => {
+    if (aiBatchChoice) return aiBatchChoice;
+    const choice = await askChoice(
+      `${t('Veel AI-imports voor één bestand')}\n\n${file.name}: de AI moet ${parts} delen lezen. Elk deel telt als één AI-import; je hebt er nog ${left}. Je keuze geldt voor alle bestanden van deze import.`,
+      [
+        {
+          value: 'lezer',
+          label: t('Alleen de Savour-lezer'),
+          hint: scanned
+            ? t('Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.')
+            : t('Gratis. Wat de lezer niet zeker weet, krijgt een markering om te controleren.'),
+          primary: parts > left
+        },
+        {
+          value: 'ai',
+          label: t('Met de AI lezen'),
+          hint: t('Tot je AI-imports op zijn; daarna neemt de Savour-lezer het over.'),
+          primary: parts <= left
+        }
+      ]
+    );
+    aiBatchChoice = choice || 'lezer';
+    return aiBatchChoice;
+  });
+  aiChoiceQueue = ask.catch(() => {});
+  return (await ask) === 'ai';
+}
+
 async function readTextRecipes(file, sourceText) {
   const local = readRecipesLocally(sourceText, { sourceFile: file.name });
   if (!isPro()) return local;
@@ -960,6 +1010,8 @@ async function readTextRecipes(file, sourceText) {
 
   // Drie delen tegelijk; de voortgangsbalk telt de delen binnen dit bestand.
   const chunks = chunkImportText(unsureText);
+  // Groot bestand (een heel kookboek)? Eerst vragen; kiest de chef de lezer, dan blijft het bij de lezer.
+  if (!(await allowAiParts(file, chunks.length))) return local;
   const unsureCount = local.length - sure.length;
   const route = `Savour-lezer: ${sure.length} zeker, ${unsureCount} twijfel.`;
   const results = new Array(chunks.length);
@@ -1087,6 +1139,7 @@ async function processImportFiles(files) {
   $('importStatus').textContent = `0 / ${valid.length} bestanden verwerkt…`;
   updateImportProgress(0, valid.length);
   batchDrafts = [];
+  aiBatchChoice = null;
   const failures = [];
   let done = 0;
   const queue = [...valid];
@@ -1110,7 +1163,8 @@ async function processImportFiles(files) {
         batchDrafts.push(...(await readImportFile(file)));
       } catch (e) {
         // Grens bereikt of geen Pro is geen fout in de app: de chef krijgt het gewoon te zien, het logboek niet.
-        if (!['limit_reached', 'pro_required'].includes(e?.code)) console.error('Bulk import', file.name, e);
+        if (!['limit_reached', 'pro_required', 'ai_skipped'].includes(e?.code))
+          console.error('Bulk import', file.name, e);
         // Een bestand dat alleen online staat (OneDrive, iCloud) kan de browser niet altijd lezen.
         const unreadable = e?.name === 'NotReadableError' || e?.name === 'NotFoundError';
         failures.push({
