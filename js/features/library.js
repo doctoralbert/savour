@@ -311,14 +311,43 @@ async function deleteOwnRecipes(ids, onProgress = () => {}) {
   return { done, failed };
 }
 
+// Categorieën en mappen boven de lijst kun je verbergen; de keuze blijft bewaard in deze browser.
+function chipRowHidden(kind) {
+  try {
+    return localStorage.getItem(`savour_hide_${kind}`) === '1';
+  } catch (_) {
+    return false;
+  }
+}
+
+function toggleChipRow(kind) {
+  const hide = !chipRowHidden(kind);
+  try {
+    if (hide) localStorage.setItem(`savour_hide_${kind}`, '1');
+    else localStorage.removeItem(`savour_hide_${kind}`);
+  } catch (_) {}
+  // Verberg je de categorieën terwijl er één gekozen is, dan weer alle recepten tonen.
+  if (hide && kind === 'categories' && activeCat) {
+    activeCat = '';
+    return renderRecipes();
+  }
+  renderCategoryBar();
+}
+
 function renderCategoryBar() {
-  let all = ['Alles', ...categories];
-  $('categoryBar').innerHTML = all
-    .map(
-      c =>
-        `<button class="btn ${(c === 'Alles' && activeCat === '') || c === activeCat ? 'gold' : ''}" onclick="filterCat('${escJs(c === 'Alles' ? '' : c)}')">${c === 'Alles' ? '' : `<span class="cat-chip-ico" aria-hidden="true">${icon('tag', { size: 13 })}</span>`}${esc(c)}</button>`
-    )
-    .join('');
+  const hideIcon = icon('close', { size: 12 });
+  const hideCats = chipRowHidden('categories');
+  const hideFolders = chipRowHidden('folders');
+  const all = ['Alles', ...categories];
+  const catRow = hideCats
+    ? ''
+    : all
+        .map(
+          c =>
+            `<button class="btn ${(c === 'Alles' && activeCat === '') || c === activeCat ? 'gold' : ''}" onclick="filterCat('${escJs(c === 'Alles' ? '' : c)}')">${c === 'Alles' ? '' : `<span class="cat-chip-ico" aria-hidden="true">${icon('tag', { size: 13 })}</span>`}${esc(c)}</button>`
+        )
+        .join('') +
+      `<button type="button" class="chip-toggle" onclick="toggleChipRow('categories')" title="${esc(t('Categorieën verbergen'))}">${hideIcon}${esc(t('Verbergen'))}</button>`;
   // Computer (bovenbalk zonder zijbalk): je mappen als snelknoppen onder de categorieën, in één klik open.
   const settings = getCategorySettings();
   const byId = new Map(getOrderedPersonalFolders().map(f => [String(f.id), f]));
@@ -326,16 +355,27 @@ function renderCategoryBar() {
     .map(id => byId.get(String(id)))
     .filter(Boolean)
     .filter(f => settings.selected.includes(String(f.id)));
-  if (chosen.length)
-    $('categoryBar').insertAdjacentHTML(
-      'beforeend',
-      `<div class="folder-chips" role="group" aria-label="${esc(t('Recepten mappen'))}"><span>${esc(t('Mappen'))}</span>${chosen
-        .map(
-          f =>
-            `<button type="button" class="btn" onclick="filterFolderCategory('${escJs(f.id)}')"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>${esc(f.name)}</button>`
-        )
-        .join('')}</div>`
-    );
+  const folderRow =
+    chosen.length && !hideFolders
+      ? `<div class="folder-chips" role="group" aria-label="${esc(t('Recepten mappen'))}"><span>${esc(t('Mappen'))}</span>${chosen
+          .map(
+            f =>
+              `<button type="button" class="btn" onclick="filterFolderCategory('${escJs(f.id)}')"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>${esc(f.name)}</button>`
+          )
+          .join(
+            ''
+          )}<button type="button" class="chip-toggle" onclick="toggleChipRow('folders')" title="${esc(t('Mappen verbergen'))}">${hideIcon}${esc(t('Verbergen'))}</button></div>`
+      : '';
+  // Wat verborgen is, kun je met één klik terughalen.
+  const back = [
+    hideCats
+      ? `<button type="button" class="chip-toggle" onclick="toggleChipRow('categories')">＋ ${esc(t('Categorieën tonen'))}</button>`
+      : '',
+    hideFolders && chosen.length
+      ? `<button type="button" class="chip-toggle folder-chips-back" onclick="toggleChipRow('folders')">＋ ${esc(t('Mappen tonen'))}</button>`
+      : ''
+  ].join('');
+  $('categoryBar').innerHTML = catRow + folderRow + (back ? `<div class="chip-hidden-row">${back}</div>` : '');
 }
 
 function filterCat(c) {

@@ -1217,3 +1217,67 @@
     box-shadow: none !important;
   }
 }
+
+/* ---- Overal hetzelfde kader (2026-11-09): ook het recept, de editor, mappen van een keukenteam, voorbeelden en
+   de informatiepagina's in de app (Savour Pro, vragen, handleiding, contact, ...). ---- */
+@media (min-width: 761px) {
+  body
+    #appShell
+    :is(#detail, #editor, #sharedFolderDetail, #sharedMapManage, #exampleView, .public-info-view)
+    > .content {
+    width: auto !important;
+    max-width: none !important;
+    box-sizing: border-box;
+    margin: 24px max(28px, calc((100% - 1400px) / 2)) 60px !important;
+    padding: 28px 32px 36px !important;
+    border: 1px solid var(--sv-line);
+    border-radius: 8px;
+    background: linear-gradient(145deg, #0d1516, #081011);
+  }
+  body.savour-light
+    #appShell
+    :is(#detail, #editor, #sharedFolderDetail, #sharedMapManage, #exampleView, .public-info-view)
+    > .content {
+    background: #fff;
+  }
+  /* Een gewone (niet-keukenteam) receptenkop: Playfair-titel zoals op de rest van de pagina's. */
+  body #appShell .public-info-view > .content.info-page {
+    max-width: none !important;
+  }
+}
+
+/* ---- Alle recepten: categorieën en mappen verbergen of tonen (js/features/library.js, in deze browser bewaard). ---- */
+.chip-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--sv-text-3);
+  font: 500 12.5px/1 var(--sv-font);
+  cursor: pointer;
+}
+.chip-toggle:hover {
+  background: color-mix(in srgb, var(--sv-text) 6%, transparent);
+  color: var(--sv-text);
+}
+.chip-hidden-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+}
+.chip-hidden-row .chip-toggle {
+  margin-left: 0;
+  border: 1px dashed var(--sv-line-strong);
+  color: var(--sv-text-2);
+}
+/* Mappen tonen hoort bij de snelknoppen van de computer; op de telefoon staan mappen in het menu. */
+@media (max-width: 760px) {
+  .folder-chips-back {
+    display: none !important;
+  }
+}
