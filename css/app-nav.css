@@ -9,7 +9,9 @@
 }
 @media (min-width: 761px) {
   /* showApp zet display: grid in de style; daarom !important. */
-  body #appShell.app {
+  /* Alleen als de app getoond wordt (style="display: grid"); na uitloggen zet Savour display: none en dan moet
+     de app echt weg zijn. */
+  body #appShell.app[style*='grid'] {
     display: block !important;
   }
   body #appShell .sidebar {
