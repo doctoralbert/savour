@@ -746,3 +746,199 @@
     min-width: 110px;
   }
 }
+
+/* ---- Uitklapmenu met meer allure (2026-11-09): gouden kopje, iconen in een tegel, pijl die inschuift bij
+   aanwijzen, een zachte verloop-achtergrond en regels die kort na elkaar binnenkomen. ---- */
+@media (min-width: 761px) {
+  .app-nav-drop {
+    min-width: 280px;
+    padding: 8px;
+    border-radius: 14px;
+    border-color: color-mix(in srgb, var(--sv-gold) 22%, var(--sv-line));
+    background: radial-gradient(120% 60% at 0% 0%, color-mix(in srgb, var(--sv-gold) 9%, transparent), transparent 60%),
+      linear-gradient(180deg, #121b1c, #0b1213);
+    box-shadow:
+      0 1px 0 color-mix(in srgb, var(--sv-gold) 25%, transparent) inset,
+      0 24px 50px -16px rgba(0, 0, 0, 0.7);
+    transform: translateY(-6px) scale(0.98);
+    transform-origin: top left;
+  }
+  .app-nav-drop.is-right {
+    transform-origin: top right;
+  }
+  body.savour-light .app-nav-drop {
+    background: radial-gradient(120% 60% at 0% 0%, color-mix(in srgb, var(--sv-gold) 7%, transparent), transparent 60%),
+      #fffdf9;
+    box-shadow:
+      0 1px 0 #fff inset,
+      0 22px 46px -18px rgba(60, 45, 20, 0.4);
+  }
+  .app-drop-kicker {
+    padding: 8px 12px 8px;
+    font: 600 10.5px/1 var(--sv-font);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sv-gold);
+  }
+  .app-nav-drop li button {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) 14px;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 10px 8px 8px;
+    border-radius: 9px;
+    transition: background 0.15s ease;
+  }
+  .app-nav-drop li button span {
+    margin: 0;
+  }
+  .app-drop-ico {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: color-mix(in srgb, var(--sv-gold) 10%, transparent);
+    color: var(--sv-gold) !important;
+    transition:
+      background 0.15s ease,
+      transform 0.15s ease;
+  }
+  .app-drop-text {
+    display: block;
+    min-width: 0;
+  }
+  .app-drop-text b {
+    display: block;
+    font: 500 14.5px/1.3 var(--sv-font);
+    color: var(--sv-text);
+  }
+  .app-drop-text small {
+    display: block;
+    margin-top: 1px;
+    font: 400 12.5px/1.35 var(--sv-font);
+    color: var(--sv-text-3);
+  }
+  .app-drop-go {
+    font-style: normal;
+    color: var(--sv-gold);
+    opacity: 0;
+    transform: translateX(-6px);
+    transition:
+      opacity 0.15s ease,
+      transform 0.15s ease;
+  }
+  .app-nav-drop li button:hover,
+  .app-nav-drop li button:focus-visible {
+    background: color-mix(in srgb, var(--sv-text) 6%, transparent);
+  }
+  .app-nav-drop li button:hover .app-drop-ico,
+  .app-nav-drop li button:focus-visible .app-drop-ico {
+    background: color-mix(in srgb, var(--sv-gold) 20%, transparent);
+    transform: scale(1.05);
+  }
+  .app-nav-drop li button:hover .app-drop-go,
+  .app-nav-drop li button:focus-visible .app-drop-go {
+    opacity: 1;
+    transform: none;
+  }
+  .app-nav-drop li button.is-active {
+    background: color-mix(in srgb, var(--sv-gold) 9%, transparent);
+  }
+  .app-nav-drop li button.is-active .app-drop-text b {
+    color: var(--sv-gold);
+  }
+  /* Regels komen kort na elkaar binnen als het lijstje opengaat. */
+  .app-nav-drop li {
+    opacity: 0;
+    transform: translateY(-3px);
+    transition:
+      opacity 0.18s ease,
+      transform 0.18s ease;
+  }
+  .app-nav-item.is-open > .app-nav-drop li {
+    opacity: 1;
+    transform: none;
+  }
+  .app-nav-drop li:nth-child(2) {
+    transition-delay: 0.02s;
+  }
+  .app-nav-drop li:nth-child(3) {
+    transition-delay: 0.04s;
+  }
+  .app-nav-drop li:nth-child(4) {
+    transition-delay: 0.06s;
+  }
+  .app-nav-drop li:nth-child(5) {
+    transition-delay: 0.08s;
+  }
+  .app-nav-drop li:nth-child(n + 6) {
+    transition-delay: 0.1s;
+  }
+  .app-drop-me {
+    padding: 10px 12px 14px;
+  }
+  .app-drop-avatar {
+    width: 38px;
+    height: 38px;
+    font-size: 17px;
+    background: color-mix(in srgb, var(--sv-gold) 10%, transparent);
+  }
+  .app-drop-foot .app-nav-logout {
+    border-radius: 999px;
+  }
+}
+@media (min-width: 761px) and (hover: hover) {
+  .app-nav-item:hover:not(.is-picked) > .app-nav-drop li,
+  .app-nav-item:focus-within:not(.is-picked) > .app-nav-drop li {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-nav-drop,
+  .app-nav-drop li {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* Alle recepten (2026-11-09): ook op de computer een zoekbalk, boven de letters A t/m Z. */
+@media (min-width: 761px) {
+  #recipes .mobile-recipe-search {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    margin: 4px 0 14px;
+    padding: 0 16px;
+    height: 48px;
+    border: 1px solid var(--sv-line);
+    border-radius: 10px;
+    background: var(--sv-surface);
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  #recipes .mobile-recipe-search:focus-within {
+    border-color: color-mix(in srgb, var(--sv-gold) 60%, var(--sv-line));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--sv-gold) 14%, transparent);
+  }
+  #recipes .mobile-recipe-search span {
+    position: static !important;
+    color: var(--sv-gold);
+    font-size: 18px;
+  }
+  #recipes .mobile-recipe-search input {
+    flex: 1;
+    height: 100%;
+    padding: 0 !important;
+    border: 0 !important;
+    outline: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: var(--sv-text);
+    font: 400 15.5px var(--sv-font);
+  }
+}

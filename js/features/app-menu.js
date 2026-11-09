@@ -7,7 +7,7 @@
 function appMenuData() {
   const active = document.querySelector('#appShell .view.active')?.id || '';
   const count = n => (n === 1 ? t('1 recept') : t(`${n} recepten`));
-  const item = (action, title, note = '', on = false) => ({ action, title, note, active: on });
+  const item = (action, title, note = '', on = false, ico = '') => ({ action, title, note, active: on, icon: ico });
 
   // Dezelfde mappen en keukenteams als in de zijbalk (de keuze en volgorde uit Beheren).
   const settings = getCategorySettings();
@@ -36,10 +36,10 @@ function appMenuData() {
       open: true,
       on: ['recipes', 'favorites', 'categories', 'import', 'detail', 'editor'].includes(active),
       items: [
-        item("go('recipes')", t('Alle recepten'), count(recipes.length), active === 'recipes'),
-        item("go('favorites')", t('Favorieten'), count(favorites.length), active === 'favorites'),
-        item("go('categories')", t('Categorieën'), '', active === 'categories'),
-        item("go('import')", t('Recept toevoegen'), '', active === 'import')
+        item("go('recipes')", t('Alle recepten'), count(recipes.length), active === 'recipes', 'book'),
+        item("go('favorites')", t('Favorieten'), count(favorites.length), active === 'favorites', 'star'),
+        item("go('categories')", t('Categorieën'), '', active === 'categories', 'tag'),
+        item("go('import')", t('Recept toevoegen'), '', active === 'import', 'plus')
       ]
     },
     {
@@ -49,9 +49,11 @@ function appMenuData() {
       intro: t('Jouw mappen, in jouw volgorde.'),
       on: ['folders', 'folderManage', 'folderDetail'].includes(active),
       items: [
-        ...chosen.map(f => item(`filterFolderCategory('${escJs(f.id)}')`, f.name, count(folderCount(f)))),
-        item("go('folderManage')", t('Mappen beheren')),
-        item('newFolder()', t('Recepten map toevoegen'))
+        ...chosen.map(f =>
+          item(`filterFolderCategory('${escJs(f.id)}')`, f.name, count(folderCount(f)), false, 'folder')
+        ),
+        item("go('folderManage')", t('Mappen beheren'), '', false, 'settings'),
+        item('newFolder()', t('Recepten map toevoegen'), '', false, 'folderPlus')
       ]
     },
     {
@@ -60,9 +62,9 @@ function appMenuData() {
       intro: t('Eén receptenboek voor je hele brigade.'),
       on: ['shared', 'sharedManage', 'sharedFolderDetail', 'sharedMapManage'].includes(active),
       items: [
-        ...teams.map(m => item(`openShared('${escJs(m.id)}')`, m.name)),
-        item("go('sharedManage')", t('Keukenteams beheren')),
-        item('newSharedMap()', t('Keukenteam maken'))
+        ...teams.map(m => item(`openShared('${escJs(m.id)}')`, m.name, '', false, 'users')),
+        item("go('sharedManage')", t('Keukenteams beheren'), '', false, 'settings'),
+        item('newSharedMap()', t('Keukenteam maken'), '', false, 'userPlus')
       ]
     },
     {
@@ -70,7 +72,9 @@ function appMenuData() {
       title: t('Tools'),
       intro: t('Hulpmiddelen voor in de keuken.'),
       on: active === 'products',
-      items: [item("go('products')", t('Allergenen'), t('De 14 allergenen bij elk recept.'), active === 'products')]
+      items: [
+        item("go('products')", t('Allergenen'), t('De 14 allergenen bij elk recept.'), active === 'products', 'leaf')
+      ]
     },
     {
       id: 'mine',
@@ -78,14 +82,14 @@ function appMenuData() {
       intro: t('Je abonnement, collega’s en instellingen.'),
       on: ['pro', 'settings'].includes(active),
       items: [
-        item('openProNav()', proLabel),
-        ...(showTeam ? [item('openTeamNav()', t('Mijn team'))] : []),
-        item('inviteColleague()', t('Collega uitnodigen')),
-        ...(showInstall ? [item('installApp()', t('App installeren'))] : []),
-        item("go('settings')", t('Instellingen'), '', active === 'settings'),
+        item('openProNav()', proLabel, '', false, 'sparkle'),
+        ...(showTeam ? [item('openTeamNav()', t('Mijn team'), '', false, 'users')] : []),
+        item('inviteColleague()', t('Collega uitnodigen'), '', false, 'gift'),
+        ...(showInstall ? [item('installApp()', t('App installeren'), '', false, 'download')] : []),
+        item("go('settings')", t('Instellingen'), '', active === 'settings', 'settings'),
         // Alleen in de bovenbalk op de computer: op de telefoon staat de knop al bovenin.
-        { ...item('toggleTheme()', t('Licht of donker')), desk: true },
-        ...(admin ? [item("location.href='/admin'", 'Admin')] : [])
+        { ...item('toggleTheme()', t('Licht of donker'), '', false, 'moon'), desk: true },
+        ...(admin ? [item("location.href='/admin'", 'Admin', '', false, 'shield')] : [])
       ]
     }
   ];
@@ -158,11 +162,11 @@ function appNavDropHtml(g) {
   const head =
     g.id === 'mine'
       ? `<div class="app-drop-me"><span class="app-drop-avatar" aria-hidden="true">${esc(me.initial)}</span><span><b>${esc(me.name)}</b><small>${esc(me.mail)}</small></span></div>`
-      : '';
+      : `<div class="app-drop-kicker">${esc(g.title)}</div>`;
   const items = g.items
     .map(
       x =>
-        `<li><button type="button" role="menuitem" class="${x.active ? 'is-active' : ''}" onclick="appNavPick(this);${x.action}"><b>${esc(x.title)}</b>${x.note ? `<span>${esc(x.note)}</span>` : ''}</button></li>`
+        `<li><button type="button" role="menuitem" class="${x.active ? 'is-active' : ''}" onclick="appNavPick(this);${x.action}"><span class="app-drop-ico" aria-hidden="true">${x.icon ? icon(x.icon, { size: 17 }) : ''}</span><span class="app-drop-text"><b>${esc(x.title)}</b>${x.note ? `<small>${esc(x.note)}</small>` : ''}</span><i class="app-drop-go" aria-hidden="true">→</i></button></li>`
     )
     .join('');
   const foot =
