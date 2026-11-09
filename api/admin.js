@@ -281,12 +281,33 @@ function crawlerIds(visits) {
   return bots;
 }
 
+// Geautomatiseerde browsers in datacenters (vaak met de tijdzone van Azië of de VS): een Chrome die veel ouder is
+// dan wat echte bezoekers gebruiken, precies één pagina, zonder herkomst. Echte mensen werken Chrome vanzelf bij;
+// 5 versies achter (ongeveer 5 maanden) samen met "één pagina, geen herkomst" is vrijwel altijd een programma.
+// De nieuwste versie halen we uit bezoeken met een herkomst (mensen die via Google of een link komen).
+const chromeMajor = ua => Number((String(ua || '').match(/Chrome\/(\d+)/) || [])[1] || 0);
+function staleBrowserIds(visits) {
+  const newest = Math.max(0, ...visits.filter(v => v.referrer).map(v => chromeMajor(v.user_agent)));
+  if (!newest) return new Set();
+  const count = new Map();
+  for (const v of visits) count.set(v.visitor_id, (count.get(v.visitor_id) || 0) + 1);
+  return new Set(
+    visits
+      .filter(v => {
+        const major = chromeMajor(v.user_agent);
+        return v.visitor_id && major && major <= newest - 5 && count.get(v.visitor_id) === 1 && !v.referrer;
+      })
+      .map(v => v.visitor_id)
+  );
+}
+
 // Alles in unieke bezoekers (elk apparaat telt één keer): vandaag, deze week (7 dagen), deze maand, all time,
 // per platform en per dag (30 dagen). Plus de laatste unieke bezoekers met hun bezoeken en pagina's.
 async function visitorStats(ownIds = []) {
   const own = new Set(ownIds);
   const all = await allVisits();
   const bots = crawlerIds(all);
+  for (const id of staleBrowserIds(all)) bots.add(id);
   const isReal = v => !own.has(v.visitor_id) && isVisitor(v.user_agent) && !bots.has(v.visitor_id);
   const rows = all.filter(isReal);
   const notCounted = new Set(all.filter(v => !own.has(v.visitor_id) && !isReal(v)).map(v => v.visitor_id)).size;
