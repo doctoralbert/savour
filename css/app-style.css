@@ -2210,3 +2210,31 @@ h2.has-help .help-btn {
     color: var(--sv-text, #eee8dc);
   }
 }
+
+/* Keukenteam: uitleg voor een gratis sous-chef of eigenaar (bewerken kan met Savour Pro). */
+.kt-pro-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 18px;
+  padding: 14px 18px;
+  border: 1px solid color-mix(in srgb, var(--sv-gold) 40%, var(--sv-line));
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--sv-gold) 8%, transparent);
+}
+.kt-pro-notice b {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--sv-text);
+}
+.kt-pro-notice span {
+  font-size: 14px;
+  color: var(--sv-text-2);
+}
+@media (max-width: 600px) {
+  .kt-pro-notice {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
