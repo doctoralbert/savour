@@ -159,7 +159,8 @@ const RELEASES_NL_EN = [
       'Telefoon: één menu rechtsboven met alles op één plek (je account, zoeken, recepten, mappen, keukenteams en Tools); de balk onderin heeft nu vier knoppen.',
       'De allergenenkaart toont de allergenen voluit in plaats van afgekort.',
       'Inloggen gaat sneller: je recepten staan er meteen, de Savour-lijst laadt daarna.',
-      'De website kan ook licht, met de schermen van de app in het licht, en een nieuw app-icoon.'
+      'De website kan ook licht, met de schermen van de app in het licht, en een nieuw app-icoon.',
+      'Geen advertenties meer: niet in de app en niet op de website, ook niet in de gratis versie.'
     ],
     en: [
       'Allergens per recipe, including through base recipes. Savour recognises the ingredients from the Savour list; you only answer the questions under To check.',
@@ -171,7 +172,8 @@ const RELEASES_NL_EN = [
       'Phone: one menu at the top right with everything in one place (your account, search, recipes, folders, kitchen teams and Tools); the bar at the bottom now has four buttons.',
       'The allergen chart shows the allergens in full instead of abbreviated.',
       'Logging in is faster: your recipes appear right away, the Savour list loads afterwards.',
-      'The website now has a light mode too, with the app screens in light, and a new app icon.'
+      'The website now has a light mode too, with the app screens in light, and a new app icon.',
+      'No more ads: not in the app and not on the website, including the free version.'
     ]
   },
   {

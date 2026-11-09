@@ -174,7 +174,8 @@ export const RELEASES_TALEN = {
       'Telefon: ein Menü oben rechts mit allem an einem Ort (dein Konto, Suche, Rezepte, Ordner, Küchenteams und Werkzeuge); die Leiste unten hat jetzt vier Knöpfe.',
       'Die Allergenkarte zeigt die Allergene ausgeschrieben statt abgekürzt.',
       'Die Anmeldung geht schneller: deine Rezepte sind sofort da, die Savour-Liste lädt danach.',
-      'Die Website gibt es jetzt auch hell, mit den App-Bildschirmen in hell, und ein neues App-Symbol.'
+      'Die Website gibt es jetzt auch hell, mit den App-Bildschirmen in hell, und ein neues App-Symbol.',
+      'Keine Werbung mehr: nicht in der App und nicht auf der Website, auch nicht in der kostenlosen Version.'
     ],
     es: [
       'Alérgenos por receta, también a través de recetas base. Savour reconoce los ingredientes con la lista de Savour; tú solo respondes las preguntas en Revisar.',
@@ -186,7 +187,8 @@ export const RELEASES_TALEN = {
       'Teléfono: un menú arriba a la derecha con todo en un solo lugar (tu cuenta, búsqueda, recetas, carpetas, equipos de cocina y Herramientas); la barra inferior tiene ahora cuatro botones.',
       'La tabla de alérgenos muestra los alérgenos completos en lugar de abreviados.',
       'Iniciar sesión es más rápido: tus recetas aparecen enseguida y la lista de Savour se carga después.',
-      'La web ahora también en modo claro, con las pantallas de la app en claro, y un nuevo icono de la app.'
+      'La web ahora también en modo claro, con las pantallas de la app en claro, y un nuevo icono de la app.',
+      'Sin anuncios: ni en la app ni en la web, tampoco en la versión gratuita.'
     ],
     fr: [
       'Les allergènes par recette, y compris via les recettes de base. Savour reconnaît les ingrédients grâce à la liste Savour ; tu réponds seulement aux questions sous À vérifier.',
@@ -198,7 +200,8 @@ export const RELEASES_TALEN = {
       'Téléphone : un seul menu en haut à droite avec tout au même endroit (ton compte, la recherche, les recettes, les dossiers, les équipes de cuisine et les Outils) ; la barre du bas a maintenant quatre boutons.',
       'Le tableau des allergènes affiche les allergènes en entier au lieu d’abréviations.',
       'La connexion est plus rapide : tes recettes s’affichent tout de suite, la liste Savour se charge ensuite.',
-      'Le site existe aussi en clair, avec les écrans de l’app en clair, et une nouvelle icône d’app.'
+      'Le site existe aussi en clair, avec les écrans de l’app en clair, et une nouvelle icône d’app.',
+      'Plus de publicités : ni dans l’app ni sur le site, y compris dans la version gratuite.'
     ]
   },
   '3.7.0': {
