@@ -1140,6 +1140,11 @@ async function loadAdminOverview() {
     const openai = t.openai_this_month ? `$ ${t.openai_this_month.usd.toFixed(2)}` : '—';
     if (money)
       money.innerHTML = [
+        [
+          'Nu actief',
+          t.active_now ?? '—',
+          t.active_now == null ? 'SQL accountactiviteit nog draaien' : 'accounts, afgelopen 10 minuten'
+        ],
         ['Accounts', t.accounts, `${t.new_7_days} nieuw deze week`],
         ['Niet bevestigd', t.unconfirmed, 'e-mail nog niet geverifieerd'],
         ['Gratis', t.free, 'accounts zonder Pro'],
@@ -1160,6 +1165,7 @@ async function loadAdminOverview() {
         .join('');
     if ($('adminMoneyNote')) $('adminMoneyNote').textContent = `bijgewerkt ${adminFormatDate(new Date())}`;
     renderAdminAccounts();
+    renderAdminActiveNow();
     renderAdminGrowth(adminAccounts);
     renderAdminTeams();
   } catch (error) {
@@ -1223,7 +1229,7 @@ function renderAdminAccounts() {
   const type = $('adminAccountType')?.value || '';
   const rows = adminAccounts.filter(
     a =>
-      (!type || a.type === type) &&
+      (!type || (type === 'active' ? a.active_now : a.type === type)) &&
       (!q ||
         [a.name, a.email, a.organization].some(v =>
           String(v || '')
@@ -1249,9 +1255,45 @@ function renderAdminAccounts() {
           ? ''
           : `<button class="admin-ghost" onclick="adminConfirmAccount('${a.id}')">Bevestigen</button>`;
         const remove = `<button class="admin-ghost admin-danger" onclick="adminDeleteAccount('${a.id}')">Verwijderen</button>`;
-        return `<tr><td>${adminFlag(a.country)} ${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_this_month)}</td><td>${adminFormatDate(a.created_at)}</td><td>${adminFormatDate(a.last_sign_in_at)}</td><td>${a.logins == null ? '—' : `${adminEscape(a.logins)}<small> ${adminEscape(a.logins_30_days)} in 30 dagen</small>`}</td><td><div class="admin-actions">${confirm}${action}${remove}</div></td></tr>`;
+        return `<tr><td>${adminFlag(a.country)} ${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_total ?? 0)}<small> ${adminEscape(a.ai_this_month)} deze maand</small></td><td>${adminFormatDate(a.created_at)}</td><td>${adminLastActive(a)}</td><td>${a.logins == null ? '—' : `${adminEscape(a.logins)}<small> ${adminEscape(a.logins_30_days)} in 30 dagen</small>`}</td><td>${adminDeviceDays(a)}</td><td><div class="admin-actions">${confirm}${action}${remove}</div></td></tr>`;
       })
-      .join('') || '<tr><td colspan="10">Geen accounts gevonden.</td></tr>';
+      .join('') || '<tr><td colspan="11">Geen accounts gevonden.</td></tr>';
+}
+
+// Laatst actief: 'nu actief' (afgelopen 10 minuten), anders het laatste moment uit de accountactiviteit,
+// of de laatste login als die activiteit er nog niet is (supabase/2026-11-10-accountactiviteit.sql).
+function adminLastActive(a) {
+  if (a.active_now)
+    return `<span class="admin-badge active-now">Nu actief</span><small>${adminEscape(a.activity?.lastDevice || '')}</small>`;
+  if (a.activity?.last)
+    return `${adminFormatDate(a.activity.last)}<small>${adminEscape(a.activity.lastDevice)}</small>`;
+  return `${adminFormatDate(a.last_sign_in_at)}<small>laatste login</small>`;
+}
+
+// Op hoeveel dagen gebruikte dit account Savour op de telefoon, tablet of computer.
+function adminDeviceDays(a) {
+  const d = a.activity;
+  if (!d) return '—';
+  return (
+    [
+      ['telefoon', 'Telefoon'],
+      ['tablet', 'Tablet'],
+      ['computer', 'Computer']
+    ]
+      .filter(([k]) => d[k])
+      .map(([k, label]) => `${label} <b>${adminEscape(d[k])}</b>`)
+      .join('<br>') + '<small>dagen actief</small>'
+  );
+}
+
+// Nu actief: wie de afgelopen 10 minuten Savour in beeld had, met het soort apparaat.
+function renderAdminActiveNow() {
+  const host = $('adminActiveNow');
+  if (!host) return;
+  const now = adminAccounts.filter(a => a.active_now);
+  host.innerHTML = now.length
+    ? `<span class="admin-active-dot"></span><b>Nu actief (${now.length}):</b> ${now.map(a => `${adminEscape(a.name || a.email)} <small>${adminEscape(a.activity?.lastDevice || '')}</small>`).join(' · ')}`
+    : '';
 }
 
 // Nieuw account: uitnodiging per mail, de gebruiker kiest zelf een wachtwoord (api/admin.js).

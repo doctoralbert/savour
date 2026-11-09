@@ -799,12 +799,53 @@
       });
   }
 
+  // Pijltje "naar boven" op elke pagina (website, app en /admin): verschijnt zodra je een stuk naar beneden
+  // bent gescrold en brengt je rustig terug naar boven. Eigen tekst per taal, zodat het ook zonder de
+  // vertalingen van de app werkt (losse pagina's).
+  function setupScrollTop() {
+    if (document.querySelector('.sv-scroll-top')) return;
+    var lang = (document.documentElement.lang || 'nl').slice(0, 2);
+    var label = { en: 'Back to top', de: 'Nach oben', es: 'Volver arriba', fr: 'Haut de page' }[lang] || 'Naar boven';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'sv-scroll-top';
+    btn.setAttribute('aria-label', label);
+    btn.title = label;
+    btn.setAttribute('translate', 'no');
+    btn.innerHTML =
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+    btn.addEventListener('click', function () {
+      var smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
+      btn.blur();
+    });
+    document.body.appendChild(btn);
+    var ticking = false;
+    function update() {
+      ticking = false;
+      btn.classList.toggle('is-shown', window.scrollY > Math.min(600, window.innerHeight * 0.8));
+    }
+    window.addEventListener(
+      'scroll',
+      function () {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true }
+    );
+    update();
+  }
+
   if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupScrollTop);
     document.addEventListener('DOMContentLoaded', setup);
     document.addEventListener('DOMContentLoaded', setupDeliver);
     document.addEventListener('DOMContentLoaded', setupFigures);
     document.addEventListener('DOMContentLoaded', setupIngredientList);
   } else {
+    setupScrollTop();
     setup();
     setupDeliver();
     setupFigures();

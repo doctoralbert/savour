@@ -186,6 +186,12 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
   }
 });
 
+// Accountactiviteit (alleen soort apparaat en tijd, voor /admin): elke 5 minuten en bij terugkomen in beeld.
+setInterval(() => touchAccountActivity(), 5 * 60000);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') touchAccountActivity();
+});
+
 // Offline werken en installeren op het beginscherm (sw.js). Alleen op https of lokaal testen.
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || /^(localhost|127.)/.test(location.hostname)))
   navigator.serviceWorker.register('/sw.js').catch(e => console.warn('Offline werken niet beschikbaar:', e));
