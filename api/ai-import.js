@@ -68,9 +68,12 @@ export default async function handler(req, res) {
   }
   if (!allowance?.pro)
     return res.status(402).json({ error: 'AI-import is onderdeel van Savour Pro.', code: 'pro_required' });
+  // In de proefweek geeft de database een grens van 15 in totaal (supabase/2026-11-09-ai-proef-15.sql).
   if (allowance.used >= allowance.limit)
     return res.status(403).json({
-      error: `Je hebt deze maand alle ${allowance.limit} AI-imports gebruikt.`,
+      error: allowance.trial
+        ? `In de proefweek kun je ${allowance.limit} AI-imports doen. Met Savour Pro heb je er ${AI_MONTHLY_LIMIT} per maand; de Savour-lezer blijft gratis werken.`
+        : `Je hebt deze maand alle ${allowance.limit} AI-imports gebruikt.`,
       code: 'limit_reached',
       usage: { used: allowance.used, limit: allowance.limit }
     });
@@ -275,12 +278,15 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
     // Pas tellen als de AI echt iets heeft opgeleverd.
     let used = allowance.used + 1;
     try {
-      used = (await rpc('savour_record_ai_use', { _user: user.id, _limit: AI_MONTHLY_LIMIT })) ?? used;
+      used =
+        (await rpc('savour_record_ai_use', { _user: user.id, _limit: allowance.limit || AI_MONTHLY_LIMIT })) ?? used;
     } catch (error) {
       console.error('AI-teller', error);
     }
     // Het gebruikte model gaat mee, zodat de chef (en wij) zien waarmee de foto is gelezen.
-    return res.status(200).json({ ...parsed, model: main.model, usage: { used, limit: allowance.limit } });
+    return res
+      .status(200)
+      .json({ ...parsed, model: main.model, usage: { used, limit: allowance.limit, trial: !!allowance.trial } });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: error?.message || 'AI-import mislukt.' });
