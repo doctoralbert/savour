@@ -1310,8 +1310,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background:
-      linear-gradient(90deg, #0d1415 0%, #0d1415 38%, rgba(13, 20, 21, 0.72) 56%, rgba(13, 20, 21, 0.35) 100%),
+    background: linear-gradient(90deg, #0d1415 0%, #0d1415 38%, rgba(13, 20, 21, 0.72) 56%, rgba(13, 20, 21, 0.35) 100%),
       linear-gradient(0deg, rgba(13, 20, 21, 0.55) 0%, rgba(13, 20, 21, 0) 60%);
   }
   body.savour-light .settings-hero::before {
@@ -1319,10 +1318,34 @@
     opacity: 0.55;
   }
   body.savour-light .settings-hero::after {
-    background:
-      linear-gradient(90deg, #fff 0%, #fff 38%, rgba(255, 255, 255, 0.7) 56%, rgba(255, 255, 255, 0.3) 100%);
+    background: linear-gradient(90deg, #fff 0%, #fff 38%, rgba(255, 255, 255, 0.7) 56%, rgba(255, 255, 255, 0.3) 100%);
   }
   .settings-hero-plan {
     background: color-mix(in srgb, var(--sv-bg) 70%, transparent);
+  }
+}
+
+/* Telefoonmenu (testversie): dezelfde iconen als in het menu op de computer, links van elke regel.
+   Verder dezelfde opmaak als voorheen. */
+@media (max-width: 760px) {
+  .app-mm .app-mm-group li button {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    column-gap: 12px;
+    align-items: center;
+  }
+  .app-mm-group .app-mm-ico {
+    grid-row: 1 / span 2;
+    display: grid;
+    place-items: center;
+    color: var(--sv-gold);
+    font-style: normal;
+  }
+  .app-mm-group .app-mm-ico:empty {
+    visibility: hidden;
+  }
+  .app-mm-group li button b,
+  .app-mm-group li button span {
+    grid-column: 2;
   }
 }

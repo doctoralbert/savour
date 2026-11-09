@@ -33,7 +33,6 @@ function appMenuData() {
       id: 'recipes',
       title: t('Recepten'),
       intro: t('Je hele receptenboek, je favorieten en de categorieën.'),
-      open: true,
       on: ['recipes', 'favorites', 'categories', 'import', 'detail', 'editor'].includes(active),
       items: [
         item("go('recipes')", t('Alle recepten'), count(recipes.length), active === 'recipes', 'book'),
@@ -131,11 +130,11 @@ function renderAppMenu() {
   const groups = appMenuData()
     .map(
       g =>
-        `<details class="app-mm-group"${g.open || g.on ? ' open' : ''}><summary>${esc(g.title)}</summary><ul>${g.items
+        `<details class="app-mm-group"><summary>${esc(g.title)}</summary><ul>${g.items
           .filter(x => !x.desk)
           .map(
             x =>
-              `<li><button type="button" class="${x.active ? 'is-active' : ''}" onclick="${x.action}"><b>${esc(x.title)}</b>${x.note ? `<span>${esc(x.note)}</span>` : ''}</button></li>`
+              `<li><button type="button" class="${x.active ? 'is-active' : ''}" onclick="${x.action}"><i class="app-mm-ico" aria-hidden="true">${x.icon ? icon(x.icon, { size: 18 }) : ''}</i><b>${esc(x.title)}</b>${x.note ? `<span>${esc(x.note)}</span>` : ''}</button></li>`
           )
           .join('')}</ul></details>`
     )
