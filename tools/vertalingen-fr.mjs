@@ -133,6 +133,13 @@ export const stringsFr = {
  "Categorieën tonen": "Afficher les catégories",
  "Mappen tonen": "Afficher les dossiers",
  "Savour Pro · proefweek": "Savour Pro · semaine d’essai",
+ "Veel AI-imports voor één bestand": "Beaucoup d’imports IA pour un seul fichier",
+ "Alleen de Savour-lezer": "Seulement le lecteur Savour",
+ "Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.": "Gratuit. Seule l’IA peut lire un PDF scanné : il sera ignoré.",
+ "Gratis. Wat de lezer niet zeker weet, krijgt een markering om te controleren.": "Gratuit. Ce dont le lecteur n’est pas sûr est marqué pour que tu le vérifies.",
+ "Met de AI lezen": "Lire avec l’IA",
+ "Tot je AI-imports op zijn; daarna neemt de Savour-lezer het over.": "Jusqu’à épuisement de tes imports IA ; ensuite le lecteur Savour prend le relais.",
+ "Gescande PDF overgeslagen: die kan alleen de AI lezen.": "PDF scanné ignoré : seule l’IA peut le lire.",
  "Met een gratis account kun je in een keukenteam de recepten bekijken, printen en omrekenen; recepten toevoegen en bewerken kan met Savour Pro.": "Avec un compte gratuit, tu peux consulter, imprimer et adapter les recettes d’une équipe de cuisine ; ajouter et modifier des recettes est possible avec Savour Pro.",
  "Recepten toevoegen en bewerken in een keukenteam": "Ajouter et modifier des recettes dans une équipe de cuisine",
  "Bekijken met een gratis account": "Consulter avec un compte gratuit",
@@ -1712,6 +1719,7 @@ export const stringsFr = {
 };
 export const patternsFr = {
  "^Savour-lijst \\((\\d+)\\)$": "Liste Savour ($1)",
+ "^(.+): de AI moet (\\d+) delen lezen\\. Elk deel telt als één AI-import; je hebt er nog (\\d+)\\. Je keuze geldt voor alle bestanden van deze import\\.$": "$1 : l’IA doit lire $2 parties. Chaque partie compte comme un import IA ; il t’en reste $3. Ton choix vaut pour tous les fichiers de cet import.",
  "^(\\d+) allergenen$": "$1 allergènes",
  "^Ja, weghalen uit alle (\\d+)$": "Oui, retirer des $1",
  "^(\\d+) vragen heb je voor later bewaard\\.$": "Tu as gardé $1 questions pour plus tard.",

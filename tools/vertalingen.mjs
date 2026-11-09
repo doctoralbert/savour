@@ -94,6 +94,13 @@ export const strings = [
   ['Categorieën tonen', 'Show categories', 'Kategorien anzeigen', 'Mostrar categorías'],
   ['Mappen tonen', 'Show folders', 'Ordner anzeigen', 'Mostrar carpetas'],
   ['Savour Pro · proefweek', 'Savour Pro · trial week', 'Savour Pro · Testwoche', 'Savour Pro · semana de prueba'],
+  ["Veel AI-imports voor één bestand","Many AI imports for one file","Viele KI-Importe für eine Datei","Muchas importaciones con IA para un archivo"],
+  ["Alleen de Savour-lezer","Only the Savour reader","Nur der Savour-Leser","Solo el lector de Savour"],
+  ["Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.","Free. Only the AI can read a scanned PDF, so it will be skipped.","Kostenlos. Ein gescanntes PDF kann nur die KI lesen: es wird übersprungen.","Gratis. Un PDF escaneado solo lo puede leer la IA, así que se omitirá."],
+  ["Gratis. Wat de lezer niet zeker weet, krijgt een markering om te controleren.","Free. Anything the reader is unsure about gets marked for you to check.","Kostenlos. Was der Leser nicht sicher weiß, wird zum Prüfen markiert.","Gratis. Lo que el lector no tenga claro se marca para que lo revises."],
+  ["Met de AI lezen","Read with the AI","Mit der KI lesen","Leer con la IA"],
+  ["Tot je AI-imports op zijn; daarna neemt de Savour-lezer het over.","Until your AI imports run out; after that the Savour reader takes over.","Bis deine KI-Importe aufgebraucht sind; danach übernimmt der Savour-Leser.","Hasta que se acaben tus importaciones con IA; después sigue el lector de Savour."],
+  ["Gescande PDF overgeslagen: die kan alleen de AI lezen.","Scanned PDF skipped: only the AI can read it.","Gescanntes PDF übersprungen: Nur die KI kann es lesen.","PDF escaneado omitido: solo la IA puede leerlo."],
   ["Met een gratis account kun je in een keukenteam de recepten bekijken, printen en omrekenen; recepten toevoegen en bewerken kan met Savour Pro.","With a free account you can view, print and scale the recipes in a kitchen team; adding and editing recipes is possible with Savour Pro.","Mit einem kostenlosen Konto kannst du die Rezepte in einem Küchenteam ansehen, drucken und umrechnen; Rezepte hinzufügen und bearbeiten geht mit Savour Pro.","Con una cuenta gratuita puedes ver, imprimir y escalar las recetas de un equipo de cocina; añadir y editar recetas es posible con Savour Pro."],
   ["Recepten toevoegen en bewerken in een keukenteam","Adding and editing recipes in a kitchen team","Rezepte in einem Küchenteam hinzufügen und bearbeiten","Añadir y editar recetas en un equipo de cocina"],
   ['Bekijken met een gratis account', 'Viewing with a free account', 'Ansehen mit einem kostenlosen Konto', 'Ver con una cuenta gratuita'],
@@ -3892,6 +3899,7 @@ export const strings = [
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
 export const patterns = [
   ["^Savour-lijst \\((\\d+)\\)$","Savour list ($1)","Savour-Liste ($1)","Lista de Savour ($1)"],
+  ["^(.+): de AI moet (\\d+) delen lezen\\. Elk deel telt als één AI-import; je hebt er nog (\\d+)\\. Je keuze geldt voor alle bestanden van deze import\\.$","$1: the AI needs to read $2 parts. Each part counts as one AI import; you have $3 left. Your choice applies to all files in this import.","$1: Die KI muss $2 Teile lesen. Jeder Teil zählt als ein KI-Import; du hast noch $3. Deine Wahl gilt für alle Dateien dieses Imports.","$1: la IA tiene que leer $2 partes. Cada parte cuenta como una importación con IA; te quedan $3. Tu elección vale para todos los archivos de esta importación."],
   ["^(\\d+) allergenen$","$1 allergens","$1 Allergene","$1 alérgenos"],
   ["^Ja, weghalen uit alle (\\d+)$","Yes, remove from all $1","Ja, aus allen $1 entfernen","Sí, quitar de las $1"],
   ["^(\\d+) vragen heb je voor later bewaard\\.$","You saved $1 questions for later.","Du hast $1 Fragen für später aufgehoben.","Has guardado $1 preguntas para más tarde."],
