@@ -89,6 +89,7 @@ window.SAVOUR_I18N.es = {
     "Categorieën tonen": "Mostrar categorías",
     "Mappen tonen": "Mostrar carpetas",
     "Savour Pro · proefweek": "Savour Pro · semana de prueba",
+    "Je sessie is verlopen. Log opnieuw in om verder te gaan.": "Tu sesión ha caducado. Vuelve a iniciar sesión para continuar.",
     "Veel AI-imports voor één bestand": "Muchas importaciones con IA para un archivo",
     "Alleen de Savour-lezer": "Solo el lector de Savour",
     "Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.": "Gratis. Un PDF escaneado solo lo puede leer la IA, así que se omitirá.",

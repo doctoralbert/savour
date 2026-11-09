@@ -94,6 +94,7 @@ export const strings = [
   ['Categorieën tonen', 'Show categories', 'Kategorien anzeigen', 'Mostrar categorías'],
   ['Mappen tonen', 'Show folders', 'Ordner anzeigen', 'Mostrar carpetas'],
   ['Savour Pro · proefweek', 'Savour Pro · trial week', 'Savour Pro · Testwoche', 'Savour Pro · semana de prueba'],
+  ["Je sessie is verlopen. Log opnieuw in om verder te gaan.","Your session has expired. Log in again to continue.","Deine Sitzung ist abgelaufen. Melde dich erneut an, um weiterzumachen.","Tu sesión ha caducado. Vuelve a iniciar sesión para continuar."],
   ["Veel AI-imports voor één bestand","Many AI imports for one file","Viele KI-Importe für eine Datei","Muchas importaciones con IA para un archivo"],
   ["Alleen de Savour-lezer","Only the Savour reader","Nur der Savour-Leser","Solo el lector de Savour"],
   ["Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.","Free. Only the AI can read a scanned PDF, so it will be skipped.","Kostenlos. Ein gescanntes PDF kann nur die KI lesen: es wird übersprungen.","Gratis. Un PDF escaneado solo lo puede leer la IA, así que se omitirá."],

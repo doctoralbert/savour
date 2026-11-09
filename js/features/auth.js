@@ -252,6 +252,25 @@ async function touchAccountActivity(force = false) {
   }
 }
 
+// Sessie verlopen in de app (de server weigert het token en verversen lukt niet): niet doorwerken met een
+// sessie die niets meer kan opslaan. Lokaal uitloggen (de bewaarde gegevens op de server blijven staan),
+// naar de homepage, en het inlogvenster met een duidelijke melding.
+let appSessionExpiring = false;
+async function appSessionExpired() {
+  if (appSessionExpiring || demoMode || !currentUser) return;
+  appSessionExpiring = true;
+  try {
+    await supabaseClient.auth.signOut({ scope: 'local' }).catch(() => null);
+    clearSessionState();
+    $('appShell').style.display = 'none';
+    showLanding();
+    openAuth('login');
+    $('authIntro').textContent = t('Je sessie is verlopen. Log opnieuw in om verder te gaan.');
+  } finally {
+    appSessionExpiring = false;
+  }
+}
+
 // Herkomst van het account voor /admin (api/admin.js, accountSource): één keer per account per browser de
 // anonieme bezoekers-id meesturen. De server bewaart alleen het label (bijv. "Google"), niet de bezoeken.
 async function sendAccountSource() {
