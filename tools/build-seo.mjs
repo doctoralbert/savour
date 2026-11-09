@@ -535,8 +535,15 @@ function mobileMenu(lang, alt, inApp) {
 // ---- Onderdelen ----
 // inApp: de startpagina in index.html (knoppen openen inloggen/demo direct; taalknop wisselt zonder herladen).
 // Licht of donker voor de website (css/site.css, html.site-light). Staat ook bovenin index.html.
-const SITE_THEME_JS = "<script>(function(){var N=['allergenen','allergenenkaart','bibliotheek','brigade','importeren','kookmodus','lijst','mappen','meer-omrekenen','omrekenen','recept'];function shots(){var l=document.documentElement.classList.contains('site-light');document.querySelectorAll('img[src*=\"/assets/app/\"]').forEach(function(i){var s=i.getAttribute('src'),k=s.indexOf('/assets/app/'),f=s.slice(k+12).replace('licht/','');if(N.indexOf(f.slice(0,f.lastIndexOf('-')))<0)return;i.setAttribute('src',s.slice(0,k)+'/assets/app/'+(l?'licht/':'')+f)})}try{if(localStorage.getItem('savour_site_theme')==='light')document.documentElement.classList.add('site-light')}catch(e){}window.savourSiteShots=shots;document.addEventListener('DOMContentLoaded',shots);window.savourSiteTheme=function(){var l=document.documentElement.classList.toggle('site-light');try{localStorage.setItem('savour_site_theme',l?'light':'dark')}catch(e){}shots()}})()</script>";
-const THEME_LABEL = { nl: 'Licht of donker', en: 'Light or dark', de: 'Hell oder dunkel', es: 'Claro u oscuro', fr: 'Clair ou sombre' };
+const SITE_THEME_JS =
+  "<script>(function(){var N=['allergenen','allergenenkaart','bibliotheek','brigade','importeren','kookmodus','lijst','mappen','meer-omrekenen','omrekenen','recept'];function shots(){var l=document.documentElement.classList.contains('site-light');document.querySelectorAll('img[src*=\"/assets/app/\"]').forEach(function(i){var s=i.getAttribute('src'),k=s.indexOf('/assets/app/'),f=s.slice(k+12).replace('licht/','');if(N.indexOf(f.slice(0,f.lastIndexOf('-')))<0)return;i.setAttribute('src',s.slice(0,k)+'/assets/app/'+(l?'licht/':'')+f)})}try{if(localStorage.getItem('savour_site_theme')==='light')document.documentElement.classList.add('site-light')}catch(e){}window.savourSiteShots=shots;document.addEventListener('DOMContentLoaded',shots);window.savourSiteTheme=function(){var l=document.documentElement.classList.toggle('site-light');try{localStorage.setItem('savour_site_theme',l?'light':'dark')}catch(e){}shots()}})()</script>";
+const THEME_LABEL = {
+  nl: 'Licht of donker',
+  en: 'Light or dark',
+  de: 'Hell oder dunkel',
+  es: 'Claro u oscuro',
+  fr: 'Clair ou sombre'
+};
 const themeButton = lang =>
   `<button type="button" class="site-theme" onclick="savourSiteTheme()" aria-label="${THEME_LABEL[lang]}" title="${THEME_LABEL[lang]}"><svg class="is-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><svg class="is-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>`;
 function header(lang, alt, inApp) {
@@ -631,7 +638,10 @@ const blogRelated = (id, lang) => {
   const list = (PAGE_POSTS[id] || []).map(postById);
   return list.length
     ? `<section class="site-related"><div class="site-wrap site-narrow"><h2>${FROM_BLOG[lang]}</h2><ul class="site-rows">${list
-        .map(p => `<li><a href="${href(p[lang].slug)}"><b>${esc(p[lang].title)}</b><span>${esc(p[lang].desc)}</span><i aria-hidden="true">→</i></a></li>`)
+        .map(
+          p =>
+            `<li><a href="${href(p[lang].slug)}"><b>${esc(p[lang].title)}</b><span>${esc(p[lang].desc)}</span><i aria-hidden="true">→</i></a></li>`
+        )
         .join('')}</ul></div></section>`
     : '';
 };
@@ -1773,6 +1783,8 @@ const HOME_META = {
     );
     swap(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${home}">`);
     swap(/<meta property="og:locale" content="[^"]*">/, `<meta property="og:locale" content="${m.locale}">`);
+    // Schermafbeeldingen in schema.org (SoftwareApplication.screenshot) in de taal van deze startpagina.
+    x = x.replace(/(\/assets\/app\/[a-z-]+)-nl\.jpg(?=")/g, `$1-${lang}.jpg`);
     x = withFaq(x, lang);
     x = x.replace(
       '<!doctype html>',
@@ -1806,8 +1818,7 @@ const HOME_META = {
     html.replace(/<a ([^>]*?)href="([^"]*\?(?:auth|demo|info)=[^"]*)"([^>]*)>/g, (all, before, url, after) =>
       /\srel=/.test(` ${before}${after}`) ? all : `<a ${before}href="${url}" rel="nofollow"${after}>`
     );
-  const stamp = html =>
-    nofollow(html.replace(/((?:href|src)="\/(?:css|js)\/[^"?]+)(\?v=[^"]*)?"/g, `$1?v=${v}"`));
+  const stamp = html => nofollow(html.replace(/((?:href|src)="\/(?:css|js)\/[^"?]+)(\?v=[^"]*)?"/g, `$1?v=${v}"`));
   const files = ['index.html'];
   const walkSite = dir => {
     for (const f of fs.readdirSync(new URL(dir, ROOT))) {
@@ -1867,15 +1878,30 @@ const homeAlts = [
   ['fr', SITE + '/fr'],
   ['x-default', SITE + '/']
 ];
-const entry = (loc, alts, priority, date) =>
-  `  <url><loc>${loc}</loc>${alts.map(([l, h]) => `<xhtml:link rel="alternate" hreflang="${l}" href="${h}"/>`).join('')}<lastmod>${date}</lastmod><priority>${priority}</priority></url>`;
+// Afbeeldingen bij een adres (image-sitemap): zo koppelen zoekmachines de echte schermafbeeldingen aan Savour.
+const SITEMAP_SHOTS = ['bibliotheek', 'recept', 'importeren', 'brigade', 'kookmodus'];
+const imagesFor = lang =>
+  [
+    `${SITE}/assets/${lang === 'en' ? 'savour-og-en.png' : 'savour-og.png'}`,
+    ...SITEMAP_SHOTS.map(f => `${SITE}/assets/app/${f}-${lang}.jpg`)
+  ]
+    .map(u => `<image:image><image:loc>${u}</image:loc></image:image>`)
+    .join('');
+const entry = (loc, alts, priority, date, images = '') =>
+  `  <url><loc>${loc}</loc>${alts.map(([l, h]) => `<xhtml:link rel="alternate" hreflang="${l}" href="${h}"/>`).join('')}${images}<lastmod>${date}</lastmod><priority>${priority}</priority></url>`;
 const low =
   /\/((en|de|es|fr)\/)?(voorwaarden|terms|privacy|contact|agb|datenschutz|kontakt|terminos|privacidad|contacto|conditions|confidentialite)$/;
 const urls = [
   ...homeAlts
     .slice(0, 5)
     .map(([l, h], n) =>
-      entry(h, homeAlts, n ? '0.8' : '1.0', lastmod(h, l === 'nl' ? 'index.html' : `site/index-${l}.html`, true))
+      entry(
+        h,
+        homeAlts,
+        n ? '0.8' : '1.0',
+        lastmod(h, l === 'nl' ? 'index.html' : `site/index-${l}.html`, true),
+        imagesFor(l)
+      )
     ),
   ...sitemap.map(s => entry(s.loc, s.alternates, low.test(s.loc) ? '0.3' : '0.7', lastmod(s.loc, s.file)))
 ];
@@ -1890,7 +1916,7 @@ fs.writeFileSync(
 );
 fs.writeFileSync(
   new URL('sitemap.xml', ROOT),
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join('\n')}\n</urlset>\n`,
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${urls.join('\n')}\n</urlset>\n`,
   'utf8'
 );
 
