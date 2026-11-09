@@ -3161,6 +3161,33 @@ button {
 .admin-refresh {
   white-space: nowrap;
 }
+/* Nu actief: accounts die de afgelopen 10 minuten Savour in beeld hadden. */
+.admin-active-now {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 14px;
+  color: #cfd5cf;
+  font-size: var(--sv-fs-sm);
+}
+.admin-active-now:empty {
+  display: none;
+}
+.admin-active-now small {
+  color: #8f9994;
+}
+.admin-active-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #7fc79a;
+  box-shadow: 0 0 0 4px rgba(127, 199, 154, 0.15);
+}
+.admin-badge.active-now {
+  color: #7fc79a;
+  border-color: rgba(127, 199, 154, 0.45);
+}
 .admin-stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

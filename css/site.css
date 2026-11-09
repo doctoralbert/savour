@@ -4311,3 +4311,63 @@ html.site-light .site :is(.site-figures-live, .site-figures dt, .post-fact span)
     background: rgba(232, 202, 141, 0.1);
   }
 }
+
+/* Pijltje "naar boven" op elke pagina (js/site.js): verschijnt na een stuk scrollen. */
+.sv-scroll-top {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  z-index: 900;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid rgba(232, 202, 141, 0.55);
+  border-radius: 4px;
+  background: rgba(9, 16, 17, 0.88);
+  color: #e8ca8d;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s,
+    background 0.15s ease;
+}
+.sv-scroll-top.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.sv-scroll-top:hover,
+.sv-scroll-top:focus-visible {
+  background: #e8ca8d;
+  color: #091011;
+}
+html.site-light .sv-scroll-top,
+body.savour-light .sv-scroll-top {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(150, 118, 58, 0.5);
+  color: #8a6a2e;
+  box-shadow: 0 10px 24px rgba(30, 30, 20, 0.14);
+}
+html.site-light .sv-scroll-top:hover,
+body.savour-light .sv-scroll-top:hover {
+  background: #8a6a2e;
+  color: #fff;
+}
+/* In de kookmodus en met een open venster of telefoonmenu niet in de weg zitten. */
+body.cook-mode .sv-scroll-top,
+body.mobile-menu-open .sv-scroll-top {
+  display: none;
+}
+@media print {
+  .sv-scroll-top {
+    display: none !important;
+  }
+}

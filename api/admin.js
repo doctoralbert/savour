@@ -789,21 +789,25 @@ async function clearErrors() {
 }
 
 async function overview(user, ownVisitor) {
-  const [users, profiles, subs, orgs, members, stats, aiCost, revenue, teams, ownFolders, logins] = await Promise.all([
-    listUsers(),
-    select('profiles', 'select=id,name,organization,country').catch(() =>
-      select('profiles', 'select=id,name,organization')
-    ),
-    select('subscriptions', 'select=*'),
-    select('organizations', 'select=*'),
-    select('organization_members', 'select=*'),
-    rpc('savour_admin_user_stats', {}),
-    openAiCostsThisMonth(),
-    stripeRevenue30Days(),
-    select('shared_maps', 'select=owner_id').catch(() => []),
-    select('folders', 'select=user_id').catch(() => []),
-    rpc('savour_admin_login_counts', {}).catch(() => null)
-  ]);
+  const [users, profiles, subs, orgs, members, stats, aiCost, revenue, teams, ownFolders, logins, aiAll, activityRows] =
+    await Promise.all([
+      listUsers(),
+      select('profiles', 'select=id,name,organization,country').catch(() =>
+        select('profiles', 'select=id,name,organization')
+      ),
+      select('subscriptions', 'select=*'),
+      select('organizations', 'select=*'),
+      select('organization_members', 'select=*'),
+      rpc('savour_admin_user_stats', {}),
+      openAiCostsThisMonth(),
+      stripeRevenue30Days(),
+      select('shared_maps', 'select=owner_id').catch(() => []),
+      select('folders', 'select=user_id').catch(() => []),
+      rpc('savour_admin_login_counts', {}).catch(() => null),
+      // AI-imports over alle maanden, en accountactiviteit (supabase/2026-11-10-accountactiviteit.sql).
+      selectAll('ai_usage', 'select=user_id,count&order=user_id,month').catch(() => []),
+      selectAll('account_activity', 'select=user_id,day,device,last_at&order=user_id,day,device').catch(() => null)
+    ]);
   const visitors = await visitorStats(await ownVisitorIds(user, ownVisitor)).catch(e => {
     console.error('Bezoekers laden mislukt', e);
     return null;
@@ -815,6 +819,18 @@ async function overview(user, ownVisitor) {
   const orgById = byId(orgs);
   const statsOf = byId(stats, 'user_id');
   const loginsOf = byId(logins, 'user_id');
+  const aiTotalOf = new Map();
+  for (const row of aiAll || []) aiTotalOf.set(row.user_id, (aiTotalOf.get(row.user_id) || 0) + Number(row.count || 0));
+  // Per account: dagen actief per soort apparaat en het laatste moment. 'Nu actief' = de afgelopen 10 minuten
+  // (de app meldt zich elke 5 minuten zolang Savour in beeld is).
+  const activityOf = new Map();
+  for (const row of activityRows || []) {
+    const a = activityOf.get(row.user_id) || { telefoon: 0, tablet: 0, computer: 0, last: null, lastDevice: '' };
+    a[row.device] = (a[row.device] || 0) + 1;
+    if (!a.last || row.last_at > a.last) Object.assign(a, { last: row.last_at, lastDevice: row.device });
+    activityOf.set(row.user_id, a);
+  }
+  const activeSince = Date.now() - 10 * 60000;
   const memberOrgOfEmail = new Map(
     (members || []).map(m => [String(m.email).toLowerCase(), orgById.get(m.organization_id)])
   );
@@ -836,6 +852,9 @@ async function overview(user, ownVisitor) {
         logins: logins ? Number(loginsOf.get(u.id)?.logins || 0) : null,
         logins_30_days: logins ? Number(loginsOf.get(u.id)?.logins_30_days || 0) : null,
         ai_this_month: Number(s.ai_this_month || 0),
+        ai_total: Number(aiTotalOf.get(u.id) || 0),
+        activity: activityRows ? activityOf.get(u.id) || null : undefined,
+        active_now: !!activityOf.get(u.id)?.last && Date.parse(activityOf.get(u.id).last) > activeSince,
         paid_stripe: !!sub?.stripe_subscription_id && running(sub),
         ...accountType(u, sub, ownOrgOf.get(u.id), memberOrgOfEmail.get(String(u.email).toLowerCase()))
       };
@@ -878,6 +897,7 @@ async function overview(user, ownVisitor) {
       team_members: accounts.filter(a => a.type === 'team').length,
       recipes: accounts.reduce((sum, a) => sum + a.recipes, 0),
       ai_this_month: accounts.reduce((sum, a) => sum + a.ai_this_month, 0),
+      active_now: activityRows ? accounts.filter(a => a.active_now).length : null,
       mrr_eur: Math.round(mrr * 100) / 100,
       stripe_30_days: revenue,
       openai_this_month: aiCost

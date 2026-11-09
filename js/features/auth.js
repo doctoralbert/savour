@@ -224,6 +224,34 @@ async function submitAuth() {
   }
 }
 
+// Accountactiviteit voor /admin (supabase/2026-11-10-accountactiviteit.sql): alleen het soort apparaat
+// (telefoon, tablet of computer) en de tijd. Bij het openen, en daarna hooguit eens per 4 minuten zolang
+// Savour in beeld is. Niet in de demo, niet offline en niet bij lokaal testen.
+let lastActivityTouch = 0;
+function accountDeviceType() {
+  const ua = navigator.userAgent || '';
+  // iPad op iPadOS doet zich voor als Mac, maar heeft een aanraakscherm.
+  if (
+    /iPad|Tablet/i.test(ua) ||
+    (/Android/i.test(ua) && !/Mobi/i.test(ua)) ||
+    (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1)
+  )
+    return 'tablet';
+  if (/Mobi|iPhone|iPod|Android/i.test(ua)) return 'telefoon';
+  return 'computer';
+}
+async function touchAccountActivity(force = false) {
+  if (!currentUser || demoMode || !navigator.onLine || document.visibilityState === 'hidden') return;
+  if (/^(localhost|127\.)/.test(location.hostname)) return;
+  if (!force && Date.now() - lastActivityTouch < 4 * 60000) return;
+  lastActivityTouch = Date.now();
+  try {
+    await supabaseClient.rpc('savour_touch_activity', { _device: accountDeviceType() });
+  } catch (_) {
+    // Geen activiteit kunnen melden is geen probleem voor de gebruiker.
+  }
+}
+
 // Na uitloggen (ook uit de demo) niets van het vorige account laten staan: geen gegevens, geen mappen in
 // het menu en geen Admin-knop. Anders zie je in de demo of in een ander account de mappen van de vorige.
 function clearSessionState() {
