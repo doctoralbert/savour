@@ -876,7 +876,7 @@ async function aiUsageOverview() {
   const dayOf = d => new Intl.DateTimeFormat('sv-SE', { timeZone: tz }).format(new Date(d));
   const today = dayOf(Date.now());
   const since = new Date(Date.now() - 31 * 86400000).toISOString();
-  const [users, profiles, usage, stats, subs, orgs, members, log] = await Promise.all([
+  const [users, profiles, usage, stats, subs, orgs, members, log, cost] = await Promise.all([
     listUsers(),
     select('profiles', 'select=id,name'),
     selectAll('ai_usage', 'select=user_id,month,count'),
@@ -885,7 +885,8 @@ async function aiUsageOverview() {
     select('organizations', 'select=*'),
     select('organization_members', 'select=*'),
     // Zonder de SQL van 2026-11-09 bestaat het logboek nog niet: dan alleen de maandtellingen.
-    selectAll('ai_usage_log', `select=user_id,at&at=gte.${since}&order=at.desc`).catch(() => null)
+    selectAll('ai_usage_log', `select=user_id,at&at=gte.${since}&order=at.desc`).catch(() => null),
+    openAiCostsThisMonth()
   ]);
   const byId = (rows, key = 'id') => new Map((rows || []).map(r => [r[key], r]));
   const userOf = byId(users);
@@ -945,9 +946,23 @@ async function aiUsageOverview() {
       };
     })
     .sort((a, b) => b.flags.length - a.flags.length || b.today - a.today || b.month - a.month);
+  // Echte kosten per AI-import: wat OpenAI deze maand rekent (alles: rechtzetten, hoofd- en controlelezing,
+  // mislukte pogingen) gedeeld door het aantal getelde imports. Omslagpunt: vanaf hoeveel imports per maand een
+  // Pro-maandabonnement (€ 2,99) niet meer uit kan.
+  const monthTotal = accounts.reduce((n, a) => n + a.month, 0);
+  const perImportEur = cost?.usd != null && monthTotal ? (cost.usd * EUR_PER_USD) / monthTotal : null;
   return {
     month,
     log: !!log,
+    cost:
+      cost?.usd != null
+        ? {
+            usd: cost.usd,
+            eur: Math.round(cost.usd * EUR_PER_USD * 100) / 100,
+            per_import_eur: perImportEur,
+            break_even: perImportEur ? Math.floor(2.99 / perImportEur) : null
+          }
+        : null,
     accounts,
     totals: {
       today: accounts.reduce((n, a) => n + a.today, 0),

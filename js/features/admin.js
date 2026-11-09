@@ -586,6 +586,16 @@ async function loadAdminAi() {
     if ($('adminAiCount'))
       $('adminAiCount').textContent =
         `${d.totals.today} vandaag · ${d.totals.month} deze maand · ${d.totals.flagged} om naar te kijken`;
+    // Kosten: wat OpenAI deze maand rekent, per AI-import en het omslagpunt van een Pro-maandabonnement.
+    const costHost = $('adminAiCost');
+    if (costHost)
+      costHost.innerHTML = d.cost
+        ? `OpenAI deze maand: <b>${adminMoney(d.cost.eur)}</b>${
+            d.cost.per_import_eur
+              ? ` · ongeveer <b>€ ${d.cost.per_import_eur.toLocaleString('nl-NL', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}</b> per AI-import · een Pro-maand (€ 2,99) kan tot ongeveer <b>${d.cost.break_even}</b> AI-imports per maand uit`
+              : ''
+          }. Bedragen omgerekend uit dollars.`
+        : 'Kosten per AI-import: zet OPENAI_ADMIN_KEY in Vercel om ze hier te zien.';
     const badge = $('adminAiBadge');
     if (badge) {
       badge.hidden = !d.totals.flagged;

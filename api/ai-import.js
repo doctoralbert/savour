@@ -243,10 +243,14 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
     const attempts = hasImage
       ? [{ model: 'gpt-5.6-terra', reasoning: { effort: 'medium' } }, { model: 'gpt-5.6-luna' }]
       : [{ model: 'gpt-5.6-luna' }];
-    const readOnce = async () => {
+    // De controlelezing (alleen om getallen te vergelijken) gaat naar het lichte model zonder extra denktijd:
+    // dat kost een fractie, en de hoofdlezing blijft het zware model. Leest het lichte model een getal anders,
+    // dan komt die regel bij "niet goed leesbaar" en kiest de chef; er wordt nooit iets stil overgenomen.
+    const checkAttempts = [{ model: 'gpt-5.6-luna' }];
+    const readOnce = async (list = attempts, role = 'lezing') => {
       let response;
       let data;
-      for (const attempt of attempts) {
+      for (const attempt of list) {
         response = await fetch('https://api.openai.com/v1/responses', {
           method: 'POST',
           headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
@@ -260,6 +264,11 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
         console.warn('AI-model niet beschikbaar, volgende proberen:', attempt.model, data?.error?.message);
       }
       if (!response.ok) return { status: response.status, error: data?.error?.message || 'AI-import mislukt.' };
+      // Verbruik per aanroep in de Vercel-logs, om de echte kosten per import te kunnen volgen.
+      const u = data?.usage || {};
+      console.log(
+        `AI-verbruik ${role}: ${data?.model || ''} in=${u.input_tokens ?? '?'} uit=${u.output_tokens ?? '?'} denk=${u.output_tokens_details?.reasoning_tokens ?? 0}`
+      );
       try {
         return { parsed: JSON.parse(extractOutputText(data)), model: data?.model || '' };
       } catch {
@@ -269,7 +278,9 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
 
     // Foto's worden twee keer los van elkaar gelezen (tegelijk). Lezen ze een getal verschillend, dan komt
     // die regel bij "niet goed leesbaar": zo vangen we leesfouten die de AI zelf niet opmerkt.
-    const [first, second] = await Promise.all(hasImage ? [readOnce(), readOnce()] : [readOnce()]);
+    const [first, second] = await Promise.all(
+      hasImage ? [readOnce(attempts, 'hoofd'), readOnce(checkAttempts, 'controle')] : [readOnce(attempts, 'tekst')]
+    );
     const main = first.parsed ? first : second?.parsed ? second : first;
     if (!main.parsed) return res.status(main.status || 500).json({ error: main.error });
     const parsed = main.parsed;
