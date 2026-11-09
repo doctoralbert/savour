@@ -128,6 +128,7 @@ export const stringsFr = {
  "Menu": "Menu",
  "Menu sluiten": "Fermer le menu",
  "Keukenteams beheren": "Gérer les équipes de cuisine",
+ "Je sessie is verlopen. Log opnieuw in om verder te gaan.": "Ta session a expiré. Reconnecte-toi pour continuer.",
  "Veel AI-imports voor één bestand": "Beaucoup d’imports IA pour un seul fichier",
  "Alleen de Savour-lezer": "Seulement le lecteur Savour",
  "Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.": "Gratuit. Seule l’IA peut lire un PDF scanné : il sera ignoré.",

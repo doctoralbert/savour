@@ -84,6 +84,7 @@ window.SAVOUR_I18N.es = {
     "Menu": "Menú",
     "Menu sluiten": "Cerrar menú",
     "Keukenteams beheren": "Gestionar equipos de cocina",
+    "Je sessie is verlopen. Log opnieuw in om verder te gaan.": "Tu sesión ha caducado. Vuelve a iniciar sesión para continuar.",
     "Veel AI-imports voor één bestand": "Muchas importaciones con IA para un archivo",
     "Alleen de Savour-lezer": "Solo el lector de Savour",
     "Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.": "Gratis. Un PDF escaneado solo lo puede leer la IA, así que se omitirá.",

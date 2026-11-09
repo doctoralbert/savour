@@ -84,6 +84,7 @@ window.SAVOUR_I18N.en = {
     "Menu": "Menu",
     "Menu sluiten": "Close menu",
     "Keukenteams beheren": "Manage kitchen teams",
+    "Je sessie is verlopen. Log opnieuw in om verder te gaan.": "Your session has expired. Log in again to continue.",
     "Veel AI-imports voor één bestand": "Many AI imports for one file",
     "Alleen de Savour-lezer": "Only the Savour reader",
     "Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.": "Free. Only the AI can read a scanned PDF, so it will be skipped.",

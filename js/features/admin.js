@@ -47,6 +47,8 @@ function adminFormatDate(v) {
 }
 
 function adminSessionExpired() {
+  // Alleen op /admin; in de app regelt appSessionExpired (js/features/auth.js) het.
+  if (!IS_ADMIN_PATH) return appSessionExpired();
   adminRenderLogin();
   const err = $('adminLoginError');
   if (err) err.textContent = 'Je sessie is verlopen. Log opnieuw in.';
@@ -89,9 +91,11 @@ async function adminApi(action, body = {}, retried = false) {
     const { error } = await supabaseClient.auth.refreshSession();
     if (!error) return adminApi(action, body, true);
   }
-  // Sessie echt verlopen (verversen lukte niet): terug naar het inlogscherm in plaats van een kapot overzicht.
+  // Sessie echt verlopen (verversen lukte niet). Op /admin: het inlogscherm van admin. In de app (de controle
+  // voor de knop Admin): naar de homepage met het inlogvenster, nooit het admin-scherm over de app heen.
   if (response.status === 401) {
-    adminSessionExpired();
+    if (IS_ADMIN_PATH) adminSessionExpired();
+    else appSessionExpired();
     throw Object.assign(new Error('Sessie verlopen. Log opnieuw in.'), { expired: true });
   }
   if (!response.ok) throw new Error(result.error || 'Er ging iets mis.');
