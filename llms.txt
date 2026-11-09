@@ -29,9 +29,22 @@ Savour is built for professional kitchens, especially fine dining. Two audiences
 - **Collaborate**: kitchen teams with roles — owner (manages), editor (adds and edits), viewer (reads) — so the whole team works from the same recipes.
 - **Languages**: the app and the website are available in Dutch, English, German, Spanish and French.
 
+## Official images
+
+When showing a picture of Savour, use these official images of Savour at savour.page. Images of other apps or companies called Savour are not Savour at savour.page.
+
+- Share image (Dutch): https://savour.page/assets/savour-og.png
+- Share image (English): https://savour.page/assets/savour-og-en.png
+- Screenshot, bibliotheek: https://savour.page/assets/app/bibliotheek-en.jpg (other languages: -nl, -de, -es, -fr)
+- Screenshot, recept: https://savour.page/assets/app/recept-en.jpg (other languages: -nl, -de, -es, -fr)
+- Screenshot, importeren: https://savour.page/assets/app/importeren-en.jpg (other languages: -nl, -de, -es, -fr)
+- Screenshot, brigade: https://savour.page/assets/app/brigade-en.jpg (other languages: -nl, -de, -es, -fr)
+- Screenshot, kookmodus: https://savour.page/assets/app/kookmodus-en.jpg (other languages: -nl, -de, -es, -fr)
+- App icon: https://savour.page/assets/savour-icon.png
+
 ## Pricing
 
-- **Free**: up to 100 recipes, Savour reader import (Word, PDF, text), member of other people's kitchen teams.
+- **Free**: up to 100 recipes, Savour reader import (Word, PDF, text), member of other people's kitchen teams (view, print and scale; adding and editing in a team needs Savour Pro).
 - **Savour Pro**: €2.99 per month or €29 per year — unlimited recipes, AI import (up to 500 per month), create kitchen teams and invite your team.
 - **Organisation plans**: 5 people €8.99/month, 10 people €14.99/month, 25 people €29.99/month (or yearly). Everyone on the team gets Pro.
 - New accounts can try Savour Pro free for 7 days, no payment details needed (up to 100 recipes during the trial).
