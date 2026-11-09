@@ -281,10 +281,14 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
     const [first, second] = await Promise.all(
       hasImage ? [readOnce(attempts, 'hoofd'), readOnce(checkAttempts, 'controle')] : [readOnce(attempts, 'tekst')]
     );
-    const main = first.parsed ? first : second?.parsed ? second : first;
+    // De kwaliteit gaat voor: mislukt de hoofdlezing, dan leest het zware model nog een keer (de lichte
+    // controlelezing neemt nooit de plaats van het recept in).
+    let main = first;
+    if (!first.parsed && hasImage) main = await readOnce(attempts, 'hoofd opnieuw');
     if (!main.parsed) return res.status(main.status || 500).json({ error: main.error });
     const parsed = main.parsed;
-    const check = main === first ? second : first;
+    // Tekst wordt één keer gelezen; bij een foto vergelijkt de controlelezing de getallen.
+    const check = hasImage ? second : null;
     if (check?.parsed) crossCheckNumbers(parsed, check.parsed);
     // Pas tellen als de AI echt iets heeft opgeleverd.
     let used = allowance.used + 1;
