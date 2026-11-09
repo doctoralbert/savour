@@ -227,6 +227,40 @@ function showSettingsTab(tab) {
   });
 }
 
+// Kop van Mijn account (computer): je foto, naam, e-mailadres en abonnement in één oogopslag, en iconen bij de
+// onderdelen in het menu links.
+const SETTINGS_TAB_ICONS = {
+  account: 'user',
+  plan: 'sparkle',
+  logo: 'print',
+  view: 'moon',
+  categories: 'tag',
+  cleanup: 'undo'
+};
+function renderSettingsHero() {
+  const host = $('settingsHero');
+  if (!host) return;
+  const name = (account.name || '').trim() || account.email || '';
+  const photo = account.photo ? `<img src="${esc(account.photo)}" alt="">` : esc((name[0] || 'S').toUpperCase());
+  const plan = demoMode
+    ? t('Demo account · niets wordt opgeslagen')
+    : savourPlan.source === 'trial'
+      ? t('Savour Pro · proefweek')
+      : savourPlan.pro
+        ? t('Savour Pro')
+        : t('Gratis');
+  host.innerHTML = `<div class="settings-hero-avatar" aria-hidden="true">${photo}</div><div class="settings-hero-text"><span class="settings-hero-kicker">${esc(t('Mijn account'))}</span><b>${esc(name)}</b><small>${esc(account.email || '')}</small></div><div class="settings-hero-side"><span class="settings-hero-plan${savourPlan.pro ? ' is-pro' : ''}">${esc(plan)}</span><span class="settings-hero-count">${esc(recipes.length === 1 ? t('1 recept') : t(`${recipes.length} recepten`))}</span></div>`;
+  document.querySelectorAll('.settings-tabs [data-settings-tab]').forEach(btn => {
+    if (btn.querySelector('.settings-tab-ico')) return;
+    const name = SETTINGS_TAB_ICONS[btn.dataset.settingsTab];
+    if (name)
+      btn.insertAdjacentHTML(
+        'afterbegin',
+        `<span class="settings-tab-ico" aria-hidden="true">${icon(name, { size: 17 })}</span>`
+      );
+  });
+}
+
 function renderSettings() {
   if (!currentUser) return;
   showSettingsTab(settingsTab);
@@ -238,6 +272,7 @@ function renderSettings() {
   $('accountAvatar').innerHTML = account.photo
     ? `<img src="${esc(account.photo)}" alt="Profielfoto">`
     : (account.name || 'M').charAt(0).toUpperCase();
+  renderSettingsHero();
   renderPlanSettings();
   renderTitleCleanup();
   $('settingsCategories').innerHTML = categories

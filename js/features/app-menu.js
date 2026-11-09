@@ -98,7 +98,12 @@ function appMenuData() {
 function appMenuAccount() {
   const name = (account?.name || '').trim() || (demoMode ? 'Demo' : currentUser?.email || '');
   const mail = demoMode ? t('Demo account · niets wordt opgeslagen') : currentUser?.email || '';
-  return { name, mail, initial: (name[0] || 'S').toUpperCase() };
+  return { name, mail, initial: (name[0] || 'S').toUpperCase(), photo: account?.photo || '' };
+}
+
+// Je profielfoto (Mijn account), anders je initiaal.
+function appMenuAvatar(me) {
+  return me.photo ? `<img src="${esc(me.photo)}" alt="">` : esc(me.initial);
 }
 
 // ---- Telefoon ----
@@ -121,7 +126,7 @@ function renderAppMenu() {
   const host = $('appMenuBody');
   if (!host) return;
   const me = appMenuAccount();
-  const accountHtml = `<div class="app-mm-account"><button type="button" class="app-mm-me" onclick="go('settings')"><span class="app-mm-avatar" aria-hidden="true">${esc(me.initial)}</span><span><b>${esc(me.name)}</b><small>${esc(me.mail)}</small></span></button><button type="button" class="app-mm-logout" onclick="logout()">${esc(t('Uitloggen'))}</button></div>`;
+  const accountHtml = `<div class="app-mm-account"><button type="button" class="app-mm-me" onclick="go('settings')"><span class="app-mm-avatar" aria-hidden="true">${appMenuAvatar(me)}</span><span><b>${esc(me.name)}</b><small>${esc(me.mail)}</small></span></button><button type="button" class="app-mm-logout" onclick="logout()">${esc(t('Uitloggen'))}</button></div>`;
   const search = `<button type="button" class="app-mm-search" onclick="openMobileSearch()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>${esc(t('Zoek in al je recepten...'))}</button>`;
   const groups = appMenuData()
     .map(
@@ -161,7 +166,7 @@ function appNavDropHtml(g) {
   const me = appMenuAccount();
   const head =
     g.id === 'mine'
-      ? `<div class="app-drop-me"><span class="app-drop-avatar" aria-hidden="true">${esc(me.initial)}</span><span><b>${esc(me.name)}</b><small>${esc(me.mail)}</small></span></div>`
+      ? `<button type="button" class="app-drop-me" onclick="appNavPick(this);go('settings')" title="${esc(t('Mijn account'))}"><span class="app-drop-avatar" aria-hidden="true">${appMenuAvatar(me)}</span><span><b>${esc(me.name)}</b><small>${esc(t('Mijn account'))} →</small></span></button>`
       : `<div class="app-drop-kicker">${esc(g.title)}</div>`;
   const items = g.items
     .map(
@@ -202,7 +207,7 @@ function renderAppNav() {
   if (mineHost && mine)
     mineHost.innerHTML = appNavItemHtml(
       mine,
-      `<span class="app-nav-avatar" aria-hidden="true">${esc(appMenuAccount().initial)}</span><span class="app-nav-mine-label">${esc(mine.title)}</span>`
+      `<span class="app-nav-avatar" aria-hidden="true">${appMenuAvatar(appMenuAccount())}</span><span class="app-nav-mine-label">${esc(mine.title)}</span>`
     );
 }
 
@@ -217,7 +222,16 @@ function syncAppNav() {
 
 // Klikken op een kopje: open, of dicht als hij al open stond.
 function toggleAppNav(id) {
-  appNavOpen = !id || appNavOpen === id ? '' : id;
+  const item = document.querySelector(`.app-nav-item[data-nav-group="${id}"]`);
+  // Eerste klik zet hem vast open (ook als hij door de muis al openstond), de tweede klik sluit hem; dan blijft
+  // hij dicht tot de muis weggaat.
+  if (item && appNavOpen === id) {
+    item.classList.add('is-picked');
+    appNavOpen = '';
+  } else {
+    item?.classList.remove('is-picked');
+    appNavOpen = id || '';
+  }
   syncAppNav();
 }
 

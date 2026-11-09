@@ -316,7 +316,7 @@ function renderCategoryBar() {
   $('categoryBar').innerHTML = all
     .map(
       c =>
-        `<button class="btn ${(c === 'Alles' && activeCat === '') || c === activeCat ? 'gold' : ''}" onclick="filterCat('${escJs(c === 'Alles' ? '' : c)}')">${esc(c)}</button>`
+        `<button class="btn ${(c === 'Alles' && activeCat === '') || c === activeCat ? 'gold' : ''}" onclick="filterCat('${escJs(c === 'Alles' ? '' : c)}')">${c === 'Alles' ? '' : `<span class="cat-chip-ico" aria-hidden="true">${icon('tag', { size: 13 })}</span>`}${esc(c)}</button>`
     )
     .join('');
   // Computer (bovenbalk zonder zijbalk): je mappen als snelknoppen onder de categorieën, in één klik open.

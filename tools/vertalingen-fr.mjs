@@ -128,6 +128,7 @@ export const stringsFr = {
  "Menu": "Menu",
  "Menu sluiten": "Fermer le menu",
  "Keukenteams beheren": "Gérer les équipes de cuisine",
+ "Savour Pro · proefweek": "Savour Pro · semaine d’essai",
  "Mijn Savour": "Mon Savour",
  "Je hele receptenboek, je favorieten en de categorieën.": "Tout ton livre de recettes, tes favoris et les catégories.",
  "Jouw mappen, in jouw volgorde.": "Tes dossiers, dans ton ordre.",

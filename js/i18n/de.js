@@ -84,6 +84,7 @@ window.SAVOUR_I18N.de = {
     "Menu": "Menü",
     "Menu sluiten": "Menü schließen",
     "Keukenteams beheren": "Küchenteams verwalten",
+    "Savour Pro · proefweek": "Savour Pro · Testwoche",
     "Mijn Savour": "Mein Savour",
     "Je hele receptenboek, je favorieten en de categorieën.": "Dein ganzes Rezeptbuch, deine Favoriten und die Kategorien.",
     "Jouw mappen, in jouw volgorde.": "Deine Ordner, in deiner Reihenfolge.",

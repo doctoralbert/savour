@@ -993,3 +993,227 @@
     padding: 0 !important;
   }
 }
+
+/* ---- Alle recepten op de computer (2026-11-09): niets dubbel (toevoegen en zoeken staan al in de bovenbalk
+   en boven de letters), geen kader rond categorieën en mappen, en een icoon bij elke categorie. ---- */
+@media (min-width: 761px) {
+  #recipes .recipe-page-actions .btn.gold {
+    display: none !important;
+  }
+  #appShell:has(#recipes.view.active) .topbar .search {
+    visibility: hidden;
+  }
+  #recipes .panel.mobile-category-panel {
+    margin: 0 0 10px !important;
+    padding: 4px 0 0 !important;
+    border: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+  }
+  #categoryBar .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+}
+.cat-chip-ico {
+  display: inline-flex;
+  color: var(--sv-gold);
+}
+#categoryBar .btn.gold .cat-chip-ico {
+  color: inherit;
+}
+
+/* ---- Mijn Savour en Mijn account (2026-11-09): je eigen foto, en een rustige accountpagina met links een menu. ---- */
+.settings-hero {
+  display: none;
+}
+.app-nav-avatar img,
+.app-drop-avatar img,
+.app-mm-avatar img,
+.settings-hero-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+.app-nav-avatar,
+.app-drop-avatar,
+.app-mm-avatar {
+  overflow: hidden;
+}
+@media (min-width: 761px) {
+  button.app-drop-me {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid var(--sv-line);
+    border-radius: 9px 9px 0 0;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+  }
+  button.app-drop-me:hover small,
+  button.app-drop-me:focus-visible small {
+    color: var(--sv-gold);
+  }
+  #settings > .content {
+    display: grid !important;
+    grid-template-columns: 230px minmax(0, 1fr);
+    gap: 18px 36px;
+    align-items: start;
+  }
+  #settings > .content > .section-head {
+    display: none !important;
+  }
+  .settings-hero {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 26px;
+    border: 1px solid color-mix(in srgb, var(--sv-gold) 20%, var(--sv-line));
+    border-radius: 14px;
+    background: radial-gradient(90% 140% at 0% 0%, color-mix(in srgb, var(--sv-gold) 10%, transparent), transparent 60%),
+      var(--sv-surface);
+  }
+  .settings-hero-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 72px;
+    height: 72px;
+    border: 1px solid var(--sv-gold);
+    border-radius: 50%;
+    color: var(--sv-gold);
+    font: 400 30px/1 var(--sv-font-display);
+    overflow: hidden;
+  }
+  .settings-hero-text {
+    flex: 1;
+    min-width: 0;
+  }
+  .settings-hero-kicker {
+    display: block;
+    font: 600 10.5px/1 var(--sv-font);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sv-gold);
+  }
+  .settings-hero-text b {
+    display: block;
+    margin: 6px 0 2px;
+    font: 400 30px/1.15 var(--sv-font-display);
+    color: var(--sv-text);
+  }
+  .settings-hero-text small {
+    font-size: 14px;
+    color: var(--sv-text-3);
+  }
+  .settings-hero-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+  .settings-hero-plan {
+    padding: 6px 12px;
+    border: 1px solid var(--sv-line-strong);
+    border-radius: 999px;
+    font: 600 12.5px/1 var(--sv-font);
+    color: var(--sv-text-2);
+  }
+  .settings-hero-plan.is-pro {
+    border-color: var(--sv-gold);
+    background: color-mix(in srgb, var(--sv-gold) 12%, transparent);
+    color: var(--sv-gold);
+  }
+  .settings-hero-count {
+    font-size: 13px;
+    color: var(--sv-text-3);
+  }
+  /* Menu links, onder elkaar, met iconen. */
+  #settings .settings-tabs {
+    position: sticky;
+    top: 130px;
+    display: flex !important;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0 !important;
+    padding: 6px !important;
+    border: 1px solid var(--sv-line) !important;
+    border-radius: 12px;
+    background: var(--sv-surface);
+    overflow: visible !important;
+  }
+  #settings .settings-tabs button {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px !important;
+    border: 0 !important;
+    border-radius: 8px !important;
+    background: transparent !important;
+    color: var(--sv-text-2) !important;
+    font: 500 14.5px/1.2 var(--sv-font) !important;
+    text-align: left;
+    box-shadow: none !important;
+  }
+  #settings .settings-tabs button::after {
+    display: none !important;
+  }
+  #settings .settings-tabs button:hover {
+    background: color-mix(in srgb, var(--sv-text) 6%, transparent) !important;
+    color: var(--sv-text) !important;
+  }
+  #settings .settings-tabs button.on,
+  #settings .settings-tabs button.is-on,
+  #settings .settings-tabs button[aria-selected='true'] {
+    background: color-mix(in srgb, var(--sv-gold) 12%, transparent) !important;
+    color: var(--sv-gold) !important;
+  }
+  .settings-tab-ico {
+    display: inline-flex;
+    color: var(--sv-gold);
+  }
+  /* Inhoud rechts: gelijke kaarten over de volle breedte van de kolom. */
+  #settings .settings-panes {
+    min-width: 0;
+  }
+  #settings .settings-pane .panel {
+    max-width: none !important;
+    margin: 0 0 16px !important;
+    padding: 24px 26px !important;
+    border: 1px solid var(--sv-line) !important;
+    border-radius: 12px !important;
+    background: var(--sv-surface) !important;
+  }
+  #settings .settings-pane .panel h3 {
+    margin-top: 0;
+    font: 400 22px/1.2 var(--sv-font-display);
+  }
+  #settings .settings-pane .panel hr {
+    border-color: var(--sv-line) !important;
+  }
+}
+@media (min-width: 761px) {
+  body.savour-light #recipes .panel.mobile-category-panel {
+    border: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+  }
+  /* Mijn account heeft eigen kaarten: geen extra kader eromheen. */
+  body #appShell #settings > .content {
+    padding: 0 !important;
+    border: 0 !important;
+    background: none !important;
+  }
+  body.savour-light #settings .settings-pane .panel,
+  body.savour-light .settings-hero,
+  body.savour-light #settings .settings-tabs {
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+}

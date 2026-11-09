@@ -89,6 +89,7 @@ export const strings = [
   ['Menu', 'Menu', 'Menü', 'Menú'],
   ['Menu sluiten', 'Close menu', 'Menü schließen', 'Cerrar menú'],
   ['Keukenteams beheren', 'Manage kitchen teams', 'Küchenteams verwalten', 'Gestionar equipos de cocina'],
+  ['Savour Pro · proefweek', 'Savour Pro · trial week', 'Savour Pro · Testwoche', 'Savour Pro · semana de prueba'],
   ['Mijn Savour', 'My Savour', 'Mein Savour', 'Mi Savour'],
   ["Je hele receptenboek, je favorieten en de categorieën.","Your whole recipe book, your favourites and the categories.","Dein ganzes Rezeptbuch, deine Favoriten und die Kategorien.","Todo tu recetario, tus favoritas y las categorías."],
   ["Jouw mappen, in jouw volgorde.","Your folders, in your order.","Deine Ordner, in deiner Reihenfolge.","Tus carpetas, en tu orden."],
