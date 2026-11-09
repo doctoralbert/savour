@@ -252,6 +252,29 @@ async function touchAccountActivity(force = false) {
   }
 }
 
+// Herkomst van het account voor /admin (api/admin.js, accountSource): één keer per account per browser de
+// anonieme bezoekers-id meesturen. De server bewaart alleen het label (bijv. "Google"), niet de bezoeken.
+async function sendAccountSource() {
+  if (!currentUser || demoMode || !navigator.onLine || /^(localhost|127\.)/.test(location.hostname)) return;
+  try {
+    const visitor = localStorage.getItem('savour_visit_id');
+    const doneKey = 'savour_source_sent_' + currentUser.id;
+    if (!visitor || localStorage.getItem(doneKey)) return;
+    const token = (await supabaseClient.auth.getSession()).data?.session?.access_token;
+    if (!token) return;
+    const response = await fetch('/api/admin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ action: 'herkomst', visitor })
+    });
+    const result = await response.json().catch(() => ({}));
+    // Vastgelegd (of al bekend): niet opnieuw sturen. Niets gevonden in deze browser: ook klaar voor deze browser.
+    if (result?.ok) localStorage.setItem(doneKey, '1');
+  } catch (_) {
+    // Herkomst is alleen voor de cijfers; mislukt het, dan merkt de gebruiker daar niets van.
+  }
+}
+
 // Na uitloggen (ook uit de demo) niets van het vorige account laten staan: geen gegevens, geen mappen in
 // het menu en geen Admin-knop. Anders zie je in de demo of in een ander account de mappen van de vorige.
 function clearSessionState() {

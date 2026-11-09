@@ -814,26 +814,39 @@
     btn.setAttribute('translate', 'no');
     btn.innerHTML =
       '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+    // Wat scrolt er: het venster (null), of een groot eigen scrollvak zoals /admin (.admin-shell). In dat
+    // laatste geval gaat de knop ín dat vak, anders ligt het vak eroverheen.
+    var target = null;
     btn.addEventListener('click', function () {
       var smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
+      (target || window).scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
       btn.blur();
     });
     document.body.appendChild(btn);
     var ticking = false;
     function update() {
       ticking = false;
-      btn.classList.toggle('is-shown', window.scrollY > Math.min(600, window.innerHeight * 0.8));
+      var y = target ? target.scrollTop : window.scrollY;
+      btn.classList.toggle('is-shown', y > Math.min(600, window.innerHeight * 0.8));
     }
-    window.addEventListener(
+    document.addEventListener(
       'scroll',
-      function () {
+      function (e) {
+        var t = e.target;
+        var el = t === document || t === document.documentElement || t === document.body ? null : t;
+        // Kleine scrollvakken (een lijst, een tabel) niet: alleen wat bijna het hele scherm beslaat.
+        if (el && (!el.clientHeight || el.clientHeight < window.innerHeight * 0.6)) return;
+        if (el !== target) {
+          target = el;
+          var home = target || document.body;
+          if (btn.parentNode !== home) home.appendChild(btn);
+        }
         if (!ticking) {
           ticking = true;
           requestAnimationFrame(update);
         }
       },
-      { passive: true }
+      { capture: true, passive: true }
     );
     update();
   }
