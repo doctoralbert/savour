@@ -79,6 +79,17 @@ export default async function handler(req, res) {
     });
   const key = process.env.OPENAI_API_KEY;
   if (!key) return res.status(500).json({ error: 'OPENAI_API_KEY ontbreekt in Vercel Environment Variables.' });
+  // Gereserveerde plek op de AI-teller (een getal), of null als er (nog) niet gereserveerd is.
+  let reservation = null;
+  const releaseReservation = async () => {
+    if (reservation === null) return;
+    reservation = null;
+    try {
+      await rpc('savour_release_ai_use', { _user: user.id });
+    } catch (error) {
+      console.error('AI-reservering teruggeven', error);
+    }
+  };
   try {
     const { image, text, filename, categories, language } = req.body || {};
     // Taal van de chef in de app; geldt alleen als de AI twijfelt over de taal van de bron.
@@ -134,6 +145,27 @@ export default async function handler(req, res) {
       } catch {
         return res.status(200).json({ top_edge: 'top' });
       }
+    }
+
+    // Eerst een plek reserveren, dan pas lezen: zo glippen imports die tegelijk binnenkomen (een stapel
+    // bestanden) nooit langs de grens. Mislukt de lezing, dan geven we de plek terug (releaseReservation).
+    // Bestaat de functie nog niet (SQL nog niet gedraaid), dan tellen we zoals vroeger pas achteraf.
+    try {
+      const reservedCount = await rpc('savour_reserve_ai_use', {
+        _user: user.id,
+        _limit: AI_MONTHLY_LIMIT
+      });
+      if (reservedCount === null)
+        return res.status(403).json({
+          error: allowance.trial
+            ? `In de proefweek kun je ${allowance.limit} AI-imports doen. Met Savour Pro heb je er ${AI_MONTHLY_LIMIT} per maand; de Savour-lezer blijft gratis werken.`
+            : `Je hebt deze maand alle ${allowance.limit} AI-imports gebruikt.`,
+          code: 'limit_reached',
+          usage: { used: allowance.limit, limit: allowance.limit }
+        });
+      reservation = reservedCount;
+    } catch (error) {
+      console.error('AI-reservering', error);
     }
 
     const categoryList = Array.isArray(categories)
@@ -285,25 +317,33 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
     // controlelezing neemt nooit de plaats van het recept in).
     let main = first;
     if (!first.parsed && hasImage) main = await readOnce(attempts, 'hoofd opnieuw');
-    if (!main.parsed) return res.status(main.status || 500).json({ error: main.error });
+    if (!main.parsed) {
+      await releaseReservation();
+      return res.status(main.status || 500).json({ error: main.error });
+    }
     const parsed = main.parsed;
     // Tekst wordt één keer gelezen; bij een foto vergelijkt de controlelezing de getallen.
     const check = hasImage ? second : null;
     if (check?.parsed) crossCheckNumbers(parsed, check.parsed);
     // Pas tellen als de AI echt iets heeft opgeleverd.
-    let used = allowance.used + 1;
-    try {
-      used =
-        (await rpc('savour_record_ai_use', { _user: user.id, _limit: allowance.limit || AI_MONTHLY_LIMIT })) ?? used;
-    } catch (error) {
-      console.error('AI-teller', error);
+    // Al gereserveerd? Dan staat hij al op de teller; anders (oude manier) nu pas tellen.
+    let used = reservation ?? allowance.used + 1;
+    if (reservation === null) {
+      try {
+        used =
+          (await rpc('savour_record_ai_use', { _user: user.id, _limit: allowance.limit || AI_MONTHLY_LIMIT })) ?? used;
+      } catch (error) {
+        console.error('AI-teller', error);
+      }
     }
+    reservation = null;
     // Het gebruikte model gaat mee, zodat de chef (en wij) zien waarmee de foto is gelezen.
     return res
       .status(200)
       .json({ ...parsed, model: main.model, usage: { used, limit: allowance.limit, trial: !!allowance.trial } });
   } catch (error) {
     console.error(error);
+    await releaseReservation();
     return res.status(500).json({ error: error?.message || 'AI-import mislukt.' });
   }
 }
