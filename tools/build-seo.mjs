@@ -1799,11 +1799,11 @@ const HOME_META = {
   walk('css/');
   walk('js/');
   const v = hash.digest('hex').slice(0, 10);
-  // Knoppen naar inloggen en de demo (/?auth=..., /?demo=1) zijn geen pagina's voor zoekmachines: rel="nofollow",
+  // Knoppen naar inloggen, de demo en Probleem melden (/?auth=..., /?demo=1, /?info=bug) zijn geen pagina's voor zoekmachines: rel="nofollow",
   // zodat Google zijn tijd aan de echte pagina's besteedt (Search Console: "Alternatieve pagina met correcte
   // canonieke tag"). Bestaat rel al, dan blijft het staan.
   const nofollow = html =>
-    html.replace(/<a ([^>]*?)href="([^"]*\?(?:auth|demo)=[^"]*)"([^>]*)>/g, (all, before, url, after) =>
+    html.replace(/<a ([^>]*?)href="([^"]*\?(?:auth|demo|info)=[^"]*)"([^>]*)>/g, (all, before, url, after) =>
       /\srel=/.test(` ${before}${after}`) ? all : `<a ${before}href="${url}" rel="nofollow"${after}>`
     );
   const stamp = html =>
