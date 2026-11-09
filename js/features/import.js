@@ -1109,7 +1109,8 @@ async function processImportFiles(files) {
       try {
         batchDrafts.push(...(await readImportFile(file)));
       } catch (e) {
-        console.error('Bulk import', file.name, e);
+        // Grens bereikt of geen Pro is geen fout in de app: de chef krijgt het gewoon te zien, het logboek niet.
+        if (!['limit_reached', 'pro_required'].includes(e?.code)) console.error('Bulk import', file.name, e);
         // Een bestand dat alleen online staat (OneDrive, iCloud) kan de browser niet altijd lezen.
         const unreadable = e?.name === 'NotReadableError' || e?.name === 'NotFoundError';
         failures.push({
