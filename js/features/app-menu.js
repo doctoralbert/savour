@@ -146,71 +146,96 @@ async function appMenuLanguage(code) {
   toggleMobileMenu(true);
 }
 
-// ---- Computer: bovenbalk met menukaarten ----
+// ---- Computer: bovenbalk met uitklapmenu's ----
+// Elk kopje (en Mijn Savour rechts) klapt bij aanwijzen een overzichtelijk lijstje uit, direct onder de knop.
+// Klikken werkt ook (tablet, toetsenbord): dan blijft het open tot je iets kiest, ernaast klikt of Escape drukt.
 
 let appNavOpen = '';
 
-// De knoppen in de bovenbalk (zonder Mijn Savour: dat zit achter de initiaal rechtsboven).
-function renderAppNav() {
-  const host = $('appNav');
-  if (!host) return;
-  const groups = appMenuData().filter(g => g.id !== 'mine');
-  host.innerHTML = groups
-    .map(
-      g =>
-        `<button type="button" class="app-nav-btn${g.on ? ' is-on' : ''}${appNavOpen === g.id ? ' is-open' : ''}" aria-expanded="${appNavOpen === g.id}" onclick="toggleAppNav('${g.id}')">${esc(g.short || g.title)}<i aria-hidden="true"></i></button>`
-    )
-    .join('');
-  const me = appMenuAccount();
-  const avatar = $('appNavMe');
-  if (avatar) {
-    avatar.textContent = me.initial;
-    avatar.setAttribute('aria-expanded', String(appNavOpen === 'mine'));
-    avatar.classList.toggle('is-open', appNavOpen === 'mine');
-  }
-}
-
-// Een menukaart openen of sluiten. Dezelfde groep nog eens: dicht.
-function toggleAppNav(id) {
-  appNavOpen = !id || appNavOpen === id ? '' : id;
-  const panel = $('appNavPanel');
-  if (!panel) return;
-  const g = appMenuData().find(x => x.id === appNavOpen);
-  if (!g) {
-    panel.hidden = true;
-    panel.innerHTML = '';
-    renderAppNav();
-    return;
-  }
+// De lijst onder een knop: per regel de naam en eventueel een korte toelichting.
+function appNavDropHtml(g) {
   const me = appMenuAccount();
   const head =
     g.id === 'mine'
-      ? `<div class="app-nav-intro"><span>${esc(me.name)}</span><p>${esc(me.mail)}</p><button type="button" class="app-nav-logout" onclick="logout()">${esc(t('Uitloggen'))}</button><div class="app-nav-lang" translate="no">${Object.keys(
-          I18N_LANGUAGES
-        )
+      ? `<div class="app-drop-me"><span class="app-drop-avatar" aria-hidden="true">${esc(me.initial)}</span><span><b>${esc(me.name)}</b><small>${esc(me.mail)}</small></span></div>`
+      : '';
+  const items = g.items
+    .map(
+      x =>
+        `<li><button type="button" role="menuitem" class="${x.active ? 'is-active' : ''}" onclick="appNavPick(this);${x.action}"><b>${esc(x.title)}</b>${x.note ? `<span>${esc(x.note)}</span>` : ''}</button></li>`
+    )
+    .join('');
+  const foot =
+    g.id === 'mine'
+      ? `<div class="app-drop-foot"><div class="app-nav-lang" translate="no">${Object.keys(I18N_LANGUAGES)
           .map(
             code =>
               `<button type="button"${code === currentLanguage ? ' aria-current="true"' : ''} onclick="appNavLanguage('${code}')">${code.toUpperCase()}</button>`
           )
-          .join('')}</div></div>`
-      : `<div class="app-nav-intro"><span>${esc(g.title)}</span><p>${esc(g.intro)}</p></div>`;
-  panel.innerHTML = `<div class="app-nav-card">${head}<ol>${g.items
-    .map(
-      (x, i) =>
-        `<li><button type="button" class="${x.active ? 'is-active' : ''}" onclick="${x.action}"><em>${String(i + 1).padStart(2, '0')}</em><b>${esc(x.title)}</b>${x.note ? `<span>${esc(x.note)}</span>` : ''}</button></li>`
-    )
-    .join('')}</ol></div>`;
-  panel.hidden = false;
-  renderAppNav();
+          .join(
+            ''
+          )}</div><button type="button" class="app-nav-logout" onclick="appNavPick(this);logout()">${esc(t('Uitloggen'))}</button></div>`
+      : '';
+  return `<div class="app-nav-drop${g.id === 'mine' ? ' is-right' : ''}" role="menu" aria-label="${esc(g.title)}">${head}<ul>${items}</ul>${foot}</div>`;
 }
 
-// Taal kiezen in Mijn Savour: de kaart blijft open, nu in de nieuwe taal.
-async function appNavLanguage(code) {
-  await setLanguage(code);
-  appNavOpen = '';
-  toggleAppNav('mine');
+function appNavItemHtml(g, label) {
+  const open = appNavOpen === g.id;
+  return `<div class="app-nav-item${open ? ' is-open' : ''}" data-nav-group="${g.id}" onmouseleave="appNavLeave(this)"><button type="button" class="app-nav-btn${g.on ? ' is-on' : ''}" aria-haspopup="true" aria-expanded="${open}" onclick="toggleAppNav('${g.id}')">${label}<i aria-hidden="true"></i></button>${appNavDropHtml(g)}</div>`;
+}
+
+// De knoppen in de bovenbalk, en rechts Mijn Savour met je initiaal.
+function renderAppNav() {
+  const host = $('appNav');
+  if (!host) return;
+  const groups = appMenuData();
+  host.innerHTML = groups
+    .filter(g => g.id !== 'mine')
+    .map(g => appNavItemHtml(g, esc(g.short || g.title)))
+    .join('');
+  const mineHost = $('appNavMine');
+  const mine = groups.find(g => g.id === 'mine');
+  if (mineHost && mine)
+    mineHost.innerHTML = appNavItemHtml(
+      mine,
+      `<span class="app-nav-avatar" aria-hidden="true">${esc(appMenuAccount().initial)}</span><span class="app-nav-mine-label">${esc(mine.title)}</span>`
+    );
+}
+
+// Open of dicht zetten zonder alles opnieuw te tekenen (dan blijft aanwijzen met de muis goed werken).
+function syncAppNav() {
+  document.querySelectorAll('.app-nav-item').forEach(item => {
+    const open = item.dataset.navGroup === appNavOpen;
+    item.classList.toggle('is-open', open);
+    item.querySelector('.app-nav-btn')?.setAttribute('aria-expanded', String(open));
+  });
+}
+
+// Klikken op een kopje: open, of dicht als hij al open stond.
+function toggleAppNav(id) {
+  appNavOpen = !id || appNavOpen === id ? '' : id;
+  syncAppNav();
 }
 
 function closeAppNav() {
-  if (appNavOpen) toggleAppNav('');
+  if (!appNavOpen) return;
+  appNavOpen = '';
+  syncAppNav();
+}
+
+// Iets gekozen: het lijstje dicht, ook al staat de muis er nog boven (tot je de muis weghaalt).
+function appNavPick(el) {
+  el.closest('.app-nav-item')?.classList.add('is-picked');
+  closeAppNav();
+}
+
+function appNavLeave(item) {
+  item.classList.remove('is-picked');
+}
+
+// Taal kiezen in Mijn Savour: het menu blijft open, nu in de nieuwe taal.
+async function appNavLanguage(code) {
+  await setLanguage(code);
+  appNavOpen = 'mine';
+  renderAppNav();
 }

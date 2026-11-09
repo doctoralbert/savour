@@ -38,15 +38,10 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeAppNav();
 });
 
-// Menukaart bovenin (computer): een keuze erin of een klik ernaast sluit hem.
+// Uitklapmenu bovenin (computer): een klik ernaast sluit het.
 document.addEventListener('click', e => {
-  // Een knop die tijdens de klik opnieuw is getekend, hangt niet meer in de pagina: dan niets doen.
   if (!appNavOpen || !e.target.isConnected) return;
-  if (
-    e.target.closest('#appNavPanel li button, .app-nav-logout') ||
-    !e.target.closest('#appNavPanel, #appNav, #appNavMe')
-  )
-    closeAppNav();
+  if (!e.target.closest('.app-nav-item')) closeAppNav();
 });
 
 // Telefoonmenu: een keuze in het menu (scherm, map, keukenteam, venster) sluit het menu.

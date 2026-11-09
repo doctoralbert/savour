@@ -538,3 +538,211 @@
     letter-spacing: 0.22em !important;
   }
 }
+
+/* ---- Uitklapmenu onder de knop (2026-11-09): opent bij aanwijzen (en bij klikken), als een overzichtelijk lijstje
+   direct onder het kopje in plaats van een menukaart over de hele breedte. Mijn Savour is rechts een eigen knop. ---- */
+.app-nav-panel {
+  display: none !important;
+}
+@media (min-width: 761px) {
+  .app-nav-mine-host {
+    order: 20;
+    flex: none;
+  }
+  .app-nav-item {
+    position: relative;
+  }
+  /* Een pijltje zoals in de meeste apps, in plaats van de plus van de website. */
+  .app-nav-btn::after {
+    content: none !important;
+  }
+  .app-nav-btn i {
+    display: inline-block !important;
+    width: 6px;
+    height: 6px;
+    margin: -3px 0 0 8px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    opacity: 0.6;
+    transition: transform 0.15s ease;
+  }
+  .app-nav-item.is-open > .app-nav-btn i {
+    transform: rotate(-135deg);
+    margin-top: 3px;
+  }
+  .app-nav-item.is-open > .app-nav-btn {
+    background: color-mix(in srgb, var(--sv-text) 7%, transparent);
+  }
+  .app-nav-drop {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    z-index: 60;
+    width: max-content;
+    min-width: 240px;
+    max-width: 320px;
+    padding: 6px;
+    background: var(--sv-surface, #0f1718);
+    border: 1px solid var(--sv-line);
+    border-radius: 10px;
+    box-shadow: 0 18px 40px -14px rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition:
+      opacity 0.14s ease,
+      transform 0.14s ease,
+      visibility 0s linear 0.14s;
+  }
+  body.savour-light .app-nav-drop {
+    background: #fff;
+    box-shadow: 0 18px 40px -16px rgba(60, 45, 20, 0.35);
+  }
+  .app-nav-drop.is-right {
+    left: auto;
+    right: 0;
+  }
+  /* Brug tussen knop en lijstje, zodat het niet dichtklapt als de muis naar beneden gaat. */
+  .app-nav-drop::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -12px;
+    height: 12px;
+  }
+  .app-nav-item.is-open > .app-nav-drop {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+  .app-nav-drop ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .app-nav-drop li button {
+    display: block;
+    width: 100%;
+    padding: 9px 12px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--sv-text);
+    text-align: left;
+    cursor: pointer;
+  }
+  .app-nav-drop li button b {
+    display: block;
+    font: 500 14.5px/1.3 var(--sv-font);
+  }
+  .app-nav-drop li button span {
+    display: block;
+    margin-top: 2px;
+    font: 400 12.5px/1.35 var(--sv-font);
+    color: var(--sv-text-3);
+  }
+  .app-nav-drop li button:hover,
+  .app-nav-drop li button:focus-visible {
+    background: color-mix(in srgb, var(--sv-text) 7%, transparent);
+  }
+  .app-nav-drop li button.is-active b {
+    color: var(--sv-gold);
+  }
+  /* Mijn Savour: wie je bent bovenaan, taal en uitloggen onderaan. */
+  .app-drop-me {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px 12px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--sv-line);
+  }
+  .app-drop-me b {
+    display: block;
+    font: 600 14.5px/1.3 var(--sv-font);
+    color: var(--sv-text);
+  }
+  .app-drop-me small {
+    display: block;
+    max-width: 230px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12.5px;
+    color: var(--sv-text-3);
+  }
+  .app-drop-avatar,
+  .app-nav-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    border: 1px solid var(--sv-gold);
+    border-radius: 50%;
+    color: var(--sv-gold);
+    font: 400 15px/1 var(--sv-font-display);
+  }
+  .app-drop-avatar {
+    width: 34px;
+    height: 34px;
+  }
+  .app-nav-avatar {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+  }
+  .app-nav-mine-host .app-nav-btn {
+    padding: 6px 10px 6px 6px;
+  }
+  .app-drop-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 6px;
+    padding: 10px 6px 4px 8px;
+    border-top: 1px solid var(--sv-line);
+  }
+  .app-drop-foot .app-nav-lang {
+    margin: 0;
+  }
+  .app-drop-foot .app-nav-logout {
+    margin: 0;
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+  /* Zoekbalk iets kleiner, zoals in de meeste apps. */
+  body #appShell .topbar .search {
+    max-width: 280px;
+    min-width: 160px;
+  }
+}
+/* Aanwijzen met de muis opent het lijstje (niet op een touchscreen: daar opent een tik). */
+@media (min-width: 761px) and (hover: hover) {
+  .app-nav-item:hover:not(.is-picked) > .app-nav-drop,
+  .app-nav-item:focus-within:not(.is-picked) > .app-nav-drop {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+  .app-nav-item:hover:not(.is-picked) > .app-nav-btn {
+    background: color-mix(in srgb, var(--sv-text) 7%, transparent);
+  }
+}
+@media (min-width: 761px) and (max-width: 1100px) {
+  .app-nav-mine-label {
+    display: none;
+  }
+  .app-nav-avatar {
+    margin-right: 0;
+  }
+}
+@media (min-width: 761px) and (max-width: 960px) {
+  body #appShell .topbar .search {
+    min-width: 110px;
+  }
+}
