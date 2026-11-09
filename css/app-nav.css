@@ -221,7 +221,7 @@
   }
 }
 /* Tablet: minder ruimte in de balk; dan de knop alleen een plus en het demolabel weg. */
-@media (min-width: 761px) and (max-width: 1180px) {
+@media (min-width: 761px) and (max-width: 1400px) {
   .app-add-btn {
     width: 40px;
     padding: 0;
@@ -328,5 +328,213 @@
 @media (min-width: 761px) and (max-width: 960px) {
   body #appShell .topbar > .theme-toggle {
     display: none !important;
+  }
+}
+
+/* Zelfde kader als een keukenteam (.panel) om de andere schermen op de computer (2026-11-09): de bibliotheek,
+   favorieten, mappen, categorieën, allergenen, toevoegen en instellingen staan nu ook in een rustig vlak. */
+@media (min-width: 761px) {
+  body
+    #appShell
+    :is(
+      #recipes,
+      #favorites,
+      #categories,
+      #folders,
+      #folderManage,
+      #folderDetail,
+      #sharedManage,
+      #products,
+      #import,
+      #batchImport,
+      #settings
+    )
+    > .content {
+    /* components.css zet #recipes .content op width: 100% !important. */
+    width: auto !important;
+    max-width: none !important;
+    box-sizing: border-box;
+    margin: 24px max(28px, calc((100% - 1400px) / 2)) 60px;
+    padding: 28px 32px 36px;
+    border: 1px solid var(--sv-line);
+    border-radius: 8px;
+    background: linear-gradient(145deg, #0d1516, #081011);
+  }
+  body.savour-light
+    #appShell
+    :is(
+      #recipes,
+      #favorites,
+      #categories,
+      #folders,
+      #folderManage,
+      #folderDetail,
+      #sharedManage,
+      #products,
+      #import,
+      #batchImport,
+      #settings
+    )
+    > .content {
+    background: #fff;
+  }
+}
+
+/* ---- Gelijk aan de kop van de website (2026-11-09): dezelfde maten, letters en menukaart als css/site.css
+   (.site-header, .site-nav, .site-menucard), zodat website en app als één geheel voelen. ---- */
+@media (min-width: 761px) {
+  body #appShell .topbar {
+    height: 84px;
+    gap: 16px;
+    font-family: var(--sv-font);
+  }
+  body #appShell .topbar .mobile-brand.sv-wordmark {
+    font: 400 27px/1 var(--sv-font-display) !important;
+    letter-spacing: 0.34em !important;
+    padding-right: 18px;
+  }
+  .app-nav {
+    gap: 6px;
+  }
+  .app-nav-btn {
+    gap: 0;
+    height: auto;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font: 500 15.5px/1 var(--sv-font);
+    color: var(--sv-text);
+  }
+  .app-nav-btn i {
+    display: none;
+  }
+  .app-nav-btn::after {
+    content: '+';
+    margin-left: 6px;
+    color: var(--sv-gold);
+    font-weight: 400;
+  }
+  .app-nav-btn.is-open::after {
+    content: '–';
+  }
+  .app-nav-btn:hover,
+  .app-nav-btn.is-open {
+    background: var(--sv-surface-2);
+    color: var(--sv-text);
+  }
+  /* Het scherm waar je bent: een dun gouden streepje onder het woord, verder rustig. */
+  .app-nav-btn.is-on {
+    color: var(--sv-text);
+    box-shadow: inset 0 -2px 0 var(--sv-gold);
+    border-radius: 6px 6px 0 0;
+  }
+  body #appShell .topbar .search input {
+    height: 42px;
+    border-radius: 6px;
+    font: 400 15px var(--sv-font);
+  }
+  .app-add-btn {
+    height: auto;
+    padding: 11px 20px;
+    border-radius: 6px;
+    font: 600 15px/1.2 var(--sv-font);
+  }
+  .app-nav-me {
+    width: 42px;
+    height: 42px;
+    font: 400 18px/1 var(--sv-font-display);
+  }
+  /* Menukaart: zoals .site-menucard op de website. */
+  .app-nav-panel:not([hidden]) {
+    background: var(--sv-bg);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  }
+  body.savour-light .app-nav-panel:not([hidden]) {
+    box-shadow: 0 24px 40px -24px rgba(60, 45, 20, 0.3);
+  }
+  .app-nav-card {
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 56px;
+    padding-top: 40px;
+    padding-bottom: 46px;
+  }
+  .app-nav-intro span {
+    margin-bottom: 12px;
+    font: 400 34px/1.1 var(--sv-font-display);
+    color: var(--sv-gold);
+  }
+  .app-nav-intro p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--sv-text-3);
+  }
+  .app-nav-card ol {
+    grid-template-columns: 1fr 1fr;
+    gap: 0 40px;
+  }
+  .app-nav-card li button {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 2px 10px;
+    padding: 16px 0;
+  }
+  .app-nav-card li em {
+    font: 500 13px/1.9 var(--sv-font);
+  }
+  .app-nav-card li b {
+    font: 400 20px/1.3 var(--sv-font-display);
+  }
+  .app-nav-card li span {
+    font: 400 14px/1.5 var(--sv-font);
+  }
+}
+@media (min-width: 761px) and (max-width: 1400px) {
+  body #appShell .topbar {
+    gap: 8px;
+  }
+  body #appShell .topbar .mobile-brand.sv-wordmark {
+    font-size: 21px !important;
+    letter-spacing: 0.26em !important;
+    padding-right: 6px;
+  }
+  .app-nav {
+    gap: 0;
+  }
+  .app-nav-btn {
+    padding: 10px 8px;
+    font-size: 14.5px;
+  }
+  .app-add-btn {
+    width: 42px;
+    padding: 0;
+    height: 42px;
+  }
+  .app-nav-card {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 32px;
+  }
+}
+/* Demolabel: niet in de rij van de balk (dan past alles niet), maar als klein label net onder de balk. */
+@media (min-width: 761px) {
+  body #appShell .topbar .demo-mode-badge {
+    /* css/mobile.css zet hem met !important in de rij. */
+    position: absolute !important;
+    top: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0 !important;
+    z-index: 1;
+  }
+}
+@media (min-width: 761px) and (max-width: 960px) {
+  .app-nav-btn {
+    padding: 10px 5px;
+    font-size: 13.5px;
+  }
+  .app-nav-btn::after {
+    margin-left: 4px;
+  }
+  body #appShell .topbar .mobile-brand.sv-wordmark {
+    font-size: 19px !important;
+    letter-spacing: 0.22em !important;
   }
 }
