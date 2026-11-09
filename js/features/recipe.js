@@ -62,9 +62,10 @@ function openRecipe(id, context = 'library') {
   const rid = escJs(r.id);
   // Een recept van een teamlid is alleen-lezen: bekijken, printen en omrekenen.
   const own = isOwnRecipe(r);
-  // Recept van een collega in een keukenteam: altijd toe te voegen aan je eigen recepten (eigen kopie).
+  // Recept van een collega in een keukenteam: toe te voegen aan je eigen recepten (eigen kopie), met Savour Pro.
+  // Gratis teamleden kunnen alleen bekijken, printen en omrekenen.
   // Via een openbare link alleen als de maker dat heeft toegestaan (js/features/recipe-copy.js).
-  if (!own && !r.linkSlug && !r.example) r.allowCopy = true;
+  if (!own && !r.linkSlug && !r.example) r.allowCopy = demoMode || isPro();
   const inShared = context === 'shared' || context === 'sharedFolder';
   const mayRemoveFromShared = !inShared || canEditShared(findSharedMap(currentShared));
   const removeAction = !mayRemoveFromShared

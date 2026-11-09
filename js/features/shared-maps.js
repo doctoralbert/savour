@@ -6,13 +6,26 @@ function isSharedMapOwner(m) {
   return !!currentUser && !!m && String(m.ownerId) === String(currentUser.id);
 }
 
+// Bewerken in een keukenteam: de rol sous-chef of eigenaar én Savour Pro (zelf, proefweek of teamabonnement).
+// Gratis leden kunnen alleen bekijken, printen en omrekenen (supabase/2026-11-09-keukenteam-bewerken-alleen-met-pro.sql).
 function canEditShared(m) {
+  return sharedRoleCanEdit(m) && (demoMode || isPro());
+}
+
+// Alleen de rol, zonder abonnement: om een gratis sous-chef uit te leggen waarom bewerken niet kan.
+function sharedRoleCanEdit(m) {
   return (
     isSharedMapOwner(m) ||
     !!m?.members?.some(
       x => String(x.userId) === String(currentUser?.id) && ['owner', 'editor'].includes(String(x.role))
     )
   );
+}
+
+// Melding op de teampagina voor wie de rol wel heeft, maar Savour Pro niet.
+function sharedProNoticeHtml(m) {
+  if (!sharedRoleCanEdit(m) || canEditShared(m)) return '';
+  return `<div class="kt-pro-notice"><div><b>${esc(t('Bekijken met een gratis account'))}</b><span>${esc(t('Je bent sous-chef of eigenaar in dit keukenteam. Recepten toevoegen, aanpassen en mappen beheren kan met Savour Pro, of met een teamabonnement van je keuken.'))}</span></div><button type="button" class="btn small gold" onclick="openPublicInfo('pro')">${esc(t('Bekijk Savour Pro'))}</button></div>`;
 }
 
 function canManageShared(m) {
@@ -471,6 +484,7 @@ function renderShared(id) {
 
   $('sharedWrap').innerHTML =
     `${teamTrialBanner(m)}<div class="panel team-page kt"><div class="folder-detail-head shared-main-head kt-head"><div><div class="eyebrow shared-eyebrow">Keukenteam ${helpButton('shared')}</div><h1>${esc(m.name)}</h1><p class="muted kt-sub">Eén receptenboek voor de hele brigade.</p></div><div class="shared-map-actions kt-actions">${actions}</div></div>` +
+    sharedProNoticeHtml(m) +
     `<div class="kt-overview">${folders}</div>` +
     library +
     (isOwner
