@@ -1073,6 +1073,43 @@ async function adminClearErrors() {
 // ---- Accounts, abonnementen, omzet en kosten (api/admin.js) ----
 
 let adminAccounts = [];
+// Archief: accounts die 14 dagen niet actief waren. Alleen een weergave: er verandert niets aan het account.
+// Komt iemand terug (inloggen of Savour openen), dan staat die vanzelf weer in de gewone lijst.
+let adminArchiveOpen = false;
+const ADMIN_ARCHIVE_DAYS = 14;
+function adminLastSeen(a) {
+  return Math.max(
+    Date.parse(a.activity?.last || 0) || 0,
+    Date.parse(a.last_sign_in_at || 0) || 0,
+    Date.parse(a.created_at || 0) || 0
+  );
+}
+function adminIsArchived(a) {
+  return !a.active_now && adminLastSeen(a) < Date.now() - ADMIN_ARCHIVE_DAYS * 86400000;
+}
+function toggleAdminArchive() {
+  adminArchiveOpen = !adminArchiveOpen;
+  renderAdminAccounts();
+}
+// Herkomst van een account (api/admin.js, accountSource): bron, met de groep klein eronder.
+function adminSourceCell(a) {
+  if (!a.source) return '<span class="admin-muted">onbekend</span>';
+  return `${adminEscape(a.source.name)}<small>${adminEscape(a.source.group)}</small>`;
+}
+// Samenvatting: hoe vonden de accounts Savour (alleen accounts waarvan het bekend is).
+function renderAdminSources() {
+  const host = $('adminSources');
+  if (!host) return;
+  const count = new Map();
+  for (const a of adminAccounts) if (a.source) count.set(a.source.name, (count.get(a.source.name) || 0) + 1);
+  const known = [...count.values()].reduce((s, n) => s + n, 0);
+  host.innerHTML = known
+    ? `<b>Herkomst</b> (${known} van ${adminAccounts.length} bekend): ${[...count.entries()]
+        .sort((x, y) => y[1] - x[1])
+        .map(([name, n]) => `${adminEscape(name)} <small>${n}</small>`)
+        .join(' · ')}`
+    : '';
+}
 
 const adminMoney = v =>
   v == null ? '—' : `€ ${Number(v).toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -1166,6 +1203,7 @@ async function loadAdminOverview() {
     if ($('adminMoneyNote')) $('adminMoneyNote').textContent = `bijgewerkt ${adminFormatDate(new Date())}`;
     renderAdminAccounts();
     renderAdminActiveNow();
+    renderAdminSources();
     renderAdminGrowth(adminAccounts);
     renderAdminTeams();
   } catch (error) {
@@ -1227,7 +1265,9 @@ function renderAdminAccounts() {
   if (!body) return;
   const q = ($('adminAccountSearch')?.value || '').trim().toLowerCase();
   const type = $('adminAccountType')?.value || '';
-  const rows = adminAccounts.filter(
+  const archived = adminAccounts.filter(adminIsArchived);
+  const pool = adminArchiveOpen ? archived : adminAccounts.filter(a => !adminIsArchived(a));
+  const rows = pool.filter(
     a =>
       (!type || (type === 'active' ? a.active_now : a.type === type)) &&
       (!q ||
@@ -1237,7 +1277,16 @@ function renderAdminAccounts() {
             .includes(q)
         ))
   );
-  if ($('adminAccountCount')) $('adminAccountCount').textContent = `${rows.length} van ${adminAccounts.length}`;
+  if ($('adminAccountCount'))
+    $('adminAccountCount').textContent = adminArchiveOpen
+      ? `archief: ${rows.length} van ${archived.length}`
+      : `${rows.length} van ${adminAccounts.length - archived.length} actief`;
+  const archiveBtn = $('adminArchiveBtn');
+  if (archiveBtn)
+    archiveBtn.textContent = adminArchiveOpen
+      ? '← Terug naar actieve accounts'
+      : `Archief bekijken (${archived.length})`;
+  $('adminAccountsPanel')?.classList.toggle('is-archive', adminArchiveOpen);
   body.innerHTML =
     rows
       .map(a => {
@@ -1255,9 +1304,12 @@ function renderAdminAccounts() {
           ? ''
           : `<button class="admin-ghost" onclick="adminConfirmAccount('${a.id}')">Bevestigen</button>`;
         const remove = `<button class="admin-ghost admin-danger" onclick="adminDeleteAccount('${a.id}')">Verwijderen</button>`;
-        return `<tr><td>${adminFlag(a.country)} ${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_total ?? 0)}<small> ${adminEscape(a.ai_this_month)} deze maand</small></td><td>${adminFormatDate(a.created_at)}</td><td>${adminLastActive(a)}</td><td>${a.logins == null ? '—' : `${adminEscape(a.logins)}<small> ${adminEscape(a.logins_30_days)} in 30 dagen</small>`}</td><td>${adminDeviceDays(a)}</td><td><div class="admin-actions">${confirm}${action}${remove}</div></td></tr>`;
+        return `<tr><td>${adminFlag(a.country)} ${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_total ?? 0)}<small> ${adminEscape(a.ai_this_month)} deze maand</small></td><td>${adminFormatDate(a.created_at)}</td><td>${adminLastActive(a)}</td><td>${a.logins == null ? '—' : `${adminEscape(a.logins)}<small> ${adminEscape(a.logins_30_days)} in 30 dagen</small>`}</td><td>${adminDeviceDays(a)}</td><td>${adminSourceCell(a)}</td><td><div class="admin-actions">${confirm}${action}${remove}</div></td></tr>`;
       })
-      .join('') || '<tr><td colspan="11">Geen accounts gevonden.</td></tr>';
+      .join('') ||
+    (adminArchiveOpen
+      ? '<tr><td colspan="12">Geen accounts in het archief.</td></tr>'
+      : '<tr><td colspan="12">Geen accounts gevonden.</td></tr>');
 }
 
 // Laatst actief: 'nu actief' (afgelopen 10 minuten), anders het laatste moment uit de accountactiviteit,

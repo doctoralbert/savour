@@ -3184,6 +3184,35 @@ button {
   background: #7fc79a;
   box-shadow: 0 0 0 4px rgba(127, 199, 154, 0.15);
 }
+/* Herkomst van de accounts en het archief (accounts 14 dagen niet actief). */
+.admin-sources {
+  margin: 0 0 14px;
+  color: #cfd5cf;
+  font-size: var(--sv-fs-sm);
+  line-height: 1.7;
+}
+.admin-sources:empty {
+  display: none;
+}
+.admin-sources small,
+.admin-muted {
+  color: #8f9994;
+}
+.admin-archive-note {
+  display: none;
+}
+#adminAccountsPanel.is-archive .admin-archive-note {
+  display: block;
+}
+#adminAccountsPanel.is-archive .admin-active-now,
+#adminAccountsPanel.is-archive .admin-sources {
+  display: none;
+}
+.admin-archive-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
 .admin-badge.active-now {
   color: #7fc79a;
   border-color: rgba(127, 199, 154, 0.45);

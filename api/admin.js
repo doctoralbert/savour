@@ -246,6 +246,30 @@ async function ownVisitorIds(user, current) {
   return ids;
 }
 
+// Herkomst van een account: hoe vond deze gebruiker Savour? De app stuurt één keer de anonieme bezoekers-id
+// van de browser mee (js/features/auth.js). De server zoekt de bezoeken van vóór het aanmelden en bewaart
+// alleen het label (bijv. "Zoekmachines · Google") in app_metadata. De bezoeken zelf worden niet aan het account
+// gekoppeld. Geen bezoeken van vóór het aanmelden in deze browser (bijv. aangemeld op de telefoon, nu op de
+// computer)? Dan niets bewaren: een ander apparaat kan het later nog aanvullen.
+async function accountSource(user, visitor) {
+  if (user?.app_metadata?.signup_source) return { ok: true, known: true };
+  if (!/^[0-9a-f-]{36}$/i.test(String(visitor || ''))) return { ok: false };
+  const until = new Date(Date.parse(user.created_at) + 3600000).toISOString();
+  const visits =
+    (await select(
+      'site_visits',
+      `select=path,referrer,user_agent,visited_at&visitor_id=eq.${visitor}&visited_at=lte.${until}&order=visited_at.asc&limit=200`
+    ).catch(() => [])) || [];
+  if (!visits.length) return { ok: true, known: false };
+  // Eerste herkomst die niet "direct" is (zelfde regel als bij de bezoekers), anders direct.
+  const found = visits.map(sourceOf).find(s => !isDirect(s)) || sourceOf(visits[0]);
+  await updateAppMetadata(user.id, {
+    ...(user.app_metadata || {}),
+    signup_source: { group: found[0], name: found[1], first_visit: visits[0].visited_at }
+  });
+  return { ok: true, known: true };
+}
+
 // Geen mensen: zoekmachines, linkvoorbeelden (WhatsApp, Facebook, ...) en testbrowsers. Tellen niet mee als bezoeker.
 const NOT_A_VISITOR =
   /bot\b|bot\/|googleother|crawl|spider|slurp|headless|lighthouse|pagespeed|facebookexternalhit|meta-externalagent|preview|python|curl|wget|node-fetch|axios|vercel|uptime|monitor|electron|claude|chatgpt|gptbot|perplexity|prerender|inspectiontool|google-read-aloud/i;
@@ -845,6 +869,8 @@ async function overview(user, ownVisitor) {
         name: p.name || u.user_metadata?.name || '',
         organization: p.organization || u.user_metadata?.organization || '',
         country: p.country || '',
+        // Hoe dit account Savour vond (accountSource), als dat bekend is.
+        source: u.app_metadata?.signup_source || null,
         created_at: u.created_at,
         last_sign_in_at: u.last_sign_in_at,
         confirmed: !!(u.email_confirmed_at || u.confirmed_at),
@@ -1891,6 +1917,16 @@ export default async function handler(req, res) {
   const user = await getUserFromRequest(req);
   // Geen (geldige) inlog-sleutel is iets anders dan geen beheerder: de pagina ververst dan zelf de sessie.
   if (!user) return res.status(401).json({ error: 'Sessie verlopen. Log opnieuw in.' });
+  // Voor elk ingelogd account (geen beheerder nodig): herkomst één keer vastleggen.
+  if (req.body?.action === 'herkomst') {
+    if (!hasServiceRole()) return res.status(200).json({ ok: false });
+    try {
+      return res.status(200).json(await accountSource(user, req.body?.visitor));
+    } catch (e) {
+      console.error('Herkomst account', e);
+      return res.status(200).json({ ok: false });
+    }
+  }
   if (!ADMIN_EMAILS.includes(String(user.email || '').toLowerCase()))
     return res.status(403).json({ error: 'Geen beheerdersrechten.' });
   const { action, user_id: userId, days, email, name, organization, own_visitor: ownVisitor } = req.body || {};
