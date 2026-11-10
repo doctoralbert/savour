@@ -16,6 +16,7 @@ function dialogElement() {
     'beforeend',
     `<div class="modal sv-dialog" id="svDialog" role="dialog" aria-modal="true" aria-labelledby="svDialogTitle">
       <form class="sv-dialog-box" novalidate>
+        <button type="button" class="sv-dialog-close" data-close aria-label="Sluiten" title="Sluiten">×</button>
         <h2 id="svDialogTitle" class="sv-dialog-title"></h2>
         <p class="sv-dialog-text"></p>
         <input class="sv-dialog-input" type="text" autocomplete="off" aria-labelledby="svDialogTitle">
@@ -34,6 +35,8 @@ function dialogElement() {
     closeDialog(input.hidden ? true : input.value);
   });
   el.querySelector('[data-cancel]').addEventListener('click', () => closeDialog(null));
+  // Kruisje rechtsboven: hetzelfde als Annuleren.
+  el.querySelector('[data-close]').addEventListener('click', () => closeDialog(null));
   // Klik naast het venster of Esc annuleert.
   el.addEventListener('mousedown', e => {
     if (e.target === el) closeDialog(null);

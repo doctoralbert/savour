@@ -84,6 +84,8 @@ window.SAVOUR_I18N.de = {
     "Menu": "Menü",
     "Menu sluiten": "Menü schließen",
     "Keukenteams beheren": "Küchenteams verwalten",
+    "Waar heb je Savour gevonden?": "Wo hast du Savour gefunden?",
+    "Versturen": "Senden",
     "Hoe heb je Savour gevonden?": "Wie hast du Savour gefunden?",
     "Eén vraag, je mag hem overslaan. Zo weten we waar koks Savour vinden.": "Nur eine Frage, du kannst sie überspringen. So sehen wir, wo Köche Savour finden.",
     "Google of een andere zoekmachine": "Google oder eine andere Suchmaschine",

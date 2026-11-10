@@ -146,7 +146,34 @@ body.savour-light :is(#appShell, .modal) .btn.gold {
   color: var(--sv-text);
   font-family: var(--sv-font);
 }
+/* Kruisje rechtsboven in elk venster (zelfde als Annuleren), zoals bij het inlogvenster. */
+.sv-dialog-box {
+  position: relative;
+}
+.sv-dialog-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--sv-text-3, #87918b);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+.sv-dialog-close:hover,
+.sv-dialog-close:focus-visible {
+  background: color-mix(in srgb, var(--sv-text, #eee8dc) 8%, transparent);
+  color: var(--sv-text, #eee8dc);
+}
 .sv-dialog-title {
+  padding-right: 36px;
   margin: 0;
   font-family: var(--sv-font);
   font-size: var(--sv-fs-lg);

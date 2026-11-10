@@ -259,7 +259,9 @@ const SIGNUP_ANSWER_LABELS = {
   collega: 'Collega of vriend',
   forum: 'Reddit of forum',
   anders: 'Anders',
-  overgeslagen: 'Overgeslagen'
+  overgeslagen: 'Overgeslagen',
+  // De vraag is getoond, maar er kwam (nog) geen antwoord, bijvoorbeeld omdat de browser werd gesloten.
+  getoond: 'Niet beantwoord'
 };
 const SIGNUP_ANSWERS = Object.keys(SIGNUP_ANSWER_LABELS);
 
@@ -892,6 +894,8 @@ async function overview(user, ownVisitor) {
         answer: u.app_metadata?.signup_answer?.answer
           ? SIGNUP_ANSWER_LABELS[u.app_metadata.signup_answer.answer] || u.app_metadata.signup_answer.answer
           : null,
+        // Bij "Anders": wat de gebruiker zelf invulde.
+        answer_other: u.app_metadata?.signup_answer?.other || '',
         created_at: u.created_at,
         last_sign_in_at: u.last_sign_in_at,
         confirmed: !!(u.email_confirmed_at || u.confirmed_at),
@@ -1953,11 +1957,24 @@ export default async function handler(req, res) {
   if (req.body?.action === 'herkomst_antwoord') {
     const answer = String(req.body?.answer || '');
     if (!SIGNUP_ANSWERS.includes(answer)) return res.status(400).json({ error: 'Onbekend antwoord.' });
-    if (!hasServiceRole() || user.app_metadata?.signup_answer) return res.status(200).json({ ok: true });
+    if (!hasServiceRole()) return res.status(503).json({ ok: false });
+    const existing = user.app_metadata?.signup_answer?.answer;
+    // "getoond" komt vlak vóór de vraag: is de vraag al eens getoond of beantwoord, dan niet nog een keer vragen.
+    if (answer === 'getoond' && existing) return res.status(409).json({ ok: false, already: true });
+    // Een echt antwoord vervangt alleen "getoond"; een eerder antwoord blijft staan.
+    if (existing && existing !== 'getoond') return res.status(200).json({ ok: true });
+    // Anders: wat de gebruiker zelf invulde, kort en als platte tekst.
+    const other =
+      answer === 'anders'
+        ? String(req.body?.other || '')
+            .replace(/[\u0000-\u001f<>]/g, ' ')
+            .trim()
+            .slice(0, 100)
+        : '';
     try {
       await updateAppMetadata(user.id, {
         ...(user.app_metadata || {}),
-        signup_answer: { answer, at: new Date().toISOString() }
+        signup_answer: { answer, ...(other ? { other } : {}), at: new Date().toISOString() }
       });
       return res.status(200).json({ ok: true });
     } catch (e) {

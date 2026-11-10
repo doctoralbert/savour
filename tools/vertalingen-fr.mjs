@@ -128,6 +128,8 @@ export const stringsFr = {
  "Menu": "Menu",
  "Menu sluiten": "Fermer le menu",
  "Keukenteams beheren": "Gérer les équipes de cuisine",
+ "Waar heb je Savour gevonden?": "Où as-tu découvert Savour ?",
+ "Versturen": "Envoyer",
  "Hoe heb je Savour gevonden?": "Comment as-tu découvert Savour ?",
  "Eén vraag, je mag hem overslaan. Zo weten we waar koks Savour vinden.": "Une seule question, tu peux la passer. Cela nous aide à savoir où les chefs découvrent Savour.",
  "Google of een andere zoekmachine": "Google ou un autre moteur de recherche",
