@@ -74,7 +74,11 @@ async function openAiCostsThisMonth() {
       `https://api.openai.com/v1/organization/costs?start_time=${Math.floor(start / 1000)}&limit=31`,
       { headers: { Authorization: `Bearer ${key}` } }
     );
-    if (!response.ok) return null;
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({}));
+      console.error('OpenAI-kosten deze maand', response.status, body?.error?.message || '');
+      return null;
+    }
     const data = await response.json();
     const usd = (data.data || [])
       .flatMap(bucket => bucket.results || [])
@@ -1724,29 +1728,46 @@ async function adsenseMonths(months) {
   return Object.fromEntries(report.rows.map(r => [r.MONTH, Number(r.ESTIMATED_EARNINGS) || 0]));
 }
 
-// AI-kosten per maand uit OpenAI (admin-sleutel), omgerekend naar euro.
+// AI-kosten uit OpenAI (admin-sleutel): per maand in euro (voor de winst) en in dollar (zoals op de factuur),
+// en per dag van de afgelopen 30 dagen. Lukt het niet, dan de reden, zodat het beheerscherm laat zien wat er mis is
+// in plaats van stil niets te tellen.
 async function openAiMonths(months) {
   const key = process.env.OPENAI_ADMIN_KEY;
-  if (!key) return null;
+  if (!key) return { error: 'OPENAI_ADMIN_KEY staat niet in Vercel.' };
   const start = Math.floor(Date.parse(`${months[0]}-01T00:00:00Z`) / 1000);
-  const result = {};
+  const eur = {};
+  const usd = {};
+  const days = {};
   let pageToken = '';
-  for (let page = 0; page < 3; page++) {
+  for (let page = 0; page < 6; page++) {
     const response = await fetch(
       `https://api.openai.com/v1/organization/costs?start_time=${start}&bucket_width=1d&limit=180${pageToken}`,
       { headers: { Authorization: `Bearer ${key}` } }
     );
-    if (!response.ok) return null;
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({}));
+      console.error('OpenAI-kosten', response.status, body?.error?.message || '');
+      const why =
+        response.status === 401
+          ? 'de sleutel wordt niet geaccepteerd (verlopen, ingetrokken of geen admin-sleutel)'
+          : response.status === 403
+            ? 'de sleutel mag de kosten niet inzien (maak een admin-sleutel met leesrechten)'
+            : `OpenAI gaf foutcode ${response.status}`;
+      return { error: `OpenAI-kosten niet opgehaald: ${why}.` };
+    }
     const data = await response.json();
     for (const bucket of data.data || []) {
-      const month = new Date(bucket.start_time * 1000).toISOString().slice(0, 7);
-      for (const r of bucket.results || [])
-        result[month] = (result[month] || 0) + (Number(r.amount?.value) || 0) * EUR_PER_USD;
+      const day = new Date(bucket.start_time * 1000).toISOString().slice(0, 10);
+      const month = day.slice(0, 7);
+      const amount = (bucket.results || []).reduce((t, r) => t + (Number(r.amount?.value) || 0), 0);
+      usd[month] = (usd[month] || 0) + amount;
+      eur[month] = (eur[month] || 0) + amount * EUR_PER_USD;
+      days[day] = (days[day] || 0) + amount;
     }
     if (!data.has_more || !data.next_page) break;
     pageToken = `&page=${encodeURIComponent(data.next_page)}`;
   }
-  return result;
+  return { eur, usd, days, rate: EUR_PER_USD };
 }
 
 async function financeOverview() {
@@ -1758,11 +1779,18 @@ async function financeOverview() {
     safe(adsenseMonths(months)),
     safe(openAiMonths(months))
   ]);
+  // AI-imports per maand uit de eigen teller, om de kosten per import te kunnen tonen.
+  const usage = await selectAll('ai_usage', 'select=month,count').catch(() => []);
+  const aiImports = {};
+  for (const u of usage || []) aiImports[u.month] = (aiImports[u.month] || 0) + (Number(u.count) || 0);
   return {
     months,
     stripe: stripeData,
     ads,
-    openai,
+    openai: openai && !openai.error ? openai.eur : null,
+    openai_detail: openai && !openai.error ? { usd: openai.usd, days: openai.days, rate: openai.rate } : null,
+    openai_error: openai?.error || (openai ? '' : 'OpenAI-kosten niet opgehaald: geen verbinding met OpenAI.'),
+    ai_imports: aiImports,
     costs,
     hours,
     measured: MEASURED_HOURS,

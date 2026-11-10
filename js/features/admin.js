@@ -1820,7 +1820,7 @@ const finMonthLabel = (month, long) =>
     long ? { month: 'long', year: 'numeric' } : { month: 'short' }
   );
 
-function finBars(rows, series, label) {
+function finBars(rows, series, label, labelOf = finMonthLabel) {
   const W = 720,
     H = 230,
     L = 72,
@@ -1851,8 +1851,8 @@ function finBars(rows, series, label) {
           return `<rect x="${x0 + n * (width + 2)}" y="${v < 0 ? y(0) : y(0) - h}" width="${width}" height="${h}" rx="3" fill="${color}"></rect>`;
         })
         .join('');
-      const tip = `${finMonthLabel(r.month, true)}: ${series.map(s => `${s.name} ${adminMoney(r[s.key])}`).join(' · ')}`;
-      return `<g class="fin-hit" data-tip="${adminEscape(tip)}"><rect x="${L + i * band}" y="0" width="${band}" height="${H}" fill="transparent"></rect>${marks}<text x="${L + i * band + band / 2}" y="${H - 8}" text-anchor="middle" class="fin-axis">${adminEscape(finMonthLabel(r.month))}</text></g>`;
+      const tip = `${labelOf(r.month, true, i)}: ${series.map(s => `${s.name} ${adminMoney(r[s.key])}`).join(' · ')}`;
+      return `<g class="fin-hit" data-tip="${adminEscape(tip)}"><rect x="${L + i * band}" y="0" width="${band}" height="${H}" fill="transparent"></rect>${marks}<text x="${L + i * band + band / 2}" y="${H - 8}" text-anchor="middle" class="fin-axis">${adminEscape(labelOf(r.month, false, i))}</text></g>`;
     })
     .join('');
   return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${adminEscape(label)}">${grid}${bars}</svg>`;
@@ -1880,6 +1880,46 @@ function finLine(rows) {
     )
     .join('');
   return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Totale winst sinds de start">${zero}<path d="${line}" fill="none" stroke="${FIN_REVENUE}" stroke-width="2"></path>${dots}</svg>`;
+}
+
+// AI-kosten (OpenAI): per maand en per dag, wat een AI-import gemiddeld kost en wat er op de factuur staat (dollar).
+// De bedragen komen rechtstreeks van OpenAI (admin-sleutel) en worden elke keer bij het openen opgehaald.
+const FIN_AI = '#8a6fd1';
+function financeAiHtml(d, all) {
+  const detail = d.openai_detail;
+  if (!detail) return '';
+  const thisMonth = d.months[d.months.length - 1];
+  const usdThis = detail.usd?.[thisMonth] || 0;
+  const eurThis = d.openai?.[thisMonth] || 0;
+  const importsThis = d.ai_imports?.[thisMonth] || 0;
+  const totalEur = Object.values(d.openai || {}).reduce((t, v) => t + v, 0);
+  const totalUsd = Object.values(detail.usd || {}).reduce((t, v) => t + v, 0);
+  const usd = v => `$${v.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const rows = all.map(r => ({ month: r.month, ai: d.openai?.[r.month] || 0 }));
+  // Afgelopen 30 dagen, ook dagen zonder kosten (anders lijkt een stille dag te ontbreken).
+  const dayRows = [];
+  for (let i = 29; i >= 0; i--) {
+    const day = new Date(Date.now() - i * 86400000).toISOString().slice(0, 10);
+    dayRows.push({ month: day, ai: (detail.days?.[day] || 0) * detail.rate });
+  }
+  const dayLabel = (day, long, i) => {
+    const date = new Date(`${day}T12:00:00`);
+    if (long) return date.toLocaleDateString('nl-NL', { weekday: 'short', day: 'numeric', month: 'long' });
+    return i % 5 === 4 ? date.toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' }) : '';
+  };
+  return `<section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">AI-KOSTEN</div><h2>OpenAI</h2></div><span class="admin-count">${adminEscape(usd(totalUsd))} sinds de start</span></div>
+      <div class="admin-stats-grid">
+        ${finTile('Deze maand', adminMoney(eurThis), `${usd(usdThis)} op de factuur van OpenAI`)}
+        ${finTile('AI-imports deze maand', count0(importsThis), 'volgens de Savour-teller')}
+        ${finTile('Per AI-import', importsThis ? adminMoney(eurThis / importsThis) : '—', 'gemiddeld deze maand')}
+        ${finTile('Sinds de start', adminMoney(totalEur), `${usd(totalUsd)} in totaal`)}
+      </div>
+      <div class="fin-two">
+        <div><h3 class="adsense-title">Per maand</h3><div class="fin-chart">${finBars(rows, [{ key: 'ai', name: 'OpenAI', color: FIN_AI }], 'OpenAI-kosten per maand')}</div></div>
+        <div><h3 class="adsense-title">Per dag, afgelopen 30 dagen</h3><div class="fin-chart">${finBars(dayRows, [{ key: 'ai', name: 'OpenAI', color: FIN_AI }], 'OpenAI-kosten per dag', dayLabel)}</div></div>
+      </div>
+      <p class="admin-footnote">Rechtstreeks van OpenAI, bijgewerkt telkens als je dit scherm opent (OpenAI verwerkt kosten met enkele uren vertraging). OpenAI rekent in dollars; omgerekend tegen een vaste koers van ${adminEscape(detail.rate.toLocaleString('nl-NL'))}. Voor de boekhouding telt het bedrag op je bankafschrift of creditcard.</p>
+    </section>`;
 }
 
 function finLegend(series) {
@@ -1978,11 +2018,9 @@ function renderAdminFinance() {
   const costRows = [...categories].filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]);
   const maxCost = costRows[0]?.[1] || 1;
 
-  const missing = [
-    !d.stripe && 'Stripe',
-    !d.ads && 'AdSense (nog niet gekoppeld)',
-    !d.openai && 'OpenAI (geen admin-sleutel)'
-  ].filter(Boolean);
+  const missing = [!d.stripe && 'Stripe', !d.ads && 'AdSense (nog niet gekoppeld)', !d.openai && 'OpenAI'].filter(
+    Boolean
+  );
   const period = (id, label) =>
     `<button type="button" class="${adminFinancePeriod === id ? 'is-on' : ''}" onclick="setFinancePeriod('${id}')">${label}</button>`;
   const options = list => list.map(x => `<option>${adminEscape(x)}</option>`).join('');
@@ -1992,6 +2030,7 @@ function renderAdminFinance() {
   host.innerHTML = `
     <div class="fin-periods" role="group" aria-label="Periode">${period('all', 'Altijd')}${period('year', 'Jaar')}${period('month', 'Maand')}</div>
     ${missing.length ? `<p class="admin-note">Nog niet meegeteld: ${adminEscape(missing.join(', '))}.</p>` : ''}
+    ${d.openai_error ? `<p class="admin-note">${adminEscape(d.openai_error)}</p>` : ''}
     <div class="admin-stats-grid fin-hero">
       ${finTile('Omzet', adminMoney(revenue), 'abonnementen, import service en advertenties')}
       ${finTile('Kosten', adminMoney(costs), 'eigen kosten, betaalkosten en AI')}
@@ -2015,6 +2054,7 @@ function renderAdminFinance() {
       <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">RESULTAAT</div><h2>Winst per maand</h2></div></div><div class="fin-chart">${finBars(all, [{ key: 'profit', name: 'Winst' }], 'Winst per maand')}</div></section>
       <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">TOTAAL</div><h2>Opgeteld sinds de start</h2></div><span class="admin-count">${adminEscape(adminMoney(allProfit))}</span></div><div class="fin-chart">${finLine(all)}</div></section>
     </div>
+    ${financeAiHtml(d, all)}
     <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">GEZONDHEID</div><h2>Belangrijkste cijfers</h2></div></div>
       <div class="admin-stats-grid">
         ${finTile('Terugkerend per maand', adminMoney(mrr), 'MRR, lopende abonnementen')}
@@ -2117,9 +2157,16 @@ function downloadFinanceCsv() {
   if (!adminFinance) return;
   const cell = v => `"${String(v).replace(/"/g, '""')}"`;
   const number = v => v.toFixed(2).replace('.', ',');
-  const lines = [['Maand', 'Stripe', 'Advertenties', 'Omzet', 'Kosten', 'Winst'].map(cell).join(';')];
-  for (const r of financeRows(adminFinance))
-    lines.push([r.month, ...[r.subs, r.ads, r.revenue, r.costs, r.profit].map(number)].map(cell).join(';'));
+  const lines = [
+    ['Maand', 'Stripe', 'Advertenties', 'Omzet', 'Betaalkosten', 'OpenAI (EUR)', 'OpenAI (USD)', 'Kosten', 'Winst']
+      .map(cell)
+      .join(';')
+  ];
+  for (const r of financeRows(adminFinance)) {
+    const usd = adminFinance.openai_detail?.usd?.[r.month] || 0;
+    const values = [r.subs, r.ads, r.revenue, r.categories.Betaalkosten || 0, r.categories['AI (OpenAI)'] || 0, usd];
+    lines.push([r.month, ...[...values, r.costs, r.profit].map(number)].map(cell).join(';'));
+  }
   lines.push('', ['Kosten', 'Categorie', 'Bedrag', 'Herhaling', 'Datum'].map(cell).join(';'));
   for (const c of adminFinance.costs || [])
     lines.push([c.name, c.category, number(c.amount), c.repeat, c.date].map(cell).join(';'));
