@@ -943,7 +943,7 @@ ${alternates.map(([l, h]) => `<link rel="alternate" hreflang="${l}" href="${h}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${canonical}">
-<meta property="og:image" content="${SITE}/assets/${lang === 'en' ? 'savour-og-en.png?v=2' : 'savour-og.png?v=2'}">
+<meta property="og:image" content="${SITE}/assets/${lang === 'en' ? 'savour-og-en.png?v=3' : 'savour-og.png?v=3'}">
 <meta property="og:locale" content="${{ nl: 'nl_NL', en: 'en_GB', de: 'de_DE', es: 'es_ES', fr: 'fr_FR' }[lang] || 'en_GB'}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0d1314">
@@ -1779,7 +1779,7 @@ const HOME_META = {
     if (lang === 'en')
       swap(
         /<meta property="og:image" content="[^"]*">/,
-        `<meta property="og:image" content="${SITE}/assets/savour-og-en.png?v=2">`
+        `<meta property="og:image" content="${SITE}/assets/savour-og-en.png?v=3">`
       );
     swap(
       /<meta property="og:description" content="[^"]*">/,
