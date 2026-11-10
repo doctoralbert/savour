@@ -1552,34 +1552,3 @@
   background: var(--sv-gold);
   box-shadow: 0 0 0 2px var(--sv-bg);
 }
-
-/* Inlogvenster na inloggen: SAVOUR met de gouden lijn in het midden terwijl je recepten laden (openAppWithLoader). */
-#authModal .modalbox {
-  position: relative;
-}
-#authModal .auth-loading {
-  display: none;
-}
-#authModal.is-loading .auth-loading {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: inherit;
-  background: #070b0c;
-  color: #eee8dc;
-}
-#authModal.savour-light.is-loading .auth-loading {
-  background: #f6f3ec;
-  color: #1d1d1b;
-}
-#authModal.is-loading .auth-loading .boot-mark {
-  font-size: 28px;
-  padding-left: 0.34em;
-}
-#authModal.is-loading .auth-close {
-  visibility: hidden;
-}

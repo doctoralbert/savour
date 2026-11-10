@@ -61,16 +61,13 @@ window.addEventListener('popstate', e => {
 });
 
 // Zodra de pagina is opgebouwd: linklijst op publieke pagina's, alfabetbalken en zijbalkmenu's tekenen.
-// De app-code wordt soms pas na het opbouwen geladen (laadscript onderaan index.html); dan meteen uitvoeren.
-const whenPageReady = fn =>
-  document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : setTimeout(fn, 0);
-whenPageReady(ensurePublicFooter);
+document.addEventListener('DOMContentLoaded', ensurePublicFooter);
 setTimeout(ensurePublicFooter, 300);
-whenPageReady(() => {
+document.addEventListener('DOMContentLoaded', () => {
   drawAlphabet('recipeAlphabet', 'library');
   drawAlphabet('favoriteAlphabet', 'favorite');
 });
-whenPageReady(() =>
+document.addEventListener('DOMContentLoaded', () =>
   setTimeout(() => {
     try {
       renderCategoryNav();
@@ -143,9 +140,7 @@ if (new URLSearchParams(location.search).get('collega')) {
       if (!navigator.onLine && (await startOfflineSession())) return;
       sessionStorage.removeItem('savour_session_active');
       currentUser = null;
-      // Homepage stond al (app-code later geladen): niet opnieuw tonen, anders verdwijnt een net gestarte demo
-      // of een geopend inlogvenster.
-      if (!window.__savourLazy) showLanding();
+      showLanding();
       if (window.__proRoute) openPublicInfo('pro');
       else if (window.__infoRoute) openPublicInfo(window.__infoRoute);
       else if (window.__authRoute) openAuth(window.__authRoute);
