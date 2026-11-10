@@ -252,6 +252,61 @@ async function touchAccountActivity(force = false) {
   }
 }
 
+// Eén optionele vraag voor nieuwe accounts: hoe vond je Savour? Een website kan niet altijd zien waar iemand
+// vandaan komt (apps en mail geven niets door); zelf aangeven is het betrouwbaarst. Eén keer, kort na het openen
+// van de app, alleen voor accounts van hooguit 30 dagen oud, nooit over een ander venster heen. Annuleren =
+// overslaan, en dan vragen we het niet opnieuw. De server bewaart alleen het gekozen antwoord (api/admin.js).
+const SIGNUP_SOURCE_CHOICES = [
+  ['google', 'Google of een andere zoekmachine'],
+  ['ai', 'ChatGPT of een andere AI'],
+  ['social', 'Instagram, Facebook of TikTok'],
+  ['linkedin', 'LinkedIn'],
+  ['collega', 'Via een collega of vriend'],
+  ['forum', 'Reddit of een forum'],
+  ['anders', 'Anders']
+];
+async function askSignupSource() {
+  if (!currentUser || demoMode || /^(localhost|127\.)/.test(location.hostname)) return;
+  const created = Date.parse(currentUser.created_at || '');
+  if (!created || Date.now() - created > 30 * 86400000 || currentUser.app_metadata?.signup_answer) return;
+  const askedKey = 'savour_source_asked_' + currentUser.id;
+  try {
+    if (localStorage.getItem(askedKey)) return;
+  } catch (_) {
+    return;
+  }
+  const userId = currentUser.id;
+  await new Promise(resolve => setTimeout(resolve, 8000));
+  // Intussen uitgelogd, iets anders open (venster, menu, kookmodus) of niet in beeld: een volgende keer.
+  if (
+    currentUser?.id !== userId ||
+    demoMode ||
+    document.visibilityState === 'hidden' ||
+    document.querySelector('.modal.open') ||
+    document.body.classList.contains('cook-mode') ||
+    document.body.classList.contains('mobile-menu-open')
+  )
+    return;
+  try {
+    localStorage.setItem(askedKey, '1');
+  } catch (_) {}
+  const answer = await askChoice(
+    `${t('Hoe heb je Savour gevonden?')}\n\n${t('Eén vraag, je mag hem overslaan. Zo weten we waar koks Savour vinden.')}`,
+    SIGNUP_SOURCE_CHOICES.map(([value, label]) => ({ value, label: t(label) }))
+  );
+  try {
+    const token = (await supabaseClient.auth.getSession()).data?.session?.access_token;
+    if (!token) return;
+    await fetch('/api/admin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ action: 'herkomst_antwoord', answer: answer || 'overgeslagen' })
+    });
+  } catch (_) {
+    // Alleen voor de cijfers; mislukt het, dan merkt de gebruiker daar niets van.
+  }
+}
+
 // Sessie verlopen in de app (de server weigert het token en verversen lukt niet): niet doorwerken met een
 // sessie die niets meer kan opslaan. Lokaal uitloggen (de bewaarde gegevens op de server blijven staan),
 // naar de homepage, en het inlogvenster met een duidelijke melding.

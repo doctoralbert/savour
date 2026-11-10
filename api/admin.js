@@ -249,6 +249,20 @@ async function ownVisitorIds(user, current) {
   return ids;
 }
 
+// Mogelijke antwoorden op de vraag "Hoe heb je Savour gevonden?" (zelfde lijst als SIGNUP_SOURCE_CHOICES in
+// js/features/auth.js), met het label voor /admin. "overgeslagen": de gebruiker wilde het niet zeggen.
+const SIGNUP_ANSWER_LABELS = {
+  google: 'Google of andere zoekmachine',
+  ai: 'ChatGPT of andere AI',
+  social: 'Instagram, Facebook of TikTok',
+  linkedin: 'LinkedIn',
+  collega: 'Collega of vriend',
+  forum: 'Reddit of forum',
+  anders: 'Anders',
+  overgeslagen: 'Overgeslagen'
+};
+const SIGNUP_ANSWERS = Object.keys(SIGNUP_ANSWER_LABELS);
+
 // Herkomst van een account: hoe vond deze gebruiker Savour? De app stuurt één keer de anonieme bezoekers-id
 // van de browser mee (js/features/auth.js). De server zoekt de bezoeken van vóór het aanmelden en bewaart
 // alleen het label (bijv. "Zoekmachines · Google") in app_metadata. De bezoeken zelf worden niet aan het account
@@ -874,6 +888,10 @@ async function overview(user, ownVisitor) {
         country: p.country || '',
         // Hoe dit account Savour vond (accountSource), als dat bekend is.
         source: u.app_metadata?.signup_source || null,
+        // Wat de gebruiker zelf aangaf (askSignupSource), met een leesbaar label.
+        answer: u.app_metadata?.signup_answer?.answer
+          ? SIGNUP_ANSWER_LABELS[u.app_metadata.signup_answer.answer] || u.app_metadata.signup_answer.answer
+          : null,
         created_at: u.created_at,
         last_sign_in_at: u.last_sign_in_at,
         confirmed: !!(u.email_confirmed_at || u.confirmed_at),
@@ -1927,6 +1945,23 @@ export default async function handler(req, res) {
       return res.status(200).json(await accountSource(user, req.body?.visitor));
     } catch (e) {
       console.error('Herkomst account', e);
+      return res.status(200).json({ ok: false });
+    }
+  }
+  // Antwoord op "Hoe heb je Savour gevonden?" (askSignupSource in js/features/auth.js): alleen een vaste keuze,
+  // één keer per account; een eerder antwoord wordt niet overschreven.
+  if (req.body?.action === 'herkomst_antwoord') {
+    const answer = String(req.body?.answer || '');
+    if (!SIGNUP_ANSWERS.includes(answer)) return res.status(400).json({ error: 'Onbekend antwoord.' });
+    if (!hasServiceRole() || user.app_metadata?.signup_answer) return res.status(200).json({ ok: true });
+    try {
+      await updateAppMetadata(user.id, {
+        ...(user.app_metadata || {}),
+        signup_answer: { answer, at: new Date().toISOString() }
+      });
+      return res.status(200).json({ ok: true });
+    } catch (e) {
+      console.error('Herkomst-antwoord', e);
       return res.status(200).json({ ok: false });
     }
   }
