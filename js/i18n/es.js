@@ -89,6 +89,8 @@ window.SAVOUR_I18N.es = {
     "Categorieën tonen": "Mostrar categorías",
     "Mappen tonen": "Mostrar carpetas",
     "Savour Pro · proefweek": "Savour Pro · semana de prueba",
+    "Waar heb je Savour gevonden?": "¿Dónde encontraste Savour?",
+    "Versturen": "Enviar",
     "Hoe heb je Savour gevonden?": "¿Cómo encontraste Savour?",
     "Eén vraag, je mag hem overslaan. Zo weten we waar koks Savour vinden.": "Solo una pregunta, puedes saltarla. Así sabemos dónde encuentran Savour los cocineros.",
     "Google of een andere zoekmachine": "Google u otro buscador",

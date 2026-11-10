@@ -290,20 +290,36 @@ async function askSignupSource() {
   try {
     localStorage.setItem(askedKey, '1');
   } catch (_) {}
+  // Echt maar één keer per account, ook op een ander apparaat: eerst bij de server kijken of de vraag al eens is
+  // getoond (een sessie op een ander apparaat kan een oude stand hebben), en meteen vastleggen dat hij nu getoond wordt.
+  const fresh = (await supabaseClient.auth.getUser().catch(() => null))?.data?.user;
+  if (!fresh || fresh.app_metadata?.signup_answer) return;
+  if (!(await sendSignupAnswer({ answer: 'getoond' }))) return;
   const answer = await askChoice(
     `${t('Hoe heb je Savour gevonden?')}\n\n${t('Eén vraag, je mag hem overslaan. Zo weten we waar koks Savour vinden.')}`,
     SIGNUP_SOURCE_CHOICES.map(([value, label]) => ({ value, label: t(label) }))
   );
+  // Anders: zelf invullen (mag leeg blijven).
+  let other = '';
+  if (answer === 'anders')
+    other = ((await askText(t('Waar heb je Savour gevonden?'), '', { confirmLabel: t('Versturen') })) || '').trim();
+  await sendSignupAnswer({ answer: answer || 'overgeslagen', other: other.slice(0, 100) });
+}
+
+// Antwoord op de herkomstvraag naar de server (api/admin.js, actie herkomst_antwoord). Geeft true als het lukte.
+async function sendSignupAnswer(body) {
   try {
     const token = (await supabaseClient.auth.getSession()).data?.session?.access_token;
-    if (!token) return;
-    await fetch('/api/admin', {
+    if (!token) return false;
+    const response = await fetch('/api/admin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ action: 'herkomst_antwoord', answer: answer || 'overgeslagen' })
+      body: JSON.stringify({ action: 'herkomst_antwoord', ...body })
     });
+    return response.ok;
   } catch (_) {
     // Alleen voor de cijfers; mislukt het, dan merkt de gebruiker daar niets van.
+    return false;
   }
 }
 

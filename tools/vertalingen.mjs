@@ -94,6 +94,8 @@ export const strings = [
   ['Categorieën tonen', 'Show categories', 'Kategorien anzeigen', 'Mostrar categorías'],
   ['Mappen tonen', 'Show folders', 'Ordner anzeigen', 'Mostrar carpetas'],
   ['Savour Pro · proefweek', 'Savour Pro · trial week', 'Savour Pro · Testwoche', 'Savour Pro · semana de prueba'],
+  ["Waar heb je Savour gevonden?","Where did you find Savour?","Wo hast du Savour gefunden?","¿Dónde encontraste Savour?"],
+  ["Versturen","Send","Senden","Enviar"],
   ["Hoe heb je Savour gevonden?","How did you find Savour?","Wie hast du Savour gefunden?","¿Cómo encontraste Savour?"],
   ["Eén vraag, je mag hem overslaan. Zo weten we waar koks Savour vinden.","Just one question, feel free to skip it. It helps us see where chefs find Savour.","Nur eine Frage, du kannst sie überspringen. So sehen wir, wo Köche Savour finden.","Solo una pregunta, puedes saltarla. Así sabemos dónde encuentran Savour los cocineros."],
   ["Google of een andere zoekmachine","Google or another search engine","Google oder eine andere Suchmaschine","Google u otro buscador"],

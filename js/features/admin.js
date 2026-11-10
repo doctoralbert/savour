@@ -1099,9 +1099,14 @@ function toggleAdminArchive() {
 function adminSourceCell(a) {
   // Zelf aangegeven (askSignupSource) gaat voor; de automatisch gevonden bron staat klein eronder.
   const auto = a.source ? `${adminEscape(a.source.name)} · ${adminEscape(a.source.group)}` : 'automatisch onbekend';
-  if (a.answer && a.answer !== 'Overgeslagen') return `<b>${adminEscape(a.answer)}</b><small>zelf · ${auto}</small>`;
-  if (!a.source) return `<span class="admin-muted">onbekend${a.answer ? ' (vraag overgeslagen)' : ''}</span>`;
-  return `${adminEscape(a.source.name)}<small>${adminEscape(a.source.group)}${a.answer ? ' · vraag overgeslagen' : ''}</small>`;
+  const answered = a.answer && !['Overgeslagen', 'Niet beantwoord'].includes(a.answer);
+  const note = a.answer && !answered ? ` · vraag ${a.answer.toLowerCase()}` : '';
+  if (answered) {
+    const other = a.answer_other ? `: ${adminEscape(a.answer_other)}` : '';
+    return `<b>${adminEscape(a.answer)}${other}</b><small>zelf · ${auto}</small>`;
+  }
+  if (!a.source) return `<span class="admin-muted">onbekend${note}</span>`;
+  return `${adminEscape(a.source.name)}<small>${adminEscape(a.source.group)}${note}</small>`;
 }
 // Samenvatting: wat accounts zelf aangaven, en wat Savour automatisch vond (alleen waar het bekend is).
 function renderAdminSources() {
