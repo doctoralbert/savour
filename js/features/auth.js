@@ -102,7 +102,18 @@ async function saveLoginChoices(email, password, name) {
 }
 
 function closeAuth() {
-  $('authModal').classList.remove('open');
+  $('authModal').classList.remove('open', 'is-loading');
+}
+
+// Na het inloggen: het inlogvenster blijft staan met het SAVOUR-logo en de gouden lijn in het midden, zodat je ziet
+// dat Savour je recepten laadt. Zijn ze er (of lukt het niet), dan sluit het venster.
+async function openAppWithLoader(user) {
+  $('authModal').classList.add('is-loading');
+  try {
+    return await startDatabaseSession(user);
+  } finally {
+    closeAuth();
+  }
 }
 
 async function forgotPassword() {
@@ -172,17 +183,18 @@ async function submitAuth() {
         body: JSON.stringify({ kind: 'signup', email, language: currentLanguage })
       }).catch(() => {});
       saveLoginChoices(email, password, name);
-      closeAuth();
       if (data.session) {
-        const ok = await startDatabaseSession(data.user);
+        const ok = await openAppWithLoader(data.user);
         if (ok) toast(authWelcome(account.name || name || data.user.email));
-      } else toast(t('Account aangemaakt — controleer je e-mail om te bevestigen'));
+      } else {
+        closeAuth();
+        toast(t('Account aangemaakt — controleer je e-mail om te bevestigen'));
+      }
     } else {
       const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
       if (error) throw error;
       saveLoginChoices(email, password, data.user?.user_metadata?.name);
-      closeAuth();
-      const ok = await startDatabaseSession(data.user);
+      const ok = await openAppWithLoader(data.user);
       if (ok) toast(authWelcome(account.name || data.user.user_metadata?.name || email));
     }
   } catch (e) {
