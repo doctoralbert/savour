@@ -41,6 +41,12 @@
     letter-spacing: 0.32em !important;
     color: var(--sv-text) !important;
     cursor: pointer;
+    transition: color 0.25s ease;
+  }
+  /* Bij aanwijzen een rustige kleurwissel naar goud, zoals het logo op de website. */
+  body #appShell .topbar .mobile-brand.sv-wordmark:hover,
+  body #appShell .topbar .mobile-brand.sv-wordmark:focus-visible {
+    color: var(--sv-gold) !important;
   }
   body #appShell .topbar .profile {
     display: none !important;
