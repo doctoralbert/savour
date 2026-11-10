@@ -136,7 +136,7 @@ export const pages = [
         ],
         [
           'Gratis en Savour Pro',
-          'Met een gratis account lees je Word, PDF, tekst en exports uit andere apps in, tot je 100 recepten hebt. Heb je minder ruimte over dan je importeert, dan slaat Savour de eerste recepten op die passen en blijven de andere in het controlescherm staan. Met [Savour Pro](#gratis-en-pro) bewaar je onbeperkt recepten en leest de AI foto’s, gescande PDF’s en recepten waarover de lezer twijfelt, tot 500 imports per maand. Zie [Wanneer helpt de AI](#import-ai).'
+          'Met een gratis account lees je Word, PDF, tekst en exports uit andere apps in, tot je 100 recepten hebt. Heb je minder ruimte over dan je importeert, dan slaat Savour de eerste recepten op die passen en blijven de andere in het controlescherm staan. Met [Savour Pro](#gratis-en-pro) bewaar je onbeperkt recepten en leest de AI foto’s, gescande PDF’s en recepten waarover de lezer twijfelt, tot 150 imports per maand. Zie [Wanneer helpt de AI](#import-ai).'
         ],
         [
           'Geen tijd om het zelf te doen',
@@ -183,7 +183,7 @@ export const pages = [
         ],
         [
           'Free and Savour Pro',
-          'A free account imports Word, PDF, text and exports from other apps, up to 100 recipes. If you have less room left than you import, Savour saves the first recipes that fit and the rest stay in the review screen. With [Savour Pro](#gratis-en-pro) you keep unlimited recipes and AI reads photos, scanned PDFs and recipes the reader has doubts about, up to 500 imports a month. See [When the AI helps](#import-ai).'
+          'A free account imports Word, PDF, text and exports from other apps, up to 100 recipes. If you have less room left than you import, Savour saves the first recipes that fit and the rest stay in the review screen. With [Savour Pro](#gratis-en-pro) you keep unlimited recipes and AI reads photos, scanned PDFs and recipes the reader has doubts about, up to 150 imports a month. See [When the AI helps](#import-ai).'
         ],
         [
           'No time to do it yourself',
@@ -429,7 +429,7 @@ export const pages = [
       sections: [
         [
           'Foto’s uploaden',
-          'Kies “Recept toevoegen” → “Recept importeren” → “Foto’s” en kies één of meer foto’s (.jpg, .png of .webp). Elke foto wordt als recept gelezen. Dit werkt met [Savour Pro](#gratis-en-pro), tot 500 imports per maand.'
+          'Kies “Recept toevoegen” → “Recept importeren” → “Foto’s” en kies één of meer foto’s (.jpg, .png of .webp). Elke foto wordt als recept gelezen. Dit werkt met [Savour Pro](#gratis-en-pro), tot 150 imports per maand.'
         ],
         [
           'De camera gebruiken',
@@ -467,7 +467,7 @@ export const pages = [
       sections: [
         [
           'Uploading photos',
-          'Choose “Add recipe” → “Import recipe” → “Photos” and pick one or more photos (.jpg, .png or .webp). Each photo is read as a recipe. This works with [Savour Pro](#gratis-en-pro), up to 500 imports a month.'
+          'Choose “Add recipe” → “Import recipe” → “Photos” and pick one or more photos (.jpg, .png or .webp). Each photo is read as a recipe. This works with [Savour Pro](#gratis-en-pro), up to 150 imports a month.'
         ],
         [
           'Using the camera',
@@ -980,7 +980,7 @@ export const pages = [
       slug: 'handleiding-savour-lezer-en-ai',
       menu: 'De Savour-lezer en de AI',
       title: 'De Savour-lezer en AI: wanneer leest de AI je recepten | Handleiding',
-      desc: 'Hoe Savour recepten leest: eerst altijd de Savour-lezer, gratis en zonder AI. De AI van Savour Pro leest foto’s, scans en recepten met twijfel, tot 500 per maand.',
+      desc: 'Hoe Savour recepten leest: eerst altijd de Savour-lezer, gratis en zonder AI. De AI van Savour Pro leest foto’s, scans en recepten met twijfel, tot 150 per maand.',
       lead: 'Wat de Savour-lezer doet, wanneer de AI erbij komt en waarom er nooit iets wordt verzonnen.',
       sections: [
         [
@@ -1002,7 +1002,7 @@ export const pages = [
         ],
         [
           'De limiet',
-          'Savour Pro leest tot 500 imports per maand met AI. Is de limiet bereikt, dan neemt de Savour-lezer het over, gemarkeerd om te controleren.'
+          'Savour Pro leest tot 150 imports per maand met AI. Is de limiet bereikt, dan neemt de Savour-lezer het over, gemarkeerd om te controleren.'
         ],
         [
           'Nooit verzonnen',
@@ -1014,7 +1014,7 @@ export const pages = [
       slug: 'en/guide-savour-reader-and-ai',
       menu: 'The Savour reader and AI',
       title: 'The Savour reader and AI: when AI reads your recipes | User guide',
-      desc: 'How Savour reads recipes: always the Savour reader first, free and without AI. Savour Pro’s AI reads photos, scans and doubtful recipes, up to 500 a month.',
+      desc: 'How Savour reads recipes: always the Savour reader first, free and without AI. Savour Pro’s AI reads photos, scans and doubtful recipes, up to 150 a month.',
       lead: 'What the Savour reader does, when AI steps in and why nothing is ever made up.',
       sections: [
         [
@@ -1036,7 +1036,7 @@ export const pages = [
         ],
         [
           'The limit',
-          'Savour Pro reads up to 500 imports a month with AI. When the limit is reached, the Savour reader takes over, marked for review.'
+          'Savour Pro reads up to 150 imports a month with AI. When the limit is reached, the Savour reader takes over, marked for review.'
         ],
         [
           'Never made up',

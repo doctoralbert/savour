@@ -38,7 +38,7 @@ export const pages = {
       ['Immer zuerst prüfen', 'Es wird nichts gespeichert, bevor du es gesehen hast. In der [Prüfansicht](#import-controleren) siehst du pro Rezept, was gelesen wurde und wo Savour unsicher ist. Savour erfindet nie Mengen, Zutaten oder Schritte.'],
       [
         'Kostenlos und Savour Pro',
-        'Mit einem kostenlosen Konto liest du Word, PDF, Text und Exporte anderer Apps ein, bis du 100 Rezepte hast. Ist weniger Platz frei, als du importierst, speichert Savour die ersten Rezepte, die passen, und die anderen bleiben in der Prüfansicht. Mit [Savour Pro](#gratis-en-pro) speicherst du unbegrenzt und die KI liest Fotos, gescannte PDFs und Rezepte, bei denen der Leser zweifelt, bis 500 Importe pro Monat. Siehe [Der Savour-Leser und die KI](#import-ai).'
+        'Mit einem kostenlosen Konto liest du Word, PDF, Text und Exporte anderer Apps ein, bis du 100 Rezepte hast. Ist weniger Platz frei, als du importierst, speichert Savour die ersten Rezepte, die passen, und die anderen bleiben in der Prüfansicht. Mit [Savour Pro](#gratis-en-pro) speicherst du unbegrenzt und die KI liest Fotos, gescannte PDFs und Rezepte, bei denen der Leser zweifelt, bis 150 Importe pro Monat. Siehe [Der Savour-Leser und die KI](#import-ai).'
       ],
       ['Keine Zeit, es selbst zu tun', 'Mit dem [Import-Service](#import-service) übertragen die Köche hinter Savour deinen ganzen Rezeptordner für dich.']
     ]
@@ -106,7 +106,7 @@ export const pages = {
     desc: 'So kommen handschriftliche Rezepte, Notizen und Kochbuchseiten in Savour: Fotos hochladen oder die Kamera nutzen, die KI liest sie und die Original-Notiz bleibt gespeichert.',
     lead: 'Die Notiz am Pass, das Heft aus der Ausbildung oder eine Seite aus einem Kochbuch: ein Foto, und es ist drin.',
     sections: [
-      ['Fotos hochladen', 'Wähle „Rezept hinzufügen“ → „Rezept importieren“ → „Fotos“ und wähle ein oder mehrere Fotos (.jpg, .png oder .webp). Jedes Foto wird als Rezept gelesen. Das funktioniert mit [Savour Pro](#gratis-en-pro), bis 500 Importe pro Monat.'],
+      ['Fotos hochladen', 'Wähle „Rezept hinzufügen“ → „Rezept importieren“ → „Fotos“ und wähle ein oder mehrere Fotos (.jpg, .png oder .webp). Jedes Foto wird als Rezept gelesen. Das funktioniert mit [Savour Pro](#gratis-en-pro), bis 150 Importe pro Monat.'],
       ['Die Kamera nutzen', 'Wähle „Foto mit der Kamera aufnehmen“. Am Handy öffnet sich die Kamera, am Computer die Webcam. Leg die Notiz flach hin, bei gutem Licht, und fotografiere gerade von oben mit der ganzen Seite im Bild.'],
       ['Was die KI tut', 'Savour richtet das Foto zuerst gerade aus und liest dann eine Kopie mit mehr Kontrast. Die KI liest, was dasteht, und erfindet nichts: Was nicht auf der Notiz steht, steht auch nicht im Rezept. Zweifelt die KI, siehst du das in der [Prüfansicht](#import-controleren).'],
       ['Das Original bleibt gespeichert', 'Bei einem Rezept, das von einem Foto gelesen wurde, bleibt die Notiz gespeichert. Öffne das Rezept und wähle „Original-Notiz ansehen“, um sie danebenzulegen.'],
@@ -252,7 +252,7 @@ export const pages = {
     slug: 'de/handbuch-savour-leser-und-ki',
     menu: 'Der Savour-Leser und die KI',
     title: 'Der Savour-Leser und KI: wann die KI deine Rezepte liest | Handbuch',
-    desc: 'Wie Savour Rezepte liest: immer zuerst der Savour-Leser, kostenlos und ohne KI. Die KI von Savour Pro liest Fotos, Scans und Zweifelsfälle, bis 500 pro Monat.',
+    desc: 'Wie Savour Rezepte liest: immer zuerst der Savour-Leser, kostenlos und ohne KI. Die KI von Savour Pro liest Fotos, Scans und Zweifelsfälle, bis 150 pro Monat.',
     lead: 'Was der Savour-Leser tut, wann die KI dazukommt und warum nie etwas erfunden wird.',
     sections: [
       ['Der Savour-Leser geht immer zuerst', 'Word, PDF, Text und Exporte anderer Apps liest der Savour-Leser: ein eigenes Programm, das Rezepte aufteilt und Titel, Ausbeute, Zutaten und Zubereitung erkennt. Das ist kostenlos, und nichts geht an eine KI.'],
@@ -262,7 +262,7 @@ export const pages = {
         ['Fotos handschriftlicher oder gescannter Rezepte und die Kamera.', 'Gescannte PDFs ohne Text.', 'Rezepte, bei denen der Savour-Leser zweifelt: Die werden erneut gelesen.']
       ],
       ['Ohne Pro', 'Bei einem kostenlosen Konto siehst du, wie viele Rezepte mit Zweifeln gelesen wurden. Sie sind markiert, damit du sie selbst in der [Prüfansicht](#import-controleren) nachsehen kannst. Es geht nichts verloren.'],
-      ['Das Limit', 'Savour Pro liest bis 500 Importe pro Monat mit KI. Ist das Limit erreicht, übernimmt der Savour-Leser, markiert zum Prüfen.'],
+      ['Das Limit', 'Savour Pro liest bis 150 Importe pro Monat mit KI. Ist das Limit erreicht, übernimmt der Savour-Leser, markiert zum Prüfen.'],
       ['Nie erfunden', 'Die KI darf nur lesen, was dasteht. Steht die Zubereitung nicht auf der Notiz, steht sie auch nicht im Rezept. Warum das so wichtig ist, liest du in [Warum KI dein Rezept nie erfinden darf](/blog/ai-mag-je-recept-niet-verzinnen).']
     ]
   },

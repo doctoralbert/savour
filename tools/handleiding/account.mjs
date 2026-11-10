@@ -32,7 +32,7 @@ export const pages = [
           'Savour Pro kost €2,99 per maand of €29 per jaar en voegt toe:',
           [
             'Onbeperkt recepten bewaren.',
-            'AI voor [foto’s, handschrift en twijfelgevallen](#import-ai), tot 500 imports per maand.',
+            'AI voor [foto’s, handschrift en twijfelgevallen](#import-ai), tot 150 imports per maand.',
             'Zelf [keukenteams maken](#keukenteam-maken) en je team uitnodigen.',
             '[Printen met het logo van je restaurant](#printen-logo).',
             '[Downloaden als Word-bestand of back-up](#downloaden).',
@@ -69,7 +69,7 @@ export const pages = [
           'Savour Pro costs €2.99 a month or €29 a year and adds:',
           [
             'Unlimited recipes.',
-            'AI for [photos, handwriting and doubtful recipes](#import-ai), up to 500 imports a month.',
+            'AI for [photos, handwriting and doubtful recipes](#import-ai), up to 150 imports a month.',
             '[Creating kitchen teams](#keukenteam-maken) and inviting your team.',
             '[Printing with your restaurant’s logo](#printen-logo).',
             '[Downloading as a Word file or backup](#downloaden).',

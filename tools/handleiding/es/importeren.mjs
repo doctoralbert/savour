@@ -33,7 +33,7 @@ export const pages = {
       ['Fotos y webs', 'Las fotos de recetas manuscritas o escaneadas y la cámara las lee la IA de Savour Pro: ver [Fotos y notas](#import-fotos). Una receta de una web la traes con el enlace: ver [Receta de una web](#import-website).'],
       ['Cambiar desde otra app', 'Savour lee exportaciones de [Paprika](#import-paprika), [Mela](#import-mela), [Mealie](#import-mealie), [Tandoor](#import-tandoor), [Recipe Keeper](#import-recipe-keeper), [Copy Me That](#import-copy-me-that), [Crouton](#import-crouton), [MasterCook](#import-mastercook), [Cookmate](#import-cookmate), [Living Cookbook](#import-living-cookbook), [Evernote](#import-evernote), [Google Keep](#import-google-keep), [Flavorish](#import-flavorish), [CookBookManager](#import-cookbookmanager) y [Plan to Eat](#import-plan-to-eat). Notas de Apple Notas, OneNote, Notion y otras apps: ver [Apps de notas](#import-notitie-apps). El resumen está en [Cambiar a Savour](#overstappen).'],
       ['Siempre revisar primero', 'No se guarda nada antes de que lo hayas visto. En la [pantalla de revisión](#import-controleren) ves por receta lo que se ha leído y dónde Savour tiene dudas. Savour nunca inventa cantidades, ingredientes ni pasos.'],
-      ['Gratis y Savour Pro', 'Con una cuenta gratuita importas Word, PDF, texto y exportaciones de otras apps hasta tener 100 recetas. Si te queda menos espacio del que importas, Savour guarda las primeras que caben y el resto se queda en la pantalla de revisión. Con [Savour Pro](#gratis-en-pro) guardas recetas ilimitadas y la IA lee fotos, PDF escaneados y recetas dudosas, hasta 500 importaciones al mes. Ver [El lector de Savour y la IA](#import-ai).'],
+      ['Gratis y Savour Pro', 'Con una cuenta gratuita importas Word, PDF, texto y exportaciones de otras apps hasta tener 100 recetas. Si te queda menos espacio del que importas, Savour guarda las primeras que caben y el resto se queda en la pantalla de revisión. Con [Savour Pro](#gratis-en-pro) guardas recetas ilimitadas y la IA lee fotos, PDF escaneados y recetas dudosas, hasta 150 importaciones al mes. Ver [El lector de Savour y la IA](#import-ai).'],
       ['Sin tiempo para hacerlo tú', 'Con el [servicio de importación](#import-service), los cocineros detrás de Savour traspasan toda tu carpeta de recetas.']
     ]
   },
@@ -100,7 +100,7 @@ export const pages = {
     desc: 'Así llevas recetas manuscritas, notas y páginas de libros a Savour: sube fotos o usa la cámara, la IA las lee y la nota original se conserva.',
     lead: 'La nota del pase, el cuaderno de la escuela o una página de un libro: una foto y ya está dentro.',
     sections: [
-      ['Subir fotos', 'Elige «Añadir receta» → «Importar receta» → «Fotos» y elige una o varias fotos (.jpg, .png o .webp). Cada foto se lee como una receta. Funciona con [Savour Pro](#gratis-en-pro), hasta 500 importaciones al mes.'],
+      ['Subir fotos', 'Elige «Añadir receta» → «Importar receta» → «Fotos» y elige una o varias fotos (.jpg, .png o .webp). Cada foto se lee como una receta. Funciona con [Savour Pro](#gratis-en-pro), hasta 150 importaciones al mes.'],
       ['Usar la cámara', 'Elige «Hacer una foto con la cámara». En el móvil se abre la cámara; en el ordenador, la webcam. Pon la nota plana, con buena luz, y haz la foto recta desde arriba con toda la página a la vista.'],
       ['Qué hace la IA', 'Savour endereza primero la foto y lee una copia con más contraste. La IA lee lo que pone y no inventa nada: lo que no está en la nota no está en la receta. Si la IA duda, lo ves en la [pantalla de revisión](#import-controleren).'],
       ['El original se conserva', 'En una receta leída de una foto, la nota se conserva. Abre la receta y elige «Ver la nota original» para compararla.'],
@@ -246,13 +246,13 @@ export const pages = {
     slug: 'es/manual-lector-savour-e-ia',
     menu: 'El lector de Savour y la IA',
     title: 'El lector de Savour y la IA: cuándo lee la IA tus recetas | Manual',
-    desc: 'Cómo lee Savour las recetas: siempre primero el lector de Savour, gratis y sin IA. La IA de Savour Pro lee fotos, escaneos y recetas dudosas, hasta 500 al mes.',
+    desc: 'Cómo lee Savour las recetas: siempre primero el lector de Savour, gratis y sin IA. La IA de Savour Pro lee fotos, escaneos y recetas dudosas, hasta 150 al mes.',
     lead: 'Qué hace el lector de Savour, cuándo entra la IA y por qué nunca se inventa nada.',
     sections: [
       ['El lector de Savour va siempre primero', 'Word, PDF, texto y exportaciones de otras apps los lee el lector de Savour: un programa propio que separa las recetas y reconoce título, rendimiento, ingredientes y preparación. Es gratis y nada va a una IA.'],
       ['Cuándo ayuda la IA', 'Con [Savour Pro](#gratis-en-pro) la IA entra para:', ['Fotos de recetas manuscritas o escaneadas, y la cámara.', 'PDF escaneados sin texto.', 'Recetas sobre las que el lector de Savour duda: se vuelven a leer.']],
       ['Sin Pro', 'En una cuenta gratuita ves cuántas recetas se han leído con dudas. Van marcadas para que las revises en la [pantalla de revisión](#import-controleren). No se pierde nada.'],
-      ['El límite', 'Savour Pro lee hasta 500 importaciones al mes con IA. Al llegar al límite, el lector de Savour toma el relevo, con las recetas marcadas para revisar.'],
+      ['El límite', 'Savour Pro lee hasta 150 importaciones al mes con IA. Al llegar al límite, el lector de Savour toma el relevo, con las recetas marcadas para revisar.'],
       ['Nunca inventado', 'La IA solo puede leer lo que pone. Si la preparación no está en la nota, tampoco estará en la receta. Por qué importa tanto: [Por qué la IA nunca debe inventar tu receta](/blog/ai-mag-je-recept-niet-verzinnen).']
     ]
   },

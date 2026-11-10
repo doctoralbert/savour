@@ -21,7 +21,7 @@ export const pages = {
         'Savour Pro cuesta 2,99 € al mes o 29 € al año y añade:',
         [
           'Recetas ilimitadas.',
-          'IA para [fotos, letra a mano y casos dudosos](#import-ai), hasta 500 importaciones al mes.',
+          'IA para [fotos, letra a mano y casos dudosos](#import-ai), hasta 150 importaciones al mes.',
           '[Crear equipos de cocina](#keukenteam-maken) e invitar a tu equipo.',
           '[Imprimir con el logo de tu restaurante](#printen-logo).',
           '[Descargar en Word o como copia de seguridad](#downloaden).',

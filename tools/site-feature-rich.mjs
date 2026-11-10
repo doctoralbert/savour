@@ -34,7 +34,7 @@ export const FEATURE_RICH = {
         ],
         [
           'Kost importeren iets?',
-          'Word, PDF en tekst lees je gratis in met de Savour-lezer, tot 100 recepten. Met Savour Pro bewaar je onbeperkt en leest de AI foto’s en twijfelgevallen, tot 500 per maand.'
+          'Word, PDF en tekst lees je gratis in met de Savour-lezer, tot 100 recepten. Met Savour Pro bewaar je onbeperkt en leest de AI foto’s en twijfelgevallen, tot 150 per maand.'
         ],
         [
           'Wat gebeurt er als de lezer twijfelt?',
@@ -69,7 +69,7 @@ export const FEATURE_RICH = {
         ],
         [
           'Does importing cost anything?',
-          'You read Word, PDF and text for free with the Savour reader, up to 100 recipes. With Savour Pro you keep unlimited recipes and the AI reads photos and doubtful cases, up to 500 a month.'
+          'You read Word, PDF and text for free with the Savour reader, up to 100 recipes. With Savour Pro you keep unlimited recipes and the AI reads photos and doubtful cases, up to 150 a month.'
         ],
         [
           'What happens when the reader is unsure?',
@@ -104,7 +104,7 @@ export const FEATURE_RICH = {
         ],
         [
           'Kostet das Importieren etwas?',
-          'Word, PDF und Text liest du kostenlos mit dem Savour-Leser ein, bis 100 Rezepte. Mit Savour Pro speicherst du unbegrenzt, und die KI liest Fotos und Zweifelsfälle, bis 500 pro Monat.'
+          'Word, PDF und Text liest du kostenlos mit dem Savour-Leser ein, bis 100 Rezepte. Mit Savour Pro speicherst du unbegrenzt, und die KI liest Fotos und Zweifelsfälle, bis 150 pro Monat.'
         ],
         [
           'Was passiert, wenn der Leser zweifelt?',
@@ -139,7 +139,7 @@ export const FEATURE_RICH = {
         ],
         [
           '¿Cuesta algo importar?',
-          'Word, PDF y texto los lees gratis con el lector de Savour, hasta 100 recetas. Con Savour Pro guardas sin límite y la IA lee fotos y casos dudosos, hasta 500 al mes.'
+          'Word, PDF y texto los lees gratis con el lector de Savour, hasta 100 recetas. Con Savour Pro guardas sin límite y la IA lee fotos y casos dudosos, hasta 150 al mes.'
         ],
         [
           '¿Qué pasa si el lector duda?',
@@ -177,7 +177,7 @@ export const FEATURE_RICH = {
         ],
         [
           'L’import coûte-t-il quelque chose ?',
-          'Word, PDF et texte se lisent gratuitement avec le lecteur Savour, jusqu’à 100 recettes. Avec Savour Pro, tu enregistres sans limite et l’IA lit les photos et les cas douteux, jusqu’à 500 par mois.'
+          'Word, PDF et texte se lisent gratuitement avec le lecteur Savour, jusqu’à 100 recettes. Avec Savour Pro, tu enregistres sans limite et l’IA lit les photos et les cas douteux, jusqu’à 150 par mois.'
         ],
         [
           'Que se passe-t-il si le lecteur doute ?',

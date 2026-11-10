@@ -82,7 +82,7 @@ vervang in Vercel de vier Stripe-waarden door de live-waarden.
   je voor meer dan € 10.000 per jaar aan particulieren in andere EU-landen, overleg dan met je boekhouder.
 - **Herroepingsrecht:** consumenten hebben bij online abonnementen in principe 14 dagen bedenktijd.
   Laat de voorwaarden hierop controleren door een jurist.
-- **Wat Pro bepaalt:** de server controleert bij elke AI-import of iemand Pro is en onder de 500 zit.
+- **Wat Pro bepaalt:** de server controleert bij elke AI-import of iemand Pro is en onder de 150 zit.
   Iets in de browser aanpassen geeft dus geen gratis AI.
 
 ## 6. Gratis, proefperiode, teams en beheerscherm (oktober 2026)

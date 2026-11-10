@@ -1,7 +1,7 @@
 // Savour Pro: abonnement (Stripe), de Pro-pagina, de abonnementsstatus in Instellingen en de melding bij
 // importeren.
 // Gratis: tot 100 eigen recepten, de Savour-lezer, lid zijn van keukenteams.
-// Pro: onbeperkt recepten, zelf keukenteams maken en je team uitnodigen, AI-import (500 per maand).
+// Pro: onbeperkt recepten, zelf keukenteams maken en je team uitnodigen, AI-import (150 per maand).
 // Nieuwe accounts: 7 dagen Pro gratis, maar ook dan tot 100 recepten (onbeperkt bewaren is alleen betaald).
 // Teams: een pakket plekken voor een organisatie.
 // De echte controle zit in de database (supabase/2026-10-22-gratis-pro-teams.sql en 2026-10-23-proef-7-dagen.sql)
@@ -31,7 +31,7 @@ const EMPTY_PLAN = {
   team: null,
   recipeLimit: FREE_RECIPE_LIMIT,
   used: 0,
-  limit: 500
+  limit: 150
 };
 
 // Status van de ingelogde gebruiker; geladen in loadPlanState().
@@ -65,7 +65,7 @@ async function checkRecipeRoom(count = 1) {
 // uitgevoerd), dan zoals voorheen alleen het eigen abonnement en de AI-teller.
 // "deze maand" of, in de proefweek met de grens van 15, "in de proefweek".
 function aiUsagePeriod(s = savourPlan) {
-  return s.source === 'trial' && s.limit < 500 ? 'in de proefweek' : 'deze maand';
+  return s.source === 'trial' && s.limit < 150 ? 'in de proefweek' : 'deze maand';
 }
 
 async function loadPlanState() {
@@ -90,8 +90,8 @@ async function loadPlanState() {
       team: p.team || null,
       recipeLimit: p.recipe_limit || FREE_RECIPE_LIMIT,
       used: p.used || 0,
-      // In de proefweek 15 AI-imports in totaal, met Pro 500 per maand (supabase/2026-11-09-ai-proef-15.sql).
-      limit: p.ai_limit || 500
+      // In de proefweek 15 AI-imports in totaal, met Pro 150 per maand (supabase/2026-11-09-ai-proef-15.sql).
+      limit: p.ai_limit || 150
     };
     return;
   }
@@ -118,7 +118,7 @@ async function loadPlanState() {
       cancelAtEnd: !!s?.cancel_at_period_end,
       hasCustomer: !!s?.stripe_customer_id,
       used: useRes.data?.count || 0,
-      limit: 500
+      limit: 150
     };
   } catch (e) {
     console.warn('Abonnement kon niet worden geladen:', e);
@@ -313,7 +313,7 @@ function renderProPage(host) {
         <tr><td>AI leest foto's, handgeschreven en gescande recepten</td><td>–</td><td>✓</td></tr>
         <tr><td>Printen met het logo van je restaurant</td><td>–</td><td>✓</td></tr>
         <tr><td>Alle recepten downloaden naar Word of als back-up</td><td>–</td><td>✓</td></tr>
-        <tr><td>AI-imports per maand</td><td>–</td><td>500</td></tr>
+        <tr><td>AI-imports per maand</td><td>–</td><td>150</td></tr>
       </tbody>
     </table>
     <h2>Hoe werkt importeren?</h2>
@@ -323,7 +323,7 @@ function renderProPage(host) {
     <p><strong>Hoe krijgen mijn teamleden Pro?</strong><br>Je voegt ze toe via Mijn team in het menu, of op je telefoon via Mijn account → Savour Pro. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.</p>
     <p><strong>Moeten mijn teamleden ook betalen?</strong><br>Nee. Lid zijn van een keukenteam is gratis. Wil je dat iedereen in je keuken Pro heeft, kies dan een teamabonnement. <span>Een keukenteam werkt zolang de eigenaar Savour Pro heeft.</span> <span>Met een gratis account kun je in een keukenteam de recepten bekijken, printen en omrekenen; recepten toevoegen en bewerken kan met Savour Pro.</span></p>
     <p><strong>Wat telt als een AI-import?</strong><br>Elke foto, gescande pagina of elk deel van een bestand dat de AI leest (ongeveer 8 recepten per deel). Wat de Savour-lezer zelf zeker leest, telt niet mee.</p>
-    <p><strong>Wat als ik over de 500 heen ga?</strong><br>Dan leest de Savour-lezer verder en kun je de rest volgende maand met AI doen. Er komen nooit extra kosten bij.</p>
+    <p><strong>Wat als ik over de 150 heen ga?</strong><br>Dan leest de Savour-lezer verder en kun je de rest volgende maand met AI doen. Er komen nooit extra kosten bij.</p>
     <p><strong>Hoe zeg ik op?</strong><br>In Mijn account → Savour Pro → Abonnement beheren. Daar wijzig je ook je betaalmethode en download je facturen.</p>`;
 }
 

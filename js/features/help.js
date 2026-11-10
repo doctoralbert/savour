@@ -69,7 +69,7 @@ const HELP_TOPICS = {
       ],
       [
         "Foto's",
-        "Upload foto's van handgeschreven of gescande recepten. De AI leest ze voor je uit (Savour Pro, tot 500 per maand). Het originele kladje blijft bewaard bij het recept."
+        "Upload foto's van handgeschreven of gescande recepten. De AI leest ze voor je uit (Savour Pro, tot 150 per maand). Het originele kladje blijft bewaard bij het recept."
       ],
       ['Zelf invoeren', 'Typ een recept in de recepteditor: titel, categorie, opbrengst, ingrediënten en stappen.'],
       [

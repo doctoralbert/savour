@@ -980,7 +980,7 @@ async function overview(user, ownVisitor) {
 
 // ---- AI-gebruik per account: om spam of misbruik van de AI-import te zien (supabase/2026-11-09-ai-proef-15.sql).
 // ai_usage telt per maand; ai_usage_log heeft per gelukte import een tijdstip (voor "laatste uur" en "vandaag").
-// Proefaccounts mogen 15 AI-imports doen, betaald Pro 500 per maand (api/ai-import.js).
+// Proefaccounts mogen 15 AI-imports doen, betaald Pro 150 per maand (api/ai-import.js).
 const AI_TRIAL_LIMIT = 15;
 async function aiUsageOverview() {
   const tz = 'Europe/Amsterdam';
@@ -1054,7 +1054,7 @@ async function aiUsageOverview() {
         type: type.type,
         label: type.label,
         recipes,
-        limit: type.type === 'trial' ? AI_TRIAL_LIMIT : 500,
+        limit: type.type === 'trial' ? AI_TRIAL_LIMIT : 150,
         ...r,
         flags
       };

@@ -33,7 +33,7 @@ export const pages = {
       ['Photos et sites web', 'Les photos de recettes manuscrites ou scannées et l’appareil photo sont lus par l’IA de Savour Pro : voir [Photos et notes](#import-fotos). Une recette d’un site web se récupère avec son lien : voir [Recette d’un site web](#import-website).'],
       ['Passer depuis une autre application', 'Savour lit les exports de [Paprika](#import-paprika), [Mela](#import-mela), [Mealie](#import-mealie), [Tandoor](#import-tandoor), [Recipe Keeper](#import-recipe-keeper), [Copy Me That](#import-copy-me-that), [Crouton](#import-crouton), [MasterCook](#import-mastercook), [Cookmate](#import-cookmate), [Living Cookbook](#import-living-cookbook), [Evernote](#import-evernote), [Google Keep](#import-google-keep), [Flavorish](#import-flavorish), [CookBookManager](#import-cookbookmanager) et [Plan to Eat](#import-plan-to-eat). Pour les notes d’Apple Notes, OneNote, Notion et d’autres : voir [Applications de notes](#import-notitie-apps). La vue d’ensemble se trouve dans [Passer à Savour](#overstappen).'],
       ['Toujours vérifier d’abord', 'Rien n’est enregistré avant que tu l’aies vu. Dans l’[écran de vérification](#import-controleren), tu vois pour chaque recette ce qui a été lu et où Savour a des doutes. Savour n’invente jamais de quantités, d’ingrédients ni d’étapes.'],
-      ['Gratuit et Savour Pro', 'Avec un compte gratuit, tu importes Word, PDF, texte et exports d’autres applications jusqu’à 100 recettes. S’il te reste moins de place que tu n’importes, Savour enregistre les premières qui tiennent et les autres restent dans l’écran de vérification. Avec [Savour Pro](#gratis-en-pro), tu conserves en illimité et l’IA lit photos, PDF scannés et recettes douteuses, jusqu’à 500 importations par mois. Voir [Le lecteur Savour et l’IA](#import-ai).'],
+      ['Gratuit et Savour Pro', 'Avec un compte gratuit, tu importes Word, PDF, texte et exports d’autres applications jusqu’à 100 recettes. S’il te reste moins de place que tu n’importes, Savour enregistre les premières qui tiennent et les autres restent dans l’écran de vérification. Avec [Savour Pro](#gratis-en-pro), tu conserves en illimité et l’IA lit photos, PDF scannés et recettes douteuses, jusqu’à 150 importations par mois. Voir [Le lecteur Savour et l’IA](#import-ai).'],
       ['Pas le temps de le faire toi-même', 'Avec le [service d’importation](#import-service), les cuisiniers derrière Savour transfèrent tout ton classeur de recettes.']
     ]
   },
@@ -100,7 +100,7 @@ export const pages = {
     desc: 'Comment faire entrer des recettes manuscrites, des notes et des pages de livres dans Savour : envoie des photos ou utilise l’appareil photo, l’IA les lit et la note d’origine est conservée.',
     lead: 'La note du passe, le cahier de l’école ou une page de livre : une photo et c’est dedans.',
     sections: [
-      ['Envoyer des photos', 'Choisis « Ajouter une recette » → « Importer une recette » → « Photos » et choisis une ou plusieurs photos (.jpg, .png ou .webp). Chaque photo est lue comme une recette. Cela fonctionne avec [Savour Pro](#gratis-en-pro), jusqu’à 500 importations par mois.'],
+      ['Envoyer des photos', 'Choisis « Ajouter une recette » → « Importer une recette » → « Photos » et choisis une ou plusieurs photos (.jpg, .png ou .webp). Chaque photo est lue comme une recette. Cela fonctionne avec [Savour Pro](#gratis-en-pro), jusqu’à 150 importations par mois.'],
       ['Utiliser l’appareil photo', 'Choisis « Prendre une photo avec l’appareil ». Sur téléphone, l’appareil photo s’ouvre ; sur ordinateur, la webcam. Pose la note à plat, sous une bonne lumière, et photographie bien droit d’en haut avec toute la page visible.'],
       ['Ce que fait l’IA', 'Savour redresse d’abord la photo puis lit une copie plus contrastée. L’IA lit ce qui est écrit et n’invente rien : ce qui n’est pas sur la note n’est pas dans la recette. Si l’IA doute, tu le vois dans l’[écran de vérification](#import-controleren).'],
       ['L’original est conservé', 'Pour une recette lue depuis une photo, la note est conservée. Ouvre la recette et choisis « Voir la note d’origine » pour la comparer.'],
@@ -246,13 +246,13 @@ export const pages = {
     slug: 'fr/manuel-lecteur-savour-et-ia',
     menu: 'Le lecteur Savour et l’IA',
     title: 'Le lecteur Savour et l’IA : quand l’IA lit tes recettes | Manuel',
-    desc: 'Comment Savour lit les recettes : toujours d’abord le lecteur Savour, gratuit et sans IA. L’IA de Savour Pro lit les photos, les scans et les recettes douteuses, jusqu’à 500 par mois.',
+    desc: 'Comment Savour lit les recettes : toujours d’abord le lecteur Savour, gratuit et sans IA. L’IA de Savour Pro lit les photos, les scans et les recettes douteuses, jusqu’à 150 par mois.',
     lead: 'Ce que fait le lecteur Savour, quand l’IA intervient et pourquoi rien n’est jamais inventé.',
     sections: [
       ['Le lecteur Savour passe toujours en premier', 'Word, PDF, texte et exports d’autres applications sont lus par le lecteur Savour : un programme maison qui découpe les recettes et reconnaît titre, rendement, ingrédients et préparation. C’est gratuit et rien ne part vers une IA.'],
       ['Quand l’IA aide', 'Avec [Savour Pro](#gratis-en-pro), l’IA intervient pour :', ['Les photos de recettes manuscrites ou scannées, et l’appareil photo.', 'Les PDF scannés sans texte.', 'Les recettes sur lesquelles le lecteur Savour a des doutes : elles sont relues.']],
       ['Sans Pro', 'Sur un compte gratuit, tu vois combien de recettes ont été lues avec des doutes. Elles sont marquées pour que tu les vérifies dans l’[écran de vérification](#import-controleren). Rien n’est perdu.'],
-      ['La limite', 'Savour Pro lit jusqu’à 500 importations par mois avec l’IA. Une fois la limite atteinte, le lecteur Savour prend le relais, avec les recettes marquées à vérifier.'],
+      ['La limite', 'Savour Pro lit jusqu’à 150 importations par mois avec l’IA. Une fois la limite atteinte, le lecteur Savour prend le relais, avec les recettes marquées à vérifier.'],
       ['Jamais inventé', 'L’IA ne peut lire que ce qui est écrit. Si la préparation n’est pas sur la note, elle n’est pas non plus dans la recette. Pourquoi c’est si important : [Pourquoi l’IA ne doit jamais inventer ta recette](/blog/ai-mag-je-recept-niet-verzinnen).']
     ]
   },

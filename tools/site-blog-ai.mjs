@@ -1,6 +1,6 @@
 // Blog: AI in de horeca (2026-11-09), in vijf talen. Hoe een keuken AI stap voor stap invoert, wat AI wel en niet
 // moet doen, hoe Savour AI nu inzet (klopt met js/features/recipe-reader.js en api/ai-import.js: eerst de eigen
-// lezer, AI alleen bij twijfel en met Pro, max. 500 per maand, nooit iets verzinnen) en waar we naartoe willen.
+// lezer, AI alleen bij twijfel en met Pro, max. 150 per maand, nooit iets verzinnen) en waar we naartoe willen.
 // Geen sectorcijfers: die hebben we niet met een bron. Feiten met bron: de Europese AI-verordening (EU 2024/1689,
 // in werking sinds 1 augustus 2024) en de allergeneninformatie (EU 1169/2011). Het voorbeeld met verpakkingen en
 // prijzen is een rekenvoorbeeld, geen statistiek. Toekomstige functies: geen datum beloven.
@@ -64,7 +64,7 @@ export const AI_POST = {
         {
           check: [
             'Importeren gaat eerst via de **Savour-lezer**: die leest Word, PDF en tekst zelf, zonder AI.',
-            'Alleen als de lezer twijfelt, zoals bij een handgeschreven kladje of een foto, helpt de AI. Dat zit in Savour Pro, tot 500 keer per maand.',
+            'Alleen als de lezer twijfelt, zoals bij een handgeschreven kladje of een foto, helpt de AI. Dat zit in Savour Pro, tot 150 keer per maand.',
             'De AI mag nooit een hoeveelheid, ingrediënt of stap verzinnen. Wat niet zeker is, krijg je te zien om na te kijken.',
             'De [allergenen](/allergenen-per-recept) herkent Savour uit de Savour-lijst met bekende ingrediënten. Twijfelt Savour, dan vraagt het jou.'
           ],
@@ -146,7 +146,7 @@ export const AI_POST = {
         {
           check: [
             'Importing goes through the **Savour reader** first: it reads Word, PDF and text itself, without AI.',
-            'Only when the reader is in doubt, such as with a handwritten note or a photo, does AI help. That is part of Savour Pro, up to 500 times a month.',
+            'Only when the reader is in doubt, such as with a handwritten note or a photo, does AI help. That is part of Savour Pro, up to 150 times a month.',
             'The AI may never invent a quantity, ingredient or step. Whatever is not certain is shown to you to check.',
             'Savour recognises the [allergens](/en/allergens-per-recipe) from the Savour list of known ingredients. When in doubt, it asks you.'
           ],
@@ -233,7 +233,7 @@ export const AI_POST_DE = {
         {
           check: [
             'Der Import läuft zuerst über den **Savour-Leser**: Er liest Word, PDF und Text selbst, ohne KI.',
-            'Nur wenn der Leser zweifelt, etwa bei einem handschriftlichen Zettel oder einem Foto, hilft die KI. Das gehört zu Savour Pro, bis zu 500 Mal im Monat.',
+            'Nur wenn der Leser zweifelt, etwa bei einem handschriftlichen Zettel oder einem Foto, hilft die KI. Das gehört zu Savour Pro, bis zu 150 Mal im Monat.',
             'Die KI darf nie eine Menge, Zutat oder einen Schritt erfinden. Was nicht sicher ist, bekommst du zum Prüfen angezeigt.',
             'Die [Allergene](/de/allergene-pro-rezept) erkennt Savour anhand der Savour-Liste bekannter Zutaten. Bei Zweifel fragt Savour dich.'
           ],
@@ -318,7 +318,7 @@ export const AI_POST_ES = {
         {
           check: [
             'La importación pasa primero por el **lector de Savour**: lee Word, PDF y texto por sí mismo, sin IA.',
-            'Solo cuando el lector duda, como con una nota a mano o una foto, ayuda la IA. Forma parte de Savour Pro, hasta 500 veces al mes.',
+            'Solo cuando el lector duda, como con una nota a mano o una foto, ayuda la IA. Forma parte de Savour Pro, hasta 150 veces al mes.',
             'La IA nunca puede inventar una cantidad, un ingrediente o un paso. Lo que no es seguro se te muestra para revisarlo.',
             'Savour reconoce los [alérgenos](/es/alergenos-por-receta) con la lista de Savour de ingredientes conocidos. Si duda, te pregunta.'
           ],
@@ -403,7 +403,7 @@ export const AI_POST_FR = {
         {
           check: [
             'L’import passe d’abord par le **lecteur Savour** : il lit Word, PDF et texte lui-même, sans IA.',
-            'L’IA n’aide que lorsque le lecteur hésite, par exemple pour une note manuscrite ou une photo. C’est inclus dans Savour Pro, jusqu’à 500 fois par mois.',
+            'L’IA n’aide que lorsque le lecteur hésite, par exemple pour une note manuscrite ou une photo. C’est inclus dans Savour Pro, jusqu’à 150 fois par mois.',
             'L’IA ne peut jamais inventer une quantité, un ingrédient ou une étape. Ce qui n’est pas sûr t’est montré pour vérification.',
             'Savour reconnaît les [allergènes](/fr/allergenes-par-recette) grâce à la liste Savour d’ingrédients connus. En cas de doute, il te demande.'
           ],

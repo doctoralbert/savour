@@ -2,7 +2,7 @@ import { getUserFromRequest } from './_lib/auth.js';
 import { rpc, hasServiceRole } from './_lib/supabase-admin.js';
 
 // AI-imports per maand voor Savour Pro. Eén import = één bestand, foto of stuk van een lang document.
-const AI_MONTHLY_LIMIT = 500;
+const AI_MONTHLY_LIMIT = 150;
 
 // De Responses API levert output_text alleen via de SDK; via REST lezen we de tekst uit output[].content[].
 function extractOutputText(data) {
