@@ -1097,22 +1097,38 @@ function toggleAdminArchive() {
 }
 // Herkomst van een account (api/admin.js, accountSource): bron, met de groep klein eronder.
 function adminSourceCell(a) {
-  if (!a.source) return '<span class="admin-muted">onbekend</span>';
-  return `${adminEscape(a.source.name)}<small>${adminEscape(a.source.group)}</small>`;
+  // Zelf aangegeven (askSignupSource) gaat voor; de automatisch gevonden bron staat klein eronder.
+  const auto = a.source ? `${adminEscape(a.source.name)} · ${adminEscape(a.source.group)}` : 'automatisch onbekend';
+  if (a.answer && a.answer !== 'Overgeslagen') return `<b>${adminEscape(a.answer)}</b><small>zelf · ${auto}</small>`;
+  if (!a.source) return `<span class="admin-muted">onbekend${a.answer ? ' (vraag overgeslagen)' : ''}</span>`;
+  return `${adminEscape(a.source.name)}<small>${adminEscape(a.source.group)}${a.answer ? ' · vraag overgeslagen' : ''}</small>`;
 }
-// Samenvatting: hoe vonden de accounts Savour (alleen accounts waarvan het bekend is).
+// Samenvatting: wat accounts zelf aangaven, en wat Savour automatisch vond (alleen waar het bekend is).
 function renderAdminSources() {
   const host = $('adminSources');
   if (!host) return;
-  const count = new Map();
-  for (const a of adminAccounts) if (a.source) count.set(a.source.name, (count.get(a.source.name) || 0) + 1);
-  const known = [...count.values()].reduce((s, n) => s + n, 0);
-  host.innerHTML = known
-    ? `<b>Herkomst</b> (${known} van ${adminAccounts.length} bekend): ${[...count.entries()]
-        .sort((x, y) => y[1] - x[1])
-        .map(([name, n]) => `${adminEscape(name)} <small>${n}</small>`)
-        .join(' · ')}`
-    : '';
+  const line = (title, values, total) => {
+    const count = new Map();
+    for (const v of values) count.set(v, (count.get(v) || 0) + 1);
+    const known = values.length;
+    return known
+      ? `<div><b>${title}</b> (${known} van ${total}): ${[...count.entries()]
+          .sort((x, y) => y[1] - x[1])
+          .map(([name, n]) => `${adminEscape(name)} <small>${n}</small>`)
+          .join(' · ')}</div>`
+      : '';
+  };
+  host.innerHTML =
+    line(
+      'Zelf aangegeven',
+      adminAccounts.filter(a => a.answer).map(a => a.answer),
+      adminAccounts.length
+    ) +
+    line(
+      'Automatisch gevonden',
+      adminAccounts.filter(a => a.source).map(a => a.source.name),
+      adminAccounts.length
+    );
 }
 
 const adminMoney = v =>
