@@ -1329,7 +1329,7 @@ function renderAdminAccounts() {
           ? ''
           : `<button class="admin-ghost" onclick="adminConfirmAccount('${a.id}')">Bevestigen</button>`;
         const remove = `<button class="admin-ghost admin-danger" onclick="adminDeleteAccount('${a.id}')">Verwijderen</button>`;
-        return `<tr><td>${adminFlag(a.country)} ${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_total ?? 0)}<small> ${adminEscape(a.ai_this_month)} deze maand</small></td><td>${adminFormatDate(a.created_at)}</td><td>${adminLastActive(a)}</td><td>${a.logins == null ? '—' : `${adminEscape(a.logins)}<small> ${adminEscape(a.logins_30_days)} in 30 dagen</small>`}</td><td>${adminDeviceDays(a)}</td><td>${adminSourceCell(a)}</td><td><div class="admin-actions">${confirm}${action}${remove}</div></td></tr>`;
+        return `<tr><td>${adminFlag(a.country)} ${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_total ?? 0)}<small> ${adminEscape(a.ai_this_month)} deze maand</small></td><td>${adminFormatDate(a.created_at)}</td><td>${adminLastActive(a)}</td><td>${adminVisits(a)}</td><td>${adminDeviceDays(a)}</td><td>${adminSourceCell(a)}</td><td><div class="admin-actions">${confirm}${action}${remove}</div></td></tr>`;
       })
       .join('') ||
     (adminArchiveOpen
@@ -1345,6 +1345,14 @@ function adminLastActive(a) {
   if (a.activity?.last)
     return `${adminFormatDate(a.activity.last)}<small>${adminEscape(a.activity.lastDevice)}</small>`;
   return `${adminFormatDate(a.last_sign_in_at)}<small>laatste login</small>`;
+}
+
+// Bezoeken: hoe vaak dit account Savour opende (of terugkwam na 30 minuten weg), totaal en de laatste 30 dagen.
+// Zolang er nog geen bezoeken zijn geteld (nieuw sinds 2026-11-10), het aantal keer ingelogd als hulp.
+function adminVisits(a) {
+  if (a.activity?.hasVisits)
+    return `${adminEscape(a.activity.visits)}<small> ${adminEscape(a.activity.visits_30)} in 30 dagen</small>`;
+  return a.logins == null ? '—' : `—<small>${adminEscape(a.logins)} keer ingelogd</small>`;
 }
 
 // Op hoeveel dagen gebruikte dit account Savour op de telefoon, tablet of computer.

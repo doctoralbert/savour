@@ -187,9 +187,16 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
 });
 
 // Accountactiviteit (alleen soort apparaat en tijd, voor /admin): elke 5 minuten en bij terugkomen in beeld.
+// Terug in Savour na minstens 30 minuten weg (andere app, scherm uit): dat telt als een nieuw bezoek.
 setInterval(() => touchAccountActivity(), 5 * 60000);
+let appHiddenAt = 0;
 document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible') touchAccountActivity();
+  if (document.visibilityState === 'hidden') {
+    appHiddenAt = Date.now();
+    return;
+  }
+  const back = !!appHiddenAt && Date.now() - appHiddenAt >= 30 * 60000;
+  touchAccountActivity(back, back);
 });
 // Nieuwe reacties in je eigen Community-threads (getal bij Community in het menu): elke 5 minuten zolang Savour in beeld is.
 setInterval(() => document.visibilityState === 'visible' && refreshCommunityUnread(), 5 * 60000);

@@ -284,7 +284,7 @@ async function startDatabaseSession(user) {
       // Terug van Stripe, of koos de gebruiker Pro vóór het aanmaken van een account?
       await handleProReturn();
       await resumeProIntent();
-      touchAccountActivity(true);
+      touchAccountActivity(true, true);
       sendAccountSource();
       askSignupSource();
       refreshCommunityUnread();

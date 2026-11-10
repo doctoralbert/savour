@@ -240,13 +240,17 @@ function accountDeviceType() {
   if (/Mobi|iPhone|iPod|Android/i.test(ua)) return 'telefoon';
   return 'computer';
 }
-async function touchAccountActivity(force = false) {
+// newVisit: dit is een nieuw bezoek (app geopend, of terug na minstens 30 minuten weg); telt mee bij Bezoeken in /admin.
+async function touchAccountActivity(force = false, newVisit = false) {
   if (!currentUser || demoMode || !navigator.onLine || document.visibilityState === 'hidden') return;
   if (/^(localhost|127\.)/.test(location.hostname)) return;
   if (!force && Date.now() - lastActivityTouch < 4 * 60000) return;
   lastActivityTouch = Date.now();
   try {
-    await supabaseClient.rpc('savour_touch_activity', { _device: accountDeviceType() });
+    const device = accountDeviceType();
+    const { error } = await supabaseClient.rpc('savour_touch_activity', { _device: device, _new_visit: newVisit });
+    // Oude databaseversie (supabase/2026-11-10-accountactiviteit-bezoeken.sql nog niet gedraaid): zonder bezoek.
+    if (error) await supabaseClient.rpc('savour_touch_activity', { _device: device });
   } catch (_) {
     // Geen activiteit kunnen melden is geen probleem voor de gebruiker.
   }

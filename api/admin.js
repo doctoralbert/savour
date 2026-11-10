@@ -849,7 +849,10 @@ async function overview(user, ownVisitor) {
       rpc('savour_admin_login_counts', {}).catch(() => null),
       // AI-imports over alle maanden, en accountactiviteit (supabase/2026-11-10-accountactiviteit.sql).
       selectAll('ai_usage', 'select=user_id,count&order=user_id,month').catch(() => []),
-      selectAll('account_activity', 'select=user_id,day,device,last_at&order=user_id,day,device').catch(() => null)
+      // Met opens (bezoeken); zonder die kolom (SQL nog niet gedraaid) opnieuw zonder.
+      selectAll('account_activity', 'select=user_id,day,device,last_at,opens&order=user_id,day,device')
+        .catch(() => selectAll('account_activity', 'select=user_id,day,device,last_at&order=user_id,day,device'))
+        .catch(() => null)
     ]);
   const visitors = await visitorStats(await ownVisitorIds(user, ownVisitor)).catch(e => {
     console.error('Bezoekers laden mislukt', e);
@@ -868,8 +871,23 @@ async function overview(user, ownVisitor) {
   // (de app meldt zich elke 5 minuten zolang Savour in beeld is).
   const activityOf = new Map();
   for (const row of activityRows || []) {
-    const a = activityOf.get(row.user_id) || { telefoon: 0, tablet: 0, computer: 0, last: null, lastDevice: '' };
+    const a = activityOf.get(row.user_id) || {
+      telefoon: 0,
+      tablet: 0,
+      computer: 0,
+      last: null,
+      lastDevice: '',
+      visits: 0,
+      visits_30: 0,
+      hasVisits: false
+    };
     a[row.device] = (a[row.device] || 0) + 1;
+    // Bezoeken: de app geopend of terug na 30 minuten weg (supabase/2026-11-10-accountactiviteit-bezoeken.sql).
+    if (row.opens != null) {
+      a.hasVisits = true;
+      a.visits += Number(row.opens) || 0;
+      if (Date.parse(row.day) > Date.now() - 30 * 86400000) a.visits_30 += Number(row.opens) || 0;
+    }
     if (!a.last || row.last_at > a.last) Object.assign(a, { last: row.last_at, lastDevice: row.device });
     activityOf.set(row.user_id, a);
   }
