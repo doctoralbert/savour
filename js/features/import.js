@@ -831,6 +831,31 @@ async function rotateDataUrl(dataUrl, degrees) {
   return canvas.toDataURL('image/jpeg', 0.88);
 }
 
+// Kleinere kopie van een kladje om te bewaren als origineel. De AI en het nakijken gebruiken de scherpe versie;
+// voor terugkijken op een scherm is minder genoeg, en de database blijft klein (10-11-2026: 568 kB per kladje).
+const SOURCE_MAX_SIZE = 1600;
+const SOURCE_QUALITY = 0.72;
+async function shrinkSourceImage(dataUrl, maxSize = SOURCE_MAX_SIZE, quality = SOURCE_QUALITY) {
+  try {
+    const img = await new Promise((resolve, reject) => {
+      const i = new Image();
+      i.onload = () => resolve(i);
+      i.onerror = reject;
+      i.src = dataUrl;
+    });
+    const scale = Math.min(1, maxSize / Math.max(img.naturalWidth, img.naturalHeight));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(img.naturalWidth * scale);
+    canvas.height = Math.round(img.naturalHeight * scale);
+    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+    const small = canvas.toDataURL('image/jpeg', quality);
+    // Nooit groter bewaren dan wat er al was.
+    return small.length < dataUrl.length ? small : dataUrl;
+  } catch (e) {
+    return dataUrl;
+  }
+}
+
 // Een gescande PDF bevat geen tekst maar afbeeldingen: elke pagina (max. 10) gaat als afbeelding naar de AI.
 async function importScannedPdf(file) {
   const pdfjs = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.min.mjs');
@@ -1592,7 +1617,7 @@ async function saveRecipeSources(drafts, rows) {
   const pairs = drafts.map((d, i) => [d, rows?.[i]?.id]).filter(([d, id]) => d._fromPhoto && d.photo && id);
   let failed = 0;
   for (const [d, id] of pairs) {
-    const row = { recipe_id: id, user_id: currentUser.id, image: d.photo };
+    const row = { recipe_id: id, user_id: currentUser.id, image: await shrinkSourceImage(d.photo) };
     let { error } = await supabaseClient.from('recipe_sources').insert(row);
     if (error && !['42P01', 'PGRST205'].includes(error.code))
       ({ error } = await supabaseClient.from('recipe_sources').insert(row));
