@@ -142,8 +142,9 @@ const platformOf = v =>
 // Waar een bezoeker vandaan kwam, als [groep, bron]. Volgorde: een kenmerk in de link (?bron=, utm_source,
 // collega-uitnodiging, advertentieklik), dan de app waarin de link openging (herkenbaar aan de browserregel of,
 // op Android, aan een referrer als android-app://com.whatsapp), dan de website ervoor (referrer).
-// Geen enkele herkomst: op de startpagina is dat "direct" (getypt of bladwijzer); op een dieper adres (een
-// gedeeld recept, map-uitnodiging of blog) is het vrijwel altijd een gedeelde link uit een app die niets doorgeeft.
+// Geen enkele herkomst: op de startpagina is dat "direct" (getypt of bladwijzer). Een gedeeld recept of een
+// map-uitnodiging (/r/, /join/) is een gedeelde link. Op een ander dieper adres weten we het echt niet: een app
+// of mail die niets doorgeeft, een overgetypt adres of een bladwijzer. Dat heet eerlijk "Onbekend".
 const SEARCH = 'Zoekmachines';
 const SOCIAL = 'Social media';
 const SHARED = 'Gedeelde links';
@@ -151,6 +152,7 @@ const MAIL = 'E-mail';
 const AI = 'AI-assistenten';
 const SITES = 'Andere websites';
 const DIRECT_GROUP = 'Direct';
+const UNKNOWN_GROUP = 'Onbekend';
 const SOURCES = [
   // Berichten-apps en mail eerst: hun adressen lijken soms op die van social media (bijv. Messenger).
   [/whatsapp|wa\.me/, SHARED, 'WhatsApp'],
@@ -229,10 +231,11 @@ function sourceOf(v) {
   // Van savour.page zelf (of de testversie) is doorklikken, geen nieuwe bron.
   if (host && !/(^|\.)savour\.page$|vercel\.app$|localhost|127\.0\.0/.test(host)) return lookup(host) || [SITES, host];
   if (/^\/(r|join)\//.test(path)) return [SHARED, 'Gedeeld recept of map (app onbekend)'];
-  if (path && path !== '/' && path !== '/index.html') return [SHARED, 'Gedeelde link (app onbekend)'];
+  if (path && path !== '/' && path !== '/index.html') return [UNKNOWN_GROUP, 'Onbekend (link zonder herkomst)'];
   return [DIRECT_GROUP, 'Direct (getypt of bladwijzer)'];
 }
-const isDirect = s => s[0] === DIRECT_GROUP;
+// Direct en onbekend wijken voor een echte herkomst bij een later bezoek van dezelfde bezoeker.
+const isDirect = s => s[0] === DIRECT_GROUP || s[0] === UNKNOWN_GROUP;
 
 // Apparaten van de beheerder zelf: bij elk bezoek aan /admin stuurt de browser zijn bezoekers-id mee. Die ids
 // staan in app_metadata van het beheerdersaccount en tellen niet mee in de cijfers (max. 20 apparaten).

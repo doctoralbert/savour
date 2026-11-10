@@ -1659,12 +1659,39 @@ function savourVisitSourceQuery() {
   return out.length ? `?${out.join('&')}` : '';
 }
 
+// Een bezoek telt pas als er een mens achter zit: klikken, tikken, scrollen met muis of vinger, de muis bewegen of
+// typen. Robots die zich als gewone Chrome voordoen (ze lopen elke pagina één keer af, zonder herkomst) doen
+// dat niet. Bezoeken die zo lang wachten, worden daarna alsnog in één keer opgeslagen.
+let visitHumanQueue = null;
+function whenVisitorIsHuman(callback) {
+  if (window.__savourHuman) return callback();
+  if (!visitHumanQueue) {
+    visitHumanQueue = [];
+    const events = ['pointerdown', 'mousemove', 'touchstart', 'wheel', 'keydown'];
+    const human = () => {
+      if (window.__savourHuman) return;
+      window.__savourHuman = true;
+      events.forEach(e => window.removeEventListener(e, human, true));
+      const waiting = visitHumanQueue;
+      visitHumanQueue = [];
+      waiting.forEach(fn => fn());
+    };
+    events.forEach(e => window.addEventListener(e, human, { capture: true, passive: true }));
+  }
+  visitHumanQueue.push(callback);
+}
+
 // path: zelf opgeven, bijv. '/demo' als iemand de demo start (zie startDemo); anders de huidige pagina.
 async function logSavourVisit(path) {
   // Alleen echte bezoeken aan savour.page; de testversie en lokaal testen tellen niet mee.
   if (IS_ADMIN_PATH || !/(^|\.)savour\.page$/.test(location.hostname)) return;
-  // Testbrowsers en bots tellen niet mee.
-  if (navigator.webdriver || /bot|crawl|spider|headless|lighthouse|electron|preview/i.test(navigator.userAgent || ''))
+  // Testbrowsers en bots tellen niet mee (ook de robots van Google die zich als Chrome voordoen).
+  if (
+    navigator.webdriver ||
+    /bot|crawl|spider|headless|lighthouse|electron|preview|googleother|inspectiontool|google-read-aloud/i.test(
+      navigator.userAgent || ''
+    )
+  )
     return;
   // Alleen echte browsers (zelfde regel als api/admin.js): tools zonder browsernaam blazen de teller op.
   if (!/Chrome\/|CriOS|Safari\/|Firefox\/|FxiOS|Edg\//.test(navigator.userAgent || '')) return;
@@ -1686,14 +1713,20 @@ async function logSavourVisit(path) {
       platform: savourAnalyticsPlatform(),
       country: window.savourCountry ? window.savourCountry() : null
     };
-    const { error } = await supabaseClient.from('site_visits').insert(visit);
-    // Ontbreekt een kolom (platform of country: SQL nog niet uitgevoerd), dan weigert de database het hele
-    // bezoek; dan zonder die kolom opslaan zodat de teller toch loopt.
-    if (error && /platform|country/.test(error.message || '')) {
-      delete visit.country;
-      if (/platform/.test(error.message || '')) delete visit.platform;
-      await supabaseClient.from('site_visits').insert(visit);
-    }
+    whenVisitorIsHuman(async () => {
+      try {
+        const { error } = await supabaseClient.from('site_visits').insert(visit);
+        // Ontbreekt een kolom (platform of country: SQL nog niet uitgevoerd), dan weigert de database het hele
+        // bezoek; dan zonder die kolom opslaan zodat de teller toch loopt.
+        if (error && /platform|country/.test(error.message || '')) {
+          delete visit.country;
+          if (/platform/.test(error.message || '')) delete visit.platform;
+          await supabaseClient.from('site_visits').insert(visit);
+        }
+      } catch (e) {
+        console.debug('Savour analytics unavailable', e);
+      }
+    });
   } catch (e) {
     console.debug('Savour analytics unavailable', e);
   }
