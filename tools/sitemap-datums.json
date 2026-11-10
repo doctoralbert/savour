@@ -1,7 +1,7 @@
 {
  "https://savour.page/": {
-  "hash": "77356a73ac3cde00",
-  "date": "2026-11-09"
+  "hash": "c5976378796c0233",
+  "date": "2026-11-10"
  },
  "https://savour.page/en": {
   "hash": "45544f096ed0c568",
@@ -24,8 +24,8 @@
   "date": "2026-11-09"
  },
  "https://savour.page/recepten-organiseren": {
-  "hash": "c936e67b69b04203",
-  "date": "2026-11-09"
+  "hash": "3b0ee56c5146785d",
+  "date": "2026-11-10"
  },
  "https://savour.page/recepten-delen": {
   "hash": "91f20e8af0492a00",
@@ -164,7 +164,7 @@
   "date": "2026-11-09"
  },
  "https://savour.page/privacy": {
-  "hash": "14103af8b2c92337",
+  "hash": "13439ec21b1bc485",
   "date": "2026-11-10"
  },
  "https://savour.page/en/digitise-recipes": {
@@ -172,8 +172,8 @@
   "date": "2026-11-09"
  },
  "https://savour.page/en/organise-recipes": {
-  "hash": "caa3973d2422db4c",
-  "date": "2026-11-09"
+  "hash": "3a2c1f7e0a0085be",
+  "date": "2026-11-10"
  },
  "https://savour.page/en/share-recipes": {
   "hash": "a2f347b09b57e890",
@@ -312,7 +312,7 @@
   "date": "2026-11-09"
  },
  "https://savour.page/en/privacy": {
-  "hash": "c65dac1dfcec0e0e",
+  "hash": "338d8ffd47fddcc5",
   "date": "2026-11-10"
  },
  "https://savour.page/de/rezepte-digitalisieren": {
@@ -460,7 +460,7 @@
   "date": "2026-11-09"
  },
  "https://savour.page/de/datenschutz": {
-  "hash": "243b6a4dbcc09d40",
+  "hash": "e3e089986fdbe0c9",
   "date": "2026-11-10"
  },
  "https://savour.page/es/digitalizar-recetas": {
@@ -608,7 +608,7 @@
   "date": "2026-11-09"
  },
  "https://savour.page/es/privacidad": {
-  "hash": "abc0a3134442972a",
+  "hash": "71872be6dce14dca",
   "date": "2026-11-10"
  },
  "https://savour.page/fr/numeriser-recettes": {
@@ -756,7 +756,7 @@
   "date": "2026-11-09"
  },
  "https://savour.page/fr/confidentialite": {
-  "hash": "3f11316cd470f5dd",
+  "hash": "211d494ec6123620",
   "date": "2026-11-10"
  },
  "https://savour.page/blog/savour-paprika-meez-galley-vergelijken": {

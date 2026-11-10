@@ -1,4 +1,10 @@
 {
+  "git": {
+    "deploymentEnabled": {
+      "concepten": false,
+      "desktopmenu": false
+    }
+  },
   "functions": {
     "api/ai-import.js": {
       "maxDuration": 60

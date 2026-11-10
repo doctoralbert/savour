@@ -79,15 +79,15 @@ function appMenuData() {
       id: 'mine',
       title: t('Mijn Savour'),
       intro: t('Je abonnement, collega’s en instellingen.'),
-      on: ['pro', 'settings'].includes(active),
+      on: ['pro', 'settings', 'community'].includes(active),
       items: [
         item('openProNav()', proLabel, '', false, 'sparkle'),
         ...(showTeam ? [item('openTeamNav()', t('Mijn team'), '', false, 'users')] : []),
         item('inviteColleague()', t('Collega uitnodigen'), '', false, 'gift'),
         ...(showInstall ? [item('installApp()', t('App installeren'), '', false, 'download')] : []),
         item("go('settings')", t('Instellingen'), '', active === 'settings', 'settings'),
-        // Alleen in de bovenbalk op de computer: op de telefoon staat de knop al bovenin.
-        { ...item('toggleTheme()', t('Licht of donker'), '', false, 'moon'), desk: true },
+        // Community: forum met andere koks (js/features/community.js). Licht of donker staat bovenin de balk.
+        item("go('community')", t('Community'), '', active === 'community', 'chat'),
         ...(admin ? [item("location.href='/admin'", 'Admin', '', false, 'shield')] : [])
       ]
     }

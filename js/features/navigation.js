@@ -107,6 +107,7 @@ function go(id) {
   if (id === 'sharedFolderDetail') renderSharedFolderDetail();
   if (id === 'sharedMapManage') renderSharedMapManage(currentShared);
   if (id === 'settings') renderSettings();
+  if (id === 'community') renderCommunity();
   if (id === 'pro') renderProPage($('proBody'));
   if (id === 'import') renderImportPlanNotice();
 }
@@ -166,6 +167,7 @@ function renderActiveView(id) {
   else if (id === 'shared') renderShared(currentShared);
   else if (id === 'sharedFolderDetail') renderSharedFolderDetail();
   else if (id === 'settings') renderSettings();
+  else if (id === 'community') renderCommunity();
   else if (['about', 'faq', 'terms', 'privacy', 'contact'].includes(id));
 }
 

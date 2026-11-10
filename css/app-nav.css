@@ -1349,3 +1349,174 @@
     grid-column: 2;
   }
 }
+
+/* ---- Community: forum (js/features/community.js) ---- */
+#community {
+  --view-photo: url('/assets/keuken/brigade.jpg');
+}
+.cm-body {
+  max-width: 860px;
+}
+.cm-intro p {
+  margin: 0 0 8px;
+  color: var(--sv-text-2);
+}
+.cm-intro .cm-rules {
+  font-size: 13.5px;
+  color: var(--sv-text-3);
+}
+.cm-body > .actions {
+  margin: 14px 0 18px;
+}
+.cm-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--sv-line);
+}
+.cm-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  padding: 14px 4px;
+  border: 0;
+  border-bottom: 1px solid var(--sv-line);
+  background: transparent;
+  color: var(--sv-text);
+  text-align: left;
+  cursor: pointer;
+}
+.cm-thread:hover .cm-thread-title,
+.cm-thread:focus-visible .cm-thread-title {
+  color: var(--sv-gold);
+}
+.cm-thread-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font: 600 17px/1.35 var(--sv-font);
+}
+.cm-meta {
+  color: var(--sv-text-3);
+  font-size: 13.5px;
+}
+.cm-meta b {
+  color: var(--sv-text-2);
+  font-weight: 600;
+}
+.cm-flag,
+.cm-badge {
+  display: inline-block;
+  padding: 1px 7px;
+  border: 1px solid color-mix(in srgb, var(--sv-gold) 45%, transparent);
+  border-radius: 3px;
+  color: var(--sv-gold);
+  font: 600 11px/1.6 var(--sv-font);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.cm-flag.warn {
+  border-color: #b97a6c;
+  color: #d5aaa0;
+}
+.is-hidden {
+  opacity: 0.6;
+}
+.cm-compose {
+  display: grid;
+  gap: 12px;
+  margin: 14px 0 20px;
+  padding: 18px;
+  border: 1px solid var(--sv-line);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--sv-text) 3%, transparent);
+}
+.cm-compose label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.cm-compose input,
+.cm-compose textarea {
+  width: 100%;
+  font: inherit;
+  font-weight: 400;
+}
+.cm-compose textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+.cm-compose .actions {
+  margin: 0;
+}
+.cm-back {
+  margin-bottom: 16px;
+}
+.cm-title {
+  margin: 0 0 14px;
+  font-size: 26px;
+}
+.cm-post {
+  padding: 16px 0;
+  border-top: 1px solid var(--sv-line);
+}
+.cm-post header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin-bottom: 8px;
+}
+.cm-post header b {
+  color: var(--sv-text);
+}
+.cm-text {
+  color: var(--sv-text);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.cm-text a {
+  color: var(--sv-gold);
+}
+.cm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.cm-actions button {
+  padding: 5px 10px;
+  border: 1px solid var(--sv-line);
+  background: transparent;
+  color: var(--sv-text-2);
+  font-size: 13px;
+  cursor: pointer;
+}
+.cm-actions button:hover {
+  border-color: var(--sv-gold);
+  color: var(--sv-gold);
+}
+.cm-actions button.danger:hover {
+  border-color: #b97a6c;
+  color: #d5aaa0;
+}
+.cm-replies {
+  margin-top: 8px;
+}
+.cm-replies h4 {
+  margin: 18px 0 0;
+  color: var(--sv-text-3);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.cm-empty {
+  padding: 26px 0;
+  color: var(--sv-text-2);
+}
+.cm-locked {
+  margin-top: 18px;
+}

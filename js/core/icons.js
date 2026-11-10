@@ -6,6 +6,7 @@ const ICON_PATHS = {
     '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/>',
   gift: '<rect x="3.5" y="8" width="17" height="4" rx="1"/><path d="M5 12v8h14v-8M12 8v12"/><path d="M12 8c-2-3.5-6-3-5-.5.5 1 3 .5 5 .5zM12 8c2-3.5 6-3 5-.5-.5 1-3 .5-5 .5z"/>',
   download: '<path d="M12 4v11M7.5 10.5 12 15l4.5-4.5"/><path d="M5 19h14"/>',
+  chat: '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/>',
   moon: '<path d="M20 14.5A8 8 0 019.5 4 7 7 0 1020 14.5z"/>',
   leaf: '<path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14z"/><path d="M5 19l7-7"/>',
   userPlus: '<circle cx="10" cy="8.5" r="3.4"/><path d="M3.5 20a6.5 6.5 0 0113 0"/><path d="M19 8v6M16 11h6"/>',
