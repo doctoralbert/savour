@@ -561,13 +561,14 @@ let ingredientListLoading = null;
 function loadIngredientList() {
   if (ingredientListLoading) return ingredientListLoading;
   const page = 1000;
-  const query = () =>
+  // Alleen het eerste stuk telt het totaal; opnieuw tellen per stuk kostte de database bij elk stuk extra tijd.
+  const query = (count = false) =>
     supabaseClient
       .from('ingredient_list')
-      .select('key,name,head,aliases,allergens,status', { count: 'exact' })
+      .select('key,name,head,aliases,allergens,status', count ? { count: 'exact' } : undefined)
       .in('status', ['approved', 'junk'])
       .order('id');
-  ingredientListLoading = query()
+  ingredientListLoading = query(true)
     .range(0, page - 1)
     .then(async first => {
       if (first.error) return null;
@@ -743,14 +744,7 @@ async function loadProducts() {
   }
   products = [];
   if (!currentUser) return;
-  // De Savour-lijst (± 15.000 namen) komt los binnen: de app opent meteen, de allergenen worden bijgewerkt zodra
-  // de lijst er is. Zo wacht inloggen niet op 2,5 MB aan ingrediënten.
-  loadIngredientList().then(all => {
-    if (!currentUser || demoMode || !all) return;
-    notIngredientAll = new Set(all.filter(x => x.status === 'junk').map(x => x.key));
-    setCentralList(all);
-    refreshAllergenViews();
-  });
+  // De Savour-lijst laadt hier niet meer: zie ensureCentralList.
   const [{ data, error }, settings, own] = await Promise.all([
     supabaseClient
       .from('products')
@@ -772,6 +766,28 @@ async function loadProducts() {
     return;
   }
   products = (data || []).map(productFromRow);
+}
+
+// De Savour-lijst (± 15.000 namen, ± 2 MB) is alleen nodig voor allergenen. Sinds 7-11-2026 laadde hij bij elk
+// openen van de app en dat maakte Savour merkbaar trager; nu pas bij het eerste scherm met allergenen (recept,
+// Ingrediënten, allergenenkaart, printen). Lukt laden niet, dan zoals voorheen alleen je eigen ingrediënten.
+// centralListTried: er is een poging gedaan (gelukt of niet); pas dan tonen schermen hun allergenen.
+let centralListTried = false;
+let centralListLoading = null;
+function ensureCentralList() {
+  if (demoMode || centralListTried) return Promise.resolve();
+  if (!centralListLoading)
+    centralListLoading = loadIngredientList().then(all => {
+      centralListLoading = null;
+      if (!currentUser || demoMode) return;
+      centralListTried = true;
+      if (all) {
+        notIngredientAll = new Set(all.filter(x => x.status === 'junk').map(x => x.key));
+        setCentralList(all);
+      }
+      refreshAllergenViews();
+    });
+  return centralListLoading;
 }
 
 // Na het laden van de Savour-lijst: alleen het allergenenblok van het open recept en het scherm Allergenen opnieuw
@@ -1062,6 +1078,11 @@ function renderRecipeAllergens(r) {
   if (!r || r.example || !(r.ingredients || []).some(x => !recipePartName(x))) return;
   const scope = productScopeOf(r);
   if (!productsVisible(scope)) return;
+  // Nog geen Savour-lijst: niets tonen (nooit een onterecht "nog niet compleet"); zodra hij er is, komt het blok.
+  if (!demoMode && !centralListTried) {
+    ensureCentralList();
+    return;
+  }
   const info = recipeAllergenInfo(r, scope);
   const edit = canEditProducts(scope);
   const checked = info.lines.length - info.unknown.length;
@@ -1085,7 +1106,8 @@ function renderRecipeAllergens(r) {
 }
 
 // Venster per recept: elke ingrediëntregel met het product (of basisrecept) en de allergenen.
-function openRecipeAllergenCheck() {
+async function openRecipeAllergenCheck() {
+  await ensureCentralList();
   const r = findRecipe(currentId);
   if (!r) return;
   const scope = productScopeOf(r);
@@ -1515,6 +1537,12 @@ function renderProducts() {
   const edit = canEditProducts(scope);
   if (!productsReady) {
     host.innerHTML = '<div class="panel"><p class="muted">Allergenen werken zodra de database is bijgewerkt.</p></div>';
+    return;
+  }
+  // Eerst de Savour-lijst; daarna tekent refreshAllergenViews dit scherm opnieuw.
+  if (!demoMode && !centralListTried) {
+    host.innerHTML = `<div class="panel"><p class="muted">${esc(t('Laden…'))}</p></div>`;
+    ensureCentralList();
     return;
   }
   if (scope === 'own' && !edit && !productsIn('own').length) {

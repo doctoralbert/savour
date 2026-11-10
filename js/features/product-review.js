@@ -339,7 +339,8 @@ function toggleRecipeAllergens() {
 
 // Allergenenkaart: per ingrediënt van het recept een punt bij elk allergeen dat erin zit. Bovenaan het recept als
 // geheel. Een vraagteken: Savour weet het nog niet zeker. Het recept en zijn basisrecepten tellen mee.
-function openAllergenCard() {
+async function openAllergenCard() {
+  await ensureCentralList();
   const r = findRecipe(currentId);
   if (!r) return;
   const scope = productScopeOf(r);

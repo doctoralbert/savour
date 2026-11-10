@@ -109,6 +109,8 @@ async function openPrintBundle(list, { title = '', mapId = null } = {}) {
     toast('Geen recepten om te printen');
     return;
   }
+  // Allergenen op de print: eerst de Savour-lijst, anders ontbreken ze.
+  await ensureCentralList();
   const [brand, options] = await Promise.all([fetchPrintBrand(mapId), askPrintOptions(list)]);
   if (!options) return;
   let old = document.getElementById('printBundle');
