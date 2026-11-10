@@ -5,6 +5,21 @@
 
 let communityThreadId = null; // open thread, of null voor de lijst
 let communityComposing = false; // formulier "Nieuwe thread" open
+let communityUnread = 0; // nieuwe reacties van anderen in je eigen threads (supabase/2026-11-10-community-ongelezen.sql)
+
+// Aantal ongelezen reacties ophalen en, als het verandert, het menu opnieuw tekenen (getal bij Community).
+async function refreshCommunityUnread() {
+  let n = 0;
+  if (currentUser && !demoMode && navigator.onLine) {
+    const { data, error } = await supabaseClient.rpc('savour_forum_unread');
+    if (!error) n = Number(data) || 0;
+  }
+  if (n === communityUnread) return;
+  communityUnread = n;
+  renderAppNav();
+  if (document.body.classList.contains('mobile-menu-open')) renderAppMenu();
+  $('mobileMenuBtn')?.toggleAttribute('data-badge', n > 0);
+}
 
 function communityIsAdmin() {
   return typeof adminLinkVisible !== 'undefined' && !!adminLinkVisible;
@@ -134,6 +149,9 @@ async function renderCommunityThread(id) {
     supabaseClient.from('forum_posts').select('*').eq('thread_id', id).order('created_at', { ascending: true })
   ]);
   if (communityThreadId !== id) return;
+  // Je eigen thread geopend: alle reacties gelezen, het getal bij Community gaat omlaag.
+  if (th && th.author_id === currentUser?.id)
+    supabaseClient.rpc('savour_forum_mark_read', { _thread: id }).then(() => refreshCommunityUnread());
   const back = `<button type="button" class="btn cm-back" onclick="closeCommunityThread()">← ${esc(t('Alle threads'))}</button>`;
   if (error || postError || !th) {
     host.innerHTML =

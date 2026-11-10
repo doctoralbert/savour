@@ -25,6 +25,7 @@ import { COST_POST, COST_POST_DE, COST_POST_ES, COST_POST_FR } from './site-blog
 import { TEMP_QUICK } from './site-blog-temperaturen-kort.mjs';
 import { FOODCOST_POST, FOODCOST_POST_DE, FOODCOST_POST_ES, FOODCOST_POST_FR } from './site-blog-foodcost.mjs';
 import { AI_POST, AI_POST_DE, AI_POST_ES, AI_POST_FR } from './site-blog-ai.mjs';
+import { COMMUNITY_POST, COMMUNITY_POST_DE, COMMUNITY_POST_ES, COMMUNITY_POST_FR } from './site-blog-community.mjs';
 import { TEMP_POSTS_ES } from './site-blog-temperaturen-es.mjs';
 import { TEMP_POSTS_FR } from './site-blog-temperaturen-fr.mjs';
 import { DE } from './site-pages-de.mjs';
@@ -70,6 +71,9 @@ Object.assign(FR.posts, FOODCOST_POST_FR);
 Object.assign(DE.posts, AI_POST_DE);
 Object.assign(ES.posts, AI_POST_ES);
 Object.assign(FR.posts, AI_POST_FR);
+Object.assign(DE.posts, COMMUNITY_POST_DE);
+Object.assign(ES.posts, COMMUNITY_POST_ES);
+Object.assign(FR.posts, COMMUNITY_POST_FR);
 EXTRA_LANGS.fr = EXTRA_FR;
 APP_PAGE.fr = APP_PAGE_FR;
 DELIVER.fr = DELIVER_FR;
@@ -78,7 +82,7 @@ SERVICE.fr = SERVICE_FR;
 KLADJE_REAL.fr = KLADJE_FR;
 
 // Nieuwste blogartikelen eerst.
-POSTS.unshift(AI_POST, FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
+POSTS.unshift(COMMUNITY_POST, AI_POST, FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
 // Achtergrondfoto achter de bovenkant van de homepage. Alleen als het bestand bestaat; zonder bestand is de
@@ -617,7 +621,7 @@ const PAGE_POSTS = {
   allergens: ['allergenen', 'foodcost'],
   cloud: ['database', 'offline'],
   inladen: ['overzetten', 'import'],
-  roadmap: ['ai-horeca', 'foodcost', 'roadmap', 'allergenen'],
+  roadmap: ['community', 'ai-horeca', 'foodcost', 'roadmap', 'allergenen'],
   chefs: ['choose', 'vergelijking', 'kosten', 'kerntemperaturen', 'sous-vide', 'allergenen'],
   brigade: ['team', 'onboarding', 'hospitality', 'cijfers', 'kosten', 'foodcost', 'allergenen']
 };

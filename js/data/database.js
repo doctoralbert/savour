@@ -287,6 +287,7 @@ async function startDatabaseSession(user) {
       touchAccountActivity(true);
       sendAccountSource();
       askSignupSource();
+      refreshCommunityUnread();
       return true;
     } catch (error) {
       console.error('Savour sessie kon niet worden opgebouwd:', error);

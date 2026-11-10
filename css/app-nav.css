@@ -1520,3 +1520,35 @@
 .cm-locked {
   margin-top: 18px;
 }
+
+/* Klein goud getal in het menu: nieuwe reacties in je eigen Community-threads. */
+.app-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  margin-left: 7px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--sv-gold);
+  color: #111;
+  font: 700 11px/1 var(--sv-font);
+  font-style: normal;
+  vertical-align: 2px;
+}
+/* Op de telefoon: een stip op de menuknop als er iets nieuws is. */
+#mobileMenuBtn[data-badge] {
+  position: relative;
+}
+#mobileMenuBtn[data-badge]::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--sv-gold);
+  box-shadow: 0 0 0 2px var(--sv-bg);
+}

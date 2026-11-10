@@ -87,11 +87,20 @@ function appMenuData() {
         ...(showInstall ? [item('installApp()', t('App installeren'), '', false, 'download')] : []),
         item("go('settings')", t('Instellingen'), '', active === 'settings', 'settings'),
         // Community: forum met andere koks (js/features/community.js). Licht of donker staat bovenin de balk.
-        item("go('community')", t('Community'), '', active === 'community', 'chat'),
+        { ...item("go('community')", t('Community'), '', active === 'community', 'chat'), badge: communityUnread },
         ...(admin ? [item("location.href='/admin'", 'Admin', '', false, 'shield')] : [])
       ]
     }
   ];
+}
+
+// Klein goud getal (bijv. nieuwe reacties in de Community); niets bij 0.
+function appMenuBadge(n) {
+  return n > 0 ? `<em class="app-badge" aria-label="${esc(String(n))}">${n > 99 ? '99+' : n}</em>` : '';
+}
+// Som van de getallen in een groep, voor de groepsknop zelf.
+function appMenuGroupBadge(g) {
+  return g.items.reduce((sum, x) => sum + (x.badge || 0), 0);
 }
 
 function appMenuAccount() {
@@ -130,11 +139,11 @@ function renderAppMenu() {
   const groups = appMenuData()
     .map(
       g =>
-        `<details class="app-mm-group"><summary>${esc(g.title)}</summary><ul>${g.items
+        `<details class="app-mm-group"><summary>${esc(g.title)}${appMenuBadge(appMenuGroupBadge(g))}</summary><ul>${g.items
           .filter(x => !x.desk)
           .map(
             x =>
-              `<li><button type="button" class="${x.active ? 'is-active' : ''}" onclick="${x.action}"><i class="app-mm-ico" aria-hidden="true">${x.icon ? icon(x.icon, { size: 18 }) : ''}</i><b>${esc(x.title)}</b>${x.note ? `<span>${esc(x.note)}</span>` : ''}</button></li>`
+              `<li><button type="button" class="${x.active ? 'is-active' : ''}" onclick="${x.action}"><i class="app-mm-ico" aria-hidden="true">${x.icon ? icon(x.icon, { size: 18 }) : ''}</i><b>${esc(x.title)}${appMenuBadge(x.badge)}</b>${x.note ? `<span>${esc(x.note)}</span>` : ''}</button></li>`
           )
           .join('')}</ul></details>`
     )
@@ -170,7 +179,7 @@ function appNavDropHtml(g) {
   const items = g.items
     .map(
       x =>
-        `<li><button type="button" role="menuitem" class="${x.active ? 'is-active' : ''}" onclick="appNavPick(this);${x.action}"><span class="app-drop-ico" aria-hidden="true">${x.icon ? icon(x.icon, { size: 17 }) : ''}</span><span class="app-drop-text"><b>${esc(x.title)}</b>${x.note ? `<small>${esc(x.note)}</small>` : ''}</span><i class="app-drop-go" aria-hidden="true">→</i></button></li>`
+        `<li><button type="button" role="menuitem" class="${x.active ? 'is-active' : ''}" onclick="appNavPick(this);${x.action}"><span class="app-drop-ico" aria-hidden="true">${x.icon ? icon(x.icon, { size: 17 }) : ''}</span><span class="app-drop-text"><b>${esc(x.title)}${appMenuBadge(x.badge)}</b>${x.note ? `<small>${esc(x.note)}</small>` : ''}</span><i class="app-drop-go" aria-hidden="true">→</i></button></li>`
     )
     .join('');
   const foot =
@@ -206,7 +215,7 @@ function renderAppNav() {
   if (mineHost && mine)
     mineHost.innerHTML = appNavItemHtml(
       mine,
-      `<span class="app-nav-avatar" aria-hidden="true">${appMenuAvatar(appMenuAccount())}</span><span class="app-nav-mine-label">${esc(mine.title)}</span>`
+      `<span class="app-nav-avatar" aria-hidden="true">${appMenuAvatar(appMenuAccount())}</span><span class="app-nav-mine-label">${esc(mine.title)}</span>${appMenuBadge(appMenuGroupBadge(mine))}`
     );
 }
 

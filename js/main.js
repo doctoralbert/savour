@@ -191,6 +191,11 @@ setInterval(() => touchAccountActivity(), 5 * 60000);
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') touchAccountActivity();
 });
+// Nieuwe reacties in je eigen Community-threads (getal bij Community in het menu): elke 5 minuten zolang Savour in beeld is.
+setInterval(() => document.visibilityState === 'visible' && refreshCommunityUnread(), 5 * 60000);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') refreshCommunityUnread();
+});
 
 // Offline werken en installeren op het beginscherm (sw.js). Alleen op https of lokaal testen.
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || /^(localhost|127.)/.test(location.hostname)))
