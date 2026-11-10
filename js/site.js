@@ -504,6 +504,25 @@
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('.site [data-auth], .site [data-demo], .site [data-set-lang]');
     if (!a) return;
+    // App-code nog niet geladen (laadscript onderaan index.html): eerst laden, dan inloggen of de demo openen.
+    if (
+      (a.dataset.auth || a.dataset.demo !== undefined) &&
+      typeof window.openAuth !== 'function' &&
+      window.savourLoadApp
+    ) {
+      e.preventDefault();
+      var auth = a.dataset.auth;
+      window
+        .savourLoadApp()
+        .then(function () {
+          if (auth) window.openAuth(auth);
+          else window.startDemo();
+        })
+        .catch(function () {
+          location.href = a.href; // laden mislukt: de gewone link (/?auth=... of /?demo=1) werkt altijd
+        });
+      return;
+    }
     if (a.dataset.auth && typeof window.openAuth === 'function') {
       e.preventDefault();
       window.openAuth(a.dataset.auth);
