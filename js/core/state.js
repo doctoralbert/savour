@@ -28,7 +28,7 @@ let categories = ['Sauzen & componenten', 'Groenten & garnituren', 'Vis & zeevru
 // Trefwoorden per categorie (naam → ['ijs', 'sorbet']); de chef beheert ze op de pagina Categorieën.
 let categoryKeywords = {};
 
-let account = { name: '', organization: '', email: '', password: '', photo: '' };
+let account = { name: '', organization: '', email: '', password: '', photo: '', helpReader: true };
 
 let cropTarget = null,
   cropImageSrc = '',

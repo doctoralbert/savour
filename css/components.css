@@ -747,6 +747,40 @@ body.savour-light .theme-option:has(input:checked) {
   border-color: #111;
   color: #111;
 }
+/* Instellingen → Help de Savour-lezer verbeteren (reader-learning.js): een vinkje in de stijl van de themakeuze. */
+.help-reader-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 11px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--sv-radius);
+  cursor: pointer;
+  font-size: var(--sv-fs-sm);
+  min-height: 44px;
+}
+.help-reader-toggle input {
+  accent-color: var(--gold);
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+.help-reader-toggle:has(input:checked) {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.help-reader-note {
+  margin-top: 12px;
+  font-size: var(--sv-fs-sm);
+}
+body.savour-light .help-reader-toggle {
+  border-color: #d9d6cf;
+}
+body.savour-light .help-reader-toggle:has(input:checked) {
+  border-color: var(--sv-gold);
+  color: var(--sv-gold);
+}
 
 /* ===== Licht thema (keuze in Instellingen) =====
    De donkere basis zet achtergronden met #appShell en !important; daarom staan de lichte varianten hier,

@@ -273,6 +273,7 @@ function renderSettings() {
     ? `<img src="${esc(account.photo)}" alt="Profielfoto">`
     : (account.name || 'M').charAt(0).toUpperCase();
   renderSettingsHero();
+  if ($('helpReader')) $('helpReader').checked = account.helpReader !== false;
   renderPlanSettings();
   renderTitleCleanup();
   $('settingsCategories').innerHTML = categories

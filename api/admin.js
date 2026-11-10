@@ -1014,6 +1014,106 @@ async function setAiLimit(userId, limit, note) {
   return { ok: true, limit: n };
 }
 
+// ---- Savour-lezer leren (supabase/2026-11-10-lezer-leren.sql) ----
+// Anonieme tellingen per soort bron (geen inhoud) en de voorbeelden die koks delen. Bij voorbeelden gaat nooit
+// het account mee naar het beheerscherm.
+async function readerLearning() {
+  const [signals, examples] = await Promise.all([
+    selectAll(
+      'reader_signals',
+      'select=created_at,source_kind,reader_confidence,by_ai,n_ingredients,n_steps,unclear,edits,agree&order=id'
+    ).catch(() => null),
+    selectAll(
+      'reader_examples',
+      'select=id,created_at,source_kind,file_ext,reason,final_result,handled&order=id.desc'
+    ).catch(() => null)
+  ]);
+  if (!signals) return { ready: false };
+  const since30 = Date.now() - 30 * 86400000;
+  const kinds = {};
+  const lines = d => (d ? d.numbers + d.changed + d.added + d.removed : 0);
+  for (const s of signals) {
+    const k = (kinds[s.source_kind] ||= {
+      kind: s.source_kind,
+      recipes: 0,
+      last30: 0,
+      reader_sure: 0,
+      reader_doubt: 0,
+      by_ai: 0,
+      edited: 0,
+      title: 0,
+      numbers: 0,
+      lines_changed: 0,
+      moved: 0,
+      ingredients: 0,
+      unclear: 0,
+      agree_recipes: 0,
+      agree_lines: 0,
+      agree_same: 0
+    });
+    const e = s.edits || {};
+    k.recipes++;
+    if (Date.parse(s.created_at) > since30) k.last30++;
+    if (!s.by_ai && s.reader_confidence === 'high') k.reader_sure++;
+    if (!s.by_ai && s.reader_confidence && s.reader_confidence !== 'high') k.reader_doubt++;
+    if (s.by_ai) k.by_ai++;
+    if (e.any) k.edited++;
+    if (e.title) k.title++;
+    k.numbers += (e.ingredients?.numbers || 0) + (e.steps?.numbers || 0);
+    k.lines_changed += lines(e.ingredients) + lines(e.steps);
+    k.moved += (e.to_steps || 0) + (e.to_ingredients || 0);
+    k.ingredients += s.n_ingredients || 0;
+    k.unclear += s.unclear || 0;
+    if (s.agree) {
+      k.agree_recipes++;
+      k.agree_lines += Math.max(s.agree.reader_lines || 0, s.agree.ai_lines || 0);
+      k.agree_same += s.agree.same_lines || 0;
+    }
+  }
+  return {
+    ready: true,
+    total: signals.length,
+    kinds: Object.values(kinds).sort((a, b) => b.recipes - a.recipes),
+    examples_ready: !!examples,
+    examples: (examples || []).slice(0, 100).map(x => ({
+      id: x.id,
+      created_at: x.created_at,
+      kind: x.source_kind,
+      ext: x.file_ext,
+      reason: x.reason,
+      title: Array.isArray(x.final_result)
+        ? x.final_result
+            .map(r => r?.title)
+            .filter(Boolean)
+            .join(', ')
+        : '',
+      handled: x.handled
+    })),
+    examples_total: (examples || []).length,
+    examples_open: (examples || []).filter(x => !x.handled).length
+  };
+}
+
+const READER_EXAMPLE_FIELDS =
+  'select=id,created_at,source_kind,file_ext,reason,source_text,reader_result,ai_result,final_result,handled';
+async function readerExample(id) {
+  const rows = await select('reader_examples', `${READER_EXAMPLE_FIELDS}&id=eq.${Number(id)}`);
+  if (!rows?.[0]) throw new Error('Dit voorbeeld bestaat niet meer.');
+  return rows[0];
+}
+// Alle open voorbeelden in één bestand, om er lezer-tests van te maken.
+async function readerExamplesExport() {
+  return { examples: await selectAll('reader_examples', `${READER_EXAMPLE_FIELDS}&handled=eq.false&order=id`) };
+}
+async function readerExampleSet(id, handled) {
+  await update('reader_examples', `id=eq.${Number(id)}`, { handled: !!handled });
+  return { ok: true };
+}
+async function readerExampleDelete(id) {
+  await remove('reader_examples', `id=eq.${Number(id)}`);
+  return { ok: true };
+}
+
 async function aiUsageOverview() {
   const tz = 'Europe/Amsterdam';
   const month = new Intl.DateTimeFormat('sv-SE', { timeZone: tz, year: 'numeric', month: '2-digit' })
@@ -2077,6 +2177,12 @@ export default async function handler(req, res) {
     if (action === 'overview') return res.status(200).json(await overview(user, ownVisitor));
     if (action === 'gift' && userId) return res.status(200).json(await giftPro(userId, days));
     if (action === 'revoke_gift' && userId) return res.status(200).json(await revokeGift(userId));
+    if (action === 'reader_learning') return res.status(200).json(await readerLearning());
+    if (action === 'reader_example') return res.status(200).json(await readerExample(req.body?.id));
+    if (action === 'reader_examples_export') return res.status(200).json(await readerExamplesExport());
+    if (action === 'reader_example_handled')
+      return res.status(200).json(await readerExampleSet(req.body?.id, req.body?.handled));
+    if (action === 'reader_example_delete') return res.status(200).json(await readerExampleDelete(req.body?.id));
     if (action === 'ai_limit' && userId)
       return res.status(200).json(await setAiLimit(userId, req.body?.limit ?? null, req.body?.note));
     if (action === 'create_account')

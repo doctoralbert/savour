@@ -983,3 +983,42 @@
   font-size: 12px;
   white-space: nowrap;
 }
+
+/* Beheer → Savour-lezer: één voorbeeld naast elkaar (bron, lezer, AI, opgeslagen). */
+.admin-reader-detail td {
+  background: rgba(232, 202, 141, 0.04);
+}
+.admin-reader-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  padding: 8px 0;
+  white-space: normal;
+}
+.admin-reader-grid h4 {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.admin-reader-grid pre {
+  margin: 0;
+  max-height: 420px;
+  overflow: auto;
+  white-space: pre-wrap;
+  font:
+    12px/1.5 ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+}
+.admin-reader-recipe + .admin-reader-recipe {
+  margin-top: 12px;
+}
+.admin-reader-recipe ul,
+.admin-reader-recipe ol {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  font-size: 13px;
+}

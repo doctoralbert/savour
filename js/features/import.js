@@ -1029,8 +1029,12 @@ async function readTextRecipes(file, sourceText) {
           aiError = e;
         }
       }
+      // Voor het leren van de lezer (reader-learning.js): dit stuk tekst en wat de lezer er zelf van maakte.
+      const learnPair = aiRecipes.length
+        ? { source: chunks[i], reader: readRecipesLocally(chunks[i]).map(learnSnapshot) }
+        : null;
       results[i] = aiRecipes.length
-        ? aiRecipes.map(r => normalizeAiRecipe(r, { sourceFile: file.name }))
+        ? aiRecipes.map(r => normalizeAiRecipe(r, { sourceFile: file.name, _learnPair: learnPair }))
         : readRecipesLocally(chunks[i], { sourceFile: file.name, _withoutAi: aiError ? aiError.message : '' });
       finished++;
       setImportFileProgress(file, finished / chunks.length);
@@ -1160,7 +1164,7 @@ async function processImportFiles(files) {
       });
       if (isPhoto) $('importStatus').textContent = `${file.name} wordt rechtgezet en twee keer gelezen…`;
       try {
-        batchDrafts.push(...(await readImportFile(file)));
+        batchDrafts.push(...stampForLearning(await readImportFile(file), file.name));
       } catch (e) {
         // Grens bereikt of geen Pro is geen fout in de app: de chef krijgt het gewoon te zien, het logboek niet.
         if (!['limit_reached', 'pro_required', 'ai_skipped'].includes(e?.code))
@@ -1254,7 +1258,7 @@ async function processImport() {
   }
   try {
     if (importSource === 'text') {
-      batchDrafts = readRecipesLocally(text);
+      batchDrafts = stampForLearning(readRecipesLocally(text), '', 'tekst');
       if (batchDrafts.length > 1) {
         $('batchStatus').textContent = `${batchDrafts.length} losse recepten herkend uit de ingevoerde tekst.`;
         renderBatchDrafts();
@@ -1289,7 +1293,10 @@ async function importUrlSource() {
   }
   $('importStatus').textContent = t('Webpagina wordt gelezen…');
   try {
-    batchDrafts = (await importFromUrl(url)).map((r, i) => ({ ...r, _importIndex: i }));
+    batchDrafts = stampForLearning(await importFromUrl(url), '', 'webpagina').map((r, i) => ({
+      ...r,
+      _importIndex: i
+    }));
     $('importStatus').textContent = '';
     $('batchStatus').textContent =
       `${batchDrafts.length} ${t('recept(en) gevonden op')} ${batchDrafts[0]?.sourceFile || url}.`;
@@ -1505,6 +1512,8 @@ async function persistBatchRecipes() {
   let saved = 0;
   const failures = [];
   const failedDrafts = [];
+  // Wat echt is opgeslagen, zoals de kok het heeft goedgekeurd: daar leert de Savour-lezer van.
+  const savedDrafts = [];
   try {
     // Categorieën één keer ophalen in plaats van per recept.
     const { data: cats, error: catError } = await supabaseClient
@@ -1532,6 +1541,7 @@ async function persistBatchRecipes() {
       const { data: inserted, error } = await supabaseClient.from('recipes').insert(block.map(rowFor)).select('id');
       if (!error) {
         saved += block.length;
+        savedDrafts.push(...block);
         await saveRecipeSources(block, inserted);
         continue;
       }
@@ -1543,10 +1553,13 @@ async function persistBatchRecipes() {
           failedDrafts.push(r);
         } else {
           saved++;
+          savedDrafts.push(r);
           await saveRecipeSources([r], one);
         }
       }
     }
+    // Op de achtergrond: de kok wacht hier niet op (zie reader-learning.js).
+    reportReaderLearning(savedDrafts);
     await loadDatabaseState();
     // Wat niet is opgeslagen blijft staan, zodat de chef het opnieuw kan proberen.
     batchDrafts = [...failedDrafts, ...later];

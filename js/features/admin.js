@@ -140,6 +140,7 @@ function showAdminTab(tab) {
   if (tab === 'keukenteams') loadAdminTeams();
   if (tab === 'ingredienten' && !adminIngredients) loadAdminIngredients();
   if (tab === 'ai') loadAdminAi();
+  if (tab === 'lezer') loadAdminReader();
   try {
     sessionStorage.setItem('savour_admin_tab', tab);
   } catch (_) {}
@@ -1602,6 +1603,144 @@ async function adminRevokeGift(userId) {
   try {
     await adminApi('revoke_gift', { user_id: userId });
     await loadAdminOverview();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
+}
+
+// ---- Savour-lezer leren (api/admin.js → readerLearning) ----
+// Per soort bron: hoe vaak de lezer zeker was, hoe vaak de AI nodig was en wat koks daarna verbeterden. Daaronder
+// de gedeelde voorbeelden: bekijken, als verwerkt markeren (er is een lezer-test van gemaakt) of weghalen.
+let adminReader = null;
+let adminReaderOpen = null;
+const READER_KIND_LABEL = {
+  foto: "Foto's",
+  scan: "Gescande PDF's",
+  pdf: 'PDF (tekst)',
+  word: 'Word',
+  tekst: 'Tekst',
+  webpagina: 'Webpagina',
+  csv: 'CSV',
+  app: 'Export uit een app',
+  onbekend: 'Onbekend'
+};
+async function loadAdminReader() {
+  const host = $('adminReaderBody');
+  if (!host) return;
+  try {
+    adminReader = await adminApi('reader_learning');
+    renderAdminReader();
+  } catch (error) {
+    if (!error.expired) host.innerHTML = `<p class="admin-note">${adminEscape(error.message)}</p>`;
+  }
+}
+
+function renderAdminReader() {
+  const host = $('adminReaderBody');
+  const d = adminReader;
+  if (!host || !d) return;
+  const badge = $('adminReaderBadge');
+  if (badge) {
+    badge.hidden = !d.examples_open;
+    badge.textContent = d.examples_open || '';
+  }
+  if (!d.ready) {
+    host.innerHTML = '<p class="admin-note">Draai eerst supabase/2026-11-10-lezer-leren.sql.</p>';
+    return;
+  }
+  const pct = (n, of) => (of ? `${Math.round((n / of) * 100)}%` : '–');
+  const kinds = d.kinds
+    .map(
+      k =>
+        `<tr><td>${adminEscape(READER_KIND_LABEL[k.kind] || k.kind)}</td><td>${count0(k.recipes)}<small> ${count0(k.last30)} laatste 30 dagen</small></td><td>${pct(k.reader_sure, k.recipes)}</td><td>${pct(k.reader_doubt, k.recipes)}</td><td>${pct(k.by_ai, k.recipes)}</td><td>${pct(k.edited, k.recipes)}</td><td>${count0(k.title)}</td><td>${count0(k.numbers)}</td><td>${count0(k.lines_changed)}</td><td>${count0(k.moved)}</td><td>${k.agree_lines ? pct(k.agree_same, k.agree_lines) : '–'}</td></tr>`
+    )
+    .join('');
+  const examples = d.examples
+    .map(x => {
+      const open = adminReaderOpen?.id === x.id;
+      const detail = open
+        ? `<tr class="admin-reader-detail"><td colspan="5">${adminReaderDetail(adminReaderOpen)}</td></tr>`
+        : '';
+      return `<tr class="${x.handled ? 'admin-muted' : ''}"><td>${adminFormatDate(x.created_at)}</td><td>${adminEscape(READER_KIND_LABEL[x.kind] || x.kind)}${x.ext ? `<small> .${adminEscape(x.ext)}</small>` : ''}</td><td>${adminEscape(x.reason || '')}</td><td>${adminEscape(x.title || '—')}</td><td><div class="admin-actions"><button class="admin-ghost" onclick="adminReaderShow(${x.id})">${open ? 'Sluiten' : 'Bekijken'}</button><button class="admin-ghost" onclick="adminReaderHandled(${x.id},${!x.handled})">${x.handled ? 'Weer open' : 'Verwerkt'}</button><button class="admin-ghost admin-danger" onclick="adminReaderDelete(${x.id})">Weghalen</button></div></td></tr>${detail}`;
+    })
+    .join('');
+  host.innerHTML = `
+    <div class="admin-stats-grid">
+      ${finTile('Imports geteld', count0(d.total), 'recepten die koks opsloegen')}
+      ${finTile('Voorbeelden', count0(d.examples_total), 'gedeeld door koks')}
+      ${finTile('Nog te verwerken', count0(d.examples_open), 'nog geen lezer-test van gemaakt')}
+    </div>
+    <h3 class="adsense-title">Per soort bron</h3>
+    ${kinds ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Bron</th><th>Recepten</th><th>Lezer zeker</th><th>Lezer twijfelde</th><th>AI nodig</th><th>Kok verbeterde</th><th>Titel</th><th>Getal</th><th>Regels</th><th>Verplaatst</th><th>Lezer = AI</th></tr></thead><tbody>${kinds}</tbody></table></div>` : '<p class="admin-note">Nog geen imports geteld.</p>'}
+    <p class="admin-footnote">Kok verbeterde: hoe vaak er na het lezen iets werd aangepast. Getal: regels waar alleen een getal anders werd. Verplaatst: regels van ingrediënten naar bereiding of andersom. Lezer = AI: bij tekst die de AI nalas, hoeveel ingrediëntregels de lezer precies hetzelfde had.</p>
+    <div class="admin-panel-head" style="margin-top:22px"><div><h3 class="adsense-title" style="margin:0">Gedeelde voorbeelden</h3></div>${d.examples_open ? '<button type="button" class="btn" onclick="adminReaderExport()">Open voorbeelden downloaden</button>' : ''}</div>
+    ${d.examples_ready ? (examples ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Datum</th><th>Bron</th><th>Waarom</th><th>Recept</th><th></th></tr></thead><tbody>${examples}</tbody></table></div>` : '<p class="admin-note">Nog geen voorbeelden gedeeld.</p>') : '<p class="admin-note">Voorbeelden konden niet worden geladen.</p>'}`;
+}
+
+// Eén voorbeeld naast elkaar: de brontekst, wat de lezer las, wat de AI las en wat de kok opsloeg.
+function adminReaderDetail(x) {
+  const recipesHtml = list =>
+    (Array.isArray(list) ? list : [])
+      .map(
+        r =>
+          `<div class="admin-reader-recipe"><b>${adminEscape(r?.title || '—')}</b>${r?.yield ? `<small> ${adminEscape(r.yield)}</small>` : ''}<ul>${(r?.ingredients || []).map(l => `<li>${adminEscape(l)}</li>`).join('')}</ul><ol>${(r?.steps || []).map(l => `<li>${adminEscape(l)}</li>`).join('')}</ol></div>`
+      )
+      .join('') || '<p class="admin-muted">–</p>';
+  return `<div class="admin-reader-grid">
+      <div><h4>Brontekst</h4><pre>${adminEscape(x.source_text || '')}</pre></div>
+      <div><h4>Savour-lezer</h4>${recipesHtml(x.reader_result)}</div>
+      ${x.ai_result ? `<div><h4>AI</h4>${recipesHtml(x.ai_result)}</div>` : ''}
+      <div><h4>Opgeslagen door de kok</h4>${recipesHtml(x.final_result)}</div>
+    </div>`;
+}
+
+async function adminReaderShow(id) {
+  if (adminReaderOpen?.id === id) {
+    adminReaderOpen = null;
+    return renderAdminReader();
+  }
+  try {
+    adminReaderOpen = await adminApi('reader_example', { id });
+    renderAdminReader();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
+}
+
+async function adminReaderHandled(id, handled) {
+  try {
+    await adminApi('reader_example_handled', { id, handled });
+    await loadAdminReader();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
+}
+
+async function adminReaderDelete(id) {
+  if (
+    !(await askConfirm('Dit voorbeeld weghalen?\n\nHet recept van de kok zelf blijft gewoon staan.', {
+      confirmLabel: 'Weghalen'
+    }))
+  )
+    return;
+  try {
+    await adminApi('reader_example_delete', { id });
+    if (adminReaderOpen?.id === id) adminReaderOpen = null;
+    await loadAdminReader();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
+}
+
+// Alle open voorbeelden als één JSON-bestand: daar worden lezer-tests van gemaakt (tests/lezer.test.mjs).
+async function adminReaderExport() {
+  try {
+    const data = await adminApi('reader_examples_export');
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(new Blob([JSON.stringify(data.examples, null, 2)], { type: 'application/json' }));
+    link.download = `savour-lezer-voorbeelden-${new Date().toISOString().slice(0, 10)}.json`;
+    link.click();
+    URL.revokeObjectURL(link.href);
   } catch (e) {
     alertAdmin(e.message);
   }

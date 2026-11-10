@@ -1,6 +1,6 @@
 -- Eigen AI-grens per account (2026-11-10). Normaal heeft Savour Pro 150 AI-imports per maand (api/ai-import.js);
 -- de beheerder kan één account een andere maandgrens geven, bijvoorbeeld een vroege klant die zijn archief overzet.
--- Alleen de server (service role) leest en schrijft dit; gebruikers kunnen het niet zien of aanpassen.
+-- Alleen de server (seja rvice role) leest en schrijft dit; gebruikers kunnen het niet zien of aanpassen.
 -- Geldt alleen voor betaald Pro: de proefweek blijft 15 AI-imports in totaal.
 
 create table if not exists public.ai_limit_overrides (

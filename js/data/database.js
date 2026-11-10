@@ -194,7 +194,9 @@ async function loadDatabaseState() {
       name: prof.name || '',
       organization: prof.organization || '',
       email: prof.email || currentUser.email || '',
-      photo: prof.avatar_url || ''
+      photo: prof.avatar_url || '',
+      // Help de Savour-lezer verbeteren (reader-learning.js): standaard aan, uit te zetten bij Instellingen.
+      helpReader: prof.help_reader !== false
     };
     applyTheme(prof.theme || currentTheme());
   }

@@ -22,6 +22,7 @@ Wie stopt met Pro houdt altijd alles; alleen toevoegen boven de grens kan niet. 
 `supabase/2026-10-22-gratis-pro-teams.sql` (savour_is_pro, savour_my_plan). Beheer: /admin (api/admin.js). Importeren gaat altijd eerst via de eigen lezer
 (`js/features/recipe-reader.js`, test: `npm run test:lezer`); alleen bij twijfel en met Pro naar de AI.
 De server (`api/ai-import.js`) controleert Pro en de limiet. Instellen: `docs/savour-pro-instellen.md`.
+Lezer leren (`js/features/reader-learning.js`, `supabase/2026-11-10-lezer-leren.sql`): anonieme tellingen van elke import (geen inhoud) en voorbeelden met inhoud van accounts met "Help de Savour-lezer verbeteren" (standaard aan, Instellingen; alleen tekstbronnen). Beheer → Savour-lezer: bekijken en downloaden; daarvan maak je lezer-tests. De lezer verandert nooit vanzelf.
 Community: forum voor alle ingelogde accounts (Mijn Savour → Community, `js/features/community.js`,
 `supabase/2026-11-10-community-forum.sql`); naam uit het profiel, nooit e-mail; beheerder verbergt, zet vast, sluit.
 Vercel bouwt alleen `main` en de testtak `savour-3` (`vercel.json` → `git.deploymentEnabled`): opslag en builds sparen.
