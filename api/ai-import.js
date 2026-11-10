@@ -59,9 +59,18 @@ export default async function handler(req, res) {
   // AI is onderdeel van Savour Pro: eerst controleren of deze gebruiker Pro is en nog AI-imports over heeft.
   if (!hasServiceRole())
     return res.status(503).json({ error: 'Savour Pro is op deze server nog niet ingesteld.', code: 'not_configured' });
+  // Eigen maandgrens voor dit account, als de beheerder die gaf (supabase/2026-11-10-ai-grens-per-account.sql).
+  // Bestaat de functie nog niet, dan de standaard.
+  let monthlyLimit = AI_MONTHLY_LIMIT;
+  try {
+    const own = await rpc('savour_ai_monthly_limit', { _user: user.id, _default: AI_MONTHLY_LIMIT });
+    if (Number.isInteger(own) && own >= 0) monthlyLimit = own;
+  } catch (error) {
+    // Nog geen eigen grenzen in de database: standaard gebruiken.
+  }
   let allowance;
   try {
-    allowance = await rpc('savour_ai_allowance', { _user: user.id, _limit: AI_MONTHLY_LIMIT });
+    allowance = await rpc('savour_ai_allowance', { _user: user.id, _limit: monthlyLimit });
   } catch (error) {
     console.error('Savour Pro-controle', error);
     return res.status(503).json({ error: 'Savour Pro is op deze server nog niet ingesteld.', code: 'not_configured' });
@@ -153,7 +162,7 @@ export default async function handler(req, res) {
     try {
       const reservedCount = await rpc('savour_reserve_ai_use', {
         _user: user.id,
-        _limit: AI_MONTHLY_LIMIT
+        _limit: monthlyLimit
       });
       if (reservedCount === null)
         return res.status(403).json({
