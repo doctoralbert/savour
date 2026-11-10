@@ -858,6 +858,7 @@ async function overview(user, ownVisitor) {
         .catch(() => selectAll('account_activity', 'select=user_id,day,device,last_at&order=user_id,day,device'))
         .catch(() => null)
     ]);
+  const ownLimitOf = await aiLimitOverrides();
   const visitors = await visitorStats(await ownVisitorIds(user, ownVisitor)).catch(e => {
     console.error('Bezoekers laden mislukt', e);
     return null;
@@ -926,6 +927,10 @@ async function overview(user, ownVisitor) {
         logins_30_days: logins ? Number(loginsOf.get(u.id)?.logins_30_days || 0) : null,
         ai_this_month: Number(s.ai_this_month || 0),
         ai_total: Number(aiTotalOf.get(u.id) || 0),
+        // Eigen AI-maandgrens (ai_limit_overrides), of null: dan geldt de standaard van Pro.
+        ai_limit_own: ownLimitOf?.get(u.id) || null,
+        ai_limit_default: AI_PRO_LIMIT,
+        ai_limits_ready: !!ownLimitOf,
         activity: activityRows ? activityOf.get(u.id) || null : undefined,
         active_now: !!activityOf.get(u.id)?.last && Date.parse(activityOf.get(u.id).last) > activeSince,
         paid_stripe: !!sub?.stripe_subscription_id && running(sub),
@@ -982,6 +987,33 @@ async function overview(user, ownVisitor) {
 // ai_usage telt per maand; ai_usage_log heeft per gelukte import een tijdstip (voor "laatste uur" en "vandaag").
 // Proefaccounts mogen 15 AI-imports doen, betaald Pro 150 per maand (api/ai-import.js).
 const AI_TRIAL_LIMIT = 15;
+const AI_PRO_LIMIT = 150; // Zelfde als AI_MONTHLY_LIMIT in api/ai-import.js.
+
+// Eigen AI-maandgrenzen per account (supabase/2026-11-10-ai-grens-per-account.sql): Map user_id → { limit, note },
+// of null als de tabel nog niet bestaat.
+async function aiLimitOverrides() {
+  const rows = await selectAll('ai_limit_overrides', 'select=user_id,monthly_limit,note').catch(() => null);
+  if (!rows) return null;
+  return new Map(rows.map(r => [r.user_id, { limit: Number(r.monthly_limit), note: r.note || '' }]));
+}
+
+// Eigen grens geven (limit: getal) of terugzetten naar de standaard (limit: null).
+async function setAiLimit(userId, limit, note) {
+  if (!/^[0-9a-f-]{36}$/i.test(String(userId || ''))) throw new Error('Onbekend account.');
+  if (limit === null || limit === '' || limit === undefined) {
+    await remove('ai_limit_overrides', `user_id=eq.${userId}`);
+    return { ok: true, limit: null };
+  }
+  const n = Number(limit);
+  if (!Number.isInteger(n) || n < 0 || n > 2000) throw new Error('Kies een aantal tussen 0 en 2000.');
+  await upsert(
+    'ai_limit_overrides',
+    [{ user_id: userId, monthly_limit: n, note: String(note || '').slice(0, 200) || null }],
+    'user_id'
+  );
+  return { ok: true, limit: n };
+}
+
 async function aiUsageOverview() {
   const tz = 'Europe/Amsterdam';
   const month = new Intl.DateTimeFormat('sv-SE', { timeZone: tz, year: 'numeric', month: '2-digit' })
@@ -1002,6 +1034,7 @@ async function aiUsageOverview() {
     selectAll('ai_usage_log', `select=user_id,at&at=gte.${since}&order=at.desc`).catch(() => null),
     openAiCostsThisMonth()
   ]);
+  const ownLimitOf = await aiLimitOverrides();
   const byId = (rows, key = 'id') => new Map((rows || []).map(r => [r[key], r]));
   const userOf = byId(users);
   const profileOf = byId(profiles);
@@ -1054,7 +1087,8 @@ async function aiUsageOverview() {
         type: type.type,
         label: type.label,
         recipes,
-        limit: type.type === 'trial' ? AI_TRIAL_LIMIT : 150,
+        limit: type.type === 'trial' ? AI_TRIAL_LIMIT : (ownLimitOf?.get(id)?.limit ?? AI_PRO_LIMIT),
+        own_limit: type.type !== 'trial' && !!ownLimitOf?.get(id),
         ...r,
         flags
       };
@@ -2043,6 +2077,8 @@ export default async function handler(req, res) {
     if (action === 'overview') return res.status(200).json(await overview(user, ownVisitor));
     if (action === 'gift' && userId) return res.status(200).json(await giftPro(userId, days));
     if (action === 'revoke_gift' && userId) return res.status(200).json(await revokeGift(userId));
+    if (action === 'ai_limit' && userId)
+      return res.status(200).json(await setAiLimit(userId, req.body?.limit ?? null, req.body?.note));
     if (action === 'create_account')
       return res.status(200).json(await createAccount({ email, name, organization }, siteOrigin(req)));
     if (action === 'errors') return res.status(200).json(await errorGroups());

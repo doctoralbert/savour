@@ -610,7 +610,7 @@ async function loadAdminAi() {
       list
         .map(
           a =>
-            `<tr class="${a.flags.length ? 'is-flagged' : ''}"><td>${adminEscape(a.name || a.email)}<small class="admin-referral-mail">${adminEscape(a.name ? a.email : '')} · sinds ${adminFormatDate(a.created_at)}${a.confirmed ? '' : ' · niet bevestigd'}</small></td><td>${adminEscape(a.label)}</td><td>${dash(a.hour)}</td><td>${dash(a.today)}</td><td>${dash(a.week)}</td><td><b>${adminEscape(a.type === 'trial' ? a.total : a.month)}</b> / ${adminEscape(a.limit)}${a.type === 'trial' ? '<small class="admin-referral-mail">in de proefweek</small>' : ''}</td><td>${adminEscape(a.recipes)}</td><td>${a.last_at ? adminFormatDate(a.last_at) + ' ' + new Date(a.last_at).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }) : '–'}</td><td>${a.flags.map(f => `<span class="admin-ai-flag">${adminEscape(f)}</span>`).join('') || '<span class="admin-muted">–</span>'}</td></tr>`
+            `<tr class="${a.flags.length ? 'is-flagged' : ''}"><td>${adminEscape(a.name || a.email)}<small class="admin-referral-mail">${adminEscape(a.name ? a.email : '')} · sinds ${adminFormatDate(a.created_at)}${a.confirmed ? '' : ' · niet bevestigd'}</small></td><td>${adminEscape(a.label)}</td><td>${dash(a.hour)}</td><td>${dash(a.today)}</td><td>${dash(a.week)}</td><td><b>${adminEscape(a.type === 'trial' ? a.total : a.month)}</b> / ${adminEscape(a.limit)}${a.own_limit ? ' <span class="admin-badge gift">eigen grens</span>' : ''}${a.type === 'trial' ? '<small class="admin-referral-mail">in de proefweek</small>' : ''}</td><td>${adminEscape(a.recipes)}</td><td>${a.last_at ? adminFormatDate(a.last_at) + ' ' + new Date(a.last_at).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }) : '–'}</td><td>${a.flags.map(f => `<span class="admin-ai-flag">${adminEscape(f)}</span>`).join('') || '<span class="admin-muted">–</span>'}</td></tr>`
         )
         .join('') || '<tr><td colspan="9">Nog geen AI-imports.</td></tr>';
     if (!d.log)
@@ -1329,12 +1329,16 @@ function renderAdminAccounts() {
           ? ''
           : `<button class="admin-ghost" onclick="adminConfirmAccount('${a.id}')">Bevestigen</button>`;
         const remove = `<button class="admin-ghost admin-danger" onclick="adminDeleteAccount('${a.id}')">Verwijderen</button>`;
-        return `<tr><td>${adminFlag(a.country)} ${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_total ?? 0)}<small> ${adminEscape(a.ai_this_month)} deze maand</small></td><td>${adminFormatDate(a.created_at)}</td><td>${adminLastActive(a)}</td><td>${adminVisits(a)}</td><td>${adminDeviceDays(a)}</td><td>${adminSourceCell(a)}</td><td><div class="admin-actions">${confirm}${action}${remove}</div></td></tr>`;
+        const aiLimit =
+          a.ai_limits_ready && a.type !== 'trial'
+            ? `<button class="admin-ghost" onclick="adminSetAiLimit('${a.id}')">AI-grens</button>`
+            : '';
+        return `<tr><td>${adminFlag(a.country)} ${adminEscape(a.name || '—')}</td><td>${adminEscape(a.email || '—')}${a.confirmed ? '' : ' <span class="admin-badge warn">niet bevestigd</span>'}</td><td>${adminEscape(a.organization || '—')}</td><td><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span>${until}</td><td>${adminEscape(a.recipes)}</td><td>${adminEscape(a.ai_total ?? 0)}<small> ${adminEscape(a.ai_this_month)} deze maand</small></td><td>${adminAiLimitCell(a)}</td><td>${adminFormatDate(a.created_at)}</td><td>${adminLastActive(a)}</td><td>${adminVisits(a)}</td><td>${adminDeviceDays(a)}</td><td>${adminSourceCell(a)}</td><td><div class="admin-actions">${confirm}${action}${aiLimit}${remove}</div></td></tr>`;
       })
       .join('') ||
     (adminArchiveOpen
-      ? '<tr><td colspan="12">Geen accounts in het archief.</td></tr>'
-      : '<tr><td colspan="12">Geen accounts gevonden.</td></tr>');
+      ? '<tr><td colspan="13">Geen accounts in het archief.</td></tr>'
+      : '<tr><td colspan="13">Geen accounts gevonden.</td></tr>');
 }
 
 // Laatst actief: 'nu actief' (afgelopen 10 minuten), anders het laatste moment uit de accountactiviteit,
@@ -1597,6 +1601,44 @@ async function adminRevokeGift(userId) {
     return;
   try {
     await adminApi('revoke_gift', { user_id: userId });
+    await loadAdminOverview();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
+}
+
+// AI-grens per maand in de accountlijst: de standaard van Pro, of een eigen grens (goud gemarkeerd, met notitie).
+// Proefaccounts hebben 15 in totaal; gratis accounts gebruiken geen AI.
+function adminAiLimitCell(a) {
+  if (a.type === 'trial') return '15<small> in de proefweek</small>';
+  const own = a.ai_limit_own;
+  if (own)
+    return `<span class="admin-badge gift" title="${adminEscape(own.note || 'Eigen grens')}">${adminEscape(own.limit)} per maand</span><small> eigen grens${own.note ? `: ${adminEscape(own.note)}` : ''}</small>`;
+  return `${adminEscape(a.ai_limit_default ?? 150)}<small> per maand</small>`;
+}
+
+// Eigen AI-grens geven of terugzetten naar de standaard (ai_limit_overrides; de server in api/ai-import.js gebruikt
+// die grens). Leeg laten of de standaard invullen = terug naar de standaard.
+async function adminSetAiLimit(userId) {
+  const a = adminAccounts.find(x => x.id === userId);
+  const standard = a?.ai_limit_default ?? 150;
+  const value = await askText(
+    `AI-grens per maand voor ${a?.email || 'dit account'}\n\nStandaard voor Savour Pro: ${standard}. Laat leeg of vul ${standard} in om terug te gaan naar de standaard.`,
+    String(a?.ai_limit_own?.limit ?? standard)
+  );
+  if (value === null) return;
+  const clean = value.trim();
+  const limit = !clean || Number(clean) === standard ? null : Number(clean);
+  if (limit !== null && (!Number.isInteger(limit) || limit < 0 || limit > 2000))
+    return alertAdmin('Vul een heel getal in tussen 0 en 2000.');
+  let note = a?.ai_limit_own?.note || '';
+  if (limit !== null) {
+    const answer = await askText('Waarom deze grens? (voor jezelf, optioneel)', note);
+    if (answer === null) return;
+    note = answer.trim();
+  }
+  try {
+    await adminApi('ai_limit', { user_id: userId, limit, note });
     await loadAdminOverview();
   } catch (e) {
     alertAdmin(e.message);
