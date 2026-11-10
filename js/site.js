@@ -524,8 +524,13 @@
   // telt via logSavourVisit in js/features/admin.js; daar staat #appShell, dus hier dan niets doen.
   function logStaticVisit() {
     if (document.getElementById('appShell') || !/(^|\.)savour\.page$/.test(location.hostname)) return;
-    // Testbrowsers en bots tellen niet mee.
-    if (navigator.webdriver || /bot|crawl|spider|headless|lighthouse|electron|preview/i.test(navigator.userAgent || ''))
+    // Testbrowsers en bots tellen niet mee (ook de robots van Google die zich als Chrome voordoen).
+    if (
+      navigator.webdriver ||
+      /bot|crawl|spider|headless|lighthouse|electron|preview|googleother|inspectiontool|google-read-aloud/i.test(
+        navigator.userAgent || ''
+      )
+    )
       return;
     // Alleen echte browsers (zelfde regel als api/admin.js).
     if (!/Chrome\/|CriOS|Safari\/|Firefox\/|FxiOS|Edg\//.test(navigator.userAgent || '')) return;
@@ -553,15 +558,32 @@
         user_agent: navigator.userAgent || null,
         country: window.savourCountry ? window.savourCountry() : null
       };
-      fetch(url, { method: 'POST', keepalive: true, headers: headers, body: JSON.stringify(visit) })
-        .then(function (r) {
-          // Zonder de kolom country (supabase/2026-10-27-land.sql nog niet uitgevoerd): opnieuw zonder land.
-          if (r.status === 400 && visit.country) {
-            delete visit.country;
-            return fetch(url, { method: 'POST', keepalive: true, headers: headers, body: JSON.stringify(visit) });
-          }
-        })
-        .catch(function () {});
+      var send = function () {
+        fetch(url, { method: 'POST', keepalive: true, headers: headers, body: JSON.stringify(visit) })
+          .then(function (r) {
+            // Zonder de kolom country (supabase/2026-10-27-land.sql nog niet uitgevoerd): opnieuw zonder land.
+            if (r.status === 400 && visit.country) {
+              delete visit.country;
+              return fetch(url, { method: 'POST', keepalive: true, headers: headers, body: JSON.stringify(visit) });
+            }
+          })
+          .catch(function () {});
+      };
+      // Pas tellen als er een mens achter zit (klikken, tikken, scrollen, muis bewegen of typen): robots die
+      // zich als gewone Chrome voordoen lopen de pagina's af zonder dat te doen. Zelfde regel als in de app.
+      if (window.__savourHuman) return send();
+      var events = ['pointerdown', 'mousemove', 'touchstart', 'wheel', 'keydown'];
+      var human = function () {
+        events.forEach(function (e) {
+          window.removeEventListener(e, human, true);
+        });
+        if (window.__savourHuman) return;
+        window.__savourHuman = true;
+        send();
+      };
+      events.forEach(function (e) {
+        window.addEventListener(e, human, { capture: true, passive: true });
+      });
     } catch (_) {}
   }
   // Zelfde als savourVisitSourceQuery in js/features/admin.js: alleen de herkomst uit de link, nooit iets persoonlijks.
