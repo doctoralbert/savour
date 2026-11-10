@@ -1586,19 +1586,30 @@ async function persistBatchRecipes() {
 
 // Het originele kladje apart bewaren (tabel recipe_sources), zodat je het terugziet via "Origineel bekijken".
 // Bestaat die tabel nog niet (SQL niet uitgevoerd), dan wordt het kladje zoals vroeger de receptfoto.
+// Eén kladje per keer: twintig foto's van elk bijna 1 MB in één keer liep vast op de tijdslimiet van de database,
+// waarna alle kladjes in de recepten belandden en de bibliotheek te zwaar werd om te laden (10-11-2026).
 async function saveRecipeSources(drafts, rows) {
   const pairs = drafts.map((d, i) => [d, rows?.[i]?.id]).filter(([d, id]) => d._fromPhoto && d.photo && id);
-  if (!pairs.length) return;
-  const { error } = await supabaseClient
-    .from('recipe_sources')
-    .insert(pairs.map(([d, id]) => ({ recipe_id: id, user_id: currentUser.id, image: d.photo })));
-  if (!error) {
-    pairs.forEach(([, id]) => recipeSourceIds.add(String(id)));
-    return;
+  let failed = 0;
+  for (const [d, id] of pairs) {
+    const row = { recipe_id: id, user_id: currentUser.id, image: d.photo };
+    let { error } = await supabaseClient.from('recipe_sources').insert(row);
+    if (error && !['42P01', 'PGRST205'].includes(error.code))
+      ({ error } = await supabaseClient.from('recipe_sources').insert(row));
+    if (!error) {
+      recipeSourceIds.add(String(id));
+      continue;
+    }
+    if (['42P01', 'PGRST205'].includes(error.code)) {
+      // Tabel bestaat niet: zoals vroeger wordt het kladje de receptfoto.
+      await supabaseClient.from('recipes').update({ photo_url: d.photo }).eq('id', id).eq('user_id', currentUser.id);
+      continue;
+    }
+    console.warn('Origineel apart bewaren lukte niet', error);
+    failed++;
   }
-  console.warn('Origineel apart bewaren lukte niet; het kladje wordt de receptfoto.', error);
-  for (const [d, id] of pairs)
-    await supabaseClient.from('recipes').update({ photo_url: d.photo }).eq('id', id).eq('user_id', currentUser.id);
+  // Het recept zelf is bewaard; alleen het origineel ontbreekt. Dat mag de kok weten.
+  if (failed) toast(`Het origineel van ${failed} recepten kon niet worden bewaard`);
 }
 
 // Slepen en neerzetten van bestanden op het importvak.

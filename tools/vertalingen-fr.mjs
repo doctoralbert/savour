@@ -1991,7 +1991,8 @@ export const patternsFr = {
  "^Je eigen lijst heeft (\\d+) ingrediënten die dit keukenteam nog niet heeft\\.$": "Ta liste a $1 ingrédients que cette équipe n’a pas encore.",
  "^(\\d+) ingrediënten naar het keukenteam kopiëren\\?$": "Copier $1 ingrédients dans l’équipe ?",
  "^(\\d+) ingrediënten gekopieerd$": "$1 ingrédients copiés",
- "^(d+) van (d+) AI-imports gebruikt in de proefweek.$": "$1 importations IA sur $2 utilisées pendant la semaine d’essai.",
- "^(d+) van (d+) AI-imports gebruikt in de proefweek. Eerst leest de Savour-lezer alles, gratis. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee. In de proefperiode bewaar je tot (d+) recepten (nog (d+)).$": "$1 importations IA sur $2 utilisées pendant la semaine d’essai. Le lecteur Savour lit d’abord tout, gratuitement. L’IA ne vérifie automatiquement que ce dont il n’est pas sûr : seul cela compte. Pendant l’essai, tu conserves jusqu’à $3 recettes (il en reste $4).",
- "^In de proefweek kun je (d+) AI-imports doen. Met Savour Pro heb je er (d+) per maand; de Savour-lezer blijft gratis werken.$": "Pendant la semaine d’essai, tu peux faire $1 importations IA. Avec Savour Pro, tu en as $2 par mois ; le lecteur Savour continue de fonctionner gratuitement.",
+ "^(\\d+) van (\\d+) AI-imports gebruikt in de proefweek.$": "$1 importations IA sur $2 utilisées pendant la semaine d’essai.",
+ "^(\\d+) van (\\d+) AI-imports gebruikt in de proefweek. Eerst leest de Savour-lezer alles, gratis. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee. In de proefperiode bewaar je tot (\\d+) recepten (nog (\\d+)).$": "$1 importations IA sur $2 utilisées pendant la semaine d’essai. Le lecteur Savour lit d’abord tout, gratuitement. L’IA ne vérifie automatiquement que ce dont il n’est pas sûr : seul cela compte. Pendant l’essai, tu conserves jusqu’à $3 recettes (il en reste $4).",
+ "^In de proefweek kun je (\\d+) AI-imports doen. Met Savour Pro heb je er (\\d+) per maand; de Savour-lezer blijft gratis werken.$": "Pendant la semaine d’essai, tu peux faire $1 importations IA. Avec Savour Pro, tu en as $2 par mois ; le lecteur Savour continue de fonctionner gratuitement.",
+ "^Het origineel van (\\d+) recepten kon niet worden bewaard$": "L’original de $1 recettes n’a pas pu être enregistré",
 };
