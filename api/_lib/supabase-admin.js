@@ -172,6 +172,27 @@ export async function storageList(bucket, prefix) {
   return (rows || []).filter(r => r.id);
 }
 
+// Een bestand in de opslag zetten (bytes, niet als JSON). upsert: een bestaand bestand overschrijven.
+export async function storageUpload(bucket, path, bytes, contentType, { upsert = false } = {}) {
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!key) throw new Error('SUPABASE_SERVICE_ROLE_KEY ontbreekt in Vercel Environment Variables.');
+  const response = await fetch(`${SUPABASE_URL}/storage/v1/object/${bucket}/${storagePath(path)}`, {
+    method: 'POST',
+    headers: {
+      apikey: key,
+      Authorization: `Bearer ${key}`,
+      'Content-Type': contentType || 'application/octet-stream',
+      'x-upsert': upsert ? 'true' : 'false'
+    },
+    body: bytes
+  });
+  if (!response.ok) {
+    const text = await response.text().catch(() => '');
+    throw new Error(`Opslaan in ${bucket} mislukt (${response.status}): ${text.slice(0, 200)}`);
+  }
+  return true;
+}
+
 export function storageRemove(bucket, paths) {
   if (!paths.length) return Promise.resolve([]);
   return adminFetch(`/storage/v1/object/${bucket}`, { method: 'DELETE', body: { prefixes: paths } });

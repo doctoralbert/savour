@@ -14,6 +14,9 @@
     },
     "api/import-url.js": {
       "maxDuration": 20
+    },
+    "api/onderhoud.js": {
+      "maxDuration": 300
     }
   },
   "redirects": [
@@ -2155,6 +2158,12 @@
     {
       "source": "/:page",
       "destination": "/site/:page/index.html"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/onderhoud",
+      "schedule": "23 2 * * *"
     }
   ]
 }

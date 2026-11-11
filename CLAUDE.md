@@ -35,6 +35,9 @@ Wat de kok zelf verbetert is de belangrijkste les voor de lezer: per geïmportee
 (`as_read`) en wat de kok opsloeg (`as_saved`); verschil met het recept nu = latere verbeteringen (`saveImportOrigins`, alleen met
 "Help de Savour-lezer verbeteren", `supabase/2026-11-11-import-herkomst.sql`). Claude controleert elke avond de imports (geplande taak) en
 stelt lezerverbeteringen voor als pull request.
+Opslag: originele kladjes staan in de privé-bucket `recipe-sources` (`recipe_sources.image_path`; oude in `image` verhuizen 's nachts),
+geïmporteerde bestanden blijven 60 dagen. Nachtelijk onderhoud: `api/onderhoud.js` (Vercel Cron, `CRON_SECRET`), met de opruimlijst
+`storage_cleanup_queue` voor bestanden van verwijderde recepten en accounts (`supabase/2026-11-11-opslag-ontlasten.sql`).
 Lezer leren (`js/features/reader-learning.js`, `supabase/2026-11-10-lezer-leren.sql`): anonieme tellingen van elke import (geen inhoud) en voorbeelden met inhoud van accounts met "Help de Savour-lezer verbeteren" (standaard aan, Instellingen; alleen tekstbronnen). Beheer → Savour-lezer: bekijken en downloaden; daarvan maak je lezer-tests. De lezer verandert nooit vanzelf.
 Community: forum voor alle ingelogde accounts (Mijn Savour → Community, `js/features/community.js`,
 `supabase/2026-11-10-community-forum.sql`); naam uit het profiel, nooit e-mail; beheerder verbergt, zet vast, sluit.

@@ -14,9 +14,22 @@ async function loadRecipeSourceIds() {
 }
 
 async function showRecipeSource(id) {
-  const { data, error } = await supabaseClient.from('recipe_sources').select('image').eq('recipe_id', id).maybeSingle();
-  if (error || !data?.image) return toast('Het origineel kon niet worden geladen.');
-  $('sourceImage').src = data.image;
+  const { data, error } = await supabaseClient
+    .from('recipe_sources')
+    .select('image,image_path')
+    .eq('recipe_id', id)
+    .maybeSingle();
+  if (error || (!data?.image && !data?.image_path)) return toast('Het origineel kon niet worden geladen.');
+  let src = data.image || '';
+  // Nieuwere kladjes staan in de opslag (bucket recipe-sources): een tijdelijke link van tien minuten.
+  if (data.image_path) {
+    const { data: signed, error: signError } = await supabaseClient.storage
+      .from('recipe-sources')
+      .createSignedUrl(data.image_path, 600);
+    if (signError || !signed?.signedUrl) return toast('Het origineel kon niet worden geladen.');
+    src = signed.signedUrl;
+  }
+  $('sourceImage').src = src;
   $('sourceModal').classList.add('open');
 }
 

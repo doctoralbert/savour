@@ -1895,11 +1895,39 @@ async function persistBatchRecipes() {
 // Bestaat die tabel nog niet (SQL niet uitgevoerd), dan wordt het kladje zoals vroeger de receptfoto.
 // Eén kladje per keer: twintig foto's van elk bijna 1 MB in één keer liep vast op de tijdslimiet van de database,
 // waarna alle kladjes in de recepten belandden en de bibliotheek te zwaar werd om te laden (10-11-2026).
+// Kladje (data-URL) als bestand in de privé-bucket recipe-sources: <user_id>/<recept-id>.jpg. Geeft het pad terug,
+// of '' als het niet lukte (dan bewaart saveRecipeSources het zoals vroeger in de database).
+async function uploadRecipeSourceImage(recipeId, dataUrl) {
+  try {
+    const m = String(dataUrl || '').match(/^data:(image\/(?:jpeg|png|webp));base64,(.+)$/s);
+    if (!m) return '';
+    const bin = atob(m[2]);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    const ext = m[1] === 'image/png' ? 'png' : m[1] === 'image/webp' ? 'webp' : 'jpg';
+    const path = `${currentUser.id}/${recipeId}.${ext}`;
+    const { error } = await supabaseClient.storage
+      .from('recipe-sources')
+      .upload(path, new Blob([bytes], { type: m[1] }), { upsert: true, contentType: m[1] });
+    if (error) throw error;
+    return path;
+  } catch (e) {
+    console.warn('Kladje naar de opslag lukte niet; bewaard in de database', e?.message || e);
+    return '';
+  }
+}
+
 async function saveRecipeSources(drafts, rows) {
   const pairs = drafts.map((d, i) => [d, rows?.[i]?.id]).filter(([d, id]) => d._fromPhoto && d.photo && id);
   let failed = 0;
   for (const [d, id] of pairs) {
-    const row = { recipe_id: id, user_id: currentUser.id, image: await shrinkSourceImage(d.photo) };
+    const image = await shrinkSourceImage(d.photo);
+    // Eerst naar de opslag (bucket recipe-sources); lukt dat niet, dan zoals vroeger in de database, zodat het
+    // kladje nooit verloren gaat (het nachtelijk onderhoud verhuist het later alsnog, api/onderhoud.js).
+    const path = await uploadRecipeSourceImage(id, image);
+    const row = path
+      ? { recipe_id: id, user_id: currentUser.id, image_path: path }
+      : { recipe_id: id, user_id: currentUser.id, image };
     let { error } = await supabaseClient.from('recipe_sources').insert(row);
     if (error && !['42P01', 'PGRST205'].includes(error.code))
       ({ error } = await supabaseClient.from('recipe_sources').insert(row));
