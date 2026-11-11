@@ -2,12 +2,12 @@
 -- 1. Originele kladjes (recipe_sources) stonden als tekst (base64) ín de database: 131 van de 161 MB, terwijl
 --    het gratis plan 500 MB database heeft. Ze gaan naar de privé-bucket recipe-sources (map <user_id>/),
 --    waar opslag veel ruimer is. Nieuwe kladjes gaan meteen naar de bucket (js/features/import.js,
---    saveRecipeSources); bestaande verhuist api/onderhoud.js (elke nacht, tot alles over is).
+--    saveRecipeSources); bestaande verhuist api/_lib/onderhoud.js (elke nacht, tot alles over is).
 --    Een kladje dat niet naar de bucket kon, blijft zoals vroeger in de kolom image staan: nooit iets kwijt.
--- 2. Geïmporteerde bestanden (import-uploads) blijven 60 dagen bewaard; daarna haalt api/onderhoud.js het
+-- 2. Geïmporteerde bestanden (import-uploads) blijven 60 dagen bewaard; daarna haalt api/_lib/onderhoud.js het
 --    origineel weg. De rij in import_uploads (wat, wanneer, hoe het ging) blijft.
 -- 3. storage_cleanup_queue: wordt een recept, kladje of account verwijderd, dan komt het bestand hier op de
---    lijst en haalt api/onderhoud.js het uit de opslag. Zo blijven er geen losse bestanden achter.
+--    lijst en haalt api/_lib/onderhoud.js het uit de opslag. Zo blijven er geen losse bestanden achter.
 -- Veilig om opnieuw te draaien.
 
 begin;

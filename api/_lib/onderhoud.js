@@ -1,11 +1,12 @@
-// Nachtelijk onderhoud (Vercel Cron, zie vercel.json → crons): de database klein en de opslag netjes houden.
+// Nachtelijk onderhoud (Vercel Cron → /api/admin?taak=onderhoud, zie vercel.json → crons; een eigen functie kan
+// niet: het gratis Vercel-plan staat hooguit 12 serverfuncties toe): de database klein en de opslag netjes houden.
 // supabase/2026-11-11-opslag-ontlasten.sql legt uit waarom.
 // 1. Originele kladjes die nog als tekst in de database staan (recipe_sources.image) verhuizen naar de
 //    privé-bucket recipe-sources. Pas als het bestand veilig in de opslag staat, gaat de tekst uit de database.
 // 2. Geïmporteerde bestanden ouder dan 60 dagen gaan uit de opslag (de rij in import_uploads blijft).
 // 3. Bestanden op de opruimlijst (storage_cleanup_queue: verwijderde recepten, kladjes en accounts) gaan weg.
 // Alleen te starten door Vercel Cron of met de geheime sleutel (CRON_SECRET), nooit door gewone bezoekers.
-import { hasServiceRole, select, update, remove, storageUpload, storageRemove } from './_lib/supabase-admin.js';
+import { hasServiceRole, select, update, remove, storageUpload, storageRemove } from './supabase-admin.js';
 
 const KEEP_UPLOADS_DAYS = 60;
 // Ruim binnen de tijdslimiet van 300 seconden blijven; wat niet lukt, gaat de volgende nacht verder.
@@ -108,7 +109,7 @@ async function emptyCleanupQueue() {
   return { removed };
 }
 
-export default async function handler(req, res) {
+export async function runMaintenance(req, res) {
   if (!authorized(req)) return res.status(401).json({ error: 'Niet toegestaan.' });
   if (!hasServiceRole()) return res.status(500).json({ error: 'Serversleutel ontbreekt.' });
   const deadline = Date.now() + TIME_BUDGET_MS;

@@ -1,6 +1,7 @@
 // Beheerscherm (/admin): accounts met hun abonnement, Pro cadeau geven, omzet en AI-kosten.
 // Alleen voor beheerders: het e-mailadres van de ingelogde gebruiker moet in ADMIN_EMAILS staan
 // (Vercel, komma-gescheiden). Wachtwoorden staan nooit in de code; inloggen gaat via Supabase.
+import { runMaintenance } from './_lib/onderhoud.js';
 import { getUserFromRequest } from './_lib/auth.js';
 import {
   select,
@@ -2145,6 +2146,8 @@ async function siteFigures(res) {
 }
 
 export default async function handler(req, res) {
+  // Nachtelijk onderhoud (Vercel Cron, met CRON_SECRET): zie api/_lib/onderhoud.js.
+  if (req.query?.taak === 'onderhoud') return runMaintenance(req, res);
   if (req.query?.afmelden) return newsUnsubscribe(req, res);
   if (req.query?.cijfers && req.method === 'GET') return siteFigures(res);
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });

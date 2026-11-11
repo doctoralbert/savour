@@ -1923,7 +1923,7 @@ async function saveRecipeSources(drafts, rows) {
   for (const [d, id] of pairs) {
     const image = await shrinkSourceImage(d.photo);
     // Eerst naar de opslag (bucket recipe-sources); lukt dat niet, dan zoals vroeger in de database, zodat het
-    // kladje nooit verloren gaat (het nachtelijk onderhoud verhuist het later alsnog, api/onderhoud.js).
+    // kladje nooit verloren gaat (het nachtelijk onderhoud verhuist het later alsnog, api/_lib/onderhoud.js).
     const path = await uploadRecipeSourceImage(id, image);
     const row = path
       ? { recipe_id: id, user_id: currentUser.id, image_path: path }

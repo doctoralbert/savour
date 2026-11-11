@@ -15,7 +15,7 @@
     "api/import-url.js": {
       "maxDuration": 20
     },
-    "api/onderhoud.js": {
+    "api/admin.js": {
       "maxDuration": 300
     }
   },
@@ -2162,7 +2162,7 @@
   ],
   "crons": [
     {
-      "path": "/api/onderhoud",
+      "path": "/api/admin?taak=onderhoud",
       "schedule": "23 2 * * *"
     }
   ]
