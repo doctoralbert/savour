@@ -77,7 +77,7 @@ function restoreHistoryView(state) {
 // ---- Balk bovenin op de telefoon (2026-11-11) ----
 // Naar beneden scrollen: de balk met logo en menu schuift weg, zodat er meer recept in beeld is.
 // Een stukje terug omhoog: hij komt meteen terug. Alleen op de telefoon; nooit als het menu openstaat of als je
-// helemaal bovenaan bent. CSS: body.topbar-hidden in css/mobile.css.
+// helemaal bovenaan bent. CSS: .topbar.is-hidden in css/mobile.css.
 let topbarLastY = 0;
 let topbarTicking = false;
 
@@ -86,9 +86,13 @@ function updateTopbarOnScroll() {
   const y = Math.max(0, window.scrollY);
   const mobile = window.matchMedia('(max-width: 760px)').matches;
   const busy = document.body.classList.contains('mobile-menu-open') || document.activeElement?.closest?.('.topbar');
-  if (!mobile || busy || y < 80) document.body.classList.remove('topbar-hidden');
-  else if (y > topbarLastY + 6) document.body.classList.add('topbar-hidden');
-  else if (y < topbarLastY - 6) document.body.classList.remove('topbar-hidden');
+  // Alleen de balk zelf krijgt de klasse (niet de body): een wijziging aan de hele pagina tijdens het scrollen
+  // laat Safari op de iPhone de vaste onderbalk even "meescrollen".
+  const bar = document.querySelector('#appShell .topbar');
+  if (!bar) return;
+  if (!mobile || busy || y < 80) bar.classList.remove('is-hidden');
+  else if (y > topbarLastY + 6) bar.classList.add('is-hidden');
+  else if (y < topbarLastY - 6) bar.classList.remove('is-hidden');
   // Kleine trillingen (minder dan 6 pixels) tellen niet mee.
   if (Math.abs(y - topbarLastY) > 6 || y < 80) topbarLastY = y;
 }
@@ -107,7 +111,7 @@ function go(id) {
   }
   if (document.body.classList.contains('mobile-menu-open')) toggleMobileMenu(false);
   // Naar een ander scherm: de balk bovenin weer laten zien.
-  document.body.classList.remove('topbar-hidden');
+  document.querySelector('#appShell .topbar')?.classList.remove('is-hidden');
   closeAppNav();
   // "Alle recepten" toont altijd de volledige bibliotheek, zonder mapfilter.
   if (id === 'recipes') activeFolderCategory = '';

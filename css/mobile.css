@@ -888,14 +888,29 @@
 @media (max-width: 760px) {
   #appShell .topbar {
     transition: transform 0.25s ease;
-    will-change: transform;
   }
-  body.topbar-hidden #appShell .topbar {
+  #appShell .topbar.is-hidden {
     transform: translateY(-100%);
+  }
+  /* Safari op de iPhone: de vaste onderbalk een eigen laag geven, zodat hij tijdens het (door)scrollen
+     nooit met de inhoud mee beweegt. */
+  .mobile-bottom-nav {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 }
 @media (max-width: 760px) and (prefers-reduced-motion: reduce) {
   #appShell .topbar {
     transition: none;
+  }
+}
+
+/* Pijltje "naar boven" (js/site.js) in de app op de telefoon: boven de onderbalk, niet erover heen
+   (lag over "Recept toevoegen"). */
+@media (max-width: 760px) {
+  body:has(#appShell.app[style*='grid']) .sv-scroll-top {
+    bottom: calc(92px + env(safe-area-inset-bottom, 0px));
   }
 }
