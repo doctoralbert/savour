@@ -144,16 +144,20 @@ function openRecipe(id, context = 'library') {
             ? `<ul class="rp-ingredients" id="rpIngredients">${ingredients.map((x, i) => (recipePartName(x) ? `<li class="rp-part-head">${esc(recipePartName(x))}</li>` : `<li data-ing="${i}"><label><input type="checkbox"><span class="rp-ing-line">${ingredientHtml(x)}</span></label></li>`)).join('')}</ul>`
             : '<p class="muted">Geen ingrediënten vastgelegd.</p>'
         }
-        <div id="rpAllergens"></div>
-        <div id="rpSideNote"></div>
       </section>
-      <section class="rp-section">
+      <section class="rp-section rp-section-steps">
         <h2>Bereiding</h2>
         ${
           steps.length
             ? `<ol class="rp-steps">${steps.map((x, i) => (recipePartName(x) ? `<li class="rp-part-head">${esc(recipePartName(x))}</li>` : `<li><label><input type="checkbox"><span class="rp-step-num">${recipeStepNumbers(steps)[i]}</span><span class="rp-step-text">${esc(x)}</span></label></li>`)).join('')}</ol>`
             : '<p class="muted">Geen bereiding in de bron.</p>'
         }
+      </section>
+      <!-- Allergenen en notitie: op de telefoon ná de bereiding (notitie helemaal onderaan), op de computer
+           onder de ingrediënten (css/recipe-page.css, .rp-extra). -->
+      <section class="rp-section rp-extra">
+        <div id="rpAllergens"></div>
+        <div id="rpSideNote"></div>
       </section>
     </div>
   </article>`;

@@ -183,8 +183,8 @@ window.SAVOUR_I18N.es = {
     'Nu': 'Ahora',
     'Na opschonen': 'Tras ordenar',
     'Je recepten opschonen?': '¿Ordenar tus recetas?',
-    'recepten hebben nog resten van het importeren, zoals "# Ingredients", "(Source: …)" tussen de ingrediënten of alle ingrediënten op één regel. Savour kan dit voor je opschonen: kopjes en opmaak weg, de bron naar de beschrijving en elk ingrediënt op een eigen regel. Geen woord of hoeveelheid verandert, en je huidige versie wordt bewaard.':
-      'recetas aún tienen restos de la importación, como "# Ingredients", "(Source: …)" entre los ingredientes o todos los ingredientes en una sola línea. Savour puede ordenarlo por ti: sin encabezados ni formato, la fuente pasa a la descripción y cada ingrediente en su propia línea. No cambia ninguna palabra ni cantidad, y se guarda tu versión actual.',
+    'recepten kunnen netter: resten van het importeren (zoals "# Ingredients" of "(Source: …)"), alle ingrediënten op één regel, of de hoeveelheid achter het ingrediënt ("Boter 250 g"), waardoor omrekenen niet werkt. Savour kan dit voor je opschonen: kopjes en opmaak weg, de bron naar de beschrijving, elk ingrediënt op een eigen regel en de hoeveelheid vooraan ("250 g boter"). Geen hoeveelheid verandert, en je huidige versie wordt bewaard.':
+      'recetas pueden quedar más ordenadas: restos de la importación (como "# Ingredients" o "(Source: …)"), todos los ingredientes en una sola línea, o la cantidad detrás del ingrediente ("Mantequilla 250 g"), con lo que no funciona el escalado. Savour puede ordenarlo por ti: sin encabezados ni formato, la fuente pasa a la descripción, cada ingrediente en su propia línea y la cantidad delante ("250 g mantequilla"). No cambia ninguna cantidad, y se guarda tu versión actual.',
     'Ja, opschonen': 'Sí, ordenar',
     'Nee, laten zoals het is': 'No, dejar como está',
     'Savour vraagt het niet opnieuw.': 'Savour no volverá a preguntar.',

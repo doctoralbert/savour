@@ -182,8 +182,8 @@ window.SAVOUR_I18N.en = {
     'Nu': 'Now',
     'Na opschonen': 'After tidying',
     'Je recepten opschonen?': 'Tidy up your recipes?',
-    'recepten hebben nog resten van het importeren, zoals "# Ingredients", "(Source: …)" tussen de ingrediënten of alle ingrediënten op één regel. Savour kan dit voor je opschonen: kopjes en opmaak weg, de bron naar de beschrijving en elk ingrediënt op een eigen regel. Geen woord of hoeveelheid verandert, en je huidige versie wordt bewaard.':
-      'recipes still contain leftovers from importing, such as "# Ingredients", "(Source: …)" among the ingredients, or all ingredients on one line. Savour can tidy this up for you: headings and formatting removed, the source moved to the description, and each ingredient on its own line. No word or quantity changes, and your current version is kept.',
+    'recepten kunnen netter: resten van het importeren (zoals "# Ingredients" of "(Source: …)"), alle ingrediënten op één regel, of de hoeveelheid achter het ingrediënt ("Boter 250 g"), waardoor omrekenen niet werkt. Savour kan dit voor je opschonen: kopjes en opmaak weg, de bron naar de beschrijving, elk ingrediënt op een eigen regel en de hoeveelheid vooraan ("250 g boter"). Geen hoeveelheid verandert, en je huidige versie wordt bewaard.':
+      'recipes can be tidier: leftovers from importing (such as "# Ingredients" or "(Source: …)"), all ingredients on one line, or the quantity after the ingredient ("Butter 250 g"), which stops scaling from working. Savour can tidy this up for you: headings and formatting removed, the source moved to the description, each ingredient on its own line and the quantity first ("250 g butter"). No quantity changes, and your current version is kept.',
     'Ja, opschonen': 'Yes, tidy up',
     'Nee, laten zoals het is': 'No, leave as is',
     'Savour vraagt het niet opnieuw.': 'Savour won’t ask again.',

@@ -1299,12 +1299,7 @@ Blend everything smooth. Season.`,
     expect: [
       {
         t: 'Trout Spread',
-        i: [
-          'Smoked trout – 1.5 kg',
-          'Quark – 700 g (notes: maybe 600 g)',
-          'Lemon juice – 400 ml',
-          'Pepper – 5 g'
-        ],
+        i: ['Smoked trout – 1.5 kg', 'Quark – 700 g (notes: maybe 600 g)', 'Lemon juice – 400 ml', 'Pepper – 5 g'],
         s: 1,
         c: 'high'
       }
@@ -1612,7 +1607,13 @@ const tidyCases = [
   {
     name: 'Opsommingsstreepjes van een kladje (AI nam "-130 olie" over)',
     from: {
-      ingredients: ['-130 olie', '- 500g sjalot', '–30g bieslook', '• 2 eieren', '-500gr tomaat - 500gr venkel - 2 uien'],
+      ingredients: [
+        '-130 olie',
+        '- 500g sjalot',
+        '–30g bieslook',
+        '• 2 eieren',
+        '-500gr tomaat - 500gr venkel - 2 uien'
+      ],
       steps: ['- Alles snijden.', '-Mengen en 10 minuten laten staan.']
     },
     to: {
@@ -1621,6 +1622,70 @@ const tidyCases = [
       description: ''
     },
     changed: 7
+  },
+  {
+    name: 'Hoeveelheid achteraan gaat naar voren (omrekenen werkt dan)',
+    from: {
+      ingredients: [
+        'Boter zacht 250 gm',
+        'Suiker 250 gm',
+        'eiwit 6 stuks',
+        'Bloem 225 gm',
+        '1 eetlepel 5 spice poeder',
+        'Water: 200 ml',
+        'Eieren 3-4',
+        'Granny Smith appel 600 gm'
+      ],
+      steps: []
+    },
+    to: {
+      ingredients: [
+        '250 gm boter zacht',
+        '250 gm suiker',
+        '6 stuks eiwit',
+        '225 gm bloem',
+        '1 eetlepel 5 spice poeder',
+        '200 ml water',
+        '3-4 eieren',
+        '600 gm Granny Smith appel'
+      ],
+      steps: [],
+      description: ''
+    },
+    changed: 7
+  },
+  {
+    name: 'Geen hoeveelheid achteraan: regel blijft zoals hij is',
+    from: {
+      ingredients: [
+        'Vitamine B12',
+        'Oven 180',
+        'Salt – pinch',
+        'zout naar smaak',
+        'Schokolade 70% 200g',
+        'BH',
+        'Eendenborsten à 200 gram',
+        'Dragon, tijm 1-1',
+        'bosje lavas → 1/2'
+      ],
+      steps: []
+    },
+    to: {
+      ingredients: [
+        'Vitamine B12',
+        'Oven 180',
+        'Salt – pinch',
+        'zout naar smaak',
+        'Schokolade 70% 200g',
+        'BH',
+        'Eendenborsten à 200 gram',
+        'Dragon, tijm 1-1',
+        'bosje lavas → 1/2'
+      ],
+      steps: [],
+      description: ''
+    },
+    changed: 0
   },
   {
     name: 'Een bereik met streepje blijft één regel',
@@ -1660,7 +1725,8 @@ const tidyCases = [
       ]
     },
     to: {
-      ingredients: ['Butter – 120 g', 'Dark brown sugar – 130 g', 'Golden syrup – 5 tbsp', 'Oats – 300 g'],
+      // Hoeveelheid vooraan (readerQtyFirst), zodat omrekenen werkt.
+      ingredients: ['120 g butter', '130 g dark brown sugar', '5 tbsp golden syrup', '300 g oats'],
       steps: ['Melt butter with sugar and syrup. Stir in oats. Bake 20 minutes.'],
       description: ''
     },

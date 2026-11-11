@@ -29,7 +29,7 @@ weggevallen verbinding geeft het bewaarde resultaat (niet dubbel betalen). Wat O
 staat er een venster zonder kruisje (`showImportBusyBar`) en waarschuwt de browser bij afsluiten (`importNeedsWarning`).
 Tekst in markdown/ChatGPT-opmaak (`# Ingredients`, `**Method**`, `(Source: …)`, alle ingrediënten op één regel) leest de lezer netjes
 (`readerClean`, `readerSplitRunOn`, `readerIsNote`); AI-resultaten en bestaande recepten gaan door `tidyRecipeLines` (zelfde regels, geen woord
-anders). Savour vraagt één keer of het oude recepten met zulke resten mag opschonen (`offerRecipeTidy`, back-up in `recipe_tidy_backups`,
+anders; een hoeveelheid achteraan gaat naar voren, `readerQtyFirst`, "Boter 250 g" → "250 g boter", zodat omrekenen werkt). Savour vraagt één keer of het oude recepten met zulke resten mag opschonen (`offerRecipeTidy`, back-up in `recipe_tidy_backups`,
 `supabase/2026-11-11-recepten-opschonen.sql`).
 Wat de kok zelf verbetert is de belangrijkste les voor de lezer: per geïmporteerd recept bewaart `recipe_import_origins` wat de lezer/AI las
 (`as_read`) en wat de kok opsloeg (`as_saved`); verschil met het recept nu = latere verbeteringen (`saveImportOrigins`, alleen met

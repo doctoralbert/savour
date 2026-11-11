@@ -184,6 +184,30 @@
   gap: var(--sv-space-7);
   margin-top: var(--sv-space-6);
 }
+/* Computer: bereiding rechts over de hele hoogte; allergenen en notitie links direct onder de ingrediënten.
+   Telefoon (één kolom): ingrediënten, bereiding, allergenen, notitie (zie de media query hieronder). */
+@media (min-width: 761px) {
+  .rp-body {
+    grid-template-rows: auto 1fr;
+    row-gap: 0;
+  }
+  .rp-body > .rp-section:first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .rp-body > .rp-section-steps {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+  .rp-body > .rp-extra {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
+  }
+}
+.rp-extra:not(:has(> div > *)) {
+  display: none;
+}
 .rp-section h2 {
   font-family: var(--sv-font-display);
   font-size: var(--sv-fs-xl);

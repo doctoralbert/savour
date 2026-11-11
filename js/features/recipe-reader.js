@@ -23,7 +23,7 @@ const READER_META_LINE =
   /^(?:bereidingstijd|voorbereidingstijd|kooktijd|baktijd|oventijd|wachttijd|rusttijd|tijd|oven(?:temperatuur)?|temperatuur|moeilijkheid(?:sgraad)?|allergenen|houdbaarheid|bewaren|tip|tips|opmerking(?:en)?|let op|notitie|note)s?\s*[:=-]/i;
 
 const READER_UNIT =
-  '(?:g|gr|gram|grams|kg|kilo|mg|ml|cl|dl|l|ltr|liter|liters|deciliter|centiliter|milliliter|el|eetlepels?|tl|theelepels?|kl|koffielepels?|st|stuks?|stk|bosjes?|bos|takjes?|teentjes?|tenen|blaadjes?|blad|plakjes?|plakken|snufjes?|snuf|mespuntjes?|mespunt|scheutjes?|scheut|handjes?|handvol|blikjes?|blik|pakjes?|pak|zakjes?|kopjes?|kop|cups?|tbsp|tsp|oz|lb|stengels?|vellen|vel)';
+  '(?:g|gr|gm|gms|gram|grams|kg|kilo|mg|ml|cl|dl|l|ltr|liter|liters|deciliter|centiliter|milliliter|el|eetlepels?|tl|theelepels?|kl|koffielepels?|st|stuks?|stk|bosjes?|bos|takjes?|teentjes?|tenen|blaadjes?|blad|plakjes?|plakken|snufjes?|snuf|mespuntjes?|mespunt|scheutjes?|scheut|handjes?|handvol|blikjes?|blik|pakjes?|pak|zakjes?|kopjes?|kop|cups?|tbsp|tsp|oz|lb|stengels?|vellen|vel)';
 const READER_QTY = '(?:\\d+(?:[.,]\\d+)?(?:\\s*[-–/]\\s*\\d+(?:[.,]\\d+)?)?\\s*[½¼¾⅓⅔]?|[½¼¾⅓⅔])';
 const READER_STARTS_WITH_QTY = new RegExp(`^${READER_QTY}\\s*(?:${READER_UNIT}\\b\\.?)?\\s*\\S`, 'i');
 const READER_QUALITATIVE =
@@ -71,6 +71,33 @@ function readerNoteText(line) {
   return readerClean(line)
     .replace(/^\(\s*|\s*\)\.?$/g, '')
     .trim();
+}
+
+// Hoeveelheid achteraan ("Boter zacht 250 gm", "Eiwit 6 stuks", "Coconut cream – 400 ml"): vooraan zetten, zoals
+// Savour en de omreken-tool het verwachten ("250 gm boter zacht"). Alleen als de regel eindigt op een hoeveelheid
+// (eventueel met eenheid) en de naam zelf geen getal bevat; de woorden blijven dezelfde.
+const READER_QTY_LAST = new RegExp(
+  `^(\\p{L}[^\\d½¼¾⅓⅔]*?)(?:\\s*[–—:-]\\s*|\\s+)(${READER_QTY}\\s*(?:${READER_UNIT}\\b\\.?)?)\\s*$`,
+  'iu'
+);
+function readerQtyFirst(line) {
+  const x = String(line ?? '').trim();
+  if (!x || READER_STARTS_WITH_QTY.test(x)) return x;
+  const m = x.match(READER_QTY_LAST);
+  if (!m) return x;
+  let name = m[1].replace(/[\s–—:,-]+$/, '').trim();
+  if (!/\p{L}{2}/u.test(name) || name.length > 60 || /[.!?]/.test(name)) return x;
+  // "Eendenborsten à 200 gram" (per stuk), "lavas → 1/2", "Dragon, tijm 1-1": de hoeveelheid hoort niet bij de hele
+  // naam. Dan laten we de regel liever zoals hij is.
+  if (/(?:^|\s)(?:a|à|per|van|ca|circa|ongeveer|±|x|of|tot|ieder|elk|each)$/i.test(name) || /[,→=+*/;]/.test(name))
+    return x;
+  // Geen ingrediënt maar een temperatuur of tijd ("Oven 180", "Rusten 10 min").
+  if (/\b(?:oven|temp|temperatuur|kern|graden|minuten|min|uur|uren|sec|rusten|bakken|garen|stand)\b/i.test(name))
+    return x;
+  // Eerste letter klein zoals in een gewone ingrediëntregel, behalve bij een afkorting ("BH").
+  // (Niet bij een eigennaam: "Granny Smith appel" blijft zo.)
+  if (/^\p{Lu}\p{Ll}/u.test(name) && !/\s\p{Lu}/u.test(name)) name = name[0].toLowerCase() + name.slice(1);
+  return `${m[2].trim()} ${name}`;
 }
 
 // Alle ingrediënten aan één stuk op één regel (uit een PDF of samenvatting):
@@ -917,7 +944,7 @@ function tidyRecipeLines(recipe) {
         changed++;
         continue;
       }
-      const pieces = isIngredients ? readerSplitRunOn(x) : [x];
+      const pieces = isIngredients ? readerSplitRunOn(x).map(readerQtyFirst) : [x];
       // Alleen spaties anders ("400g          Sahne")? Dan de regel laten zoals hij is: dat is geen opschonen.
       if (pieces.length === 1 && pieces[0] === line.replace(/\s+/g, ' ').trim()) {
         out.push(line);

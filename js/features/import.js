@@ -1449,7 +1449,18 @@ async function runImportFiles(valid) {
       // Eerst het bestand vastleggen (en op de achtergrond bewaren), dan pas lezen.
       const uploadId = await registerImportUpload(file).catch(() => null);
       try {
-        const drafts = stampForLearning(await readImportFile(file), file.name).map(d => ({
+        // Eerst netjes maken (hoeveelheid vooraan, opmaakresten weg; tidyRecipeLines), dan pas vastleggen wat er
+        // gelezen is: zo telt het opschonen niet als een verbetering van de kok.
+        const read = (await readImportFile(file)).map(d => {
+          const tidy = tidyRecipeLines(d);
+          return {
+            ...d,
+            ingredients: tidy.ingredients,
+            steps: tidy.steps,
+            description: tidy.description || d.description
+          };
+        });
+        const drafts = stampForLearning(read, file.name).map(d => ({
           ...d,
           _uploadId: uploadId || ''
         }));
@@ -2010,7 +2021,7 @@ async function offerRecipeTidy() {
   for (let i = 0; i < 60 && dialogResolve; i++) await new Promise(r => setTimeout(r, 1000));
   if (dialogResolve || importBusy || batchDrafts.length) return;
   const choice = await askChoice(
-    `${t('Je recepten opschonen?')}\n\n${list.length} ${t('recepten hebben nog resten van het importeren, zoals "# Ingredients", "(Source: …)" tussen de ingrediënten of alle ingrediënten op één regel. Savour kan dit voor je opschonen: kopjes en opmaak weg, de bron naar de beschrijving en elk ingrediënt op een eigen regel. Geen woord of hoeveelheid verandert, en je huidige versie wordt bewaard.')}\n\n${recipeTidyExample(list)}`,
+    `${t('Je recepten opschonen?')}\n\n${list.length} ${t('recepten kunnen netter: resten van het importeren (zoals "# Ingredients" of "(Source: …)"), alle ingrediënten op één regel, of de hoeveelheid achter het ingrediënt ("Boter 250 g"), waardoor omrekenen niet werkt. Savour kan dit voor je opschonen: kopjes en opmaak weg, de bron naar de beschrijving, elk ingrediënt op een eigen regel en de hoeveelheid vooraan ("250 g boter"). Geen hoeveelheid verandert, en je huidige versie wordt bewaard.')}\n\n${recipeTidyExample(list)}`,
     [
       { value: 'ja', label: t('Ja, opschonen'), primary: true },
       { value: 'nee', label: t('Nee, laten zoals het is'), hint: t('Savour vraagt het niet opnieuw.') }
