@@ -168,6 +168,12 @@ export const strings = [
   ["recepten worden opgeschoond…", "recipes are being tidied…", "Rezepte werden aufgeräumt…", "recetas se están ordenando…"],
   ["recepten opgeschoond", "recipes tidied", "Rezepte aufgeräumt", "recetas ordenadas"],
   ["niet gelukt", "failed", "fehlgeschlagen", "fallidas"],
+  // ---- Nieuwe versie van Savour (2026-11-11) ----
+  ["Er is een nieuwe versie van Savour.", "A new version of Savour is available.", "Es gibt eine neue Version von Savour.", "Hay una nueva versión de Savour."],
+  ["Nu vernieuwen", "Refresh now", "Jetzt aktualisieren", "Actualizar ahora"],
+  ["Nu vernieuwen?", "Refresh now?", "Jetzt aktualisieren?", "¿Actualizar ahora?"],
+  ["Je hebt recepten in de controle die nog niet zijn opgeslagen. Savour biedt ze daarna opnieuw aan, maar wijzigingen die je zelf hebt gemaakt gaan verloren.", "You have recipes under review that haven’t been saved yet. Savour will offer them again afterwards, but changes you made yourself will be lost.", "Du hast Rezepte in der Prüfung, die noch nicht gespeichert sind. Savour bietet sie danach erneut an, aber deine eigenen Änderungen gehen verloren.", "Tienes recetas en revisión que aún no se han guardado. Savour te las volverá a ofrecer, pero se perderán los cambios que hayas hecho tú."],
+  ["Toch vernieuwen", "Refresh anyway", "Trotzdem aktualisieren", "Actualizar de todos modos"],
   ["Alleen de Savour-lezer","Only the Savour reader","Nur der Savour-Leser","Solo el lector de Savour"],
   ["Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.","Free. Only the AI can read a scanned PDF, so it will be skipped.","Kostenlos. Ein gescanntes PDF kann nur die KI lesen: es wird übersprungen.","Gratis. Un PDF escaneado solo lo puede leer la IA, así que se omitirá."],
   ["Gratis. Wat de lezer niet zeker weet, krijgt een markering om te controleren.","Free. Anything the reader is unsure about gets marked for you to check.","Kostenlos. Was der Leser nicht sicher weiß, wird zum Prüfen markiert.","Gratis. Lo que el lector no tenga claro se marca para que lo revises."],

@@ -56,7 +56,7 @@ function readerClean(line) {
   return x.trim();
 }
 
-// Een notitie over de bron, geen ingrediënt of stap: "(Source: Kuchen aus Dielfen)", "Bron: oma",
+// Een notitie over de bron, geen ingrediënt of stap: "(Source: Omas Kochbuch)", "Bron: oma",
 // "(No method provided.)", "(Summarised & standardised)". Gaat naar de beschrijving van het recept.
 const READER_NOTE_LINE =
   /^\(?\s*(?:(?:source|bron|quelle|fuente|origine|from|uit)\s*:\s*\S.*|no (?:method|ingredients?|quantities)\b.*|summari[sz]ed\b.*|standardi[sz]ed\b.*|(?:already|these (?:come|recipes))\b.*)\)?\.?$/i;

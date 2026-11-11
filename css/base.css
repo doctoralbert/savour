@@ -5160,3 +5160,35 @@ body {
 .batch-unsaved-note .btn {
   margin-left: auto;
 }
+/* Nieuwe versie van Savour (js/features/install.js, showAppUpdateBar). */
+.app-update-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: calc(100% - 24px);
+  padding: 10px 12px 10px 16px;
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  background: #0b1415;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  font-size: var(--sv-fs-sm, 14px);
+}
+.app-update-bar .btn {
+  white-space: nowrap;
+  flex: none;
+}
+@media (max-width: 760px) {
+  .app-update-bar {
+    left: 12px;
+    right: 12px;
+    transform: none;
+    max-width: none;
+    justify-content: space-between;
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  }
+}

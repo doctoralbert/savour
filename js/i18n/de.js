@@ -192,6 +192,12 @@ window.SAVOUR_I18N.de = {
     'recepten worden opgeschoond…': 'Rezepte werden aufgeräumt…',
     'recepten opgeschoond': 'Rezepte aufgeräumt',
     'niet gelukt': 'fehlgeschlagen',
+    'Er is een nieuwe versie van Savour.': 'Es gibt eine neue Version von Savour.',
+    'Nu vernieuwen': 'Jetzt aktualisieren',
+    'Nu vernieuwen?': 'Jetzt aktualisieren?',
+    'Je hebt recepten in de controle die nog niet zijn opgeslagen. Savour biedt ze daarna opnieuw aan, maar wijzigingen die je zelf hebt gemaakt gaan verloren.':
+      'Du hast Rezepte in der Prüfung, die noch nicht gespeichert sind. Savour bietet sie danach erneut an, aber deine eigenen Änderungen gehen verloren.',
+    'Toch vernieuwen': 'Trotzdem aktualisieren',
     'Veel AI-imports voor één bestand': 'Viele KI-Importe für eine Datei',
     'Alleen de Savour-lezer': 'Nur der Savour-Leser',
     'Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.':

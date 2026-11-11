@@ -1610,3 +1610,7 @@ body.savour-light .import-busy-track {
 body.savour-light .batch-unsaved-note {
   background: rgba(232, 202, 141, 0.18);
 }
+body.savour-light .app-update-bar {
+  background: #fffaf0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}

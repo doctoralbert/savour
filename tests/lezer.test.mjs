@@ -1188,7 +1188,7 @@ cases.push(
   {
     name: 'Markdown-koppen, (Source: …) en een scheidingslijn',
     text: `# Schweinegulasch (Pork Goulash)
-(Source: Fleischspeisen – Rudersdorf)
+(Source: Familienkochbuch – Seite 12)
 
 # Ingredients
 - 500 g pork
@@ -1204,7 +1204,7 @@ cases.push(
 ---
 
 # Bündner Gerstensuppe (Swiss Barley Soup)
-(Source: Siegerland Recipes)
+(Source: Omas Kochbuch)
 
 # Ingredients
 - 100 g barley
@@ -1217,14 +1217,14 @@ cases.push(
     expect: [
       {
         t: 'Schweinegulasch (Pork Goulash)',
-        d: 'Source: Fleischspeisen – Rudersdorf',
+        d: 'Source: Familienkochbuch – Seite 12',
         i: ['500 g pork', '2 onions', 'Paprika powder', 'Salt & pepper'],
         s: ['Brown meat and onions.', 'Add paprika and tomato paste.', 'Add broth and simmer until tender.'],
         c: 'high'
       },
       {
         t: 'Bündner Gerstensuppe (Swiss Barley Soup)',
-        d: 'Source: Siegerland Recipes',
+        d: 'Source: Omas Kochbuch',
         i: ['100 g barley', '1 carrot', '1 L broth'],
         s: 2,
         c: 'high'
@@ -1270,7 +1270,7 @@ Coconut cream – 400 ml Green curry paste – 200 g Chicken breast – 2.5 kg R
   {
     name: 'Kop van niveau 4, cursieve bronregel en "(No method provided.)"',
     text: `### Sellerie in Holländischer Soße
-*(Source: Gemüse – Rudersdorf)*
+*(Source: Familienkochbuch – Gemüse)*
 #### Ingredients
 * Celery root
 * Hollandaise sauce
@@ -1280,7 +1280,7 @@ Coconut cream – 400 ml Green curry paste – 200 g Chicken breast – 2.5 kg R
     expect: [
       {
         t: 'Sellerie in Holländischer Soße',
-        d: 'Source: Gemüse – Rudersdorf · No method provided.',
+        d: 'Source: Familienkochbuch – Gemüse · No method provided.',
         i: ['Celery root', 'Hollandaise sauce', 'Salt'],
         s: [],
         c: 'high'
@@ -1498,13 +1498,13 @@ const tidyCases = [
   {
     name: 'Kopjes, bronregel en "geen bereiding" uit een ChatGPT-recept',
     from: {
-      ingredients: ['(Source: Kuchen aus Dielfen)', '# Ingredients', 'Sponge base', 'Canned peaches', '# Method'],
+      ingredients: ['(Source: Backbuch – Kuchen)', '# Ingredients', 'Sponge base', 'Canned peaches', '# Method'],
       steps: ['# Method', 'Arrange peaches on sponge.', '(No method provided.)']
     },
     to: {
       ingredients: ['Sponge base', 'Canned peaches'],
       steps: ['Arrange peaches on sponge.'],
-      description: 'Source: Kuchen aus Dielfen · No method provided.'
+      description: 'Source: Backbuch – Kuchen · No method provided.'
     },
     changed: 5
   },

@@ -52,3 +52,53 @@ async function installApp() {
   };
   await askConfirm(steps[installPlatform()], { confirmLabel: 'Begrepen' });
 }
+
+// ---- Nieuwe versie van Savour (2026-11-11) ----
+// Wie Savour dagenlang open laat staan (een tabblad, of de app op de achtergrond), draait anders een oude
+// versie: zonder de nieuwste verbeteringen en beveiligingen. Savour kijkt daarom af en toe of er een nieuwe
+// versie live staat (het versienummer van main.js in index.html) en biedt dan een knop aan om te vernieuwen.
+// Nooit vanzelf herladen: dan zou de kok iets kwijtraken waar hij mee bezig is.
+let appUpdateCheckedAt = 0;
+
+function runningAppVersion() {
+  const src = document.querySelector('script[src*="/js/main.js"]')?.getAttribute('src') || '';
+  return (src.match(/[?&]v=([\w-]+)/) || [])[1] || '';
+}
+
+async function checkAppUpdate(force = false) {
+  if (!force && Date.now() - appUpdateCheckedAt < 10 * 60000) return;
+  appUpdateCheckedAt = Date.now();
+  const running = runningAppVersion();
+  if (!running || document.getElementById('appUpdateBar')) return;
+  try {
+    const html = await (await fetch('/index.html', { cache: 'no-store' })).text();
+    const live = (html.match(/\/js\/main\.js\?v=([\w-]+)/) || [])[1] || '';
+    if (live && live !== running) showAppUpdateBar();
+  } catch (_) {
+    // Geen verbinding: volgende keer opnieuw.
+  }
+}
+
+function showAppUpdateBar() {
+  if (document.getElementById('appUpdateBar')) return;
+  const bar = document.createElement('div');
+  bar.id = 'appUpdateBar';
+  bar.className = 'app-update-bar';
+  bar.setAttribute('role', 'status');
+  bar.innerHTML = `<span>${esc(t('Er is een nieuwe versie van Savour.'))}</span><button type="button" class="btn small gold" onclick="reloadForUpdate()">${esc(t('Nu vernieuwen'))}</button>`;
+  document.body.appendChild(bar);
+}
+
+async function reloadForUpdate() {
+  // Midden in een import of met recepten die nog niet zijn opgeslagen: eerst vragen.
+  if (
+    typeof importNeedsWarning === 'function' &&
+    importNeedsWarning() &&
+    !(await askConfirm(
+      `${t('Nu vernieuwen?')}\n\n${t('Je hebt recepten in de controle die nog niet zijn opgeslagen. Savour biedt ze daarna opnieuw aan, maar wijzigingen die je zelf hebt gemaakt gaan verloren.')}`,
+      { confirmLabel: t('Toch vernieuwen') }
+    ))
+  )
+    return;
+  location.reload();
+}
