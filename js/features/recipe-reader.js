@@ -80,6 +80,14 @@ function readerNoteText(line) {
 // blijven precies zoals ze er staan, er komt niets bij en er gaat niets af.
 function readerSplitRunOn(line) {
   const x = readerClean(line);
+  // Streepjes tussen ingrediënten op één regel, zoals op een kladje: "-500gr tomaat - 500gr venkel - 2 uien".
+  // Alleen als elk stuk met een hoeveelheid begint en een woord heeft; "1,2 - 1,5g agar" (een bereik) blijft heel.
+  const byDash = x
+    .replace(READER_BULLET, '')
+    .split(/\s+[-–—•·]\s*(?=[\d½¼¾])/)
+    .map(p => p.trim());
+  if (byDash.length >= 2 && byDash.every(p => READER_STARTS_WITH_QTY.test(p) && /\p{L}{2}/u.test(p) && p.length <= 70))
+    return byDash;
   if (x.length < 25 || /\p{L}[.!?]\s+\p{L}/u.test(x) || /[.!?]$/.test(x)) return [x];
   const qty = `${READER_QTY}\\s*(?:${READER_UNIT}\\b\\.?)?`;
   // Nooit splitsen binnen haakjes: "750 gram avocado (vruchtvlees van 20 stuks, 15 minuten gegaard)".
@@ -846,7 +854,8 @@ function tidyRecipeLines(recipe) {
     const out = [];
     for (const raw of Array.isArray(list) ? list : []) {
       const line = String(raw ?? '');
-      const x = readerClean(line);
+      // Een opsommingsteken vooraan ("-130 olie", "• 2 eieren") hoort niet bij het ingrediënt of de stap.
+      const x = readerClean(line).replace(READER_BULLET, '').trim();
       if (!x) {
         if (line.trim()) changed++;
         continue;

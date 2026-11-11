@@ -1288,6 +1288,21 @@ Coconut cream – 400 ml Green curry paste – 200 g Chicken breast – 2.5 kg R
     ]
   },
   {
+    name: 'Kladje met streepjes, en streepjes tussen ingrediënten op één regel',
+    text: `Antiboise
+- 130 olie
+-500g sjalot
+- 30g bieslook
+-500gr tomaat - 500gr venkel - 2 uien`,
+    expect: [
+      {
+        t: 'Antiboise',
+        i: ['130 olie', '500g sjalot', '30g bieslook', '500gr tomaat', '500gr venkel', '2 uien'],
+        s: []
+      }
+    ]
+  },
+  {
     name: 'Gewone regels met getallen worden niet gesplitst',
     text: `Kersenrijst
 Ingrediënten
@@ -1535,6 +1550,25 @@ const tidyCases = [
       description: 'Oma'
     },
     changed: 4
+  },
+  {
+    name: 'Opsommingsstreepjes van een kladje (AI nam "-130 olie" over)',
+    from: {
+      ingredients: ['-130 olie', '- 500g sjalot', '–30g bieslook', '• 2 eieren', '-500gr tomaat - 500gr venkel - 2 uien'],
+      steps: ['- Alles snijden.', '-Mengen en 10 minuten laten staan.']
+    },
+    to: {
+      ingredients: ['130 olie', '500g sjalot', '30g bieslook', '2 eieren', '500gr tomaat', '500gr venkel', '2 uien'],
+      steps: ['Alles snijden.', 'Mengen en 10 minuten laten staan.'],
+      description: ''
+    },
+    changed: 7
+  },
+  {
+    name: 'Een bereik met streepje blijft één regel',
+    from: { ingredients: ['1,2 - 1,5g agar agar', '2-3 teentjes knoflook', 'peper - zout'], steps: [] },
+    to: { ingredients: ['1,2 - 1,5g agar agar', '2-3 teentjes knoflook', 'peper - zout'], steps: [], description: '' },
+    changed: 0
   },
   {
     name: 'Haakjes, tijden en extra spaties blijven ongemoeid',

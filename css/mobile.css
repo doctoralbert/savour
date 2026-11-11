@@ -882,3 +882,20 @@
     border-radius: 999px !important;
   }
 }
+
+/* Balk bovenin schuift weg bij naar beneden scrollen en komt terug bij omhoog (js/features/navigation.js,
+   updateTopbarOnScroll). Alleen op de telefoon. */
+@media (max-width: 760px) {
+  #appShell .topbar {
+    transition: transform 0.25s ease;
+    will-change: transform;
+  }
+  body.topbar-hidden #appShell .topbar {
+    transform: translateY(-100%);
+  }
+}
+@media (max-width: 760px) and (prefers-reduced-motion: reduce) {
+  #appShell .topbar {
+    transition: none;
+  }
+}

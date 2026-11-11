@@ -206,6 +206,9 @@ document.addEventListener('visibilitychange', () => {
 
 // Bezig met importeren, of recepten in de controle die nog niet zijn opgeslagen? Dan vraagt de browser of je
 // echt wilt sluiten of verversen (js/features/import.js, importNeedsWarning). Een eigen tekst tonen kan niet.
+// Op de telefoon schuift de balk bovenin weg bij naar beneden scrollen (js/features/navigation.js).
+window.addEventListener('scroll', onTopbarScroll, { passive: true });
+
 // Nieuwe versie live gezet terwijl Savour openstond? Elk half uur kijken, en bij terugkomen in Savour
 // (hooguit eens per tien minuten). Zie js/features/install.js, checkAppUpdate.
 setInterval(() => checkAppUpdate(true), 30 * 60000);

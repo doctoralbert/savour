@@ -1990,7 +1990,9 @@ function recipeTidyExample(list) {
     const shown = lines.slice(0, 6).map(l => (l.length > 60 ? `${l.slice(0, 57)}…` : l));
     return shown.join('\n') + (lines.length > 6 ? `\n… (+${lines.length - 6})` : '');
   };
-  return `${t('Voorbeeld')}: ${pick.r.title}\n\n${t('Nu')}:\n${short(pick.r.ingredients)}\n\n${t('Na opschonen')}:\n${short(pick.t.ingredients)}`;
+  // Laat zien wat er echt verandert: de ingrediënten, of anders de bereiding.
+  const field = JSON.stringify(pick.r.ingredients) !== JSON.stringify(pick.t.ingredients) ? 'ingredients' : 'steps';
+  return `${t('Voorbeeld')}: ${pick.r.title}\n\n${t('Nu')}:\n${short(pick.r[field] || [])}\n\n${t('Na opschonen')}:\n${short(pick.t[field] || [])}`;
 }
 
 async function offerRecipeTidy() {

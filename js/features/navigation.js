@@ -74,6 +74,31 @@ function restoreHistoryView(state) {
 }
 
 // Centrale navigatie: activeert een weergave in de app en tekent de inhoud ervan.
+// ---- Balk bovenin op de telefoon (2026-11-11) ----
+// Naar beneden scrollen: de balk met logo en menu schuift weg, zodat er meer recept in beeld is.
+// Een stukje terug omhoog: hij komt meteen terug. Alleen op de telefoon; nooit als het menu openstaat of als je
+// helemaal bovenaan bent. CSS: body.topbar-hidden in css/mobile.css.
+let topbarLastY = 0;
+let topbarTicking = false;
+
+function updateTopbarOnScroll() {
+  topbarTicking = false;
+  const y = Math.max(0, window.scrollY);
+  const mobile = window.matchMedia('(max-width: 760px)').matches;
+  const busy = document.body.classList.contains('mobile-menu-open') || document.activeElement?.closest?.('.topbar');
+  if (!mobile || busy || y < 80) document.body.classList.remove('topbar-hidden');
+  else if (y > topbarLastY + 6) document.body.classList.add('topbar-hidden');
+  else if (y < topbarLastY - 6) document.body.classList.remove('topbar-hidden');
+  // Kleine trillingen (minder dan 6 pixels) tellen niet mee.
+  if (Math.abs(y - topbarLastY) > 6 || y < 80) topbarLastY = y;
+}
+
+function onTopbarScroll() {
+  if (topbarTicking) return;
+  topbarTicking = true;
+  requestAnimationFrame(updateTopbarOnScroll);
+}
+
 function go(id) {
   // Uitgelogd opent een informatiepagina in de publieke omgeving.
   if (PUBLIC_PAGE_IDS.includes(id) && !currentUser) {
@@ -81,6 +106,8 @@ function go(id) {
     return;
   }
   if (document.body.classList.contains('mobile-menu-open')) toggleMobileMenu(false);
+  // Naar een ander scherm: de balk bovenin weer laten zien.
+  document.body.classList.remove('topbar-hidden');
   closeAppNav();
   // "Alle recepten" toont altijd de volledige bibliotheek, zonder mapfilter.
   if (id === 'recipes') activeFolderCategory = '';
