@@ -42,18 +42,90 @@ const READER_SOFT_HEADING = /^#b\s+/;
 // ---- Kleine hulpfuncties ----
 
 function readerClean(line) {
-  return String(line || '')
+  let x = String(line || '')
     .replace(/ /g, ' ')
     .replace(/\t+/g, ' ')
     .replace(/\s{2,}/g, ' ')
     .trim();
+  // Opmaak uit ChatGPT en andere markdown-tekst (2026-11-11): "**Ingredients**", "**Yield:** 40", "*(Source: …)*"
+  // en een scheidingslijn "---". De tekst zelf blijft precies staan; alleen de opmaaktekens gaan weg.
+  if (/^([-*_])(?:\s*\1){2,}$/.test(x)) return '';
+  x = x.replace(/\*\*(?=\S)(.+?)(?<=\S)\*\*/g, '$1').replace(/__(?=\S)(.+?)(?<=\S)__/g, '$1');
+  const italic = x.match(/^([*_])(?=\S)(.+?)(?<=\S)\1$/);
+  if (italic) x = italic[2];
+  return x.trim();
+}
+
+// Een notitie over de bron, geen ingrediënt of stap: "(Source: Kuchen aus Dielfen)", "Bron: oma",
+// "(No method provided.)", "(Summarised & standardised)". Gaat naar de beschrijving van het recept.
+const READER_NOTE_LINE =
+  /^\(?\s*(?:(?:source|bron|quelle|fuente|origine|from|uit)\s*:\s*\S.*|no (?:method|ingredients?|quantities)\b.*|summari[sz]ed\b.*|standardi[sz]ed\b.*|(?:already|these (?:come|recipes))\b.*)\)?\.?$/i;
+
+function readerIsNote(line) {
+  const x = readerClean(line);
+  // Alleen een hele regel tussen haakjes, of een regel die met "Bron:" e.d. begint.
+  return READER_NOTE_LINE.test(x) && (/^\(.*\)\.?$/.test(x) || /^(?:source|bron|quelle|fuente|origine)\s*:/i.test(x));
+}
+
+function readerNoteText(line) {
+  return readerClean(line)
+    .replace(/^\(\s*|\s*\)\.?$/g, '')
+    .trim();
+}
+
+// Alle ingrediënten aan één stuk op één regel (uit een PDF of samenvatting):
+// "400ml coconut cream 200g green curry paste 2.5kg chicken breast" of
+// "Coconut cream – 400 ml Green curry paste – 200 g Chicken breast – 2.5 kg".
+// Alleen splitsen als het overduidelijk is (minstens drie ingrediënten met elk een hoeveelheid); de woorden
+// blijven precies zoals ze er staan, er komt niets bij en er gaat niets af.
+function readerSplitRunOn(line) {
+  const x = readerClean(line);
+  if (x.length < 25 || /\p{L}[.!?]\s+\p{L}/u.test(x) || /[.!?]$/.test(x)) return [x];
+  const qty = `${READER_QTY}\\s*(?:${READER_UNIT}\\b\\.?)?`;
+  // Nooit splitsen binnen haakjes: "750 gram avocado (vruchtvlees van 20 stuks, 15 minuten gegaard)".
+  let depth = 0;
+  const masked = [...x]
+    .map(ch => (ch === '(' ? (depth++, ch) : ch === ')' ? (depth--, ch) : depth > 0 ? '_' : ch))
+    .join('');
+  const cuts = [...masked.matchAll(new RegExp(`\\s+(?=${qty}\\s*[\\p{L}(])`, 'giu'))].map(m => m.index);
+  const qtyFirst = [0, ...cuts]
+    .map((from, i) => x.slice(from, i < cuts.length ? cuts[i] : x.length).trim())
+    .filter(Boolean)
+    // "Zest of" + "10 oranges": eindigt een stuk op een voorzetsel, dan hoort het volgende erbij.
+    .reduce((out, p) => {
+      if (out.length && /\b(?:of|van|von|de|du|des|der|met|with|mit|from|uit)$/i.test(out[out.length - 1]))
+        out[out.length - 1] += ` ${p}`;
+      else out.push(p);
+      return out;
+    }, []);
+  if (
+    READER_STARTS_WITH_QTY.test(x) &&
+    qtyFirst.length >= 3 &&
+    qtyFirst.every(
+      p => READER_STARTS_WITH_QTY.test(p) && !READER_STARTS_WITH_TIME.test(p) && p.length <= 70 && /\p{L}{2}/u.test(p)
+    )
+  )
+    return qtyFirst;
+  const nameFirst = x.replace(new RegExp(`([–—]\\s*${qty})\\s+(?=\\p{Lu})`, 'giu'), '$1\n').split('\n');
+  if (nameFirst.length >= 3 && nameFirst.every(p => /^\p{L}/u.test(p) && /[–—]\s*\S/.test(p) && p.length <= 70))
+    return nameFirst;
+  return [x];
 }
 
 // Regels opschonen en een kopje met tekst erachter ("Bereiding: Meng alles.") in twee regels splitsen.
 function readerLines(text) {
   return (Array.isArray(text) ? text : String(text || '').split(/\r?\n/)).map(readerClean).flatMap(l => {
+    // Markdown-kop: "# Ingredients", "#### Method" of "## Yield: 4" is een gewoon kopje; een andere kop
+    // ("#### Sauce") wordt een kop van hoogstens niveau 3 (receptnaam of onderdeel, zie splitRecipeText).
+    const md = l.match(/^#{1,6}\s+(\S.*)$/);
+    if (md) {
+      const rest = readerClean(md[1]);
+      if (readerIsHeading(rest) || READER_INLINE_HEADING.test(rest) || readerYieldFrom(rest)) l = rest;
+      else if (/^#{4,6}\s/.test(l)) l = `### ${rest}`;
+    }
     const m = l.match(READER_INLINE_HEADING);
-    return m ? [m[1], m[2].trim()] : [l];
+    if (m) return [m[1], ...readerSplitRunOn(m[2].trim())];
+    return readerSplitRunOn(l);
   });
 }
 
@@ -217,7 +289,12 @@ function readerLooksLikeTitle(line) {
 // Ook gebruikt om lange teksten op een receptgrens in stukken te knippen (zie import.js).
 function looksLikeRecipeHeading(line, nextLine = '') {
   const x = readerClean(line);
-  if (/^#{1,3}\s+\S/.test(x)) return true;
+  // "# Ingredients" of "## Method" is een kopje binnen een recept, geen nieuw recept: daar nooit knippen.
+  const md = x.match(/^#{1,6}\s+(\S.*)$/);
+  if (md) {
+    const rest = readerClean(md[1]);
+    return !(readerIsHeading(rest) || READER_INLINE_HEADING.test(rest) || readerYieldFrom(rest));
+  }
   if (/^(?:recept|recipe)\s*[:#-]/i.test(x)) return true;
   const next = readerClean(nextLine);
   return readerLooksLikeTitle(x) && (READER_INGREDIENTS_HEADING.test(next) || readerIsIngredientLine(next));
@@ -278,9 +355,12 @@ function parseCompositeBlock(lines) {
 }
 
 function parseRecipeBlock(block) {
-  const lines = readerLines(block).filter(Boolean);
-  if (!lines.length) return null;
-  if (lines.some(l => READER_PART_MARK.test(l))) return parseCompositeBlock(lines);
+  const all = readerLines(block).filter(Boolean);
+  if (!all.length) return null;
+  if (all.some(l => READER_PART_MARK.test(l))) return parseCompositeBlock(all);
+  // Notities over de bron ("(Source: …)", "(No method provided.)") zijn geen ingrediënt of stap.
+  const notes = all.slice(1).filter(readerIsNote).map(readerNoteText);
+  const lines = [all[0], ...all.slice(1).filter(l => !readerIsNote(l))];
   let title = cleanBatchTitle(lines[0]);
   let yieldText = '';
   // "Beurre blanc (voor 4 personen)", "Cacaosorbetijs (5 potten)": opbrengst tussen haakjes in de titel.
@@ -408,8 +488,9 @@ function parseRecipeBlock(block) {
     ingredients,
     steps: allSteps,
     yield: yieldText,
+    ...(notes.length ? { description: notes.join(' · ') } : {}),
     readerConfidence: confidence,
-    source: lines.join('\n')
+    source: all.join('\n')
   };
 }
 
@@ -746,4 +827,61 @@ function splitRecipeText(text) {
   start();
   // Blokken zonder ingrediënten en zonder bereiding (zoals een losse documenttitel) zijn geen recept.
   return blocks.map(parseRecipeBlock).filter(r => r && (r.ingredients.length || r.steps.length));
+}
+
+// ---- Een al gelezen recept opschonen (2026-11-11) ----
+//
+// Voor AI-resultaten en voor recepten die al in Savour staan: opmaakresten uit een import weghalen, zonder
+// één woord of hoeveelheid te veranderen.
+// 1. kopjes als "# Ingredients", "**Method**" of "Bereiding" tussen de regels: weg (Savour heeft eigen kopjes);
+// 2. een andere markdown-kop ("# Saus") wordt een onderdeel ("Saus:"), zoals Savour dat zelf schrijft;
+// 3. "(Source: …)", "(No method provided.)": naar de beschrijving;
+// 4. alle ingrediënten aan één stuk op één regel: elk op een eigen regel (readerSplitRunOn);
+// 5. opmaaktekens ("**", "*…*", "---") weg.
+// Geeft { ingredients, steps, description, changed } terug; changed = aantal aangepaste regels.
+function tidyRecipeLines(recipe) {
+  const notes = [];
+  let changed = 0;
+  const tidy = (list, isIngredients) => {
+    const out = [];
+    for (const raw of Array.isArray(list) ? list : []) {
+      const line = String(raw ?? '');
+      const x = readerClean(line);
+      if (!x) {
+        if (line.trim()) changed++;
+        continue;
+      }
+      const md = x.match(/^#{1,6}\s+(\S.*)$/);
+      const head = readerClean(md ? md[1] : x).replace(/:$/, '');
+      if (readerIsHeading(head) && !/\d/.test(head)) {
+        changed++;
+        continue;
+      }
+      if (readerIsNote(x)) {
+        notes.push(readerNoteText(x));
+        changed++;
+        continue;
+      }
+      if (md) {
+        out.push(`${head}:`);
+        changed++;
+        continue;
+      }
+      const pieces = isIngredients ? readerSplitRunOn(x) : [x];
+      // Alleen spaties anders ("400g          Sahne")? Dan de regel laten zoals hij is: dat is geen opschonen.
+      if (pieces.length === 1 && pieces[0] === line.replace(/\s+/g, ' ').trim()) {
+        out.push(line);
+        continue;
+      }
+      changed++;
+      out.push(...pieces);
+    }
+    return out;
+  };
+  const ingredients = tidy(recipe?.ingredients, true);
+  const steps = tidy(recipe?.steps, false);
+  const before = String(recipe?.description || '').trim();
+  const extra = notes.filter(n => !before.includes(n));
+  const description = [before, ...extra].filter(Boolean).join(' · ');
+  return { ingredients, steps, description, changed };
 }

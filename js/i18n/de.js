@@ -181,6 +181,17 @@ window.SAVOUR_I18N.de = {
     'Nog niet opgeslagen.': 'Noch nicht gespeichert.',
     'Controleer de recepten en klik op "Alle recepten opslaan". Sluit je Savour eerder, dan bieden we ze de volgende keer opnieuw aan.':
       'Prüfe die Rezepte und klicke auf "Alle Rezepte speichern". Schließt du Savour vorher, bieten wir sie beim nächsten Mal erneut an.',
+    'Nu': 'Jetzt',
+    'Na opschonen': 'Nach dem Aufräumen',
+    'Je recepten opschonen?': 'Rezepte aufräumen?',
+    'recepten hebben nog resten van het importeren, zoals "# Ingredients", "(Source: …)" tussen de ingrediënten of alle ingrediënten op één regel. Savour kan dit voor je opschonen: kopjes en opmaak weg, de bron naar de beschrijving en elk ingrediënt op een eigen regel. Geen woord of hoeveelheid verandert, en je huidige versie wordt bewaard.':
+      'Rezepte enthalten noch Reste vom Import, etwa "# Ingredients", "(Source: …)" zwischen den Zutaten oder alle Zutaten in einer Zeile. Savour kann das für dich aufräumen: Überschriften und Formatierung weg, die Quelle in die Beschreibung und jede Zutat in eine eigene Zeile. Kein Wort und keine Menge ändert sich, und deine jetzige Version wird gespeichert.',
+    'Ja, opschonen': 'Ja, aufräumen',
+    'Nee, laten zoals het is': 'Nein, so lassen',
+    'Savour vraagt het niet opnieuw.': 'Savour fragt nicht noch einmal.',
+    'recepten worden opgeschoond…': 'Rezepte werden aufgeräumt…',
+    'recepten opgeschoond': 'Rezepte aufgeräumt',
+    'niet gelukt': 'fehlgeschlagen',
     'Veel AI-imports voor één bestand': 'Viele KI-Importe für eine Datei',
     'Alleen de Savour-lezer': 'Nur der Savour-Leser',
     'Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.':

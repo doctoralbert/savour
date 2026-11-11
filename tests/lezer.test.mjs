@@ -1183,6 +1183,137 @@ Kochen und schneiden.`,
 
 let failed = 0;
 const eq = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+// ---- Tekst in ChatGPT-opmaak (2026-11-11): een klant zette PDF's eerst met ChatGPT om naar tekst ----
+cases.push(
+  {
+    name: 'Markdown-koppen, (Source: …) en een scheidingslijn',
+    text: `# Schweinegulasch (Pork Goulash)
+(Source: Fleischspeisen – Rudersdorf)
+
+# Ingredients
+- 500 g pork
+- 2 onions
+- Paprika powder
+- Salt & pepper
+
+# Method
+1. Brown meat and onions.
+2. Add paprika and tomato paste.
+3. Add broth and simmer until tender.
+
+---
+
+# Bündner Gerstensuppe (Swiss Barley Soup)
+(Source: Siegerland Recipes)
+
+# Ingredients
+- 100 g barley
+- 1 carrot
+- 1 L broth
+
+# Method
+1. Sauté bacon and vegetables.
+2. Simmer for 1 hour.`,
+    expect: [
+      {
+        t: 'Schweinegulasch (Pork Goulash)',
+        d: 'Source: Fleischspeisen – Rudersdorf',
+        i: ['500 g pork', '2 onions', 'Paprika powder', 'Salt & pepper'],
+        s: ['Brown meat and onions.', 'Add paprika and tomato paste.', 'Add broth and simmer until tender.'],
+        c: 'high'
+      },
+      {
+        t: 'Bündner Gerstensuppe (Swiss Barley Soup)',
+        d: 'Source: Siegerland Recipes',
+        i: ['100 g barley', '1 carrot', '1 L broth'],
+        s: 2,
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Vetgedrukte kopjes en alle ingrediënten op één regel (hoeveelheid vooraan)',
+    text: `## Treacle Tart
+**Ingredients**
+1kg pastry 1kg flour 500g butter 2kg bread 7kg golden syrup
+
+**Method**
+Line tart foil with pastry. Blind bake 15 minutes. Fill tarts. Bake 30 minutes.`,
+    expect: [
+      {
+        t: 'Treacle Tart',
+        i: ['1kg pastry', '1kg flour', '500g butter', '2kg bread', '7kg golden syrup'],
+        s: 1,
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Opbrengst vetgedrukt en "Product – hoeveelheid" aan één stuk',
+    text: `## Thai Green Chicken Curry
+**Yield:** 40 portions
+**Ingredients:**
+Coconut cream – 400 ml Green curry paste – 200 g Chicken breast – 2.5 kg Red pepper – 1
+**Method:**
+1. Fry curry paste in oil until fragrant.
+2. Add coconut cream and simmer.`,
+    expect: [
+      {
+        t: 'Thai Green Chicken Curry',
+        y: '40 portions',
+        i: ['Coconut cream – 400 ml', 'Green curry paste – 200 g', 'Chicken breast – 2.5 kg', 'Red pepper – 1'],
+        s: 2,
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Kop van niveau 4, cursieve bronregel en "(No method provided.)"',
+    text: `### Sellerie in Holländischer Soße
+*(Source: Gemüse – Rudersdorf)*
+#### Ingredients
+* Celery root
+* Hollandaise sauce
+* Salt
+#### Method
+(No method provided.)`,
+    expect: [
+      {
+        t: 'Sellerie in Holländischer Soße',
+        d: 'Source: Gemüse – Rudersdorf · No method provided.',
+        i: ['Celery root', 'Hollandaise sauce', 'Salt'],
+        s: [],
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Gewone regels met getallen worden niet gesplitst',
+    text: `Kersenrijst
+Ingrediënten
+1 jar sour cherries (300 g)
+Juice of ½ lemon
+2 tbsp olive oil 1 garlic clove
+250 g butter, softened 2 eggs
+1 pack fish fingers (8–12 pieces)
+Bereiding
+Kook de rijst 20 minuten en serveer met 2 eetlepels boter.`,
+    expect: [
+      {
+        t: 'Kersenrijst',
+        i: [
+          '1 jar sour cherries (300 g)',
+          'Juice of ½ lemon',
+          '2 tbsp olive oil 1 garlic clove',
+          '250 g butter, softened 2 eggs',
+          '1 pack fish fingers (8–12 pieces)'
+        ],
+        s: 1
+      }
+    ]
+  }
+);
+
 for (const c of cases) {
   const got = JSON.parse(JSON.stringify(splitRecipeText(c.text)));
   const problems = [];
@@ -1191,6 +1322,8 @@ for (const c of cases) {
     const r = got[n];
     if (!r) return;
     if (e.t !== undefined && r.title !== e.t) problems.push(`#${n + 1} titel "${r.title}", verwacht "${e.t}"`);
+    if (e.d !== undefined && (r.description || '') !== e.d)
+      problems.push(`#${n + 1} beschrijving "${r.description || ''}", verwacht "${e.d}"`);
     if (e.y !== undefined && r.yield !== e.y) problems.push(`#${n + 1} opbrengst "${r.yield}", verwacht "${e.y}"`);
     if (e.i !== undefined && !eq(r.ingredients, e.i))
       problems.push(`#${n + 1} ingrediënten ${JSON.stringify(r.ingredients)}`);
@@ -1343,6 +1476,115 @@ for (const [from, action, to] of lineCases) {
     );
   } else console.log(`✓ Regel "${from}"`);
 }
-const total = cases.length + fixCases.length + titleCases.length + lineCases.length;
+// ---- Knippen van lange teksten voor de AI (looksLikeRecipeHeading): nooit midden in een recept ----
+const headingCases = [
+  ['# Schweinegulasch', '', true],
+  ['#### Pralinen', '', true],
+  ['# Ingredients', '', false],
+  ['## Method', '', false],
+  ['**Ingredients**', '', false],
+  ['### Yield: 40 portions', '', false],
+  ['Beurre blanc', 'Ingrediënten', true]
+];
+for (const [line, next, want] of headingCases) {
+  const got = ctx.looksLikeRecipeHeading(line, next);
+  if (got !== want) {
+    failed++;
+    console.log(`✗ Knippen bij "${line}"\n   kreeg ${got}, verwacht ${want}`);
+  } else console.log(`✓ Knippen bij "${line}"`);
+}
+// ---- Al gelezen recept opschonen (tidyRecipeLines): AI-resultaten en bestaande recepten ----
+const tidyCases = [
+  {
+    name: 'Kopjes, bronregel en "geen bereiding" uit een ChatGPT-recept',
+    from: {
+      ingredients: ['(Source: Kuchen aus Dielfen)', '# Ingredients', 'Sponge base', 'Canned peaches', '# Method'],
+      steps: ['# Method', 'Arrange peaches on sponge.', '(No method provided.)']
+    },
+    to: {
+      ingredients: ['Sponge base', 'Canned peaches'],
+      steps: ['Arrange peaches on sponge.'],
+      description: 'Source: Kuchen aus Dielfen · No method provided.'
+    },
+    changed: 5
+  },
+  {
+    name: 'Ingrediënten aan één stuk, onderdeelkop en vetgedrukte tekst',
+    from: {
+      ingredients: [
+        '# Posset',
+        '400ml coconut cream 200g green curry paste 2.5kg chicken breast',
+        '500g mixed peel 500g almonds Zest of 10 oranges 1.5L brandy',
+        '**Salt**'
+      ],
+      steps: ['Fry curry paste in oil.'],
+      description: 'Oma'
+    },
+    to: {
+      ingredients: [
+        'Posset:',
+        '400ml coconut cream',
+        '200g green curry paste',
+        '2.5kg chicken breast',
+        '500g mixed peel',
+        '500g almonds Zest of 10 oranges',
+        '1.5L brandy',
+        'Salt'
+      ],
+      steps: ['Fry curry paste in oil.'],
+      description: 'Oma'
+    },
+    changed: 4
+  },
+  {
+    name: 'Haakjes, tijden en extra spaties blijven ongemoeid',
+    from: {
+      ingredients: [
+        '750 gram avocado (vruchtvlees van +/- 20 stuks avocado 15 minuten gegaard op 70c stoom)',
+        '400g          Sahne',
+        '2 eieren 15 minuten 3 dagen'
+      ],
+      steps: []
+    },
+    to: {
+      ingredients: [
+        '750 gram avocado (vruchtvlees van +/- 20 stuks avocado 15 minuten gegaard op 70c stoom)',
+        '400g          Sahne',
+        '2 eieren 15 minuten 3 dagen'
+      ],
+      steps: [],
+      description: ''
+    },
+    changed: 0
+  },
+  {
+    name: 'Een net recept blijft precies zoals het is',
+    from: {
+      ingredients: ['Voor de saus:', '250 g boter', '2 eieren', 'zout naar smaak'],
+      steps: ['Boter smelten.', 'Ingrediënten mengen en 10 minuten laten staan.'],
+      description: 'Klassieker'
+    },
+    to: {
+      ingredients: ['Voor de saus:', '250 g boter', '2 eieren', 'zout naar smaak'],
+      steps: ['Boter smelten.', 'Ingrediënten mengen en 10 minuten laten staan.'],
+      description: 'Klassieker'
+    },
+    changed: 0
+  }
+];
+for (const c of tidyCases) {
+  const got = JSON.parse(JSON.stringify(ctx.tidyRecipeLines(c.from)));
+  const ok =
+    eq(got.ingredients, c.to.ingredients) &&
+    eq(got.steps, c.to.steps) &&
+    got.description === c.to.description &&
+    got.changed === c.changed;
+  if (!ok) {
+    failed++;
+    console.log(`✗ Opschonen: ${c.name}\n   kreeg ${JSON.stringify(got)}`);
+  } else console.log(`✓ Opschonen: ${c.name}`);
+}
+const total =
+  cases.length + fixCases.length + titleCases.length + lineCases.length + tidyCases.length + headingCases.length;
 console.log(`\n${total - failed} van ${total} geslaagd`);
 process.exit(failed ? 1 : 0);

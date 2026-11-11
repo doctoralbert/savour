@@ -292,6 +292,8 @@ async function startDatabaseSession(user) {
       refreshCommunityUnread();
       // Recepten die de AI al las maar die nooit zijn opgeslagen (venster dicht tijdens importeren)? Aanbieden.
       setTimeout(() => offerPendingAiImports().catch(e => console.warn('Openstaande imports', e)), 2500);
+      // Recepten met opmaakresten van een import? Eén keer vragen of Savour ze mag opschonen.
+      setTimeout(() => offerRecipeTidy().catch(e => console.warn('Recepten opschonen', e)), 6000);
       return true;
     } catch (error) {
       console.error('Savour sessie kon niet worden opgebouwd:', error);

@@ -340,7 +340,7 @@ Analyseer de bron zeer nauwkeurig en maak er één of meerdere controleerbare re
 
 WERKWIJZE PER RECEPT (in deze volgorde):
 1. transcription: schrijf eerst elke regel van dit recept letterlijk over zoals hij in de bron staat, regel voor regel, inclusief cijfers, afkortingen, pijlen (→) en accolades als tekst. Verbeter, vertaal of vul niets aan.
-2. Maak daarna ingredients en steps uitsluitend uit die transcriptie. Elke ingrediëntregel komt uit precies één regel van de transcriptie: splits een regel nooit in meerdere ingrediënten en voeg nooit een product toe dat niet in de transcriptie staat.
+2. Maak daarna ingredients en steps uitsluitend uit die transcriptie. Elke ingrediëntregel komt uit precies één regel van de transcriptie: splits een regel nooit in meerdere ingrediënten en voeg nooit een product toe dat niet in de transcriptie staat. Enige uitzondering: staan er meerdere ingrediënten aan één stuk op één regel, elk met een eigen hoeveelheid (bijvoorbeeld "400ml coconut cream 200g curry paste 2.5kg chicken"), zet ze dan elk op een eigen regel, met precies dezelfde woorden.
 
 ABSOLUTE REGELS:
 - CIJFERS: neem elk getal precies over zoals het er staat. Twijfel je ook maar over één cijfer (bijvoorbeeld 5 of 6, 1 of 7, 3 of 8), zet dan de hele regel in unclear.
@@ -348,6 +348,7 @@ ABSOLUTE REGELS:
 - Lees alleen wat daadwerkelijk in de bron staat. Verzin nooit ontbrekende hoeveelheden, ingrediënten, technieken, temperaturen, tijden, opbrengsten of stappen.
 - TAAL: schrijf titel, ingrediënten, stappen en opbrengst in de taal van de bron en vertaal NOOIT, ook niet naar het Engels. Bepaal de taal aan de hand van de gewone woorden in de bron (bijvoorbeeld "eigeel", "suiker", "kloppen", "room" = Nederlands); losse Franse of Engelse vaktermen (zoals "pâte à bombe", "sponge") maken de bron niet Frans of Engels. Twijfel je over de taal, gebruik dan ${sourceLanguage}. Behoud de oorspronkelijke vaktermen, productnamen, merknamen en eenheden.
 - Maak strikt onderscheid tussen titel, opbrengst, ingrediënten en bereidingsstappen.
+- Opmaak en kopjes zijn geen inhoud: regels als "# Ingredients", "**Method**", "Bereiding" of "---" komen niet in ingredients of steps. Een bronvermelding ("(Source: …)", "Bron: …") of een opmerking als "(No method provided.)" is geen ingrediënt en geen stap: laat die weg.
 - Een ingrediënt blijft een ingrediënt, ook als het bijvoorbeeld een vanillestokje, ei, boter of suiker is. Zet een ingrediënt nooit in steps.
 - Een regel met een hoeveelheid hoort bij ingrediënten als het product zelf wordt genoemd. Bijvoorbeeld "1 vanillestokje" is een ingrediënt.
 - Een bereidingshandeling hoort alleen bij steps als de bron daadwerkelijk een handeling beschrijft, zoals mengen, verwarmen, garen, koken, bakken, zeven of marineren.

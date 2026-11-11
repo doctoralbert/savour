@@ -920,10 +920,17 @@ function importCategory(title, aiCategory) {
 function normalizeAiRecipe(r, extra) {
   // "385.Hoender Tom Yam terrine": het nummer uit het receptenboek hoort niet in de naam.
   const title = cleanBatchTitle(String(r.title || '')) || 'Onbenoemd recept';
+  // Opmaakresten uit de bron ("# Ingredients", "(Source: …)", alles op één regel) netjes maken; de woorden
+  // en hoeveelheden blijven precies zoals de AI ze las (js/features/recipe-reader.js, tidyRecipeLines).
+  const tidy = tidyRecipeLines({
+    ingredients: Array.isArray(r.ingredients) ? r.ingredients.map(String).filter(Boolean) : [],
+    steps: Array.isArray(r.steps) ? r.steps.map(String).filter(Boolean) : []
+  });
   return {
     title,
-    ingredients: Array.isArray(r.ingredients) ? r.ingredients.map(String).filter(Boolean) : [],
-    steps: Array.isArray(r.steps) ? r.steps.map(String).filter(Boolean) : [],
+    ingredients: tidy.ingredients,
+    steps: tidy.steps,
+    ...(tidy.description ? { description: tidy.description } : {}),
     yield: String(r.yield || '').trim(),
     category: importCategory(title, r.category),
     _needsReview: Boolean(r.needs_review),
@@ -1821,7 +1828,7 @@ async function persistBatchRecipes() {
     const rowFor = r => ({
       user_id: currentUser.id,
       title: r.title || 'Nieuw recept',
-      description: null,
+      description: r.description || null,
       yield_text: r.yield || null,
       ingredients: r.ingredients || [],
       steps: r.steps || [],
@@ -1932,4 +1939,103 @@ function setupImportDropZone() {
       setImportFiles(files);
     });
   }
+}
+
+// ---- Bestaande recepten opschonen (2026-11-11) ----
+// Na een import uit tekst met opmaak (bijv. uit ChatGPT) kunnen er "# Ingredients", "(Source: …)" of hele
+// ingrediëntenlijsten op één regel tussen de ingrediënten staan. Savour vraagt één keer of het die recepten
+// mag opschonen. Er verandert geen woord of hoeveelheid; de oude versie wordt bewaard (recipe_tidy_backups).
+// Regels: tidyRecipeLines in recipe-reader.js. SQL: supabase/2026-11-11-recepten-opschonen.sql.
+function recipeTidyCandidates() {
+  return (recipes || [])
+    .filter(r => r && !r.teamId)
+    .map(r => ({ r, t: tidyRecipeLines(r) }))
+    .filter(x => x.t.changed > 0);
+}
+
+// Kort voorbeeld voor in het venster: hoe de ingrediënten er nu uitzien en daarna.
+function recipeTidyExample(list) {
+  const pick = list.find(x => x.r.ingredients.some(l => readerSplitRunOn(l).length > 1)) || list[0];
+  const short = lines => {
+    const shown = lines.slice(0, 6).map(l => (l.length > 60 ? `${l.slice(0, 57)}…` : l));
+    return shown.join('\n') + (lines.length > 6 ? `\n… (+${lines.length - 6})` : '');
+  };
+  return `${t('Voorbeeld')}: ${pick.r.title}\n\n${t('Nu')}:\n${short(pick.r.ingredients)}\n\n${t('Na opschonen')}:\n${short(pick.t.ingredients)}`;
+}
+
+async function offerRecipeTidy() {
+  if (!currentUser || demoMode || importBusy || batchDrafts.length) return;
+  const list = recipeTidyCandidates();
+  if (!list.length) return;
+  // Al eens gevraagd (of de tabel bestaat nog niet)? Dan niet opnieuw.
+  const { data, error } = await supabaseClient
+    .from('recipe_tidy_offers')
+    .select('answer')
+    .eq('user_id', currentUser.id)
+    .maybeSingle();
+  if (error || data) return;
+  // Staat er al een ander venster open (welkom, openstaande imports)? Even wachten.
+  for (let i = 0; i < 60 && dialogResolve; i++) await new Promise(r => setTimeout(r, 1000));
+  if (dialogResolve || importBusy || batchDrafts.length) return;
+  const choice = await askChoice(
+    `${t('Je recepten opschonen?')}\n\n${list.length} ${t('recepten hebben nog resten van het importeren, zoals "# Ingredients", "(Source: …)" tussen de ingrediënten of alle ingrediënten op één regel. Savour kan dit voor je opschonen: kopjes en opmaak weg, de bron naar de beschrijving en elk ingrediënt op een eigen regel. Geen woord of hoeveelheid verandert, en je huidige versie wordt bewaard.')}\n\n${recipeTidyExample(list)}`,
+    [
+      { value: 'ja', label: t('Ja, opschonen'), primary: true },
+      { value: 'nee', label: t('Nee, laten zoals het is'), hint: t('Savour vraagt het niet opnieuw.') }
+    ]
+  );
+  if (choice === 'nee') {
+    await supabaseClient
+      .from('recipe_tidy_offers')
+      .upsert({ user_id: currentUser.id, answer: 'nee', recipes_changed: 0 });
+    return;
+  }
+  if (choice !== 'ja') return;
+  await runRecipeTidy(list);
+}
+
+async function runRecipeTidy(list) {
+  toast(`${list.length} ${t('recepten worden opgeschoond…')}`);
+  let done = 0;
+  let failed = 0;
+  // Eerst de huidige versie bewaren, in blokken; lukt dat niet, dan dat recept niet aanpassen.
+  for (let start = 0; start < list.length; start += 50) {
+    const block = list.slice(start, start + 50);
+    const { error } = await supabaseClient.from('recipe_tidy_backups').insert(
+      block.map(({ r }) => ({
+        user_id: currentUser.id,
+        recipe_id: r.dbId || r.id,
+        before: { ingredients: r.ingredients, steps: r.steps, description: r.description || '' }
+      }))
+    );
+    if (error) {
+      console.warn('Back-up vóór opschonen mislukt', error);
+      failed += block.length;
+      continue;
+    }
+    // Vijf tegelijk bijwerken: snel genoeg, zonder de database te overladen.
+    for (let i = 0; i < block.length; i += 5) {
+      const results = await Promise.all(
+        block.slice(i, i + 5).map(({ r, t: tidy }) =>
+          supabaseClient
+            .from('recipes')
+            .update({ ingredients: tidy.ingredients, steps: tidy.steps, description: tidy.description || null })
+            .eq('id', r.dbId || r.id)
+            .eq('user_id', currentUser.id)
+            .select('id')
+        )
+      );
+      results.forEach(res => (res.error || !res.data?.length ? failed++ : done++));
+    }
+  }
+  await supabaseClient
+    .from('recipe_tidy_offers')
+    .upsert({ user_id: currentUser.id, answer: 'ja', recipes_changed: done });
+  await loadDatabaseState().catch(() => {});
+  if (typeof renderRecipes === 'function') renderRecipes();
+  toast(
+    failed
+      ? `${done} ${t('recepten opgeschoond')} · ${failed} ${t('niet gelukt')}`
+      : `${done} ${t('recepten opgeschoond')}`
+  );
 }

@@ -179,6 +179,17 @@ window.SAVOUR_I18N.en = {
     'Nog niet opgeslagen.': 'Not saved yet.',
     'Controleer de recepten en klik op "Alle recepten opslaan". Sluit je Savour eerder, dan bieden we ze de volgende keer opnieuw aan.':
       'Check the recipes and click "Save all recipes". If you close Savour before that, we’ll offer them again next time.',
+    'Nu': 'Now',
+    'Na opschonen': 'After tidying',
+    'Je recepten opschonen?': 'Tidy up your recipes?',
+    'recepten hebben nog resten van het importeren, zoals "# Ingredients", "(Source: …)" tussen de ingrediënten of alle ingrediënten op één regel. Savour kan dit voor je opschonen: kopjes en opmaak weg, de bron naar de beschrijving en elk ingrediënt op een eigen regel. Geen woord of hoeveelheid verandert, en je huidige versie wordt bewaard.':
+      'recipes still contain leftovers from importing, such as "# Ingredients", "(Source: …)" among the ingredients, or all ingredients on one line. Savour can tidy this up for you: headings and formatting removed, the source moved to the description, and each ingredient on its own line. No word or quantity changes, and your current version is kept.',
+    'Ja, opschonen': 'Yes, tidy up',
+    'Nee, laten zoals het is': 'No, leave as is',
+    'Savour vraagt het niet opnieuw.': 'Savour won’t ask again.',
+    'recepten worden opgeschoond…': 'recipes are being tidied…',
+    'recepten opgeschoond': 'recipes tidied',
+    'niet gelukt': 'failed',
     'Veel AI-imports voor één bestand': 'Many AI imports for one file',
     'Alleen de Savour-lezer': 'Only the Savour reader',
     'Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.':
