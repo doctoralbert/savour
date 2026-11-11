@@ -92,11 +92,13 @@ function openDialog({ message, confirmLabel, danger, withInput, value, choices }
   el._returnFocus = document.activeElement;
   el.classList.add('open');
   setTimeout(() => {
-    if (choices) box.querySelector('.is-primary, button')?.focus();
+    // Knop alvast kiezen zonder erheen te scrollen: een lang venster begint bovenaan, bij de uitleg.
+    if (choices) box.querySelector('.is-primary, button')?.focus({ preventScroll: true });
     else if (withInput) {
       input.focus();
       input.select();
-    } else ok.focus();
+    } else ok.focus({ preventScroll: true });
+    el.querySelector('.sv-dialog-box')?.scrollTo?.(0, 0);
   }, 0);
   return new Promise(resolve => (dialogResolve = resolve));
 }

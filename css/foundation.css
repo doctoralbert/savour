@@ -146,6 +146,15 @@ body.savour-light :is(#appShell, .modal) .btn.gold {
   color: var(--sv-text);
   font-family: var(--sv-font);
 }
+/* Nooit hoger dan het scherm: een lang venster scrolt zelf (op de iPhone viel de onderkant er anders buiten
+   en kon je niet bij de knoppen). dvh = de echte schermhoogte op de telefoon, ook met de adresbalk. */
+.sv-dialog-box {
+  /* 100% van de vensterruimte (minus de marges en de vrije ruimte voor de onderbalk van het venster zelf). */
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
 /* Kruisje rechtsboven in elk venster (zelfde als Annuleren), zoals bij het inlogvenster. */
 .sv-dialog-box {
   position: relative;

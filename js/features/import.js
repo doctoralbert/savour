@@ -1998,8 +1998,9 @@ function recipeTidyCandidates() {
 function recipeTidyExample(list) {
   const pick = list.find(x => x.r.ingredients.some(l => readerSplitRunOn(l).length > 1)) || list[0];
   const short = lines => {
-    const shown = lines.slice(0, 6).map(l => (l.length > 60 ? `${l.slice(0, 57)}…` : l));
-    return shown.join('\n') + (lines.length > 6 ? `\n… (+${lines.length - 6})` : '');
+    // Kort houden: het venster moet ook op een telefoon passen.
+    const shown = lines.slice(0, 4).map(l => (l.length > 50 ? `${l.slice(0, 47)}…` : l));
+    return shown.join('\n') + (lines.length > 4 ? `\n… (+${lines.length - 4})` : '');
   };
   // Laat zien wat er echt verandert: de ingrediënten, of anders de bereiding.
   const field = JSON.stringify(pick.r.ingredients) !== JSON.stringify(pick.t.ingredients) ? 'ingredients' : 'steps';
