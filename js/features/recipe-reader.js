@@ -114,8 +114,22 @@ function readerSplitRunOn(line) {
     )
   )
     return qtyFirst;
-  const nameFirst = x.replace(new RegExp(`([–—]\\s*${qty})\\s+(?=\\p{Lu})`, 'giu'), '$1\n').split('\n');
-  if (nameFirst.length >= 3 && nameFirst.every(p => /^\p{L}/u.test(p) && /[–—]\s*\S/.test(p) && p.length <= 70))
+  // Knippen na "– 300 g" (eventueel met een opmerking tussen haakjes erachter) als er een hoofdletter volgt.
+  // Nooit een eenheid aan het eind afknippen ("Oats – 300" + "g"): daarom geen eenheid direct na de knip, en
+  // de hoofdletter wordt apart gecontroleerd (met de vlag i telt \p{Lu} ook kleine letters mee).
+  const nameFirst = x
+    .replace(
+      new RegExp(`([–—]\\s*${qty}(?:\\s*\\([^()]*\\))?)\\s+(?!${READER_UNIT}\\b)(?=(\\p{L}))`, 'giu'),
+      (m, head, next) => (/\p{Lu}/u.test(next) ? `${head}\n` : m)
+    )
+    .split('\n');
+  // Elk stuk precies één streepje: anders hoort er iets bij dat de lezer niet zeker weet, en blijft de regel heel.
+  if (
+    nameFirst.length >= 3 &&
+    nameFirst.every(
+      p => /^\p{L}/u.test(p) && (p.match(/[–—]/g) || []).length === 1 && /[–—]\s*\S/.test(p) && p.length <= 70
+    )
+  )
     return nameFirst;
   return [x];
 }
@@ -850,6 +864,33 @@ function splitRecipeText(text) {
 function tidyRecipeLines(recipe) {
   const notes = [];
   let changed = 0;
+  // Uit ChatGPT-opmaak (2026-11-11): bij ingrediënten staat alleen "# Ingredients", en de ingrediënten zelf
+  // (aan één stuk) staan bij de bereiding vóór het kopje "# Method". Dan horen de regels vóór dat kopje bij
+  // de ingrediënten. Alleen als er verder geen ingrediënt is en die regels geen zinnen zijn; geen woord anders.
+  let ingredientsIn = Array.isArray(recipe?.ingredients) ? recipe.ingredients : [];
+  let stepsIn = Array.isArray(recipe?.steps) ? recipe.steps : [];
+  const headingText = raw => {
+    const x = readerClean(raw);
+    const md = x.match(/^#{1,6}\s+(\S.*)$/);
+    return readerClean(md ? md[1] : x).replace(/:$/, '');
+  };
+  const onlyLabels = ingredientsIn.every(l => {
+    const x = readerClean(l);
+    return !x || readerIsHeading(headingText(l)) || readerIsNote(x);
+  });
+  const methodAt = stepsIn.findIndex(l => READER_STEPS_HEADING.test(headingText(l)));
+  if (
+    onlyLabels &&
+    methodAt > 0 &&
+    stepsIn.slice(0, methodAt).every(l => {
+      const x = readerClean(l);
+      return x && !/[.!?]$/.test(x) && !/\p{L}[.!?]\s+\p{L}/u.test(x) && !readerIsHeading(headingText(l));
+    })
+  ) {
+    ingredientsIn = [...ingredientsIn, ...stepsIn.slice(0, methodAt)];
+    stepsIn = stepsIn.slice(methodAt);
+    changed += methodAt;
+  }
   const tidy = (list, isIngredients) => {
     const out = [];
     for (const raw of Array.isArray(list) ? list : []) {
@@ -887,8 +928,8 @@ function tidyRecipeLines(recipe) {
     }
     return out;
   };
-  const ingredients = tidy(recipe?.ingredients, true);
-  const steps = tidy(recipe?.steps, false);
+  const ingredients = tidy(ingredientsIn, true);
+  const steps = tidy(stepsIn, false);
   const before = String(recipe?.description || '').trim();
   const extra = notes.filter(n => !before.includes(n));
   const description = [before, ...extra].filter(Boolean).join(' · ');
