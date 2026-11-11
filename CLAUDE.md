@@ -31,6 +31,10 @@ Tekst in markdown/ChatGPT-opmaak (`# Ingredients`, `**Method**`, `(Source: …)`
 (`readerClean`, `readerSplitRunOn`, `readerIsNote`); AI-resultaten en bestaande recepten gaan door `tidyRecipeLines` (zelfde regels, geen woord
 anders). Savour vraagt één keer of het oude recepten met zulke resten mag opschonen (`offerRecipeTidy`, back-up in `recipe_tidy_backups`,
 `supabase/2026-11-11-recepten-opschonen.sql`).
+Wat de kok zelf verbetert is de belangrijkste les voor de lezer: per geïmporteerd recept bewaart `recipe_import_origins` wat de lezer/AI las
+(`as_read`) en wat de kok opsloeg (`as_saved`); verschil met het recept nu = latere verbeteringen (`saveImportOrigins`, alleen met
+"Help de Savour-lezer verbeteren", `supabase/2026-11-11-import-herkomst.sql`). Claude controleert elke avond de imports (geplande taak) en
+stelt lezerverbeteringen voor als pull request.
 Lezer leren (`js/features/reader-learning.js`, `supabase/2026-11-10-lezer-leren.sql`): anonieme tellingen van elke import (geen inhoud) en voorbeelden met inhoud van accounts met "Help de Savour-lezer verbeteren" (standaard aan, Instellingen; alleen tekstbronnen). Beheer → Savour-lezer: bekijken en downloaden; daarvan maak je lezer-tests. De lezer verandert nooit vanzelf.
 Community: forum voor alle ingelogde accounts (Mijn Savour → Community, `js/features/community.js`,
 `supabase/2026-11-10-community-forum.sql`); naam uit het profiel, nooit e-mail; beheerder verbergt, zet vast, sluit.

@@ -242,5 +242,44 @@ async function setHelpReader(on) {
   );
   if (!wipe) return;
   const { error: delError } = await supabaseClient.from('reader_examples').delete().eq('user_id', currentUser.id);
-  toast(delError ? t('Weghalen lukte niet') : t('Gedeelde voorbeelden weggehaald'));
+  // Ook de bewaarde importversies (recipe_import_origins); de recepten zelf blijven staan.
+  const { error: originError } = await supabaseClient
+    .from('recipe_import_origins')
+    .delete()
+    .eq('user_id', currentUser.id);
+  toast(
+    delError || (originError && !['42P01', 'PGRST205'].includes(originError.code))
+      ? t('Weghalen lukte niet')
+      : t('Gedeelde voorbeelden weggehaald')
+  );
+}
+
+// Per geïmporteerd recept bewaren wat de lezer of de AI las en wat de kok opsloeg (recipe_import_origins).
+// Wat de kok verbetert (meteen in de controle, of later in het recept) is de beste les voor de lezer; de
+// dagelijkse controle vergelijkt dit met het recept zoals het nu is. Alleen met "Help de Savour-lezer
+// verbeteren" aan. Op de achtergrond: de kok wacht hier niet op, en een fout merkt hij niet.
+async function saveImportOrigins(drafts, rows) {
+  if (!currentUser || demoMode || account.helpReader === false) return;
+  const list = (drafts || [])
+    .map((d, i) => [d, rows?.[i]?.id])
+    .filter(([d, id]) => id && d?._learn?.read)
+    .map(([d, id]) => ({
+      recipe_id: id,
+      user_id: currentUser.id,
+      upload_id: d._uploadId || null,
+      result_id: d._resultId || null,
+      source_kind: d._learn.kind || null,
+      file_ext: d._learn.ext || null,
+      by_ai: Boolean(d._learn.byAi),
+      reader_confidence: d._learn.confidence || null,
+      as_read: d._learn.read,
+      as_saved: learnSnapshot(d)
+    }));
+  if (!list.length) return;
+  try {
+    const { error } = await supabaseClient.from('recipe_import_origins').insert(list);
+    if (error) console.warn('Importversie niet bewaard', error.message);
+  } catch (e) {
+    console.warn('Importversie niet bewaard', e?.message || e);
+  }
 }

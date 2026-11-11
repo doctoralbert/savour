@@ -1846,6 +1846,7 @@ async function persistBatchRecipes() {
         saved += block.length;
         savedDrafts.push(...block);
         await saveRecipeSources(block, inserted);
+        saveImportOrigins(block, inserted);
         continue;
       }
       for (const r of block) {
@@ -1858,6 +1859,7 @@ async function persistBatchRecipes() {
           saved++;
           savedDrafts.push(r);
           await saveRecipeSources([r], one);
+          saveImportOrigins([r], one);
         }
       }
     }
