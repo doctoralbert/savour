@@ -1268,6 +1268,64 @@ Coconut cream – 400 ml Green curry paste – 200 g Chicken breast – 2.5 kg R
     ]
   },
   {
+    name: '"Product – hoeveelheid" aan één stuk, laatste hoeveelheid met eenheid',
+    text: `## Hazel Bars
+**Ingredients**
+Butter – 120 g Dark brown sugar – 130 g Golden syrup – 5 tbsp Oats – 300 g Blueberries – 90 g
+**Method**
+Melt butter with sugar and syrup. Stir in oats and berries. Bake 20 minutes.`,
+    expect: [
+      {
+        t: 'Hazel Bars',
+        i: [
+          'Butter – 120 g',
+          'Dark brown sugar – 130 g',
+          'Golden syrup – 5 tbsp',
+          'Oats – 300 g',
+          'Blueberries – 90 g'
+        ],
+        s: 1,
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: '"Product – hoeveelheid" met een opmerking tussen haakjes',
+    text: `## Trout Spread
+# Ingredients
+Smoked trout – 1.5 kg Quark – 700 g (notes: maybe 600 g) Lemon juice – 400 ml Pepper – 5 g
+# Method
+Blend everything smooth. Season.`,
+    expect: [
+      {
+        t: 'Trout Spread',
+        i: [
+          'Smoked trout – 1.5 kg',
+          'Quark – 700 g (notes: maybe 600 g)',
+          'Lemon juice – 400 ml',
+          'Pepper – 5 g'
+        ],
+        s: 1,
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Geen splitsing als een stuk twee streepjes zou krijgen',
+    text: `## Tomato Base
+# Ingredients
+Tomatoes – 2 kg Blik tomaten – 1 Basil – 1 bos
+# Method
+Cook down slowly.`,
+    expect: [
+      {
+        t: 'Tomato Base',
+        i: ['Tomatoes – 2 kg Blik tomaten – 1 Basil – 1 bos'],
+        s: 1
+      }
+    ]
+  },
+  {
     name: 'Kop van niveau 4, cursieve bronregel en "(No method provided.)"',
     text: `### Sellerie in Holländischer Soße
 *(Source: Familienkochbuch – Gemüse)*
@@ -1556,6 +1614,62 @@ const tidyCases = [
       description: ''
     },
     changed: 0
+  },
+  {
+    name: 'Ingrediënten aan één stuk die vóór "# Method" bij de bereiding stonden',
+    from: {
+      ingredients: ['# Ingredients'],
+      steps: [
+        'Butter – 120 g Dark brown sugar – 130 g Golden syrup – 5 tbsp Oats – 300 g',
+        '# Method',
+        'Melt butter with sugar and syrup. Stir in oats. Bake 20 minutes.'
+      ]
+    },
+    to: {
+      ingredients: ['Butter – 120 g', 'Dark brown sugar – 130 g', 'Golden syrup – 5 tbsp', 'Oats – 300 g'],
+      steps: ['Melt butter with sugar and syrup. Stir in oats. Bake 20 minutes.'],
+      description: ''
+    },
+    changed: 4
+  },
+  {
+    name: 'Ingrediënten zonder hoeveelheden vóór "# Method": verplaatst, niet gesplitst',
+    from: {
+      ingredients: ['# Ingredients'],
+      steps: ['Beetroot Muscovado sugar Spelt flour Cocoa Oat milk', '# Method', 'Mix wet and dry. Bake.']
+    },
+    to: {
+      ingredients: ['Beetroot Muscovado sugar Spelt flour Cocoa Oat milk'],
+      steps: ['Mix wet and dry. Bake.'],
+      description: ''
+    },
+    changed: 3
+  },
+  {
+    name: 'Stappen vóór een kopje blijven stappen als er al ingrediënten zijn',
+    from: {
+      ingredients: ['200 g boter', '2 eieren'],
+      steps: ['Oven voorverwarmen op 180 graden.', 'Bereiding', 'Boter smelten.']
+    },
+    to: {
+      ingredients: ['200 g boter', '2 eieren'],
+      steps: ['Oven voorverwarmen op 180 graden.', 'Boter smelten.'],
+      description: ''
+    },
+    changed: 1
+  },
+  {
+    name: 'Een zin vóór "# Method" blijft een stap',
+    from: {
+      ingredients: ['# Ingredients'],
+      steps: ['Weigh everything first.', '# Method', 'Mix and bake.']
+    },
+    to: {
+      ingredients: [],
+      steps: ['Weigh everything first.', 'Mix and bake.'],
+      description: ''
+    },
+    changed: 2
   },
   {
     name: 'Een net recept blijft precies zoals het is',
