@@ -160,6 +160,25 @@ window.SAVOUR_I18N.fr = {
     'Reddit of een forum': 'Reddit ou un forum',
     Anders: 'Autre',
     'Je sessie is verlopen. Log opnieuw in om verder te gaan.': 'Ta session a expiré. Reconnecte-toi pour continuer.',
+    'Recepten wachten op opslaan': 'Des recettes attendent d’être enregistrées',
+    'recepten die de AI al voor je heeft gelezen, zijn nog niet opgeslagen':
+      'recettes déjà lues par l’IA ne sont pas encore enregistrées',
+    'Ze tellen al als AI-import: je hoeft ze niet opnieuw te laten lezen.':
+      'Elles comptent déjà comme imports IA : inutile de les faire relire.',
+    'Nu nakijken en opslaan': 'Vérifier et enregistrer maintenant',
+    'Je krijgt ze de volgende keer weer te zien.': 'Vous les reverrez la prochaine fois.',
+    'Niet bewaren': 'Ne pas garder',
+    'Deze recepten worden niet opgeslagen.': 'Ces recettes ne seront pas enregistrées.',
+    'Recepten niet bewaren?': 'Ne pas garder ces recettes ?',
+    'Je kunt ze daarna niet meer terugzetten.': 'Vous ne pourrez plus les récupérer ensuite.',
+    'teruggezette recepten uit een eerdere import. Controleer ze en sla ze op.':
+      'recettes récupérées d’un import précédent. Vérifiez-les et enregistrez-les.',
+    'Recepten worden geïmporteerd': 'Import des recettes en cours',
+    'Sluit Savour niet en ververs de pagina niet tot dit klaar is.':
+      'Ne fermez pas Savour et ne rechargez pas la page avant la fin.',
+    'Nog niet opgeslagen.': 'Pas encore enregistré.',
+    'Controleer de recepten en klik op "Alle recepten opslaan". Sluit je Savour eerder, dan bieden we ze de volgende keer opnieuw aan.':
+      'Vérifiez les recettes et cliquez sur « Enregistrer toutes les recettes ». Si vous fermez Savour avant, nous vous les reproposerons la prochaine fois.',
     'Veel AI-imports voor één bestand': 'Beaucoup d’imports IA pour un seul fichier',
     'Alleen de Savour-lezer': 'Seulement le lecteur Savour',
     'Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.':

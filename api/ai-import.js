@@ -1,5 +1,114 @@
 import { getUserFromRequest } from './_lib/auth.js';
-import { rpc, hasServiceRole } from './_lib/supabase-admin.js';
+import { rpc, hasServiceRole, insertReturning, select, update, remove } from './_lib/supabase-admin.js';
+
+// Elk AI-resultaat meteen bewaren (tabel ai_import_results), nog vóór de browser het krijgt. Sluit de kok het
+// venster of valt de verbinding weg, dan biedt Savour de recepten de volgende keer weer aan: wat ons geld
+// kost, gaat nooit meer verloren (supabase/2026-11-11-import-nooit-kwijt.sql). Lukt bewaren niet, dan krijgt
+// de kok het resultaat gewoon; we loggen het wel.
+async function keepAiResult({ userId, uploadId, filename, kind, model, recipes }) {
+  try {
+    const validUpload = /^[0-9a-f-]{36}$/i.test(String(uploadId || '')) ? uploadId : null;
+    const [row] = await insertReturning('ai_import_results', [
+      {
+        user_id: userId,
+        upload_id: validUpload,
+        filename: String(filename || '').slice(0, 400),
+        kind,
+        model: String(model || ''),
+        recipes: Array.isArray(recipes) ? recipes : [],
+        recipe_count: Array.isArray(recipes) ? recipes.length : 0
+      }
+    ]);
+    return row?.id || null;
+  } catch (error) {
+    console.error('AI-resultaat bewaren mislukt', error);
+    return null;
+  }
+}
+
+// ---- Doorlopen als het scherm wegvalt ----
+// De browser geeft elke aanvraag een vaste sleutel (request_key). Legt de kok zijn telefoon weg of gaat hij naar
+// een andere app, dan breekt de verbinding soms af terwijl de server nog leest. Probeert de browser het daarna
+// opnieuw met dezelfde sleutel, dan wacht de server op (of geeft hij) het resultaat van de eerste aanvraag:
+// niet nog een keer betalen, niet nog een keer tellen.
+const REQUEST_KEY = /^[A-Za-z0-9-]{8,80}$/;
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+async function findResult(userId, key) {
+  const rows = await select(
+    'ai_import_results',
+    `select=id,status,recipes,model,created_at&user_id=eq.${userId}&request_key=eq.${encodeURIComponent(key)}`
+  );
+  return rows?.[0] || null;
+}
+
+// Het resultaat van een eerdere aanvraag met dezelfde sleutel. null = er is (nog) niets; 'bezig' = die aanvraag
+// loopt na lang wachten nog steeds; 'later' = te lang gewacht om nu nog zelf te lezen (tijdslimiet).
+async function earlierResult(userId, key, maxMs = 200000) {
+  const start = Date.now();
+  let seenBusy = false;
+  for (;;) {
+    let row = null;
+    try {
+      row = await findResult(userId, key);
+    } catch (error) {
+      console.error('Eerdere AI-aanvraag zoeken', error);
+      return null;
+    }
+    if (row?.status === 'klaar') return row;
+    if (!row) return seenBusy && Date.now() - start > 60000 ? 'later' : null;
+    seenBusy = true;
+    if (Date.now() - start > maxMs) return 'bezig';
+    await sleep(2000);
+  }
+}
+
+// Een plek in ai_import_results vastleggen vóór het lezen. id = gelukt; null = een andere aanvraag met dezelfde
+// sleutel was net eerder; undefined = bewaren lukt niet (dan lezen we gewoon en bewaren achteraf).
+async function claimResult({ userId, key, uploadId, filename, kind }) {
+  try {
+    const [row] = await insertReturning('ai_import_results', [
+      {
+        user_id: userId,
+        request_key: key,
+        status: 'bezig',
+        upload_id: /^[0-9a-f-]{36}$/i.test(String(uploadId || '')) ? uploadId : null,
+        filename: String(filename || '').slice(0, 400),
+        kind
+      }
+    ]);
+    return row?.id || undefined;
+  } catch (error) {
+    if (/duplicate|unique|23505/i.test(error?.message || '')) return null;
+    console.error('AI-aanvraag vastleggen mislukt', error);
+    return undefined;
+  }
+}
+
+async function finishResult(id, { model, recipes }) {
+  try {
+    const list = Array.isArray(recipes) ? recipes : [];
+    await update('ai_import_results', `id=eq.${id}`, {
+      status: 'klaar',
+      model: String(model || ''),
+      recipes: list,
+      recipe_count: list.length
+    });
+    return true;
+  } catch (error) {
+    console.error('AI-resultaat afronden mislukt', error);
+    return false;
+  }
+}
+
+async function dropResult(id) {
+  if (!id) return;
+  try {
+    await remove('ai_import_results', `id=eq.${id}&status=eq.bezig`);
+  } catch (error) {
+    console.error('AI-aanvraag opruimen mislukt', error);
+  }
+}
 
 // AI-imports per maand voor Savour Pro. Eén import = één bestand, foto of stuk van een lang document.
 const AI_MONTHLY_LIMIT = 150;
@@ -77,6 +186,23 @@ export default async function handler(req, res) {
   }
   if (!allowance?.pro)
     return res.status(402).json({ error: 'AI-import is onderdeel van Savour Pro.', code: 'pro_required' });
+  const requestKey =
+    req.body?.mode !== 'orient' && REQUEST_KEY.test(String(req.body?.request_key || '')) ? req.body.request_key : null;
+  const reusedResponse = row =>
+    res.status(200).json({
+      recipes: Array.isArray(row.recipes) ? row.recipes : [],
+      model: row.model || '',
+      result_id: row.id,
+      reused: true,
+      usage: { used: allowance.used, limit: allowance.limit, trial: !!allowance.trial }
+    });
+  // Opnieuw geprobeerd na een weggevallen verbinding? Dan het resultaat van de eerste keer (gratis, telt niet).
+  if (requestKey) {
+    const earlier = await earlierResult(user.id, requestKey);
+    if (earlier === 'bezig' || earlier === 'later')
+      return res.status(503).json({ error: 'Dit deel wordt nog gelezen. Savour probeert het zo opnieuw.' });
+    if (earlier) return reusedResponse(earlier);
+  }
   // In de proefweek geeft de database een grens van 15 in totaal (supabase/2026-11-09-ai-proef-15.sql).
   if (allowance.used >= allowance.limit)
     return res.status(403).json({
@@ -90,6 +216,10 @@ export default async function handler(req, res) {
   if (!key) return res.status(500).json({ error: 'OPENAI_API_KEY ontbreekt in Vercel Environment Variables.' });
   // Gereserveerde plek op de AI-teller (een getal), of null als er (nog) niet gereserveerd is.
   let reservation = null;
+  // Heeft een lezing iets gekost (OpenAI gaf antwoord)? Dan geven we de plek op de teller nooit terug.
+  let paid = false;
+  // Rij in ai_import_results die deze aanvraag vastlegde (met request_key), of null.
+  let resultId = null;
   const releaseReservation = async () => {
     if (reservation === null) return;
     reservation = null;
@@ -100,7 +230,7 @@ export default async function handler(req, res) {
     }
   };
   try {
-    const { image, text, filename, categories, language } = req.body || {};
+    const { image, text, filename, categories, language, upload_id: uploadId } = req.body || {};
     // Taal van de chef in de app; geldt alleen als de AI twijfelt over de taal van de bron.
     const sourceLanguage = { en: 'Engels', de: 'Duits', es: 'Spaans' }[language] || 'Nederlands';
     const hasImage = typeof image === 'string' && image.startsWith('data:image/');
@@ -175,6 +305,24 @@ export default async function handler(req, res) {
       reservation = reservedCount;
     } catch (error) {
       console.error('AI-reservering', error);
+    }
+    // Plek vastleggen in ai_import_results: zo vindt een herhaalde aanvraag dit resultaat terug.
+    if (requestKey) {
+      const claimed = await claimResult({
+        userId: user.id,
+        key: requestKey,
+        uploadId,
+        filename,
+        kind: hasImage ? 'foto' : 'tekst'
+      });
+      if (claimed === null) {
+        // Een andere aanvraag met dezelfde sleutel was net eerder: die leest al. Plek teruggeven en wachten.
+        await releaseReservation();
+        const earlier = await earlierResult(user.id, requestKey, 150000);
+        if (earlier && typeof earlier === 'object') return reusedResponse(earlier);
+        return res.status(503).json({ error: 'Dit deel wordt nog gelezen. Savour probeert het zo opnieuw.' });
+      }
+      resultId = claimed || null;
     }
 
     const categoryList = Array.isArray(categories)
@@ -305,6 +453,8 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
         console.warn('AI-model niet beschikbaar, volgende proberen:', attempt.model, data?.error?.message);
       }
       if (!response.ok) return { status: response.status, error: data?.error?.message || 'AI-import mislukt.' };
+      // Vanaf hier heeft OpenAI gerekend: deze lezing kost geld en telt dus altijd als AI-import.
+      paid = true;
       // Verbruik per aanroep in de Vercel-logs, om de echte kosten per import te kunnen volgen.
       const u = data?.usage || {};
       console.log(
@@ -327,7 +477,11 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
     let main = first;
     if (!first.parsed && hasImage) main = await readOnce(attempts, 'hoofd opnieuw');
     if (!main.parsed) {
-      await releaseReservation();
+      // Alleen teruggeven als OpenAI niets heeft gerekend (bijv. storing of te druk). Gaf de AI wel antwoord
+      // maar was het onbruikbaar, dan heeft het geld gekost en blijft het geteld.
+      if (!paid) await releaseReservation();
+      else reservation = null;
+      await dropResult(resultId);
       return res.status(main.status || 500).json({ error: main.error });
     }
     const parsed = main.parsed;
@@ -346,13 +500,30 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
       }
     }
     reservation = null;
+    // Bewaren vóór de browser het krijgt: valt de verbinding nu weg, dan is het resultaat er toch.
+    if (!resultId || !(await finishResult(resultId, { model: main.model, recipes: parsed?.recipes })))
+      resultId =
+        (await keepAiResult({
+          userId: user.id,
+          uploadId,
+          filename,
+          kind: hasImage ? 'foto' : 'tekst',
+          model: main.model,
+          recipes: parsed?.recipes
+        })) || resultId;
     // Het gebruikte model gaat mee, zodat de chef (en wij) zien waarmee de foto is gelezen.
-    return res
-      .status(200)
-      .json({ ...parsed, model: main.model, usage: { used, limit: allowance.limit, trial: !!allowance.trial } });
+    return res.status(200).json({
+      ...parsed,
+      model: main.model,
+      result_id: resultId,
+      usage: { used, limit: allowance.limit, trial: !!allowance.trial }
+    });
   } catch (error) {
     console.error(error);
+    // Een fout nadat OpenAI al rekende: telt mee (het kostte geld). Anders de plek teruggeven.
+    if (paid) reservation = null;
     await releaseReservation();
+    await dropResult(resultId);
     return res.status(500).json({ error: error?.message || 'AI-import mislukt.' });
   }
 }

@@ -162,6 +162,25 @@ window.SAVOUR_I18N.de = {
     Anders: 'Anders',
     'Je sessie is verlopen. Log opnieuw in om verder te gaan.':
       'Deine Sitzung ist abgelaufen. Melde dich erneut an, um weiterzumachen.',
+    'Recepten wachten op opslaan': 'Rezepte warten aufs Speichern',
+    'recepten die de AI al voor je heeft gelezen, zijn nog niet opgeslagen':
+      'Rezepte, die die KI schon für dich gelesen hat, sind noch nicht gespeichert',
+    'Ze tellen al als AI-import: je hoeft ze niet opnieuw te laten lezen.':
+      'Sie zählen bereits als KI-Import: Du musst sie nicht erneut lesen lassen.',
+    'Nu nakijken en opslaan': 'Jetzt prüfen und speichern',
+    'Je krijgt ze de volgende keer weer te zien.': 'Du siehst sie beim nächsten Mal wieder.',
+    'Niet bewaren': 'Nicht behalten',
+    'Deze recepten worden niet opgeslagen.': 'Diese Rezepte werden nicht gespeichert.',
+    'Recepten niet bewaren?': 'Rezepte nicht behalten?',
+    'Je kunt ze daarna niet meer terugzetten.': 'Du kannst sie danach nicht mehr zurückholen.',
+    'teruggezette recepten uit een eerdere import. Controleer ze en sla ze op.':
+      'wiederhergestellte Rezepte aus einem früheren Import. Prüfe und speichere sie.',
+    'Recepten worden geïmporteerd': 'Rezepte werden importiert',
+    'Sluit Savour niet en ververs de pagina niet tot dit klaar is.':
+      'Schließe Savour nicht und lade die Seite nicht neu, bis dies fertig ist.',
+    'Nog niet opgeslagen.': 'Noch nicht gespeichert.',
+    'Controleer de recepten en klik op "Alle recepten opslaan". Sluit je Savour eerder, dan bieden we ze de volgende keer opnieuw aan.':
+      'Prüfe die Rezepte und klicke auf "Alle Rezepte speichern". Schließt du Savour vorher, bieten wir sie beim nächsten Mal erneut an.',
     'Veel AI-imports voor één bestand': 'Viele KI-Importe für eine Datei',
     'Alleen de Savour-lezer': 'Nur der Savour-Leser',
     'Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.':

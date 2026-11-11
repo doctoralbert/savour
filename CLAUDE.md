@@ -22,6 +22,11 @@ Wie stopt met Pro houdt altijd alles; alleen toevoegen boven de grens kan niet. 
 `supabase/2026-10-22-gratis-pro-teams.sql` (savour_is_pro, savour_my_plan). Beheer: /admin (api/admin.js). Importeren gaat altijd eerst via de eigen lezer
 (`js/features/recipe-reader.js`, test: `npm run test:lezer`); alleen bij twijfel en met Pro naar de AI.
 De server (`api/ai-import.js`) controleert Pro en de limiet. Instellen: `docs/savour-pro-instellen.md`.
+Importeren mag nooit iets kwijtraken (`supabase/2026-11-11-import-nooit-kwijt.sql`): elk bestand gaat naar de privé-bucket `import-uploads` (tabel `import_uploads`,
+Beheer → AI → Geïmporteerde bestanden), de server bewaart elk AI-resultaat meteen in `ai_import_results` en Savour biedt niet-opgeslagen
+resultaten bij het openen opnieuw aan (`offerPendingAiImports`). Elke AI-aanvraag heeft een vaste `request_key`: opnieuw proberen na een
+weggevallen verbinding geeft het bewaarde resultaat (niet dubbel betalen). Wat OpenAI rekent, telt altijd als AI-import. Tijdens importeren
+staat er een venster zonder kruisje (`showImportBusyBar`) en waarschuwt de browser bij afsluiten (`importNeedsWarning`).
 Lezer leren (`js/features/reader-learning.js`, `supabase/2026-11-10-lezer-leren.sql`): anonieme tellingen van elke import (geen inhoud) en voorbeelden met inhoud van accounts met "Help de Savour-lezer verbeteren" (standaard aan, Instellingen; alleen tekstbronnen). Beheer → Savour-lezer: bekijken en downloaden; daarvan maak je lezer-tests. De lezer verandert nooit vanzelf.
 Community: forum voor alle ingelogde accounts (Mijn Savour → Community, `js/features/community.js`,
 `supabase/2026-11-10-community-forum.sql`); naam uit het profiel, nooit e-mail; beheerder verbergt, zet vast, sluit.

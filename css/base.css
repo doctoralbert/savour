@@ -5061,3 +5061,102 @@ body {
     grid-template-columns: 90px 1fr 76px;
   }
 }
+/* Importeren: venster zolang er geïmporteerd wordt (js/features/import.js, showImportBusyBar). Bewust zonder
+   kruisje en niet weg te klikken; alleen keuzevensters (sv-dialog, z-index 10050) komen er nog bovenop. */
+.import-busy-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10040;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(3, 7, 8, 0.82);
+  backdrop-filter: blur(3px);
+}
+.import-busy-modal[hidden] {
+  display: none;
+}
+.import-busy-box {
+  width: min(460px, 100%);
+  padding: 28px 26px 24px;
+  border: 1px solid var(--gold);
+  border-radius: 14px;
+  background: #0b1415;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  text-align: center;
+}
+.import-busy-spinner {
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 14px;
+  border: 3px solid rgba(232, 202, 141, 0.25);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: import-busy-spin 0.9s linear infinite;
+}
+@keyframes import-busy-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .import-busy-spinner {
+    animation-duration: 3s;
+  }
+}
+.import-busy-box h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  font-size: 24px;
+  margin: 0 0 8px;
+  color: var(--gold);
+}
+.import-busy-warn {
+  margin: 0 0 18px;
+  color: #f0d9a8;
+  font-size: var(--sv-fs-sm, 14px);
+  line-height: 1.45;
+}
+.import-busy-track {
+  height: 12px;
+  border-radius: 99px;
+  background: #1c2829;
+  overflow: hidden;
+}
+.import-busy-fill {
+  height: 100%;
+  width: 2%;
+  background: var(--gold);
+  transition: width 0.25s ease;
+}
+.import-busy-text {
+  margin-top: 8px;
+  font-size: var(--sv-fs-sm, 14px);
+  color: var(--text, #e9e4da);
+  font-variant-numeric: tabular-nums;
+}
+.import-busy-sub {
+  margin: 16px 0 0;
+  font-size: var(--sv-fs-xs, 12px);
+  color: var(--muted);
+  line-height: 1.45;
+}
+.batch-unsaved-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  border: 1px solid var(--gold);
+  border-radius: var(--sv-radius);
+  background: rgba(232, 202, 141, 0.08);
+  font-size: var(--sv-fs-sm, 14px);
+}
+.batch-unsaved-note[hidden] {
+  display: none;
+}
+.batch-unsaved-note .btn {
+  margin-left: auto;
+}

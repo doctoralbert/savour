@@ -160,6 +160,25 @@ window.SAVOUR_I18N.en = {
     'Reddit of een forum': 'Reddit or a forum',
     Anders: 'Other',
     'Je sessie is verlopen. Log opnieuw in om verder te gaan.': 'Your session has expired. Log in again to continue.',
+    'Recepten wachten op opslaan': 'Recipes waiting to be saved',
+    'recepten die de AI al voor je heeft gelezen, zijn nog niet opgeslagen':
+      'recipes the AI already read for you have not been saved yet',
+    'Ze tellen al als AI-import: je hoeft ze niet opnieuw te laten lezen.':
+      'They already count as AI imports: you don’t need to have them read again.',
+    'Nu nakijken en opslaan': 'Review and save now',
+    'Je krijgt ze de volgende keer weer te zien.': 'You’ll see them again next time.',
+    'Niet bewaren': 'Don’t keep',
+    'Deze recepten worden niet opgeslagen.': 'These recipes will not be saved.',
+    'Recepten niet bewaren?': 'Don’t keep these recipes?',
+    'Je kunt ze daarna niet meer terugzetten.': 'You won’t be able to restore them afterwards.',
+    'teruggezette recepten uit een eerdere import. Controleer ze en sla ze op.':
+      'restored recipes from an earlier import. Check them and save them.',
+    'Recepten worden geïmporteerd': 'Importing recipes',
+    'Sluit Savour niet en ververs de pagina niet tot dit klaar is.':
+      'Don’t close Savour or refresh the page until this is done.',
+    'Nog niet opgeslagen.': 'Not saved yet.',
+    'Controleer de recepten en klik op "Alle recepten opslaan". Sluit je Savour eerder, dan bieden we ze de volgende keer opnieuw aan.':
+      'Check the recipes and click "Save all recipes". If you close Savour before that, we’ll offer them again next time.',
     'Veel AI-imports voor één bestand': 'Many AI imports for one file',
     'Alleen de Savour-lezer': 'Only the Savour reader',
     'Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.':

@@ -1587,3 +1587,26 @@ body.savour-light .ai-import-note {
   color: #151716 !important;
   border-color: #e2dfd6 !important;
 }
+/* Importeren: venster tijdens het importeren en "nog niet opgeslagen" (licht thema). */
+body.savour-light .import-busy-modal {
+  background: rgba(40, 32, 18, 0.55);
+}
+body.savour-light .import-busy-box {
+  background: #fffaf0;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+body.savour-light .import-busy-box h3 {
+  color: #8a6420;
+}
+body.savour-light .import-busy-warn {
+  color: #7a5a1c;
+}
+body.savour-light .import-busy-text {
+  color: #2a241a;
+}
+body.savour-light .import-busy-track {
+  background: #eee4d0;
+}
+body.savour-light .batch-unsaved-note {
+  background: rgba(232, 202, 141, 0.18);
+}

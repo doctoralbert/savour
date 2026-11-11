@@ -161,6 +161,25 @@ window.SAVOUR_I18N.es = {
     Anders: 'Otro',
     'Je sessie is verlopen. Log opnieuw in om verder te gaan.':
       'Tu sesión ha caducado. Vuelve a iniciar sesión para continuar.',
+    'Recepten wachten op opslaan': 'Recetas pendientes de guardar',
+    'recepten die de AI al voor je heeft gelezen, zijn nog niet opgeslagen':
+      'recetas que la IA ya leyó para ti aún no se han guardado',
+    'Ze tellen al als AI-import: je hoeft ze niet opnieuw te laten lezen.':
+      'Ya cuentan como importación con IA: no hace falta volver a leerlas.',
+    'Nu nakijken en opslaan': 'Revisar y guardar ahora',
+    'Je krijgt ze de volgende keer weer te zien.': 'Las verás de nuevo la próxima vez.',
+    'Niet bewaren': 'No guardar',
+    'Deze recepten worden niet opgeslagen.': 'Estas recetas no se guardarán.',
+    'Recepten niet bewaren?': '¿No guardar las recetas?',
+    'Je kunt ze daarna niet meer terugzetten.': 'Después no podrás recuperarlas.',
+    'teruggezette recepten uit een eerdere import. Controleer ze en sla ze op.':
+      'recetas recuperadas de una importación anterior. Revísalas y guárdalas.',
+    'Recepten worden geïmporteerd': 'Importando recetas',
+    'Sluit Savour niet en ververs de pagina niet tot dit klaar is.':
+      'No cierres Savour ni recargues la página hasta que termine.',
+    'Nog niet opgeslagen.': 'Aún no guardado.',
+    'Controleer de recepten en klik op "Alle recepten opslaan". Sluit je Savour eerder, dan bieden we ze de volgende keer opnieuw aan.':
+      'Revisa las recetas y haz clic en "Guardar todas las recetas". Si cierras Savour antes, te las ofreceremos de nuevo la próxima vez.',
     'Veel AI-imports voor één bestand': 'Muchas importaciones con IA para un archivo',
     'Alleen de Savour-lezer': 'Solo el lector de Savour',
     'Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.':

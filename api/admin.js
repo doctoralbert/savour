@@ -1114,6 +1114,35 @@ async function readerExampleDelete(id) {
   return { ok: true };
 }
 
+// Geïmporteerde bestanden van de laatste 30 dagen (supabase/2026-11-11-import-nooit-kwijt.sql), met per bestand
+// hoeveel AI-resultaten nog niet zijn opgeslagen.
+async function importUploads() {
+  const since = new Date(Date.now() - 30 * 86400000).toISOString();
+  const [uploads, open, users] = await Promise.all([
+    select('import_uploads', `select=*&created_at=gte.${since}&order=created_at.desc&limit=300`),
+    selectAll(
+      'ai_import_results',
+      `select=id,upload_id,user_id,recipe_count&handled_at=is.null&status=eq.klaar&created_at=gte.${since}`
+    ),
+    listUsers()
+  ]);
+  const emailOf = new Map((users || []).map(u => [u.id, u.email]));
+  const openPer = new Map();
+  for (const r of open || [])
+    if (r.upload_id) openPer.set(r.upload_id, (openPer.get(r.upload_id) || 0) + Number(r.recipe_count || 0));
+  return {
+    open_results: (open || []).length,
+    uploads: (uploads || []).map(u => ({ ...u, email: emailOf.get(u.user_id) || '', open: openPer.get(u.id) || 0 }))
+  };
+}
+
+async function importUploadFile(id) {
+  if (!/^[0-9a-f-]{36}$/i.test(String(id || ''))) throw fail('Onbekend bestand.');
+  const [row] = await select('import_uploads', `select=storage_path&id=eq.${id}`);
+  if (!row?.storage_path) throw fail('Van dit bestand is geen origineel bewaard.');
+  return { url: await storageDownloadUrl('import-uploads', row.storage_path, 600) };
+}
+
 async function aiUsageOverview() {
   const tz = 'Europe/Amsterdam';
   const month = new Intl.DateTimeFormat('sv-SE', { timeZone: tz, year: 'numeric', month: '2-digit' })
@@ -2220,6 +2249,8 @@ export default async function handler(req, res) {
     if (action === 'messages') return res.status(200).json(await contactMessages());
     if (action === 'referrals') return res.status(200).json(await referralOverview());
     if (action === 'ai_usage') return res.status(200).json(await aiUsageOverview());
+    if (action === 'import_uploads') return res.status(200).json(await importUploads());
+    if (action === 'import_upload_file') return res.status(200).json(await importUploadFile(req.body?.id));
     if (action === 'delete_message') return res.status(200).json(await deleteMessage(req.body?.id));
     if (action === 'mark_message')
       return res.status(200).json(await markMessage(req.body?.id, req.body?.read !== false));

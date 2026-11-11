@@ -139,7 +139,10 @@ function showAdminTab(tab) {
   if (tab === 'nieuwsbrief' && !adminNews) loadAdminNewsletter();
   if (tab === 'keukenteams') loadAdminTeams();
   if (tab === 'ingredienten' && !adminIngredients) loadAdminIngredients();
-  if (tab === 'ai') loadAdminAi();
+  if (tab === 'ai') {
+    loadAdminAi();
+    loadAdminImports();
+  }
   if (tab === 'lezer') loadAdminReader();
   try {
     sessionStorage.setItem('savour_admin_tab', tab);
@@ -495,6 +498,7 @@ async function loadAdminDashboard() {
   loadAdminMessages();
   loadAdminReferrals();
   loadAdminAi();
+  loadAdminImports();
   loadAdminIntakes();
   loadAdminAdsense();
   loadAdminFinance();
@@ -621,6 +625,45 @@ async function loadAdminAi() {
       );
   } catch (e) {
     body.innerHTML = `<tr><td colspan="9">AI-gebruik kon niet worden geladen: ${adminEscape(e.message)}</td></tr>`;
+  }
+}
+
+// Geïmporteerde bestanden (api/admin.js, importUploads): wie wat importeerde, met het origineel en hoeveel
+// AI-resultaten nog niet zijn opgeslagen. Om een mislukte import terug te zien en op te lossen.
+const ADMIN_IMPORT_STATUS = {
+  bezig: 'Bezig of afgebroken',
+  gelezen: 'Gelezen, niet opgeslagen',
+  opgeslagen: 'Opgeslagen',
+  mislukt: 'Mislukt'
+};
+
+async function loadAdminImports() {
+  const body = $('adminImportsBody');
+  if (!body) return;
+  try {
+    const d = await adminApi('import_uploads');
+    const list = d.uploads || [];
+    if ($('adminImportsCount'))
+      $('adminImportsCount').textContent = `${list.length} bestanden · ${d.open_results || 0} AI-resultaten open`;
+    body.innerHTML =
+      list
+        .map(
+          u =>
+            `<tr class="${u.open || u.status === 'mislukt' || u.status === 'bezig' ? 'is-flagged' : ''}"><td>${adminFormatDate(u.created_at)} ${new Date(u.created_at).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' })}</td><td>${adminEscape(u.email || u.user_id)}</td><td>${u.storage_path ? `<button type="button" class="admin-ghost" onclick="adminImportFile('${adminEscape(u.id)}')">${adminEscape(u.filename)}</button>` : `${adminEscape(u.filename)} <small class="admin-muted">(geen origineel)</small>`}${u.note ? `<small class="admin-referral-mail">${adminEscape(u.note)}</small>` : ''}</td><td>${adminEscape(ADMIN_IMPORT_STATUS[u.status] || u.status)}</td><td>${adminEscape(u.ai_parts)}</td><td>${adminEscape(u.recipes_found ?? '–')}</td><td>${adminEscape(u.recipes_saved)}</td><td>${u.open ? `<b>${adminEscape(u.open)}</b>` : '–'}</td></tr>`
+        )
+        .join('') || '<tr><td colspan="8">Nog geen imports.</td></tr>';
+  } catch (e) {
+    body.innerHTML = `<tr><td colspan="8">Imports konden niet worden geladen: ${adminEscape(e.message)}. Is supabase/2026-11-11-import-nooit-kwijt.sql uitgevoerd?</td></tr>`;
+  }
+}
+
+// Het origineel downloaden via een eenmalige link (privé-bucket import-uploads).
+async function adminImportFile(id) {
+  try {
+    const { url } = await adminApi('import_upload_file', { id });
+    if (url) window.open(url, '_blank', 'noopener');
+  } catch (e) {
+    toast(e.message || 'Het bestand kon niet worden geopend');
   }
 }
 

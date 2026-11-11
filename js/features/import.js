@@ -672,22 +672,239 @@ async function callAiImport(body) {
         : raw || (response.status === 413 ? 'Het bestand is te groot.' : 'AI-import mislukt.');
     throw Object.assign(new Error(message), { status: response.status, final, code: result?.code });
   }
-  return Array.isArray(result?.recipes) ? result.recipes.map(r => ({ ...r, model: result.model || '' })) : [];
+  // De server bewaarde dit resultaat al (ai_import_results); afmelden gebeurt pas na opslaan (markImportSaved).
+  if (result?.result_id) importResultIds.add(result.result_id);
+  return Array.isArray(result?.recipes)
+    ? result.recipes.map(r => ({ ...r, model: result.model || '', _resultId: result?.result_id || '' }))
+    : [];
+}
+
+// ---- Importeren zonder iets kwijt te raken (2026-11-11) ----
+// Een Pro-klant deed 148 AI-imports en hield 0 recepten over: alles stond alleen in de browser tot hij op
+// "Alle recepten opslaan" klikte. Nu: (1) elk geïmporteerd bestand wordt bewaard (tabel import_uploads,
+// bucket import-uploads) zodat wij een mislukte import kunnen terugzien; (2) de server bewaart elk AI-resultaat
+// meteen en Savour biedt wat niet is opgeslagen de volgende keer weer aan (offerPendingAiImports);
+// (3) tijdens het importeren staat er een duidelijke balk bovenin en waarschuwt de browser bij afsluiten.
+
+// Rij in import_uploads per bestand dat nu wordt geïmporteerd (File → id).
+const importUploadIds = new WeakMap();
+// AI-resultaten van de import die nu in beeld is; afgemeld zodra de recepten zijn opgeslagen.
+const importResultIds = new Set();
+// Bestanden die nog naar de opslag gaan: de import is pas klaar als ook die er staan.
+const importUploadsPending = new Set();
+// Bezig met importeren, of recepten in de controle die nog niet zijn opgeslagen: dan waarschuwen bij afsluiten.
+let importBusy = false;
+let batchUnsaved = false;
+
+function importNeedsWarning() {
+  return importBusy || (batchUnsaved && batchDrafts.length > 0);
+}
+
+// Bestand bewaren in de eigen map van de gebruiker (import-uploads/<user_id>/<upload_id>/<naam>).
+// Mislukt dit, dan gaat de import gewoon door: de kok mag hier nooit last van hebben.
+async function registerImportUpload(file) {
+  if (!currentUser || demoMode || typeof supabaseClient === 'undefined') return null;
+  const id = typeof crypto?.randomUUID === 'function' ? crypto.randomUUID() : null;
+  if (!id) return null;
+  importUploadIds.set(file, id);
+  const name = String(file.name || 'bestand').slice(0, 300);
+  const { error } = await supabaseClient.from('import_uploads').insert({
+    id,
+    user_id: currentUser.id,
+    filename: name,
+    size_bytes: Number(file.size) || null,
+    mime: String(file.type || '').slice(0, 200) || null
+  });
+  if (error) {
+    console.warn('Import vastleggen mislukt', error);
+    return id;
+  }
+  const safe = name.replace(/[^A-Za-z0-9._-]+/g, '_').slice(-120) || 'bestand';
+  const path = `${currentUser.id}/${id}/${safe}`;
+  const upload = supabaseClient.storage
+    .from('import-uploads')
+    .upload(path, file, { upsert: false, contentType: file.type || 'application/octet-stream' })
+    .then(async ({ error: upError }) => {
+      if (upError) return console.warn('Bestand bewaren mislukt', name, upError);
+      await supabaseClient.from('import_uploads').update({ storage_path: path }).eq('id', id);
+    })
+    .catch(e => console.warn('Bestand bewaren mislukt', name, e))
+    .finally(() => importUploadsPending.delete(upload));
+  importUploadsPending.add(upload);
+  return id;
+}
+
+// Stand van een geïmporteerd bestand bijwerken (gelezen, opgeslagen of mislukt). Nooit een fout naar de kok.
+function setImportUploadStatus(uploadId, fields) {
+  if (!uploadId || !currentUser || demoMode) return;
+  supabaseClient
+    .from('import_uploads')
+    .update({ ...fields, updated_at: new Date().toISOString() })
+    .eq('id', uploadId)
+    .then(({ error }) => error && console.warn('Importstand bijwerken mislukt', error));
+}
+
+// AI-resultaten afmelden: opgeslagen, al eerder opgeslagen of bewust weggegooid.
+async function markAiResults(ids, how) {
+  const list = [...new Set((ids || []).filter(Boolean))];
+  if (!list.length || !currentUser || demoMode) return;
+  const { error } = await supabaseClient.rpc('savour_mark_ai_results', { _ids: list, _how: how });
+  if (error) console.warn('AI-resultaten afmelden mislukt', error);
+  else list.forEach(id => importResultIds.delete(id));
+}
+
+// Na opslaan: AI-resultaten die niet meer in de controle staan zijn afgehandeld; per bestand de stand bijwerken.
+async function markImportSaved(savedDrafts) {
+  const stillOpen = new Set([...batchDrafts, ...skippedIncomplete].map(d => d._resultId).filter(Boolean));
+  await markAiResults(
+    [...importResultIds].filter(id => !stillOpen.has(id)),
+    'opgeslagen'
+  );
+  const perUpload = new Map();
+  for (const d of savedDrafts) if (d._uploadId) perUpload.set(d._uploadId, (perUpload.get(d._uploadId) || 0) + 1);
+  perUpload.forEach((n, id) => setImportUploadStatus(id, { status: 'opgeslagen', recipes_saved: n }));
+  if (!batchDrafts.length) batchUnsaved = false;
+}
+
+// Balk bovenin tijdens het importeren: altijd in beeld, ook als de kok naar een ander scherm gaat.
+function showImportBusyBar(pct, label) {
+  const bar = $('importBusyBar');
+  if (!bar) return;
+  bar.hidden = false;
+  $('importBusyFill').style.width = `${Math.max(2, Math.min(100, pct))}%`;
+  $('importBusyText').textContent = label || '';
+}
+
+function hideImportBusyBar() {
+  const bar = $('importBusyBar');
+  if (bar) bar.hidden = true;
+}
+
+// Bij het openen van Savour: zijn er recepten die de AI al las maar die nooit zijn opgeslagen (venster dicht,
+// verbinding weg)? Dan die aanbieden. Ze tellen al als AI-import, dus opnieuw lezen is niet nodig.
+async function offerPendingAiImports() {
+  if (!currentUser || demoMode || importBusy || batchDrafts.length) return;
+  const since = new Date(Date.now() - 30 * 86400000).toISOString();
+  const { data, error } = await supabaseClient
+    .from('ai_import_results')
+    .select('id,upload_id,filename,recipes,created_at')
+    .eq('user_id', currentUser.id)
+    .is('handled_at', null)
+    .eq('status', 'klaar')
+    .gte('created_at', since)
+    .order('created_at')
+    .limit(500);
+  if (error || !data?.length || importBusy || batchDrafts.length) return;
+  const existing = new Set((recipes || []).map(recipeFingerprint));
+  const alreadySaved = [];
+  const drafts = [];
+  for (const row of data) {
+    const list = (Array.isArray(row.recipes) ? row.recipes : []).map(r =>
+      normalizeAiRecipe(r, { sourceFile: row.filename || '', _resultId: row.id, _uploadId: row.upload_id || '' })
+    );
+    const fresh = list.filter(d => !existing.has(recipeFingerprint(d)));
+    if (!fresh.length) alreadySaved.push(row.id);
+    // Wat de AI "onvolledig" noemde, toch laten zien: de kok beslist (er gaat nooit iets verloren).
+    else
+      drafts.push(
+        ...fresh.map(d =>
+          d._incomplete ? { ...d, _incomplete: false, _needsReview: true, _maybeIncomplete: true } : d
+        )
+      );
+  }
+  if (alreadySaved.length) markAiResults(alreadySaved, 'al-opgeslagen');
+  if (!drafts.length) return;
+  // Staat er al een ander venster open (welkom, team)? Even wachten, anders sluiten we dat af.
+  for (let i = 0; i < 30 && dialogResolve; i++) await new Promise(r => setTimeout(r, 1000));
+  if (dialogResolve) return;
+  const openIds = data.map(r => r.id).filter(id => !alreadySaved.includes(id));
+  const files = [
+    ...new Set(
+      data
+        .filter(r => openIds.includes(r.id))
+        .map(r => r.filename)
+        .filter(Boolean)
+    )
+  ];
+  const choice = await askChoice(
+    `${t('Recepten wachten op opslaan')}\n\n${drafts.length} ${t('recepten die de AI al voor je heeft gelezen, zijn nog niet opgeslagen')}${files.length ? ` (${files.slice(0, 3).join(', ')}${files.length > 3 ? ' …' : ''})` : ''}. ${t('Ze tellen al als AI-import: je hoeft ze niet opnieuw te laten lezen.')}`,
+    [
+      { value: 'open', label: t('Nu nakijken en opslaan'), primary: true },
+      { value: 'later', label: t('Later'), hint: t('Je krijgt ze de volgende keer weer te zien.') },
+      { value: 'weg', label: t('Niet bewaren'), hint: t('Deze recepten worden niet opgeslagen.') }
+    ]
+  );
+  if (choice === 'weg') {
+    const sure = await askConfirm(
+      `${t('Recepten niet bewaren?')}\n\n${t('Je kunt ze daarna niet meer terugzetten.')}`,
+      { confirmLabel: t('Niet bewaren'), danger: true }
+    );
+    if (sure) await markAiResults(openIds, 'weggegooid');
+    return;
+  }
+  if (choice !== 'open' || importBusy || batchDrafts.length) return;
+  openIds.forEach(id => importResultIds.add(id));
+  batchDrafts = drafts.map((r, i) => ({ ...r, _importIndex: i }));
+  skippedIncomplete = [];
+  batchUnsaved = true;
+  $('batchStatus').textContent =
+    `${drafts.length} ${t('teruggezette recepten uit een eerdere import. Controleer ze en sla ze op.')}`;
+  renderBatchDrafts();
+  go('batchImport');
 }
 
 // Bij veel bestanden tegelijk kan de AI tijdelijk "te druk" zijn (429) of even storen (502–504):
 // dan nog een paar keer proberen, met steeds iets langer wachten.
+// Elke aanvraag krijgt één vaste sleutel (request_key), ook bij opnieuw proberen: viel de verbinding weg terwijl
+// de server al las (telefoon weggelegd, andere app), dan geeft de server het bewaarde resultaat terug in plaats
+// van opnieuw te lezen. Zo betaalt niemand dubbel en raakt er niets kwijt (api/ai-import.js, earlierResult).
 async function callAiImportWithRetry(body) {
-  const waits = [2000, 5000, 10000];
+  const waits = [2000, 5000, 10000, 20000, 30000];
+  const request_key =
+    typeof crypto?.randomUUID === 'function'
+      ? crypto.randomUUID()
+      : `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
   for (let attempt = 0; ; attempt++) {
     try {
-      return await callAiImport(body);
+      return await callAiImport({ ...body, request_key });
     } catch (e) {
       const temporary =
         !e.final && (e.status === 429 || (e.status >= 502 && e.status <= 504) || e instanceof TypeError);
       if (!temporary || attempt >= waits.length) throw e;
+      // Staat Savour niet in beeld (andere app, scherm uit)? Eerst wachten tot de kok terug is.
+      await whenPageVisible();
       await new Promise(r => setTimeout(r, waits[attempt]));
     }
+  }
+}
+
+function whenPageVisible() {
+  if (document.visibilityState !== 'hidden') return Promise.resolve();
+  return new Promise(resolve => {
+    const back = () => {
+      if (document.visibilityState === 'hidden') return;
+      document.removeEventListener('visibilitychange', back);
+      resolve();
+    };
+    document.addEventListener('visibilitychange', back);
+  });
+}
+
+// Scherm aan houden tijdens het importeren (Wake Lock), zodat een telefoon niet in slaap valt en de import stopt.
+// Niet elke browser kan dit; dan gewoon zonder.
+let importWakeLock = null;
+async function keepScreenAwake(on) {
+  try {
+    if (!on) {
+      await importWakeLock?.release?.();
+      importWakeLock = null;
+      return;
+    }
+    if (importWakeLock || !navigator.wakeLock || document.visibilityState === 'hidden') return;
+    importWakeLock = await navigator.wakeLock.request('screen');
+    importWakeLock.addEventListener?.('release', () => (importWakeLock = null));
+  } catch (_) {
+    importWakeLock = null;
   }
 }
 
@@ -717,6 +934,8 @@ function normalizeAiRecipe(r, extra) {
     // Wat de AI letterlijk las en met welk model: om getallen snel naast de foto te leggen.
     _transcription: Array.isArray(r.transcription) ? r.transcription.map(String) : [],
     _model: String(r.model || ''),
+    // Bewaard AI-resultaat (ai_import_results): na opslaan afmelden, anders later opnieuw aanbieden.
+    _resultId: String(r._resultId || ''),
     _byAi: true,
     ...extra
   };
@@ -765,7 +984,11 @@ async function importImageFile(file) {
   const upright = await rotateDataUrl(dataUrl, { left: 90, right: 270, bottom: 180 }[edge] || 0);
   // 2. Lezen van een kopie in grijstinten met meer contrast; het recept bewaart de gewone foto.
   const forReading = await enhanceForReading(upright);
-  const aiRecipes = await callAiImportWithRetry({ image: forReading, filename: file.name });
+  const aiRecipes = await callAiImportWithRetry({
+    image: forReading,
+    filename: file.name,
+    upload_id: importUploadIds.get(file)
+  });
   if (!aiRecipes.length) throw new Error('Geen recept uit de foto herkend.');
   return aiRecipes.map(r => normalizeAiRecipe(r, { photo: upright, _fromPhoto: true, sourceFile: file.name }));
 }
@@ -875,7 +1098,11 @@ async function importScannedPdf(file) {
     canvas.height = viewport.height;
     await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
     const image = canvas.toDataURL('image/jpeg', 0.82);
-    const aiRecipes = await callAiImportWithRetry({ image, filename: `${file.name} (pagina ${i})` });
+    const aiRecipes = await callAiImportWithRetry({
+      image,
+      filename: `${file.name} (pagina ${i})`,
+      upload_id: importUploadIds.get(file)
+    });
     drafts.push(...aiRecipes.map(r => normalizeAiRecipe(r, { sourceFile: file.name })));
   }
   return drafts;
@@ -1049,7 +1276,11 @@ async function readTextRecipes(file, sourceText) {
       let aiRecipes = [];
       if (!aiError) {
         try {
-          aiRecipes = await callAiImportWithRetry({ text: chunks[i], filename: file.name });
+          aiRecipes = await callAiImportWithRetry({
+            text: chunks[i],
+            filename: file.name,
+            upload_id: importUploadIds.get(file)
+          });
         } catch (e) {
           aiError = e;
         }
@@ -1082,7 +1313,10 @@ function updateImportProgress(done, total, label = '') {
   wrap.style.display = 'block';
   const pct = total ? Math.round((done / total) * 100) : 0;
   bar.style.width = pct + '%';
-  if (txt) txt.textContent = label || `${Math.floor(done)} / ${total} bestanden verwerkt · ${pct}%`;
+  const text = label || `${Math.floor(done)} / ${total} bestanden verwerkt · ${pct}%`;
+  if (txt) txt.textContent = text;
+  // Dezelfde stand in de balk bovenin, zolang er geïmporteerd wordt.
+  if (importBusy) showImportBusyBar(pct, text);
 }
 
 // Bestanden die nu worden gelezen, met hoe lang dat ongeveer duurt. Zo loopt de voortgangsbalk ook
@@ -1117,6 +1351,7 @@ function importSkippedIncomplete() {
     ...skippedIncomplete.map(r => ({ ...r, _incomplete: false, _needsReview: true, _maybeIncomplete: true }))
   ];
   skippedIncomplete = [];
+  batchUnsaved = true;
   document.querySelectorAll('[onclick="importSkippedIncomplete()"]').forEach(b => b.remove());
   $('batchStatus').innerHTML +=
     '<br><span class="batch-warning">Toegevoegd als "Mogelijk onvolledig": controleer of er niets ontbreekt.</span>';
@@ -1166,9 +1401,25 @@ async function processImportFiles(files) {
     return;
   }
   $('importStatus').textContent = `0 / ${valid.length} bestanden verwerkt…`;
+  importBusy = true;
+  keepScreenAwake(true);
   updateImportProgress(0, valid.length);
   batchDrafts = [];
+  batchUnsaved = false;
+  importResultIds.clear();
+  skippedIncomplete = [];
   aiBatchChoice = null;
+  try {
+    await runImportFiles(valid);
+  } finally {
+    importBusy = false;
+    keepScreenAwake(false);
+    hideImportBusyBar();
+  }
+}
+
+// Het eigenlijke lezen van de bestanden (processImportFiles zet de import daaromheen aan en uit).
+async function runImportFiles(valid) {
   const failures = [];
   let done = 0;
   const queue = [...valid];
@@ -1188,9 +1439,20 @@ async function processImportFiles(files) {
         expected: isPhoto ? IMPORT_EXPECTED_MS.photo : IMPORT_EXPECTED_MS.file
       });
       if (isPhoto) $('importStatus').textContent = `${file.name} wordt rechtgezet en twee keer gelezen…`;
+      // Eerst het bestand vastleggen (en op de achtergrond bewaren), dan pas lezen.
+      const uploadId = await registerImportUpload(file).catch(() => null);
       try {
-        batchDrafts.push(...stampForLearning(await readImportFile(file), file.name));
+        const drafts = stampForLearning(await readImportFile(file), file.name).map(d => ({
+          ...d,
+          _uploadId: uploadId || ''
+        }));
+        batchDrafts.push(...drafts);
+        setImportUploadStatus(uploadId, { status: 'gelezen', recipes_found: drafts.length });
       } catch (e) {
+        setImportUploadStatus(uploadId, {
+          status: 'mislukt',
+          note: String(e?.message || 'Import mislukt').slice(0, 2000)
+        });
         // Grens bereikt of geen Pro is geen fout in de app: de chef krijgt het gewoon te zien, het logboek niet.
         if (!['limit_reached', 'pro_required', 'ai_skipped'].includes(e?.code))
           console.error('Bulk import', file.name, e);
@@ -1214,6 +1476,11 @@ async function processImportFiles(files) {
   };
   const workers = Array.from({ length: Math.min(3, valid.length) }, () => worker());
   await Promise.all(workers);
+  // Ook de originelen moeten in de opslag staan voordat we "klaar" zeggen.
+  if (importUploadsPending.size) {
+    updateImportProgress(valid.length - 0.01, valid.length, 'Bestanden worden bewaard…');
+    await Promise.allSettled([...importUploadsPending]);
+  }
   clearInterval(ticker);
   // Onvolledige recepten (bijv. afgesneden op de foto) niet importeren, maar wel melden. Vergist de AI
   // zich, dan kan de chef ze met "Toch importeren" alsnog controleren: er gaat nooit iets verloren.
@@ -1262,9 +1529,10 @@ async function processImportFiles(files) {
     );
   if (failures.length) notes.push(importFailureSummary(failures));
   $('batchStatus').innerHTML = esc(successText) + notes.map(n => `<br>${n}`).join('');
+  batchUnsaved = true;
   renderBatchDrafts();
   $('importStatus').textContent =
-    `Klaar · ${batchDrafts.length} recept${batchDrafts.length === 1 ? '' : 'en'} controleerbaar.`;
+    `Klaar · ${batchDrafts.length} recept${batchDrafts.length === 1 ? '' : 'en'} controleerbaar. Nog niet opgeslagen.`;
   updateImportProgress(valid.length, valid.length, `Klaar · ${batchDrafts.length} recepten controleerbaar`);
   go('batchImport');
 }
@@ -1343,6 +1611,8 @@ function batchRows(lines) {
 const batchEmpty = r => !(r.ingredients || []).some(l => String(l).trim() && !recipePartName(l));
 
 function renderBatchDrafts() {
+  // Melding "Nog niet opgeslagen" alleen als er iets op te slaan valt.
+  document.querySelectorAll('.batch-unsaved-note').forEach(n => (n.hidden = !batchDrafts.length));
   const toCheck = batchDrafts.filter(
     r => batchEmpty(r) || r._needsReview || r._unclear?.length || batchLineChecks(r).length
   ).length;
@@ -1532,7 +1802,8 @@ async function persistBatchRecipes() {
   const later = batchDrafts.slice(room);
   const queue = batchDrafts.slice(0, room);
   const btn = $('batchSaveBtn');
-  btn.disabled = true;
+  // Beide opslaan-knoppen (boven en onder) tegelijk uit, zodat niemand twee keer opslaat.
+  document.querySelectorAll('[data-batch-save]').forEach(b => (b.disabled = true));
   btn.textContent = 'Opslaan…';
   let saved = 0;
   const failures = [];
@@ -1585,9 +1856,11 @@ async function persistBatchRecipes() {
     }
     // Op de achtergrond: de kok wacht hier niet op (zie reader-learning.js).
     reportReaderLearning(savedDrafts);
-    await loadDatabaseState();
     // Wat niet is opgeslagen blijft staan, zodat de chef het opnieuw kan proberen.
     batchDrafts = [...failedDrafts, ...later];
+    // Opgeslagen AI-resultaten afmelden, zodat Savour ze niet opnieuw aanbiedt.
+    await markImportSaved(savedDrafts);
+    await loadDatabaseState();
     if (failures.length || later.length) {
       toast(`${saved} recepten opgeslagen · ${failures.length + later.length} niet opgeslagen`);
       const limitNote = later.length
@@ -1604,7 +1877,7 @@ async function persistBatchRecipes() {
     console.error(e);
     toast(e.message || 'De batch kon niet worden afgerond');
   } finally {
-    btn.disabled = false;
+    document.querySelectorAll('[data-batch-save]').forEach(b => (b.disabled = false));
     btn.textContent = 'Alle recepten opslaan';
   }
 }

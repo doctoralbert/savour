@@ -290,6 +290,8 @@ async function startDatabaseSession(user) {
       sendAccountSource();
       askSignupSource();
       refreshCommunityUnread();
+      // Recepten die de AI al las maar die nooit zijn opgeslagen (venster dicht tijdens importeren)? Aanbieden.
+      setTimeout(() => offerPendingAiImports().catch(e => console.warn('Openstaande imports', e)), 2500);
       return true;
     } catch (error) {
       console.error('Savour sessie kon niet worden opgebouwd:', error);

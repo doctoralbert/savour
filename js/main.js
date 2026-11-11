@@ -204,6 +204,18 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') refreshCommunityUnread();
 });
 
+// Bezig met importeren, of recepten in de controle die nog niet zijn opgeslagen? Dan vraagt de browser of je
+// echt wilt sluiten of verversen (js/features/import.js, importNeedsWarning). Een eigen tekst tonen kan niet.
+// Terug in Savour tijdens een import: het scherm weer aan houden (de browser laat dat los als je weggaat).
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && importBusy) keepScreenAwake(true);
+});
+window.addEventListener('beforeunload', e => {
+  if (!importNeedsWarning()) return;
+  e.preventDefault();
+  e.returnValue = '';
+});
+
 // Offline werken en installeren op het beginscherm (sw.js). Alleen op https of lokaal testen.
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || /^(localhost|127.)/.test(location.hostname)))
   navigator.serviceWorker.register('/sw.js').catch(e => console.warn('Offline werken niet beschikbaar:', e));

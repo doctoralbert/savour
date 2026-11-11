@@ -7,7 +7,7 @@
   },
   "functions": {
     "api/ai-import.js": {
-      "maxDuration": 60
+      "maxDuration": 300
     },
     "api/recept.js": {
       "includeFiles": "{index.html,assets/fonts/**}"
