@@ -760,23 +760,23 @@
   "date": "2026-11-11"
  },
  "https://savour.page/blog/savour-paprika-meez-galley-vergelijken": {
-  "hash": "335c968de8fd717d",
+  "hash": "c0d121f1bb7f7c36",
   "date": "2026-11-12"
  },
  "https://savour.page/en/blog/savour-vs-paprika-meez-galley": {
-  "hash": "d8116aa2a43bde6c",
+  "hash": "a073f79434014284",
   "date": "2026-11-12"
  },
  "https://savour.page/de/blog/savour-paprika-meez-galley-vergleich": {
-  "hash": "e70ffbeae57d38ed",
+  "hash": "84cc19ff5bb6d257",
   "date": "2026-11-12"
  },
  "https://savour.page/es/blog/savour-paprika-meez-galley-comparativa": {
-  "hash": "c6b02dbebd90c004",
+  "hash": "9d50a922cb228e18",
   "date": "2026-11-12"
  },
  "https://savour.page/fr/blog/savour-paprika-meez-galley-comparatif": {
-  "hash": "1a1ee6a0b920991d",
+  "hash": "60ff7d8dddc59430",
   "date": "2026-11-12"
  },
  "https://savour.page/handleiding": {
@@ -1357,6 +1357,26 @@
  },
  "https://savour.page/fr/blog/calculer-food-cost": {
   "hash": "7bba15a959473dc4",
+  "date": "2026-11-12"
+ },
+ "https://savour.page/alternatief-voor-paprika": {
+  "hash": "4b237168961c306c",
+  "date": "2026-11-12"
+ },
+ "https://savour.page/en/paprika-alternative": {
+  "hash": "597d45a98309a866",
+  "date": "2026-11-12"
+ },
+ "https://savour.page/de/paprika-alternative": {
+  "hash": "7f1c491b2f00aaeb",
+  "date": "2026-11-12"
+ },
+ "https://savour.page/es/alternativa-a-paprika": {
+  "hash": "af14b22ccd4562da",
+  "date": "2026-11-12"
+ },
+ "https://savour.page/fr/alternative-a-paprika": {
+  "hash": "7b159b06e654b315",
   "date": "2026-11-12"
  }
 }

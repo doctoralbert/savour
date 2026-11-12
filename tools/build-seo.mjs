@@ -44,6 +44,7 @@ import { VERDIEPING_TALEN } from './site-verdieping-talen.mjs';
 import { BLOG_RICH } from './site-blog-rich.mjs';
 import { FEATURE_RICH } from './site-feature-rich.mjs';
 import { ALLERGEN_FEATURE, ALLERGEN_FEATURE_RICH } from './site-allergenen-functie.mjs';
+import { PAPRIKA_PAGE } from './site-paprika.mjs';
 import { PAGE_RICH } from './site-page-rich.mjs';
 import { APP_PAGE } from './site-app.mjs';
 import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
@@ -1086,6 +1087,7 @@ const PAGE_PHOTO = {
   binnenkort: 'bloemen',
   'voor-koks': 'eend',
   'voor-keukenbrigades': 'brigade',
+  'alternatief-voor-paprika': 'uien',
   'over-savour': 'bord',
   blog: 'hout',
   'app-downloaden': 'wortels',
@@ -1294,6 +1296,32 @@ for (const lang of LANGS) {
           FEATURES.filter(x => (AUDIENCE_FEATURES[a.id] || []).includes(x.id)),
           lang
         )}</div></section>${blogRelated(a.id, lang)}`
+    });
+  }
+  // Alternatief voor Paprika (tools/site-paprika.mjs): uitleg, vergelijkingstabel en vragen (ook als FAQPage).
+  {
+    const t = PAPRIKA_PAGE[lang];
+    page({
+      lang,
+      slugs: slugsOf(PAPRIKA_PAGE),
+      title: t.title,
+      desc: t.desc,
+      crumbs: [[t.crumb]],
+      schema: [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: t.faq.map(([q, a]) => ({
+            '@type': 'Question',
+            name: q,
+            acceptedAnswer: { '@type': 'Answer', text: a.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') }
+          }))
+        }
+      ],
+      body: c =>
+        pageTop(c, t.h1, t.lead, PAGE_PHOTO[PAPRIKA_PAGE.nl.slug]) +
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections)}</div></article>` +
+        `<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(FAQ_TITLE[lang])}</h2><div class="site-faq">${t.faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${proseText(a)}</p></details>`).join('')}</div></div></section>`
     });
   }
   // Over ons
