@@ -14,7 +14,12 @@ export const RICH_2 = {
           {
             head: ['App', 'Gemaakt voor', 'Prijs', 'Samenwerken'],
             rows: [
-              ['Paprika', 'de thuiskok', 'eenmalig per platform', 'delen per recept'],
+              [
+                'Paprika',
+                'de thuiskok',
+                'gratis tot 50 recepten, Premium als abonnement',
+                'gezin en kookboeken delen (Premium)'
+              ],
               ['Meez', 'restaurantgroepen (5 tot 100+ vestigingen)', 'vanaf $19 per maand', 'rechten per organisatie'],
               ['Galley', 'grootkeukens en catering op schaal', 'op offerte', 'rechten per locatie'],
               [
@@ -24,7 +29,7 @@ export const RICH_2 = {
                 'keukenteams met drie rollen'
               ]
             ],
-            note: 'Gecontroleerd op 2 november 2026, op de eigen websites van de apps.'
+            note: 'Gecontroleerd op 2 november 2026 (Paprika op 12 november 2026), op de eigen websites van de apps.'
           }
         ]
       },
@@ -53,7 +58,12 @@ export const RICH_2 = {
           {
             head: ['App', 'Made for', 'Price', 'Working together'],
             rows: [
-              ['Paprika', 'the home cook', 'one-off per platform', 'sharing per recipe'],
+              [
+                'Paprika',
+                'the home cook',
+                'free up to 50 recipes, Premium as a subscription',
+                'family and cookbook sharing (Premium)'
+              ],
               ['Meez', 'restaurant groups (5 to 100+ sites)', 'from $19 a month', 'permissions per organisation'],
               ['Galley', 'large kitchens and catering at scale', 'on quote', 'permissions per location'],
               [
@@ -63,7 +73,7 @@ export const RICH_2 = {
                 'kitchen teams with three roles'
               ]
             ],
-            note: 'Checked on 2 November 2026, on the apps’ own websites.'
+            note: 'Checked on 2 November 2026 (Paprika on 12 November 2026), on the apps’ own websites.'
           }
         ]
       },
@@ -92,7 +102,12 @@ export const RICH_2 = {
           {
             head: ['App', 'Gemacht für', 'Preis', 'Zusammenarbeit'],
             rows: [
-              ['Paprika', 'den Hobbykoch', 'einmalig pro Plattform', 'Teilen pro Rezept'],
+              [
+                'Paprika',
+                'den Hobbykoch',
+                'kostenlos bis 50 Rezepte, Premium als Abo',
+                'Familie und Kochbücher teilen (Premium)'
+              ],
               ['Meez', 'Restaurantgruppen (5 bis 100+ Standorte)', 'ab 19 $ pro Monat', 'Rechte pro Organisation'],
               ['Galley', 'Großküchen und Catering im großen Stil', 'auf Angebot', 'Rechte pro Standort'],
               [
@@ -102,7 +117,7 @@ export const RICH_2 = {
                 'Küchenteams mit drei Rollen'
               ]
             ],
-            note: 'Geprüft am 2. November 2026 auf den eigenen Websites der Apps.'
+            note: 'Geprüft am 2. November 2026 (Paprika am 12. November 2026) auf den eigenen Websites der Apps.'
           }
         ]
       },
@@ -131,7 +146,12 @@ export const RICH_2 = {
           {
             head: ['App', 'Hecha para', 'Precio', 'Trabajo en equipo'],
             rows: [
-              ['Paprika', 'el cocinero de casa', 'pago único por plataforma', 'compartir receta a receta'],
+              [
+                'Paprika',
+                'el cocinero de casa',
+                'gratis hasta 50 recetas, Premium como suscripción',
+                'compartir con la familia y libros de recetas (Premium)'
+              ],
               [
                 'Meez',
                 'grupos de restaurantes (de 5 a más de 100 locales)',
@@ -146,7 +166,7 @@ export const RICH_2 = {
                 'equipos de cocina con tres roles'
               ]
             ],
-            note: 'Comprobado el 2 de noviembre de 2026, en las webs de cada app.'
+            note: 'Comprobado el 2 de noviembre de 2026 (Paprika el 12 de noviembre de 2026), en las webs de cada app.'
           }
         ]
       },
@@ -175,7 +195,12 @@ export const RICH_2 = {
           {
             head: ['App', 'Faite pour', 'Prix', 'Travail en équipe'],
             rows: [
-              ['Paprika', 'le cuisinier amateur', 'achat unique par plateforme', 'partage recette par recette'],
+              [
+                'Paprika',
+                'le cuisinier amateur',
+                'gratuit jusqu’à 50 recettes, Premium en abonnement',
+                'partage en famille et de livres de recettes (Premium)'
+              ],
               [
                 'Meez',
                 'les groupes de restaurants (de 5 à plus de 100 sites)',
@@ -190,7 +215,7 @@ export const RICH_2 = {
                 'équipes de cuisine avec trois rôles'
               ]
             ],
-            note: 'Vérifié le 2 novembre 2026 sur les sites des applications.'
+            note: 'Vérifié le 2 novembre 2026 (Paprika le 12 novembre 2026) sur les sites des applications.'
           }
         ]
       },

@@ -209,7 +209,7 @@ export const FR = {
         ],
         [
           "Paprika : pour le cuisinier amateur",
-          "Paprika est une application de recettes pour la maison. Tu enregistres des recettes de sites web avec le navigateur intégré, tu planifies des menus de la semaine, tu fais des listes de courses triées par rayon, tu suis ton garde-manger et tu adaptes les portions, y compris entre système métrique et mesures américaines. Il existe des versions pour iPhone et iPad, Android, Mac et Windows, chacune achetée séparément et une seule fois, sans abonnement. Les recettes se synchronisent entre tes propres appareils. Le partage se fait recette par recette, par exemple par e-mail ou lien ; il n’y a pas d’équipes de cuisine avec des rôles."
+          "Paprika est une application de recettes pour la maison. Tu enregistres des recettes de sites web avec le navigateur intégré, tu planifies des menus de la semaine, tu fais des listes de courses triées par rayon, tu suis ton garde-manger et tu adaptes les portions, y compris entre système métrique et mesures américaines. Il existe des versions pour iPhone et iPad, Android, Mac et Windows. Avec Paprika 4, l’app est gratuite jusqu’à 50 recettes ; la synchronisation entre tes appareils, le partage en famille et le partage de livres de recettes font partie de Premium, avec un abonnement. Il n’y a pas d’équipes de cuisine avec des rôles."
         ],
         [
           "Meez : pour les groupes de restaurants",
@@ -237,7 +237,7 @@ export const FR = {
         ],
         [
           "Comparaison : ce que ça coûte",
-          "Paprika : achat unique par plateforme, sans abonnement. Meez : pas de version gratuite, mais 14 jours d’essai ; Starter à partir de 19 $ par mois (paiement annuel), Pro à partir de 89 $ et Premium à partir de 179 $ par mois, Enterprise sur mesure. Galley : une licence d’entreprise plus un tarif mensuel fixe par établissement et une mise en place unique, sur devis. Savour : gratuit jusqu’à 100 recettes, Savour Pro 2,99 € par mois ou 29 € par an, équipes de cuisine de 5, 10 ou 25 personnes pour 8,99 €, 14,99 € ou 29,99 € par mois. Les nouveaux comptes ont 7 jours de Pro gratuits, sans données de paiement. Si tu arrêtes Pro, toutes tes recettes restent."
+          "Paprika : gratuit jusqu’à 50 recettes. Paprika 4 remplace Paprika 3 ; la synchronisation, le partage et l’import depuis des photos font partie de Premium, en abonnement. Si tu avais Paprika 3, tu reçois gratuitement une version Standard avec recettes illimitées et synchronisation (vérifié le 12 novembre 2026 ; voir aussi [Alternative à Paprika](/fr/alternative-a-paprika)). Meez : pas de version gratuite, mais 14 jours d’essai ; Starter à partir de 19 $ par mois (paiement annuel), Pro à partir de 89 $ et Premium à partir de 179 $ par mois, Enterprise sur mesure. Galley : une licence d’entreprise plus un tarif mensuel fixe par établissement et une mise en place unique, sur devis. Savour : gratuit jusqu’à 100 recettes, Savour Pro 2,99 € par mois ou 29 € par an, équipes de cuisine de 5, 10 ou 25 personnes pour 8,99 €, 14,99 € ou 29,99 € par mois. Les nouveaux comptes ont 7 jours de Pro gratuits, sans données de paiement. Si tu arrêtes Pro, toutes tes recettes restent."
         ],
         [
           "Laquelle te convient ?",

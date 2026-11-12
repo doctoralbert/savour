@@ -365,7 +365,7 @@ export const DE = {
         ],
         [
           'Paprika: für den Hobbykoch',
-          'Paprika ist eine Rezept-App für zu Hause. Du speicherst Rezepte von Websites mit dem eingebauten Browser, planst Wochenmenüs, erstellst Einkaufslisten nach Regal sortiert, führst einen Vorratsschrank und rechnest Portionen um, auch zwischen metrischen und amerikanischen Maßen. Es gibt Versionen für iPhone und iPad, Android, Mac und Windows, die jeweils einzeln und einmalig gekauft werden, ohne Abo. Rezepte synchronisieren zwischen deinen eigenen Geräten. Geteilt wird pro Rezept, etwa per E-Mail oder Link; Küchenteams mit Rollen gibt es nicht.'
+          'Paprika ist eine Rezept-App für zu Hause. Du speicherst Rezepte von Websites mit dem eingebauten Browser, planst Wochenmenüs, erstellst Einkaufslisten nach Regal sortiert, führst einen Vorratsschrank und rechnest Portionen um, auch zwischen metrischen und amerikanischen Maßen. Es gibt Versionen für iPhone und iPad, Android, Mac und Windows. Mit Paprika 4 ist die App kostenlos bis 50 Rezepte; Synchronisieren zwischen deinen Geräten, Familienfreigabe und Kochbücher teilen gehören zu Premium, mit einem Abo. Küchenteams mit Rollen gibt es nicht.'
         ],
         [
           'Meez: für Restaurantgruppen mit mehreren Standorten',
@@ -393,7 +393,7 @@ export const DE = {
         ],
         [
           'Vergleich: was es kostet',
-          'Paprika: einmaliger Kauf pro Plattform, ohne Abo. Meez: keine kostenlose Version, aber 14 Tage Test; Starter ab $19 im Monat (bei Jahreszahlung), Pro ab $89 und Premium ab $179 im Monat, Enterprise individuell. Galley: eine Firmenlizenz plus ein fester Monatsbetrag pro Standort und eine einmalige Einführung, auf Angebot. Savour: kostenlos bis 100 Rezepte, Savour Pro 2,99 € im Monat oder 29 € im Jahr, Küchenteams für 5, 10 oder 25 Personen für 8,99 €, 14,99 € oder 29,99 € im Monat. Neue Konten bekommen 7 Tage Pro gratis, ohne Zahlungsdaten. Beendest du Pro, bleiben alle deine Rezepte erhalten.'
+          'Paprika: kostenlos bis 50 Rezepte. Paprika 4 ersetzt Paprika 3; Synchronisieren, Teilen und Importieren von Fotos gehören zu Premium, als Abo. Wer Paprika 3 hatte, bekommt kostenlos eine Standard-Version mit unbegrenzt Rezepten und Synchronisieren (geprüft am 12. November 2026; siehe auch [Paprika-Alternative](/de/paprika-alternative)). Meez: keine kostenlose Version, aber 14 Tage Test; Starter ab $19 im Monat (bei Jahreszahlung), Pro ab $89 und Premium ab $179 im Monat, Enterprise individuell. Galley: eine Firmenlizenz plus ein fester Monatsbetrag pro Standort und eine einmalige Einführung, auf Angebot. Savour: kostenlos bis 100 Rezepte, Savour Pro 2,99 € im Monat oder 29 € im Jahr, Küchenteams für 5, 10 oder 25 Personen für 8,99 €, 14,99 € oder 29,99 € im Monat. Neue Konten bekommen 7 Tage Pro gratis, ohne Zahlungsdaten. Beendest du Pro, bleiben alle deine Rezepte erhalten.'
         ],
         [
           'Welche passt zu dir?',
