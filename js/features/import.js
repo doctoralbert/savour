@@ -922,9 +922,12 @@ function normalizeAiRecipe(r, extra) {
   const title = cleanBatchTitle(String(r.title || '')) || 'Onbenoemd recept';
   // Opmaakresten uit de bron ("# Ingredients", "(Source: …)", alles op één regel) netjes maken; de woorden
   // en hoeveelheden blijven precies zoals de AI ze las (js/features/recipe-reader.js, tidyRecipeLines).
+  // Notities uit de bron (houdbaarheid, benodigd materiaal, portiegrootte) gaan voorop in de bereiding, net als
+  // bij de eigen lezer: zo ziet de kok ze in het controlescherm en gaat er niets verloren (api/ai-import.js).
+  const notes = Array.isArray(r.notes) ? r.notes.map(String).filter(n => n.trim()) : [];
   const tidy = tidyRecipeLines({
     ingredients: Array.isArray(r.ingredients) ? r.ingredients.map(String).filter(Boolean) : [],
-    steps: Array.isArray(r.steps) ? r.steps.map(String).filter(Boolean) : []
+    steps: [...notes, ...(Array.isArray(r.steps) ? r.steps.map(String).filter(Boolean) : [])]
   });
   return {
     title,
