@@ -161,6 +161,59 @@ export function crossCheckNumbers(a, b) {
   });
 }
 
+// Controle of er bij het indelen niets is weggevallen. De AI schrijft eerst elke regel letterlijk over
+// (transcription) en deelt die daarna in. Staat een echte regel (ingrediënt, stap, houdbaarheid, portie) daarna
+// nergens meer in titel, opbrengst, ingrediënten, bereiding of notities, dan zet Savour het recept op
+// "Controleren": de kok ziet het en kan in "Zo las de AI het" nakijken wat er stond. Kopjes, opmaak,
+// paginanummers en bronvermeldingen mogen wegvallen. De inhoud zelf verandert nooit.
+// Geeft per recept de weggevallen regels terug (voor de logs en de test: tests/ai-controle.test.mjs).
+const lettersOf = line =>
+  String(line ?? '')
+    .toLowerCase()
+    .replace(/[^\p{L}]+/gu, '');
+const digitsOf = line => String(line ?? '').match(/\d+(?:[.,]\d+)?/g) || [];
+const LOST_LINE_SKIP = [
+  /^\s*#/, // markdown-kop ("# Afbeelding 2 — …")
+  /:\s*$/, // kopje met dubbele punt ("Ingrediënten:")
+  /^\s*\[.*\]\s*$/, // "[Notities]"
+  /^\s*\(.*\)\s*\.?\s*$/, // hele regel tussen haakjes ("(No method provided.)", "(Bron: …)")
+  /^\s*\(?\s*(?:source|bron|quelle|fuente|origine)\s*:/i,
+  /^\s*(?:pagina|page|seite|página)\s*\d+(?:\s*(?:van|of|von|de|sur)\s*\d+)?\s*$/i,
+  /^\s*[*_]*\s*(?:ingrediënten|ingredienten|ingredients?|ingrédients|ingredientes|zutaten|bereiding|bereidingswijze|werkwijze|method|methode|méthode|instructions|directions|preparation|préparation|preparación|zubereitung|notes?|notities)\s*[*_]*\s*$/i
+];
+const isSkippableLine = line => {
+  const x = String(line ?? '').trim();
+  if (lettersOf(x).length < 3) return true;
+  if (LOST_LINE_SKIP.some(re => re.test(x))) return true;
+  // Een kopje in hoofdletters zonder getal ("HOOFDGERECHT", "STARTERS").
+  return !/\d/.test(x) && x === x.toUpperCase();
+};
+
+export function checkLostLines(parsed) {
+  return (parsed?.recipes || []).map(r => {
+    const fields = [
+      r.title,
+      r.yield,
+      ...(r.ingredients || []),
+      ...(r.steps || []),
+      ...(r.notes || []),
+      ...(r.unclear || [])
+    ];
+    const joined = fields.map(lettersOf).join('');
+    const yieldDigits = digitsOf(r.yield);
+    const lost = (r.transcription || []).filter(line => {
+      if (isSkippableLine(line)) return false;
+      if (joined.includes(lettersOf(line))) return false;
+      // Opbrengst in eigen woorden ("Voor 12 personen" → yield "12 personen"): de getallen staan in yield.
+      const digits = digitsOf(line);
+      if (digits.length && yieldDigits.length && digits.every(d => yieldDigits.includes(d))) return false;
+      return true;
+    });
+    if (lost.length) r.needs_review = true;
+    return lost;
+  });
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const user = await getUserFromRequest(req);
@@ -341,6 +394,8 @@ Analyseer de bron zeer nauwkeurig en maak er één of meerdere controleerbare re
 WERKWIJZE PER RECEPT (in deze volgorde):
 1. transcription: schrijf eerst elke regel van dit recept letterlijk over zoals hij in de bron staat, regel voor regel, inclusief cijfers, afkortingen, pijlen (→) en accolades als tekst. Verbeter, vertaal of vul niets aan.
 2. Maak daarna ingredients en steps uitsluitend uit die transcriptie. Elke ingrediëntregel komt uit precies één regel van de transcriptie: splits een regel nooit in meerdere ingrediënten en voeg nooit een product toe dat niet in de transcriptie staat. Enige uitzondering: staan er meerdere ingrediënten aan één stuk op één regel, elk met een eigen hoeveelheid (bijvoorbeeld "400ml coconut cream 200g curry paste 2.5kg chicken"), zet ze dan elk op een eigen regel, met precies dezelfde woorden.
+3. notes: wat wel bij het recept hoort maar geen titel, opbrengst, ingrediënt of stap is (bijvoorbeeld houdbaarheid, bewaren, benodigd materiaal of gereedschap, portiegrootte per gerecht, een losse opmerking of aanvulling van de kok) neem je letterlijk op in notes, elk als eigen regel. Laat zulke regels nooit weg.
+4. Controleer tot slot: elke regel van de transcriptie staat terug in title, yield, ingredients, steps of notes. Alleen kopjes, opmaak, paginanummers en bronvermeldingen mogen wegvallen.
 
 ABSOLUTE REGELS:
 - CIJFERS: neem elk getal precies over zoals het er staat. Twijfel je ook maar over één cijfer (bijvoorbeeld 5 of 6, 1 of 7, 3 of 8), zet dan de hele regel in unclear.
@@ -404,6 +459,7 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
                     yield: { type: 'string' },
                     ingredients: { type: 'array', items: { type: 'string' } },
                     steps: { type: 'array', items: { type: 'string' } },
+                    notes: { type: 'array', items: { type: 'string' } },
                     category: { type: 'string' },
                     needs_review: { type: 'boolean' },
                     unclear: { type: 'array', items: { type: 'string' } },
@@ -415,6 +471,7 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
                     'yield',
                     'ingredients',
                     'steps',
+                    'notes',
                     'category',
                     'needs_review',
                     'unclear',
@@ -490,6 +547,10 @@ De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbe
     // Tekst wordt één keer gelezen; bij een foto vergelijkt de controlelezing de getallen.
     const check = hasImage ? second : null;
     if (check?.parsed) crossCheckNumbers(parsed, check.parsed);
+    // Niets mag stil wegvallen tussen overschrijven en indelen: anders "Controleren" (zie checkLostLines).
+    const lostLines = checkLostLines(parsed);
+    const lostCount = lostLines.reduce((n, l) => n + l.length, 0);
+    if (lostCount) console.log(`AI-controle: ${lostCount} regel(s) niet ingedeeld, recept(en) op controleren`);
     // Pas tellen als de AI echt iets heeft opgeleverd.
     // Al gereserveerd? Dan staat hij al op de teller; anders (oude manier) nu pas tellen.
     let used = reservation ?? allowance.used + 1;

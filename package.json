@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node local-server.mjs",
     "test:lezer": "node tests/lezer.test.mjs",
+    "test:ai": "node tests/ai-controle.test.mjs",
     "format": "prettier --write \"js/**/*.js\" \"css/*.css\" \"api/**/*.js\" local-server.mjs tests/*.js",
     "test:schaal": "node tests/schaal.test.mjs",
     "indexnow": "node tools/indexnow.mjs"
