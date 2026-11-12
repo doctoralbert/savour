@@ -42,6 +42,8 @@ site/                 GEMAAKT: alle losse websitepagina's (over ons, functies, b
 tools/                Bouwscripts en bronteksten: build-seo.mjs (website), build-i18n.mjs (vertalingen),
                       site-content*.mjs, site-blog.mjs, site-kladje.mjs (teksten van de website, NL en EN),
                       site-pages-de.mjs, site-pages-es.mjs en site-pages-fr.mjs (Duitse, Spaanse en Franse pagina's).
+                      blog-afbeeldingen.py: cover per blogartikel en de rekenvoorbeelden, in Savour-stijl met logo
+                      (build-seo, dan dit script, dan build-seo opnieuw; uitleg bovenin het script).
 supabase/             SQL-bestanden voor de database; overzicht en volgorde in supabase/README.md.
 tests/                Automatische tests (lezer en regressietest, zie hieronder).
 docs/                 Handleidingen en e-mailsjablonen.
