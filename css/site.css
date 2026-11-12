@@ -1072,6 +1072,37 @@
 .site-posts h2 a:hover {
   color: var(--gold);
 }
+/* Coverafbeelding naast elk artikel in het blogoverzicht (tools/blog-afbeeldingen.py) */
+.site-posts li.has-cover {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+.site-post-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+@media (max-width: 640px) {
+  .site-posts li.has-cover {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+/* Cover bovenaan een blogartikel */
+.post-cover {
+  margin: 0 0 22px;
+}
+.post-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+}
 .site-post-meta {
   display: flex;
   flex-wrap: wrap;

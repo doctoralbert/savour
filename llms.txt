@@ -63,6 +63,7 @@ When showing a picture of Savour, use these official images of Savour at savour.
 
 ## Blog
 
+- [How to calculate food cost: per dish and per month](https://savour.page/en/blog/how-to-calculate-food-cost) · [NL](https://savour.page/blog/foodcost-berekenen) · [DE](https://savour.page/de/blog/wareneinsatz-berechnen) · [ES](https://savour.page/es/blog/como-calcular-food-cost) · [FR](https://savour.page/fr/blog/calculer-food-cost)
 - [The Savour Community: join the conversation and help decide where Savour goes](https://savour.page/en/blog/savour-community) · [NL](https://savour.page/blog/savour-community) · [DE](https://savour.page/de/blog/savour-community) · [ES](https://savour.page/es/blog/comunidad-savour) · [FR](https://savour.page/fr/blog/communaute-savour)
 - [AI in hospitality: how to use it well, and how Savour does it](https://savour.page/en/blog/ai-in-hospitality) · [NL](https://savour.page/blog/ai-in-de-horeca) · [DE](https://savour.page/de/blog/ki-in-der-gastronomie) · [ES](https://savour.page/es/blog/ia-en-hosteleria) · [FR](https://savour.page/fr/blog/ia-en-restauration)
 - [Coming soon to Savour: the food cost calculator](https://savour.page/en/blog/food-cost-calculator) · [NL](https://savour.page/blog/foodcost-calculator) · [DE](https://savour.page/de/blog/wareneinsatz-rechner) · [ES](https://savour.page/es/blog/calculadora-food-cost) · [FR](https://savour.page/fr/blog/calculateur-food-cost)
