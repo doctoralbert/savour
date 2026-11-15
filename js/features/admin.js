@@ -637,23 +637,79 @@ const ADMIN_IMPORT_STATUS = {
   mislukt: 'Mislukt'
 };
 
+let adminImportList = [];
+let adminImportOpen = null;
+
 async function loadAdminImports() {
   const body = $('adminImportsBody');
   if (!body) return;
   try {
     const d = await adminApi('import_uploads');
-    const list = d.uploads || [];
+    adminImportList = d.uploads || [];
     if ($('adminImportsCount'))
-      $('adminImportsCount').textContent = `${list.length} bestanden · ${d.open_results || 0} AI-resultaten open`;
+      $('adminImportsCount').textContent =
+        `${adminImportList.length} bestanden · ${d.open_results || 0} AI-resultaten open`;
+    renderAdminImports();
+  } catch (e) {
+    body.innerHTML = `<tr><td colspan="9">Imports konden niet worden geladen: ${adminEscape(e.message)}. Is supabase/2026-11-11-import-nooit-kwijt.sql uitgevoerd?</td></tr>`;
+  }
+}
+
+// Per bestand: met Bekijken klapt eronder open wat de AI las en wat de kok opsloeg (adminImportDetail).
+function renderAdminImports() {
+  const body = $('adminImportsBody');
+  if (!body) return;
+  const detail = u =>
+    adminImportOpen?.id === u.id
+      ? `<tr class="admin-reader-detail"><td colspan="9">${adminImportDetail(adminImportOpen.data)}</td></tr>`
+      : '';
+  const showBtn = u =>
+    `<td><button type="button" class="admin-ghost" onclick="adminImportShow('${adminEscape(u.id)}')">${adminImportOpen?.id === u.id ? 'Sluiten' : 'Bekijken'}</button></td>`;
+  {
+    const list = adminImportList;
     body.innerHTML =
       list
         .map(
           u =>
-            `<tr class="${u.open || u.status === 'mislukt' || u.status === 'bezig' ? 'is-flagged' : ''}"><td>${adminFormatDate(u.created_at)} ${new Date(u.created_at).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' })}</td><td>${adminEscape(u.email || u.user_id)}</td><td>${u.storage_path ? `<button type="button" class="admin-ghost" onclick="adminImportFile('${adminEscape(u.id)}')">${adminEscape(u.filename)}</button>` : `${adminEscape(u.filename)} <small class="admin-muted">(geen origineel)</small>`}${u.note ? `<small class="admin-referral-mail">${adminEscape(u.note)}</small>` : ''}</td><td>${adminEscape(ADMIN_IMPORT_STATUS[u.status] || u.status)}</td><td>${adminEscape(u.ai_parts)}</td><td>${adminEscape(u.recipes_found ?? '–')}</td><td>${adminEscape(u.recipes_saved)}</td><td>${u.open ? `<b>${adminEscape(u.open)}</b>` : '–'}</td></tr>`
+            `<tr class="${u.open || u.status === 'mislukt' || u.status === 'bezig' ? 'is-flagged' : ''}"><td>${adminFormatDate(u.created_at)} ${new Date(u.created_at).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' })}</td><td>${adminEscape(u.email || u.user_id)}</td><td>${u.storage_path ? `<button type="button" class="admin-ghost" onclick="adminImportFile('${adminEscape(u.id)}')">${adminEscape(u.filename)}</button>` : `${adminEscape(u.filename)} <small class="admin-muted">(geen origineel)</small>`}${u.note ? `<small class="admin-referral-mail">${adminEscape(u.note)}</small>` : ''}</td><td>${adminEscape(ADMIN_IMPORT_STATUS[u.status] || u.status)}</td><td>${adminEscape(u.ai_parts)}</td><td>${adminEscape(u.recipes_found ?? '–')}</td><td>${adminEscape(u.recipes_saved)}</td><td>${u.open ? `<b>${adminEscape(u.open)}</b>` : '–'}</td>${showBtn(u)}</tr>${detail(u)}`
         )
-        .join('') || '<tr><td colspan="8">Nog geen imports.</td></tr>';
+        .join('') || '<tr><td colspan="9">Nog geen imports.</td></tr>';
+  }
+}
+
+// Wat er van één bestand gelezen is (AI) en, bij "Help de Savour-lezer verbeteren", wat de kok opsloeg en hoe
+// het recept er nu uitziet, naast elkaar.
+function adminImportDetail(d) {
+  const recipeHtml = r =>
+    `<div class="admin-reader-recipe"><b>${adminEscape(r?.title || '—')}</b>${r?.yield ? `<small> ${adminEscape(r.yield)}</small>` : ''}<ul>${(r?.ingredients || []).map(l => `<li>${adminEscape(l)}</li>`).join('')}</ul><ol>${(r?.steps || []).map(l => `<li>${adminEscape(l)}</li>`).join('')}</ol>${r?.unclear?.length ? `<small class="admin-muted">Twijfel: ${r.unclear.map(adminEscape).join(' · ')}</small>` : ''}${r?.transcription?.length ? `<details><summary>Zo las de AI het</summary><pre>${adminEscape(r.transcription.join('\n'))}</pre></details>` : ''}</div>`;
+  const state = res => res.handled || (res.status === 'klaar' ? 'nog niet opgeslagen' : res.status);
+  const ai = (d?.results || [])
+    .map(
+      res =>
+        `<div><h4>AI las${res.model ? ` <small>${adminEscape(res.model)}</small>` : ''}<small> · ${adminEscape(state(res))}</small></h4>${(res.recipes || []).map(recipeHtml).join('') || '<p class="admin-muted">Geen recepten.</p>'}</div>`
+    )
+    .join('');
+  const saved = (d?.origins || [])
+    .map(
+      o =>
+        `${d?.results?.length ? '' : `<div><h4>Lezer las</h4>${recipeHtml(o.as_read)}</div>`}<div><h4>Opgeslagen door de kok</h4>${recipeHtml(o.as_saved)}</div><div><h4>Nu</h4>${o.now ? recipeHtml(o.now) : '<p class="admin-muted">Recept verwijderd.</p>'}</div>`
+    )
+    .join('');
+  if (!ai && !saved)
+    return '<p class="admin-muted">Niets te tonen: geen AI-resultaat, en de kok deelt imports niet via "Help de Savour-lezer verbeteren" (of heeft nog niets opgeslagen). Download het origineel om het bestand te zien.</p>';
+  return `<div class="admin-reader-grid">${ai}${saved}</div>`;
+}
+
+async function adminImportShow(id) {
+  if (adminImportOpen?.id === id) {
+    adminImportOpen = null;
+    return renderAdminImports();
+  }
+  try {
+    adminImportOpen = { id, data: await adminApi('import_upload_view', { id }) };
+    renderAdminImports();
   } catch (e) {
-    body.innerHTML = `<tr><td colspan="8">Imports konden niet worden geladen: ${adminEscape(e.message)}. Is supabase/2026-11-11-import-nooit-kwijt.sql uitgevoerd?</td></tr>`;
+    toast(e.message || 'Dit bestand kon niet worden geopend');
   }
 }
 
