@@ -1,0 +1,33 @@
+[
+ {
+  "name": "rollen",
+  "after": "Rollen: eigenaar, sous-chef en kok",
+  "type": "cards",
+  "title": ["Drie rollen in een keukenteam", "Three roles in a kitchen team", "Drei Rollen im Küchenteam", "Tres roles en un equipo de cocina", "Trois rôles dans une équipe de cuisine"],
+  "sub": ["Iedereen dezelfde recepten, niet iedereen dezelfde rechten", "Everyone has the same recipes, not everyone the same rights", "Alle haben dieselben Rezepte, nicht alle dieselben Rechte", "Todos las mismas recetas, no todos los mismos permisos", "Les mêmes recettes pour tous, pas les mêmes droits"],
+  "items": [
+   {"icon": "hat", "head": ["Eigenaar", "Owner", "Inhaber", "Propietario", "Propriétaire"], "sub": ["DE CHEF", "THE CHEF", "DER KÜCHENCHEF", "EL CHEF", "LE CHEF"], "lines": [["Beheert het keukenteam, de leden en hun rol", "Manages the kitchen team, its members and their roles", "Verwaltet das Küchenteam, die Mitglieder und ihre Rollen", "Gestiona el equipo, sus miembros y sus roles", "Gère l’équipe, ses membres et leurs rôles"]], "dark": true},
+   {"icon": "note", "head": ["Sous-chef", "Sous chef", "Sous-Chef", "Segundo de cocina", "Sous-chef"], "sub": ["SOUS-CHEF EN CHEFS DE PARTIE", "SOUS CHEF AND CHEFS DE PARTIE", "SOUS-CHEF UND CHEFS DE PARTIE", "SEGUNDO Y JEFES DE PARTIDA", "SOUS-CHEF ET CHEFS DE PARTIE"], "lines": [["Voegt recepten en mappen toe en bewerkt ze", "Adds and edits recipes and folders", "Fügt Rezepte und Ordner hinzu und bearbeitet sie", "Añade y edita recetas y carpetas", "Ajoute et modifie recettes et dossiers"]]},
+   {"icon": "phone", "head": ["Kok", "Cook", "Koch", "Cocinero", "Cuisinier"], "sub": ["KOKS, COMMIS EN STAGIAIRS", "COOKS, COMMIS AND INTERNS", "KÖCHE, COMMIS UND PRAKTIKANTEN", "COCINEROS, AYUDANTES Y BECARIOS", "CUISINIERS, COMMIS ET STAGIAIRES"], "lines": [["Bekijkt, print en rekent om", "Views, prints and scales", "Ansehen, drucken und umrechnen", "Consulta, imprime y escala", "Consulte, imprime et convertit"]]}
+  ],
+  "note": ["Lid zijn is gratis. Een keukenteam maken, en toevoegen of bewerken in een team, gaat met Savour Pro.", "Membership is free. Creating a kitchen team, and adding or editing in a team, needs Savour Pro.", "Mitglied sein ist kostenlos. Ein Küchenteam erstellen und im Team hinzufügen oder bearbeiten geht mit Savour Pro.", "Ser miembro es gratis. Crear un equipo, y añadir o editar en un equipo, requiere Savour Pro.", "Être membre est gratuit. Créer une équipe, et ajouter ou modifier dans une équipe, demande Savour Pro."],
+  "alt": ["Drie rollen: de eigenaar beheert het team, de sous-chef voegt toe en bewerkt, de kok bekijkt, print en rekent om", "Three roles: the owner manages the team, the sous chef adds and edits, the cook views, prints and scales", "Drei Rollen: der Inhaber verwaltet das Team, der Sous-Chef fügt hinzu und bearbeitet, der Koch sieht an, druckt und rechnet um", "Tres roles: el propietario gestiona el equipo, el segundo añade y edita, el cocinero consulta, imprime y escala", "Trois rôles : le propriétaire gère l’équipe, le sous-chef ajoute et modifie, le cuisinier consulte, imprime et convertit"],
+  "caption": ["Een recept bewerken kan altijd alleen de maker van dat recept.", "Only the creator of a recipe can edit that recipe.", "Ein Rezept bearbeiten kann immer nur, wer es erstellt hat.", "Solo quien creó una receta puede editarla.", "Seul l’auteur d’une recette peut la modifier."]
+ },
+ {
+  "name": "mappen-per-partie",
+  "after": "Mappen per partie of per menu",
+  "type": "folders",
+  "title": ["Mappen per partie", "Folders by section", "Ordner nach Posten", "Carpetas por partida", "Dossiers par poste"],
+  "sub": ["In de volgorde van je keuken; oude menu’s naar het archief", "In the order of your kitchen; old menus to the archive", "In der Reihenfolge deiner Küche; alte Menüs ins Archiv", "En el orden de tu cocina; los menús antiguos al archivo", "Dans l’ordre de ta cuisine ; les anciens menus aux archives"],
+  "cols": [
+   ["Garde manger", [["Terrines", "Terrines", "Terrinen", "Terrinas", "Terrines"], ["Vinaigrettes", "Vinaigrettes", "Vinaigrettes", "Vinagretas", "Vinaigrettes"], ["Koude sauzen", "Cold sauces", "Kalte Saucen", "Salsas frías", "Sauces froides"]]],
+   ["Saucier", [["Fonds", "Stocks", "Fonds", "Fondos", "Fonds"], ["Jus", "Jus", "Jus", "Jugos", "Jus"], ["Warme sauzen", "Hot sauces", "Warme Saucen", "Salsas calientes", "Sauces chaudes"]]],
+   [["Patisserie", "Pastry", "Patisserie", "Pastelería", "Pâtisserie"], [["Deeg", "Doughs", "Teige", "Masas", "Pâtes"], ["Crèmes", "Creams", "Cremes", "Cremas", "Crèmes"], ["IJs en sorbet", "Ice cream and sorbet", "Eis und Sorbet", "Helado y sorbete", "Glaces et sorbets"]]],
+   [["Archief", "Archive", "Archiv", "Archivo", "Archives"], [["Menu vorig seizoen", "Last season’s menu", "Menü der letzten Saison", "Menú de la temporada pasada", "Menu de la saison passée"]], ["Uit het zicht, maar bewaard", "Out of sight, but kept", "Aus dem Blick, aber aufbewahrt", "Fuera de la vista, pero guardado", "Hors de vue, mais conservé"]]
+  ],
+  "dark": 3,
+  "alt": ["Voorbeeld van mappen per partie: garde manger, saucier, patisserie en een archiefmap met het menu van vorig seizoen", "Example of folders by section: garde manger, saucier, pastry and an archive folder with last season’s menu", "Beispiel für Ordner nach Posten: Garde-manger, Saucier, Patisserie und ein Archivordner mit dem Menü der letzten Saison", "Ejemplo de carpetas por partida: garde manger, saucier, pastelería y una carpeta de archivo con el menú pasado", "Exemple de dossiers par poste : garde-manger, saucier, pâtisserie et un dossier d’archives avec le menu de la saison passée"],
+  "caption": ["Gearchiveerde mappen en hun recepten blijven bewaard onder Archief.", "Archived folders and their recipes are kept under Archive.", "Archivierte Ordner und ihre Rezepte bleiben unter Archiv erhalten.", "Las carpetas archivadas y sus recetas se guardan en Archivo.", "Les dossiers archivés et leurs recettes restent dans Archives."]
+ }
+]

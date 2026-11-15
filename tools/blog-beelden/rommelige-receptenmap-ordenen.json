@@ -1,0 +1,19 @@
+[
+ {
+  "name": "van-map-tot-klapper",
+  "after": "Laat de lezer het zware werk doen",
+  "type": "flow",
+  "end": true,
+  "title": ["Van rommelige map tot klapper", "From messy folder to binder", "Vom chaotischen Ordner zur Mappe", "De carpeta desordenada a archivador", "Du classeur en désordre au classeur propre"],
+  "sub": ["Eén keer alles erin, daarna rustig ordenen", "Everything in at once, then sort at your own pace", "Einmal alles hinein, dann in Ruhe ordnen", "Todo dentro de una vez, luego ordenar con calma", "Tout importer d’un coup, puis ranger tranquillement"],
+  "steps": [
+   [["Alles erin", "Everything in", "Alles hinein", "Todo dentro", "Tout importer"], ["Het hele Word-bestand, de PDF of de stapel foto’s.", "The whole Word file, the PDF or the pile of photos.", "Die ganze Word-Datei, das PDF oder der Fotostapel.", "Todo el Word, el PDF o el montón de fotos.", "Le fichier Word entier, le PDF ou la pile de photos."]],
+   [["Laten splitsen", "Let it split", "Aufteilen lassen", "Dejar que separe", "Laisser découper"], ["Losse recepten, zonder nummers en losse kopjes.", "Separate recipes, without numbers and stray headings.", "Einzelne Rezepte, ohne Nummern und lose Überschriften.", "Recetas separadas, sin números ni títulos sueltos.", "Des recettes séparées, sans numéros ni titres isolés."]],
+   [["Eén keer nalopen", "Check once", "Einmal prüfen", "Revisar una vez", "Vérifier une fois"], ["Gemarkeerde recepten eerst, met een voorgestelde categorie.", "Flagged recipes first, with a suggested category.", "Markierte Rezepte zuerst, mit vorgeschlagener Kategorie.", "Primero las marcadas, con una categoría sugerida.", "D’abord les recettes signalées, avec une catégorie proposée."]],
+   [["Ordenen", "Organise", "Ordnen", "Ordenar", "Ranger"], ["Mappen per partie, menu of seizoen.", "Folders by section, menu or season.", "Ordner nach Posten, Menü oder Saison.", "Carpetas por partida, menú o temporada.", "Dossiers par poste, menu ou saison."]],
+   [["Printen", "Print", "Drucken", "Imprimir", "Imprimer"], ["De complete map, met inhoudsopgave.", "The complete folder, with a table of contents.", "Der ganze Ordner, mit Inhaltsverzeichnis.", "La carpeta completa, con índice.", "Le dossier complet, avec sommaire."]]
+  ],
+  "alt": ["Vijf stappen: alles erin, laten splitsen, één keer nalopen, ordenen en printen", "Five steps: everything in, let it split, check once, organise and print", "Fünf Schritte: alles hinein, aufteilen lassen, einmal prüfen, ordnen und drucken", "Cinco pasos: todo dentro, dejar que separe, revisar una vez, ordenar e imprimir", "Cinq étapes : tout importer, laisser découper, vérifier une fois, ranger et imprimer"],
+  "caption": ["Recepten die nog niet in een map staan, vind je gewoon via zoeken en A t/m Z.", "Recipes not yet in a folder are easy to find through search and A to Z.", "Rezepte ohne Ordner findest du einfach über die Suche und A bis Z.", "Las recetas que aún no están en una carpeta se encuentran con la búsqueda y de la A a la Z.", "Les recettes pas encore rangées se retrouvent par la recherche et de A à Z."]
+ }
+]

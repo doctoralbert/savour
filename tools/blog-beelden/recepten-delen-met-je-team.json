@@ -1,0 +1,36 @@
+[
+ {
+  "name": "appgroep-of-keukenteam",
+  "after": "Een hele map delen",
+  "type": "versus",
+  "title": ["Appgroep of keukenteam", "Group chat or kitchen team", "Gruppenchat oder Küchenteam", "Grupo de chat o equipo de cocina", "Groupe de discussion ou équipe de cuisine"],
+  "sub": ["Een appgroep is goed voor snelle berichten, slecht als archief", "A group chat is good for quick messages, bad as an archive", "Ein Gruppenchat ist gut für schnelle Nachrichten, schlecht als Archiv", "Un grupo de chat sirve para mensajes rápidos, no como archivo", "Un groupe de discussion est bien pour les messages rapides, pas comme archive"],
+  "left": [["Recepten in de appgroep", "Recipes in the group chat", "Rezepte im Gruppenchat", "Recetas en el grupo de chat", "Recettes dans le groupe"], [
+   ["Foto’s verdwijnen tussen het rooster", "Photos get lost between the rota", "Fotos verschwinden zwischen dem Dienstplan", "Las fotos se pierden entre los horarios", "Les photos se perdent entre les plannings"],
+   ["Niemand weet welke versie klopt", "Nobody knows which version is right", "Keiner weiß, welche Version stimmt", "Nadie sabe qué versión es la buena", "Personne ne sait quelle version est la bonne"],
+   ["Nieuwe collega’s zien niets van vroeger", "New colleagues see nothing from before", "Neue Kollegen sehen nichts von früher", "Los nuevos no ven nada de antes", "Les nouveaux ne voient rien d’avant"]
+  ]],
+  "right": [["Recepten in een keukenteam", "Recipes in a kitchen team", "Rezepte im Küchenteam", "Recetas en un equipo de cocina", "Recettes dans une équipe"], [
+   ["Eén versie, voor iedereen", "One version, for everyone", "Eine Version für alle", "Una versión, para todos", "Une version, pour tous"],
+   ["Zoeken op titel en ingrediënt", "Search by title and ingredient", "Suche nach Titel und Zutat", "Buscar por título e ingrediente", "Recherche par titre et ingrédient"],
+   ["Nieuwe collega’s zien meteen alles", "New colleagues see everything at once", "Neue Kollegen sehen sofort alles", "Los nuevos lo ven todo enseguida", "Les nouveaux voient tout tout de suite"]
+  ]],
+  "alt": ["Vergelijking: in een appgroep verdwijnen foto’s en weet niemand welke versie klopt; in een keukenteam heeft iedereen één versie", "Comparison: in a group chat photos get lost and nobody knows which version is right; in a kitchen team everyone has one version", "Vergleich: im Gruppenchat verschwinden Fotos und keiner weiß, welche Version stimmt; im Küchenteam haben alle eine Version", "Comparación: en un grupo de chat las fotos se pierden y nadie sabe qué versión vale; en un equipo todos tienen una versión", "Comparaison : dans un groupe, les photos se perdent et personne ne sait quelle version est la bonne ; dans une équipe, tous ont la même version"],
+  "caption": ["Deel in de appgroep alleen nog een link in plaats van een foto.", "In the group chat, share only a link instead of a photo.", "Teile im Gruppenchat nur noch einen Link statt eines Fotos.", "En el grupo, comparte solo un enlace en vez de una foto.", "Dans le groupe, partage seulement un lien au lieu d’une photo."]
+ },
+ {
+  "name": "een-recept-doorsturen",
+  "after": "Eén recept doorsturen",
+  "type": "flow",
+  "end": true,
+  "title": ["Eén recept doorsturen", "Sending one recipe", "Ein Rezept weiterschicken", "Enviar una receta", "Envoyer une recette"],
+  "sub": ["Met een link, ook naar iemand zonder account", "With a link, even to someone without an account", "Mit einem Link, auch an jemanden ohne Konto", "Con un enlace, también a alguien sin cuenta", "Avec un lien, même à quelqu’un sans compte"],
+  "steps": [
+   [["Open het recept", "Open the recipe", "Rezept öffnen", "Abre la receta", "Ouvre la recette"], ["In je bibliotheek of in een keukenteam.", "In your library or in a kitchen team.", "In deiner Bibliothek oder im Küchenteam.", "En tu biblioteca o en un equipo.", "Dans ta bibliothèque ou une équipe."]],
+   [["Kies Delen", "Choose Share", "Teilen wählen", "Elige Compartir", "Choisis Partager"], ["WhatsApp, Telegram, e-mail of kopiëren.", "WhatsApp, Telegram, email or copy.", "WhatsApp, Telegram, E-Mail oder kopieren.", "WhatsApp, Telegram, correo o copiar.", "WhatsApp, Telegram, e-mail ou copier."]],
+   [["De ontvanger opent", "The recipient opens it", "Der Empfänger öffnet", "El destinatario abre", "Le destinataire ouvre"], ["Netjes op een eigen pagina, zonder account.", "Neatly on its own page, no account needed.", "Sauber auf einer eigenen Seite, ohne Konto.", "En su propia página, sin cuenta.", "Proprement sur sa page, sans compte."]]
+  ],
+  "alt": ["Drie stappen: open het recept, kies Delen en de ontvanger opent het zonder account", "Three steps: open the recipe, choose Share and the recipient opens it without an account", "Drei Schritte: Rezept öffnen, Teilen wählen und der Empfänger öffnet es ohne Konto", "Tres pasos: abre la receta, elige Compartir y el destinatario la abre sin cuenta", "Trois étapes : ouvre la recette, choisis Partager et le destinataire l’ouvre sans compte"],
+  "caption": ["Handig voor een collega in een andere zaak of een leverancier.", "Handy for a colleague at another restaurant or a supplier.", "Praktisch für Kollegen in einem anderen Betrieb oder einen Lieferanten.", "Útil para un compañero de otro local o un proveedor.", "Pratique pour un collègue d’un autre établissement ou un fournisseur."]
+ }
+]

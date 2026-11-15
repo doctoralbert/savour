@@ -1,0 +1,45 @@
+[
+ {
+  "name": "geprinte-pagina",
+  "after": "Wat er op een geprinte pagina staat",
+  "type": "page",
+  "title": ["Wat er op een geprinte pagina staat", "What is on a printed page", "Was auf einer gedruckten Seite steht", "Qué lleva una página impresa", "Ce qu’il y a sur une page imprimée"],
+  "sub": ["Rustig opgemaakt, zonder kop- en voettekst van de browser", "Calm layout, without the browser’s header and footer", "Ruhig gestaltet, ohne Kopf- und Fußzeile des Browsers", "Diseño limpio, sin encabezado ni pie del navegador", "Mise en page sobre, sans en-tête ni pied de page du navigateur"],
+  "rows": [
+   ["logo", ["Restaurant De Gouden Lepel", "The Golden Spoon", "Restaurant Zum Goldenen Löffel", "Restaurante La Cuchara de Oro", "Restaurant La Cuillère d’Or"], 1],
+   ["title", ["Kalfsjus basis", "Veal jus base", "Kalbsjus Basis", "Jugo de ternera base", "Jus de veau de base"], 2],
+   ["meta", ["OPBRENGST: 2 LITER", "YIELD: 2 LITRES", "AUSBEUTE: 2 LITER", "RENDIMIENTO: 2 LITROS", "RENDEMENT : 2 LITRES"], 0],
+   ["head", ["INGREDIËNTEN", "INGREDIENTS", "ZUTATEN", "INGREDIENTES", "INGRÉDIENTS"], 0],
+   ["line", ["…", "…", "…", "…", "…"], 0],
+   ["head", ["BEREIDING", "METHOD", "ZUBEREITUNG", "ELABORACIÓN", "PRÉPARATION"], 0],
+   ["line", ["…", "…", "…", "…", "…"], 0],
+   ["foot", ["Geprint op 12-11-2026 · recept 7", "Printed on 12-11-2026 · recipe 7", "Gedruckt am 12.11.2026 · Rezept 7", "Impreso el 12-11-2026 · receta 7", "Imprimé le 12-11-2026 · recette 7"], 3]
+  ],
+  "notes": [
+   [["Logo en naam", "Logo and name", "Logo und Name", "Logo y nombre", "Logo et nom"], ["Logo links, de naam van je restaurant in het midden", "Logo on the left, your restaurant’s name in the middle", "Logo links, der Name deines Restaurants in der Mitte", "Logo a la izquierda, el nombre en el centro", "Logo à gauche, nom du restaurant au centre"]],
+   [["Het recept", "The recipe", "Das Rezept", "La receta", "La recette"], ["Rustig opgemaakt, ook in zwart-wit", "Calm layout, also in black and white", "Ruhig gestaltet, auch in Schwarz-Weiß", "Diseño limpio, también en blanco y negro", "Mise en page sobre, aussi en noir et blanc"]],
+   [["Printdatum en nummer", "Print date and number", "Druckdatum und Nummer", "Fecha y número", "Date et numéro"], ["Zie je of de map actueel is, en blader je snel", "Shows whether the folder is current, and helps you flip fast", "Zeigt, ob der Ordner aktuell ist, und hilft beim Blättern", "Muestra si la carpeta está al día y ayuda a hojear", "Montre si le dossier est à jour et aide à feuilleter"]]
+  ],
+  "alt": ["Een geprinte pagina met het logo links, de naam van het restaurant in het midden, het recept en onderaan de printdatum en het receptnummer", "A printed page with the logo on the left, the restaurant name in the middle, the recipe, and the print date and recipe number at the bottom", "Eine gedruckte Seite mit Logo links, Restaurantname in der Mitte, dem Rezept und unten Druckdatum und Rezeptnummer", "Una página impresa con el logo a la izquierda, el nombre en el centro, la receta y abajo la fecha y el número", "Une page imprimée avec le logo à gauche, le nom au centre, la recette, et en bas la date d’impression et le numéro"],
+  "caption": ["Printen met je eigen logo hoort bij Savour Pro; de naam in dit voorbeeld is verzonnen.", "Printing with your own logo is part of Savour Pro; the name in this example is made up.", "Drucken mit eigenem Logo gehört zu Savour Pro; der Name im Beispiel ist erfunden.", "Imprimir con tu logo es parte de Savour Pro; el nombre del ejemplo es inventado.", "Imprimer avec ton logo fait partie de Savour Pro ; le nom de l’exemple est inventé."]
+ },
+ {
+  "name": "a4-of-a5",
+  "after": "Een hele map als boek",
+  "type": "versus",
+  "title": ["A4 of A5", "A4 or A5", "A4 oder A5", "A4 o A5", "A4 ou A5"],
+  "sub": ["Een hele map als boek, met voorblad en inhoudsopgave", "A whole folder as a book, with a cover and table of contents", "Ein ganzer Ordner als Buch, mit Deckblatt und Inhaltsverzeichnis", "Una carpeta entera como libro, con portada e índice", "Tout un dossier en livre, avec couverture et sommaire"],
+  "left": [["A4", "A4", "A4", "A4", "A4"], [
+   ["De klapper in de keuken", "The binder in the kitchen", "Die Mappe in der Küche", "El archivador de la cocina", "Le classeur en cuisine"],
+   ["Veel recepten per map", "Many recipes per folder", "Viele Rezepte pro Ordner", "Muchas recetas por carpeta", "Beaucoup de recettes par dossier"],
+   ["Goed leesbaar op afstand", "Easy to read from a distance", "Gut lesbar aus der Entfernung", "Se lee bien de lejos", "Lisible de loin"]
+  ]],
+  "right": [["A5", "A5", "A5", "A5", "A5"], [
+   ["Een kleine map aan de pass", "A small folder at the pass", "Ein kleiner Ordner am Pass", "Una carpeta pequeña en el pase", "Un petit dossier au passe"],
+   ["Handig op een smalle werkplek", "Handy on a narrow station", "Praktisch auf engem Platz", "Práctica en un puesto estrecho", "Pratique sur un poste étroit"],
+   ["Past in een schortzak of la", "Fits in an apron pocket or drawer", "Passt in Schürzentasche oder Schublade", "Cabe en el delantal o un cajón", "Tient dans une poche de tablier ou un tiroir"]
+  ]],
+  "alt": ["Vergelijking: A4 voor de klapper in de keuken, A5 voor een kleine map aan de pass", "Comparison: A4 for the kitchen binder, A5 for a small folder at the pass", "Vergleich: A4 für die Küchenmappe, A5 für einen kleinen Ordner am Pass", "Comparación: A4 para el archivador de cocina, A5 para una carpeta pequeña en el pase", "Comparaison : A4 pour le classeur en cuisine, A5 pour un petit dossier au passe"],
+  "caption": ["Onderaan elke pagina staat de printdatum.", "The print date is at the bottom of every page.", "Unten auf jeder Seite steht das Druckdatum.", "La fecha de impresión va al pie de cada página.", "La date d’impression figure en bas de chaque page."]
+ }
+]

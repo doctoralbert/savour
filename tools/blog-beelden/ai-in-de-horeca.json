@@ -1,0 +1,39 @@
+[
+ {
+  "name": "ai-of-chef",
+  "after": "Wat AI niet moet doen",
+  "type": "versus",
+  "title": ["Wat AI doet, wat de chef doet", "What AI does, what the chef does", "Was die KI tut, was der Küchenchef tut", "Lo que hace la IA, lo que hace el chef", "Ce que fait l’IA, ce que fait le chef"],
+  "sub": ["AI doet het voorwerk, de chef keurt", "AI does the groundwork, the chef approves", "Die KI macht die Vorarbeit, der Küchenchef gibt frei", "La IA prepara, el chef aprueba", "L’IA prépare, le chef valide"],
+  "left": [["Laat AI dit doen", "Let AI do this", "Das darf die KI", "Deja que la IA haga esto", "Laisse l’IA faire ceci"], [
+   ["Overtypen en ordenen", "Retyping and sorting", "Abtippen und ordnen", "Transcribir y ordenar", "Retaper et classer"],
+   ["Voorstellen doen", "Making suggestions", "Vorschläge machen", "Hacer propuestas", "Faire des propositions"],
+   ["Rekenen met jouw cijfers", "Calculating with your numbers", "Mit deinen Zahlen rechnen", "Calcular con tus cifras", "Calculer avec tes chiffres"]
+  ]],
+  "right": [["Dit blijft bij de chef", "This stays with the chef", "Das bleibt beim Küchenchef", "Esto queda en manos del chef", "Ceci reste au chef"], [
+   ["Hoeveelheden die niet leesbaar zijn", "Quantities that can’t be read", "Unleserliche Mengen", "Cantidades ilegibles", "Les quantités illisibles"],
+   ["Twijfel over allergenen", "Doubt about allergens", "Zweifel bei Allergenen", "Dudas sobre alérgenos", "Le doute sur les allergènes"],
+   ["Wat er op de kaart en naar de gast gaat", "What goes on the menu and to the guest", "Was auf die Karte und zum Gast geht", "Lo que va a la carta y al cliente", "Ce qui va sur la carte et chez le client"]
+  ]],
+  "alt": ["Twee kolommen: AI typt over, ordent, stelt voor en rekent; de chef beslist over onleesbare hoeveelheden, allergenen en wat naar de gast gaat", "Two columns: AI retypes, sorts, suggests and calculates; the chef decides on unreadable quantities, allergens and what goes to the guest", "Zwei Spalten: die KI tippt ab, ordnet, schlägt vor und rechnet; der Küchenchef entscheidet über unleserliche Mengen, Allergene und was zum Gast geht", "Dos columnas: la IA transcribe, ordena, propone y calcula; el chef decide sobre cantidades ilegibles, alérgenos y lo que va al cliente", "Deux colonnes : l’IA retape, classe, propose et calcule ; le chef décide des quantités illisibles, des allergènes et de ce qui va au client"],
+  "caption": ["Voor allergenen ben je als ondernemer zelf verantwoordelijk (EU-verordening 1169/2011).", "As a business owner you are responsible for allergen information (EU Regulation 1169/2011).", "Für Allergene bist du als Unternehmer selbst verantwortlich (EU-Verordnung 1169/2011).", "De los alérgenos responde el propio empresario (Reglamento UE 1169/2011).", "L’exploitant est responsable des informations sur les allergènes (règlement UE 1169/2011)."]
+ },
+ {
+  "name": "prijs-per-stuk",
+  "after": "Waar we naartoe gaan: inkoop met verpakkingen en prijzen",
+  "type": "hbars",
+  "title": ["Eén avocado, drie prijzen", "One avocado, three prices", "Eine Avocado, drei Preise", "Un aguacate, tres precios", "Un avocat, trois prix"],
+  "sub": ["Savour rekent elke verpakking terug naar de prijs per stuk (voorbeeld)", "Savour works every pack size back to the price per piece (example)", "Savour rechnet jede Verpackung auf den Stückpreis zurück (Beispiel)", "Savour convierte cada envase al precio por unidad (ejemplo)", "Savour ramène chaque conditionnement au prix à la pièce (exemple)"],
+  "labelw": 470,
+  "max": 1.6,
+  "rows": [
+   [["Doos · 24 stuks · € 28,80", "Box · 24 pieces · €28.80", "Karton · 24 Stück · 28,80 €", "Caja · 24 uds. · 28,80 €", "Carton · 24 pièces · 28,80 €"], 1.20, ["€ 1,20 per stuk", "€1.20 each", "1,20 € pro Stück", "1,20 € la unidad", "1,20 € pièce"]],
+   [["Krat · 6 stuks · € 7,80", "Crate · 6 pieces · €7.80", "Kiste · 6 Stück · 7,80 €", "Caja pequeña · 6 uds. · 7,80 €", "Cagette · 6 pièces · 7,80 €"], 1.30, ["€ 1,30 per stuk", "€1.30 each", "1,30 € pro Stück", "1,30 € la unidad", "1,30 € pièce"]],
+   [["Los · 1 stuk", "Loose · 1 piece", "Lose · 1 Stück", "Suelto · 1 ud.", "À l’unité · 1 pièce"], 1.45, ["€ 1,45 per stuk", "€1.45 each", "1,45 € pro Stück", "1,45 € la unidad", "1,45 € pièce"]]
+  ],
+  "highlight": [0],
+  "note": ["Voorbeeldbedragen. De inkoopfuncties zijn plannen; dit bouwen we nu, zonder datum.", "Example amounts. The purchasing features are plans; we are building this now, with no date.", "Beispielbeträge. Die Einkaufsfunktionen sind Pläne; wir bauen das gerade, ohne Datum.", "Importes de ejemplo. Las funciones de compras son planes; lo estamos construyendo, sin fecha.", "Montants d’exemple. Les fonctions d’achat sont des projets ; nous les construisons, sans date."],
+  "alt": ["Voorbeeld: een avocado kost per doos 1,20 euro per stuk, per krat 1,30 euro en los 1,45 euro", "Example: an avocado costs 1.20 euros each by the box, 1.30 by the crate and 1.45 loose", "Beispiel: eine Avocado kostet im Karton 1,20 Euro pro Stück, in der Kiste 1,30 Euro und lose 1,45 Euro", "Ejemplo: un aguacate cuesta 1,20 euros la unidad por caja, 1,30 por caja pequeña y 1,45 suelto", "Exemple : un avocat coûte 1,20 euro pièce au carton, 1,30 à la cagette et 1,45 à l’unité"],
+  "caption": ["Zo rekent je recept met de prijs die je echt betaalt.", "That way your recipe uses the price you really pay.", "So rechnet dein Rezept mit dem Preis, den du wirklich zahlst.", "Así tu receta calcula con el precio que pagas de verdad.", "Ainsi ta recette calcule avec le prix que tu paies vraiment."]
+ }
+]

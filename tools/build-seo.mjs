@@ -357,6 +357,33 @@ for (const [slug, langs] of Object.entries(BLOG_RICH)) {
     if (r.add) t.sections.push(...r.add);
   }
 }
+// Afbeeldingen bij de artikelen (tools/blog-beelden/<artikel>.json, getekend met tools/blog-beelden.py): elke afbeelding
+// komt onder de sectie met de Nederlandse kop uit "after", in elke taal op dezelfde plek.
+{
+  const dir = new URL('blog-beelden/', import.meta.url);
+  for (const fn of fs.readdirSync(dir).filter(f => f.endsWith('.json'))) {
+    const key = fn.slice(0, -5);
+    const imgs = JSON.parse(fs.readFileSync(new URL(fn, dir), 'utf8'));
+    const p = richNeed(
+      POSTS.find(q => q.nl.slug === `blog/${key}`),
+      `blog ${key} (tools/blog-beelden)`
+    );
+    for (const img of imgs) {
+      const i = p.nl.sections.findIndex(sec => sec[0] === img.after);
+      if (i < 0) throw new Error(`tools/blog-beelden/${key}.json: kop "${img.after}" niet gevonden in ${key}`);
+      LANGS.forEach((lang, li) => {
+        const file = `assets/blog/${key}/${img.name}-${lang}.png`;
+        if (!fs.existsSync(new URL(file, ROOT))) throw new Error(`Afbeelding ontbreekt: ${file} (draai py -3 tools/blog-beelden.py)`);
+        richNeed(p[lang].sections[i], `${key} sectie ${i} (${lang})`).push({
+          shot: `/${file}?v=${fs.statSync(new URL(file, ROOT)).size}`,
+          alt: img.alt[li],
+          caption: img.caption[li],
+          wide: true
+        });
+      });
+    }
+  }
+}
 
 // Beschrijving van de keukenfoto's, voor zoekmachines en schermlezers.
 const PHOTO_ALT = {
@@ -1098,7 +1125,7 @@ const PAGE_PHOTO = {
 };
 const BLOG_PHOTOS = ['wortels', 'uien', 'keuken', 'eend', 'brigade', 'hout'];
 // Coverafbeelding per blogartikel en taal (tools/blog-afbeeldingen.py): titel, onderwerp en het Savour-logo onderin.
-// Bovenaan het artikel, in het blogoverzicht en als deelafbeelding. Zonder bestand: geen cover.
+// In het blogoverzicht en als deelafbeelding, niet bovenaan het artikel zelf. Zonder bestand: geen cover.
 const coverFile = (p, lang) => {
   const file = `assets/blog/covers/${p.nl.slug.split('/').pop()}-${lang}.jpg`;
   const f = new URL(file, ROOT);
@@ -1400,7 +1427,7 @@ for (const lang of LANGS) {
       ],
       body: c =>
         pageTop(c, t.h1, t.lead, BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${coverFile(p, lang) ? `<figure class="post-cover"><img src="${coverFile(p, lang)}" alt="${esc(t.title)}" width="1200" height="630"></figure>` : ''}<p class="site-meta">${date}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>${postPages(p, lang)}`
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>${postPages(p, lang)}`
     });
   }
   // Ingrediëntenlijst met allergenen (tools/site-blog-allergenen.mjs); js/site.js laadt en doorzoekt de lijst.

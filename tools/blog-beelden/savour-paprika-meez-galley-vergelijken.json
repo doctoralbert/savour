@@ -1,0 +1,22 @@
+[
+ {
+  "name": "vier-apps",
+  "after": "Vier apps, vier doelgroepen",
+  "type": "table",
+  "title": ["Vier apps, vier doelgroepen", "Four apps, four audiences", "Vier Apps, vier Zielgruppen", "Cuatro apps, cuatro públicos", "Quatre applis, quatre publics"],
+  "sub": ["Ze overlappen op papier, maar lossen elk een ander probleem op", "They overlap on paper, but each solves a different problem", "Auf dem Papier überschneiden sie sich, aber jede löst ein anderes Problem", "Se solapan sobre el papel, pero cada una resuelve otro problema", "Elles se recoupent sur le papier, mais chacune règle un autre problème"],
+  "head": [["App", "App", "App", "App", "Appli"], ["Gemaakt voor", "Made for", "Gemacht für", "Pensada para", "Conçue pour"], ["Prijs", "Price", "Preis", "Precio", "Prix"], ["Samenwerken", "Collaboration", "Zusammenarbeit", "Colaboración", "Collaboration"]],
+  "cols": [0.6, 1.8, 1.6, 1.4],
+  "rows": [
+   ["Paprika", ["de thuiskok", "the home cook", "Hobbyköche", "el cocinero en casa", "le cuisinier amateur"], ["gratis tot 50, Premium als abonnement", "free up to 50, Premium by subscription", "kostenlos bis 50, Premium im Abo", "gratis hasta 50, Premium por suscripción", "gratuit jusqu’à 50, Premium par abonnement"], ["gezin (Premium)", "family (Premium)", "Familie (Premium)", "familia (Premium)", "famille (Premium)"]],
+   ["Meez", ["restaurantgroepen, 5 tot 100+ vestigingen", "restaurant groups, 5 to 100+ sites", "Restaurantgruppen, 5 bis 100+ Standorte", "grupos, de 5 a más de 100 locales", "groupes, de 5 à plus de 100 sites"], ["vanaf $19 per maand", "from $19 a month", "ab 19 $ pro Monat", "desde 19 $ al mes", "dès 19 $ par mois"], ["rechten per organisatie", "rights per organisation", "Rechte pro Organisation", "permisos por organización", "droits par organisation"]],
+   ["Galley", ["grootkeukens en catering op schaal", "large kitchens and catering at scale", "Großküchen und Catering", "cocinas grandes y catering", "grandes cuisines et traiteurs"], ["op offerte", "on quote", "auf Anfrage", "bajo presupuesto", "sur devis"], ["rechten per locatie", "rights per location", "Rechte pro Standort", "permisos por local", "droits par site"]],
+   ["Savour", ["de chef en de brigade", "the chef and the brigade", "Küchenchef und Brigade", "el chef y la brigada", "le chef et la brigade"], ["gratis tot 100, Pro € 2,99 per maand", "free up to 100, Pro €2.99 a month", "kostenlos bis 100, Pro 2,99 € pro Monat", "gratis hasta 100, Pro 2,99 € al mes", "gratuit jusqu’à 100, Pro 2,99 € par mois"], ["keukenteams met drie rollen", "kitchen teams with three roles", "Küchenteams mit drei Rollen", "equipos con tres roles", "équipes avec trois rôles"]]
+  ],
+  "highlight": [3],
+  "size": 23,
+  "note": ["Gecontroleerd op 2 november 2026 (Paprika op 12 november 2026), op de eigen websites van de apps.", "Checked on 2 November 2026 (Paprika on 12 November 2026), on the apps’ own websites.", "Geprüft am 2. November 2026 (Paprika am 12. November 2026), auf den Websites der Apps.", "Comprobado el 2 de noviembre de 2026 (Paprika el 12 de noviembre), en las webs de las apps.", "Vérifié le 2 novembre 2026 (Paprika le 12 novembre 2026), sur les sites des applis."],
+  "alt": ["Tabel: Paprika voor de thuiskok, Meez voor restaurantgroepen, Galley voor grootkeukens, Savour voor de chef en de brigade, met prijs en samenwerken", "Table: Paprika for the home cook, Meez for restaurant groups, Galley for large kitchens, Savour for the chef and the brigade, with price and collaboration", "Tabelle: Paprika für Hobbyköche, Meez für Restaurantgruppen, Galley für Großküchen, Savour für Küchenchef und Brigade, mit Preis und Zusammenarbeit", "Tabla: Paprika para el cocinero en casa, Meez para grupos, Galley para cocinas grandes, Savour para el chef y la brigada, con precio y colaboración", "Tableau : Paprika pour l’amateur, Meez pour les groupes, Galley pour les grandes cuisines, Savour pour le chef et la brigade, avec prix et collaboration"],
+  "caption": ["Prijzen en functies kunnen veranderen; kijk voor de actuele stand op hun sites.", "Prices and features can change; check their sites for the current state.", "Preise und Funktionen können sich ändern; aktuell siehe ihre Websites.", "Precios y funciones pueden cambiar; consulta sus webs.", "Prix et fonctions peuvent changer ; consulte leurs sites."]
+ }
+]

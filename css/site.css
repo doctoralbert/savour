@@ -1077,7 +1077,7 @@
   display: grid;
   grid-template-columns: 220px 1fr;
   gap: 24px;
-  align-items: start;
+  align-items: center;
 }
 .site-post-cover img {
   display: block;
@@ -1091,17 +1091,6 @@
     grid-template-columns: 1fr;
     gap: 16px;
   }
-}
-/* Cover bovenaan een blogartikel */
-.post-cover {
-  margin: 0 0 22px;
-}
-.post-cover img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 14px;
-  border: 1px solid var(--line);
 }
 .site-post-meta {
   display: flex;

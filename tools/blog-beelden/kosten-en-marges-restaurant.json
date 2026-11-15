@@ -1,0 +1,388 @@
+[
+ {
+  "name": "waar-elke-euro-heen-gaat",
+  "after": "Waar elke euro omzet heen gaat",
+  "type": "stack",
+  "title": [
+   "Waar elke euro omzet heen gaat",
+   "Where every euro of revenue goes",
+   "Wohin jeder Euro Umsatz geht",
+   "Adónde va cada euro facturado",
+   "Où va chaque euro de chiffre d’affaires"
+  ],
+  "sub": [
+   "Nederlandse restaurants, 2024, deel van de opbrengsten",
+   "Dutch restaurants, 2024, share of revenue",
+   "Niederländische Restaurants, 2024, Anteil am Umsatz",
+   "Restaurantes de Países Bajos, 2024, parte de los ingresos",
+   "Restaurants néerlandais, 2024, part du chiffre d’affaires"
+  ],
+  "parts": [
+   [
+    [
+     "Inkoop",
+     "Purchases",
+     "Einkauf",
+     "Compras",
+     "Achats"
+    ],
+    31.1,
+    [
+     "31,1%",
+     "31.1%",
+     "31,1 %",
+     "31,1 %",
+     "31,1 %"
+    ]
+   ],
+   [
+    [
+     "Personeel",
+     "Staff",
+     "Personal",
+     "Personal",
+     "Personnel"
+    ],
+    31.9,
+    [
+     "31,9%",
+     "31.9%",
+     "31,9 %",
+     "31,9 %",
+     "31,9 %"
+    ]
+   ],
+   [
+    [
+     "Huisvesting",
+     "Premises",
+     "Räume",
+     "Local",
+     "Locaux"
+    ],
+    8.8,
+    [
+     "8,8%",
+     "8.8%",
+     "8,8 %",
+     "8,8 %",
+     "8,8 %"
+    ]
+   ],
+   [
+    [
+     "Energie",
+     "Energy",
+     "Energie",
+     "Energía",
+     "Énergie"
+    ],
+    2.9,
+    [
+     "2,9%",
+     "2.9%",
+     "2,9 %",
+     "2,9 %",
+     "2,9 %"
+    ]
+   ],
+   [
+    [
+     "Overige kosten",
+     "Other costs",
+     "Sonstige Kosten",
+     "Otros costes",
+     "Autres coûts"
+    ],
+    10.5,
+    [
+     "10,5%",
+     "10.5%",
+     "10,5 %",
+     "10,5 %",
+     "10,5 %"
+    ]
+   ],
+   [
+    [
+     "Afschrijvingen",
+     "Depreciation",
+     "Abschreibungen",
+     "Amortizaciones",
+     "Amortissements"
+    ],
+    3.2,
+    [
+     "3,2%",
+     "3.2%",
+     "3,2 %",
+     "3,2 %",
+     "3,2 %"
+    ]
+   ],
+   [
+    [
+     "Bedrijfsresultaat",
+     "Operating result",
+     "Betriebsergebnis",
+     "Resultado",
+     "Résultat"
+    ],
+    11.5,
+    [
+     "11,5%",
+     "11.5%",
+     "11,5 %",
+     "11,5 %",
+     "11,5 %"
+    ]
+   ]
+  ],
+  "colors": [
+   [
+    143,
+    111,
+    51
+   ],
+   [
+    232,
+    202,
+    141
+   ],
+   [
+    123,
+    125,
+    117
+   ],
+   [
+    185,
+    190,
+    183
+   ],
+   [
+    221,
+    212,
+    195
+   ],
+   [
+    79,
+    83,
+    77
+   ],
+   [
+    21,
+    25,
+    23
+   ]
+  ],
+  "callout": [
+   [
+    "63%",
+    "63%",
+    "63 %",
+    "63 %",
+    "63 %"
+   ],
+   [
+    "ging naar inkoop en personeel samen",
+    "went on purchases and staff together",
+    "gingen in Einkauf und Personal zusammen",
+    "se fue en compras y personal juntos",
+    "est allé aux achats et au personnel réunis"
+   ]
+  ],
+  "note": [
+   "Bron: CBS StatLine 81156ned, restaurants, 2024. Door afronden niet precies 100%.",
+   "Source: CBS StatLine 81156ned, restaurants, 2024. Rounding means it does not add up to exactly 100%.",
+   "Quelle: CBS StatLine 81156ned, Restaurants, 2024. Durch Rundung nicht genau 100 %.",
+   "Fuente: CBS StatLine 81156ned, restaurantes, 2024. Por redondeo no suma exactamente 100 %.",
+   "Source : CBS StatLine 81156ned, restaurants, 2024. Avec les arrondis, le total n’est pas exactement 100 %."
+  ],
+  "alt": [
+   "Balk met de verdeling van de opbrengsten van Nederlandse restaurants in 2024: inkoop 31,1%, personeel 31,9%, huisvesting 8,8%, energie 2,9%, overig 10,5%, afschrijvingen 3,2%, resultaat 11,5%",
+   "Bar showing how Dutch restaurant revenue was split in 2024: purchases 31.1%, staff 31.9%, premises 8.8%, energy 2.9%, other 10.5%, depreciation 3.2%, result 11.5%",
+   "Balken mit der Aufteilung der Umsätze niederländischer Restaurants 2024: Einkauf 31,1 %, Personal 31,9 %, Räume 8,8 %, Energie 2,9 %, Sonstiges 10,5 %, Abschreibungen 3,2 %, Ergebnis 11,5 %",
+   "Barra con el reparto de los ingresos de los restaurantes neerlandeses en 2024: compras 31,1 %, personal 31,9 %, local 8,8 %, energía 2,9 %, otros 10,5 %, amortizaciones 3,2 %, resultado 11,5 %",
+   "Barre montrant la répartition du chiffre d’affaires des restaurants néerlandais en 2024 : achats 31,1 %, personnel 31,9 %, locaux 8,8 %, énergie 2,9 %, autres 10,5 %, amortissements 3,2 %, résultat 11,5 %"
+  ],
+  "caption": [
+   "Inkoop en personeel zijn elk bijna een derde van de omzet (CBS, 2024).",
+   "Purchases and staff are each almost a third of revenue (CBS, 2024).",
+   "Einkauf und Personal sind jeweils fast ein Drittel des Umsatzes (CBS, 2024).",
+   "Compras y personal son cada uno casi un tercio de los ingresos (CBS, 2024).",
+   "Achats et personnel représentent chacun près d’un tiers du chiffre d’affaires (CBS, 2024)."
+  ]
+ },
+ {
+  "name": "winst-of-verlies",
+  "after": "Hoeveel zaken maken winst?",
+  "type": "hbars",
+  "title": [
+   "Hoe ging de winst het afgelopen jaar?",
+   "How did profit go last year?",
+   "Wie entwickelte sich der Gewinn im letzten Jahr?",
+   "¿Cómo fue el beneficio el último año?",
+   "Comment a évolué le bénéfice l’an dernier ?"
+  ],
+  "sub": [
+   "Antwoorden van horecaondernemers, januari 2026",
+   "Answers from hospitality business owners, January 2026",
+   "Antworten von Gastronomen, Januar 2026",
+   "Respuestas de empresarios de hostelería, enero de 2026",
+   "Réponses de restaurateurs et cafetiers, janvier 2026"
+  ],
+  "rows": [
+   [
+    [
+     "Meer winst",
+     "More profit",
+     "Mehr Gewinn",
+     "Más beneficio",
+     "Plus de bénéfice"
+    ],
+    25,
+    [
+     "25%",
+     "25%",
+     "25 %",
+     "25 %",
+     "25 %"
+    ]
+   ],
+   [
+    [
+     "Evenveel winst",
+     "Same profit",
+     "Gleicher Gewinn",
+     "El mismo beneficio",
+     "Bénéfice stable"
+    ],
+    29,
+    [
+     "29%",
+     "29%",
+     "29 %",
+     "29 %",
+     "29 %"
+    ]
+   ],
+   [
+    [
+     "Minder winst",
+     "Less profit",
+     "Weniger Gewinn",
+     "Menos beneficio",
+     "Moins de bénéfice"
+    ],
+    27,
+    [
+     "27%",
+     "27%",
+     "27 %",
+     "27 %",
+     "27 %"
+    ]
+   ],
+   [
+    [
+     "Quitte gespeeld",
+     "Broke even",
+     "Ausgeglichen",
+     "Sin ganar ni perder",
+     "À l’équilibre"
+    ],
+    6,
+    [
+     "6%",
+     "6%",
+     "6 %",
+     "6 %",
+     "6 %"
+    ]
+   ],
+   [
+    [
+     "Verlies",
+     "Loss",
+     "Verlust",
+     "Pérdidas",
+     "Perte"
+    ],
+    11,
+    [
+     "11%",
+     "11%",
+     "11 %",
+     "11 %",
+     "11 %"
+    ]
+   ],
+   [
+    [
+     "Niet levensvatbaar",
+     "Not viable",
+     "Nicht überlebensfähig",
+     "No viable",
+     "Pas viable"
+    ],
+    2,
+    [
+     "2%",
+     "2%",
+     "2 %",
+     "2 %",
+     "2 %"
+    ]
+   ]
+  ],
+  "highlight": [
+   0,
+   1,
+   2
+  ],
+  "side": [
+   [
+    "81%",
+    "81%",
+    "81 %",
+    "81 %",
+    "81 %"
+   ],
+   [
+    "maakte winst",
+    "made a profit",
+    "machten Gewinn",
+    "tuvo beneficios",
+    "a fait un bénéfice"
+   ],
+   [
+    "meer, evenveel of minder dan het jaar ervoor",
+    "more, the same or less than the year before",
+    "mehr, gleich viel oder weniger als im Vorjahr",
+    "más, igual o menos que el año anterior",
+    "plus, autant ou moins que l’année précédente"
+   ]
+  ],
+  "note": [
+   "Bron: KHN, presentatie Horecava, 12 januari 2026.",
+   "Source: KHN, Horecava presentation, 12 January 2026.",
+   "Quelle: KHN, Präsentation Horecava, 12. Januar 2026.",
+   "Fuente: KHN, presentación Horecava, 12 de enero de 2026.",
+   "Source : KHN, présentation Horecava, 12 janvier 2026."
+  ],
+  "alt": [
+   "Staafdiagram: 25% meer winst, 29% evenveel, 27% minder, 6% quitte, 11% verlies en 2% niet levensvatbaar; samen maakte 81% winst",
+   "Bar chart: 25% more profit, 29% the same, 27% less, 6% broke even, 11% loss and 2% not viable; together 81% made a profit",
+   "Balkendiagramm: 25 % mehr Gewinn, 29 % gleich, 27 % weniger, 6 % ausgeglichen, 11 % Verlust, 2 % nicht überlebensfähig; zusammen machten 81 % Gewinn",
+   "Gráfico de barras: 25 % más beneficio, 29 % igual, 27 % menos, 6 % sin ganar ni perder, 11 % pérdidas y 2 % no viable; en total el 81 % tuvo beneficios",
+   "Diagramme : 25 % plus de bénéfice, 29 % stable, 27 % moins, 6 % à l’équilibre, 11 % en perte et 2 % pas viables ; au total 81 % ont fait un bénéfice"
+  ],
+  "caption": [
+   "81% van de horecaondernemers maakte winst, 11% verlies (KHN, januari 2026).",
+   "81% of hospitality businesses made a profit, 11% a loss (KHN, January 2026).",
+   "81 % der Gastronomen machten Gewinn, 11 % Verlust (KHN, Januar 2026).",
+   "El 81 % de los empresarios tuvo beneficios y el 11 % pérdidas (KHN, enero de 2026).",
+   "81 % des établissements ont fait un bénéfice, 11 % une perte (KHN, janvier 2026)."
+  ]
+ }
+]

@@ -1,0 +1,35 @@
+[
+ {
+  "name": "zo-werkt-de-import-service",
+  "after": "Jij kiest de indeling",
+  "type": "flow",
+  "end": true,
+  "title": ["Zo werkt de import service", "How the import service works", "So funktioniert der Import-Service", "Cómo funciona el servicio de importación", "Comment fonctionne le service d’import"],
+  "sub": ["Jij levert aan en kiest de indeling, wij lezen in en kijken na", "You send it in and choose the structure, we import and check", "Du lieferst und wählst die Struktur, wir lesen ein und prüfen", "Tú envías y eliges la estructura, nosotros importamos y revisamos", "Tu envoies et choisis la structure, nous importons et vérifions"],
+  "steps": [
+   [["Pakket kiezen", "Choose a package", "Paket wählen", "Elegir paquete", "Choisir un forfait"], ["Hoeveel recepten en voor welk team.", "How many recipes and for which team.", "Wie viele Rezepte und für welches Team.", "Cuántas recetas y para qué equipo.", "Combien de recettes et pour quelle équipe."]],
+   [["Goedkeuring en betalen", "Approval and payment", "Freigabe und Bezahlung", "Aprobación y pago", "Validation et paiement"], ["Daarna een link om aan te leveren.", "Then a link to send your files.", "Danach ein Link zum Hochladen.", "Luego un enlace para enviar.", "Puis un lien pour envoyer tes fichiers."]],
+   [["Aanleveren", "Send in", "Liefern", "Enviar", "Envoyer"], ["Word, PDF, foto’s of exports, met jouw indeling.", "Word, PDF, photos or exports, with your structure.", "Word, PDF, Fotos oder Exporte, mit deiner Struktur.", "Word, PDF, fotos o exportaciones, con tu estructura.", "Word, PDF, photos ou exports, avec ta structure."]],
+   [["Inlezen en nakijken", "Import and check", "Einlesen und prüfen", "Importar y revisar", "Importer et vérifier"], ["Elk recept naast het origineel.", "Every recipe next to the original.", "Jedes Rezept neben dem Original.", "Cada receta junto al original.", "Chaque recette à côté de l’original."]],
+   [["Je team staat klaar", "Your team is ready", "Dein Team ist bereit", "Tu equipo está listo", "Ton équipe est prête"], ["Iedereen een account en een mail.", "Everyone gets an account and an email.", "Alle bekommen ein Konto und eine Mail.", "Todos reciben cuenta y correo.", "Chacun reçoit un compte et un e-mail."]]
+  ],
+  "alt": ["Vijf stappen van de import service: pakket kiezen, goedkeuring en betalen, aanleveren, inlezen en nakijken, je team staat klaar", "Five steps of the import service: choose a package, approval and payment, send in, import and check, your team is ready", "Fünf Schritte des Import-Service: Paket wählen, Freigabe und Bezahlung, liefern, einlesen und prüfen, dein Team ist bereit", "Cinco pasos del servicio de importación: elegir paquete, aprobación y pago, enviar, importar y revisar, tu equipo está listo", "Cinq étapes du service d’import : choisir un forfait, validation et paiement, envoyer, importer et vérifier, ton équipe est prête"],
+  "caption": ["Er wordt nooit iets verzonnen; wat er niet staat, vullen we niet in.", "Nothing is ever made up; what is not there, we do not fill in.", "Es wird nie etwas erfunden; was nicht dasteht, ergänzen wir nicht.", "Nunca se inventa nada; lo que no pone, no lo rellenamos.", "Rien n’est jamais inventé ; ce qui n’est pas écrit, nous ne le complétons pas."]
+ },
+ {
+  "name": "pakketten",
+  "after": "Wat het kost",
+  "type": "tiles",
+  "title": ["Wat de import service kost", "What the import service costs", "Was der Import-Service kostet", "Cuánto cuesta el servicio de importación", "Combien coûte le service d’import"],
+  "sub": ["Eenmalig, samen met een jaarabonnement voor je team van 5, 10 of 25 personen", "One-off, together with a yearly plan for your team of 5, 10 or 25 people", "Einmalig, zusammen mit einem Jahresabo für dein Team mit 5, 10 oder 25 Personen", "Pago único, junto con una suscripción anual para tu equipo de 5, 10 o 25 personas", "Paiement unique, avec un abonnement annuel pour ton équipe de 5, 10 ou 25 personnes"],
+  "items": [
+   [["€ 85", "€85", "85 €", "85 €", "85 €"], ["tot 100 recepten", "up to 100 recipes", "bis 100 Rezepte", "hasta 100 recetas", "jusqu’à 100 recettes"]],
+   [["€ 100", "€100", "100 €", "100 €", "100 €"], ["tot 500 recepten", "up to 500 recipes", "bis 500 Rezepte", "hasta 500 recetas", "jusqu’à 500 recettes"]],
+   [["€ 164,99", "€164.99", "164,99 €", "164,99 €", "164,99 €"], ["tot 1000 recepten", "up to 1,000 recipes", "bis 1000 Rezepte", "hasta 1000 recetas", "jusqu’à 1 000 recettes"]],
+   [["5", "5", "5", "5", "5"], ["keukens laden we gratis in", "kitchens we import for free", "Küchen laden wir kostenlos ein", "cocinas importamos gratis", "cuisines importées gratuitement"], true]
+  ],
+  "note": ["Meer recepten kan in overleg.", "More recipes by arrangement.", "Mehr Rezepte nach Absprache.", "Más recetas, a consultar.", "Plus de recettes sur demande."],
+  "alt": ["Prijzen van de import service: 85 euro tot 100 recepten, 100 euro tot 500 recepten, 164,99 euro tot 1000 recepten; de eerste vijf keukens gratis", "Import service prices: 85 euros up to 100 recipes, 100 euros up to 500 recipes, 164.99 euros up to 1,000 recipes; the first five kitchens free", "Preise des Import-Service: 85 Euro bis 100 Rezepte, 100 Euro bis 500 Rezepte, 164,99 Euro bis 1000 Rezepte; die ersten fünf Küchen kostenlos", "Precios del servicio: 85 euros hasta 100 recetas, 100 euros hasta 500, 164,99 euros hasta 1000; las primeras cinco cocinas gratis", "Tarifs du service d’import : 85 euros jusqu’à 100 recettes, 100 euros jusqu’à 500, 164,99 euros jusqu’à 1 000 ; les cinq premières cuisines gratuites"],
+  "caption": ["Daarna geldt het pakket dat bij je receptenmap past.", "After that, the package that fits your recipe folder applies.", "Danach gilt das Paket, das zu deiner Rezeptmappe passt.", "Después se aplica el paquete que corresponde a tu carpeta.", "Ensuite, le forfait adapté à ton classeur s’applique."]
+ }
+]

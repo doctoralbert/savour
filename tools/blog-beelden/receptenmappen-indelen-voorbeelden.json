@@ -1,0 +1,19 @@
+[
+ {
+  "name": "vijf-indelingen",
+  "after": "Combineer mappen met categorieën",
+  "type": "folders",
+  "title": ["Vijf indelingen die werken", "Five structures that work", "Fünf Strukturen, die funktionieren", "Cinco estructuras que funcionan", "Cinq organisations qui marchent"],
+  "sub": ["Begin met een map voor de basis en een voor het huidige menu", "Start with one folder for the basics and one for the current menu", "Fang mit einem Ordner für die Basis und einem für das aktuelle Menü an", "Empieza con una carpeta para la base y otra para el menú actual", "Commence par un dossier pour la base et un pour le menu actuel"],
+  "cols": [
+   [["Per partie", "By section", "Nach Posten", "Por partida", "Par poste"], [["Garde manger", "Garde manger", "Garde-manger", "Garde manger", "Garde-manger"], ["Saucier", "Saucier", "Saucier", "Saucier", "Saucier"], ["Patisserie", "Pastry", "Patisserie", "Pastelería", "Pâtisserie"]], ["Vaste brigade, vaste posten", "Fixed brigade, fixed stations", "Feste Brigade, feste Posten", "Brigada fija, puestos fijos", "Brigade fixe, postes fixes"]],
+   [["Per menu", "By menu", "Nach Menü", "Por menú", "Par menu"], [["Lunch", "Lunch", "Mittag", "Almuerzo", "Déjeuner"], ["Proeverij", "Tasting menu", "Degustation", "Degustación", "Dégustation"], ["Najaar", "Autumn", "Herbst", "Otoño", "Automne"]], ["Een kaart die vaak wisselt", "A menu that changes often", "Eine Karte, die oft wechselt", "Una carta que cambia a menudo", "Une carte qui change souvent"]],
+   [["Basis apart", "Basics apart", "Basis getrennt", "La base aparte", "La base à part"], [["Fonds en jus", "Stocks and jus", "Fonds und Jus", "Fondos y jugos", "Fonds et jus"], ["Deeg", "Doughs", "Teige", "Masas", "Pâtes"], ["Moedersauzen", "Mother sauces", "Grundsaucen", "Salsas madre", "Sauces mères"]], ["Elke keuken", "Every kitchen", "Jede Küche", "Toda cocina", "Toute cuisine"]],
+   [["Patisserie", "Pastry", "Patisserie", "Pastelería", "Pâtisserie"], [["Crèmes", "Creams", "Cremes", "Cremas", "Crèmes"], ["IJs en sorbet", "Ice cream and sorbet", "Eis und Sorbet", "Helado y sorbete", "Glaces et sorbets"], ["Glazuren", "Glazes", "Glasuren", "Glaseados", "Glaçages"]], ["Zoeken op onderdeel", "Searching by component", "Suche nach Bestandteil", "Buscar por elaboración", "Chercher par élément"]],
+   [["Per evenement", "By event", "Nach Event", "Por evento", "Par événement"], [["Bruiloft juni", "June wedding", "Hochzeit Juni", "Boda de junio", "Mariage de juin"], ["Vaste klant X", "Regular client X", "Stammkunde X", "Cliente fijo X", "Client régulier X"]], ["Catering en banqueting", "Catering and banqueting", "Catering und Bankett", "Catering y banquetes", "Traiteur et banquets"]]
+  ],
+  "dark": 2,
+  "alt": ["Vijf indelingen van receptenmappen: per partie, per menu, basis apart, patisserie per onderdeel en per evenement, met voorbeelden", "Five ways to structure recipe folders: by section, by menu, basics apart, pastry by component and by event, with examples", "Fünf Ordnerstrukturen: nach Posten, nach Menü, Basis getrennt, Patisserie nach Bestandteil und nach Event, mit Beispielen", "Cinco formas de organizar carpetas: por partida, por menú, la base aparte, pastelería por elaboración y por evento, con ejemplos", "Cinq façons d’organiser les dossiers : par poste, par menu, la base à part, pâtisserie par élément et par événement, avec exemples"],
+  "caption": ["Een recept kan in meerdere mappen staan zonder dat het dubbel bestaat.", "A recipe can sit in several folders without existing twice.", "Ein Rezept kann in mehreren Ordnern stehen, ohne doppelt zu existieren.", "Una receta puede estar en varias carpetas sin estar duplicada.", "Une recette peut être dans plusieurs dossiers sans exister en double."]
+ }
+]

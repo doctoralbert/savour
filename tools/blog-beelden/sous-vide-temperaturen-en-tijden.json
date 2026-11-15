@@ -1,0 +1,36 @@
+[
+ {
+  "name": "pasteurisatietijden",
+  "after": "Pasteurisatietijden naar dikte",
+  "type": "table",
+  "title": ["Pasteuriseren: dikte en temperatuur", "Pasteurising: thickness and temperature", "Pasteurisieren: Dicke und Temperatur", "Pasteurizar: grosor y temperatura", "Pasteuriser : épaisseur et température"],
+  "sub": ["Hoelang in het bad, gerekend vanaf een product uit de koeling (5 °C)", "How long in the bath, starting from a chilled product (5 °C)", "Wie lange im Bad, ab einem gekühlten Produkt (5 °C)", "Cuánto tiempo en el baño, desde un producto refrigerado (5 °C)", "Combien de temps au bain, à partir d’un produit réfrigéré (5 °C)"],
+  "head": [["Product en dikte", "Product and thickness", "Produkt und Dicke", "Producto y grosor", "Produit et épaisseur"], "55 °C", "60 °C", "63 °C"],
+  "cols": [1.6, 1, 1, 1],
+  "rows": [
+   [["Rund, varken, lam · 20 mm", "Beef, pork, lamb · 20 mm", "Rind, Schwein, Lamm · 20 mm", "Vacuno, cerdo, cordero · 20 mm", "Bœuf, porc, agneau · 20 mm"], ["2½ uur", "2½ hours", "2½ Std.", "2½ h", "2 h 30"], ["1¼ uur", "1¼ hours", "1¼ Std.", "1¼ h", "1 h 15"], ["55 min", "55 min", "55 Min.", "55 min", "55 min"]],
+   [["Rund, varken, lam · 50 mm", "Beef, pork, lamb · 50 mm", "Rind, Schwein, Lamm · 50 mm", "Vacuno, cerdo, cordero · 50 mm", "Bœuf, porc, agneau · 50 mm"], ["4½ uur", "4½ hours", "4½ Std.", "4½ h", "4 h 30"], ["2½ uur", "2½ hours", "2½ Std.", "2½ h", "2 h 30"], ["2¼ uur", "2¼ hours", "2¼ Std.", "2¼ h", "2 h 15"]],
+   [["Kip · 20 mm", "Chicken · 20 mm", "Huhn · 20 mm", "Pollo · 20 mm", "Poulet · 20 mm"], "–", ["1¼ uur", "1¼ hours", "1¼ Std.", "1¼ h", "1 h 15"], ["50 min", "50 min", "50 Min.", "50 min", "50 min"]],
+   [["Kip · 50 mm", "Chicken · 50 mm", "Huhn · 50 mm", "Pollo · 50 mm", "Poulet · 50 mm"], "–", ["3¼ uur", "3¼ hours", "3¼ Std.", "3¼ h", "3 h 15"], ["2½ uur", "2½ hours", "2½ Std.", "2½ h", "2 h 30"]],
+   [["Magere vis · 20 mm", "Lean fish · 20 mm", "Magerer Fisch · 20 mm", "Pescado magro · 20 mm", "Poisson maigre · 20 mm"], ["3 uur", "3 hours", "3 Std.", "3 h", "3 h"], ["1 uur", "1 hour", "1 Std.", "1 h", "1 h"], "–"],
+   [["Vette vis · 20 mm", "Oily fish · 20 mm", "Fetter Fisch · 20 mm", "Pescado graso · 20 mm", "Poisson gras · 20 mm"], ["4¾ uur", "4¾ hours", "4¾ Std.", "4¾ h", "4 h 45"], ["1¼ uur", "1¼ hours", "1¼ Std.", "1¼ h", "1 h 15"], "–"]
+  ],
+  "note": ["Bron: Douglas Baldwin, A Practical Guide to Sous Vide Cooking. Niet langer dan 4 uur onder 54,5 °C.", "Source: Douglas Baldwin, A Practical Guide to Sous Vide Cooking. No longer than 4 hours below 54.5 °C.", "Quelle: Douglas Baldwin, A Practical Guide to Sous Vide Cooking. Nicht länger als 4 Stunden unter 54,5 °C.", "Fuente: Douglas Baldwin, A Practical Guide to Sous Vide Cooking. No más de 4 horas por debajo de 54,5 °C.", "Source : Douglas Baldwin, A Practical Guide to Sous Vide Cooking. Pas plus de 4 heures sous 54,5 °C."],
+  "alt": ["Tabel met pasteurisatietijden bij 55, 60 en 63 °C voor rund, varken en lam, kip en vis van 20 en 50 millimeter dik", "Table of pasteurisation times at 55, 60 and 63 °C for beef, pork and lamb, chicken and fish, 20 and 50 millimetres thick", "Tabelle mit Pasteurisierzeiten bei 55, 60 und 63 °C für Rind, Schwein und Lamm, Huhn und Fisch, 20 und 50 Millimeter dick", "Tabla de tiempos de pasteurización a 55, 60 y 63 °C para vacuno, cerdo y cordero, pollo y pescado de 20 y 50 milímetros", "Tableau des temps de pasteurisation à 55, 60 et 63 °C pour bœuf, porc et agneau, poulet et poisson de 20 et 50 millimètres"],
+  "caption": ["Hoe dikker het stuk, hoe langer het duurt; met omrekenen blijft de tijd gelijk.", "The thicker the piece, the longer it takes; scaling the recipe doesn’t change the time.", "Je dicker das Stück, desto länger; beim Umrechnen bleibt die Zeit gleich.", "Cuanto más grueso, más tiempo; al escalar la receta el tiempo no cambia.", "Plus la pièce est épaisse, plus c’est long ; en multipliant la recette, le temps ne change pas."]
+ },
+ {
+  "name": "eieren",
+  "after": "Eieren",
+  "type": "tiles",
+  "title": ["Eieren: een paar graden verschil", "Eggs: a few degrees apart", "Eier: ein paar Grad Unterschied", "Huevos: unos grados de diferencia", "Œufs : quelques degrés d’écart"],
+  "sub": ["In de schaal, zonder zak", "In the shell, no bag", "In der Schale, ohne Beutel", "Con cáscara, sin bolsa", "Dans la coquille, sans sac"],
+  "items": [
+   ["57 °C", ["Gepasteuriseerd ei, minstens 75 minuten: nog rauw, veilig voor mayonaise", "Pasteurised egg, at least 75 minutes: still raw, safe for mayonnaise", "Pasteurisiertes Ei, mindestens 75 Minuten: noch roh, sicher für Mayonnaise", "Huevo pasteurizado, al menos 75 minutos: aún crudo, seguro para mayonesa", "Œuf pasteurisé, au moins 75 minutes : encore cru, sûr pour la mayonnaise"]],
+   ["63 °C", ["Zacht ei, 45 tot 60 minuten: vloeibare dooier", "Soft egg, 45 to 60 minutes: runny yolk", "Weiches Ei, 45 bis 60 Minuten: flüssiges Eigelb", "Huevo blando, 45 a 60 minutos: yema líquida", "Œuf mollet, 45 à 60 minutes : jaune coulant"]],
+   [["64,5 °C", "64.5 °C", "64,5 °C", "64,5 °C", "64,5 °C"], ["“Perfect egg”, 45 tot 60 minuten: dooier als dikke room", "“Perfect egg”, 45 to 60 minutes: yolk like thick cream", "„Perfect egg“, 45 bis 60 Minuten: Eigelb wie dicke Sahne", "“Huevo perfecto”, 45 a 60 minutos: yema como nata espesa", "« Œuf parfait », 45 à 60 minutes : jaune comme une crème épaisse"], true]
+  ],
+  "alt": ["Drie eieren: 57 °C gepasteuriseerd, 63 °C zacht ei, 64,5 °C perfect egg", "Three eggs: 57 °C pasteurised, 63 °C soft egg, 64.5 °C perfect egg", "Drei Eier: 57 °C pasteurisiert, 63 °C weiches Ei, 64,5 °C Perfect egg", "Tres huevos: 57 °C pasteurizado, 63 °C blando, 64,5 °C huevo perfecto", "Trois œufs : 57 °C pasteurisé, 63 °C mollet, 64,5 °C œuf parfait"],
+  "caption": ["Zet de badtemperatuur en de tijd in de notitie bij het recept.", "Put the bath temperature and time in the recipe note.", "Schreib Badtemperatur und Zeit in die Notiz zum Rezept.", "Anota la temperatura del baño y el tiempo en la nota de la receta.", "Note la température du bain et le temps dans la note de la recette."]
+ }
+]

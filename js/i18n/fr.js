@@ -179,7 +179,7 @@ window.SAVOUR_I18N.fr = {
     'Nog niet opgeslagen.': 'Pas encore enregistré.',
     'Controleer de recepten en klik op "Alle recepten opslaan". Sluit je Savour eerder, dan bieden we ze de volgende keer opnieuw aan.':
       'Vérifiez les recettes et cliquez sur « Enregistrer toutes les recettes ». Si vous fermez Savour avant, nous vous les reproposerons la prochaine fois.',
-    'Nu': 'Maintenant',
+    Nu: 'Maintenant',
     'Na opschonen': 'Après nettoyage',
     'Je recepten opschonen?': 'Nettoyer vos recettes ?',
     'recepten kunnen netter: resten van het importeren (zoals "# Ingredients" of "(Source: …)"), alle ingrediënten op één regel, of de hoeveelheid achter het ingrediënt ("Boter 250 g"), waardoor omrekenen niet werkt. Savour kan dit voor je opschonen: kopjes en opmaak weg, de bron naar de beschrijving, elk ingrediënt op een eigen regel en de hoeveelheid vooraan ("250 g boter"). Geen hoeveelheid verandert, en je huidige versie wordt bewaard.':

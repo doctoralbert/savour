@@ -1,0 +1,227 @@
+[
+ {
+  "name": "factor",
+  "after": "Een rekenvoorbeeld",
+  "type": "calc",
+  "title": [
+   "Opschalen met een factor",
+   "Scaling with a factor",
+   "Skalieren mit einem Faktor",
+   "Escalar con un factor",
+   "Adapter avec un coefficient"
+  ],
+  "sub": [
+   "Reken altijd vanuit het originele recept",
+   "Always work from the original recipe",
+   "Rechne immer vom Originalrezept aus",
+   "Calcula siempre desde la receta original",
+   "Calcule toujours à partir de la recette d’origine"
+  ],
+  "boxes": [
+   [
+    [
+     "nodig",
+     "needed",
+     "benötigt",
+     "necesarias",
+     "nécessaires"
+    ],
+    [
+     "90 porties",
+     "90 portions",
+     "90 Portionen",
+     "90 raciones",
+     "90 portions"
+    ],
+    false
+   ],
+   [
+    [
+     "in het recept",
+     "in the recipe",
+     "im Rezept",
+     "en la receta",
+     "dans la recette"
+    ],
+    [
+     "12 porties",
+     "12 portions",
+     "12 Portionen",
+     "12 raciones",
+     "12 portions"
+    ],
+    false
+   ],
+   [
+    [
+     "factor",
+     "factor",
+     "Faktor",
+     "factor",
+     "coefficient"
+    ],
+    [
+     "7,5",
+     "7.5",
+     "7,5",
+     "7,5",
+     "7,5"
+    ],
+    true
+   ]
+  ],
+  "ops": [
+   "÷",
+   "="
+  ],
+  "panel": [
+   [
+    "VOORBEELD: BOTER IN DE SAUS",
+    "EXAMPLE: BUTTER IN THE SAUCE",
+    "BEISPIEL: BUTTER IN DER SAUCE",
+    "EJEMPLO: MANTEQUILLA EN LA SALSA",
+    "EXEMPLE : LE BEURRE DE LA SAUCE"
+   ],
+   [
+    "250 g × 7,5 = 1875 g",
+    "250 g × 7.5 = 1,875 g",
+    "250 g × 7,5 = 1875 g",
+    "250 g × 7,5 = 1875 g",
+    "250 g × 7,5 = 1 875 g"
+   ],
+   [
+    "Niet vanuit een eerder omgerekende versie: dan stapelen afrondingen zich op.",
+    "Not from a version you already scaled: rounding errors add up.",
+    "Nicht von einer schon umgerechneten Version: sonst summieren sich Rundungen.",
+    "No desde una versión ya escalada: los redondeos se acumulan.",
+    "Pas depuis une version déjà recalculée : les arrondis s’additionnent."
+   ]
+  ],
+  "alt": [
+   "Rekenvoorbeeld: 90 porties gedeeld door 12 porties is factor 7,5; 250 gram boter wordt 1875 gram",
+   "Worked example: 90 portions divided by 12 portions is a factor of 7.5; 250 grams of butter becomes 1,875 grams",
+   "Rechenbeispiel: 90 Portionen geteilt durch 12 Portionen ergibt Faktor 7,5; aus 250 Gramm Butter werden 1875 Gramm",
+   "Ejemplo: 90 raciones entre 12 raciones da un factor de 7,5; 250 gramos de mantequilla pasan a 1875 gramos",
+   "Exemple : 90 portions divisées par 12 portions donnent un coefficient de 7,5 ; 250 grammes de beurre deviennent 1 875 grammes"
+  ],
+  "caption": [
+   "De factor is wat je nodig hebt gedeeld door wat het recept oplevert.",
+   "The factor is what you need divided by what the recipe yields.",
+   "Der Faktor ist, was du brauchst, geteilt durch das, was das Rezept ergibt.",
+   "El factor es lo que necesitas dividido entre lo que rinde la receta.",
+   "Le coefficient, c’est ce dont tu as besoin divisé par ce que donne la recette."
+  ]
+ },
+ {
+  "name": "niet-blind-meeschalen",
+  "after": "Let op bij gelei en deeg",
+  "type": "cards",
+  "title": [
+   "Niet blind meeschalen",
+   "Don’t scale these blindly",
+   "Nicht blind mitskalieren",
+   "No escales esto a ciegas",
+   "À ne pas multiplier à l’aveugle"
+  ],
+  "sub": [
+   "Wat de structuur bepaalt, test je eerst in een proefbatch",
+   "What sets the structure, you test in a trial batch first",
+   "Was die Struktur bestimmt, testest du zuerst in einer Probecharge",
+   "Lo que define la textura, pruébalo primero en una tanda de prueba",
+   "Ce qui fait la texture se teste d’abord sur une petite fournée"
+  ],
+  "items": [
+   {
+    "icon": "wave",
+    "head": [
+     "Gelatine",
+     "Gelatine",
+     "Gelatine",
+     "Gelatina",
+     "Gélatine"
+    ],
+    "lines": [
+     [
+      "Bepaalt hoe stevig een gelei wordt",
+      "Decides how firm a jelly sets",
+      "Bestimmt, wie fest ein Gelee wird",
+      "Decide lo firme que queda una gelatina",
+      "Décide de la tenue d’une gelée"
+     ]
+    ]
+   },
+   {
+    "icon": "spark",
+    "head": [
+     "Agar",
+     "Agar",
+     "Agar",
+     "Agar",
+     "Agar"
+    ],
+    "lines": [
+     [
+      "Kleine hoeveelheid, groot effect",
+      "A small amount with a big effect",
+      "Kleine Menge, große Wirkung",
+      "Poca cantidad, gran efecto",
+      "Petite dose, grand effet"
+     ]
+    ]
+   },
+   {
+    "icon": "grid",
+    "head": [
+     "Rijsmiddel",
+     "Raising agent",
+     "Triebmittel",
+     "Gasificante",
+     "Levure"
+    ],
+    "lines": [
+     [
+      "Bij grote hoeveelheden niet één op één",
+      "Not one to one in large batches",
+      "Bei großen Mengen nicht eins zu eins",
+      "No es uno a uno en cantidades grandes",
+      "Pas proportionnel en grande quantité"
+     ]
+    ]
+   },
+   {
+    "icon": "check",
+    "head": [
+     "Zout",
+     "Salt",
+     "Salz",
+     "Sal",
+     "Sel"
+    ],
+    "lines": [
+     [
+      "Proef altijd voordat je erop rekent",
+      "Always taste before you rely on it",
+      "Immer abschmecken, bevor du dich darauf verlässt",
+      "Prueba siempre antes de contar con ello",
+      "Goûte toujours avant de t’y fier"
+     ]
+    ],
+    "dark": true
+   }
+  ],
+  "alt": [
+   "Vier ingrediënten die je niet één op één opschaalt: gelatine, agar, rijsmiddel en zout",
+   "Four ingredients you don’t scale one to one: gelatine, agar, raising agent and salt",
+   "Vier Zutaten, die man nicht eins zu eins skaliert: Gelatine, Agar, Triebmittel und Salz",
+   "Cuatro ingredientes que no se escalan uno a uno: gelatina, agar, gasificante y sal",
+   "Quatre ingrédients qu’on ne multiplie pas tels quels : gélatine, agar, levure et sel"
+  ],
+  "caption": [
+   "Maak bij een groot evenement eerst een proefbatch op ongeveer een kwart.",
+   "For a big event, make a trial batch of about a quarter first.",
+   "Vor einer großen Veranstaltung zuerst eine Probecharge von etwa einem Viertel.",
+   "Para un gran evento, haz primero una tanda de prueba de una cuarta parte.",
+   "Pour un grand événement, fais d’abord un essai sur environ un quart."
+  ]
+ }
+]

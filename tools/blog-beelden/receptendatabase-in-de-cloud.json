@@ -1,0 +1,24 @@
+[
+ {
+  "name": "een-plek",
+  "after": "Het probleem: recepten op tien plekken",
+  "type": "hub",
+  "title": ["Van tien plekken naar één", "From ten places to one", "Von zehn Orten zu einem", "De diez sitios a uno", "De dix endroits à un seul"],
+  "sub": ["Eén database, op elk apparaat hetzelfde", "One database, the same on every device", "Eine Datenbank, auf jedem Gerät gleich", "Una base de datos, igual en cada dispositivo", "Une base de données, identique sur chaque appareil"],
+  "left": [["NU", "NOW", "JETZT", "AHORA", "AUJOURD’HUI"], [
+   ["Word op de laptop van de vorige chef", "Word on the old chef’s laptop", "Word auf dem Laptop des Ex-Chefs", "Word en el portátil del chef anterior", "Word sur l’ordinateur de l’ancien chef"],
+   ["Foto’s op drie telefoons", "Photos on three phones", "Fotos auf drei Handys", "Fotos en tres móviles", "Photos sur trois téléphones"],
+   ["Een map met vlekken bij de pass", "A stained folder at the pass", "Ein fleckiger Ordner am Pass", "Una carpeta con manchas en el pase", "Un classeur taché au passe"],
+   ["Briefjes in een la", "Notes in a drawer", "Zettel in einer Schublade", "Notas en un cajón", "Des papiers dans un tiroir"]
+  ]],
+  "mid": ["Alle recepturen op één plek, in dezelfde vorm en doorzoekbaar", "All recipes in one place, in the same format and searchable", "Alle Rezepturen an einem Ort, gleich aufgebaut und durchsuchbar", "Todas las recetas en un sitio, con el mismo formato y buscables", "Toutes les recettes au même endroit, même format, faciles à chercher"],
+  "right": [["OVERAL HETZELFDE", "THE SAME EVERYWHERE", "ÜBERALL GLEICH", "IGUAL EN TODAS PARTES", "PARTOUT PAREIL"], [
+   ["print", ["Computer op kantoor", "Office computer", "Computer im Büro", "Ordenador de la oficina", "Ordinateur au bureau"]],
+   ["grid", ["Tablet aan de pass", "Tablet at the pass", "Tablet am Pass", "Tableta en el pase", "Tablette au passe"]],
+   ["phone", ["Telefoon in de keuken", "Phone in the kitchen", "Handy in der Küche", "Móvil en la cocina", "Téléphone en cuisine"]],
+   ["wifioff", ["Ook zonder internet", "Also without internet", "Auch ohne Internet", "También sin internet", "Même sans internet"]]
+  ]],
+  "alt": ["Schema: recepten in Word, op telefoons, in een map en op briefjes komen samen in Savour, en staan daarna hetzelfde op computer, tablet en telefoon, ook offline", "Diagram: recipes in Word, on phones, in a folder and on notes come together in Savour, then appear the same on computer, tablet and phone, also offline", "Schema: Rezepte in Word, auf Handys, im Ordner und auf Zetteln kommen in Savour zusammen und sind dann auf Computer, Tablet und Handy gleich, auch offline", "Esquema: recetas en Word, en móviles, en una carpeta y en notas se reúnen en Savour y aparecen igual en ordenador, tableta y móvil, también sin conexión", "Schéma : des recettes dans Word, sur des téléphones, dans un classeur et sur des papiers réunies dans Savour, puis identiques sur ordinateur, tablette et téléphone, même hors ligne"],
+  "caption": ["Een aanpassing is meteen overal zichtbaar; een nieuwe telefoon is alleen opnieuw inloggen.", "A change is visible everywhere at once; a new phone just means logging in again.", "Eine Änderung ist sofort überall sichtbar; ein neues Handy heißt nur neu anmelden.", "Un cambio se ve al instante en todas partes; un móvil nuevo es solo volver a entrar.", "Une modification est visible partout aussitôt ; un nouveau téléphone, c’est juste se reconnecter."]
+ }
+]

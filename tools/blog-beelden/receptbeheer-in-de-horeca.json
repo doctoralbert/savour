@@ -1,0 +1,32 @@
+[
+ {
+  "name": "vier-stappen",
+  "after": "Wat is receptbeheer eigenlijk?",
+  "type": "flow",
+  "end": true,
+  "title": ["Receptbeheer in vier stappen", "Recipe management in four steps", "Rezeptverwaltung in vier Schritten", "Gestión de recetas en cuatro pasos", "La gestion des recettes en quatre étapes"],
+  "sub": ["Vooral afspraken: waar staat het, wie past het aan, hoe vind je het terug", "Mostly agreements: where it is, who changes it, how you find it", "Vor allem Absprachen: wo es steht, wer es ändert, wie man es findet", "Sobre todo acuerdos: dónde está, quién lo cambia, cómo se encuentra", "Surtout des règles : où c’est, qui modifie, comment on retrouve"],
+  "steps": [
+   [["Verzamel wat je hebt", "Gather what you have", "Sammle, was du hast", "Reúne lo que tienes", "Rassemble ce que tu as"], ["Word, PDF en kladjes, in één keer importeren.", "Word, PDF and notes, imported in one go.", "Word, PDF und Zettel, auf einmal importieren.", "Word, PDF y notas, importados de una vez.", "Word, PDF et notes, importés d’un coup."]],
+   [["Kies een indeling", "Choose a structure", "Wähle eine Struktur", "Elige una estructura", "Choisis une organisation"], ["Per partie, per menu of basis apart.", "By section, by menu or basics apart.", "Nach Posten, Menü oder Basis getrennt.", "Por partida, por menú o la base aparte.", "Par poste, par menu ou la base à part."]],
+   [["Bepaal wie wat mag", "Decide who may do what", "Lege fest, wer was darf", "Decide quién puede qué", "Décide qui peut quoi"], ["Chef en sous-chef passen aan, de rest kijkt mee.", "Chef and sous chef edit, the rest views.", "Chef und Sous-Chef ändern, der Rest sieht zu.", "Chef y segundo editan, el resto consulta.", "Le chef et le sous-chef modifient, les autres consultent."]],
+   [["Maak het makkelijk", "Make it easy", "Mach es einfach", "Hazlo fácil", "Rends-le facile"], ["Op de telefoon, grote letters, een hele map printen.", "On the phone, large text, print a whole folder.", "Am Handy, große Schrift, ganzen Ordner drucken.", "En el móvil, letra grande, imprimir una carpeta.", "Sur le téléphone, gros caractères, imprimer un dossier."]]
+  ],
+  "alt": ["Vier stappen: verzamel wat je hebt, kies een indeling, bepaal wie wat mag en maak het makkelijk in de keuken", "Four steps: gather what you have, choose a structure, decide who may do what and make it easy in the kitchen", "Vier Schritte: sammle, was du hast, wähle eine Struktur, lege fest, wer was darf, und mach es in der Küche einfach", "Cuatro pasos: reúne lo que tienes, elige una estructura, decide quién puede qué y hazlo fácil en la cocina", "Quatre étapes : rassemble ce que tu as, choisis une organisation, décide qui peut quoi et rends-le facile en cuisine"],
+  "caption": ["Receptbeheer werkt alleen als het in de keuken sneller is dan het oude briefje.", "Recipe management only works if it is faster in the kitchen than the old note.", "Rezeptverwaltung funktioniert nur, wenn sie in der Küche schneller ist als der alte Zettel.", "La gestión de recetas solo funciona si en la cocina es más rápida que la nota de siempre.", "La gestion des recettes ne marche que si elle est plus rapide en cuisine que le vieux papier."]
+ },
+ {
+  "name": "wie-doet-wat",
+  "after": "Wie doet wat",
+  "type": "cards",
+  "title": ["Wie doet wat", "Who does what", "Wer macht was", "Quién hace qué", "Qui fait quoi"],
+  "sub": ["Zo blijft het receptenboek actueel zonder dat het één persoon tijd kost", "This keeps the recipe book up to date without costing one person all the time", "So bleibt das Rezeptbuch aktuell, ohne dass es eine Person Zeit kostet", "Así el recetario sigue al día sin que le cueste el tiempo a una sola persona", "Ainsi le livre de recettes reste à jour sans peser sur une seule personne"],
+  "items": [
+   {"icon": "hat", "head": ["De chef", "The chef", "Der Küchenchef", "El chef", "Le chef"], "lines": [["Bepaalt de indeling en wie mag aanpassen", "Decides the structure and who may edit", "Bestimmt die Struktur und wer ändern darf", "Decide la estructura y quién puede editar", "Décide de l’organisation et de qui peut modifier"]], "dark": true},
+   {"icon": "note", "head": ["De sous-chef", "The sous chef", "Der Sous-Chef", "El segundo", "Le sous-chef"], "lines": [["Houdt de recepturen bij als het menu wisselt", "Keeps recipes up to date when the menu changes", "Hält die Rezepturen aktuell, wenn das Menü wechselt", "Actualiza las recetas cuando cambia el menú", "Met les recettes à jour quand le menu change"]]},
+   {"icon": "team", "head": ["De brigade", "The brigade", "Die Brigade", "La brigada", "La brigade"], "lines": [["Leest en meldt wat niet klopt", "Reads and reports what is wrong", "Liest und meldet, was nicht stimmt", "Lee y avisa de lo que no cuadra", "Lit et signale ce qui ne va pas"]]}
+  ],
+  "alt": ["Taakverdeling: de chef bepaalt de indeling, de sous-chef houdt de recepturen bij, de brigade leest en meldt fouten", "Division of tasks: the chef decides the structure, the sous chef keeps recipes up to date, the brigade reads and reports mistakes", "Aufgabenteilung: der Küchenchef bestimmt die Struktur, der Sous-Chef pflegt die Rezepturen, die Brigade liest und meldet Fehler", "Reparto: el chef decide la estructura, el segundo actualiza las recetas, la brigada lee y avisa de errores", "Répartition : le chef décide de l’organisation, le sous-chef tient les recettes à jour, la brigade lit et signale les erreurs"],
+  "caption": ["Plan bij elke kaartwissel een half uur om de mappen na te lopen.", "At every menu change, plan half an hour to go through the folders.", "Plane bei jedem Kartenwechsel eine halbe Stunde für die Ordner ein.", "En cada cambio de carta, reserva media hora para repasar las carpetas.", "À chaque changement de carte, prévois une demi-heure pour revoir les dossiers."]
+ }
+]
