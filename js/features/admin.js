@@ -376,26 +376,22 @@ function renderAdminStats() {
     rows
       .map(x => `<div class="traffic-box"><b>${adminEscape(x[1] ?? '—')}</b><span>${adminEscape(x[0])}</span></div>`)
       .join('');
+  // Overzicht: echt nieuwe bezoekers (zonder vaste gebruikers, api/admin.js → visitorStats) en wat accounts doen.
+  // Alle unieke bezoekers (ook vaste gebruikers) staan bij Bezoekers.
   const s = $('adminStats');
   if (s)
     s.innerHTML = [
-      ['Unieke bezoekers vandaag', d.visits_today, 'elk apparaat telt één keer'],
-      ['Unieke bezoekers deze week', d.visits_week, 'laatste 7 dagen'],
-      ['Unieke bezoekers deze maand', d.visits_month, 'deze kalendermaand'],
+      ['Nieuwe bezoekers vandaag', d.new_today, 'eerste bezoek, zonder vaste gebruikers'],
       [
-        'Unieke bezoekers all time',
-        d.visitors_all_time,
-        [
-          d.own_devices ? `zonder jouw ${d.own_devices} apparaat/apparaten` : 'sinds de start',
-          d.not_counted ? `${d.not_counted} bots en tools niet meegeteld` : ''
-        ]
-          .filter(Boolean)
-          .join(' · ')
+        'Nieuwe bezoekers 7 dagen',
+        d.new_week,
+        d.new_signed_up_week ? `${d.new_signed_up_week} maakten een account` : 'laatste 7 dagen'
       ],
-      ['Accounts', d.accounts, 'geregistreerde gebruikers'],
-      ['App gebruikers', d.app_users, 'unieke native app-gebruikers'],
-      ['Recepten', d.recipes, 'persoonlijke recepten'],
-      ['Receptenmappen', d.folders, 'persoonlijke mappen'],
+      ['Nieuwe bezoekers deze maand', d.new_month, 'deze kalendermaand'],
+      ['Nieuwe accounts 7 dagen', d.new_accounts_week, `${d.accounts ?? '—'} accounts in totaal`],
+      ['Gebruikers vandaag', d.active_today, 'accounts die Savour openden'],
+      ['Nu actief', d.active_now, 'accounts, afgelopen 10 minuten'],
+      ['Recepten', d.recipes, 'in alle bibliotheken'],
       ['Keukenteams', d.shared_maps, 'keukenteams']
     ]
       .map(
@@ -425,6 +421,7 @@ function renderAdminStats() {
       ['Native app', d.platform_app]
     ]);
   adminRenderCountries(d.countries || []);
+  renderAdminNewVisitors(d);
   // Herkomst: per groep (direct, gedeelde links, social media, ...) de bronnen, met een balkje ten opzichte van de
   // grootste bron. De groep met de meeste bezoekers bovenaan.
   const sb = $('adminSourcesBody');
@@ -1239,6 +1236,16 @@ async function loadAdminOverview() {
       renderAdminStats();
     }
     adminAccounts = accounts || [];
+    // Voor de tegels bovenaan het overzicht.
+    Object.assign(adminDashData, {
+      active_today: t.active_today,
+      active_now: t.active_now,
+      new_accounts_week: t.new_7_days,
+      accounts: t.accounts,
+      recipes: t.recipes
+    });
+    renderAdminStats();
+    renderAdminActiveUsers();
     renderAdminFunnel(funnel);
     loadAdminActivity();
     adminTotals = t;
@@ -1431,6 +1438,85 @@ function renderAdminActiveNow() {
   host.innerHTML = now.length
     ? `<span class="admin-active-dot"></span><b>Nu actief (${now.length}):</b> ${now.map(a => `${adminEscape(a.name || a.email)} <small>${adminEscape(a.activity?.lastDevice || '')}</small>`).join(' · ')}`
     : '';
+}
+
+// Overzicht: wie de gekozen periode actief was (vandaag, 7 of 30 dagen), met recepten, bezoeken en wat ze
+// verder doen. Zonder beheerders; nu actief eerst, daarna wie het laatst actief was.
+function renderAdminActiveUsers() {
+  const body = $('adminActiveUsersBody');
+  if (!body) return;
+  const days = Number($('adminActivePeriod')?.value || 7);
+  const since = Date.now() - days * 86400000;
+  const rows = adminAccounts
+    .filter(a => !a.is_admin && a.id !== currentUser?.id)
+    .filter(a => a.active_now || (days === 1 ? a.activity?.today : adminLastSeen(a) > since))
+    .sort((a, b) => b.active_now - a.active_now || adminLastSeen(b) - adminLastSeen(a));
+  if ($('adminActiveUsersCount'))
+    $('adminActiveUsersCount').textContent = `${rows.length} ${rows.length === 1 ? 'gebruiker' : 'gebruikers'}`;
+  const chip = (n, label) =>
+    n ? `<span class="admin-chip"><b>${adminEscape(n)}</b> ${adminEscape(label)}</span>` : '';
+  body.innerHTML =
+    rows
+      .map(a => {
+        const recipesNote = [
+          a.recipes_new_30 ? `+${a.recipes_new_30} erbij` : '',
+          a.recipes_edited_30 ? `${a.recipes_edited_30} aangepast` : ''
+        ]
+          .filter(Boolean)
+          .join(' · ');
+        const visits = a.activity?.hasVisits
+          ? `${adminEscape(a.activity.visits_30)}<small>${a.activity.visits_today ? `${adminEscape(a.activity.visits_today)} vandaag · ` : ''}${adminEscape(a.activity.visits)} totaal</small>`
+          : adminVisits(a);
+        const d = a.activity || {};
+        const devices = [
+          ['telefoon', 'dagen telefoon'],
+          ['tablet', 'dagen tablet'],
+          ['computer', 'dagen computer']
+        ]
+          .map(([k, label]) => chip(d[k], label))
+          .join('');
+        const more =
+          [
+            chip(a.ai_total, a.ai_this_month ? `AI-imports (${a.ai_this_month} deze maand)` : 'AI-imports'),
+            chip(a.folders, a.folders === 1 ? 'map' : 'mappen'),
+            chip(a.teams_owned, a.teams_owned === 1 ? 'eigen keukenteam' : 'eigen keukenteams'),
+            chip(Math.max(0, a.teams_member - a.teams_owned), 'keukenteam als lid'),
+            chip(a.shares, a.shares === 1 ? 'gedeelde link' : 'gedeelde links'),
+            chip(a.favorites, 'favorieten'),
+            devices
+          ].join('') || '<span class="admin-muted">nog niets anders</span>';
+        return `<tr><td>${adminFlag(a.country)} <b>${adminEscape(a.name || a.email || '—')}</b><small>${adminEscape(a.email || '')}</small><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span></td><td>${adminLastActive(a)}</td><td>${visits}</td><td><b>${adminEscape(a.recipes)}</b>${recipesNote ? `<small>${adminEscape(recipesNote)}</small>` : ''}</td><td><div class="admin-chips">${more}</div></td></tr>`;
+      })
+      .join('') ||
+    `<tr><td colspan="5">${days === 1 ? 'Vandaag nog niemand actief.' : 'Niemand actief in deze periode.'}</td></tr>`;
+}
+
+// Overzicht: waar echt nieuwe bezoekers vandaan komen (eerste bron per nieuw apparaat) en wie er deze week nieuw was.
+function renderAdminNewVisitors(d) {
+  const sb = $('adminNewSourcesBody');
+  if (sb) {
+    const sources = d.new_sources || [];
+    const max = Math.max(1, ...sources.map(x => x.week || x.month));
+    sb.innerHTML =
+      sources
+        .map(
+          x =>
+            `<tr><td class="admin-source-name">${adminEscape(x.name)}<small>${adminEscape(x.group)}</small></td><td class="admin-source-bar"><i style="width:${Math.round(((x.week || 0) / max) * 100)}%"></i></td><td>${x.today ? `<b>${adminEscape(x.today)}</b>` : '–'}</td><td>${adminEscape(x.week || '–')}</td><td>${adminEscape(x.month || '–')}</td></tr>`
+        )
+        .join('') || '<tr><td colspan="5">Deze maand nog geen nieuwe bezoekers.</td></tr>';
+  }
+  const note = $('adminNewSourcesNote');
+  if (note)
+    note.textContent = `Vaste gebruikers tellen hier niet mee: Savour herkent hun apparaat zodra ze ingelogd Savour openen (nu ${d.account_devices_known || 0} apparaten). Wie als nieuwe bezoeker kwam en een account maakte, telt wel mee. Robots en je eigen apparaten tellen niet mee.`;
+  const pb = $('adminNewPeopleBody');
+  if (pb)
+    pb.innerHTML =
+      (d.new_people || [])
+        .map(
+          v =>
+            `<tr><td>${adminFlag(v.country)} ${adminFormatDate(v.first)}${v.account === 'aangemeld' ? '<small><span class="admin-badge pro">account gemaakt</span></small>' : ''}${v.visits > 1 ? `<small>${adminEscape(v.visits)} bezoeken</small>` : ''}</td><td title="${adminEscape(v.referrer || '')}">${adminEscape(v.source)}<small>${adminEscape(v.source_group)}</small></td><td>${v.pages.map(adminEscape).join('<br>')}</td><td title="${adminEscape(v.user_agent || '')}">${adminEscape(adminDevice(v.user_agent))}</td></tr>`
+        )
+        .join('') || '<tr><td colspan="4">Deze week nog geen nieuwe bezoekers.</td></tr>';
 }
 
 // Nieuw account: uitnodiging per mail, de gebruiker kiest zelf een wachtwoord (api/admin.js).

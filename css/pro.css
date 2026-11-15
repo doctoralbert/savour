@@ -269,6 +269,50 @@
 .admin-filter select {
   flex: 0 1 180px;
 }
+/* Overzicht: actieve gebruikers en wat ze doen */
+.admin-select {
+  padding: 7px 10px;
+  border: 1px solid #2c3837;
+  border-radius: 10px;
+  background: #0b1213;
+  color: #eee8dc;
+}
+.admin-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.admin-chip {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid #2c3837;
+  border-radius: 999px;
+  color: #c9c2b4;
+  font-size: var(--sv-fs-xs);
+  white-space: nowrap;
+}
+.admin-chip b {
+  color: #e8ca8d;
+  font-weight: 600;
+}
+.admin-active-users td:first-child {
+  min-width: 190px;
+}
+.admin-active-users td:last-child {
+  min-width: 260px;
+}
+body.savour-light .admin-select {
+  background: #fff;
+  color: #1f2523;
+  border-color: #d9d3c6;
+}
+body.savour-light .admin-chip {
+  border-color: #d9d3c6;
+  color: #4a514e;
+}
+body.savour-light .admin-chip b {
+  color: #8a6a24;
+}
 .admin-table td small {
   display: block;
   color: #8b958f;

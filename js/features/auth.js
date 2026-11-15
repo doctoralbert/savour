@@ -347,25 +347,39 @@ async function appSessionExpired() {
 }
 
 // Herkomst van het account voor /admin (api/admin.js, accountSource): één keer per account per browser de
-// anonieme bezoekers-id meesturen. De server bewaart alleen het label (bijv. "Google"), niet de bezoeken.
+// anonieme bezoekers-id meesturen. De server bewaart alleen het label (bijv. "Google"), niet de bezoeken,
+// en onthoudt dat deze id bij een account hoort (api/admin.js, markAccountDevice), niet bij welk.
 async function sendAccountSource() {
   if (!currentUser || demoMode || !navigator.onLine || /^(localhost|127\.)/.test(location.hostname)) return;
-  try {
-    const visitor = localStorage.getItem('savour_visit_id');
-    const doneKey = 'savour_source_sent_' + currentUser.id;
-    if (!visitor || localStorage.getItem(doneKey)) return;
-    const token = (await supabaseClient.auth.getSession()).data?.session?.access_token;
-    if (!token) return;
-    const response = await fetch('/api/admin', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ action: 'herkomst', visitor })
-    });
-    const result = await response.json().catch(() => ({}));
-    // Vastgelegd (of al bekend): niet opnieuw sturen. Niets gevonden in deze browser: ook klaar voor deze browser.
-    if (result?.ok) localStorage.setItem(doneKey, '1');
-  } catch (_) {
-    // Herkomst is alleen voor de cijfers; mislukt het, dan merkt de gebruiker daar niets van.
+  const visitor = (() => {
+    try {
+      return localStorage.getItem('savour_visit_id');
+    } catch (_) {
+      return null;
+    }
+  })();
+  if (!visitor) return;
+  // Twee meldingen, elk één keer per account per browser: hoe het account Savour vond, en dat dit apparaat bij
+  // een account hoort (zodat /admin echt nieuwe bezoekers apart telt; niet bij welk account).
+  for (const [action, doneKey] of [
+    ['herkomst', 'savour_source_sent_' + currentUser.id],
+    ['apparaat', 'savour_device_sent_' + currentUser.id]
+  ]) {
+    try {
+      if (localStorage.getItem(doneKey)) continue;
+      const token = (await supabaseClient.auth.getSession()).data?.session?.access_token;
+      if (!token) return;
+      const response = await fetch('/api/admin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ action, visitor })
+      });
+      const result = await response.json().catch(() => ({}));
+      // Vastgelegd (of al bekend): niet opnieuw sturen.
+      if (result?.ok) localStorage.setItem(doneKey, '1');
+    } catch (_) {
+      // Alleen voor de cijfers; mislukt het, dan merkt de gebruiker daar niets van.
+    }
   }
 }
 
