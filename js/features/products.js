@@ -711,8 +711,17 @@ function computeProductKey(text) {
   return s.trim();
 }
 
+// Een allergeencode achteraan ("1.200 g Eier C", "Butter G, A": Oostenrijkse recepten) hoort niet bij de naam;
+// sommige koks houden die letters bewust in hun recept. "Vitamine C" is geen code; een eimaat ("eieren M") ook niet,
+// maar die hoort evenmin bij de naam.
+
 function ingredientKey(line) {
-  return productKey(ingredientNameOf(String(line || '').replace(/^\s*(circa|ca\.?|ongeveer|±|\+\/-)\s+/i, '')));
+  const plain = String(line || '')
+    .replace(/^\s*(circa|ca\.?|ongeveer|±|\+\/-)\s+/i, '')
+    .replace(/(?<=\p{L}{2,}\)?)\s+[ABCDEFGHLMNOPR](?:\s*[,/]\s*[ABCDEFGHLMNOPR])*\s*$/u, m =>
+      /vitamine?\s+\S+$/i.test(String(line).trim()) ? m : ''
+    );
+  return productKey(ingredientNameOf(plain));
 }
 
 // Voorstel voor een ingrediënt zonder product: een product waarvan de naam vooraan of achteraan staat ("patent

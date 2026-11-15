@@ -1256,6 +1256,29 @@ async function importUploadFile(id) {
   return { url: await storageDownloadUrl('import-uploads', row.storage_path, 600) };
 }
 
+// Wat er van één geïmporteerd bestand is gelezen en opgeslagen, om naast het origineel te leggen: de AI-resultaten
+// (ai_import_results) en, bij koks met "Help de Savour-lezer verbeteren", wat de lezer/AI las, wat de kok opsloeg
+// en hoe het recept er nu uitziet (recipe_import_origins).
+async function importUploadView(id) {
+  if (!/^[0-9a-f-]{36}$/i.test(String(id || ''))) throw fail('Onbekend bestand.');
+  const [results, origins] = await Promise.all([
+    select(
+      'ai_import_results',
+      `select=id,model,status,handled,created_at,recipes&upload_id=eq.${id}&order=created_at`
+    ),
+    select('recipe_import_origins', `select=recipe_id,by_ai,as_read,as_saved,created_at&upload_id=eq.${id}`)
+  ]);
+  const ids = [...new Set((origins || []).map(o => o.recipe_id).filter(Boolean))];
+  const now = ids.length
+    ? await select('recipes', `select=id,title,yield_text,ingredients,steps&id=in.(${ids.join(',')})`)
+    : [];
+  const nowById = new Map((now || []).map(r => [r.id, { ...r, yield: r.yield_text }]));
+  return {
+    results: (results || []).map(r => ({ ...r, recipes: Array.isArray(r.recipes) ? r.recipes : [] })),
+    origins: (origins || []).map(o => ({ ...o, now: nowById.get(o.recipe_id) || null }))
+  };
+}
+
 async function aiUsageOverview() {
   const tz = 'Europe/Amsterdam';
   const month = new Intl.DateTimeFormat('sv-SE', { timeZone: tz, year: 'numeric', month: '2-digit' })
@@ -2376,6 +2399,7 @@ export default async function handler(req, res) {
     if (action === 'ai_usage') return res.status(200).json(await aiUsageOverview());
     if (action === 'import_uploads') return res.status(200).json(await importUploads());
     if (action === 'import_upload_file') return res.status(200).json(await importUploadFile(req.body?.id));
+    if (action === 'import_upload_view') return res.status(200).json(await importUploadView(req.body?.id));
     if (action === 'delete_message') return res.status(200).json(await deleteMessage(req.body?.id));
     if (action === 'mark_message')
       return res.status(200).json(await markMessage(req.body?.id, req.body?.read !== false));
