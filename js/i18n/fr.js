@@ -161,6 +161,10 @@ window.SAVOUR_I18N.fr = {
     Anders: 'Autre',
     'Je sessie is verlopen. Log opnieuw in om verder te gaan.': 'Ta session a expiré. Reconnecte-toi pour continuer.',
     'Staat alleen in de bereiding, niet bij de ingrediënten gezet:': 'Seulement dans la préparation, pas ajouté aux ingrédients :',
+    'Allergeenletters achter de ingrediënten weggehaald; ze staan in de beschrijving:': 'Lettres d’allergènes retirées après les ingrédients ; elles figurent dans la description :',
+    'Letters laten staan': 'Garder les lettres',
+    'Allergeenletters blijven achter de ingrediënten staan.': 'Les lettres d’allergènes restent après les ingrédients.',
+    'Toch weghalen': 'Retirer quand même',
     'Veel AI-imports voor één bestand': 'Beaucoup d’imports IA pour un seul fichier',
     'Recepten wachten op opslaan': 'Des recettes attendent d’être enregistrées',
     'recepten die de AI al voor je heeft gelezen, zijn nog niet opgeslagen':

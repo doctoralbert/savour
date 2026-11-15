@@ -161,6 +161,10 @@ window.SAVOUR_I18N.en = {
     Anders: 'Other',
     'Je sessie is verlopen. Log opnieuw in om verder te gaan.': 'Your session has expired. Log in again to continue.',
     'Staat alleen in de bereiding, niet bij de ingrediënten gezet:': 'Only in the method, not added to the ingredients:',
+    'Allergeenletters achter de ingrediënten weggehaald; ze staan in de beschrijving:': 'Allergen letters removed after the ingredients; they are in the description:',
+    'Letters laten staan': 'Keep the letters',
+    'Allergeenletters blijven achter de ingrediënten staan.': 'Allergen letters stay after the ingredients.',
+    'Toch weghalen': 'Remove anyway',
     'Veel AI-imports voor één bestand': 'Many AI imports for one file',
     'Recepten wachten op opslaan': 'Recipes waiting to be saved',
     'recepten die de AI al voor je heeft gelezen, zijn nog niet opgeslagen':

@@ -944,7 +944,7 @@ function readerAllergenNote(codes, sample = '') {
   return `${german ? 'Allergene laut Rezept' : 'Allergenen volgens het recept'}: ${parts.join(', ')}`;
 }
 
-function tidyRecipeLines(recipe) {
+function tidyRecipeLines(recipe, options = {}) {
   const notes = [];
   let changed = 0;
   // Uit ChatGPT-opmaak (2026-11-11): bij ingrediënten staat alleen "# Ingredients", en de ingrediënten zelf
@@ -1016,15 +1016,19 @@ function tidyRecipeLines(recipe) {
   };
   const tidied = tidy(ingredientsIn, true);
   const steps = tidy(stepsIn, false);
-  // Allergeencodes achteraan ("Eier C") weg en in de beschrijving (zie readerAllergenCodes).
-  const coded = readerAllergenCodes(tidied);
+  // Allergeencodes achteraan ("Eier C"): alleen bij importeren en als de kok ze niet wil houden
+  // (options.allergenCodes). Bestaande recepten houden ze altijd: zo heeft de kok ze opgeslagen.
+  const coded = options.allergenCodes ? readerAllergenCodes(tidied) : { lines: tidied, codes: [] };
+  const before = String(recipe?.description || '').trim();
+  const join = list => [before, ...list.filter(n => !before.includes(n))].filter(Boolean).join(' · ');
+  const descriptionWithCodes = join(notes);
   if (coded.codes.length) {
     changed += coded.lines.filter((l, i) => l !== tidied[i]).length;
     notes.push(readerAllergenNote(coded.codes, [...tidied, ...steps].join(' ')));
   }
   const ingredients = coded.lines;
-  const before = String(recipe?.description || '').trim();
-  const extra = notes.filter(n => !before.includes(n));
-  const description = [before, ...extra].filter(Boolean).join(' · ');
-  return { ingredients, steps, description, changed };
+  const description = join(notes);
+  // Met de letters, om ze terug te zetten als de kok ze toch wil houden (import.js, keepAllergenCodes).
+  const withCodes = coded.codes.length ? { ingredients: tidied, description: descriptionWithCodes } : null;
+  return { ingredients, steps, description, changed, allergenCodes: coded.codes, withCodes };
 }

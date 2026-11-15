@@ -29,8 +29,9 @@ weggevallen verbinding geeft het bewaarde resultaat (niet dubbel betalen). Wat O
 staat er een venster zonder kruisje (`showImportBusyBar`) en waarschuwt de browser bij afsluiten (`importNeedsWarning`).
 Tekst in markdown/ChatGPT-opmaak (`# Ingredients`, `**Method**`, `(Source: …)`, alle ingrediënten op één regel) leest de lezer netjes
 (`readerClean`, `readerSplitRunOn`, `readerIsNote`); AI-resultaten en bestaande recepten gaan door `tidyRecipeLines` (zelfde regels, geen woord
-anders; een hoeveelheid achteraan gaat naar voren, `readerQtyFirst`, "Boter 250 g" → "250 g boter", zodat omrekenen werkt). Oostenrijkse allergeenletters achter ingrediënten ("Eier C", "Butter G") haalt `tidyRecipeLines` weg als minstens twee regels ze hebben
-(`readerAllergenCodes`; ze komen in de beschrijving), en stapnummers vooraan ook. Ingrediënten die de AI uit een zin van de bereiding haalde
+anders; een hoeveelheid achteraan gaat naar voren, `readerQtyFirst`, "Boter 250 g" → "250 g boter", zodat omrekenen werkt). Oostenrijkse allergeenletters achter ingrediënten ("Eier C", "Butter G") haalt `tidyRecipeLines` alleen bij importeren weg (optie
+`allergenCodes`, minstens twee regels; ze komen in de beschrijving). De kok ziet het en kan met "Letters laten staan" kiezen ze te houden
+(`keepAllergenCodes`, onthouden in de browser); bestaande recepten houden hun letters altijd. Stapnummers vooraan gaan weg. Ingrediënten die de AI uit een zin van de bereiding haalde
 gaan eruit (`aiStepOnlyIngredients`, de kok ziet welke); "twijfel" met twee gelijke lezingen vervalt (`withoutEmptyDoubts`); een tweede foto
 zonder titel en ingrediënten hoort bij het recept ervoor (`mergeContinuationPages`). Savour vraagt één keer of het oude recepten met zulke resten mag opschonen (`offerRecipeTidy`, back-up in `recipe_tidy_backups`,
 `supabase/2026-11-11-recepten-opschonen.sql`).

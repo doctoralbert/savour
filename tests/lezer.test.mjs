@@ -1564,7 +1564,8 @@ for (const [line, next, want] of headingCases) {
 // ---- Al gelezen recept opschonen (tidyRecipeLines): AI-resultaten en bestaande recepten ----
 const tidyCases = [
   {
-    name: 'Allergeencodes achter ingrediënten gaan naar de beschrijving',
+    name: 'Allergeencodes achter ingrediënten gaan bij importeren naar de beschrijving',
+    options: { allergenCodes: true },
     from: {
       ingredients: ['Teig:', '500 g Eier C', '250 g Butter G', '300 g Mehl A', '100 g Zucker', '1 dl Weißwein O, A'],
       steps: ['Alles mit Zucker verrühren.']
@@ -1577,7 +1578,14 @@ const tidyCases = [
     changed: 4
   },
   {
+    name: 'Bestaand recept houdt zijn allergeencodes',
+    from: { ingredients: ['500 g Eier C', '250 g Butter G'], steps: [] },
+    to: { ingredients: ['500 g Eier C', '250 g Butter G'], steps: [], description: '' },
+    changed: 0
+  },
+  {
     name: 'Eén letter achteraan is nog geen allergeencode; vitamine C blijft',
+    options: { allergenCodes: true },
     from: { ingredients: ['1 tablet Vitamine C', '2 g Vitamine E', '200 g suiker'], steps: [] },
     to: { ingredients: ['1 tablet Vitamine C', '2 g Vitamine E', '200 g suiker'], steps: [], description: '' },
     changed: 0
@@ -1816,7 +1824,7 @@ const tidyCases = [
   }
 ];
 for (const c of tidyCases) {
-  const got = JSON.parse(JSON.stringify(ctx.tidyRecipeLines(c.from)));
+  const got = JSON.parse(JSON.stringify(ctx.tidyRecipeLines(c.from, c.options || {})));
   const ok =
     eq(got.ingredients, c.to.ingredients) &&
     eq(got.steps, c.to.steps) &&
