@@ -67,9 +67,11 @@ function appMenuData() {
       ]
     },
     {
+      // Eén onderdeel: op de computer een gewone knop zonder uitklaplijst (direct), op de telefoon een groep.
       id: 'tools',
-      title: t('Tools'),
+      title: t('Allergenen'),
       intro: t('Hulpmiddelen voor in de keuken.'),
+      direct: "go('products')",
       on: active === 'products',
       items: [
         item("go('products')", t('Allergenen'), t('De 14 allergenen bij elk recept.'), active === 'products', 'leaf')
@@ -197,6 +199,8 @@ function appNavDropHtml(g) {
 }
 
 function appNavItemHtml(g, label) {
+  if (g.direct)
+    return `<div class="app-nav-item" data-nav-group="${g.id}"><button type="button" class="app-nav-btn${g.on ? ' is-on' : ''}" onclick="closeAppNav();${g.direct}">${label}</button></div>`;
   const open = appNavOpen === g.id;
   return `<div class="app-nav-item${open ? ' is-open' : ''}" data-nav-group="${g.id}" onmouseleave="appNavLeave(this)"><button type="button" class="app-nav-btn${g.on ? ' is-on' : ''}" aria-haspopup="true" aria-expanded="${open}" onclick="toggleAppNav('${g.id}')">${label}<i aria-hidden="true"></i></button>${appNavDropHtml(g)}</div>`;
 }

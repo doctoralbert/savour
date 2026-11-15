@@ -160,6 +160,7 @@ window.SAVOUR_I18N.en = {
     'Reddit of een forum': 'Reddit or a forum',
     Anders: 'Other',
     'Je sessie is verlopen. Log opnieuw in om verder te gaan.': 'Your session has expired. Log in again to continue.',
+    'Veel AI-imports voor één bestand': 'Many AI imports for one file',
     'Recepten wachten op opslaan': 'Recipes waiting to be saved',
     'recepten die de AI al voor je heeft gelezen, zijn nog niet opgeslagen':
       'recipes the AI already read for you have not been saved yet',
@@ -198,7 +199,6 @@ window.SAVOUR_I18N.en = {
     'Toch vernieuwen': 'Refresh anyway',
     'Elk bestand dat je importeert, bewaren we ook 60 dagen als origineel in je eigen, afgeschermde map, zodat we een mislukte import kunnen terugzien en oplossen. Staat “Help de Savour-lezer verbeteren” aan, dan bewaren we bovendien per geïmporteerd recept de versie zoals de lezer of de AI het las en zoals je het opsloeg (bij een foto alleen de tekst). Zo zien we wat je daarna nog verbetert. Het Savour-team bekijkt dit dagelijks, ook met behulp van AI-hulpmiddelen, om imports te controleren en de lezer te verbeteren. Het wordt met niemand anders gedeeld en wij gebruiken het niet om AI te trainen. Zet je de instelling uit, dan kun je deze versies laten weghalen; verwijder je je account, dan gaan ze mee.':
       'We also keep every file you import as an original for 60 days in your own protected folder, so we can look back at a failed import and fix it. If “Help improve the Savour reader” is on, we also keep, for each imported recipe, the version as the reader or the AI read it and as you saved it (for a photo, only the text). This shows us what you correct afterwards. The Savour team reviews this daily, also with the help of AI tools, to check imports and improve the reader. It is not shared with anyone else and we do not use it to train AI. If you turn the setting off, you can have these versions removed; if you delete your account, they are deleted too.',
-    'Veel AI-imports voor één bestand': 'Many AI imports for one file',
     'Alleen de Savour-lezer': 'Only the Savour reader',
     'Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.':
       'Free. Only the AI can read a scanned PDF, so it will be skipped.',
@@ -2239,7 +2239,15 @@ window.SAVOUR_I18N.en = {
     'Om de Savour-lezer te verbeteren, telt Savour bij elke import anoniem hoe het lezen ging: de soort bron, of de lezer twijfelde, of de AI nodig was en hoeveel regels je daarna verbeterde. Daarbij bewaren we geen receptinhoud en geen gegevens van je account.':
       'To improve the Savour reader, Savour anonymously counts how each import went: the type of source, whether the reader was unsure, whether AI was needed and how many lines you corrected afterwards. We store no recipe content and no account details with this.',
     'Staat “Help de Savour-lezer verbeteren” aan (Mijn account → Account; standaard aan), dan deelt Savour bij twijfel of na een verbetering ook het voorbeeld zelf: de tekst uit je bestand, wat de lezer en de AI ervan maakten en het recept zoals je het opsloeg. Alleen tekstbestanden, nooit foto’s. Alleen het Savour-team ziet deze voorbeelden; ze worden met niemand anders gedeeld en niet gebruikt om AI te trainen. Zet je het uit, dan kun je je eerder gedeelde voorbeelden meteen laten weghalen. Verwijder je je account, dan gaan ze mee.':
-      'If “Help improve the Savour reader” is on (My account → Account; on by default), Savour also shares the example itself when the reader is unsure or after you correct something: the text from your file, what the reader and the AI made of it and the recipe as you saved it. Text files only, never photos. Only the Savour team sees these examples; they are not shared with anyone else and are not used to train AI. If you turn it off, you can have your earlier examples removed straight away. If you delete your account, they are deleted too.'
+      'If “Help improve the Savour reader” is on (My account → Account; on by default), Savour also shares the example itself when the reader is unsure or after you correct something: the text from your file, what the reader and the AI made of it and the recipe as you saved it. Text files only, never photos. Only the Savour team sees these examples; they are not shared with anyone else and are not used to train AI. If you turn it off, you can have your earlier examples removed straight away. If you delete your account, they are deleted too.',
+    'Gratis account maken': 'Create a free account',
+    'Demo geladen · open een recept en probeer omrekenen of de kookmodus':
+      'Demo loaded · open a recipe and try scaling or cooking mode',
+    'Veilig inloggen met je Savour-account.': 'Log in securely with your Savour account.',
+    'Gratis tot 100 recepten, en 7 dagen Savour Pro zonder betaalgegevens.':
+      'Free up to 100 recipes, plus 7 days of Savour Pro without payment details.',
+    'Kies hoe je een recept wilt toevoegen: importeren uit een bestand of foto, of zelf invoeren.':
+      'Choose how to add a recipe: import it from a file or photo, or enter it yourself.'
   },
   patterns: [
     ['^Savour-lijst \\((\\d+)\\)$', 'Savour list ($1)'],

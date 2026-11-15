@@ -78,6 +78,8 @@ function startDemo() {
   account = { name: 'Demo', role: 'Demo account', email: 'demo@savour.local', photo: '' };
   loadDemoData();
   showApp('recipes');
+  // Bovenaan beginnen, niet op de plek waar de bezoeker op de homepage was gescrold.
+  window.scrollTo(0, 0);
   // Het menu opnieuw opbouwen met de demomappen; de Admin-knop hoort nooit bij de demo.
   refreshSidebar();
   renderAdminNav();
@@ -85,9 +87,9 @@ function startDemo() {
   // In de bovenbalk, zodat het op de telefoon als smalle regel onder het logo staat (niet over de inhoud).
   (document.querySelector('#appShell .topbar') || document.body).insertAdjacentHTML(
     'beforeend',
-    '<div id="demoBadge" class="demo-mode-badge">Demo account · niets wordt opgeslagen</div>'
+    `<div id="demoBadge" class="demo-mode-badge">${esc(t('Demo account · niets wordt opgeslagen'))} · <a href="/?auth=signup">${esc(t('Gratis account maken'))}</a></div>`
   );
-  toast('Demo geladen · 20 echte recepten');
+  toast(t('Demo geladen · open een recept en probeer omrekenen of de kookmodus'));
 }
 
 // De proefrecepten in de taal van nu. Ook na het wisselen van taal (setLanguage), zonder iets op te slaan.

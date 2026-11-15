@@ -160,6 +160,7 @@ window.SAVOUR_I18N.fr = {
     'Reddit of een forum': 'Reddit ou un forum',
     Anders: 'Autre',
     'Je sessie is verlopen. Log opnieuw in om verder te gaan.': 'Ta session a expiré. Reconnecte-toi pour continuer.',
+    'Veel AI-imports voor één bestand': 'Beaucoup d’imports IA pour un seul fichier',
     'Recepten wachten op opslaan': 'Des recettes attendent d’être enregistrées',
     'recepten die de AI al voor je heeft gelezen, zijn nog niet opgeslagen':
       'recettes déjà lues par l’IA ne sont pas encore enregistrées',
@@ -198,7 +199,6 @@ window.SAVOUR_I18N.fr = {
     'Toch vernieuwen': 'Actualiser quand même',
     'Elk bestand dat je importeert, bewaren we ook 60 dagen als origineel in je eigen, afgeschermde map, zodat we een mislukte import kunnen terugzien en oplossen. Staat “Help de Savour-lezer verbeteren” aan, dan bewaren we bovendien per geïmporteerd recept de versie zoals de lezer of de AI het las en zoals je het opsloeg (bij een foto alleen de tekst). Zo zien we wat je daarna nog verbetert. Het Savour-team bekijkt dit dagelijks, ook met behulp van AI-hulpmiddelen, om imports te controleren en de lezer te verbeteren. Het wordt met niemand anders gedeeld en wij gebruiken het niet om AI te trainen. Zet je de instelling uit, dan kun je deze versies laten weghalen; verwijder je je account, dan gaan ze mee.':
       'Nous conservons aussi chaque fichier que vous importez comme original pendant 60 jours dans votre propre dossier protégé, afin de pouvoir revoir et corriger un import qui a échoué. Si « Aidez à améliorer le lecteur Savour » est activé, nous conservons en outre, pour chaque recette importée, la version telle que le lecteur ou l’IA l’a lue et telle que vous l’avez enregistrée (pour une photo, uniquement le texte). Nous voyons ainsi ce que vous corrigez ensuite. L’équipe Savour l’examine chaque jour, également à l’aide d’outils d’IA, pour vérifier les imports et améliorer le lecteur. Ce n’est partagé avec personne d’autre et nous ne l’utilisons pas pour entraîner une IA. Si vous désactivez l’option, vous pouvez faire supprimer ces versions ; si vous supprimez votre compte, elles sont supprimées aussi.',
-    'Veel AI-imports voor één bestand': 'Beaucoup d’imports IA pour un seul fichier',
     'Alleen de Savour-lezer': 'Seulement le lecteur Savour',
     'Gratis. Een gescande PDF kan alleen de AI lezen: die wordt overgeslagen.':
       'Gratuit. Seule l’IA peut lire un PDF scanné : il sera ignoré.',
@@ -2267,7 +2267,15 @@ window.SAVOUR_I18N.fr = {
     'Om de Savour-lezer te verbeteren, telt Savour bij elke import anoniem hoe het lezen ging: de soort bron, of de lezer twijfelde, of de AI nodig was en hoeveel regels je daarna verbeterde. Daarbij bewaren we geen receptinhoud en geen gegevens van je account.':
       'Pour améliorer le lecteur Savour, Savour compte de façon anonyme comment s’est passée chaque importation : le type de source, si le lecteur a hésité, si l’IA a été nécessaire et combien de lignes tu as corrigées ensuite. Nous ne gardons ni contenu de recette ni données de ton compte.',
     'Staat “Help de Savour-lezer verbeteren” aan (Mijn account → Account; standaard aan), dan deelt Savour bij twijfel of na een verbetering ook het voorbeeld zelf: de tekst uit je bestand, wat de lezer en de AI ervan maakten en het recept zoals je het opsloeg. Alleen tekstbestanden, nooit foto’s. Alleen het Savour-team ziet deze voorbeelden; ze worden met niemand anders gedeeld en niet gebruikt om AI te trainen. Zet je het uit, dan kun je je eerder gedeelde voorbeelden meteen laten weghalen. Verwijder je je account, dan gaan ze mee.':
-      'Si « Aide à améliorer le lecteur Savour » est activé (Mon compte → Compte ; activé par défaut), Savour partage aussi l’exemple lui-même en cas de doute ou après une correction : le texte de ton fichier, ce que le lecteur et l’IA en ont fait et la recette telle que tu l’as enregistrée. Uniquement des fichiers texte, jamais de photos. Seule l’équipe Savour voit ces exemples ; ils ne sont partagés avec personne d’autre et ne servent pas à entraîner une IA. Si tu le désactives, tu peux faire retirer tout de suite les exemples déjà partagés. Si tu supprimes ton compte, ils sont supprimés aussi.'
+      'Si « Aide à améliorer le lecteur Savour » est activé (Mon compte → Compte ; activé par défaut), Savour partage aussi l’exemple lui-même en cas de doute ou après une correction : le texte de ton fichier, ce que le lecteur et l’IA en ont fait et la recette telle que tu l’as enregistrée. Uniquement des fichiers texte, jamais de photos. Seule l’équipe Savour voit ces exemples ; ils ne sont partagés avec personne d’autre et ne servent pas à entraîner une IA. Si tu le désactives, tu peux faire retirer tout de suite les exemples déjà partagés. Si tu supprimes ton compte, ils sont supprimés aussi.',
+    'Gratis account maken': 'Créer un compte gratuit',
+    'Demo geladen · open een recept en probeer omrekenen of de kookmodus':
+      'Démo chargée · ouvre une recette et essaie la conversion ou le mode cuisine',
+    'Veilig inloggen met je Savour-account.': 'Connecte-toi en toute sécurité avec ton compte Savour.',
+    'Gratis tot 100 recepten, en 7 dagen Savour Pro zonder betaalgegevens.':
+      'Gratuit jusqu’à 100 recettes, et 7 jours de Savour Pro sans données de paiement.',
+    'Kies hoe je een recept wilt toevoegen: importeren uit een bestand of foto, of zelf invoeren.':
+      'Choisis comment ajouter une recette : l’importer depuis un fichier ou une photo, ou la saisir toi-même.'
   },
   patterns: [
     ['^Savour-lijst \\((\\d+)\\)$', 'Liste Savour ($1)'],

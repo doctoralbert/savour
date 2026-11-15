@@ -896,10 +896,10 @@ const FIGURE_ICONS = {
 };
 function figuresBand(lang) {
   const [title, ...labels] = FIGURES[lang];
+  // Alleen het aantal recepten: kleine aantallen accounts en teams schrikken nieuwe bezoekers eerder af dan dat
+  // ze overtuigen. Komen die er later weer bij, zet ze dan terug in deze lijst (labels staan al in FIGURES).
   return `<section class="site-figures" data-site-figures hidden aria-label="${esc(title)}"><div class="site-wrap"><div class="site-figures-head"><span class="site-figures-kicker">${esc(title)}</span><span class="site-figures-live"><i aria-hidden="true"></i>${esc(FIGURES_LIVE[lang])}</span></div><dl>${[
-    'recipes',
-    'teams',
-    'accounts'
+    'recipes'
   ]
     .map(
       (k, i) =>

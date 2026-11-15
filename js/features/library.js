@@ -152,6 +152,17 @@ function visibleRecipeList() {
 // ---- Meerdere recepten tegelijk verwijderen ----
 
 // Opent het verwijdervenster met de recepten die nu in de lijst zichtbaar zijn.
+// Minder gebruikte acties in de bibliotheek achter één knop (⋯), zodat een nieuwe gebruiker eerst
+// "Recept toevoegen" ziet en niet als eerste "Verwijder recepten".
+async function openLibraryMore() {
+  const choice = await askChoice(t('Meer acties'), [
+    { label: t('Categorieën bijwerken'), value: 'categories' },
+    { label: t('Verwijder recepten'), value: 'delete' }
+  ]);
+  if (choice === 'categories') go('categories');
+  else if (choice === 'delete') openBulkDeleteModal();
+}
+
 function openBulkDeleteModal() {
   bulkSelectedIds.clear();
   window.bulkLastIndex = null;

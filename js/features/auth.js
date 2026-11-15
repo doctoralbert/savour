@@ -18,7 +18,7 @@ function openAuth(mode) {
     mode === 'signup' && invitedBy()
       ? t('Je bent uitgenodigd door een collega. Maak een account aan en probeer Savour Pro 7 dagen gratis.')
       : mode === 'signup'
-        ? t('Maak een account aan om je persoonlijke receptenbibliotheek te openen.')
+        ? t('Gratis tot 100 recepten, en 7 dagen Savour Pro zonder betaalgegevens.')
         : t('Log in om je persoonlijke receptenbibliotheek te openen.');
   $('authSubmit').textContent = mode === 'signup' ? t('Account aanmaken') : t('Inloggen');
   $('authEmailField').style.marginTop = mode === 'signup' ? '10px' : '0';

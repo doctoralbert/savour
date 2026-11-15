@@ -4641,6 +4641,13 @@ body {
   font-size: var(--sv-fs-xs);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
 }
+/* "Gratis account maken" in de demobalk: de weg van de demo naar een eigen account. */
+.demo-mode-badge a {
+  color: var(--gold);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 .savour-light .structured-row input,
 .savour-light .structured-row textarea {
   background: #fff;
