@@ -922,6 +922,8 @@ async function overview(user, ownVisitor) {
         answer_other: u.app_metadata?.signup_answer?.other || '',
         created_at: u.created_at,
         last_sign_in_at: u.last_sign_in_at,
+        // Beheerder (ADMIN_EMAILS): niet in de accountlijst van het beheer.
+        is_admin: ADMIN_EMAILS.includes(String(u.email || '').toLowerCase()),
         confirmed: !!(u.email_confirmed_at || u.confirmed_at),
         recipes: Number(s.recipes || 0),
         logins: logins ? Number(loginsOf.get(u.id)?.logins || 0) : null,

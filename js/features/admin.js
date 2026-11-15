@@ -1334,8 +1334,12 @@ function renderAdminAccounts() {
   if (!body) return;
   const q = ($('adminAccountSearch')?.value || '').trim().toLowerCase();
   const type = $('adminAccountType')?.value || '';
-  const archived = adminAccounts.filter(adminIsArchived);
-  const pool = adminArchiveOpen ? archived : adminAccounts.filter(a => !adminIsArchived(a));
+  // Zonder beheerders, en wie het laatst actief was bovenaan (nu actief eerst).
+  const listed = adminAccounts
+    .filter(a => !a.is_admin && a.id !== currentUser?.id)
+    .sort((a, b) => b.active_now - a.active_now || adminLastSeen(b) - adminLastSeen(a));
+  const archived = listed.filter(adminIsArchived);
+  const pool = adminArchiveOpen ? archived : listed.filter(a => !adminIsArchived(a));
   const rows = pool.filter(
     a =>
       (!type || (type === 'active' ? a.active_now : a.type === type)) &&
@@ -1349,7 +1353,7 @@ function renderAdminAccounts() {
   if ($('adminAccountCount'))
     $('adminAccountCount').textContent = adminArchiveOpen
       ? `archief: ${rows.length} van ${archived.length}`
-      : `${rows.length} van ${adminAccounts.length - archived.length} actief`;
+      : `${rows.length} van ${listed.length - archived.length} actief`;
   const archiveBtn = $('adminArchiveBtn');
   if (archiveBtn)
     archiveBtn.textContent = adminArchiveOpen
