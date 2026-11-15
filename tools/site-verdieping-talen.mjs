@@ -16,15 +16,15 @@ export const VERDIEPING_TALEN = {
   },
   roadmap: {
     de: [
-      ['Warum diese Reihenfolge?', 'Rezepte müssen zuerst stimmen und leicht zu finden sein; deshalb kamen Import, Ordner und Teilen zuerst. Kosten und Allergene bauen darauf auf, denn sie sind nur verlässlich, wenn die Mengen in deinen Rezepten stimmen. Kosten auf Basis eines unvollständigen Rezepts täuschen Sicherheit nur vor.'],
+      ['Warum diese Reihenfolge?', 'Rezepte müssen zuerst stimmen und leicht zu finden sein; deshalb kamen Import, Ordner und Teilen zuerst. Danach kamen die Allergene, und jetzt die Kosten: Sie sind nur verlässlich, wenn die Mengen in deinen Rezepten stimmen. Kosten auf Basis eines unvollständigen Rezepts täuschen Sicherheit nur vor.'],
       ['Was du jetzt schon vorbereiten kannst', 'Gib Mengen in Gramm oder Millilitern an und versieh jedes Rezept mit einer Ausbeute. Verknüpfe Grundrezepte mit den Gerichten, in denen sie stecken, damit du sofort siehst, welcher Fond oder welche Sauce enthalten ist. Das hilft heute schon in der Küche und erleichtert jeden nächsten Schritt.']
     ],
     es: [
-      ['¿Por qué este orden?', 'Las recetas tienen que ser correctas y fáciles de encontrar; por eso primero llegaron importar, carpetas y compartir. El coste y los alérgenos se apoyan en eso, porque solo son fiables si las cantidades de tus recetas son correctas. Un coste basado en una receta incompleta da una falsa seguridad.'],
+      ['¿Por qué este orden?', 'Las recetas tienen que ser correctas y fáciles de encontrar; por eso primero llegaron importar, carpetas y compartir. Después llegaron los alérgenos, y ahora el coste: solo son fiables si las cantidades de tus recetas son correctas. Un coste basado en una receta incompleta da una falsa seguridad.'],
       ['Lo que ya puedes preparar', 'Escribe las cantidades en gramos o mililitros y da a cada receta un rendimiento. Vincula las recetas base a los platos que las usan, para ver al momento qué fondo o salsa llevan. Eso ya ayuda hoy en la cocina y facilita cada paso siguiente.']
     ],
     fr: [
-      ['Pourquoi cet ordre ?', "Les recettes doivent d'abord être justes et faciles à trouver ; c'est pourquoi l'importation, les dossiers et le partage sont venus en premier. Le coût et les allergènes en dépendent, car ils ne sont fiables que si les quantités de tes recettes sont justes. Un coût fondé sur une recette incomplète donne une fausse certitude."],
+      ['Pourquoi cet ordre ?', "Les recettes doivent d'abord être justes et faciles à trouver ; c'est pourquoi l'importation, les dossiers et le partage sont venus en premier. Puis sont venus les allergènes, et maintenant le coût : ils ne sont fiables que si les quantités de tes recettes sont justes. Un coût fondé sur une recette incomplète donne une fausse certitude."],
       ["Ce que tu peux préparer dès aujourd'hui", "Écris les quantités en grammes ou en millilitres et donne un rendement à chaque recette. Lie les recettes de base aux plats qui les utilisent, pour voir aussitôt quel fond ou quelle sauce ils contiennent. Cela aide déjà en cuisine et facilite chaque étape suivante."]
     ]
   },

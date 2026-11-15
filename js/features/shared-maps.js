@@ -1425,7 +1425,7 @@ async function leaveSharedMap(mapId) {
   toast('Je hebt het keukenteam verlaten');
 }
 const SHARED_RIGHTS_TEXT =
-  'De eigenaar beheert het keukenteam en het team. Een sous-chef voegt recepten en mappen toe en bewerkt ze. Een kok bekijkt, print en rekent om. Recepten in het keukenteam blijven van het keukenteam, ook als iemand vertrekt.';
+  'De eigenaar beheert het keukenteam en het team. Een sous-chef met Savour Pro voegt recepten en mappen toe en bewerkt ze. Een kok bekijkt, print en rekent om. Recepten in het keukenteam blijven van het keukenteam, ook als iemand vertrekt.';
 
 function memberRoleLabel(m, x) {
   if (x.role === 'owner' || String(x.userId) === String(m.ownerId)) return 'Eigenaar';

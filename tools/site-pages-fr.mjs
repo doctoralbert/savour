@@ -82,7 +82,7 @@ export const FR = {
       lead: 'Toute la cuisine travaille sur la même version. Fini les photos de photos dans le groupe WhatsApp.',
       sections: [
         ['Équipes de cuisine', 'Crée un espace pour ta cuisine, ta partie ou la nouvelle carte et invite ton équipe. Ce que tu changes, tout le monde le voit aussitôt.'],
-        ['Des droits par personne', "Tu gères l'espace. Ton sous-chef ou chef de partie peut ajouter et modifier des recettes. Les commis et stagiaires peuvent consulter, mais rien changer."],
+        ['Des droits par personne', "Tu gères l'espace. Ton sous-chef ou chef de partie peut ajouter et modifier des recettes (avec Savour Pro). Les commis et stagiaires peuvent consulter, mais rien changer."],
         ['Les nouveaux à niveau plus vite', 'Un nouveau cuisinier a dès le premier jour toutes les recettes de sa partie sur son téléphone, dans la version que tu as validée.'],
         ['Partager une seule recette', "Tu veux envoyer une recette, par exemple à un collègue d'un autre restaurant ? Partage-la avec un lien."]
       ]
@@ -369,10 +369,10 @@ export const FR = {
       lead: "La photo d'une recette, transférée dans le groupe, reprise en photo depuis un autre écran. Tu connais. Et personne ne sait quelle version est la bonne.",
       sections: [
         ['Partage tout un dossier', "Crée une équipe de cuisine, par exemple « Sauces » ou « Menu d'automne », et invite tes collègues. Tout le monde voit les mêmes recettes et un changement apparaît aussitôt pour tous."],
-        ['Choisis ce que chacun peut faire', "Il y a trois rôles. Le propriétaire gère l'espace. Un sous-chef peut ajouter et changer des recettes. Un cuisinier peut tout voir mais rien changer. Tu décides qui touche aux recettes."],
+        ['Choisis ce que chacun peut faire', "Il y a trois rôles. Le propriétaire gère l'espace. Un sous-chef peut ajouter et changer des recettes, avec Savour Pro. Un cuisinier peut tout voir mais rien changer. Tu décides qui touche aux recettes."],
         ['Envoie une seule recette', "Tu veux partager une recette, par exemple avec un collègue d'un autre restaurant ou un fournisseur ? Partage-la avec un lien. Le destinataire la voit proprement, sans compte."],
         ['Des collègues qui construisent avec toi', "Une équipe de cuisine ne doit pas venir que de toi. Donne le droit de modifier à ton sous-chef et laisse l'équipe ajouter des recettes. Le livre grandit avec la cuisine."],
-        ['Ce que ça coûte', "Être membre d'une équipe de cuisine est gratuit. Créer ta propre équipe de cuisine fait partie de Savour Pro. Avec un abonnement d'équipe, toute ta cuisine a Pro."]
+        ['Ce que ça coûte', "Être membre d'une équipe de cuisine est gratuit : tu consultes, imprimes et convertis. Créer ta propre équipe, et ajouter ou modifier des recettes, fait partie de Savour Pro. Avec un abonnement d'équipe, toute ta cuisine a Pro."]
       ],
       outro: 'Les équipes de cuisine avec rôles se trouvent dans Savour sous « Équipes de cuisine ».'
     },

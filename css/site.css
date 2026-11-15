@@ -1001,6 +1001,24 @@
   border-radius: 10px;
   background: #fffdf8;
 }
+/* Keukenteam tegenover teamabonnement (js/features/pro.js) */
+.site-prose .pro-explain {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin: 0 0 18px;
+}
+.site-prose .pro-explain p {
+  margin: 0;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.site-prose .pro-explain strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--gold);
+}
 .site-prose .pro-prices {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));

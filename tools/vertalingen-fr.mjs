@@ -753,7 +753,7 @@ export const stringsFr = {
  "Met Team 5, 10 of 25 heeft iedereen in dit keukenteam Savour Pro: onbeperkt recepten en AI voor kladjes.": "Avec Équipe 5, 10 ou 25, tout le monde dans cette équipe de cuisine a Savour Pro : recettes illimitées et IA pour les notes.",
  "Bekijk Team": "Voir Équipe",
  "Keukenteam verlaten": "Quitter l'équipe de cuisine",
- "De eigenaar beheert het keukenteam en het team. Een sous-chef voegt recepten en mappen toe en bewerkt ze. Een kok bekijkt, print en rekent om. Recepten in het keukenteam blijven van het keukenteam, ook als iemand vertrekt.": "Le propriétaire gère l'équipe de cuisine et l'abonnement. Un sous-chef ajoute et modifie les recettes et les dossiers. Un cuisinier consulte, imprime et adapte. Les recettes restent dans l'équipe de cuisine, même quand quelqu'un s'en va.",
+ "De eigenaar beheert het keukenteam en het team. Een sous-chef met Savour Pro voegt recepten en mappen toe en bewerkt ze. Een kok bekijkt, print en rekent om. Recepten in het keukenteam blijven van het keukenteam, ook als iemand vertrekt.": "Le propriétaire gère l'équipe de cuisine et l'abonnement. Un sous-chef avec Savour Pro ajoute et modifie les recettes et les dossiers. Un cuisinier consulte, imprime et adapte. Les recettes restent dans l'équipe de cuisine, même quand quelqu'un s'en va.",
  "Sous-chef": "Sous-chef",
  "Kok": "Cuisinier",
  "Foto": "Photo",
@@ -1812,6 +1812,11 @@ export const stringsFr = {
  "Veilig inloggen met je Savour-account.": "Connecte-toi en toute sécurité avec ton compte Savour.",
  "Gratis tot 100 recepten, en 7 dagen Savour Pro zonder betaalgegevens.": "Gratuit jusqu’à 100 recettes, et 7 jours de Savour Pro sans données de paiement.",
  "Kies hoe je een recept wilt toevoegen: importeren uit een bestand of foto, of zelf invoeren.": "Choisis comment ajouter une recette : l’importer depuis un fichier ou une photo, ou la saisir toi-même.",
+ "Teamabonnement": "Abonnement d’équipe",
+ "Een gedeeld receptenboek voor je brigade. De eigenaar heeft Savour Pro. Leden kijken gratis mee, printen en rekenen om; wie recepten toevoegt of bewerkt, heeft zelf Pro nodig.": "Un livre de recettes partagé pour ta brigade. Le propriétaire a Savour Pro. Les membres consultent, impriment et convertissent gratuitement ; celui qui ajoute ou modifie des recettes a besoin de Pro.",
+ "Savour Pro voor iedereen in je keuken, zodat iedereen recepten kan toevoegen en bewerken. Voor 5, 10 of 25 personen.": "Savour Pro pour tout le monde dans ta cuisine, pour que chacun puisse ajouter et modifier des recettes. Pour 5, 10 ou 25 personnes.",
+ "De 14 allergenen bij je eigen recepten": "Les 14 allergènes sur tes propres recettes",
+ "Allergenen zien in een keukenteam van een eigenaar met Pro": "Voir les allergènes dans une équipe dont le propriétaire a Pro",
 };
 export const patternsFr = {
  "^Savour-lijst \\((\\d+)\\)$": "Liste Savour ($1)",

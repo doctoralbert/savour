@@ -117,7 +117,7 @@ export const DE = {
         ],
         [
           'Rechte pro Person',
-          'Du verwaltest den Ordner. Dein Sous-Chef oder Chef de Partie kann Rezepte hinzufügen und bearbeiten. Commis und Praktikanten können lesen, aber nichts ändern.'
+          'Du verwaltest den Ordner. Dein Sous-Chef oder Chef de Partie kann Rezepte hinzufügen und bearbeiten (mit Savour Pro). Commis und Praktikanten können lesen, aber nichts ändern.'
         ],
         [
           'Neue Leute schneller eingearbeitet',
@@ -684,7 +684,7 @@ export const DE = {
         ],
         [
           'Bestimme, was jeder darf',
-          'Es gibt drei Rollen. Der Eigentümer verwaltet den Ordner. Ein Sous-Chef kann Rezepte hinzufügen und ändern. Ein Koch kann alles lesen, aber nichts ändern. Du entscheidest, wer die Rezepte anfasst.'
+          'Es gibt drei Rollen. Der Eigentümer verwaltet den Ordner. Ein Sous-Chef kann Rezepte hinzufügen und ändern, mit Savour Pro. Ein Koch kann alles lesen, aber nichts ändern. Du entscheidest, wer die Rezepte anfasst.'
         ],
         [
           'Ein einzelnes Rezept schicken',
@@ -696,7 +696,7 @@ export const DE = {
         ],
         [
           'Was es kostet',
-          'Mitglied eines Küchenteams zu sein ist kostenlos. Selbst ein Küchenteam anzulegen ist Teil von Savour Pro. Mit einem Team-Abo hat jeder in deiner Küche Pro.'
+          'Mitglied eines Küchenteams zu sein ist kostenlos: Du siehst an, druckst und rechnest um. Selbst ein Küchenteam anzulegen und Rezepte hinzuzufügen oder zu bearbeiten ist Teil von Savour Pro. Mit einem Team-Abo hat jeder in deiner Küche Pro.'
         ]
       ],
       outro: 'Küchenteams mit Rollen findest du in Savour unter „Küchenteams“.'

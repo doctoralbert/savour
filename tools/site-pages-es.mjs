@@ -82,7 +82,7 @@ export const ES = {
       lead: 'Todos en la cocina trabajan con la misma versión. Se acabaron las fotos de fotos en el grupo de WhatsApp.',
       sections: [
         ['Equipos de cocina', 'Crea una carpeta para tu cocina, tu partida o el nuevo menú e invita a tu equipo. Lo que cambias lo ven todos al instante.'],
-        ['Permisos por persona', 'Tú gestionas la carpeta. Tu segundo o jefe de partida puede añadir y editar recetas. Ayudantes y becarios pueden consultar, pero no cambiar nada.'],
+        ['Permisos por persona', 'Tú gestionas la carpeta. Tu segundo o jefe de partida puede añadir y editar recetas (con Savour Pro). Ayudantes y becarios pueden consultar, pero no cambiar nada.'],
         ['Gente nueva al día más rápido', 'Un cocinero nuevo tiene desde el primer día todas las recetas de la partida en el móvil, en la versión que tú aprobaste.'],
         ['Compartir recetas sueltas', '¿Quieres enviar una receta, por ejemplo a un compañero de otro restaurante? Compártela con un enlace.']
       ]
@@ -468,10 +468,10 @@ export const ES = {
       lead: 'La foto de una receta, reenviada en el grupo, fotografiada otra vez desde otra pantalla. Te suena. Y nadie sabe qué versión es la buena.',
       sections: [
         ['Comparte una carpeta entera', 'Crea un equipo de cocina, por ejemplo «Salsas» o «Menú de otoño», e invita a tus compañeros. Todos ven las mismas recetas y un cambio aparece al momento para todos.'],
-        ['Elige qué puede hacer cada uno', 'Hay tres roles. El propietario gestiona la carpeta. Un segundo de cocina puede añadir y cambiar recetas. Un cocinero puede verlo todo, pero no cambiar nada. Tú decides quién toca las recetas.'],
+        ['Elige qué puede hacer cada uno', 'Hay tres roles. El propietario gestiona la carpeta. Un segundo de cocina puede añadir y cambiar recetas, con Savour Pro. Un cocinero puede verlo todo, pero no cambiar nada. Tú decides quién toca las recetas.'],
         ['Envía una receta suelta', '¿Quieres compartir una receta, por ejemplo con un compañero de otro restaurante o un proveedor? Compártela con un enlace. Quien la recibe la ve limpia, sin cuenta.'],
         ['Compañeros que construyen contigo', 'Un equipo de cocina no tiene por qué venir solo de ti. Da permiso de edición a tu segundo y deja que el equipo añada recetas. El recetario crece con la cocina.'],
-        ['Lo que cuesta', 'Ser miembro de un equipo de cocina es gratis. Crear tú un equipo de cocina forma parte de Savour Pro. Con un plan de equipo todos en tu cocina tienen Pro.']
+        ['Lo que cuesta', 'Ser miembro de un equipo de cocina es gratis: consultas, imprimes y escalas. Crear tú un equipo, y añadir o editar recetas, forma parte de Savour Pro. Con un plan de equipo todos en tu cocina tienen Pro.']
       ],
       outro: 'Las equipos de cocina con roles están en Savour en «Equipos de cocina».'
     },

@@ -68,7 +68,7 @@ export const pages = {
     menu: 'Roles: propietario, editor y lector',
     title: 'Roles en un equipo de cocina: propietario, editor y lector | Manual de Savour',
     desc: 'Quién puede hacer qué en un equipo de cocina de Savour: el propietario gestiona, el editor añade recetas y carpetas, el lector ve, imprime y escala.',
-    lead: 'Tú gestionas, tu segundo edita y el resto consulta.',
+    lead: 'Tú gestionas, quien tiene Pro edita y el resto consulta gratis.',
     sections: [
       [
         'Los tres roles',
@@ -93,7 +93,7 @@ export const pages = {
     sections: [
       ['Invitar', 'Abre los ajustes del equipo y elige en Compartir «Compartir / invitar». Envía la invitación por WhatsApp, Telegram o correo, o elige «Copiar enlace» y ponlo en vuestro grupo.'],
       ['Qué hace el compañero', 'Tu compañero abre el enlace e inicia sesión o [crea una cuenta gratuita](#account-maken). Después es miembro del equipo como lector.'],
-      ['Gratis para los miembros', 'Ser miembro de un equipo de cocina es gratis, también sin Savour Pro. Solo el propietario necesita Pro.'],
+      ['Gratis para los miembros', 'Ser miembro de un equipo de cocina es gratis, también sin Savour Pro: consultas, imprimes y escalas. El propietario necesita Pro, y también quien añade o edita recetas.'],
       ['Ajustar el rol', 'Después dale a tu segundo el rol de editor. Ver [Roles](#keukenteam-rollen).'],
       ['Sacar a alguien', 'Si alguien se va, el propietario lo saca del equipo en «Miembros y permisos». Conserva sus propias recetas; las del equipo ya no las ve.']
     ]

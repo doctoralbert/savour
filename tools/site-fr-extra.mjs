@@ -37,7 +37,7 @@ export const EXTRA_FR = {
     soonTitle: 'Ce sur quoi nous travaillons',
     soonLink: 'Ce qui arrive',
     priceTitle: 'Commence gratuitement',
-    price: "Jusqu'à 100 recettes gratuites, avec le lecteur Savour pour Word, PDF et texte. Savour Pro coûte 2,99 € par mois ou 29 € par an : recettes illimitées, IA pour les notes manuscrites et les photos, et tes propres équipes de cuisine. Équipes dès 1,20 € par personne.",
+    price: "Jusqu'à 100 recettes gratuites, avec le lecteur Savour pour Word, PDF et texte. Savour Pro coûte 2,99 € par mois ou 29 € par an : recettes illimitées, IA pour les notes manuscrites et les photos, les allergènes par recette et tes propres équipes de cuisine. Avec un abonnement d’équipe, toute ta cuisine a Pro, dès 1,20 € par personne.",
     priceLink: 'Voir les tarifs',
     faqTitle: 'Questions sur Savour',
     faq: [
@@ -55,7 +55,7 @@ export const EXTRA_FR = {
   items: {
     digitise: ['Numériser ses recettes', 'Word, PDF et photos de recettes manuscrites dans Savour en une fois.'],
     organise: ['Organiser ses recettes', 'Dossiers, catégories et recherche par ingrédient. Ton beurre blanc en trois secondes.'],
-    share: ['Partager avec ton équipe', "Équipes de cuisine avec droits : tu gères, ton sous-chef modifie, les autres consultent."],
+    share: ['Partager avec ton équipe', "Équipes de cuisine avec droits : tu gères, ceux qui ont Pro modifient, les autres consultent gratuitement."],
     scale: ['Adapter ses recettes', 'De 8 couverts à 120, sans erreur de calcul.'],
     print: ['Imprimer ses recettes', 'Une recette ou tout un dossier en une fois, bien imprimé pour la cuisine.'],
     cloud: ['Base de données et archives', 'Toutes tes recettes en sécurité dans le cloud, en ligne et hors ligne sur tous les appareils.'],

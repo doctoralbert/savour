@@ -312,6 +312,24 @@
 .pro-team-prices {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
+/* Keukenteam tegenover teamabonnement: twee begrippen die op elkaar lijken, naast elkaar uitgelegd. */
+.pro-explain {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--sv-space-3);
+  margin: 0 0 var(--sv-space-4);
+}
+.pro-explain p {
+  margin: 0;
+  padding: var(--sv-space-3) var(--sv-space-4);
+  border: 1px solid var(--line, rgba(197, 165, 96, 0.3));
+  border-radius: var(--sv-radius);
+}
+.pro-explain strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--sv-gold);
+}
 .pro-team .pro-year-link {
   margin-top: var(--sv-space-2);
 }

@@ -68,7 +68,7 @@ export const pages = {
     menu: 'Rollen: Eigentümer, Editor und Viewer',
     title: 'Rollen in einem Küchenteam: Eigentümer, Editor und Viewer | Handbuch Savour',
     desc: 'Wer was darf in einem Küchenteam von Savour: Der Eigentümer verwaltet, der Editor fügt Rezepte und Ordner hinzu, der Viewer sieht, druckt und rechnet um.',
-    lead: 'Du verwaltest, dein Sous-Chef ändert, der Rest schaut mit.',
+    lead: 'Du verwaltest, wer Pro hat, ändert, der Rest schaut kostenlos mit.',
     sections: [
       [
         'Die drei Rollen',
@@ -93,7 +93,7 @@ export const pages = {
     sections: [
       ['Einladen', 'Öffne die Einstellungen des Küchenteams und wähle unter Teilen „Teilen / einladen“. Schick die Einladung per WhatsApp, Telegram oder E-Mail, oder wähle „Link kopieren“ und stell den Link in eure Gruppe.'],
       ['Was der Kollege tut', 'Dein Kollege öffnet den Link und meldet sich an oder [erstellt ein kostenloses Konto](#account-maken). Danach ist er Mitglied des Teams als Viewer.'],
-      ['Kostenlos für Mitglieder', 'Mitglied eines Küchenteams zu sein ist kostenlos, auch ohne Savour Pro. Nur der Eigentümer braucht Pro.'],
+      ['Kostenlos für Mitglieder', 'Mitglied eines Küchenteams zu sein ist kostenlos, auch ohne Savour Pro: Du siehst an, druckst und rechnest um. Der Eigentümer braucht Pro, und wer Rezepte hinzufügt oder bearbeitet, auch.'],
       ['Rolle anpassen', 'Gib deinem Sous-Chef danach die Rolle Editor. Siehe [Rollen](#keukenteam-rollen).'],
       ['Jemanden entfernen', 'Geht jemand, entfernt ihn der Eigentümer unter „Mitglieder & Rechte“ aus dem Team. Seine eigenen Rezepte behält er; die Rezepte des Teams sieht er nicht mehr.']
     ]

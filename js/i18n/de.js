@@ -910,8 +910,8 @@ window.SAVOUR_I18N.de = {
       'Mit Team 5, 10 oder 25 hat jeder in diesem Küchenteam Savour Pro: unbegrenzt Rezepte und KI für Notizen.',
     'Bekijk Team': 'Team ansehen',
     'Keukenteam verlaten': 'Küchenteam verlassen',
-    'De eigenaar beheert het keukenteam en het team. Een sous-chef voegt recepten en mappen toe en bewerkt ze. Een kok bekijkt, print en rekent om. Recepten in het keukenteam blijven van het keukenteam, ook als iemand vertrekt.':
-      'Der Inhaber verwaltet das Küchenteam und das Team. Ein Sous-Chef fügt Rezepte und Ordner hinzu und bearbeitet sie. Ein Koch sieht an, druckt und rechnet um. Rezepte im Küchenteam bleiben beim Küchenteam, auch wenn jemand geht.',
+    'De eigenaar beheert het keukenteam en het team. Een sous-chef met Savour Pro voegt recepten en mappen toe en bewerkt ze. Een kok bekijkt, print en rekent om. Recepten in het keukenteam blijven van het keukenteam, ook als iemand vertrekt.':
+      'Der Inhaber verwaltet das Küchenteam und das Team. Ein Sous-Chef mit Savour Pro fügt Rezepte und Ordner hinzu und bearbeitet sie. Ein Koch sieht an, druckt und rechnet um. Rezepte im Küchenteam bleiben beim Küchenteam, auch wenn jemand geht.',
     'Sous-chef': 'Sous-Chef',
     Kok: 'Koch',
     Foto: 'Foto',
@@ -2271,7 +2271,15 @@ window.SAVOUR_I18N.de = {
     'Gratis tot 100 recepten, en 7 dagen Savour Pro zonder betaalgegevens.':
       'Kostenlos bis 100 Rezepte, dazu 7 Tage Savour Pro ohne Zahlungsdaten.',
     'Kies hoe je een recept wilt toevoegen: importeren uit een bestand of foto, of zelf invoeren.':
-      'Wähle, wie du ein Rezept hinzufügst: aus einer Datei oder einem Foto importieren oder selbst eingeben.'
+      'Wähle, wie du ein Rezept hinzufügst: aus einer Datei oder einem Foto importieren oder selbst eingeben.',
+    Teamabonnement: 'Teamabo',
+    'Een gedeeld receptenboek voor je brigade. De eigenaar heeft Savour Pro. Leden kijken gratis mee, printen en rekenen om; wie recepten toevoegt of bewerkt, heeft zelf Pro nodig.':
+      'Ein gemeinsames Rezeptbuch für deine Brigade. Der Inhaber hat Savour Pro. Mitglieder sehen kostenlos mit, drucken und rechnen um; wer Rezepte hinzufügt oder bearbeitet, braucht selbst Pro.',
+    'Savour Pro voor iedereen in je keuken, zodat iedereen recepten kan toevoegen en bewerken. Voor 5, 10 of 25 personen.':
+      'Savour Pro für alle in deiner Küche, damit alle Rezepte hinzufügen und bearbeiten können. Für 5, 10 oder 25 Personen.',
+    'De 14 allergenen bij je eigen recepten': 'Die 14 Allergene bei deinen eigenen Rezepten',
+    'Allergenen zien in een keukenteam van een eigenaar met Pro':
+      'Allergene sehen in einem Küchenteam, dessen Inhaber Pro hat'
   },
   patterns: [
     ['^Savour-lijst \\((\\d+)\\)$', 'Savour-Liste ($1)'],

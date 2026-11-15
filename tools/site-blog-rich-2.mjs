@@ -831,7 +831,7 @@ export const RICH_2 = {
             faq: [
               [
                 'Heeft elk lid Savour Pro nodig?',
-                'Nee. Lid zijn van een keukenteam is gratis. Alleen wie een keukenteam maakt, heeft Pro nodig.'
+                'Nee. Lid zijn van een keukenteam is gratis: je bekijkt, print en rekent om. Een keukenteam maken, en recepten toevoegen of bewerken, gaat met Savour Pro.'
               ],
               [
                 'Wat gebeurt er als de eigenaar stopt met Pro?',
@@ -879,7 +879,7 @@ export const RICH_2 = {
             faq: [
               [
                 'Does every member need Savour Pro?',
-                'No. Being a member of a kitchen team is free. Only the person who creates a kitchen team needs Pro.'
+                'No. Being a member of a kitchen team is free: you view, print and scale. Creating a kitchen team, and adding or editing recipes, needs Savour Pro.'
               ],
               [
                 'What happens if the owner stops Pro?',
@@ -927,7 +927,7 @@ export const RICH_2 = {
             faq: [
               [
                 'Braucht jedes Mitglied Savour Pro?',
-                'Nein. Mitglied eines Küchenteams zu sein ist kostenlos. Nur wer ein Küchenteam erstellt, braucht Pro.'
+                'Nein. Mitglied eines Küchenteams zu sein ist kostenlos: Du siehst an, druckst und rechnest um. Ein Küchenteam erstellen und Rezepte hinzufügen oder bearbeiten geht mit Savour Pro.'
               ],
               [
                 'Was passiert, wenn der Eigentümer Pro beendet?',
@@ -975,7 +975,7 @@ export const RICH_2 = {
             faq: [
               [
                 '¿Cada miembro necesita Savour Pro?',
-                'No. Ser miembro de un equipo de cocina es gratis. Solo quien crea un equipo de cocina necesita Pro.'
+                'No. Ser miembro de un equipo de cocina es gratis: consultas, imprimes y escalas. Crear un equipo, y añadir o editar recetas, requiere Savour Pro.'
               ],
               [
                 '¿Qué pasa si el propietario deja Pro?',
@@ -1023,7 +1023,7 @@ export const RICH_2 = {
             faq: [
               [
                 'Chaque membre a-t-il besoin de Savour Pro ?',
-                'Non. Être membre d’une équipe de cuisine est gratuit. Seul celui qui crée une équipe de cuisine a besoin de Pro.'
+                'Non. Être membre d’une équipe de cuisine est gratuit : tu consultes, imprimes et convertis. Créer une équipe, et ajouter ou modifier des recettes, demande Savour Pro.'
               ],
               [
                 'Que se passe-t-il si le propriétaire arrête Pro ?',

@@ -233,7 +233,7 @@ export const pages = [
       menu: 'Rollen: eigenaar, editor en viewer',
       title: 'Rollen in een keukenteam: eigenaar, editor en viewer | Handleiding Savour',
       desc: 'Wie mag wat in een keukenteam van Savour: de eigenaar beheert, de editor voegt recepten en mappen toe, de viewer bekijkt, print en rekent om.',
-      lead: 'Jij beheert, je sous-chef past aan, de rest kijkt mee.',
+      lead: 'Jij beheert, wie Pro heeft past aan, de rest kijkt gratis mee.',
       sections: [
         [
           'De drie rollen',
@@ -263,7 +263,7 @@ export const pages = [
       menu: 'Roles: owner, editor and viewer',
       title: 'Roles in a kitchen team: owner, editor and viewer | Savour user guide',
       desc: 'Who can do what in a Savour kitchen team: the owner manages, the editor adds recipes and folders, the viewer views, prints and scales.',
-      lead: 'You manage, your sous-chef edits, the rest follow along.',
+      lead: 'You manage, members with Pro edit, the rest follow along for free.',
       sections: [
         [
           'The three roles',
@@ -309,7 +309,7 @@ export const pages = [
         ],
         [
           'Gratis voor leden',
-          'Lid zijn van een keukenteam is gratis, ook zonder Savour Pro. Alleen de eigenaar heeft Pro nodig.'
+          'Lid zijn van een keukenteam is gratis, ook zonder Savour Pro: je bekijkt, print en rekent om. De eigenaar heeft Pro nodig, en wie recepten toevoegt of bewerkt ook.'
         ],
         [
           'Rol aanpassen',
@@ -338,7 +338,7 @@ export const pages = [
         ],
         [
           'Free for members',
-          'Being a member of a kitchen team is free, even without Savour Pro. Only the owner needs Pro.'
+          'Being a member of a kitchen team is free, even without Savour Pro: you view, print and scale. The owner needs Pro, and so does anyone who adds or edits recipes.'
         ],
         [
           'Changing the role',

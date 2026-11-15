@@ -23,7 +23,7 @@ export const PAPRIKA_PAGE = {
       ],
       [
         'Samen uit dezelfde recepten',
-        'In een keukenteam werkt de hele brigade met dezelfde versie, met drie rollen: de eigenaar beheert, sous-chefs voegen toe en passen aan, koks kijken mee zonder per ongeluk iets te wissen. Een keukenteam maak je met Savour Pro; lid zijn is gratis.'
+        'In een keukenteam werkt de hele brigade met dezelfde versie, met drie rollen: de eigenaar beheert, sous-chefs voegen toe en passen aan, koks kijken mee zonder per ongeluk iets te wissen. Een keukenteam maken, en recepten toevoegen of aanpassen, gaat met Savour Pro; meekijken is gratis.'
       ],
       [
         'Overstappen in een paar minuten',
@@ -89,7 +89,7 @@ export const PAPRIKA_PAGE = {
       ],
       [
         'Everyone cooking from the same recipes',
-        'In a kitchen team the whole brigade works from the same version, with three roles: the owner manages, sous-chefs add and edit, cooks read along without accidentally deleting anything. You create a kitchen team with Savour Pro; being a member is free.'
+        'In a kitchen team the whole brigade works from the same version, with three roles: the owner manages, sous-chefs add and edit, cooks read along without accidentally deleting anything. Creating a kitchen team, and adding or editing recipes, needs Savour Pro; reading along is free.'
       ],
       [
         'Move in a few minutes',
@@ -155,7 +155,7 @@ export const PAPRIKA_PAGE = {
       ],
       [
         'Alle kochen aus denselben Rezepten',
-        'In einem Küchenteam arbeitet die ganze Brigade mit derselben Version, mit drei Rollen: Der Inhaber verwaltet, Sous-Chefs fügen hinzu und bearbeiten, Köche lesen mit, ohne aus Versehen etwas zu löschen. Ein Küchenteam erstellst du mit Savour Pro; Mitglied sein ist kostenlos.'
+        'In einem Küchenteam arbeitet die ganze Brigade mit derselben Version, mit drei Rollen: Der Inhaber verwaltet, Sous-Chefs fügen hinzu und bearbeiten, Köche lesen mit, ohne aus Versehen etwas zu löschen. Ein Küchenteam erstellen und Rezepte hinzufügen oder bearbeiten geht mit Savour Pro; mitlesen ist kostenlos.'
       ],
       [
         'In ein paar Minuten umsteigen',
@@ -221,7 +221,7 @@ export const PAPRIKA_PAGE = {
       ],
       [
         'Todos cocinan con las mismas recetas',
-        'En un equipo de cocina toda la brigada trabaja con la misma versión, con tres roles: el propietario gestiona, los sous-chefs añaden y editan, los cocineros consultan sin borrar nada por error. Creas un equipo de cocina con Savour Pro; ser miembro es gratis.'
+        'En un equipo de cocina toda la brigada trabaja con la misma versión, con tres roles: el propietario gestiona, los sous-chefs añaden y editan, los cocineros consultan sin borrar nada por error. Crear un equipo, y añadir o editar recetas, requiere Savour Pro; consultar es gratis.'
       ],
       [
         'Cámbiate en unos minutos',
@@ -291,7 +291,7 @@ export const PAPRIKA_PAGE = {
       ],
       [
         'Tout le monde cuisine avec les mêmes recettes',
-        'Dans une équipe de cuisine, toute la brigade travaille avec la même version, avec trois rôles : le propriétaire gère, les sous-chefs ajoutent et modifient, les cuisiniers consultent sans rien effacer par erreur. Tu crées une équipe de cuisine avec Savour Pro ; être membre est gratuit.'
+        'Dans une équipe de cuisine, toute la brigade travaille avec la même version, avec trois rôles : le propriétaire gère, les sous-chefs ajoutent et modifient, les cuisiniers consultent sans rien effacer par erreur. Créer une équipe, et ajouter ou modifier des recettes, demande Savour Pro ; consulter est gratuit.'
       ],
       [
         'Passer à Savour en quelques minutes',

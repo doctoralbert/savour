@@ -827,10 +827,10 @@ export const BLOG = [
       lead: 'Een foto van een recept, doorgestuurd in de groepsapp, opnieuw gefotografeerd van een ander scherm. Herkenbaar. En niemand weet welke versie de goede is.',
       sections: [
         ['Een hele map delen', 'Maak een keukenteam, bijvoorbeeld “Saucier” of “Najaarsmenu”, en nodig je collega’s uit. Iedereen ziet dezelfde recepten, en een aanpassing staat direct bij iedereen.'],
-        ['Kies per persoon wat mag', 'Er zijn drie rollen. De eigenaar beheert de map. Een sous-chef mag recepten toevoegen en aanpassen. Een kok kan alles lezen, maar niets veranderen. Zo bepaal jij wie aan de recepturen komt.'],
+        ['Kies per persoon wat mag', 'Er zijn drie rollen. De eigenaar beheert de map. Een sous-chef mag recepten toevoegen en aanpassen, met Savour Pro. Een kok kan alles lezen, maar niets veranderen. Zo bepaal jij wie aan de recepturen komt.'],
         ['Eén recept doorsturen', 'Wil je één recept delen, bijvoorbeeld met een collega in een andere zaak of een leverancier? Deel het met een link. De ontvanger ziet het recept netjes, zonder account.'],
         ['Collega’s die meebouwen', 'Een keukenteam hoeft niet alleen van jou te komen. Geef je sous-chef bewerkrechten en laat het team zelf recepten toevoegen. Zo groeit het receptenboek mee met de keuken.'],
-        ['Wat het kost', 'Lid zijn van een keukenteam is gratis. Zelf een keukenteam maken is onderdeel van Savour Pro. Met een teamabonnement krijgt iedereen in je keuken Pro.']
+        ['Wat het kost', 'Lid zijn van een keukenteam is gratis: je bekijkt, print en rekent om. Zelf een keukenteam maken, en recepten toevoegen of aanpassen, is onderdeel van Savour Pro. Met een teamabonnement krijgt iedereen in je keuken Pro.']
       ],
       outro: 'Keukenteams met rollen staan in Savour onder “Keukenteams”.'
     },
@@ -842,10 +842,10 @@ export const BLOG = [
       lead: 'A photo of a recipe, forwarded in the group chat, photographed again from another screen. Sounds familiar. And nobody knows which version is right.',
       sections: [
         ['Share a whole folder', 'Create a kitchen team, for example “Saucier” or “Autumn menu”, and invite your colleagues. Everyone sees the same recipes, and a change shows up for everyone straight away.'],
-        ['Choose what each person may do', 'There are three roles. The owner manages the folder. A sous-chef can add and change recipes. A cook can read everything but change nothing. You decide who touches the recipes.'],
+        ['Choose what each person may do', 'There are three roles. The owner manages the folder. A sous-chef can add and change recipes, with Savour Pro. A cook can read everything but change nothing. You decide who touches the recipes.'],
         ['Send a single recipe', 'Want to share one recipe, for example with a colleague at another restaurant or a supplier? Share it with a link. The recipient sees the recipe neatly, without an account.'],
         ['Colleagues who build along', 'A kitchen team does not have to come from you alone. Give your sous-chef edit rights and let the team add recipes themselves. The recipe book grows with the kitchen.'],
-        ['What it costs', 'Being a member of a kitchen team is free. Creating a kitchen team yourself is part of Savour Pro. With a team plan everyone in your kitchen gets Pro.']
+        ['What it costs', 'Being a member of a kitchen team is free: you view, print and scale. Creating a kitchen team yourself, and adding or editing recipes, is part of Savour Pro. With a team plan everyone in your kitchen gets Pro.']
       ],
       outro: 'Kitchen teams with roles are under “Kitchen teams” in Savour.'
     }

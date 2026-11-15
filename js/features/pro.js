@@ -294,6 +294,7 @@ function renderProPage(host) {
     ${
       teamCards
         ? `<h2 id="proBrigade">Savour voor je hele team</h2>
+    <div class="pro-explain"><p><strong>Keukenteam</strong><span>Een gedeeld receptenboek voor je brigade. De eigenaar heeft Savour Pro. Leden kijken gratis mee, printen en rekenen om; wie recepten toevoegt of bewerkt, heeft zelf Pro nodig.</span></p><p><strong>Teamabonnement</strong><span>Savour Pro voor iedereen in je keuken, zodat iedereen recepten kan toevoegen en bewerken. Voor 5, 10 of 25 personen.</span></p></div>
     <p>Met een teamabonnement krijgt iedereen in je keuken Savour Pro. Hoe groter je team, hoe lager de prijs per persoon. Je nodigt je collega's uit op hun e-mailadres en kunt plekken altijd aan iemand anders geven.</p>
     <div class="pro-prices pro-team-prices">${teamCards}</div>
     <p class="pro-pay muted">Groter dan 25 personen of meerdere vestigingen? Neem contact op voor een prijs op maat.</p>`
@@ -311,6 +312,8 @@ function renderProPage(host) {
         <tr><td>Recepten toevoegen en bewerken in een keukenteam</td><td>–</td><td>✓</td></tr>
         <tr><td>Zelf een keukenteam maken en je team uitnodigen</td><td>–</td><td>✓</td></tr>
         <tr><td>AI leest foto's, handgeschreven en gescande recepten</td><td>–</td><td>✓</td></tr>
+        <tr><td>De 14 allergenen bij je eigen recepten</td><td>–</td><td>✓</td></tr>
+        <tr><td>Allergenen zien in een keukenteam van een eigenaar met Pro</td><td>✓</td><td>✓</td></tr>
         <tr><td>Printen met het logo van je restaurant</td><td>–</td><td>✓</td></tr>
         <tr><td>Alle recepten downloaden naar Word of als back-up</td><td>–</td><td>✓</td></tr>
         <tr><td>AI-imports per maand</td><td>–</td><td>150</td></tr>
