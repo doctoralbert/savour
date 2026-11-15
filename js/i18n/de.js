@@ -162,6 +162,7 @@ window.SAVOUR_I18N.de = {
     Anders: 'Anders',
     'Je sessie is verlopen. Log opnieuw in om verder te gaan.':
       'Deine Sitzung ist abgelaufen. Melde dich erneut an, um weiterzumachen.',
+    'Staat alleen in de bereiding, niet bij de ingrediënten gezet:': 'Steht nur in der Zubereitung, nicht bei den Zutaten übernommen:',
     'Veel AI-imports voor één bestand': 'Viele KI-Importe für eine Datei',
     'Recepten wachten op opslaan': 'Rezepte warten aufs Speichern',
     'recepten die de AI al voor je heeft gelezen, zijn nog niet opgeslagen':

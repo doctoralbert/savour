@@ -1564,6 +1564,35 @@ for (const [line, next, want] of headingCases) {
 // ---- Al gelezen recept opschonen (tidyRecipeLines): AI-resultaten en bestaande recepten ----
 const tidyCases = [
   {
+    name: 'Allergeencodes achter ingrediënten gaan naar de beschrijving',
+    from: {
+      ingredients: ['Teig:', '500 g Eier C', '250 g Butter G', '300 g Mehl A', '100 g Zucker', '1 dl Weißwein O, A'],
+      steps: ['Alles mit Zucker verrühren.']
+    },
+    to: {
+      ingredients: ['Teig:', '500 g Eier', '250 g Butter', '300 g Mehl', '100 g Zucker', '1 dl Weißwein'],
+      steps: ['Alles mit Zucker verrühren.'],
+      description: 'Allergene laut Rezept: A Gluten, C Ei, G Milch, O Sulfite'
+    },
+    changed: 4
+  },
+  {
+    name: 'Eén letter achteraan is nog geen allergeencode; vitamine C blijft',
+    from: { ingredients: ['1 tablet Vitamine C', '2 g Vitamine E', '200 g suiker'], steps: [] },
+    to: { ingredients: ['1 tablet Vitamine C', '2 g Vitamine E', '200 g suiker'], steps: [], description: '' },
+    changed: 0
+  },
+  {
+    name: 'Stapnummers vooraan gaan weg, getallen in de stap blijven',
+    from: { ingredients: ['200 g suiker'], steps: ['4. Deeg vormen', '(5) Bakken op 180 graden', '2 eieren erdoor'] },
+    to: {
+      ingredients: ['200 g suiker'],
+      steps: ['Deeg vormen', 'Bakken op 180 graden', '2 eieren erdoor'],
+      description: ''
+    },
+    changed: 2
+  },
+  {
     name: 'Kopjes, bronregel en "geen bereiding" uit een ChatGPT-recept',
     from: {
       ingredients: ['(Source: Backbuch – Kuchen)', '# Ingredients', 'Sponge base', 'Canned peaches', '# Method'],

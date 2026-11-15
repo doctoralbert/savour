@@ -1160,6 +1160,7 @@ export const stringsFr = {
  "Onleesbare stukken nagekeken?": "Tu as vérifié les parties peu claires ?",
  "Ja, opslaan": "Oui, enregistrer",
  "Zo las de AI het": "Comment l'IA a lu",
+ "Staat alleen in de bereiding, niet bij de ingrediënten gezet:": "Seulement dans la préparation, pas ajouté aux ingrédients :",
  "Automatisch verbeterd:": "Corrigé automatiquement :",
  "Receptnamen opschonen": "Nettoyer les noms de recettes",
  "Nummers weghalen": "Retirer les numéros",

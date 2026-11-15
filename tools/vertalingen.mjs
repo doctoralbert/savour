@@ -2312,6 +2312,7 @@ export const strings = [
   ],
   ['Ja, opslaan', 'Yes, save', 'Ja, speichern', 'Sí, guardar'],
   ['Zo las de AI het', 'How the AI read it', 'So hat die KI es gelesen', 'Así lo leyó la IA'],
+  ['Staat alleen in de bereiding, niet bij de ingrediënten gezet:', 'Only in the method, not added to the ingredients:', 'Steht nur in der Zubereitung, nicht bei den Zutaten übernommen:', 'Solo en la preparación, no añadido a los ingredientes:'],
   ['Automatisch verbeterd:', 'Corrected automatically:', 'Automatisch korrigiert:', 'Corregido automáticamente:'],
   ['Receptnamen opschonen', 'Tidy up recipe names', 'Rezeptnamen bereinigen', 'Limpiar nombres de recetas'],
   ['Nummers weghalen', 'Remove numbers', 'Nummern entfernen', 'Quitar números'],

@@ -160,6 +160,7 @@ window.SAVOUR_I18N.fr = {
     'Reddit of een forum': 'Reddit ou un forum',
     Anders: 'Autre',
     'Je sessie is verlopen. Log opnieuw in om verder te gaan.': 'Ta session a expiré. Reconnecte-toi pour continuer.',
+    'Staat alleen in de bereiding, niet bij de ingrediënten gezet:': 'Seulement dans la préparation, pas ajouté aux ingrédients :',
     'Veel AI-imports voor één bestand': 'Beaucoup d’imports IA pour un seul fichier',
     'Recepten wachten op opslaan': 'Des recettes attendent d’être enregistrées',
     'recepten die de AI al voor je heeft gelezen, zijn nog niet opgeslagen':

@@ -161,6 +161,7 @@ window.SAVOUR_I18N.es = {
     Anders: 'Otro',
     'Je sessie is verlopen. Log opnieuw in om verder te gaan.':
       'Tu sesión ha caducado. Vuelve a iniciar sesión para continuar.',
+    'Staat alleen in de bereiding, niet bij de ingrediënten gezet:': 'Solo en la preparación, no añadido a los ingredientes:',
     'Veel AI-imports voor één bestand': 'Muchas importaciones con IA para un archivo',
     'Recepten wachten op opslaan': 'Recetas pendientes de guardar',
     'recepten die de AI al voor je heeft gelezen, zijn nog niet opgeslagen':

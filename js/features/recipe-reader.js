@@ -888,6 +888,62 @@ function splitRecipeText(text) {
 // 4. alle ingrediënten aan één stuk op één regel: elk op een eigen regel (readerSplitRunOn);
 // 5. opmaaktekens ("**", "*…*", "---") weg.
 // Geeft { ingredients, steps, description, changed } terug; changed = aantal aangepaste regels.
+// ---- Allergeencodes achter ingrediënten (2026-11-15) ----
+// Oostenrijkse recepten (Allergeninformationsverordnung) zetten de allergenen als letter achter het ingrediënt:
+// "1.200 g Eier C", "960 g Butter G", "Mehl (glatt) A", "Rotwein O". Dat zijn geen woorden van het ingrediënt.
+// Alleen als het recept duidelijk deze codes gebruikt (minstens twee regels, elke letter een geldige code)
+// halen we ze weg en zetten we ze in de beschrijving, zodat er niets verloren gaat. "Vitamine C" in een gewoon
+// recept blijft dus staan. Savour bepaalt de allergenen daarna zelf via de producten.
+const ALLERGEN_CODES = {
+  A: ['gluten', 'Gluten'],
+  B: ['schaaldieren', 'Krebstiere'],
+  C: ['ei', 'Ei'],
+  D: ['vis', 'Fisch'],
+  E: ["pinda's", 'Erdnüsse'],
+  F: ['soja', 'Soja'],
+  G: ['melk', 'Milch'],
+  H: ['noten', 'Schalenfrüchte'],
+  L: ['selderij', 'Sellerie'],
+  M: ['mosterd', 'Senf'],
+  N: ['sesam', 'Sesam'],
+  O: ['sulfiet', 'Sulfite'],
+  P: ['lupine', 'Lupinen'],
+  R: ['weekdieren', 'Weichtiere']
+};
+const READER_ALLERGEN_TAIL = /\s+([ABCDEFGHLMNOPR](?:\s*[,/]\s*[ABCDEFGHLMNOPR])*)$/;
+
+function readerAllergenCodes(lines) {
+  const list = Array.isArray(lines) ? lines : [];
+  const strip = l => {
+    const x = String(l ?? '').trim();
+    if (/:$/.test(x)) return null;
+    const m = x.match(READER_ALLERGEN_TAIL);
+    if (!m) return null;
+    const name = x.slice(0, m.index).trim();
+    // Er moet een echt ingrediënt overblijven (geen losse "A").
+    // "Vitamine C" is geen allergeencode.
+    if (/vitamine?$/i.test(name)) return null;
+    return /\p{L}{2}/u.test(name) ? { name, codes: m[1].replace(/[^A-Z]/g, '').split('') } : null;
+  };
+  if (list.filter(strip).length < 2) return { lines: list, codes: [] };
+  const codes = new Set();
+  const out = list.map(l => {
+    const hit = strip(l);
+    if (!hit) return l;
+    hit.codes.forEach(c => codes.add(c));
+    return hit.name;
+  });
+  return { lines: out, codes: [...codes].sort() };
+}
+
+// Tekst voor in de beschrijving, in de taal van het recept (Duits, anders Nederlands).
+function readerAllergenNote(codes, sample = '') {
+  if (!codes.length) return '';
+  const german = /\b(?:und|mit|Zucker|Mehl|Eier|Sahne|Butter|Milch|Salz|backen)\b/.test(sample);
+  const parts = codes.map(c => `${c} ${ALLERGEN_CODES[c][german ? 1 : 0]}`);
+  return `${german ? 'Allergene laut Rezept' : 'Allergenen volgens het recept'}: ${parts.join(', ')}`;
+}
+
 function tidyRecipeLines(recipe) {
   const notes = [];
   let changed = 0;
@@ -944,7 +1000,10 @@ function tidyRecipeLines(recipe) {
         changed++;
         continue;
       }
-      const pieces = isIngredients ? readerSplitRunOn(x).map(readerQtyFirst) : [x];
+      // Stapnummers vooraan ("4. Forme den Teig", "(2) Mengen"): Savour nummert de stappen zelf.
+      const pieces = isIngredients
+        ? readerSplitRunOn(x).map(readerQtyFirst)
+        : [x.replace(/^\(?\d{1,2}[.)]\)?\s+(?=\p{L})/u, '')];
       // Alleen spaties anders ("400g          Sahne")? Dan de regel laten zoals hij is: dat is geen opschonen.
       if (pieces.length === 1 && pieces[0] === line.replace(/\s+/g, ' ').trim()) {
         out.push(line);
@@ -955,8 +1014,15 @@ function tidyRecipeLines(recipe) {
     }
     return out;
   };
-  const ingredients = tidy(ingredientsIn, true);
+  const tidied = tidy(ingredientsIn, true);
   const steps = tidy(stepsIn, false);
+  // Allergeencodes achteraan ("Eier C") weg en in de beschrijving (zie readerAllergenCodes).
+  const coded = readerAllergenCodes(tidied);
+  if (coded.codes.length) {
+    changed += coded.lines.filter((l, i) => l !== tidied[i]).length;
+    notes.push(readerAllergenNote(coded.codes, [...tidied, ...steps].join(' ')));
+  }
+  const ingredients = coded.lines;
   const before = String(recipe?.description || '').trim();
   const extra = notes.filter(n => !before.includes(n));
   const description = [before, ...extra].filter(Boolean).join(' · ');

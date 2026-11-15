@@ -160,6 +160,7 @@ window.SAVOUR_I18N.en = {
     'Reddit of een forum': 'Reddit or a forum',
     Anders: 'Other',
     'Je sessie is verlopen. Log opnieuw in om verder te gaan.': 'Your session has expired. Log in again to continue.',
+    'Staat alleen in de bereiding, niet bij de ingrediënten gezet:': 'Only in the method, not added to the ingredients:',
     'Veel AI-imports voor één bestand': 'Many AI imports for one file',
     'Recepten wachten op opslaan': 'Recipes waiting to be saved',
     'recepten die de AI al voor je heeft gelezen, zijn nog niet opgeslagen':
