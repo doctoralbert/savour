@@ -1178,6 +1178,152 @@ Kochen und schneiden.`,
       { t: 'Pommes purée', y: '4', i: ['1 kg potatoes', '200 g butter'], s: 1 },
       { t: 'Kartoffelsalat', y: 'für 6 Personen', i: ['1 kg Kartoffeln'], s: 1 }
     ]
+  },
+  // Oostenrijks receptformulier uit Word (controle 2026-11-15): een kopregel met lege velden, de naam achter
+  // "Menübezeichnung:", de opbrengst en de kolomkoppen op één regel ("Menge 8 PAX Zutaten Allergene") en
+  // "Zubereitungsschritte" boven de bereiding. Alle vijf imports van die dag moesten hierdoor naar de AI.
+  {
+    name: 'Receptformulier: naam achter "Menübezeichnung:", "Menge … Zutaten Allergene", "Zubereitungsschritte"',
+    text: `Woche Tag Hauptgang
+Menübezeichnung: Kalbsrahmgulasch mit Spätzle
+Menge 8 PAX Zutaten Allergene
+900 g Kalbsschulter
+2 Zwiebeln
+250 ml Rahm G
+Paprikapulver
+Zubereitungsschritte
+Fleisch würfeln und anbraten.
+Zwiebeln dazugeben und mit Rahm aufgießen.
+1 Stunde bei 160 °C schmoren.
+Abschmecken.`,
+    expect: [
+      {
+        t: 'Kalbsrahmgulasch mit Spätzle',
+        d: 'Woche Tag Hauptgang',
+        y: '8 PAX',
+        i: ['900 g Kalbsschulter', '2 Zwiebeln', '250 ml Rahm G', 'Paprikapulver'],
+        s: [
+          'Fleisch würfeln und anbraten.',
+          'Zwiebeln dazugeben und mit Rahm aufgießen.',
+          '1 Stunde bei 160 °C schmoren.',
+          'Abschmecken.'
+        ],
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: 'Receptformulier: opbrengst zonder "Menge" ("2 Bleche / 60 Personen") en stapnummers "(1)"',
+    text: `Woche Tag Mehlspeise
+Menübezeichnung: Nusskuchen, Birnenkompott.
+2 Bleche / 60 Personen Zutaten Allergene
+1.000 g Haselnüsse H
+800 g Zucker
+16 Eier C
+Zubereitungsschritte
+(1) Eier mit Zucker aufschlagen.
+(2) Nüsse unterheben und backen.
+(3) 1 Stunde rasten lassen.`,
+    expect: [
+      {
+        t: 'Nusskuchen, Birnenkompott',
+        y: '2 Bleche / 60 Personen',
+        i: ['1.000 g Haselnüsse H', '800 g Zucker', '16 Eier C'],
+        s: ['Eier mit Zucker aufschlagen.', 'Nüsse unterheben und backen.', '1 Stunde rasten lassen.'],
+        c: 'high'
+      }
+    ]
+  },
+  {
+    // "Streusel" en "Füllung" zonder dubbele punt kunnen een onderdeel zijn, maar ook een ingrediënt zonder
+    // hoeveelheid ("Zimt"). De lezer gokt niet: alles blijft staan, maar met twijfel (dan leest de AI het na).
+    name: 'Receptformulier met onderdelen zonder dubbele punt: niets weg, wel twijfel',
+    text: `Woche Tag Mehlspeise
+Menübezeichnung: Zwetschkenfleck
+Menge 1 Blech, 40 Portionen Zutaten Allergene
+Streusel
+200 g Mehl A
+150 g Butter G
+Füllung
+2 kg Zwetschken
+Zubereitungsschritte
+Streusel Mehl und Butter verbröseln.
+Zwetschken auflegen, Streusel darüber und backen.`,
+    expect: [
+      {
+        t: 'Zwetschkenfleck',
+        y: '1 Blech, 40 Portionen',
+        i: ['Streusel', '200 g Mehl A', '150 g Butter G', 'Füllung', '2 kg Zwetschken'],
+        s: 2,
+        c: 'medium'
+      }
+    ]
+  },
+  {
+    name: 'Twee receptformulieren in één document: twee recepten, de kopregel gaat mee',
+    text: `Woche Tag Suppe
+Menübezeichnung: Grießnockerlsuppe
+Menge 10 PAX Zutaten Allergene
+100 g Grieß A
+50 g Butter G
+2 l Rindsuppe L
+Zubereitungsschritte
+Nockerl formen und in der Suppe ziehen lassen.
+Woche Tag Suppe
+Menübezeichnung: Frittatensuppe
+Menge 10 PAX Zutaten Allergene
+200 g Mehl A
+4 Eier C
+2 l Rindsuppe L
+Zubereitungsschritte
+Palatschinken backen und in Streifen schneiden.`,
+    expect: [
+      {
+        t: 'Grießnockerlsuppe',
+        d: 'Woche Tag Suppe',
+        y: '10 PAX',
+        i: ['100 g Grieß A', '50 g Butter G', '2 l Rindsuppe L'],
+        s: ['Nockerl formen und in der Suppe ziehen lassen.'],
+        c: 'high'
+      },
+      {
+        t: 'Frittatensuppe',
+        d: 'Woche Tag Suppe',
+        y: '10 PAX',
+        i: ['200 g Mehl A', '4 Eier C', '2 l Rindsuppe L'],
+        s: ['Palatschinken backen und in Streifen schneiden.'],
+        c: 'high'
+      }
+    ]
+  },
+  // Wat níet mag veranderen.
+  {
+    name: 'Gewoon Duits recept met "Zutaten" en "Zubereitung": kopjes herkend, geen woord anders',
+    text: `Apfelstrudel
+Zutaten
+6 Äpfel
+100 g Zucker
+Zimt
+Zubereitung
+Äpfel schneiden und mit Zucker und Zimt mischen.`,
+    expect: [
+      {
+        t: 'Apfelstrudel',
+        i: ['6 Äpfel', '100 g Zucker', 'Zimt'],
+        s: ['Äpfel schneiden und mit Zucker und Zimt mischen.'],
+        c: 'high'
+      }
+    ]
+  },
+  {
+    name: '"1 blik / 400 g" blijft een ingrediënt, geen opbrengst',
+    text: `Tomatensaus
+Ingrediënten
+1 blik / 400 g tomaten
+2 uien
+Bereiding
+Uien fruiten en tomaten erbij.`,
+    expect: [{ t: 'Tomatensaus', y: '', i: ['1 blik / 400 g tomaten', '2 uien'], s: 1, c: 'high' }]
   }
 ];
 
