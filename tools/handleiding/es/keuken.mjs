@@ -91,7 +91,7 @@ export const pages = {
     sections: [
       ["Una lista por partida", "Una lista MEP es la lista de tu partida: cartas (a la carta, banquetes), un título por pase o plato y debajo lo que debe estar listo. Se lee de arriba abajo, en el orden del menú."],
       ["Lista y modo cocina", "Lista lo muestra todo con el estilo de Savour, con una casilla en cada elemento. Al marcarla queda listo para hoy, para todo tu equipo. El modo cocina muestra solo la lista, en grande, y mantiene la pantalla encendida."],
-      ["Cubiertos y cantidades", "Introduce en la barra superior el número de cubiertos de cada carta; Savour calcula cuánto necesitas de cada elemento (40 cubiertos × 60 g = 2,4 kg). Cada día la lista empieza vacía. Con ⋯ Vaciar lista quitas las marcas también entre medias."],
+      ["Cubiertos y cantidades", "Introduce junto al nombre de cada carta el número de cubiertos; Savour calcula cuánto necesitas de cada elemento (40 cubiertos × 60 g = 2,4 kg). Cada día la lista empieza vacía. Con ⋯ Vaciar lista quitas las marcas también entre medias."],
       ["Juntos en un equipo de cocina", "Todo el equipo ve una lista MEP de un equipo de cocina. Lo que marca un compañero aparece al instante, con nombre y hora. Cualquiera puede marcar, también sin Savour Pro. Sin internet lo que tocas se queda y se envía en cuanto vuelvas a tener conexión."],
       ["Importar", "¿Ya tienes tu lista en Excel, Word o en papel? Elige Importar. Savour la organiza y tú lo revisas todo antes de guardarlo. Una foto la lee la IA, con Savour Pro."],
       ["Imprimir", "Imprime una lista vacía en un A4, como tu lista de Excel, o con los cubiertos y cantidades de hoy. Con Savour Pro lleva el logo de tu restaurante."],

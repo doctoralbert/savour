@@ -1751,3 +1751,62 @@ body.cook-mode #mep .mep-band {
     justify-content: space-between;
   }
 }
+
+/* Couverts klein in de kop van elke kaart (renderMepPageBody). */
+.mep-page-cardname {
+  align-items: center;
+  flex-wrap: wrap;
+}
+.mep-cover-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.mep-cover-mini input {
+  width: 58px;
+  height: 30px;
+  padding: 0 4px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  background: var(--sv-surface-2);
+  color: var(--sv-text);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.mep-cover-mini input:focus {
+  border-color: var(--sv-gold);
+  outline: none;
+}
+.mep-cover-mini small {
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-xs);
+  font-weight: 500;
+}
+body.cook-mode .mep-cover-mini input {
+  width: 70px;
+  height: 38px;
+  font-size: 18px;
+}
+
+/* Printblad: kolommen naar staand (3) of liggend (4). */
+.mep-sheet-grid {
+  grid-template-columns: repeat(var(--grid, 3), minmax(0, 1fr));
+}
+.mep-sheet.is-landscape {
+  aspect-ratio: 297 / 210;
+}
+.mep-sheet.is-print.is-landscape {
+  width: 297mm;
+  padding: 10mm 11mm;
+}
+@media print {
+  .mep-sheet.is-print.is-landscape {
+    height: 210mm;
+  }
+}

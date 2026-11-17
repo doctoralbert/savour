@@ -145,7 +145,7 @@ const HELP_TOPICS = {
       ],
       [
         'Couverts en hoeveelheden',
-        'Vul in de balk bovenin per kaart het aantal couverts in; Savour rekent per onderdeel uit hoeveel je nodig hebt (40 couverts × 60 g = 2,4 kg). Elke dag begint de lijst leeg. Met ⋯ Lijst leegmaken haal je de vinkjes ook tussendoor weg.'
+        'Vul naast de naam van elke kaart het aantal couverts in; Savour rekent per onderdeel uit hoeveel je nodig hebt (40 couverts × 60 g = 2,4 kg). Elke dag begint de lijst leeg. Met ⋯ Lijst leegmaken haal je de vinkjes ook tussendoor weg.'
       ],
       [
         'Samen in een keukenteam',

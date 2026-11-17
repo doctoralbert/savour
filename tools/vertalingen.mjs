@@ -1,8 +1,14 @@
 // Brontabel voor de vertalingen: [Nederlands, Engels, Duits, Spaans].
 export const strings = [
   // ---- MEP-lijsten (2026-11-17, js/features/mep.js, mep-import.js) ----
+  ["Hoe wil je printen?","How do you want to print?","Wie möchtest du drucken?","¿Cómo quieres imprimir?"],
+  ["A4 staand","A4 portrait","A4 Hochformat","A4 vertical"],
+  ["A4 liggend","A4 landscape","A4 Querformat","A4 horizontal"],
+  ["Kaarten onder en naast elkaar, zoals een gewone lijst.","Menus below and next to each other, like a normal list.","Karten unter- und nebeneinander, wie eine normale Liste.","Cartas una debajo y al lado de otra, como una lista normal."],
+  ["Meer kolommen naast elkaar, handig bij meerdere kaarten.","More columns side by side, handy with several menus.","Mehr Spalten nebeneinander, praktisch bei mehreren Karten.","Más columnas una al lado de otra, práctico con varias cartas."],
+  // ---- MEP-lijsten (2026-11-17, js/features/mep.js, mep-import.js) ----
   ["Couverts en hoeveelheden","Covers and quantities","Gedecke und Mengen","Cubiertos y cantidades"],
-  ["Vul in de balk bovenin per kaart het aantal couverts in; Savour rekent per onderdeel uit hoeveel je nodig hebt (40 couverts × 60 g = 2,4 kg). Elke dag begint de lijst leeg. Met ⋯ Lijst leegmaken haal je de vinkjes ook tussendoor weg.","Fill in the number of covers per menu in the bar at the top; Savour works out how much you need of each item (40 covers × 60 g = 2.4 kg). Every day the list starts empty. With ⋯ Clear list you remove the ticks in between too.","Trag in der Leiste oben pro Karte die Anzahl Gedecke ein; Savour rechnet pro Posten aus, wie viel du brauchst (40 Gedecke × 60 g = 2,4 kg). Jeden Tag beginnt die Liste leer. Mit ⋯ Liste leeren entfernst du die Häkchen auch zwischendurch.","Introduce en la barra superior el número de cubiertos de cada carta; Savour calcula cuánto necesitas de cada elemento (40 cubiertos × 60 g = 2,4 kg). Cada día la lista empieza vacía. Con ⋯ Vaciar lista quitas las marcas también entre medias."],
+  ["Vul naast de naam van elke kaart het aantal couverts in; Savour rekent per onderdeel uit hoeveel je nodig hebt (40 couverts × 60 g = 2,4 kg). Elke dag begint de lijst leeg. Met ⋯ Lijst leegmaken haal je de vinkjes ook tussendoor weg.","Fill in the number of covers next to the name of each menu; Savour works out how much you need of each item (40 covers × 60 g = 2.4 kg). Every day the list starts empty. With ⋯ Clear list you remove the ticks in between too.","Trag neben dem Namen jeder Karte die Anzahl Gedecke ein; Savour rechnet pro Posten aus, wie viel du brauchst (40 Gedecke × 60 g = 2,4 kg). Jeden Tag beginnt die Liste leer. Mit ⋯ Liste leeren entfernst du die Häkchen auch zwischendurch.","Introduce junto al nombre de cada carta el número de cubiertos; Savour calcula cuánto necesitas de cada elemento (40 cubiertos × 60 g = 2,4 kg). Cada día la lista empieza vacía. Con ⋯ Vaciar lista quitas las marcas también entre medias."],
   // ---- MEP-lijsten (2026-11-17, js/features/mep.js, mep-import.js) ----
   ["Portie","Portion","Portion","Ración"],
   ["Vul bij portie een getal in, bijvoorbeeld 40 of 0,5. Of laat het leeg.","Enter a number for the portion, for example 40 or 0.5. Or leave it empty.","Trag bei Portion eine Zahl ein, zum Beispiel 40 oder 0,5. Oder lass es leer.","Introduce un número en la ración, por ejemplo 40 o 0,5. O déjalo vacío."],
@@ -4274,6 +4280,8 @@ export const strings = [
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
 export const patterns = [
+  // ---- MEP-lijsten (2026-11-17) ----
+
   // ---- MEP-lijsten (2026-11-17) ----
 
   // ---- MEP-lijsten (2026-11-17) ----

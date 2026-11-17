@@ -2,8 +2,13 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.fr = {
   strings: {
+    "Hoe wil je printen?": "Comment veux-tu imprimer ?",
+    "A4 staand": "A4 portrait",
+    "A4 liggend": "A4 paysage",
+    "Kaarten onder en naast elkaar, zoals een gewone lijst.": "Cartes les unes sous et à côté des autres, comme une liste normale.",
+    "Meer kolommen naast elkaar, handig bij meerdere kaarten.": "Plus de colonnes côte à côte, pratique avec plusieurs cartes.",
     "Couverts en hoeveelheden": "Couverts et quantités",
-    "Vul in de balk bovenin per kaart het aantal couverts in; Savour rekent per onderdeel uit hoeveel je nodig hebt (40 couverts × 60 g = 2,4 kg). Elke dag begint de lijst leeg. Met ⋯ Lijst leegmaken haal je de vinkjes ook tussendoor weg.": "Indique dans la barre en haut le nombre de couverts par carte ; Savour calcule combien il te faut de chaque élément (40 couverts × 60 g = 2,4 kg). Chaque jour, la liste commence vide. Avec ⋯ Vider la liste, tu enlèves les coches aussi en cours de journée.",
+    "Vul naast de naam van elke kaart het aantal couverts in; Savour rekent per onderdeel uit hoeveel je nodig hebt (40 couverts × 60 g = 2,4 kg). Elke dag begint de lijst leeg. Met ⋯ Lijst leegmaken haal je de vinkjes ook tussendoor weg.": "Indique à côté du nom de chaque carte le nombre de couverts ; Savour calcule combien il te faut de chaque élément (40 couverts × 60 g = 2,4 kg). Chaque jour, la liste commence vide. Avec ⋯ Vider la liste, tu enlèves les coches aussi en cours de journée.",
     "Portie": "Portion",
     "Vul bij portie een getal in, bijvoorbeeld 40 of 0,5. Of laat het leeg.": "Indique un nombre pour la portion, par exemple 40 ou 0,5. Ou laisse vide.",
     "Wat al klaar is, staat afgevinkt.": "Ce qui est déjà prêt est coché.",

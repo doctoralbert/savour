@@ -742,13 +742,21 @@ async function unlinkMepRecipe(itemId) {
 // De letter wordt kleiner tot alles op één blad past (fitMepSheet).
 
 // Hoeveel kolommen elke kaart krijgt (samen 3), naar het aantal regels.
-function mepSheetColumns(cards) {
+function mepSheetColumns(cards, total = 3) {
   const rows = cards.map(c => mepSectionsOf(c.id).reduce((n, s) => n + 1.6 + mepItemsOf(s.id).length, 0));
-  const total = rows.reduce((a, b) => a + b, 0) || 1;
-  if (cards.length >= 3) return cards.map(() => 1);
-  if (cards.length === 1) return [3];
-  const first = Math.min(2, Math.max(1, Math.round((3 * rows[0]) / total)));
-  return [first, 3 - first];
+  const sum = rows.reduce((a, b) => a + b, 0) || 1;
+  if (!cards.length) return [];
+  if (cards.length >= total) return cards.map(() => 1);
+  // Elke kaart minstens één kolom; de rest naar verhouding van het aantal regels.
+  const cols = cards.map(() => 1);
+  let left = total - cards.length;
+  while (left > 0) {
+    let best = 0;
+    for (let i = 1; i < cards.length; i++) if (rows[i] / cols[i] > rows[best] / cols[best]) best = i;
+    cols[best]++;
+    left--;
+  }
+  return cols;
 }
 
 // Eén regel op het blad. Met een dag erbij: de hoeveelheid voor de couverts, en wat al klaar (✓) of op voorraad (V) staat.
@@ -764,9 +772,11 @@ function mepSheetItem(it, day, covers) {
 // Het A4-blad. opts.day: de stand van een dag (couverts en hoeveelheden), opts.brand: logo en naam van het restaurant,
 // opts.print: voor de printer (zonder de id's van het scherm).
 function renderMepSheet(l, opts = {}) {
-  const { day = null, brand = null, print = false } = opts;
+  const { day = null, brand = null, print = false, landscape = false } = opts;
   const cards = mepCardsOf(l.id).filter(c => mepSectionsOf(c.id).length);
-  const cols = mepSheetColumns(cards);
+  // Liggend is er plaats voor vier kolommen, staand voor drie.
+  const total = landscape ? 4 : 3;
+  const cols = mepSheetColumns(cards, total);
   const showCardNames = mepCardsOf(l.id).length > 1;
   const body = cards
     .map((c, i) => {
@@ -789,12 +799,11 @@ function renderMepSheet(l, opts = {}) {
   const empty = !cards.length
     ? `<p class="mep-sheet-empty">${esc(t('Nog leeg. Kies Bewerken om kopjes en onderdelen toe te voegen.'))}</p>`
     : '';
-  const date = day ? esc(mepDayLabel(day.day)) : `<span>${esc(t('Datum'))}</span>: ____________`;
   const logo = brand?.logo
     ? `<img class="mep-sheet-logo${brand.bw ? ' is-bw' : ''}" src="${esc(brand.logo)}" alt="">`
     : '';
   const title = `<div class="mep-sheet-title"><h2 translate="no">${esc(l.name)}</h2>${brand?.name ? `<span translate="no">${esc(brand.name)}</span>` : ''}</div>`;
-  const sheet = `<article class="mep-sheet${print ? ' is-print' : ''}"${print ? '' : ' id="mepSheet"'}><header class="mep-sheet-head">${logo}${title}<span class="mep-sheet-date">${date}</span></header><div class="mep-sheet-grid">${body}${empty}</div></article>`;
+  const sheet = `<article class="mep-sheet${print ? ' is-print' : ''}${landscape ? ' is-landscape' : ''}"${print ? '' : ' id="mepSheet"'}><header class="mep-sheet-head">${logo}${title}</header><div class="mep-sheet-grid" style="--grid:${total}">${body}${empty}</div></article>`;
   return print
     ? sheet
     : `<div class="mep-sheet-wrap">${sheet}<p class="mep-sheet-fit muted" id="mepSheetFit"></p></div>`;
@@ -808,7 +817,7 @@ function fitMepSheet(sheet = $('mepSheet'), note = $('mepSheetFit')) {
   if (note) note.textContent = '';
   if (!sheet.classList.contains('is-print') && window.matchMedia('(max-width: 760px)').matches) return true;
   // Een paar pixels marge: het blad zelf is al precies een A4 hoog (afronding).
-  const page = (sheet.clientWidth * 297) / 210 + 3;
+  const page = sheet.clientWidth * (sheet.classList.contains('is-landscape') ? 210 / 297 : 297 / 210) + 3;
   // Zo groot mogelijk (leesbaar in de keuken), maar alles op één blad.
   let fs = 17;
   sheet.style.setProperty('--fs', fs + 'px');
@@ -823,37 +832,48 @@ function fitMepSheet(sheet = $('mepSheet'), note = $('mepSheetFit')) {
 }
 
 // ---- Printen ----
-// Leeg (zoals de Excel-lijst, met een regel voor de datum) of met de couverts en hoeveelheden van de dag die open
-// staat. Bovenaan het logo van je restaurant, of bij een keukenteam dat van het team (fetchPrintBrand in print.js).
+// De lijst zoals je Excel-lijst: naam, kaarten, kopjes en onderdelen met een leeg hokje. Geen datum en geen couverts.
+// Staand of liggend A4 (onthouden in deze browser). Bovenaan het logo van je restaurant, of bij een keukenteam dat
+// van het team (fetchPrintBrand in print.js).
+
+function mepSavedOrientation() {
+  try {
+    return localStorage.getItem('savour_mep_print') === 'liggend' ? 'liggend' : 'staand';
+  } catch (_) {
+    return 'staand';
+  }
+}
 
 async function printMepList() {
   const l = mepListById(mepOpenId);
   if (!l) return;
   if (!mepItems.some(i => i.list_id === l.id)) return toast(t('Deze lijst heeft nog geen onderdelen om te printen.'));
-  // De dag die open staat, anders vandaag.
-  const day = mepDay?.listId === l.id ? mepDay : await loadMepDay(l.id, mepToday());
-  const hasCovers = Object.values(day.covers || {}).some(n => Number(n) > 0);
-  const hasState = Object.values(day.items || {}).some(r => r.status === 'klaar' || r.status === 'voorraad');
-  let withDay = false;
-  if (hasCovers || hasState) {
-    const choice = await askChoice(t('Wat wil je printen?'), [
-      {
-        value: 'dag',
-        label: `${t('Met couverts en hoeveelheden')}: ${mepDayTitle(day.day).toLowerCase()}`,
-        hint: t('Wat al klaar is, staat afgevinkt.'),
-        primary: true
-      },
-      { value: 'leeg', label: t('Lege lijst'), hint: t('Zoals je Excel-lijst, met een regel voor de datum.') }
-    ]);
-    if (!choice) return;
-    withDay = choice === 'dag';
-  }
+  const saved = mepSavedOrientation();
+  const choice = await askChoice(t('Hoe wil je printen?'), [
+    {
+      value: 'staand',
+      label: t('A4 staand'),
+      hint: t('Kaarten onder en naast elkaar, zoals een gewone lijst.'),
+      primary: saved === 'staand'
+    },
+    {
+      value: 'liggend',
+      label: t('A4 liggend'),
+      hint: t('Meer kolommen naast elkaar, handig bij meerdere kaarten.'),
+      primary: saved === 'liggend'
+    }
+  ]);
+  if (!choice) return;
+  try {
+    localStorage.setItem('savour_mep_print', choice);
+  } catch (_) {}
+  const landscape = choice === 'liggend';
   const brand = await fetchPrintBrand(l.team_id || null);
   document.getElementById('mepPrint')?.remove();
   const el = document.createElement('div');
   el.id = 'mepPrint';
   el.className = 'mep-print';
-  el.innerHTML = renderMepSheet(l, { day: withDay ? day : null, brand, print: true });
+  el.innerHTML = renderMepSheet(l, { brand, print: true, landscape });
   document.body.appendChild(el);
   // Wachten tot het logo en de letters er zijn, anders klopt de maat niet of ontbreekt het logo op papier.
   await Promise.all(
@@ -864,11 +884,11 @@ async function printMepList() {
   // Marge 0: geen kop- en voettekst van de browser; de witruimte zit in het blad zelf (css/mep.css).
   const page = document.createElement('style');
   page.id = 'mepPrintPage';
-  page.textContent = '@page { size: A4 portrait; margin: 0; }';
+  page.textContent = `@page { size: A4 ${landscape ? 'landscape' : 'portrait'}; margin: 0; }`;
   document.head.appendChild(page);
   document.body.classList.add('mep-printing');
   const pageTitle = document.title;
-  document.title = withDay ? `${l.name} ${day.day}` : l.name;
+  document.title = l.name;
   const cleanup = () => {
     el.remove();
     page.remove();
@@ -878,6 +898,26 @@ async function printMepList() {
   };
   window.addEventListener('afterprint', cleanup);
   setTimeout(() => window.print(), 80);
+}
+
+// Het ⋯-menu in de fotoband: vast op het scherm openklappen, want de band snijdt af wat erbuiten valt.
+// Scrollen sluit het menu (anders blijft het los op het scherm hangen).
+function mepPlaceMenu(details) {
+  const menu = details.querySelector('.rp-menu');
+  if (!menu) return;
+  if (!details.open) {
+    menu.removeAttribute('style');
+    return;
+  }
+  const r = details.querySelector('summary').getBoundingClientRect();
+  Object.assign(menu.style, {
+    position: 'fixed',
+    top: `${Math.round(r.bottom + 6)}px`,
+    right: `${Math.max(8, Math.round(window.innerWidth - r.right))}px`,
+    left: 'auto',
+    zIndex: '80'
+  });
+  window.addEventListener('scroll', () => (details.open = false), { passive: true, once: true });
 }
 
 // ---- Vandaag: couverts, afvinken en live meekijken ----
@@ -1563,30 +1603,20 @@ function mepBandHtml(l, mode, can) {
   const modes = can
     ? `<div class="mep-modes" role="group" aria-label="${esc(t('Weergave'))}">${modeBtn('overzicht', t('Lijst'))}${modeBtn('bewerken', t('Bewerken'), 'edit')}</div>`
     : '';
-  // Couverts per kaart, alleen in de Lijst: Savour rekent de hoeveelheden uit.
-  const covers =
-    mode === 'overzicht' && mepDay
-      ? mepDayCards(l)
-          .map(
-            c =>
-              `<label class="mep-cover-chip"><span translate="no">${esc(c.name)}</span><input type="number" inputmode="numeric" min="0" max="9999" step="1" data-card="${esc(c.id)}" value="${esc(String(mepDay.covers[c.id] ?? ''))}" placeholder="0" aria-label="${esc(t('couverts'))} ${esc(c.name)}" ${tick ? '' : 'disabled'} onchange="setMepCovers('${escJs(c.id)}', this)"><small>${esc(t('couverts'))}</small></label>`
-          )
-          .join('')
-      : '';
   const tools = [
     mode === 'overzicht'
       ? `<button type="button" class="btn compact-action mep-tool" onclick="toggleMepCookMode(true)">${icon('cook')}<span>${esc(t('Kookmodus'))}</span></button>`
       : '',
     `<button type="button" class="btn compact-action mep-tool" onclick="printMepList()">${icon('print')}<span>${esc(t('Printen'))}</span></button>`,
     menu
-      ? `<details class="rp-more mep-more"><summary class="btn compact-action rp-icon-btn" aria-label="${esc(t('Meer acties'))}" title="${esc(t('Meer acties'))}">${icon('more')}</summary><div class="rp-menu">${menu}</div></details>`
+      ? `<details class="rp-more mep-more" ontoggle="mepPlaceMenu(this)"><summary class="btn compact-action rp-icon-btn" aria-label="${esc(t('Meer acties'))}" title="${esc(t('Meer acties'))}">${icon('more')}</summary><div class="rp-menu">${menu}</div></details>`
       : ''
   ].join('');
   const sub =
     mode === 'overzicht'
       ? `<p class="muted mep-band-sub" id="mepPageMeta"></p>`
       : `<p class="muted mep-band-sub"><span id="mepSaved" aria-live="polite">${esc(mepSavedText())}</span></p>`;
-  return `${back}<div class="folder-detail-head mep-band" id="mepBand"><div class="mep-band-text"><div class="eyebrow">${esc(t('MEP-lijst'))}${team ? ` · <span translate="no">${esc(team.name)}</span>` : ''}${l.archived ? ` · ${esc(t('Gearchiveerd'))}` : ''} ${helpButton('mep')}</div><h1 translate="no">${esc(l.name)}</h1>${sub}</div><div class="mep-band-actions">${modes}${covers ? `<div class="mep-cover-chips">${covers}</div>` : ''}<div class="mep-band-tools">${tools}</div></div></div>`;
+  return `${back}<div class="folder-detail-head mep-band" id="mepBand"><div class="mep-band-text"><div class="eyebrow">${esc(t('MEP-lijst'))}${team ? ` · <span translate="no">${esc(team.name)}</span>` : ''}${l.archived ? ` · ${esc(t('Gearchiveerd'))}` : ''} ${helpButton('mep')}</div><h1 translate="no">${esc(l.name)}</h1>${sub}</div><div class="mep-band-actions">${modes}<div class="mep-band-tools">${tools}</div></div></div>`;
 }
 
 async function renderMepList() {
@@ -1670,15 +1700,14 @@ function renderMepPageBody(flashId) {
     ]
       .filter(Boolean)
       .join(' · ');
-  // Couverts van een collega bijwerken, behalve in het vakje waar je zelf typt.
-  document.querySelectorAll('.mep-cover-chip input[data-card]').forEach(inp => {
-    if (inp !== document.activeElement) inp.value = mepDay.covers[inp.dataset.card] ?? '';
-  });
   $('mepFilterAll')?.classList.toggle('is-on', !mepTodoOnly);
   $('mepFilterTodo')?.classList.toggle('is-on', mepTodoOnly);
   const body = $('mepPageBody');
   if (!body) return mepShowLive();
-  const showCard = cards.length > 1;
+  // Typ je net couverts in? Dan dat vakje (en wat erin staat) terugzetten na het opnieuw tekenen.
+  const typing = document.activeElement?.closest?.('.mep-cover-mini') ? document.activeElement : null;
+  const typingCard = typing?.dataset.card;
+  const typingValue = typing?.value;
   // Elke kaart is één kolom die je van boven naar beneden leest, in de volgorde van het menu (Tussen 1, Tussen 2,
   // Hoofd); de kaarten staan naast elkaar, zoals in de Excel-lijsten van de keuken.
   body.style.setProperty('--cards', Math.min(cards.length, 3) || 1);
@@ -1694,7 +1723,9 @@ function renderMepPageBody(flashId) {
         })
         .join('');
       if (!secs && mepTodoOnly) return '';
-      return `<div class="mep-page-card">${showCard ? `<h4 class="mep-page-cardname"><span translate="no">${esc(c.name)}</span>${n ? `<small>${n} ${esc(t('couverts'))}</small>` : ''}</h4>` : ''}<div class="mep-page-cols">${secs}</div></div>`;
+      // Kop van de kaart met een klein vakje voor de couverts: Savour rekent per onderdeel de hoeveelheid uit.
+      const coversInput = `<label class="mep-cover-mini"><input type="number" inputmode="numeric" min="0" max="9999" step="1" data-card="${esc(c.id)}" value="${esc(String(mepDay.covers[c.id] ?? ''))}" placeholder="0" aria-label="${esc(t('couverts'))} ${esc(c.name)}" ${can ? '' : 'disabled'} onchange="setMepCovers('${escJs(c.id)}', this)"><small>${esc(t('couverts'))}</small></label>`;
+      return `<div class="mep-page-card"><h4 class="mep-page-cardname"><span translate="no">${esc(c.name)}</span>${coversInput}</h4><div class="mep-page-cols">${secs}</div></div>`;
     })
     .join('');
   body.innerHTML =
@@ -1702,6 +1733,13 @@ function renderMepPageBody(flashId) {
     (mepTodoOnly && all.length
       ? `<div class="mep-empty mep-alldone"><p><b>${esc(t('Alles staat klaar.'))}</b></p></div>`
       : '');
+  if (typingCard) {
+    const again = body.querySelector(`.mep-cover-mini input[data-card="${CSS.escape(typingCard)}"]`);
+    if (again) {
+      again.value = typingValue;
+      again.focus();
+    }
+  }
   mepShowLive();
 }
 
