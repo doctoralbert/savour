@@ -1409,6 +1409,33 @@ body.savour-light .ai-import-note {
   font-size: 12px;
   font-style: normal;
 }
+/* Nog geen recepten: alleen het welkomstblok met de importknop. Zoeken, A–Z, categorieën en de Pro-balk
+   hebben pas zin als er recepten zijn (renderRecipes zet .library-empty). */
+#recipes.library-empty #recipeProHint,
+#recipes.library-empty .mobile-recipe-search,
+#recipes.library-empty #recipeAlphabet,
+#recipes.library-empty .mobile-category-panel {
+  display: none !important; /* app-nav.css zet de zoekbalk op de computer met !important aan */
+}
+/* Telefoon: "Aan de slag" en de Pro-balk compact, zodat de recepten zelf in beeld komen. */
+@media (max-width: 700px) {
+  .start-checklist {
+    padding: 10px 12px;
+  }
+  .start-checklist-head {
+    margin-bottom: 8px;
+  }
+  .start-checklist-head .start-checklist-welcome,
+  .start-checklist-steps button.is-done {
+    display: none;
+  }
+  .start-checklist-steps {
+    grid-template-columns: 1fr;
+  }
+  .recipe-pro-hint > span {
+    display: none;
+  }
+}
 .nav-example small {
   margin-left: 8px;
   color: var(--sv-gold);

@@ -76,6 +76,8 @@ function selectImportSource(type) {
   document.querySelectorAll('.import-option').forEach(x => x.classList.remove('selected'));
   const source = IMPORT_SOURCES[type];
   $(type === 'text' ? 'importOptionText' : source?.option)?.classList.add('selected');
+  // Een bron onder "Meer bronnen" gekozen: die lijst openklappen, zodat je ziet wat er geselecteerd is.
+  $(source?.option)?.closest('details')?.setAttribute('open', '');
   $('importStatus').textContent = '';
   hideImportProgress();
   $('importSourceNote').style.display = 'none';
@@ -1774,10 +1776,23 @@ async function processImport() {
   }
   try {
     if (importSource === 'text') {
-      batchDrafts = stampForLearning(readRecipesLocally(text), '', 'tekst');
+      // Zelfde opschoning als bij bestanden: allergeenletters ("Eier C") weg, de kok ziet het en kan ze houden.
+      const read = readRecipesLocally(text).map(d => {
+        const tidy = tidyRecipeLines(d, { allergenCodes: !keepsAllergenCodes() });
+        return {
+          ...d,
+          ingredients: tidy.ingredients,
+          steps: tidy.steps,
+          description: tidy.description || d.description,
+          _withCodes: tidy.withCodes,
+          _allergenCodes: tidy.allergenCodes
+        };
+      });
+      batchDrafts = stampForLearning(read, '', 'tekst');
       // Gelezen: het tekstvak leeg, zodat dezelfde tekst niet per ongeluk nog een keer wordt verwerkt.
       $('importTextInput').value = '';
-      if (batchDrafts.length > 1) {
+      // Weggehaalde allergeenletters staan alleen in het controlescherm (met "Letters laten staan"): dan daarheen.
+      if (batchDrafts.length > 1 || batchDrafts.some(d => d._withCodes)) {
         $('batchStatus').textContent = `${batchDrafts.length} losse recepten herkend uit de ingevoerde tekst.`;
         renderBatchDrafts();
         go('batchImport');

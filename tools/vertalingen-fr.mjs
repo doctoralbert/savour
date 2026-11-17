@@ -1017,6 +1017,7 @@ export const stringsFr = {
  "Print al je recepten in de printopmaak van Savour, of download ze. Je recepten blijven daarnaast gewoon in Savour staan.": "Imprime toutes tes recettes dans la mise en page Savour, ou télécharge-les. Tes recettes restent aussi dans Savour.",
  "Alle recepten printen": "Imprimer toutes les recettes",
  "Downloaden": "Télécharger",
+ "Meer bronnen": "Plus de sources",
  "Print al je recepten in één keer in de printopmaak van Savour, of download een back-up. Met Savour Pro download je ze ook naar Word.": "Imprime toutes tes recettes d'un coup dans la mise en page Savour, ou télécharge une sauvegarde. Avec Savour Pro, tu les télécharges aussi en Word.",
  "Een back-up van al je recepten downloaden": "Télécharger une sauvegarde de toutes tes recettes",
  "Alle recepten downloaden naar Word": "Télécharger toutes les recettes en Word",

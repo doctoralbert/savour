@@ -1260,6 +1260,33 @@ button {
   gap: 12px;
   margin-top: 22px;
 }
+/* Minder gebruikte bronnen (Word, PDF, foto's los, andere apps): ingeklapt onder de vier hoofdkeuzes. */
+.import-more {
+  margin-top: 12px;
+}
+.import-more > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--gold);
+  font-size: var(--sv-fs-sm);
+  cursor: pointer;
+}
+.import-more > summary::-webkit-details-marker {
+  display: none;
+}
+.import-more > summary::before {
+  content: '+';
+  font-size: 18px;
+  line-height: 1;
+}
+.import-more[open] > summary::before {
+  content: '−';
+}
+.import-more > .import-options {
+  margin-top: 8px;
+}
 .import-option {
   border: 1px solid #293536;
   background: linear-gradient(145deg, #0d1516, #081011);

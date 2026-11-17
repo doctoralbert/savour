@@ -658,7 +658,8 @@ function welcomeChoice(choice) {
 // Startlijst boven de bibliotheek, tot alles gedaan is of je hem wegklikt.
 function renderStartChecklist() {
   document.getElementById('startChecklist')?.remove();
-  if (!currentUser || demoMode || onboardingFlag('checklist_hidden')) return;
+  // Zonder recepten is het welkomstblok in de lijst de enige stap; de startlijst komt na het eerste recept.
+  if (!currentUser || demoMode || onboardingFlag('checklist_hidden') || !recipes.length) return;
   const steps = [
     ['Recepten toevoegen', recipes.length > 0, "go('import');showImportPanel()"],
     ['Een receptenmap maken', folders.length > 0, 'newFolder()'],

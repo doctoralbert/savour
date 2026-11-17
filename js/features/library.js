@@ -96,6 +96,7 @@ function renderRecipeList(list, hostId, countId, context) {
 function renderRecipes() {
   drawAlphabet('recipeAlphabet', 'library');
   if (!currentUser) return;
+  $('recipes')?.classList.toggle('library-empty', !demoMode && !recipes.length);
   renderStartChecklist();
   renderRecipeProHint();
   renderCategoryBar();

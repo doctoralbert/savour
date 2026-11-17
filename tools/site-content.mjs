@@ -535,7 +535,7 @@ export const STORY = {
 export const HOME = {
   nl: {
     h1: 'Je hele receptenboek, op elke telefoon in de keuken.',
-    lead: 'Savour is het receptenplatform voor de professionele, culinaire keuken: een receptenapp voor receptbeheer en het organiseren van al je recepturen. Je Word-bestanden, PDF’s en handgeschreven kladjes worden één geordend receptenboek, voor jou en je hele keukenteam. Veilig in de cloud, op elk apparaat en ook offline.',
+    lead: 'Savour is de receptenapp voor de professionele keuken. Je Word-bestanden, PDF’s en handgeschreven kladjes worden één geordend receptenboek, voor jou en je hele keukenteam. Veilig in de cloud, op elk apparaat en ook offline.',
     proof: '1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.',
     story: [
       'Op de achterkant van een bon. In een schrift dat na tien jaar service aan elkaar plakt. Op een foto die je ooit bij de pas maakte. Die kladjes zijn de kennis van je keuken, en ze raken kwijt, vervagen of zijn alleen leesbaar voor degene die ze schreef.',

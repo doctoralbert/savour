@@ -207,6 +207,54 @@ Was de Roseval en dep deze droog.`,
       { t: 'Roseval gepoft', i: [], s: 1, c: 'high' }
     ]
   },
+  // Testronde 2026-11-17: ChatGPT zet ingrediënten met komma's op één regel; de komma's bleven staan.
+  {
+    name: 'ChatGPT: ingrediënten met komma\'s op één regel worden losse regels, zonder komma',
+    text: `# Bloemkoolcrème met hazelnoot
+
+**Ingredients:** 1 bloemkool, 1 ui, 50 g boter, 500 ml groentebouillon, 200 ml room, 40 g geroosterde hazelnoten, zout, nootmuskaat
+
+**Method**
+1. Snijd de bloemkool en ui grof en stoof ze 5 minuten in de boter.
+2. Voeg de bouillon toe en kook 20 minuten gaar.`,
+    expect: [
+      {
+        t: 'Bloemkoolcrème met hazelnoot',
+        i: ['1 bloemkool', '1 ui', '50 g boter', '500 ml groentebouillon', '200 ml room', '40 g geroosterde hazelnoten', 'zout', 'nootmuskaat'],
+        s: 2
+      }
+    ]
+  },
+  {
+    name: 'Komma\'s zonder hoeveelheden blijven één regel (zo stond het op het kladje)',
+    text: `Pommes duchesse
+1 kg kruimige aardappel
+60 g boter
+3 eidooiers
+nootmuskaat, zout, peper
+1 tonkaboon, geraspt
+
+Aardappels koken en goed laten uitdampen.`,
+    expect: [
+      {
+        t: 'Pommes duchesse',
+        i: ['1 kg kruimige aardappel', '60 g boter', '3 eidooiers', 'nootmuskaat, zout, peper', '1 tonkaboon, geraspt'],
+        s: 1
+      }
+    ]
+  },
+  {
+    name: 'Duitse opbrengst "4 Portionen" is de opbrengst, geen ingrediënt',
+    text: `Kaiserschmarrn
+4 Portionen
+
+4 Eier
+250 ml Milch
+120 g Mehl
+
+Eier trennen und alles glatt rühren.`,
+    expect: [{ t: 'Kaiserschmarrn', y: '4 Portionen', i: ['4 Eier', '250 ml Milch', '120 g Mehl'], s: 1 }]
+  },
   // "#b " = vette regel of Word-kop 2/3 (zie htmlToRecipeText in import.js).
   {
     // Testronde 2026-11-17: Word met Kop 1 als titel en Kop 2 "Ingrediënten"/"Bereiding" raakte de titels kwijt.

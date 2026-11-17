@@ -1255,6 +1255,7 @@ window.SAVOUR_I18N.en = {
       'Print all your recipes in the Savour print layout, or download them. Your recipes also simply stay in Savour.',
     'Alle recepten printen': 'Print all recipes',
     Downloaden: 'Download',
+    'Meer bronnen': 'More sources',
     'Print al je recepten in één keer in de printopmaak van Savour, of download een back-up. Met Savour Pro download je ze ook naar Word.':
       'Print all your recipes at once in the Savour print layout, or download a backup. With Savour Pro you also download them to Word.',
     'Een back-up van al je recepten downloaden': 'Download a backup of all your recipes',
