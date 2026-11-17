@@ -1520,3 +1520,32 @@ body.cook-mode .mep-page-tag {
     font-size: 19px;
   }
 }
+
+/* Lijst: per kaart één kolom, van boven naar beneden in de volgorde van het menu; kaarten naast elkaar. */
+.mep-page-body {
+  display: grid;
+  grid-template-columns: repeat(var(--cards, 1), minmax(0, 1fr));
+  gap: var(--sv-space-6);
+  align-items: start;
+}
+.mep-page-body.is-single {
+  max-width: 760px;
+}
+.mep-page-card + .mep-page-card {
+  margin-top: 0;
+}
+.mep-page-cols,
+body.cook-mode .mep-page-cols {
+  columns: auto;
+}
+body.cook-mode .mep-page-body.is-single {
+  max-width: 900px;
+}
+@media (max-width: 760px) {
+  .mep-page-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mep-page-card + .mep-page-card {
+    margin-top: var(--sv-space-4);
+  }
+}

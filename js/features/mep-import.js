@@ -43,7 +43,7 @@ function renderMepImport() {
     return;
   }
   if (mepImport.step === 'kies') {
-    host.innerHTML = `${back}<div class="mep-import"><p class="mep-intro">${esc(t('Heb je je MEP-lijst al in Excel, Word of op papier? Savour leest hem in en deelt hem in: kaarten, kopjes en onderdelen. Daarna kijk je alles na voordat het wordt opgeslagen.'))}</p><div class="mep-import-choices"><label class="mep-import-file btn gold">${icon('download')}${esc(t('Bestand kiezen'))}<input type="file" accept="${MEP_IMPORT_ACCEPT}" onchange="readMepImportFile(this.files[0]);this.value=''"></label><span class="muted">${esc(t('Excel (.xlsx, .csv), Word (.docx), tekst of een foto. Een foto leest de AI: alleen met Savour Pro.'))}</span></div><label class="mep-import-paste"><span>${esc(t('Of plak je lijst hier'))}</span><textarea id="mepImportText" rows="10" placeholder="${esc(t('Bijvoorbeeld:\nMEP Garde\n\nTussen 1 · Pulpo\npulpo bbq 40 gram\npulpo lak'))}"></textarea></label><div class="mep-actions"><button type="button" class="btn" onclick="readMepImportText()">${esc(t('Lezen'))}</button></div></div>`;
+    host.innerHTML = `${back}<div class="mep-import"><p class="mep-intro">${esc(t('Heb je je MEP-lijst al in Excel, Word of op papier? Savour leest hem in en deelt hem in: kaarten, kopjes en onderdelen. Daarna kijk je alles na voordat het wordt opgeslagen.'))}</p><div class="mep-import-choices"><label class="mep-import-file btn gold">${icon('download')}${esc(t('Bestand kiezen'))}<input type="file" accept="${MEP_IMPORT_ACCEPT}" onchange="readMepImportFile(this.files[0]);this.value=''"></label><span class="muted">${esc(t('Excel (.xlsx, .csv), Word (.docx), tekst of een foto. Een foto leest de AI: alleen met Savour Pro.'))}</span></div><label class="mep-import-paste"><span>${esc(t('Of plak je lijst hier'))}</span><textarea id="mepImportText" rows="10" placeholder="${esc([t('Bijvoorbeeld:'), 'MEP Garde', '', `${t('Voor')} · Gravlax`, 'gravlax 60 g', 'mayonaise 15 g'].join('\n'))}"></textarea></label><div class="mep-actions"><button type="button" class="btn" onclick="readMepImportText()">${esc(t('Lezen'))}</button></div></div>`;
     return;
   }
   renderMepImportReview();
@@ -103,7 +103,7 @@ function mepUseImportResult(result, fileName) {
   const base = String(fileName || '')
     .replace(/\.[a-z0-9]+$/i, '')
     .trim();
-  mepImport.name = (result.name || base || t('Nieuwe MEP-lijst')).slice(0, 120);
+  mepImport.name = (result.name || base || mepTr('Nieuwe MEP-lijst')).slice(0, 120);
   mepImport.rows = rows;
   mepImport.step = 'controle';
   if (mepImport.uploadId) setImportUploadStatus(mepImport.uploadId, { status: 'gelezen' });
@@ -226,7 +226,7 @@ function renderMepImportReview() {
   const where = teams.length
     ? `<label class="mep-import-field"><span>${esc(t('Voor wie'))}</span><select onchange="mepImport.teamId=this.value||null"><option value="">${esc(t('Alleen voor mij'))}</option>${teams.map(m => `<option value="${esc(m.id)}"${mepImport.teamId === m.id ? ' selected' : ''}>${esc(m.name)}</option>`).join('')}</select></label>`
     : '';
-  const summary = `<p class="mep-import-sum"><b>${n.cards === 1 ? t('1 kaart') : `${n.cards} ${t('kaarten')}`}</b> · ${n.sections === 1 ? t('1 kopje') : `${n.sections} ${t('kopjes')}`} · ${n.items === 1 ? t('1 onderdeel') : `${n.items} ${t('onderdelen')}`}${n.doubts ? ` · <span class="mep-doubt-count">${n.doubts} ${esc(t('om na te kijken'))}</span>` : ''}</p>`;
+  const summary = `<p class="mep-import-sum"><b>${n.cards === 1 ? t('1 kaart') : `${n.cards} ${t('kaarten')}`}</b> · <span>${n.sections === 1 ? t('1 kopje') : `${n.sections} ${t('kopjes')}`}</span> · <span>${n.items === 1 ? t('1 onderdeel') : `${n.items} ${t('onderdelen')}`}</span>${n.doubts ? ` · <span class="mep-doubt-count">${n.doubts} ${esc(t('om na te kijken'))}</span>` : ''}</p>`;
   const rows = mepImport.rows.map((r, i) => mepImportRow(r, i)).join('');
   host.innerHTML = `<div class="mep-head"><button type="button" class="btn small mep-back" onclick="closeMepImport()">${icon('back')}${esc(t('Alle MEP-lijsten'))}</button></div><div class="mep-import-review"><p class="mep-intro">${esc(t('Kijk na wat Savour las. Per regel kies je of het een kaart, kopje of onderdeel is. De oorspronkelijke tekst staat er klein onder; gele regels zijn om na te kijken. Er wordt pas iets opgeslagen als je op Opslaan drukt.'))}</p><div class="mep-import-top"><label class="mep-import-field"><span>${esc(t('Naam van de lijst'))}</span><input value="${esc(mepImport.name)}" maxlength="120" oninput="mepImport.name=this.value"></label>${where}</div>${summary}<div class="mep-import-rows">${rows}</div><div class="mep-actions mep-import-save"><button type="button" class="btn gold" onclick="saveMepImport()">${esc(t('Opslaan als MEP-lijst'))}</button><button type="button" class="btn" onclick="closeMepImport()">${esc(t('Annuleren'))}</button></div></div>`;
 }
@@ -241,11 +241,11 @@ function mepImportRow(r, i) {
       : r.text;
   const differs = r.original && mepCleanText(r.original) !== mepCleanText(shown);
   const orig = differs
-    ? `<small class="mep-imp-orig">${esc(t('Stond er'))}: <span translate="no">${esc(r.original)}</span></small>`
+    ? `<small class="mep-imp-orig"><span>${esc(t('Stond er'))}</span>: <span translate="no">${esc(r.original)}</span></small>`
     : '';
   const doubt =
     r.type === 'item' && r.doubts?.length
-      ? `<small class="mep-imp-doubt">${esc(r.doubts.map(d => t(d)).join(' · '))}</small>`
+      ? `<small class="mep-imp-doubt">${r.doubts.map(d => `<span>${esc(t(d))}</span>`).join(' · ')}</small>`
       : '';
   const added = r.added
     ? `<small class="mep-imp-orig">${esc(t('Toegevoegd door Savour: de regels hiervoor hadden nog geen kaart.'))}</small>`
@@ -319,7 +319,7 @@ async function saveMepImport() {
     section = null;
   };
   const newSection = text => {
-    if (!card) newCard(t('À la carte'));
+    if (!card) newCard(mepTr('À la carte'));
     section = {
       id: mepNewId(),
       list_id: list.id,
@@ -333,7 +333,7 @@ async function saveMepImport() {
     if (r.type === 'card') newCard(r.text);
     else if (r.type === 'section') newSection(r.text);
     else {
-      if (!section) newSection(t('Overig'));
+      if (!section) newSection(mepTr('Overig'));
       items.push({
         id: mepNewId(),
         list_id: list.id,

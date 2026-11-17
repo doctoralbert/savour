@@ -171,6 +171,8 @@ function loadDemoCentralList() {
 function refreshDemoLanguage() {
   if (!demoMode) return;
   loadDemoData();
+  // De demo-MEP-lijsten opnieuw, in de nieuwe taal (js/features/mep.js, mepSeedDemo).
+  mepResetState();
   refreshSidebar();
   const active = document.querySelector('#appShell .view.active')?.id || 'recipes';
   if (active === 'detail' && currentId) openRecipe(currentId);

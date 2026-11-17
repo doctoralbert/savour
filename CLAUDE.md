@@ -45,6 +45,10 @@ Opslag: originele kladjes staan in de privé-bucket `recipe-sources` (`recipe_so
 geïmporteerde bestanden blijven 60 dagen. Nachtelijk onderhoud: `api/_lib/onderhoud.js` (Vercel Cron, `CRON_SECRET`), met de opruimlijst
 `storage_cleanup_queue` voor bestanden van verwijderde recepten en accounts (`supabase/2026-11-11-opslag-ontlasten.sql`).
 Lezer leren (`js/features/reader-learning.js`, `supabase/2026-11-10-lezer-leren.sql`): anonieme tellingen van elke import (geen inhoud) en voorbeelden met inhoud van accounts met "Help de Savour-lezer verbeteren" (standaard aan, Instellingen; alleen tekstbronnen). Beheer → Savour-lezer: bekijken en downloaden; daarvan maak je lezer-tests. De lezer verandert nooit vanzelf.
+MEP-lijsten (Tools → MEP-lijsten, `js/features/mep.js`, `supabase/2026-11-17-mep-lijsten.sql` + `-herstel.sql`): per post kaarten → kopjes → onderdelen;
+Lijst (huisstijl, hokjes, kookmodus), Vandaag (couverts, nodig/bezig/klaar/voorraad, live via Realtime, offline wachtrij), Bewerken, printen op één A4.
+Beheren met Pro (gratis: één lijst), afvinken voor iedereen. Importeren uit Excel/Word/tekst/foto via de MEP-lezer (`js/features/mep-reader.js`,
+test: `npm run test:mep`) en `js/features/mep-import.js`; de kok keurt alles goed in het controlescherm. Teksten die Savour opslaat via `mepTr`.
 Community: forum voor alle ingelogde accounts (Mijn Savour → Community, `js/features/community.js`,
 `supabase/2026-11-10-community-forum.sql`); naam uit het profiel, nooit e-mail; beheerder verbergt, zet vast, sluit.
 Vercel bouwt alleen `main` en de testtak `savour-3` (`vercel.json` → `git.deploymentEnabled`): opslag en builds sparen.

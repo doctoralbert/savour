@@ -131,6 +131,40 @@ const HELP_TOPICS = {
       ]
     ]
   },
+  mep: {
+    eyebrow: 'MEP-lijsten',
+    title: 'Zo werken MEP-lijsten',
+    sections: [
+      [
+        'Per post een lijst',
+        'Een MEP-lijst is de lijst van je post: kaarten (à la carte, banqueting), kopjes per gang of gerecht en daaronder wat er klaar moet staan. Je leest hem van boven naar beneden, in de volgorde van het menu.'
+      ],
+      [
+        'Lijst en kookmodus',
+        'Lijst toont alles in de stijl van Savour, met een hokje bij elk onderdeel. Afvinken zet het voor vandaag op klaar, voor je hele team. De kookmodus laat alleen de lijst zien, groot, en houdt je scherm aan.'
+      ],
+      [
+        'Vandaag: couverts en voorraad',
+        'Vul per kaart de couverts in; Savour rekent per onderdeel uit hoeveel je nodig hebt (40 couverts × 60 g = 2,4 kg). Tik een regel aan voor nodig, bezig of klaar, of zet hem op voorraad. Een dag begint leeg; voorraad van de vorige dag neem je met één knop over.'
+      ],
+      [
+        'Samen in een keukenteam',
+        'Een MEP-lijst in een keukenteam ziet iedereen van het team. Wat een collega afvinkt, zie je meteen, met naam en tijd. Afvinken mag iedereen, ook zonder Savour Pro. Zonder internet blijft wat je aantikt staan en gaat het mee zodra je weer verbinding hebt.'
+      ],
+      [
+        'Importeren',
+        'Heb je je lijst al in Excel, Word of op papier? Kies Importeren. Savour deelt hem in en jij kijkt alles na voordat het wordt opgeslagen. Een foto leest de AI, met Savour Pro.'
+      ],
+      [
+        'Printen',
+        'Print een lege lijst op één A4, zoals je Excel-lijst, of met de couverts en hoeveelheden van vandaag. Met Savour Pro staat het logo van je restaurant erop.'
+      ],
+      [
+        'Savour Pro',
+        'Met een gratis account maak je één MEP-lijst. Met Savour Pro maak en beheer je zoveel lijsten als je wilt. Afvinken en printen blijft gratis.'
+      ]
+    ]
+  },
   shared: {
     eyebrow: 'Keukenteam',
     title: 'Zo werkt een keukenteam',

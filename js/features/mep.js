@@ -54,10 +54,19 @@ function mepError(error) {
   return t('Er ging iets mis. Probeer het opnieuw.');
 }
 
+// Tekst die Savour zelf als naam opslaat ("À la carte", "kopie", de demolijsten) meteen in de taal van de
+// gebruiker; de vertaler (js/core/i18n.js) vertaalt alleen wat op het scherm staat.
+const mepTr = s => (typeof translateText === 'function' && translateText(s)) || s;
+
 const mepByPos = (a, b) => (a.position ?? 0) - (b.position ?? 0) || String(a.created_at).localeCompare(b.created_at);
 
 async function loadMep(force = false) {
-  if (demoMode || !currentUser) {
+  // Demo: de voorbeeldlijsten uit de demorecepten (mepSeedDemo).
+  if (demoMode) {
+    if (!mepLoaded) mepSeedDemo();
+    return true;
+  }
+  if (!currentUser) {
     mepLoaded = true;
     return true;
   }
@@ -304,7 +313,7 @@ function renderMepOverview() {
     ? groups
         .map(
           g =>
-            `<section class="mep-group"><h3>${g.team ? icon('users') : ''}<span translate="no">${esc(g.title)}</span></h3><ul class="mep-lists">${g.lists.map(mepListRow).join('')}</ul></section>`
+            `<section class="mep-group"><h3>${g.team ? icon('users') : ''}<span${g.team ? ' translate="no"' : ''}>${esc(g.title)}</span></h3><ul class="mep-lists">${g.lists.map(mepListRow).join('')}</ul></section>`
         )
         .join('')
     : `<div class="mep-empty"><p><b>${esc(t('Nog geen MEP-lijsten'))}</b></p><p>${esc(t('Begin met de lijst van je eigen post: kopjes per gerecht, en daaronder wat er klaar moet staan.'))}</p></div>`;
@@ -494,7 +503,7 @@ async function newMepList() {
     created_by: currentUser?.id || null
   };
   if (!(await mepInsert('mep_lists', list))) return;
-  const card = { id: mepNewId(), list_id: list.id, name: t('À la carte'), position: 0 };
+  const card = { id: mepNewId(), list_id: list.id, name: mepTr('À la carte'), position: 0 };
   await mepInsert('mep_cards', card);
   mepCardId = card.id;
   openMepList(list.id);
@@ -521,7 +530,7 @@ async function deleteMepList(id) {
   const n = mepItems.filter(i => i.list_id === id).length;
   if (
     !(await askConfirm(
-      `${t('MEP-lijst definitief verwijderen?')}\n\n${l.name}: ${mepListMeta(l)}. ${t('Ook de afgevinkte dagen gaan weg. Dit kan niet ongedaan worden gemaakt.')}`,
+      `${l.name} ${t('verwijderen?')}\n\n${t('Ook de afgevinkte dagen gaan weg. Dit kan niet ongedaan worden gemaakt.')}`,
       { danger: true }
     ))
   )
@@ -536,7 +545,7 @@ async function copyMepList(id) {
   const l = mepListById(id);
   if (!l.team_id && !demoMode && !isPro()) return mepAskForPro();
   const name = (
-    (await askText(t('Naam van de kopie'), `${l.name} (${t('kopie')})`, { confirmLabel: t('Kopie maken') })) || ''
+    (await askText(t('Naam van de kopie'), `${l.name} (${mepTr('kopie')})`, { confirmLabel: t('Kopie maken') })) || ''
   ).trim();
   if (!name) return;
   const copy = {
@@ -619,7 +628,7 @@ async function deleteMepCard(id) {
     : t('leeg');
   if (
     !(await askConfirm(
-      `${t('Kaart verwijderen?')}\n\n${c.name} (${what}). ${t('Dit kan niet ongedaan worden gemaakt.')}`,
+      `${c.name} ${t('verwijderen?')}\n\n${secs.length ? t('Alle kopjes en onderdelen op deze kaart gaan mee. Dit kan niet ongedaan worden gemaakt.') : t('Deze kaart is nog leeg.')}`,
       {
         danger: true
       }
@@ -668,7 +677,7 @@ async function deleteMepSection(id) {
   if (
     n &&
     !(await askConfirm(
-      `${t('Kopje verwijderen?')}\n\n${s.name} (${n === 1 ? t('1 onderdeel') : t(`${n} onderdelen`)}). ${t('Dit kan niet ongedaan worden gemaakt.')}`,
+      `${s.name} ${t('verwijderen?')}\n\n${t('Alle onderdelen onder dit kopje gaan mee. Dit kan niet ongedaan worden gemaakt.')}`,
       { danger: true }
     ))
   )
@@ -702,7 +711,7 @@ async function copyMepSection(id) {
     id: mepNewId(),
     list_id: s.list_id,
     card_id: to,
-    name: (to === s.card_id ? `${s.name} (${t('kopie')})` : s.name).slice(0, 160),
+    name: (to === s.card_id ? `${s.name} (${mepTr('kopie')})` : s.name).slice(0, 160),
     position: mepSectionsOf(to).length
   };
   if (!(await mepInsert('mep_sections', row))) return;
@@ -779,7 +788,7 @@ async function setMepItem(id, field, input) {
 
 async function deleteMepItem(id) {
   const it = mepItems.find(x => x.id === id);
-  if (!(await askConfirm(`${t('Onderdeel verwijderen?')}\n\n${it.name}`, { danger: true }))) return;
+  if (!(await askConfirm(`${it.name} ${t('verwijderen?')}`, { danger: true }))) return;
   if (await mepDelete('mep_items', id)) renderMepList();
 }
 
@@ -928,7 +937,7 @@ function renderMepSheet(l, opts = {}) {
   const empty = !cards.length
     ? `<p class="mep-sheet-empty">${esc(t('Nog leeg. Kies Bewerken om kopjes en onderdelen toe te voegen.'))}</p>`
     : '';
-  const date = day ? esc(mepDayLabel(day.day)) : `${esc(t('Datum'))}: ____________`;
+  const date = day ? esc(mepDayLabel(day.day)) : `<span>${esc(t('Datum'))}</span>: ____________`;
   const logo = brand?.logo
     ? `<img class="mep-sheet-logo${brand.bw ? ' is-bw' : ''}" src="${esc(brand.logo)}" alt="">`
     : '';
@@ -1087,10 +1096,12 @@ function mepLockedNote(l) {
 // Wie iets aantikte: je eigen voornaam, die van een teamlid, of "Collega".
 function mepWho(userId) {
   if (!userId) return '';
-  if (String(userId) === String(currentUser?.id)) return (account?.name || '').trim().split(/\s+/)[0] || t('Jij');
+  // Een korte naam helemaal ("Chef Anna"), een lange alleen de voornaam.
+  const short = name => (name.trim().length <= 12 ? name.trim() : name.trim().split(/\s+/)[0]);
+  if (String(userId) === String(currentUser?.id)) return short(account?.name || '') || t('Jij');
   for (const m of sharedMaps || []) {
     const x = (m.members || []).find(p => String(p.userId) === String(userId));
-    if (x && x.name && x.name !== 'Jij') return x.name.trim().split(/\s+/)[0];
+    if (x && x.name && x.name !== 'Jij') return short(x.name);
   }
   return t('Collega');
 }
@@ -1237,7 +1248,7 @@ function mepRefreshToday(flashId) {
   const pct = all.length ? Math.round((done / all.length) * 100) : 0;
   if ($('mepProgress'))
     $('mepProgress').innerHTML = all.length
-      ? `<div class="mep-progress"><div class="mep-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${all.length}" aria-valuenow="${done}" aria-label="${esc(t('Klaar'))}"><span style="width:${pct}%"></span></div><p><b>${done} ${esc(t('van'))} ${all.length} ${esc(t('klaar'))}</b>${count.voorraad ? ` · ${count.voorraad} ${esc(t('op voorraad'))}` : ''}${count.bezig ? ` · ${count.bezig} ${esc(t('bezig'))}` : ''}${count.nodig ? ` · ${count.nodig} ${esc(t('nog te doen'))}` : ''}</p></div>`
+      ? `<div class="mep-progress"><div class="mep-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${all.length}" aria-valuenow="${done}" aria-label="${esc(t('Klaar'))}"><span style="width:${pct}%"></span></div><p><b>${done} ${esc(t('van'))} ${all.length} ${esc(t('klaar'))}</b>${count.voorraad ? ` · <span>${count.voorraad} ${esc(t('op voorraad'))}</span>` : ''}${count.bezig ? ` · <span>${count.bezig} ${esc(t('bezig'))}</span>` : ''}${count.nodig ? ` · <span>${count.nodig} ${esc(t('nog te doen'))}</span>` : ''}</p></div>`
       : '';
   $('mepFilterAll')?.classList.toggle('is-on', !mepTodoOnly);
   $('mepFilterTodo')?.classList.toggle('is-on', mepTodoOnly);
@@ -1643,19 +1654,23 @@ function renderMepPageBody(flashId) {
   const all = cards.flatMap(c => mepSectionsOf(c.id).flatMap(s => mepItemsOf(s.id)));
   const done = all.filter(it => ['klaar', 'voorraad'].includes(mepStatusOf(it.id))).length;
   const covers = cards
-    .map(c => (Number(mepDay.covers[c.id]) > 0 ? `${mepDay.covers[c.id]} ${t('couverts')} ${c.name}` : ''))
-    .filter(Boolean);
+    .filter(c => Number(mepDay.covers[c.id]) > 0)
+    .map(c => `<span>${mepDay.covers[c.id]} ${esc(t('couverts'))}</span> <span translate="no">${esc(c.name)}</span>`);
   const meta = $('mepPageMeta');
   if (meta)
     meta.innerHTML = [
       `<b>${esc(mepDayTitle(mepDay.day))}</b> ${esc(mepDayLabel(mepDay.day))}`,
-      covers.length ? `<span translate="no">${esc(covers.join(' · '))}</span>` : esc(t('nog geen couverts ingevuld')),
-      all.length ? `${done} ${esc(t('van'))} ${all.length} ${esc(t('klaar'))}` : ''
+      covers.length ? covers.join(' · ') : `<span>${esc(t('nog geen couverts ingevuld'))}</span>`,
+      all.length ? `<span>${done} ${esc(t('van'))} ${all.length} ${esc(t('klaar'))}</span>` : ''
     ]
       .filter(Boolean)
       .join(' · ');
   if (!body) return mepShowLive();
   const showCard = cards.length > 1;
+  // Elke kaart is één kolom die je van boven naar beneden leest, in de volgorde van het menu (Tussen 1, Tussen 2,
+  // Hoofd); de kaarten staan naast elkaar, zoals in de Excel-lijsten van de keuken.
+  body.style.setProperty('--cards', Math.min(cards.length, 3) || 1);
+  body.classList.toggle('is-single', cards.length <= 1);
   body.innerHTML = cards
     .map(c => {
       const n = Number(mepDay.covers[c.id]) || 0;
@@ -1683,7 +1698,7 @@ function mepPageItem(it, covers, can, flash) {
     st === 'voorraad'
       ? `<em class="mep-page-tag">${esc(t('op voorraad'))}</em>`
       : st === 'bezig'
-        ? `<em class="mep-page-tag is-busy">${esc(t('bezig'))}${row?.updated_by ? ` · ${esc(mepWho(row.updated_by))}` : ''}</em>`
+        ? `<em class="mep-page-tag is-busy"><span>${esc(t('bezig'))}</span>${row?.updated_by ? ` · ${esc(mepWho(row.updated_by))}` : ''}</em>`
         : st === 'klaar' && row?.updated_by
           ? `<em class="mep-page-tag is-done">${esc(mepWho(row.updated_by))} · ${esc(mepTime(row.updated_at))}</em>`
           : '';
@@ -1695,4 +1710,146 @@ function mepPageItem(it, covers, can, flash) {
 function toggleMepCookMode(on) {
   if (on && mepMode !== 'overzicht') setMepMode('overzicht');
   toggleCookMode(on);
+}
+
+// ---- Demo ----
+// Twee MEP-lijsten uit de demorecepten (js/data/demo-recipes.js), in de taal van de bezoeker: een eigen lijst voor de
+// garde en een lijst van het demo-keukenteam voor de patisserie. Voor vandaag staan er couverts en heeft chef Anna
+// al iets afgevinkt, zodat je ziet hoe het werkt met een team. Niets wordt opgeslagen.
+function mepSeedDemo() {
+  const title = key => findRecipe('demo-' + key)?.title || key;
+  const now = Date.now();
+  const lists = [
+    {
+      id: 'demo-mep-garde',
+      name: `MEP ${mepTr('Garde')}`,
+      team: null,
+      cards: [
+        [
+          mepTr('À la carte'),
+          [
+            [
+              `${mepTr('Voor')} · ${title('gravlax')}`,
+              [
+                ['gravlax', 60, 'g'],
+                ['mayonaise', 15, 'g'],
+                ['rodeui', 10, 'g'],
+                ['kruidenolie', 5, 'ml']
+              ]
+            ],
+            [
+              `${mepTr('Tussen')} · ${title('gazpacho')}`,
+              [
+                ['gazpacho', 120, 'ml'],
+                ['dashi', 15, 'ml'],
+                ['kruidenolie', 5, 'ml']
+              ]
+            ]
+          ]
+        ],
+        [
+          mepTr('Banqueting'),
+          [
+            [
+              `${mepTr('Voor')} · ${title('bloemkool')}`,
+              [
+                ['bloemkool', 80, 'g'],
+                ['noisette', 10, 'ml'],
+                ['rodeui', 10, 'g']
+              ]
+            ]
+          ]
+        ]
+      ],
+      covers: [40, 0],
+      day: {
+        gravlax: ['klaar', 'demo-anna', 95],
+        kruidenolie: ['voorraad', 'demo-anna', 180],
+        gazpacho: ['bezig', 'demo-anna', 20]
+      }
+    },
+    {
+      id: 'demo-mep-pat',
+      name: `MEP ${mepTr('Patisserie')}`,
+      team: 'demo-shared',
+      cards: [
+        [
+          mepTr('À la carte'),
+          [
+            [
+              `${mepTr('Dessert')} · ${title('mousse')}`,
+              [
+                ['mousse', 80, 'g'],
+                ['karnemelkijs', 50, 'g'],
+                ['citroengel', 10, 'g']
+              ]
+            ],
+            [
+              mepTr('Friandises'),
+              [
+                ['financiers', 2, mepTr('st')],
+                ['marshmallow', 2, mepTr('st')]
+              ]
+            ]
+          ]
+        ]
+      ],
+      covers: [40],
+      day: { mousse: ['klaar', 'demo-anna', 60] }
+    }
+  ];
+  mepLists = [];
+  mepCards = [];
+  mepSections = [];
+  mepItems = [];
+  mepDemoDays = {};
+  lists.forEach((L, li) => {
+    mepLists.push({
+      id: L.id,
+      owner_id: 'demo-user',
+      team_id: L.team,
+      name: L.name,
+      archived: false,
+      position: li,
+      created_at: new Date(now - (10 - li) * 86400000).toISOString()
+    });
+    const day = { covers: {}, items: {} };
+    L.cards.forEach(([cardName, secs], ci) => {
+      const cardId = `${L.id}-k${ci}`;
+      mepCards.push({ id: cardId, list_id: L.id, name: cardName, position: ci });
+      if (L.covers[ci]) day.covers[cardId] = L.covers[ci];
+      secs.forEach(([secName, items], si) => {
+        const secId = `${cardId}-s${si}`;
+        mepSections.push({ id: secId, list_id: L.id, card_id: cardId, name: secName, position: si });
+        items.forEach(([key, qty, unit], ii) => {
+          const itemId = `${secId}-o${ii}`;
+          mepItems.push({
+            id: itemId,
+            list_id: L.id,
+            section_id: secId,
+            name: title(key),
+            portion_qty: qty,
+            portion_unit: unit,
+            note: null,
+            recipe_id: 'demo-' + key,
+            position: ii
+          });
+          const st = L.day[key];
+          // Alleen het eerste onderdeel met dit recept (kruidenolie staat twee keer op de lijst).
+          if (st && !Object.values(day.items).some(r => r.key === key))
+            day.items[itemId] = {
+              key,
+              list_id: L.id,
+              item_id: itemId,
+              day: mepToday(),
+              status: st[0],
+              updated_by: st[1],
+              updated_at: new Date(now - st[2] * 60000).toISOString()
+            };
+        });
+      });
+    });
+    mepDemoDays[L.id + '|' + mepToday()] = day;
+  });
+  mepLoaded = true;
 }

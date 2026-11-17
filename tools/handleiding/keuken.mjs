@@ -340,5 +340,43 @@ export const pages = [
         ]
       ]
     }
+  },
+  {
+    id: 'mep-lijsten',
+    related: ['kookmodus', 'offline', 'printen'],
+    nl: {
+      slug: "handleiding-mep-lijsten",
+      menu: "MEP-lijsten",
+      h1: "MEP-lijsten",
+      title: "MEP-lijsten: couverts, afvinken en printen | Handleiding Savour",
+      desc: "Zo werkt de MEP-lijst in Savour: per post een lijst met kaarten en gerechten, couverts per dag, afvinken met je team, kookmodus, importeren uit Excel en printen op één A4.",
+      lead: "Wat er per post klaar moet staan, per dag afgevinkt, met je hele team.",
+      sections: [
+        ["Per post een lijst", "Een MEP-lijst is de lijst van je post: kaarten (à la carte, banqueting), kopjes per gang of gerecht en daaronder wat er klaar moet staan. Je leest hem van boven naar beneden, in de volgorde van het menu."],
+        ["Lijst en kookmodus", "Lijst toont alles in de stijl van Savour, met een hokje bij elk onderdeel. Afvinken zet het voor vandaag op klaar, voor je hele team. De kookmodus laat alleen de lijst zien, groot, en houdt je scherm aan."],
+        ["Vandaag: couverts en voorraad", "Vul per kaart de couverts in; Savour rekent per onderdeel uit hoeveel je nodig hebt (40 couverts × 60 g = 2,4 kg). Tik een regel aan voor nodig, bezig of klaar, of zet hem op voorraad. Een dag begint leeg; voorraad van de vorige dag neem je met één knop over."],
+        ["Samen in een keukenteam", "Een MEP-lijst in een keukenteam ziet iedereen van het team. Wat een collega afvinkt, zie je meteen, met naam en tijd. Afvinken mag iedereen, ook zonder Savour Pro. Zonder internet blijft wat je aantikt staan en gaat het mee zodra je weer verbinding hebt."],
+        ["Importeren", "Heb je je lijst al in Excel, Word of op papier? Kies Importeren. Savour deelt hem in en jij kijkt alles na voordat het wordt opgeslagen. Een foto leest de AI, met Savour Pro."],
+        ["Printen", "Print een lege lijst op één A4, zoals je Excel-lijst, of met de couverts en hoeveelheden van vandaag. Met Savour Pro staat het logo van je restaurant erop."],
+        ["Savour Pro", "Met een gratis account maak je één MEP-lijst. Met Savour Pro maak en beheer je zoveel lijsten als je wilt. Afvinken en printen blijft gratis."]
+      ]
+    },
+    en: {
+      slug: "en/guide-prep-lists",
+      menu: "Prep lists",
+      h1: "Prep lists",
+      title: "Prep lists: covers, ticking off and printing | Savour user guide",
+      desc: "How the prep list works in Savour: one list per station with menus and dishes, covers per day, ticking off with your team, cooking mode, importing from Excel and printing on one A4.",
+      lead: "What each station needs ready, ticked off per day, with your whole team.",
+      sections: [
+        ["One list per station", "A prep list is the list for your station: menus (à la carte, banqueting), a heading per course or dish and below it what needs to be ready. You read it from top to bottom, in the order of the menu."],
+        ["List and cooking mode", "List shows everything in Savour’s style, with a box next to each item. Ticking it marks it done for today, for your whole team. Cooking mode shows only the list, large, and keeps your screen on."],
+        ["Today: covers and stock", "Fill in the covers per menu; Savour works out how much you need of each item (40 covers × 60 g = 2.4 kg). Tap a line for needed, in progress or done, or put it in stock. A day starts empty; you take over stock from the previous day with one button."],
+        ["Together in a kitchen team", "Everyone in the team sees a prep list in a kitchen team. What a colleague ticks off appears straight away, with name and time. Anyone can tick off, even without Savour Pro. Without internet what you tap stays and is sent as soon as you’re connected again."],
+        ["Importing", "Already have your list in Excel, Word or on paper? Choose Import. Savour sorts it and you check everything before it is saved. A photo is read by the AI, with Savour Pro."],
+        ["Print", "Print an empty list on one A4, like your Excel list, or with today’s covers and quantities. With Savour Pro your restaurant’s logo is on it."],
+        ["Savour Pro", "With a free account you create one prep list. With Savour Pro you create and manage as many lists as you like. Ticking off and printing stay free."]
+      ]
+    }
   }
 ];
