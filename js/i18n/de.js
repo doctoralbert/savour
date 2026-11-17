@@ -41,7 +41,7 @@ window.SAVOUR_I18N.de = {
     '1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.':
       '1.400 Rezepte in 2 Minuten aus Word importiert. Getestet in unserer eigenen Küche.',
     'Gratis beginnen': 'Kostenlos starten',
-    '20 echte recepten, geen account nodig': '20 echte Rezepte, kein Konto nötig',
+    '21 echte recepten, geen account nodig': '21 echte Rezepte, kein Konto nötig',
     'Recepten digitaliseren zonder overtypen': 'Rezepte digitalisieren ohne Abtippen',
     "We zijn zelf chefs. Onze recepten lagen jarenlang overal: in Word-bestanden van honderden pagina's, op papiertjes met koffievlekken aan de muur, op foto's in drie verschillende telefoons.":
       'Wir sind selbst Köche. Unsere Rezepte lagen jahrelang überall: in Word-Dateien mit Hunderten Seiten, auf Zetteln mit Kaffeeflecken an der Wand, auf Fotos in drei verschiedenen Handys.',
@@ -273,7 +273,7 @@ window.SAVOUR_I18N.de = {
     Demo: 'Demo',
     'Demo account': 'Demokonto',
     'Demo account · niets wordt opgeslagen': 'Demokonto · nichts wird gespeichert',
-    'Demo geladen · 20 echte recepten': 'Demo geladen · 20 echte Rezepte',
+    'Demo geladen · 21 echte recepten': 'Demo geladen · 21 echte Rezepte',
     'Demo-recept verwijderd': 'Demorezept gelöscht',
     Jij: 'Du',
     Teamlid: 'Teammitglied',
@@ -1738,7 +1738,7 @@ window.SAVOUR_I18N.de = {
       'Savour bringt alle deine Rezepturen zusammen, strukturiert handschriftliche Notizen mit KI und hilft dir, deine Küche so zu organisieren, wie du arbeitest.',
     'Direct bekijken': 'Direkt ansehen',
     'Bekijk de demo': 'Demo ansehen',
-    '20 echte recepten · A–Z · mappen · categorieën': '20 echte Rezepte · A–Z · Ordner · Kategorien',
+    '21 echte recepten · A–Z · mappen · categorieën': '21 echte Rezepte · A–Z · Ordner · Kategorien',
     'Recepten zoals ze in een professionele keuken horen.': 'Rezepte, wie sie in eine Profiküche gehören.',
     'Een goed recept moet niet ergens in een map liggen, op een losse pagina staan of verstopt zitten in een WhatsApp-bericht.':
       'Ein gutes Rezept sollte nicht in einem Ordner liegen, auf einem losen Blatt stehen oder in einer WhatsApp-Nachricht versteckt sein.',

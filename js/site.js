@@ -509,7 +509,8 @@
       window.openAuth(a.dataset.auth);
     } else if (a.dataset.demo !== undefined && typeof window.startDemo === 'function') {
       e.preventDefault();
-      window.startDemo();
+      // data-demo="demo-marshmallow": de demo openen op dat recept.
+      window.startDemo(a.dataset.demo || undefined);
     } else if (a.dataset.setLang) {
       // Elke taal heeft een eigen startpagina: keuze onthouden en daarheen gaan.
       e.preventDefault();

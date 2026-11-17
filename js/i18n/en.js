@@ -40,7 +40,7 @@ window.SAVOUR_I18N.en = {
     '1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.':
       '1,400 recipes imported from Word in 2 minutes. Tested in our own kitchen.',
     'Gratis beginnen': 'Start for free',
-    '20 echte recepten, geen account nodig': '20 real recipes, no account needed',
+    '21 echte recepten, geen account nodig': '21 real recipes, no account needed',
     'Recepten digitaliseren zonder overtypen': 'Digitise your recipes without retyping',
     "We zijn zelf chefs. Onze recepten lagen jarenlang overal: in Word-bestanden van honderden pagina's, op papiertjes met koffievlekken aan de muur, op foto's in drie verschillende telefoons.":
       'We are chefs ourselves. For years our recipes were everywhere: in Word files hundreds of pages long, on coffee-stained notes on the wall, in photos on three different phones.',
@@ -270,7 +270,7 @@ window.SAVOUR_I18N.en = {
     Demo: 'Demo',
     'Demo account': 'Demo account',
     'Demo account · niets wordt opgeslagen': 'Demo account · nothing is saved',
-    'Demo geladen · 20 echte recepten': 'Demo loaded · 20 real recipes',
+    'Demo geladen · 21 echte recepten': 'Demo loaded · 21 real recipes',
     'Demo-recept verwijderd': 'Demo recipe deleted',
     Jij: 'You',
     Teamlid: 'Team member',
@@ -1717,7 +1717,7 @@ window.SAVOUR_I18N.en = {
       'Savour brings all your recipes together, structures handwritten notes with AI and helps you organise your kitchen the way you work.',
     'Direct bekijken': 'See it now',
     'Bekijk de demo': 'View the demo',
-    '20 echte recepten · A–Z · mappen · categorieën': '20 real recipes · A–Z · folders · categories',
+    '21 echte recepten · A–Z · mappen · categorieën': '21 real recipes · A–Z · folders · categories',
     'Recepten zoals ze in een professionele keuken horen.': 'Recipes the way a professional kitchen needs them.',
     'Een goed recept moet niet ergens in een map liggen, op een losse pagina staan of verstopt zitten in een WhatsApp-bericht.':
       'A good recipe should not be lying in a binder, on a loose page or hidden in a WhatsApp message.',

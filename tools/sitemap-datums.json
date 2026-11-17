@@ -1,22 +1,22 @@
 {
  "https://savour.page/": {
-  "hash": "d26708c96de654be",
+  "hash": "0f19d675924e3ef1",
   "date": "2026-11-17"
  },
  "https://savour.page/en": {
-  "hash": "659fe3ada03dcb08",
+  "hash": "b7ab47b0321cf34f",
   "date": "2026-11-17"
  },
  "https://savour.page/de": {
-  "hash": "8437d09c7112b8ae",
+  "hash": "66ea25b0d5d81b64",
   "date": "2026-11-17"
  },
  "https://savour.page/es": {
-  "hash": "ec5a8a3ff996d851",
+  "hash": "bf88eb30c5d2aaf7",
   "date": "2026-11-17"
  },
  "https://savour.page/fr": {
-  "hash": "54470852388e8ca3",
+  "hash": "4ac57d9375a8e02c",
   "date": "2026-11-17"
  },
  "https://savour.page/recepten-digitaliseren": {
@@ -96,8 +96,8 @@
   "date": "2026-11-15"
  },
  "https://savour.page/blog/recepten-app-kiezen-restaurant": {
-  "hash": "5b2c16b9da54259a",
-  "date": "2026-11-15"
+  "hash": "16f74e014148ad8e",
+  "date": "2026-11-17"
  },
  "https://savour.page/blog/receptbeheer-in-de-horeca": {
   "hash": "31a2c611e618e5e6",
@@ -244,8 +244,8 @@
   "date": "2026-11-15"
  },
  "https://savour.page/en/blog/choosing-a-recipe-app": {
-  "hash": "d242696b40351a5c",
-  "date": "2026-11-15"
+  "hash": "9e0c6da71e85fc54",
+  "date": "2026-11-17"
  },
  "https://savour.page/en/blog/recipe-management-for-restaurants": {
   "hash": "ca25c375de8220a9",
@@ -540,8 +540,8 @@
   "date": "2026-11-15"
  },
  "https://savour.page/es/blog/elegir-app-de-recetas-restaurante": {
-  "hash": "c2c2246b023551fe",
-  "date": "2026-11-15"
+  "hash": "f7fad9c7edf222e0",
+  "date": "2026-11-17"
  },
  "https://savour.page/es/blog/gestion-de-recetas-restaurantes": {
   "hash": "3e4dd825c4a1f0ba",
@@ -688,8 +688,8 @@
   "date": "2026-11-15"
  },
  "https://savour.page/fr/blog/choisir-application-recettes-restaurant": {
-  "hash": "8f7bbd30f69afaf3",
-  "date": "2026-11-15"
+  "hash": "48052afb857cdcb3",
+  "date": "2026-11-17"
  },
  "https://savour.page/fr/blog/gestion-recettes-restaurants": {
   "hash": "3006f044ae20b871",

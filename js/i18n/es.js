@@ -41,7 +41,7 @@ window.SAVOUR_I18N.es = {
     '1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.':
       '1.400 recetas importadas de Word en 2 minutos. Probado en nuestra propia cocina.',
     'Gratis beginnen': 'Empieza gratis',
-    '20 echte recepten, geen account nodig': '20 recetas reales, sin cuenta',
+    '21 echte recepten, geen account nodig': '21 recetas reales, sin cuenta',
     'Recepten digitaliseren zonder overtypen': 'Digitaliza tus recetas sin volver a escribirlas',
     "We zijn zelf chefs. Onze recepten lagen jarenlang overal: in Word-bestanden van honderden pagina's, op papiertjes met koffievlekken aan de muur, op foto's in drie verschillende telefoons.":
       'Somos chefs. Durante años nuestras recetas estaban por todas partes: en archivos de Word de cientos de páginas, en papeles con manchas de café en la pared, en fotos en tres móviles distintos.',
@@ -271,7 +271,7 @@ window.SAVOUR_I18N.es = {
     Demo: 'Demo',
     'Demo account': 'Cuenta demo',
     'Demo account · niets wordt opgeslagen': 'Cuenta demo · no se guarda nada',
-    'Demo geladen · 20 echte recepten': 'Demo cargada · 20 recetas reales',
+    'Demo geladen · 21 echte recepten': 'Demo cargada · 21 recetas reales',
     'Demo-recept verwijderd': 'Receta demo eliminada',
     Jij: 'Tú',
     Teamlid: 'Miembro del equipo',
@@ -1723,7 +1723,7 @@ window.SAVOUR_I18N.es = {
       'Savour reúne todas tus recetas, estructura notas manuscritas con IA y te ayuda a organizar tu cocina a tu manera.',
     'Direct bekijken': 'Verlo ahora',
     'Bekijk de demo': 'Ver la demo',
-    '20 echte recepten · A–Z · mappen · categorieën': '20 recetas reales · A–Z · carpetas · categorías',
+    '21 echte recepten · A–Z · mappen · categorieën': '21 recetas reales · A–Z · carpetas · categorías',
     'Recepten zoals ze in een professionele keuken horen.': 'Recetas como las necesita una cocina profesional.',
     'Een goed recept moet niet ergens in een map liggen, op een losse pagina staan of verstopt zitten in een WhatsApp-bericht.':
       'Una buena receta no debería estar en un archivador, en una hoja suelta o escondida en un mensaje de WhatsApp.',

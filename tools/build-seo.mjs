@@ -639,7 +639,7 @@ function kladje(lang, short = false) {
   const k = KLADJE_REAL[lang];
   const steps = short ? k.steps.slice(0, 2) : k.steps;
   const more = short
-    ? `<p class="kladje-duo-more"><a class="site-link" href="${homePath(lang)}?demo=1" data-demo>${esc(HOME_NEXT[lang].kladjeMore)}</a></p>`
+    ? `<p class="kladje-duo-more"><a class="site-link" href="${homePath(lang)}?demo=1&amp;recept=demo-marshmallow" data-demo="demo-marshmallow">${esc(HOME_NEXT[lang].kladjeMore)}</a></p>`
     : '';
   return `<figure class="kladje-duo">
 <div class="kladje-duo-photo"><span class="kladje-duo-tag">${esc(k.before)}</span><img src="/assets/kladjes/marshmallow-kladje.jpg" alt="${esc(k.alt)}" width="1100" height="972" loading="lazy"></div>

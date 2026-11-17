@@ -42,7 +42,7 @@ window.SAVOUR_I18N.fr = {
     '1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.':
       '1 400 recettes importées depuis Word en 2 minutes. Testé dans notre propre cuisine.',
     'Gratis beginnen': 'Commencer gratuitement',
-    '20 echte recepten, geen account nodig': '20 vraies recettes, sans compte',
+    '21 echte recepten, geen account nodig': '21 vraies recettes, sans compte',
     'Recepten digitaliseren zonder overtypen': 'Numérise tes recettes sans les retaper',
     "We zijn zelf chefs. Onze recepten lagen jarenlang overal: in Word-bestanden van honderden pagina's, op papiertjes met koffievlekken aan de muur, op foto's in drie verschillende telefoons.":
       'Nous sommes nous-mêmes chefs. Pendant des années, nos recettes étaient partout : dans des fichiers Word de plusieurs centaines de pages, sur des bouts de papier tachés de café au mur, en photo sur trois téléphones différents.',
@@ -272,7 +272,7 @@ window.SAVOUR_I18N.fr = {
     Demo: 'Démo',
     'Demo account': 'Compte démo',
     'Demo account · niets wordt opgeslagen': "Compte démo · rien n'est enregistré",
-    'Demo geladen · 20 echte recepten': 'Démo chargée · 20 vraies recettes',
+    'Demo geladen · 21 echte recepten': 'Démo chargée · 21 vraies recettes',
     'Demo-recept verwijderd': 'Recette de démo supprimée',
     Jij: 'Toi',
     Teamlid: "Membre de l'équipe",
@@ -1744,7 +1744,7 @@ window.SAVOUR_I18N.fr = {
       "Savour réunit toutes tes recettes, structure les notes manuscrites avec l'IA et t'aide à organiser ta cuisine à ta façon.",
     'Direct bekijken': 'Voir maintenant',
     'Bekijk de demo': 'Voir la démo',
-    '20 echte recepten · A–Z · mappen · categorieën': '20 vraies recettes · A–Z · dossiers · catégories',
+    '21 echte recepten · A–Z · mappen · categorieën': '21 vraies recettes · A–Z · dossiers · catégories',
     'Recepten zoals ze in een professionele keuken horen.':
       'Des recettes comme une cuisine professionnelle en a besoin.',
     'Een goed recept moet niet ergens in een map liggen, op een losse pagina staan of verstopt zitten in een WhatsApp-bericht.':
