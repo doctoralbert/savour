@@ -726,7 +726,9 @@ function removeBatchDraft(index) {
   batchDrafts.splice(index, 1);
   renderBatchDrafts();
   $('batchStatus').textContent = batchDrafts.length
-    ? `${batchDrafts.length} recepten over om te controleren.`
+    ? batchDrafts.length === 1
+      ? t('1 recept over om te controleren.')
+      : `${batchDrafts.length} recepten over om te controleren.`
     : 'Geen recepten meer in deze batch.';
 }
 
@@ -1853,6 +1855,9 @@ const batchEmpty = r => !(r.ingredients || []).some(l => String(l).trim() && !re
 function renderBatchDrafts() {
   // Melding "Nog niet opgeslagen" alleen als er iets op te slaan valt.
   document.querySelectorAll('.batch-unsaved-note').forEach(n => (n.hidden = !batchDrafts.length));
+  // Eén recept (bijv. uit een link of een foto) heet niet "Meerdere recepten importeren".
+  const head = $('batchImport')?.querySelector('.section-head h2');
+  if (head) head.textContent = batchDrafts.length === 1 ? t('Recept controleren') : t('Meerdere recepten importeren');
   const toCheck = batchDrafts.filter(
     r => batchEmpty(r) || r._needsReview || r._unclear?.length || batchLineChecks(r).length
   ).length;

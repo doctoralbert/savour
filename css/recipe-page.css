@@ -1714,3 +1714,24 @@ body.cook-mode .rp-multipliers .rp-factor-own input {
   line-height: 1.2;
   font-weight: 600;
 }
+
+/* Telefoon (testronde 2026-11-17): Kookmodus is de belangrijkste knop in de keuken, dus met tekst; de rest
+   blijft icoon. Het eigen omrekenvakje krimpt mee met de knoppen, zodat de rij niet buiten beeld valt. */
+@media (max-width: 760px) {
+  #appShell .rp-actions .btn.gold {
+    width: auto;
+    flex: 1 1 auto;
+    padding: 0 12px !important;
+    gap: 6px;
+  }
+  #appShell .rp-actions .btn.gold .rp-label {
+    display: inline;
+  }
+  .rp-yield .rp-multipliers .rp-factor-own {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    height: 28px;
+    padding: 0 6px;
+  }
+}

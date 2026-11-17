@@ -1641,3 +1641,37 @@ body.savour-light .app-update-bar {
   background: #fffaf0;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
+/* Licht thema (testronde 2026-11-17): lichtgoud is op een lichte achtergrond onleesbaar. Het logo op de
+   telefoon, "Origineel kladje bekijken" en het uitlegknopje krijgen de donkere varianten uit tokens.css. */
+body.savour-light #appShell .topbar .mobile-brand.sv-wordmark {
+  color: var(--sv-text) !important;
+}
+body.savour-light .rp-source {
+  color: var(--sv-gold) !important;
+}
+body.savour-light .help-btn {
+  color: var(--sv-gold);
+  border-color: var(--sv-gold);
+}
+/* Foto bij een recept: de standaardknop "Bestand kiezen" van de browser in de stijl van Savour (ook licht thema). */
+#fPhoto {
+  color: var(--sv-text-2) !important;
+  font: inherit;
+  font-size: var(--sv-fs-sm);
+}
+#fPhoto::file-selector-button {
+  margin-right: 12px;
+  padding: 8px 14px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--sv-text);
+  font: inherit;
+  cursor: pointer;
+}
+#fPhoto::file-selector-button:hover {
+  border-color: var(--sv-gold);
+}
+body.savour-light .demo-mode-badge a {
+  color: var(--sv-gold);
+}

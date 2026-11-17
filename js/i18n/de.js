@@ -1266,6 +1266,17 @@ window.SAVOUR_I18N.de = {
     'Alle recepten printen': 'Alle Rezepte drucken',
     Downloaden: 'Herunterladen',
     'Meer bronnen': 'Weitere Quellen',
+    'Nog geen keukenteams. Maak je eerste keukenteam met ＋ Nieuw keukenteam.':
+      'Noch keine Küchenteams. Erstelle dein erstes mit ＋ Neues Küchenteam.',
+    'Savour zet een kopie in het keukenteam. Je eigen recept blijft staan; wijzigingen in het team gelden alleen daar.':
+      'Savour legt eine Kopie im Küchenteam an. Dein eigenes Rezept bleibt; Änderungen im Team gelten nur dort.',
+    '1 recept als kopie in het keukenteam gezet': '1 Rezept als Kopie ins Küchenteam gelegt',
+    'recepten als kopie in het keukenteam gezet': 'Rezepte als Kopie ins Küchenteam gelegt',
+    '1 recept over om te controleren.': '1 Rezept noch zu prüfen.',
+    'Recept controleren': 'Rezept prüfen',
+    'Hulp en contact': 'Hilfe und Kontakt',
+    'Recepten en mappen toevoegen en aanpassen, met Savour Pro':
+      'Rezepte und Ordner hinzufügen und bearbeiten, mit Savour Pro',
     'Print al je recepten in één keer in de printopmaak van Savour, of download een back-up. Met Savour Pro download je ze ook naar Word.':
       'Drucke alle deine Rezepte auf einmal im Druckformat von Savour oder lade ein Backup herunter. Mit Savour Pro lädst du sie auch als Word herunter.',
     'Een back-up van al je recepten downloaden': 'Ein Backup aller Rezepte herunterladen',

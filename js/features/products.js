@@ -523,10 +523,19 @@ function loadIngredientBase() {
         }
         // Door de beheerder goedgekeurde namen uit recepten (/admin → Ingrediënten). Met een hoofdproduct ("kalfs jus"
         // → Kalf) wordt het product naar het hoofdproduct genoemd; de allergenen zijn wat de beheerder vastlegde.
+        // Alleen namen in de taal van de kok geven een product zijn naam. Een goedgekeurde naam uit een andere taal
+        // ("beurre", met "boter" als andere schrijfwijze) helpt wel bij herkennen, maar dan houdt Savour het woord van
+        // de kok zelf aan: anders kreeg een Nederlandse kok "Beurre", "Oignon" en "Karfiol" (testronde 2026-11-17).
+        const ownLang = typeof currentLanguage === 'string' && currentLanguage ? currentLanguage : 'nl';
         for (const x of approved || []) {
           const headKey = x.head ? productKey(x.head) : '';
           const nameKey = productKey(x.name);
           const item = [(x.allergens || []).join(','), x.name, '', '', '', '', 0, 'lijst'];
+          if (x.lang && x.lang !== ownLang) {
+            for (const k of [x.key, nameKey, ...(x.aliases || []).map(productKey)])
+              if (k && !index.has(k)) index.set(k, item);
+            continue;
+          }
           // Goedgekeurd door de beheerder gaat voor de vaste lijsten: "gelatine" is dan wat Savour zelf vastlegde,
           // niet de naam uit Open Food Facts zonder allergenen.
           for (const k of [x.key, nameKey, ...(x.aliases || []).map(productKey)])
@@ -565,7 +574,7 @@ function loadIngredientList() {
   const query = (count = false) =>
     supabaseClient
       .from('ingredient_list')
-      .select('key,name,head,aliases,allergens,status', count ? { count: 'exact' } : undefined)
+      .select('key,name,head,aliases,allergens,status,lang', count ? { count: 'exact' } : undefined)
       .in('status', ['approved', 'junk'])
       .order('id');
   ingredientListLoading = query(true)

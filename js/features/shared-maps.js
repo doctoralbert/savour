@@ -701,6 +701,11 @@ function openSharedRecipePicker(id) {
   }
   currentFolder = 'shared:' + id;
   $('folderModalTitle').textContent = 'Recepten aan keukenteam toevoegen';
+  // Het team krijgt een kopie: zeg dat vooraf, anders lijkt het recept daarna dubbel te staan.
+  $('folderModalNote').textContent = t(
+    'Savour zet een kopie in het keukenteam. Je eigen recept blijft staan; wijzigingen in het team gelden alleen daar.'
+  );
+  $('folderModalNote').hidden = false;
   $('pickerSearch').value = '';
   filterPicker('');
   $('folderModal').classList.add('open');
@@ -719,6 +724,11 @@ function openSharedFolderRecipePicker(mapId, folderId) {
   currentShared = mapId;
   currentFolder = 'sharedfolderpick:' + folderId;
   $('folderModalTitle').textContent = 'Recepten aan keukenteam toevoegen';
+  // Het team krijgt een kopie: zeg dat vooraf, anders lijkt het recept daarna dubbel te staan.
+  $('folderModalNote').textContent = t(
+    'Savour zet een kopie in het keukenteam. Je eigen recept blijft staan; wijzigingen in het team gelden alleen daar.'
+  );
+  $('folderModalNote').hidden = false;
   $('pickerSearch').value = '';
   filterPicker('');
   $('folderModal').classList.add('open');
@@ -791,7 +801,11 @@ async function saveSharedMapSelection() {
   closeFolderModal();
   await loadDatabaseState();
   renderShared(id);
-  toast(`${chosen.length} recept${chosen.length === 1 ? '' : 'en'} toegevoegd aan het keukenteam`);
+  toast(
+    chosen.length === 1
+      ? t('1 recept als kopie in het keukenteam gezet')
+      : `${chosen.length} ${t('recepten als kopie in het keukenteam gezet')}`
+  );
 }
 
 async function saveSharedFolderSelection() {
@@ -850,7 +864,7 @@ function renderSharedManage() {
     ? list
         .map(m => managerItemHtml('shared', m, (getSharedMenuSettings()?.selected || []).includes(String(m.id))))
         .join('')
-    : '<div class="empty">Nog geen keukenteams. Maak je eerste map aan.</div>';
+    : `<div class="empty">${esc(t('Nog geen keukenteams. Maak je eerste keukenteam met ＋ Nieuw keukenteam.'))}</div>`;
 }
 
 // Beheerpagina van één keukenteam: naam, foto, deellink en leden met rechten.

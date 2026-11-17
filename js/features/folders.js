@@ -423,6 +423,7 @@ async function saveFolderSelection() {
 
 function closeFolderModal() {
   $('folderModal').classList.remove('open');
+  if ($('folderModalNote')) $('folderModalNote').hidden = true;
   if ($('pickerSearch')) $('pickerSearch').value = '';
 }
 

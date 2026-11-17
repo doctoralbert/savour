@@ -90,6 +90,8 @@ function appMenuData() {
         item("go('settings')", t('Instellingen'), '', active === 'settings', 'settings'),
         // Community: forum met andere koks (js/features/community.js). Licht of donker staat bovenin de balk.
         { ...item("go('community')", t('Community'), '', active === 'community', 'chat'), badge: communityUnread },
+        // Hulp en contact stond alleen in de voettekst; in de keuken zoek je het in het menu.
+        item("openPublicInfo('contact')", t('Hulp en contact'), '', false, 'info'),
         ...(admin ? [item("location.href='/admin'", 'Admin', '', false, 'shield')] : [])
       ]
     }

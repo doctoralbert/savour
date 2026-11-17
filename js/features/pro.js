@@ -286,9 +286,11 @@ function renderProPage(host) {
       : isPro()
         ? `<div class="pro-current"><b>Je hebt Savour Pro.</b> <span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt ${aiUsagePeriod()}.</span></div>`
         : '';
+  // "Nieuw bij Savour?" alleen voor wie nog geen account heeft (de website); ingelogd staat de eigen stand erboven.
+  const loggedIn = typeof currentUser !== 'undefined' && !!currentUser;
   host.innerHTML =
     current +
-    `<p class="pro-trial-note"><strong>Nieuw bij Savour?</strong> Je probeert Savour Pro ${TRIAL_DAYS} dagen gratis, zonder betaalgegevens: AI-import en keukenteams, tot ${FREE_RECIPE_LIMIT} recepten. <span>Een keukenteam uit je proefperiode blijft bewaard, maar werkt daarna pas weer met Savour Pro.</span></p>
+    `<p class="pro-trial-note"${loggedIn ? ' hidden' : ''}><strong>Nieuw bij Savour?</strong> Je probeert Savour Pro ${TRIAL_DAYS} dagen gratis, zonder betaalgegevens: AI-import en keukenteams, tot ${FREE_RECIPE_LIMIT} recepten. <span>Een keukenteam uit je proefperiode blijft bewaard, maar werkt daarna pas weer met Savour Pro.</span></p>
     <div class="pro-prices">${card('month', PRO_PRICES.month, 'per maand', 'Maandelijks opzegbaar.', false)}${card('year', PRO_PRICES.year, 'per jaar', 'Twee maanden gratis ten opzichte van maandelijks.', true)}</div>
     <p class="pro-pay muted">Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Er wordt geen btw gerekend (kleineondernemersregeling). Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.</p>
     ${
