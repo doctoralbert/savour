@@ -15,6 +15,14 @@ let mepOpenId = null; // open lijst, of null voor het overzicht
 let mepCardId = null; // kaart die open staat
 let mepShowArchived = false;
 let mepSavedAt = null; // laatste opslag, voor "Opgeslagen 14:02"
+// Overzicht (de hele lijst op één A4, zoals de Excel-lijsten in de keuken) of Bewerken. Onthouden in deze browser.
+let mepMode = (() => {
+  try {
+    return localStorage.getItem('savour_mep_mode') === 'bewerken' ? 'bewerken' : 'overzicht';
+  } catch (_) {
+    return 'overzicht';
+  }
+})();
 
 // ---- Gegevens ----
 
@@ -341,7 +349,11 @@ function renderMepList() {
           : ''
       ].join('')
     : '';
-  const head = `<div class="mep-head"><button type="button" class="btn small mep-back" onclick="closeMepList()">${icon('back')}${esc(t('Alle MEP-lijsten'))}</button><div class="mep-head-info">${team ? `<span class="mep-team">${icon('users')}<span translate="no">${esc(team.name)}</span></span>` : ''}${l.archived ? `<span class="mep-flag">${esc(t('Gearchiveerd'))}</span>` : ''}<span id="mepSaved" class="mep-saved" aria-live="polite">${esc(mepSavedText())}</span></div>${menu ? `<details class="rp-more mep-more"><summary class="btn rp-icon-btn" aria-label="${esc(t('Meer acties'))}" title="${esc(t('Meer acties'))}">${icon('more')}</summary><div class="rp-menu">${menu}</div></details>` : ''}</div>`;
+  const mode = can ? mepMode : 'overzicht';
+  const modes = can
+    ? `<div class="mep-modes" role="group" aria-label="${esc(t('Weergave'))}"><button type="button" class="${mode === 'overzicht' ? 'is-on' : ''}" aria-pressed="${mode === 'overzicht'}" onclick="setMepMode('overzicht')">${esc(t('Overzicht'))}</button><button type="button" class="${mode === 'bewerken' ? 'is-on' : ''}" aria-pressed="${mode === 'bewerken'}" onclick="setMepMode('bewerken')">${icon('edit')}${esc(t('Bewerken'))}</button></div>`
+    : '';
+  const head = `<div class="mep-head"><button type="button" class="btn small mep-back" onclick="closeMepList()">${icon('back')}${esc(t('Alle MEP-lijsten'))}</button>${modes}<div class="mep-head-info">${team ? `<span class="mep-team">${icon('users')}<span translate="no">${esc(team.name)}</span></span>` : ''}${l.archived ? `<span class="mep-flag">${esc(t('Gearchiveerd'))}</span>` : ''}<span id="mepSaved" class="mep-saved" aria-live="polite">${esc(mepSavedText())}</span></div>${menu ? `<details class="rp-more mep-more"><summary class="btn rp-icon-btn" aria-label="${esc(t('Meer acties'))}" title="${esc(t('Meer acties'))}">${icon('more')}</summary><div class="rp-menu">${menu}</div></details>` : ''}</div>`;
   const tabs = `<div class="mep-tabs" role="tablist">${cards
     .map(
       c =>
@@ -350,6 +362,13 @@ function renderMepList() {
     .join(
       ''
     )}${can ? `<button type="button" class="mep-tab mep-tab-add" onclick="addMepCard('${lid}')">${icon('plus')}${esc(t('Kaart'))}</button>` : ''}</div>`;
+  if (mode === 'overzicht') {
+    host.innerHTML = head + mepReadOnlyNote(l) + renderMepSheet(l);
+    fitMepSheet();
+    // Nog een keer als Playfair Display net binnen is (andere breedte van de letters).
+    document.fonts?.ready.then(() => $('mepSheet') && fitMepSheet());
+    return;
+  }
   const card = cards.find(c => c.id === mepCardId);
   host.innerHTML =
     head +
@@ -823,4 +842,76 @@ async function linkMepRecipe(itemId) {
 
 async function unlinkMepRecipe(itemId) {
   if (await mepUpdate('mep_items', itemId, { recipe_id: null })) renderMepList();
+}
+
+// ---- Overzicht: de hele lijst op één A4 ----
+// Zoals de Excel-lijsten in de keuken: de naam bovenaan, de kaarten naast elkaar in kolommen, per kopje de
+// onderdelen met een vakje ervoor. Drie kolommen in totaal; een kaart met meer onderdelen krijgt meer kolommen.
+// De letter wordt kleiner tot alles op één blad past (fitMepSheet).
+
+function setMepMode(mode) {
+  mepMode = mode === 'bewerken' ? 'bewerken' : 'overzicht';
+  try {
+    localStorage.setItem('savour_mep_mode', mepMode);
+  } catch (_) {}
+  renderMep();
+}
+
+// Hoeveel kolommen elke kaart krijgt (samen 3), naar het aantal regels.
+function mepSheetColumns(cards) {
+  const rows = cards.map(c => mepSectionsOf(c.id).reduce((n, s) => n + 1.6 + mepItemsOf(s.id).length, 0));
+  const total = rows.reduce((a, b) => a + b, 0) || 1;
+  if (cards.length >= 3) return cards.map(() => 1);
+  if (cards.length === 1) return [3];
+  const first = Math.min(2, Math.max(1, Math.round((3 * rows[0]) / total)));
+  return [first, 3 - first];
+}
+
+function mepSheetItem(it) {
+  const qty = mepQtyText(it);
+  const extra = [qty, it.note].filter(Boolean).join(' · ');
+  return `<li><span class="mep-box" aria-hidden="true"></span><span><span translate="no">${esc(it.name)}</span>${extra ? ` <small translate="no">${esc(extra)}</small>` : ''}</span></li>`;
+}
+
+function renderMepSheet(l) {
+  const cards = mepCardsOf(l.id).filter(c => mepSectionsOf(c.id).length);
+  const cols = mepSheetColumns(cards);
+  const showCardNames = mepCardsOf(l.id).length > 1;
+  const body = cards
+    .map((c, i) => {
+      const secs = mepSectionsOf(c.id)
+        .map(s => {
+          const items = mepItemsOf(s.id);
+          return `<section class="mep-sheet-sec"><h4 translate="no">${esc(s.name)}</h4>${items.length ? `<ul>${items.map(mepSheetItem).join('')}</ul>` : ''}</section>`;
+        })
+        .join('');
+      return `<div class="mep-sheet-card" style="--cols:${cols[i]};grid-column:span ${cols[i]}">${showCardNames ? `<h3 translate="no">${esc(c.name)}</h3>` : ''}<div class="mep-sheet-flow">${secs}</div></div>`;
+    })
+    .join('');
+  const empty = !cards.length
+    ? `<p class="mep-sheet-empty">${esc(t('Nog leeg. Kies Bewerken om kopjes en onderdelen toe te voegen.'))}</p>`
+    : '';
+  return `<div class="mep-sheet-wrap"><article class="mep-sheet" id="mepSheet"><header class="mep-sheet-head"><h2 translate="no">${esc(l.name)}</h2><span class="mep-sheet-date">${esc(t('Datum'))}: ____________</span></header><div class="mep-sheet-grid">${body}${empty}</div></article><p class="mep-sheet-fit muted" id="mepSheetFit"></p></div>`;
+}
+
+// De letter zo groot maken als past (17 tot 8,5 px), zodat de lijst binnen één A4 valt. Op de telefoon: gewoon onder elkaar.
+function fitMepSheet() {
+  const sheet = $('mepSheet');
+  const note = $('mepSheetFit');
+  if (!sheet) return;
+  const narrow = window.matchMedia('(max-width: 760px)').matches;
+  sheet.style.removeProperty('--fs');
+  if (note) note.textContent = '';
+  if (narrow) return;
+  // Een paar pixels marge: het blad zelf is al precies een A4 hoog (afronding).
+  const page = (sheet.clientWidth * 297) / 210 + 3;
+  // Zo groot mogelijk (leesbaar in de keuken), maar alles op één blad.
+  let fs = 17;
+  sheet.style.setProperty('--fs', fs + 'px');
+  while (sheet.scrollHeight > page && fs > 8.5) {
+    fs -= 0.5;
+    sheet.style.setProperty('--fs', fs + 'px');
+  }
+  if (sheet.scrollHeight > page && note)
+    note.textContent = t('Deze lijst is langer dan één A4. Bij printen loopt hij door op een tweede blad.');
 }

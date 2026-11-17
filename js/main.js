@@ -212,6 +212,8 @@ document.addEventListener('visibilitychange', () => {
 // echt wilt sluiten of verversen (js/features/import.js, importNeedsWarning). Een eigen tekst tonen kan niet.
 // Op de telefoon schuift de balk bovenin weg bij naar beneden scrollen (js/features/navigation.js).
 window.addEventListener('scroll', onTopbarScroll, { passive: true });
+// MEP-lijst in Overzicht: bij een ander schermformaat opnieuw passend maken op één A4 (js/features/mep.js).
+window.addEventListener('resize', () => $('mepSheet') && fitMepSheet());
 
 // Nieuwe versie live gezet terwijl Savour openstond? Elk half uur kijken, en bij terugkomen in Savour
 // (hooguit eens per tien minuten). Zie js/features/install.js, checkAppUpdate.

@@ -488,3 +488,173 @@ input.mep-sec-name:focus {
   color: var(--sv-text-3);
   opacity: 0.55;
 }
+
+/* Overzicht of Bewerken */
+.mep-modes {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+}
+.mep-modes button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sv-text-2);
+  font: inherit;
+  font-size: var(--sv-fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+.mep-modes button svg {
+  width: 14px;
+  height: 14px;
+}
+.mep-modes button.is-on {
+  background: var(--sv-gold);
+  color: var(--sv-on-gold);
+}
+
+/* Het A4-blad: altijd wit papier met zwarte letters, zoals het uit de printer komt. */
+.mep-sheet-wrap {
+  margin: 4px 0 28px;
+}
+.mep-sheet {
+  --fs: 13px;
+  box-sizing: border-box;
+  width: min(100%, 820px);
+  aspect-ratio: 210 / 297;
+  margin: 0 auto;
+  padding: 5.5% 5%;
+  background: #fff;
+  color: #111;
+  border-radius: 4px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.25),
+    0 12px 32px rgba(0, 0, 0, 0.28);
+  font-family: var(--sv-font);
+  font-size: var(--fs);
+  line-height: 1.32;
+}
+body.savour-light .mep-sheet {
+  border: 1px solid var(--sv-line);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+.mep-sheet-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 1.1em;
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid #111;
+}
+.mep-sheet-head h2 {
+  margin: 0;
+  font-family: var(--sv-font-display);
+  font-size: 2em;
+  font-weight: 700;
+  color: #111;
+}
+.mep-sheet-date {
+  font-size: 0.95em;
+  color: #444;
+  white-space: nowrap;
+}
+.mep-sheet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 1.6em;
+  align-items: start;
+}
+.mep-sheet-card h3 {
+  margin: 0 0 0.6em;
+  padding: 0.15em 0.5em;
+  background: #111;
+  color: #fff;
+  font-size: 0.95em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.mep-sheet-flow {
+  column-count: var(--cols, 1);
+  column-gap: 1.6em;
+}
+.mep-sheet-sec {
+  break-inside: avoid;
+  margin: 0 0 0.9em;
+}
+.mep-sheet-sec h4 {
+  overflow-wrap: anywhere;
+  margin: 0 0 0.25em;
+  padding-bottom: 0.15em;
+  border-bottom: 1px solid #999;
+  font-size: 1.05em;
+  font-weight: 700;
+  color: #111;
+}
+.mep-sheet-sec ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mep-sheet-sec li {
+  display: grid;
+  grid-template-columns: 0.95em minmax(0, 1fr);
+  gap: 0.45em;
+  padding: 0.12em 0;
+  overflow-wrap: anywhere;
+}
+.mep-sheet-sec small {
+  font-size: 0.86em;
+  color: #555;
+}
+.mep-box {
+  width: 0.85em;
+  height: 0.85em;
+  margin-top: 0.2em;
+  border: 1.2px solid #333;
+  border-radius: 2px;
+}
+.mep-sheet-empty {
+  grid-column: 1 / -1;
+  color: #666;
+}
+.mep-sheet-fit {
+  max-width: 820px;
+  margin: 10px auto 0;
+  font-size: var(--sv-fs-sm);
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .mep-head .mep-modes {
+    order: 3;
+    width: 100%;
+  }
+  .mep-modes button {
+    flex: 1;
+    justify-content: center;
+  }
+  /* Op de telefoon geen klein A4'tje, maar groot en onder elkaar. */
+  .mep-sheet {
+    --fs: 15px !important;
+    aspect-ratio: auto;
+    padding: 18px 16px;
+  }
+  .mep-sheet-grid {
+    display: block;
+  }
+  .mep-sheet-card {
+    margin-bottom: 18px;
+  }
+  .mep-sheet-flow {
+    column-count: 1;
+  }
+}
