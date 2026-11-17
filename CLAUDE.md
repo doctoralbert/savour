@@ -37,8 +37,10 @@ zonder titel en ingrediënten hoort bij het recept ervoor (`mergeContinuationPag
 `supabase/2026-11-11-recepten-opschonen.sql`).
 Wat de kok zelf verbetert is de belangrijkste les voor de lezer: per geïmporteerd recept bewaart `recipe_import_origins` wat de lezer/AI las
 (`as_read`) en wat de kok opsloeg (`as_saved`); verschil met het recept nu = latere verbeteringen (`saveImportOrigins`, alleen met
-"Help de Savour-lezer verbeteren", `supabase/2026-11-11-import-herkomst.sql`). Claude controleert elke avond de imports (geplande taak) en
-stelt lezerverbeteringen voor als pull request.
+"Help de Savour-lezer verbeteren", `supabase/2026-11-11-import-herkomst.sql`). Claude controleert elke avond de imports en de
+ingrediëntnamen (cloud-routine "Savour: dagelijks rapport per mail"), schrijft een rapport met verbeterpunten en een kant-en-klare
+opdracht in `daily_reports` (`supabase/2026-11-17-dagrapport.sql`), en Savour mailt dat naar het contactadres
+(`api/_lib/onderhoud.js` → `sendDailyReports`, cron `/api/admin?taak=rapport`). Geen pull requests meer.
 Opslag: originele kladjes staan in de privé-bucket `recipe-sources` (`recipe_sources.image_path`; oude in `image` verhuizen 's nachts),
 geïmporteerde bestanden blijven 60 dagen. Nachtelijk onderhoud: `api/_lib/onderhoud.js` (Vercel Cron, `CRON_SECRET`), met de opruimlijst
 `storage_cleanup_queue` voor bestanden van verwijderde recepten en accounts (`supabase/2026-11-11-opslag-ontlasten.sql`).
