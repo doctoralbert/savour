@@ -547,7 +547,7 @@ body.savour-light .mep-sheet {
 }
 .mep-sheet-head {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
   margin: 0 0 1.1em;
@@ -643,18 +643,18 @@ body.savour-light .mep-sheet {
     justify-content: center;
   }
   /* Op de telefoon geen klein A4'tje, maar groot en onder elkaar. */
-  .mep-sheet {
+  .mep-sheet:not(.is-print) {
     --fs: 15px !important;
     aspect-ratio: auto;
     padding: 18px 16px;
   }
-  .mep-sheet-grid {
+  .mep-sheet:not(.is-print) .mep-sheet-grid {
     display: block;
   }
-  .mep-sheet-card {
+  .mep-sheet:not(.is-print) .mep-sheet-card {
     margin-bottom: 18px;
   }
-  .mep-sheet-flow {
+  .mep-sheet:not(.is-print) .mep-sheet-flow {
     column-count: 1;
   }
 }
@@ -1006,5 +1006,85 @@ body.savour-light .mep-sheet {
 @media (prefers-reduced-motion: reduce) {
   .mep-row.is-flash {
     animation: none;
+  }
+}
+
+/* Logo en restaurantnaam bovenaan het blad (zelfde logo als bij recepten printen, js/features/print.js). */
+.mep-sheet-logo {
+  flex: none;
+  max-width: 7em;
+  max-height: 3.2em;
+  object-fit: contain;
+}
+.mep-sheet-logo.is-bw {
+  filter: grayscale(1);
+}
+.mep-sheet-title {
+  flex: 1;
+  min-width: 0;
+}
+.mep-sheet-title span {
+  display: block;
+  font-size: 0.9em;
+  color: #555;
+}
+.mep-sheet-card h3 {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6em;
+}
+.mep-sheet-card h3 span + span {
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.mep-box {
+  display: grid;
+  place-items: center;
+  font-size: 0.62em;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* ---- Printen (printMepList) ---- */
+/* Het printblad wordt buiten beeld opgebouwd en gemeten; op papier is het precies een A4. */
+.mep-print {
+  position: fixed;
+  top: 0;
+  left: -10000px;
+  pointer-events: none;
+}
+.mep-sheet.is-print {
+  width: 210mm;
+  padding: 12mm 11mm;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+@media print {
+  body.mep-printing > *:not(#mepPrint) {
+    display: none !important;
+  }
+  body.mep-printing {
+    background: #fff !important;
+  }
+  .mep-print {
+    position: static;
+    left: auto;
+  }
+  .mep-sheet.is-print {
+    height: 297mm;
+    overflow: hidden;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  /* Langer dan één blad: doorlopen op het volgende, zonder een kopje los van zijn onderdelen. */
+  .mep-print.is-long .mep-sheet.is-print {
+    height: auto;
+    aspect-ratio: auto;
+    overflow: visible;
+  }
+  .mep-sheet-sec {
+    break-inside: avoid;
   }
 }
