@@ -15,15 +15,16 @@ let mepOpenId = null; // open lijst, of null voor het overzicht
 let mepCardId = null; // kaart die open staat
 let mepShowArchived = false;
 let mepSavedAt = null; // laatste opslag, voor "Opgeslagen 14:02"
-// Vandaag (couverts en afvinken), Overzicht (de hele lijst op één A4, zoals de Excel-lijsten in de keuken) of
-// Bewerken. Onthouden in deze browser; standaard Vandaag.
-const MEP_MODES = ['vandaag', 'overzicht', 'bewerken'];
+// Lijst ('overzicht': de hele lijst in de huisstijl van Savour, zoals een recept, met afvinkhokjes en kookmodus),
+// Vandaag (couverts, bezig en voorraad) of Bewerken. Printen geeft het witte A4-blad. Standaard Lijst; de keuze
+// wordt in deze browser onthouden.
+const MEP_MODES = ['overzicht', 'vandaag', 'bewerken'];
 let mepMode = (() => {
   try {
     const m = localStorage.getItem('savour_mep_mode');
-    return MEP_MODES.includes(m) ? m : 'vandaag';
+    return MEP_MODES.includes(m) ? m : 'overzicht';
   } catch (_) {
-    return 'vandaag';
+    return 'overzicht';
   }
 })();
 
@@ -353,7 +354,8 @@ function renderMepList() {
   const cards = mepCardsOf(l.id);
   if (!cards.some(c => c.id === mepCardId)) mepCardId = cards[0]?.id || null;
   const heading = $('mepTitle');
-  if (heading) heading.textContent = l.name;
+  // In de Lijst staat de naam groot op de pagina zelf; dan bovenaan gewoon "MEP-lijsten".
+  if (heading) heading.textContent = mepMode === 'overzicht' ? t('MEP-lijsten') : l.name;
   const team = mepTeam(l);
   const lid = escJs(l.id);
   const menu = can
@@ -369,8 +371,8 @@ function renderMepList() {
   const mode = mepMode === 'bewerken' && !can ? 'overzicht' : mepMode;
   const modeBtn = (m, label, ico = '') =>
     `<button type="button" class="${mode === m ? 'is-on' : ''}" aria-pressed="${mode === m}" onclick="setMepMode('${m}')">${ico ? icon(ico) : ''}${esc(label)}</button>`;
-  const modes = `<div class="mep-modes" role="group" aria-label="${esc(t('Weergave'))}">${modeBtn('vandaag', t('Vandaag'))}${modeBtn('overzicht', t('Overzicht'))}${can ? modeBtn('bewerken', t('Bewerken'), 'edit') : ''}</div>`;
-  if (mode !== 'vandaag') mepStopLive();
+  const modes = `<div class="mep-modes" role="group" aria-label="${esc(t('Weergave'))}">${modeBtn('overzicht', t('Lijst'))}${modeBtn('vandaag', t('Vandaag'))}${can ? modeBtn('bewerken', t('Bewerken'), 'edit') : ''}</div>`;
+  if (mode === 'bewerken') mepStopLive();
   const head = `<div class="mep-head"><button type="button" class="btn small mep-back" onclick="closeMepList()">${icon('back')}${esc(t('Alle MEP-lijsten'))}</button>${modes}${mode !== 'bewerken' ? `<button type="button" class="btn small mep-print-btn" onclick="printMepList()">${icon('print')}${esc(t('Printen'))}</button>` : ''}<div class="mep-head-info">${team ? `<span class="mep-team">${icon('users')}<span translate="no">${esc(team.name)}</span></span>` : ''}${l.archived ? `<span class="mep-flag">${esc(t('Gearchiveerd'))}</span>` : ''}<span id="mepSaved" class="mep-saved" aria-live="polite">${esc(mepSavedText())}</span></div>${menu ? `<details class="rp-more mep-more"><summary class="btn rp-icon-btn" aria-label="${esc(t('Meer acties'))}" title="${esc(t('Meer acties'))}">${icon('more')}</summary><div class="rp-menu">${menu}</div></details>` : ''}</div>`;
   const tabs = `<div class="mep-tabs" role="tablist">${cards
     .map(
@@ -386,10 +388,8 @@ function renderMepList() {
     return;
   }
   if (mode === 'overzicht') {
-    host.innerHTML = head + mepReadOnlyNote(l) + renderMepSheet(l);
-    fitMepSheet();
-    // Nog een keer als Playfair Display net binnen is (andere breedte van de letters).
-    document.fonts?.ready.then(() => $('mepSheet') && fitMepSheet());
+    host.innerHTML = head + mepLockedNote(l) + `<div id="mepPageHost"></div>`;
+    openMepPage(l.id);
     return;
   }
   const card = cards.find(c => c.id === mepCardId);
@@ -1225,6 +1225,8 @@ function renderMepToday() {
 // Teller, filter, knop "voorraad overnemen" en de regels opnieuw tekenen (ook na een wijziging van een collega).
 function mepRefreshToday(flashId) {
   const l = mepListById(mepOpenId);
+  // In de weergave Lijst: daar de hokjes en de teller bijwerken.
+  if (l && mepDay && !$('mepTodayBody') && $('mepPage')) return renderMepPageBody(flashId);
   if (!l || !mepDay || !$('mepTodayBody')) return;
   const can = mepCanTick(l);
   const cards = mepDayCards(l);
@@ -1595,4 +1597,102 @@ function mepShowLive() {
   } else if (mepLiveState === 'connecting') text = t('Verbinden…');
   el.className = 'mep-live ' + cls;
   el.textContent = text;
+}
+
+// ---- Lijst: de MEP-lijst in de huisstijl van Savour ----
+// Zoals een recept: titel, kaarten en kopjes in kolommen, bij elk onderdeel een afvinkhokje (zoals de ingrediënten
+// van een recept) en de hoeveelheid voor de couverts van vandaag. Afvinken zet het onderdeel op klaar voor
+// vandaag, voor het hele team (zelfde dagstand als Vandaag). Kookmodus: groot en zonder menu, scherm blijft aan
+// (toggleCookMode uit js/features/recipe.js). Printen geeft het witte A4-blad (printMepList).
+
+async function openMepPage(listId) {
+  const host = $('mepPageHost');
+  if (!host) return;
+  const today = mepToday();
+  if (!mepDay || mepDay.listId !== listId || mepDay.day !== today) {
+    host.innerHTML = `<p class="muted">${esc(t('Laden…'))}</p>`;
+    const loaded = await loadMepDay(listId, today);
+    if (mepOpenId !== listId || !$('mepPageHost')) return; // intussen iets anders geopend
+    mepDay = loaded;
+  }
+  renderMepPage();
+  mepStartLive(listId);
+}
+
+function renderMepPage() {
+  const host = $('mepPageHost');
+  const l = mepListById(mepOpenId);
+  if (!host || !l) return;
+  const team = mepTeam(l);
+  const empty = !mepItems.some(i => i.list_id === l.id);
+  host.innerHTML = `<article class="mep-page" id="mepPage"><header class="mep-page-head"><p class="mep-page-kicker">${esc(t('MEP-lijst'))}${team ? ` · <span translate="no">${esc(team.name)}</span>` : ''}</p><h2 class="mep-page-title" translate="no">${esc(l.name)}</h2><p class="mep-page-meta" id="mepPageMeta"></p><div class="mep-page-actions"><button type="button" class="btn gold" onclick="toggleMepCookMode(true)">${icon('cook')}${esc(t('Kookmodus'))}</button><button type="button" class="btn" onclick="setMepMode('vandaag')">${esc(t('Couverts invullen'))}</button><span id="mepLive" class="mep-live" role="status"></span></div></header>${
+    empty
+      ? `<div class="mep-empty"><p>${esc(t('Deze lijst heeft nog geen onderdelen.'))}</p>${mepCanManage(l) ? `<button type="button" class="btn" onclick="setMepMode('bewerken')">${icon('edit')}${esc(t('Lijst bewerken'))}</button>` : ''}</div>`
+      : `<div class="mep-page-body" id="mepPageBody"></div>`
+  }</article>`;
+  renderMepPageBody();
+}
+
+// De kolommen met hokjes en de regel met couverts en teller; ook na een vinkje van een collega.
+function renderMepPageBody(flashId) {
+  const l = mepListById(mepOpenId);
+  const body = $('mepPageBody');
+  if (!l || !mepDay) return;
+  const can = mepCanTick(l);
+  const cards = mepDayCards(l);
+  const all = cards.flatMap(c => mepSectionsOf(c.id).flatMap(s => mepItemsOf(s.id)));
+  const done = all.filter(it => ['klaar', 'voorraad'].includes(mepStatusOf(it.id))).length;
+  const covers = cards
+    .map(c => (Number(mepDay.covers[c.id]) > 0 ? `${mepDay.covers[c.id]} ${t('couverts')} ${c.name}` : ''))
+    .filter(Boolean);
+  const meta = $('mepPageMeta');
+  if (meta)
+    meta.innerHTML = [
+      `<b>${esc(mepDayTitle(mepDay.day))}</b> ${esc(mepDayLabel(mepDay.day))}`,
+      covers.length ? `<span translate="no">${esc(covers.join(' · '))}</span>` : esc(t('nog geen couverts ingevuld')),
+      all.length ? `${done} ${esc(t('van'))} ${all.length} ${esc(t('klaar'))}` : ''
+    ]
+      .filter(Boolean)
+      .join(' · ');
+  if (!body) return mepShowLive();
+  const showCard = cards.length > 1;
+  body.innerHTML = cards
+    .map(c => {
+      const n = Number(mepDay.covers[c.id]) || 0;
+      const secs = mepSectionsOf(c.id)
+        .filter(s => mepItemsOf(s.id).length)
+        .map(
+          s =>
+            `<section class="mep-page-sec"><h3 translate="no">${esc(s.name)}</h3><ul>${mepItemsOf(s.id)
+              .map(it => mepPageItem(it, n, can, it.id === flashId))
+              .join('')}</ul></section>`
+        )
+        .join('');
+      return `<div class="mep-page-card">${showCard ? `<h4 class="mep-page-cardname"><span translate="no">${esc(c.name)}</span>${n ? `<small>${n} ${esc(t('couverts'))}</small>` : ''}</h4>` : ''}<div class="mep-page-cols">${secs}</div></div>`;
+    })
+    .join('');
+  mepShowLive();
+}
+
+function mepPageItem(it, covers, can, flash) {
+  const st = mepStatusOf(it.id);
+  const amount = mepAmount(it, covers);
+  const amountText = amount ? amount.total || amount.each : '';
+  const row = mepDay.items[it.id];
+  const tag =
+    st === 'voorraad'
+      ? `<em class="mep-page-tag">${esc(t('op voorraad'))}</em>`
+      : st === 'bezig'
+        ? `<em class="mep-page-tag is-busy">${esc(t('bezig'))}${row?.updated_by ? ` · ${esc(mepWho(row.updated_by))}` : ''}</em>`
+        : st === 'klaar' && row?.updated_by
+          ? `<em class="mep-page-tag is-done">${esc(mepWho(row.updated_by))} · ${esc(mepTime(row.updated_at))}</em>`
+          : '';
+  const r = it.recipe_id ? findRecipe(it.recipe_id) : null;
+  return `<li class="st-${st}${flash ? ' is-flash' : ''}"><label><input type="checkbox" ${['klaar', 'voorraad'].includes(st) ? 'checked' : ''} ${can && st !== 'voorraad' ? '' : 'disabled'} onchange="setMepStatus('${escJs(it.id)}', this.checked ? 'klaar' : 'nodig')"><span class="mep-page-line"><span class="mep-page-name" translate="no">${esc(it.name)}</span>${amountText ? ` <b class="mep-page-amount">${esc(amountText)}</b>` : ''}${it.note ? `<small translate="no">${esc(it.note)}</small>` : ''}${tag}</span></label>${r ? `<button type="button" class="mep-icon mep-page-recipe" onclick="toggleMepCookMode(false);openRecipe('${escJs(r.id)}','mep')" aria-label="${esc(t('Recept'))}: ${esc(r.title)}" title="${esc(r.title)}">${icon('book')}</button>` : ''}</li>`;
+}
+
+// Kookmodus: de kookmodus van recepten (menu weg, grote letters, scherm aan), voor de MEP-lijst.
+function toggleMepCookMode(on) {
+  if (on && mepMode !== 'overzicht') setMepMode('overzicht');
+  toggleCookMode(on);
 }

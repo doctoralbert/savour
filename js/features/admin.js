@@ -1848,9 +1848,13 @@ function renderAdminReader() {
     .map(x => {
       const open = adminReaderOpen?.id === x.id;
       const detail = open
-        ? `<tr class="admin-reader-detail"><td colspan="5">${adminReaderDetail(adminReaderOpen)}</td></tr>`
+        ? `<tr class="admin-reader-detail"><td colspan="6">${adminReaderDetail(adminReaderOpen)}</td></tr>`
         : '';
-      return `<tr class="${x.handled ? 'admin-muted' : ''}"><td>${adminFormatDate(x.created_at)}</td><td>${adminEscape(READER_KIND_LABEL[x.kind] || x.kind)}${x.ext ? `<small> .${adminEscape(x.ext)}</small>` : ''}</td><td>${adminEscape(x.reason || '')}</td><td>${adminEscape(x.title || '—')}</td><td><div class="admin-actions"><button class="admin-ghost" onclick="adminReaderShow(${x.id})">${open ? 'Sluiten' : 'Bekijken'}</button><button class="admin-ghost" onclick="adminReaderHandled(${x.id},${!x.handled})">${x.handled ? 'Weer open' : 'Verwerkt'}</button><button class="admin-ghost admin-danger" onclick="adminReaderDelete(${x.id})">Weghalen</button></div></td></tr>${detail}`;
+      // Verwerkt (er is een lezer-test van gemaakt): grote gouden vink vooraan, zodat je het in één oogopslag ziet.
+      const done = x.handled
+        ? '<span class="admin-reader-done" title="Verwerkt in de Savour-lezer" aria-label="Verwerkt in de Savour-lezer">✓</span>'
+        : '<span class="admin-reader-open" title="Nog te verwerken" aria-label="Nog te verwerken"></span>';
+      return `<tr class="${x.handled ? 'admin-reader-handled' : ''}"><td class="admin-reader-state">${done}</td><td>${adminFormatDate(x.created_at)}</td><td>${adminEscape(READER_KIND_LABEL[x.kind] || x.kind)}${x.ext ? `<small> .${adminEscape(x.ext)}</small>` : ''}</td><td>${adminEscape(x.reason || '')}</td><td>${adminEscape(x.title || '—')}</td><td><div class="admin-actions"><button class="admin-ghost" onclick="adminReaderShow(${x.id})">${open ? 'Sluiten' : 'Bekijken'}</button><button class="admin-ghost" onclick="adminReaderHandled(${x.id},${!x.handled})">${x.handled ? 'Terugzetten' : 'Markeer als verwerkt'}</button><button class="admin-ghost admin-danger" onclick="adminReaderDelete(${x.id})">Wissen</button></div></td></tr>${detail}`;
     })
     .join('');
   host.innerHTML = `
@@ -1863,7 +1867,7 @@ function renderAdminReader() {
     ${kinds ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Bron</th><th>Recepten</th><th>Lezer zeker</th><th>Lezer twijfelde</th><th>AI nodig</th><th>Kok verbeterde</th><th>Titel</th><th>Getal</th><th>Regels</th><th>Verplaatst</th><th>Lezer = AI</th></tr></thead><tbody>${kinds}</tbody></table></div>` : '<p class="admin-note">Nog geen imports geteld.</p>'}
     <p class="admin-footnote">Kok verbeterde: hoe vaak er na het lezen iets werd aangepast. Getal: regels waar alleen een getal anders werd. Verplaatst: regels van ingrediënten naar bereiding of andersom. Lezer = AI: bij tekst die de AI nalas, hoeveel ingrediëntregels de lezer precies hetzelfde had.</p>
     <div class="admin-panel-head" style="margin-top:22px"><div><h3 class="adsense-title" style="margin:0">Gedeelde voorbeelden</h3></div>${d.examples_open ? '<button type="button" class="btn" onclick="adminReaderExport()">Open voorbeelden downloaden</button>' : ''}</div>
-    ${d.examples_ready ? (examples ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Datum</th><th>Bron</th><th>Waarom</th><th>Recept</th><th></th></tr></thead><tbody>${examples}</tbody></table></div>` : '<p class="admin-note">Nog geen voorbeelden gedeeld.</p>') : '<p class="admin-note">Voorbeelden konden niet worden geladen.</p>'}`;
+    ${d.examples_ready ? (examples ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th aria-label="Verwerkt"></th><th>Datum</th><th>Bron</th><th>Waarom</th><th>Recept</th><th></th></tr></thead><tbody>${examples}</tbody></table></div><p class="admin-footnote">✓ = verwerkt: er is een lezer-test van gemaakt, dus de Savour-lezer leest dit soort tekst nu goed. Terugzetten zet hem weer bij de open voorbeelden. Wissen haalt het voorbeeld definitief uit de database; het recept van de kok blijft staan.</p>` : '<p class="admin-note">Nog geen voorbeelden gedeeld.</p>') : '<p class="admin-note">Voorbeelden konden niet worden geladen.</p>'}`;
 }
 
 // Eén voorbeeld naast elkaar: de brontekst, wat de lezer las, wat de AI las en wat de kok opsloeg.
@@ -1907,9 +1911,10 @@ async function adminReaderHandled(id, handled) {
 
 async function adminReaderDelete(id) {
   if (
-    !(await askConfirm('Dit voorbeeld weghalen?\n\nHet recept van de kok zelf blijft gewoon staan.', {
-      confirmLabel: 'Weghalen'
-    }))
+    !(await askConfirm(
+      'Dit voorbeeld definitief wissen?\n\nHet verdwijnt uit de database, niet alleen uit dit scherm. De Savour-lezer kan er daarna niet meer van leren. Het recept van de kok zelf blijft gewoon staan.',
+      { confirmLabel: 'Wissen', danger: true }
+    ))
   )
     return;
   try {

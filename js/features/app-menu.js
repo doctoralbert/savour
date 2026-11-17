@@ -67,24 +67,15 @@ function appMenuData() {
       ]
     },
     {
-      // Eén onderdeel: op de computer een gewone knop zonder uitklaplijst (direct), op de telefoon een groep.
+      // Tools voor in de keuken: MEP-lijsten (js/features/mep.js) en Allergenen (js/features/products.js).
       id: 'tools',
-      title: t('Allergenen'),
+      title: t('Tools'),
       intro: t('Hulpmiddelen voor in de keuken.'),
-      direct: "go('products')",
-      on: active === 'products',
+      on: ['products', 'mep'].includes(active),
       items: [
+        item("go('mep')", t('MEP-lijsten'), t('Per post, met couverts en afvinken.'), active === 'mep', 'list'),
         item("go('products')", t('Allergenen'), t('De 14 allergenen bij elk recept.'), active === 'products', 'leaf')
       ]
-    },
-    {
-      // MEP-lijsten (js/features/mep.js): op de computer een directe knop, op de telefoon een groep.
-      id: 'mep',
-      title: t('MEP-lijsten'),
-      intro: t('Wat er per post klaar moet staan, per dag afgevinkt.'),
-      direct: "go('mep')",
-      on: active === 'mep',
-      items: [item("go('mep')", t('MEP-lijsten'), t('Per post, met couverts en afvinken.'), active === 'mep', 'list')]
     },
     {
       id: 'mine',

@@ -1274,3 +1274,249 @@ body.savour-light .mep-sheet {
     bottom: 64px;
   }
 }
+
+/* ---- Lijst: de MEP-lijst in de huisstijl (renderMepPage) ---- */
+.mep-page {
+  margin: 4px 0 32px;
+  padding: var(--sv-space-6) var(--sv-space-6) var(--sv-space-5);
+  border: 1px solid var(--sv-line);
+  border-radius: var(--sv-radius-xl);
+  background: var(--sv-surface);
+}
+.mep-page-head {
+  margin: 0 0 var(--sv-space-5);
+  padding-bottom: var(--sv-space-4);
+  border-bottom: 1px solid var(--sv-line);
+}
+.mep-page-kicker {
+  margin: 0 0 6px;
+  font-size: var(--sv-fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sv-gold);
+}
+.mep-page-title {
+  margin: 0 0 8px;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-3xl);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--sv-text);
+  overflow-wrap: anywhere;
+}
+.mep-page-meta {
+  margin: 0 0 14px;
+  color: var(--sv-text-2);
+}
+.mep-page-meta b {
+  color: var(--sv-text);
+}
+.mep-page-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.mep-page-actions .btn svg {
+  width: 17px;
+  height: 17px;
+  margin-right: 6px;
+  vertical-align: -3px;
+}
+.mep-page-card + .mep-page-card {
+  margin-top: var(--sv-space-6);
+}
+.mep-page-cardname {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 var(--sv-space-3);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--sv-gold);
+  font-size: var(--sv-fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sv-gold);
+}
+.mep-page-cardname small {
+  color: var(--sv-text-3);
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 500;
+}
+.mep-page-cols {
+  columns: 3 250px;
+  column-gap: var(--sv-space-6);
+}
+.mep-page-sec {
+  break-inside: avoid;
+  margin: 0 0 var(--sv-space-5);
+}
+.mep-page-sec h3 {
+  margin: 0 0 4px;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-lg);
+  font-weight: 600;
+  color: var(--sv-text);
+}
+.mep-page-sec ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mep-page-sec li {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  border-bottom: 1px solid var(--sv-line);
+}
+.mep-page-sec label {
+  flex: 1;
+  display: flex;
+  gap: var(--sv-space-3);
+  align-items: flex-start;
+  min-width: 0;
+  padding: 9px 0;
+  cursor: pointer;
+  font-size: var(--sv-fs-base);
+  line-height: 1.45;
+}
+/* Hokje zoals bij de ingrediënten van een recept. */
+.mep-page-sec input {
+  appearance: none;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  margin: 1px 0 0;
+  border: 1.5px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius-sm);
+  background: transparent;
+  cursor: pointer;
+}
+.mep-page-sec input:checked {
+  background: var(--sv-gold);
+  border-color: var(--sv-gold);
+  box-shadow: inset 0 0 0 3px var(--sv-surface);
+}
+.mep-page-sec input:disabled {
+  cursor: default;
+}
+.mep-page-sec li.st-voorraad input {
+  background: var(--sv-text-3);
+  border-color: var(--sv-text-3);
+}
+.mep-page-line {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.mep-page-name {
+  color: var(--sv-text);
+}
+.mep-page-amount {
+  margin-left: 4px;
+  font-weight: 700;
+  color: var(--sv-gold);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.mep-page-line small {
+  display: block;
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-sm);
+}
+.mep-page-tag {
+  display: block;
+  font-style: normal;
+  font-size: var(--sv-fs-xs);
+  color: var(--sv-text-3);
+}
+.mep-page-tag.is-busy {
+  color: var(--sv-gold);
+  font-weight: 600;
+}
+.mep-page-sec li.st-klaar .mep-page-line,
+.mep-page-sec li.st-voorraad .mep-page-line {
+  opacity: 0.5;
+}
+.mep-page-sec li.st-klaar .mep-page-name {
+  text-decoration: line-through;
+  text-decoration-color: var(--sv-text-3);
+}
+.mep-page-sec li.is-flash {
+  animation: mep-flash 1.6s ease-out;
+}
+.mep-page-recipe {
+  margin-top: 4px;
+}
+
+/* Kookmodus (body.cook-mode, js/features/recipe.js): alleen de lijst, groot. */
+body.cook-mode #mep .content {
+  padding: var(--sv-space-6) var(--sv-space-5) 120px !important;
+}
+body.cook-mode #mep :is(.section-head, .mep-head, .mep-note, .mep-page-actions .btn) {
+  display: none !important;
+}
+body.cook-mode .mep-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+body.cook-mode .mep-page-title {
+  font-size: var(--sv-fs-4xl);
+}
+body.cook-mode .mep-page-meta {
+  font-size: 18px;
+}
+body.cook-mode .mep-page-cols {
+  columns: 3 320px;
+}
+body.cook-mode .mep-page-sec h3 {
+  font-size: 26px;
+}
+body.cook-mode .mep-page-sec label {
+  padding: 13px 0;
+  font-size: 21px;
+}
+body.cook-mode .mep-page-sec input {
+  width: 30px;
+  height: 30px;
+  border-width: 2px;
+}
+body.cook-mode .mep-page-line small,
+body.cook-mode .mep-page-tag {
+  font-size: 15px;
+}
+
+@media (max-width: 760px) {
+  .mep-page {
+    padding: var(--sv-space-4) var(--sv-space-4) var(--sv-space-3);
+    border-radius: var(--sv-radius-lg);
+  }
+  .mep-page-title {
+    font-size: var(--sv-fs-2xl);
+  }
+  .mep-page-cols {
+    columns: 1;
+  }
+  .mep-page-sec label {
+    padding: 11px 0;
+    font-size: 17px;
+  }
+  .mep-page-sec input {
+    width: 26px;
+    height: 26px;
+  }
+  body.cook-mode #mep .content {
+    padding: var(--sv-space-4) var(--sv-space-4) 100px !important;
+  }
+  body.cook-mode .mep-page-title {
+    font-size: var(--sv-fs-2xl);
+  }
+  body.cook-mode .mep-page-sec label {
+    font-size: 19px;
+  }
+}
