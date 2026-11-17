@@ -49,7 +49,33 @@ function newSharedMap() {
 
 // Proefperiode: het keukenteam werkt tot de einddatum en daarna pas weer als de eigenaar Pro heeft. Er gaat niets weg.
 function teamTrialText(end, mine) {
-  return `<b>Proefperiode tot</b> <b translate="no">${esc(formatProDate(end))}</b> <span>${mine ? 'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot je Savour Pro neemt.' : 'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot de eigenaar Savour Pro neemt.'}</span>`;
+  return `<b>Proefperiode tot</b> <b translate="no">${esc(formatProDate(end))}</b> <span>${mine ? 'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot je Savour Pro neemt.' : 'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot de eigenaar Savour Pro neemt.'}</span> <span>${t('In de proefweek kan een keukenteam hooguit 10 recepten hebben.')}</span>`;
+}
+
+// In de proefweek van de eigenaar kan een keukenteam hooguit 10 recepten hebben; met betaald Pro is er geen grens.
+// De database bewaakt dit ook (supabase/2026-11-17-keukenteam-proef-10-recepten.sql, savour_team_room).
+const TEAM_TRIAL_RECIPES = 10;
+function teamRoomLeft(m) {
+  if (!m?.trialEnd) return Infinity;
+  return Math.max(0, TEAM_TRIAL_RECIPES - (m.recipeIds || []).length);
+}
+// Meer gekozen dan er ruimte is: uitleggen, en false. Anders true.
+async function teamHasRoomFor(m, count) {
+  const room = teamRoomLeft(m);
+  if (count <= room) return true;
+  const mine = isSharedMapOwner(m);
+  const text =
+    room === 0
+      ? t('Dit keukenteam heeft al 10 recepten. In de proefweek kan een keukenteam hooguit 10 recepten hebben.')
+      : `${t('In de proefweek kan een keukenteam hooguit 10 recepten hebben. Er is nog ruimte voor')} ${room}.`;
+  if (
+    await askConfirm(
+      `${t('Keukenteam in de proefweek')}\n\n${text} ${mine ? t('Met Savour Pro is er geen grens.') : t('Met Savour Pro van de eigenaar is er geen grens.')}`,
+      { confirmLabel: t('Bekijk Savour Pro') }
+    )
+  )
+    openPublicInfo('pro');
+  return false;
 }
 
 function teamTrialBanner(m) {
@@ -770,8 +796,11 @@ async function saveSharedMapSelection() {
   // Een eigen recept in het keukenteam zetten = een kopie die van het keukenteam is (team_id); je eigen
   // recept blijft van jou. Zo blijven de recepten van de zaak bij de zaak, ook als iemand vertrekt.
   const chosen = ids.map(rid => recipes.find(r => String(r.id) === String(rid))).filter(Boolean);
-  for (let i = 0; i < chosen.length; i += 50) {
-    const block = chosen.slice(i, i + 50);
+  if (!(await teamHasRoomFor(findSharedMap(id), chosen.length))) return;
+  // In de proefweek één voor één: de database telt per keer, zo komt er nooit een 11e recept bij.
+  const step = Number.isFinite(teamRoomLeft(findSharedMap(id))) ? 1 : 50;
+  for (let i = 0; i < chosen.length; i += step) {
+    const block = chosen.slice(i, i + step);
     let { data: copies, error } = await supabaseClient
       .from('recipes')
       .insert(
@@ -817,6 +846,10 @@ async function saveSharedFolderSelection() {
   const ids = [...document.querySelectorAll('[data-shared-folder-check]:checked')].map(
     x => x.dataset.sharedFolderCheck
   );
+  // Alleen recepten die nog niet in het keukenteam staan, tellen mee voor de grens van de proefweek.
+  const m = findSharedMap(currentShared);
+  const inTeam = new Set((m?.recipeIds || []).map(String));
+  if (!(await teamHasRoomFor(m, ids.filter(rid => !inTeam.has(String(rid))).length))) return;
   for (const recipeId of ids)
     await supabaseClient
       .from('shared_folder_recipes')

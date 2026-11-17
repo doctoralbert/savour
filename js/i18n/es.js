@@ -2,6 +2,15 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.es = {
   strings: {
+    'In de proefweek kan een keukenteam hooguit 10 recepten hebben.':
+      'Durante la semana de prueba un equipo de cocina puede tener como máximo 10 recetas.',
+    'Dit keukenteam heeft al 10 recepten. In de proefweek kan een keukenteam hooguit 10 recepten hebben.':
+      'Este equipo de cocina ya tiene 10 recetas. Durante la semana de prueba un equipo de cocina puede tener como máximo 10 recetas.',
+    'In de proefweek kan een keukenteam hooguit 10 recepten hebben. Er is nog ruimte voor':
+      'Durante la semana de prueba un equipo de cocina puede tener como máximo 10 recetas. Queda espacio para',
+    'Keukenteam in de proefweek': 'Equipo de cocina en la semana de prueba',
+    'Met Savour Pro is er geen grens.': 'Con Savour Pro no hay límite.',
+    'Met Savour Pro van de eigenaar is er geen grens.': 'Con Savour Pro del propietario no hay límite.',
     'Kopie naar mijn recepten': 'Copiar a mis recetas',
     'Kopiëren naar je eigen recepten is onderdeel van Savour Pro':
       'Copiar a tus propias recetas es parte de Savour Pro',

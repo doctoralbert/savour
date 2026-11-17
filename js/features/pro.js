@@ -307,7 +307,7 @@ function renderProPage(host) {
   const loggedIn = typeof currentUser !== 'undefined' && !!currentUser;
   host.innerHTML =
     current +
-    `<p class="pro-trial-note"${loggedIn ? ' hidden' : ''}><strong>Nieuw bij Savour?</strong> Je probeert Savour Pro ${TRIAL_DAYS} dagen gratis, zonder betaalgegevens: AI-import en keukenteams, tot ${FREE_RECIPE_LIMIT} recepten. <span>Een keukenteam uit je proefperiode blijft bewaard, maar werkt daarna pas weer met Savour Pro.</span></p>
+    `<p class="pro-trial-note"${loggedIn ? ' hidden' : ''}><strong>Nieuw bij Savour?</strong> Je probeert Savour Pro ${TRIAL_DAYS} dagen gratis, zonder betaalgegevens: AI-import en keukenteams, tot ${FREE_RECIPE_LIMIT} recepten. <span>Een keukenteam uit je proefperiode blijft bewaard, maar werkt daarna pas weer met Savour Pro.</span> <span>In de proefweek kan een keukenteam hooguit 10 recepten hebben.</span></p>
     <div class="pro-prices">${card('month', PRO_PRICES.month, 'per maand', 'Maandelijks opzegbaar.', false)}${card('year', PRO_PRICES.year, 'per jaar', `${yearSaving(PRO_PRICES.month, PRO_PRICES.year).pct}% goedkoper dan maandelijks: je bespaart ${yearSaving(PRO_PRICES.month, PRO_PRICES.year).saved} per jaar.`, true)}</div>
     <p class="pro-pay muted">Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Er wordt geen btw gerekend (kleineondernemersregeling). Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.</p>
     ${
