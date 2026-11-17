@@ -21,6 +21,11 @@
   },
   "redirects": [
     {
+      "source": "/demo",
+      "destination": "/?demo=1",
+      "permanent": false
+    },
+    {
       "source": "/gids",
       "destination": "/handleiding",
       "permanent": true
