@@ -1396,7 +1396,7 @@ for (const lang of LANGS) {
         `<article class="site-article"><div class="site-wrap site-narrow"><ul class="site-posts">${list
           .map(
             p =>
-              `<li${coverFile(p, lang) ? ' class="has-cover"' : ''}>${coverFile(p, lang) ? `<a class="site-post-cover" href="${href(p[lang].slug)}" tabindex="-1" aria-hidden="true"><img src="${coverFile(p, lang)}" alt="" width="1200" height="630" loading="lazy"></a>` : ''}<div><h2><a href="${href(p[lang].slug)}">${esc(p[lang].title)}</a></h2><p>${esc(p[lang].desc)}</p><div class="site-post-meta"><a class="site-link" href="${href(p[lang].slug)}">${u.readArticle}</a>${postDate(p, lang)}</div></div></li>`
+              `<li${coverFile(p, lang) ? ' class="has-cover"' : ''}>${coverFile(p, lang) ? `<a class="site-post-cover" href="${href(p[lang].slug)}" tabindex="-1" aria-hidden="true"><img src="${coverFile(p, lang)}" alt="${esc(p[lang].title)}" width="1200" height="630" loading="lazy"></a>` : ''}<div><h2><a href="${href(p[lang].slug)}">${esc(p[lang].title)}</a></h2><p>${esc(p[lang].desc)}</p><div class="site-post-meta"><a class="site-link" href="${href(p[lang].slug)}">${u.readArticle}</a>${postDate(p, lang)}</div></div></li>`
           )
           .join('')}</ul>${pager}</div></article>`
     });
@@ -1760,15 +1760,15 @@ const HOME_META = {
     locale: 'en_GB'
   },
   de: {
-    title: 'Savour — Rezepturverwaltung für Köche: Rezepte organisieren und teilen',
-    desc: 'Rezepturverwaltung für Restaurant und Großküche: alle Rezepte aus Word, PDF und handschriftlichen Notizen importieren, mit dem Küchenteam teilen und ganze Ordner drucken.',
+    title: 'Savour — Rezepturverwaltung für Köche und Küchenteams',
+    desc: 'Rezepturverwaltung für Restaurant und Großküche: Rezepte aus Word, PDF und Notizen importieren, mit dem Küchenteam teilen und drucken. Kostenlos testen.',
     ogTitle: 'Savour — Rezeptverwaltung für Profiküchen',
     ogDesc:
       'Von der Notiz zum Rezept, das stimmt. Dein ganzes Rezeptbuch an einem Ort, auf Computer und Handy, geteilt mit deinem Küchenteam.',
     locale: 'de_DE'
   },
   es: {
-    title: 'Savour — app de recetas para chefs: organiza y comparte recetas',
+    title: 'Savour — app de recetas para chefs y equipos de cocina',
     desc: 'Organiza todas tus recetas en una app: importa de Word, PDF y notas a mano, compártelas con tu equipo de cocina e imprime carpetas enteras. Pruébalo gratis.',
     ogTitle: 'Savour — gestión de recetas para cocinas profesionales',
     ogDesc:
@@ -1776,7 +1776,7 @@ const HOME_META = {
     locale: 'es_ES'
   },
   fr: {
-    title: 'Savour — application de recettes pour chefs : organiser et partager',
+    title: 'Savour — recettes pour chefs : organiser et partager',
     desc: 'Organise toutes tes recettes dans une application : importe Word, PDF et notes manuscrites, partage-les avec ton équipe et imprime des dossiers entiers.',
     ogTitle: 'Savour — gestion des recettes pour cuisines professionnelles',
     ogDesc:
@@ -1863,6 +1863,14 @@ const HOME_META = {
     // Schermafbeeldingen in schema.org (SoftwareApplication.screenshot) in de taal van deze startpagina.
     x = x.replace(/(\/assets\/app\/[a-z-]+)-nl\.jpg(?=")/g, `$1-${lang}.jpg`);
     x = withFaq(x, lang);
+    // Ook de beschrijvingen in schema.org (Organization en SoftwareApplication) in de taal van deze startpagina;
+    // anders stond er op de Franse startpagina een Nederlandse en een Engelse beschrijving.
+    x = x.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/, (all, json) => {
+      const list = JSON.parse(json);
+      for (const item of list)
+        if (['Organization', 'SoftwareApplication'].includes(item['@type'])) item.description = m.desc;
+      return `<script type="application/ld+json">${JSON.stringify(list)}</script>`;
+    });
     x = x.replace(
       '<!doctype html>',
       `<!doctype html>\n<!-- Gemaakt door tools/build-seo.mjs uit index.html: startpagina in het ${lang.toUpperCase()}. Niet met de hand aanpassen. -->`

@@ -2,6 +2,11 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.fr = {
   strings: {
+    'Kopie naar mijn recepten': 'Copier dans mes recettes',
+    'Kopiëren naar je eigen recepten is onderdeel van Savour Pro':
+      'Copier dans tes propres recettes fait partie de Savour Pro',
+    'Als lid van een keukenteam bekijk, print en reken je de recepten gratis om. Een eigen kopie maken om zelf aan te passen kan met Savour Pro.':
+      'En tant que membre d’une équipe de cuisine, tu consultes, imprimes et convertis les recettes gratuitement. Faire ta propre copie pour la modifier, c’est avec Savour Pro.',
     'Open het keukenteam': 'Ouvre l’équipe de cuisine',
     'Alle recepten van je keuken op één plek, op elke telefoon.':
       'Toutes les recettes de ta cuisine au même endroit, sur chaque téléphone.',
@@ -829,7 +834,7 @@ window.SAVOUR_I18N.fr = {
     Factor: 'Facteur',
     'Dit kon niet worden omgerekend. Controleer wat je hebt ingevuld.':
       "La conversion n'a pas pu se faire. Vérifie ce que tu as saisi.",
-    'Koppelen aan recept': 'Lier à une recette',
+    'Ingrediënt koppelen aan recept': 'Lier l’ingrédient à une recette',
     'Kies het ingrediënt waar een eigen recept bij hoort, bijvoorbeeld een basissaus.':
       "Choisis l'ingrédient qui a sa propre recette, par exemple une sauce de base.",
     'Koppeling weghalen': 'Retirer le lien',
@@ -2201,8 +2206,8 @@ window.SAVOUR_I18N.fr = {
     'Product kiezen': 'Choisir un produit',
     'Nog geen product': 'Pas encore de produit',
     'Allergenen nog niet gecontroleerd': 'Allergènes pas encore vérifiés',
-    'Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Koppelen aan recept; dan tellen de allergenen van dat recept mee.':
-      'Un produit vaut pour toutes les recettes avec le même nom d’ingrédient. Une ligne utilise une recette à toi, comme un fond ? Relie-la via ⋯ Lier à une recette ; les allergènes de cette recette comptent alors aussi.',
+    'Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Ingrediënt koppelen aan recept; dan tellen de allergenen van dat recept mee.':
+      'Un produit vaut pour toutes les recettes avec le même nom d’ingrédient. Une ligne utilise une recette à toi, comme un fond ? Relie-la via ⋯ Lier l’ingrédient à une recette ; les allergènes de cette recette comptent alors aussi.',
     'Kies het product dat bij dit ingrediënt hoort, of maak een nieuw product.':
       'Choisis le produit qui correspond à cet ingrédient, ou crée un nouveau produit.',
     'Zoek een product': 'Chercher un produit',

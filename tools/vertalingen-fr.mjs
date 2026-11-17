@@ -1,6 +1,9 @@
 // Franse vertalingen, naast tools/vertalingen.mjs: Nederlandse brontekst → Frans.
 // Nieuwe interfacetekst? Zet hier ook de Franse regel; node tools/build-i18n.mjs meldt wat ontbreekt.
 export const stringsFr = {
+ "Kopie naar mijn recepten": "Copier dans mes recettes",
+ "Kopiëren naar je eigen recepten is onderdeel van Savour Pro": "Copier dans tes propres recettes fait partie de Savour Pro",
+ "Als lid van een keukenteam bekijk, print en reken je de recepten gratis om. Een eigen kopie maken om zelf aan te passen kan met Savour Pro.": "En tant que membre d’une équipe de cuisine, tu consultes, imprimes et convertis les recettes gratuitement. Faire ta propre copie pour la modifier, c’est avec Savour Pro.",
  "Open het keukenteam": "Ouvre l’équipe de cuisine",
  "Alle recepten van je keuken op één plek, op elke telefoon.": "Toutes les recettes de ta cuisine au même endroit, sur chaque téléphone.",
  "Kook, reken om en print": "Cuisine, convertis et imprime",
@@ -684,7 +687,7 @@ export const stringsFr = {
  "Bekijk Savour Pro": "Découvrir Savour Pro",
  "Onbeperkt recepten, AI die je kladjes en foto's leest, en keukenteams voor je team.": "Recettes illimitées, une IA qui lit tes notes et tes photos, et des équipes de cuisine pour ton équipe.",
  "Verbergen": "Masquer",
- "Koppelen aan recept": "Lier à une recette",
+ "Ingrediënt koppelen aan recept": "Lier l’ingrédient à une recette",
  "Kies het ingrediënt waar een eigen recept bij hoort, bijvoorbeeld een basissaus.": "Choisis l'ingrédient qui a sa propre recette, par exemple une sauce de base.",
  "Koppeling weghalen": "Retirer le lien",
  "Notitie": "Note",
@@ -1755,7 +1758,7 @@ export const stringsFr = {
  "Product kiezen": "Choisir un produit",
  "Nog geen product": "Pas encore de produit",
  "Allergenen nog niet gecontroleerd": "Allergènes pas encore vérifiés",
- "Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Koppelen aan recept; dan tellen de allergenen van dat recept mee.": "Un produit vaut pour toutes les recettes avec le même nom d’ingrédient. Une ligne utilise une recette à toi, comme un fond ? Relie-la via ⋯ Lier à une recette ; les allergènes de cette recette comptent alors aussi.",
+ "Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Ingrediënt koppelen aan recept; dan tellen de allergenen van dat recept mee.": "Un produit vaut pour toutes les recettes avec le même nom d’ingrédient. Une ligne utilise une recette à toi, comme un fond ? Relie-la via ⋯ Lier l’ingrédient à une recette ; les allergènes de cette recette comptent alors aussi.",
  "Kies het product dat bij dit ingrediënt hoort, of maak een nieuw product.": "Choisis le produit qui correspond à cet ingrédient, ou crée un nouveau produit.",
  "Zoek een product": "Chercher un produit",
  "＋ Nieuw product": "＋ Nouveau produit",

@@ -1,23 +1,23 @@
 {
  "https://savour.page/": {
-  "hash": "4dab962555ffd956",
+  "hash": "f123e7e0b4856e87",
   "date": "2026-11-17"
  },
  "https://savour.page/en": {
-  "hash": "6988fa0065248f9e",
-  "date": "2026-11-15"
+  "hash": "0a6e92ed8a16363a",
+  "date": "2026-11-17"
  },
  "https://savour.page/de": {
-  "hash": "ee737dfa65404b0a",
-  "date": "2026-11-15"
+  "hash": "51ac0e5ae920c6fd",
+  "date": "2026-11-17"
  },
  "https://savour.page/es": {
-  "hash": "6d63172b867b7558",
-  "date": "2026-11-15"
+  "hash": "97380207feff060b",
+  "date": "2026-11-17"
  },
  "https://savour.page/fr": {
-  "hash": "bb040424effb9e54",
-  "date": "2026-11-15"
+  "hash": "21d37d438a1ed0cf",
+  "date": "2026-11-17"
  },
  "https://savour.page/recepten-digitaliseren": {
   "hash": "4eb0684ff9674322",
@@ -64,8 +64,8 @@
   "date": "2026-11-15"
  },
  "https://savour.page/blog": {
-  "hash": "42867bca76948d75",
-  "date": "2026-11-15"
+  "hash": "60ae049c02d368e4",
+  "date": "2026-11-17"
  },
  "https://savour.page/blog/receptenmap-laten-overzetten": {
   "hash": "2939b29302b764f4",
@@ -212,8 +212,8 @@
   "date": "2026-11-15"
  },
  "https://savour.page/en/blog": {
-  "hash": "e72f149916d29229",
-  "date": "2026-11-15"
+  "hash": "6741ea4bac612e5c",
+  "date": "2026-11-17"
  },
  "https://savour.page/en/blog/have-your-recipe-folder-moved-over": {
   "hash": "3fbd3da0983da098",
@@ -360,8 +360,8 @@
   "date": "2026-11-15"
  },
  "https://savour.page/de/blog": {
-  "hash": "96ab4e4e826c797a",
-  "date": "2026-11-15"
+  "hash": "49b76098c7164f85",
+  "date": "2026-11-17"
  },
  "https://savour.page/de/blog/rezeptordner-uebertragen-lassen": {
   "hash": "301b658682aac8d2",
@@ -508,8 +508,8 @@
   "date": "2026-11-15"
  },
  "https://savour.page/es/blog": {
-  "hash": "1dc84f052d0d3f42",
-  "date": "2026-11-15"
+  "hash": "fa0f880f879312b1",
+  "date": "2026-11-17"
  },
  "https://savour.page/es/blog/traspasar-tu-recetario": {
   "hash": "1f85abefa96ef906",
@@ -656,8 +656,8 @@
   "date": "2026-11-15"
  },
  "https://savour.page/fr/blog": {
-  "hash": "b6c0a3fc8a06d0e5",
-  "date": "2026-11-15"
+  "hash": "9cc93e4f4a69b2d2",
+  "date": "2026-11-17"
  },
  "https://savour.page/fr/blog/transferer-son-classeur-de-recettes": {
   "hash": "343c6b0b174c6e0a",
@@ -1120,44 +1120,44 @@
   "date": "2026-11-15"
  },
  "https://savour.page/blog/pagina-2": {
-  "hash": "3b4ab169f7bc4118",
-  "date": "2026-11-15"
+  "hash": "700c7b082f6f2ccc",
+  "date": "2026-11-17"
  },
  "https://savour.page/blog/pagina-3": {
-  "hash": "d415aa81808b531c",
-  "date": "2026-11-15"
+  "hash": "cf550fe59c2cf80e",
+  "date": "2026-11-17"
  },
  "https://savour.page/en/blog/page-2": {
-  "hash": "8c7d5ddd3f61b572",
-  "date": "2026-11-15"
+  "hash": "182c9e4f4a02cceb",
+  "date": "2026-11-17"
  },
  "https://savour.page/en/blog/page-3": {
-  "hash": "6cd8b57b1bf81808",
-  "date": "2026-11-15"
+  "hash": "2cb44b5aa9d0b8b9",
+  "date": "2026-11-17"
  },
  "https://savour.page/de/blog/seite-2": {
-  "hash": "2d8b00b9d849780a",
-  "date": "2026-11-15"
+  "hash": "04a18e8b9b651d0e",
+  "date": "2026-11-17"
  },
  "https://savour.page/de/blog/seite-3": {
-  "hash": "ab7f80300cb6028a",
-  "date": "2026-11-15"
+  "hash": "23e88caaa6332e13",
+  "date": "2026-11-17"
  },
  "https://savour.page/es/blog/pagina-2": {
-  "hash": "8e581d4e9f6de6b6",
-  "date": "2026-11-15"
+  "hash": "fa3d4b89582eb972",
+  "date": "2026-11-17"
  },
  "https://savour.page/es/blog/pagina-3": {
-  "hash": "bc872eb8d631730e",
-  "date": "2026-11-15"
+  "hash": "d769783118c24e49",
+  "date": "2026-11-17"
  },
  "https://savour.page/fr/blog/page-2": {
-  "hash": "4d888bf5c52d9525",
-  "date": "2026-11-15"
+  "hash": "9530b524db98795a",
+  "date": "2026-11-17"
  },
  "https://savour.page/fr/blog/page-3": {
-  "hash": "723702c2431f3f9a",
-  "date": "2026-11-15"
+  "hash": "be57017c690ad172",
+  "date": "2026-11-17"
  },
  "https://savour.page/release-notes-pagina-2": {
   "hash": "542de71fd819ecee",
@@ -1240,40 +1240,40 @@
   "date": "2026-11-15"
  },
  "https://savour.page/blog/pagina-4": {
-  "hash": "d731830d83bc4248",
-  "date": "2026-11-15"
+  "hash": "4ff4a5e63e2e27ec",
+  "date": "2026-11-17"
  },
  "https://savour.page/blog/kosten-en-marges-restaurant": {
   "hash": "9538e936270d0c7e",
   "date": "2026-11-15"
  },
  "https://savour.page/en/blog/page-4": {
-  "hash": "1ad27c3b1f8ec781",
-  "date": "2026-11-15"
+  "hash": "afa78ec9b8190a5c",
+  "date": "2026-11-17"
  },
  "https://savour.page/en/blog/restaurant-costs-and-margins": {
   "hash": "bd493bd0ff73af1e",
   "date": "2026-11-15"
  },
  "https://savour.page/de/blog/seite-4": {
-  "hash": "79dd9e0a33c5a79e",
-  "date": "2026-11-15"
+  "hash": "98e649a45a4c8e23",
+  "date": "2026-11-17"
  },
  "https://savour.page/de/blog/kosten-und-margen-restaurant": {
   "hash": "15324d73ea5c50c6",
   "date": "2026-11-15"
  },
  "https://savour.page/es/blog/pagina-4": {
-  "hash": "2e72ddec80d564f2",
-  "date": "2026-11-15"
+  "hash": "ae64fd5333ba114b",
+  "date": "2026-11-17"
  },
  "https://savour.page/es/blog/costes-y-margenes-restaurante": {
   "hash": "674b7a311406e026",
   "date": "2026-11-15"
  },
  "https://savour.page/fr/blog/page-4": {
-  "hash": "94c558c5af364d00",
-  "date": "2026-11-15"
+  "hash": "999ab99e5168a899",
+  "date": "2026-11-17"
  },
  "https://savour.page/fr/blog/couts-et-marges-restaurant": {
   "hash": "62f10d1fa2e9bae5",

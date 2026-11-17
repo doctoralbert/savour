@@ -2,6 +2,11 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.de = {
   strings: {
+    'Kopie naar mijn recepten': 'In meine Rezepte kopieren',
+    'Kopiëren naar je eigen recepten is onderdeel van Savour Pro':
+      'In deine eigenen Rezepte kopieren gehört zu Savour Pro',
+    'Als lid van een keukenteam bekijk, print en reken je de recepten gratis om. Een eigen kopie maken om zelf aan te passen kan met Savour Pro.':
+      'Als Mitglied eines Küchenteams siehst, druckst und rechnest du die Rezepte kostenlos um. Eine eigene Kopie zum Bearbeiten geht mit Savour Pro.',
     'Open het keukenteam': 'Öffne das Küchenteam',
     'Alle recepten van je keuken op één plek, op elke telefoon.':
       'Alle Rezepte deiner Küche an einem Ort, auf jedem Handy.',
@@ -825,7 +830,7 @@ window.SAVOUR_I18N.de = {
     Factor: 'Faktor',
     'Dit kon niet worden omgerekend. Controleer wat je hebt ingevuld.':
       'Das konnte nicht umgerechnet werden. Prüfe deine Eingabe.',
-    'Koppelen aan recept': 'Mit Rezept verknüpfen',
+    'Ingrediënt koppelen aan recept': 'Zutat mit Rezept verknüpfen',
     'Kies het ingrediënt waar een eigen recept bij hoort, bijvoorbeeld een basissaus.':
       'Wähle die Zutat, zu der ein eigenes Rezept gehört, zum Beispiel eine Grundsauce.',
     'Koppeling weghalen': 'Verknüpfung entfernen',
@@ -2194,8 +2199,8 @@ window.SAVOUR_I18N.de = {
     'Product kiezen': 'Produkt wählen',
     'Nog geen product': 'Noch kein Produkt',
     'Allergenen nog niet gecontroleerd': 'Allergene noch nicht geprüft',
-    'Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Koppelen aan recept; dan tellen de allergenen van dat recept mee.':
-      'Ein Produkt gilt für alle Rezepte mit demselben Zutatennamen. Nutzt eine Zeile ein eigenes Rezept, etwa einen Fond? Verknüpfe es über ⋯ Mit Rezept verknüpfen; dann zählen die Allergene dieses Rezepts mit.',
+    'Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Ingrediënt koppelen aan recept; dan tellen de allergenen van dat recept mee.':
+      'Ein Produkt gilt für alle Rezepte mit demselben Zutatennamen. Nutzt eine Zeile ein eigenes Rezept, etwa einen Fond? Verknüpfe es über ⋯ Zutat mit Rezept verknüpfen; dann zählen die Allergene dieses Rezepts mit.',
     'Kies het product dat bij dit ingrediënt hoort, of maak een nieuw product.':
       'Wähle das Produkt zu dieser Zutat oder lege ein neues Produkt an.',
     'Zoek een product': 'Produkt suchen',

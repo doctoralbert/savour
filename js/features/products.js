@@ -1236,7 +1236,7 @@ async function openRecipeAllergenCheck() {
   document.getElementById('allergenCheck')?.remove();
   document.body.insertAdjacentHTML(
     'beforeend',
-    `<div class="modal sv-dialog open" id="allergenCheck" role="dialog" aria-modal="true" aria-labelledby="allergenCheckTitle"><div class="sv-dialog-box allergen-check-box">${modalCloseHtml()}<h2 id="allergenCheckTitle" class="sv-dialog-title">Allergenen</h2><p class="sv-dialog-text"><span translate="no">${esc(r.title)}</span></p><div class="allergen-check-sum">${allergenSummaryHtml(info)}${info.unknown.length ? `<p class="rp-allergens-open">${icon('alert', { size: 14 })}<span>Nog niet compleet: ${info.unknown.length} ${info.unknown.length === 1 ? 'ingrediënt' : 'ingrediënten'} zonder gecontroleerde allergenen.</span></p>` : ''}</div><ul class="allergen-lines">${rows}</ul>${edit ? '<p class="muted allergen-check-tip">Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Koppelen aan recept; dan tellen de allergenen van dat recept mee.</p>' : ''}<div class="sv-dialog-actions"><button type="button" class="btn" data-close>Sluiten</button></div></div></div>`
+    `<div class="modal sv-dialog open" id="allergenCheck" role="dialog" aria-modal="true" aria-labelledby="allergenCheckTitle"><div class="sv-dialog-box allergen-check-box">${modalCloseHtml()}<h2 id="allergenCheckTitle" class="sv-dialog-title">Allergenen</h2><p class="sv-dialog-text"><span translate="no">${esc(r.title)}</span></p><div class="allergen-check-sum">${allergenSummaryHtml(info)}${info.unknown.length ? `<p class="rp-allergens-open">${icon('alert', { size: 14 })}<span>Nog niet compleet: ${info.unknown.length} ${info.unknown.length === 1 ? 'ingrediënt' : 'ingrediënten'} zonder gecontroleerde allergenen.</span></p>` : ''}</div><ul class="allergen-lines">${rows}</ul>${edit ? '<p class="muted allergen-check-tip">Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Ingrediënt koppelen aan recept; dan tellen de allergenen van dat recept mee.</p>' : ''}<div class="sv-dialog-actions"><button type="button" class="btn" data-close>Sluiten</button></div></div></div>`
   );
   const el = $('allergenCheck');
   const close = () => el.remove();
@@ -1261,7 +1261,7 @@ async function openRecipeAllergenCheck() {
       after(() => openProductEditor({ product: p, scope }));
     })
   );
-  // Een eigen recept kiezen voor deze ene regel, zoals bij ⋯ Koppelen aan recept.
+  // Een eigen recept kiezen voor deze ene regel, zoals bij ⋯ Ingrediënt koppelen aan recept.
   el.querySelectorAll('[data-recipe-line]').forEach(b =>
     b.addEventListener('click', () =>
       after(async () => {

@@ -1,5 +1,8 @@
 // Brontabel voor de vertalingen: [Nederlands, Engels, Duits, Spaans].
 export const strings = [
+  ["Kopie naar mijn recepten", "Copy to my recipes", "In meine Rezepte kopieren", "Copiar a mis recetas"],
+  ["Kopiëren naar je eigen recepten is onderdeel van Savour Pro", "Copying to your own recipes is part of Savour Pro", "In deine eigenen Rezepte kopieren gehört zu Savour Pro", "Copiar a tus propias recetas es parte de Savour Pro"],
+  ["Als lid van een keukenteam bekijk, print en reken je de recepten gratis om. Een eigen kopie maken om zelf aan te passen kan met Savour Pro.", "As a kitchen team member you view, print and scale the recipes for free. Making your own copy to edit yourself is part of Savour Pro.", "Als Mitglied eines Küchenteams siehst, druckst und rechnest du die Rezepte kostenlos um. Eine eigene Kopie zum Bearbeiten geht mit Savour Pro.", "Como miembro de un equipo de cocina ves, imprimes y escalas las recetas gratis. Hacer tu propia copia para editarla es con Savour Pro."],
   ["Open het keukenteam", "Open the kitchen team", "Öffne das Küchenteam", "Abre el equipo de cocina"],
   ["Alle recepten van je keuken op één plek, op elke telefoon.", "All your kitchen’s recipes in one place, on every phone.", "Alle Rezepte deiner Küche an einem Ort, auf jedem Handy.", "Todas las recetas de tu cocina en un solo lugar, en cada teléfono."],
   ["Kook, reken om en print", "Cook, scale and print", "Kochen, umrechnen und drucken", "Cocina, escala e imprime"],
@@ -1665,7 +1668,7 @@ export const strings = [
   ["Samenwerken met je team","Working with your team","Zusammenarbeiten mit deinem Team","Trabajar con tu equipo"],
   ["Factor","Factor","Faktor","Factor"],
   ["Dit kon niet worden omgerekend. Controleer wat je hebt ingevuld.","This could not be converted. Check what you entered.","Das konnte nicht umgerechnet werden. Prüfe deine Eingabe.","No se ha podido convertir. Revisa lo que has introducido."],
-  ["Koppelen aan recept","Link to recipe","Mit Rezept verknüpfen","Vincular a receta"],
+  ["Ingrediënt koppelen aan recept","Link ingredient to recipe","Zutat mit Rezept verknüpfen","Vincular ingrediente a receta"],
   ["Kies het ingrediënt waar een eigen recept bij hoort, bijvoorbeeld een basissaus.","Choose the ingredient that has its own recipe, such as a base sauce.","Wähle die Zutat, zu der ein eigenes Rezept gehört, zum Beispiel eine Grundsauce.","Elige el ingrediente que tiene su propia receta, por ejemplo una salsa base."],
   ["Koppeling weghalen","Remove link","Verknüpfung entfernen","Quitar vínculo"],
   ["Notitie","Note","Notiz","Nota"],
@@ -3933,7 +3936,7 @@ export const strings = [
   ["Product kiezen","Choose product","Produkt wählen","Elegir producto"],
   ["Nog geen product","No product yet","Noch kein Produkt","Aún sin producto"],
   ["Allergenen nog niet gecontroleerd","Allergens not checked yet","Allergene noch nicht geprüft","Alérgenos aún sin comprobar"],
-  ["Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Koppelen aan recept; dan tellen de allergenen van dat recept mee.","A product applies to every recipe with the same ingredient name. Does a line use a recipe of your own, such as a stock? Link it via ⋯ Link to recipe; the allergens of that recipe then count too.","Ein Produkt gilt für alle Rezepte mit demselben Zutatennamen. Nutzt eine Zeile ein eigenes Rezept, etwa einen Fond? Verknüpfe es über ⋯ Mit Rezept verknüpfen; dann zählen die Allergene dieses Rezepts mit.","Un producto se aplica a todas las recetas con el mismo nombre de ingrediente. ¿Una línea usa una receta propia, como un fondo? Vincúlala con ⋯ Vincular a receta; así cuentan también los alérgenos de esa receta."],
+  ["Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Ingrediënt koppelen aan recept; dan tellen de allergenen van dat recept mee.","A product applies to every recipe with the same ingredient name. Does a line use a recipe of your own, such as a stock? Link it via ⋯ Link ingredient to recipe; the allergens of that recipe then count too.","Ein Produkt gilt für alle Rezepte mit demselben Zutatennamen. Nutzt eine Zeile ein eigenes Rezept, etwa einen Fond? Verknüpfe es über ⋯ Zutat mit Rezept verknüpfen; dann zählen die Allergene dieses Rezepts mit.","Un producto se aplica a todas las recetas con el mismo nombre de ingrediente. ¿Una línea usa una receta propia, como un fondo? Vincúlala con ⋯ Vincular ingrediente a receta; así cuentan también los alérgenos de esa receta."],
   ["Kies het product dat bij dit ingrediënt hoort, of maak een nieuw product.","Choose the product that belongs to this ingredient, or create a new product.","Wähle das Produkt zu dieser Zutat oder lege ein neues Produkt an.","Elige el producto de este ingrediente o crea un producto nuevo."],
   ["Zoek een product","Search for a product","Produkt suchen","Buscar un producto"],
   ["＋ Nieuw product","＋ New product","＋ Neues Produkt","＋ Producto nuevo"],

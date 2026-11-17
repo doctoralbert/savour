@@ -2,6 +2,10 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.en = {
   strings: {
+    'Kopie naar mijn recepten': 'Copy to my recipes',
+    'Kopiëren naar je eigen recepten is onderdeel van Savour Pro': 'Copying to your own recipes is part of Savour Pro',
+    'Als lid van een keukenteam bekijk, print en reken je de recepten gratis om. Een eigen kopie maken om zelf aan te passen kan met Savour Pro.':
+      'As a kitchen team member you view, print and scale the recipes for free. Making your own copy to edit yourself is part of Savour Pro.',
     'Open het keukenteam': 'Open the kitchen team',
     'Alle recepten van je keuken op één plek, op elke telefoon.':
       'All your kitchen’s recipes in one place, on every phone.',
@@ -820,7 +824,7 @@ window.SAVOUR_I18N.en = {
     Factor: 'Factor',
     'Dit kon niet worden omgerekend. Controleer wat je hebt ingevuld.':
       'This could not be converted. Check what you entered.',
-    'Koppelen aan recept': 'Link to recipe',
+    'Ingrediënt koppelen aan recept': 'Link ingredient to recipe',
     'Kies het ingrediënt waar een eigen recept bij hoort, bijvoorbeeld een basissaus.':
       'Choose the ingredient that has its own recipe, such as a base sauce.',
     'Koppeling weghalen': 'Remove link',
@@ -2170,8 +2174,8 @@ window.SAVOUR_I18N.en = {
     'Product kiezen': 'Choose product',
     'Nog geen product': 'No product yet',
     'Allergenen nog niet gecontroleerd': 'Allergens not checked yet',
-    'Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Koppelen aan recept; dan tellen de allergenen van dat recept mee.':
-      'A product applies to every recipe with the same ingredient name. Does a line use a recipe of your own, such as a stock? Link it via ⋯ Link to recipe; the allergens of that recipe then count too.',
+    'Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Ingrediënt koppelen aan recept; dan tellen de allergenen van dat recept mee.':
+      'A product applies to every recipe with the same ingredient name. Does a line use a recipe of your own, such as a stock? Link it via ⋯ Link ingredient to recipe; the allergens of that recipe then count too.',
     'Kies het product dat bij dit ingrediënt hoort, of maak een nieuw product.':
       'Choose the product that belongs to this ingredient, or create a new product.',
     'Zoek een product': 'Search for a product',
