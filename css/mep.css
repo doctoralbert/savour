@@ -1549,3 +1549,205 @@ body.cook-mode .mep-page-body.is-single {
     margin-top: var(--sv-space-4);
   }
 }
+
+/* ---- Fotoband: overzicht en een geopende lijst (zoals het keukenteam-scherm) ---- */
+#mep {
+  --view-photo: url('/assets/keuken/vuur-grill.jpg');
+}
+/* Een lijst heeft een eigen fotoband met naam en knoppen; de vaste kop van het scherm dan niet. */
+#mep.mep-has-band > .content > .section-head {
+  display: none !important;
+}
+#mep .recipe-page-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+#mep .recipe-page-actions .btn svg {
+  width: 15px;
+  height: 15px;
+  margin-right: 6px;
+  vertical-align: -3px;
+}
+.mep-back-link {
+  display: inline-flex;
+  margin: 0 0 10px;
+  border: 0;
+  background: none;
+  color: var(--sv-text-2);
+  font: inherit;
+  cursor: pointer;
+}
+.mep-back-link:hover {
+  color: var(--sv-gold);
+}
+.mep-band {
+  align-items: flex-end;
+  gap: 16px;
+  margin: 0 0 18px;
+}
+.mep-band-text {
+  min-width: 0;
+  flex: 1 1 320px;
+}
+.mep-band-text .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mep-band-text h1 {
+  margin: 4px 0 6px;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-3xl);
+  font-weight: 600;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+.mep-band-sub {
+  margin: 0;
+}
+.mep-band-sub b {
+  font-weight: 700;
+}
+.mep-band-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.mep-band-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mep-band .mep-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+}
+.mep-band .mep-tool svg {
+  width: 17px;
+  height: 17px;
+}
+.mep-band .mep-more summary {
+  min-height: 44px;
+  min-width: 44px;
+}
+.mep-cover-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.mep-cover-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 4px 12px 4px 14px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  background: var(--sv-surface);
+  color: var(--sv-text);
+  font-size: var(--sv-fs-sm);
+  font-weight: 600;
+}
+.mep-cover-chip input {
+  width: 64px;
+  height: 34px;
+  padding: 0 6px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  background: var(--sv-surface-2);
+  color: var(--sv-text);
+  font: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.mep-cover-chip input:focus {
+  border-color: var(--sv-gold);
+  outline: none;
+}
+.mep-cover-chip small {
+  color: var(--sv-text-3);
+  font-weight: 500;
+}
+@media (min-width: 761px) {
+  /* Op de foto: donkere, half doorzichtige knoppen zoals op het keukenteam-scherm. */
+  #appShell .mep-band.photo-band {
+    min-height: 168px;
+  }
+  #appShell .mep-band.photo-band .mep-cover-chip,
+  #appShell .mep-band.photo-band .mep-modes {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(11, 18, 19, 0.72);
+    color: #f6f2ea;
+    backdrop-filter: blur(4px);
+  }
+  #appShell .mep-band.photo-band .mep-cover-chip small {
+    color: rgba(238, 232, 220, 0.75);
+  }
+  #appShell .mep-band.photo-band .mep-cover-chip input {
+    border-color: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+  }
+  #appShell .mep-band.photo-band .mep-modes button:not(.is-on) {
+    color: rgba(238, 232, 220, 0.85);
+  }
+  #appShell .mep-band.photo-band .mep-band-sub {
+    max-width: none !important;
+  }
+}
+.mep-page-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 18px;
+}
+.mep-page-bar .mep-live {
+  margin-left: 0;
+}
+/* Keukenteam-scherm: blok MEP-lijsten. */
+.kt-mep:empty {
+  display: none;
+}
+.kt-mep .kt-mep-list svg {
+  flex: none;
+  color: var(--sv-gold);
+}
+/* Kookmodus: alleen de naam en de lijst. */
+body.cook-mode #mep :is(.mep-back-link, .mep-band-actions, .mep-note) {
+  display: none !important;
+}
+body.cook-mode #mep .mep-band {
+  min-height: 0;
+}
+@media (max-width: 760px) {
+  .mep-band {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mep-band-text h1 {
+    font-size: var(--sv-fs-2xl);
+  }
+  .mep-band-actions {
+    justify-content: flex-start;
+  }
+  .mep-band-actions .mep-modes {
+    width: 100%;
+  }
+  .mep-cover-chips {
+    width: 100%;
+  }
+  .mep-cover-chip {
+    flex: 1;
+    justify-content: space-between;
+  }
+}

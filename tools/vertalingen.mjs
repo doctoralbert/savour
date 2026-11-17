@@ -1,6 +1,26 @@
 // Brontabel voor de vertalingen: [Nederlands, Engels, Duits, Spaans].
 export const strings = [
   // ---- MEP-lijsten (2026-11-17, js/features/mep.js, mep-import.js) ----
+  ["Couverts en hoeveelheden","Covers and quantities","Gedecke und Mengen","Cubiertos y cantidades"],
+  ["Vul in de balk bovenin per kaart het aantal couverts in; Savour rekent per onderdeel uit hoeveel je nodig hebt (40 couverts × 60 g = 2,4 kg). Elke dag begint de lijst leeg. Met ⋯ Lijst leegmaken haal je de vinkjes ook tussendoor weg.","Fill in the number of covers per menu in the bar at the top; Savour works out how much you need of each item (40 covers × 60 g = 2.4 kg). Every day the list starts empty. With ⋯ Clear list you remove the ticks in between too.","Trag in der Leiste oben pro Karte die Anzahl Gedecke ein; Savour rechnet pro Posten aus, wie viel du brauchst (40 Gedecke × 60 g = 2,4 kg). Jeden Tag beginnt die Liste leer. Mit ⋯ Liste leeren entfernst du die Häkchen auch zwischendurch.","Introduce en la barra superior el número de cubiertos de cada carta; Savour calcula cuánto necesitas de cada elemento (40 cubiertos × 60 g = 2,4 kg). Cada día la lista empieza vacía. Con ⋯ Vaciar lista quitas las marcas también entre medias."],
+  // ---- MEP-lijsten (2026-11-17, js/features/mep.js, mep-import.js) ----
+  ["Portie","Portion","Portion","Ración"],
+  ["Vul bij portie een getal in, bijvoorbeeld 40 of 0,5. Of laat het leeg.","Enter a number for the portion, for example 40 or 0.5. Or leave it empty.","Trag bei Portion eine Zahl ein, zum Beispiel 40 oder 0,5. Oder lass es leer.","Introduce un número en la ración, por ejemplo 40 o 0,5. O déjalo vacío."],
+  ["Wat al klaar is, staat afgevinkt.","What’s already done is ticked.","Was schon fertig ist, ist abgehakt.","Lo que ya está listo aparece marcado."],
+  ["MEP-lijsten maken is Savour Pro","Creating prep lists is Savour Pro","MEP-Listen erstellen gehört zu Savour Pro","Crear listas MEP es Savour Pro"],
+  ["Met Savour Pro maak en beheer je MEP-lijsten voor jezelf en je keukenteam. Afvinken en printen blijft voor iedereen gratis.","With Savour Pro you create and manage prep lists for yourself and your kitchen team. Ticking off and printing stay free for everyone.","Mit Savour Pro erstellst und verwaltest du MEP-Listen für dich und dein Küchenteam. Abhaken und Drucken bleiben für alle kostenlos.","Con Savour Pro creas y gestionas listas MEP para ti y tu equipo de cocina. Marcar e imprimir sigue siendo gratis para todos."],
+  ["Per post een lijst met alles wat klaar moet staan. Vink af wat er staat; je collega’s zien het live. Vul de couverts in en Savour rekent uit hoeveel je nodig hebt.","One list per station with everything that needs to be ready. Tick off what’s there; your colleagues see it live. Fill in the covers and Savour works out how much you need.","Pro Posten eine Liste mit allem, was bereitstehen muss. Hak ab, was da ist; deine Kollegen sehen es live. Trag die Gedecke ein, und Savour rechnet aus, wie viel du brauchst.","Una lista por partida con todo lo que debe estar listo. Marca lo que ya está; tus compañeros lo ven en directo. Introduce los cubiertos y Savour calcula cuánto necesitas."],
+  ["Je lijsten blijven bewaard. Aanpassen kan met Savour Pro; afvinken en printen blijft gratis.","Your lists are kept. Editing is part of Savour Pro; ticking off and printing stay free.","Deine Listen bleiben gespeichert. Bearbeiten geht mit Savour Pro; Abhaken und Drucken bleiben kostenlos.","Tus listas se conservan. Editar es con Savour Pro; marcar e imprimir sigue siendo gratis."],
+  ["Lijst leegmaken","Clear list","Liste leeren","Vaciar lista"],
+  ["Alleen wat nog moet","Only what’s still to do","Nur was noch zu tun ist","Solo lo que falta"],
+  ["Er staan geen vinkjes op de lijst.","There are no ticks on the list.","Auf der Liste ist nichts abgehakt.","No hay nada marcado en la lista."],
+  ["Lijst leegmaken?","Clear the list?","Liste leeren?","¿Vaciar la lista?"],
+  ["Alle vinkjes van vandaag gaan weg, ook bij je collega’s. De lijst zelf blijft staan.","All of today’s ticks are removed, for your colleagues too. The list itself stays.","Alle Häkchen von heute verschwinden, auch bei deinen Kollegen. Die Liste selbst bleibt.","Se quitan todas las marcas de hoy, también para tus compañeros. La lista se queda."],
+  ["Leegmaken","Clear","Leeren","Vaciar"],
+  ["Lijst leeggemaakt","List cleared","Liste geleert","Lista vaciada"],
+  ["vandaag","today","heute","hoy"],
+  ["De lijst van een post, voor het hele team","The list of a station, for the whole team","Die Liste eines Postens, für das ganze Team","La lista de una partida, para todo el equipo"],
+  // ---- MEP-lijsten (2026-11-17, js/features/mep.js, mep-import.js) ----
   ["Alle kopjes en onderdelen op deze kaart gaan mee. Dit kan niet ongedaan worden gemaakt.","All headings and items on this menu are deleted too. This can’t be undone.","Alle Überschriften und Posten auf dieser Karte werden mitgelöscht. Das kann nicht rückgängig gemacht werden.","También se eliminan todos los títulos y elementos de esta carta. No se puede deshacer."],
   ["Alle onderdelen onder dit kopje gaan mee. Dit kan niet ongedaan worden gemaakt.","All items under this heading are deleted too. This can’t be undone.","Alle Posten unter dieser Überschrift werden mitgelöscht. Das kann nicht rückgängig gemacht werden.","También se eliminan todos los elementos de este título. No se puede deshacer."],
   ["Met couverts en hoeveelheden: vandaag","With covers and quantities: today","Mit Gedecken und Mengen: heute","Con cubiertos y cantidades: hoy"],
@@ -4254,6 +4274,10 @@ export const strings = [
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
 export const patterns = [
+  // ---- MEP-lijsten (2026-11-17) ----
+
+  // ---- MEP-lijsten (2026-11-17) ----
+
   // ---- MEP-lijsten (2026-11-17) ----
   ["^Opgeslagen (\\d{1,2}:\\d{2})$","Saved $1","Gespeichert $1","Guardado $1"],
   ["^(\\d+) kaarten · (\\d+) onderdelen$","$1 menus · $2 items","$1 Karten · $2 Posten","$1 cartas · $2 elementos"],

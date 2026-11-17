@@ -10,8 +10,13 @@ const MEP_IMPORT_ACCEPT = '.xlsx,.csv,.docx,.txt,.md,image/jpeg,image/png,image/
 
 function openMepImport() {
   if (!currentUser && !demoMode) return;
+  // Een MEP-lijst maken (ook door importeren) is Savour Pro.
+  if (!mepCanCreate()) return mepAskForPro();
   mepImport = { name: '', rows: [], teamId: null, uploadId: null, resultIds: [], file: null, step: 'kies' };
   mepOpenId = null;
+  mepSetBand(false);
+  const headActions = $('mepHeadActions');
+  if (headActions) headActions.innerHTML = '';
   renderMepImport();
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
@@ -252,7 +257,7 @@ function mepImportRow(r, i) {
     : '';
   const fields =
     r.type === 'item'
-      ? `<input class="mep-imp-name" value="${esc(r.text)}" maxlength="200" aria-label="${esc(t('Onderdeel'))}" onchange="setMepImportRow(${i},'text',this.value)"><input class="mep-imp-qty" value="${r.qty == null ? '' : esc(formatNumber(r.qty))}" inputmode="decimal" placeholder="${esc(t('Per couvert'))}" aria-label="${esc(t('Per couvert'))}" onchange="setMepImportRow(${i},'qty',this.value,this)"><input class="mep-imp-unit" value="${esc(r.unit || '')}" maxlength="20" placeholder="${esc(t('Eenheid'))}" aria-label="${esc(t('Eenheid'))}" onchange="setMepImportRow(${i},'unit',this.value)"><input class="mep-imp-note" value="${esc(r.note || '')}" maxlength="300" placeholder="${esc(t('Opmerking'))}" aria-label="${esc(t('Opmerking'))}" onchange="setMepImportRow(${i},'note',this.value)">`
+      ? `<input class="mep-imp-name" value="${esc(r.text)}" maxlength="200" aria-label="${esc(t('Onderdeel'))}" onchange="setMepImportRow(${i},'text',this.value)"><input class="mep-imp-qty" value="${r.qty == null ? '' : esc(formatNumber(r.qty))}" inputmode="decimal" placeholder="${esc(t('Portie'))}" aria-label="${esc(t('Portie'))}" onchange="setMepImportRow(${i},'qty',this.value,this)"><input class="mep-imp-unit" value="${esc(r.unit || '')}" maxlength="20" placeholder="${esc(t('Eenheid'))}" aria-label="${esc(t('Eenheid'))}" onchange="setMepImportRow(${i},'unit',this.value)"><input class="mep-imp-note" value="${esc(r.note || '')}" maxlength="300" placeholder="${esc(t('Opmerking'))}" aria-label="${esc(t('Opmerking'))}" onchange="setMepImportRow(${i},'note',this.value)">`
       : `<input class="mep-imp-name" value="${esc(r.text)}" maxlength="${r.type === 'card' ? 80 : 160}" aria-label="${esc(t('Naam'))}" onchange="setMepImportRow(${i},'text',this.value)">`;
   return `<div class="mep-imp-row is-${r.type}${doubt ? ' has-doubt' : ''}">${type}<div class="mep-imp-fields">${fields}${orig}${added}${doubt}</div></div>`;
 }
@@ -264,7 +269,7 @@ function setMepImportRow(i, field, value, input) {
     const q = mepParseQty(value);
     if (Number.isNaN(q) || q === 0) {
       if (input) input.value = r.qty == null ? '' : formatNumber(r.qty);
-      return toast(t('Vul bij per couvert een getal in, bijvoorbeeld 40 of 0,5. Of laat het leeg.'));
+      return toast(t('Vul bij portie een getal in, bijvoorbeeld 40 of 0,5. Of laat het leeg.'));
     }
     r.qty = q;
     r.doubts = [];
@@ -286,7 +291,7 @@ async function saveMepImport() {
   const name = (mepImport.name || '').trim();
   if (!name) return toast(t('Geef de lijst een naam.'));
   const teamId = mepImport.teamId || null;
-  if (!teamId && !demoMode && !isPro() && mepOwnListCount() >= 1) return mepAskForPro();
+  if (!mepCanCreate()) return mepAskForPro();
   const rows = mepImport.rows.filter(r => r.type !== 'skip' && String(r.text || '').trim());
   if (!rows.some(r => r.type === 'item')) return toast(t('Er staat geen enkel onderdeel in.'));
   const n = mepImportCounts();

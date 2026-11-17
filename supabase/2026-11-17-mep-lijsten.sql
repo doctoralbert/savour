@@ -8,8 +8,8 @@
 --   mep_days      de dag: couverts per kaart
 --   mep_day_items de stand per onderdeel op die dag: nodig, bezig, klaar of voorraad; wie en wanneer
 -- Rechten (afgesproken):
---   - Beheren (lijst, kaarten, kopjes, onderdelen): eigen lijst met Savour Pro; zonder Pro één lijst om te
---     proberen (de eerste). In een keukenteam: wie daar mag bewerken (savour_team_can_edit: team open, zelf Pro,
+--   - Maken en beheren (lijst, kaarten, kopjes, onderdelen): eigen lijst met Savour Pro (ook de proefweek); zonder
+--     Pro blijft alles bewaard en kun je bekijken, afvinken en printen. In een keukenteam: wie daar mag bewerken (savour_team_can_edit: team open, zelf Pro,
 --     eigenaar of sous-chef).
 --   - Afvinken en couverts invullen: iedereen die de lijst mag zien, ook zonder Pro. Een team op slot (eigenaar
 --     zonder Pro) staat ook hier op slot: zien wel, afvinken niet.
@@ -121,7 +121,7 @@ returns boolean language sql stable security definer set search_path to 'public'
     where l.id = _list
       and (
         (l.team_id is null and l.owner_id = auth.uid()
-          and (public.savour_is_pro(auth.uid()) or l.id = public.savour_mep_free_list(auth.uid())))
+          and public.savour_is_pro(auth.uid()))
         or (l.team_id is not null and public.savour_team_can_edit(l.team_id))
       )
   );
@@ -150,9 +150,7 @@ alter table public.mep_day_items enable row level security;
 create or replace function public.savour_mep_can_create(_team uuid)
 returns boolean language sql stable security definer set search_path to 'public' as $$
   select case
-    when _team is null then
-      public.savour_is_pro(auth.uid())
-      or not exists (select 1 from public.mep_lists x where x.owner_id = auth.uid() and x.team_id is null)
+    when _team is null then public.savour_is_pro(auth.uid())
     else public.savour_team_can_edit(_team)
   end;
 $$;

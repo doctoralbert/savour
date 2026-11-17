@@ -512,12 +512,15 @@ function renderShared(id) {
     `${teamTrialBanner(m)}<div class="panel team-page kt"><div class="folder-detail-head shared-main-head kt-head"><div><div class="eyebrow shared-eyebrow">Keukenteam ${helpButton('shared')}</div><h1>${esc(m.name)}</h1><p class="muted kt-sub">Eén receptenboek voor de hele brigade.</p></div><div class="shared-map-actions kt-actions">${actions}</div></div>` +
     sharedProNoticeHtml(m) +
     `<div class="kt-overview">${folders}</div>` +
+    // MEP-lijsten van dit team (js/features/mep.js): per post hoeveel er vandaag klaar staat.
+    teamMepHtml(m) +
     library +
     (isOwner
       ? ''
       : `<div class="kt-foot"><button type="button" class="kt-link" onclick="leaveSharedMap('${mid}')">Keukenteam verlaten</button></div>`) +
     '</div>';
   renderTeamLibrary();
+  renderTeamMep(m);
   // Fotoband met de eigen foto van het keukenteam (of een keukenfoto).
   setViewPhoto(document.querySelector('#sharedWrap .shared-main-head'), 'gedeeld:' + m.id, m.photo);
 }

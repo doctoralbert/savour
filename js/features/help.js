@@ -144,8 +144,8 @@ const HELP_TOPICS = {
         'Lijst toont alles in de stijl van Savour, met een hokje bij elk onderdeel. Afvinken zet het voor vandaag op klaar, voor je hele team. De kookmodus laat alleen de lijst zien, groot, en houdt je scherm aan.'
       ],
       [
-        'Vandaag: couverts en voorraad',
-        'Vul per kaart de couverts in; Savour rekent per onderdeel uit hoeveel je nodig hebt (40 couverts × 60 g = 2,4 kg). Tik een regel aan voor nodig, bezig of klaar, of zet hem op voorraad. Een dag begint leeg; voorraad van de vorige dag neem je met één knop over.'
+        'Couverts en hoeveelheden',
+        'Vul in de balk bovenin per kaart het aantal couverts in; Savour rekent per onderdeel uit hoeveel je nodig hebt (40 couverts × 60 g = 2,4 kg). Elke dag begint de lijst leeg. Met ⋯ Lijst leegmaken haal je de vinkjes ook tussendoor weg.'
       ],
       [
         'Samen in een keukenteam',
