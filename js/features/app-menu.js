@@ -78,6 +78,15 @@ function appMenuData() {
       ]
     },
     {
+      // MEP-lijsten (js/features/mep.js): op de computer een directe knop, op de telefoon een groep.
+      id: 'mep',
+      title: t('MEP-lijsten'),
+      intro: t('Wat er per post klaar moet staan, per dag afgevinkt.'),
+      direct: "go('mep')",
+      on: active === 'mep',
+      items: [item("go('mep')", t('MEP-lijsten'), t('Per post, met couverts en afvinken.'), active === 'mep', 'list')]
+    },
+    {
       id: 'mine',
       title: t('Mijn Savour'),
       intro: t('Je abonnement, collega’s en instellingen.'),

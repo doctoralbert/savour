@@ -137,7 +137,6 @@ $$;
 grant execute on function public.savour_mep_can_view(uuid) to authenticated;
 grant execute on function public.savour_mep_can_manage(uuid) to authenticated;
 grant execute on function public.savour_mep_can_tick(uuid) to authenticated;
-grant execute on function public.savour_mep_free_list(uuid) to authenticated;
 
 alter table public.mep_lists enable row level security;
 alter table public.mep_cards enable row level security;
@@ -147,16 +146,23 @@ alter table public.mep_days enable row level security;
 alter table public.mep_day_items enable row level security;
 
 -- Lijsten. Nieuwe eigen lijst: met Pro, of als het de eerste is. Nieuwe teamlijst: wie in het team mag bewerken.
+-- (Via een eigen functie: savour_is_pro mag een gebruiker niet zelf aanroepen. Zie ook 2026-11-17-mep-lijsten-herstel.sql.)
+create or replace function public.savour_mep_can_create(_team uuid)
+returns boolean language sql stable security definer set search_path to 'public' as $$
+  select case
+    when _team is null then
+      public.savour_is_pro(auth.uid())
+      or not exists (select 1 from public.mep_lists x where x.owner_id = auth.uid() and x.team_id is null)
+    else public.savour_team_can_edit(_team)
+  end;
+$$;
+grant execute on function public.savour_mep_can_create(uuid) to authenticated;
+
 drop policy if exists mep_lists_select on public.mep_lists;
 create policy mep_lists_select on public.mep_lists for select using (public.savour_mep_can_view(id));
 drop policy if exists mep_lists_insert on public.mep_lists;
 create policy mep_lists_insert on public.mep_lists for insert with check (
-  owner_id = auth.uid()
-  and (
-    (team_id is null and (public.savour_is_pro(auth.uid())
-      or not exists (select 1 from public.mep_lists x where x.owner_id = auth.uid() and x.team_id is null)))
-    or (team_id is not null and public.savour_team_can_edit(team_id))
-  )
+  owner_id = auth.uid() and public.savour_mep_can_create(team_id)
 );
 drop policy if exists mep_lists_update on public.mep_lists;
 create policy mep_lists_update on public.mep_lists for update

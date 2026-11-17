@@ -61,6 +61,11 @@ function openRecipe(id, context = 'library') {
     recipeReturnView = 'exampleView';
     recipeReturnShared = null;
     recipeReturnFolder = null;
+  } else if (context === 'mep') {
+    // Vanuit een MEP-lijst (js/features/mep.js): terug naar die lijst.
+    recipeReturnView = 'mep';
+    recipeReturnShared = null;
+    recipeReturnFolder = null;
   } else if (context === 'favorite') {
     recipeReturnView = 'favorites';
     recipeReturnShared = null;

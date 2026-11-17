@@ -1,0 +1,490 @@
+/* MEP-lijsten (js/features/mep.js). Kleuren uit tokens.css, dus licht en donker thema werken vanzelf. */
+
+.mep-body {
+  max-width: 1180px;
+}
+.mep-intro {
+  margin: 0 0 16px;
+  max-width: 720px;
+  color: var(--sv-text-2);
+}
+.mep-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 22px;
+}
+.mep-actions .btn svg,
+.mep-add-section .btn svg,
+.mep-tab svg,
+.mep-head .btn svg,
+.mep-card-bar .btn svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  vertical-align: -3px;
+}
+
+/* Overzicht */
+.mep-group {
+  margin: 0 0 26px;
+}
+.mep-group h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-lg);
+  font-weight: 600;
+  color: var(--sv-text);
+}
+.mep-group h3 svg {
+  width: 18px;
+  height: 18px;
+  color: var(--sv-gold);
+}
+.mep-lists {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--sv-line);
+}
+.mep-list-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 20px;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 56px;
+  padding: 10px 6px;
+  border: 0;
+  border-bottom: 1px solid var(--sv-line);
+  background: transparent;
+  color: var(--sv-text);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.mep-list-row:hover .mep-list-name,
+.mep-list-row:focus-visible .mep-list-name {
+  color: var(--sv-gold);
+}
+.mep-list-name {
+  font-size: 17px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.mep-list-meta {
+  font-size: var(--sv-fs-sm);
+  color: var(--sv-text-3);
+  white-space: nowrap;
+}
+.mep-list-row svg {
+  width: 18px;
+  height: 18px;
+  color: var(--sv-text-3);
+  transform: rotate(-90deg);
+}
+.mep-list-row.is-archived .mep-list-name {
+  color: var(--sv-text-2);
+}
+.mep-archived-toggle {
+  border: 0;
+  background: none;
+  padding: 6px 0;
+  color: var(--sv-text-2);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.mep-archived-toggle::before {
+  content: '▸ ';
+}
+.mep-archived-toggle[aria-expanded='true']::before {
+  content: '▾ ';
+}
+.mep-empty {
+  padding: 22px;
+  border: 1px dashed var(--sv-line-strong);
+  border-radius: var(--sv-radius-lg);
+  color: var(--sv-text-2);
+  max-width: 720px;
+}
+.mep-empty p {
+  margin: 0 0 6px;
+}
+
+/* Kop van een lijst */
+.mep-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 14px;
+}
+.mep-head-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+}
+.mep-team {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.mep-team svg {
+  width: 16px;
+  height: 16px;
+  color: var(--sv-gold);
+}
+.mep-flag {
+  padding: 2px 8px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  font-size: var(--sv-fs-xs);
+  color: var(--sv-text-2);
+}
+.mep-saved {
+  margin-left: auto;
+  font-size: var(--sv-fs-xs);
+  color: var(--sv-text-3);
+}
+.mep-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface-2);
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-md);
+}
+
+/* Kaarten als tabbladen */
+.mep-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  margin: 0 0 14px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--sv-line);
+  scrollbar-width: thin;
+}
+.mep-tab {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--sv-text-2);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.mep-tab:hover {
+  color: var(--sv-text);
+}
+.mep-tab.is-on {
+  color: var(--sv-gold);
+  border-bottom-color: var(--sv-gold);
+}
+.mep-tab-add {
+  color: var(--sv-text-3);
+  font-weight: 500;
+}
+.mep-card-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+}
+.mep-danger,
+.rp-menu button.danger {
+  color: var(--sv-danger) !important;
+}
+
+/* Kopjes en onderdelen */
+.mep-section {
+  margin: 0 0 18px;
+  padding: 12px 14px 10px;
+  border: 1px solid var(--sv-line);
+  border-radius: var(--sv-radius-lg);
+  background: var(--sv-surface);
+}
+.mep-sec-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+}
+.mep-sec-name {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-lg);
+  font-weight: 600;
+  color: var(--sv-gold);
+}
+input.mep-sec-name {
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: var(--sv-radius-sm);
+  background: transparent;
+}
+input.mep-sec-name:hover,
+input.mep-sec-name:focus {
+  border-color: var(--sv-line-strong);
+  background: var(--sv-surface-2);
+  outline: none;
+}
+.mep-sec-tools,
+.mep-item-tools {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.mep-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--sv-radius-sm);
+  background: transparent;
+  color: var(--sv-text-3);
+  font-size: 16px;
+  cursor: pointer;
+  list-style: none;
+}
+.mep-icon::-webkit-details-marker {
+  display: none;
+}
+.mep-icon:hover,
+.mep-icon:focus-visible {
+  background: var(--sv-surface-2);
+  color: var(--sv-text);
+}
+.mep-icon svg {
+  width: 16px;
+  height: 16px;
+}
+.mep-sec-tools .rp-more {
+  position: relative;
+}
+
+.mep-item {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) 92px 84px minmax(0, 1.8fr) minmax(0, 1.3fr) 110px;
+  align-items: center;
+  gap: 6px;
+  min-height: 42px;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--sv-line);
+}
+.mep-section:not(.can-edit) .mep-item {
+  grid-template-columns: minmax(0, 2.2fr) 110px 0 minmax(0, 1.8fr) minmax(0, 1.3fr);
+  padding: 8px 0;
+}
+.mep-item-head {
+  min-height: 0;
+  padding: 4px 0;
+  font-size: var(--sv-fs-xs);
+  color: var(--sv-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.mep-item input {
+  width: 100%;
+  min-width: 0;
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: var(--sv-radius-sm);
+  background: transparent;
+  color: var(--sv-text);
+  font: inherit;
+  font-size: var(--sv-fs-base);
+}
+.mep-item input:hover {
+  border-color: var(--sv-line);
+}
+.mep-item input:focus {
+  border-color: var(--sv-gold);
+  background: var(--sv-surface-2);
+  outline: none;
+}
+.mep-item input::placeholder {
+  color: var(--sv-text-3);
+}
+.mep-item-new {
+  border-bottom: 0;
+  padding-top: 8px;
+}
+.mep-item-new input {
+  border-color: var(--sv-line);
+  background: var(--sv-surface-2);
+}
+.mep-item-new .btn {
+  white-space: nowrap;
+}
+.mep-item-new .btn svg {
+  width: 15px;
+  height: 15px;
+  margin-right: 4px;
+  vertical-align: -3px;
+}
+.mep-item-name {
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.mep-item-qty {
+  color: var(--sv-text-2);
+  font-variant-numeric: tabular-nums;
+}
+.mep-item-note {
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-md);
+  overflow-wrap: anywhere;
+}
+.mep-recipe {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  font-size: var(--sv-fs-sm);
+}
+.mep-recipe-link,
+.mep-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  min-height: 34px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: var(--sv-radius-sm);
+  background: none;
+  color: var(--sv-gold);
+  font: inherit;
+  font-size: var(--sv-fs-sm);
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mep-recipe-link svg,
+.mep-link-btn svg {
+  flex: none;
+  width: 15px;
+  height: 15px;
+}
+.mep-link-btn {
+  color: var(--sv-text-3);
+}
+.mep-recipe-link:hover,
+.mep-link-btn:hover {
+  background: var(--sv-surface-2);
+  color: var(--sv-gold);
+}
+.mep-item-tools {
+  justify-content: flex-end;
+}
+.mep-none {
+  margin: 6px 0;
+}
+.mep-add-section {
+  display: flex;
+  gap: 8px;
+  margin: 6px 0 24px;
+}
+.mep-add-section input {
+  flex: 1;
+  min-width: 0;
+  height: var(--sv-control-h);
+  padding: 0 12px;
+  border: 1px dashed var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  background: transparent;
+  color: var(--sv-text);
+  font: inherit;
+}
+.mep-add-section input:focus {
+  border-style: solid;
+  border-color: var(--sv-gold);
+  outline: none;
+}
+
+/* Tablet */
+@media (max-width: 1020px) {
+  .mep-item {
+    grid-template-columns: minmax(0, 2fr) 80px 72px minmax(0, 1.4fr) minmax(0, 1fr) 104px;
+  }
+}
+
+/* Telefoon: elk onderdeel als een kaartje onder elkaar. */
+@media (max-width: 760px) {
+  .mep-section {
+    padding: 10px 10px 6px;
+  }
+  .mep-item-head {
+    display: none;
+  }
+  .mep-item,
+  .mep-section:not(.can-edit) .mep-item {
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 6px;
+    padding: 8px 0;
+  }
+  .mep-item > :first-child {
+    grid-column: 1 / -1;
+  }
+  .mep-item input:nth-child(4) {
+    grid-column: 1 / -1;
+  }
+  .mep-section:not(.can-edit) .mep-item > span:nth-child(3) {
+    display: none;
+  }
+  .mep-item-note {
+    grid-column: 1 / -1;
+  }
+  .mep-item .mep-recipe,
+  .mep-item .mep-link-btn {
+    grid-column: 1;
+  }
+  .mep-item-tools {
+    grid-column: 2;
+  }
+  .mep-item-new .btn {
+    grid-column: 1 / -1;
+    justify-content: center;
+  }
+  .mep-add-section {
+    flex-direction: column;
+  }
+  .mep-saved {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* Lege velden in een bestaande regel: rustig grijs, alleen zichtbaar als hint. */
+.mep-item:not(.mep-item-new) input::placeholder {
+  color: var(--sv-text-3);
+  opacity: 0.55;
+}

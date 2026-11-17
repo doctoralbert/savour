@@ -386,6 +386,7 @@ function clearSessionState() {
   categories = [];
   sharedMaps = [];
   sharedRecipes = [];
+  mepResetState();
   ['categoryNav', 'sharedNav'].forEach(id => {
     if ($(id)) $(id).innerHTML = '';
   });
