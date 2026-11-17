@@ -1084,3 +1084,9 @@ body.savour-light .admin-chip b {
   padding-left: 18px;
   font-size: 13px;
 }
+
+/* Jaarlijks goedkoper: het percentage bij de teamprijzen. */
+.pro-save {
+  color: var(--gold);
+  font-weight: 600;
+}

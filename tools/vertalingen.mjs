@@ -4024,6 +4024,11 @@ export const strings = [
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
 export const patterns = [
+  ["^Hele Savour-lijst \\((\\d+)\\)$","Full Savour list ($1)","Ganze Savour-Liste ($1)","Lista completa de Savour ($1)"],
+  ["^(\\d+) van (\\d+) ingrediënten\\. Zoek om de rest te vinden\\.$","$1 of $2 ingredients. Search to find the rest.","$1 von $2 Zutaten. Suche, um den Rest zu finden.","$1 de $2 ingredientes. Busca para encontrar el resto."],
+  ["^(\\d+)% goedkoper dan maandelijks: je bespaart (€[\\d,]+) per jaar\\.$","$1% cheaper than monthly: you save $2 a year.","$1 % günstiger als monatlich: Du sparst $2 pro Jahr.","Un $1 % más barato que mensual: ahorras $2 al año."],
+  ["^(\\d+)% goedkoper$","$1% cheaper","$1 % günstiger","$1 % más barato"],
+  ["^\\((\\d+)% goedkoper\\)$","($1% cheaper)","($1 % günstiger)","($1 % más barato)"],
   ["^Savour-lijst \\((\\d+)\\)$","Savour list ($1)","Savour-Liste ($1)","Lista de Savour ($1)"],
   ["^(.+): de AI moet (\\d+) delen lezen\\. Elk deel telt als één AI-import; je hebt er nog (\\d+)\\. Je keuze geldt voor alle bestanden van deze import\\.$","$1: the AI needs to read $2 parts. Each part counts as one AI import; you have $3 left. Your choice applies to all files in this import.","$1: Die KI muss $2 Teile lesen. Jeder Teil zählt als ein KI-Import; du hast noch $3. Deine Wahl gilt für alle Dateien dieses Imports.","$1: la IA tiene que leer $2 partes. Cada parte cuenta como una importación con IA; te quedan $3. Tu elección vale para todos los archivos de esta importación."],
   ["^(\\d+) reacties$","$1 replies","$1 Antworten","$1 respuestas"],

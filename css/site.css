@@ -4409,3 +4409,9 @@ body.mobile-menu-open .sv-scroll-top {
     display: none !important;
   }
 }
+
+/* Jaarlijks goedkoper: het percentage bij de teamprijzen. */
+.pro-save {
+  color: var(--gold);
+  font-weight: 600;
+}

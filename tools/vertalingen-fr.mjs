@@ -1838,6 +1838,11 @@ export const stringsFr = {
  "Allergenen zien in een keukenteam van een eigenaar met Pro": "Voir les allergènes dans une équipe dont le propriétaire a Pro",
 };
 export const patternsFr = {
+ "^Hele Savour-lijst \\((\\d+)\\)$": "Liste Savour complète ($1)",
+ "^(\\d+) van (\\d+) ingrediënten\\. Zoek om de rest te vinden\\.$": "$1 sur $2 ingrédients. Cherche pour trouver le reste.",
+ "^(\\d+)% goedkoper dan maandelijks: je bespaart (€[\\d,]+) per jaar\\.$": "$1 % moins cher qu’en mensuel : tu économises $2 par an.",
+ "^(\\d+)% goedkoper$": "$1 % moins cher",
+ "^\\((\\d+)% goedkoper\\)$": "($1 % moins cher)",
  "^Savour-lijst \\((\\d+)\\)$": "Liste Savour ($1)",
  "^(.+): de AI moet (\\d+) delen lezen\\. Elk deel telt als één AI-import; je hebt er nog (\\d+)\\. Je keuze geldt voor alle bestanden van deze import\\.$": "$1 : l’IA doit lire $2 parties. Chaque partie compte comme un import IA ; il t’en reste $3. Ton choix vaut pour tous les fichiers de cet import.",
  "^(\\d+) reacties$": "$1 réponses",

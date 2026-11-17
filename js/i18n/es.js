@@ -2289,6 +2289,17 @@ window.SAVOUR_I18N.es = {
       'Ver alérgenos en un equipo cuyo propietario tiene Pro'
   },
   patterns: [
+    ['^Hele Savour-lijst \\((\\d+)\\)$', 'Lista completa de Savour ($1)'],
+    [
+      '^(\\d+) van (\\d+) ingrediënten\\. Zoek om de rest te vinden\\.$',
+      '$1 de $2 ingredientes. Busca para encontrar el resto.'
+    ],
+    [
+      '^(\\d+)% goedkoper dan maandelijks: je bespaart (€[\\d,]+) per jaar\\.$',
+      'Un $1 % más barato que mensual: ahorras $2 al año.'
+    ],
+    ['^(\\d+)% goedkoper$', '$1 % más barato'],
+    ['^\\((\\d+)% goedkoper\\)$', '($1 % más barato)'],
     ['^Savour-lijst \\((\\d+)\\)$', 'Lista de Savour ($1)'],
     [
       '^(.+): de AI moet (\\d+) delen lezen\\. Elk deel telt als één AI-import; je hebt er nog (\\d+)\\. Je keuze geldt voor alle bestanden van deze import\\.$',
