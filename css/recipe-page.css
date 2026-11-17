@@ -1136,10 +1136,11 @@ body.cook-mode .rp-side-note-head button {
   font: inherit;
   outline: none;
 }
+/* Vaste kolommen: naam, allergenen, stand. Zo staan de allergenen onder elkaar, hoe lang de naam ook is. */
 .products-list li button {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) 150px;
   align-items: center;
-  justify-content: space-between;
   gap: var(--sv-space-3);
   width: 100%;
   padding: 12px 0;
@@ -1155,7 +1156,12 @@ body.cook-mode .rp-side-note-head button {
   color: var(--sv-gold);
 }
 .products-list .allergen-chips {
-  justify-content: flex-end;
+  justify-content: flex-start;
+}
+.products-list .products-state {
+  margin-left: 0;
+  justify-self: end;
+  text-align: right;
 }
 .print-allergens {
   margin-top: 14px;
@@ -1164,8 +1170,13 @@ body.cook-mode .rp-side-note-head button {
 }
 @media (max-width: 760px) {
   .products-list li button {
+    display: flex;
     align-items: flex-start;
     flex-direction: column;
+  }
+  .products-list .products-state {
+    justify-self: auto;
+    text-align: left;
   }
   .products-list .allergen-chips {
     justify-content: flex-start;
