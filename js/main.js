@@ -214,6 +214,9 @@ document.addEventListener('visibilitychange', () => {
 window.addEventListener('scroll', onTopbarScroll, { passive: true });
 // MEP-lijst in Overzicht: bij een ander schermformaat opnieuw passend maken op één A4 (js/features/mep.js).
 window.addEventListener('resize', () => $('mepSheet') && fitMepSheet());
+// Weer internet: wat offline in een MEP-lijst is afgevinkt, alsnog versturen (js/features/mep.js).
+window.addEventListener('online', () => mepFlushQueue());
+window.addEventListener('offline', () => mepShowLive());
 
 // Nieuwe versie live gezet terwijl Savour openstond? Elk half uur kijken, en bij terugkomen in Savour
 // (hooguit eens per tien minuten). Zie js/features/install.js, checkAppUpdate.

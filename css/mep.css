@@ -658,3 +658,353 @@ body.savour-light .mep-sheet {
     column-count: 1;
   }
 }
+
+/* ---- Vandaag ---- */
+.mep-today {
+  max-width: 900px;
+}
+.mep-dayhead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 14px;
+}
+.mep-daynav {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sv-text);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+.mep-daynav:hover {
+  border-color: var(--sv-gold);
+  color: var(--sv-gold);
+}
+.mep-daytitle {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.mep-daytitle b {
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-xl);
+  font-weight: 600;
+  line-height: 1.1;
+}
+.mep-daytitle span {
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-sm);
+}
+.mep-live {
+  margin-left: auto;
+  font-size: var(--sv-fs-xs);
+  color: var(--sv-text-3);
+}
+.mep-live.is-live::before,
+.mep-live.is-off::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: #6fbf8a;
+  vertical-align: 0;
+}
+.mep-live.is-off::before {
+  background: var(--sv-danger);
+}
+.mep-covers {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 14px;
+}
+.mep-cover {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--sv-line);
+  border-radius: var(--sv-radius-lg);
+  background: var(--sv-surface);
+}
+.mep-cover > span {
+  font-weight: 600;
+}
+.mep-cover input {
+  width: 84px;
+  height: 44px;
+  padding: 0 10px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface-2);
+  color: var(--sv-text);
+  font: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.mep-cover input:focus {
+  border-color: var(--sv-gold);
+  outline: none;
+}
+.mep-cover small {
+  color: var(--sv-text-3);
+}
+.mep-progress {
+  margin: 0 0 10px;
+}
+.mep-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--sv-surface-2);
+  overflow: hidden;
+}
+.mep-bar span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--sv-gold);
+  transition: width 0.25s ease;
+}
+.mep-progress p {
+  margin: 6px 0 0;
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-md);
+}
+.mep-progress b {
+  color: var(--sv-text);
+}
+.mep-today-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+}
+.mep-day-card {
+  margin: 0 0 22px;
+}
+.mep-day-card h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 8px;
+  font-size: var(--sv-fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sv-gold);
+}
+.mep-day-card h3 small {
+  color: var(--sv-text-3);
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 500;
+}
+.mep-day-sec {
+  margin: 0 0 14px;
+}
+.mep-day-sec h4 {
+  margin: 0 0 6px;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-lg);
+  font-weight: 600;
+  color: var(--sv-text);
+}
+.mep-row {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  margin: 0 0 6px;
+  border: 1px solid var(--sv-line);
+  border-radius: var(--sv-radius-lg);
+  background: var(--sv-surface);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.mep-row-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  min-height: 60px;
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--sv-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.mep-row-main:disabled {
+  cursor: default;
+}
+.mep-check {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--sv-line-strong);
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1;
+}
+.mep-row-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.mep-row-name {
+  font-size: 17px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.mep-row-note,
+.mep-row-who {
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-sm);
+  overflow-wrap: anywhere;
+}
+.mep-row-who b {
+  color: var(--sv-text-2);
+}
+.mep-row-amount {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+.mep-row-amount b {
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+.mep-row-amount small {
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-xs);
+  white-space: nowrap;
+}
+.mep-row-recipe {
+  align-self: center;
+}
+.mep-stock {
+  flex: none;
+  align-self: center;
+  min-height: 40px;
+  margin-right: 8px;
+  padding: 0 12px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sv-text-3);
+  font: inherit;
+  font-size: var(--sv-fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+.mep-stock:hover {
+  color: var(--sv-text);
+}
+.mep-stock.is-on {
+  border-color: var(--sv-text-2);
+  background: var(--sv-surface-2);
+  color: var(--sv-text);
+}
+/* Bezig: goud omlijnd. Klaar: goud gevuld met vinkje, tekst rustiger. Voorraad: grijs met V. */
+.mep-row.st-bezig {
+  border-color: var(--sv-gold-strong);
+}
+.mep-row.st-bezig .mep-check {
+  border-color: var(--sv-gold);
+  color: var(--sv-gold);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+.mep-row.st-klaar {
+  background: var(--sv-surface-2);
+}
+.mep-row.st-klaar .mep-check {
+  border-color: var(--sv-gold);
+  background: var(--sv-gold);
+  color: var(--sv-on-gold);
+}
+.mep-row.st-klaar .mep-row-name,
+.mep-row.st-voorraad .mep-row-name {
+  color: var(--sv-text-2);
+}
+.mep-row.st-klaar .mep-row-amount b,
+.mep-row.st-voorraad .mep-row-amount b {
+  color: var(--sv-text-3);
+}
+.mep-row.st-voorraad {
+  background: var(--sv-surface-2);
+  border-style: dashed;
+}
+.mep-row.st-voorraad .mep-check {
+  border-color: var(--sv-text-3);
+  color: var(--sv-text-2);
+  font-size: 14px;
+}
+.mep-row.is-flash {
+  animation: mep-flash 1.6s ease-out;
+}
+@keyframes mep-flash {
+  0% {
+    box-shadow: 0 0 0 3px var(--sv-gold);
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+.mep-alldone {
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .mep-covers {
+    flex-direction: column;
+  }
+  .mep-cover {
+    justify-content: space-between;
+  }
+  .mep-cover > span {
+    flex: 1;
+  }
+  .mep-row-main {
+    gap: 10px;
+    padding: 10px;
+  }
+  .mep-row-amount b {
+    font-size: 16px;
+  }
+  .mep-stock {
+    margin-right: 6px;
+    padding: 0 10px;
+  }
+  .mep-live {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mep-row.is-flash {
+    animation: none;
+  }
+}

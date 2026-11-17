@@ -15,12 +15,15 @@ let mepOpenId = null; // open lijst, of null voor het overzicht
 let mepCardId = null; // kaart die open staat
 let mepShowArchived = false;
 let mepSavedAt = null; // laatste opslag, voor "Opgeslagen 14:02"
-// Overzicht (de hele lijst op één A4, zoals de Excel-lijsten in de keuken) of Bewerken. Onthouden in deze browser.
+// Vandaag (couverts en afvinken), Overzicht (de hele lijst op één A4, zoals de Excel-lijsten in de keuken) of
+// Bewerken. Onthouden in deze browser; standaard Vandaag.
+const MEP_MODES = ['vandaag', 'overzicht', 'bewerken'];
 let mepMode = (() => {
   try {
-    return localStorage.getItem('savour_mep_mode') === 'bewerken' ? 'bewerken' : 'overzicht';
+    const m = localStorage.getItem('savour_mep_mode');
+    return MEP_MODES.includes(m) ? m : 'vandaag';
   } catch (_) {
-    return 'overzicht';
+    return 'vandaag';
   }
 })();
 
@@ -35,6 +38,9 @@ function mepResetState() {
   mepLoading = null;
   mepOpenId = null;
   mepCardId = null;
+  mepDay = null;
+  mepDemoDays = {};
+  mepStopLive();
 }
 
 function mepError(error) {
@@ -85,10 +91,17 @@ async function loadMep(force = false) {
     mepSections = sections;
     mepItems = items;
     mepLoaded = true;
+    mepOffline = false;
+    mepSaveCache();
+    mepFlushQueue();
     return true;
   })();
   try {
     return await mepLoading;
+  } catch (e) {
+    // Geen verbinding: de lijsten zoals ze laatst op dit toestel stonden.
+    if (looksOffline(e) && (await mepUseCache())) return true;
+    throw e;
   } finally {
     mepLoading = null;
   }
@@ -308,6 +321,8 @@ function openMepList(id) {
 
 function closeMepList() {
   mepOpenId = null;
+  mepDay = null;
+  mepStopLive();
   renderMep();
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
@@ -349,10 +364,11 @@ function renderMepList() {
           : ''
       ].join('')
     : '';
-  const mode = can ? mepMode : 'overzicht';
-  const modes = can
-    ? `<div class="mep-modes" role="group" aria-label="${esc(t('Weergave'))}"><button type="button" class="${mode === 'overzicht' ? 'is-on' : ''}" aria-pressed="${mode === 'overzicht'}" onclick="setMepMode('overzicht')">${esc(t('Overzicht'))}</button><button type="button" class="${mode === 'bewerken' ? 'is-on' : ''}" aria-pressed="${mode === 'bewerken'}" onclick="setMepMode('bewerken')">${icon('edit')}${esc(t('Bewerken'))}</button></div>`
-    : '';
+  const mode = mepMode === 'bewerken' && !can ? 'overzicht' : mepMode;
+  const modeBtn = (m, label, ico = '') =>
+    `<button type="button" class="${mode === m ? 'is-on' : ''}" aria-pressed="${mode === m}" onclick="setMepMode('${m}')">${ico ? icon(ico) : ''}${esc(label)}</button>`;
+  const modes = `<div class="mep-modes" role="group" aria-label="${esc(t('Weergave'))}">${modeBtn('vandaag', t('Vandaag'))}${modeBtn('overzicht', t('Overzicht'))}${can ? modeBtn('bewerken', t('Bewerken'), 'edit') : ''}</div>`;
+  if (mode !== 'vandaag') mepStopLive();
   const head = `<div class="mep-head"><button type="button" class="btn small mep-back" onclick="closeMepList()">${icon('back')}${esc(t('Alle MEP-lijsten'))}</button>${modes}<div class="mep-head-info">${team ? `<span class="mep-team">${icon('users')}<span translate="no">${esc(team.name)}</span></span>` : ''}${l.archived ? `<span class="mep-flag">${esc(t('Gearchiveerd'))}</span>` : ''}<span id="mepSaved" class="mep-saved" aria-live="polite">${esc(mepSavedText())}</span></div>${menu ? `<details class="rp-more mep-more"><summary class="btn rp-icon-btn" aria-label="${esc(t('Meer acties'))}" title="${esc(t('Meer acties'))}">${icon('more')}</summary><div class="rp-menu">${menu}</div></details>` : ''}</div>`;
   const tabs = `<div class="mep-tabs" role="tablist">${cards
     .map(
@@ -362,6 +378,11 @@ function renderMepList() {
     .join(
       ''
     )}${can ? `<button type="button" class="mep-tab mep-tab-add" onclick="addMepCard('${lid}')">${icon('plus')}${esc(t('Kaart'))}</button>` : ''}</div>`;
+  if (mode === 'vandaag') {
+    host.innerHTML = head + mepLockedNote(l) + `<div id="mepToday" class="mep-today"></div>`;
+    openMepDay(l.id, mepDay?.listId === l.id ? mepDay.day : mepToday());
+    return;
+  }
   if (mode === 'overzicht') {
     host.innerHTML = head + mepReadOnlyNote(l) + renderMepSheet(l);
     fitMepSheet();
@@ -850,7 +871,7 @@ async function unlinkMepRecipe(itemId) {
 // De letter wordt kleiner tot alles op één blad past (fitMepSheet).
 
 function setMepMode(mode) {
-  mepMode = mode === 'bewerken' ? 'bewerken' : 'overzicht';
+  mepMode = MEP_MODES.includes(mode) ? mode : 'vandaag';
   try {
     localStorage.setItem('savour_mep_mode', mepMode);
   } catch (_) {}
@@ -914,4 +935,582 @@ function fitMepSheet() {
   }
   if (sheet.scrollHeight > page && note)
     note.textContent = t('Deze lijst is langer dan één A4. Bij printen loopt hij door op een tweede blad.');
+}
+
+// ---- Vandaag: couverts, afvinken en live meekijken ----
+// Een dag begint leeg: alles staat op "nodig" tot iemand het aantikt (nodig → bezig → klaar). "Op voorraad" is een
+// aparte knop. Afvinken mag iedereen die de lijst ziet, ook zonder Pro (savour_mep_can_tick). Niets wordt
+// automatisch overgenomen: voorraad van een vorige dag neemt de kok zelf over met een knop.
+// Offline: wat je aantikt, staat meteen op je scherm en gaat mee zodra er weer verbinding is (mepQueue).
+
+let mepDay = null; // { listId, day, covers: {cardId: n}, items: {itemId: {status, updated_by, updated_at}}, prevDay }
+let mepDemoDays = {}; // in de demo: de dagen in deze browser
+let mepTodoOnly = false; // alleen wat nog moet
+let mepChannel = null; // Supabase Realtime
+let mepChannelList = null;
+let mepLiveState = ''; // 'live', 'connecting' of ''
+let mepOffline = false; // geen verbinding: lijsten en dag uit de bewaarde stand van dit toestel
+let mepQueue = []; // wijzigingen die nog naar de database moeten
+let mepCachedDays = {}; // per lijst de laatst geopende dag, voor offline
+
+const MEP_STATUS = {
+  nodig: 'Nodig',
+  bezig: 'Bezig',
+  klaar: 'Klaar',
+  voorraad: 'Op voorraad'
+};
+const MEP_NEXT = { nodig: 'bezig', bezig: 'klaar', klaar: 'nodig', voorraad: 'nodig' };
+
+function mepDateKey(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+function mepToday() {
+  return mepDateKey(new Date());
+}
+
+function mepShiftDay(day, n) {
+  const d = new Date(day + 'T12:00:00');
+  d.setDate(d.getDate() + n);
+  return mepDateKey(d);
+}
+
+function mepDayLabel(day) {
+  return new Date(day + 'T12:00:00').toLocaleDateString(getSavedLanguage(), {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long'
+  });
+}
+
+function mepDayTitle(day) {
+  const today = mepToday();
+  if (day === today) return t('Vandaag');
+  if (day === mepShiftDay(today, -1)) return t('Gisteren');
+  if (day === mepShiftDay(today, 1)) return t('Morgen');
+  return mepDayLabel(day);
+}
+
+function mepCanTick(l) {
+  if (demoMode) return true;
+  const m = mepTeam(l);
+  return !l.team_id || (!!m && !m.locked);
+}
+
+function mepLockedNote(l) {
+  if (mepCanTick(l)) return '';
+  return `<div class="mep-note"><span>${esc(t('Dit keukenteam staat op slot tot de eigenaar Savour Pro heeft. Je kunt de lijst bekijken, maar niet afvinken.'))}</span></div>`;
+}
+
+// Wie iets aantikte: je eigen voornaam, die van een teamlid, of "Collega".
+function mepWho(userId) {
+  if (!userId) return '';
+  if (String(userId) === String(currentUser?.id)) return (account?.name || '').trim().split(/\s+/)[0] || t('Jij');
+  for (const m of sharedMaps || []) {
+    const x = (m.members || []).find(p => String(p.userId) === String(userId));
+    if (x && x.name && x.name !== 'Jij') return x.name.trim().split(/\s+/)[0];
+  }
+  return t('Collega');
+}
+
+function mepTime(iso) {
+  if (!iso) return '';
+  return new Date(iso).toLocaleTimeString(getSavedLanguage(), { hour: '2-digit', minute: '2-digit' });
+}
+
+// Couverts × portie, in een handige eenheid (2400 g wordt 2,4 kg). Zonder couverts: de portie per couvert.
+function mepAmount(it, covers) {
+  if (it.portion_qty == null) return null;
+  const unit = (it.portion_unit || '').trim();
+  const each = `${formatNumber(Number(it.portion_qty))}${unit ? ' ' + unit : ''}`;
+  if (!covers) return { total: '', each: `${each} ${t('p.p.')}` };
+  let total = covers * Number(it.portion_qty);
+  let u = unit;
+  if (/^(g|gr|gram)$/i.test(unit) && total >= 1000) {
+    total /= 1000;
+    u = 'kg';
+  } else if (/^ml$/i.test(unit) && total >= 1000) {
+    total /= 1000;
+    u = 'l';
+  } else if (/^cl$/i.test(unit) && total >= 100) {
+    total /= 100;
+    u = 'l';
+  }
+  return { total: `${formatNumber(Math.round(total * 100) / 100)}${u ? ' ' + u : ''}`, each: `${covers} × ${each}` };
+}
+
+function mepStatusOf(itemId) {
+  return mepDay?.items[itemId]?.status || 'nodig';
+}
+
+async function openMepDay(listId, day) {
+  const host = $('mepToday');
+  if (!host) return;
+  if (!mepDay || mepDay.listId !== listId || mepDay.day !== day) {
+    host.innerHTML = `<p class="muted">${esc(t('Laden…'))}</p>`;
+    const loaded = await loadMepDay(listId, day);
+    if (mepOpenId !== listId || !$('mepToday')) return; // intussen iets anders geopend
+    mepDay = loaded;
+  }
+  renderMepToday();
+  mepStartLive(listId);
+}
+
+async function loadMepDay(listId, day) {
+  const empty = { listId, day, covers: {}, items: {}, prevDay: null };
+  if (demoMode) {
+    const d = mepDemoDays[listId + '|' + day] || {};
+    const prev = Object.keys(mepDemoDays)
+      .filter(k => k.startsWith(listId + '|') && k.split('|')[1] < day)
+      .filter(k => Object.values(mepDemoDays[k].items || {}).some(r => r.status !== 'nodig'))
+      .map(k => k.split('|')[1])
+      .sort()
+      .pop();
+    return { ...empty, covers: { ...(d.covers || {}) }, items: { ...(d.items || {}) }, prevDay: prev || null };
+  }
+  try {
+    const [days, rows, prev] = await Promise.all([
+      supabaseClient.from('mep_days').select('covers').eq('list_id', listId).eq('day', day).maybeSingle(),
+      supabaseClient
+        .from('mep_day_items')
+        .select('list_id,item_id,day,status,updated_by,updated_at')
+        .eq('list_id', listId)
+        .eq('day', day),
+      supabaseClient
+        .from('mep_day_items')
+        .select('day')
+        .eq('list_id', listId)
+        .lt('day', day)
+        .neq('status', 'nodig')
+        .order('day', { ascending: false })
+        .limit(1)
+    ]);
+    for (const r of [days, rows, prev]) if (r.error) throw r.error;
+    const result = {
+      ...empty,
+      covers: days.data?.covers || {},
+      items: Object.fromEntries((rows.data || []).map(r => [r.item_id, r])),
+      prevDay: prev.data?.[0]?.day || null
+    };
+    mepOffline = false;
+    mepApplyQueue(result);
+    mepCachedDays[listId] = result;
+    mepSaveCache();
+    return result;
+  } catch (e) {
+    if (!looksOffline(e)) toast(mepError(e));
+    // Offline: de laatst bewaarde stand van deze dag op dit toestel, plus wat je intussen aantikte.
+    const cached = mepCachedDays[listId];
+    const result =
+      cached?.day === day ? { ...cached, items: { ...cached.items }, covers: { ...cached.covers } } : { ...empty };
+    mepOffline = looksOffline(e);
+    mepApplyQueue(result);
+    return result;
+  }
+}
+
+function mepDayCards(l) {
+  return mepCardsOf(l.id).filter(c => mepSectionsOf(c.id).some(s => mepItemsOf(s.id).length));
+}
+
+function renderMepToday() {
+  const host = $('mepToday');
+  const l = mepListById(mepOpenId);
+  if (!host || !l || !mepDay) return;
+  const day = mepDay.day;
+  const lid = escJs(l.id);
+  const cards = mepDayCards(l);
+  const can = mepCanTick(l);
+  const nav = `<div class="mep-dayhead"><button type="button" class="mep-daynav" onclick="openMepDay('${lid}','${mepShiftDay(day, -1)}')" aria-label="${esc(t('Vorige dag'))}" title="${esc(t('Vorige dag'))}">‹</button><div class="mep-daytitle"><b>${esc(mepDayTitle(day))}</b><span>${esc(mepDayLabel(day))}</span></div><button type="button" class="mep-daynav" onclick="openMepDay('${lid}','${mepShiftDay(day, 1)}')" aria-label="${esc(t('Volgende dag'))}" title="${esc(t('Volgende dag'))}">›</button>${day !== mepToday() ? `<button type="button" class="btn small" onclick="openMepDay('${lid}','${mepToday()}')">${esc(t('Naar vandaag'))}</button>` : ''}<span id="mepLive" class="mep-live" role="status"></span></div>`;
+  const covers = cards.length
+    ? `<div class="mep-covers">${cards
+        .map(
+          c =>
+            `<label class="mep-cover"><span translate="no">${esc(c.name)}</span><input type="number" inputmode="numeric" min="0" max="9999" step="1" data-card="${esc(c.id)}" value="${esc(String(mepDay.covers[c.id] ?? ''))}" placeholder="0" ${can ? '' : 'disabled'} onchange="setMepCovers('${escJs(c.id)}', this)"><small>${esc(t('couverts'))}</small></label>`
+        )
+        .join('')}</div>`
+    : '';
+  const empty = !cards.length
+    ? `<div class="mep-empty"><p>${esc(t('Deze lijst heeft nog geen onderdelen.'))}</p>${mepCanManage(l) ? `<button type="button" class="btn" onclick="setMepMode('bewerken')">${icon('edit')}${esc(t('Lijst bewerken'))}</button>` : ''}</div>`
+    : '';
+  const tools = cards.length
+    ? `<div id="mepProgress"></div><div class="mep-today-tools"><div class="mep-modes mep-filter" role="group" aria-label="${esc(t('Tonen'))}"><button type="button" id="mepFilterAll" onclick="setMepTodoOnly(false)">${esc(t('Alles'))}</button><button type="button" id="mepFilterTodo" onclick="setMepTodoOnly(true)">${esc(t('Nog te doen'))}</button></div><span id="mepTakeover"></span></div>`
+    : '';
+  host.innerHTML = nav + covers + tools + empty + `<div id="mepTodayBody"></div>`;
+  mepRefreshToday();
+}
+
+// Teller, filter, knop "voorraad overnemen" en de regels opnieuw tekenen (ook na een wijziging van een collega).
+function mepRefreshToday(flashId) {
+  const l = mepListById(mepOpenId);
+  if (!l || !mepDay || !$('mepTodayBody')) return;
+  const can = mepCanTick(l);
+  const cards = mepDayCards(l);
+  const all = cards.flatMap(c => mepSectionsOf(c.id).flatMap(s => mepItemsOf(s.id)));
+  const count = { nodig: 0, bezig: 0, klaar: 0, voorraad: 0 };
+  all.forEach(it => count[mepStatusOf(it.id)]++);
+  const done = count.klaar + count.voorraad;
+  const pct = all.length ? Math.round((done / all.length) * 100) : 0;
+  if ($('mepProgress'))
+    $('mepProgress').innerHTML = all.length
+      ? `<div class="mep-progress"><div class="mep-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${all.length}" aria-valuenow="${done}" aria-label="${esc(t('Klaar'))}"><span style="width:${pct}%"></span></div><p><b>${done} ${esc(t('van'))} ${all.length} ${esc(t('klaar'))}</b>${count.voorraad ? ` · ${count.voorraad} ${esc(t('op voorraad'))}` : ''}${count.bezig ? ` · ${count.bezig} ${esc(t('bezig'))}` : ''}${count.nodig ? ` · ${count.nodig} ${esc(t('nog te doen'))}` : ''}</p></div>`
+      : '';
+  $('mepFilterAll')?.classList.toggle('is-on', !mepTodoOnly);
+  $('mepFilterTodo')?.classList.toggle('is-on', mepTodoOnly);
+  const fresh = !Object.values(mepDay.items).some(r => r.status !== 'nodig');
+  if ($('mepTakeover'))
+    $('mepTakeover').innerHTML =
+      can && fresh && mepDay.prevDay
+        ? `<button type="button" class="btn small" onclick="takeOverMepStock()">${esc(t('Voorraad overnemen van'))} ${esc(mepDayTitle(mepDay.prevDay).toLowerCase())}</button>`
+        : '';
+  // Couverts van een collega bijwerken, behalve in het vakje waar je zelf typt.
+  document.querySelectorAll('.mep-cover input[data-card]').forEach(inp => {
+    if (inp !== document.activeElement) inp.value = mepDay.covers[inp.dataset.card] ?? '';
+  });
+  const showCard = cards.length > 1;
+  const body = cards
+    .map(c => {
+      const covers = Number(mepDay.covers[c.id]) || 0;
+      const secs = mepSectionsOf(c.id)
+        .map(s => {
+          const items = mepItemsOf(s.id).filter(it => !mepTodoOnly || ['nodig', 'bezig'].includes(mepStatusOf(it.id)));
+          if (!items.length) return '';
+          return `<section class="mep-day-sec"><h4 translate="no">${esc(s.name)}</h4>${items.map(it => mepDayRow(it, covers, can, it.id === flashId)).join('')}</section>`;
+        })
+        .join('');
+      if (!secs) return '';
+      return `<div class="mep-day-card">${showCard ? `<h3><span translate="no">${esc(c.name)}</span>${covers ? `<small>${covers} ${esc(t('couverts'))}</small>` : ''}</h3>` : ''}${secs}</div>`;
+    })
+    .join('');
+  $('mepTodayBody').innerHTML =
+    body ||
+    (all.length && mepTodoOnly
+      ? `<div class="mep-empty mep-alldone"><p><b>${esc(t('Alles staat klaar.'))}</b></p></div>`
+      : '');
+  mepShowLive();
+}
+
+function mepDayRow(it, covers, can, flash) {
+  const st = mepStatusOf(it.id);
+  const row = mepDay.items[it.id];
+  const amount = mepAmount(it, covers);
+  const who = row && st !== 'nodig' ? `${mepWho(row.updated_by)} · ${mepTime(row.updated_at)}` : '';
+  const r = it.recipe_id ? findRecipe(it.recipe_id) : null;
+  const iid = escJs(it.id);
+  const label = `${it.name}: ${t(MEP_STATUS[st])}. ${t('Tik voor')} ${t(MEP_STATUS[MEP_NEXT[st]]).toLowerCase()}.`;
+  const mark = { klaar: '✓', bezig: '•••', voorraad: 'V', nodig: '' }[st];
+  const status =
+    st === 'nodig'
+      ? ''
+      : `<small class="mep-row-who"><b>${esc(t(MEP_STATUS[st]))}</b>${who ? ' · ' + esc(who) : ''}</small>`;
+  const amountHtml = amount
+    ? `<span class="mep-row-amount"><b>${esc(amount.total || amount.each)}</b>${amount.total ? `<small>${esc(amount.each)}</small>` : ''}</span>`
+    : '';
+  return `<div class="mep-row st-${st}${flash ? ' is-flash' : ''}" data-item="${esc(it.id)}"><button type="button" class="mep-row-main" ${can ? `onclick="cycleMepStatus('${iid}')"` : 'disabled'} aria-label="${esc(label)}"><span class="mep-check" aria-hidden="true">${mark}</span><span class="mep-row-text"><span class="mep-row-name" translate="no">${esc(it.name)}</span>${it.note ? `<small class="mep-row-note" translate="no">${esc(it.note)}</small>` : ''}${status}</span>${amountHtml}</button>${r ? `<button type="button" class="mep-icon mep-row-recipe" onclick="openRecipe('${escJs(r.id)}','mep')" aria-label="${esc(t('Recept'))}: ${esc(r.title)}" title="${esc(r.title)}">${icon('book')}</button>` : ''}${can ? `<button type="button" class="mep-stock${st === 'voorraad' ? ' is-on' : ''}" onclick="toggleMepStock('${iid}')" aria-pressed="${st === 'voorraad'}">${esc(t('Voorraad'))}</button>` : ''}</div>`;
+}
+
+function setMepTodoOnly(on) {
+  mepTodoOnly = !!on;
+  mepRefreshToday();
+}
+
+function cycleMepStatus(itemId) {
+  setMepStatus(itemId, MEP_NEXT[mepStatusOf(itemId)]);
+}
+
+function toggleMepStock(itemId) {
+  setMepStatus(itemId, mepStatusOf(itemId) === 'voorraad' ? 'nodig' : 'voorraad');
+}
+
+// Meteen op het scherm; daarna naar de database (of in de wachtrij als er geen verbinding is).
+async function setMepStatus(itemId, status) {
+  if (!mepDay) return;
+  const row = {
+    list_id: mepDay.listId,
+    item_id: itemId,
+    day: mepDay.day,
+    status,
+    updated_by: currentUser?.id || null,
+    updated_at: new Date().toISOString()
+  };
+  mepDay.items[itemId] = row;
+  mepRefreshToday();
+  if (navigator.vibrate) navigator.vibrate(12);
+  await mepWrite('mep_day_items', row);
+}
+
+async function setMepCovers(cardId, input) {
+  if (!mepDay) return;
+  const raw = String(input.value).trim();
+  const n = raw === '' ? null : Math.round(Number(raw));
+  if (n != null && (!Number.isFinite(n) || n < 0 || n > 9999)) {
+    input.value = mepDay.covers[cardId] ?? '';
+    return toast(t('Vul een aantal couverts in tussen 0 en 9999.'));
+  }
+  const covers = { ...mepDay.covers };
+  if (n == null) delete covers[cardId];
+  else covers[cardId] = n;
+  mepDay.covers = covers;
+  mepRefreshToday();
+  await mepWrite('mep_days', {
+    list_id: mepDay.listId,
+    day: mepDay.day,
+    covers,
+    updated_by: currentUser?.id || null,
+    updated_at: new Date().toISOString()
+  });
+}
+
+// Voorraad van de vorige dag met afgevinkte regels overnemen. De kok kiest wat; niets gaat vanzelf.
+async function takeOverMepStock() {
+  if (!mepDay?.prevDay) return;
+  const { listId, prevDay } = mepDay;
+  let rows = [];
+  if (demoMode) rows = Object.values(mepDemoDays[listId + '|' + prevDay]?.items || {});
+  else {
+    const { data, error } = await supabaseClient
+      .from('mep_day_items')
+      .select('item_id,status')
+      .eq('list_id', listId)
+      .eq('day', prevDay)
+      .in('status', ['voorraad', 'klaar']);
+    if (error) return toast(mepError(error));
+    rows = data || [];
+  }
+  const exists = new Set(mepItems.filter(i => i.list_id === listId).map(i => i.id));
+  rows = rows.filter(r => exists.has(r.item_id) && ['voorraad', 'klaar'].includes(r.status));
+  const stock = rows.filter(r => r.status === 'voorraad');
+  const done = rows.filter(r => r.status === 'klaar');
+  if (!rows.length) return toast(t('Er stond niets op voorraad of klaar.'));
+  const when = mepDayTitle(prevDay).toLowerCase();
+  const choice = await askChoice(`${t('Wat staat er nog van')} ${when}?`, [
+    ...(stock.length
+      ? [{ value: 'voorraad', label: `${t('Wat op voorraad stond')} (${stock.length})`, primary: true }]
+      : []),
+    ...(done.length
+      ? [
+          {
+            value: 'beide',
+            label: `${t('Ook wat klaar was')} (${rows.length})`,
+            hint: t('Dat staat dan op voorraad.'),
+            primary: !stock.length
+          }
+        ]
+      : [])
+  ]);
+  if (!choice || !mepDay || mepDay.listId !== listId) return;
+  const pick = choice === 'beide' ? rows : stock;
+  const now = new Date().toISOString();
+  const day = mepDay.day;
+  const write = pick
+    .filter(r => mepStatusOf(r.item_id) === 'nodig')
+    .map(r => ({
+      list_id: listId,
+      item_id: r.item_id,
+      day,
+      status: 'voorraad',
+      updated_by: currentUser?.id || null,
+      updated_at: now
+    }));
+  write.forEach(r => (mepDay.items[r.item_id] = r));
+  mepRefreshToday();
+  await mepWrite('mep_day_items', write);
+  toast(
+    write.length === 1 ? t('1 onderdeel op voorraad gezet') : `${write.length} ${t('onderdelen op voorraad gezet')}`
+  );
+}
+
+// ---- Opslaan, wachtrij en offline ----
+
+async function mepWrite(table, rows) {
+  const list = Array.isArray(rows) ? rows : [rows];
+  if (!list.length) return;
+  if (demoMode) {
+    for (const r of list) {
+      const key = r.list_id + '|' + r.day;
+      const d = (mepDemoDays[key] = mepDemoDays[key] || { covers: {}, items: {} });
+      if (table === 'mep_days') d.covers = { ...r.covers };
+      else d.items[r.item_id] = { ...r };
+    }
+    return;
+  }
+  const { error } = await supabaseClient
+    .from(table)
+    .upsert(list, { onConflict: table === 'mep_days' ? 'list_id,day' : 'item_id,day' });
+  if (mepDay) mepCachedDays[mepDay.listId] = mepDay;
+  if (error && looksOffline(error)) {
+    mepQueue.push(...list.map(row => ({ table, row })));
+    mepOffline = true;
+  } else if (error) {
+    toast(mepError(error));
+    // Niet bewaard: de stand uit de database terughalen, zodat het scherm niets laat zien wat niet is opgeslagen.
+    if (mepDay) {
+      const { listId, day } = mepDay;
+      const fresh = await loadMepDay(listId, day);
+      if (mepDay?.listId === listId && mepDay.day === day) {
+        mepDay = fresh;
+        mepRefreshToday();
+      }
+    }
+  }
+  mepSaveCache();
+  mepShowLive();
+}
+
+// Nog niet verstuurde wijzigingen op de stand van een dag leggen (offline aangetikt).
+function mepApplyQueue(day) {
+  for (const { table, row } of mepQueue) {
+    if (row.list_id !== day.listId || row.day !== day.day) continue;
+    if (table === 'mep_days') day.covers = { ...row.covers };
+    else day.items[row.item_id] = { ...row };
+  }
+}
+
+let mepFlushing = false;
+async function mepFlushQueue() {
+  if (mepFlushing || !mepQueue.length || demoMode || !currentUser || !navigator.onLine) return;
+  mepFlushing = true;
+  try {
+    while (mepQueue.length) {
+      const { table, row } = mepQueue[0];
+      const { error } = await supabaseClient
+        .from(table)
+        .upsert(row, { onConflict: table === 'mep_days' ? 'list_id,day' : 'item_id,day' });
+      if (error && looksOffline(error)) break;
+      if (error) console.warn('MEP: wijziging niet bewaard', error);
+      mepQueue.shift();
+    }
+    if (!mepQueue.length) {
+      mepOffline = false;
+      toast(t('Wat je offline afvinkte, is nu bewaard.'));
+    }
+    mepSaveCache();
+    mepShowLive();
+  } finally {
+    mepFlushing = false;
+  }
+}
+
+// De MEP-lijsten, de laatst geopende dag per lijst en de wachtrij op dit toestel bewaren (zelfde opslag als de
+// offline bibliotheek, js/data/offline.js). Niet als "ingelogd blijven" uit staat.
+async function mepSaveCache() {
+  if (demoMode || !currentUser || !window.indexedDB || !staySignedIn()) return;
+  try {
+    const snap = {
+      userId: currentUser.id,
+      savedAt: new Date().toISOString(),
+      lists: mepLists,
+      cards: mepCards,
+      sections: mepSections,
+      items: mepItems,
+      days: mepCachedDays,
+      queue: mepQueue
+    };
+    await offlineStore('readwrite', store => store.put(JSON.parse(JSON.stringify(snap)), 'mep'));
+  } catch (e) {
+    console.warn('MEP offline bewaren lukte niet:', e);
+  }
+}
+
+async function mepUseCache() {
+  if (!window.indexedDB || !currentUser) return false;
+  let snap = null;
+  try {
+    snap = await offlineStore('readonly', store => store.get('mep'));
+  } catch (_) {}
+  if (!snap || snap.userId !== currentUser.id) return false;
+  mepLists = snap.lists || [];
+  mepCards = snap.cards || [];
+  mepSections = snap.sections || [];
+  mepItems = snap.items || [];
+  mepCachedDays = snap.days || {};
+  mepQueue = [...(snap.queue || []), ...mepQueue];
+  mepLoaded = true;
+  mepOffline = true;
+  return true;
+}
+
+// ---- Live meekijken (Supabase Realtime) ----
+
+function mepStartLive(listId) {
+  if (demoMode || !currentUser || offlineMode || !supabaseClient.channel) return mepShowLive();
+  if (mepChannel && mepChannelList === listId) return mepShowLive();
+  mepStopLive();
+  mepChannelList = listId;
+  mepLiveState = 'connecting';
+  mepChannel = supabaseClient
+    .channel('mep-' + listId)
+    .on(
+      'postgres_changes',
+      { event: '*', schema: 'public', table: 'mep_day_items', filter: `list_id=eq.${listId}` },
+      p => onMepLive('item', p.new)
+    )
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'mep_days', filter: `list_id=eq.${listId}` }, p =>
+      onMepLive('day', p.new)
+    )
+    .subscribe(status => {
+      const was = mepLiveState;
+      mepLiveState = status === 'SUBSCRIBED' ? 'live' : status === 'CLOSED' ? '' : 'connecting';
+      // Opnieuw verbonden: versturen wat nog wachtte en ophalen wat intussen veranderde.
+      if (status === 'SUBSCRIBED' && was !== 'live' && mepDay?.listId === listId) {
+        mepFlushQueue().then(() => mepReloadDay());
+      }
+      mepShowLive();
+    });
+  mepShowLive();
+}
+
+async function mepReloadDay() {
+  if (!mepDay) return;
+  const { listId, day } = mepDay;
+  const fresh = await loadMepDay(listId, day);
+  if (mepDay?.listId === listId && mepDay.day === day) {
+    mepDay = fresh;
+    mepRefreshToday();
+  }
+}
+
+function mepStopLive() {
+  if (mepChannel) {
+    try {
+      supabaseClient.removeChannel(mepChannel);
+    } catch (_) {}
+  }
+  mepChannel = null;
+  mepChannelList = null;
+  mepLiveState = '';
+}
+
+function onMepLive(kind, row) {
+  if (!row || !mepDay || row.list_id !== mepDay.listId || row.day !== mepDay.day) return;
+  if (kind === 'day') {
+    mepDay.covers = row.covers || {};
+    return mepRefreshToday();
+  }
+  const old = mepDay.items[row.item_id];
+  // Je eigen wijziging komt ook terug; een oudere wijziging overschrijft nooit een nieuwere.
+  if (old && old.status === row.status && old.updated_at === row.updated_at) return;
+  if (old?.updated_at && row.updated_at && new Date(old.updated_at) > new Date(row.updated_at)) return;
+  mepDay.items[row.item_id] = row;
+  // Iets van een collega licht even op.
+  mepRefreshToday(String(row.updated_by) !== String(currentUser?.id) ? row.item_id : null);
+}
+
+function mepShowLive() {
+  const el = $('mepLive');
+  if (!el) return;
+  const l = mepListById(mepOpenId);
+  let text = '';
+  let cls = '';
+  // In de demo staat "niets wordt opgeslagen" al bovenaan (mepSaved).
+  if (demoMode) text = '';
+  else if (mepOffline || offlineMode || !navigator.onLine) {
+    text = mepQueue.length ? t('Offline · wordt bewaard zodra je verbinding hebt') : t('Offline');
+    cls = 'is-off';
+  } else if (mepLiveState === 'live') {
+    text = l?.team_id ? t('Live met je team') : t('Live');
+    cls = 'is-live';
+  } else if (mepLiveState === 'connecting') text = t('Verbinden…');
+  el.className = 'mep-live ' + cls;
+  el.textContent = text;
 }
