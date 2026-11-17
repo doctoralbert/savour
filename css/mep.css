@@ -1088,3 +1088,189 @@ body.savour-light .mep-sheet {
     break-inside: avoid;
   }
 }
+
+/* ---- Importeren (js/features/mep-import.js) ---- */
+.mep-import,
+.mep-import-review {
+  max-width: 980px;
+}
+.mep-import-choices {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 0 0 20px;
+}
+.mep-import-file {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.mep-import-file svg {
+  width: 16px;
+  height: 16px;
+}
+.mep-import-file input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.mep-import-paste {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0 0 12px;
+}
+.mep-import-paste span,
+.mep-import-field span {
+  font-size: var(--sv-fs-sm);
+  font-weight: 600;
+  color: var(--sv-text-2);
+}
+.mep-import-paste textarea {
+  width: 100%;
+  min-height: 200px;
+  padding: 12px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface);
+  color: var(--sv-text);
+  font: inherit;
+  resize: vertical;
+}
+.mep-import-top {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 10px;
+}
+.mep-import-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 220px;
+}
+.mep-import-field input,
+.mep-import-field select {
+  height: var(--sv-control-h);
+  padding: 0 12px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface);
+  color: var(--sv-text);
+  font: inherit;
+}
+.mep-import-sum {
+  margin: 4px 0 14px;
+  color: var(--sv-text-2);
+}
+.mep-doubt-count {
+  color: var(--sv-gold);
+  font-weight: 600;
+}
+.mep-import-rows {
+  border-top: 1px solid var(--sv-line);
+}
+.mep-imp-row {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--sv-line);
+}
+.mep-imp-type,
+.mep-imp-fields input {
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid var(--sv-line);
+  border-radius: var(--sv-radius-sm);
+  background: var(--sv-surface);
+  color: var(--sv-text);
+  font: inherit;
+  font-size: var(--sv-fs-md);
+}
+.mep-imp-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) 96px 80px minmax(0, 1.4fr);
+  gap: 6px;
+  min-width: 0;
+}
+.mep-imp-fields input {
+  width: 100%;
+  min-width: 0;
+}
+.mep-imp-fields small {
+  grid-column: 1 / -1;
+  font-size: var(--sv-fs-xs);
+  color: var(--sv-text-3);
+}
+.mep-imp-row.is-card .mep-imp-fields,
+.mep-imp-row.is-section .mep-imp-fields,
+.mep-imp-row.is-skip .mep-imp-fields {
+  grid-template-columns: minmax(0, 1fr);
+}
+.mep-imp-row.is-card {
+  margin-top: 14px;
+  padding: 8px;
+  border: 0;
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface-2);
+}
+.mep-imp-row.is-card .mep-imp-name {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--sv-gold);
+}
+.mep-imp-row.is-section {
+  padding-top: 12px;
+}
+.mep-imp-row.is-section .mep-imp-name {
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-lg);
+  font-weight: 600;
+}
+.mep-imp-row.is-skip {
+  opacity: 0.45;
+}
+.mep-imp-row.is-skip .mep-imp-name {
+  text-decoration: line-through;
+}
+.mep-imp-row.has-doubt {
+  background: color-mix(in srgb, var(--sv-gold) 10%, transparent);
+}
+.mep-imp-row.has-doubt .mep-imp-doubt {
+  color: var(--sv-gold);
+  font-weight: 600;
+}
+.mep-import-save {
+  position: sticky;
+  bottom: 0;
+  margin: 16px 0 24px;
+  padding: 12px 0;
+  background: var(--sv-bg);
+}
+@media (max-width: 760px) {
+  .mep-imp-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+  .mep-imp-type {
+    width: 100%;
+  }
+  .mep-imp-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+  .mep-imp-fields .mep-imp-name,
+  .mep-imp-fields .mep-imp-note {
+    grid-column: 1 / -1;
+  }
+  .mep-import-save {
+    bottom: 64px;
+  }
+}

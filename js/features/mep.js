@@ -260,6 +260,8 @@ async function renderMep() {
       return;
     }
   }
+  // Bezig met importeren (js/features/mep-import.js): dat scherm laten staan.
+  if (mepImport) return renderMepImport();
   if (mepOpenId && !mepListById(mepOpenId)) mepOpenId = null;
   if (mepOpenId) return renderMepList();
   renderMepOverview();
@@ -296,7 +298,7 @@ function renderMepOverview() {
       lists: active.filter(l => l.team_id === id)
     });
   const intro = `<p class="mep-intro">${esc(t('Per post een lijst met alles wat klaar moet staan. Vul de couverts in, en Savour rekent uit hoeveel je nodig hebt. Je collega’s zien live wat klaar is.'))}</p>`;
-  const actions = `<div class="mep-actions"><button type="button" class="btn gold" onclick="newMepList()">${icon('plus')}${esc(t('Nieuwe MEP-lijst'))}</button></div>`;
+  const actions = `<div class="mep-actions"><button type="button" class="btn gold" onclick="newMepList()">${icon('plus')}${esc(t('Nieuwe MEP-lijst'))}</button><button type="button" class="btn" onclick="openMepImport()">${icon('download')}${esc(t('Importeren'))}</button></div>`;
   const body = groups.length
     ? groups
         .map(
