@@ -2282,7 +2282,7 @@ async function siteFigures(res) {
 
 export default async function handler(req, res) {
   // Nachtelijk onderhoud (Vercel Cron, met CRON_SECRET): zie api/_lib/onderhoud.js.
-  if (req.query?.taak === 'onderhoud') return runMaintenance(req, res);
+  if (req.query?.taak === 'onderhoud' || req.query?.taak === 'rapport') return runMaintenance(req, res);
   if (req.query?.afmelden) return newsUnsubscribe(req, res);
   if (req.query?.cijfers && req.method === 'GET') return siteFigures(res);
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
