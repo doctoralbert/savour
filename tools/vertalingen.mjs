@@ -1,5 +1,18 @@
 // Brontabel voor de vertalingen: [Nederlands, Engels, Duits, Spaans].
 export const strings = [
+  ["Open het keukenteam", "Open the kitchen team", "Öffne das Küchenteam", "Abre el equipo de cocina"],
+  ["Alle recepten van je keuken op één plek, op elke telefoon.", "All your kitchen’s recipes in one place, on every phone.", "Alle Rezepte deiner Küche an einem Ort, auf jedem Handy.", "Todas las recetas de tu cocina en un solo lugar, en cada teléfono."],
+  ["Kook, reken om en print", "Cook, scale and print", "Kochen, umrechnen und drucken", "Cocina, escala e imprime"],
+  ["Open een recept, kies de kookmodus of reken om naar je aantal.", "Open a recipe, choose cooking mode or scale to your number.", "Öffne ein Rezept, wähle den Kochmodus oder rechne auf deine Menge um.", "Abre una receta, elige el modo cocina o escala a tu cantidad."],
+  ["Ook je eigen recepten", "Your own recipes too", "Auch deine eigenen Rezepte", "También tus propias recetas"],
+  ["Je eigen recepten zet je in je eigen receptenboek.", "Your own recipes go in your own recipe book.", "Deine eigenen Rezepte kommen in dein eigenes Rezeptbuch.", "Tus propias recetas van en tu propio recetario."],
+  ["Je keukenteam staat klaar.", "Your kitchen team is ready.", "Dein Küchenteam ist bereit.", "Tu equipo de cocina está listo."],
+  ["Je bent lid van", "You are a member of", "Du bist Mitglied von", "Eres miembro de"],
+  ["De recepten van je keuken staan daar.", "Your kitchen’s recipes are there.", "Dort stehen die Rezepte deiner Küche.", "Ahí están las recetas de tu cocina."],
+  ["Open", "Open", "Öffnen", "Abrir"],
+  ["Eigen recepten importeren", "Import your own recipes", "Eigene Rezepte importieren", "Importar tus propias recetas"],
+  ["De recepten van je keuken staan in het keukenteam", "Your kitchen’s recipes are in the kitchen team", "Die Rezepte deiner Küche stehen im Küchenteam", "Las recetas de tu cocina están en el equipo de cocina"],
+  ["Je eigen receptenboek is nog leeg; daar zet je recepten die alleen van jou zijn.", "Your own recipe book is still empty; that is for recipes that are only yours.", "Dein eigenes Rezeptbuch ist noch leer; dort kommen Rezepte hin, die nur dir gehören.", "Tu propio recetario aún está vacío; ahí van las recetas que son solo tuyas."],
   // ---- Algemeen ----
   [
     'Savour — professioneel receptbeheer',

@@ -619,6 +619,22 @@ function showWelcomeFlow() {
   const first = String(account?.name || '')
     .trim()
     .split(/\s+/)[0];
+  // Uitgenodigd in het keukenteam van een ander (testronde 2026-11-17): de recepten van de keuken staan daar, niet in
+  // de eigen lege bibliotheek. Dan eerst dat team, met één knop om het te openen.
+  const team = (sharedMaps || []).find(m => m.ownerId && m.ownerId !== currentUser?.id);
+  if (team) {
+    const teamSteps = [
+      ['1', t('Open het keukenteam'), t('Alle recepten van je keuken op één plek, op elke telefoon.')],
+      ['2', t('Kook, reken om en print'), t('Open een recept, kies de kookmodus of reken om naar je aantal.')],
+      ['3', t('Ook je eigen recepten'), t('Je eigen recepten zet je in je eigen receptenboek.')]
+    ];
+    document.body.insertAdjacentHTML(
+      'beforeend',
+      `<div class="welcome-flow" id="welcomeFlow" role="dialog" aria-modal="true" aria-labelledby="welcomeFlowTitle"><div class="welcome-box"><button type="button" class="welcome-close" onclick="dismissWelcomeFlow()" aria-label="${esc(t('Sluiten'))}">×</button><div class="eyebrow">${esc(t('Welkom bij Savour'))}</div><h1 id="welcomeFlowTitle">${esc(t('Je keukenteam staat klaar.'))}</h1><p><span>${esc(t('Je bent lid van'))}</span> <b translate="no">${esc(team.name)}</b>. <span>${esc(t('De recepten van je keuken staan daar.'))}</span></p><ol class="welcome-steps">${teamSteps.map(([n, title, text]) => `<li><span>${n}</span><div><b>${esc(title)}</b><small>${esc(text)}</small></div></li>`).join('')}</ol><button type="button" class="btn gold welcome-main" onclick="welcomeChoice('team:${escJs(team.id)}')"><span>${esc(t('Open'))}</span> <span translate="no">${esc(team.name)}</span></button><div class="welcome-more"><button type="button" onclick="welcomeChoice('file')">${esc(t('Eigen recepten importeren'))}</button></div></div></div>`
+    );
+    document.querySelector('#welcomeFlow .welcome-main')?.focus();
+    return;
+  }
   const steps = [
     ['1', 'Zet je recepten erin', 'Word, PDF of een foto van een kladje. Ook honderden tegelijk.'],
     ['2', 'Orden ze in mappen', 'Per partie, menu of seizoen, zoals jouw keuken werkt.'],
@@ -645,7 +661,13 @@ function dismissWelcomeFlow() {
 
 function welcomeChoice(choice) {
   closeWelcomeFlow();
-  if (choice === 'file') {
+  if (choice.startsWith('team:')) {
+    // Gekozen: niet opnieuw vanzelf tonen, de kok weet nu waar de recepten staan.
+    try {
+      localStorage.setItem(welcomeKey(), '1');
+    } catch {}
+    openShared(choice.slice(5));
+  } else if (choice === 'file') {
     go('import');
     showImportPanel();
   } else if (choice === 'camera') {

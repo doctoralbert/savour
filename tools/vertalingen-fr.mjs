@@ -1,6 +1,19 @@
 // Franse vertalingen, naast tools/vertalingen.mjs: Nederlandse brontekst → Frans.
 // Nieuwe interfacetekst? Zet hier ook de Franse regel; node tools/build-i18n.mjs meldt wat ontbreekt.
 export const stringsFr = {
+ "Open het keukenteam": "Ouvre l’équipe de cuisine",
+ "Alle recepten van je keuken op één plek, op elke telefoon.": "Toutes les recettes de ta cuisine au même endroit, sur chaque téléphone.",
+ "Kook, reken om en print": "Cuisine, convertis et imprime",
+ "Open een recept, kies de kookmodus of reken om naar je aantal.": "Ouvre une recette, choisis le mode cuisine ou convertis pour ton nombre.",
+ "Ook je eigen recepten": "Aussi tes propres recettes",
+ "Je eigen recepten zet je in je eigen receptenboek.": "Tes propres recettes vont dans ton propre livre de recettes.",
+ "Je keukenteam staat klaar.": "Ton équipe de cuisine est prête.",
+ "Je bent lid van": "Tu es membre de",
+ "De recepten van je keuken staan daar.": "Les recettes de ta cuisine y sont.",
+ "Open": "Ouvrir",
+ "Eigen recepten importeren": "Importer tes propres recettes",
+ "De recepten van je keuken staan in het keukenteam": "Les recettes de ta cuisine sont dans l’équipe de cuisine",
+ "Je eigen receptenboek is nog leeg; daar zet je recepten die alleen van jou zijn.": "Ton propre livre de recettes est encore vide ; il est pour les recettes qui ne sont qu’à toi.",
  "Proefperiode tot": "Essai jusqu'au",
  "Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot je Savour Pro neemt.": "Ensuite tout est conservé, mais cette équipe de cuisine n'est plus utilisable tant que tu n'as pas pris Savour Pro.",
  "Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot de eigenaar Savour Pro neemt.": "Ensuite tout est conservé, mais cette équipe de cuisine n'est plus utilisable tant que le propriétaire n'a pas pris Savour Pro.",

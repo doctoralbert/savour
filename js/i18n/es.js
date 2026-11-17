@@ -2,6 +2,22 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.es = {
   strings: {
+    'Open het keukenteam': 'Abre el equipo de cocina',
+    'Alle recepten van je keuken op één plek, op elke telefoon.':
+      'Todas las recetas de tu cocina en un solo lugar, en cada teléfono.',
+    'Kook, reken om en print': 'Cocina, escala e imprime',
+    'Open een recept, kies de kookmodus of reken om naar je aantal.':
+      'Abre una receta, elige el modo cocina o escala a tu cantidad.',
+    'Ook je eigen recepten': 'También tus propias recetas',
+    'Je eigen recepten zet je in je eigen receptenboek.': 'Tus propias recetas van en tu propio recetario.',
+    'Je keukenteam staat klaar.': 'Tu equipo de cocina está listo.',
+    'Je bent lid van': 'Eres miembro de',
+    'De recepten van je keuken staan daar.': 'Ahí están las recetas de tu cocina.',
+    Open: 'Abrir',
+    'Eigen recepten importeren': 'Importar tus propias recetas',
+    'De recepten van je keuken staan in het keukenteam': 'Las recetas de tu cocina están en el equipo de cocina',
+    'Je eigen receptenboek is nog leeg; daar zet je recepten die alleen van jou zijn.':
+      'Tu propio recetario aún está vacío; ahí van las recetas que son solo tuyas.',
     'Savour — professioneel receptbeheer': 'Savour — gestión profesional de recetas',
     'Savour — receptenapp voor chefs: recepten organiseren en delen':
       'Savour — app de recetas para chefs: organiza y comparte recetas',
