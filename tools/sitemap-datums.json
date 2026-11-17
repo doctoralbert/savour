@@ -1,22 +1,22 @@
 {
  "https://savour.page/": {
-  "hash": "f123e7e0b4856e87",
+  "hash": "d26708c96de654be",
   "date": "2026-11-17"
  },
  "https://savour.page/en": {
-  "hash": "0a6e92ed8a16363a",
+  "hash": "659fe3ada03dcb08",
   "date": "2026-11-17"
  },
  "https://savour.page/de": {
-  "hash": "51ac0e5ae920c6fd",
+  "hash": "8437d09c7112b8ae",
   "date": "2026-11-17"
  },
  "https://savour.page/es": {
-  "hash": "97380207feff060b",
+  "hash": "ec5a8a3ff996d851",
   "date": "2026-11-17"
  },
  "https://savour.page/fr": {
-  "hash": "21d37d438a1ed0cf",
+  "hash": "54470852388e8ca3",
   "date": "2026-11-17"
  },
  "https://savour.page/recepten-digitaliseren": {
@@ -152,8 +152,8 @@
   "date": "2026-11-17"
  },
  "https://savour.page/veelgestelde-vragen": {
-  "hash": "6270958332a712ed",
-  "date": "2026-11-15"
+  "hash": "aacefca13193db71",
+  "date": "2026-11-17"
  },
  "https://savour.page/contact": {
   "hash": "c5d3400698b4e74d",
@@ -300,8 +300,8 @@
   "date": "2026-11-17"
  },
  "https://savour.page/en/faq": {
-  "hash": "fa1d559fa4dd6d58",
-  "date": "2026-11-15"
+  "hash": "673ea8624972fd45",
+  "date": "2026-11-17"
  },
  "https://savour.page/en/contact": {
   "hash": "f902228ab5a8c251",
@@ -448,8 +448,8 @@
   "date": "2026-11-17"
  },
  "https://savour.page/de/faq": {
-  "hash": "ce755177aab48959",
-  "date": "2026-11-15"
+  "hash": "cf5945fb5cf9d6f5",
+  "date": "2026-11-17"
  },
  "https://savour.page/de/kontakt": {
   "hash": "ffdef869f274e5dc",
@@ -596,8 +596,8 @@
   "date": "2026-11-17"
  },
  "https://savour.page/es/preguntas-frecuentes": {
-  "hash": "0ce08f85f38283d5",
-  "date": "2026-11-15"
+  "hash": "8b72f645f78ab169",
+  "date": "2026-11-17"
  },
  "https://savour.page/es/contacto": {
   "hash": "ae9324e2ee7df73a",
@@ -744,8 +744,8 @@
   "date": "2026-11-17"
  },
  "https://savour.page/fr/questions-frequentes": {
-  "hash": "af64b1190d363225",
-  "date": "2026-11-15"
+  "hash": "62f250dbfeb5596d",
+  "date": "2026-11-17"
  },
  "https://savour.page/fr/contact": {
   "hash": "e7f38f2ef0f8df8d",

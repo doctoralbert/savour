@@ -46,6 +46,7 @@ import { FEATURE_RICH } from './site-feature-rich.mjs';
 import { ALLERGEN_FEATURE, ALLERGEN_FEATURE_RICH } from './site-allergenen-functie.mjs';
 import { PAPRIKA_PAGE } from './site-paprika.mjs';
 import { PAGE_RICH } from './site-page-rich.mjs';
+import { HOME_NEXT } from './site-home.mjs';
 import { APP_PAGE } from './site-app.mjs';
 import { SERVICE, SERVICE_TIERS, FREE_KITCHENS } from './site-service.mjs';
 import { DELIVER, DELIVER_FLOW } from './site-deliver.mjs';
@@ -634,11 +635,15 @@ function footer(lang, alt, inApp) {
 }
 
 // Het echte kladje (marshmallow, hele foto) naast hetzelfde recept in Savour.
-function kladje(lang) {
+function kladje(lang, short = false) {
   const k = KLADJE_REAL[lang];
+  const steps = short ? k.steps.slice(0, 2) : k.steps;
+  const more = short
+    ? `<p class="kladje-duo-more"><a class="site-link" href="${homePath(lang)}?demo=1" data-demo>${esc(HOME_NEXT[lang].kladjeMore)}</a></p>`
+    : '';
   return `<figure class="kladje-duo">
 <div class="kladje-duo-photo"><span class="kladje-duo-tag">${esc(k.before)}</span><img src="/assets/kladjes/marshmallow-kladje.jpg" alt="${esc(k.alt)}" width="1100" height="972" loading="lazy"></div>
-<div class="kladje-duo-card"><span class="kladje-duo-tag gold">${esc(k.after)}</span><h3>${esc(k.title)}</h3><small>${esc(k.meta)}</small><h4>${esc(k.ingredientsTitle)}</h4><ul>${k.ingredients.map(i => `<li>${esc(i)}</li>`).join('')}</ul><h4>${esc(k.stepsTitle)}</h4><ol>${k.steps.map(([t, d]) => `<li><b>${esc(t)}</b> ${esc(d)}</li>`).join('')}</ol><p class="kladje-duo-note">${esc(k.stepsNote)}</p></div>
+<div class="kladje-duo-card"><span class="kladje-duo-tag gold">${esc(k.after)}</span><h3>${esc(k.title)}</h3><small>${esc(k.meta)}</small><h4>${esc(k.ingredientsTitle)}</h4><ul>${k.ingredients.map(i => `<li>${esc(i)}</li>`).join('')}</ul><h4>${esc(k.stepsTitle)}</h4><ol>${steps.map(([t, d]) => `<li><b>${esc(t)}</b> ${esc(d)}</li>`).join('')}</ol><p class="kladje-duo-note">${esc(k.stepsNote)}</p>${more}</div>
 <figcaption>${esc(k.caption)}</figcaption></figure>`;
 }
 
@@ -909,31 +914,26 @@ function figuresBand(lang) {
 }
 function homeBody(lang, inApp) {
   const h = HOME[lang];
+  const n = HOME_NEXT[lang];
   const u = UI[lang];
   const q = homePath(lang);
+  // Na de test als nieuwe bezoeker (2026-11-17): korter, met wat een kok moet weten in deze volgorde. Wat Savour nog
+  // niet kan (Waar we aan werken), het voor-wie-blok en de strook met één getal staan niet meer op de startpagina.
+  const homeFeatures = FEATURES.filter(f => !f.soon && !f.service && f.id !== 'cloud');
+  const plan = x =>
+    `<div class="home-plan${x.featured ? ' is-featured' : ''}"><h3>${esc(x.name)}</h3><p class="home-plan-price"><strong>${esc(x.price)}</strong>${x.per ? `<span>${esc(x.per)}</span>` : ''}</p>${x.note ? `<p class="home-plan-note">${esc(x.note)}</p>` : ''}<ul>${x.points.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>`;
   return `<section class="site-hero${HERO_PHOTO ? ' has-photo' : ''}"${HERO_PHOTO ? ` style="--hero-photo:url('${HERO_PHOTO}')"` : ''}><div class="site-wrap">
-<div><h1>${esc(h.h1)}</h1><p class="site-lead">${esc(h.lead)}</p><p class="site-proof">${esc(h.proof)}</p>
+<div><h1>${esc(h.h1)}</h1><p class="site-lead">${esc(n.lead)}</p><p class="site-proof">${esc(h.proof)}</p>
 <div class="site-cta-row"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?demo=1" data-demo>${u.demo}</a></div><p class="site-note" style="margin-top:10px">${esc(u.demoNote)}</p></div>
 <div class="hero-shots"><div class="hero-laptop"><img src="/assets/app/bibliotheek-${lang}.jpg" alt="${esc(SHOT_ALT[lang][0])}" width="1440" height="900"></div><div class="hero-phone"><img src="/assets/app/recept-${lang}.jpg" alt="${esc(SHOT_ALT[lang][1])}" width="520" height="1125"></div></div>
 </div></section>
-${figuresBand(lang)}
-<section class="site-section"><div class="site-wrap"><div class="site-two"><h2 class="reveal">${esc(KLADJE_REAL[lang].heading)}</h2><div>${h.story.map(p => `<p>${esc(p)}</p>`).join('')}<p><a class="site-link" href="${href(STORY[lang].slug)}">${esc(h.storyLink)}</a></p></div></div>${kladje(lang)}</div></section>
-<section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(h.featuresTitle)}</h2>${rows(
-    FEATURES.filter(f => !f.soon),
-    lang
-  )}</div></section>
+<section class="site-section"><div class="site-wrap"><div class="site-two"><h2 class="reveal">${esc(KLADJE_REAL[lang].heading)}</h2><div>${h.story.map(p => `<p>${esc(p)}</p>`).join('')}<p><a class="site-link" href="${href(STORY[lang].slug)}">${esc(h.storyLink)}</a></p></div></div>${kladje(lang, true)}</div></section>
+<section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(h.featuresTitle)}</h2>${rows(homeFeatures, lang)}</div></section>
+<section class="site-section"><div class="site-wrap"><h2 class="reveal">${esc(n.teamTitle)}</h2><ol class="home-steps">${n.team.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join('')}</ol></div></section>
+<section class="site-section tint" id="prijzen"><div class="site-wrap"><h2 class="reveal">${esc(n.priceTitle)}</h2><div class="home-plans">${n.plans.map(plan).join('')}</div><p class="home-plans-foot">${esc(n.priceFoot)} <a class="site-link" href="${href(legacy('pro')[lang])}">${esc(n.priceLink)}</a></p></div></section>
 ${serviceBand(lang)}
-<section class="site-section"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.audienceTitle)}</h2>${rows(AUDIENCES, lang)}</div></section>
-<section class="site-section dark"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.soonTitle)}</h2><div><ul class="site-rows">${FEATURES.find(
-    f => f.soon
-  )
-    [lang].sections.map(
-      ([t, d]) =>
-        `<li><a href="${href(FEATURES.find(f => f.soon)[lang].slug)}"><b>${esc(t)}</b><span>${esc(d.replace(/\s*\[[^\]]+\]\([^)]+\)\.?/g, ''))}</span><i aria-hidden="true">→</i></a></li>`
-    )
-    .join('')}</ul></div></div></section>
-<section class="site-section"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.priceTitle)}</h2><div><p>${esc(h.price)}</p><p><a class="site-link" href="${href(legacy('pro')[lang])}">${esc(h.priceLink)}</a></p></div></div></section>
-<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.faqTitle)}</h2><div class="site-faq">${h.faq.map(([qq, a]) => `<details><summary>${esc(qq)}</summary><p>${esc(a)}</p></details>`).join('')}</div></div></section>
+<section class="site-section"><div class="site-wrap"><h2 class="reveal">${esc(n.trustTitle)}</h2><div class="home-trust">${n.trust.map(([t, d]) => `<div><b>${esc(t)}</b><span>${esc(d)}</span></div>`).join('')}</div></div></section>
+<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.faqTitle)}</h2><div class="site-faq">${n.faq.map(([qq, a]) => `<details><summary>${esc(qq)}</summary><p>${esc(a)}</p></details>`).join('')}</div></div></section>
 ${ctaBlock(lang, inApp)}`;
 }
 
@@ -1503,7 +1503,8 @@ for (const lang of LANGS) {
     if (p.id === 'pro') body += serviceTeaser(lang);
     // Vragenpagina: ook de vragen over de import service (komen zo ook in het FAQPage-schema).
     if (p.id === 'faq')
-      body += SERVICE[lang].faqs
+      body += [...HOME[lang].faq.filter(([q]) => !SERVICE[lang].faqs.some(([sq]) => sq === q)), ...SERVICE[lang].faqs]
+        .filter(([q]) => !body.includes(`<h2>${esc(q)}</h2>`))
         .map(
           ([q, a]) => `<h2>${esc(q)}</h2>
 <p>${esc(a)}</p>`
@@ -1811,7 +1812,7 @@ const HOME_META = {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
         inLanguage: lang,
-        mainEntity: HOME[lang].faq.map(([q, a]) => ({
+        mainEntity: HOME_NEXT[lang].faq.map(([q, a]) => ({
           '@type': 'Question',
           name: q,
           acceptedAnswer: { '@type': 'Answer', text: a }

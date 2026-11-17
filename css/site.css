@@ -4415,3 +4415,145 @@ body.mobile-menu-open .sv-scroll-top {
   color: var(--gold);
   font-weight: 600;
 }
+
+/* ==== Startpagina (2026-11-17): team in drie stappen, prijskaarten en "Je recepten blijven van jou".
+   Kleuren uit de variabelen van .site, zodat donker en licht thema vanzelf kloppen. ==== */
+.home-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: home-step;
+}
+.home-steps li {
+  position: relative;
+  padding: 22px 22px 22px 64px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper-2);
+  counter-increment: home-step;
+}
+.home-steps li::before {
+  content: counter(home-step);
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold);
+  font-family: var(--serif);
+}
+.home-steps b,
+.home-trust b {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--ink);
+  font-size: 1.05rem;
+}
+.home-steps span,
+.home-trust span {
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+.home-plans {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+.home-plan {
+  display: flex;
+  flex-direction: column;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper);
+}
+.home-plan.is-featured {
+  border-color: var(--gold);
+}
+.home-plan h3 {
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.35rem;
+}
+.home-plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+}
+.home-plan-price strong {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.home-plan-price span {
+  color: var(--ink-3);
+}
+.home-plan-note {
+  margin: 6px 0 0;
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.home-plan ul {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+.home-plan li {
+  position: relative;
+  padding-left: 22px;
+  color: var(--ink-2);
+}
+.home-plan li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+.home-plans-foot {
+  margin: 20px 0 0;
+  color: var(--ink-2);
+}
+.home-trust {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+.home-trust > div {
+  padding: 22px;
+  border-top: 2px solid var(--gold);
+  background: var(--paper-2);
+  border-radius: 0 0 14px 14px;
+}
+.kladje-duo-more {
+  margin: 14px 0 0;
+}
+@media (max-width: 960px) {
+  .home-trust {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .home-steps,
+  .home-plans,
+  .home-trust {
+    grid-template-columns: 1fr;
+  }
+  .home-steps li {
+    padding: 18px 18px 18px 58px;
+  }
+}
