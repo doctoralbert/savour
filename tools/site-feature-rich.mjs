@@ -888,7 +888,7 @@ export const FEATURE_RICH = {
         ],
         [
           'Kan ik al mijn recepten downloaden?',
-          'Met Savour Pro download je je hele receptenboek wanneer je wilt, als Word-bestanden of als back-up.'
+          'Een back-up van je hele receptenboek download je wanneer je wilt, ook zonder Pro; met Savour Pro ook als Word-bestanden.'
         ],
         [
           'Wat gebeurt er als ik stop met Pro?',
@@ -923,7 +923,7 @@ export const FEATURE_RICH = {
         ],
         [
           'Can I download all my recipes?',
-          'With Savour Pro you download your whole recipe book whenever you like, as Word files or as a backup.'
+          'You can download a backup of your whole recipe book whenever you like, even without Pro; with Savour Pro also as Word files.'
         ],
         ['What happens if I stop Pro?', 'All your recipes stay. You just cannot add more than 100 recipes any more.']
       ]
@@ -990,7 +990,7 @@ export const FEATURE_RICH = {
         ],
         [
           '¿Puedo descargar todas mis recetas?',
-          'Con Savour Pro descargas todo tu recetario cuando quieras, como archivos de Word o como copia de seguridad.'
+          'Una copia de seguridad de todo tu recetario la descargas cuando quieras, también sin Pro; con Savour Pro también como archivos de Word.'
         ],
         ['¿Qué pasa si dejo Pro?', 'Todas tus recetas se quedan. Solo que ya no puedes añadir más de 100 recetas.']
       ]
@@ -1022,7 +1022,7 @@ export const FEATURE_RICH = {
         ],
         [
           'Puis-je télécharger toutes mes recettes ?',
-          'Avec Savour Pro, tu télécharges tout ton livre de recettes quand tu veux, en fichiers Word ou en sauvegarde.'
+          'Tu télécharges une sauvegarde de tout ton livre de recettes quand tu veux, même sans Pro ; avec Savour Pro, aussi en fichiers Word.'
         ],
         [
           'Que se passe-t-il si j’arrête Pro ?',

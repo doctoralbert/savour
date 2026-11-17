@@ -112,7 +112,7 @@ const HELP_TOPICS = {
       ['Account', 'Pas je naam en profielfoto aan, verander je wachtwoord of log uit.'],
       [
         'Printen en downloaden',
-        'Print al je recepten in één keer in de printopmaak van Savour. Met Savour Pro download je ze ook naar Word of als back-up.'
+        'Print al je recepten in één keer in de printopmaak van Savour, of download een back-up. Met Savour Pro download je ze ook naar Word.'
       ],
       ['Savour Pro', 'Bekijk of beheer je Savour Pro of teamabonnement en nodig je team uit.'],
       [

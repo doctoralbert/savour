@@ -315,7 +315,8 @@ function renderProPage(host) {
         <tr><td>De 14 allergenen bij je eigen recepten</td><td>–</td><td>✓</td></tr>
         <tr><td>Allergenen zien in een keukenteam van een eigenaar met Pro</td><td>✓</td><td>✓</td></tr>
         <tr><td>Printen met het logo van je restaurant</td><td>–</td><td>✓</td></tr>
-        <tr><td>Alle recepten downloaden naar Word of als back-up</td><td>–</td><td>✓</td></tr>
+        <tr><td>Een back-up van al je recepten downloaden</td><td>✓</td><td>✓</td></tr>
+        <tr><td>Alle recepten downloaden naar Word</td><td>–</td><td>✓</td></tr>
         <tr><td>AI-imports per maand</td><td>–</td><td>150</td></tr>
       </tbody>
     </table>

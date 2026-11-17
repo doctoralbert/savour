@@ -207,7 +207,7 @@ export const pages = [
       sections: [
         [
           'Waar',
-          'Ga naar Mijn account → Account, bij “Al je recepten printen of downloaden”. Downloaden kan met [Savour Pro](#gratis-en-pro).'
+          'Ga naar Mijn account → Account, bij “Al je recepten printen of downloaden”. Een back-up kan iedereen downloaden; de Word-bestanden horen bij [Savour Pro](#gratis-en-pro).'
         ],
         [
           'Drie manieren',
@@ -224,7 +224,7 @@ export const pages = [
         ],
         [
           'Zonder Pro',
-          'Ook zonder Pro blijven je recepten altijd in Savour staan, en kun je ze bekijken en [printen](#printen-map). Stoppen met Pro kost je nooit recepten: zie [Stoppen met Savour Pro](#pro-stoppen).'
+          'Ook zonder Pro blijven je recepten altijd in Savour staan, en kun je ze bekijken, [printen](#printen-map) en als back-up downloaden. Stoppen met Pro kost je nooit recepten: zie [Stoppen met Savour Pro](#pro-stoppen).'
         ]
       ]
     },
@@ -237,7 +237,7 @@ export const pages = [
       sections: [
         [
           'Where',
-          'Go to My account → Account, under “Print or download all your recipes”. Downloading works with [Savour Pro](#gratis-en-pro).'
+          'Go to My account → Account, under “Print or download all your recipes”. Anyone can download a backup; the Word files are part of [Savour Pro](#gratis-en-pro).'
         ],
         [
           'Three ways',
@@ -254,7 +254,7 @@ export const pages = [
         ],
         [
           'Without Pro',
-          'Without Pro your recipes always stay in Savour, and you can view and [print](#printen-map) them. Stopping Pro never costs you recipes: see [Stopping Savour Pro](#pro-stoppen).'
+          'Without Pro your recipes always stay in Savour, and you can view them, [print](#printen-map) them and download a backup. Stopping Pro never costs you recipes: see [Stopping Savour Pro](#pro-stoppen).'
         ]
       ]
     }

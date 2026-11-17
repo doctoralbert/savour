@@ -1265,6 +1265,13 @@ window.SAVOUR_I18N.de = {
       'Drucke alle Rezepte im Druckformat von Savour oder lade sie herunter. Deine Rezepte bleiben außerdem in Savour.',
     'Alle recepten printen': 'Alle Rezepte drucken',
     Downloaden: 'Herunterladen',
+    'Print al je recepten in één keer in de printopmaak van Savour, of download een back-up. Met Savour Pro download je ze ook naar Word.':
+      'Drucke alle deine Rezepte auf einmal im Druckformat von Savour oder lade ein Backup herunter. Mit Savour Pro lädst du sie auch als Word herunter.',
+    'Een back-up van al je recepten downloaden': 'Ein Backup aller Rezepte herunterladen',
+    'Alle recepten downloaden naar Word': 'Alle Rezepte als Word herunterladen',
+    'Recepten downloaden naar Word is onderdeel van Savour Pro': 'Rezepte als Word herunterladen gehört zu Savour Pro',
+    'Je recepten blijven altijd in Savour staan, ook zonder Pro: je kunt ze bekijken, printen en als back-up downloaden. Met Savour Pro download je ze ook naar Word.':
+      'Deine Rezepte bleiben immer in Savour, auch ohne Pro: Du kannst sie ansehen, drucken und als Backup herunterladen. Mit Savour Pro lädst du sie auch als Word herunter.',
     'Word per recept': 'Word pro Rezept',
     'Elk recept een eigen Word-bestand in de printopmaak, samen in een .zip':
       'Jedes Rezept als eigene Word-Datei im Druckformat, zusammen in einer .zip',

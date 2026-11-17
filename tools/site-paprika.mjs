@@ -67,7 +67,7 @@ export const PAPRIKA_PAGE = {
       ],
       [
         'Wat als ik later toch terug wil?',
-        'Je recepten blijven van jou. Je kunt ze altijd allemaal printen, en met Pro downloaden als Word-bestand of back-up. Stop je met Pro, dan blijft alles gewoon staan.'
+        'Je recepten blijven van jou. Je kunt ze altijd allemaal printen en als back-up downloaden, en met Pro ook als Word-bestand. Stop je met Pro, dan blijft alles gewoon staan.'
       ]
     ]
   },
@@ -133,7 +133,7 @@ export const PAPRIKA_PAGE = {
       ],
       [
         'What if I want to go back later?',
-        'Your recipes stay yours. You can always print all of them, and with Pro download them as Word files or a backup. If you stop Pro, everything simply stays.'
+        'Your recipes stay yours. You can always print all of them and download a backup, and with Pro also as Word files. If you stop Pro, everything simply stays.'
       ]
     ]
   },
@@ -269,7 +269,7 @@ export const PAPRIKA_PAGE = {
       ],
       [
         '¿Y si más adelante quiero volver?',
-        'Tus recetas siguen siendo tuyas. Siempre puedes imprimirlas todas, y con Pro descargarlas como Word o copia de seguridad. Si dejas Pro, todo sigue ahí.'
+        'Tus recetas siguen siendo tuyas. Siempre puedes imprimirlas todas y descargar una copia de seguridad, y con Pro también en Word. Si dejas Pro, todo sigue ahí.'
       ]
     ]
   },
@@ -343,7 +343,7 @@ export const PAPRIKA_PAGE = {
       ],
       [
         'Et si je veux revenir plus tard ?',
-        'Tes recettes restent à toi. Tu peux toujours toutes les imprimer, et avec Pro les télécharger en Word ou en sauvegarde. Si tu arrêtes Pro, tout reste simplement en place.'
+        'Tes recettes restent à toi. Tu peux toujours toutes les imprimer et télécharger une sauvegarde, et avec Pro aussi en Word. Si tu arrêtes Pro, tout reste simplement en place.'
       ]
     ]
   }

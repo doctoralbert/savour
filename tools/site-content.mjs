@@ -301,7 +301,7 @@ export const FEATURES = [
         ],
         [
           "Veilig en van jou",
-          "Je recepten zijn alleen zichtbaar voor jou en voor wie jij uitnodigt in een keukenteam; ze worden per account afgeschermd opgeslagen. Met Savour Pro download je je hele receptenboek wanneer je wilt, als Word-bestanden of als back-up."
+          "Je recepten zijn alleen zichtbaar voor jou en voor wie jij uitnodigt in een keukenteam; ze worden per account afgeschermd opgeslagen. Een back-up van je hele receptenboek download je wanneer je wilt, ook zonder Pro; met Savour Pro ook als Word-bestanden."
         ]
       ]
     },
@@ -332,7 +332,7 @@ export const FEATURES = [
         ],
         [
           "Safe and yours",
-          "Your recipes are only visible to you and to the people you invite to a kitchen team; they are stored separately per account. With Savour Pro you can download your whole recipe book whenever you like, as Word files or as a backup."
+          "Your recipes are only visible to you and to the people you invite to a kitchen team; they are stored separately per account. You can download a backup of your whole recipe book whenever you like, even without Pro; with Savour Pro also as Word files."
         ]
       ]
     }

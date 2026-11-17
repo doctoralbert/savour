@@ -125,7 +125,7 @@ export const FR = {
         ['Sur tous les appareils', "Sur l'ordinateur, tu importes et tu organises ; en cuisine, tu ouvres la même recette sur ton téléphone ou ta tablette. Savour fonctionne dans le navigateur et s'installe sur ton écran d'accueil sans boutique d'applications : sur iPhone, Android, tablette et ordinateur."],
         ['Aussi hors ligne', "Dans la chambre froide, à la cave ou sur un événement, le wifi lâche souvent. Si tu as ouvert Savour une fois avec internet, ta bibliothèque reste sur l'appareil et tu ouvres tes recettes hors ligne. Tu pourras de nouveau modifier dès que tu seras en ligne."],
         ['Des archives qui restent', "Menus des saisons passées, recettes d'un ancien chef, le menu dégustation d'il y a trois ans : dans Savour, tu ne perds rien. Range-les dans un dossier d'archives et ils restent faciles à retrouver. Si tu arrêtes Pro un jour, toutes tes recettes restent."],
-        ['Sécurisé et à toi', "Seuls toi et les personnes que tu invites dans une équipe de cuisine voient tes recettes ; elles sont séparées par compte. Avec Savour Pro, tu télécharges tout ton livre quand tu veux, en fichiers Word ou en sauvegarde."]
+        ['Sécurisé et à toi', "Seuls toi et les personnes que tu invites dans une équipe de cuisine voient tes recettes ; elles sont séparées par compte. Tu télécharges une sauvegarde de tout ton livre quand tu veux, même sans Pro ; avec Savour Pro, aussi en fichiers Word."]
       ]
     },
     roadmap: {

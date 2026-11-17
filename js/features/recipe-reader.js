@@ -778,6 +778,9 @@ function splitRecipeText(text) {
     }
     const next = nextFilled(i + 1).line.replace(READER_SOFT_HEADING, '');
     const hasContent = state.ingredients > 0 || state.steps > 0;
+    // Een vet of als kop opgemaakt "Ingrediënten" of "Bereiding" is gewoon een sectiekopje, nooit een receptnaam.
+    if (READER_SOFT_HEADING.test(l) && readerIsHeading(l.replace(READER_SOFT_HEADING, '').replace(/:$/, '')))
+      l = l.replace(READER_SOFT_HEADING, '');
     // Zachte kop ("#b ": vet of Word-kop 2/3): een nieuw recept, of een onderdeel van het huidige
     // ("Deel 1", "Deeg", "Boemboe"). Een onderdeel staat tussen "Ingrediënten" en "Bereiding", of na
     // "Bereiding" zonder ingrediënten erachter.

@@ -209,6 +209,29 @@ Was de Roseval en dep deze droog.`,
   },
   // "#b " = vette regel of Word-kop 2/3 (zie htmlToRecipeText in import.js).
   {
+    // Testronde 2026-11-17: Word met Kop 1 als titel en Kop 2 "Ingrediënten"/"Bereiding" raakte de titels kwijt.
+    name: 'Word: Kop 2 "Ingrediënten" en "Bereiding" zijn sectiekopjes, de receptnaam blijft',
+    text: `# Sauce hollandaise
+#b Ingrediënten
+3 eidooiers
+250 g geklaarde boter
+2 el water
+#b Bereiding
+Klop de dooiers met het water au bain-marie tot een luchtige sabayon.
+Voeg van het vuur de warme boter in een dun straaltje toe, al kloppend.
+
+# Vinaigrette
+#b Ingrediënten:
+1 el dijonmosterd
+9 el zonnebloemolie
+#b Bereiding:
+Meng mosterd en azijn en klop de olie er in een straaltje door.`,
+    expect: [
+      { t: 'Sauce hollandaise', i: ['3 eidooiers', '250 g geklaarde boter', '2 el water'], s: 2 },
+      { t: 'Vinaigrette', i: ['1 el dijonmosterd', '9 el zonnebloemolie'], s: 1 }
+    ]
+  },
+  {
     name: 'Echt bestand: vette onderdeelkopjes binnen Ingrediënten zijn geen nieuwe recepten',
     text: `#b Beurre blanc saus Maurick
 Ingrediënten:
