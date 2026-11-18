@@ -117,6 +117,15 @@ function mepIsCourse(text) {
   return MEP_COURSE_WORDS.test(mepCleanHeading(text));
 }
 
+// Alleen een gang, zonder gerecht erachter: "Tussen 1", "Voor 2", "Bites", "entree's". Alleen zo'n kopje wordt met
+// het kopje eronder samengevoegd ("Tussen 1" + "Pulpo"); "Brood uit vriezer" begint wel met een gangwoord, maar is
+// een gerecht of onderdeel.
+function mepIsBareCourse(text) {
+  const h = mepCleanHeading(text);
+  const m = h.match(MEP_COURSE_WORDS);
+  return !!m && m.index === 0 && h.slice(m[0].length).trim() === '';
+}
+
 // Een blok (regels zonder lege regel ertussen): de eerste regel is het kopje, de rest onderdelen. Een losse regel
 // met een gangwoord ("Hoofd", "Tussen 2") midden in een blok begint een nieuw kopje. Uit Excel weten we ook wat vet
 // staat: een vetgedrukte cel is een kopje, behalve als er een hoeveelheid in staat ("Pata negra 60 gram").
@@ -138,7 +147,8 @@ function mepBlockRows(block) {
         prev.text = `${prev.text} · ${text}`;
         prev.original = `${prev.original} / ${mepCleanText(cell.text)}`;
         prev.joined = true;
-      } else rows.push({ type: 'section', text, original: mepCleanText(cell.text), joinable: mepIsCourse(cell.text) });
+      } else
+        rows.push({ type: 'section', text, original: mepCleanText(cell.text), joinable: mepIsBareCourse(cell.text) });
       return;
     }
     const it = mepParseItem(cell.text);
@@ -291,7 +301,7 @@ function mepReadGrid(cells) {
 // waarschijnlijk een onderdeel van het gerecht erboven. De kok ziet een vlag en kiest zelf.
 function mepWithDefaultCard(rows) {
   rows.forEach((r, i) => {
-    if (r.type !== 'section' || mepIsCourse(r.text)) return;
+    if (r.type !== 'section' || mepIsBareCourse(r.text)) return;
     const next = rows[i + 1];
     if (next && next.type === 'item') return;
     const before = rows.slice(0, i).reverse();

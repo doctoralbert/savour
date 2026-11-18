@@ -130,6 +130,20 @@ const cases = [
     ]
   },
   {
+    name: 'Excel: vette regel die met een gangwoord begint ("Brood uit vriezer") wordt niet samengevoegd met "Hoofd"',
+    run: () =>
+      show(
+        mepReadGrid([
+          cell('B2', 'Voor 2 · Makreel', true),
+          cell('B3', 'makreel 40 gr'),
+          cell('B4', 'Brood uit vriezer', true),
+          cell('B5', 'Hoofd', true),
+          cell('B6', 'lamsjus')
+        ])
+      ),
+    expect: ['#Voor 2 · Makreel', '-makreel [40 g]', '-Brood uit vriezer !kopje of onderdeel?', '#Hoofd', '-lamsjus']
+  },
+  {
     name: 'Geplakte tekst: titel, blokken, kaart op een eigen regel, markdown-tekens',
     run: () => {
       const r = mepReadLines(`MEP Patisserie
