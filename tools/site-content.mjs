@@ -33,7 +33,7 @@ export const UI = {
     login: 'Log in',
     start: 'Gratis beginnen',
     demo: 'Bekijk de demo',
-    demoNote: '20 echte recepten, geen account nodig',
+    demoNote: '21 echte recepten, geen account nodig',
     other: 'English',
     menu: 'Menu',
     close: 'Sluiten',
@@ -68,7 +68,7 @@ export const UI = {
     login: 'Log in',
     start: 'Start for free',
     demo: 'View the demo',
-    demoNote: '20 real recipes, no account needed',
+    demoNote: '21 real recipes, no account needed',
     other: 'Nederlands',
     menu: 'Menu',
     close: 'Close',
@@ -301,7 +301,7 @@ export const FEATURES = [
         ],
         [
           "Veilig en van jou",
-          "Je recepten zijn alleen zichtbaar voor jou en voor wie jij uitnodigt in een keukenteam; ze worden per account afgeschermd opgeslagen. Met Savour Pro download je je hele receptenboek wanneer je wilt, als Word-bestanden of als back-up."
+          "Je recepten zijn alleen zichtbaar voor jou en voor wie jij uitnodigt in een keukenteam; ze worden per account afgeschermd opgeslagen. Een back-up van je hele receptenboek download je wanneer je wilt, ook zonder Pro; met Savour Pro ook als Word-bestanden."
         ]
       ]
     },
@@ -332,7 +332,7 @@ export const FEATURES = [
         ],
         [
           "Safe and yours",
-          "Your recipes are only visible to you and to the people you invite to a kitchen team; they are stored separately per account. With Savour Pro you can download your whole recipe book whenever you like, as Word files or as a backup."
+          "Your recipes are only visible to you and to the people you invite to a kitchen team; they are stored separately per account. You can download a backup of your whole recipe book whenever you like, even without Pro; with Savour Pro also as Word files."
         ]
       ]
     }
@@ -535,7 +535,7 @@ export const STORY = {
 export const HOME = {
   nl: {
     h1: 'Je hele receptenboek, op elke telefoon in de keuken.',
-    lead: 'Savour is het receptenplatform voor de professionele, culinaire keuken: een receptenapp voor receptbeheer en het organiseren van al je recepturen. Je Word-bestanden, PDF’s en handgeschreven kladjes worden één geordend receptenboek, voor jou en je hele keukenteam. Veilig in de cloud, op elk apparaat en ook offline.',
+    lead: 'Savour is de receptenapp voor de professionele keuken. Je Word-bestanden, PDF’s en handgeschreven kladjes worden één geordend receptenboek, voor jou en je hele keukenteam. Veilig in de cloud, op elk apparaat en ook offline.',
     proof: '1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.',
     story: [
       'Op de achterkant van een bon. In een schrift dat na tien jaar service aan elkaar plakt. Op een foto die je ooit bij de pas maakte. Die kladjes zijn de kennis van je keuken, en ze raken kwijt, vervagen of zijn alleen leesbaar voor degene die ze schreef.',

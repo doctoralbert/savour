@@ -93,6 +93,10 @@ window.__authRoute = ['login', 'signup'].includes(new URLSearchParams(location.s
   ? new URLSearchParams(location.search).get('auth')
   : null;
 window.__demoRoute = new URLSearchParams(location.search).get('demo') === '1';
+// ?demo=1&recept=demo-marshmallow: de demo openen op dat demorecept (link bij het kladje op de startpagina).
+window.__demoRecipe = /^demo-[a-z-]+$/.test(new URLSearchParams(location.search).get('recept') || '')
+  ? new URLSearchParams(location.search).get('recept')
+  : null;
 // ?team=1: link uit de bedankmail na een teamaankoop; na inloggen meteen naar het teamblok.
 window.__teamRoute = new URLSearchParams(location.search).get('team') === '1';
 // ?collega=<id>: uitnodiging van een collega (js/features/referral.js). Niet ingelogd? Dan meteen 'Account aanmaken'.
@@ -144,7 +148,7 @@ if (new URLSearchParams(location.search).get('collega')) {
       if (window.__proRoute) openPublicInfo('pro');
       else if (window.__infoRoute) openPublicInfo(window.__infoRoute);
       else if (window.__authRoute) openAuth(window.__authRoute);
-      else if (window.__demoRoute) startDemo();
+      else if (window.__demoRoute) startDemo(window.__demoRecipe);
       else if (window.__teamRoute) openAuth('login');
       if (window.__authRoute || window.__demoRoute) history.replaceState(null, '', location.pathname);
     }
@@ -208,6 +212,11 @@ document.addEventListener('visibilitychange', () => {
 // echt wilt sluiten of verversen (js/features/import.js, importNeedsWarning). Een eigen tekst tonen kan niet.
 // Op de telefoon schuift de balk bovenin weg bij naar beneden scrollen (js/features/navigation.js).
 window.addEventListener('scroll', onTopbarScroll, { passive: true });
+// MEP-lijst in Overzicht: bij een ander schermformaat opnieuw passend maken op één A4 (js/features/mep.js).
+window.addEventListener('resize', () => $('mepSheet') && fitMepSheet());
+// Weer internet: wat offline in een MEP-lijst is afgevinkt, alsnog versturen (js/features/mep.js).
+window.addEventListener('online', () => mepFlushQueue());
+window.addEventListener('offline', () => mepShowLive());
 
 // Nieuwe versie live gezet terwijl Savour openstond? Elk half uur kijken, en bij terugkomen in Savour
 // (hooguit eens per tien minuten). Zie js/features/install.js, checkAppUpdate.

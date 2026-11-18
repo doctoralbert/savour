@@ -205,7 +205,7 @@ export const DE = {
         ],
         [
           'Sicher und deins',
-          'Deine Rezepte sind nur für dich sichtbar und für die Personen, die du in ein Küchenteam einlädst; sie werden pro Konto getrennt gespeichert. Mit Savour Pro lädst du dein ganzes Rezeptbuch jederzeit herunter, als Word-Dateien oder als Backup.'
+          'Deine Rezepte sind nur für dich sichtbar und für die Personen, die du in ein Küchenteam einlädst; sie werden pro Konto getrennt gespeichert. Ein Backup deines ganzen Rezeptbuchs lädst du jederzeit herunter, auch ohne Pro; mit Savour Pro auch als Word-Dateien.'
         ]
       ]
     },

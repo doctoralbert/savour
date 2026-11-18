@@ -80,5 +80,22 @@ export const pages = {
       ['Was Internet braucht', 'Speichern, Bearbeiten, Importieren und Teilen geht wieder, sobald du Verbindung hast.'],
       ['Mehr lesen', 'Warum das in einer Küche so wichtig ist: [Rezepte ohne WLAN](/blog/recepten-zonder-wifi).']
     ]
+  },
+  'mep-lijsten': {
+    slug: "de/handbuch-mep-listen",
+    menu: "MEP-Listen",
+    h1: "MEP-Listen",
+    title: "MEP-Listen: Gedecke, abhaken und drucken | Handbuch Savour",
+    desc: "So funktioniert die MEP-Liste in Savour: pro Posten eine Liste mit Karten und Gerichten, Gedecke pro Tag, abhaken mit deinem Team, Kochmodus, Import aus Excel und Druck auf ein A4-Blatt.",
+    lead: "Was pro Posten bereitstehen muss, pro Tag abgehakt, mit deinem ganzen Team.",
+    sections: [
+      ["Pro Posten eine Liste", "Eine MEP-Liste ist die Liste deines Postens: Karten (à la carte, Bankett), Überschriften pro Gang oder Gericht und darunter, was bereitstehen muss. Du liest sie von oben nach unten, in der Reihenfolge des Menüs."],
+      ["Liste und Kochmodus", "Liste zeigt alles im Stil von Savour, mit einem Kästchen bei jedem Posten. Abhaken setzt ihn für heute auf fertig, für dein ganzes Team. Der Kochmodus zeigt nur die Liste, groß, und hält deinen Bildschirm an."],
+      ["Gedecke und Mengen", "Trag neben dem Namen jeder Karte die Anzahl Gedecke ein; Savour rechnet pro Posten aus, wie viel du brauchst (40 Gedecke × 60 g = 2,4 kg). Jeden Tag beginnt die Liste leer. Mit ⋯ Liste leeren entfernst du die Häkchen auch zwischendurch."],
+      ["Gemeinsam im Küchenteam", "Eine MEP-Liste im Küchenteam sieht das ganze Team. Was ein Kollege abhakt, siehst du sofort, mit Name und Uhrzeit. Abhaken darf jeder, auch ohne Savour Pro. Ohne Internet bleibt, was du antippst, stehen und wird gesendet, sobald du wieder Verbindung hast."],
+      ["Importieren", "Hast du deine Liste schon in Excel, Word oder auf Papier? Wähle Importieren. Savour teilt sie auf und du prüfst alles, bevor es gespeichert wird. Ein Foto liest die KI, mit Savour Pro."],
+      ["Drucken", "Druck eine leere Liste auf ein A4-Blatt, wie deine Excel-Liste, oder mit den Gedecken und Mengen von heute. Mit Savour Pro steht das Logo deines Restaurants darauf."],
+      ["Savour Pro", "Mit einem kostenlosen Konto erstellst du eine MEP-Liste. Mit Savour Pro erstellst und verwaltest du so viele Listen, wie du willst. Abhaken und Drucken bleiben kostenlos."]
+    ]
   }
 };

@@ -1,8 +1,9 @@
 // Al je recepten printen of downloaden (Instellingen → Account). Alleen je eigen bibliotheek; recepten van
 // collega's in keukenteams niet.
 // - Alle recepten printen: iedereen, in de printopmaak van Savour (js/features/print.js).
-// - Downloaden (Savour Pro): per recept een Word-bestand in de printopmaak (samen in een .zip), alle recepten
-//   in één eenvoudig Word-bestand, of een back-up (JSON) met recepten en mappen.
+// - Back-up (JSON) met recepten en mappen: iedereen, ook zonder Pro. Je recepten zijn van jou.
+// - Word (Savour Pro): per recept een Word-bestand in de printopmaak (samen in een .zip), of alle recepten
+//   in één eenvoudig Word-bestand.
 // Word-bestanden (.docx) maken we zelf (zip met XML), zonder extra bibliotheek. Ze openen in Word, WordPad,
 // Google Docs, Pages en LibreOffice. Lettertypes: Playfair Display (titels) en DM Sans (tekst); heeft een
 // computer die niet, dan kiest het programma zelf een vergelijkbare letter.
@@ -42,10 +43,10 @@ function printAllRecipes() {
 }
 
 async function exportRecipes(kind) {
-  if (!isPro() && !demoMode) {
+  if (kind !== 'json' && !isPro() && !demoMode) {
     if (
       await askConfirm(
-        `Recepten downloaden is onderdeel van Savour Pro\n\nJe recepten blijven altijd in Savour staan, ook zonder Pro: je kunt ze bekijken en printen. Met Savour Pro download je ze ook in één keer.`,
+        `Recepten downloaden naar Word is onderdeel van Savour Pro\n\nJe recepten blijven altijd in Savour staan, ook zonder Pro: je kunt ze bekijken, printen en als back-up downloaden. Met Savour Pro download je ze ook naar Word.`,
         { confirmLabel: 'Bekijk Savour Pro' }
       )
     )

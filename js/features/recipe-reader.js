@@ -18,7 +18,7 @@ const READER_STEPS_HEADING =
 const READER_YIELD_LABEL =
   /^(?:opbrengst|yield|porties?|personen|couverts|aantal(?: personen| porties| stuks)?|serves|makes|recept (?:is )?voor|hoeveelheid|menge|voor|for|ergibt|für|rendimiento|para|raciones|rendement|pour)\s*[:=-]?\s*(.+)$/i;
 const READER_YIELD_PLAIN =
-  /^\(?\s*(?:voor|for|serves|makes|für|para|pour)?\s*\d+(?:[.,-]\d+)?\s*(?:personen|persoon|pers\.?|porties?|couverts|covers|cover|people|persons|portions?|servings?|stuks|st\.?|pieces|personas|raciones|porciones|comensales|personnes|parts|portionen|pax|liter|l|kg|gram|g)\s*\)?\.?$/i;
+  /^\(?\s*(?:voor|for|serves|makes|für|para|pour)?\s*\d+(?:[.,-]\d+)?\s*(?:personen|persoon|pers\.?|porties?|couverts|covers|cover|people|persons|portions?|servings?|stück|stuks|st\.?|pieces|personas|raciones|porciones|comensales|personnes|parts|portionen|pax|liter|l|kg|gram|g)\s*\)?\.?$/i;
 // Twee maten in één opbrengst, zoals op een receptformulier: "1 Blech / 72 Personen", "2 GN, 40 Portionen".
 // Alleen als het laatste deel personen of porties zijn: "1 blik / 400 g" blijft een ingrediënt.
 const READER_YIELD_COMBINED =
@@ -131,6 +131,27 @@ function readerSplitRunOn(line) {
   const masked = [...x]
     .map(ch => (ch === '(' ? (depth++, ch) : ch === ')' ? (depth--, ch) : depth > 0 ? '_' : ch))
     .join('');
+  // Ingrediënten met komma's ertussen, zoals ChatGPT ze op één regel zet: "1 bloemkool, 1 ui, 50 g boter, zout".
+  // Alleen bij minstens drie korte stukken waarvan de meeste met een hoeveelheid beginnen; "1 tonkaboon, geraspt"
+  // en "nootmuskaat, zout, peper" blijven zo heel. De komma's zelf verdwijnen, de woorden niet.
+  const commaCuts = [...masked.matchAll(/,\s*/g)];
+  if (commaCuts.length >= 2) {
+    const pieces = [];
+    let from = 0;
+    for (const m of commaCuts) {
+      pieces.push(x.slice(from, m.index).trim());
+      from = m.index + m[0].length;
+    }
+    pieces.push(x.slice(from).trim());
+    const withQty = pieces.filter(p => READER_STARTS_WITH_QTY.test(p)).length;
+    if (
+      pieces.every(p => p && p.length <= 60 && /\p{L}/u.test(p)) &&
+      READER_STARTS_WITH_QTY.test(pieces[0]) &&
+      withQty >= 3 &&
+      withQty * 2 > pieces.length
+    )
+      return pieces;
+  }
   const cuts = [...masked.matchAll(new RegExp(`\\s+(?=${qty}\\s*[\\p{L}(])`, 'giu'))].map(m => m.index);
   const qtyFirst = [0, ...cuts]
     .map((from, i) => x.slice(from, i < cuts.length ? cuts[i] : x.length).trim())
@@ -810,6 +831,9 @@ function splitRecipeText(text) {
     }
     const next = nextFilled(i + 1).line.replace(READER_SOFT_HEADING, '');
     const hasContent = state.ingredients > 0 || state.steps > 0;
+    // Een vet of als kop opgemaakt "Ingrediënten" of "Bereiding" is gewoon een sectiekopje, nooit een receptnaam.
+    if (READER_SOFT_HEADING.test(l) && readerIsHeading(l.replace(READER_SOFT_HEADING, '').replace(/:$/, '')))
+      l = l.replace(READER_SOFT_HEADING, '');
     // Zachte kop ("#b ": vet of Word-kop 2/3): een nieuw recept, of een onderdeel van het huidige
     // ("Deel 1", "Deeg", "Boemboe"). Een onderdeel staat tussen "Ingrediënten" en "Bereiding", of na
     // "Bereiding" zonder ingrediënten erachter.

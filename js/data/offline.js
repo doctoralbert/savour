@@ -59,6 +59,8 @@ async function clearOfflineSnapshot() {
   if (!window.indexedDB) return;
   try {
     await offlineStore('readwrite', store => store.delete('last'));
+    // Ook de MEP-lijsten en wat nog niet verstuurd was (js/features/mep.js).
+    await offlineStore('readwrite', store => store.delete('mep'));
   } catch {}
 }
 

@@ -112,7 +112,7 @@ const HELP_TOPICS = {
       ['Account', 'Pas je naam en profielfoto aan, verander je wachtwoord of log uit.'],
       [
         'Printen en downloaden',
-        'Print al je recepten in één keer in de printopmaak van Savour. Met Savour Pro download je ze ook naar Word of als back-up.'
+        'Print al je recepten in één keer in de printopmaak van Savour, of download een back-up. Met Savour Pro download je ze ook naar Word.'
       ],
       ['Savour Pro', 'Bekijk of beheer je Savour Pro of teamabonnement en nodig je team uit.'],
       [
@@ -128,6 +128,40 @@ const HELP_TOPICS = {
       [
         'Collega uitnodigen en app',
         'Nodig een collega uit en krijg 14 dagen Savour Pro cadeau, of zet Savour als app op je beginscherm.'
+      ]
+    ]
+  },
+  mep: {
+    eyebrow: 'MEP-lijsten',
+    title: 'Zo werken MEP-lijsten',
+    sections: [
+      [
+        'Per post een lijst',
+        'Een MEP-lijst is de lijst van je post: kaarten (à la carte, banqueting), kopjes per gang of gerecht en daaronder wat er klaar moet staan. Je leest hem van boven naar beneden, in de volgorde van het menu.'
+      ],
+      [
+        'Lijst en kookmodus',
+        'Lijst toont alles in de stijl van Savour, met een hokje bij elk onderdeel. Afvinken zet het voor vandaag op klaar, voor je hele team. De kookmodus laat alleen de lijst zien, groot, en houdt je scherm aan.'
+      ],
+      [
+        'Couverts en hoeveelheden',
+        'Vul naast de naam van elke kaart het aantal couverts in; Savour rekent per onderdeel uit hoeveel je nodig hebt (40 couverts × 60 g = 2,4 kg). Elke dag begint de lijst leeg. Met ⋯ Lijst leegmaken haal je de vinkjes ook tussendoor weg.'
+      ],
+      [
+        'Samen in een keukenteam',
+        'Een MEP-lijst in een keukenteam ziet iedereen van het team. Wat een collega afvinkt, zie je meteen, met naam en tijd. Afvinken mag iedereen, ook zonder Savour Pro. Zonder internet blijft wat je aantikt staan en gaat het mee zodra je weer verbinding hebt.'
+      ],
+      [
+        'Importeren',
+        'Heb je je lijst al in Excel, Word of op papier? Kies Importeren. Savour deelt hem in en jij kijkt alles na voordat het wordt opgeslagen. Een foto leest de AI, met Savour Pro.'
+      ],
+      [
+        'Printen',
+        'Print een lege lijst op één A4, zoals je Excel-lijst, of met de couverts en hoeveelheden van vandaag. Met Savour Pro staat het logo van je restaurant erop.'
+      ],
+      [
+        'Savour Pro',
+        'Met een gratis account maak je één MEP-lijst. Met Savour Pro maak en beheer je zoveel lijsten als je wilt. Afvinken en printen blijft gratis.'
       ]
     ]
   },

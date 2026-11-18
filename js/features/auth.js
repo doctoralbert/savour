@@ -5,14 +5,11 @@ function openAuth(mode) {
   // Het venster volgt het thema van de website (licht of donker), want het opent boven de publieke pagina's.
   $('authModal').classList.toggle('savour-light', document.documentElement.classList.contains('site-light'));
   $('authModal').classList.add('open');
-  $('authFirstName').value = '';
-  $('authLastName').value = '';
   // Bij inloggen niets leegmaken: de wachtwoordbeheerder van de browser kan de velden al hebben ingevuld.
   if (mode === 'signup') {
     $('authEmail').value = '';
     $('authPassword').value = '';
   }
-  $('authNameField').style.display = mode === 'signup' ? 'grid' : 'none';
   $('authTitle').textContent = mode === 'signup' ? t('Account aanmaken') : t('Inloggen');
   $('authIntro').textContent =
     mode === 'signup' && invitedBy()
@@ -21,7 +18,6 @@ function openAuth(mode) {
         ? t('Gratis tot 100 recepten, en 7 dagen Savour Pro zonder betaalgegevens.')
         : t('Log in om je persoonlijke receptenbibliotheek te openen.');
   $('authSubmit').textContent = mode === 'signup' ? t('Account aanmaken') : t('Inloggen');
-  $('authEmailField').style.marginTop = mode === 'signup' ? '10px' : '0';
   $('authPassword').autocomplete = mode === 'signup' ? 'new-password' : 'current-password';
   // Vinkjes zoals de vorige keer; bij inloggen het onthouden e-mailadres en, als de browser het mag, het wachtwoord.
   // Bij account aanmaken geen vinkjes: een nieuw account blijft ingelogd en de browser mag het wachtwoord bewaren.
@@ -129,15 +125,10 @@ function authWelcome(name) {
 async function submitAuth() {
   const email = $('authEmail').value.trim();
   const password = $('authPassword').value;
-  const first = $('authFirstName')?.value.trim() || '';
-  const last = $('authLastName')?.value.trim() || '';
-  const name = [first, last].filter(Boolean).join(' ');
+  // Aanmelden vraagt alleen e-mailadres en wachtwoord; een naam vul je later in bij Mijn account.
+  const name = '';
   if (!email || !password) {
     toast(t('Vul e-mailadres en wachtwoord in'));
-    return;
-  }
-  if (authMode === 'signup' && (!first || !last)) {
-    toast(t('Vul voornaam en achternaam in'));
     return;
   }
   $('authSubmit').disabled = true;
@@ -152,7 +143,7 @@ async function submitAuth() {
         email,
         password,
         // Via de link van een collega? Dan staat dat bij het account (cadeau: js/features/referral.js).
-        data: invitedBy() ? { name, invited_by: invitedBy() } : { name }
+        data: invitedBy() ? { invited_by: invitedBy() } : {}
       });
       if (error) throw error;
       // Bestaat het e-mailadres al, dan stuurt Supabase géén mail en meldt het (om privacyredenen) toch "gelukt",
@@ -395,6 +386,7 @@ function clearSessionState() {
   categories = [];
   sharedMaps = [];
   sharedRecipes = [];
+  mepResetState();
   ['categoryNav', 'sharedNav'].forEach(id => {
     if ($(id)) $(id).innerHTML = '';
   });

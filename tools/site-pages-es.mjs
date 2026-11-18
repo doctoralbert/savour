@@ -139,7 +139,7 @@ export const ES = {
         ],
         [
           "Seguro y tuyo",
-          "Tus recetas solo las ves tú y las personas que invitas a un equipo de cocina; se guardan separadas por cuenta. Con Savour Pro descargas tu recetario completo cuando quieras, como archivos de Word o como copia de seguridad."
+          "Tus recetas solo las ves tú y las personas que invitas a un equipo de cocina; se guardan separadas por cuenta. Una copia de seguridad de tu recetario completo la descargas cuando quieras, también sin Pro; con Savour Pro también como archivos de Word."
         ]
       ]
     },
