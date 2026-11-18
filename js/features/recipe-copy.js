@@ -175,7 +175,35 @@ async function copyLinkRecipe(id) {
     if (choice === 'open') openRecipe(earlier.id);
     if (choice !== 'again') return;
   }
-  if (!(await checkRecipeRoom(1))) return;
+  const newId = await insertRecipeCopy(r);
+  if (!newId) return;
+  copied[r.id] = newId;
+  try {
+    localStorage.setItem(key, JSON.stringify(copied));
+  } catch (_) {}
+}
+
+// Een recept uit een keukenteam als eigen kopie in je eigen receptenboek (alleen met Savour Pro). Het teamrecept
+// blijft zoals het is; jouw kopie pas je zelf aan.
+async function copyTeamRecipe(id) {
+  const r = findRecipe(id);
+  if (!r || demoMode || !currentUser) return;
+  if (!isPro()) {
+    if (
+      await askConfirm(
+        `${t('Kopiëren naar je eigen recepten is onderdeel van Savour Pro')}\n\n${t('Als lid van een keukenteam bekijk, print en reken je de recepten gratis om. Een eigen kopie maken om zelf aan te passen kan met Savour Pro.')}`,
+        { confirmLabel: t('Bekijk Savour Pro') }
+      )
+    )
+      openPublicInfo('pro');
+    return;
+  }
+  await insertRecipeCopy(r);
+}
+
+// Kopie maken in de eigen bibliotheek (gedeelde link of keukenteam). Geeft het id van de kopie, of null.
+async function insertRecipeCopy(r) {
+  if (!(await checkRecipeRoom(1))) return null;
   const { data, error } = await supabaseClient
     .from('recipes')
     .insert({
@@ -194,15 +222,12 @@ async function copyLinkRecipe(id) {
     console.error('Recept overnemen mislukt', error);
     if (/savour_recipe_limit/.test(error.message || '')) await checkRecipeRoom(Infinity);
     else toast('Het recept kon niet worden toegevoegd');
-    return;
+    return null;
   }
-  copied[r.id] = data.id;
-  try {
-    localStorage.setItem(key, JSON.stringify(copied));
-  } catch (_) {}
   await loadDatabaseState();
   refreshSidebar();
   renderRecipes();
   toast('Toegevoegd aan je recepten');
   openRecipe(data.id);
+  return data.id;
 }

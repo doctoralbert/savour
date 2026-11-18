@@ -61,6 +61,11 @@ function openRecipe(id, context = 'library') {
     recipeReturnView = 'exampleView';
     recipeReturnShared = null;
     recipeReturnFolder = null;
+  } else if (context === 'mep') {
+    // Vanuit een MEP-lijst (js/features/mep.js): terug naar die lijst.
+    recipeReturnView = 'mep';
+    recipeReturnShared = null;
+    recipeReturnFolder = null;
   } else if (context === 'favorite') {
     recipeReturnView = 'favorites';
     recipeReturnShared = null;
@@ -96,8 +101,12 @@ function openRecipe(id, context = 'library') {
     ingredients.length && `<button type="button" onclick="openRecipeScale()">${icon('plus')}Meer omrekenen</button>`,
     own &&
       ingredients.length &&
-      `<button type="button" onclick="openIngredientLinks()">${icon('book')}Koppelen aan recept</button>`,
+      `<button type="button" onclick="openIngredientLinks()">${icon('book')}Ingrediënt koppelen aan recept</button>`,
     own && `<button type="button" onclick="openFolderModal('${rid}')">${icon('folderPlus')}Toevoegen aan map</button>`,
+    // Uit een keukenteam: een eigen kopie in je eigen receptenboek (Savour Pro; copyTeamRecipe vraagt anders om Pro).
+    !own &&
+      (context === 'shared' || context === 'sharedFolder') &&
+      `<button type="button" onclick="copyTeamRecipe('${rid}')">${icon('plus')}Kopie naar mijn recepten</button>`,
     ingredients.length &&
       productsVisible(productScopeOf(r)) &&
       `<button type="button" onclick="openAllergenCard()">${icon('alert')}Allergenenkaart</button>`,
@@ -275,7 +284,7 @@ async function openIngredientLinks() {
   const byTitle = recipesByTitle(r);
   const lines = r.ingredients.filter(x => !recipePartName(x));
   const line = await askChoice(
-    'Koppelen aan recept\n\nKies het ingrediënt waar een eigen recept bij hoort, bijvoorbeeld een basissaus.',
+    'Ingrediënt koppelen aan recept\n\nKies het ingrediënt waar een eigen recept bij hoort, bijvoorbeeld een basissaus.',
     lines.map(x => ({
       value: x,
       label: ingredientNameOf(x),

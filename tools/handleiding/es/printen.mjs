@@ -64,7 +64,7 @@ export const pages = {
     desc: 'Así descargas todas tus recetas de Savour: cada receta en su archivo de Word dentro de un ZIP, todo en un archivo de Word o una copia en JSON que puedes volver a importar.',
     lead: 'Tus recetas son tuyas. Descárgalas cuando quieras.',
     sections: [
-      ['Dónde', 'Ve a Mi cuenta → Cuenta, en «Imprimir o descargar todas tus recetas». Descargar funciona con [Savour Pro](#gratis-en-pro).'],
+      ['Dónde', 'Ve a Mi cuenta → Cuenta, en «Imprimir o descargar todas tus recetas». Cualquiera puede descargar una copia de seguridad; los archivos de Word son parte de [Savour Pro](#gratis-en-pro).'],
       [
         'Tres formas',
         'Elige lo que necesitas:',
@@ -75,7 +75,7 @@ export const pages = {
         ]
       ],
       ['Restaurar una copia', 'Una copia se puede volver a importar en Savour en «Otros archivos». Ver [JSON y copias de seguridad](#import-json).'],
-      ['Sin Pro', 'Sin Pro tus recetas siguen siempre en Savour, y puedes verlas e [imprimirlas](#printen-map). Dejar Pro nunca te cuesta recetas: ver [Dejar Savour Pro](#pro-stoppen).']
+      ['Sin Pro', 'Sin Pro tus recetas siguen siempre en Savour, y puedes verlas, [imprimirlas](#printen-map) y descargar una copia de seguridad. Dejar Pro nunca te cuesta recetas: ver [Dejar Savour Pro](#pro-stoppen).']
     ]
   }
 };

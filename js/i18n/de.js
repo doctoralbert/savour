@@ -2,6 +2,309 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.de = {
   strings: {
+    'Hoe wil je printen?': 'Wie möchtest du drucken?',
+    'A4 staand': 'A4 Hochformat',
+    'A4 liggend': 'A4 Querformat',
+    'Kaarten onder en naast elkaar, zoals een gewone lijst.':
+      'Karten unter- und nebeneinander, wie eine normale Liste.',
+    'Meer kolommen naast elkaar, handig bij meerdere kaarten.':
+      'Mehr Spalten nebeneinander, praktisch bei mehreren Karten.',
+    'Couverts en hoeveelheden': 'Gedecke und Mengen',
+    'Vul naast de naam van elke kaart het aantal couverts in; Savour rekent per onderdeel uit hoeveel je nodig hebt (40 couverts × 60 g = 2,4 kg). Elke dag begint de lijst leeg. Met ⋯ Lijst leegmaken haal je de vinkjes ook tussendoor weg.':
+      'Trag neben dem Namen jeder Karte die Anzahl Gedecke ein; Savour rechnet pro Posten aus, wie viel du brauchst (40 Gedecke × 60 g = 2,4 kg). Jeden Tag beginnt die Liste leer. Mit ⋯ Liste leeren entfernst du die Häkchen auch zwischendurch.',
+    Portie: 'Portion',
+    'Vul bij portie een getal in, bijvoorbeeld 40 of 0,5. Of laat het leeg.':
+      'Trag bei Portion eine Zahl ein, zum Beispiel 40 oder 0,5. Oder lass es leer.',
+    'Wat al klaar is, staat afgevinkt.': 'Was schon fertig ist, ist abgehakt.',
+    'MEP-lijsten maken is Savour Pro': 'MEP-Listen erstellen gehört zu Savour Pro',
+    'Met Savour Pro maak en beheer je MEP-lijsten voor jezelf en je keukenteam. Afvinken en printen blijft voor iedereen gratis.':
+      'Mit Savour Pro erstellst und verwaltest du MEP-Listen für dich und dein Küchenteam. Abhaken und Drucken bleiben für alle kostenlos.',
+    'Per post een lijst met alles wat klaar moet staan. Vink af wat er staat; je collega’s zien het live. Vul de couverts in en Savour rekent uit hoeveel je nodig hebt.':
+      'Pro Posten eine Liste mit allem, was bereitstehen muss. Hak ab, was da ist; deine Kollegen sehen es live. Trag die Gedecke ein, und Savour rechnet aus, wie viel du brauchst.',
+    'Je lijsten blijven bewaard. Aanpassen kan met Savour Pro; afvinken en printen blijft gratis.':
+      'Deine Listen bleiben gespeichert. Bearbeiten geht mit Savour Pro; Abhaken und Drucken bleiben kostenlos.',
+    'Lijst leegmaken': 'Liste leeren',
+    'Alleen wat nog moet': 'Nur was noch zu tun ist',
+    'Er staan geen vinkjes op de lijst.': 'Auf der Liste ist nichts abgehakt.',
+    'Lijst leegmaken?': 'Liste leeren?',
+    'Alle vinkjes van vandaag gaan weg, ook bij je collega’s. De lijst zelf blijft staan.':
+      'Alle Häkchen von heute verschwinden, auch bei deinen Kollegen. Die Liste selbst bleibt.',
+    Leegmaken: 'Leeren',
+    'Lijst leeggemaakt': 'Liste geleert',
+    vandaag: 'heute',
+    'De lijst van een post, voor het hele team': 'Die Liste eines Postens, für das ganze Team',
+    'Alle kopjes en onderdelen op deze kaart gaan mee. Dit kan niet ongedaan worden gemaakt.':
+      'Alle Überschriften und Posten auf dieser Karte werden mitgelöscht. Das kann nicht rückgängig gemacht werden.',
+    'Alle onderdelen onder dit kopje gaan mee. Dit kan niet ongedaan worden gemaakt.':
+      'Alle Posten unter dieser Überschrift werden mitgelöscht. Das kann nicht rückgängig gemacht werden.',
+    'Met couverts en hoeveelheden: vandaag': 'Mit Gedecken und Mengen: heute',
+    'Met couverts en hoeveelheden: morgen': 'Mit Gedecken und Mengen: morgen',
+    'Met couverts en hoeveelheden: gisteren': 'Mit Gedecken und Mengen: gestern',
+    'Voorraad overnemen van gisteren': 'Vorrat von gestern übernehmen',
+    'Voorraad overnemen van vandaag': 'Vorrat von heute übernehmen',
+    'Wat staat er nog van gisteren?': 'Was ist von gestern noch übrig?',
+    'Wat staat er nog van vandaag?': 'Was ist von heute noch übrig?',
+    'Zo werken MEP-lijsten': 'So funktionieren MEP-Listen',
+    'Per post een lijst': 'Pro Posten eine Liste',
+    'Een MEP-lijst is de lijst van je post: kaarten (à la carte, banqueting), kopjes per gang of gerecht en daaronder wat er klaar moet staan. Je leest hem van boven naar beneden, in de volgorde van het menu.':
+      'Eine MEP-Liste ist die Liste deines Postens: Karten (à la carte, Bankett), Überschriften pro Gang oder Gericht und darunter, was bereitstehen muss. Du liest sie von oben nach unten, in der Reihenfolge des Menüs.',
+    'Lijst en kookmodus': 'Liste und Kochmodus',
+    'Lijst toont alles in de stijl van Savour, met een hokje bij elk onderdeel. Afvinken zet het voor vandaag op klaar, voor je hele team. De kookmodus laat alleen de lijst zien, groot, en houdt je scherm aan.':
+      'Liste zeigt alles im Stil von Savour, mit einem Kästchen bei jedem Posten. Abhaken setzt ihn für heute auf fertig, für dein ganzes Team. Der Kochmodus zeigt nur die Liste, groß, und hält deinen Bildschirm an.',
+    'Vandaag: couverts en voorraad': 'Heute: Gedecke und Vorrat',
+    'Vul per kaart de couverts in; Savour rekent per onderdeel uit hoeveel je nodig hebt (40 couverts × 60 g = 2,4 kg). Tik een regel aan voor nodig, bezig of klaar, of zet hem op voorraad. Een dag begint leeg; voorraad van de vorige dag neem je met één knop over.':
+      'Trag pro Karte die Gedecke ein; Savour rechnet pro Posten aus, wie viel du brauchst (40 Gedecke × 60 g = 2,4 kg). Tippe eine Zeile an für nötig, in Arbeit oder fertig, oder setz sie auf Vorrat. Ein Tag beginnt leer; den Vorrat vom Vortag übernimmst du mit einem Knopf.',
+    'Samen in een keukenteam': 'Gemeinsam im Küchenteam',
+    'Een MEP-lijst in een keukenteam ziet iedereen van het team. Wat een collega afvinkt, zie je meteen, met naam en tijd. Afvinken mag iedereen, ook zonder Savour Pro. Zonder internet blijft wat je aantikt staan en gaat het mee zodra je weer verbinding hebt.':
+      'Eine MEP-Liste im Küchenteam sieht das ganze Team. Was ein Kollege abhakt, siehst du sofort, mit Name und Uhrzeit. Abhaken darf jeder, auch ohne Savour Pro. Ohne Internet bleibt, was du antippst, stehen und wird gesendet, sobald du wieder Verbindung hast.',
+    'Heb je je lijst al in Excel, Word of op papier? Kies Importeren. Savour deelt hem in en jij kijkt alles na voordat het wordt opgeslagen. Een foto leest de AI, met Savour Pro.':
+      'Hast du deine Liste schon in Excel, Word oder auf Papier? Wähle Importieren. Savour teilt sie auf und du prüfst alles, bevor es gespeichert wird. Ein Foto liest die KI, mit Savour Pro.',
+    'Print een lege lijst op één A4, zoals je Excel-lijst, of met de couverts en hoeveelheden van vandaag. Met Savour Pro staat het logo van je restaurant erop.':
+      'Druck eine leere Liste auf ein A4-Blatt, wie deine Excel-Liste, oder mit den Gedecken und Mengen von heute. Mit Savour Pro steht das Logo deines Restaurants darauf.',
+    'Met een gratis account maak je één MEP-lijst. Met Savour Pro maak en beheer je zoveel lijsten als je wilt. Afvinken en printen blijft gratis.':
+      'Mit einem kostenlosen Konto erstellst du eine MEP-Liste. Mit Savour Pro erstellst und verwaltest du so viele Listen, wie du willst. Abhaken und Drucken bleiben kostenlos.',
+    'MEP-lijsten worden nog ingericht. Probeer het straks opnieuw.':
+      'MEP-Listen werden noch eingerichtet. Versuch es gleich noch einmal.',
+    'Dit mag je in deze lijst niet aanpassen. Vraag de eigenaar van het keukenteam of kijk bij Savour Pro.':
+      'Diese Liste darfst du nicht ändern. Frag den Eigentümer des Küchenteams oder schau dir Savour Pro an.',
+    'Geen verbinding. Probeer het opnieuw zodra je weer online bent.':
+      'Keine Verbindung. Versuch es noch einmal, sobald du wieder online bist.',
+    'Demo: niets wordt opgeslagen': 'Demo: nichts wird gespeichert',
+    Opgeslagen: 'Gespeichert',
+    'Meer MEP-lijsten is Savour Pro': 'Mehr MEP-Listen gibt es mit Savour Pro',
+    'Met een gratis account probeer je één MEP-lijst. Met Savour Pro maak en beheer je zoveel lijsten als je wilt; afvinken blijft voor iedereen gratis.':
+      'Mit einem kostenlosen Konto probierst du eine MEP-Liste aus. Mit Savour Pro erstellst und verwaltest du so viele Listen, wie du willst; Abhaken bleibt für alle kostenlos.',
+    'Probeer het opnieuw': 'Noch einmal versuchen',
+    '1 kaart': '1 Karte',
+    '1 onderdeel': '1 Posten',
+    'MEP-lijsten': 'MEP-Listen',
+    'Mijn lijsten': 'Meine Listen',
+    'Per post een lijst met alles wat klaar moet staan. Vul de couverts in, en Savour rekent uit hoeveel je nodig hebt. Je collega’s zien live wat klaar is.':
+      'Pro Posten eine Liste mit allem, was bereitstehen muss. Trag die Gedecke ein, und Savour rechnet aus, wie viel du brauchst. Deine Kollegen sehen live, was fertig ist.',
+    'Nieuwe MEP-lijst': 'Neue MEP-Liste',
+    Importeren: 'Importieren',
+    'Nog geen MEP-lijsten': 'Noch keine MEP-Listen',
+    'Begin met de lijst van je eigen post: kopjes per gerecht, en daaronder wat er klaar moet staan.':
+      'Fang mit der Liste deines eigenen Postens an: eine Überschrift pro Gericht und darunter, was bereitstehen muss.',
+    Gearchiveerd: 'Archiviert',
+    'Dit keukenteam staat op slot tot de eigenaar Savour Pro heeft. Alles blijft bewaard.':
+      'Dieses Küchenteam ist gesperrt, bis der Eigentümer Savour Pro hat. Alles bleibt gespeichert.',
+    'Je bekijkt deze lijst. De eigenaar of een sous-chef van het keukenteam past hem aan.':
+      'Du siehst dir diese Liste an. Der Eigentümer oder ein Sous-Chef des Küchenteams bearbeitet sie.',
+    'Je bent sous-chef of eigenaar in dit keukenteam. Lijsten aanpassen kan met Savour Pro.':
+      'Du bist Sous-Chef oder Eigentümer in diesem Küchenteam. Listen bearbeiten geht mit Savour Pro.',
+    'Met een gratis account beheer je één MEP-lijst. Deze lijst blijft bewaard; aanpassen kan weer met Savour Pro.':
+      'Mit einem kostenlosen Konto verwaltest du eine MEP-Liste. Diese Liste bleibt gespeichert; bearbeiten geht wieder mit Savour Pro.',
+    'Kopie maken': 'Kopie erstellen',
+    'Terugzetten uit archief': 'Aus dem Archiv zurückholen',
+    Lijst: 'Liste',
+    Vandaag: 'Heute',
+    'Alle MEP-lijsten': 'Alle MEP-Listen',
+    'Deze lijst heeft nog geen kaart.': 'Diese Liste hat noch keine Karte.',
+    'Naam kaart': 'Name der Karte',
+    'Kaart naar links': 'Karte nach links',
+    'Kaart naar rechts': 'Karte nach rechts',
+    'Kaart verwijderen': 'Karte löschen',
+    'Nieuw kopje, bijvoorbeeld een gang of gerecht': 'Neue Überschrift, zum Beispiel ein Gang oder Gericht',
+    'Kopje toevoegen': 'Überschrift hinzufügen',
+    'Deze kaart is nog leeg.': 'Diese Karte ist noch leer.',
+    'Naar andere kaart': 'Auf eine andere Karte',
+    'Kopiëren naar kaart': 'Auf Karte kopieren',
+    'Kopje verwijderen': 'Überschrift löschen',
+    Kopje: 'Überschrift',
+    'Nieuw onderdeel': 'Neuer Posten',
+    'Per couvert': 'Pro Gedeck',
+    Eenheid: 'Einheit',
+    Onderdeel: 'Posten',
+    'Nog geen onderdelen.': 'Noch keine Posten.',
+    'Onderdeel verwijderen': 'Posten löschen',
+    'Voor wie is deze MEP-lijst?': 'Für wen ist diese MEP-Liste?',
+    'Alleen voor mij': 'Nur für mich',
+    'Keukenteam: je collega’s vinken mee af': 'Küchenteam: deine Kollegen haken mit ab',
+    'Naam van de lijst, bijvoorbeeld je post (Garde, Entremetier)':
+      'Name der Liste, zum Beispiel dein Posten (Garde-Manger, Entremetier)',
+    Maken: 'Erstellen',
+    'À la carte': 'À la carte',
+    'Naam van de lijst': 'Name der Liste',
+    'Lijst gearchiveerd. Je vindt hem onderaan het overzicht.':
+      'Liste archiviert. Du findest sie unten in der Übersicht.',
+    'Lijst teruggezet': 'Liste zurückgeholt',
+    'MEP-lijst definitief verwijderen?': 'MEP-Liste endgültig löschen?',
+    'Ook de afgevinkte dagen gaan weg. Dit kan niet ongedaan worden gemaakt.':
+      'Auch die abgehakten Tage werden gelöscht. Das kann nicht rückgängig gemacht werden.',
+    'MEP-lijst verwijderd': 'MEP-Liste gelöscht',
+    'Lege lijst verwijderd': 'Leere Liste gelöscht',
+    'Naam van de kopie': 'Name der Kopie',
+    kopie: 'Kopie',
+    'De kopie is niet helemaal gelukt. Kijk de lijst na.': 'Die Kopie hat nicht ganz geklappt. Prüf die Liste.',
+    'Kopie gemaakt': 'Kopie erstellt',
+    'Naam van de kaart, bijvoorbeeld Banqueting of een evenement':
+      'Name der Karte, zum Beispiel Bankett oder eine Veranstaltung',
+    'Naam van de kaart': 'Name der Karte',
+    '1 kopje': '1 Überschrift',
+    leeg: 'leer',
+    'Kaart verwijderen?': 'Karte löschen?',
+    'Een kopje heeft een naam nodig.': 'Eine Überschrift braucht einen Namen.',
+    'Kopje verwijderen?': 'Überschrift löschen?',
+    'Huidige kaart': 'Aktuelle Karte',
+    'Naar welke kaart?': 'Auf welche Karte?',
+    'Kopje verplaatst': 'Überschrift verschoben',
+    'Kopie naar welke kaart?': 'Kopie auf welche Karte?',
+    'Kopje gekopieerd': 'Überschrift kopiert',
+    'Vul bij per couvert een getal in, bijvoorbeeld 40 of 0,5. Of laat het leeg.':
+      'Trag pro Gedeck eine Zahl ein, zum Beispiel 40 oder 0,5. Oder lass es leer.',
+    'Een onderdeel heeft een naam nodig.': 'Ein Posten braucht einen Namen.',
+    'Onderdeel verwijderen?': 'Posten löschen?',
+    'Dit keukenteam heeft nog geen recepten.': 'Dieses Küchenteam hat noch keine Rezepte.',
+    'Je hebt nog geen recepten.': 'Du hast noch keine Rezepte.',
+    'Welk recept hoort bij': 'Welches Rezept gehört zu',
+    'Geen recept gevonden dat lijkt op': 'Kein Rezept gefunden, das ähnelt:',
+    'Ander recept zoeken': 'Anderes Rezept suchen',
+    'Zoek een recept op naam': 'Rezept nach Namen suchen',
+    'Kies het recept': 'Wähle das Rezept',
+    'Geen recept gevonden met': 'Kein Rezept gefunden mit',
+    couverts: 'Gedecke',
+    'Nog leeg. Kies Bewerken om kopjes en onderdelen toe te voegen.':
+      'Noch leer. Wähle Bearbeiten, um Überschriften und Posten hinzuzufügen.',
+    Datum: 'Datum',
+    'Deze lijst is langer dan één A4. Bij printen loopt hij door op een tweede blad.':
+      'Diese Liste ist länger als eine A4-Seite. Beim Drucken geht sie auf einem zweiten Blatt weiter.',
+    'Deze lijst heeft nog geen onderdelen om te printen.': 'Diese Liste hat noch keine Posten zum Drucken.',
+    'Wat wil je printen?': 'Was möchtest du drucken?',
+    'Met couverts en hoeveelheden': 'Mit Gedecken und Mengen',
+    'Wat al klaar is staat afgevinkt, voorraad met een V.': 'Was schon fertig ist, ist abgehakt, Vorrat mit einem V.',
+    'Lege lijst': 'Leere Liste',
+    'Zoals je Excel-lijst, met een regel voor de datum.': 'Wie deine Excel-Liste, mit einer Zeile für das Datum.',
+    Gisteren: 'Gestern',
+    Morgen: 'Morgen',
+    'Dit keukenteam staat op slot tot de eigenaar Savour Pro heeft. Je kunt de lijst bekijken, maar niet afvinken.':
+      'Dieses Küchenteam ist gesperrt, bis der Eigentümer Savour Pro hat. Du kannst die Liste ansehen, aber nicht abhaken.',
+    Collega: 'Kollege',
+    'p.p.': 'p. P.',
+    'Vorige dag': 'Vorheriger Tag',
+    'Volgende dag': 'Nächster Tag',
+    'Naar vandaag': 'Zu heute',
+    'Deze lijst heeft nog geen onderdelen.': 'Diese Liste hat noch keine Posten.',
+    'Lijst bewerken': 'Liste bearbeiten',
+    'Nog te doen': 'Noch zu tun',
+    klaar: 'fertig',
+    'op voorraad': 'auf Vorrat',
+    bezig: 'in Arbeit',
+    'nog te doen': 'noch zu tun',
+    'Voorraad overnemen van': 'Vorrat übernehmen von',
+    'Alles staat klaar.': 'Alles ist bereit.',
+    'Tik voor': 'Tippen für',
+    Voorraad: 'Vorrat',
+    'Vul een aantal couverts in tussen 0 en 9999.': 'Trag eine Anzahl Gedecke zwischen 0 und 9999 ein.',
+    'Er stond niets op voorraad of klaar.': 'Es war nichts auf Vorrat oder fertig.',
+    'Wat staat er nog van': 'Was ist noch übrig von',
+    'Wat op voorraad stond': 'Was auf Vorrat war',
+    'Ook wat klaar was': 'Auch was fertig war',
+    'Dat staat dan op voorraad.': 'Das steht dann auf Vorrat.',
+    '1 onderdeel op voorraad gezet': '1 Posten auf Vorrat gesetzt',
+    'onderdelen op voorraad gezet': 'Posten auf Vorrat gesetzt',
+    'Wat je offline afvinkte, is nu bewaard.': 'Was du offline abgehakt hast, ist jetzt gespeichert.',
+    'Offline · wordt bewaard zodra je verbinding hebt': 'Offline · wird gespeichert, sobald du Verbindung hast',
+    'Live met je team': 'Live mit deinem Team',
+    Live: 'Live',
+    'Verbinden…': 'Verbinden…',
+    'MEP-lijst': 'MEP-Liste',
+    'Couverts invullen': 'Gedecke eintragen',
+    'nog geen couverts ingevuld': 'noch keine Gedecke eingetragen',
+    Garde: 'Garde-Manger',
+    Voor: 'Vorspeise',
+    Tussen: 'Zwischengang',
+    Banqueting: 'Bankett',
+    Dessert: 'Dessert',
+    Friandises: 'Friandises',
+    st: 'Stk.',
+    'Stoppen met importeren? Wat je hier nakeek, wordt niet opgeslagen.':
+      'Import abbrechen? Was du hier geprüft hast, wird nicht gespeichert.',
+    Stoppen: 'Abbrechen',
+    'MEP-lijst importeren': 'MEP-Liste importieren',
+    'Bezig met lezen…': 'Wird gelesen…',
+    'Heb je je MEP-lijst al in Excel, Word of op papier? Savour leest hem in en deelt hem in: kaarten, kopjes en onderdelen. Daarna kijk je alles na voordat het wordt opgeslagen.':
+      'Hast du deine MEP-Liste schon in Excel, Word oder auf Papier? Savour liest sie ein und teilt sie auf: Karten, Überschriften und Posten. Danach prüfst du alles, bevor es gespeichert wird.',
+    'Bestand kiezen': 'Datei wählen',
+    'Excel (.xlsx, .csv), Word (.docx), tekst of een foto. Een foto leest de AI: alleen met Savour Pro.':
+      'Excel (.xlsx, .csv), Word (.docx), Text oder ein Foto. Ein Foto liest die KI: nur mit Savour Pro.',
+    'Of plak je lijst hier': 'Oder füge deine Liste hier ein',
+    'Bijvoorbeeld:': 'Zum Beispiel:',
+    Lezen: 'Lesen',
+    'Oude Excel-bestanden (.xls) kan Savour niet lezen. Sla het bestand in Excel op als .xlsx.':
+      'Alte Excel-Dateien (.xls) kann Savour nicht lesen. Speichere die Datei in Excel als .xlsx.',
+    'Sla het bestand in Word op als .docx en probeer het opnieuw.':
+      'Speichere die Datei in Word als .docx und versuch es noch einmal.',
+    'Een foto laten lezen kan niet in de demo. Probeer een Excel-bestand of plak je lijst.':
+      'Ein Foto lesen lassen geht in der Demo nicht. Probier eine Excel-Datei oder füge deine Liste ein.',
+    'Een foto van je MEP-lijst': 'Ein Foto deiner MEP-Liste',
+    'De AI schrijft je lijst over. Dit duurt even.': 'Die KI schreibt deine Liste ab. Das dauert einen Moment.',
+    'Dit bestand kon niet worden gelezen.': 'Diese Datei konnte nicht gelesen werden.',
+    'Er stond niets in dat op een MEP-lijst lijkt.': 'Darin stand nichts, was nach einer MEP-Liste aussieht.',
+    'Dit Excel-bestand is leeg.': 'Diese Excel-Datei ist leer.',
+    'Welk blad is de MEP-lijst?': 'Welches Blatt ist die MEP-Liste?',
+    'Importeren gestopt.': 'Import abgebrochen.',
+    'Op deze foto kon geen lijst worden gelezen.': 'Auf diesem Foto konnte keine Liste gelesen werden.',
+    'Voor wie': 'Für wen',
+    kaarten: 'Karten',
+    kopjes: 'Überschriften',
+    onderdelen: 'Posten',
+    'om na te kijken': 'zu prüfen',
+    'Kijk na wat Savour las. Per regel kies je of het een kaart, kopje of onderdeel is. De oorspronkelijke tekst staat er klein onder; gele regels zijn om na te kijken. Er wordt pas iets opgeslagen als je op Opslaan drukt.':
+      'Prüf, was Savour gelesen hat. Pro Zeile wählst du, ob es eine Karte, Überschrift oder ein Posten ist. Der Originaltext steht klein darunter; gelbe Zeilen solltest du prüfen. Gespeichert wird erst, wenn du auf Speichern drückst.',
+    'Opslaan als MEP-lijst': 'Als MEP-Liste speichern',
+    'Soort regel': 'Art der Zeile',
+    'Stond er': 'Stand da',
+    'Toegevoegd door Savour: de regels hiervoor hadden nog geen kaart.':
+      'Von Savour hinzugefügt: die Zeilen davor hatten noch keine Karte.',
+    'Geef de lijst een naam.': 'Gib der Liste einen Namen.',
+    'Er staat geen enkel onderdeel in.': 'Darin steht kein einziger Posten.',
+    'regels zijn nog niet nagekeken': 'Zeilen sind noch nicht geprüft',
+    'Ze worden opgeslagen zoals ze er nu staan. Je kunt ze later nog aanpassen bij Bewerken.':
+      'Sie werden so gespeichert, wie sie jetzt dastehen. Du kannst sie später unter Bearbeiten noch ändern.',
+    'Toch opslaan': 'Trotzdem speichern',
+    'De lijst is niet helemaal opgeslagen. Kijk hem na bij Bewerken.':
+      'Die Liste wurde nicht ganz gespeichert. Prüf sie unter Bearbeiten.',
+    'MEP-lijst opgeslagen': 'MEP-Liste gespeichert',
+    'Per post, met couverts en afvinken.': 'Pro Posten, mit Gedecken und Abhaken.',
+    Nodig: 'Nötig',
+    Bezig: 'In Arbeit',
+    'Op voorraad': 'Auf Vorrat',
+    Weglaten: 'Weglassen',
+    ongeveer: 'ungefähr',
+    'per couvert?': 'pro Gedeck?',
+    'getal zonder eenheid': 'Zahl ohne Einheit',
+    'kopje of onderdeel?': 'Überschrift oder Posten?',
+    'In de proefweek kan een keukenteam hooguit 10 recepten hebben.':
+      'In der Testwoche kann ein Küchenteam höchstens 10 Rezepte haben.',
+    'Dit keukenteam heeft al 10 recepten. In de proefweek kan een keukenteam hooguit 10 recepten hebben.':
+      'Dieses Küchenteam hat schon 10 Rezepte. In der Testwoche kann ein Küchenteam höchstens 10 Rezepte haben.',
+    'In de proefweek kan een keukenteam hooguit 10 recepten hebben. Er is nog ruimte voor':
+      'In der Testwoche kann ein Küchenteam höchstens 10 Rezepte haben. Platz ist noch für',
+    'Keukenteam in de proefweek': 'Küchenteam in der Testwoche',
+    'Met Savour Pro is er geen grens.': 'Mit Savour Pro gibt es keine Grenze.',
+    'Met Savour Pro van de eigenaar is er geen grens.': 'Mit Savour Pro des Eigentümers gibt es keine Grenze.',
+    'Kopie naar mijn recepten': 'In meine Rezepte kopieren',
+    'Kopiëren naar je eigen recepten is onderdeel van Savour Pro':
+      'In deine eigenen Rezepte kopieren gehört zu Savour Pro',
+    'Als lid van een keukenteam bekijk, print en reken je de recepten gratis om. Een eigen kopie maken om zelf aan te passen kan met Savour Pro.':
+      'Als Mitglied eines Küchenteams siehst, druckst und rechnest du die Rezepte kostenlos um. Eine eigene Kopie zum Bearbeiten geht mit Savour Pro.',
+    'Open het keukenteam': 'Öffne das Küchenteam',
+    'Alle recepten van je keuken op één plek, op elke telefoon.':
+      'Alle Rezepte deiner Küche an einem Ort, auf jedem Handy.',
+    'Kook, reken om en print': 'Kochen, umrechnen und drucken',
+    'Open een recept, kies de kookmodus of reken om naar je aantal.':
+      'Öffne ein Rezept, wähle den Kochmodus oder rechne auf deine Menge um.',
+    'Ook je eigen recepten': 'Auch deine eigenen Rezepte',
+    'Je eigen recepten zet je in je eigen receptenboek.': 'Deine eigenen Rezepte kommen in dein eigenes Rezeptbuch.',
+    'Je keukenteam staat klaar.': 'Dein Küchenteam ist bereit.',
+    'Je bent lid van': 'Du bist Mitglied von',
+    'De recepten van je keuken staan daar.': 'Dort stehen die Rezepte deiner Küche.',
+    Open: 'Öffnen',
+    'Eigen recepten importeren': 'Eigene Rezepte importieren',
+    'De recepten van je keuken staan in het keukenteam': 'Die Rezepte deiner Küche stehen im Küchenteam',
+    'Je eigen receptenboek is nog leeg; daar zet je recepten die alleen van jou zijn.':
+      'Dein eigenes Rezeptbuch ist noch leer; dort kommen Rezepte hin, die nur dir gehören.',
     'Savour — professioneel receptbeheer': 'Savour — professionelle Rezeptverwaltung',
     'Savour — receptenapp voor chefs: recepten organiseren en delen':
       'Savour — Rezept-App für Köche: Rezepte organisieren und teilen',
@@ -11,7 +314,7 @@ window.SAVOUR_I18N.de = {
     '1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.':
       '1.400 Rezepte in 2 Minuten aus Word importiert. Getestet in unserer eigenen Küche.',
     'Gratis beginnen': 'Kostenlos starten',
-    '20 echte recepten, geen account nodig': '20 echte Rezepte, kein Konto nötig',
+    '21 echte recepten, geen account nodig': '21 echte Rezepte, kein Konto nötig',
     'Recepten digitaliseren zonder overtypen': 'Rezepte digitalisieren ohne Abtippen',
     "We zijn zelf chefs. Onze recepten lagen jarenlang overal: in Word-bestanden van honderden pagina's, op papiertjes met koffievlekken aan de muur, op foto's in drie verschillende telefoons.":
       'Wir sind selbst Köche. Unsere Rezepte lagen jahrelang überall: in Word-Dateien mit Hunderten Seiten, auf Zetteln mit Kaffeeflecken an der Wand, auf Fotos in drei verschiedenen Handys.',
@@ -243,7 +546,7 @@ window.SAVOUR_I18N.de = {
     Demo: 'Demo',
     'Demo account': 'Demokonto',
     'Demo account · niets wordt opgeslagen': 'Demokonto · nichts wird gespeichert',
-    'Demo geladen · 20 echte recepten': 'Demo geladen · 20 echte Rezepte',
+    'Demo geladen · 21 echte recepten': 'Demo geladen · 21 echte Rezepte',
     'Demo-recept verwijderd': 'Demorezept gelöscht',
     Jij: 'Du',
     Teamlid: 'Teammitglied',
@@ -809,7 +1112,7 @@ window.SAVOUR_I18N.de = {
     Factor: 'Faktor',
     'Dit kon niet worden omgerekend. Controleer wat je hebt ingevuld.':
       'Das konnte nicht umgerechnet werden. Prüfe deine Eingabe.',
-    'Koppelen aan recept': 'Mit Rezept verknüpfen',
+    'Ingrediënt koppelen aan recept': 'Zutat mit Rezept verknüpfen',
     'Kies het ingrediënt waar een eigen recept bij hoort, bijvoorbeeld een basissaus.':
       'Wähle die Zutat, zu der ein eigenes Rezept gehört, zum Beispiel eine Grundsauce.',
     'Koppeling weghalen': 'Verknüpfung entfernen',
@@ -1265,6 +1568,25 @@ window.SAVOUR_I18N.de = {
       'Drucke alle Rezepte im Druckformat von Savour oder lade sie herunter. Deine Rezepte bleiben außerdem in Savour.',
     'Alle recepten printen': 'Alle Rezepte drucken',
     Downloaden: 'Herunterladen',
+    'Meer bronnen': 'Weitere Quellen',
+    'Nog geen keukenteams. Maak je eerste keukenteam met ＋ Nieuw keukenteam.':
+      'Noch keine Küchenteams. Erstelle dein erstes mit ＋ Neues Küchenteam.',
+    'Savour zet een kopie in het keukenteam. Je eigen recept blijft staan; wijzigingen in het team gelden alleen daar.':
+      'Savour legt eine Kopie im Küchenteam an. Dein eigenes Rezept bleibt; Änderungen im Team gelten nur dort.',
+    '1 recept als kopie in het keukenteam gezet': '1 Rezept als Kopie ins Küchenteam gelegt',
+    'recepten als kopie in het keukenteam gezet': 'Rezepte als Kopie ins Küchenteam gelegt',
+    '1 recept over om te controleren.': '1 Rezept noch zu prüfen.',
+    'Recept controleren': 'Rezept prüfen',
+    'Hulp en contact': 'Hilfe und Kontakt',
+    'Recepten en mappen toevoegen en aanpassen, met Savour Pro':
+      'Rezepte und Ordner hinzufügen und bearbeiten, mit Savour Pro',
+    'Print al je recepten in één keer in de printopmaak van Savour, of download een back-up. Met Savour Pro download je ze ook naar Word.':
+      'Drucke alle deine Rezepte auf einmal im Druckformat von Savour oder lade ein Backup herunter. Mit Savour Pro lädst du sie auch als Word herunter.',
+    'Een back-up van al je recepten downloaden': 'Ein Backup aller Rezepte herunterladen',
+    'Alle recepten downloaden naar Word': 'Alle Rezepte als Word herunterladen',
+    'Recepten downloaden naar Word is onderdeel van Savour Pro': 'Rezepte als Word herunterladen gehört zu Savour Pro',
+    'Je recepten blijven altijd in Savour staan, ook zonder Pro: je kunt ze bekijken, printen en als back-up downloaden. Met Savour Pro download je ze ook naar Word.':
+      'Deine Rezepte bleiben immer in Savour, auch ohne Pro: Du kannst sie ansehen, drucken und als Backup herunterladen. Mit Savour Pro lädst du sie auch als Word herunter.',
     'Word per recept': 'Word pro Rezept',
     'Elk recept een eigen Word-bestand in de printopmaak, samen in een .zip':
       'Jedes Rezept als eigene Word-Datei im Druckformat, zusammen in einer .zip',
@@ -1689,7 +2011,7 @@ window.SAVOUR_I18N.de = {
       'Savour bringt alle deine Rezepturen zusammen, strukturiert handschriftliche Notizen mit KI und hilft dir, deine Küche so zu organisieren, wie du arbeitest.',
     'Direct bekijken': 'Direkt ansehen',
     'Bekijk de demo': 'Demo ansehen',
-    '20 echte recepten · A–Z · mappen · categorieën': '20 echte Rezepte · A–Z · Ordner · Kategorien',
+    '21 echte recepten · A–Z · mappen · categorieën': '21 echte Rezepte · A–Z · Ordner · Kategorien',
     'Recepten zoals ze in een professionele keuken horen.': 'Rezepte, wie sie in eine Profiküche gehören.',
     'Een goed recept moet niet ergens in een map liggen, op een losse pagina staan of verstopt zitten in een WhatsApp-bericht.':
       'Ein gutes Rezept sollte nicht in einem Ordner liegen, auf einem losen Blatt stehen oder in einer WhatsApp-Nachricht versteckt sein.',
@@ -2159,8 +2481,8 @@ window.SAVOUR_I18N.de = {
     'Product kiezen': 'Produkt wählen',
     'Nog geen product': 'Noch kein Produkt',
     'Allergenen nog niet gecontroleerd': 'Allergene noch nicht geprüft',
-    'Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Koppelen aan recept; dan tellen de allergenen van dat recept mee.':
-      'Ein Produkt gilt für alle Rezepte mit demselben Zutatennamen. Nutzt eine Zeile ein eigenes Rezept, etwa einen Fond? Verknüpfe es über ⋯ Mit Rezept verknüpfen; dann zählen die Allergene dieses Rezepts mit.',
+    'Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Ingrediënt koppelen aan recept; dan tellen de allergenen van dat recept mee.':
+      'Ein Produkt gilt für alle Rezepte mit demselben Zutatennamen. Nutzt eine Zeile ein eigenes Rezept, etwa einen Fond? Verknüpfe es über ⋯ Zutat mit Rezept verknüpfen; dann zählen die Allergene dieses Rezepts mit.',
     'Kies het product dat bij dit ingrediënt hoort, of maak een nieuw product.':
       'Wähle das Produkt zu dieser Zutat oder lege ein neues Produkt an.',
     'Zoek een product': 'Produkt suchen',
@@ -2289,6 +2611,43 @@ window.SAVOUR_I18N.de = {
       'Allergene sehen in einem Küchenteam, dessen Inhaber Pro hat'
   },
   patterns: [
+    ['^Opgeslagen (\\d{1,2}:\\d{2})$', 'Gespeichert $1'],
+    ['^(\\d+) kaarten · (\\d+) onderdelen$', '$1 Karten · $2 Posten'],
+    ['^1 kaart · (\\d+) onderdelen$', '1 Karte · $1 Posten'],
+    ['^(\\d+) kaarten · 1 onderdeel$', '$1 Karten · 1 Posten'],
+    ['^1 kaart · 1 onderdeel$', '1 Karte · 1 Posten'],
+    ['^Gearchiveerd \\((\\d+)\\)$', 'Archiviert ($1)'],
+    ['^Welk recept hoort bij (.+)\\?$', 'Welches Rezept gehört zu $1?'],
+    ['^Geen recept gevonden dat lijkt op (.+)\\.$', 'Kein Rezept gefunden, das $1 ähnelt.'],
+    ['^Geen recept gevonden met “(.+)”\\.$', 'Kein Rezept gefunden mit „$1“.'],
+    ['^(\\d+) couverts$', '$1 Gedecke'],
+    ['^Met couverts en hoeveelheden: (.+)$', 'Mit Gedecken und Mengen: $1'],
+    ['^(\\d+) van (\\d+) klaar$', '$1 von $2 fertig'],
+    ['^(\\d+) op voorraad$', '$1 auf Vorrat'],
+    ['^(\\d+) bezig$', '$1 in Arbeit'],
+    ['^(\\d+) nog te doen$', '$1 noch zu tun'],
+    ['^Voorraad overnemen van (.+)$', 'Vorrat übernehmen von $1'],
+    ['^Wat staat er nog van (.+)\\?$', 'Was ist von $1 noch übrig?'],
+    ['^Wat op voorraad stond \\((\\d+)\\)$', 'Was auf Vorrat war ($1)'],
+    ['^Ook wat klaar was \\((\\d+)\\)$', 'Auch was fertig war ($1)'],
+    ['^(\\d+) onderdelen op voorraad gezet$', '$1 Posten auf Vorrat gesetzt'],
+    ['^([\\d.,]+(?: \\S+)?) p\\.p\\.$', '$1 p. P.'],
+    ['^(\\d+) regels zijn nog niet nagekeken$', '$1 Zeilen sind noch nicht geprüft'],
+    ['^MEP-lijst opgeslagen: (\\d+) onderdelen$', 'MEP-Liste gespeichert: $1 Posten'],
+    ['^(\\d+) kaarten$', '$1 Karten'],
+    ['^(\\d+) kopjes$', '$1 Überschriften'],
+    ['^(\\d+) onderdelen$', '$1 Posten'],
+    ['^Hele Savour-lijst \\((\\d+)\\)$', 'Ganze Savour-Liste ($1)'],
+    [
+      '^(\\d+) van (\\d+) ingrediënten\\. Zoek om de rest te vinden\\.$',
+      '$1 von $2 Zutaten. Suche, um den Rest zu finden.'
+    ],
+    [
+      '^(\\d+)% goedkoper dan maandelijks: je bespaart (€[\\d,]+) per jaar\\.$',
+      '$1 % günstiger als monatlich: Du sparst $2 pro Jahr.'
+    ],
+    ['^(\\d+)% goedkoper$', '$1 % günstiger'],
+    ['^\\((\\d+)% goedkoper\\)$', '($1 % günstiger)'],
     ['^Savour-lijst \\((\\d+)\\)$', 'Savour-Liste ($1)'],
     [
       '^(.+): de AI moet (\\d+) delen lezen\\. Elk deel telt als één AI-import; je hebt er nog (\\d+)\\. Je keuze geldt voor alle bestanden van deze import\\.$',

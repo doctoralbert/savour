@@ -1,5 +1,8 @@
 // E-mail versturen via Resend (RESEND_API_KEY in Vercel), afzender contact@savour.page.
 
+// Het eigen adres van Savour: afzender, antwoordadres en ontvanger van interne rapporten.
+export const SAVOUR_CONTACT = 'contact@savour.page';
+
 // Meerdere persoonlijke mails tegelijk (Resend: maximaal 100 per keer). Geeft terug hoeveel er zijn aangenomen.
 export async function sendMailBatch(mails) {
   const key = process.env.RESEND_API_KEY;

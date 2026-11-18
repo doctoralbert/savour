@@ -482,7 +482,7 @@ export const RICH_3 = {
           'Je hoeft niets te installeren en geen betaalgegevens in te vullen.',
           {
             steps: [
-              ['Demo openen', 'Bekijk de [demo](@demo) met 20 echte recepten, zonder account.'],
+              ['Demo openen', 'Bekijk de [demo](@demo) met 21 echte recepten, zonder account.'],
               ['Account maken', 'Gratis tot 100 recepten, met 7 dagen Savour Pro.'],
               ['Je rommeligste bestand', 'Importeer het en kijk wat de lezer ervan maakt.'],
               ['Een collega laten zoeken', 'Deel een recept en laat iemand anders het terugvinden.']
@@ -519,7 +519,7 @@ export const RICH_3 = {
           'You do not need to install anything or enter payment details.',
           {
             steps: [
-              ['Open the demo', 'Look at the [demo](@demo) with 20 real recipes, without an account.'],
+              ['Open the demo', 'Look at the [demo](@demo) with 21 real recipes, without an account.'],
               ['Create an account', 'Free up to 100 recipes, with 7 days of Savour Pro.'],
               ['Your messiest file', 'Import it and see what the reader makes of it.'],
               ['Let a colleague search', 'Share a recipe and let someone else find it.']
@@ -593,7 +593,7 @@ export const RICH_3 = {
           'No tienes que instalar nada ni dar datos de pago.',
           {
             steps: [
-              ['Abrir la demo', 'Mira la [demo](@demo) con 20 recetas reales, sin cuenta.'],
+              ['Abrir la demo', 'Mira la [demo](@demo) con 21 recetas reales, sin cuenta.'],
               ['Crear una cuenta', 'Gratis hasta 100 recetas, con 7 días de Savour Pro.'],
               ['Tu archivo más desordenado', 'Impórtalo y mira qué hace el lector con él.'],
               ['Que busque un compañero', 'Comparte una receta y deja que otra persona la encuentre.']
@@ -630,7 +630,7 @@ export const RICH_3 = {
           'Rien à installer, aucune donnée de paiement.',
           {
             steps: [
-              ['Ouvrir la démo', 'Regarde la [démo](@demo) avec 20 vraies recettes, sans compte.'],
+              ['Ouvrir la démo', 'Regarde la [démo](@demo) avec 21 vraies recettes, sans compte.'],
               ['Créer un compte', 'Gratuit jusqu’à 100 recettes, avec 7 jours de Savour Pro.'],
               ['Ton fichier le plus désordonné', 'Importe-le et regarde ce qu’en fait le lecteur.'],
               ['Faire chercher un collègue', 'Partage une recette et laisse quelqu’un d’autre la retrouver.']

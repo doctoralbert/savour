@@ -21,6 +21,11 @@
   },
   "redirects": [
     {
+      "source": "/demo",
+      "destination": "/?demo=1",
+      "permanent": false
+    },
+    {
       "source": "/gids",
       "destination": "/handleiding",
       "permanent": true
@@ -1421,6 +1426,31 @@
       "permanent": true
     },
     {
+      "source": "/handleiding-mep-lijsten",
+      "destination": "/handleiding-omrekenen#mep-lijsten",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-prep-lists",
+      "destination": "/en/guide-scale-recipes#mep-lijsten",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-mep-listen",
+      "destination": "/de/handbuch-umrechnen#mep-lijsten",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-listas-mep",
+      "destination": "/es/manual-escalar#mep-lijsten",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-listes-mep",
+      "destination": "/fr/manuel-convertir#mep-lijsten",
+      "permanent": true
+    },
+    {
       "source": "/handleiding-receptenmap-printen",
       "destination": "/handleiding-printen#printen-map",
       "permanent": true
@@ -2164,6 +2194,10 @@
     {
       "path": "/api/admin?taak=onderhoud",
       "schedule": "23 2 * * *"
+    },
+    {
+      "path": "/api/admin?taak=rapport",
+      "schedule": "35 21 * * *"
     }
   ]
 }

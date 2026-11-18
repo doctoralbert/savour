@@ -80,5 +80,22 @@ export const pages = {
       ['Qué necesita internet', 'Guardar, editar, importar y compartir vuelven a funcionar en cuanto hay conexión.'],
       ['Leer más', 'Por qué esto importa tanto en una cocina: [Recetas sin wifi](/blog/recepten-zonder-wifi).']
     ]
+  },
+  'mep-lijsten': {
+    slug: "es/manual-listas-mep",
+    menu: "Listas MEP",
+    h1: "Listas MEP",
+    title: "Listas MEP: cubiertos, marcar e imprimir | Manual de Savour",
+    desc: "Así funciona la lista MEP en Savour: una lista por partida con cartas y platos, cubiertos por día, marcar con tu equipo, modo cocina, importar desde Excel e imprimir en un A4.",
+    lead: "Lo que cada partida debe tener listo, marcado cada día, con todo tu equipo.",
+    sections: [
+      ["Una lista por partida", "Una lista MEP es la lista de tu partida: cartas (a la carta, banquetes), un título por pase o plato y debajo lo que debe estar listo. Se lee de arriba abajo, en el orden del menú."],
+      ["Lista y modo cocina", "Lista lo muestra todo con el estilo de Savour, con una casilla en cada elemento. Al marcarla queda listo para hoy, para todo tu equipo. El modo cocina muestra solo la lista, en grande, y mantiene la pantalla encendida."],
+      ["Cubiertos y cantidades", "Introduce junto al nombre de cada carta el número de cubiertos; Savour calcula cuánto necesitas de cada elemento (40 cubiertos × 60 g = 2,4 kg). Cada día la lista empieza vacía. Con ⋯ Vaciar lista quitas las marcas también entre medias."],
+      ["Juntos en un equipo de cocina", "Todo el equipo ve una lista MEP de un equipo de cocina. Lo que marca un compañero aparece al instante, con nombre y hora. Cualquiera puede marcar, también sin Savour Pro. Sin internet lo que tocas se queda y se envía en cuanto vuelvas a tener conexión."],
+      ["Importar", "¿Ya tienes tu lista en Excel, Word o en papel? Elige Importar. Savour la organiza y tú lo revisas todo antes de guardarlo. Una foto la lee la IA, con Savour Pro."],
+      ["Imprimir", "Imprime una lista vacía en un A4, como tu lista de Excel, o con los cubiertos y cantidades de hoy. Con Savour Pro lleva el logo de tu restaurante."],
+      ["Savour Pro", "Con una cuenta gratuita creas una lista MEP. Con Savour Pro creas y gestionas todas las listas que quieras. Marcar e imprimir sigue siendo gratis."]
+    ]
   }
 };

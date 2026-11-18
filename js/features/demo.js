@@ -70,7 +70,8 @@ const DEMO_TEXT = {
   }
 };
 
-function startDemo() {
+// recipeId: meteen dit demorecept openen (bijv. "demo-marshmallow" vanaf het kladje op de startpagina).
+function startDemo(recipeId) {
   // Tellen in /admin → Bezoekers → Demo (alleen op savour.page, niet voor bots of testbrowsers).
   logSavourVisit('/demo');
   demoMode = true;
@@ -90,6 +91,7 @@ function startDemo() {
     `<div id="demoBadge" class="demo-mode-badge">${esc(t('Demo account · niets wordt opgeslagen'))} · <a href="/?auth=signup">${esc(t('Gratis account maken'))}</a></div>`
   );
   toast(t('Demo geladen · open een recept en probeer omrekenen of de kookmodus'));
+  if (recipeId && recipes.some(r => r.id === recipeId)) openRecipe(recipeId);
 }
 
 // De proefrecepten in de taal van nu. Ook na het wisselen van taal (setLanguage), zonder iets op te slaan.
@@ -169,6 +171,8 @@ function loadDemoCentralList() {
 function refreshDemoLanguage() {
   if (!demoMode) return;
   loadDemoData();
+  // De demo-MEP-lijsten opnieuw, in de nieuwe taal (js/features/mep.js, mepSeedDemo).
+  mepResetState();
   refreshSidebar();
   const active = document.querySelector('#appShell .view.active')?.id || 'recipes';
   if (active === 'detail' && currentId) openRecipe(currentId);

@@ -49,7 +49,33 @@ function newSharedMap() {
 
 // Proefperiode: het keukenteam werkt tot de einddatum en daarna pas weer als de eigenaar Pro heeft. Er gaat niets weg.
 function teamTrialText(end, mine) {
-  return `<b>Proefperiode tot</b> <b translate="no">${esc(formatProDate(end))}</b> <span>${mine ? 'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot je Savour Pro neemt.' : 'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot de eigenaar Savour Pro neemt.'}</span>`;
+  return `<b>Proefperiode tot</b> <b translate="no">${esc(formatProDate(end))}</b> <span>${mine ? 'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot je Savour Pro neemt.' : 'Daarna blijft alles bewaard, maar is dit keukenteam niet te gebruiken tot de eigenaar Savour Pro neemt.'}</span> <span>${t('In de proefweek kan een keukenteam hooguit 10 recepten hebben.')}</span>`;
+}
+
+// In de proefweek van de eigenaar kan een keukenteam hooguit 10 recepten hebben; met betaald Pro is er geen grens.
+// De database bewaakt dit ook (supabase/2026-11-17-keukenteam-proef-10-recepten.sql, savour_team_room).
+const TEAM_TRIAL_RECIPES = 10;
+function teamRoomLeft(m) {
+  if (!m?.trialEnd) return Infinity;
+  return Math.max(0, TEAM_TRIAL_RECIPES - (m.recipeIds || []).length);
+}
+// Meer gekozen dan er ruimte is: uitleggen, en false. Anders true.
+async function teamHasRoomFor(m, count) {
+  const room = teamRoomLeft(m);
+  if (count <= room) return true;
+  const mine = isSharedMapOwner(m);
+  const text =
+    room === 0
+      ? t('Dit keukenteam heeft al 10 recepten. In de proefweek kan een keukenteam hooguit 10 recepten hebben.')
+      : `${t('In de proefweek kan een keukenteam hooguit 10 recepten hebben. Er is nog ruimte voor')} ${room}.`;
+  if (
+    await askConfirm(
+      `${t('Keukenteam in de proefweek')}\n\n${text} ${mine ? t('Met Savour Pro is er geen grens.') : t('Met Savour Pro van de eigenaar is er geen grens.')}`,
+      { confirmLabel: t('Bekijk Savour Pro') }
+    )
+  )
+    openPublicInfo('pro');
+  return false;
 }
 
 function teamTrialBanner(m) {
@@ -486,12 +512,15 @@ function renderShared(id) {
     `${teamTrialBanner(m)}<div class="panel team-page kt"><div class="folder-detail-head shared-main-head kt-head"><div><div class="eyebrow shared-eyebrow">Keukenteam ${helpButton('shared')}</div><h1>${esc(m.name)}</h1><p class="muted kt-sub">Eén receptenboek voor de hele brigade.</p></div><div class="shared-map-actions kt-actions">${actions}</div></div>` +
     sharedProNoticeHtml(m) +
     `<div class="kt-overview">${folders}</div>` +
+    // MEP-lijsten van dit team (js/features/mep.js): per post hoeveel er vandaag klaar staat.
+    teamMepHtml(m) +
     library +
     (isOwner
       ? ''
       : `<div class="kt-foot"><button type="button" class="kt-link" onclick="leaveSharedMap('${mid}')">Keukenteam verlaten</button></div>`) +
     '</div>';
   renderTeamLibrary();
+  renderTeamMep(m);
   // Fotoband met de eigen foto van het keukenteam (of een keukenfoto).
   setViewPhoto(document.querySelector('#sharedWrap .shared-main-head'), 'gedeeld:' + m.id, m.photo);
 }
@@ -701,6 +730,11 @@ function openSharedRecipePicker(id) {
   }
   currentFolder = 'shared:' + id;
   $('folderModalTitle').textContent = 'Recepten aan keukenteam toevoegen';
+  // Het team krijgt een kopie: zeg dat vooraf, anders lijkt het recept daarna dubbel te staan.
+  $('folderModalNote').textContent = t(
+    'Savour zet een kopie in het keukenteam. Je eigen recept blijft staan; wijzigingen in het team gelden alleen daar.'
+  );
+  $('folderModalNote').hidden = false;
   $('pickerSearch').value = '';
   filterPicker('');
   $('folderModal').classList.add('open');
@@ -719,6 +753,11 @@ function openSharedFolderRecipePicker(mapId, folderId) {
   currentShared = mapId;
   currentFolder = 'sharedfolderpick:' + folderId;
   $('folderModalTitle').textContent = 'Recepten aan keukenteam toevoegen';
+  // Het team krijgt een kopie: zeg dat vooraf, anders lijkt het recept daarna dubbel te staan.
+  $('folderModalNote').textContent = t(
+    'Savour zet een kopie in het keukenteam. Je eigen recept blijft staan; wijzigingen in het team gelden alleen daar.'
+  );
+  $('folderModalNote').hidden = false;
   $('pickerSearch').value = '';
   filterPicker('');
   $('folderModal').classList.add('open');
@@ -760,8 +799,11 @@ async function saveSharedMapSelection() {
   // Een eigen recept in het keukenteam zetten = een kopie die van het keukenteam is (team_id); je eigen
   // recept blijft van jou. Zo blijven de recepten van de zaak bij de zaak, ook als iemand vertrekt.
   const chosen = ids.map(rid => recipes.find(r => String(r.id) === String(rid))).filter(Boolean);
-  for (let i = 0; i < chosen.length; i += 50) {
-    const block = chosen.slice(i, i + 50);
+  if (!(await teamHasRoomFor(findSharedMap(id), chosen.length))) return;
+  // In de proefweek één voor één: de database telt per keer, zo komt er nooit een 11e recept bij.
+  const step = Number.isFinite(teamRoomLeft(findSharedMap(id))) ? 1 : 50;
+  for (let i = 0; i < chosen.length; i += step) {
+    const block = chosen.slice(i, i + step);
     let { data: copies, error } = await supabaseClient
       .from('recipes')
       .insert(
@@ -791,7 +833,11 @@ async function saveSharedMapSelection() {
   closeFolderModal();
   await loadDatabaseState();
   renderShared(id);
-  toast(`${chosen.length} recept${chosen.length === 1 ? '' : 'en'} toegevoegd aan het keukenteam`);
+  toast(
+    chosen.length === 1
+      ? t('1 recept als kopie in het keukenteam gezet')
+      : `${chosen.length} ${t('recepten als kopie in het keukenteam gezet')}`
+  );
 }
 
 async function saveSharedFolderSelection() {
@@ -803,6 +849,10 @@ async function saveSharedFolderSelection() {
   const ids = [...document.querySelectorAll('[data-shared-folder-check]:checked')].map(
     x => x.dataset.sharedFolderCheck
   );
+  // Alleen recepten die nog niet in het keukenteam staan, tellen mee voor de grens van de proefweek.
+  const m = findSharedMap(currentShared);
+  const inTeam = new Set((m?.recipeIds || []).map(String));
+  if (!(await teamHasRoomFor(m, ids.filter(rid => !inTeam.has(String(rid))).length))) return;
   for (const recipeId of ids)
     await supabaseClient
       .from('shared_folder_recipes')
@@ -850,7 +900,7 @@ function renderSharedManage() {
     ? list
         .map(m => managerItemHtml('shared', m, (getSharedMenuSettings()?.selected || []).includes(String(m.id))))
         .join('')
-    : '<div class="empty">Nog geen keukenteams. Maak je eerste map aan.</div>';
+    : `<div class="empty">${esc(t('Nog geen keukenteams. Maak je eerste keukenteam met ＋ Nieuw keukenteam.'))}</div>`;
 }
 
 // Beheerpagina van één keukenteam: naam, foto, deellink en leden met rechten.

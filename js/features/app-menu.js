@@ -67,13 +67,13 @@ function appMenuData() {
       ]
     },
     {
-      // Eén onderdeel: op de computer een gewone knop zonder uitklaplijst (direct), op de telefoon een groep.
+      // Tools voor in de keuken: MEP-lijsten (js/features/mep.js) en Allergenen (js/features/products.js).
       id: 'tools',
-      title: t('Allergenen'),
+      title: t('Tools'),
       intro: t('Hulpmiddelen voor in de keuken.'),
-      direct: "go('products')",
-      on: active === 'products',
+      on: ['products', 'mep'].includes(active),
       items: [
+        item("go('mep')", t('MEP-lijsten'), t('Per post, met couverts en afvinken.'), active === 'mep', 'list'),
         item("go('products')", t('Allergenen'), t('De 14 allergenen bij elk recept.'), active === 'products', 'leaf')
       ]
     },
@@ -90,6 +90,8 @@ function appMenuData() {
         item("go('settings')", t('Instellingen'), '', active === 'settings', 'settings'),
         // Community: forum met andere koks (js/features/community.js). Licht of donker staat bovenin de balk.
         { ...item("go('community')", t('Community'), '', active === 'community', 'chat'), badge: communityUnread },
+        // Hulp en contact stond alleen in de voettekst; in de keuken zoek je het in het menu.
+        item("openPublicInfo('contact')", t('Hulp en contact'), '', false, 'info'),
         ...(admin ? [item("location.href='/admin'", 'Admin', '', false, 'shield')] : [])
       ]
     }

@@ -48,7 +48,7 @@ function suggestCategory(title) {
       if (inName < 0) continue;
       const score = inHead >= 0 ? 100000 + inHead + k.length : inName + k.length;
       if (!best || score > best.score || (score === best.score && k.length > best.length))
-        best = { category, keyword, score, length: k.length, at: inName };
+        best = { category, keyword, score, length: k.length, at: inName, headAt: inHead };
     }
     if (best) hits.push(best);
   }
@@ -58,7 +58,22 @@ function suggestCategory(title) {
   const [winner, ...others] = hits;
   // Valt een ander trefwoord helemaal binnen het winnende (zoals "taart" in "ijstaart"), dan is dat geen twijfel.
   const inside = h => h.at >= winner.at && h.at + h.length <= winner.at + winner.length;
-  const alternatives = others.filter(h => !inside(h)).map(h => ({ category: h.category, keyword: h.keyword }));
+  // Staat het winnende trefwoord in het gerecht zelf (vóór "met", "van", ...), dan is een trefwoord pas
+  // daarna geen twijfel: "Risotto met paddenstoelen" is risotto, "Crème brûlée met tonkabonen" een dessert.
+  // In één samengesteld woord wint het laatste deel ("Kalfsjus" is een jus): ook geen twijfel.
+  const wordEnd = at => {
+    const m = head.slice(at).match(/^[a-z0-9]*/);
+    return at + (m ? m[0].length : 0);
+  };
+  const realDoubt = h => {
+    if (winner.headAt < 0) return true;
+    if (h.headAt < 0) return false;
+    const sameWord = wordEnd(h.headAt) === wordEnd(winner.headAt);
+    return !(sameWord && winner.headAt + winner.length === wordEnd(winner.headAt));
+  };
+  const alternatives = others
+    .filter(h => !inside(h) && realDoubt(h))
+    .map(h => ({ category: h.category, keyword: h.keyword }));
   return {
     category: winner.category,
     keyword: winner.keyword,

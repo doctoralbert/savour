@@ -4,6 +4,7 @@ function showImportPanel() {
   if ($('inlineEditorHost')) $('inlineEditorHost').style.display = 'none';
   $('importPanel').style.display = 'block';
   $('importStatus').textContent = '';
+  hideImportProgress();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -75,7 +76,10 @@ function selectImportSource(type) {
   document.querySelectorAll('.import-option').forEach(x => x.classList.remove('selected'));
   const source = IMPORT_SOURCES[type];
   $(type === 'text' ? 'importOptionText' : source?.option)?.classList.add('selected');
+  // Een bron onder "Meer bronnen" gekozen: die lijst openklappen, zodat je ziet wat er geselecteerd is.
+  $(source?.option)?.closest('details')?.setAttribute('open', '');
   $('importStatus').textContent = '';
+  hideImportProgress();
   $('importSourceNote').style.display = 'none';
   $('importUrl').style.display = type === 'url' ? 'block' : 'none';
   if (type === 'url') {
@@ -207,6 +211,8 @@ function setImportFiles(files) {
       `${skipped} bestand${skipped === 1 ? '' : 'en'} overgeslagen: hoort niet bij "${IMPORT_SOURCES[importSource].label}". Kies "Alle bestanden door elkaar" om alles mee te nemen.`
     );
   importFileData = list;
+  // Een oude "Klaar · 5 recepten" van de vorige import liet nieuwe bestanden al verwerkt lijken.
+  hideImportProgress();
   if (!list.length) {
     $('importSourceNote').style.display = 'none';
     $('importStatus').textContent = skipped ? 'Geen bestanden van dit soort gekozen.' : '';
@@ -246,6 +252,7 @@ function resetImportSource() {
   $('importDrop').style.display = 'block';
   $('importSourceNote').style.display = 'none';
   $('importStatus').textContent = '';
+  hideImportProgress();
   document.querySelectorAll('.import-option').forEach(x => x.classList.remove('selected'));
 }
 
@@ -451,7 +458,10 @@ function htmlToRecipeText(html) {
       const tag = el.tagName.toLowerCase();
       // Kop 1 is altijd een receptgrens. Kop 2/3 en vette regels zijn "zacht" (#b): een receptnaam
       // óf een onderdeel als "Deel 1" of "Deeg"; dat beslist de lezer (splitRecipeText).
-      if (tag === 'h1') lines.push('', `# ${text(el)}`);
+      // Een kop als "Ingrediënten" of "Bereiding" (vaak Kop 2) is een sectiekopje binnen het recept, nooit
+      // een nieuw recept: anders raakt de receptnaam erboven los en verdwijnt hij.
+      if (/^h[1-6]$/.test(tag) && readerIsHeading(text(el).replace(/:$/, ''))) lines.push(text(el));
+      else if (tag === 'h1') lines.push('', `# ${text(el)}`);
       else if (/^h[23]$/.test(tag)) lines.push('', `#b ${text(el)}`);
       else if (/^h[4-6]$/.test(tag)) lines.push(text(el));
       else if (tag === 'p' && isBoldTitle(el)) lines.push('', `#b ${text(el)}`);
@@ -716,7 +726,9 @@ function removeBatchDraft(index) {
   batchDrafts.splice(index, 1);
   renderBatchDrafts();
   $('batchStatus').textContent = batchDrafts.length
-    ? `${batchDrafts.length} recepten over om te controleren.`
+    ? batchDrafts.length === 1
+      ? t('1 recept over om te controleren.')
+      : `${batchDrafts.length} recepten over om te controleren.`
     : 'Geen recepten meer in deze batch.';
 }
 
@@ -1490,6 +1502,13 @@ async function readTextRecipes(file, sourceText) {
   await Promise.all(Array.from({ length: Math.min(3, chunks.length) }, readChunks));
   return [...sure, ...results.flat()];
 }
+// De voortgang van een vorige import weghalen: anders lijkt een nieuwe keuze al verwerkt.
+function hideImportProgress() {
+  if ($('importProgressWrap')) $('importProgressWrap').style.display = 'none';
+  if ($('importProgressBar')) $('importProgressBar').style.width = '0%';
+  if ($('importProgressText')) $('importProgressText').textContent = '';
+}
+
 // done mag een kommagetal zijn: een foto die half gelezen is, telt als 0,5.
 function updateImportProgress(done, total, label = '') {
   const wrap = $('importProgressWrap'),
@@ -1759,8 +1778,23 @@ async function processImport() {
   }
   try {
     if (importSource === 'text') {
-      batchDrafts = stampForLearning(readRecipesLocally(text), '', 'tekst');
-      if (batchDrafts.length > 1) {
+      // Zelfde opschoning als bij bestanden: allergeenletters ("Eier C") weg, de kok ziet het en kan ze houden.
+      const read = readRecipesLocally(text).map(d => {
+        const tidy = tidyRecipeLines(d, { allergenCodes: !keepsAllergenCodes() });
+        return {
+          ...d,
+          ingredients: tidy.ingredients,
+          steps: tidy.steps,
+          description: tidy.description || d.description,
+          _withCodes: tidy.withCodes,
+          _allergenCodes: tidy.allergenCodes
+        };
+      });
+      batchDrafts = stampForLearning(read, '', 'tekst');
+      // Gelezen: het tekstvak leeg, zodat dezelfde tekst niet per ongeluk nog een keer wordt verwerkt.
+      $('importTextInput').value = '';
+      // Weggehaalde allergeenletters staan alleen in het controlescherm (met "Letters laten staan"): dan daarheen.
+      if (batchDrafts.length > 1 || batchDrafts.some(d => d._withCodes)) {
         $('batchStatus').textContent = `${batchDrafts.length} losse recepten herkend uit de ingevoerde tekst.`;
         renderBatchDrafts();
         go('batchImport');
@@ -1821,6 +1855,9 @@ const batchEmpty = r => !(r.ingredients || []).some(l => String(l).trim() && !re
 function renderBatchDrafts() {
   // Melding "Nog niet opgeslagen" alleen als er iets op te slaan valt.
   document.querySelectorAll('.batch-unsaved-note').forEach(n => (n.hidden = !batchDrafts.length));
+  // Eén recept (bijv. uit een link of een foto) heet niet "Meerdere recepten importeren".
+  const head = $('batchImport')?.querySelector('.section-head h2');
+  if (head) head.textContent = batchDrafts.length === 1 ? t('Recept controleren') : t('Meerdere recepten importeren');
   const toCheck = batchDrafts.filter(
     r => batchEmpty(r) || r._needsReview || r._unclear?.length || batchLineChecks(r).length
   ).length;
