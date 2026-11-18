@@ -29,7 +29,21 @@ function openAuth(mode) {
   // Onder het formulier: wisselen tussen inloggen en account maken.
   if ($('authSwitch'))
     $('authSwitch').textContent = mode === 'signup' ? t('Ik heb al een account') : t('Account aanmaken');
+  const note = document.querySelector('#authForm .auth-note');
+  if (note)
+    note.innerHTML =
+      mode === 'signup' ? authTermsHtml() : `<span>${esc(t('Veilig inloggen met je Savour-account.'))}</span>`;
   renderOauthButtons();
+}
+
+// Bij account aanmaken: de voorwaarden en het privacybeleid in de taal van de bezoeker (opent in een nieuw tabblad,
+// zodat het formulier blijft staan).
+function authTermsHtml() {
+  const lang = typeof currentLanguage === 'string' ? currentLanguage : 'nl';
+  const terms = { en: '/en/terms', de: '/de/agb', es: '/es/terminos', fr: '/fr/conditions' }[lang] || '/voorwaarden';
+  const privacy =
+    { en: '/en/privacy', de: '/de/datenschutz', es: '/es/privacidad', fr: '/fr/confidentialite' }[lang] || '/privacy';
+  return `<span>${esc(t('Met een account ga je akkoord met:'))}</span> <a href="${terms}" target="_blank" rel="noopener">${esc(t('Algemene voorwaarden'))}</a> <span aria-hidden="true">·</span> <a href="${privacy}" target="_blank" rel="noopener">${esc(t('Privacybeleid'))}</a>`;
 }
 
 // Van inloggen naar account maken en terug; een al ingevuld e-mailadres blijft staan.

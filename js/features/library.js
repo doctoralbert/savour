@@ -387,10 +387,10 @@ function renderCategoryBar() {
   // Wat verborgen is, kun je met één klik terughalen.
   const back = [
     hideCats
-      ? `<button type="button" class="chip-toggle" onclick="toggleChipRow('categories')">＋ ${esc(t('Categorieën tonen'))}</button>`
+      ? `<button type="button" class="chip-toggle" onclick="toggleChipRow('categories')"><span aria-hidden="true">＋</span> <span>${esc(t('Categorieën tonen'))}</span></button>`
       : '',
     hideFolders && chosen.length
-      ? `<button type="button" class="chip-toggle folder-chips-back" onclick="toggleChipRow('folders')">＋ ${esc(t('Mappen tonen'))}</button>`
+      ? `<button type="button" class="chip-toggle folder-chips-back" onclick="toggleChipRow('folders')"><span aria-hidden="true">＋</span> <span>${esc(t('Mappen tonen'))}</span></button>`
       : ''
   ].join('');
   $('categoryBar').innerHTML = catRow + folderRow + (back ? `<div class="chip-hidden-row">${back}</div>` : '');

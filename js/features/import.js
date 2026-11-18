@@ -76,8 +76,6 @@ function selectImportSource(type) {
   document.querySelectorAll('.import-option').forEach(x => x.classList.remove('selected'));
   const source = IMPORT_SOURCES[type];
   $(type === 'text' ? 'importOptionText' : source?.option)?.classList.add('selected');
-  // Een bron onder "Meer bronnen" gekozen: die lijst openklappen, zodat je ziet wat er geselecteerd is.
-  $(source?.option)?.closest('details')?.setAttribute('open', '');
   $('importStatus').textContent = '';
   hideImportProgress();
   $('importSourceNote').style.display = 'none';
@@ -1783,8 +1781,9 @@ async function runImportFiles(valid) {
   $('batchStatus').innerHTML = esc(successText) + notes.map(n => `<br>${n}`).join('');
   batchUnsaved = true;
   renderBatchDrafts();
-  $('importStatus').textContent =
-    `Klaar · ${batchDrafts.length} recept${batchDrafts.length === 1 ? '' : 'en'} controleerbaar. Nog niet opgeslagen.`;
+  // Twee losse zinnen, zodat elke taal ze herkent.
+  $('importStatus').innerHTML =
+    `<span>${esc(`Klaar · ${batchDrafts.length} recept${batchDrafts.length === 1 ? '' : 'en'} controleerbaar.`)}</span> <span>${esc(t('Nog niet opgeslagen.'))}</span>`;
   updateImportProgress(valid.length, valid.length, `Klaar · ${batchDrafts.length} recepten controleerbaar`);
   go('batchImport');
 }

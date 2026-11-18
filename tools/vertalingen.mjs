@@ -1,5 +1,8 @@
 // Brontabel voor de vertalingen: [Nederlands, Engels, Duits, Spaans].
 export const strings = [
+  // ---- Fase 2: losse zinnen, voorwaarden bij aanmelden (2026-11-18) ----
+  ["Met een account ga je akkoord met:","By creating an account you agree to:","Mit einem Konto stimmst du zu:","Al crear una cuenta aceptas:"],
+  ["Savour vond alleen kopjes, geen onderdelen. Zet elk onderdeel op een eigen regel of in een eigen cel, bijvoorbeeld \"gravlax 60 g\", en probeer het opnieuw.","Savour only found headings, no items. Put each item on its own line or in its own cell, for example \"gravlax 60 g\", and try again.","Savour hat nur Überschriften gefunden, keine Posten. Setze jeden Posten in eine eigene Zeile oder Zelle, zum Beispiel \"Gravlax 60 g\", und versuche es noch einmal.","Savour solo encontró encabezados, ningún elemento. Pon cada elemento en su propia línea o celda, por ejemplo \"gravlax 60 g\", e inténtalo de nuevo."],
   // ---- Fase 1: dubbele recepten, allergenen, bestanden (2026-11-18) ----
   ["Overslaan","Skip","Überspringen","Omitir"],
   ["Alleen de nieuwe recepten opslaan. Je bestaande recepten blijven zoals ze zijn.","Only save the new recipes. Your existing recipes stay as they are.","Nur die neuen Rezepte speichern. Deine bestehenden Rezepte bleiben, wie sie sind.","Guardar solo las recetas nuevas. Tus recetas existentes se quedan como están."],
@@ -4314,12 +4317,6 @@ export const patterns = [
   ["^(\\d+) namen omgezet$","$1 names converted","$1 Namen umgewandelt","$1 nombres convertidos"],
   ["^(\\d+) bestand(?:en)? overgeslagen: dit soort bestand( \\(.+\\))? kan Savour niet lezen\\. Recepten lezen gaat uit PDF, Word, tekst, foto's, webpagina's en exports van recepten-apps\\.$","$1 file(s) skipped: Savour can't read this kind of file$2. Recipes can be read from PDF, Word, text, photos, web pages and exports from recipe apps.","$1 Datei(en) übersprungen: Diese Art Datei$2 kann Savour nicht lesen. Rezepte liest Savour aus PDF, Word, Text, Fotos, Webseiten und Exporten von Rezept-Apps.","$1 archivo(s) omitido(s): Savour no puede leer este tipo de archivo$2. Las recetas se leen desde PDF, Word, texto, fotos, páginas web y exportaciones de apps de recetas."],
   // ---- MEP-lijsten (2026-11-17) ----
-
-  // ---- MEP-lijsten (2026-11-17) ----
-
-  // ---- MEP-lijsten (2026-11-17) ----
-
-  // ---- MEP-lijsten (2026-11-17) ----
   ["^Opgeslagen (\\d{1,2}:\\d{2})$","Saved $1","Gespeichert $1","Guardado $1"],
   ["^(\\d+) kaarten · (\\d+) onderdelen$","$1 menus · $2 items","$1 Karten · $2 Posten","$1 cartas · $2 elementos"],
   ["^1 kaart · (\\d+) onderdelen$","1 menu · $1 items","1 Karte · $1 Posten","1 carta · $1 elementos"],
@@ -4343,8 +4340,6 @@ export const patterns = [
   ["^([\\d.,]+(?: \\S+)?) p\\.p\\.$","$1 per cover","$1 p. P.","$1 p. p."],
   ["^(\\d+) regels zijn nog niet nagekeken$","$1 lines have not been checked yet","$1 Zeilen sind noch nicht geprüft","$1 líneas aún no se han revisado"],
   ["^MEP-lijst opgeslagen: (\\d+) onderdelen$","Prep list saved: $1 items","MEP-Liste gespeichert: $1 Posten","Lista MEP guardada: $1 elementos"],
-  // ---- MEP-lijsten (2026-11-17) ----
-
   // ---- MEP-lijsten (2026-11-17) ----
   ["^(\\d+) kaarten$","$1 menus","$1 Karten","$1 cartas"],
   ["^(\\d+) kopjes$","$1 headings","$1 Überschriften","$1 títulos"],
