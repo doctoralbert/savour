@@ -1,0 +1,18 @@
+[
+ {
+  "name": "zo-doe-je-mee",
+  "after": "Zo doe je mee",
+  "type": "flow",
+  "end": true,
+  "title": ["Zo doe je mee in de Community", "How to join the Community", "So machst du in der Community mit", "Cómo participar en la Comunidad", "Participer à la Communauté"],
+  "sub": ["Op de telefoon, de tablet en de computer, ook met een gratis account", "On phone, tablet and computer, also with a free account", "Auf Handy, Tablet und Computer, auch mit kostenlosem Konto", "En móvil, tableta y ordenador, también con cuenta gratis", "Sur téléphone, tablette et ordinateur, même avec un compte gratuit"],
+  "steps": [
+   [["Log in", "Log in", "Anmelden", "Inicia sesión", "Connecte-toi"], ["Nog geen account? Maak er gratis een aan.", "No account yet? Create one for free.", "Noch kein Konto? Erstelle kostenlos eins.", "¿Sin cuenta? Crea una gratis.", "Pas de compte ? Crée-en un gratuitement."]],
+   [["Open de Community", "Open the Community", "Community öffnen", "Abre la Comunidad", "Ouvre la Communauté"], ["Menu → Mijn Savour → Community.", "Menu → My Savour → Community.", "Menü → Mein Savour → Community.", "Menú → Mi Savour → Comunidad.", "Menu → Mon Savour → Communauté."]],
+   [["Plaats een thread", "Post a thread", "Thread erstellen", "Publica un hilo", "Publie un fil"], ["Een titel en wat je kwijt wilt.", "A title and what you want to say.", "Ein Titel und was du sagen willst.", "Un título y lo que quieras contar.", "Un titre et ce que tu veux dire."]],
+   [["Reageer op anderen", "Reply to others", "Anderen antworten", "Responde a otros", "Réponds aux autres"], ["In je eigen taal mag.", "Your own language is fine.", "Gern in deiner Sprache.", "En tu idioma, sin problema.", "Dans ta langue, c’est permis."]]
+  ],
+  "alt": ["Vier stappen: inloggen, de Community openen via Mijn Savour, een thread plaatsen en reageren op anderen", "Four steps: log in, open the Community through My Savour, post a thread and reply to others", "Vier Schritte: anmelden, die Community über Mein Savour öffnen, einen Thread erstellen und anderen antworten", "Cuatro pasos: iniciar sesión, abrir la Comunidad en Mi Savour, publicar un hilo y responder a otros", "Quatre étapes : se connecter, ouvrir la Communauté via Mon Savour, publier un fil et répondre aux autres"],
+  "caption": ["Andere leden zien de naam uit je profiel, nooit je e-mailadres.", "Other members see the name from your profile, never your email address.", "Andere Mitglieder sehen den Namen aus deinem Profil, nie deine E-Mail-Adresse.", "Los demás ven el nombre de tu perfil, nunca tu correo.", "Les autres membres voient le nom de ton profil, jamais ton e-mail."]
+ }
+]

@@ -5,23 +5,19 @@ function openAuth(mode) {
   // Het venster volgt het thema van de website (licht of donker), want het opent boven de publieke pagina's.
   $('authModal').classList.toggle('savour-light', document.documentElement.classList.contains('site-light'));
   $('authModal').classList.add('open');
-  $('authFirstName').value = '';
-  $('authLastName').value = '';
   // Bij inloggen niets leegmaken: de wachtwoordbeheerder van de browser kan de velden al hebben ingevuld.
   if (mode === 'signup') {
     $('authEmail').value = '';
     $('authPassword').value = '';
   }
-  $('authNameField').style.display = mode === 'signup' ? 'grid' : 'none';
   $('authTitle').textContent = mode === 'signup' ? t('Account aanmaken') : t('Inloggen');
   $('authIntro').textContent =
     mode === 'signup' && invitedBy()
       ? t('Je bent uitgenodigd door een collega. Maak een account aan en probeer Savour Pro 7 dagen gratis.')
       : mode === 'signup'
-        ? t('Maak een account aan om je persoonlijke receptenbibliotheek te openen.')
+        ? t('Gratis tot 100 recepten, en 7 dagen Savour Pro zonder betaalgegevens.')
         : t('Log in om je persoonlijke receptenbibliotheek te openen.');
   $('authSubmit').textContent = mode === 'signup' ? t('Account aanmaken') : t('Inloggen');
-  $('authEmailField').style.marginTop = mode === 'signup' ? '10px' : '0';
   $('authPassword').autocomplete = mode === 'signup' ? 'new-password' : 'current-password';
   // Vinkjes zoals de vorige keer; bij inloggen het onthouden e-mailadres en, als de browser het mag, het wachtwoord.
   // Bij account aanmaken geen vinkjes: een nieuw account blijft ingelogd en de browser mag het wachtwoord bewaren.
@@ -129,15 +125,10 @@ function authWelcome(name) {
 async function submitAuth() {
   const email = $('authEmail').value.trim();
   const password = $('authPassword').value;
-  const first = $('authFirstName')?.value.trim() || '';
-  const last = $('authLastName')?.value.trim() || '';
-  const name = [first, last].filter(Boolean).join(' ');
+  // Aanmelden vraagt alleen e-mailadres en wachtwoord; een naam vul je later in bij Mijn account.
+  const name = '';
   if (!email || !password) {
     toast(t('Vul e-mailadres en wachtwoord in'));
-    return;
-  }
-  if (authMode === 'signup' && (!first || !last)) {
-    toast(t('Vul voornaam en achternaam in'));
     return;
   }
   $('authSubmit').disabled = true;
@@ -152,7 +143,7 @@ async function submitAuth() {
         email,
         password,
         // Via de link van een collega? Dan staat dat bij het account (cadeau: js/features/referral.js).
-        data: invitedBy() ? { name, invited_by: invitedBy() } : { name }
+        data: invitedBy() ? { invited_by: invitedBy() } : {}
       });
       if (error) throw error;
       // Bestaat het e-mailadres al, dan stuurt Supabase géén mail en meldt het (om privacyredenen) toch "gelukt",
@@ -347,25 +338,39 @@ async function appSessionExpired() {
 }
 
 // Herkomst van het account voor /admin (api/admin.js, accountSource): één keer per account per browser de
-// anonieme bezoekers-id meesturen. De server bewaart alleen het label (bijv. "Google"), niet de bezoeken.
+// anonieme bezoekers-id meesturen. De server bewaart alleen het label (bijv. "Google"), niet de bezoeken,
+// en onthoudt dat deze id bij een account hoort (api/admin.js, markAccountDevice), niet bij welk.
 async function sendAccountSource() {
   if (!currentUser || demoMode || !navigator.onLine || /^(localhost|127\.)/.test(location.hostname)) return;
-  try {
-    const visitor = localStorage.getItem('savour_visit_id');
-    const doneKey = 'savour_source_sent_' + currentUser.id;
-    if (!visitor || localStorage.getItem(doneKey)) return;
-    const token = (await supabaseClient.auth.getSession()).data?.session?.access_token;
-    if (!token) return;
-    const response = await fetch('/api/admin', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ action: 'herkomst', visitor })
-    });
-    const result = await response.json().catch(() => ({}));
-    // Vastgelegd (of al bekend): niet opnieuw sturen. Niets gevonden in deze browser: ook klaar voor deze browser.
-    if (result?.ok) localStorage.setItem(doneKey, '1');
-  } catch (_) {
-    // Herkomst is alleen voor de cijfers; mislukt het, dan merkt de gebruiker daar niets van.
+  const visitor = (() => {
+    try {
+      return localStorage.getItem('savour_visit_id');
+    } catch (_) {
+      return null;
+    }
+  })();
+  if (!visitor) return;
+  // Twee meldingen, elk één keer per account per browser: hoe het account Savour vond, en dat dit apparaat bij
+  // een account hoort (zodat /admin echt nieuwe bezoekers apart telt; niet bij welk account).
+  for (const [action, doneKey] of [
+    ['herkomst', 'savour_source_sent_' + currentUser.id],
+    ['apparaat', 'savour_device_sent_' + currentUser.id]
+  ]) {
+    try {
+      if (localStorage.getItem(doneKey)) continue;
+      const token = (await supabaseClient.auth.getSession()).data?.session?.access_token;
+      if (!token) return;
+      const response = await fetch('/api/admin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ action, visitor })
+      });
+      const result = await response.json().catch(() => ({}));
+      // Vastgelegd (of al bekend): niet opnieuw sturen.
+      if (result?.ok) localStorage.setItem(doneKey, '1');
+    } catch (_) {
+      // Alleen voor de cijfers; mislukt het, dan merkt de gebruiker daar niets van.
+    }
   }
 }
 
@@ -381,6 +386,7 @@ function clearSessionState() {
   categories = [];
   sharedMaps = [];
   sharedRecipes = [];
+  mepResetState();
   ['categoryNav', 'sharedNav'].forEach(id => {
     if ($(id)) $(id).innerHTML = '';
   });

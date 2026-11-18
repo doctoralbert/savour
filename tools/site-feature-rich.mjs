@@ -371,7 +371,7 @@ export const FEATURE_RICH = {
       faq: [
         [
           'Moeten alle leden Savour Pro hebben?',
-          'Nee. Lid zijn is gratis. Alleen wie een keukenteam maakt, heeft Savour Pro nodig. Met een teamabonnement krijgt iedereen in het team Pro.'
+          'Nee. Lid zijn is gratis: je bekijkt, print en rekent om. Een keukenteam maken, en recepten toevoegen of bewerken, gaat met Savour Pro. Met een teamabonnement krijgt iedereen in het team Pro.'
         ],
         [
           'Hoe nodig ik iemand uit?',
@@ -406,7 +406,7 @@ export const FEATURE_RICH = {
       faq: [
         [
           'Do all members need Savour Pro?',
-          'No. Being a member is free. Only the person who creates a kitchen team needs Savour Pro. With a team subscription everyone in the team gets Pro.'
+          'No. Being a member is free: you view, print and scale. Creating a kitchen team, and adding or editing recipes, needs Savour Pro. With a team subscription everyone in the team gets Pro.'
         ],
         [
           'How do I invite someone?',
@@ -441,7 +441,7 @@ export const FEATURE_RICH = {
       faq: [
         [
           'Brauchen alle Mitglieder Savour Pro?',
-          'Nein. Mitglied sein ist kostenlos. Nur wer ein Küchenteam erstellt, braucht Savour Pro. Mit einem Teamabo bekommt jeder im Team Pro.'
+          'Nein. Mitglied sein ist kostenlos: Du siehst an, druckst und rechnest um. Ein Küchenteam erstellen und Rezepte hinzufügen oder bearbeiten geht mit Savour Pro. Mit einem Teamabo bekommt jeder im Team Pro.'
         ],
         [
           'Wie lade ich jemanden ein?',
@@ -476,7 +476,7 @@ export const FEATURE_RICH = {
       faq: [
         [
           '¿Todos los miembros necesitan Savour Pro?',
-          'No. Ser miembro es gratis. Solo quien crea un equipo de cocina necesita Savour Pro. Con una suscripción de equipo, todos los del equipo tienen Pro.'
+          'No. Ser miembro es gratis: consultas, imprimes y escalas. Crear un equipo, y añadir o editar recetas, requiere Savour Pro. Con una suscripción de equipo, todos los del equipo tienen Pro.'
         ],
         [
           '¿Cómo invito a alguien?',
@@ -508,7 +508,7 @@ export const FEATURE_RICH = {
       faq: [
         [
           'Tous les membres ont-ils besoin de Savour Pro ?',
-          'Non. Être membre est gratuit. Seul celui qui crée une équipe de cuisine a besoin de Savour Pro. Avec un abonnement d’équipe, tout le monde dans l’équipe a Pro.'
+          'Non. Être membre est gratuit : tu consultes, imprimes et convertis. Créer une équipe, et ajouter ou modifier des recettes, demande Savour Pro. Avec un abonnement d’équipe, tout le monde dans l’équipe a Pro.'
         ],
         [
           'Comment inviter quelqu’un ?',
@@ -888,7 +888,7 @@ export const FEATURE_RICH = {
         ],
         [
           'Kan ik al mijn recepten downloaden?',
-          'Met Savour Pro download je je hele receptenboek wanneer je wilt, als Word-bestanden of als back-up.'
+          'Een back-up van je hele receptenboek download je wanneer je wilt, ook zonder Pro; met Savour Pro ook als Word-bestanden.'
         ],
         [
           'Wat gebeurt er als ik stop met Pro?',
@@ -923,7 +923,7 @@ export const FEATURE_RICH = {
         ],
         [
           'Can I download all my recipes?',
-          'With Savour Pro you download your whole recipe book whenever you like, as Word files or as a backup.'
+          'You can download a backup of your whole recipe book whenever you like, even without Pro; with Savour Pro also as Word files.'
         ],
         ['What happens if I stop Pro?', 'All your recipes stay. You just cannot add more than 100 recipes any more.']
       ]
@@ -990,7 +990,7 @@ export const FEATURE_RICH = {
         ],
         [
           '¿Puedo descargar todas mis recetas?',
-          'Con Savour Pro descargas todo tu recetario cuando quieras, como archivos de Word o como copia de seguridad.'
+          'Una copia de seguridad de todo tu recetario la descargas cuando quieras, también sin Pro; con Savour Pro también como archivos de Word.'
         ],
         ['¿Qué pasa si dejo Pro?', 'Todas tus recetas se quedan. Solo que ya no puedes añadir más de 100 recetas.']
       ]
@@ -1022,7 +1022,7 @@ export const FEATURE_RICH = {
         ],
         [
           'Puis-je télécharger toutes mes recettes ?',
-          'Avec Savour Pro, tu télécharges tout ton livre de recettes quand tu veux, en fichiers Word ou en sauvegarde.'
+          'Tu télécharges une sauvegarde de tout ton livre de recettes quand tu veux, même sans Pro ; avec Savour Pro, aussi en fichiers Word.'
         ],
         [
           'Que se passe-t-il si j’arrête Pro ?',

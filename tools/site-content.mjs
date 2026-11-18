@@ -33,7 +33,7 @@ export const UI = {
     login: 'Log in',
     start: 'Gratis beginnen',
     demo: 'Bekijk de demo',
-    demoNote: '20 echte recepten, geen account nodig',
+    demoNote: '21 echte recepten, geen account nodig',
     other: 'English',
     menu: 'Menu',
     close: 'Sluiten',
@@ -68,7 +68,7 @@ export const UI = {
     login: 'Log in',
     start: 'Start for free',
     demo: 'View the demo',
-    demoNote: '20 real recipes, no account needed',
+    demoNote: '21 real recipes, no account needed',
     other: 'Nederlands',
     menu: 'Menu',
     close: 'Close',
@@ -176,14 +176,14 @@ export const FEATURES = [
     nl: {
       slug: 'recepten-delen',
       menu: 'Delen met je brigade',
-      short: 'Keukenteams met rechten: jij beheert, je sous-chef past aan, de rest kijkt mee.',
+      short: 'Keukenteams met rechten: jij beheert, wie Pro heeft past aan, de rest kijkt gratis mee.',
       title: 'Recepturen delen met je keukenteam en brigade | Savour',
       desc: 'Deel recepturen met je keukenteam via keukenteams op het receptenplatform, met rechten per persoon. Iedereen in je restaurant werkt met dezelfde versie in de app, van sous-chef tot stagiair.',
       h1: 'Recepturen delen met je brigade',
       lead: 'Iedereen in de keuken werkt met dezelfde versie. Geen foto’s van foto’s in de groepsapp meer.',
       sections: [
         ['Keukenteams', 'Maak een map voor je keuken, je partie of het nieuwe menu en nodig je team uit. Wat jij aanpast, ziet iedereen direct.'],
-        ['Rechten per persoon', 'Jij beheert de map. Je sous-chef of chef de partie mag recepten toevoegen en aanpassen. Commis en stagiairs kunnen meekijken, maar niets veranderen.'],
+        ['Rechten per persoon', 'Jij beheert de map. Je sous-chef of chef de partie mag recepten toevoegen en aanpassen (met Savour Pro). Commis en stagiairs kunnen meekijken, maar niets veranderen.'],
         ['Nieuwe mensen sneller ingewerkt', 'Een nieuwe kok heeft op de eerste dag alle recepten van de partie op de telefoon, in de versie die jij hebt goedgekeurd.'],
         ['Losse recepten delen', 'Wil je één recept doorsturen, bijvoorbeeld naar een collega in een andere zaak? Deel het met een link.']
       ]
@@ -191,14 +191,14 @@ export const FEATURES = [
     en: {
       slug: 'en/share-recipes',
       menu: 'Share with your brigade',
-      short: 'Kitchen teams with rights: you manage, your sous-chef edits, the rest can view.',
+      short: 'Kitchen teams with rights: you manage, members with Pro edit, the rest view for free.',
       title: 'Share recipes with your kitchen team and brigade | Savour',
       desc: 'Share recipes with your kitchen team in kitchen teams with rights. Everyone works from the same version, from sous-chef to intern.',
       h1: 'Share recipes with your brigade',
       lead: 'Everyone in the kitchen works from the same version. No more photos of photos in the group chat.',
       sections: [
         ['Kitchen teams', 'Create a folder for your kitchen, your section or the new menu and invite your team. What you change, everyone sees straight away.'],
-        ['Rights per person', 'You manage the folder. Your sous-chef or chef de partie can add and edit recipes. Commis and interns can view but not change anything.'],
+        ['Rights per person', 'You manage the folder. Your sous-chef or chef de partie can add and edit recipes (with Savour Pro). Commis and interns can view but not change anything.'],
         ['New people up to speed faster', 'A new cook has every recipe of the section on their phone on day one, in the version you approved.'],
         ['Share single recipes', 'Want to send one recipe, for example to a colleague at another restaurant? Share it with a link.']
       ]
@@ -301,7 +301,7 @@ export const FEATURES = [
         ],
         [
           "Veilig en van jou",
-          "Je recepten zijn alleen zichtbaar voor jou en voor wie jij uitnodigt in een keukenteam; ze worden per account afgeschermd opgeslagen. Met Savour Pro download je je hele receptenboek wanneer je wilt, als Word-bestanden of als back-up."
+          "Je recepten zijn alleen zichtbaar voor jou en voor wie jij uitnodigt in een keukenteam; ze worden per account afgeschermd opgeslagen. Een back-up van je hele receptenboek download je wanneer je wilt, ook zonder Pro; met Savour Pro ook als Word-bestanden."
         ]
       ]
     },
@@ -332,7 +332,7 @@ export const FEATURES = [
         ],
         [
           "Safe and yours",
-          "Your recipes are only visible to you and to the people you invite to a kitchen team; they are stored separately per account. With Savour Pro you can download your whole recipe book whenever you like, as Word files or as a backup."
+          "Your recipes are only visible to you and to the people you invite to a kitchen team; they are stored separately per account. You can download a backup of your whole recipe book whenever you like, even without Pro; with Savour Pro also as Word files."
         ]
       ]
     }
@@ -535,7 +535,7 @@ export const STORY = {
 export const HOME = {
   nl: {
     h1: 'Je hele receptenboek, op elke telefoon in de keuken.',
-    lead: 'Savour is het receptenplatform voor de professionele, culinaire keuken: een receptenapp voor receptbeheer en het organiseren van al je recepturen. Je Word-bestanden, PDF’s en handgeschreven kladjes worden één geordend receptenboek, voor jou en je hele keukenteam. Veilig in de cloud, op elk apparaat en ook offline.',
+    lead: 'Savour is de receptenapp voor de professionele keuken. Je Word-bestanden, PDF’s en handgeschreven kladjes worden één geordend receptenboek, voor jou en je hele keukenteam. Veilig in de cloud, op elk apparaat en ook offline.',
     proof: '1.400 recepten uit Word geïmporteerd in 2 minuten. Getest in onze eigen keuken.',
     story: [
       'Op de achterkant van een bon. In een schrift dat na tien jaar service aan elkaar plakt. Op een foto die je ooit bij de pas maakte. Die kladjes zijn de kennis van je keuken, en ze raken kwijt, vervagen of zijn alleen leesbaar voor degene die ze schreef.',
@@ -547,7 +547,7 @@ export const HOME = {
     soonTitle: 'Waar we aan werken',
     soonLink: 'Bekijk wat er komt',
     priceTitle: 'Gratis beginnen',
-    price: 'Tot 100 recepten gratis, met de Savour-lezer voor Word, PDF en tekst. Savour Pro kost €2,99 per maand of €29 per jaar: onbeperkt recepten, AI voor handgeschreven kladjes en foto’s, en je eigen keukenteams. Teams vanaf €1,20 per persoon.',
+    price: 'Tot 100 recepten gratis, met de Savour-lezer voor Word, PDF en tekst. Savour Pro kost €2,99 per maand of €29 per jaar: onbeperkt recepten, AI voor handgeschreven kladjes en foto’s, allergenen per recept en je eigen keukenteams. Met een teamabonnement heeft je hele keuken Pro, vanaf €1,20 per persoon.',
     priceLink: 'Bekijk de prijzen',
     faqTitle: 'Vragen over Savour',
     faq: [
@@ -577,7 +577,7 @@ export const HOME = {
     soonTitle: 'What we are working on',
     soonLink: 'See what is coming',
     priceTitle: 'Start for free',
-    price: 'Up to 100 recipes free, with the Savour reader for Word, PDF and text. Savour Pro costs €2.99 per month or €29 per year: unlimited recipes, AI for handwritten notes and photos, and your own kitchen teams. Teams from €1.20 per person.',
+    price: 'Up to 100 recipes free, with the Savour reader for Word, PDF and text. Savour Pro costs €2.99 per month or €29 per year: unlimited recipes, AI for handwritten notes and photos, allergens per recipe and your own kitchen teams. With a team subscription your whole kitchen has Pro, from €1.20 per person.',
     priceLink: 'See pricing',
     faqTitle: 'Questions about Savour',
     faq: [

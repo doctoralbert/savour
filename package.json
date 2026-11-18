@@ -8,6 +8,7 @@
     "test:ai": "node tests/ai-controle.test.mjs",
     "format": "prettier --write \"js/**/*.js\" \"css/*.css\" \"api/**/*.js\" local-server.mjs tests/*.js",
     "test:schaal": "node tests/schaal.test.mjs",
+    "test:mep": "node tests/mep-lezer.test.mjs",
     "indexnow": "node tools/indexnow.mjs"
   },
   "devDependencies": {

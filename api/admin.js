@@ -294,6 +294,26 @@ async function accountSource(user, visitor) {
   return { ok: true, known: true };
 }
 
+// Apparaten van accounts: om echt nieuwe bezoekers te tellen. De app meldt één keer per account per browser de
+// anonieme bezoekers-id. Bewaard wordt alleen de id met "bestaand" (het account bestond al vóór het eerste bezoek
+// van dit apparaat: een vaste gebruiker op een ander apparaat) of "aangemeld" (deze bezoeker maakte hier zijn
+// account). Niet bij welk account: de bezoeken blijven los van het account (zie de privacyverklaring).
+const ACCOUNT_DEVICES = 'account_devices';
+async function markAccountDevice(user, visitor) {
+  if (!/^[0-9a-f-]{36}$/i.test(String(visitor || ''))) return { ok: false };
+  const list = await settingList(ACCOUNT_DEVICES);
+  if (list.some(d => d.v === visitor)) return { ok: true };
+  const first = await select(
+    'site_visits',
+    `select=visited_at&visitor_id=eq.${visitor}&order=visited_at.asc&limit=1`
+  ).catch(() => []);
+  // Geen bezoek bekend (bijv. alleen de app geopend): dan telt dit apparaat ook niet als nieuwe bezoeker.
+  const firstAt = Date.parse(first?.[0]?.visited_at || '') || Date.now();
+  const existing = Date.parse(user.created_at) < firstAt - 3600000;
+  await saveSettingList(ACCOUNT_DEVICES, [{ v: visitor, e: existing ? 1 : 0 }, ...list].slice(0, 20000));
+  return { ok: true };
+}
+
 // Geen mensen: zoekmachines, linkvoorbeelden (WhatsApp, Facebook, ...) en testbrowsers. Tellen niet mee als bezoeker.
 const NOT_A_VISITOR =
   /bot\b|bot\/|googleother|crawl|spider|slurp|headless|lighthouse|pagespeed|facebookexternalhit|meta-externalagent|preview|python|curl|wget|node-fetch|axios|vercel|uptime|monitor|electron|claude|chatgpt|gptbot|perplexity|prerender|inspectiontool|google-read-aloud/i;
@@ -351,8 +371,10 @@ function staleBrowserIds(visits) {
 
 // Alles in unieke bezoekers (elk apparaat telt één keer): vandaag, deze week (7 dagen), deze maand, all time,
 // per platform en per dag (30 dagen). Plus de laatste unieke bezoekers met hun bezoeken en pagina's.
-async function visitorStats(ownIds = []) {
+async function visitorStats(ownIds = [], accountDevices = []) {
   const own = new Set(ownIds);
+  // Apparaat van een account: 1 = vaste gebruiker (telt niet als nieuw), 0 = maakte hier zijn account.
+  const deviceOf = new Map(accountDevices.map(d => [d.v, d.e]));
   const all = await allVisits();
   const bots = crawlerIds(all);
   for (const id of staleBrowserIds(all)) bots.add(id);
@@ -383,7 +405,8 @@ async function visitorStats(ownIds = []) {
         source: sourceOf(v),
         user_agent: v.user_agent,
         platform: platformOf(v),
-        country: v.country || ''
+        country: v.country || '',
+        account: deviceOf.has(id) ? (deviceOf.get(id) ? 'bestaand' : 'aangemeld') : ''
       };
       people.set(id, p);
     }
@@ -429,9 +452,39 @@ async function visitorStats(ownIds = []) {
     if (new Date(p.last) > weekAgo) row.week++;
     byCountry.set(code, row);
   }
+  // Echt nieuwe bezoekers: eerste bezoek van dit apparaat in de periode, en geen apparaat van een vaste gebruiker.
+  // Wie als nieuwe bezoeker kwam en daarna een account maakte, telt wel (en staat als "account gemaakt").
+  const fresh = [...people.values()].filter(p => p.account !== 'bestaand');
+  const firstToday = p => amsterdamDay(p.first) === today;
+  const firstWeek = p => Date.parse(p.first) > weekAgo;
+  const firstMonth = p => amsterdamDay(p.first).startsWith(month);
+  const newSources = new Map();
+  for (const p of fresh.filter(p => firstMonth(p) || firstWeek(p))) {
+    const [group, name] = p.source;
+    const row = newSources.get(name) || { group, name, today: 0, week: 0, month: 0 };
+    if (firstMonth(p)) row.month++;
+    if (firstWeek(p)) row.week++;
+    if (firstToday(p)) row.today++;
+    newSources.set(name, row);
+  }
+  const fromAccounts = [...people.values()].filter(p => p.account === 'bestaand');
   return {
     days,
     stats: {
+      new_today: fresh.filter(firstToday).length,
+      new_week: fresh.filter(firstWeek).length,
+      new_month: fresh.filter(firstMonth).length,
+      new_signed_up_week: fresh.filter(p => firstWeek(p) && p.account === 'aangemeld').length,
+      // Vaste gebruikers (apparaat van een bestaand account) die vandaag of deze week op de site waren.
+      returning_users_today: fromAccounts.filter(p => amsterdamDay(p.last) === today).length,
+      returning_users_week: fromAccounts.filter(p => Date.parse(p.last) > weekAgo).length,
+      account_devices_known: accountDevices.length,
+      new_sources: [...newSources.values()].sort((a, b) => b.today - a.today || b.week - a.week || b.month - a.month),
+      new_people: fresh
+        .filter(firstWeek)
+        .sort((a, b) => (a.first < b.first ? 1 : -1))
+        .slice(0, 60)
+        .map(p => ({ ...p, source: p.source[1], source_group: p.source[0] })),
       sources: [...bySource.values()].sort((a, b) => b.all - a.all || b.month - a.month),
       countries: [...byCountry.values()].sort((a, b) => b.all - a.all || b.month - a.month),
       visitors_all_time: unique(rows),
@@ -837,30 +890,54 @@ async function clearErrors() {
 }
 
 async function overview(user, ownVisitor) {
-  const [users, profiles, subs, orgs, members, stats, aiCost, revenue, teams, ownFolders, logins, aiAll, activityRows] =
-    await Promise.all([
-      listUsers(),
-      select('profiles', 'select=id,name,organization,country').catch(() =>
-        select('profiles', 'select=id,name,organization')
-      ),
-      select('subscriptions', 'select=*'),
-      select('organizations', 'select=*'),
-      select('organization_members', 'select=*'),
-      rpc('savour_admin_user_stats', {}),
-      openAiCostsThisMonth(),
-      stripeRevenue30Days(),
-      select('shared_maps', 'select=owner_id').catch(() => []),
-      select('folders', 'select=user_id').catch(() => []),
-      rpc('savour_admin_login_counts', {}).catch(() => null),
-      // AI-imports over alle maanden, en accountactiviteit (supabase/2026-11-10-accountactiviteit.sql).
-      selectAll('ai_usage', 'select=user_id,count&order=user_id,month').catch(() => []),
-      // Met opens (bezoeken); zonder die kolom (SQL nog niet gedraaid) opnieuw zonder.
-      selectAll('account_activity', 'select=user_id,day,device,last_at,opens&order=user_id,day,device')
-        .catch(() => selectAll('account_activity', 'select=user_id,day,device,last_at&order=user_id,day,device'))
-        .catch(() => null)
-    ]);
+  const [
+    users,
+    profiles,
+    subs,
+    orgs,
+    members,
+    stats,
+    aiCost,
+    revenue,
+    teams,
+    ownFolders,
+    logins,
+    aiAll,
+    activityRows,
+    recipeRows,
+    shareRows,
+    favoriteRows,
+    teamMembers
+  ] = await Promise.all([
+    listUsers(),
+    select('profiles', 'select=id,name,organization,country').catch(() =>
+      select('profiles', 'select=id,name,organization')
+    ),
+    select('subscriptions', 'select=*'),
+    select('organizations', 'select=*'),
+    select('organization_members', 'select=*'),
+    rpc('savour_admin_user_stats', {}),
+    openAiCostsThisMonth(),
+    stripeRevenue30Days(),
+    select('shared_maps', 'select=owner_id').catch(() => []),
+    select('folders', 'select=user_id').catch(() => []),
+    rpc('savour_admin_login_counts', {}).catch(() => null),
+    // AI-imports over alle maanden, en accountactiviteit (supabase/2026-11-10-accountactiviteit.sql).
+    selectAll('ai_usage', 'select=user_id,count&order=user_id,month').catch(() => []),
+    // Met opens (bezoeken); zonder die kolom (SQL nog niet gedraaid) opnieuw zonder.
+    selectAll('account_activity', 'select=user_id,day,device,last_at,opens&order=user_id,day,device')
+      .catch(() => selectAll('account_activity', 'select=user_id,day,device,last_at&order=user_id,day,device'))
+      .catch(() => null),
+    // Wat accounts verder doen (alleen tellingen, geen inhoud): recepten erbij of aangepast, gedeelde links,
+    // favorieten en keukenteams waar ze lid van zijn.
+    selectAll('recipes', 'select=user_id,created_at,updated_at&order=id').catch(() => []),
+    selectAll('public_recipe_shares', 'select=owner_id,enabled&order=id').catch(() => []),
+    selectAll('favorites', 'select=user_id&order=user_id').catch(() => []),
+    selectAll('shared_map_members', 'select=shared_map_id,user_id&order=shared_map_id,user_id').catch(() => [])
+  ]);
   const ownLimitOf = await aiLimitOverrides();
-  const visitors = await visitorStats(await ownVisitorIds(user, ownVisitor)).catch(e => {
+  const accountDevices = await settingList(ACCOUNT_DEVICES).catch(() => []);
+  const visitors = await visitorStats(await ownVisitorIds(user, ownVisitor), accountDevices).catch(e => {
     console.error('Bezoekers laden mislukt', e);
     return null;
   });
@@ -898,6 +975,30 @@ async function overview(user, ownVisitor) {
     activityOf.set(row.user_id, a);
   }
   const activeSince = Date.now() - 10 * 60000;
+  const todayKey = amsterdamDay(Date.now());
+  for (const row of activityRows || []) {
+    if (String(row.day).slice(0, 10) !== todayKey) continue;
+    const a = activityOf.get(row.user_id);
+    a.today = true;
+    a.visits_today = (a.visits_today || 0) + (Number(row.opens) || 0);
+  }
+  const countBy = (rows, key, keep = () => true) => {
+    const m = new Map();
+    for (const r of rows || []) if (r[key] && keep(r)) m.set(r[key], (m.get(r[key]) || 0) + 1);
+    return m;
+  };
+  const since30 = Date.now() - 30 * 86400000;
+  const recipesNew30 = countBy(recipeRows, 'user_id', r => Date.parse(r.created_at) > since30);
+  const recipesEdited30 = countBy(
+    recipeRows,
+    'user_id',
+    r => Date.parse(r.updated_at) > since30 && Date.parse(r.updated_at) - Date.parse(r.created_at) > 3600000
+  );
+  const sharesOf = countBy(shareRows, 'owner_id', r => r.enabled);
+  const favoritesOf = countBy(favoriteRows, 'user_id');
+  const foldersOf = countBy(ownFolders, 'user_id');
+  const teamsOwnedOf = countBy(teams, 'owner_id');
+  const teamsMemberOf = countBy(teamMembers, 'user_id');
   const memberOrgOfEmail = new Map(
     (members || []).map(m => [String(m.email).toLowerCase(), orgById.get(m.organization_id)])
   );
@@ -922,8 +1023,17 @@ async function overview(user, ownVisitor) {
         answer_other: u.app_metadata?.signup_answer?.other || '',
         created_at: u.created_at,
         last_sign_in_at: u.last_sign_in_at,
+        // Beheerder (ADMIN_EMAILS): niet in de accountlijst van het beheer.
+        is_admin: ADMIN_EMAILS.includes(String(u.email || '').toLowerCase()),
         confirmed: !!(u.email_confirmed_at || u.confirmed_at),
         recipes: Number(s.recipes || 0),
+        recipes_new_30: recipesNew30.get(u.id) || 0,
+        recipes_edited_30: recipesEdited30.get(u.id) || 0,
+        folders: foldersOf.get(u.id) || 0,
+        teams_owned: teamsOwnedOf.get(u.id) || 0,
+        teams_member: teamsMemberOf.get(u.id) || 0,
+        shares: sharesOf.get(u.id) || 0,
+        favorites: favoritesOf.get(u.id) || 0,
         logins: logins ? Number(loginsOf.get(u.id)?.logins || 0) : null,
         logins_30_days: logins ? Number(loginsOf.get(u.id)?.logins_30_days || 0) : null,
         ai_this_month: Number(s.ai_this_month || 0),
@@ -977,6 +1087,8 @@ async function overview(user, ownVisitor) {
       recipes: accounts.reduce((sum, a) => sum + a.recipes, 0),
       ai_this_month: accounts.reduce((sum, a) => sum + a.ai_this_month, 0),
       active_now: activityRows ? accounts.filter(a => a.active_now).length : null,
+      // Accounts (zonder beheerders) die vandaag Savour gebruikten.
+      active_today: activityRows ? real.filter(a => a.activity?.today).length : null,
       mrr_eur: Math.round(mrr * 100) / 100,
       stripe_30_days: revenue,
       openai_this_month: aiCost
@@ -1142,6 +1254,29 @@ async function importUploadFile(id) {
   const [row] = await select('import_uploads', `select=storage_path&id=eq.${id}`);
   if (!row?.storage_path) throw fail('Van dit bestand is geen origineel bewaard.');
   return { url: await storageDownloadUrl('import-uploads', row.storage_path, 600) };
+}
+
+// Wat er van één geïmporteerd bestand is gelezen en opgeslagen, om naast het origineel te leggen: de AI-resultaten
+// (ai_import_results) en, bij koks met "Help de Savour-lezer verbeteren", wat de lezer/AI las, wat de kok opsloeg
+// en hoe het recept er nu uitziet (recipe_import_origins).
+async function importUploadView(id) {
+  if (!/^[0-9a-f-]{36}$/i.test(String(id || ''))) throw fail('Onbekend bestand.');
+  const [results, origins] = await Promise.all([
+    select(
+      'ai_import_results',
+      `select=id,model,status,handled,created_at,recipes&upload_id=eq.${id}&order=created_at`
+    ),
+    select('recipe_import_origins', `select=recipe_id,by_ai,as_read,as_saved,created_at&upload_id=eq.${id}`)
+  ]);
+  const ids = [...new Set((origins || []).map(o => o.recipe_id).filter(Boolean))];
+  const now = ids.length
+    ? await select('recipes', `select=id,title,yield_text,ingredients,steps&id=in.(${ids.join(',')})`)
+    : [];
+  const nowById = new Map((now || []).map(r => [r.id, { ...r, yield: r.yield_text }]));
+  return {
+    results: (results || []).map(r => ({ ...r, recipes: Array.isArray(r.recipes) ? r.recipes : [] })),
+    origins: (origins || []).map(o => ({ ...o, now: nowById.get(o.recipe_id) || null }))
+  };
 }
 
 async function aiUsageOverview() {
@@ -2147,7 +2282,7 @@ async function siteFigures(res) {
 
 export default async function handler(req, res) {
   // Nachtelijk onderhoud (Vercel Cron, met CRON_SECRET): zie api/_lib/onderhoud.js.
-  if (req.query?.taak === 'onderhoud') return runMaintenance(req, res);
+  if (req.query?.taak === 'onderhoud' || req.query?.taak === 'rapport') return runMaintenance(req, res);
   if (req.query?.afmelden) return newsUnsubscribe(req, res);
   if (req.query?.cijfers && req.method === 'GET') return siteFigures(res);
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -2155,6 +2290,16 @@ export default async function handler(req, res) {
   // Geen (geldige) inlog-sleutel is iets anders dan geen beheerder: de pagina ververst dan zelf de sessie.
   if (!user) return res.status(401).json({ error: 'Sessie verlopen. Log opnieuw in.' });
   // Voor elk ingelogd account (geen beheerder nodig): herkomst één keer vastleggen.
+  // Voor elk ingelogd account: dit apparaat hoort bij een account (markAccountDevice), zonder te bewaren bij welk.
+  if (req.body?.action === 'apparaat') {
+    if (!hasServiceRole()) return res.status(200).json({ ok: false });
+    try {
+      return res.status(200).json(await markAccountDevice(user, req.body?.visitor));
+    } catch (e) {
+      console.error('Apparaat account', e);
+      return res.status(200).json({ ok: false });
+    }
+  }
   if (req.body?.action === 'herkomst') {
     if (!hasServiceRole()) return res.status(200).json({ ok: false });
     try {
@@ -2254,6 +2399,7 @@ export default async function handler(req, res) {
     if (action === 'ai_usage') return res.status(200).json(await aiUsageOverview());
     if (action === 'import_uploads') return res.status(200).json(await importUploads());
     if (action === 'import_upload_file') return res.status(200).json(await importUploadFile(req.body?.id));
+    if (action === 'import_upload_view') return res.status(200).json(await importUploadView(req.body?.id));
     if (action === 'delete_message') return res.status(200).json(await deleteMessage(req.body?.id));
     if (action === 'mark_message')
       return res.status(200).json(await markMessage(req.body?.id, req.body?.read !== false));

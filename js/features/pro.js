@@ -17,6 +17,23 @@ const TEAM_PLANS = [
 ];
 const PRO_INTENT_KEY = 'savour_pro_intent';
 
+// Hoeveel goedkoper jaarlijks is dan twaalf keer maandelijks: { pct, saved } (saved als "€6,88"). Uit de prijzen
+// hierboven berekend, zodat het percentage altijd klopt met wat er op de pagina staat.
+function yearSaving(month, year) {
+  const num = s =>
+    Number(
+      String(s)
+        .replace(/[^\d,]/g, '')
+        .replace(',', '.')
+    );
+  const twelve = num(month) * 12;
+  const saved = twelve - num(year);
+  return {
+    pct: Math.round((saved / twelve) * 100),
+    saved: `€${saved.toFixed(2).replace('.', ',')}`
+  };
+}
+
 const TRIAL_DAYS = 7;
 
 const EMPTY_PLAN = {
@@ -272,12 +289,12 @@ function renderProPage(host) {
   const card = (plan, price, per, note, primary) =>
     !paid && !proPlanAvailable(plan)
       ? ''
-      : `<div class="pro-price${primary ? ' is-featured' : ''}">${primary ? '<span class="pro-badge">Voordeligst</span>' : ''}<h3>${plan === 'year' ? 'Jaarlijks' : 'Maandelijks'}</h3><div class="pro-amount"><strong>${price}</strong><span>${per}</span></div><p class="muted">${note}</p><button type="button" class="btn ${primary ? 'gold' : ''}" data-pro-choose onclick="choosePro('${plan}')">${paid ? 'Abonnement beheren' : plan === 'year' ? 'Kies jaarlijks' : 'Kies maandelijks'}</button></div>`;
+      : `<div class="pro-price${primary ? ' is-featured' : ''}">${primary ? `<span class="pro-badge">${yearSaving(PRO_PRICES.month, PRO_PRICES.year).pct}% goedkoper</span>` : ''}<h3>${plan === 'year' ? 'Jaarlijks' : 'Maandelijks'}</h3><div class="pro-amount"><strong>${price}</strong><span>${per}</span></div><p class="muted">${note}</p><button type="button" class="btn ${primary ? 'gold' : ''}" data-pro-choose onclick="choosePro('${plan}')">${paid ? 'Abonnement beheren' : plan === 'year' ? 'Kies jaarlijks' : 'Kies maandelijks'}</button></div>`;
   const teamCard = t => {
     const month = proPlanAvailable(`${t.id}_month`),
       year = proPlanAvailable(`${t.id}_year`);
     if (!month && !year) return '';
-    return `<div class="pro-price pro-team${t.seats === 10 ? ' is-featured' : ''}">${t.seats === 10 ? '<span class="pro-badge">Meest gekozen</span>' : ''}<h3>Team ${t.seats}</h3><div class="pro-amount"><strong>${t.month}</strong><span>per maand</span></div><p class="muted">${t.seats} personen · ${t.perPerson} per persoon<br>of ${t.year} per jaar</p>${month ? `<button type="button" class="btn ${t.seats === 10 ? 'gold' : ''}" data-pro-choose onclick="choosePro('${t.id}_month')">Kies maandelijks</button>` : ''}${year ? `<button type="button" class="btn pro-year-link" data-pro-choose onclick="choosePro('${t.id}_year')">Kies jaarlijks</button>` : ''}</div>`;
+    return `<div class="pro-price pro-team${t.seats === 10 ? ' is-featured' : ''}">${t.seats === 10 ? '<span class="pro-badge">Meest gekozen</span>' : ''}<h3>Team ${t.seats}</h3><div class="pro-amount"><strong>${t.month}</strong><span>per maand</span></div><p class="muted">${t.seats} personen · ${t.perPerson} per persoon<br>of ${t.year} per jaar <b class="pro-save">(${yearSaving(t.month, t.year).pct}% goedkoper)</b></p>${month ? `<button type="button" class="btn ${t.seats === 10 ? 'gold' : ''}" data-pro-choose onclick="choosePro('${t.id}_month')">Kies maandelijks</button>` : ''}${year ? `<button type="button" class="btn pro-year-link" data-pro-choose onclick="choosePro('${t.id}_year')">Kies jaarlijks</button>` : ''}</div>`;
   };
   const teamCards = TEAM_PLANS.map(teamCard).join('');
   const current =
@@ -286,14 +303,17 @@ function renderProPage(host) {
       : isPro()
         ? `<div class="pro-current"><b>Je hebt Savour Pro.</b> <span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt ${aiUsagePeriod()}.</span></div>`
         : '';
+  // "Nieuw bij Savour?" alleen voor wie nog geen account heeft (de website); ingelogd staat de eigen stand erboven.
+  const loggedIn = typeof currentUser !== 'undefined' && !!currentUser;
   host.innerHTML =
     current +
-    `<p class="pro-trial-note"><strong>Nieuw bij Savour?</strong> Je probeert Savour Pro ${TRIAL_DAYS} dagen gratis, zonder betaalgegevens: AI-import en keukenteams, tot ${FREE_RECIPE_LIMIT} recepten. <span>Een keukenteam uit je proefperiode blijft bewaard, maar werkt daarna pas weer met Savour Pro.</span></p>
-    <div class="pro-prices">${card('month', PRO_PRICES.month, 'per maand', 'Maandelijks opzegbaar.', false)}${card('year', PRO_PRICES.year, 'per jaar', 'Twee maanden gratis ten opzichte van maandelijks.', true)}</div>
+    `<p class="pro-trial-note"${loggedIn ? ' hidden' : ''}><strong>Nieuw bij Savour?</strong> Je probeert Savour Pro ${TRIAL_DAYS} dagen gratis, zonder betaalgegevens: AI-import en keukenteams, tot ${FREE_RECIPE_LIMIT} recepten. <span>Een keukenteam uit je proefperiode blijft bewaard, maar werkt daarna pas weer met Savour Pro.</span> <span>In de proefweek kan een keukenteam hooguit 10 recepten hebben.</span></p>
+    <div class="pro-prices">${card('month', PRO_PRICES.month, 'per maand', 'Maandelijks opzegbaar.', false)}${card('year', PRO_PRICES.year, 'per jaar', `${yearSaving(PRO_PRICES.month, PRO_PRICES.year).pct}% goedkoper dan maandelijks: je bespaart ${yearSaving(PRO_PRICES.month, PRO_PRICES.year).saved} per jaar.`, true)}</div>
     <p class="pro-pay muted">Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Er wordt geen btw gerekend (kleineondernemersregeling). Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.</p>
     ${
       teamCards
         ? `<h2 id="proBrigade">Savour voor je hele team</h2>
+    <div class="pro-explain"><p><strong>Keukenteam</strong><span>Een gedeeld receptenboek voor je brigade. De eigenaar heeft Savour Pro. Leden kijken gratis mee, printen en rekenen om; wie recepten toevoegt of bewerkt, heeft zelf Pro nodig.</span></p><p><strong>Teamabonnement</strong><span>Savour Pro voor iedereen in je keuken, zodat iedereen recepten kan toevoegen en bewerken. Voor 5, 10 of 25 personen.</span></p></div>
     <p>Met een teamabonnement krijgt iedereen in je keuken Savour Pro. Hoe groter je team, hoe lager de prijs per persoon. Je nodigt je collega's uit op hun e-mailadres en kunt plekken altijd aan iemand anders geven.</p>
     <div class="pro-prices pro-team-prices">${teamCards}</div>
     <p class="pro-pay muted">Groter dan 25 personen of meerdere vestigingen? Neem contact op voor een prijs op maat.</p>`
@@ -311,8 +331,11 @@ function renderProPage(host) {
         <tr><td>Recepten toevoegen en bewerken in een keukenteam</td><td>–</td><td>✓</td></tr>
         <tr><td>Zelf een keukenteam maken en je team uitnodigen</td><td>–</td><td>✓</td></tr>
         <tr><td>AI leest foto's, handgeschreven en gescande recepten</td><td>–</td><td>✓</td></tr>
+        <tr><td>De 14 allergenen bij je eigen recepten</td><td>–</td><td>✓</td></tr>
+        <tr><td>Allergenen zien in een keukenteam van een eigenaar met Pro</td><td>✓</td><td>✓</td></tr>
         <tr><td>Printen met het logo van je restaurant</td><td>–</td><td>✓</td></tr>
-        <tr><td>Alle recepten downloaden naar Word of als back-up</td><td>–</td><td>✓</td></tr>
+        <tr><td>Een back-up van al je recepten downloaden</td><td>✓</td><td>✓</td></tr>
+        <tr><td>Alle recepten downloaden naar Word</td><td>–</td><td>✓</td></tr>
         <tr><td>AI-imports per maand</td><td>–</td><td>150</td></tr>
       </tbody>
     </table>

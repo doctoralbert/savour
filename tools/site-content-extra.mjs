@@ -5,7 +5,7 @@ export const EXTRA_LANGS = {
   de: {
     ui: {
       home: '/de', features: 'Funktionen', audience: 'Für wen', pricing: 'Preise', about: 'Über uns', blog: 'Blog', login: 'Anmelden', start: 'Kostenlos starten',
-      demo: 'Demo ansehen', demoNote: '20 echte Rezepte, kein Konto nötig', menu: 'Menü', close: 'Schließen',
+      demo: 'Demo ansehen', demoNote: '21 echte Rezepte, kein Konto nötig', menu: 'Menü', close: 'Schließen',
       featuresIntro: 'Alles, was Savour in der Küche für dich tut, von der ersten Notiz bis zum Ausdruck an der Wand.',
       audienceIntro: 'Gemacht für die Profiküche, vom Küchenchef bis zum Praktikanten.',
       related: 'Siehe auch',
@@ -39,7 +39,7 @@ export const EXTRA_LANGS = {
       soonTitle: 'Woran wir arbeiten',
       soonLink: 'Was kommt',
       priceTitle: 'Kostenlos starten',
-      price: 'Bis zu 100 Rezepte kostenlos, mit dem Savour-Leser für Word, PDF und Text. Savour Pro kostet 2,99 € pro Monat oder 29 € pro Jahr: unbegrenzt Rezepte, KI für handschriftliche Notizen und Fotos und eigene Küchenteams. Teams ab 1,20 € pro Person.',
+      price: 'Bis zu 100 Rezepte kostenlos, mit dem Savour-Leser für Word, PDF und Text. Savour Pro kostet 2,99 € pro Monat oder 29 € pro Jahr: unbegrenzt Rezepte, KI für handschriftliche Notizen und Fotos, Allergene pro Rezept und eigene Küchenteams. Mit einem Teamabo hat deine ganze Küche Pro, ab 1,20 € pro Person.',
       priceLink: 'Preise ansehen',
       faqTitle: 'Fragen zu Savour',
       faq: [
@@ -57,7 +57,7 @@ export const EXTRA_LANGS = {
     items: {
       digitise: ['Rezepte digitalisieren', 'Word, PDF und Fotos handschriftlicher Rezepte auf einmal in Savour.'],
       organise: ['Rezepte organisieren', 'Ordner, Kategorien und Suche nach Zutat. Deine Beurre blanc in drei Sekunden.'],
-      share: ['Mit dem Team teilen', 'Küchenteams mit Rechten: Du verwaltest, dein Sous-Chef bearbeitet, der Rest liest mit.'],
+      share: ['Mit dem Team teilen', 'Küchenteams mit Rechten: Du verwaltest, wer Pro hat, bearbeitet, der Rest liest kostenlos mit.'],
       scale: ['Rezepte hochrechnen', 'Von 8 Gedecken auf 120, ohne Rechenfehler.'],
       print: ['Rezepte drucken', 'Ein einzelnes Rezept oder ein kompletter Rezeptordner auf einmal, sauber gedruckt für die Küche.'],
       cloud: [
@@ -72,7 +72,7 @@ export const EXTRA_LANGS = {
   es: {
     ui: {
       home: '/es', features: 'Funciones', audience: 'Para quién', pricing: 'Precios', about: 'Sobre nosotros', blog: 'Blog', login: 'Iniciar sesión', start: 'Empieza gratis',
-      demo: 'Ver la demo', demoNote: '20 recetas reales, sin cuenta', menu: 'Menú', close: 'Cerrar',
+      demo: 'Ver la demo', demoNote: '21 recetas reales, sin cuenta', menu: 'Menú', close: 'Cerrar',
       featuresIntro: 'Todo lo que Savour hace por ti en la cocina, desde la primera nota hasta la hoja en la pared.',
       audienceIntro: 'Hecho para la cocina profesional, del jefe de cocina al becario.',
       related: 'Relacionado',
@@ -106,7 +106,7 @@ export const EXTRA_LANGS = {
       soonTitle: 'En qué trabajamos',
       soonLink: 'Lo que viene',
       priceTitle: 'Empieza gratis',
-      price: 'Hasta 100 recetas gratis, con el lector de Savour para Word, PDF y texto. Savour Pro cuesta 2,99 € al mes o 29 € al año: recetas ilimitadas, IA para notas escritas a mano y fotos, y tus propias equipos de cocina. Equipos desde 1,20 € por persona.',
+      price: 'Hasta 100 recetas gratis, con el lector de Savour para Word, PDF y texto. Savour Pro cuesta 2,99 € al mes o 29 € al año: recetas ilimitadas, IA para notas escritas a mano y fotos, alérgenos por receta y tus propios equipos de cocina. Con una suscripción de equipo, toda tu cocina tiene Pro, desde 1,20 € por persona.',
       priceLink: 'Ver precios',
       faqTitle: 'Preguntas sobre Savour',
       faq: [
@@ -124,7 +124,7 @@ export const EXTRA_LANGS = {
     items: {
       digitise: ['Digitalizar recetas', 'Word, PDF y fotos de recetas escritas a mano en Savour de una vez.'],
       organise: ['Organizar recetas', 'Carpetas, categorías y búsqueda por ingrediente. Tu beurre blanc en tres segundos.'],
-      share: ['Compartir con tu equipo', 'Equipos de cocina con permisos: tú gestionas, tu segundo edita, el resto consulta.'],
+      share: ['Compartir con tu equipo', 'Equipos de cocina con permisos: tú gestionas, quien tiene Pro edita y el resto consulta gratis.'],
       scale: ['Escalar recetas', 'De 8 cubiertos a 120, sin errores de cálculo.'],
       print: ['Imprimir recetas', 'Una receta suelta o una carpeta de recetas completa de una vez, bien impresa para la cocina.'],
       cloud: [

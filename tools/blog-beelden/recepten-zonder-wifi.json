@@ -1,0 +1,32 @@
+[
+ {
+  "name": "voor-de-koelcel",
+  "after": "Wat offline niet kan",
+  "type": "flow",
+  "end": true,
+  "title": ["Vóór je de koelcel in gaat", "Before you go into the walk-in", "Bevor du ins Kühlhaus gehst", "Antes de entrar en la cámara", "Avant d’entrer dans la chambre froide"],
+  "sub": ["Eén keer goed klaarzetten, dan werkt het ook zonder verbinding", "Set it up once, then it works without a connection too", "Einmal richtig einrichten, dann geht es auch ohne Verbindung", "Prepáralo bien una vez y funciona también sin conexión", "Prépare-le une fois, et ça marche aussi sans connexion"],
+  "steps": [
+   [["Op het beginscherm", "On the home screen", "Auf dem Startbildschirm", "En la pantalla de inicio", "Sur l’écran d’accueil"], ["Geen app store nodig.", "No app store needed.", "Kein App Store nötig.", "Sin tienda de apps.", "Pas besoin d’app store."]],
+   [["Ingelogd blijven", "Stay logged in", "Angemeldet bleiben", "Mantener sesión", "Rester connecté"], ["Aanvinken bij het inloggen.", "Tick it when you log in.", "Beim Anmelden anhaken.", "Márcalo al entrar.", "Coche-le à la connexion."]],
+   [["Recepten openen", "Open the recipes", "Rezepte öffnen", "Abrir las recetas", "Ouvrir les recettes"], ["De recepten van vandaag, één keer met internet.", "Today’s recipes, once with internet.", "Die Rezepte von heute, einmal mit Internet.", "Las de hoy, una vez con internet.", "Celles du jour, une fois avec internet."]],
+   [["Testen", "Test it", "Testen", "Probarlo", "Tester"], ["In vliegtuigmodus de app opnieuw openen.", "Reopen the app in airplane mode.", "Im Flugmodus die App neu öffnen.", "Abre la app en modo avión.", "Rouvre l’appli en mode avion."]]
+  ],
+  "alt": ["Vier stappen: Savour op het beginscherm, ingelogd blijven, de recepten van vandaag openen en testen in vliegtuigmodus", "Four steps: Savour on the home screen, stay logged in, open today’s recipes and test in airplane mode", "Vier Schritte: Savour auf den Startbildschirm, angemeldet bleiben, die Rezepte von heute öffnen und im Flugmodus testen", "Cuatro pasos: Savour en la pantalla de inicio, mantener sesión, abrir las recetas de hoy y probar en modo avión", "Quatre étapes : Savour sur l’écran d’accueil, rester connecté, ouvrir les recettes du jour et tester en mode avion"],
+  "caption": ["Aanpassen en importeren wachten tot de verbinding terug is, zodat het team één versie houdt.", "Editing and importing wait until the connection is back, so the team keeps one version.", "Bearbeiten und Importieren warten, bis die Verbindung zurück ist, damit das Team eine Version behält.", "Editar e importar esperan a que vuelva la conexión, para que el equipo tenga una sola versión.", "Modifier et importer attendent le retour de la connexion, pour que l’équipe garde une seule version."]
+ },
+ {
+  "name": "installeren",
+  "after": "Installeer Savour als app",
+  "type": "cards",
+  "title": ["Savour als app, zonder app store", "Savour as an app, no app store", "Savour als App, ohne App Store", "Savour como app, sin tienda", "Savour en appli, sans app store"],
+  "sub": ["Open savour.page en zet het op je beginscherm", "Open savour.page and add it to your home screen", "Öffne savour.page und lege es auf den Startbildschirm", "Abre savour.page y añádelo a la pantalla de inicio", "Ouvre savour.page et ajoute-le à l’écran d’accueil"],
+  "items": [
+   {"icon": "phone", "head": ["iPhone", "iPhone", "iPhone", "iPhone", "iPhone"], "lines": [["Delen → Zet op beginscherm", "Share → Add to Home Screen", "Teilen → Zum Home-Bildschirm", "Compartir → Añadir a pantalla de inicio", "Partager → Sur l’écran d’accueil"]]},
+   {"icon": "phone", "head": ["Android", "Android", "Android", "Android", "Android"], "lines": [["Menu → App installeren", "Menu → Install app", "Menü → App installieren", "Menú → Instalar aplicación", "Menu → Installer l’application"]]},
+   {"icon": "print", "head": ["Computer", "Computer", "Computer", "Ordenador", "Ordinateur"], "lines": [["Het icoontje in de adresbalk", "The icon in the address bar", "Das Symbol in der Adressleiste", "El icono de la barra de direcciones", "L’icône dans la barre d’adresse"]], "dark": true}
+  ],
+  "alt": ["Installeren: op de iPhone via Delen, op Android via het menu, op de computer via het icoontje in de adresbalk", "Installing: on iPhone through Share, on Android through the menu, on a computer through the icon in the address bar", "Installieren: am iPhone über Teilen, bei Android über das Menü, am Computer über das Symbol in der Adressleiste", "Instalar: en iPhone con Compartir, en Android desde el menú, en el ordenador con el icono de la barra de direcciones", "Installer : sur iPhone via Partager, sur Android via le menu, sur ordinateur via l’icône de la barre d’adresse"],
+  "caption": ["Offline werken zit in elk Savour-account, gratis en met Pro.", "Working offline is included in every Savour account, free and Pro.", "Offline-Arbeiten ist in jedem Savour-Konto enthalten, kostenlos und mit Pro.", "Trabajar sin conexión viene en toda cuenta de Savour, gratis y con Pro.", "Le travail hors ligne est inclus dans chaque compte Savour, gratuit et Pro."]
+ }
+]

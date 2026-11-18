@@ -82,7 +82,7 @@ export const FR = {
       lead: 'Toute la cuisine travaille sur la même version. Fini les photos de photos dans le groupe WhatsApp.',
       sections: [
         ['Équipes de cuisine', 'Crée un espace pour ta cuisine, ta partie ou la nouvelle carte et invite ton équipe. Ce que tu changes, tout le monde le voit aussitôt.'],
-        ['Des droits par personne', "Tu gères l'espace. Ton sous-chef ou chef de partie peut ajouter et modifier des recettes. Les commis et stagiaires peuvent consulter, mais rien changer."],
+        ['Des droits par personne', "Tu gères l'espace. Ton sous-chef ou chef de partie peut ajouter et modifier des recettes (avec Savour Pro). Les commis et stagiaires peuvent consulter, mais rien changer."],
         ['Les nouveaux à niveau plus vite', 'Un nouveau cuisinier a dès le premier jour toutes les recettes de sa partie sur son téléphone, dans la version que tu as validée.'],
         ['Partager une seule recette', "Tu veux envoyer une recette, par exemple à un collègue d'un autre restaurant ? Partage-la avec un lien."]
       ]
@@ -125,7 +125,7 @@ export const FR = {
         ['Sur tous les appareils', "Sur l'ordinateur, tu importes et tu organises ; en cuisine, tu ouvres la même recette sur ton téléphone ou ta tablette. Savour fonctionne dans le navigateur et s'installe sur ton écran d'accueil sans boutique d'applications : sur iPhone, Android, tablette et ordinateur."],
         ['Aussi hors ligne', "Dans la chambre froide, à la cave ou sur un événement, le wifi lâche souvent. Si tu as ouvert Savour une fois avec internet, ta bibliothèque reste sur l'appareil et tu ouvres tes recettes hors ligne. Tu pourras de nouveau modifier dès que tu seras en ligne."],
         ['Des archives qui restent', "Menus des saisons passées, recettes d'un ancien chef, le menu dégustation d'il y a trois ans : dans Savour, tu ne perds rien. Range-les dans un dossier d'archives et ils restent faciles à retrouver. Si tu arrêtes Pro un jour, toutes tes recettes restent."],
-        ['Sécurisé et à toi', "Seuls toi et les personnes que tu invites dans une équipe de cuisine voient tes recettes ; elles sont séparées par compte. Avec Savour Pro, tu télécharges tout ton livre quand tu veux, en fichiers Word ou en sauvegarde."]
+        ['Sécurisé et à toi', "Seuls toi et les personnes que tu invites dans une équipe de cuisine voient tes recettes ; elles sont séparées par compte. Tu télécharges une sauvegarde de tout ton livre quand tu veux, même sans Pro ; avec Savour Pro, aussi en fichiers Word."]
       ]
     },
     roadmap: {
@@ -209,7 +209,7 @@ export const FR = {
         ],
         [
           "Paprika : pour le cuisinier amateur",
-          "Paprika est une application de recettes pour la maison. Tu enregistres des recettes de sites web avec le navigateur intégré, tu planifies des menus de la semaine, tu fais des listes de courses triées par rayon, tu suis ton garde-manger et tu adaptes les portions, y compris entre système métrique et mesures américaines. Il existe des versions pour iPhone et iPad, Android, Mac et Windows, chacune achetée séparément et une seule fois, sans abonnement. Les recettes se synchronisent entre tes propres appareils. Le partage se fait recette par recette, par exemple par e-mail ou lien ; il n’y a pas d’équipes de cuisine avec des rôles."
+          "Paprika est une application de recettes pour la maison. Tu enregistres des recettes de sites web avec le navigateur intégré, tu planifies des menus de la semaine, tu fais des listes de courses triées par rayon, tu suis ton garde-manger et tu adaptes les portions, y compris entre système métrique et mesures américaines. Il existe des versions pour iPhone et iPad, Android, Mac et Windows. Avec Paprika 4, l’app est gratuite jusqu’à 50 recettes ; la synchronisation entre tes appareils, le partage en famille et le partage de livres de recettes font partie de Premium, avec un abonnement. Il n’y a pas d’équipes de cuisine avec des rôles."
         ],
         [
           "Meez : pour les groupes de restaurants",
@@ -237,7 +237,7 @@ export const FR = {
         ],
         [
           "Comparaison : ce que ça coûte",
-          "Paprika : achat unique par plateforme, sans abonnement. Meez : pas de version gratuite, mais 14 jours d’essai ; Starter à partir de 19 $ par mois (paiement annuel), Pro à partir de 89 $ et Premium à partir de 179 $ par mois, Enterprise sur mesure. Galley : une licence d’entreprise plus un tarif mensuel fixe par établissement et une mise en place unique, sur devis. Savour : gratuit jusqu’à 100 recettes, Savour Pro 2,99 € par mois ou 29 € par an, équipes de cuisine de 5, 10 ou 25 personnes pour 8,99 €, 14,99 € ou 29,99 € par mois. Les nouveaux comptes ont 7 jours de Pro gratuits, sans données de paiement. Si tu arrêtes Pro, toutes tes recettes restent."
+          "Paprika : gratuit jusqu’à 50 recettes. Paprika 4 remplace Paprika 3 ; la synchronisation, le partage et l’import depuis des photos font partie de Premium, en abonnement. Si tu avais Paprika 3, tu reçois gratuitement une version Standard avec recettes illimitées et synchronisation (vérifié le 12 novembre 2026 ; voir aussi [Alternative à Paprika](/fr/alternative-a-paprika)). Meez : pas de version gratuite, mais 14 jours d’essai ; Starter à partir de 19 $ par mois (paiement annuel), Pro à partir de 89 $ et Premium à partir de 179 $ par mois, Enterprise sur mesure. Galley : une licence d’entreprise plus un tarif mensuel fixe par établissement et une mise en place unique, sur devis. Savour : gratuit jusqu’à 100 recettes, Savour Pro 2,99 € par mois ou 29 € par an, équipes de cuisine de 5, 10 ou 25 personnes pour 8,99 €, 14,99 € ou 29,99 € par mois. Les nouveaux comptes ont 7 jours de Pro gratuits, sans données de paiement. Si tu arrêtes Pro, toutes tes recettes restent."
         ],
         [
           "Laquelle te convient ?",
@@ -369,10 +369,10 @@ export const FR = {
       lead: "La photo d'une recette, transférée dans le groupe, reprise en photo depuis un autre écran. Tu connais. Et personne ne sait quelle version est la bonne.",
       sections: [
         ['Partage tout un dossier', "Crée une équipe de cuisine, par exemple « Sauces » ou « Menu d'automne », et invite tes collègues. Tout le monde voit les mêmes recettes et un changement apparaît aussitôt pour tous."],
-        ['Choisis ce que chacun peut faire', "Il y a trois rôles. Le propriétaire gère l'espace. Un sous-chef peut ajouter et changer des recettes. Un cuisinier peut tout voir mais rien changer. Tu décides qui touche aux recettes."],
+        ['Choisis ce que chacun peut faire', "Il y a trois rôles. Le propriétaire gère l'espace. Un sous-chef peut ajouter et changer des recettes, avec Savour Pro. Un cuisinier peut tout voir mais rien changer. Tu décides qui touche aux recettes."],
         ['Envoie une seule recette', "Tu veux partager une recette, par exemple avec un collègue d'un autre restaurant ou un fournisseur ? Partage-la avec un lien. Le destinataire la voit proprement, sans compte."],
         ['Des collègues qui construisent avec toi', "Une équipe de cuisine ne doit pas venir que de toi. Donne le droit de modifier à ton sous-chef et laisse l'équipe ajouter des recettes. Le livre grandit avec la cuisine."],
-        ['Ce que ça coûte', "Être membre d'une équipe de cuisine est gratuit. Créer ta propre équipe de cuisine fait partie de Savour Pro. Avec un abonnement d'équipe, toute ta cuisine a Pro."]
+        ['Ce que ça coûte', "Être membre d'une équipe de cuisine est gratuit : tu consultes, imprimes et convertis. Créer ta propre équipe, et ajouter ou modifier des recettes, fait partie de Savour Pro. Avec un abonnement d'équipe, toute ta cuisine a Pro."]
       ],
       outro: 'Les équipes de cuisine avec rôles se trouvent dans Savour sous « Équipes de cuisine ».'
     },

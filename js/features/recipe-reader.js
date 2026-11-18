@@ -18,7 +18,7 @@ const READER_STEPS_HEADING =
 const READER_YIELD_LABEL =
   /^(?:opbrengst|yield|porties?|personen|couverts|aantal(?: personen| porties| stuks)?|serves|makes|recept (?:is )?voor|hoeveelheid|voor|for|ergibt|für|rendimiento|para|raciones|rendement|pour)\s*[:=-]?\s*(.+)$/i;
 const READER_YIELD_PLAIN =
-  /^\(?\s*(?:voor|for|serves|makes|für|para|pour)?\s*\d+(?:[.,-]\d+)?\s*(?:personen|persoon|pers\.?|porties?|couverts|covers|cover|people|persons|portions?|servings?|stuks|st\.?|pieces|personas|raciones|porciones|comensales|personnes|parts|liter|l|kg|gram|g)\s*\)?\.?$/i;
+  /^\(?\s*(?:voor|for|serves|makes|für|para|pour)?\s*\d+(?:[.,-]\d+)?\s*(?:personen|persoon|pers\.?|porties?|couverts|covers|cover|people|persons|portions?|portionen|servings?|stück|stuks|st\.?|pieces|personas|raciones|porciones|comensales|personnes|parts|liter|l|kg|gram|g)\s*\)?\.?$/i;
 const READER_META_LINE =
   /^(?:bereidingstijd|voorbereidingstijd|kooktijd|baktijd|oventijd|wachttijd|rusttijd|tijd|oven(?:temperatuur)?|temperatuur|moeilijkheid(?:sgraad)?|allergenen|houdbaarheid|bewaren|tip|tips|opmerking(?:en)?|let op|notitie|note)s?\s*[:=-]/i;
 
@@ -122,6 +122,27 @@ function readerSplitRunOn(line) {
   const masked = [...x]
     .map(ch => (ch === '(' ? (depth++, ch) : ch === ')' ? (depth--, ch) : depth > 0 ? '_' : ch))
     .join('');
+  // Ingrediënten met komma's ertussen, zoals ChatGPT ze op één regel zet: "1 bloemkool, 1 ui, 50 g boter, zout".
+  // Alleen bij minstens drie korte stukken waarvan de meeste met een hoeveelheid beginnen; "1 tonkaboon, geraspt"
+  // en "nootmuskaat, zout, peper" blijven zo heel. De komma's zelf verdwijnen, de woorden niet.
+  const commaCuts = [...masked.matchAll(/,\s*/g)];
+  if (commaCuts.length >= 2) {
+    const pieces = [];
+    let from = 0;
+    for (const m of commaCuts) {
+      pieces.push(x.slice(from, m.index).trim());
+      from = m.index + m[0].length;
+    }
+    pieces.push(x.slice(from).trim());
+    const withQty = pieces.filter(p => READER_STARTS_WITH_QTY.test(p)).length;
+    if (
+      pieces.every(p => p && p.length <= 60 && /\p{L}/u.test(p)) &&
+      READER_STARTS_WITH_QTY.test(pieces[0]) &&
+      withQty >= 3 &&
+      withQty * 2 > pieces.length
+    )
+      return pieces;
+  }
   const cuts = [...masked.matchAll(new RegExp(`\\s+(?=${qty}\\s*[\\p{L}(])`, 'giu'))].map(m => m.index);
   const qtyFirst = [0, ...cuts]
     .map((from, i) => x.slice(from, i < cuts.length ? cuts[i] : x.length).trim())
@@ -778,6 +799,9 @@ function splitRecipeText(text) {
     }
     const next = nextFilled(i + 1).line.replace(READER_SOFT_HEADING, '');
     const hasContent = state.ingredients > 0 || state.steps > 0;
+    // Een vet of als kop opgemaakt "Ingrediënten" of "Bereiding" is gewoon een sectiekopje, nooit een receptnaam.
+    if (READER_SOFT_HEADING.test(l) && readerIsHeading(l.replace(READER_SOFT_HEADING, '').replace(/:$/, '')))
+      l = l.replace(READER_SOFT_HEADING, '');
     // Zachte kop ("#b ": vet of Word-kop 2/3): een nieuw recept, of een onderdeel van het huidige
     // ("Deel 1", "Deeg", "Boemboe"). Een onderdeel staat tussen "Ingrediënten" en "Bereiding", of na
     // "Bereiding" zonder ingrediënten erachter.
@@ -888,7 +912,63 @@ function splitRecipeText(text) {
 // 4. alle ingrediënten aan één stuk op één regel: elk op een eigen regel (readerSplitRunOn);
 // 5. opmaaktekens ("**", "*…*", "---") weg.
 // Geeft { ingredients, steps, description, changed } terug; changed = aantal aangepaste regels.
-function tidyRecipeLines(recipe) {
+// ---- Allergeencodes achter ingrediënten (2026-11-15) ----
+// Oostenrijkse recepten (Allergeninformationsverordnung) zetten de allergenen als letter achter het ingrediënt:
+// "1.200 g Eier C", "960 g Butter G", "Mehl (glatt) A", "Rotwein O". Dat zijn geen woorden van het ingrediënt.
+// Alleen als het recept duidelijk deze codes gebruikt (minstens twee regels, elke letter een geldige code)
+// halen we ze weg en zetten we ze in de beschrijving, zodat er niets verloren gaat. "Vitamine C" in een gewoon
+// recept blijft dus staan. Savour bepaalt de allergenen daarna zelf via de producten.
+const ALLERGEN_CODES = {
+  A: ['gluten', 'Gluten'],
+  B: ['schaaldieren', 'Krebstiere'],
+  C: ['ei', 'Ei'],
+  D: ['vis', 'Fisch'],
+  E: ["pinda's", 'Erdnüsse'],
+  F: ['soja', 'Soja'],
+  G: ['melk', 'Milch'],
+  H: ['noten', 'Schalenfrüchte'],
+  L: ['selderij', 'Sellerie'],
+  M: ['mosterd', 'Senf'],
+  N: ['sesam', 'Sesam'],
+  O: ['sulfiet', 'Sulfite'],
+  P: ['lupine', 'Lupinen'],
+  R: ['weekdieren', 'Weichtiere']
+};
+const READER_ALLERGEN_TAIL = /\s+([ABCDEFGHLMNOPR](?:\s*[,/]\s*[ABCDEFGHLMNOPR])*)$/;
+
+function readerAllergenCodes(lines) {
+  const list = Array.isArray(lines) ? lines : [];
+  const strip = l => {
+    const x = String(l ?? '').trim();
+    if (/:$/.test(x)) return null;
+    const m = x.match(READER_ALLERGEN_TAIL);
+    if (!m) return null;
+    const name = x.slice(0, m.index).trim();
+    // Er moet een echt ingrediënt overblijven (geen losse "A").
+    // "Vitamine C" is geen allergeencode.
+    if (/vitamine?$/i.test(name)) return null;
+    return /\p{L}{2}/u.test(name) ? { name, codes: m[1].replace(/[^A-Z]/g, '').split('') } : null;
+  };
+  if (list.filter(strip).length < 2) return { lines: list, codes: [] };
+  const codes = new Set();
+  const out = list.map(l => {
+    const hit = strip(l);
+    if (!hit) return l;
+    hit.codes.forEach(c => codes.add(c));
+    return hit.name;
+  });
+  return { lines: out, codes: [...codes].sort() };
+}
+
+// Tekst voor in de beschrijving, in de taal van het recept (Duits, anders Nederlands).
+function readerAllergenNote(codes, sample = '') {
+  if (!codes.length) return '';
+  const german = /\b(?:und|mit|Zucker|Mehl|Eier|Sahne|Butter|Milch|Salz|backen)\b/.test(sample);
+  const parts = codes.map(c => `${c} ${ALLERGEN_CODES[c][german ? 1 : 0]}`);
+  return `${german ? 'Allergene laut Rezept' : 'Allergenen volgens het recept'}: ${parts.join(', ')}`;
+}
+
+function tidyRecipeLines(recipe, options = {}) {
   const notes = [];
   let changed = 0;
   // Uit ChatGPT-opmaak (2026-11-11): bij ingrediënten staat alleen "# Ingredients", en de ingrediënten zelf
@@ -944,7 +1024,10 @@ function tidyRecipeLines(recipe) {
         changed++;
         continue;
       }
-      const pieces = isIngredients ? readerSplitRunOn(x).map(readerQtyFirst) : [x];
+      // Stapnummers vooraan ("4. Forme den Teig", "(2) Mengen"): Savour nummert de stappen zelf.
+      const pieces = isIngredients
+        ? readerSplitRunOn(x).map(readerQtyFirst)
+        : [x.replace(/^\(?\d{1,2}[.)]\)?\s+(?=\p{L})/u, '')];
       // Alleen spaties anders ("400g          Sahne")? Dan de regel laten zoals hij is: dat is geen opschonen.
       if (pieces.length === 1 && pieces[0] === line.replace(/\s+/g, ' ').trim()) {
         out.push(line);
@@ -955,10 +1038,21 @@ function tidyRecipeLines(recipe) {
     }
     return out;
   };
-  const ingredients = tidy(ingredientsIn, true);
+  const tidied = tidy(ingredientsIn, true);
   const steps = tidy(stepsIn, false);
+  // Allergeencodes achteraan ("Eier C"): alleen bij importeren en als de kok ze niet wil houden
+  // (options.allergenCodes). Bestaande recepten houden ze altijd: zo heeft de kok ze opgeslagen.
+  const coded = options.allergenCodes ? readerAllergenCodes(tidied) : { lines: tidied, codes: [] };
   const before = String(recipe?.description || '').trim();
-  const extra = notes.filter(n => !before.includes(n));
-  const description = [before, ...extra].filter(Boolean).join(' · ');
-  return { ingredients, steps, description, changed };
+  const join = list => [before, ...list.filter(n => !before.includes(n))].filter(Boolean).join(' · ');
+  const descriptionWithCodes = join(notes);
+  if (coded.codes.length) {
+    changed += coded.lines.filter((l, i) => l !== tidied[i]).length;
+    notes.push(readerAllergenNote(coded.codes, [...tidied, ...steps].join(' ')));
+  }
+  const ingredients = coded.lines;
+  const description = join(notes);
+  // Met de letters, om ze terug te zetten als de kok ze toch wil houden (import.js, keepAllergenCodes).
+  const withCodes = coded.codes.length ? { ingredients: tidied, description: descriptionWithCodes } : null;
+  return { ingredients, steps, description, changed, allergenCodes: coded.codes, withCodes };
 }

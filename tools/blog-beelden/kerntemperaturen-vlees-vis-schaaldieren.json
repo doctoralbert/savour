@@ -1,0 +1,275 @@
+[
+ {
+  "name": "garing-rund",
+  "after": "Rund, kalf en lam",
+  "type": "scale",
+  "title": [
+   "Van saignant tot door en door gaar",
+   "From rare to cooked through",
+   "Von saignant bis durchgegart",
+   "De poco hecho a muy hecho",
+   "Du saignant au bien cuit"
+  ],
+  "sub": [
+   "Kerntemperatuur van een heel stuk rund, en wanneer het altijd door moet",
+   "Core temperature of a whole piece of beef, and when it must be cooked through",
+   "Kerntemperatur eines ganzen Stücks Rind, und wann es immer durch muss",
+   "Temperatura interior de una pieza entera de vacuno, y cuándo debe estar bien hecha",
+   "Température à cœur d’une pièce entière de bœuf, et quand elle doit être bien cuite"
+  ],
+  "min": 45,
+  "max": 80,
+  "tick": 5,
+  "lanes": 5,
+  "points": [
+   [
+    50,
+    52,
+    [
+     "Saignant · 50–52 °C",
+     "Rare · 50–52 °C",
+     "Saignant · 50–52 °C",
+     "Poco hecho · 50–52 °C",
+     "Saignant · 50–52 °C"
+    ]
+   ],
+   [
+    54,
+    56,
+    [
+     "Rosé · 54–56 °C",
+     "Medium rare · 54–56 °C",
+     "Rosa · 54–56 °C",
+     "Al punto menos · 54–56 °C",
+     "Rosé · 54–56 °C"
+    ]
+   ],
+   [
+    58,
+    60,
+    [
+     "À point · 58–60 °C",
+     "Medium · 58–60 °C",
+     "Medium · 58–60 °C",
+     "Al punto · 58–60 °C",
+     "À point · 58–60 °C"
+    ]
+   ],
+   [
+    68,
+    80,
+    [
+     "Bien cuit · 68 °C en hoger",
+     "Well done · 68 °C and up",
+     "Durch · ab 68 °C",
+     "Muy hecho · 68 °C o más",
+     "Bien cuit · 68 °C et plus"
+    ]
+   ],
+   [
+    71,
+    71,
+    [
+     "Gehakt, burger · 71 °C, altijd door",
+     "Mince, burger · 71 °C, always through",
+     "Hackfleisch, Burger · 71 °C, immer durch",
+     "Picada, hamburguesa · 71 °C, siempre hecha",
+     "Haché, burger · 71 °C, toujours cuit"
+    ]
+   ]
+  ],
+  "note": [
+   "Richtwaarden voor de garing. Haal grote stukken 2 tot 5 °C eerder uit de oven: tijdens het rusten loopt de kern nog op.",
+   "Guide values for doneness. Take large joints out 2 to 5 °C early: the core keeps rising while resting.",
+   "Richtwerte für die Garstufe. Große Stücke 2 bis 5 °C früher herausnehmen: beim Ruhen steigt die Kerntemperatur weiter.",
+   "Valores orientativos. Saca las piezas grandes 2 a 5 °C antes: el interior sigue subiendo al reposar.",
+   "Valeurs indicatives. Sors les grosses pièces 2 à 5 °C plus tôt : le cœur monte encore au repos."
+  ],
+  "alt": [
+   "Temperatuurschaal voor rund: saignant 50–52 °C, rosé 54–56 °C, à point 58–60 °C, bien cuit vanaf 68 °C, gehakt altijd 71 °C",
+   "Temperature scale for beef: rare 50–52 °C, medium rare 54–56 °C, medium 58–60 °C, well done from 68 °C, mince always 71 °C",
+   "Temperaturskala für Rind: saignant 50–52 °C, rosa 54–56 °C, medium 58–60 °C, durch ab 68 °C, Hackfleisch immer 71 °C",
+   "Escala de temperatura para vacuno: poco hecho 50–52 °C, al punto menos 54–56 °C, al punto 58–60 °C, muy hecho desde 68 °C, carne picada siempre 71 °C",
+   "Échelle de température pour le bœuf : saignant 50–52 °C, rosé 54–56 °C, à point 58–60 °C, bien cuit dès 68 °C, haché toujours 71 °C"
+  ],
+  "caption": [
+   "Bij een heel stuk kies je op smaak; gehakt gaar je altijd door tot 71 °C.",
+   "For a whole piece you choose by taste; mince is always cooked through to 71 °C.",
+   "Beim ganzen Stück entscheidet der Geschmack; Hackfleisch immer durch bis 71 °C.",
+   "En una pieza entera eliges por gusto; la carne picada siempre hasta 71 °C.",
+   "Pour une pièce entière, tu choisis au goût ; le haché se cuit toujours à 71 °C."
+  ]
+ },
+ {
+  "name": "kip-tijd-en-temperatuur",
+  "after": "Gevogelte: kip, kalkoen en parelhoen",
+  "type": "hbars",
+  "title": [
+   "Kip: hoe warmer, hoe korter",
+   "Chicken: the hotter, the shorter",
+   "Huhn: je heißer, desto kürzer",
+   "Pollo: cuanto más calor, menos tiempo",
+   "Poulet : plus c’est chaud, plus c’est court"
+  ],
+  "sub": [
+   "Hoelang magere kip op kerntemperatuur moet blijven",
+   "How long lean chicken must stay at core temperature",
+   "Wie lange mageres Huhn auf Kerntemperatur bleiben muss",
+   "Cuánto tiempo debe mantenerse el pollo magro a esa temperatura",
+   "Combien de temps le poulet maigre doit rester à cœur"
+  ],
+  "labelw": 260,
+  "max": 26,
+  "rows": [
+   [
+    [
+     "60,0 °C",
+     "60.0 °C",
+     "60,0 °C",
+     "60,0 °C",
+     "60,0 °C"
+    ],
+    26,
+    [
+     "26 minuten",
+     "26 minutes",
+     "26 Minuten",
+     "26 minutos",
+     "26 minutes"
+    ]
+   ],
+   [
+    [
+     "62,8 °C",
+     "62.8 °C",
+     "62,8 °C",
+     "62,8 °C",
+     "62,8 °C"
+    ],
+    9,
+    [
+     "9 minuten",
+     "9 minutes",
+     "9 Minuten",
+     "9 minutos",
+     "9 minutes"
+    ]
+   ],
+   [
+    [
+     "65,6 °C",
+     "65.6 °C",
+     "65,6 °C",
+     "65,6 °C",
+     "65,6 °C"
+    ],
+    3,
+    [
+     "3 minuten",
+     "3 minutes",
+     "3 Minuten",
+     "3 minutos",
+     "3 minutes"
+    ]
+   ],
+   [
+    [
+     "68,3 °C",
+     "68.3 °C",
+     "68,3 °C",
+     "68,3 °C",
+     "68,3 °C"
+    ],
+    0.75,
+    [
+     "45 seconden",
+     "45 seconds",
+     "45 Sekunden",
+     "45 segundos",
+     "45 secondes"
+    ]
+   ],
+   [
+    [
+     "71,1 °C",
+     "71.1 °C",
+     "71,1 °C",
+     "71,1 °C",
+     "71,1 °C"
+    ],
+    0.23,
+    [
+     "14 seconden",
+     "14 seconds",
+     "14 Sekunden",
+     "14 segundos",
+     "14 secondes"
+    ]
+   ],
+   [
+    [
+     "73,9 °C",
+     "73.9 °C",
+     "73,9 °C",
+     "73,9 °C",
+     "73,9 °C"
+    ],
+    0,
+    [
+     "direct",
+     "instantly",
+     "sofort",
+     "al instante",
+     "immédiat"
+    ]
+   ]
+  ],
+  "highlight": [
+   0
+  ],
+  "side": [
+   [
+    "63–65 °C",
+    "63–65 °C",
+    "63–65 °C",
+    "63–65 °C",
+    "63–65 °C"
+   ],
+   [
+    "kipfilet: veilig én sappig",
+    "chicken breast: safe and juicy",
+    "Hähnchenbrust: sicher und saftig",
+    "pechuga: segura y jugosa",
+    "filet de poulet : sûr et juteux"
+   ],
+   [
+    "met een paar minuten op temperatuur",
+    "with a few minutes at temperature",
+    "mit ein paar Minuten auf Temperatur",
+    "con unos minutos a esa temperatura",
+    "avec quelques minutes à température"
+   ]
+  ],
+  "note": [
+   "Bron: USDA FSIS, 7-log reductie van Salmonella, kip met 2% vet. Vanaf het moment dat de kern de temperatuur haalt.",
+   "Source: USDA FSIS, 7-log reduction of Salmonella, chicken with 2% fat. From the moment the core reaches temperature.",
+   "Quelle: USDA FSIS, 7-log-Reduktion von Salmonellen, Huhn mit 2 % Fett. Ab dem Moment, in dem der Kern die Temperatur erreicht.",
+   "Fuente: USDA FSIS, reducción 7-log de Salmonella, pollo con 2 % de grasa. Desde que el interior alcanza la temperatura.",
+   "Source : USDA FSIS, réduction 7-log des salmonelles, poulet à 2 % de matière grasse. À partir du moment où le cœur atteint la température."
+  ],
+  "alt": [
+   "Staafdiagram voor magere kip: 60 °C 26 minuten, 62,8 °C 9 minuten, 65,6 °C 3 minuten, 68,3 °C 45 seconden, 71,1 °C 14 seconden, 73,9 °C direct",
+   "Bar chart for lean chicken: 60 °C 26 minutes, 62.8 °C 9 minutes, 65.6 °C 3 minutes, 68.3 °C 45 seconds, 71.1 °C 14 seconds, 73.9 °C instantly",
+   "Balkendiagramm für mageres Huhn: 60 °C 26 Minuten, 62,8 °C 9 Minuten, 65,6 °C 3 Minuten, 68,3 °C 45 Sekunden, 71,1 °C 14 Sekunden, 73,9 °C sofort",
+   "Gráfico para pollo magro: 60 °C 26 minutos, 62,8 °C 9 minutos, 65,6 °C 3 minutos, 68,3 °C 45 segundos, 71,1 °C 14 segundos, 73,9 °C al instante",
+   "Diagramme pour le poulet maigre : 60 °C 26 minutes, 62,8 °C 9 minutes, 65,6 °C 3 minutes, 68,3 °C 45 secondes, 71,1 °C 14 secondes, 73,9 °C immédiat"
+  ],
+  "caption": [
+   "Het resultaat is even veilig; bij een lagere temperatuur blijft de kip sappiger.",
+   "The result is just as safe; at a lower temperature the chicken stays juicier.",
+   "Das Ergebnis ist genauso sicher; bei niedrigerer Temperatur bleibt das Huhn saftiger.",
+   "El resultado es igual de seguro; a menor temperatura el pollo queda más jugoso.",
+   "Le résultat est aussi sûr ; à plus basse température, le poulet reste plus juteux."
+  ]
+ }
+]

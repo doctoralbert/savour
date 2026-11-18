@@ -269,6 +269,50 @@
 .admin-filter select {
   flex: 0 1 180px;
 }
+/* Overzicht: actieve gebruikers en wat ze doen */
+.admin-select {
+  padding: 7px 10px;
+  border: 1px solid #2c3837;
+  border-radius: 10px;
+  background: #0b1213;
+  color: #eee8dc;
+}
+.admin-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.admin-chip {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid #2c3837;
+  border-radius: 999px;
+  color: #c9c2b4;
+  font-size: var(--sv-fs-xs);
+  white-space: nowrap;
+}
+.admin-chip b {
+  color: #e8ca8d;
+  font-weight: 600;
+}
+.admin-active-users td:first-child {
+  min-width: 190px;
+}
+.admin-active-users td:last-child {
+  min-width: 260px;
+}
+body.savour-light .admin-select {
+  background: #fff;
+  color: #1f2523;
+  border-color: #d9d3c6;
+}
+body.savour-light .admin-chip {
+  border-color: #d9d3c6;
+  color: #4a514e;
+}
+body.savour-light .admin-chip b {
+  color: #8a6a24;
+}
 .admin-table td small {
   display: block;
   color: #8b958f;
@@ -311,6 +355,24 @@
 }
 .pro-team-prices {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+/* Keukenteam tegenover teamabonnement: twee begrippen die op elkaar lijken, naast elkaar uitgelegd. */
+.pro-explain {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--sv-space-3);
+  margin: 0 0 var(--sv-space-4);
+}
+.pro-explain p {
+  margin: 0;
+  padding: var(--sv-space-3) var(--sv-space-4);
+  border: 1px solid var(--line, rgba(197, 165, 96, 0.3));
+  border-radius: var(--sv-radius);
+}
+.pro-explain strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--sv-gold);
 }
 .pro-team .pro-year-link {
   margin-top: var(--sv-space-2);
@@ -1021,4 +1083,38 @@
   margin: 6px 0 0;
   padding-left: 18px;
   font-size: 13px;
+}
+
+/* Jaarlijks goedkoper: het percentage bij de teamprijzen. */
+.pro-save {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* Beheer → Savour-lezer: verwerkte voorbeelden met een grote gouden vink (js/features/admin.js). */
+.admin-reader-state {
+  width: 44px;
+  text-align: center;
+}
+.admin-reader-done {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--sv-gold, #e8ca8d);
+  color: var(--sv-on-gold, #17140f);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+}
+.admin-reader-open {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--sv-line-strong, #3a4645);
+  border-radius: 50%;
+}
+.admin-reader-handled td:not(.admin-reader-state) {
+  opacity: 0.7;
 }

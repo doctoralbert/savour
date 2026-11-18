@@ -1,0 +1,1812 @@
+/* MEP-lijsten (js/features/mep.js). Kleuren uit tokens.css, dus licht en donker thema werken vanzelf. */
+
+.mep-body {
+  max-width: 1180px;
+}
+.mep-intro {
+  margin: 0 0 16px;
+  max-width: 720px;
+  color: var(--sv-text-2);
+}
+.mep-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 22px;
+}
+.mep-actions .btn svg,
+.mep-add-section .btn svg,
+.mep-tab svg,
+.mep-head .btn svg,
+.mep-card-bar .btn svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  vertical-align: -3px;
+}
+
+/* Overzicht */
+.mep-group {
+  margin: 0 0 26px;
+}
+.mep-group h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-lg);
+  font-weight: 600;
+  color: var(--sv-text);
+}
+.mep-group h3 svg {
+  width: 18px;
+  height: 18px;
+  color: var(--sv-gold);
+}
+.mep-lists {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--sv-line);
+}
+.mep-list-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 20px;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 56px;
+  padding: 10px 6px;
+  border: 0;
+  border-bottom: 1px solid var(--sv-line);
+  background: transparent;
+  color: var(--sv-text);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.mep-list-row:hover .mep-list-name,
+.mep-list-row:focus-visible .mep-list-name {
+  color: var(--sv-gold);
+}
+.mep-list-name {
+  font-size: 17px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.mep-list-meta {
+  font-size: var(--sv-fs-sm);
+  color: var(--sv-text-3);
+  white-space: nowrap;
+}
+.mep-list-row svg {
+  width: 18px;
+  height: 18px;
+  color: var(--sv-text-3);
+  transform: rotate(-90deg);
+}
+.mep-list-row.is-archived .mep-list-name {
+  color: var(--sv-text-2);
+}
+.mep-archived-toggle {
+  border: 0;
+  background: none;
+  padding: 6px 0;
+  color: var(--sv-text-2);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.mep-archived-toggle::before {
+  content: '▸ ';
+}
+.mep-archived-toggle[aria-expanded='true']::before {
+  content: '▾ ';
+}
+.mep-empty {
+  padding: 22px;
+  border: 1px dashed var(--sv-line-strong);
+  border-radius: var(--sv-radius-lg);
+  color: var(--sv-text-2);
+  max-width: 720px;
+}
+.mep-empty p {
+  margin: 0 0 6px;
+}
+
+/* Kop van een lijst */
+.mep-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 14px;
+}
+.mep-head-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+}
+.mep-team {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.mep-team svg {
+  width: 16px;
+  height: 16px;
+  color: var(--sv-gold);
+}
+.mep-flag {
+  padding: 2px 8px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  font-size: var(--sv-fs-xs);
+  color: var(--sv-text-2);
+}
+.mep-saved {
+  margin-left: auto;
+  font-size: var(--sv-fs-xs);
+  color: var(--sv-text-3);
+}
+.mep-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface-2);
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-md);
+}
+
+/* Kaarten als tabbladen */
+.mep-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  margin: 0 0 14px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--sv-line);
+  scrollbar-width: thin;
+}
+.mep-tab {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--sv-text-2);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.mep-tab:hover {
+  color: var(--sv-text);
+}
+.mep-tab.is-on {
+  color: var(--sv-gold);
+  border-bottom-color: var(--sv-gold);
+}
+.mep-tab-add {
+  color: var(--sv-text-3);
+  font-weight: 500;
+}
+.mep-card-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+}
+.mep-danger,
+.rp-menu button.danger {
+  color: var(--sv-danger) !important;
+}
+
+/* Kopjes en onderdelen */
+.mep-section {
+  margin: 0 0 18px;
+  padding: 12px 14px 10px;
+  border: 1px solid var(--sv-line);
+  border-radius: var(--sv-radius-lg);
+  background: var(--sv-surface);
+}
+.mep-sec-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+}
+.mep-sec-name {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-lg);
+  font-weight: 600;
+  color: var(--sv-gold);
+}
+input.mep-sec-name {
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: var(--sv-radius-sm);
+  background: transparent;
+}
+input.mep-sec-name:hover,
+input.mep-sec-name:focus {
+  border-color: var(--sv-line-strong);
+  background: var(--sv-surface-2);
+  outline: none;
+}
+.mep-sec-tools,
+.mep-item-tools {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.mep-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--sv-radius-sm);
+  background: transparent;
+  color: var(--sv-text-3);
+  font-size: 16px;
+  cursor: pointer;
+  list-style: none;
+}
+.mep-icon::-webkit-details-marker {
+  display: none;
+}
+.mep-icon:hover,
+.mep-icon:focus-visible {
+  background: var(--sv-surface-2);
+  color: var(--sv-text);
+}
+.mep-icon svg {
+  width: 16px;
+  height: 16px;
+}
+.mep-sec-tools .rp-more {
+  position: relative;
+}
+
+.mep-item {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) 92px 84px minmax(0, 1.8fr) minmax(0, 1.3fr) 110px;
+  align-items: center;
+  gap: 6px;
+  min-height: 42px;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--sv-line);
+}
+.mep-section:not(.can-edit) .mep-item {
+  grid-template-columns: minmax(0, 2.2fr) 110px 0 minmax(0, 1.8fr) minmax(0, 1.3fr);
+  padding: 8px 0;
+}
+.mep-item-head {
+  min-height: 0;
+  padding: 4px 0;
+  font-size: var(--sv-fs-xs);
+  color: var(--sv-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.mep-item input {
+  width: 100%;
+  min-width: 0;
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: var(--sv-radius-sm);
+  background: transparent;
+  color: var(--sv-text);
+  font: inherit;
+  font-size: var(--sv-fs-base);
+}
+.mep-item input:hover {
+  border-color: var(--sv-line);
+}
+.mep-item input:focus {
+  border-color: var(--sv-gold);
+  background: var(--sv-surface-2);
+  outline: none;
+}
+.mep-item input::placeholder {
+  color: var(--sv-text-3);
+}
+.mep-item-new {
+  border-bottom: 0;
+  padding-top: 8px;
+}
+.mep-item-new input {
+  border-color: var(--sv-line);
+  background: var(--sv-surface-2);
+}
+.mep-item-new .btn {
+  white-space: nowrap;
+}
+.mep-item-new .btn svg {
+  width: 15px;
+  height: 15px;
+  margin-right: 4px;
+  vertical-align: -3px;
+}
+.mep-item-name {
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+.mep-item-qty {
+  color: var(--sv-text-2);
+  font-variant-numeric: tabular-nums;
+}
+.mep-item-note {
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-md);
+  overflow-wrap: anywhere;
+}
+.mep-recipe {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  font-size: var(--sv-fs-sm);
+}
+.mep-recipe-link,
+.mep-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  min-height: 34px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: var(--sv-radius-sm);
+  background: none;
+  color: var(--sv-gold);
+  font: inherit;
+  font-size: var(--sv-fs-sm);
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mep-recipe-link svg,
+.mep-link-btn svg {
+  flex: none;
+  width: 15px;
+  height: 15px;
+}
+.mep-link-btn {
+  color: var(--sv-text-3);
+}
+.mep-recipe-link:hover,
+.mep-link-btn:hover {
+  background: var(--sv-surface-2);
+  color: var(--sv-gold);
+}
+.mep-item-tools {
+  justify-content: flex-end;
+}
+.mep-none {
+  margin: 6px 0;
+}
+.mep-add-section {
+  display: flex;
+  gap: 8px;
+  margin: 6px 0 24px;
+}
+.mep-add-section input {
+  flex: 1;
+  min-width: 0;
+  height: var(--sv-control-h);
+  padding: 0 12px;
+  border: 1px dashed var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  background: transparent;
+  color: var(--sv-text);
+  font: inherit;
+}
+.mep-add-section input:focus {
+  border-style: solid;
+  border-color: var(--sv-gold);
+  outline: none;
+}
+
+/* Tablet */
+@media (max-width: 1020px) {
+  .mep-item {
+    grid-template-columns: minmax(0, 2fr) 80px 72px minmax(0, 1.4fr) minmax(0, 1fr) 104px;
+  }
+}
+
+/* Telefoon: elk onderdeel als een kaartje onder elkaar. */
+@media (max-width: 760px) {
+  .mep-section {
+    padding: 10px 10px 6px;
+  }
+  .mep-item-head {
+    display: none;
+  }
+  .mep-item,
+  .mep-section:not(.can-edit) .mep-item {
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 6px;
+    padding: 8px 0;
+  }
+  .mep-item > :first-child {
+    grid-column: 1 / -1;
+  }
+  .mep-item input:nth-child(4) {
+    grid-column: 1 / -1;
+  }
+  .mep-section:not(.can-edit) .mep-item > span:nth-child(3) {
+    display: none;
+  }
+  .mep-item-note {
+    grid-column: 1 / -1;
+  }
+  .mep-item .mep-recipe,
+  .mep-item .mep-link-btn {
+    grid-column: 1;
+  }
+  .mep-item-tools {
+    grid-column: 2;
+  }
+  .mep-item-new .btn {
+    grid-column: 1 / -1;
+    justify-content: center;
+  }
+  .mep-add-section {
+    flex-direction: column;
+  }
+  .mep-saved {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* Lege velden in een bestaande regel: rustig grijs, alleen zichtbaar als hint. */
+.mep-item:not(.mep-item-new) input::placeholder {
+  color: var(--sv-text-3);
+  opacity: 0.55;
+}
+
+/* Overzicht of Bewerken */
+.mep-modes {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+}
+.mep-modes button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sv-text-2);
+  font: inherit;
+  font-size: var(--sv-fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+.mep-modes button svg {
+  width: 14px;
+  height: 14px;
+}
+.mep-modes button.is-on {
+  background: var(--sv-gold);
+  color: var(--sv-on-gold);
+}
+
+/* Het A4-blad: altijd wit papier met zwarte letters, zoals het uit de printer komt. */
+.mep-sheet-wrap {
+  margin: 4px 0 28px;
+}
+.mep-sheet {
+  --fs: 13px;
+  box-sizing: border-box;
+  width: min(100%, 820px);
+  aspect-ratio: 210 / 297;
+  margin: 0 auto;
+  padding: 5.5% 5%;
+  background: #fff;
+  color: #111;
+  border-radius: 4px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.25),
+    0 12px 32px rgba(0, 0, 0, 0.28);
+  font-family: var(--sv-font);
+  font-size: var(--fs);
+  line-height: 1.32;
+}
+body.savour-light .mep-sheet {
+  border: 1px solid var(--sv-line);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+.mep-sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 1.1em;
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid #111;
+}
+.mep-sheet-head h2 {
+  margin: 0;
+  font-family: var(--sv-font-display);
+  font-size: 2em;
+  font-weight: 700;
+  color: #111;
+}
+.mep-sheet-date {
+  font-size: 0.95em;
+  color: #444;
+  white-space: nowrap;
+}
+.mep-sheet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 1.6em;
+  align-items: start;
+}
+.mep-sheet-card h3 {
+  margin: 0 0 0.6em;
+  padding: 0.15em 0.5em;
+  background: #111;
+  color: #fff;
+  font-size: 0.95em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.mep-sheet-flow {
+  column-count: var(--cols, 1);
+  column-gap: 1.6em;
+}
+.mep-sheet-sec {
+  break-inside: avoid;
+  margin: 0 0 0.9em;
+}
+.mep-sheet-sec h4 {
+  overflow-wrap: anywhere;
+  margin: 0 0 0.25em;
+  padding-bottom: 0.15em;
+  border-bottom: 1px solid #999;
+  font-size: 1.05em;
+  font-weight: 700;
+  color: #111;
+}
+.mep-sheet-sec ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mep-sheet-sec li {
+  display: grid;
+  grid-template-columns: 0.95em minmax(0, 1fr);
+  gap: 0.45em;
+  padding: 0.12em 0;
+  overflow-wrap: anywhere;
+}
+.mep-sheet-sec small {
+  font-size: 0.86em;
+  color: #555;
+}
+.mep-box {
+  width: 0.85em;
+  height: 0.85em;
+  margin-top: 0.2em;
+  border: 1.2px solid #333;
+  border-radius: 2px;
+}
+.mep-sheet-empty {
+  grid-column: 1 / -1;
+  color: #666;
+}
+.mep-sheet-fit {
+  max-width: 820px;
+  margin: 10px auto 0;
+  font-size: var(--sv-fs-sm);
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .mep-head .mep-modes {
+    order: 3;
+    width: 100%;
+  }
+  .mep-modes button {
+    flex: 1;
+    justify-content: center;
+  }
+  /* Op de telefoon geen klein A4'tje, maar groot en onder elkaar. */
+  .mep-sheet:not(.is-print) {
+    --fs: 15px !important;
+    aspect-ratio: auto;
+    padding: 18px 16px;
+  }
+  .mep-sheet:not(.is-print) .mep-sheet-grid {
+    display: block;
+  }
+  .mep-sheet:not(.is-print) .mep-sheet-card {
+    margin-bottom: 18px;
+  }
+  .mep-sheet:not(.is-print) .mep-sheet-flow {
+    column-count: 1;
+  }
+}
+
+/* ---- Vandaag ---- */
+.mep-today {
+  max-width: 900px;
+}
+.mep-dayhead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 14px;
+}
+.mep-daynav {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sv-text);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+.mep-daynav:hover {
+  border-color: var(--sv-gold);
+  color: var(--sv-gold);
+}
+.mep-daytitle {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.mep-daytitle b {
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-xl);
+  font-weight: 600;
+  line-height: 1.1;
+}
+.mep-daytitle span {
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-sm);
+}
+.mep-live {
+  margin-left: auto;
+  font-size: var(--sv-fs-xs);
+  color: var(--sv-text-3);
+}
+.mep-live.is-live::before,
+.mep-live.is-off::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: #6fbf8a;
+  vertical-align: 0;
+}
+.mep-live.is-off::before {
+  background: var(--sv-danger);
+}
+.mep-covers {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 14px;
+}
+.mep-cover {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--sv-line);
+  border-radius: var(--sv-radius-lg);
+  background: var(--sv-surface);
+}
+.mep-cover > span {
+  font-weight: 600;
+}
+.mep-cover input {
+  width: 84px;
+  height: 44px;
+  padding: 0 10px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface-2);
+  color: var(--sv-text);
+  font: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.mep-cover input:focus {
+  border-color: var(--sv-gold);
+  outline: none;
+}
+.mep-cover small {
+  color: var(--sv-text-3);
+}
+.mep-progress {
+  margin: 0 0 10px;
+}
+.mep-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--sv-surface-2);
+  overflow: hidden;
+}
+.mep-bar span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--sv-gold);
+  transition: width 0.25s ease;
+}
+.mep-progress p {
+  margin: 6px 0 0;
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-md);
+}
+.mep-progress b {
+  color: var(--sv-text);
+}
+.mep-today-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+}
+.mep-day-card {
+  margin: 0 0 22px;
+}
+.mep-day-card h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 8px;
+  font-size: var(--sv-fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sv-gold);
+}
+.mep-day-card h3 small {
+  color: var(--sv-text-3);
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 500;
+}
+.mep-day-sec {
+  margin: 0 0 14px;
+}
+.mep-day-sec h4 {
+  margin: 0 0 6px;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-lg);
+  font-weight: 600;
+  color: var(--sv-text);
+}
+.mep-row {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  margin: 0 0 6px;
+  border: 1px solid var(--sv-line);
+  border-radius: var(--sv-radius-lg);
+  background: var(--sv-surface);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.mep-row-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  min-height: 60px;
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--sv-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.mep-row-main:disabled {
+  cursor: default;
+}
+.mep-check {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--sv-line-strong);
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1;
+}
+.mep-row-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.mep-row-name {
+  font-size: 17px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.mep-row-note,
+.mep-row-who {
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-sm);
+  overflow-wrap: anywhere;
+}
+.mep-row-who b {
+  color: var(--sv-text-2);
+}
+.mep-row-amount {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+.mep-row-amount b {
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+.mep-row-amount small {
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-xs);
+  white-space: nowrap;
+}
+.mep-row-recipe {
+  align-self: center;
+}
+.mep-stock {
+  flex: none;
+  align-self: center;
+  min-height: 40px;
+  margin-right: 8px;
+  padding: 0 12px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sv-text-3);
+  font: inherit;
+  font-size: var(--sv-fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+.mep-stock:hover {
+  color: var(--sv-text);
+}
+.mep-stock.is-on {
+  border-color: var(--sv-text-2);
+  background: var(--sv-surface-2);
+  color: var(--sv-text);
+}
+/* Bezig: goud omlijnd. Klaar: goud gevuld met vinkje, tekst rustiger. Voorraad: grijs met V. */
+.mep-row.st-bezig {
+  border-color: var(--sv-gold-strong);
+}
+.mep-row.st-bezig .mep-check {
+  border-color: var(--sv-gold);
+  color: var(--sv-gold);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+.mep-row.st-klaar {
+  background: var(--sv-surface-2);
+}
+.mep-row.st-klaar .mep-check {
+  border-color: var(--sv-gold);
+  background: var(--sv-gold);
+  color: var(--sv-on-gold);
+}
+.mep-row.st-klaar .mep-row-name,
+.mep-row.st-voorraad .mep-row-name {
+  color: var(--sv-text-2);
+}
+.mep-row.st-klaar .mep-row-amount b,
+.mep-row.st-voorraad .mep-row-amount b {
+  color: var(--sv-text-3);
+}
+.mep-row.st-voorraad {
+  background: var(--sv-surface-2);
+  border-style: dashed;
+}
+.mep-row.st-voorraad .mep-check {
+  border-color: var(--sv-text-3);
+  color: var(--sv-text-2);
+  font-size: 14px;
+}
+.mep-row.is-flash {
+  animation: mep-flash 1.6s ease-out;
+}
+@keyframes mep-flash {
+  0% {
+    box-shadow: 0 0 0 3px var(--sv-gold);
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+.mep-alldone {
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .mep-covers {
+    flex-direction: column;
+  }
+  .mep-cover {
+    justify-content: space-between;
+  }
+  .mep-cover > span {
+    flex: 1;
+  }
+  .mep-row-main {
+    gap: 10px;
+    padding: 10px;
+  }
+  .mep-row-amount b {
+    font-size: 16px;
+  }
+  .mep-stock {
+    margin-right: 6px;
+    padding: 0 10px;
+  }
+  .mep-live {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mep-row.is-flash {
+    animation: none;
+  }
+}
+
+/* Logo en restaurantnaam bovenaan het blad (zelfde logo als bij recepten printen, js/features/print.js). */
+.mep-sheet-logo {
+  flex: none;
+  max-width: 7em;
+  max-height: 3.2em;
+  object-fit: contain;
+}
+.mep-sheet-logo.is-bw {
+  filter: grayscale(1);
+}
+.mep-sheet-title {
+  flex: 1;
+  min-width: 0;
+}
+.mep-sheet-title span {
+  display: block;
+  font-size: 0.9em;
+  color: #555;
+}
+.mep-sheet-card h3 {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6em;
+}
+.mep-sheet-card h3 span + span {
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.mep-box {
+  display: grid;
+  place-items: center;
+  font-size: 0.62em;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* ---- Printen (printMepList) ---- */
+/* Het printblad wordt buiten beeld opgebouwd en gemeten; op papier is het precies een A4. */
+.mep-print {
+  position: fixed;
+  top: 0;
+  left: -10000px;
+  pointer-events: none;
+}
+.mep-sheet.is-print {
+  width: 210mm;
+  padding: 12mm 11mm;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+@media print {
+  body.mep-printing > *:not(#mepPrint) {
+    display: none !important;
+  }
+  body.mep-printing {
+    background: #fff !important;
+  }
+  .mep-print {
+    position: static;
+    left: auto;
+  }
+  .mep-sheet.is-print {
+    height: 297mm;
+    overflow: hidden;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  /* Langer dan één blad: doorlopen op het volgende, zonder een kopje los van zijn onderdelen. */
+  .mep-print.is-long .mep-sheet.is-print {
+    height: auto;
+    aspect-ratio: auto;
+    overflow: visible;
+  }
+  .mep-sheet-sec {
+    break-inside: avoid;
+  }
+}
+
+/* ---- Importeren (js/features/mep-import.js) ---- */
+.mep-import,
+.mep-import-review {
+  max-width: 980px;
+}
+.mep-import-choices {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 0 0 20px;
+}
+.mep-import-file {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.mep-import-file svg {
+  width: 16px;
+  height: 16px;
+}
+.mep-import-file input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.mep-import-paste {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0 0 12px;
+}
+.mep-import-paste span,
+.mep-import-field span {
+  font-size: var(--sv-fs-sm);
+  font-weight: 600;
+  color: var(--sv-text-2);
+}
+.mep-import-paste textarea {
+  width: 100%;
+  min-height: 200px;
+  padding: 12px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface);
+  color: var(--sv-text);
+  font: inherit;
+  resize: vertical;
+}
+.mep-import-top {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 10px;
+}
+.mep-import-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 220px;
+}
+.mep-import-field input,
+.mep-import-field select {
+  height: var(--sv-control-h);
+  padding: 0 12px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface);
+  color: var(--sv-text);
+  font: inherit;
+}
+.mep-import-sum {
+  margin: 4px 0 14px;
+  color: var(--sv-text-2);
+}
+.mep-doubt-count {
+  color: var(--sv-gold);
+  font-weight: 600;
+}
+.mep-import-rows {
+  border-top: 1px solid var(--sv-line);
+}
+.mep-imp-row {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--sv-line);
+}
+.mep-imp-type,
+.mep-imp-fields input {
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid var(--sv-line);
+  border-radius: var(--sv-radius-sm);
+  background: var(--sv-surface);
+  color: var(--sv-text);
+  font: inherit;
+  font-size: var(--sv-fs-md);
+}
+.mep-imp-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) 96px 80px minmax(0, 1.4fr);
+  gap: 6px;
+  min-width: 0;
+}
+.mep-imp-fields input {
+  width: 100%;
+  min-width: 0;
+}
+.mep-imp-fields small {
+  grid-column: 1 / -1;
+  font-size: var(--sv-fs-xs);
+  color: var(--sv-text-3);
+}
+.mep-imp-row.is-card .mep-imp-fields,
+.mep-imp-row.is-section .mep-imp-fields,
+.mep-imp-row.is-skip .mep-imp-fields {
+  grid-template-columns: minmax(0, 1fr);
+}
+.mep-imp-row.is-card {
+  margin-top: 14px;
+  padding: 8px;
+  border: 0;
+  border-radius: var(--sv-radius);
+  background: var(--sv-surface-2);
+}
+.mep-imp-row.is-card .mep-imp-name {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--sv-gold);
+}
+.mep-imp-row.is-section {
+  padding-top: 12px;
+}
+.mep-imp-row.is-section .mep-imp-name {
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-lg);
+  font-weight: 600;
+}
+.mep-imp-row.is-skip {
+  opacity: 0.45;
+}
+.mep-imp-row.is-skip .mep-imp-name {
+  text-decoration: line-through;
+}
+.mep-imp-row.has-doubt {
+  background: color-mix(in srgb, var(--sv-gold) 10%, transparent);
+}
+.mep-imp-row.has-doubt .mep-imp-doubt {
+  color: var(--sv-gold);
+  font-weight: 600;
+}
+.mep-import-save {
+  position: sticky;
+  bottom: 0;
+  margin: 16px 0 24px;
+  padding: 12px 0;
+  background: var(--sv-bg);
+}
+@media (max-width: 760px) {
+  .mep-imp-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+  .mep-imp-type {
+    width: 100%;
+  }
+  .mep-imp-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+  .mep-imp-fields .mep-imp-name,
+  .mep-imp-fields .mep-imp-note {
+    grid-column: 1 / -1;
+  }
+  .mep-import-save {
+    bottom: 64px;
+  }
+}
+
+/* ---- Lijst: de MEP-lijst in de huisstijl (renderMepPage) ---- */
+.mep-page {
+  margin: 4px 0 32px;
+  padding: var(--sv-space-6) var(--sv-space-6) var(--sv-space-5);
+  border: 1px solid var(--sv-line);
+  border-radius: var(--sv-radius-xl);
+  background: var(--sv-surface);
+}
+.mep-page-head {
+  margin: 0 0 var(--sv-space-5);
+  padding-bottom: var(--sv-space-4);
+  border-bottom: 1px solid var(--sv-line);
+}
+.mep-page-kicker {
+  margin: 0 0 6px;
+  font-size: var(--sv-fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sv-gold);
+}
+.mep-page-title {
+  margin: 0 0 8px;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-3xl);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--sv-text);
+  overflow-wrap: anywhere;
+}
+.mep-page-meta {
+  margin: 0 0 14px;
+  color: var(--sv-text-2);
+}
+.mep-page-meta b {
+  color: var(--sv-text);
+}
+.mep-page-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.mep-page-actions .btn svg {
+  width: 17px;
+  height: 17px;
+  margin-right: 6px;
+  vertical-align: -3px;
+}
+.mep-page-card + .mep-page-card {
+  margin-top: var(--sv-space-6);
+}
+.mep-page-cardname {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 var(--sv-space-3);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--sv-gold);
+  font-size: var(--sv-fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sv-gold);
+}
+.mep-page-cardname small {
+  color: var(--sv-text-3);
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 500;
+}
+.mep-page-cols {
+  columns: 3 250px;
+  column-gap: var(--sv-space-6);
+}
+.mep-page-sec {
+  break-inside: avoid;
+  margin: 0 0 var(--sv-space-5);
+}
+.mep-page-sec h3 {
+  margin: 0 0 4px;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-lg);
+  font-weight: 600;
+  color: var(--sv-text);
+}
+.mep-page-sec ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mep-page-sec li {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  border-bottom: 1px solid var(--sv-line);
+}
+.mep-page-sec label {
+  flex: 1;
+  display: flex;
+  gap: var(--sv-space-3);
+  align-items: flex-start;
+  min-width: 0;
+  padding: 9px 0;
+  cursor: pointer;
+  font-size: var(--sv-fs-base);
+  line-height: 1.45;
+}
+/* Hokje zoals bij de ingrediënten van een recept. */
+.mep-page-sec input {
+  appearance: none;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  margin: 1px 0 0;
+  border: 1.5px solid var(--sv-line-strong);
+  border-radius: var(--sv-radius-sm);
+  background: transparent;
+  cursor: pointer;
+}
+.mep-page-sec input:checked {
+  background: var(--sv-gold);
+  border-color: var(--sv-gold);
+  box-shadow: inset 0 0 0 3px var(--sv-surface);
+}
+.mep-page-sec input:disabled {
+  cursor: default;
+}
+.mep-page-sec li.st-voorraad input {
+  background: var(--sv-text-3);
+  border-color: var(--sv-text-3);
+}
+.mep-page-line {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.mep-page-name {
+  color: var(--sv-text);
+}
+.mep-page-amount {
+  margin-left: 4px;
+  font-weight: 700;
+  color: var(--sv-gold);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.mep-page-line small {
+  display: block;
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-sm);
+}
+.mep-page-tag {
+  display: block;
+  font-style: normal;
+  font-size: var(--sv-fs-xs);
+  color: var(--sv-text-3);
+}
+.mep-page-tag.is-busy {
+  color: var(--sv-gold);
+  font-weight: 600;
+}
+.mep-page-sec li.st-klaar .mep-page-line,
+.mep-page-sec li.st-voorraad .mep-page-line {
+  opacity: 0.5;
+}
+.mep-page-sec li.st-klaar .mep-page-name {
+  text-decoration: line-through;
+  text-decoration-color: var(--sv-text-3);
+}
+.mep-page-sec li.is-flash {
+  animation: mep-flash 1.6s ease-out;
+}
+.mep-page-recipe {
+  margin-top: 4px;
+}
+
+/* Kookmodus (body.cook-mode, js/features/recipe.js): alleen de lijst, groot. */
+body.cook-mode #mep .content {
+  padding: var(--sv-space-6) var(--sv-space-5) 120px !important;
+}
+body.cook-mode #mep :is(.section-head, .mep-head, .mep-note, .mep-page-actions .btn) {
+  display: none !important;
+}
+body.cook-mode .mep-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+body.cook-mode .mep-page-title {
+  font-size: var(--sv-fs-4xl);
+}
+body.cook-mode .mep-page-meta {
+  font-size: 18px;
+}
+body.cook-mode .mep-page-cols {
+  columns: 3 320px;
+}
+body.cook-mode .mep-page-sec h3 {
+  font-size: 26px;
+}
+body.cook-mode .mep-page-sec label {
+  padding: 13px 0;
+  font-size: 21px;
+}
+body.cook-mode .mep-page-sec input {
+  width: 30px;
+  height: 30px;
+  border-width: 2px;
+}
+body.cook-mode .mep-page-line small,
+body.cook-mode .mep-page-tag {
+  font-size: 15px;
+}
+
+@media (max-width: 760px) {
+  .mep-page {
+    padding: var(--sv-space-4) var(--sv-space-4) var(--sv-space-3);
+    border-radius: var(--sv-radius-lg);
+  }
+  .mep-page-title {
+    font-size: var(--sv-fs-2xl);
+  }
+  .mep-page-cols {
+    columns: 1;
+  }
+  .mep-page-sec label {
+    padding: 11px 0;
+    font-size: 17px;
+  }
+  .mep-page-sec input {
+    width: 26px;
+    height: 26px;
+  }
+  body.cook-mode #mep .content {
+    padding: var(--sv-space-4) var(--sv-space-4) 100px !important;
+  }
+  body.cook-mode .mep-page-title {
+    font-size: var(--sv-fs-2xl);
+  }
+  body.cook-mode .mep-page-sec label {
+    font-size: 19px;
+  }
+}
+
+/* Lijst: per kaart één kolom, van boven naar beneden in de volgorde van het menu; kaarten naast elkaar. */
+.mep-page-body {
+  display: grid;
+  grid-template-columns: repeat(var(--cards, 1), minmax(0, 1fr));
+  gap: var(--sv-space-6);
+  align-items: start;
+}
+.mep-page-body.is-single {
+  max-width: 760px;
+}
+.mep-page-card + .mep-page-card {
+  margin-top: 0;
+}
+.mep-page-cols,
+body.cook-mode .mep-page-cols {
+  columns: auto;
+}
+body.cook-mode .mep-page-body.is-single {
+  max-width: 900px;
+}
+@media (max-width: 760px) {
+  .mep-page-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mep-page-card + .mep-page-card {
+    margin-top: var(--sv-space-4);
+  }
+}
+
+/* ---- Fotoband: overzicht en een geopende lijst (zoals het keukenteam-scherm) ---- */
+#mep {
+  --view-photo: url('/assets/keuken/vuur-grill.jpg');
+}
+/* Een lijst heeft een eigen fotoband met naam en knoppen; de vaste kop van het scherm dan niet. */
+#mep.mep-has-band > .content > .section-head {
+  display: none !important;
+}
+#mep .recipe-page-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+#mep .recipe-page-actions .btn svg {
+  width: 15px;
+  height: 15px;
+  margin-right: 6px;
+  vertical-align: -3px;
+}
+.mep-back-link {
+  display: inline-flex;
+  margin: 0 0 10px;
+  border: 0;
+  background: none;
+  color: var(--sv-text-2);
+  font: inherit;
+  cursor: pointer;
+}
+.mep-back-link:hover {
+  color: var(--sv-gold);
+}
+.mep-band {
+  align-items: flex-end;
+  gap: 16px;
+  margin: 0 0 18px;
+}
+.mep-band-text {
+  min-width: 0;
+  flex: 1 1 320px;
+}
+.mep-band-text .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mep-band-text h1 {
+  margin: 4px 0 6px;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-3xl);
+  font-weight: 600;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+.mep-band-sub {
+  margin: 0;
+}
+.mep-band-sub b {
+  font-weight: 700;
+}
+.mep-band-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.mep-band-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mep-band .mep-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+}
+.mep-band .mep-tool svg {
+  width: 17px;
+  height: 17px;
+}
+.mep-band .mep-more summary {
+  min-height: 44px;
+  min-width: 44px;
+}
+.mep-cover-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.mep-cover-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 4px 12px 4px 14px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  background: var(--sv-surface);
+  color: var(--sv-text);
+  font-size: var(--sv-fs-sm);
+  font-weight: 600;
+}
+.mep-cover-chip input {
+  width: 64px;
+  height: 34px;
+  padding: 0 6px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  background: var(--sv-surface-2);
+  color: var(--sv-text);
+  font: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.mep-cover-chip input:focus {
+  border-color: var(--sv-gold);
+  outline: none;
+}
+.mep-cover-chip small {
+  color: var(--sv-text-3);
+  font-weight: 500;
+}
+@media (min-width: 761px) {
+  /* Op de foto: donkere, half doorzichtige knoppen zoals op het keukenteam-scherm. */
+  #appShell .mep-band.photo-band {
+    min-height: 168px;
+  }
+  #appShell .mep-band.photo-band .mep-cover-chip,
+  #appShell .mep-band.photo-band .mep-modes {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(11, 18, 19, 0.72);
+    color: #f6f2ea;
+    backdrop-filter: blur(4px);
+  }
+  #appShell .mep-band.photo-band .mep-cover-chip small {
+    color: rgba(238, 232, 220, 0.75);
+  }
+  #appShell .mep-band.photo-band .mep-cover-chip input {
+    border-color: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+  }
+  #appShell .mep-band.photo-band .mep-modes button:not(.is-on) {
+    color: rgba(238, 232, 220, 0.85);
+  }
+  #appShell .mep-band.photo-band .mep-band-sub {
+    max-width: none !important;
+  }
+}
+.mep-page-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 18px;
+}
+.mep-page-bar .mep-live {
+  margin-left: 0;
+}
+/* Keukenteam-scherm: blok MEP-lijsten. */
+.kt-mep:empty {
+  display: none;
+}
+.kt-mep .kt-mep-list svg {
+  flex: none;
+  color: var(--sv-gold);
+}
+/* Kookmodus: alleen de naam en de lijst. */
+body.cook-mode #mep :is(.mep-back-link, .mep-band-actions, .mep-note) {
+  display: none !important;
+}
+body.cook-mode #mep .mep-band {
+  min-height: 0;
+}
+@media (max-width: 760px) {
+  .mep-band {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mep-band-text h1 {
+    font-size: var(--sv-fs-2xl);
+  }
+  .mep-band-actions {
+    justify-content: flex-start;
+  }
+  .mep-band-actions .mep-modes {
+    width: 100%;
+  }
+  .mep-cover-chips {
+    width: 100%;
+  }
+  .mep-cover-chip {
+    flex: 1;
+    justify-content: space-between;
+  }
+}
+
+/* Couverts klein in de kop van elke kaart (renderMepPageBody). */
+.mep-page-cardname {
+  align-items: center;
+  flex-wrap: wrap;
+}
+.mep-cover-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.mep-cover-mini input {
+  width: 58px;
+  height: 30px;
+  padding: 0 4px;
+  border: 1px solid var(--sv-line-strong);
+  border-radius: 999px;
+  background: var(--sv-surface-2);
+  color: var(--sv-text);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.mep-cover-mini input:focus {
+  border-color: var(--sv-gold);
+  outline: none;
+}
+.mep-cover-mini small {
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-xs);
+  font-weight: 500;
+}
+body.cook-mode .mep-cover-mini input {
+  width: 70px;
+  height: 38px;
+  font-size: 18px;
+}
+
+/* Printblad: kolommen naar staand (3) of liggend (4). */
+.mep-sheet-grid {
+  grid-template-columns: repeat(var(--grid, 3), minmax(0, 1fr));
+}
+.mep-sheet.is-landscape {
+  aspect-ratio: 297 / 210;
+}
+.mep-sheet.is-print.is-landscape {
+  width: 297mm;
+  padding: 10mm 11mm;
+}
+@media print {
+  .mep-sheet.is-print.is-landscape {
+    height: 210mm;
+  }
+}

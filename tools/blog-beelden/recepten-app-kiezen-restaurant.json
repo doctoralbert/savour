@@ -1,0 +1,33 @@
+[
+ {
+  "name": "zeven-vragen",
+  "after": "1. Krijg je je bestaande recepten erin?",
+  "type": "cards",
+  "title": ["Zeven vragen voor een recepten-app", "Seven questions for a recipe app", "Sieben Fragen an eine Rezept-App", "Siete preguntas para una app de recetas", "Sept questions pour une app de recettes"],
+  "sub": ["Waar je op let in een professionele keuken", "What to look for in a professional kitchen", "Worauf du in einer Profiküche achtest", "En qué fijarte en una cocina profesional", "Ce qui compte dans une cuisine professionnelle"],
+  "items": [
+   {"head": ["Erin", "Getting in", "Hinein", "Entrar", "Importer"], "lines": [["Word, PDF en foto’s in één keer", "Word, PDF and photos at once", "Word, PDF und Fotos auf einmal", "Word, PDF y fotos de una vez", "Word, PDF et photos d’un coup"], ["Twijfel zichtbaar, niets verzonnen", "Doubt visible, nothing made up", "Zweifel sichtbar, nichts erfunden", "Dudas visibles, nada inventado", "Doute visible, rien d’inventé"]]},
+   {"head": ["In de keuken", "In the kitchen", "In der Küche", "En la cocina", "En cuisine"], "lines": [["Grote letters en snel zoeken op de telefoon", "Large text and fast search on the phone", "Große Schrift und schnelle Suche am Handy", "Letra grande y búsqueda rápida en el móvil", "Gros caractères et recherche rapide sur le téléphone"], ["Werkt zonder internet", "Works without internet", "Funktioniert ohne Internet", "Funciona sin internet", "Fonctionne sans internet"]]},
+   {"head": ["Met je team", "With your team", "Mit deinem Team", "Con tu equipo", "Avec ton équipe"], "lines": [["Delen met rollen", "Sharing with roles", "Teilen mit Rollen", "Compartir con roles", "Partage avec des rôles"], ["Een hele map netjes printen", "Print a whole folder neatly", "Einen ganzen Ordner sauber drucken", "Imprimir una carpeta entera", "Imprimer proprement tout un dossier"]]},
+   {"head": ["Op lange termijn", "In the long run", "Auf lange Sicht", "A largo plazo", "Sur la durée"], "lines": [["Je recepten blijven als je stopt", "Your recipes stay if you stop", "Deine Rezepte bleiben, wenn du aufhörst", "Tus recetas se quedan si lo dejas", "Tes recettes restent si tu arrêtes"]], "dark": true}
+  ],
+  "alt": ["De zeven vragen in vier groepen: erin, in de keuken, met je team en op lange termijn", "The seven questions in four groups: getting in, in the kitchen, with your team and in the long run", "Die sieben Fragen in vier Gruppen: hinein, in der Küche, mit deinem Team und auf lange Sicht", "Las siete preguntas en cuatro grupos: entrar, en la cocina, con tu equipo y a largo plazo", "Les sept questions en quatre groupes : importer, en cuisine, avec ton équipe et sur la durée"],
+  "caption": ["Test met je eigen rommeligste bestand, niet met voorbeeldrecepten.", "Test with your own messiest file, not with sample recipes.", "Teste mit deiner eigenen chaotischsten Datei, nicht mit Beispielrezepten.", "Prueba con tu archivo más desordenado, no con recetas de ejemplo.", "Teste avec ton fichier le plus désordonné, pas avec des recettes d’exemple."]
+ },
+ {
+  "name": "testen-in-een-kwartier",
+  "after": "Zo test je Savour in een kwartier",
+  "type": "flow",
+  "end": true,
+  "title": ["Savour testen in een kwartier", "Test Savour in fifteen minutes", "Savour in einer Viertelstunde testen", "Prueba Savour en un cuarto de hora", "Tester Savour en un quart d’heure"],
+  "sub": ["Niets installeren, geen betaalgegevens", "Nothing to install, no payment details", "Nichts installieren, keine Zahlungsdaten", "Nada que instalar, sin datos de pago", "Rien à installer, aucune donnée de paiement"],
+  "steps": [
+   [["Demo openen", "Open the demo", "Demo öffnen", "Abrir la demo", "Ouvrir la démo"], ["20 echte recepten, zonder account.", "20 real recipes, no account.", "20 echte Rezepte, ohne Konto.", "20 recetas reales, sin cuenta.", "20 vraies recettes, sans compte."]],
+   [["Account maken", "Create an account", "Konto erstellen", "Crear una cuenta", "Créer un compte"], ["Gratis tot 100 recepten, met 7 dagen Pro.", "Free up to 100 recipes, with 7 days of Pro.", "Kostenlos bis 100 Rezepte, mit 7 Tagen Pro.", "Gratis hasta 100 recetas, con 7 días de Pro.", "Gratuit jusqu’à 100 recettes, avec 7 jours de Pro."]],
+   [["Je rommeligste bestand", "Your messiest file", "Deine chaotischste Datei", "Tu archivo más desordenado", "Ton fichier le plus désordonné"], ["Kijk wat de lezer ervan maakt.", "See what the reader makes of it.", "Sieh, was der Leser daraus macht.", "Mira qué hace el lector con él.", "Regarde ce qu’en fait le lecteur."]],
+   [["Een collega laten zoeken", "Let a colleague search", "Kollegen suchen lassen", "Que busque un compañero", "Faire chercher un collègue"], ["Deel een recept en laat het terugvinden.", "Share a recipe and let them find it.", "Teile ein Rezept und lass es finden.", "Comparte una receta y que la encuentre.", "Partage une recette et fais-la retrouver."]]
+  ],
+  "alt": ["Vier stappen: demo openen, account maken, je rommeligste bestand importeren en een collega laten zoeken", "Four steps: open the demo, create an account, import your messiest file and let a colleague search", "Vier Schritte: Demo öffnen, Konto erstellen, chaotischste Datei importieren und einen Kollegen suchen lassen", "Cuatro pasos: abrir la demo, crear una cuenta, importar tu archivo más desordenado y que busque un compañero", "Quatre étapes : ouvrir la démo, créer un compte, importer ton fichier le plus désordonné et faire chercher un collègue"],
+  "caption": ["Gratis tot 100 recepten, met 7 dagen Savour Pro.", "Free up to 100 recipes, with 7 days of Savour Pro.", "Kostenlos bis 100 Rezepte, mit 7 Tagen Savour Pro.", "Gratis hasta 100 recetas, con 7 días de Savour Pro.", "Gratuit jusqu’à 100 recettes, avec 7 jours de Savour Pro."]
+ }
+]

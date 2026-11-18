@@ -82,7 +82,7 @@ export const ES = {
       lead: 'Todos en la cocina trabajan con la misma versión. Se acabaron las fotos de fotos en el grupo de WhatsApp.',
       sections: [
         ['Equipos de cocina', 'Crea una carpeta para tu cocina, tu partida o el nuevo menú e invita a tu equipo. Lo que cambias lo ven todos al instante.'],
-        ['Permisos por persona', 'Tú gestionas la carpeta. Tu segundo o jefe de partida puede añadir y editar recetas. Ayudantes y becarios pueden consultar, pero no cambiar nada.'],
+        ['Permisos por persona', 'Tú gestionas la carpeta. Tu segundo o jefe de partida puede añadir y editar recetas (con Savour Pro). Ayudantes y becarios pueden consultar, pero no cambiar nada.'],
         ['Gente nueva al día más rápido', 'Un cocinero nuevo tiene desde el primer día todas las recetas de la partida en el móvil, en la versión que tú aprobaste.'],
         ['Compartir recetas sueltas', '¿Quieres enviar una receta, por ejemplo a un compañero de otro restaurante? Compártela con un enlace.']
       ]
@@ -139,7 +139,7 @@ export const ES = {
         ],
         [
           "Seguro y tuyo",
-          "Tus recetas solo las ves tú y las personas que invitas a un equipo de cocina; se guardan separadas por cuenta. Con Savour Pro descargas tu recetario completo cuando quieras, como archivos de Word o como copia de seguridad."
+          "Tus recetas solo las ves tú y las personas que invitas a un equipo de cocina; se guardan separadas por cuenta. Una copia de seguridad de tu recetario completo la descargas cuando quieras, también sin Pro; con Savour Pro también como archivos de Word."
         ]
       ]
     },
@@ -224,7 +224,7 @@ export const ES = {
         ],
         [
           "Paprika: para quien cocina en casa",
-          "Paprika es una app de recetas para casa. Guardas recetas de webs con el navegador integrado, planificas menús semanales, haces listas de la compra ordenadas por pasillo, llevas una despensa y escalas raciones, también entre sistema métrico y medidas estadounidenses. Hay versiones para iPhone y iPad, Android, Mac y Windows, cada una se compra por separado y una sola vez, sin suscripción. Las recetas se sincronizan entre tus propios dispositivos. Se comparte receta a receta, por ejemplo por correo o enlace; no hay equipos de cocina con roles."
+          "Paprika es una app de recetas para casa. Guardas recetas de webs con el navegador integrado, planificas menús semanales, haces listas de la compra ordenadas por pasillo, llevas una despensa y escalas raciones, también entre sistema métrico y medidas estadounidenses. Hay versiones para iPhone y iPad, Android, Mac y Windows. Con Paprika 4 la app es gratis hasta 50 recetas; sincronizar entre tus dispositivos, compartir con la familia y compartir libros de recetas forman parte de Premium, con una suscripción. No hay equipos de cocina con roles."
         ],
         [
           "Meez: para grupos de restaurantes con varios locales",
@@ -252,7 +252,7 @@ export const ES = {
         ],
         [
           "Comparación: lo que cuesta",
-          "Paprika: compra única por plataforma, sin suscripción. Meez: sin versión gratuita, pero con 14 días de prueba; Starter desde 19 $ al mes (pago anual), Pro desde 89 $ y Premium desde 179 $ al mes, Enterprise a medida. Galley: una licencia de empresa más una tarifa mensual fija por local y una implantación única, bajo presupuesto. Savour: gratis hasta 100 recetas, Savour Pro 2,99 € al mes o 29 € al año, equipos de cocina para 5, 10 o 25 personas por 8,99 €, 14,99 € o 29,99 € al mes. Las cuentas nuevas tienen 7 días de Pro gratis, sin datos de pago. Si dejas Pro, todas tus recetas se quedan."
+          "Paprika: gratis hasta 50 recetas. Paprika 4 sustituye a Paprika 3; sincronizar, compartir e importar desde fotos forman parte de Premium, como suscripción. Si tenías Paprika 3, recibes gratis una versión Standard con recetas ilimitadas y sincronización (comprobado el 12 de noviembre de 2026; mira también [Alternativa a Paprika](/es/alternativa-a-paprika)). Meez: sin versión gratuita, pero con 14 días de prueba; Starter desde 19 $ al mes (pago anual), Pro desde 89 $ y Premium desde 179 $ al mes, Enterprise a medida. Galley: una licencia de empresa más una tarifa mensual fija por local y una implantación única, bajo presupuesto. Savour: gratis hasta 100 recetas, Savour Pro 2,99 € al mes o 29 € al año, equipos de cocina para 5, 10 o 25 personas por 8,99 €, 14,99 € o 29,99 € al mes. Las cuentas nuevas tienen 7 días de Pro gratis, sin datos de pago. Si dejas Pro, todas tus recetas se quedan."
         ],
         [
           "¿Cuál encaja contigo?",
@@ -468,10 +468,10 @@ export const ES = {
       lead: 'La foto de una receta, reenviada en el grupo, fotografiada otra vez desde otra pantalla. Te suena. Y nadie sabe qué versión es la buena.',
       sections: [
         ['Comparte una carpeta entera', 'Crea un equipo de cocina, por ejemplo «Salsas» o «Menú de otoño», e invita a tus compañeros. Todos ven las mismas recetas y un cambio aparece al momento para todos.'],
-        ['Elige qué puede hacer cada uno', 'Hay tres roles. El propietario gestiona la carpeta. Un segundo de cocina puede añadir y cambiar recetas. Un cocinero puede verlo todo, pero no cambiar nada. Tú decides quién toca las recetas.'],
+        ['Elige qué puede hacer cada uno', 'Hay tres roles. El propietario gestiona la carpeta. Un segundo de cocina puede añadir y cambiar recetas, con Savour Pro. Un cocinero puede verlo todo, pero no cambiar nada. Tú decides quién toca las recetas.'],
         ['Envía una receta suelta', '¿Quieres compartir una receta, por ejemplo con un compañero de otro restaurante o un proveedor? Compártela con un enlace. Quien la recibe la ve limpia, sin cuenta.'],
         ['Compañeros que construyen contigo', 'Un equipo de cocina no tiene por qué venir solo de ti. Da permiso de edición a tu segundo y deja que el equipo añada recetas. El recetario crece con la cocina.'],
-        ['Lo que cuesta', 'Ser miembro de un equipo de cocina es gratis. Crear tú un equipo de cocina forma parte de Savour Pro. Con un plan de equipo todos en tu cocina tienen Pro.']
+        ['Lo que cuesta', 'Ser miembro de un equipo de cocina es gratis: consultas, imprimes y escalas. Crear tú un equipo, y añadir o editar recetas, forma parte de Savour Pro. Con un plan de equipo todos en tu cocina tienen Pro.']
       ],
       outro: 'Las equipos de cocina con roles están en Savour en «Equipos de cocina».'
     },

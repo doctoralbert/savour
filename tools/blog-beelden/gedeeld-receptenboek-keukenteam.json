@@ -1,0 +1,37 @@
+[
+ {
+  "name": "een-versie",
+  "after": "Hetzelfde bord, elke dag",
+  "type": "versus",
+  "title": ["Drie briefjes of één recept", "Three notes or one recipe", "Drei Zettel oder ein Rezept", "Tres notas o una receta", "Trois bouts de papier ou une recette"],
+  "sub": ["Met één gedeeld recept is de laatste versie altijd de enige versie", "With one shared recipe, the latest version is always the only version", "Mit einem geteilten Rezept ist die neueste Version immer die einzige", "Con una receta compartida, la última versión es siempre la única", "Avec une recette partagée, la dernière version est toujours la seule"],
+  "left": [["Ieder een eigen briefje", "Everyone their own note", "Jeder seinen eigenen Zettel", "Cada uno su nota", "Chacun son bout de papier"], [
+   ["Drie versies van dezelfde saus", "Three versions of the same sauce", "Drei Versionen derselben Sauce", "Tres versiones de la misma salsa", "Trois versions de la même sauce"],
+   ["Vragen midden in de service", "Questions in the middle of service", "Fragen mitten im Service", "Preguntas en pleno servicio", "Des questions en plein service"],
+   ["Kennis vertrekt met de kok", "Knowledge leaves with the cook", "Wissen geht mit dem Koch", "El conocimiento se va con el cocinero", "Le savoir part avec le cuisinier"]
+  ]],
+  "right": [["Eén gedeeld recept", "One shared recipe", "Ein geteiltes Rezept", "Una receta compartida", "Une recette partagée"], [
+   ["Iedereen dezelfde versie, op de eigen telefoon", "Everyone the same version, on their own phone", "Alle dieselbe Version, auf dem eigenen Handy", "Todos la misma versión, en su propio móvil", "La même version pour tous, sur leur téléphone"],
+   ["Wie twijfelt, leest het na", "Anyone in doubt reads it", "Wer zweifelt, liest nach", "Quien duda, lo consulta", "En cas de doute, on relit"],
+   ["Wat in het team staat, blijft van de keuken", "What is in the team stays with the kitchen", "Was im Team steht, bleibt in der Küche", "Lo que está en el equipo se queda en la cocina", "Ce qui est dans l’équipe reste à la cuisine"]
+  ]],
+  "alt": ["Vergelijking: losse briefjes geven drie versies en vragen in de service; één gedeeld recept geeft iedereen dezelfde versie", "Comparison: separate notes give three versions and questions during service; one shared recipe gives everyone the same version", "Vergleich: einzelne Zettel ergeben drei Versionen und Fragen im Service; ein geteiltes Rezept gibt allen dieselbe Version", "Comparación: notas sueltas dan tres versiones y preguntas en el servicio; una receta compartida da a todos la misma versión", "Comparaison : des bouts de papier donnent trois versions et des questions en service ; une recette partagée donne la même version à tous"],
+  "caption": ["Dat merk je aan de consistentie, ook op de drukste avond.", "You notice it in consistency, even on the busiest night.", "Das merkst du an der Beständigkeit, auch am vollsten Abend.", "Se nota en la regularidad, incluso la noche más llena.", "Ça se voit dans la régularité, même le soir le plus chargé."]
+ },
+ {
+  "name": "zo-begin-je",
+  "after": "Zo begin je",
+  "type": "flow",
+  "end": true,
+  "title": ["Zo begin je met een keukenteam", "How to start a kitchen team", "So startest du ein Küchenteam", "Cómo empezar un equipo de cocina", "Démarrer une équipe de cuisine"],
+  "sub": ["Begin klein en breid daarna uit", "Start small, then expand", "Klein anfangen, dann erweitern", "Empieza pequeño y luego amplía", "Commence petit, puis élargis"],
+  "steps": [
+   [["De basis erin", "Add the basics", "Die Basis hinein", "La base dentro", "Ajouter la base"], ["Fonds, sauzen en vaste garnituren die iedereen gebruikt.", "Stocks, sauces and set garnishes everyone uses.", "Fonds, Saucen und feste Garnituren, die alle nutzen.", "Fondos, salsas y guarniciones fijas que todos usan.", "Fonds, sauces et garnitures que tout le monde utilise."]],
+   [["Team uitnodigen", "Invite the team", "Team einladen", "Invitar al equipo", "Inviter l’équipe"], ["Via WhatsApp, e-mail of een link.", "Via WhatsApp, email or a link.", "Per WhatsApp, E-Mail oder Link.", "Por WhatsApp, correo o enlace.", "Par WhatsApp, e-mail ou lien."]],
+   [["Afspreken wie aanpast", "Agree who edits", "Festlegen, wer ändert", "Acordar quién edita", "Décider qui modifie"], ["Sous-chef bewerkt, de rest kijkt mee.", "Sous chef edits, the rest views.", "Sous-Chef bearbeitet, der Rest sieht zu.", "El segundo edita, el resto consulta.", "Le sous-chef modifie, les autres consultent."]],
+   [["Uitbreiden", "Expand", "Erweitern", "Ampliar", "Élargir"], ["Per partie of per menu.", "By section or by menu.", "Nach Posten oder Menü.", "Por partida o por menú.", "Par poste ou par menu."]]
+  ],
+  "alt": ["Vier stappen: de basis erin, team uitnodigen, afspreken wie aanpast en uitbreiden", "Four steps: add the basics, invite the team, agree who edits and expand", "Vier Schritte: die Basis hinein, Team einladen, festlegen wer ändert und erweitern", "Cuatro pasos: la base dentro, invitar al equipo, acordar quién edita y ampliar", "Quatre étapes : ajouter la base, inviter l’équipe, décider qui modifie et élargir"],
+  "caption": ["Lid zijn van een keukenteam is gratis.", "Being a member of a kitchen team is free.", "Mitglied eines Küchenteams zu sein ist kostenlos.", "Ser miembro de un equipo de cocina es gratis.", "Être membre d’une équipe de cuisine est gratuit."]
+ }
+]

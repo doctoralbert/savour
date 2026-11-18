@@ -1,0 +1,50 @@
+[
+ {
+  "name": "de-14-allergenen",
+  "after": "De 14 allergenen, en wat je zelf aanzet",
+  "type": "chips",
+  "cols": 7,
+  "title": ["De 14 allergenen", "The 14 allergens", "Die 14 Allergene", "Los 14 alérgenos", "Les 14 allergènes"],
+  "sub": ["Standaard in Savour, volgens de Europese regels", "Standard in Savour, following the European rules", "Standard in Savour, nach den europäischen Regeln", "Por defecto en Savour, según las normas europeas", "Par défaut dans Savour, selon les règles européennes"],
+  "items": [
+   ["Gluten", "Gluten", "Gluten", "Gluten", "Gluten"],
+   ["Schaaldieren", "Crustaceans", "Krebstiere", "Crustáceos", "Crustacés"],
+   ["Eieren", "Eggs", "Eier", "Huevos", "Œufs"],
+   ["Vis", "Fish", "Fisch", "Pescado", "Poisson"],
+   ["Pinda’s", "Peanuts", "Erdnüsse", "Cacahuetes", "Arachides"],
+   ["Soja", "Soy", "Soja", "Soja", "Soja"],
+   ["Melk", "Milk", "Milch", "Leche", "Lait"],
+   ["Noten", "Tree nuts", "Schalenfrüchte", "Frutos de cáscara", "Fruits à coque"],
+   ["Selderij", "Celery", "Sellerie", "Apio", "Céleri"],
+   ["Mosterd", "Mustard", "Senf", "Mostaza", "Moutarde"],
+   ["Sesamzaad", "Sesame", "Sesam", "Sésamo", "Sésame"],
+   ["Sulfiet", "Sulphites", "Sulfite", "Sulfitos", "Sulfites"],
+   ["Lupine", "Lupin", "Lupinen", "Altramuces", "Lupin"],
+   ["Weekdieren", "Molluscs", "Weichtiere", "Moluscos", "Mollusques"]
+  ],
+  "extra": [["ZELF AAN TE ZETTEN, STANDAARD UIT", "SWITCH ON YOURSELF, OFF BY DEFAULT", "SELBST EINSCHALTBAR, STANDARDMÄSSIG AUS", "ACTIVABLES, DESACTIVADOS POR DEFECTO", "À ACTIVER TOI-MÊME, DÉSACTIVÉS PAR DÉFAUT"], [
+   ["Lactose", "Lactose", "Laktose", "Lactosa", "Lactose"],
+   ["Varkensvlees", "Pork", "Schweinefleisch", "Cerdo", "Porc"],
+   ["Alcohol", "Alcohol", "Alkohol", "Alcohol", "Alcool"],
+   ["Knoflook", "Garlic", "Knoblauch", "Ajo", "Ail"],
+   ["Uiachtigen", "Alliums", "Zwiebelgewächse", "Aliáceas", "Alliacées"]
+  ]],
+  "alt": ["De 14 allergenen: gluten, schaaldieren, eieren, vis, pinda’s, soja, melk, noten, selderij, mosterd, sesamzaad, sulfiet, lupine en weekdieren; zelf aan te zetten: lactose, varkensvlees, alcohol, knoflook en uiachtigen", "The 14 allergens: gluten, crustaceans, eggs, fish, peanuts, soy, milk, tree nuts, celery, mustard, sesame, sulphites, lupin and molluscs; optional: lactose, pork, alcohol, garlic and alliums", "Die 14 Allergene: Gluten, Krebstiere, Eier, Fisch, Erdnüsse, Soja, Milch, Schalenfrüchte, Sellerie, Senf, Sesam, Sulfite, Lupinen und Weichtiere; zuschaltbar: Laktose, Schweinefleisch, Alkohol, Knoblauch und Zwiebelgewächse", "Los 14 alérgenos: gluten, crustáceos, huevos, pescado, cacahuetes, soja, leche, frutos de cáscara, apio, mostaza, sésamo, sulfitos, altramuces y moluscos; opcionales: lactosa, cerdo, alcohol, ajo y aliáceas", "Les 14 allergènes : gluten, crustacés, œufs, poisson, arachides, soja, lait, fruits à coque, céleri, moutarde, sésame, sulfites, lupin et mollusques ; en option : lactose, porc, alcool, ail et alliacées"],
+  "caption": ["Lactose staat bewust los van melk: lactosevrije room bevat nog steeds melkeiwit.", "Lactose is deliberately separate from milk: lactose-free cream still contains milk protein.", "Laktose ist bewusst von Milch getrennt: laktosefreie Sahne enthält trotzdem Milcheiweiß.", "La lactosa va aparte de la leche a propósito: la nata sin lactosa sigue teniendo proteína de leche.", "Le lactose est volontairement séparé du lait : la crème sans lactose contient toujours des protéines de lait."]
+ },
+ {
+  "name": "basisrecept-telt-mee",
+  "after": "Savour leest je ingrediënten zelf",
+  "type": "flow",
+  "end": true,
+  "title": ["Allergenen tellen door", "Allergens carry through", "Allergene zählen mit", "Los alérgenos se suman", "Les allergènes se transmettent"],
+  "sub": ["Een basisrecept geeft zijn allergenen door aan elk gerecht dat het gebruikt", "A base recipe passes its allergens to every dish that uses it", "Ein Grundrezept gibt seine Allergene an jedes Gericht weiter, das es nutzt", "Una receta base pasa sus alérgenos a cada plato que la usa", "Une recette de base transmet ses allergènes à chaque plat qui l’utilise"],
+  "steps": [
+   [["Ingrediënt", "Ingredient", "Zutat", "Ingrediente", "Ingrédient"], ["Mosterd. Savour vindt het in de Savour-lijst.", "Mustard. Savour finds it in the Savour list.", "Senf. Savour findet ihn in der Savour-Liste.", "Mostaza. Savour la encuentra en la lista de Savour.", "Moutarde. Savour la trouve dans la liste Savour."]],
+   [["Basisrecept", "Base recipe", "Grundrezept", "Receta base", "Recette de base"], ["Vinaigrette: bevat mosterd.", "Vinaigrette: contains mustard.", "Vinaigrette: enthält Senf.", "Vinagreta: contiene mostaza.", "Vinaigrette : contient de la moutarde."]],
+   [["Gerecht", "Dish", "Gericht", "Plato", "Plat"], ["Salade met die vinaigrette: ook mosterd.", "Salad with that vinaigrette: also mustard.", "Salat mit dieser Vinaigrette: auch Senf.", "Ensalada con esa vinagreta: también mostaza.", "Salade avec cette vinaigrette : moutarde aussi."]]
+  ],
+  "alt": ["Drie stappen: mosterd zit in de vinaigrette, en daardoor ook in de salade die de vinaigrette gebruikt", "Three steps: mustard is in the vinaigrette, and so also in the salad that uses the vinaigrette", "Drei Schritte: Senf ist in der Vinaigrette und damit auch im Salat, der die Vinaigrette nutzt", "Tres pasos: la mostaza está en la vinagreta, y por tanto en la ensalada que la usa", "Trois étapes : la moutarde est dans la vinaigrette, donc aussi dans la salade qui l’utilise"],
+  "caption": ["Kloppen je basisrecepten, dan kloppen ze vanzelf ook in elk gerecht.", "If your base recipes are right, every dish that uses them is right too.", "Stimmen deine Grundrezepte, stimmt auch jedes Gericht damit.", "Si tus recetas base están bien, cada plato que las usa también.", "Si tes recettes de base sont justes, chaque plat qui les utilise l’est aussi."]
+ }
+]

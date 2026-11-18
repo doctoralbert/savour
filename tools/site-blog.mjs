@@ -21,7 +21,7 @@ export const BLOG = [
         ],
         [
           "Paprika: voor de thuiskok",
-          "Paprika is een receptenapp voor thuis. Je bewaart recepten van websites met de ingebouwde browser, maakt weekmenu’s en boodschappenlijstjes die per schap worden gesorteerd, houdt een voorraadkast bij en rekent porties om, ook tussen metrisch en Amerikaanse maten. Er zijn versies voor iPhone en iPad, Android, Mac en Windows, die elk los en eenmalig worden gekocht, zonder abonnement. Recepten synchroniseren tussen je eigen apparaten. Delen gaat per recept, bijvoorbeeld via e-mail of een link; keukenteams met rollen zijn er niet."
+          "Paprika is een receptenapp voor thuis. Je bewaart recepten van websites met de ingebouwde browser, maakt weekmenu’s en boodschappenlijstjes die per schap worden gesorteerd, houdt een voorraadkast bij en rekent porties om, ook tussen metrisch en Amerikaanse maten. Er zijn versies voor iPhone en iPad, Android, Mac en Windows. Met Paprika 4 is de app gratis tot 50 recepten; synchroniseren tussen je apparaten, delen met je gezin en kookboeken delen horen bij Premium, met een abonnement. Keukenteams met rollen zijn er niet."
         ],
         [
           "Meez: voor restaurantgroepen met meerdere vestigingen",
@@ -49,7 +49,7 @@ export const BLOG = [
         ],
         [
           "Vergelijkingspunt: wat het kost",
-          "Paprika: eenmalig per platform, zonder abonnement. Meez: geen gratis versie, wel 14 dagen proberen; Starter vanaf $19 per maand (bij een jaar), Pro vanaf $89 en Premium vanaf $179 per maand, Enterprise op maat. Galley: een bedrijfslicentie plus een vast bedrag per locatie per maand en eenmalige onboarding, op offerte. Savour: gratis tot 100 recepten, Savour Pro €2,99 per maand of €29 per jaar, keukenteams voor 5, 10 of 25 mensen voor €8,99, €14,99 of €29,99 per maand. Nieuwe accounts krijgen 7 dagen Pro gratis, zonder betaalgegevens. Stop je met Pro, dan blijven al je recepten staan."
+          "Paprika: gratis tot 50 recepten. Paprika 4 vervangt Paprika 3; synchroniseren, delen en importeren van foto’s horen bij Premium, als abonnement. Wie Paprika 3 had, krijgt gratis een Standard-versie met onbeperkt recepten en synchroniseren (gecontroleerd op 12 november 2026; zie ook [Alternatief voor Paprika](/alternatief-voor-paprika)). Meez: geen gratis versie, wel 14 dagen proberen; Starter vanaf $19 per maand (bij een jaar), Pro vanaf $89 en Premium vanaf $179 per maand, Enterprise op maat. Galley: een bedrijfslicentie plus een vast bedrag per locatie per maand en eenmalige onboarding, op offerte. Savour: gratis tot 100 recepten, Savour Pro €2,99 per maand of €29 per jaar, keukenteams voor 5, 10 of 25 mensen voor €8,99, €14,99 of €29,99 per maand. Nieuwe accounts krijgen 7 dagen Pro gratis, zonder betaalgegevens. Stop je met Pro, dan blijven al je recepten staan."
         ],
         [
           "Welke past bij jou?",
@@ -71,7 +71,7 @@ export const BLOG = [
         ],
         [
           "Paprika: for the home cook",
-          "Paprika is a recipe app for home. You save recipes from websites with the built-in browser, make weekly meal plans and grocery lists sorted by aisle, keep track of your pantry and scale servings, including between metric and imperial. There are versions for iPhone and iPad, Android, Mac and Windows, each bought separately as a one-time purchase, with no subscription. Recipes sync between your own devices. Sharing works per recipe, for example by email or link; there are no kitchen teams with roles."
+          "Paprika is a recipe app for home. You save recipes from websites with the built-in browser, make weekly meal plans and grocery lists sorted by aisle, keep track of your pantry and scale servings, including between metric and imperial. There are versions for iPhone and iPad, Android, Mac and Windows. With Paprika 4 the app is free up to 50 recipes; syncing between your devices, family sharing and cookbook sharing are part of Premium, with a subscription. There are no kitchen teams with roles."
         ],
         [
           "Meez: for restaurant groups with multiple locations",
@@ -99,7 +99,7 @@ export const BLOG = [
         ],
         [
           "Comparison: what it costs",
-          "Paprika: a one-time purchase per platform, no subscription. Meez: no free plan, but a 14-day trial; Starter from $19 a month (billed yearly), Pro from $89 and Premium from $179 a month, Enterprise custom. Galley: a corporate licence plus a flat monthly rate per location and one-time onboarding, by quote. Savour: free up to 100 recipes, Savour Pro €2.99 a month or €29 a year, kitchen teams for 5, 10 or 25 people at €8.99, €14.99 or €29.99 a month. New accounts get 7 days of Pro for free, no card needed. Stop Pro and all your recipes stay."
+          "Paprika: free up to 50 recipes. Paprika 4 replaces Paprika 3; syncing, sharing and importing from photos are part of Premium, as a subscription. If you had Paprika 3, you get a free Standard version with unlimited recipes and syncing (checked on 12 November 2026; see also [Paprika alternative](/en/paprika-alternative)). Meez: no free plan, but a 14-day trial; Starter from $19 a month (billed yearly), Pro from $89 and Premium from $179 a month, Enterprise custom. Galley: a corporate licence plus a flat monthly rate per location and one-time onboarding, by quote. Savour: free up to 100 recipes, Savour Pro €2.99 a month or €29 a year, kitchen teams for 5, 10 or 25 people at €8.99, €14.99 or €29.99 a month. New accounts get 7 days of Pro for free, no card needed. Stop Pro and all your recipes stay."
         ],
         [
           "Which one fits you?",
@@ -827,10 +827,10 @@ export const BLOG = [
       lead: 'Een foto van een recept, doorgestuurd in de groepsapp, opnieuw gefotografeerd van een ander scherm. Herkenbaar. En niemand weet welke versie de goede is.',
       sections: [
         ['Een hele map delen', 'Maak een keukenteam, bijvoorbeeld “Saucier” of “Najaarsmenu”, en nodig je collega’s uit. Iedereen ziet dezelfde recepten, en een aanpassing staat direct bij iedereen.'],
-        ['Kies per persoon wat mag', 'Er zijn drie rollen. De eigenaar beheert de map. Een sous-chef mag recepten toevoegen en aanpassen. Een kok kan alles lezen, maar niets veranderen. Zo bepaal jij wie aan de recepturen komt.'],
+        ['Kies per persoon wat mag', 'Er zijn drie rollen. De eigenaar beheert de map. Een sous-chef mag recepten toevoegen en aanpassen, met Savour Pro. Een kok kan alles lezen, maar niets veranderen. Zo bepaal jij wie aan de recepturen komt.'],
         ['Eén recept doorsturen', 'Wil je één recept delen, bijvoorbeeld met een collega in een andere zaak of een leverancier? Deel het met een link. De ontvanger ziet het recept netjes, zonder account.'],
         ['Collega’s die meebouwen', 'Een keukenteam hoeft niet alleen van jou te komen. Geef je sous-chef bewerkrechten en laat het team zelf recepten toevoegen. Zo groeit het receptenboek mee met de keuken.'],
-        ['Wat het kost', 'Lid zijn van een keukenteam is gratis. Zelf een keukenteam maken is onderdeel van Savour Pro. Met een teamabonnement krijgt iedereen in je keuken Pro.']
+        ['Wat het kost', 'Lid zijn van een keukenteam is gratis: je bekijkt, print en rekent om. Zelf een keukenteam maken, en recepten toevoegen of aanpassen, is onderdeel van Savour Pro. Met een teamabonnement krijgt iedereen in je keuken Pro.']
       ],
       outro: 'Keukenteams met rollen staan in Savour onder “Keukenteams”.'
     },
@@ -842,10 +842,10 @@ export const BLOG = [
       lead: 'A photo of a recipe, forwarded in the group chat, photographed again from another screen. Sounds familiar. And nobody knows which version is right.',
       sections: [
         ['Share a whole folder', 'Create a kitchen team, for example “Saucier” or “Autumn menu”, and invite your colleagues. Everyone sees the same recipes, and a change shows up for everyone straight away.'],
-        ['Choose what each person may do', 'There are three roles. The owner manages the folder. A sous-chef can add and change recipes. A cook can read everything but change nothing. You decide who touches the recipes.'],
+        ['Choose what each person may do', 'There are three roles. The owner manages the folder. A sous-chef can add and change recipes, with Savour Pro. A cook can read everything but change nothing. You decide who touches the recipes.'],
         ['Send a single recipe', 'Want to share one recipe, for example with a colleague at another restaurant or a supplier? Share it with a link. The recipient sees the recipe neatly, without an account.'],
         ['Colleagues who build along', 'A kitchen team does not have to come from you alone. Give your sous-chef edit rights and let the team add recipes themselves. The recipe book grows with the kitchen.'],
-        ['What it costs', 'Being a member of a kitchen team is free. Creating a kitchen team yourself is part of Savour Pro. With a team plan everyone in your kitchen gets Pro.']
+        ['What it costs', 'Being a member of a kitchen team is free: you view, print and scale. Creating a kitchen team yourself, and adding or editing recipes, is part of Savour Pro. With a team plan everyone in your kitchen gets Pro.']
       ],
       outro: 'Kitchen teams with roles are under “Kitchen teams” in Savour.'
     }

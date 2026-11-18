@@ -1,0 +1,33 @@
+[
+ {
+  "name": "van-bestand-naar-boek",
+  "after": "Sleep het bestand erin",
+  "type": "flow",
+  "end": true,
+  "title": ["Van Word-bestand naar receptenboek", "From Word file to recipe book", "Von der Word-Datei zum Rezeptbuch", "Del archivo Word al recetario", "Du fichier Word au livre de recettes"],
+  "sub": ["Vier stappen, ook als het er honderden zijn", "Four steps, even with hundreds of recipes", "Vier Schritte, auch bei Hunderten Rezepten", "Cuatro pasos, aunque sean cientos de recetas", "Quatre étapes, même pour des centaines de recettes"],
+  "steps": [
+   [["Bestand kiezen", "Choose the file", "Datei wählen", "Elegir el archivo", "Choisir le fichier"], ["Word, PDF of tekst, onder Recept toevoegen.", "Word, PDF or text, under Add recipe.", "Word, PDF oder Text, unter Rezept hinzufügen.", "Word, PDF o texto, en Añadir receta.", "Word, PDF ou texte, dans Ajouter une recette."]],
+   [["De lezer splitst", "The reader splits", "Der Leser teilt auf", "El lector separa", "Le lecteur découpe"], ["Savour maakt er losse recepten van.", "Savour turns it into separate recipes.", "Savour macht daraus einzelne Rezepte.", "Savour lo convierte en recetas separadas.", "Savour en fait des recettes séparées."]],
+   [["Nalopen", "Check", "Prüfen", "Revisar", "Vérifier"], ["Wat gemarkeerd is, kijk je na.", "You check what is flagged.", "Du prüfst, was markiert ist.", "Revisas lo que está marcado.", "Tu vérifies ce qui est signalé."]],
+   [["Opslaan", "Save", "Speichern", "Guardar", "Enregistrer"], ["Alles in één keer, daarna in mappen en delen.", "All at once, then into folders and share.", "Alles auf einmal, dann in Ordner und teilen.", "Todo de una vez, luego a carpetas y compartir.", "Tout d’un coup, puis en dossiers et partager."]]
+  ],
+  "alt": ["Vier stappen: bestand kiezen, de lezer splitst, nalopen en opslaan", "Four steps: choose the file, the reader splits, check and save", "Vier Schritte: Datei wählen, der Leser teilt auf, prüfen und speichern", "Cuatro pasos: elegir el archivo, el lector separa, revisar y guardar", "Quatre étapes : choisir le fichier, le lecteur découpe, vérifier et enregistrer"],
+  "caption": ["Een chef importeerde zo 1.400 recepten uit Word in ongeveer twee minuten.", "One chef imported 1,400 recipes from Word this way in about two minutes.", "Ein Koch hat so 1.400 Rezepte aus Word in etwa zwei Minuten importiert.", "Un chef importó así 1.400 recetas de Word en unos dos minutos.", "Un chef a importé ainsi 1 400 recettes depuis Word en deux minutes environ."]
+ },
+ {
+  "name": "wat-de-lezer-opruimt",
+  "after": "Wat de lezer herkent",
+  "type": "rename",
+  "title": ["Wat de lezer opruimt", "What the reader tidies up", "Was der Leser aufräumt", "Lo que el lector ordena", "Ce que le lecteur nettoie"],
+  "sub": ["Zonder iets te verzinnen: alleen wat er al staat, netjes", "Without inventing anything: only what is there, made tidy", "Ohne etwas zu erfinden: nur was dasteht, ordentlich", "Sin inventar nada: solo lo que hay, en orden", "Sans rien inventer : seulement ce qui est écrit, mis au propre"],
+  "heads": [["IN JE BESTAND", "IN YOUR FILE", "IN DEINER DATEI", "EN TU ARCHIVO", "DANS TON FICHIER"], ["IN SAVOUR", "IN SAVOUR", "IN SAVOUR", "EN SAVOUR", "DANS SAVOUR"]],
+  "pairs": [
+   ["12. Kalfsjus", ["Kalfsjus", "Kalfsjus", "Kalfsjus", "Kalfsjus", "Kalfsjus"]],
+   [["oven op 18oc", "oven at 18oc", "Ofen auf 18oc", "horno a 18oc", "four à 18oc"], ["oven op 180°C", "oven at 180°C", "Ofen auf 180°C", "horno a 180°C", "four à 180°C"]],
+   [["recept loopt door op de volgende pagina", "recipe runs on to the next page", "Rezept geht auf der nächsten Seite weiter", "la receta sigue en la página siguiente", "la recette continue page suivante"], ["blijft één recept", "stays one recipe", "bleibt ein Rezept", "sigue siendo una receta", "reste une seule recette"]]
+  ],
+  "alt": ["Voorbeelden: 12. Kalfsjus wordt Kalfsjus, oven op 18oc wordt 180°C, een recept dat doorloopt blijft één recept", "Examples: 12. Kalfsjus becomes Kalfsjus, oven at 18oc becomes 180°C, a recipe that runs on stays one recipe", "Beispiele: 12. Kalfsjus wird Kalfsjus, Ofen auf 18oc wird 180°C, ein fortlaufendes Rezept bleibt ein Rezept", "Ejemplos: 12. Kalfsjus pasa a Kalfsjus, horno a 18oc pasa a 180°C, una receta que sigue es una sola receta", "Exemples : 12. Kalfsjus devient Kalfsjus, four à 18oc devient 180°C, une recette qui continue reste une seule recette"],
+  "caption": ["Nummers voor titels en kleine typfouten worden opgeruimd; twijfel wordt gemarkeerd.", "Numbers before titles and small typos are tidied up; doubt is flagged.", "Nummern vor Titeln und kleine Tippfehler werden bereinigt; Zweifel wird markiert.", "Se quitan los números delante de los títulos y las pequeñas erratas; las dudas se marcan.", "Les numéros devant les titres et les petites fautes sont nettoyés ; le doute est signalé."]
+ }
+]

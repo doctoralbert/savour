@@ -1,0 +1,52 @@
+[
+ {
+  "name": "grootste-zorgen",
+  "after": "Waar ondernemers van wakker liggen",
+  "type": "hbars",
+  "title": ["Grootste zorg voor 2026", "Biggest worry for 2026", "Größte Sorge für 2026", "Mayor preocupación para 2026", "Principale inquiétude pour 2026"],
+  "sub": ["Deel van de horecaondernemers dat het noemt", "Share of hospitality business owners who named it", "Anteil der Gastronomen, die es nennen", "Parte de los empresarios que lo mencionan", "Part des exploitants qui la citent"],
+  "max": 70,
+  "rows": [
+   [["Werkgeverslasten", "Employer costs", "Arbeitgeberkosten", "Costes laborales", "Charges patronales"], 70, ["70%", "70%", "70 %", "70 %", "70 %"]],
+   [["Stijgende inkoopkosten", "Rising purchase costs", "Steigende Einkaufskosten", "Subida de las compras", "Hausse des coûts d’achat"], 66, ["66%", "66%", "66 %", "66 %", "66 %"]],
+   [["Regeldruk", "Red tape", "Bürokratie", "Carga normativa", "Charge administrative"], 54, ["54%", "54%", "54 %", "54 %", "54 %"]]
+  ],
+  "highlight": [0, 1],
+  "side": [["2 van 3", "2 of 3", "2 von 3", "2 de 3", "2 sur 3"], ["raken de keuken direct", "directly affect the kitchen", "betreffen direkt die Küche", "afectan de lleno a la cocina", "touchent directement la cuisine"], ["personeel en inkoop", "staff and purchasing", "Personal und Einkauf", "personal y compras", "personnel et achats"]],
+  "note": ["Bron: ledenonderzoek KHN, januari 2026.", "Source: KHN member survey, January 2026.", "Quelle: Mitgliederbefragung KHN, Januar 2026.", "Fuente: encuesta a socios de KHN, enero de 2026.", "Source : enquête auprès des membres de KHN, janvier 2026."],
+  "alt": ["Staafdiagram: werkgeverslasten 70%, stijgende inkoopkosten 66% en regeldruk 54%", "Bar chart: employer costs 70%, rising purchase costs 66% and red tape 54%", "Balkendiagramm: Arbeitgeberkosten 70 %, steigende Einkaufskosten 66 % und Bürokratie 54 %", "Gráfico de barras: costes laborales 70 %, subida de las compras 66 % y carga normativa 54 %", "Diagramme : charges patronales 70 %, hausse des coûts d’achat 66 % et charge administrative 54 %"],
+  "caption": ["Inkoop begint bij het recept: wie de hoeveelheden kent, kan scherp inkopen.", "Purchasing starts with the recipe: knowing the quantities means buying sharply.", "Einkauf beginnt beim Rezept: Wer die Mengen kennt, kauft gezielt ein.", "La compra empieza en la receta: quien conoce las cantidades compra mejor.", "L’achat commence par la recette : connaître les quantités, c’est acheter juste."]
+ },
+ {
+  "name": "verschuiving-sinds-2020",
+  "after": "Minder cafés, meer afhaal",
+  "type": "hbars",
+  "title": ["Minder cafés, meer afhaal", "Fewer bars, more takeaway", "Weniger Kneipen, mehr Abholung", "Menos bares, más comida para llevar", "Moins de cafés, plus de vente à emporter"],
+  "sub": ["Verandering in het aantal zaken sinds begin 2020", "Change in the number of businesses since early 2020", "Veränderung der Zahl der Betriebe seit Anfang 2020", "Cambio en el número de locales desde principios de 2020", "Évolution du nombre d’établissements depuis début 2020"],
+  "labelw": 440,
+  "rows": [
+   [["Cafés en discotheken", "Bars and nightclubs", "Kneipen und Diskotheken", "Bares y discotecas", "Cafés et discothèques"], -21.39, ["−21,39%", "−21.39%", "−21,39 %", "−21,39 %", "−21,39 %"]],
+   [["Fastservice", "Fast service", "Fast Service", "Servicio rápido", "Restauration rapide"], 14.33, ["+14,33%", "+14.33%", "+14,33 %", "+14,33 %", "+14,33 %"]],
+   [["Bezorg- en afhaalbedrijven", "Delivery and takeaway", "Liefer- und Abholdienste", "Reparto y para llevar", "Livraison et vente à emporter"], 48, ["+48%", "+48%", "+48 %", "+48 %", "+48 %"]]
+  ],
+  "highlight": [2],
+  "note": ["Bron: KHN, terug- en vooruitblik op de Horecava, januari 2026. Eind 2025: 43.606 horecalocaties.", "Source: KHN, Horecava review and outlook, January 2026. End of 2025: 43,606 hospitality locations.", "Quelle: KHN, Rück- und Ausblick zur Horecava, Januar 2026. Ende 2025: 43.606 Gastronomiestandorte.", "Fuente: KHN, balance y perspectivas en Horecava, enero de 2026. A finales de 2025: 43.606 locales.", "Source : KHN, bilan et perspectives au salon Horecava, janvier 2026. Fin 2025 : 43 606 établissements."],
+  "alt": ["Staafdiagram sinds begin 2020: cafés en discotheken min 21,39%, fastservice plus 14,33%, bezorg- en afhaalbedrijven plus 48%", "Bar chart since early 2020: bars and nightclubs minus 21.39%, fast service plus 14.33%, delivery and takeaway plus 48%", "Balkendiagramm seit Anfang 2020: Kneipen und Diskotheken minus 21,39 %, Fast Service plus 14,33 %, Liefer- und Abholdienste plus 48 %", "Gráfico desde 2020: bares y discotecas menos 21,39 %, servicio rápido más 14,33 %, reparto y para llevar más 48 %", "Diagramme depuis début 2020 : cafés et discothèques moins 21,39 %, restauration rapide plus 14,33 %, livraison et emporter plus 48 %"],
+  "caption": ["Het totaal bleef bijna gelijk; binnen die lijst is veel verschoven.", "The total stayed almost the same; within it, a lot shifted.", "Die Gesamtzahl blieb fast gleich; innerhalb hat sich viel verschoben.", "El total se mantuvo casi igual; por dentro cambió mucho.", "Le total est resté presque stable ; à l’intérieur, beaucoup a bougé."]
+ },
+ {
+  "name": "omzet-en-volume",
+  "after": "Meer omzet, bijna evenveel gasten",
+  "type": "tiles",
+  "title": ["Meer omzet, bijna evenveel gasten", "More revenue, almost the same number of guests", "Mehr Umsatz, fast gleich viele Gäste", "Más facturación, casi los mismos clientes", "Plus de chiffre d’affaires, presque autant de clients"],
+  "sub": ["Horeca in Nederland, 2025", "Dutch hospitality, 2025", "Gastgewerbe in den Niederlanden, 2025", "Hostelería en Países Bajos, 2025", "Hôtellerie-restauration aux Pays-Bas, 2025"],
+  "items": [
+   [["+3,9%", "+3.9%", "+3,9 %", "+3,9 %", "+3,9 %"], ["omzet horeca (CBS)", "hospitality revenue (CBS)", "Umsatz Gastgewerbe (CBS)", "facturación de la hostelería (CBS)", "chiffre d’affaires du secteur (CBS)"]],
+   [["+4,8%", "+4.8%", "+4,8 %", "+4,8 %", "+4,8 %"], ["eet- en drinkgelegenheden (CBS)", "places to eat and drink (CBS)", "Gastronomie (CBS)", "bares y restaurantes (CBS)", "restaurants et cafés (CBS)"]],
+   [["+1%", "+1%", "+1 %", "+1 %", "+1 %"], ["volume: verkochte consumpties (KHN)", "volume: items sold (KHN)", "Volumen: verkaufte Verzehre (KHN)", "volumen: consumiciones vendidas (KHN)", "volume : consommations vendues (KHN)"], true]
+  ],
+  "note": ["Het grootste deel van de groei komt uit hogere prijzen.", "Most of the growth comes from higher prices.", "Der größte Teil des Wachstums kommt aus höheren Preisen.", "La mayor parte del crecimiento viene de precios más altos.", "L’essentiel de la croissance vient de prix plus élevés."],
+  "alt": ["Drie cijfers over 2025: omzet horeca plus 3,9%, eet- en drinkgelegenheden plus 4,8%, volume plus 1%", "Three figures for 2025: hospitality revenue up 3.9%, places to eat and drink up 4.8%, volume up 1%", "Drei Zahlen für 2025: Umsatz Gastgewerbe plus 3,9 %, Gastronomie plus 4,8 %, Volumen plus 1 %", "Tres cifras de 2025: facturación +3,9 %, bares y restaurantes +4,8 %, volumen +1 %", "Trois chiffres pour 2025 : chiffre d’affaires +3,9 %, restaurants et cafés +4,8 %, volume +1 %"],
+  "caption": ["De gast betaalt meer voor hetzelfde bord, en verwacht dat het elke avond hetzelfde is.", "Guests pay more for the same plate, and expect it to be the same every night.", "Der Gast zahlt mehr für denselben Teller und erwartet, dass er jeden Abend gleich ist.", "El cliente paga más por el mismo plato y espera que sea igual cada noche.", "Le client paie plus pour la même assiette et s’attend à ce qu’elle soit identique chaque soir."]
+ }
+]

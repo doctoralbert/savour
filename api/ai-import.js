@@ -127,7 +127,9 @@ function extractOutputText(data) {
 
 // Vergelijkt twee losse lezingen van dezelfde foto. Een regel met dezelfde woorden maar andere getallen
 // ("95 eigeel" tegenover "90 eigeel") komt bij unclear, met beide lezingen, zodat de chef kiest.
-const numbersOf = line => (String(line).match(/\d+(?:[.,]\d+)?/g) || []).join(' ');
+// Een stapnummer vooraan ("4. Forme den Teig") telt niet mee: de ene lezing zet het er soms wel, de andere niet.
+const withoutStepNumber = line => String(line).replace(/^\s*\(?\d{1,2}[.)]\)?\s+(?=\p{L})/u, '');
+const numbersOf = line => (withoutStepNumber(line).match(/\d+(?:[.,]\d+)?/g) || []).join(' ');
 const wordsOf = line =>
   String(line)
     .toLowerCase()
@@ -405,6 +407,10 @@ ABSOLUTE REGELS:
 - Maak strikt onderscheid tussen titel, opbrengst, ingrediënten en bereidingsstappen.
 - Een opsommingsteken vooraan een regel (een streepje, punt of sterretje: "-130 olie", "• 2 eieren") hoort niet bij het ingrediënt of de stap: neem alleen "130 olie" over. Staan er meerdere ingrediënten met streepjes ertussen op één regel ("-500 g tomaat - 500 g venkel"), dan is elk een eigen ingrediënt.
 - Opmaak en kopjes zijn geen inhoud: regels als "# Ingredients", "**Method**", "Bereiding" of "---" komen niet in ingredients of steps. Een bronvermelding ("(Source: …)", "Bron: …") of een opmerking als "(No method provided.)" is geen ingrediënt en geen stap: laat die weg.
+- ONDERDELEN: bestaat het recept uit onderdelen met een eigen kopje boven hun ingrediënten (bijvoorbeeld "Mürbteig", "Füllung", "Saus", "Crumble"), zet dan dat kopje in ingredients als eigen regel met een dubbele punt erachter ("Mürbteig:"), direct boven de ingrediënten van dat onderdeel. Doe hetzelfde in steps als de bereiding per onderdeel een kopje heeft. Laat zulke kopjes nooit weg.
+- ALLEEN UIT DE INGREDIËNTENLIJST: ingredients bevat alleen regels die in de ingrediëntenlijst of -tabel van de bron staan. Een product dat alleen in de bereiding genoemd wordt ("bestrijk met gesmolten boter", "met wat citroensap afmaken") zet je níet bij ingredients: het blijft alleen in de stap.
+- ALLERGEENLETTERS: staan er achter ingrediënten losse hoofdletters als allergeencode (bijvoorbeeld "Eier C", "Butter G", "Mehl A", of een kolom "Allergene"), neem die letters dan letterlijk mee achter het ingrediënt ("1.200 g Eier C"); Savour verwerkt ze zelf.
+- STAPNUMMERS: laat nummers vooraan een stap ("1.", "4)") weg; Savour nummert zelf.
 - Een ingrediënt blijft een ingrediënt, ook als het bijvoorbeeld een vanillestokje, ei, boter of suiker is. Zet een ingrediënt nooit in steps.
 - Een regel met een hoeveelheid hoort bij ingrediënten als het product zelf wordt genoemd. Bijvoorbeeld "1 vanillestokje" is een ingrediënt.
 - Een bereidingshandeling hoort alleen bij steps als de bron daadwerkelijk een handeling beschrijft, zoals mengen, verwarmen, garen, koken, bakken, zeven of marineren.
@@ -417,6 +423,7 @@ ABSOLUTE REGELS:
 - Is de bron getypte tekst (BRONTEKST, geen foto), dan is alles leesbaar: laat unclear leeg. Tikfouten, een vergeten spatie, een o in plaats van een 0, merknamen en vakjargon (zoals "proespuma", "rapsodie", "kidde") zijn geen twijfel; neem ze letterlijk over, Savour verbetert kleine tikfouten zelf en laat die aan de chef zien.
 - Staan er bij de ingrediënten meerdere kolommen met hoeveelheden voor verschillende batchgroottes (bijvoorbeeld een basiskolom en een kolom onder "6x"), controleer dan of elke waarde in de extra kolom precies de basiswaarde maal dezelfde factor is. Zo ja: gebruik alleen de basiskolom en laat de extra kolom helemaal weg (Savour rekent zelf om); zet de factor niet in yield. Zo nee: behoud beide hoeveelheden letterlijk in de ingrediëntregel en zet needs_review op true.
 - Een foto kan gedraaid zijn (op zijn kant of ondersteboven); lees de tekst in de juiste richting. Werkwijze kan ook in de kantlijn, naast accolades of met pijlen bij de ingrediënten staan: neem die op als stappen.
+- VERVOLGPAGINA: is deze foto of pagina duidelijk het vervolg van een recept op een eerdere pagina (geen titel en geen ingrediënten, en de genummerde stappen beginnen niet bij 1, bijvoorbeeld vanaf 4.), geef dan title als lege string, ingredients leeg, de stappen zoals ze er staan en incomplete: false. Savour voegt de pagina's zelf samen.
 - Zet incomplete: true alleen als de tekst van dát recept zelf zichtbaar doorloopt buiten de bron: een regel die is afgesneden aan de rand van de foto of pagina, of een ingrediëntenlijst die halverwege ophoudt. Neem op wat leesbaar is. Twijfel je, zet dan incomplete: false en needs_review: true.
 - Een recept is níet incomplete omdat er geen bereiding is, omdat het kort is, of omdat er daarna een nieuw kopje volgt. Een kopje zonder ingrediënten of stappen eronder is geen recept: neem het niet op.
 - Verwijder geen inhoud omdat die ongebruikelijk lijkt.

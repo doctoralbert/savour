@@ -1,0 +1,33 @@
+[
+ {
+  "name": "wat-erin-hoort",
+  "after": "Wat erin hoort",
+  "type": "page",
+  "title": ["Wat er in een standaardreceptuur hoort", "What goes into a standard recipe", "Was in eine Standardrezeptur gehört", "Qué lleva una ficha técnica", "Ce que contient une fiche technique"],
+  "sub": ["Uit de demo: beurre blanc", "From the demo: beurre blanc", "Aus der Demo: Beurre blanc", "De la demo: beurre blanc", "Tiré de la démo : beurre blanc"],
+  "rows": [
+   ["title", "Beurre blanc", 1],
+   ["meta", ["OPBRENGST: 4 PERSONEN", "YIELD: 4 PEOPLE", "AUSBEUTE: 4 PERSONEN", "RENDIMIENTO: 4 PERSONAS", "RENDEMENT : 4 PERSONNES"], 2],
+   ["head", ["INGREDIËNTEN", "INGREDIENTS", "ZUTATEN", "INGREDIENTES", "INGRÉDIENTS"], 3],
+   ["line", ["2 sjalotten, fijngesnipperd", "2 shallots, finely chopped", "2 Schalotten, fein gewürfelt", "2 chalotas, picadas finas", "2 échalotes, finement ciselées"], 0],
+   ["line", ["1 deciliter droge witte wijn", "1 decilitre dry white wine", "1 Deziliter trockener Weißwein", "1 decilitro de vino blanco seco", "1 décilitre de vin blanc sec"], 0],
+   ["line", ["5 eetlepels witte wijnazijn", "5 tablespoons white wine vinegar", "5 Esslöffel Weißweinessig", "5 cucharadas de vinagre de vino blanco", "5 cuillères à soupe de vinaigre de vin blanc"], 0],
+   ["line", ["250 gram koude roomboter, in blokjes", "250 grams cold butter, diced", "250 Gramm kalte Butter, in Würfeln", "250 gramos de mantequilla fría, en dados", "250 grammes de beurre froid, en dés"], 0],
+   ["gap", 10, 0],
+   ["head", ["BEREIDING", "METHOD", "ZUBEREITUNG", "ELABORACIÓN", "PRÉPARATION"], 4],
+   ["line", ["1. Sjalot, wijn en azijn inkoken tot", "1. Reduce shallot, wine and vinegar to", "1. Schalotte, Wein und Essig einkochen auf", "1. Reducir chalota, vino y vinagre hasta", "1. Réduire échalote, vin et vinaigre à"], 0],
+   ["line", ["   ongeveer 2 eetlepels vocht", "   about 2 tablespoons of liquid", "   etwa 2 Esslöffel Flüssigkeit", "   unas 2 cucharadas de líquido", "   environ 2 cuillères à soupe de liquide"], 0],
+   ["line", ["2. …", "2. …", "2. …", "2. …", "2. …"], 0],
+   ["foot", ["Notitie: kritische punten", "Note: critical points", "Notiz: kritische Punkte", "Nota: puntos críticos", "Note : points critiques"], 5]
+  ],
+  "notes": [
+   [["Titel", "Title", "Titel", "Título", "Titre"], ["De naam die de keuken echt gebruikt", "The name the kitchen really uses", "Der Name, den die Küche wirklich benutzt", "El nombre que usa de verdad la cocina", "Le nom que la cuisine utilise vraiment"]],
+   [["Opbrengst", "Yield", "Ausbeute", "Rendimiento", "Rendement"], ["Liter, porties of stuks", "Litres, portions or pieces", "Liter, Portionen oder Stück", "Litros, raciones o piezas", "Litres, portions ou pièces"]],
+   [["Ingrediënten", "Ingredients", "Zutaten", "Ingredientes", "Ingrédients"], ["Elk met hoeveelheid en eenheid", "Each with quantity and unit", "Jede mit Menge und Einheit", "Cada uno con cantidad y unidad", "Chacun avec quantité et unité"]],
+   [["Bereiding", "Method", "Zubereitung", "Elaboración", "Préparation"], ["In genummerde stappen", "In numbered steps", "In nummerierten Schritten", "En pasos numerados", "En étapes numérotées"]],
+   [["Kritische punten", "Critical points", "Kritische Punkte", "Puntos críticos", "Points critiques"], ["Temperatuur, tijd, structuur", "Temperature, time, texture", "Temperatur, Zeit, Struktur", "Temperatura, tiempo, textura", "Température, temps, texture"]]
+  ],
+  "alt": ["Receptkaart van een beurre blanc met vijf onderdelen: titel, opbrengst, ingrediënten met hoeveelheid, bereiding in stappen en kritische punten", "Recipe card for beurre blanc with five parts: title, yield, ingredients with quantity, numbered method and critical points", "Rezeptkarte einer Beurre blanc mit fünf Teilen: Titel, Ausbeute, Zutaten mit Menge, Zubereitung in Schritten und kritische Punkte", "Ficha de un beurre blanc con cinco partes: título, rendimiento, ingredientes con cantidad, elaboración en pasos y puntos críticos", "Fiche d’un beurre blanc en cinq parties : titre, rendement, ingrédients avec quantité, préparation en étapes et points critiques"],
+  "caption": ["Geen spiekbriefje, maar de afspraak van de keuken.", "Not a cheat sheet, but the kitchen’s agreement.", "Kein Spickzettel, sondern die Absprache der Küche.", "No es una chuleta, es el acuerdo de la cocina.", "Pas une antisèche, mais la règle de la cuisine."]
+ }
+]

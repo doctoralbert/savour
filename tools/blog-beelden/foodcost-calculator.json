@@ -1,0 +1,40 @@
+[
+ {
+  "name": "menu-engineering",
+  "after": "Daarna: menu engineering",
+  "type": "quad",
+  "title": ["Menu engineering in vier groepen", "Menu engineering in four groups", "Menu Engineering in vier Gruppen", "Ingeniería de menú en cuatro grupos", "Le menu engineering en quatre groupes"],
+  "sub": ["Hoe vaak verkoop je een gerecht, en wat verdien je er per bord aan?", "How often do you sell a dish, and what do you earn per plate?", "Wie oft verkaufst du ein Gericht, und was verdienst du pro Teller?", "¿Cuántas veces vendes un plato y cuánto ganas por plato?", "Combien de fois vends-tu un plat, et que rapporte chaque assiette ?"],
+  "cells": [
+   ["Puzzles", ["Verdienen goed, verkopen weinig: betere plek of beschrijving.", "Earn well, sell little: a better spot or description.", "Verdienen gut, verkaufen wenig: besserer Platz oder Beschreibung.", "Ganan bien, se venden poco: mejor sitio o descripción.", "Rapportent bien, se vendent peu : meilleure place ou description."]],
+   ["Stars", ["Verkopen goed en verdienen goed: houden zoals ze zijn.", "Sell well and earn well: keep them as they are.", "Verkaufen gut und verdienen gut: so lassen.", "Se venden bien y ganan bien: mantenerlos.", "Se vendent bien et rapportent bien : les garder tels quels."]],
+   ["Dogs", ["Verkopen weinig en verdienen weinig: kandidaat om te vervangen.", "Sell little and earn little: candidates to replace.", "Verkaufen wenig und verdienen wenig: Kandidaten zum Ersetzen.", "Se venden poco y ganan poco: candidatos a sustituir.", "Se vendent peu et rapportent peu : à remplacer."]],
+   ["Plowhorses", ["Verkopen goed, verdienen weinig: kijk naar portie of prijs.", "Sell well, earn little: look at portion or price.", "Verkaufen gut, verdienen wenig: Portion oder Preis prüfen.", "Se venden bien, ganan poco: revisa ración o precio.", "Se vendent bien, rapportent peu : revoir portion ou prix."]]
+  ],
+  "axes": [["VERKOOPT VAKER", "SELLS MORE OFTEN", "VERKAUFT SICH ÖFTER", "SE VENDE MÁS", "SE VEND PLUS"], ["VERDIENT MEER", "EARNS MORE", "VERDIENT MEHR", "GANA MÁS", "RAPPORTE PLUS"]],
+  "dark": 1,
+  "alt": ["Kwadrant met vier groepen: stars verkopen en verdienen goed, plowhorses verkopen goed maar verdienen weinig, puzzles verdienen goed maar verkopen weinig, dogs doen geen van beide", "Quadrant with four groups: stars sell and earn well, plowhorses sell well but earn little, puzzles earn well but sell little, dogs do neither", "Quadrant mit vier Gruppen: Stars verkaufen und verdienen gut, Plowhorses verkaufen gut, verdienen aber wenig, Puzzles verdienen gut, verkaufen aber wenig, Dogs beides nicht", "Cuadrante con cuatro grupos: stars se venden y ganan bien, plowhorses se venden bien pero ganan poco, puzzles ganan bien pero se venden poco, dogs ninguna de las dos", "Quadrant en quatre groupes : les stars se vendent et rapportent bien, les plowhorses se vendent mais rapportent peu, les puzzles rapportent mais se vendent peu, les dogs ni l’un ni l’autre"],
+  "caption": ["De indeling komt van Kasavana en Smith (1982). Menu engineering bouwen we na de calculator.", "The model comes from Kasavana and Smith (1982). We build menu engineering after the calculator.", "Die Einteilung stammt von Kasavana und Smith (1982). Menu Engineering bauen wir nach dem Rechner.", "La clasificación es de Kasavana y Smith (1982). La construimos después de la calculadora.", "Le modèle vient de Kasavana et Smith (1982). Nous le construirons après le calculateur."]
+ },
+ {
+  "name": "rekenvoorbeeld",
+  "after": "Wat is foodcost?",
+  "type": "calc",
+  "title": ["Foodcost in één som", "Food cost in one sum", "Wareneinsatz in einer Rechnung", "El food cost en una operación", "Le food cost en un calcul"],
+  "sub": ["Kosten van de ingrediënten gedeeld door de verkoopprijs zonder btw", "Ingredient cost divided by the selling price excluding VAT", "Zutatenkosten geteilt durch den Verkaufspreis ohne MwSt.", "Coste de ingredientes entre el precio de venta sin IVA", "Coût des ingrédients divisé par le prix de vente hors TVA"],
+  "boxes": [
+   [["ingrediënten per portie", "ingredients per portion", "Zutaten pro Portion", "ingredientes por ración", "ingrédients par portion"], ["€ 6,00", "€6.00", "6,00 €", "6,00 €", "6,00 €"], false],
+   [["verkoopprijs zonder btw", "price excl. VAT", "Preis ohne MwSt.", "precio sin IVA", "prix hors TVA"], ["€ 24,00", "€24.00", "24,00 €", "24,00 €", "24,00 €"], false],
+   [["", "", "", "", ""], "100", false, 0.55],
+   [["foodcost", "food cost", "Wareneinsatz", "food cost", "food cost"], ["25%", "25%", "25 %", "25 %", "25 %"], true]
+  ],
+  "ops": ["÷", "×", "="],
+  "panel": [
+   ["TER VERGELIJKING", "FOR COMPARISON", "ZUM VERGLEICH", "PARA COMPARAR", "POUR COMPARAISON"],
+   ["31,1% naar inkoop", "31.1% on purchases", "31,1 % für Einkauf", "31,1 % en compras", "31,1 % pour les achats"],
+   ["Gemiddeld bij Nederlandse restaurants in 2024, eten en drinken samen (CBS).", "Average for Dutch restaurants in 2024, food and drink together (CBS).", "Durchschnitt niederländischer Restaurants 2024, Essen und Trinken zusammen (CBS).", "Media de los restaurantes neerlandeses en 2024, comida y bebida juntas (CBS).", "Moyenne des restaurants néerlandais en 2024, nourriture et boissons ensemble (CBS)."]
+  ],
+  "alt": ["Rekenvoorbeeld: 6 euro aan ingrediënten gedeeld door 24 euro verkoopprijs zonder btw, keer 100, is 25% foodcost", "Worked example: 6 euros of ingredients divided by a 24-euro selling price excluding VAT, times 100, is 25% food cost", "Rechenbeispiel: 6 Euro Zutaten geteilt durch 24 Euro Verkaufspreis ohne MwSt., mal 100, ergibt 25 % Wareneinsatz", "Ejemplo: 6 euros de ingredientes entre 24 euros de precio sin IVA, por 100, da un 25 % de food cost", "Exemple : 6 euros d’ingrédients divisés par 24 euros de prix hors TVA, fois 100, donnent 25 % de food cost"],
+  "caption": ["Het rekenblad gaat dit straks voor je doen, vanuit je eigen recepten.", "The calculator will soon do this for you, from your own recipes.", "Der Rechner wird das bald für dich tun, aus deinen eigenen Rezepten.", "La calculadora lo hará pronto por ti, desde tus propias recetas.", "Le calculateur le fera bientôt pour toi, à partir de tes recettes."]
+ }
+]

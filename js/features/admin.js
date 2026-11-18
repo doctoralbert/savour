@@ -376,26 +376,22 @@ function renderAdminStats() {
     rows
       .map(x => `<div class="traffic-box"><b>${adminEscape(x[1] ?? '—')}</b><span>${adminEscape(x[0])}</span></div>`)
       .join('');
+  // Overzicht: echt nieuwe bezoekers (zonder vaste gebruikers, api/admin.js → visitorStats) en wat accounts doen.
+  // Alle unieke bezoekers (ook vaste gebruikers) staan bij Bezoekers.
   const s = $('adminStats');
   if (s)
     s.innerHTML = [
-      ['Unieke bezoekers vandaag', d.visits_today, 'elk apparaat telt één keer'],
-      ['Unieke bezoekers deze week', d.visits_week, 'laatste 7 dagen'],
-      ['Unieke bezoekers deze maand', d.visits_month, 'deze kalendermaand'],
+      ['Nieuwe bezoekers vandaag', d.new_today, 'eerste bezoek, zonder vaste gebruikers'],
       [
-        'Unieke bezoekers all time',
-        d.visitors_all_time,
-        [
-          d.own_devices ? `zonder jouw ${d.own_devices} apparaat/apparaten` : 'sinds de start',
-          d.not_counted ? `${d.not_counted} bots en tools niet meegeteld` : ''
-        ]
-          .filter(Boolean)
-          .join(' · ')
+        'Nieuwe bezoekers 7 dagen',
+        d.new_week,
+        d.new_signed_up_week ? `${d.new_signed_up_week} maakten een account` : 'laatste 7 dagen'
       ],
-      ['Accounts', d.accounts, 'geregistreerde gebruikers'],
-      ['App gebruikers', d.app_users, 'unieke native app-gebruikers'],
-      ['Recepten', d.recipes, 'persoonlijke recepten'],
-      ['Receptenmappen', d.folders, 'persoonlijke mappen'],
+      ['Nieuwe bezoekers deze maand', d.new_month, 'deze kalendermaand'],
+      ['Nieuwe accounts 7 dagen', d.new_accounts_week, `${d.accounts ?? '—'} accounts in totaal`],
+      ['Gebruikers vandaag', d.active_today, 'accounts die Savour openden'],
+      ['Nu actief', d.active_now, 'accounts, afgelopen 10 minuten'],
+      ['Recepten', d.recipes, 'in alle bibliotheken'],
       ['Keukenteams', d.shared_maps, 'keukenteams']
     ]
       .map(
@@ -425,6 +421,7 @@ function renderAdminStats() {
       ['Native app', d.platform_app]
     ]);
   adminRenderCountries(d.countries || []);
+  renderAdminNewVisitors(d);
   // Herkomst: per groep (direct, gedeelde links, social media, ...) de bronnen, met een balkje ten opzichte van de
   // grootste bron. De groep met de meeste bezoekers bovenaan.
   const sb = $('adminSourcesBody');
@@ -637,23 +634,79 @@ const ADMIN_IMPORT_STATUS = {
   mislukt: 'Mislukt'
 };
 
+let adminImportList = [];
+let adminImportOpen = null;
+
 async function loadAdminImports() {
   const body = $('adminImportsBody');
   if (!body) return;
   try {
     const d = await adminApi('import_uploads');
-    const list = d.uploads || [];
+    adminImportList = d.uploads || [];
     if ($('adminImportsCount'))
-      $('adminImportsCount').textContent = `${list.length} bestanden · ${d.open_results || 0} AI-resultaten open`;
+      $('adminImportsCount').textContent =
+        `${adminImportList.length} bestanden · ${d.open_results || 0} AI-resultaten open`;
+    renderAdminImports();
+  } catch (e) {
+    body.innerHTML = `<tr><td colspan="9">Imports konden niet worden geladen: ${adminEscape(e.message)}. Is supabase/2026-11-11-import-nooit-kwijt.sql uitgevoerd?</td></tr>`;
+  }
+}
+
+// Per bestand: met Bekijken klapt eronder open wat de AI las en wat de kok opsloeg (adminImportDetail).
+function renderAdminImports() {
+  const body = $('adminImportsBody');
+  if (!body) return;
+  const detail = u =>
+    adminImportOpen?.id === u.id
+      ? `<tr class="admin-reader-detail"><td colspan="9">${adminImportDetail(adminImportOpen.data)}</td></tr>`
+      : '';
+  const showBtn = u =>
+    `<td><button type="button" class="admin-ghost" onclick="adminImportShow('${adminEscape(u.id)}')">${adminImportOpen?.id === u.id ? 'Sluiten' : 'Bekijken'}</button></td>`;
+  {
+    const list = adminImportList;
     body.innerHTML =
       list
         .map(
           u =>
-            `<tr class="${u.open || u.status === 'mislukt' || u.status === 'bezig' ? 'is-flagged' : ''}"><td>${adminFormatDate(u.created_at)} ${new Date(u.created_at).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' })}</td><td>${adminEscape(u.email || u.user_id)}</td><td>${u.storage_path ? `<button type="button" class="admin-ghost" onclick="adminImportFile('${adminEscape(u.id)}')">${adminEscape(u.filename)}</button>` : `${adminEscape(u.filename)} <small class="admin-muted">(geen origineel)</small>`}${u.note ? `<small class="admin-referral-mail">${adminEscape(u.note)}</small>` : ''}</td><td>${adminEscape(ADMIN_IMPORT_STATUS[u.status] || u.status)}</td><td>${adminEscape(u.ai_parts)}</td><td>${adminEscape(u.recipes_found ?? '–')}</td><td>${adminEscape(u.recipes_saved)}</td><td>${u.open ? `<b>${adminEscape(u.open)}</b>` : '–'}</td></tr>`
+            `<tr class="${u.open || u.status === 'mislukt' || u.status === 'bezig' ? 'is-flagged' : ''}"><td>${adminFormatDate(u.created_at)} ${new Date(u.created_at).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' })}</td><td>${adminEscape(u.email || u.user_id)}</td><td>${u.storage_path ? `<button type="button" class="admin-ghost" onclick="adminImportFile('${adminEscape(u.id)}')">${adminEscape(u.filename)}</button>` : `${adminEscape(u.filename)} <small class="admin-muted">(geen origineel)</small>`}${u.note ? `<small class="admin-referral-mail">${adminEscape(u.note)}</small>` : ''}</td><td>${adminEscape(ADMIN_IMPORT_STATUS[u.status] || u.status)}</td><td>${adminEscape(u.ai_parts)}</td><td>${adminEscape(u.recipes_found ?? '–')}</td><td>${adminEscape(u.recipes_saved)}</td><td>${u.open ? `<b>${adminEscape(u.open)}</b>` : '–'}</td>${showBtn(u)}</tr>${detail(u)}`
         )
-        .join('') || '<tr><td colspan="8">Nog geen imports.</td></tr>';
+        .join('') || '<tr><td colspan="9">Nog geen imports.</td></tr>';
+  }
+}
+
+// Wat er van één bestand gelezen is (AI) en, bij "Help de Savour-lezer verbeteren", wat de kok opsloeg en hoe
+// het recept er nu uitziet, naast elkaar.
+function adminImportDetail(d) {
+  const recipeHtml = r =>
+    `<div class="admin-reader-recipe"><b>${adminEscape(r?.title || '—')}</b>${r?.yield ? `<small> ${adminEscape(r.yield)}</small>` : ''}<ul>${(r?.ingredients || []).map(l => `<li>${adminEscape(l)}</li>`).join('')}</ul><ol>${(r?.steps || []).map(l => `<li>${adminEscape(l)}</li>`).join('')}</ol>${r?.unclear?.length ? `<small class="admin-muted">Twijfel: ${r.unclear.map(adminEscape).join(' · ')}</small>` : ''}${r?.transcription?.length ? `<details><summary>Zo las de AI het</summary><pre>${adminEscape(r.transcription.join('\n'))}</pre></details>` : ''}</div>`;
+  const state = res => res.handled || (res.status === 'klaar' ? 'nog niet opgeslagen' : res.status);
+  const ai = (d?.results || [])
+    .map(
+      res =>
+        `<div><h4>AI las${res.model ? ` <small>${adminEscape(res.model)}</small>` : ''}<small> · ${adminEscape(state(res))}</small></h4>${(res.recipes || []).map(recipeHtml).join('') || '<p class="admin-muted">Geen recepten.</p>'}</div>`
+    )
+    .join('');
+  const saved = (d?.origins || [])
+    .map(
+      o =>
+        `${d?.results?.length ? '' : `<div><h4>Lezer las</h4>${recipeHtml(o.as_read)}</div>`}<div><h4>Opgeslagen door de kok</h4>${recipeHtml(o.as_saved)}</div><div><h4>Nu</h4>${o.now ? recipeHtml(o.now) : '<p class="admin-muted">Recept verwijderd.</p>'}</div>`
+    )
+    .join('');
+  if (!ai && !saved)
+    return '<p class="admin-muted">Niets te tonen: geen AI-resultaat, en de kok deelt imports niet via "Help de Savour-lezer verbeteren" (of heeft nog niets opgeslagen). Download het origineel om het bestand te zien.</p>';
+  return `<div class="admin-reader-grid">${ai}${saved}</div>`;
+}
+
+async function adminImportShow(id) {
+  if (adminImportOpen?.id === id) {
+    adminImportOpen = null;
+    return renderAdminImports();
+  }
+  try {
+    adminImportOpen = { id, data: await adminApi('import_upload_view', { id }) };
+    renderAdminImports();
   } catch (e) {
-    body.innerHTML = `<tr><td colspan="8">Imports konden niet worden geladen: ${adminEscape(e.message)}. Is supabase/2026-11-11-import-nooit-kwijt.sql uitgevoerd?</td></tr>`;
+    toast(e.message || 'Dit bestand kon niet worden geopend');
   }
 }
 
@@ -1239,6 +1292,16 @@ async function loadAdminOverview() {
       renderAdminStats();
     }
     adminAccounts = accounts || [];
+    // Voor de tegels bovenaan het overzicht.
+    Object.assign(adminDashData, {
+      active_today: t.active_today,
+      active_now: t.active_now,
+      new_accounts_week: t.new_7_days,
+      accounts: t.accounts,
+      recipes: t.recipes
+    });
+    renderAdminStats();
+    renderAdminActiveUsers();
     renderAdminFunnel(funnel);
     loadAdminActivity();
     adminTotals = t;
@@ -1334,8 +1397,12 @@ function renderAdminAccounts() {
   if (!body) return;
   const q = ($('adminAccountSearch')?.value || '').trim().toLowerCase();
   const type = $('adminAccountType')?.value || '';
-  const archived = adminAccounts.filter(adminIsArchived);
-  const pool = adminArchiveOpen ? archived : adminAccounts.filter(a => !adminIsArchived(a));
+  // Zonder beheerders, en wie het laatst actief was bovenaan (nu actief eerst).
+  const listed = adminAccounts
+    .filter(a => !a.is_admin && a.id !== currentUser?.id)
+    .sort((a, b) => b.active_now - a.active_now || adminLastSeen(b) - adminLastSeen(a));
+  const archived = listed.filter(adminIsArchived);
+  const pool = adminArchiveOpen ? archived : listed.filter(a => !adminIsArchived(a));
   const rows = pool.filter(
     a =>
       (!type || (type === 'active' ? a.active_now : a.type === type)) &&
@@ -1349,7 +1416,7 @@ function renderAdminAccounts() {
   if ($('adminAccountCount'))
     $('adminAccountCount').textContent = adminArchiveOpen
       ? `archief: ${rows.length} van ${archived.length}`
-      : `${rows.length} van ${adminAccounts.length - archived.length} actief`;
+      : `${rows.length} van ${listed.length - archived.length} actief`;
   const archiveBtn = $('adminArchiveBtn');
   if (archiveBtn)
     archiveBtn.textContent = adminArchiveOpen
@@ -1427,6 +1494,85 @@ function renderAdminActiveNow() {
   host.innerHTML = now.length
     ? `<span class="admin-active-dot"></span><b>Nu actief (${now.length}):</b> ${now.map(a => `${adminEscape(a.name || a.email)} <small>${adminEscape(a.activity?.lastDevice || '')}</small>`).join(' · ')}`
     : '';
+}
+
+// Overzicht: wie de gekozen periode actief was (vandaag, 7 of 30 dagen), met recepten, bezoeken en wat ze
+// verder doen. Zonder beheerders; nu actief eerst, daarna wie het laatst actief was.
+function renderAdminActiveUsers() {
+  const body = $('adminActiveUsersBody');
+  if (!body) return;
+  const days = Number($('adminActivePeriod')?.value || 7);
+  const since = Date.now() - days * 86400000;
+  const rows = adminAccounts
+    .filter(a => !a.is_admin && a.id !== currentUser?.id)
+    .filter(a => a.active_now || (days === 1 ? a.activity?.today : adminLastSeen(a) > since))
+    .sort((a, b) => b.active_now - a.active_now || adminLastSeen(b) - adminLastSeen(a));
+  if ($('adminActiveUsersCount'))
+    $('adminActiveUsersCount').textContent = `${rows.length} ${rows.length === 1 ? 'gebruiker' : 'gebruikers'}`;
+  const chip = (n, label) =>
+    n ? `<span class="admin-chip"><b>${adminEscape(n)}</b> ${adminEscape(label)}</span>` : '';
+  body.innerHTML =
+    rows
+      .map(a => {
+        const recipesNote = [
+          a.recipes_new_30 ? `+${a.recipes_new_30} erbij` : '',
+          a.recipes_edited_30 ? `${a.recipes_edited_30} aangepast` : ''
+        ]
+          .filter(Boolean)
+          .join(' · ');
+        const visits = a.activity?.hasVisits
+          ? `${adminEscape(a.activity.visits_30)}<small>${a.activity.visits_today ? `${adminEscape(a.activity.visits_today)} vandaag · ` : ''}${adminEscape(a.activity.visits)} totaal</small>`
+          : adminVisits(a);
+        const d = a.activity || {};
+        const devices = [
+          ['telefoon', 'dagen telefoon'],
+          ['tablet', 'dagen tablet'],
+          ['computer', 'dagen computer']
+        ]
+          .map(([k, label]) => chip(d[k], label))
+          .join('');
+        const more =
+          [
+            chip(a.ai_total, a.ai_this_month ? `AI-imports (${a.ai_this_month} deze maand)` : 'AI-imports'),
+            chip(a.folders, a.folders === 1 ? 'map' : 'mappen'),
+            chip(a.teams_owned, a.teams_owned === 1 ? 'eigen keukenteam' : 'eigen keukenteams'),
+            chip(Math.max(0, a.teams_member - a.teams_owned), 'keukenteam als lid'),
+            chip(a.shares, a.shares === 1 ? 'gedeelde link' : 'gedeelde links'),
+            chip(a.favorites, 'favorieten'),
+            devices
+          ].join('') || '<span class="admin-muted">nog niets anders</span>';
+        return `<tr><td>${adminFlag(a.country)} <b>${adminEscape(a.name || a.email || '—')}</b><small>${adminEscape(a.email || '')}</small><span class="admin-badge ${adminEscape(a.type)}">${adminEscape(a.label)}</span></td><td>${adminLastActive(a)}</td><td>${visits}</td><td><b>${adminEscape(a.recipes)}</b>${recipesNote ? `<small>${adminEscape(recipesNote)}</small>` : ''}</td><td><div class="admin-chips">${more}</div></td></tr>`;
+      })
+      .join('') ||
+    `<tr><td colspan="5">${days === 1 ? 'Vandaag nog niemand actief.' : 'Niemand actief in deze periode.'}</td></tr>`;
+}
+
+// Overzicht: waar echt nieuwe bezoekers vandaan komen (eerste bron per nieuw apparaat) en wie er deze week nieuw was.
+function renderAdminNewVisitors(d) {
+  const sb = $('adminNewSourcesBody');
+  if (sb) {
+    const sources = d.new_sources || [];
+    const max = Math.max(1, ...sources.map(x => x.week || x.month));
+    sb.innerHTML =
+      sources
+        .map(
+          x =>
+            `<tr><td class="admin-source-name">${adminEscape(x.name)}<small>${adminEscape(x.group)}</small></td><td class="admin-source-bar"><i style="width:${Math.round(((x.week || 0) / max) * 100)}%"></i></td><td>${x.today ? `<b>${adminEscape(x.today)}</b>` : '–'}</td><td>${adminEscape(x.week || '–')}</td><td>${adminEscape(x.month || '–')}</td></tr>`
+        )
+        .join('') || '<tr><td colspan="5">Deze maand nog geen nieuwe bezoekers.</td></tr>';
+  }
+  const note = $('adminNewSourcesNote');
+  if (note)
+    note.textContent = `Vaste gebruikers tellen hier niet mee: Savour herkent hun apparaat zodra ze ingelogd Savour openen (nu ${d.account_devices_known || 0} apparaten). Wie als nieuwe bezoeker kwam en een account maakte, telt wel mee. Robots en je eigen apparaten tellen niet mee.`;
+  const pb = $('adminNewPeopleBody');
+  if (pb)
+    pb.innerHTML =
+      (d.new_people || [])
+        .map(
+          v =>
+            `<tr><td>${adminFlag(v.country)} ${adminFormatDate(v.first)}${v.account === 'aangemeld' ? '<small><span class="admin-badge pro">account gemaakt</span></small>' : ''}${v.visits > 1 ? `<small>${adminEscape(v.visits)} bezoeken</small>` : ''}</td><td title="${adminEscape(v.referrer || '')}">${adminEscape(v.source)}<small>${adminEscape(v.source_group)}</small></td><td>${v.pages.map(adminEscape).join('<br>')}</td><td title="${adminEscape(v.user_agent || '')}">${adminEscape(adminDevice(v.user_agent))}</td></tr>`
+        )
+        .join('') || '<tr><td colspan="4">Deze week nog geen nieuwe bezoekers.</td></tr>';
 }
 
 // Nieuw account: uitnodiging per mail, de gebruiker kiest zelf een wachtwoord (api/admin.js).
@@ -1702,9 +1848,13 @@ function renderAdminReader() {
     .map(x => {
       const open = adminReaderOpen?.id === x.id;
       const detail = open
-        ? `<tr class="admin-reader-detail"><td colspan="5">${adminReaderDetail(adminReaderOpen)}</td></tr>`
+        ? `<tr class="admin-reader-detail"><td colspan="6">${adminReaderDetail(adminReaderOpen)}</td></tr>`
         : '';
-      return `<tr class="${x.handled ? 'admin-muted' : ''}"><td>${adminFormatDate(x.created_at)}</td><td>${adminEscape(READER_KIND_LABEL[x.kind] || x.kind)}${x.ext ? `<small> .${adminEscape(x.ext)}</small>` : ''}</td><td>${adminEscape(x.reason || '')}</td><td>${adminEscape(x.title || '—')}</td><td><div class="admin-actions"><button class="admin-ghost" onclick="adminReaderShow(${x.id})">${open ? 'Sluiten' : 'Bekijken'}</button><button class="admin-ghost" onclick="adminReaderHandled(${x.id},${!x.handled})">${x.handled ? 'Weer open' : 'Verwerkt'}</button><button class="admin-ghost admin-danger" onclick="adminReaderDelete(${x.id})">Weghalen</button></div></td></tr>${detail}`;
+      // Verwerkt (er is een lezer-test van gemaakt): grote gouden vink vooraan, zodat je het in één oogopslag ziet.
+      const done = x.handled
+        ? '<span class="admin-reader-done" title="Verwerkt in de Savour-lezer" aria-label="Verwerkt in de Savour-lezer">✓</span>'
+        : '<span class="admin-reader-open" title="Nog te verwerken" aria-label="Nog te verwerken"></span>';
+      return `<tr class="${x.handled ? 'admin-reader-handled' : ''}"><td class="admin-reader-state">${done}</td><td>${adminFormatDate(x.created_at)}</td><td>${adminEscape(READER_KIND_LABEL[x.kind] || x.kind)}${x.ext ? `<small> .${adminEscape(x.ext)}</small>` : ''}</td><td>${adminEscape(x.reason || '')}</td><td>${adminEscape(x.title || '—')}</td><td><div class="admin-actions"><button class="admin-ghost" onclick="adminReaderShow(${x.id})">${open ? 'Sluiten' : 'Bekijken'}</button><button class="admin-ghost" onclick="adminReaderHandled(${x.id},${!x.handled})">${x.handled ? 'Terugzetten' : 'Markeer als verwerkt'}</button><button class="admin-ghost admin-danger" onclick="adminReaderDelete(${x.id})">Wissen</button></div></td></tr>${detail}`;
     })
     .join('');
   host.innerHTML = `
@@ -1717,7 +1867,7 @@ function renderAdminReader() {
     ${kinds ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Bron</th><th>Recepten</th><th>Lezer zeker</th><th>Lezer twijfelde</th><th>AI nodig</th><th>Kok verbeterde</th><th>Titel</th><th>Getal</th><th>Regels</th><th>Verplaatst</th><th>Lezer = AI</th></tr></thead><tbody>${kinds}</tbody></table></div>` : '<p class="admin-note">Nog geen imports geteld.</p>'}
     <p class="admin-footnote">Kok verbeterde: hoe vaak er na het lezen iets werd aangepast. Getal: regels waar alleen een getal anders werd. Verplaatst: regels van ingrediënten naar bereiding of andersom. Lezer = AI: bij tekst die de AI nalas, hoeveel ingrediëntregels de lezer precies hetzelfde had.</p>
     <div class="admin-panel-head" style="margin-top:22px"><div><h3 class="adsense-title" style="margin:0">Gedeelde voorbeelden</h3></div>${d.examples_open ? '<button type="button" class="btn" onclick="adminReaderExport()">Open voorbeelden downloaden</button>' : ''}</div>
-    ${d.examples_ready ? (examples ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Datum</th><th>Bron</th><th>Waarom</th><th>Recept</th><th></th></tr></thead><tbody>${examples}</tbody></table></div>` : '<p class="admin-note">Nog geen voorbeelden gedeeld.</p>') : '<p class="admin-note">Voorbeelden konden niet worden geladen.</p>'}`;
+    ${d.examples_ready ? (examples ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th aria-label="Verwerkt"></th><th>Datum</th><th>Bron</th><th>Waarom</th><th>Recept</th><th></th></tr></thead><tbody>${examples}</tbody></table></div><p class="admin-footnote">✓ = verwerkt: er is een lezer-test van gemaakt, dus de Savour-lezer leest dit soort tekst nu goed. Terugzetten zet hem weer bij de open voorbeelden. Wissen haalt het voorbeeld definitief uit de database; het recept van de kok blijft staan.</p>` : '<p class="admin-note">Nog geen voorbeelden gedeeld.</p>') : '<p class="admin-note">Voorbeelden konden niet worden geladen.</p>'}`;
 }
 
 // Eén voorbeeld naast elkaar: de brontekst, wat de lezer las, wat de AI las en wat de kok opsloeg.
@@ -1761,9 +1911,10 @@ async function adminReaderHandled(id, handled) {
 
 async function adminReaderDelete(id) {
   if (
-    !(await askConfirm('Dit voorbeeld weghalen?\n\nHet recept van de kok zelf blijft gewoon staan.', {
-      confirmLabel: 'Weghalen'
-    }))
+    !(await askConfirm(
+      'Dit voorbeeld definitief wissen?\n\nHet verdwijnt uit de database, niet alleen uit dit scherm. De Savour-lezer kan er daarna niet meer van leren. Het recept van de kok zelf blijft gewoon staan.',
+      { confirmLabel: 'Wissen', danger: true }
+    ))
   )
     return;
   try {

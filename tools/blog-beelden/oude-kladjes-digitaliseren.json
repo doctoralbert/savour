@@ -1,0 +1,33 @@
+[
+ {
+  "name": "goede-foto",
+  "after": "Maak goede foto’s",
+  "type": "cards",
+  "title": ["Een goede foto van je kladje", "A good photo of your notes", "Ein gutes Foto deines Zettels", "Una buena foto de tus notas", "Une bonne photo de ta note"],
+  "sub": ["Een vlek is geen probleem, een schaduw over de tekst wel", "A stain is fine, a shadow over the text is not", "Ein Fleck ist kein Problem, ein Schatten über dem Text schon", "Una mancha no importa, una sombra sobre el texto sí", "Une tache, ça va ; une ombre sur le texte, non"],
+  "items": [
+   {"icon": "spark", "head": ["Daglicht", "Daylight", "Tageslicht", "Luz natural", "Lumière du jour"], "lines": [["Geen flits", "No flash", "Kein Blitz", "Sin flash", "Pas de flash"]]},
+   {"icon": "phone", "head": ["Recht van boven", "Straight from above", "Gerade von oben", "Desde arriba", "Bien d’en haut"], "lines": [["De hele pagina in beeld", "The whole page in view", "Die ganze Seite im Bild", "La página entera en la foto", "Toute la page dans le cadre"]]},
+   {"icon": "note", "head": ["Eén pagina per foto", "One page per photo", "Eine Seite pro Foto", "Una página por foto", "Une page par photo"], "lines": [["Papier plat op een donkere ondergrond", "Paper flat on a dark surface", "Papier flach auf dunklem Untergrund", "Papel plano sobre fondo oscuro", "Papier à plat sur un fond sombre"]]},
+   {"icon": "check", "head": ["Geen schaduw", "No shadow", "Kein Schatten", "Sin sombra", "Pas d’ombre"], "lines": [["Geen hand of telefoon boven de tekst", "No hand or phone over the text", "Keine Hand und kein Handy über dem Text", "Ni mano ni teléfono sobre el texto", "Ni main ni téléphone au-dessus du texte"]], "dark": true}
+  ],
+  "alt": ["Vier tips voor een goede foto: daglicht, recht van boven, één pagina per foto en geen schaduw", "Four tips for a good photo: daylight, straight from above, one page per photo and no shadow", "Vier Tipps für ein gutes Foto: Tageslicht, gerade von oben, eine Seite pro Foto und kein Schatten", "Cuatro consejos para una buena foto: luz natural, desde arriba, una página por foto y sin sombra", "Quatre conseils pour une bonne photo : lumière du jour, bien d’en haut, une page par photo et pas d’ombre"],
+  "caption": ["Een goede foto scheelt de meeste nakijktijd.", "A good photo saves the most checking time.", "Ein gutes Foto spart die meiste Prüfzeit.", "Una buena foto ahorra la mayor parte de la revisión.", "Une bonne photo fait gagner le plus de temps de vérification."]
+ },
+ {
+  "name": "in-een-middag",
+  "after": "Wat je in een middag haalt",
+  "type": "flow",
+  "end": true,
+  "title": ["Wat je in een middag haalt", "What you can do in an afternoon", "Was du an einem Nachmittag schaffst", "Lo que haces en una tarde", "Ce que tu fais en un après-midi"],
+  "sub": ["Begin met wat je deze maand nodig hebt, niet met het hele schrift", "Start with what you need this month, not the whole notebook", "Fang mit dem an, was du diesen Monat brauchst, nicht mit dem ganzen Heft", "Empieza por lo que necesitas este mes, no por toda la libreta", "Commence par ce dont tu as besoin ce mois-ci, pas par tout le cahier"],
+  "steps": [
+   [["Fotograferen", "Photograph", "Fotografieren", "Fotografiar", "Photographier"], ["Twintig of dertig recepten die je nu gebruikt.", "Twenty or thirty recipes you use now.", "Zwanzig oder dreißig Rezepte, die du jetzt nutzt.", "Veinte o treinta recetas que usas ahora.", "Vingt ou trente recettes que tu utilises maintenant."]],
+   [["In één keer inlezen", "Read them in at once", "Auf einmal einlesen", "Leerlas de una vez", "Tout importer d’un coup"], ["Met Savour Pro leest de AI de foto’s.", "With Savour Pro the AI reads the photos.", "Mit Savour Pro liest die KI die Fotos.", "Con Savour Pro la IA lee las fotos.", "Avec Savour Pro, l’IA lit les photos."]],
+   [["Gemarkeerde nalopen", "Check what is flagged", "Markiertes prüfen", "Revisar lo marcado", "Vérifier ce qui est signalé"], ["Altijd eerst de hoeveelheden.", "Always the quantities first.", "Immer zuerst die Mengen.", "Siempre primero las cantidades.", "Toujours d’abord les quantités."]],
+   [["Een bruikbaar receptenboek", "A usable recipe book", "Ein brauchbares Rezeptbuch", "Un recetario útil", "Un livre de recettes utilisable"], ["In plaats van een half overgetypt schrift.", "Instead of a half-retyped notebook.", "Statt eines halb abgetippten Hefts.", "En lugar de una libreta medio pasada a limpio.", "Plutôt qu’un cahier à moitié recopié."]]
+  ],
+  "alt": ["Vier stappen voor een middag: fotograferen, in één keer inlezen, gemarkeerde nalopen en een bruikbaar receptenboek", "Four steps for an afternoon: photograph, read in at once, check what is flagged and a usable recipe book", "Vier Schritte für einen Nachmittag: fotografieren, auf einmal einlesen, Markiertes prüfen und ein brauchbares Rezeptbuch", "Cuatro pasos para una tarde: fotografiar, leer de una vez, revisar lo marcado y un recetario útil", "Quatre étapes pour un après-midi : photographier, tout importer, vérifier ce qui est signalé et un livre de recettes utilisable"],
+  "caption": ["Zonder Pro lees je getypte bestanden zoals Word en PDF gratis in.", "Without Pro you import typed files such as Word and PDF for free.", "Ohne Pro liest du getippte Dateien wie Word und PDF kostenlos ein.", "Sin Pro importas gratis archivos escritos como Word y PDF.", "Sans Pro, tu importes gratuitement les fichiers tapés comme Word et PDF."]
+ }
+]

@@ -1,0 +1,215 @@
+[
+ {
+  "name": "gokken-of-overnemen",
+  "after": "Wat Savour anders doet",
+  "type": "versus",
+  "title": [
+   "Gokken of overnemen",
+   "Guessing or copying",
+   "Raten oder übernehmen",
+   "Adivinar o copiar",
+   "Deviner ou recopier"
+  ],
+  "sub": [
+   "Een slimme gok ziet er net zo overtuigend uit als het juiste antwoord",
+   "A clever guess looks just as convincing as the right answer",
+   "Ein kluger Tipp sieht genauso überzeugend aus wie die richtige Antwort",
+   "Una conjetura lista parece tan convincente como la respuesta correcta",
+   "Une supposition habile a l’air aussi juste que la bonne réponse"
+  ],
+  "left": [
+   [
+    "Wat een gok doet",
+    "What a guess does",
+    "Was ein Tipp tut",
+    "Lo que hace una conjetura",
+    "Ce que fait une supposition"
+   ],
+   [
+    [
+     "Vult een onleesbaar getal in met wat gebruikelijk is",
+     "Fills in an unreadable number with what is usual",
+     "Füllt eine unleserliche Zahl mit dem Üblichen aus",
+     "Rellena un número ilegible con lo habitual",
+     "Remplace un chiffre illisible par la valeur habituelle"
+    ],
+    [
+     "Maakt een bereiding als die ontbreekt",
+     "Writes a method when it is missing",
+     "Erfindet eine Zubereitung, wenn sie fehlt",
+     "Inventa una elaboración si falta",
+     "Invente une préparation si elle manque"
+    ],
+    [
+     "Ziet er overtuigend uit, ook als het fout is",
+     "Looks convincing, even when it is wrong",
+     "Sieht überzeugend aus, auch wenn es falsch ist",
+     "Parece convincente, aunque esté mal",
+     "A l’air convaincant, même quand c’est faux"
+    ]
+   ]
+  ],
+  "right": [
+   [
+    "Wat Savour doet",
+    "What Savour does",
+    "Was Savour tut",
+    "Lo que hace Savour",
+    "Ce que fait Savour"
+   ],
+   [
+    [
+     "Neemt over wat er staat",
+     "Copies what is there",
+     "Übernimmt, was dasteht",
+     "Copia lo que pone",
+     "Reprend ce qui est écrit"
+    ],
+    [
+     "Laat leeg wat er niet staat",
+     "Leaves empty what is not there",
+     "Lässt leer, was nicht dasteht",
+     "Deja vacío lo que no pone",
+     "Laisse vide ce qui n’y est pas"
+    ],
+    [
+     "Markeert wat niet zeker is, zodat jij kijkt",
+     "Flags what is uncertain, so you check it",
+     "Markiert Unsicheres, damit du nachsiehst",
+     "Marca lo dudoso para que lo revises",
+     "Signale ce qui est incertain, pour que tu vérifies"
+    ]
+   ]
+  ],
+  "alt": [
+   "Vergelijking: een gok vult getallen en stappen in, Savour neemt over wat er staat en markeert twijfel",
+   "Comparison: a guess fills in numbers and steps, Savour copies what is there and flags doubt",
+   "Vergleich: ein Tipp füllt Zahlen und Schritte aus, Savour übernimmt, was dasteht, und markiert Zweifel",
+   "Comparación: una conjetura rellena números y pasos, Savour copia lo que pone y marca las dudas",
+   "Comparaison : une supposition invente chiffres et étapes, Savour reprend ce qui est écrit et signale le doute"
+  ],
+  "caption": [
+   "Liever een vraag aan jou dan een fout op het bord.",
+   "Better a question for you than a mistake on the plate.",
+   "Lieber eine Frage an dich als ein Fehler auf dem Teller.",
+   "Mejor una pregunta para ti que un error en el plato.",
+   "Mieux vaut une question pour toi qu’une erreur dans l’assiette."
+  ]
+ },
+ {
+  "name": "controleren",
+  "after": "Zo controleer je een geïmporteerd recept",
+  "type": "flow",
+  "end": true,
+  "title": [
+   "Zo controleer je een geïmporteerd recept",
+   "How to check an imported recipe",
+   "So prüfst du ein importiertes Rezept",
+   "Cómo revisar una receta importada",
+   "Vérifier une recette importée"
+  ],
+  "sub": [
+   "In deze volgorde, en pas daarna voor je team",
+   "In this order, and only then for your team",
+   "In dieser Reihenfolge, erst dann fürs Team",
+   "En este orden, y solo después para tu equipo",
+   "Dans cet ordre, et seulement ensuite pour ton équipe"
+  ],
+  "steps": [
+   [
+    [
+     "Getallen",
+     "Numbers",
+     "Zahlen",
+     "Números",
+     "Chiffres"
+    ],
+    [
+     "Klopt elke hoeveelheid?",
+     "Is every quantity right?",
+     "Stimmt jede Menge?",
+     "¿Está bien cada cantidad?",
+     "Chaque quantité est-elle juste ?"
+    ]
+   ],
+   [
+    [
+     "Eenheden",
+     "Units",
+     "Einheiten",
+     "Unidades",
+     "Unités"
+    ],
+    [
+     "Gram of milliliter, el of l.",
+     "Grams or millilitres, tbsp or litre.",
+     "Gramm oder Milliliter, EL oder l.",
+     "Gramos o mililitros, cucharada o litro.",
+     "Grammes ou millilitres, c. à s. ou litre."
+    ]
+   ],
+   [
+    [
+     "Opbrengst",
+     "Yield",
+     "Ausbeute",
+     "Rendimiento",
+     "Rendement"
+    ],
+    [
+     "Liter, porties of stuks.",
+     "Litres, portions or pieces.",
+     "Liter, Portionen oder Stück.",
+     "Litros, raciones o piezas.",
+     "Litres, portions ou pièces."
+    ]
+   ],
+   [
+    [
+     "Bereiding",
+     "Method",
+     "Zubereitung",
+     "Elaboración",
+     "Préparation"
+    ],
+    [
+     "Eén keer helemaal doorlezen.",
+     "Read it through once, start to finish.",
+     "Einmal ganz durchlesen.",
+     "Léela entera una vez.",
+     "Lis-la une fois en entier."
+    ]
+   ],
+   [
+    [
+     "Naast het origineel",
+     "Next to the original",
+     "Neben dem Original",
+     "Junto al original",
+     "À côté de l’original"
+    ],
+    [
+     "Bij twijfel: de foto van het kladje blijft bewaard.",
+     "If in doubt: the photo of the handwritten note is kept.",
+     "Im Zweifel: das Foto des Zettels bleibt gespeichert.",
+     "Si dudas: la foto de la nota se guarda.",
+     "En cas de doute : la photo de la note reste gardée."
+    ]
+   ]
+  ],
+  "alt": [
+   "Vijf stappen om een geïmporteerd recept te controleren: getallen, eenheden, opbrengst, bereiding en naast het origineel",
+   "Five steps to check an imported recipe: numbers, units, yield, method and next to the original",
+   "Fünf Schritte zur Prüfung eines importierten Rezepts: Zahlen, Einheiten, Ausbeute, Zubereitung und neben dem Original",
+   "Cinco pasos para revisar una receta importada: números, unidades, rendimiento, elaboración y junto al original",
+   "Cinq étapes pour vérifier une recette importée : chiffres, unités, rendement, préparation et à côté de l’original"
+  ],
+  "caption": [
+   "Maak een recept pas daarna beschikbaar voor je team.",
+   "Only then make the recipe available to your team.",
+   "Erst dann gibst du das Rezept für dein Team frei.",
+   "Solo entonces compártela con tu equipo.",
+   "Ce n’est qu’ensuite que tu la partages avec ton équipe."
+  ]
+ }
+]

@@ -4,6 +4,7 @@ function showImportPanel() {
   if ($('inlineEditorHost')) $('inlineEditorHost').style.display = 'none';
   $('importPanel').style.display = 'block';
   $('importStatus').textContent = '';
+  hideImportProgress();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -75,7 +76,10 @@ function selectImportSource(type) {
   document.querySelectorAll('.import-option').forEach(x => x.classList.remove('selected'));
   const source = IMPORT_SOURCES[type];
   $(type === 'text' ? 'importOptionText' : source?.option)?.classList.add('selected');
+  // Een bron onder "Meer bronnen" gekozen: die lijst openklappen, zodat je ziet wat er geselecteerd is.
+  $(source?.option)?.closest('details')?.setAttribute('open', '');
   $('importStatus').textContent = '';
+  hideImportProgress();
   $('importSourceNote').style.display = 'none';
   $('importUrl').style.display = type === 'url' ? 'block' : 'none';
   if (type === 'url') {
@@ -207,6 +211,8 @@ function setImportFiles(files) {
       `${skipped} bestand${skipped === 1 ? '' : 'en'} overgeslagen: hoort niet bij "${IMPORT_SOURCES[importSource].label}". Kies "Alle bestanden door elkaar" om alles mee te nemen.`
     );
   importFileData = list;
+  // Een oude "Klaar · 5 recepten" van de vorige import liet nieuwe bestanden al verwerkt lijken.
+  hideImportProgress();
   if (!list.length) {
     $('importSourceNote').style.display = 'none';
     $('importStatus').textContent = skipped ? 'Geen bestanden van dit soort gekozen.' : '';
@@ -246,6 +252,7 @@ function resetImportSource() {
   $('importDrop').style.display = 'block';
   $('importSourceNote').style.display = 'none';
   $('importStatus').textContent = '';
+  hideImportProgress();
   document.querySelectorAll('.import-option').forEach(x => x.classList.remove('selected'));
 }
 
@@ -451,7 +458,10 @@ function htmlToRecipeText(html) {
       const tag = el.tagName.toLowerCase();
       // Kop 1 is altijd een receptgrens. Kop 2/3 en vette regels zijn "zacht" (#b): een receptnaam
       // óf een onderdeel als "Deel 1" of "Deeg"; dat beslist de lezer (splitRecipeText).
-      if (tag === 'h1') lines.push('', `# ${text(el)}`);
+      // Een kop als "Ingrediënten" of "Bereiding" (vaak Kop 2) is een sectiekopje binnen het recept, nooit
+      // een nieuw recept: anders raakt de receptnaam erboven los en verdwijnt hij.
+      if (/^h[1-6]$/.test(tag) && readerIsHeading(text(el).replace(/:$/, ''))) lines.push(text(el));
+      else if (tag === 'h1') lines.push('', `# ${text(el)}`);
       else if (/^h[23]$/.test(tag)) lines.push('', `#b ${text(el)}`);
       else if (/^h[4-6]$/.test(tag)) lines.push(text(el));
       else if (tag === 'p' && isBoldTitle(el)) lines.push('', `#b ${text(el)}`);
@@ -636,13 +646,89 @@ function withPastedBold(text) {
   return marked;
 }
 
+// ---- Allergeenletters achter ingrediënten (2026-11-15) ----
+// Bij importeren haalt Savour Oostenrijkse allergeenletters ("Eier C") achter de ingrediënten weg en zet ze in de
+// beschrijving (readerAllergenCodes). Wil de kok ze houden, dan zet één knop ze terug, en Savour onthoudt dat voor
+// volgende imports. Bestaande recepten houden hun letters altijd (tidyRecipeLines zonder allergenCodes).
+const KEEP_ALLERGEN_CODES = 'savour_keep_allergen_codes';
+
+function keepsAllergenCodes() {
+  try {
+    return localStorage.getItem(KEEP_ALLERGEN_CODES) === '1';
+  } catch (_) {
+    return false;
+  }
+}
+
+function setKeepsAllergenCodes(keep) {
+  try {
+    if (keep) localStorage.setItem(KEEP_ALLERGEN_CODES, '1');
+    else localStorage.removeItem(KEEP_ALLERGEN_CODES);
+  } catch (_) {
+    /* geen opslag in deze browser: dan geldt de keuze alleen nu */
+  }
+}
+
+function batchAllergenCodesHtml(r, i) {
+  if (r._withCodes)
+    return `<small class="batch-fixes">${t('Allergeenletters achter de ingrediënten weggehaald; ze staan in de beschrijving:')} <span translate="no">${esc((r._allergenCodes || []).join(', '))}</span> <button type="button" class="btn small" onclick="keepAllergenCodes(${i})">${t('Letters laten staan')}</button></small>`;
+  if (keepsAllergenCodes() && readerAllergenCodes(r.ingredients).codes.length)
+    return `<small class="batch-fixes">${t('Allergeenletters blijven achter de ingrediënten staan.')} <button type="button" class="btn small" onclick="dropAllergenCodes(${i})">${t('Toch weghalen')}</button></small>`;
+  return '';
+}
+
+// Letters terug, voor dit recept en de andere in deze import; volgende imports laten ze staan.
+function keepAllergenCodes(index) {
+  syncBatchDrafts();
+  setKeepsAllergenCodes(true);
+  batchDrafts = batchDrafts.map(d => {
+    if (!d._withCodes) return d;
+    // Alleen terugzetten als de kok de ingrediënten nog niet zelf aanpaste.
+    const same = JSON.stringify(readerAllergenCodes(d._withCodes.ingredients).lines) === JSON.stringify(d.ingredients);
+    return {
+      ...d,
+      ingredients: same ? d._withCodes.ingredients : d.ingredients,
+      description: same ? d._withCodes.description || '' : d.description,
+      _withCodes: same ? null : d._withCodes,
+      _allergenCodes: same ? [] : d._allergenCodes
+    };
+  });
+  renderBatchDrafts();
+  document.querySelector(`[data-batch-card="${index}"]`)?.scrollIntoView({ block: 'nearest' });
+}
+
+// Toch weghalen: voor alle recepten in deze import, en volgende imports weer standaard weghalen.
+function dropAllergenCodes(index) {
+  syncBatchDrafts();
+  setKeepsAllergenCodes(false);
+  batchDrafts = batchDrafts.map(d => {
+    const tidy = tidyRecipeLines(
+      { ingredients: d.ingredients, steps: [], description: d.description || '' },
+      { allergenCodes: true }
+    );
+    return tidy.withCodes
+      ? {
+          ...d,
+          ingredients: tidy.ingredients,
+          description: tidy.description,
+          _withCodes: { ingredients: d.ingredients, description: d.description || '' },
+          _allergenCodes: tidy.allergenCodes
+        }
+      : d;
+  });
+  renderBatchDrafts();
+  document.querySelector(`[data-batch-card="${index}"]`)?.scrollIntoView({ block: 'nearest' });
+}
+
 function removeBatchDraft(index) {
   syncBatchDrafts();
   if (index < 0 || index >= batchDrafts.length) return;
   batchDrafts.splice(index, 1);
   renderBatchDrafts();
   $('batchStatus').textContent = batchDrafts.length
-    ? `${batchDrafts.length} recepten over om te controleren.`
+    ? batchDrafts.length === 1
+      ? t('1 recept over om te controleren.')
+      : `${batchDrafts.length} recepten over om te controleren.`
     : 'Geen recepten meer in deze batch.';
 }
 
@@ -755,13 +841,17 @@ async function markAiResults(ids, how) {
 
 // Na opslaan: AI-resultaten die niet meer in de controle staan zijn afgehandeld; per bestand de stand bijwerken.
 async function markImportSaved(savedDrafts) {
-  const stillOpen = new Set([...batchDrafts, ...skippedIncomplete].map(d => d._resultId).filter(Boolean));
+  const stillOpen = new Set(
+    [...batchDrafts, ...skippedIncomplete].flatMap(d => [d._resultId, ...(d._resultIds || [])]).filter(Boolean)
+  );
   await markAiResults(
     [...importResultIds].filter(id => !stillOpen.has(id)),
     'opgeslagen'
   );
   const perUpload = new Map();
-  for (const d of savedDrafts) if (d._uploadId) perUpload.set(d._uploadId, (perUpload.get(d._uploadId) || 0) + 1);
+  for (const d of savedDrafts)
+    for (const id of new Set([d._uploadId, ...(d._uploadIds || [])].filter(Boolean)))
+      perUpload.set(id, (perUpload.get(id) || 0) + 1);
   perUpload.forEach((n, id) => setImportUploadStatus(id, { status: 'opgeslagen', recipes_saved: n }));
   if (!batchDrafts.length) batchUnsaved = false;
 }
@@ -814,6 +904,10 @@ async function offerPendingAiImports() {
   }
   if (alreadySaved.length) markAiResults(alreadySaved, 'al-opgeslagen');
   if (!drafts.length) return;
+  // Foto's van hetzelfde recept (tweede pagina zonder titel en ingrediënten) weer samenvoegen.
+  const joined = mergeContinuationPages(drafts);
+  drafts.length = 0;
+  drafts.push(...joined);
   // Staat er al een ander venster open (welkom, team)? Even wachten, anders sluiten we dat af.
   for (let i = 0; i < 30 && dialogResolve; i++) await new Promise(r => setTimeout(r, 1000));
   if (dialogResolve) return;
@@ -917,6 +1011,89 @@ function importCategory(title, aiCategory) {
   return categories.includes(ai) ? ai : 'Eigen recepten';
 }
 
+// "Twijfel" waarbij beide lezingen hetzelfde zeggen ("4. Forme den Teig … (of: Forme den Teig …)") is geen twijfel:
+// alleen een stapnummer, spatie of punt anders. Die laten we weg; echte verschillen in getallen blijven staan.
+function withoutEmptyDoubts(list) {
+  const plain = x =>
+    String(x)
+      .replace(/^\s*\(?\d{1,2}[.)]\)?\s+(?=\p{L})/u, '')
+      .toLowerCase()
+      .replace(/[^\p{L}\d]+/gu, '');
+  return (list || []).filter(u => {
+    const m = String(u).match(/^([\s\S]*)\s\(of: ([\s\S]*)\)$/);
+    return !m || plain(m[1]) !== plain(m[2]);
+  });
+}
+
+// Eén recept over twee foto's (2026-11-15): de tweede pagina heeft geen titel en geen ingrediënten, alleen de
+// rest van de bereiding. Die hoort bij het recept ervoor; los zou het een recept zonder naam en ingrediënten zijn.
+// Alleen direct na elkaar, binnen dezelfde import. Niets gaat verloren: de stappen, wat de AI las en de twijfels
+// komen erbij, en beide bewaarde AI-resultaten blijven aan het recept hangen tot het is opgeslagen.
+function isContinuationPage(d) {
+  return Boolean(d?._noTitle && !(d.ingredients || []).length && (d.steps || []).length);
+}
+
+function mergeContinuationPages(drafts) {
+  const out = [];
+  for (const d of drafts || []) {
+    const prev = out[out.length - 1];
+    if (!isContinuationPage(d) || !prev || !(prev.ingredients || []).length || prev.sourceFile === d.sourceFile) {
+      out.push(d);
+      continue;
+    }
+    const merged = {
+      ...prev,
+      steps: [...prev.steps, ...d.steps],
+      _unclear: [...(prev._unclear || []), ...(d._unclear || [])],
+      _transcription: [...(prev._transcription || []), ...(d._transcription || [])],
+      _resultIds: [...new Set([...(prev._resultIds || [prev._resultId]), ...(d._resultIds || [d._resultId])])].filter(
+        Boolean
+      ),
+      _uploadIds: [...new Set([...(prev._uploadIds || [prev._uploadId]), ...(d._uploadIds || [d._uploadId])])].filter(
+        Boolean
+      ),
+      _pages: (prev._pages || 1) + 1,
+      sourceFile: [prev.sourceFile, d.sourceFile].filter(Boolean).join(' + '),
+      _incomplete: false,
+      _maybeIncomplete: false,
+      _needsReview: true
+    };
+    if (merged.description !== undefined || d.description)
+      merged.description = [prev.description, d.description].filter(Boolean).join(' · ') || undefined;
+    // Wat er gelezen is, opnieuw vastleggen voor het hele recept (anders lijkt de tweede pagina een verbetering).
+    if (merged._learn) merged._learn = { ...merged._learn, read: learnSnapshot(merged) };
+    out[out.length - 1] = merged;
+  }
+  return out;
+}
+
+// Ingrediënten die de AI uit een zin van de bereiding haalde ("Fein cuttern und mit 150 g Butter (flüssig)
+// mischen" → "150 g Butter (flüssig)"): die staan niet in de ingrediëntenlijst van de kok. We vergelijken met wat de
+// AI letterlijk las (transcription): een ingrediënt dat als eigen regel bestaat is goed; een dat alleen midden in
+// een zin voorkomt, gaat uit de ingrediënten. De stap zelf blijft, dus er gaat niets verloren.
+function aiStepOnlyIngredients(ingredients, transcription) {
+  const lines = (Array.isArray(transcription) ? transcription : []).map(String);
+  if (!lines.length) return [];
+  // Kleine letters, zonder leestekens en zonder allergeencodes achteraan ("225 g Butter G").
+  const norm = x =>
+    String(x)
+      .trim()
+      .replace(READER_ALLERGEN_TAIL, '')
+      .toLowerCase()
+      .replace(/[^\p{L}\d]+/gu, ' ')
+      .trim();
+  const own = new Set(lines.map(norm));
+  const sentence = l => /[.!?]\s*$/.test(l.trim()) || l.trim().split(/\s+/).length > 8;
+  return (ingredients || []).filter(line => {
+    if (recipePartName(line)) return false;
+    const key = norm(line);
+    if (!key || own.has(key)) return false;
+    // Ook een stuk van een regel met meerdere ingrediënten ("400ml coconut cream 200g curry paste") is goed.
+    const inLines = lines.filter(l => ` ${norm(l)} `.includes(` ${key} `));
+    return inLines.length > 0 && inLines.every(sentence);
+  });
+}
+
 function normalizeAiRecipe(r, extra) {
   // "385.Hoender Tom Yam terrine": het nummer uit het receptenboek hoort niet in de naam.
   const title = cleanBatchTitle(String(r.title || '')) || 'Onbenoemd recept';
@@ -925,20 +1102,34 @@ function normalizeAiRecipe(r, extra) {
   // Notities uit de bron (houdbaarheid, benodigd materiaal, portiegrootte) gaan voorop in de bereiding, net als
   // bij de eigen lezer: zo ziet de kok ze in het controlescherm en gaat er niets verloren (api/ai-import.js).
   const notes = Array.isArray(r.notes) ? r.notes.map(String).filter(n => n.trim()) : [];
-  const tidy = tidyRecipeLines({
-    ingredients: Array.isArray(r.ingredients) ? r.ingredients.map(String).filter(Boolean) : [],
-    steps: [...notes, ...(Array.isArray(r.steps) ? r.steps.map(String).filter(Boolean) : [])]
-  });
+  const tidy = tidyRecipeLines(
+    {
+      ingredients: Array.isArray(r.ingredients) ? r.ingredients.map(String).filter(Boolean) : [],
+      steps: [...notes, ...(Array.isArray(r.steps) ? r.steps.map(String).filter(Boolean) : [])]
+    },
+    { allergenCodes: !keepsAllergenCodes() }
+  );
+  const stepOnly = aiStepOnlyIngredients(tidy.ingredients, r.transcription);
   return {
     title,
-    ingredients: tidy.ingredients,
+    ingredients: tidy.ingredients.filter(l => !stepOnly.includes(l)),
+    // Wat de AI uit een zin van de bereiding haalde: alleen tonen, de stap zelf blijft staan.
+    _stepOnly: stepOnly,
+    // Weggehaalde allergeenletters: terug te zetten met "Letters laten staan" (keepAllergenCodes).
+    _withCodes: tidy.withCodes && {
+      ...tidy.withCodes,
+      ingredients: tidy.withCodes.ingredients.filter((l, n) => !stepOnly.includes(tidy.ingredients[n]))
+    },
+    _allergenCodes: tidy.allergenCodes,
     steps: tidy.steps,
     ...(tidy.description ? { description: tidy.description } : {}),
     yield: String(r.yield || '').trim(),
     category: importCategory(title, r.category),
     _needsReview: Boolean(r.needs_review),
     // Wat de AI niet zeker kon lezen: de chef controleert dit vóór opslaan.
-    _unclear: Array.isArray(r.unclear) ? r.unclear.map(String).filter(Boolean) : [],
+    _unclear: withoutEmptyDoubts(Array.isArray(r.unclear) ? r.unclear.map(String).filter(Boolean) : []),
+    // Geen titel van de AI: mogelijk het vervolg van een recept op een vorige foto (mergeContinuationPages).
+    _noTitle: !cleanBatchTitle(String(r.title || '')),
     // Niet volledig in de bron (bijv. afgesneden op de foto): wordt overgeslagen, met melding.
     _incomplete: Boolean(r.incomplete),
     // Wat de AI letterlijk las en met welk model: om getallen snel naast de foto te leggen.
@@ -1314,6 +1505,13 @@ async function readTextRecipes(file, sourceText) {
   await Promise.all(Array.from({ length: Math.min(3, chunks.length) }, readChunks));
   return [...sure, ...results.flat()];
 }
+// De voortgang van een vorige import weghalen: anders lijkt een nieuwe keuze al verwerkt.
+function hideImportProgress() {
+  if ($('importProgressWrap')) $('importProgressWrap').style.display = 'none';
+  if ($('importProgressBar')) $('importProgressBar').style.width = '0%';
+  if ($('importProgressText')) $('importProgressText').textContent = '';
+}
+
 // done mag een kommagetal zijn: een foto die half gelezen is, telt als 0,5.
 function updateImportProgress(done, total, label = '') {
   const wrap = $('importProgressWrap'),
@@ -1455,17 +1653,20 @@ async function runImportFiles(valid) {
         // Eerst netjes maken (hoeveelheid vooraan, opmaakresten weg; tidyRecipeLines), dan pas vastleggen wat er
         // gelezen is: zo telt het opschonen niet als een verbetering van de kok.
         const read = (await readImportFile(file)).map(d => {
-          const tidy = tidyRecipeLines(d);
+          const tidy = tidyRecipeLines(d, { allergenCodes: !keepsAllergenCodes() });
           return {
             ...d,
             ingredients: tidy.ingredients,
             steps: tidy.steps,
-            description: tidy.description || d.description
+            description: tidy.description || d.description,
+            _withCodes: tidy.withCodes,
+            _allergenCodes: tidy.allergenCodes
           };
         });
         const drafts = stampForLearning(read, file.name).map(d => ({
           ...d,
-          _uploadId: uploadId || ''
+          _uploadId: uploadId || '',
+          _fileIndex: valid.indexOf(file)
         }));
         batchDrafts.push(...drafts);
         setImportUploadStatus(uploadId, { status: 'gelezen', recipes_found: drafts.length });
@@ -1497,6 +1698,14 @@ async function runImportFiles(valid) {
   };
   const workers = Array.from({ length: Math.min(3, valid.length) }, () => worker());
   await Promise.all(workers);
+  // Drie bestanden tegelijk: daarna weer in de volgorde van de bestanden, en een tweede pagina van hetzelfde
+  // recept (geen titel, geen ingrediënten) samen met de eerste (mergeContinuationPages).
+  batchDrafts = mergeContinuationPages(
+    batchDrafts
+      .map((d, i) => ({ d, i }))
+      .sort((a, b) => (a.d._fileIndex ?? 1e9) - (b.d._fileIndex ?? 1e9) || a.i - b.i)
+      .map(x => x.d)
+  );
   // Ook de originelen moeten in de opslag staan voordat we "klaar" zeggen.
   if (importUploadsPending.size) {
     updateImportProgress(valid.length - 0.01, valid.length, 'Bestanden worden bewaard…');
@@ -1572,8 +1781,23 @@ async function processImport() {
   }
   try {
     if (importSource === 'text') {
-      batchDrafts = stampForLearning(readRecipesLocally(text), '', 'tekst');
-      if (batchDrafts.length > 1) {
+      // Zelfde opschoning als bij bestanden: allergeenletters ("Eier C") weg, de kok ziet het en kan ze houden.
+      const read = readRecipesLocally(text).map(d => {
+        const tidy = tidyRecipeLines(d, { allergenCodes: !keepsAllergenCodes() });
+        return {
+          ...d,
+          ingredients: tidy.ingredients,
+          steps: tidy.steps,
+          description: tidy.description || d.description,
+          _withCodes: tidy.withCodes,
+          _allergenCodes: tidy.allergenCodes
+        };
+      });
+      batchDrafts = stampForLearning(read, '', 'tekst');
+      // Gelezen: het tekstvak leeg, zodat dezelfde tekst niet per ongeluk nog een keer wordt verwerkt.
+      $('importTextInput').value = '';
+      // Weggehaalde allergeenletters staan alleen in het controlescherm (met "Letters laten staan"): dan daarheen.
+      if (batchDrafts.length > 1 || batchDrafts.some(d => d._withCodes)) {
         $('batchStatus').textContent = `${batchDrafts.length} losse recepten herkend uit de ingevoerde tekst.`;
         renderBatchDrafts();
         go('batchImport');
@@ -1634,6 +1858,9 @@ const batchEmpty = r => !(r.ingredients || []).some(l => String(l).trim() && !re
 function renderBatchDrafts() {
   // Melding "Nog niet opgeslagen" alleen als er iets op te slaan valt.
   document.querySelectorAll('.batch-unsaved-note').forEach(n => (n.hidden = !batchDrafts.length));
+  // Eén recept (bijv. uit een link of een foto) heet niet "Meerdere recepten importeren".
+  const head = $('batchImport')?.querySelector('.section-head h2');
+  if (head) head.textContent = batchDrafts.length === 1 ? t('Recept controleren') : t('Meerdere recepten importeren');
   const toCheck = batchDrafts.filter(
     r => batchEmpty(r) || r._needsReview || r._unclear?.length || batchLineChecks(r).length
   ).length;
@@ -1645,7 +1872,7 @@ function renderBatchDrafts() {
     batchDrafts
       .map(
         (r, i) =>
-          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${batchEmpty(r) ? ' <span class="batch-chip batch-chip-warn">Geen ingrediënten gevonden</span>' : ''}${r._maybeIncomplete ? ' <span class="batch-chip batch-chip-warn">Mogelijk onvolledig</span>' : r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : r._needsReview || r._unclear?.length ? ' <span class="batch-chip batch-chip-warn">Controleren</span>' : ''}${r._byAi ? ' <span class="batch-chip">AI</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img class="batch-photo" src="${esc(r.photo)}" alt=""><button type="button" class="btn small batch-rotate" onclick="rotateBatchPhoto(${i})">↻ Draai foto</button>` : ''}${r._unclear?.length ? `<div class="batch-unclear"><b>Niet goed leesbaar, controleer:</b><ul translate="no">${r._unclear.map(u => `<li>${esc(u)}</li>`).join('')}</ul></div>` : ''}${batchLineChecksHtml(r, i)}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small>${r._fixes?.length ? `<small class="batch-fixes">Automatisch verbeterd: <span translate="no">${r._fixes.map(f => `${esc(f.from)} → ${esc(f.to)}`).join(' · ')}</span></small>` : ''}${r._transcription?.length ? `<details class="batch-transcript"><summary>Zo las de AI het</summary><pre translate="no">${esc(r._transcription.join('\n'))}</pre>${r._model ? `<small>Gelezen met <span translate="no">${esc(r._model)}</span></small>` : ''}</details>` : ''}<div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea class="batch-text" rows="${batchRows(r.ingredients)}" data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea class="batch-text" rows="${batchRows(r.steps)}" data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
+          `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${batchEmpty(r) ? ' <span class="batch-chip batch-chip-warn">Geen ingrediënten gevonden</span>' : ''}${r._maybeIncomplete ? ' <span class="batch-chip batch-chip-warn">Mogelijk onvolledig</span>' : r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : r._needsReview || r._unclear?.length ? ' <span class="batch-chip batch-chip-warn">Controleren</span>' : ''}${r._byAi ? ' <span class="batch-chip">AI</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img class="batch-photo" src="${esc(r.photo)}" alt=""><button type="button" class="btn small batch-rotate" onclick="rotateBatchPhoto(${i})">↻ Draai foto</button>` : ''}${r._unclear?.length ? `<div class="batch-unclear"><b>Niet goed leesbaar, controleer:</b><ul translate="no">${r._unclear.map(u => `<li>${esc(u)}</li>`).join('')}</ul></div>` : ''}${batchLineChecksHtml(r, i)}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small>${batchAllergenCodesHtml(r, i)}${r._stepOnly?.length ? `<small class="batch-fixes">${t('Staat alleen in de bereiding, niet bij de ingrediënten gezet:')} <span translate="no">${r._stepOnly.map(esc).join(' · ')}</span></small>` : ''}${r._fixes?.length ? `<small class="batch-fixes">Automatisch verbeterd: <span translate="no">${r._fixes.map(f => `${esc(f.from)} → ${esc(f.to)}`).join(' · ')}</span></small>` : ''}${r._transcription?.length ? `<details class="batch-transcript"><summary>Zo las de AI het</summary><pre translate="no">${esc(r._transcription.join('\n'))}</pre>${r._model ? `<small>Gelezen met <span translate="no">${esc(r._model)}</span></small>` : ''}</details>` : ''}<div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea class="batch-text" rows="${batchRows(r.ingredients)}" data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea class="batch-text" rows="${batchRows(r.steps)}" data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
       )
       .join('') || `<div class="empty" style="grid-column:1/-1">Geen afzonderlijke recepten herkend.</div>`;
 }

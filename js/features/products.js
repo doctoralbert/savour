@@ -308,15 +308,25 @@ let notIngredientAll = new Set();
 // alleen een eigen versie als het bij hen anders is; die gaat dan voor. Ingrediënten die per merk verschillen
 // (BRAND_DEPENDENT) vraagt Savour één keer per keuken.
 let centralIndex = new Map();
+// Namen uit de andere talen: alleen als laatste redmiddel, en dan houdt het product het woord van de kok.
+let centralForeign = new Map();
+// De hele Savour-lijst in de taal van de kok, om door te bladeren (Allergenen → Ingrediënten → Hele Savour-lijst).
+let centralRows = [];
 const BRAND_DEPENDENT =
   /gelatine|galatine|soja\s?saus|sojasaus|soy sauce|ketjap|kecap|chocolade|couverture|bouillon|fond($|\s)|worst|vleeswaren|pesto|mayonaise|mayo($|\s)|paneermeel|panko|curry\s?pasta|kerriepasta|oestersaus|vissaus|fish sauce|worcester/;
 function setCentralList(rows) {
   centralIndex = new Map();
+  centralForeign = new Map();
+  // Alleen de namen in de taal van de kok geven een ingrediënt zijn naam: "boter" is Boter, niet het Franse "beurre"
+  // (dat "boter" als andere schrijfwijze heeft). De andere talen staan apart (centralForeign).
+  const ownLang = typeof currentLanguage === 'string' && currentLanguage ? currentLanguage : 'nl';
+  centralRows = (rows || []).filter(x => (!x.status || x.status === 'approved') && (!x.lang || x.lang === ownLang));
   for (const x of rows || []) {
     if (x.status && x.status !== 'approved') continue;
+    const index = !x.lang || x.lang === ownLang ? centralIndex : centralForeign;
     const p = {
       id: `savour:${x.key}`,
-      name: x.name || capitalizeFirst(x.key),
+      name: capitalizeFirst(x.name || x.key),
       aliases: x.aliases || [],
       allergens: x.allergens || [],
       known: true,
@@ -324,12 +334,19 @@ function setCentralList(rows) {
       central: true
     };
     for (const k of [x.key, productKey(x.name), ...(x.aliases || []).map(productKey)])
-      if (k && !centralIndex.has(k)) centralIndex.set(k, p);
+      if (k && !index.has(k)) index.set(k, p);
   }
 }
 // Het ingrediënt uit de Savour-lijst voor een naam, of null. Per merk verschillend: nog niet bevestigd.
 function centralProduct(key, scope) {
-  const hit = centralIndex.get(key) ? { p: centralIndex.get(key), sure: true } : centralNear(key);
+  let hit = centralIndex.get(key) ? { p: centralIndex.get(key), sure: true } : centralNear(key);
+  // Alleen bekend in een andere taal: de allergenen tellen wel, de naam blijft het woord van de kok.
+  if (!hit) {
+    const other = centralForeign.get(key)
+      ? { p: centralForeign.get(key), sure: true }
+      : centralNear(key, centralForeign);
+    if (other) hit = { ...other, p: { ...other.p, name: capitalizeFirst(key) } };
+  }
   if (!hit) return null;
   const { p, sure } = hit;
   const brand = BRAND_DEPENDENT.test(key) || BRAND_DEPENDENT.test(productKey(p.name));
@@ -370,8 +387,62 @@ function singularsOf(last) {
     if (/n$/.test(last)) forms.add(last.replace(/n$/, ''));
     if (/e$/.test(last)) forms.add(last.replace(/e$/, ''));
     if (/eren$/.test(last)) forms.add(last.replace(/eren$/, 'eer'));
+    // Nederlands met een open lettergreep: "abrikozen" → abrikoos, "frambozen" → framboos, "peren" → peer.
+    if (/[^aeiou][aeiou][bdfgklmnprstvz]en$/.test(last))
+      forms.add(last.replace(/([aeiou])([bdfgklmnprstvz])en$/, (m, v, c) => v + v + ({ z: 's', v: 'f' }[c] || c)));
   }
   return [...forms];
+}
+
+// Afgeleid van één ingrediënt (2026-11-17): jam, coulis, sorbet of gel van abrikoos is Abrikoos, in alle vijf talen
+// ("abrikozensorbet", "apricot jam", "Aprikosenmarmelade", "coulis d'abricot", "mermelada de albaricoque").
+// Bij deze vormen komen geen allergenen bij: meteen zeker. Bij mousse, crème, ijs en saus vaak wel (melk, ei):
+// dan een voorstel dat de kok nakijkt.
+const DERIVED_SURE = (
+  'jam confituur gel gelei coulis sorbet sorbetijs puree purée compote siroop stroop sap chips poeder pulp nectar ' +
+  'jelly juice syrup powder ' +
+  'marmelade konfitüre konfiture gelee püree mus kompott sirup saft pulver ' +
+  'mermelada confitura sorbete gelatina puré compota sirope almíbar zumo jugo ' +
+  'confiture gelée sirop jus poudre'
+).split(' ');
+const DERIVED_CHECK = 'mousse crème creme ijs roomijs saus sauce soße sosse eis helado crema salsa glace'.split(' ');
+const DERIVED_LINK = new Set('van de d del della di du des von vom aus of à a la al au aux le les'.split(' '));
+function centralDerived(key, index = centralIndex) {
+  const words = key.split(' ').filter(Boolean);
+  if (!words.length) return null;
+  // Enkelvoud eerst ("abrikozen" → Abrikoos, niet een los ingrediënt "Abrikozen"), de naam zoals hij is als laatste.
+  const lookup = phrase => {
+    if (!phrase || phrase.length < 3) return null;
+    const forms = centralSingulars(phrase).sort((a, b) => (a === phrase) - (b === phrase) || a.length - b.length);
+    for (const k of forms) if (k.length >= 3 && index.get(k)) return index.get(k);
+    return null;
+  };
+  const formOf = w => (DERIVED_SURE.includes(w) ? 'sure' : DERIVED_CHECK.includes(w) ? 'check' : '');
+  const tries = [];
+  // "<vorm> van/de/d' <ingrediënt>": coulis d'abricot, mermelada de albaricoque, gel van passievrucht.
+  if (words.length >= 3 && formOf(words[0]) && DERIVED_LINK.has(words[1])) {
+    let i = 1;
+    while (i < words.length - 1 && DERIVED_LINK.has(words[i])) i++;
+    tries.push([words.slice(i).join(' '), formOf(words[0])]);
+  }
+  // "<ingrediënt> <vorm>": apricot jam, Aprikosen Marmelade.
+  if (words.length >= 2 && formOf(words[words.length - 1]))
+    tries.push([words.slice(0, -1).join(' '), formOf(words[words.length - 1])]);
+  // Eén samengesteld woord (Nederlands, Duits): abrikozensorbet, Aprikosenmarmelade, kalfsjus.
+  if (words.length === 1)
+    for (const form of [...DERIVED_SURE, ...DERIVED_CHECK]) {
+      const w = words[0];
+      if (form.length < 3 || !w.endsWith(form) || w.length - form.length < 3) continue;
+      const stem = w.slice(0, -form.length);
+      // Met en zonder tussen-s ("kalfs-jus"), en met de -e die het Duits weglaat ("Himbeer-sorbet" → Himbeere).
+      for (const s of new Set([stem, stem.replace(/s$/, ''), stem.replace(/-$/, ''), `${stem}e`]))
+        tries.push([s, formOf(form)]);
+    }
+  for (const [phrase, kind] of tries) {
+    const p = lookup(phrase);
+    if (p) return { p, sure: kind === 'sure' };
+  }
+  return null;
 }
 // Alle vormen van een naam: het eerste en het laatste woord in enkelvoud ("yemas de huevo" → yema de huevo).
 function centralSingulars(phrase) {
@@ -383,12 +454,17 @@ function centralSingulars(phrase) {
     for (const b of lasts) out.add(words.length > 1 ? [a, ...words.slice(1, -1), b].join(' ') : a);
   return [...out];
 }
-function centralNear(key) {
-  if (!key || !centralIndex.size) return null;
+function centralNear(key, index = centralIndex) {
+  if (!key || !index.size) return null;
   const find = phrase =>
     centralSingulars(phrase)
-      .map(k => centralIndex.get(k))
+      .map(k => index.get(k))
       .find(Boolean);
+  // Eerst de naam zelf (ook in enkelvoud), dan een afgeleide vorm van één ingrediënt ("abrikozensorbet" → Abrikoos).
+  const self = find(key);
+  if (self) return { p: self, sure: true };
+  const derived = centralDerived(key, index);
+  if (derived) return derived;
   // Ook bijvoeglijke woorden erachter, zoals in het Spaans en Frans: "jengibre rallado", "persil plat", "agua fría".
   const tail = key.replace(CENTRAL_TAIL, '').trim().split(' ');
   while (tail.length > 1 && CENTRAL_SAFE_WORDS.has(tail[tail.length - 1])) tail.pop();
@@ -523,10 +599,19 @@ function loadIngredientBase() {
         }
         // Door de beheerder goedgekeurde namen uit recepten (/admin → Ingrediënten). Met een hoofdproduct ("kalfs jus"
         // → Kalf) wordt het product naar het hoofdproduct genoemd; de allergenen zijn wat de beheerder vastlegde.
+        // Alleen namen in de taal van de kok geven een product zijn naam. Een goedgekeurde naam uit een andere taal
+        // ("beurre", met "boter" als andere schrijfwijze) helpt wel bij herkennen, maar dan houdt Savour het woord van
+        // de kok zelf aan: anders kreeg een Nederlandse kok "Beurre", "Oignon" en "Karfiol" (testronde 2026-11-17).
+        const ownLang = typeof currentLanguage === 'string' && currentLanguage ? currentLanguage : 'nl';
         for (const x of approved || []) {
           const headKey = x.head ? productKey(x.head) : '';
           const nameKey = productKey(x.name);
           const item = [(x.allergens || []).join(','), x.name, '', '', '', '', 0, 'lijst'];
+          if (x.lang && x.lang !== ownLang) {
+            for (const k of [x.key, nameKey, ...(x.aliases || []).map(productKey)])
+              if (k && !index.has(k)) index.set(k, item);
+            continue;
+          }
           // Goedgekeurd door de beheerder gaat voor de vaste lijsten: "gelatine" is dan wat Savour zelf vastlegde,
           // niet de naam uit Open Food Facts zonder allergenen.
           for (const k of [x.key, nameKey, ...(x.aliases || []).map(productKey)])
@@ -565,7 +650,7 @@ function loadIngredientList() {
   const query = (count = false) =>
     supabaseClient
       .from('ingredient_list')
-      .select('key,name,head,aliases,allergens,status', count ? { count: 'exact' } : undefined)
+      .select('key,name,head,aliases,allergens,status,lang', count ? { count: 'exact' } : undefined)
       .in('status', ['approved', 'junk'])
       .order('id');
   ingredientListLoading = query(true)
@@ -711,8 +796,17 @@ function computeProductKey(text) {
   return s.trim();
 }
 
+// Een allergeencode achteraan ("1.200 g Eier C", "Butter G, A": Oostenrijkse recepten) hoort niet bij de naam;
+// sommige koks houden die letters bewust in hun recept. "Vitamine C" is geen code; een eimaat ("eieren M") ook niet,
+// maar die hoort evenmin bij de naam.
+
 function ingredientKey(line) {
-  return productKey(ingredientNameOf(String(line || '').replace(/^\s*(circa|ca\.?|ongeveer|±|\+\/-)\s+/i, '')));
+  const plain = String(line || '')
+    .replace(/^\s*(circa|ca\.?|ongeveer|±|\+\/-)\s+/i, '')
+    .replace(/(?<=\p{L}{2,}\)?)\s+[ABCDEFGHLMNOPR](?:\s*[,/]\s*[ABCDEFGHLMNOPR])*\s*$/u, m =>
+      /vitamine?\s+\S+$/i.test(String(line).trim()) ? m : ''
+    );
+  return productKey(ingredientNameOf(plain));
 }
 
 // Voorstel voor een ingrediënt zonder product: een product waarvan de naam vooraan of achteraan staat ("patent
@@ -1142,7 +1236,7 @@ async function openRecipeAllergenCheck() {
   document.getElementById('allergenCheck')?.remove();
   document.body.insertAdjacentHTML(
     'beforeend',
-    `<div class="modal sv-dialog open" id="allergenCheck" role="dialog" aria-modal="true" aria-labelledby="allergenCheckTitle"><div class="sv-dialog-box allergen-check-box">${modalCloseHtml()}<h2 id="allergenCheckTitle" class="sv-dialog-title">Allergenen</h2><p class="sv-dialog-text"><span translate="no">${esc(r.title)}</span></p><div class="allergen-check-sum">${allergenSummaryHtml(info)}${info.unknown.length ? `<p class="rp-allergens-open">${icon('alert', { size: 14 })}<span>Nog niet compleet: ${info.unknown.length} ${info.unknown.length === 1 ? 'ingrediënt' : 'ingrediënten'} zonder gecontroleerde allergenen.</span></p>` : ''}</div><ul class="allergen-lines">${rows}</ul>${edit ? '<p class="muted allergen-check-tip">Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Koppelen aan recept; dan tellen de allergenen van dat recept mee.</p>' : ''}<div class="sv-dialog-actions"><button type="button" class="btn" data-close>Sluiten</button></div></div></div>`
+    `<div class="modal sv-dialog open" id="allergenCheck" role="dialog" aria-modal="true" aria-labelledby="allergenCheckTitle"><div class="sv-dialog-box allergen-check-box">${modalCloseHtml()}<h2 id="allergenCheckTitle" class="sv-dialog-title">Allergenen</h2><p class="sv-dialog-text"><span translate="no">${esc(r.title)}</span></p><div class="allergen-check-sum">${allergenSummaryHtml(info)}${info.unknown.length ? `<p class="rp-allergens-open">${icon('alert', { size: 14 })}<span>Nog niet compleet: ${info.unknown.length} ${info.unknown.length === 1 ? 'ingrediënt' : 'ingrediënten'} zonder gecontroleerde allergenen.</span></p>` : ''}</div><ul class="allergen-lines">${rows}</ul>${edit ? '<p class="muted allergen-check-tip">Een product geldt voor alle recepten met dezelfde ingrediëntnaam. Gebruikt een regel een eigen recept, zoals een fond? Koppel het via ⋯ Ingrediënt koppelen aan recept; dan tellen de allergenen van dat recept mee.</p>' : ''}<div class="sv-dialog-actions"><button type="button" class="btn" data-close>Sluiten</button></div></div></div>`
   );
   const el = $('allergenCheck');
   const close = () => el.remove();
@@ -1167,7 +1261,7 @@ async function openRecipeAllergenCheck() {
       after(() => openProductEditor({ product: p, scope }));
     })
   );
-  // Een eigen recept kiezen voor deze ene regel, zoals bij ⋯ Koppelen aan recept.
+  // Een eigen recept kiezen voor deze ene regel, zoals bij ⋯ Ingrediënt koppelen aan recept.
   el.querySelectorAll('[data-recipe-line]').forEach(b =>
     b.addEventListener('click', () =>
       after(async () => {
@@ -1579,20 +1673,44 @@ function renderProductList() {
   if (!host) return;
   document
     .querySelectorAll('.products-filter button')
-    .forEach((b, i) => b.classList.toggle('on', ['', 'open', 'known', 'central'][i] === productStatusFilter));
+    .forEach((b, i) => b.classList.toggle('on', ['', 'open', 'known', 'central', 'all'][i] === productStatusFilter));
   const own = productsIn(productScope);
   // Uit de Savour-lijst, gebruikt in deze keuken en (nog) zonder eigen versie.
   const central = [...centralUsage(productScope).values()]
     .filter(u => !own.some(x => productKey(x.name) === productKey(u.product.name)))
     .map(u => ({ ...u.product, aliases: [...u.keys] }));
-  const list = [...own, ...central].sort((a, b) => a.name.localeCompare(b.name, 'nl'));
+  // De hele Savour-lijst in de taal van de kok: om te zien wat Savour al kent, ook als het (nog) in geen recept staat.
+  const all = productStatusFilter === 'all';
+  const list = (
+    all
+      ? centralRows.map(x => {
+          const name = capitalizeFirst(x.name || x.key);
+          return {
+            id: `savour:${x.key}`,
+            name,
+            aliases: x.aliases || [],
+            allergens: x.allergens || [],
+            known: true,
+            central: true,
+            brand: BRAND_DEPENDENT.test(productKey(name))
+          };
+        })
+      : [...own, ...central]
+  ).sort((a, b) => a.name.localeCompare(b.name, 'nl'));
   const q = productKey(productSearch);
-  const shown = list.filter(
+  const found = list.filter(
     x =>
       (!q || [x.name, ...x.aliases].some(n => productKey(n).includes(q))) &&
       (!productStatusFilter ||
+        all ||
         (productStatusFilter === 'central' ? x.central : !x.central && (productStatusFilter === 'known') === x.known))
   );
+  // Duizenden regels tegelijk maakt een telefoon traag: de eerste 300, zoeken toont de rest.
+  const shown = all ? found.slice(0, 300) : found;
+  const more =
+    found.length > shown.length
+      ? `<p class="muted">${t(`${shown.length} van ${found.length} ingrediënten. Zoek om de rest te vinden.`)}</p>`
+      : '';
   host.innerHTML = shown.length
     ? `<ul class="products-list">${shown
         .map(x => {
@@ -1608,7 +1726,7 @@ function renderProductList() {
           const open = x.central ? `openCentralProduct('${escJs(x.name)}')` : `openProductFromList('${escJs(x.id)}')`;
           return `<li><button type="button" onclick="${open}"><span class="products-name"><b translate="no">${esc(x.name)}</b>${x.aliases.length ? `<small translate="no">${esc(x.aliases.slice(0, 8).join(', '))}${x.aliases.length > 8 ? ' …' : ''}</small>` : ''}</span><span class="allergen-chips">${chips}</span>${state}</button></li>`;
         })
-        .join('')}</ul>`
+        .join('')}</ul>${more}`
     : `<p class="muted">${list.length ? t('Geen ingrediënten gevonden.') : t('Nog geen ingrediënten. Savour vult deze lijst vanzelf met de ingrediënten uit je recepten.')}</p>`;
 }
 

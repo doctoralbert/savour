@@ -4,6 +4,84 @@
 // folder: receptenmap in de demo. Recepten van "Chef Anna" (DEMO_SHARED_RECIPES) staan in het keukenteam.
 
 const DEMO_RECIPES = [
+  // Het kladje van de startpagina (tools/site-kladje.mjs): zo zie je in de demo het hele recept uitgewerkt.
+  {
+    key: 'marshmallow',
+    cat: 3,
+    folder: 'demo-pat',
+    nl: {
+      title: 'Marshmallow',
+      yield: '',
+      ingredients: ['300 g eiwit', '150 g suiker', '25 g glucose', '200 g passievruchtjus', '48 g gelatine'],
+      steps: [
+        'Gelatine weken. Week de gelatineblaadjes in ruim koud water.',
+        'Suikerstroop koken. Doe de suiker, glucosestroop en het water in een pan. Breng aan de kook en kook tot ongeveer 121 °C.',
+        'Eiwit opkloppen. Begin het eiwit op te kloppen zodra de suikersiroop bijna op temperatuur is. Klop tot een luchtig schuim dat nog soepel genoeg is om de hete siroop op te nemen.',
+        'Siroop toevoegen. Giet de hete siroop in een dunne straal bij het kloppende eiwit. Giet langs de binnenwand van de kom en niet rechtstreeks op de garde, om spatten en suikerkristallen te beperken.',
+        'Gelatine oplossen. Smelt de uitgeknepen gelatine voorzichtig in de passie coulis. Voeg deze toe aan de warme marshmallowmassa terwijl de mixer draait. Laat de massa verder kloppen tot hij luchtig is en begint af te koelen, maar nog voldoende vloeibaar is om te verwerken.'
+      ]
+    },
+    en: {
+      title: 'Marshmallow',
+      yield: '',
+      ingredients: ['300 g egg white', '150 g sugar', '25 g glucose', '200 g passion fruit juice', '48 g gelatine'],
+      steps: [
+        'Soak the gelatine. Soak the gelatine leaves in plenty of cold water.',
+        'Cook the sugar syrup. Put the sugar, glucose syrup and the water in a pan. Bring to the boil and cook to about 121 °C.',
+        'Whisk the egg white. Start whisking the egg white as soon as the syrup is almost at temperature. Whisk to a light foam that is still supple enough to take the hot syrup.',
+        'Add the syrup. Pour the hot syrup in a thin stream into the whisking egg white. Pour down the inside of the bowl, not straight onto the whisk, to limit splashes and sugar crystals.',
+        'Dissolve the gelatine. Gently melt the squeezed gelatine in the passion fruit coulis. Add it to the warm marshmallow mixture while the mixer is running. Keep whisking until the mixture is light and starts to cool, but is still liquid enough to work with.'
+      ]
+    },
+    de: {
+      title: 'Marshmallow',
+      yield: '',
+      ingredients: ['300 g Eiweiß', '150 g Zucker', '25 g Glukose', '200 g Passionsfruchtsaft', '48 g Gelatine'],
+      steps: [
+        'Gelatine einweichen. Die Gelatineblätter in reichlich kaltem Wasser einweichen.',
+        'Zuckersirup kochen. Zucker, Glukosesirup und das Wasser in einen Topf geben. Aufkochen und auf etwa 121 °C kochen.',
+        'Eiweiß aufschlagen. Mit dem Aufschlagen des Eiweißes beginnen, sobald der Sirup fast die Temperatur erreicht hat. Zu einem luftigen Schaum schlagen, der noch geschmeidig genug ist, um den heißen Sirup aufzunehmen.',
+        'Sirup zugeben. Den heißen Sirup in einem dünnen Strahl zum laufenden Eiweiß gießen. An der Innenwand der Schüssel entlang gießen, nicht direkt auf den Schneebesen, um Spritzer und Zuckerkristalle zu vermeiden.',
+        'Gelatine auflösen. Die ausgedrückte Gelatine vorsichtig im Passionsfrucht-Coulis schmelzen. Bei laufendem Mixer zur warmen Marshmallowmasse geben. Weiterschlagen, bis die Masse luftig ist und abzukühlen beginnt, aber noch flüssig genug zum Verarbeiten ist.'
+      ]
+    },
+    es: {
+      title: 'Marshmallow',
+      yield: '',
+      ingredients: [
+        '300 g de clara de huevo',
+        '150 g de azúcar',
+        '25 g de glucosa',
+        '200 g de zumo de maracuyá',
+        '48 g de gelatina'
+      ],
+      steps: [
+        'Hidratar la gelatina. Hidrata las hojas de gelatina en abundante agua fría.',
+        'Cocer el almíbar. Pon el azúcar, el jarabe de glucosa y el agua en un cazo. Lleva a ebullición y cuece hasta unos 121 °C.',
+        'Montar las claras. Empieza a montar las claras en cuanto el almíbar esté casi a temperatura. Monta hasta obtener una espuma ligera que aún sea lo bastante flexible para absorber el almíbar caliente.',
+        'Añadir el almíbar. Vierte el almíbar caliente en un hilo fino sobre las claras mientras se baten. Viértelo por la pared interior del bol y no directamente sobre las varillas, para evitar salpicaduras y cristales de azúcar.',
+        'Disolver la gelatina. Funde con cuidado la gelatina escurrida en el coulis de maracuyá. Añádelo a la masa de marshmallow caliente con la batidora en marcha. Sigue batiendo hasta que la masa esté ligera y empiece a enfriarse, pero siga lo bastante fluida para trabajarla.'
+      ]
+    },
+    fr: {
+      title: 'Guimauve',
+      yield: '',
+      ingredients: [
+        "300 g de blancs d'œufs",
+        '150 g de sucre',
+        '25 g de glucose',
+        '200 g de jus de fruit de la passion',
+        '48 g de gélatine'
+      ],
+      steps: [
+        "Hydrater la gélatine. Fais tremper les feuilles de gélatine dans beaucoup d'eau froide.",
+        "Cuire le sirop. Mets le sucre, le sirop de glucose et l'eau dans une casserole. Porte à ébullition et cuis jusqu'à environ 121 °C.",
+        "Monter les blancs. Commence à monter les blancs dès que le sirop est presque à température. Monte jusqu'à obtenir une mousse légère, encore assez souple pour absorber le sirop chaud.",
+        'Ajouter le sirop. Verse le sirop chaud en filet fin sur les blancs tout en battant. Verse-le le long de la paroi du bol et non directement sur les fouets, pour éviter les projections et les cristaux de sucre.',
+        "Dissoudre la gélatine. Fais fondre délicatement la gélatine essorée dans le coulis de passion. Ajoute-le à la masse de guimauve chaude, batteur en marche. Continue de battre jusqu'à ce que la masse soit légère et commence à refroidir, mais reste assez fluide pour être travaillée."
+      ]
+    }
+  },
   {
     key: 'kalfsfond',
     cat: 0,

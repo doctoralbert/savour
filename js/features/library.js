@@ -81,6 +81,12 @@ function renderRecipeList(list, hostId, countId, context) {
   host.className = 'savour-v13-list savour-v27-list';
   // Nog helemaal geen recepten (niet: niets gevonden bij zoeken): een welkom met foto en één duidelijke stap.
   if (context === 'library' && !recipes.length) {
+    // Lid van het keukenteam van een ander: daar staan de recepten van de keuken. Dat eerst, eigen import daarna.
+    const team = (sharedMaps || []).find(m => m.ownerId && m.ownerId !== currentUser?.id);
+    if (team) {
+      host.innerHTML = `<div class="library-welcome" style="--welcome-photo:url('/assets/keuken/vuur-grill.jpg')"><div><h3>${esc(t('De recepten van je keuken staan in het keukenteam'))}</h3><p><span>${esc(t('Je bent lid van'))}</span> <b translate="no">${esc(team.name)}</b>. <span>${esc(t('Je eigen receptenboek is nog leeg; daar zet je recepten die alleen van jou zijn.'))}</span></p><div class="library-welcome-actions"><button type="button" class="btn gold" onclick="openShared('${escJs(team.id)}')"><span>${esc(t('Open'))}</span> <span translate="no">${esc(team.name)}</span></button><button type="button" class="btn" onclick="go('import');showImportPanel()">${esc(t('Eigen recepten importeren'))}</button></div></div></div>`;
+      return;
+    }
     host.innerHTML = `<div class="library-welcome" style="--welcome-photo:url('/assets/keuken/vuur-grill.jpg')"><div><h3>Je receptenboek is nog leeg</h3><p>Importeer je Word-bestanden, PDF's of foto's van kladjes in één keer, of voer zelf een recept in.</p><div class="library-welcome-actions"><button type="button" class="btn gold" onclick="go('import');showImportPanel()">Recepten importeren</button><button type="button" class="btn" onclick="newRecipe()">Zelf invoeren</button></div></div></div>`;
     return;
   }
@@ -96,6 +102,7 @@ function renderRecipeList(list, hostId, countId, context) {
 function renderRecipes() {
   drawAlphabet('recipeAlphabet', 'library');
   if (!currentUser) return;
+  $('recipes')?.classList.toggle('library-empty', !demoMode && !recipes.length);
   renderStartChecklist();
   renderRecipeProHint();
   renderCategoryBar();
@@ -152,6 +159,17 @@ function visibleRecipeList() {
 // ---- Meerdere recepten tegelijk verwijderen ----
 
 // Opent het verwijdervenster met de recepten die nu in de lijst zichtbaar zijn.
+// Minder gebruikte acties in de bibliotheek achter één knop (⋯), zodat een nieuwe gebruiker eerst
+// "Recept toevoegen" ziet en niet als eerste "Verwijder recepten".
+async function openLibraryMore() {
+  const choice = await askChoice(t('Meer acties'), [
+    { label: t('Categorieën bijwerken'), value: 'categories' },
+    { label: t('Verwijder recepten'), value: 'delete' }
+  ]);
+  if (choice === 'categories') go('categories');
+  else if (choice === 'delete') openBulkDeleteModal();
+}
+
 function openBulkDeleteModal() {
   bulkSelectedIds.clear();
   window.bulkLastIndex = null;

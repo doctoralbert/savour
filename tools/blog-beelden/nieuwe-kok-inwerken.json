@@ -1,0 +1,18 @@
+[
+ {
+  "name": "inwerkplan",
+  "after": "Een eenvoudig inwerkplan",
+  "type": "flow",
+  "end": true,
+  "title": ["Een eenvoudig inwerkplan", "A simple onboarding plan", "Ein einfacher Einarbeitungsplan", "Un plan de incorporación sencillo", "Un plan d’intégration simple"],
+  "sub": ["Vooraf afgesproken, zodat de nieuwe kok weet wat er wordt verwacht", "Agreed in advance, so the new cook knows what to expect", "Vorab vereinbart, damit der neue Koch weiß, was erwartet wird", "Acordado antes, para que el nuevo sepa qué se espera", "Convenu à l’avance, pour que le nouveau sache ce qu’on attend"],
+  "steps": [
+   [["Vóór de eerste dienst", "Before the first shift", "Vor der ersten Schicht", "Antes del primer turno", "Avant le premier service"], ["Uitnodiging voor het keukenteam; de recepten thuis lezen.", "Invitation to the kitchen team; read the recipes at home.", "Einladung ins Küchenteam; die Rezepte zu Hause lesen.", "Invitación al equipo; leer las recetas en casa.", "Invitation à l’équipe ; lire les recettes à la maison."]],
+   [["Dag één", "Day one", "Tag eins", "Día uno", "Jour un"], ["Recepten van de partie lezen en de mise en place doorlopen.", "Read the section’s recipes and walk through the mise en place.", "Rezepte des Postens lesen und die Mise en place durchgehen.", "Leer las recetas de la partida y repasar la mise en place.", "Lire les recettes du poste et passer la mise en place."]],
+   [["De eerste week", "The first week", "Die erste Woche", "La primera semana", "La première semaine"], ["Meewerken; vragen buiten de service.", "Work alongside; questions outside service.", "Mitarbeiten; Fragen außerhalb des Service.", "Trabajar al lado; preguntas fuera del servicio.", "Travailler à côté ; questions hors service."]],
+   [["Daarna", "After that", "Danach", "Después", "Ensuite"], ["Zelfstandig een onderdeel maken, en iemand laten proeven.", "Make one component alone, and let someone taste.", "Selbstständig einen Teil machen und jemanden probieren lassen.", "Hacer un elemento solo y que alguien lo pruebe.", "Faire un élément seul, et le faire goûter."]]
+  ],
+  "alt": ["Inwerkplan in vier stappen: vóór de eerste dienst, dag één, de eerste week en daarna", "Onboarding plan in four steps: before the first shift, day one, the first week and after that", "Einarbeitungsplan in vier Schritten: vor der ersten Schicht, Tag eins, die erste Woche und danach", "Plan de incorporación en cuatro pasos: antes del primer turno, día uno, la primera semana y después", "Plan d’intégration en quatre étapes : avant le premier service, jour un, la première semaine et ensuite"],
+  "caption": ["Een recept vertelt wat je doet, niet hoe het moet smaken: proeven leer je naast de sous-chef.", "A recipe tells you what to do, not how it should taste: tasting is learned next to the sous chef.", "Ein Rezept sagt, was du tust, nicht wie es schmecken soll: Abschmecken lernst du neben dem Sous-Chef.", "Una receta dice qué hacer, no cómo debe saber: a probar se aprende junto al segundo.", "Une recette dit quoi faire, pas quel goût ça doit avoir : on apprend à goûter à côté du sous-chef."]
+ }
+]

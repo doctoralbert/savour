@@ -207,7 +207,78 @@ Was de Roseval en dep deze droog.`,
       { t: 'Roseval gepoft', i: [], s: 1, c: 'high' }
     ]
   },
+  // Testronde 2026-11-17: ChatGPT zet ingrediënten met komma's op één regel; de komma's bleven staan.
+  {
+    name: 'ChatGPT: ingrediënten met komma\'s op één regel worden losse regels, zonder komma',
+    text: `# Bloemkoolcrème met hazelnoot
+
+**Ingredients:** 1 bloemkool, 1 ui, 50 g boter, 500 ml groentebouillon, 200 ml room, 40 g geroosterde hazelnoten, zout, nootmuskaat
+
+**Method**
+1. Snijd de bloemkool en ui grof en stoof ze 5 minuten in de boter.
+2. Voeg de bouillon toe en kook 20 minuten gaar.`,
+    expect: [
+      {
+        t: 'Bloemkoolcrème met hazelnoot',
+        i: ['1 bloemkool', '1 ui', '50 g boter', '500 ml groentebouillon', '200 ml room', '40 g geroosterde hazelnoten', 'zout', 'nootmuskaat'],
+        s: 2
+      }
+    ]
+  },
+  {
+    name: 'Komma\'s zonder hoeveelheden blijven één regel (zo stond het op het kladje)',
+    text: `Pommes duchesse
+1 kg kruimige aardappel
+60 g boter
+3 eidooiers
+nootmuskaat, zout, peper
+1 tonkaboon, geraspt
+
+Aardappels koken en goed laten uitdampen.`,
+    expect: [
+      {
+        t: 'Pommes duchesse',
+        i: ['1 kg kruimige aardappel', '60 g boter', '3 eidooiers', 'nootmuskaat, zout, peper', '1 tonkaboon, geraspt'],
+        s: 1
+      }
+    ]
+  },
+  {
+    name: 'Duitse opbrengst "4 Portionen" is de opbrengst, geen ingrediënt',
+    text: `Kaiserschmarrn
+4 Portionen
+
+4 Eier
+250 ml Milch
+120 g Mehl
+
+Eier trennen und alles glatt rühren.`,
+    expect: [{ t: 'Kaiserschmarrn', y: '4 Portionen', i: ['4 Eier', '250 ml Milch', '120 g Mehl'], s: 1 }]
+  },
   // "#b " = vette regel of Word-kop 2/3 (zie htmlToRecipeText in import.js).
+  {
+    // Testronde 2026-11-17: Word met Kop 1 als titel en Kop 2 "Ingrediënten"/"Bereiding" raakte de titels kwijt.
+    name: 'Word: Kop 2 "Ingrediënten" en "Bereiding" zijn sectiekopjes, de receptnaam blijft',
+    text: `# Sauce hollandaise
+#b Ingrediënten
+3 eidooiers
+250 g geklaarde boter
+2 el water
+#b Bereiding
+Klop de dooiers met het water au bain-marie tot een luchtige sabayon.
+Voeg van het vuur de warme boter in een dun straaltje toe, al kloppend.
+
+# Vinaigrette
+#b Ingrediënten:
+1 el dijonmosterd
+9 el zonnebloemolie
+#b Bereiding:
+Meng mosterd en azijn en klop de olie er in een straaltje door.`,
+    expect: [
+      { t: 'Sauce hollandaise', i: ['3 eidooiers', '250 g geklaarde boter', '2 el water'], s: 2 },
+      { t: 'Vinaigrette', i: ['1 el dijonmosterd', '9 el zonnebloemolie'], s: 1 }
+    ]
+  },
   {
     name: 'Echt bestand: vette onderdeelkopjes binnen Ingrediënten zijn geen nieuwe recepten',
     text: `#b Beurre blanc saus Maurick
@@ -1564,6 +1635,43 @@ for (const [line, next, want] of headingCases) {
 // ---- Al gelezen recept opschonen (tidyRecipeLines): AI-resultaten en bestaande recepten ----
 const tidyCases = [
   {
+    name: 'Allergeencodes achter ingrediënten gaan bij importeren naar de beschrijving',
+    options: { allergenCodes: true },
+    from: {
+      ingredients: ['Teig:', '500 g Eier C', '250 g Butter G', '300 g Mehl A', '100 g Zucker', '1 dl Weißwein O, A'],
+      steps: ['Alles mit Zucker verrühren.']
+    },
+    to: {
+      ingredients: ['Teig:', '500 g Eier', '250 g Butter', '300 g Mehl', '100 g Zucker', '1 dl Weißwein'],
+      steps: ['Alles mit Zucker verrühren.'],
+      description: 'Allergene laut Rezept: A Gluten, C Ei, G Milch, O Sulfite'
+    },
+    changed: 4
+  },
+  {
+    name: 'Bestaand recept houdt zijn allergeencodes',
+    from: { ingredients: ['500 g Eier C', '250 g Butter G'], steps: [] },
+    to: { ingredients: ['500 g Eier C', '250 g Butter G'], steps: [], description: '' },
+    changed: 0
+  },
+  {
+    name: 'Eén letter achteraan is nog geen allergeencode; vitamine C blijft',
+    options: { allergenCodes: true },
+    from: { ingredients: ['1 tablet Vitamine C', '2 g Vitamine E', '200 g suiker'], steps: [] },
+    to: { ingredients: ['1 tablet Vitamine C', '2 g Vitamine E', '200 g suiker'], steps: [], description: '' },
+    changed: 0
+  },
+  {
+    name: 'Stapnummers vooraan gaan weg, getallen in de stap blijven',
+    from: { ingredients: ['200 g suiker'], steps: ['4. Deeg vormen', '(5) Bakken op 180 graden', '2 eieren erdoor'] },
+    to: {
+      ingredients: ['200 g suiker'],
+      steps: ['Deeg vormen', 'Bakken op 180 graden', '2 eieren erdoor'],
+      description: ''
+    },
+    changed: 2
+  },
+  {
     name: 'Kopjes, bronregel en "geen bereiding" uit een ChatGPT-recept',
     from: {
       ingredients: ['(Source: Backbuch – Kuchen)', '# Ingredients', 'Sponge base', 'Canned peaches', '# Method'],
@@ -1787,7 +1895,7 @@ const tidyCases = [
   }
 ];
 for (const c of tidyCases) {
-  const got = JSON.parse(JSON.stringify(ctx.tidyRecipeLines(c.from)));
+  const got = JSON.parse(JSON.stringify(ctx.tidyRecipeLines(c.from, c.options || {})));
   const ok =
     eq(got.ingredients, c.to.ingredients) &&
     eq(got.steps, c.to.steps) &&

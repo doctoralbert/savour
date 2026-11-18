@@ -1260,6 +1260,33 @@ button {
   gap: 12px;
   margin-top: 22px;
 }
+/* Minder gebruikte bronnen (Word, PDF, foto's los, andere apps): ingeklapt onder de vier hoofdkeuzes. */
+.import-more {
+  margin-top: 12px;
+}
+.import-more > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--gold);
+  font-size: var(--sv-fs-sm);
+  cursor: pointer;
+}
+.import-more > summary::-webkit-details-marker {
+  display: none;
+}
+.import-more > summary::before {
+  content: '+';
+  font-size: 18px;
+  line-height: 1;
+}
+.import-more[open] > summary::before {
+  content: '−';
+}
+.import-more > .import-options {
+  margin-top: 8px;
+}
 .import-option {
   border: 1px solid #293536;
   background: linear-gradient(145deg, #0d1516, #081011);
@@ -4640,6 +4667,13 @@ body {
   padding: 7px 10px;
   font-size: var(--sv-fs-xs);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+/* "Gratis account maken" in de demobalk: de weg van de demo naar een eigen account. */
+.demo-mode-badge a {
+  color: var(--gold);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 .savour-light .structured-row input,
 .savour-light .structured-row textarea {

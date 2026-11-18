@@ -14,11 +14,11 @@ export const VERDIEPING = {
   },
   roadmap: {
     nl: [
-      ['Waarom deze volgorde?', 'Recepten moeten eerst kloppen en makkelijk te vinden zijn; daarom kwamen importeren, mappen en delen eerst. Kostprijs en allergenen bouwen daarop voort, want ze zijn alleen betrouwbaar als de hoeveelheden in je recepten al goed staan. Een kostprijs op basis van een onvolledig recept geeft schijnzekerheid.'],
+      ['Waarom deze volgorde?', 'Recepten moeten eerst kloppen en makkelijk te vinden zijn; daarom kwamen importeren, mappen en delen eerst. Daarna kwamen de allergenen, en nu de kostprijs: die zijn alleen betrouwbaar als de hoeveelheden in je recepten al goed staan. Een kostprijs op basis van een onvolledig recept geeft schijnzekerheid.'],
       ['Wat je nu al kunt voorbereiden', 'Zet je hoeveelheden in gram of milliliter en geef elk recept een opbrengst. Koppel basisrecepten aan de gerechten waarin ze worden gebruikt, zodat je direct ziet welke fond of saus erin zit. Dat helpt vandaag al in de keuken, en het maakt elke volgende stap eenvoudiger.']
     ],
     en: [
-      ['Why this order?', 'Recipes must be correct and easy to find first, which is why importing, folders and sharing came first. Cost and allergens build on that, because they are only reliable when the quantities in your recipes are right. A cost based on an incomplete recipe gives false certainty.'],
+      ['Why this order?', 'Recipes must be correct and easy to find first, which is why importing, folders and sharing came first. Then came allergens, and now cost: they are only reliable when the quantities in your recipes are right. A cost based on an incomplete recipe gives false certainty.'],
       ['What you can prepare today', 'Write quantities in grams or millilitres and give every recipe a yield. Link base recipes to the dishes that use them, so you can see straight away which stock or sauce is inside. That already helps in the kitchen today, and it makes every next step easier.']
     ]
   },

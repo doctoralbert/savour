@@ -1,0 +1,30 @@
+[
+ {
+  "name": "categorie-en-map",
+  "after": "Categorieën voor zoeken, mappen voor werken",
+  "type": "cards",
+  "title": ["Categorie of map?", "Category or folder?", "Kategorie oder Ordner?", "¿Categoría o carpeta?", "Catégorie ou dossier ?"],
+  "sub": ["Twee manieren om te zoeken, zonder dat een recept dubbel bestaat", "Two ways to search, without a recipe existing twice", "Zwei Wege zu suchen, ohne dass ein Rezept doppelt existiert", "Dos formas de buscar, sin duplicar ninguna receta", "Deux façons de chercher, sans recette en double"],
+  "items": [
+   {"icon": "grid", "head": ["Categorie", "Category", "Kategorie", "Categoría", "Catégorie"], "sub": ["WAT HET IS", "WHAT IT IS", "WAS ES IST", "QUÉ ES", "CE QUE C’EST"], "lines": [["Saus", "Sauce", "Sauce", "Salsa", "Sauce"], ["Garnituur", "Garnish", "Garnitur", "Guarnición", "Garniture"], ["Dessert", "Dessert", "Dessert", "Postre", "Dessert"]]},
+   {"icon": "folders", "head": ["Map", "Folder", "Ordner", "Carpeta", "Dossier"], "sub": ["WAAR JE HET GEBRUIKT", "WHERE YOU USE IT", "WO DU ES NUTZT", "DÓNDE LO USAS", "OÙ TU L’UTILISES"], "lines": [["Lunchkaart", "Lunch menu", "Mittagskarte", "Carta de mediodía", "Carte du midi"], ["Proeverij", "Tasting menu", "Degustation", "Degustación", "Dégustation"], ["Evenement", "Event", "Event", "Evento", "Événement"]], "dark": true}
+  ],
+  "alt": ["Categorieën zeggen wat een recept is (saus, garnituur, dessert); mappen waar je het gebruikt (lunchkaart, proeverij, evenement)", "Categories say what a recipe is (sauce, garnish, dessert); folders say where you use it (lunch menu, tasting menu, event)", "Kategorien sagen, was ein Rezept ist (Sauce, Garnitur, Dessert); Ordner, wo du es nutzt (Mittagskarte, Degustation, Event)", "Las categorías dicen qué es una receta (salsa, guarnición, postre); las carpetas, dónde la usas (carta de mediodía, degustación, evento)", "Les catégories disent ce qu’est une recette (sauce, garniture, dessert) ; les dossiers, où tu l’utilises (carte du midi, dégustation, événement)"],
+  "caption": ["Een recept kan in meerdere mappen staan.", "A recipe can be in several folders.", "Ein Rezept kann in mehreren Ordnern stehen.", "Una receta puede estar en varias carpetas.", "Une recette peut être dans plusieurs dossiers."]
+ },
+ {
+  "name": "namen-die-iedereen-vindt",
+  "after": "Een naam die iedereen vindt",
+  "type": "rename",
+  "title": ["Een naam die iedereen vindt", "A name everyone can find", "Ein Name, den alle finden", "Un nombre que todos encuentran", "Un nom que tout le monde trouve"],
+  "sub": ["De naam die de keuken echt zegt, met het hoofdproduct erin", "The name the kitchen really uses, with the main product in it", "Der Name, den die Küche wirklich sagt, mit dem Hauptprodukt darin", "El nombre que usa la cocina, con el producto principal", "Le nom que dit vraiment la cuisine, avec le produit principal"],
+  "heads": [["ZO NIET", "NOT LIKE THIS", "SO NICHT", "ASÍ NO", "PAS COMME ÇA"], ["ZO WEL", "LIKE THIS", "SO SCHON", "ASÍ SÍ", "COMME ÇA"]],
+  "pairs": [
+   ["Jus 3", ["Kalfsjus basis", "Veal jus base", "Kalbsjus Basis", "Jugo de ternera base", "Jus de veau de base"]],
+   [["Saus nieuw (def)", "Sauce new (final)", "Sauce neu (final)", "Salsa nueva (def)", "Sauce nouvelle (déf)"], "Beurre blanc"],
+   [["Dessert okt", "Dessert Oct", "Dessert Okt", "Postre oct", "Dessert oct"], "Tarte tatin"]
+  ],
+  "alt": ["Voorbeelden van goede titels: Jus 3 wordt Kalfsjus basis, Saus nieuw (def) wordt Beurre blanc, Dessert okt wordt Tarte tatin", "Examples of good titles: Jus 3 becomes Veal jus base, Sauce new (final) becomes Beurre blanc, Dessert Oct becomes Tarte tatin", "Beispiele guter Titel: Jus 3 wird Kalbsjus Basis, Sauce neu (final) wird Beurre blanc, Dessert Okt wird Tarte tatin", "Ejemplos de buenos títulos: Jus 3 pasa a Jugo de ternera base, Salsa nueva (def) a Beurre blanc, Postre oct a Tarte tatin", "Exemples de bons titres : Jus 3 devient Jus de veau de base, Sauce nouvelle (déf) devient Beurre blanc, Dessert oct devient Tarte tatin"],
+  "caption": ["Geen afkortingen die alleen jij kent, en geen datum in de titel.", "No abbreviations only you know, and no date in the title.", "Keine Abkürzungen, die nur du kennst, und kein Datum im Titel.", "Sin abreviaturas que solo conoces tú y sin fecha en el título.", "Pas d’abréviations connues de toi seul, et pas de date dans le titre."]
+ }
+]
