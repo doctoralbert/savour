@@ -96,12 +96,13 @@ function reviewQueue(scope) {
   const no = reviewNo();
   const usage = productUsage(scope);
   const items = [];
+  // Een eigen voorstel alleen vragen als Savour het zelf niet weet (savourAllergens in products.js): wat de
+  // Savour-lijst of de vaste families al kennen, telt vanzelf mee en kost de kok geen werk. Ook per merk
+  // verschillende ingrediënten (gelatine, sojasaus) vraagt Savour niet meer: die tellen met de gebruikelijke
+  // allergenen, met een opmerking bij het recept.
   for (const p of productsIn(scope))
-    if (!p.known) items.push({ id: `confirm:${p.id}`, type: 'confirm', product: p, count: usage.get(p.id) || 0 });
-  // Uit de Savour-lijst, maar per merk verschillend (gelatine, sojasaus): één keer per keuken bevestigen.
-  for (const u of centralUsage(scope).values())
-    if (u.product.brand)
-      items.push({ id: `brand:${u.product.id}`, type: 'brand', product: u.product, keys: [...u.keys], count: u.count });
+    if (!p.known && ![p.name, ...p.aliases].some(n => savourAllergens(productKey(n), scope, p)))
+      items.push({ id: `confirm:${p.id}`, type: 'confirm', product: p, count: usage.get(p.id) || 0 });
   const todo = productTodo(scope);
   // Een naam die op een eigen recept lijkt ("groente fond" → Groentefond): eerst vragen, nooit vanzelf.
   const byTitle = ownRecipesByTitle(scope);

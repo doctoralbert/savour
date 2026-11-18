@@ -1746,3 +1746,28 @@ body.cook-mode .rp-multipliers .rp-factor-own input {
     padding: 0 6px;
   }
 }
+
+/* Allergenen die Savour zelf invulde (savourAllergens in js/features/products.js). */
+.allergen-by-savour {
+  display: inline-block;
+  margin: 0 6px 0 4px;
+  padding: 1px 7px;
+  border: 1px solid var(--sv-gold);
+  border-radius: 999px;
+  color: var(--sv-gold);
+  font-size: var(--sv-fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.allergen-brand {
+  display: block;
+  margin-top: 2px;
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-xs);
+  font-style: italic;
+}
+.allergen-brand-note {
+  margin: 8px 0 0;
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}

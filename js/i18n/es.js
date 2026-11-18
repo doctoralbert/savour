@@ -2,6 +2,41 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.es = {
   strings: {
+    Overslaan: 'Omitir',
+    'Alleen de nieuwe recepten opslaan. Je bestaande recepten blijven zoals ze zijn.':
+      'Guardar solo las recetas nuevas. Tus recetas existentes se quedan como están.',
+    'Alleen de gewijzigde opslaan': 'Guardar solo las modificadas',
+    'Recepten met dezelfde naam maar een andere inhoud komen naast het bestaande recept; precies dezelfde sla je over.':
+      'Las recetas con el mismo nombre pero distinto contenido se añaden junto a la existente; las idénticas se omiten.',
+    'Ze komen er dan nog een keer bij, naast het bestaande recept.':
+      'Se añadirán otra vez, junto a la receta existente.',
+    '1 recept staat al in je receptenboek': '1 receta ya está en tu recetario',
+    'Dit recept': 'Esta receta',
+    'Dit recept niet opslaan? Het verdwijnt uit deze import.':
+      '¿No guardar esta receta? Desaparecerá de esta importación.',
+    'Niet opslaan': 'No guardar',
+    'Dit bestand kon niet worden geopend. Misschien is het beschadigd of geen echt Excel- of Word-bestand. Open het in Excel of Word, sla het opnieuw op en probeer het nog eens. Plakken van de tekst kan ook.':
+      'No se pudo abrir este archivo. Puede que esté dañado o que no sea un archivo real de Excel o Word. Ábrelo en Excel o Word, guárdalo de nuevo e inténtalo otra vez. También puedes pegar el texto.',
+    'Dit bestand kon niet worden geopend. Misschien is het beschadigd. Open het, sla het opnieuw op en probeer het nog eens.':
+      'No se pudo abrir este archivo. Puede que esté dañado. Ábrelo, guárdalo de nuevo e inténtalo otra vez.',
+    'Savour zoekt bij elk ingrediënt zelf de allergenen op. Je hoeft niets te doen; aanpassen mag altijd.':
+      'Savour busca por sí mismo los alérgenos de cada ingrediente. No tienes que hacer nada; siempre puedes ajustarlos.',
+    'Savour zoekt bij elk ingrediënt in je recepten zelf de allergenen op en telt ze per recept op, ook via basisrecepten. Je hoeft niets te doen. De allergenen komen ook op je prints.':
+      'Savour busca los alérgenos de cada ingrediente de tus recetas y los suma por receta, también a través de recetas base. No tienes que hacer nada. Los alérgenos también aparecen en tus impresiones.',
+    'Savour kent 1 ingrediënt nog niet.': 'Savour aún no conoce 1 ingrediente.',
+    'Kan per merk verschillen': 'Puede variar según la marca',
+    'kan per merk verschillen': 'puede variar según la marca',
+    'Controleer het etiket van jouw merk.': 'Revisa la etiqueta de tu marca.',
+    'Door Savour ingevuld uit de Savour-lijst. Aanpassen mag altijd.':
+      'Rellenado por Savour desde la lista de Savour. Siempre puedes ajustarlo.',
+    'Kent Savour nog niet': 'Savour aún no lo conoce',
+    '1 ingrediënt heeft een naam in een andere taal': '1 ingrediente tiene un nombre en otro idioma',
+    'Namen omzetten': 'Convertir nombres',
+    'Namen omzetten naar je eigen taal?': '¿Convertir los nombres a tu idioma?',
+    'De oude naam blijft bewaard als andere schrijfwijze. Allergenen en koppelingen veranderen niet.':
+      'El nombre antiguo se guarda como otra forma de escribirlo. Los alérgenos y los vínculos no cambian.',
+    Omzetten: 'Convertir',
+    '1 naam omgezet': '1 nombre convertido',
     'Hoe wil je printen?': '¿Cómo quieres imprimir?',
     'A4 staand': 'A4 vertical',
     'A4 liggend': 'A4 horizontal',
@@ -2591,6 +2626,18 @@ window.SAVOUR_I18N.es = {
       'Ver alérgenos en un equipo cuyo propietario tiene Pro'
   },
   patterns: [
+    ['^(\\d+) recepten staan al in je receptenboek$', '$1 recetas ya están en tu recetario'],
+    [
+      '^(\\d+) recepten opgeslagen · (\\d+) overgeslagen \\(stond(?:en)? er al\\)$',
+      '$1 recetas guardadas · $2 omitidas (ya estaban)'
+    ],
+    ['^Savour kent (\\d+) ingrediënten nog niet\\.$', 'Savour aún no conoce $1 ingredientes.'],
+    ['^(\\d+) ingrediënten hebben een naam in een andere taal$', '$1 ingredientes tienen un nombre en otro idioma'],
+    ['^(\\d+) namen omgezet$', '$1 nombres convertidos'],
+    [
+      "^(\\d+) bestand(?:en)? overgeslagen: dit soort bestand( \\(.+\\))? kan Savour niet lezen\\. Recepten lezen gaat uit PDF, Word, tekst, foto's, webpagina's en exports van recepten-apps\\.$",
+      '$1 archivo(s) omitido(s): Savour no puede leer este tipo de archivo$2. Las recetas se leen desde PDF, Word, texto, fotos, páginas web y exportaciones de apps de recetas.'
+    ],
     ['^Opgeslagen (\\d{1,2}:\\d{2})$', 'Guardado $1'],
     ['^(\\d+) kaarten · (\\d+) onderdelen$', '$1 cartas · $2 elementos'],
     ['^1 kaart · (\\d+) onderdelen$', '1 carta · $1 elementos'],

@@ -72,12 +72,28 @@ Kopieer dit naar Claude om de ronde te laten doen:
 > 6. Overal: telefoon (375), tablet (768) en computer (1280 en 1440); donker en licht thema; steekproeven in EN, DE, ES
 >    en FR (staat er nergens Nederlands of een half vertaalde zin?); toetsenbord en schermlezer-labels waar het telt;
 >    console-fouten; laadtijd; lege staten en foutmeldingen (geen internet, verkeerd bestand, te groot bestand).
-> 7. Beheer: /admin met mijn account kan ik zelf openen; kijk alleen of de nieuwe dingen kloppen als ik dat vraag.
+> 7. Content op alle publieke pagina's: lees en beoordeel elke pagina die een bezoeker kan vinden (homepage, Savour
+>    Pro en prijzen, FAQ, over Savour, handleiding met alle hoofdstukken, blog met alle artikelen, vergelijkingen zoals
+>    "Alternatief voor Paprika", contact, voorwaarden en privacy), in het Nederlands en steekproefsgewijs in EN, DE, ES
+>    en FR. Per pagina: klopt elke bewering met wat de app echt doet (prijzen, grenzen, Pro, AI-import, keukenteams,
+>    MEP-lijsten)? Is het duidelijk, kort en in de taal van een chef? Spelling en grammatica, dubbele of tegenstrijdige
+>    informatie, verouderde teksten, dode links, ontbrekende of foute vertalingen, titels en beschrijvingen voor
+>    zoekmachines, afbeeldingen en alt-teksten. Geen verzonnen cijfers of beloftes.
+> 8. Beheer: /admin met mijn account kan ik zelf openen; kijk alleen of de nieuwe dingen kloppen als ik dat vraag.
 >
-> Lever daarna: per onderdeel een cijfer (1-10) voor gemak, layout, design en functie, met één zin waarom; een tabel
-> met alle problemen (ernst: blokkerend/hoog/middel/laag, waar, wat je deed, wat je verwachtte, wat je zag, voorstel);
-> wat goed werkt; wat een nieuwe chef zou missen of niet zou snappen; en een plan in fases (eerst wat kapot of
-> onbetrouwbaar is, dan wat verwarrend is, dan verfraaiing). Wacht met bouwen tot ik "start met fase 1" zeg.
+> Lever daarna:
+>
+> - **Review van het geheel**, elk met een score tot 100 punten en een korte onderbouwing (sterk / zwak / wat het
+>   hoger maakt): **concept** (is het idee helder, past het bij chefs en keukenteams, onderscheidend t.o.v. alternatieven,
+>   klopt het verdienmodel), **vormgeving** (huisstijl, rust, leesbaarheid, consistentie, licht en donker, telefoon
+>   tot groot scherm), **functionaliteit** (werkt alles, betrouwbaar, snel in de keuken, samenwerken) en **content**
+>   (publieke pagina's, teksten in de app, vertalingen). Daarnaast een totaalscore tot 100.
+> - Per onderdeel (stap 1 t/m 7) een cijfer (1-10) voor gemak, layout, design en functie, met één zin waarom.
+> - Een tabel met alle problemen (ernst: blokkerend/hoog/middel/laag, waar, wat je deed, wat je verwachtte, wat je
+>   zag, voorstel), en een aparte tabel voor content (pagina, taal, wat er staat, wat er beter kan).
+> - Wat goed werkt, en wat een nieuwe chef zou missen of niet zou snappen.
+> - Een plan in fases: eerst wat kapot of onbetrouwbaar is, dan wat verwarrend is, dan content, dan verfraaiing.
+>   Wacht met bouwen tot ik "start met fase 1" zeg.
 
 ## Testaccounts
 

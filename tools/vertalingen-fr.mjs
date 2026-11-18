@@ -1,6 +1,31 @@
 // Franse vertalingen, naast tools/vertalingen.mjs: Nederlandse brontekst → Frans.
 // Nieuwe interfacetekst? Zet hier ook de Franse regel; node tools/build-i18n.mjs meldt wat ontbreekt.
 export const stringsFr = {
+ "Overslaan": "Ignorer",
+ "Alleen de nieuwe recepten opslaan. Je bestaande recepten blijven zoals ze zijn.": "Enregistrer uniquement les nouvelles recettes. Tes recettes existantes restent telles quelles.",
+ "Alleen de gewijzigde opslaan": "Enregistrer seulement les modifiées",
+ "Recepten met dezelfde naam maar een andere inhoud komen naast het bestaande recept; precies dezelfde sla je over.": "Les recettes au même nom mais au contenu différent s'ajoutent à côté de la recette existante ; les copies exactes sont ignorées.",
+ "Ze komen er dan nog een keer bij, naast het bestaande recept.": "Elles seront alors ajoutées une seconde fois, à côté de la recette existante.",
+ "1 recept staat al in je receptenboek": "1 recette est déjà dans ton carnet de recettes",
+ "Dit recept": "Cette recette",
+ "Dit recept niet opslaan? Het verdwijnt uit deze import.": "Ne pas enregistrer cette recette ? Elle disparaîtra de cette importation.",
+ "Niet opslaan": "Ne pas enregistrer",
+ "Dit bestand kon niet worden geopend. Misschien is het beschadigd of geen echt Excel- of Word-bestand. Open het in Excel of Word, sla het opnieuw op en probeer het nog eens. Plakken van de tekst kan ook.": "Ce fichier n'a pas pu être ouvert. Il est peut-être endommagé ou ce n'est pas un vrai fichier Excel ou Word. Ouvre-le dans Excel ou Word, enregistre-le à nouveau et réessaie. Tu peux aussi coller le texte.",
+ "Dit bestand kon niet worden geopend. Misschien is het beschadigd. Open het, sla het opnieuw op en probeer het nog eens.": "Ce fichier n'a pas pu être ouvert. Il est peut-être endommagé. Ouvre-le, enregistre-le à nouveau et réessaie.",
+ "Savour zoekt bij elk ingrediënt zelf de allergenen op. Je hoeft niets te doen; aanpassen mag altijd.": "Savour recherche lui-même les allergènes de chaque ingrédient. Tu n’as rien à faire ; tu peux toujours les modifier.",
+ "Savour zoekt bij elk ingrediënt in je recepten zelf de allergenen op en telt ze per recept op, ook via basisrecepten. Je hoeft niets te doen. De allergenen komen ook op je prints.": "Savour recherche les allergènes de chaque ingrédient de tes recettes et les additionne par recette, y compris via les recettes de base. Tu n’as rien à faire. Les allergènes figurent aussi sur tes impressions.",
+ "Savour kent 1 ingrediënt nog niet.": "Savour ne connaît pas encore 1 ingrédient.",
+ "Kan per merk verschillen": "Peut varier selon la marque",
+ "kan per merk verschillen": "peut varier selon la marque",
+ "Controleer het etiket van jouw merk.": "Vérifie l'étiquette de ta marque.",
+ "Door Savour ingevuld uit de Savour-lijst. Aanpassen mag altijd.": "Rempli par Savour à partir de la liste Savour. Tu peux toujours le modifier.",
+ "Kent Savour nog niet": "Savour ne le connaît pas encore",
+ "1 ingrediënt heeft een naam in een andere taal": "1 ingrédient a un nom dans une autre langue",
+ "Namen omzetten": "Convertir les noms",
+ "Namen omzetten naar je eigen taal?": "Convertir les noms dans ta langue ?",
+ "De oude naam blijft bewaard als andere schrijfwijze. Allergenen en koppelingen veranderen niet.": "L'ancien nom est conservé comme autre orthographe. Les allergènes et les liens ne changent pas.",
+ "Omzetten": "Convertir",
+ "1 naam omgezet": "1 nom converti",
  "Hoe wil je printen?": "Comment veux-tu imprimer ?",
  "A4 staand": "A4 portrait",
  "A4 liggend": "A4 paysage",
@@ -2088,6 +2113,12 @@ export const stringsFr = {
  "Allergenen zien in een keukenteam van een eigenaar met Pro": "Voir les allergènes dans une équipe dont le propriétaire a Pro",
 };
 export const patternsFr = {
+ "^(\\d+) recepten staan al in je receptenboek$": "$1 recettes sont déjà dans ton carnet de recettes",
+ "^(\\d+) recepten opgeslagen · (\\d+) overgeslagen \\(stond(?:en)? er al\\)$": "$1 recettes enregistrées · $2 ignorées (déjà présentes)",
+ "^Savour kent (\\d+) ingrediënten nog niet\\.$": "Savour ne connaît pas encore $1 ingrédients.",
+ "^(\\d+) ingrediënten hebben een naam in een andere taal$": "$1 ingrédients ont un nom dans une autre langue",
+ "^(\\d+) namen omgezet$": "$1 noms convertis",
+ "^(\\d+) bestand(?:en)? overgeslagen: dit soort bestand( \\(.+\\))? kan Savour niet lezen\\. Recepten lezen gaat uit PDF, Word, tekst, foto's, webpagina's en exports van recepten-apps\\.$": "$1 fichier(s) ignoré(s) : Savour ne sait pas lire ce type de fichier$2. Les recettes se lisent depuis PDF, Word, texte, photos, pages web et exports d'applis de recettes.",
 
 
 

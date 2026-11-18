@@ -1,5 +1,31 @@
 // Brontabel voor de vertalingen: [Nederlands, Engels, Duits, Spaans].
 export const strings = [
+  // ---- Fase 1: dubbele recepten, allergenen, bestanden (2026-11-18) ----
+  ["Overslaan","Skip","Überspringen","Omitir"],
+  ["Alleen de nieuwe recepten opslaan. Je bestaande recepten blijven zoals ze zijn.","Only save the new recipes. Your existing recipes stay as they are.","Nur die neuen Rezepte speichern. Deine bestehenden Rezepte bleiben, wie sie sind.","Guardar solo las recetas nuevas. Tus recetas existentes se quedan como están."],
+  ["Alleen de gewijzigde opslaan","Only save the changed ones","Nur die geänderten speichern","Guardar solo las modificadas"],
+  ["Recepten met dezelfde naam maar een andere inhoud komen naast het bestaande recept; precies dezelfde sla je over.","Recipes with the same name but different content are added next to the existing recipe; exact copies are skipped.","Rezepte mit gleichem Namen, aber anderem Inhalt kommen neben das bestehende Rezept; genau gleiche werden übersprungen.","Las recetas con el mismo nombre pero distinto contenido se añaden junto a la existente; las idénticas se omiten."],
+  ["Ze komen er dan nog een keer bij, naast het bestaande recept.","They will then be added again, next to the existing recipe.","Sie kommen dann noch einmal dazu, neben das bestehende Rezept.","Se añadirán otra vez, junto a la receta existente."],
+  ["1 recept staat al in je receptenboek","1 recipe is already in your recipe book","1 Rezept ist schon in deinem Rezeptbuch","1 receta ya está en tu recetario"],
+  ["Dit recept","This recipe","Dieses Rezept","Esta receta"],
+  ["Dit recept niet opslaan? Het verdwijnt uit deze import.","Don't save this recipe? It will be removed from this import.","Dieses Rezept nicht speichern? Es verschwindet aus diesem Import.","¿No guardar esta receta? Desaparecerá de esta importación."],
+  ["Niet opslaan","Don't save","Nicht speichern","No guardar"],
+  ["Dit bestand kon niet worden geopend. Misschien is het beschadigd of geen echt Excel- of Word-bestand. Open het in Excel of Word, sla het opnieuw op en probeer het nog eens. Plakken van de tekst kan ook.","This file couldn't be opened. It may be damaged or not a real Excel or Word file. Open it in Excel or Word, save it again and try once more. You can also paste the text.","Diese Datei konnte nicht geöffnet werden. Vielleicht ist sie beschädigt oder keine echte Excel- oder Word-Datei. Öffne sie in Excel oder Word, speichere sie neu und versuche es noch einmal. Du kannst den Text auch einfügen.","No se pudo abrir este archivo. Puede que esté dañado o que no sea un archivo real de Excel o Word. Ábrelo en Excel o Word, guárdalo de nuevo e inténtalo otra vez. También puedes pegar el texto."],
+  ["Dit bestand kon niet worden geopend. Misschien is het beschadigd. Open het, sla het opnieuw op en probeer het nog eens.","This file couldn't be opened. It may be damaged. Open it, save it again and try once more.","Diese Datei konnte nicht geöffnet werden. Vielleicht ist sie beschädigt. Öffne sie, speichere sie neu und versuche es noch einmal.","No se pudo abrir este archivo. Puede que esté dañado. Ábrelo, guárdalo de nuevo e inténtalo otra vez."],
+  ["Savour zoekt bij elk ingrediënt zelf de allergenen op. Je hoeft niets te doen; aanpassen mag altijd.","Savour looks up the allergens for every ingredient itself. You don’t have to do anything; you can always adjust them.","Savour sucht die Allergene für jede Zutat selbst heraus. Du musst nichts tun; anpassen kannst du immer.","Savour busca por sí mismo los alérgenos de cada ingrediente. No tienes que hacer nada; siempre puedes ajustarlos."],
+  ["Savour zoekt bij elk ingrediënt in je recepten zelf de allergenen op en telt ze per recept op, ook via basisrecepten. Je hoeft niets te doen. De allergenen komen ook op je prints.","Savour looks up the allergens for every ingredient in your recipes and adds them up per recipe, including base recipes. You don’t have to do anything. The allergens also appear on your prints.","Savour sucht die Allergene jeder Zutat in deinen Rezepten selbst heraus und zählt sie pro Rezept zusammen, auch über Grundrezepte. Du musst nichts tun. Die Allergene erscheinen auch auf deinen Ausdrucken.","Savour busca los alérgenos de cada ingrediente de tus recetas y los suma por receta, también a través de recetas base. No tienes que hacer nada. Los alérgenos también aparecen en tus impresiones."],
+  ["Savour kent 1 ingrediënt nog niet.","Savour doesn't know 1 ingredient yet.","Savour kennt 1 Zutat noch nicht.","Savour aún no conoce 1 ingrediente."],
+  ["Kan per merk verschillen","May differ by brand","Kann je nach Marke abweichen","Puede variar según la marca"],
+  ["kan per merk verschillen","may differ by brand","kann je nach Marke abweichen","puede variar según la marca"],
+  ["Controleer het etiket van jouw merk.","Check the label of your brand.","Prüfe das Etikett deiner Marke.","Revisa la etiqueta de tu marca."],
+  ["Door Savour ingevuld uit de Savour-lijst. Aanpassen mag altijd.","Filled in by Savour from the Savour list. You can always adjust it.","Von Savour aus der Savour-Liste ausgefüllt. Anpassen kannst du immer.","Rellenado por Savour desde la lista de Savour. Siempre puedes ajustarlo."],
+  ["Kent Savour nog niet","Savour doesn't know this yet","Kennt Savour noch nicht","Savour aún no lo conoce"],
+  ["1 ingrediënt heeft een naam in een andere taal","1 ingredient has a name in another language","1 Zutat hat einen Namen in einer anderen Sprache","1 ingrediente tiene un nombre en otro idioma"],
+  ["Namen omzetten","Convert names","Namen umwandeln","Convertir nombres"],
+  ["Namen omzetten naar je eigen taal?","Convert names to your own language?","Namen in deine eigene Sprache umwandeln?","¿Convertir los nombres a tu idioma?"],
+  ["De oude naam blijft bewaard als andere schrijfwijze. Allergenen en koppelingen veranderen niet.","The old name is kept as an alternative spelling. Allergens and links do not change.","Der alte Name bleibt als andere Schreibweise erhalten. Allergene und Verknüpfungen ändern sich nicht.","El nombre antiguo se guarda como otra forma de escribirlo. Los alérgenos y los vínculos no cambian."],
+  ["Omzetten","Convert","Umwandeln","Convertir"],
+  ["1 naam omgezet","1 name converted","1 Name umgewandelt","1 nombre convertido"],
   // ---- MEP-lijsten (2026-11-17, js/features/mep.js, mep-import.js) ----
   ["Hoe wil je printen?","How do you want to print?","Wie möchtest du drucken?","¿Cómo quieres imprimir?"],
   ["A4 staand","A4 portrait","A4 Hochformat","A4 vertical"],
@@ -4280,6 +4306,13 @@ export const strings = [
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
 export const patterns = [
+  // ---- Fase 1 (2026-11-18) ----
+  ["^(\\d+) recepten staan al in je receptenboek$","$1 recipes are already in your recipe book","$1 Rezepte sind schon in deinem Rezeptbuch","$1 recetas ya están en tu recetario"],
+  ["^(\\d+) recepten opgeslagen · (\\d+) overgeslagen \\(stond(?:en)? er al\\)$","$1 recipes saved · $2 skipped (already there)","$1 Rezepte gespeichert · $2 übersprungen (schon vorhanden)","$1 recetas guardadas · $2 omitidas (ya estaban)"],
+  ["^Savour kent (\\d+) ingrediënten nog niet\\.$","Savour doesn't know $1 ingredients yet.","Savour kennt $1 Zutaten noch nicht.","Savour aún no conoce $1 ingredientes."],
+  ["^(\\d+) ingrediënten hebben een naam in een andere taal$","$1 ingredients have a name in another language","$1 Zutaten haben einen Namen in einer anderen Sprache","$1 ingredientes tienen un nombre en otro idioma"],
+  ["^(\\d+) namen omgezet$","$1 names converted","$1 Namen umgewandelt","$1 nombres convertidos"],
+  ["^(\\d+) bestand(?:en)? overgeslagen: dit soort bestand( \\(.+\\))? kan Savour niet lezen\\. Recepten lezen gaat uit PDF, Word, tekst, foto's, webpagina's en exports van recepten-apps\\.$","$1 file(s) skipped: Savour can't read this kind of file$2. Recipes can be read from PDF, Word, text, photos, web pages and exports from recipe apps.","$1 Datei(en) übersprungen: Diese Art Datei$2 kann Savour nicht lesen. Rezepte liest Savour aus PDF, Word, Text, Fotos, Webseiten und Exporten von Rezept-Apps.","$1 archivo(s) omitido(s): Savour no puede leer este tipo de archivo$2. Las recetas se leen desde PDF, Word, texto, fotos, páginas web y exportaciones de apps de recetas."],
   // ---- MEP-lijsten (2026-11-17) ----
 
   // ---- MEP-lijsten (2026-11-17) ----

@@ -88,8 +88,21 @@ async function readMepImportFile(file) {
     });
     mepImport.step = 'kies';
     renderMepImport();
-    toast(e.message || t('Dit bestand kon niet worden gelezen.'));
+    toast(mepFileError(e, name));
   }
+}
+
+// Een kapot of verkeerd bestand: een gewone zin in plaats van de technische fout (bijv. van JSZip).
+function mepFileError(e, name) {
+  const msg = String(e?.message || '');
+  if (
+    /\.(xlsx|docx)$/.test(name) &&
+    /zip|central directory|corrupt|end of data|invalid|unexpected|signature/i.test(msg)
+  )
+    return t(
+      'Dit bestand kon niet worden geopend. Misschien is het beschadigd of geen echt Excel- of Word-bestand. Open het in Excel of Word, sla het opnieuw op en probeer het nog eens. Plakken van de tekst kan ook.'
+    );
+  return msg && msg.length < 200 && !/[{}<>]|\bat\b.*:\d+/.test(msg) ? msg : t('Dit bestand kon niet worden gelezen.');
 }
 
 function readMepImportText() {
@@ -110,6 +123,15 @@ function mepUseImportResult(result, fileName) {
     .trim();
   mepImport.name = (result.name || base || mepTr('Nieuwe MEP-lijst')).slice(0, 120);
   mepImport.rows = rows;
+  // Zoals de MEP-lezer het las: na opslaan vergeleken met wat de kok ervan maakte (mepLearn).
+  mepImport.readRows = mepCompactRows(rows);
+  mepImport.kind = /\.xlsx$/i.test(fileName)
+    ? 'excel'
+    : /\.csv$/i.test(fileName)
+      ? 'csv'
+      : fileName
+        ? 'bestand'
+        : 'tekst';
   mepImport.step = 'controle';
   if (mepImport.uploadId) setImportUploadStatus(mepImport.uploadId, { status: 'gelezen' });
   renderMepImport();
@@ -359,10 +381,42 @@ async function saveMepImport() {
     (await mepInsert('mep_items', items));
   if (!ok) toast(t('De lijst is niet helemaal opgeslagen. Kijk hem na bij Bewerken.'));
   if (mepImport.resultIds.length) markAiResults(mepImport.resultIds, 'opgeslagen');
+  mepLearn(mepImport);
   if (mepImport.uploadId) setImportUploadStatus(mepImport.uploadId, { status: 'opgeslagen' });
   mepImport = null;
   toast(`${t('MEP-lijst opgeslagen')}: ${items.length} ${t('onderdelen')}`);
   mepMode = 'overzicht';
   mepCardId = null;
   openMepList(list.id);
+}
+
+// ---- Savour leert (supabase/2026-11-18-savour-leert.sql) ----
+// Wat de kok in het controlescherm veranderde, is een les voor de MEP-lezer: soort regel, tekst, hoeveelheid,
+// eenheid en opmerking, zoals gelezen en zoals opgeslagen. Alleen als er iets anders is, en alleen met
+// "Help de Savour-lezer verbeteren". Elke avond kijkt Claude ernaar (dagelijkse controle) en stelt regels voor de
+// lezer voor; de lezer zelf verandert nooit vanzelf.
+function mepCompactRows(rows) {
+  return (rows || [])
+    .slice(0, 400)
+    .map(r => [
+      r.type,
+      String(r.text || '').slice(0, 120),
+      r.qty ?? null,
+      r.unit || null,
+      r.note ? String(r.note).slice(0, 120) : null
+    ]);
+}
+
+function mepLearn(imp) {
+  if (demoMode || !currentUser || account?.helpReader === false || !imp?.readRows) return;
+  const saved = mepCompactRows(imp.rows);
+  if (JSON.stringify(saved) === JSON.stringify(imp.readRows)) return;
+  supabaseClient
+    .from('learning_events')
+    .insert({
+      source: 'mep',
+      lang: currentLanguage || 'nl',
+      data: { kind: imp.kind || '', as_read: imp.readRows, as_saved: saved }
+    })
+    .then(({ error }) => error && console.warn('MEP-lezer leren:', error.message));
 }

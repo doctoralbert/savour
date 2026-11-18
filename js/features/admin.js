@@ -1867,7 +1867,154 @@ function renderAdminReader() {
     ${kinds ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Bron</th><th>Recepten</th><th>Lezer zeker</th><th>Lezer twijfelde</th><th>AI nodig</th><th>Kok verbeterde</th><th>Titel</th><th>Getal</th><th>Regels</th><th>Verplaatst</th><th>Lezer = AI</th></tr></thead><tbody>${kinds}</tbody></table></div>` : '<p class="admin-note">Nog geen imports geteld.</p>'}
     <p class="admin-footnote">Kok verbeterde: hoe vaak er na het lezen iets werd aangepast. Getal: regels waar alleen een getal anders werd. Verplaatst: regels van ingrediënten naar bereiding of andersom. Lezer = AI: bij tekst die de AI nalas, hoeveel ingrediëntregels de lezer precies hetzelfde had.</p>
     <div class="admin-panel-head" style="margin-top:22px"><div><h3 class="adsense-title" style="margin:0">Gedeelde voorbeelden</h3></div>${d.examples_open ? '<button type="button" class="btn" onclick="adminReaderExport()">Open voorbeelden downloaden</button>' : ''}</div>
-    ${d.examples_ready ? (examples ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th aria-label="Verwerkt"></th><th>Datum</th><th>Bron</th><th>Waarom</th><th>Recept</th><th></th></tr></thead><tbody>${examples}</tbody></table></div><p class="admin-footnote">✓ = verwerkt: er is een lezer-test van gemaakt, dus de Savour-lezer leest dit soort tekst nu goed. Terugzetten zet hem weer bij de open voorbeelden. Wissen haalt het voorbeeld definitief uit de database; het recept van de kok blijft staan.</p>` : '<p class="admin-note">Nog geen voorbeelden gedeeld.</p>') : '<p class="admin-note">Voorbeelden konden niet worden geladen.</p>'}`;
+    ${d.examples_ready ? (examples ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th aria-label="Verwerkt"></th><th>Datum</th><th>Bron</th><th>Waarom</th><th>Recept</th><th></th></tr></thead><tbody>${examples}</tbody></table></div><p class="admin-footnote">✓ = verwerkt: er is een lezer-test van gemaakt, dus de Savour-lezer leest dit soort tekst nu goed. Terugzetten zet hem weer bij de open voorbeelden. Wissen haalt het voorbeeld definitief uit de database; het recept van de kok blijft staan.</p>` : '<p class="admin-note">Nog geen voorbeelden gedeeld.</p>') : '<p class="admin-note">Voorbeelden konden niet worden geladen.</p>'}
+    <div id="adminLearnBody"><p class="admin-note">Laden…</p></div>`;
+  if (adminLearning) renderAdminLearning();
+  else loadAdminLearning();
+}
+
+// ---- Savour leert van koks (supabase/2026-11-18-savour-leert.sql, api/admin.js → learningOverview) ----
+// Allergenen die koks anders kozen dan Savour dacht (met één klik in de Savour-lijst), MEP-lijsten die koks
+// verbeterden (downloaden voor MEP-lezer-tests) en de lessen die de AI bij elke import meekrijgt. Niets gaat vanzelf.
+let adminLearning = null;
+async function loadAdminLearning() {
+  try {
+    adminLearning = await adminApi('learning');
+  } catch (error) {
+    adminLearning = { ready: false, error: error.message };
+  }
+  renderAdminLearning();
+}
+
+function renderAdminLearning() {
+  const host = $('adminLearnBody');
+  const d = adminLearning;
+  if (!host || !d) return;
+  if (!d.ready) {
+    host.innerHTML = `<h3 class="adsense-title" style="margin-top:22px">Geleerd van koks</h3><p class="admin-note">${adminEscape(d.error || 'Draai eerst supabase/2026-11-18-savour-leert.sql.')}</p>`;
+    return;
+  }
+  const same = (a, b) => (a || []).slice().sort().join(',') === (b || []).slice().sort().join(',');
+  const rows = d.allergen
+    .map((x, i) => {
+      const listed = x.listed?.status === 'approved';
+      const done = listed && same(x.listed.allergens, x.allergens);
+      const savour = x.savour ? adminAllergenNames(x.savour) || 'geen' : 'kende het niet';
+      return `<tr class="${done ? 'admin-reader-handled' : ''}"><td class="admin-reader-state">${done ? '<span class="admin-reader-done" title="Staat zo in de Savour-lijst">✓</span>' : ''}</td><td>${adminEscape(x.name)}<small> ${adminEscape(x.lang)}</small></td><td>${adminEscape(adminAllergenNames(x.allergens) || 'geen')}</td><td>${adminEscape(savour)}</td><td>${count0(x.users)}</td><td>${done ? '' : `<button class="admin-ghost" onclick="adminLearnApprove(${i})">${listed ? 'Savour-lijst aanpassen' : 'Overnemen in Savour-lijst'}</button>`}</td></tr>`;
+    })
+    .join('');
+  const scopeLabel = { recept: 'Recepten', mep: 'MEP-lijsten', allergeen: 'Allergenen' };
+  const statusLabel = { voorstel: 'Voorstel', actief: 'Actief', uit: 'Uit' };
+  const lessons = d.lessons
+    .map(
+      l =>
+        `<tr class="${l.status === 'uit' ? 'admin-reader-handled' : ''}"><td><span class="admin-badge${l.status === 'actief' ? ' gift' : ''}">${statusLabel[l.status] || l.status}</span></td><td>${adminEscape(scopeLabel[l.scope] || l.scope)}</td><td>${adminEscape(l.lesson)}${l.note ? `<small><br>${adminEscape(l.note)}</small>` : ''}</td><td>${l.source === 'claude' ? 'Dagelijkse controle' : 'Beheer'}</td><td><div class="admin-actions">${l.status === 'actief' ? `<button class="admin-ghost" onclick="adminLessonStatus(${l.id},'uit')">Uitzetten</button>` : `<button class="admin-ghost" onclick="adminLessonStatus(${l.id},'actief')">Aanzetten</button>`}<button class="admin-ghost" onclick="adminLessonEdit(${l.id})">Aanpassen</button><button class="admin-ghost admin-danger" onclick="adminLessonDelete(${l.id})">Wissen</button></div></td></tr>`
+    )
+    .join('');
+  host.innerHTML = `
+    <h3 class="adsense-title" style="margin-top:22px">Geleerd van koks: allergenen</h3>
+    ${rows ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th aria-label="In de Savour-lijst"></th><th>Ingrediënt</th><th>Kok koos</th><th>Savour dacht</th><th>Accounts</th><th></th></tr></thead><tbody>${rows}</tbody></table></div><p class="admin-footnote">Hier staan ingrediënten waarbij een kok andere allergenen koos dan Savour voorstelde. Overnemen zet de keuze in de Savour-lijst: daarna weet Savour het voor iedereen. ✓ = staat zo in de lijst.</p>` : '<p class="admin-note">Nog niets geleerd: koks hebben nog geen allergenen anders gekozen.</p>'}
+    <div class="admin-panel-head" style="margin-top:22px"><div><h3 class="adsense-title" style="margin:0">Geleerd van koks: MEP-lijsten</h3></div>${d.mep.count ? '<button type="button" class="btn" onclick="adminLearnMepExport()">Downloaden</button>' : ''}</div>
+    <p class="admin-note">${d.mep.count ? `${count0(d.mep.count)} keer verbeterde een kok wat de MEP-lezer las (${count0(d.mep.accounts)} accounts). Daar worden MEP-lezer-tests van gemaakt.` : 'Nog geen verbeteringen aan geïmporteerde MEP-lijsten.'}</p>
+    <div class="admin-panel-head" style="margin-top:22px"><div><h3 class="adsense-title" style="margin:0">Lessen voor de AI</h3></div><button type="button" class="btn" onclick="adminLessonEdit()">＋ Les toevoegen</button></div>
+    ${lessons ? `<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Status</th><th>Voor</th><th>Les</th><th>Van</th><th></th></tr></thead><tbody>${lessons}</tbody></table></div>` : '<p class="admin-note">Nog geen lessen.</p>'}
+    <p class="admin-footnote">Actieve lessen voor recepten krijgt de AI bij elke receptimport mee. Lessen voor MEP-lijsten zijn werk voor de MEP-lezer: de dagelijkse controle maakt er een opdracht van. De dagelijkse controle zet hier voorstellen neer uit wat koks verbeterden; pas na Aanzetten gebruikt de AI ze. Een les mag nooit vragen om iets te verzinnen.</p>`;
+}
+
+async function adminLearnApprove(i) {
+  const x = adminLearning?.allergen?.[i];
+  if (!x) return;
+  const names = adminAllergenNames(x.allergens) || 'geen allergenen';
+  if (
+    !(await askConfirm(
+      `${x.name}: ${names}\n\nZo komt het in de Savour-lijst en geldt het voor alle koks die dit ingrediënt nog niet zelf hebben ingevuld.`,
+      { confirmLabel: 'Overnemen' }
+    ))
+  )
+    return;
+  const base = x.listed || { name: x.name };
+  try {
+    await adminApi('ingredient_decide', {
+      items: [
+        {
+          lang: x.lang,
+          key: x.key,
+          name: base.name || x.name,
+          head: base.head || null,
+          aliases: base.aliases || [],
+          allergens: x.allergens,
+          status: 'approved',
+          user_count: x.users
+        }
+      ]
+    });
+    toast(`${x.name} staat in de Savour-lijst`);
+    await loadAdminLearning();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
+}
+
+async function adminLessonEdit(id) {
+  const l = id ? adminLearning?.lessons?.find(x => x.id === id) : null;
+  const lesson = await askText(
+    'Les voor de AI\n\nKort en concreet, bijvoorbeeld: "Een regel als \'Garnering:\' is een kopje, geen ingrediënt." Vraag nooit om iets te verzinnen.',
+    l?.lesson || ''
+  );
+  if (lesson == null || !lesson.trim()) return;
+  const scope = l
+    ? l.scope
+    : await askChoice('Voor welke import?', [
+        { value: 'recept', label: 'Recepten', primary: true },
+        { value: 'mep', label: 'MEP-lijsten' }
+      ]);
+  if (!scope) return;
+  try {
+    await adminApi('ai_lesson_save', { id: l?.id, lesson: lesson.trim(), scope, status: l?.status || 'actief' });
+    await loadAdminLearning();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
+}
+
+async function adminLessonStatus(id, status) {
+  const l = adminLearning?.lessons?.find(x => x.id === id);
+  if (!l) return;
+  try {
+    await adminApi('ai_lesson_save', { id, lesson: l.lesson, scope: l.scope, status });
+    await loadAdminLearning();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
+}
+
+async function adminLessonDelete(id) {
+  if (
+    !(await askConfirm('Deze les wissen? De AI krijgt hem daarna niet meer mee.', {
+      confirmLabel: 'Wissen',
+      danger: true
+    }))
+  )
+    return;
+  try {
+    await adminApi('ai_lesson_delete', { id });
+    await loadAdminLearning();
+  } catch (e) {
+    alertAdmin(e.message);
+  }
+}
+
+async function adminLearnMepExport() {
+  try {
+    const data = await adminApi('learning_mep_export');
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(new Blob([JSON.stringify(data.events, null, 2)], { type: 'application/json' }));
+    link.download = `savour-mep-verbeteringen-${new Date().toISOString().slice(0, 10)}.json`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  } catch (e) {
+    alertAdmin(e.message);
+  }
 }
 
 // Eén voorbeeld naast elkaar: de brontekst, wat de lezer las, wat de AI las en wat de kok opsloeg.
