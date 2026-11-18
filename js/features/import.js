@@ -206,10 +206,22 @@ function setImportFiles(files) {
   if (!IMPORT_SOURCES[importSource]) importSource = 'all';
   const list = all.filter(f => IMPORT_SOURCES[importSource].test.test(f.name || ''));
   const skipped = all.length - list.length;
-  if (skipped)
+  if (skipped) {
+    const exts = [
+      ...new Set(
+        all
+          .filter(f => !list.includes(f))
+          .map(f => (String(f.name || '').match(/\.[a-z0-9]{1,6}$/i)?.[0] || '').toLowerCase())
+          .filter(Boolean)
+      )
+    ].join(', ');
+    // Bij "Alle bestanden" kan Savour dit soort bestand gewoon niet lezen (bijv. muziek): zeg dat, niet "kies Alle bestanden".
     toast(
-      `${skipped} bestand${skipped === 1 ? '' : 'en'} overgeslagen: hoort niet bij "${IMPORT_SOURCES[importSource].label}". Kies "Alle bestanden door elkaar" om alles mee te nemen.`
+      importSource === 'all' || !IMPORT_ALLOWED.test(all.find(f => !list.includes(f))?.name || '')
+        ? `${skipped} bestand${skipped === 1 ? '' : 'en'} overgeslagen: dit soort bestand${exts ? ` (${exts})` : ''} kan Savour niet lezen. Recepten lezen gaat uit PDF, Word, tekst, foto's, webpagina's en exports van recepten-apps.`
+        : `${skipped} bestand${skipped === 1 ? '' : 'en'} overgeslagen: hoort niet bij "${IMPORT_SOURCES[importSource].label}". Kies "Alle bestanden door elkaar" om alles mee te nemen.`
     );
+  }
   importFileData = list;
   // Een oude "Klaar · 5 recepten" van de vorige import liet nieuwe bestanden al verwerkt lijken.
   hideImportProgress();
@@ -720,9 +732,19 @@ function dropAllergenCodes(index) {
   document.querySelector(`[data-batch-card="${index}"]`)?.scrollIntoView({ block: 'nearest' });
 }
 
-function removeBatchDraft(index) {
+// Eerst vragen: een concept dat weg is, komt niet terug (en een AI-lezing telde al als AI-import).
+async function removeBatchDraft(index) {
   syncBatchDrafts();
   if (index < 0 || index >= batchDrafts.length) return;
+  const title = batchDrafts[index]?.title || t('Dit recept');
+  if (
+    !(await askConfirm(`${title}\n\n${t('Dit recept niet opslaan? Het verdwijnt uit deze import.')}`, {
+      confirmLabel: t('Niet opslaan'),
+      danger: true
+    }))
+  )
+    return;
+  syncBatchDrafts();
   batchDrafts.splice(index, 1);
   renderBatchDrafts();
   $('batchStatus').textContent = batchDrafts.length
@@ -1681,7 +1703,10 @@ async function runImportFiles(valid) {
           name: file.name,
           error: unreadable
             ? 'Dit bestand kon niet worden geopend. Staat het in OneDrive of een andere cloudmap? Zet het dan eerst op deze computer.'
-            : e?.message || 'Import mislukt.',
+            : /\.(docx|xlsx|pages|zip)$/i.test(file.name) &&
+                /zip|central directory|corrupt|end of data|signature/i.test(e?.message || '')
+              ? 'Dit bestand kon niet worden geopend. Misschien is het beschadigd. Open het, sla het opnieuw op en probeer het nog eens.'
+              : e?.message || 'Import mislukt.',
           pro: e?.code === 'pro_required'
         });
       } finally {

@@ -1548,7 +1548,12 @@ async function openProductEditor({ product = null, scope = productScope, name = 
         if (!ok) return;
       }
       const saved = await saveProduct(row, { moveAliasesFrom: true });
-      if (saved) done(saved);
+      if (saved) {
+        // Wat de kok invulde of verbeterde, is een les voor de Savour-lijst (alleen bij een verschil met wat Savour
+        // zelf dacht, en alleen met "Help de Savour-lezer verbeteren").
+        if (row.known) learnAllergens(row, scope);
+        done(saved);
+      }
     });
     el.querySelector('[data-cancel]').addEventListener('click', () => done(null));
     el.querySelector('[data-delete]')?.addEventListener('click', async () => {
@@ -1564,6 +1569,33 @@ async function openProductEditor({ product = null, scope = productScope, name = 
     closableModal(el, () => done(null));
     setTimeout(() => (product ? null : form.name.focus()), 0);
   });
+}
+
+// Savour leert (supabase/2026-11-18-savour-leert.sql): per naam van dit product wat de kok koos en wat Savour zelf
+// dacht. Alleen namen waar die twee verschillen, of die Savour nog niet kende. De beheerder neemt het met één klik
+// over in de Savour-lijst (/admin → Savour-lezer → Geleerd van koks). Nooit wie het was; alleen de naam en de allergenen.
+function learnAllergens(p, scope) {
+  if (demoMode || !currentUser || account?.helpReader === false) return;
+  const chosen = [...new Set(p.allergens)].sort();
+  const rows = [];
+  for (const n of [p.name, ...p.aliases].slice(0, 20)) {
+    const key = productKey(n);
+    if (!key || key.length > 160) continue;
+    const savour = savourAllergens(key, scope);
+    const had = savour ? [...new Set(savour.allergens)].sort() : null;
+    if (had && had.join(',') === chosen.join(',')) continue;
+    rows.push({
+      source: 'allergeen',
+      lang: currentLanguage || 'nl',
+      key,
+      data: { name: p.name, allergens: chosen, savour: had }
+    });
+  }
+  if (!rows.length) return;
+  supabaseClient
+    .from('learning_events')
+    .insert(rows)
+    .then(({ error }) => error && console.warn('Allergenen leren:', error.message));
 }
 
 // Opslaan. Een naam hoort bij één product per lijst: staat hij al bij een ander product, dan vraagt Savour of hij

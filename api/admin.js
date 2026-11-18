@@ -1629,6 +1629,80 @@ async function undoIngredient(id) {
   return { ok: true };
 }
 
+// ---- Savour leert (supabase/2026-11-18-savour-leert.sql) ----
+// Wat koks verbeterden (learning_events) en de lessen voor de AI (ai_lessons). Allergenen per naam, taal en keuze
+// samengevat met het aantal accounts (nooit wie). MEP-lessen alleen als aantal; downloaden voor de dagelijkse controle.
+async function learningOverview() {
+  const [events, lessons, listed] = await Promise.all([
+    selectAll('learning_events', 'select=user_id,source,lang,key,data,created_at&order=id.desc').catch(() => null),
+    select('ai_lessons', 'select=id,scope,lesson,status,source,note,created_at,updated_at&order=id.desc').catch(
+      () => null
+    ),
+    selectAll('ingredient_list', 'select=lang,key,name,head,aliases,allergens,status&order=id').catch(() => [])
+  ]);
+  if (!events) return { ready: false };
+  const inList = new Map(listed.map(d => [`${d.lang}|${d.key}`, d]));
+  const groups = new Map();
+  for (const e of events) {
+    if (e.source !== 'allergeen' || !e.key) continue;
+    const lang = e.lang || 'nl';
+    const allergens = (e.data?.allergens || []).filter(a => ALLERGEN_CODES.has(a)).sort();
+    const id = `${lang}|${e.key}|${allergens.join(',')}`;
+    const g = groups.get(id) || {
+      lang,
+      key: e.key,
+      name: cleanText(e.data?.name) || e.key,
+      allergens,
+      savour: Array.isArray(e.data?.savour) ? e.data.savour : null,
+      users: new Set(),
+      last: e.created_at,
+      listed: inList.get(`${lang}|${e.key}`) || null
+    };
+    g.users.add(e.user_id);
+    groups.set(id, g);
+  }
+  const allergen = [...groups.values()]
+    .map(g => ({ ...g, users: g.users.size }))
+    .sort((a, b) => b.users - a.users || String(b.last).localeCompare(String(a.last)))
+    .slice(0, 300);
+  const mep = events.filter(e => e.source === 'mep');
+  return {
+    ready: true,
+    allergen,
+    mep: { count: mep.length, accounts: new Set(mep.map(e => e.user_id)).size, last: mep[0]?.created_at || null },
+    lessonsReady: !!lessons,
+    lessons: lessons || []
+  };
+}
+
+async function learningMepExport() {
+  return {
+    events: (await selectAll('learning_events', 'select=id,lang,data,created_at&source=eq.mep&order=id.desc')).slice(
+      0,
+      500
+    )
+  };
+}
+
+async function saveAiLesson(x) {
+  const lesson = cleanText(x?.lesson, 400);
+  const scope = ['recept', 'mep', 'allergeen'].includes(x?.scope) ? x.scope : 'recept';
+  const status = ['voorstel', 'actief', 'uit'].includes(x?.status) ? x.status : 'voorstel';
+  if (lesson.length < 3) throw fail('Schrijf een les van minstens een paar woorden.');
+  const row = { lesson, scope, status, updated_at: new Date().toISOString() };
+  if (x?.id != null) {
+    if (!/^\d+$/.test(String(x.id))) throw fail('Onbekende les.');
+    await update('ai_lessons', `id=eq.${x.id}`, row);
+  } else await insert('ai_lessons', { ...row, source: 'beheer' });
+  return { ok: true };
+}
+
+async function deleteAiLesson(id) {
+  if (!/^\d+$/.test(String(id || ''))) throw fail('Onbekende les.');
+  await remove('ai_lessons', `id=eq.${id}`);
+  return { ok: true };
+}
+
 // ---- Activiteit: wat gebruikers doen (Overzicht). Alleen aantallen, zonder beheerders. ----
 // Recepten per week (nieuw), accounts die iets deden (recept toegevoegd of aangepast), gedeelde links en
 // keukenteamrecepten. Leest geen recepten: alleen wie (als telling) en wanneer.
@@ -2360,6 +2434,10 @@ export default async function handler(req, res) {
     if (action === 'reader_example_handled')
       return res.status(200).json(await readerExampleSet(req.body?.id, req.body?.handled));
     if (action === 'reader_example_delete') return res.status(200).json(await readerExampleDelete(req.body?.id));
+    if (action === 'learning') return res.status(200).json(await learningOverview());
+    if (action === 'learning_mep_export') return res.status(200).json(await learningMepExport());
+    if (action === 'ai_lesson_save') return res.status(200).json(await saveAiLesson(req.body || {}));
+    if (action === 'ai_lesson_delete') return res.status(200).json(await deleteAiLesson(req.body?.id));
     if (action === 'ai_limit' && userId)
       return res.status(200).json(await setAiLimit(userId, req.body?.limit ?? null, req.body?.note));
     if (action === 'create_account')

@@ -114,6 +114,21 @@ async function dropResult(id) {
 const AI_MONTHLY_LIMIT = 150;
 
 // De Responses API levert output_text alleen via de SDK; via REST lezen we de tekst uit output[].content[].
+// Lessen uit het gebruik (supabase/2026-11-18-savour-leert.sql, tabel ai_lessons): wat koks steeds verbeterden,
+// als korte regel voor de AI. Alleen lessen die de beheerder in /admin op actief zette; elke import leest ze vers,
+// dus een nieuwe les werkt meteen. Ze gaan nooit boven de vaste regels (niets verzinnen, letterlijk overschrijven).
+// Bestaat de tabel nog niet, of lukt lezen niet, dan zonder lessen.
+async function aiLessonsText() {
+  try {
+    const rows = await select('ai_lessons', 'select=lesson&status=eq.actief&scope=eq.recept&order=id&limit=40');
+    const lessons = (rows || []).map(r => String(r.lesson || '').trim()).filter(Boolean);
+    if (!lessons.length) return '';
+    return `\nLESSEN UIT HET GEBRUIK VAN SAVOUR (wat chefs eerder verbeterden; volg ze, maar alleen binnen de regels hierboven: verzin nooit iets):\n${lessons.map(l => `- ${l}`).join('\n')}\n`;
+  } catch (_) {
+    return '';
+  }
+}
+
 function extractOutputText(data) {
   if (typeof data?.output_text === 'string' && data.output_text) return data.output_text;
   const parts = [];
@@ -380,7 +395,7 @@ ABSOLUTE REGELS:
 - Geef per ingrediënt bij voorkeur één regel met hoeveelheid + eenheid + ingrediënt, maar verander de inhoud niet.
 - Gebruik bestandsnaam en recepttitel als context voor categorieherkenning, maar laat de daadwerkelijke receptinhoud zwaarder wegen.
 ${categoryInstruction}
-
+${await aiLessonsText()}
 De output wordt direct door Savour gebruikt voor controle vóór opslaan. Bronbestand: ${filename || 'receptbron'}.`;
 
     const content = [{ type: 'input_text', text: instruction }];
