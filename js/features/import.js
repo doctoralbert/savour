@@ -1943,8 +1943,9 @@ function syncBatchDrafts() {
   }));
 }
 
-// Slaat gecontroleerde importrecepten op en slaat exacte dubbelen (met de bibliotheek of binnen de batch) over.
+// Slaat gecontroleerde importrecepten op. Recepten die er al staan: de kok kiest overslaan of toch opslaan.
 let batchSaving = false;
+let batchSkippedDupes = 0; // overgeslagen omdat ze er al stonden; komt in de melding na opslaan
 async function saveBatchRecipes() {
   if (batchSaving) return;
   batchSaving = true;
@@ -1958,22 +1959,66 @@ async function saveBatchRecipes() {
 async function saveBatchRecipesOnce() {
   syncBatchDrafts();
   if (!currentUser || !batchDrafts.length) return persistBatchRecipes();
-  const existing = new Map(recipes.map(r => [recipeFingerprint(r), r]));
-  const seen = new Set();
-  const filtered = [];
+  // Staat een recept al in het receptenboek (of twee keer in deze import)? Dan beslist de kok, in één venster:
+  // overslaan of toch opslaan. Precies hetzelfde (titel, opbrengst, ingrediënten, stappen) of alleen dezelfde naam
+  // met een andere inhoud (bijv. een nieuwere versie). Het bestaande recept verandert nooit.
+  const exactFps = new Set(recipes.map(recipeFingerprint));
+  const titles = new Set(recipes.map(r => normalizeForCompare(r.title)));
+  const seenFps = new Set();
+  const seenTitles = new Set();
+  const exact = [];
+  const sameName = [];
   for (const r of batchDrafts) {
     const fp = recipeFingerprint(r);
-    if (existing.has(fp) || seen.has(fp)) continue;
-    seen.add(fp);
-    filtered.push(r);
+    const title = normalizeForCompare(r.title);
+    if (exactFps.has(fp) || seenFps.has(fp)) exact.push(r);
+    else if (title && (titles.has(title) || seenTitles.has(title))) sameName.push(r);
+    seenFps.add(fp);
+    seenTitles.add(title);
   }
-  if (filtered.length !== batchDrafts.length) {
-    const skipped = batchDrafts.length - filtered.length;
-    batchDrafts = filtered;
-    renderBatchDrafts();
-    toast(`${skipped} dubbel recept${skipped === 1 ? '' : 'en'} overgeslagen`);
-    if (!batchDrafts.length) return;
+  let skipped = 0;
+  if (exact.length || sameName.length) {
+    const n = exact.length + sameName.length;
+    const choices = [
+      {
+        value: 'skip',
+        label: 'Overslaan',
+        hint: 'Alleen de nieuwe recepten opslaan. Je bestaande recepten blijven zoals ze zijn.',
+        primary: true
+      },
+      ...(exact.length && sameName.length
+        ? [
+            {
+              value: 'changed',
+              label: 'Alleen de gewijzigde opslaan',
+              hint: 'Recepten met dezelfde naam maar een andere inhoud komen naast het bestaande recept; precies dezelfde sla je over.'
+            }
+          ]
+        : []),
+      {
+        value: 'keep',
+        label: 'Toch opslaan',
+        hint: 'Ze komen er dan nog een keer bij, naast het bestaande recept.'
+      }
+    ];
+    const names = [...exact, ...sameName].map(r => `• ${r.title}`).join('\n');
+    const choice = await askChoice(
+      `${n === 1 ? '1 recept staat' : `${n} recepten staan`} al in je receptenboek\n\n${names}`,
+      choices
+    );
+    if (!choice) return;
+    const drop = new Set(choice === 'skip' ? [...exact, ...sameName] : choice === 'changed' ? exact : []);
+    if (drop.size) {
+      skipped = drop.size;
+      batchDrafts = batchDrafts.filter(r => !drop.has(r));
+      renderBatchDrafts();
+      if (!batchDrafts.length)
+        return toast(
+          `${skipped} ${skipped === 1 ? 'recept' : 'recepten'} overgeslagen: stond${skipped === 1 ? '' : 'en'} er al`
+        );
+    }
   }
+  batchSkippedDupes = skipped;
   // Recepten zonder ingrediënten slaat Savour niet op: eerst vragen of de rest door mag.
   const empty = batchDrafts.filter(batchEmpty);
   if (empty.length) {
@@ -2117,7 +2162,13 @@ async function persistBatchRecipes() {
         `${esc(String(saved))} recepten opgeslagen.${failures.length ? `<br><span class="muted">Niet opgeslagen: ${failures.map(f => esc(f.title)).join(', ')}</span>` : ''}${limitNote}`;
       renderBatchDrafts();
     } else {
-      toast(`${saved} recepten opgeslagen`);
+      // Ook laten zien wat er bewust is overgeslagen, zodat het aantal klopt met wat de kok zag.
+      toast(
+        batchSkippedDupes
+          ? `${saved} recepten opgeslagen · ${batchSkippedDupes} overgeslagen (stond${batchSkippedDupes === 1 ? '' : 'en'} er al)`
+          : `${saved} recepten opgeslagen`
+      );
+      batchSkippedDupes = 0;
       go('recipes');
     }
   } catch (e) {
