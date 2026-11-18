@@ -118,6 +118,16 @@ function mepUseImportResult(result, fileName) {
     renderMepImport();
     return toast(t('Er stond niets in dat op een MEP-lijst lijkt.'));
   }
+  // Alleen kopjes, geen onderdelen: meteen zeggen, in plaats van een lege lijst te laten nakijken.
+  if (!rows.some(r => r.type === 'item')) {
+    mepImport.step = 'kies';
+    renderMepImport();
+    return toast(
+      t(
+        'Savour vond alleen kopjes, geen onderdelen. Zet elk onderdeel op een eigen regel of in een eigen cel, bijvoorbeeld "gravlax 60 g", en probeer het opnieuw.'
+      )
+    );
+  }
   const base = String(fileName || '')
     .replace(/\.[a-z0-9]+$/i, '')
     .trim();

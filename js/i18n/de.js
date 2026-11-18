@@ -2,6 +2,9 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.de = {
   strings: {
+    'Met een account ga je akkoord met:': 'Mit einem Konto stimmst du zu:',
+    'Savour vond alleen kopjes, geen onderdelen. Zet elk onderdeel op een eigen regel of in een eigen cel, bijvoorbeeld "gravlax 60 g", en probeer het opnieuw.':
+      'Savour hat nur Überschriften gefunden, keine Posten. Setze jeden Posten in eine eigene Zeile oder Zelle, zum Beispiel "Gravlax 60 g", und versuche es noch einmal.',
     Overslaan: 'Überspringen',
     'Alleen de nieuwe recepten opslaan. Je bestaande recepten blijven zoals ze zijn.':
       'Nur die neuen Rezepte speichern. Deine bestehenden Rezepte bleiben, wie sie sind.',

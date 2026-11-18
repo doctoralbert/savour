@@ -1190,6 +1190,27 @@ body.savour-light .theme-toggle .theme-sun {
     border-color: #c9b07a !important;
     background: rgba(255, 255, 255, 0.7) !important;
   }
+  /* MEP-lijst: Lijst/Bewerken en couverts als lichte, half doorzichtige knoppen (niet donker op licht). */
+  body.savour-light #appShell .mep-band.photo-band :is(.mep-modes, .mep-cover-chip) {
+    border-color: #d9cfb8;
+    background: rgba(255, 255, 255, 0.82);
+    color: #171918;
+  }
+  body.savour-light #appShell .mep-band.photo-band .mep-modes button:not(.is-on) {
+    color: #44484a;
+  }
+  body.savour-light #appShell .mep-band.photo-band .mep-modes button.is-on {
+    background: #a8843f;
+    color: #fff;
+  }
+  body.savour-light #appShell .mep-band.photo-band .mep-cover-chip small {
+    color: #55595a;
+  }
+  body.savour-light #appShell .mep-band.photo-band .mep-cover-chip input {
+    border-color: #d9cfb8;
+    background: #fff;
+    color: #171918;
+  }
 }
 
 /* Keukenteam in het lichte thema */

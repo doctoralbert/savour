@@ -1,6 +1,8 @@
 // Franse vertalingen, naast tools/vertalingen.mjs: Nederlandse brontekst → Frans.
 // Nieuwe interfacetekst? Zet hier ook de Franse regel; node tools/build-i18n.mjs meldt wat ontbreekt.
 export const stringsFr = {
+ "Met een account ga je akkoord met:": "En créant un compte, tu acceptes :",
+ "Savour vond alleen kopjes, geen onderdelen. Zet elk onderdeel op een eigen regel of in een eigen cel, bijvoorbeeld \"gravlax 60 g\", en probeer het opnieuw.": "Savour n'a trouvé que des titres, aucun élément. Mets chaque élément sur sa propre ligne ou dans sa propre cellule, par exemple « gravlax 60 g », et réessaie.",
  "Overslaan": "Ignorer",
  "Alleen de nieuwe recepten opslaan. Je bestaande recepten blijven zoals ze zijn.": "Enregistrer uniquement les nouvelles recettes. Tes recettes existantes restent telles quelles.",
  "Alleen de gewijzigde opslaan": "Enregistrer seulement les modifiées",
@@ -2113,6 +2115,7 @@ export const stringsFr = {
  "Allergenen zien in een keukenteam van een eigenaar met Pro": "Voir les allergènes dans une équipe dont le propriétaire a Pro",
 };
 export const patternsFr = {
+
  "^(\\d+) recepten staan al in je receptenboek$": "$1 recettes sont déjà dans ton carnet de recettes",
  "^(\\d+) recepten opgeslagen · (\\d+) overgeslagen \\(stond(?:en)? er al\\)$": "$1 recettes enregistrées · $2 ignorées (déjà présentes)",
  "^Savour kent (\\d+) ingrediënten nog niet\\.$": "Savour ne connaît pas encore $1 ingrédients.",
