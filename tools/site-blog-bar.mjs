@@ -10,6 +10,8 @@ const shots = lang => ({ batch: `/assets/app/bar-batch-${lang}.jpg`, recipe: `/a
 export const BAR_POST = {
   id: 'bar',
   date: '2026-11-19',
+  // Foto bovenaan (PHOTOS in tools/build-seo.mjs).
+  photo: 'barNegroni',
   rich: true,
   nl: {
     slug: 'blog/savour-voor-bartenders',
@@ -41,11 +43,13 @@ export const BAR_POST = {
       [
         'Batchen zonder rekenfouten',
         'Voor een event of een drukke avond zet je cocktails vooraf klaar. Kies 10× of vul zelf in hoeveel glazen je nodig hebt, en Savour rekent alles om. 2 dashes Angostura worden 20 dashes, 1 barspoon wordt 8 barspoons en "1 glas" wordt "10 glazen". Ounces bij een drank blijven ounces: 16 oz gin wordt geen pond. Wat je per glas schenkt, zoals "top up met soda", blijft staan zoals het staat. Het originele recept verandert nooit.',
+        { shot: '/assets/keuken/bar-batch.jpg', alt: "Een bartender schenkt een gebatchte cocktail in flessen", caption: "Voor een event zet je de cocktails vooraf in flessen; Savour rekent de batch uit.", wide: true },
         { shot: shots('nl').batch, alt: 'Een Whiskey Sour in Savour op de telefoon, tien keer omgerekend', caption: 'Tien keer een Whiskey Sour: 50 cl bourbon, 10 eiwitten en 20 dashes Angostura.' }
       ],
       [
         'Allergenen per drank',
         'Een gast vraagt of er ei in de sour zit. In Savour staat het bij de drank: Savour zoekt bij elk ingrediënt de allergenen op en telt ze op, ook als ze uit je eigen siroop of cordial komen. Eiwit is ei, room en Baileys zijn melk, orgeat, falernum en Frangelico zijn noten, en vermout, sherry en prosecco bevatten sulfiet. Wil je alcohol ook als allergeen tonen, dan zet je dat zelf aan.',
+        { shot: '/assets/keuken/bar-coupes.jpg', alt: "Vier sours met eiwitschuim op de bar", caption: "Een sour met eiwit: in Savour zie je meteen dat er ei in zit.", wide: true },
         { shot: shots('nl').recipe, alt: 'Een Whiskey Sour in Savour met het allergeen ei', caption: 'Het eiwit in de sour is meteen herkend: ei.' },
         { warn: ['Controleer het etiket', 'Likeuren en bitters verschillen per merk. Savour zegt nooit dat een drank allergeenvrij is zolang niet alles is nagekeken; het etiket van je leverancier gaat altijd voor.'] }
       ],
@@ -55,7 +59,8 @@ export const BAR_POST = {
       ],
       [
         'Mise-en-place voor de bar',
-        'Citrus persen, siropen maken, garnituren snijden: zet het in een MEP-lijst en vink af wat klaarstaat, samen met je team. Lees hoe dat werkt in [MEP-lijsten in Savour](/blog/mep-lijsten-in-savour).'
+        'Citrus persen, siropen maken, garnituren snijden: zet het in een MEP-lijst en vink af wat klaarstaat, samen met je team. Lees hoe dat werkt in [MEP-lijsten in Savour](/blog/mep-lijsten-in-savour).',
+        { shot: '/assets/keuken/bar-mep.jpg', alt: "Mise-en-place aan de bar", caption: "Mise-en-place aan de bar: citrus, garnituren en je eigen siropen.", wide: true }
       ],
       [
         'Wat kost het?',
@@ -94,11 +99,13 @@ export const BAR_POST = {
       [
         'Batching without mistakes',
         'For an event or a busy night you batch cocktails in advance. Choose 10× or enter how many glasses you need, and Savour converts everything. 2 dashes of Angostura become 20 dashes, 1 barspoon becomes 8 barspoons and "1 glass" becomes "10 glasses". Ounces in a drink stay ounces: 16 oz of gin does not turn into a pound. What you pour per glass, such as "top up with soda", stays as it is. The original recipe never changes.',
+        { shot: '/assets/keuken/bar-batch.jpg', alt: "A bartender pours a batched cocktail into bottles", caption: "For an event you bottle the cocktails in advance; Savour works out the batch.", wide: true },
         { shot: shots('en').batch, alt: 'A Whiskey Sour in Savour on a phone, scaled ten times', caption: 'Ten Whiskey Sours: 20 oz bourbon, 10 egg whites and 20 dashes of Angostura.' }
       ],
       [
         'Allergens per drink',
         'A guest asks whether there is egg in the sour. In Savour it is on the drink: Savour looks up the allergens of every ingredient and adds them up, even when they come from your own syrup or cordial. Egg white is egg, cream and Baileys are milk, orgeat, falernum and Frangelico are nuts, and vermouth, sherry and prosecco contain sulphites. Want to show alcohol as an allergen too? You switch that on yourself.',
+        { shot: '/assets/keuken/bar-coupes.jpg', alt: "Four sours with egg-white foam on the bar", caption: "A sour with egg white: in Savour you see straight away that it contains egg.", wide: true },
         { shot: shots('en').recipe, alt: 'A Whiskey Sour in Savour with the allergen egg', caption: 'The egg white in the sour is recognised straight away: egg.' },
         { warn: ['Check the label', 'Liqueurs and bitters differ by brand. Savour never says a drink is allergen-free while not everything is checked; your supplier’s label always comes first.'] }
       ],
@@ -108,7 +115,8 @@ export const BAR_POST = {
       ],
       [
         'Mise en place for the bar',
-        'Squeezing citrus, making syrups, cutting garnishes: put it in a prep list and tick off what is ready, together with your team. Read how it works in [Prep lists in Savour](/en/blog/prep-lists-in-savour).'
+        'Squeezing citrus, making syrups, cutting garnishes: put it in a prep list and tick off what is ready, together with your team. Read how it works in [Prep lists in Savour](/en/blog/prep-lists-in-savour).',
+        { shot: '/assets/keuken/bar-mep.jpg', alt: "Bar mise en place", caption: "Bar mise en place: citrus, garnishes and your own syrups.", wide: true }
       ],
       [
         'What does it cost?',
@@ -150,11 +158,13 @@ export const BAR_POST_DE = {
       [
         'Batchen ohne Rechenfehler',
         'Für ein Event oder einen vollen Abend bereitest du Cocktails vor. Wähle 10× oder gib ein, wie viele Gläser du brauchst, und Savour rechnet alles um. 2 Dashes Angostura werden 20 Dashes und 1 Barspoon wird 8 Barspoons. Unzen bei einem Drink bleiben Unzen: 16 oz Gin werden kein Pfund. Was du pro Glas aufgießt, etwa „Top up mit Soda“, bleibt, wie es ist. Das Originalrezept ändert sich nie.',
+        { shot: '/assets/keuken/bar-batch.jpg', alt: "Ein Bartender füllt einen gebatchten Cocktail in Flaschen", caption: "Für ein Event füllst du die Cocktails vorab in Flaschen; Savour rechnet den Batch aus.", wide: true },
         { shot: shots('de').batch, alt: 'Ein Whiskey Sour in Savour auf dem Handy, zehnfach umgerechnet', caption: 'Zehnmal Whiskey Sour: 50 cl Bourbon, 10 Eiweiß und 20 Dashes Angostura.' }
       ],
       [
         'Allergene pro Drink',
         'Ein Gast fragt, ob Ei im Sour ist. In Savour steht es beim Drink: Savour sucht die Allergene jeder Zutat heraus und zählt sie zusammen, auch wenn sie aus deinem eigenen Sirup oder Cordial kommen. Eiweiß ist Ei, Sahne und Baileys sind Milch, Orgeat, Falernum und Frangelico sind Nüsse, und Wermut, Sherry und Prosecco enthalten Sulfite. Willst du Alkohol auch als Allergen zeigen, schaltest du das selbst ein.',
+        { shot: '/assets/keuken/bar-coupes.jpg', alt: "Vier Sours mit Eiweißschaum an der Bar", caption: "Ein Sour mit Eiweiß: in Savour siehst du sofort, dass Ei darin ist.", wide: true },
         { shot: shots('de').recipe, alt: 'Ein Whiskey Sour in Savour mit dem Allergen Ei', caption: 'Das Eiweiß im Sour wird sofort erkannt: Ei.' },
         { warn: ['Prüf das Etikett', 'Liköre und Bitters sind je Marke verschieden. Savour sagt nie, dass ein Drink allergenfrei ist, solange nicht alles geprüft ist; das Etikett deines Lieferanten geht immer vor.'] }
       ],
@@ -164,7 +174,8 @@ export const BAR_POST_DE = {
       ],
       [
         'Mise en place für die Bar',
-        'Zitrus pressen, Sirupe kochen, Garnituren schneiden: setz es auf eine MEP-Liste und hake ab, was bereitsteht, zusammen mit deinem Team. Wie das geht, liest du in [MEP-Listen in Savour](/de/blog/mep-listen-in-savour).'
+        'Zitrus pressen, Sirupe kochen, Garnituren schneiden: setz es auf eine MEP-Liste und hake ab, was bereitsteht, zusammen mit deinem Team. Wie das geht, liest du in [MEP-Listen in Savour](/de/blog/mep-listen-in-savour).',
+        { shot: '/assets/keuken/bar-mep.jpg', alt: "Mise en place an der Bar", caption: "Mise en place an der Bar: Zitrus, Garnituren und deine eigenen Sirupe.", wide: true }
       ],
       [
         'Was kostet es?',
@@ -206,11 +217,13 @@ export const BAR_POST_ES = {
       [
         'Batch sin errores',
         'Para un evento o una noche fuerte preparas cócteles de antemano. Elige 10× o indica cuántos vasos necesitas, y Savour lo convierte todo. 2 dashes de Angostura pasan a 20 dashes, 1 barspoon pasa a 8 barspoons y «1 vaso» pasa a «10 vasos». Las onzas en una bebida siguen siendo onzas: 16 oz de ginebra no se convierten en una libra. Lo que sirves por copa, como «top up con soda», se queda como está. La receta original nunca cambia.',
+        { shot: '/assets/keuken/bar-batch.jpg', alt: "Un bartender vierte un cóctel en batch en botellas", caption: "Para un evento embotellas los cócteles de antemano; Savour calcula el batch.", wide: true },
         { shot: shots('es').batch, alt: 'Un Whiskey Sour en Savour en el móvil, multiplicado por diez', caption: 'Diez Whiskey Sour: 50 cl de bourbon, 10 claras y 20 dashes de Angostura.' }
       ],
       [
         'Alérgenos por bebida',
         'Un cliente pregunta si el sour lleva huevo. En Savour está en la bebida: Savour busca los alérgenos de cada ingrediente y los suma, también si vienen de tu propio sirope o cordial. La clara es huevo, la nata y el Baileys son leche, el orgeat, el falernum y el Frangelico son frutos de cáscara, y el vermut, el jerez y el prosecco contienen sulfitos. ¿Quieres mostrar también el alcohol como alérgeno? Lo activas tú.',
+        { shot: '/assets/keuken/bar-coupes.jpg', alt: "Cuatro sours con espuma de clara en la barra", caption: "Un sour con clara: en Savour ves al instante que lleva huevo.", wide: true },
         { shot: shots('es').recipe, alt: 'Un Whiskey Sour en Savour con el alérgeno huevo', caption: 'La clara del sour se reconoce al instante: huevo.' },
         { warn: ['Revisa la etiqueta', 'Los licores y los bitters cambian según la marca. Savour nunca dice que una bebida no tiene alérgenos mientras no esté todo revisado; la etiqueta de tu proveedor siempre manda.'] }
       ],
@@ -220,7 +233,8 @@ export const BAR_POST_ES = {
       ],
       [
         'Mise en place para la barra',
-        'Exprimir cítricos, hacer siropes, cortar garnituras: ponlo en una lista MEP y marca lo que está listo, junto con tu equipo. Lee cómo funciona en [Listas MEP en Savour](/es/blog/listas-mep-en-savour).'
+        'Exprimir cítricos, hacer siropes, cortar garnituras: ponlo en una lista MEP y marca lo que está listo, junto con tu equipo. Lee cómo funciona en [Listas MEP en Savour](/es/blog/listas-mep-en-savour).',
+        { shot: '/assets/keuken/bar-mep.jpg', alt: "Mise en place en la barra", caption: "Mise en place en la barra: cítricos, garnituras y tus propios siropes.", wide: true }
       ],
       [
         '¿Cuánto cuesta?',
@@ -262,11 +276,13 @@ export const BAR_POST_FR = {
       [
         'Batcher sans erreur',
         'Pour un événement ou une grosse soirée, tu prépares les cocktails à l’avance. Choisis 10× ou indique combien de verres il te faut, et Savour convertit tout. 2 dashes d’Angostura deviennent 20 dashes, 1 barspoon devient 8 barspoons et « 1 verre » devient « 10 verres ». Les onces dans une boisson restent des onces : 16 oz de gin ne deviennent pas une livre. Ce que tu verses au verre, comme « top up au soda », reste tel quel. La recette d’origine ne change jamais.',
+        { shot: '/assets/keuken/bar-batch.jpg', alt: "Un bartender verse un cocktail en batch dans des bouteilles", caption: "Pour un événement, tu mets les cocktails en bouteilles à l’avance ; Savour calcule le batch.", wide: true },
         { shot: shots('fr').batch, alt: 'Un Whiskey Sour dans Savour sur un téléphone, multiplié par dix', caption: 'Dix Whiskey Sour : 50 cl de bourbon, 10 blancs d’œuf et 20 dashes d’Angostura.' }
       ],
       [
         'Allergènes par boisson',
         'Un client demande s’il y a de l’œuf dans le sour. Dans Savour, c’est indiqué sur la boisson : Savour cherche les allergènes de chaque ingrédient et les additionne, même s’ils viennent de ton propre sirop ou cordial. Le blanc d’œuf, c’est l’œuf ; la crème et le Baileys, c’est le lait ; l’orgeat, le falernum et le Frangelico, ce sont les fruits à coque ; le vermouth, le xérès et le prosecco contiennent des sulfites. Tu veux aussi afficher l’alcool comme allergène ? Tu l’actives toi-même.',
+        { shot: '/assets/keuken/bar-coupes.jpg', alt: "Quatre sours à la mousse de blanc d’œuf sur le bar", caption: "Un sour au blanc d’œuf : dans Savour, tu vois tout de suite qu’il contient de l’œuf.", wide: true },
         { shot: shots('fr').recipe, alt: 'Un Whiskey Sour dans Savour avec l’allergène œuf', caption: 'Le blanc d’œuf du sour est reconnu aussitôt : œuf.' },
         { warn: ['Vérifie l’étiquette', 'Les liqueurs et les bitters varient selon la marque. Savour ne dit jamais qu’une boisson est sans allergènes tant que tout n’est pas vérifié ; l’étiquette de ton fournisseur passe toujours en premier.'] }
       ],
@@ -276,7 +292,8 @@ export const BAR_POST_FR = {
       ],
       [
         'Mise en place pour le bar',
-        'Presser les agrumes, faire les sirops, couper les garnitures : mets-le dans une liste MEP et coche ce qui est prêt, avec ton équipe. Lis comment ça marche dans [Les listes MEP dans Savour](/fr/blog/listes-mep-dans-savour).'
+        'Presser les agrumes, faire les sirops, couper les garnitures : mets-le dans une liste MEP et coche ce qui est prêt, avec ton équipe. Lis comment ça marche dans [Les listes MEP dans Savour](/fr/blog/listes-mep-dans-savour).',
+        { shot: '/assets/keuken/bar-mep.jpg', alt: "Mise en place au bar", caption: "Mise en place au bar : agrumes, garnitures et tes propres sirops.", wide: true }
       ],
       [
         'Combien ça coûte ?',

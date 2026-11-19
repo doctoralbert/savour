@@ -427,6 +427,20 @@ for (const [slug, langs] of Object.entries(BLOG_RICH)) {
 
 // Beschrijving van de keukenfoto's, voor zoekmachines en schermlezers.
 const PHOTO_ALT = {
+  barBatch: {
+    nl: 'Een bartender schenkt een gebatchte cocktail in flessen',
+    en: 'A bartender pours a batched cocktail into bottles',
+    de: 'Ein Bartender füllt einen gebatchten Cocktail in Flaschen',
+    es: 'Un bartender vierte un cóctel en batch en botellas',
+    fr: 'Un bartender verse un cocktail en batch dans des bouteilles'
+  },
+  barMep: {
+    nl: 'Mise-en-place aan de bar: citrus, garnituren en siropen',
+    en: 'Bar mise en place: citrus, garnishes and syrups',
+    de: 'Mise en place an der Bar: Zitrus, Garnituren und Sirupe',
+    es: 'Mise en place en la barra: cítricos, garnituras y siropes',
+    fr: 'Mise en place au bar : agrumes, garnitures et sirops'
+  },
   wortels: {
     nl: 'Verse wortels op een werkbank in de keuken',
     en: 'Fresh carrots on a kitchen workbench',
@@ -1140,7 +1154,14 @@ const PHOTOS = {
   bloemen: ['bloemen.jpg', 'center 45%'],
   bloemenveld: ['bloemenveld.jpg', 'center 55%'],
   // Het bord staat midden in de foto: op de laptop ingezoomd en links uitgelijnd, zodat het rechts naast de tekst staat.
-  bord: ['bord-pass.jpg', 'center 55%', '160% auto', '0% 58%']
+  bord: ['bord-pass.jpg', 'center 55%', '160% auto', '0% 58%'],
+  // Bar en MEP (2026-11-19, gemaakt met Gemini in dezelfde stijl; prompts in docs/beelden-gemini.md).
+  barSour: ['bar-sour.jpg', 'center 50%'],
+  barBatch: ['bar-batch.jpg', 'center 45%'],
+  barMep: ['bar-mep.jpg', 'center 55%'],
+  barNegroni: ['bar-negroni.jpg', 'center 50%'],
+  barCoupes: ['bar-coupes.jpg', 'center 55%'],
+  mepPass: ['mep-pass.jpg', 'center 55%']
 };
 // De ingrediëntenlijst met de allergenen per taal (tools/build-ingredientenlijst.mjs): { code: [extra, nl, en, de, es, fr] }.
 const INGREDIENT_LIST = JSON.parse(fs.readFileSync(new URL('assets/data/ingredientenlijst.json', ROOT), 'utf8'));
@@ -1153,6 +1174,8 @@ const PAGE_PHOTO = {
   'recepten-opschalen': 'wortels',
   'recepten-printen': 'uien',
   'allergenen-per-recept': 'keuken',
+  'mep-lijsten': 'mepPass',
+  'voor-bartenders': 'barSour',
   binnenkort: 'bloemen',
   'voor-koks': 'eend',
   'voor-keukenbrigades': 'brigade',
@@ -1360,7 +1383,7 @@ for (const lang of LANGS) {
       body: c =>
         pageTop(c, t.h1, t.lead, PAGE_PHOTO[a.nl.slug]) +
         featureBand(a.id, lang) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${a.id === 'bar' ? '' : photoDuo(lang, ...(a.nl.slug === 'voor-koks' ? ['wortels', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>${featureShow(a.id, lang)}${featureFaq(a.id, lang)}
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${photoDuo(lang, ...(a.id === 'bar' ? ['barBatch', 'barMep'] : a.nl.slug === 'voor-koks' ? ['wortels', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>${featureShow(a.id, lang)}${featureFaq(a.id, lang)}
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.features}</h2>${rows(
           FEATURES.filter(x => (AUDIENCE_FEATURES[a.id] || []).includes(x.id)),
           lang
@@ -1464,14 +1487,14 @@ for (const lang of LANGS) {
           description: t.desc,
           datePublished: p.date,
           inLanguage: lang,
-          image: SITE + (coverFile(p, lang) || photoFile(BLOG_PHOTOS[n % BLOG_PHOTOS.length])).replace(/\?.*/, ''),
+          image: SITE + (coverFile(p, lang) || photoFile(p.photo || BLOG_PHOTOS[n % BLOG_PHOTOS.length])).replace(/\?.*/, ''),
           author: ORG,
           publisher: ORG,
           mainEntityOfPage: url(t.slug)
         }
       ],
       body: c =>
-        pageTop(c, t.h1, t.lead, BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
+        pageTop(c, t.h1, t.lead, p.photo || BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>${postPages(p, lang)}`
     });
   }
