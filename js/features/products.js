@@ -102,7 +102,7 @@ const ALLERGEN_HINTS = [
     ['ei']
   ],
   [
-    /(^|[^a-zà-ÿ])(patent|tarwe|spelt|rogge|zelfrijzende?\s?)?bloem($|[^a-zà-ÿ])|tarwe|meel|brood|paneermeel|pasta|spelt|rogge|gerst|haver|couscous|bulgur|seitan|flour|wheat|bread|panko|bier|beer|croissant|bladerdeeg|brioche|noedel|noodle|vermicelli|soja ?saus|soya ?saus|soy ?sauce|shoyu|ketjap|fregola|orzo|griesmeel|semolina|gort|(^|[^a-zà-ÿ])filo|kataifi|wonton|tempura|bastogne|speculaas|ontbijtkoek|peperkoek|kruidno|pepernot|roux|oestersaus|oyster ?sauce|ponzu|spaghetti|macaroni|tagliatelle|lasagne|lasagna|penne|fusilli|farfalle|linguine|pappardelle|tortellini|ravioli|cannelloni|rigatoni|gnocchi|(^|[^a-zà-ÿ])mie($|[^a-zà-ÿ])|crouton|beschuit|cracker|biscuit|pannenkoek|wafel/,
+    /(^|[^a-zà-ÿ])(patent|tarwe|spelt|rogge|zelfrijzende?\s?)?bloem($|[^a-zà-ÿ])|tarwe|meel|brood|(mehl|weizen|dinkel|roggen|farine|harina|trigo|farina|semola)($|[^a-zà-ÿ])|(^|[^a-zà-ÿ])blé($|[^a-zà-ÿ])|paneermeel|pasta|spelt|rogge|gerst|haver|couscous|bulgur|seitan|flour|wheat|bread|panko|bier|beer|croissant|bladerdeeg|brioche|noedel|noodle|vermicelli|soja ?saus|soya ?saus|soy ?sauce|shoyu|ketjap|fregola|orzo|griesmeel|semolina|gort|(^|[^a-zà-ÿ])filo|kataifi|wonton|tempura|bastogne|speculaas|ontbijtkoek|peperkoek|kruidno|pepernot|roux|oestersaus|oyster ?sauce|ponzu|spaghetti|macaroni|tagliatelle|lasagne|lasagna|penne|fusilli|farfalle|linguine|pappardelle|tortellini|ravioli|cannelloni|rigatoni|gnocchi|(^|[^a-zà-ÿ])mie($|[^a-zà-ÿ])|crouton|beschuit|cracker|biscuit|pannenkoek|wafel/,
     ['gluten']
   ],
   [
@@ -257,6 +257,11 @@ const ALLERGEN_HINT_NOT = [
   [PASTE_NOT_NOODLE, 'gluten'],
   [
     /(mais|maïs|rijst|amandel|kikkererwten|boekweit|kokos|polenta|teff|quinoa|aardappel|hazelnoot|noten)\s?meel/,
+    'gluten'
+  ],
+  // Hetzelfde in het Duits, Frans, Spaans en Italiaans (bloem van rijst, maïs, amandel, kokos, kastanje, kikkererwt).
+  [
+    /(reis|mais|ma[iï]s|mandel|kokos|kastanien|kichererbsen|buchweizen)mehl|farine\s(de\s(riz|ma[iï]s|pois\s?chiches|ch[aâ]taignes?|sarrasin|coco)|d['’]\s?amandes?)|harina\s(de\s)?(arroz|ma[ií]z|almendras?|garbanzos?|coco|casta[ñn]as?)|farina\s(di\s)?(riso|mais|mandorle|ceci|castagne|cocco)/,
     'gluten'
   ],
   [/eekhoorntjesbrood|sint-?jansbrood/, 'gluten'],
