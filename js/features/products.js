@@ -207,7 +207,7 @@ const ALLERGEN_HINTS = [
 const PASTE_NOT_NOODLE =
   /^(?!(verse|droge|gedroogde|gekookte|volkoren|glutenvrije|zelfgemaakte|italiaanse|witte|bruine)\s?pasta$)[a-zà-ÿ].*[a-zà-ÿ][\s-]?pasta$/;
 const PLANT_NOT_DAIRY =
-  /pindakaas|roomse|(pure|puur)\s?choc|choc\w*\s(puur|pure)|(amandel|haver|soja|rijst|kokos|cashew|cashewnoot|noten|hazelnoot|erwten|oat|almond)\s?(melk|drink|room|milk|yoghurt)|cacao\s?boter|cocoa butter|cacao butter|shea\s?(boter|butter)|boter(blad|sla|boon|bonen)|alpro|plantaardige|vegan/;
+  /pindakaas|roomse|(pure|puur)\s?choc|choc\w*\s(puur|pure)|(amandel|haver|soja|soy|soya|rijst|rice|kokos|coconut|cashew|cashewnoot|noten|hazelnoot|erwten|oat|almond|hafer|mandel|reis)\s?(melk|drink|room|milk|yoghurt|milch|joghurt|sahne)|cacao\s?boter|cocoa butter|cacao butter|shea\s?(boter|butter)|boter(blad|sla|boon|bonen)|alpro|plantaardige|vegan/;
 // Vegetarisch en vegan: geen vlees, ook als de naam van een vleeswaar erin staat ("boterhamworst vegetarisch").
 const NO_MEAT = /vegetari|vegan|plantaardig|vleesvervanger/;
 // Waar een trefwoord misleidt: azijn bevat geen alcohol meer, koffie- en vanillebonen zijn geen peulvruchten,

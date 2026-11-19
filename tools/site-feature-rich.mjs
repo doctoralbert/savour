@@ -1036,7 +1036,7 @@ export const FEATURE_RICH = {
     nl: {
       benefits: [
         ['Precies tot op de gram', 'Je recept blijft zoals je het schreef.'],
-        ['Op couverts en stuks', 'Van 8 naar 120, van 50 bonbons naar 800.'],
+        ['Op couverts en porties', 'Van 8 naar 120, van 2 liter fond naar 20.'],
         ['Je kennis bewaard', 'Ook als je van keuken wisselt.']
       ],
       showcase: [
@@ -1071,7 +1071,7 @@ export const FEATURE_RICH = {
     en: {
       benefits: [
         ['Precise to the gram', 'Your recipe stays as you wrote it.'],
-        ['By covers and pieces', 'From 8 to 120, from 50 bonbons to 800.'],
+        ['By covers and portions', 'From 8 to 120, from 2 litres of stock to 20.'],
         ['Your knowledge kept', 'Even when you change kitchens.']
       ],
       showcase: [
@@ -1103,7 +1103,7 @@ export const FEATURE_RICH = {
     de: {
       benefits: [
         ['Genau aufs Gramm', 'Dein Rezept bleibt, wie du es geschrieben hast.'],
-        ['Auf Gedecke und Stück', 'Von 8 auf 120, von 50 Pralinen auf 800.'],
+        ['Auf Gedecke und Portionen', 'Von 8 auf 120, von 2 Liter Fond auf 20.'],
         ['Dein Wissen bewahrt', 'Auch wenn du die Küche wechselst.']
       ],
       showcase: [
@@ -1138,7 +1138,7 @@ export const FEATURE_RICH = {
     es: {
       benefits: [
         ['Exacto al gramo', 'Tu receta se queda como la escribiste.'],
-        ['Por cubiertos y unidades', 'De 8 a 120, de 50 bombones a 800.'],
+        ['Por cubiertos y raciones', 'De 8 a 120, de 2 litros de fondo a 20.'],
         ['Tu conocimiento a salvo', 'También si cambias de cocina.']
       ],
       showcase: [
@@ -1170,7 +1170,7 @@ export const FEATURE_RICH = {
     fr: {
       benefits: [
         ['Précis au gramme', 'Ta recette reste telle que tu l’as écrite.'],
-        ['En couverts et en pièces', 'De 8 à 120, de 50 bonbons à 800.'],
+        ['En couverts et en portions', 'De 8 à 120, de 2 litres de fond à 20.'],
         ['Ton savoir conservé', 'Même quand tu changes de cuisine.']
       ],
       showcase: [

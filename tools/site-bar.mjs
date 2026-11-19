@@ -8,11 +8,11 @@
 export const BAR_AUDIENCE = {
   nl: {
     slug: 'voor-bartenders',
-    menu: 'Bartenders',
-    short: 'Voor bartenders en barteams: je specs, siropen en batches op één plek.',
-    title: 'App voor cocktailrecepten en specs, voor bartenders | Savour',
+    menu: 'Bartenders en barista’s',
+    short: 'Voor de bar en de koffiebar: je specs, siropen en batches op één plek.',
+    title: 'Receptenapp voor bartenders en barista’s | Savour',
     desc: 'Savour voor de bar: al je cocktailspecs, siropen en cordials op één plek, batchen in cl, oz en dashes zonder rekenfouten, je hele barteam met dezelfde specs en allergenen per drank.',
-    h1: 'Voor bartenders',
+    h1: 'Voor bartenders en barista’s',
     lead: 'Een spec moet kloppen, elke avond en bij elke bartender. Savour bewaart je cocktails, siropen en cordials precies zoals je ze schreef, en rekent ze om voor de batch.',
     sections: [
       [
@@ -38,16 +38,20 @@ export const BAR_AUDIENCE = {
       [
         'Mise-en-place voor de bar',
         'Citrus persen, siropen maken, garnituren snijden, ijs klaarzetten: zet het in een MEP-lijst en vink af wat klaarstaat, samen met je team. Ook op de telefoon achter de bar, met grote letters in de kookmodus.'
+      ],
+      [
+        "Voor barista’s",
+        "Ook de koffiebar werkt met recepten: je eigen siropen, de specials van het seizoen, chai en iced latte. Zet ze in Savour en reken ze om in ml of oz, van één beker naar een hele kan. Bij elke melkdrank ziet Savour de allergenen: koemelk is melk, havermelk gluten, sojamelk soja en amandelmelk noten. Er bestaat ook glutenvrije havermelk; controleer dus het etiket van jouw merk."
       ]
     ]
   },
   en: {
     slug: 'en/for-bartenders',
-    menu: 'Bartenders',
-    short: 'For bartenders and bar teams: your specs, syrups and batches in one place.',
-    title: 'Cocktail recipe and spec app for bartenders | Savour',
+    menu: 'Bartenders and baristas',
+    short: 'For the bar and the coffee bar: your specs, syrups and batches in one place.',
+    title: 'Recipe app for bartenders and baristas | Savour',
     desc: 'Savour for the bar: all your cocktail specs, syrups and cordials in one place, batching in cl, oz and dashes without mistakes, your whole bar team on the same specs and allergens per drink.',
-    h1: 'For bartenders',
+    h1: 'For bartenders and baristas',
     lead: 'A spec has to be right, every night and with every bartender. Savour keeps your cocktails, syrups and cordials exactly as you wrote them, and scales them for the batch.',
     sections: [
       [
@@ -73,16 +77,20 @@ export const BAR_AUDIENCE = {
       [
         'Mise en place for the bar',
         'Squeezing citrus, making syrups, cutting garnishes, setting up ice: put it in a prep list and tick off what is ready, together with your team. On the phone behind the bar too, in large text in cook mode.'
+      ],
+      [
+        "For baristas",
+        "The coffee bar works with recipes too: your own syrups, the seasonal specials, chai and iced latte. Put them in Savour and scale them in ml or oz, from one cup to a whole jug. For every milk drink Savour shows the allergens: cow’s milk is milk, oat milk gluten, soy milk soy and almond milk nuts. Gluten-free oat milk exists too, so check the label of your brand."
       ]
     ]
   },
   de: {
     slug: 'de/fuer-bartender',
-    menu: 'Bartender',
-    short: 'Für Bartender und Barteams: deine Specs, Sirupe und Batches an einem Ort.',
-    title: 'App für Cocktailrezepte und Specs, für Bartender | Savour',
+    menu: 'Bartender und Baristas',
+    short: 'Für Bar und Kaffeebar: deine Specs, Sirupe und Batches an einem Ort.',
+    title: 'Rezept-App für Bartender und Baristas | Savour',
     desc: 'Savour für die Bar: alle Cocktail-Specs, Sirupe und Cordials an einem Ort, Batches in cl, oz und Dashes ohne Rechenfehler, dein ganzes Barteam mit denselben Specs und Allergene pro Drink.',
-    h1: 'Für Bartender',
+    h1: 'Für Bartender und Baristas',
     lead: 'Eine Spec muss stimmen, jeden Abend und bei jedem Bartender. Savour bewahrt deine Cocktails, Sirupe und Cordials genau so, wie du sie geschrieben hast, und rechnet sie für den Batch um.',
     sections: [
       [
@@ -108,16 +116,20 @@ export const BAR_AUDIENCE = {
       [
         'Mise en place für die Bar',
         'Zitrus pressen, Sirupe kochen, Garnituren schneiden, Eis bereitstellen: setz es auf eine MEP-Liste und hake ab, was bereitsteht, zusammen mit deinem Team. Auch auf dem Handy hinter der Bar, in großer Schrift im Kochmodus.'
+      ],
+      [
+        "Für Baristas",
+        "Auch die Kaffeebar arbeitet mit Rezepten: deine eigenen Sirupe, die Specials der Saison, Chai und Iced Latte. Leg sie in Savour an und rechne sie in ml oder oz um, von einer Tasse bis zur ganzen Kanne. Bei jedem Milchgetränk zeigt Savour die Allergene: Kuhmilch ist Milch, Hafermilch Gluten, Sojamilch Soja und Mandelmilch Nüsse. Es gibt auch glutenfreie Hafermilch; prüf also das Etikett deiner Marke."
       ]
     ]
   },
   es: {
     slug: 'es/para-bartenders',
-    menu: 'Bartenders',
-    short: 'Para bartenders y equipos de barra: tus specs, siropes y batches en un solo lugar.',
-    title: 'App de recetas de cócteles y specs para bartenders | Savour',
+    menu: 'Bartenders y baristas',
+    short: 'Para la barra y el café: tus specs, siropes y batches en un solo lugar.',
+    title: 'App de recetas para bartenders y baristas | Savour',
     desc: 'Savour para la barra: todas tus specs de cócteles, siropes y cordiales en un solo lugar, batches en cl, oz y dashes sin errores, todo tu equipo con las mismas specs y alérgenos por bebida.',
-    h1: 'Para bartenders',
+    h1: 'Para bartenders y baristas',
     lead: 'Una spec tiene que ser exacta, cada noche y con cada bartender. Savour guarda tus cócteles, siropes y cordiales tal como los escribiste, y los calcula para el batch.',
     sections: [
       [
@@ -143,16 +155,20 @@ export const BAR_AUDIENCE = {
       [
         'Mise en place para la barra',
         'Exprimir cítricos, hacer siropes, cortar garnituras, preparar el hielo: ponlo en una lista MEP y marca lo que está listo, junto con tu equipo. También en el móvil detrás de la barra, con letra grande en el modo cocina.'
+      ],
+      [
+        "Para baristas",
+        "La barra de café también trabaja con recetas: tus propios siropes, los especiales de temporada, chai e iced latte. Ponlos en Savour y escálalos en ml u oz, de una taza a una jarra entera. En cada bebida con leche Savour muestra los alérgenos: la leche de vaca es leche, la de avena gluten, la de soja soja y la de almendra frutos de cáscara. También hay leche de avena sin gluten, así que revisa la etiqueta de tu marca."
       ]
     ]
   },
   fr: {
     slug: 'fr/pour-bartenders',
-    menu: 'Bartenders',
-    short: 'Pour les bartenders et les équipes de bar : tes specs, sirops et batches au même endroit.',
-    title: 'Appli de recettes de cocktails et de specs pour bartenders | Savour',
+    menu: 'Bartenders et baristas',
+    short: 'Pour le bar et le bar à café : tes specs, sirops et batches au même endroit.',
+    title: 'Appli de recettes pour bartenders et baristas | Savour',
     desc: 'Savour pour le bar : toutes tes specs de cocktails, sirops et cordials au même endroit, des batches en cl, oz et dashes sans erreur, toute ton équipe avec les mêmes specs et les allergènes par boisson.',
-    h1: 'Pour les bartenders',
+    h1: 'Pour les bartenders et baristas',
     lead: 'Une spec doit être juste, chaque soir et avec chaque bartender. Savour garde tes cocktails, sirops et cordials exactement comme tu les as écrits, et les calcule pour le batch.',
     sections: [
       [
@@ -178,6 +194,10 @@ export const BAR_AUDIENCE = {
       [
         'Mise en place pour le bar',
         'Presser les agrumes, faire les sirops, couper les garnitures, préparer la glace : mets-le dans une liste MEP et coche ce qui est prêt, avec ton équipe. Aussi sur le téléphone derrière le bar, en grands caractères en mode cuisine.'
+      ],
+      [
+        "Pour les baristas",
+        "Le bar à café travaille aussi avec des recettes : tes propres sirops, les spécialités de saison, chai et iced latte. Mets-les dans Savour et convertis-les en ml ou en oz, d’une tasse à un pichet entier. Pour chaque boisson lactée, Savour affiche les allergènes : le lait de vache, c’est le lait ; le lait d’avoine, le gluten ; le lait de soja, le soja ; le lait d’amande, les fruits à coque. Il existe aussi du lait d’avoine sans gluten : vérifie donc l’étiquette de ta marque."
       ]
     ]
   }

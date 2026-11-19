@@ -380,30 +380,32 @@ export const AUDIENCES = [
     nl: {
       slug: 'voor-koks',
       menu: 'Koks',
-      short: 'Voor chefs, sous-chefs en patissiers die hun recepturen willen bewaren.',
+      short: 'Voor chefs, sous-chefs en chefs de partie die hun recepturen willen bewaren.',
       title: 'Receptenapp en receptenplatform voor koks en chefs | Savour',
-      desc: 'Savour is het culinaire platform voor koks in restaurants en de horeca: chefs, sous-chefs en patissiers. Al je recepturen georganiseerd op één plek, precies zoals je ze schreef.',
+      desc: 'Savour is het culinaire platform voor koks in restaurants en de horeca: chefs, sous-chefs en chefs de partie. Al je recepturen georganiseerd op één plek, precies zoals je ze schreef.',
       h1: 'Voor koks',
-      lead: 'Of je nu de keuken leidt, de sauzen maakt of in de patisserie staat: je recepten moeten kloppen en vindbaar zijn.',
+      lead: 'Of je nu de keuken leidt, de sauzen maakt of de garde draait: je recepten moeten kloppen en vindbaar zijn.',
       sections: [
         ['Jouw recepturen, één plek', 'Seizoensmenu’s, proeverijen, basisrecepten van jaren terug. In Savour staat het in één receptenboek, ingedeeld zoals jij werkt.'],
-        ['Precies, tot op de gram', 'In de patisserie is een recept een formule. Savour bewaart je recepten precies zoals je ze schreef en verzint nooit hoeveelheden. Twijfelt de lezer bij een import, dan kijk je het zelf na.'],
-        ['Opschalen op couverts en stuks', 'Van een proeverij voor 8 naar een diner voor 120, of van 50 bonbons naar 800. Savour rekent alles om.'],
+        ['Precies, tot op de gram', 'Een receptuur moet kloppen, elke service opnieuw. Savour bewaart je recepten precies zoals je ze schreef en verzint nooit hoeveelheden. Twijfelt de lezer bij een import, dan kijk je het zelf na.'],
+        ['Opschalen op couverts en stuks', 'Van een proeverij voor 8 naar een diner voor 120, of van 2 liter fond naar 20. Savour rekent alles om.'],
+        ["Patissier of banketbakker?", "Voor de patisserie en de bakkerij is er een eigen pagina: [Savour voor patissiers en banketbakkers](/voor-patissiers-en-banketbakkers)."],
         ['Je kennis bewaard', 'Wat je in de loop der jaren hebt opgebouwd, staat niet meer alleen in een schrift of in je hoofd. Het blijft, ook als je van keuken wisselt.']
       ]
     },
     en: {
       slug: 'en/for-chefs',
       menu: 'Chefs',
-      short: 'For chefs, sous-chefs and pastry chefs who want to keep their recipes.',
-      title: 'Recipe app for chefs, sous-chefs and pastry chefs | Savour',
-      desc: 'Savour is made for cooks in the professional kitchen: chefs, sous-chefs and pastry chefs. All your recipes in one place, exactly as you wrote them.',
+      short: 'For chefs, sous-chefs and chefs de partie who want to keep their recipes.',
+      title: 'Recipe app for chefs and sous-chefs | Savour',
+      desc: 'Savour is made for cooks in the professional kitchen: chefs, sous-chefs and chefs de partie. All your recipes in one place, exactly as you wrote them.',
       h1: 'For chefs',
-      lead: 'Whether you run the kitchen, make the sauces or work in pastry: your recipes have to be right and easy to find.',
+      lead: 'Whether you run the kitchen, make the sauces or work garde manger: your recipes have to be right and easy to find.',
       sections: [
         ['Your recipes, one place', 'Seasonal menus, tasting menus, base recipes from years ago. In Savour it is all in one recipe book, arranged the way you work.'],
-        ['Precise, to the gram', 'In pastry a recipe is a formula. Savour keeps your recipes exactly as you wrote them and never invents quantities. If the reader is unsure during an import, you check it yourself.'],
-        ['Scale by covers and pieces', 'From a tasting for 8 to a dinner for 120, or from 50 bonbons to 800. Savour converts everything.'],
+        ['Precise, to the gram', 'A recipe has to be right, every service again. Savour keeps your recipes exactly as you wrote them and never invents quantities. If the reader is unsure during an import, you check it yourself.'],
+        ['Scale by covers and pieces', 'From a tasting for 8 to a dinner for 120, or from 2 litres of stock to 20. Savour converts everything.'],
+        ["Pastry chef or baker?", "Pastry and bakery have a page of their own: [Savour for pastry chefs and bakers](/en/for-pastry-chefs-and-bakers)."],
         ['Your knowledge kept', 'What you have built up over the years no longer lives only in a notebook or in your head. It stays, even when you change kitchens.']
       ]
     }

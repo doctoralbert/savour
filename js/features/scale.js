@@ -303,6 +303,9 @@ const COUNT_WORD_PAIRS = [
   ['lemon', 'lemons'],
   ['lime', 'limes'],
   ['tomato', 'tomatoes'],
+  ['cucumber', 'cucumbers'],
+  ['pepper', 'peppers'],
+  ['komkommer', 'komkommers'],
   ['carrot', 'carrots'],
   ['potato', 'potatoes'],
   ['clove', 'cloves'],
@@ -352,7 +355,11 @@ function countWordFirst(rest, many) {
   // Het eerste woord hoort bij een langer woord dat we niet kennen ("egg yolk"): dan niets veranderen.
   if (one?.[2] && /^(white|whites|yolk|yolks|wash|leaf|leaves)$/i.test(one[2].trim())) return rest;
   const m = rest.match(/^([^\s,;()]+)(.*)$/s);
-  return m ? countWord(m[1], many) + m[2] : rest;
+  if (m && COUNT_WORDS.has(m[1].toLowerCase())) return countWord(m[1], many) + m[2];
+  // Eén bijvoeglijk naamwoord ervoor ("rode paprika", "grote ui", "red pepper"): dan het tweede woord.
+  const adj = rest.match(/^([a-zà-ÿ]+\s+)([^\s,;()]+)(.*)$/s);
+  if (adj && COUNT_WORDS.has(adj[2].toLowerCase())) return adj[1] + countWord(adj[2], many) + adj[3];
+  return rest;
 }
 
 // Rekent één ingrediëntregel om. Geeft { qty, rest, note } terug: qty is de hoeveelheid met eenheid (voor vet),

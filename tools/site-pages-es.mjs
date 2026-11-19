@@ -161,14 +161,15 @@ export const ES = {
   audiences: {
     chefs: {
       slug: 'es/para-cocineros',
-      title: 'App de recetas para chefs, segundos de cocina y pasteleros | Savour',
-      desc: 'Savour está hecho para cocineros de cocina profesional: jefes de cocina, segundos y pasteleros. Todas tus recetas en un sitio, exactamente como las escribiste.',
+      title: 'App de recetas para chefs y segundos de cocina | Savour',
+      desc: 'Savour está hecho para cocineros de cocina profesional: jefes de cocina, segundos y jefes de partida. Todas tus recetas en un sitio, exactamente como las escribiste.',
       h1: 'Para cocineros',
-      lead: 'Tanto si diriges la cocina, haces las salsas o trabajas en pastelería: tus recetas tienen que ser correctas y fáciles de encontrar.',
+      lead: 'Tanto si diriges la cocina, haces las salsas o llevas el cuarto frío: tus recetas tienen que ser correctas y fáciles de encontrar.',
       sections: [
         ['Tus recetas, un solo sitio', 'Menús de temporada, menús degustación, recetas base de hace años. En Savour todo está en un recetario, ordenado como trabajas.'],
-        ['Preciso, al gramo', 'En pastelería una receta es una fórmula. Savour guarda tus recetas exactamente como las escribiste y nunca inventa cantidades. Si el lector tiene dudas al importar, lo revisas tú.'],
-        ['Escalar por cubiertos y piezas', 'De una degustación para 8 a una cena para 120, o de 50 bombones a 800. Savour lo convierte todo.'],
+        ['Preciso, al gramo', 'Una receta tiene que ser exacta, en cada servicio. Savour guarda tus recetas exactamente como las escribiste y nunca inventa cantidades. Si el lector tiene dudas al importar, lo revisas tú.'],
+        ['Escalar por cubiertos y piezas', 'De una degustación para 8 a una cena para 120, o de 2 litros de fondo a 20. Savour lo convierte todo.'],
+        ["¿Pastelero o repostero?", "La pastelería y la repostería tienen su propia página: [Savour para pasteleros y reposteros](/es/para-pasteleros-y-reposteros)."],
         ['Tu conocimiento se queda', 'Lo que has construido durante años ya no vive solo en un cuaderno o en tu cabeza. Se queda, aunque cambies de cocina.']
       ]
     },

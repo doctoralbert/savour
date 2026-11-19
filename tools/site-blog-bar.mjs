@@ -63,6 +63,11 @@ export const BAR_POST = {
         { shot: '/assets/keuken/bar-mep.jpg', alt: "Mise-en-place aan de bar", caption: "Mise-en-place aan de bar: citrus, garnituren en je eigen siropen.", wide: true }
       ],
       [
+        "Ook voor de koffiebar",
+        "Barista’s werken net zo goed met recepten: eigen siropen, seizoensspecials, chai en iced latte. Reken ze om in ml of oz, van één beker naar een hele kan. Bij elke melkdrank toont Savour de allergenen: koemelk is melk, havermelk gluten, sojamelk soja en amandelmelk noten. Er bestaat ook glutenvrije havermelk, dus controleer het etiket van jouw merk.",
+        { shot: '/assets/keuken/barista-siropen.jpg', alt: "Siroopflessen met pompjes, havermelk en een iced latte", caption: "Siropen en specials van de koffiebar horen ook in je receptenboek.", wide: true }
+      ],
+      [
         'Wat kost het?',
         'Gratis tot 100 recepten, met de Savour-lezer. [Savour Pro](/savour-pro) kost €2,99 per maand of €29 per jaar: onbeperkt recepten, teams, AI voor foto’s en allergenen. Nieuwe accounts krijgen 7 dagen Pro gratis. Meer over Savour aan de bar lees je op [Voor bartenders](/voor-bartenders).'
       ]
@@ -117,6 +122,11 @@ export const BAR_POST = {
         'Mise en place for the bar',
         'Squeezing citrus, making syrups, cutting garnishes: put it in a prep list and tick off what is ready, together with your team. Read how it works in [Prep lists in Savour](/en/blog/prep-lists-in-savour).',
         { shot: '/assets/keuken/bar-mep.jpg', alt: "Bar mise en place", caption: "Bar mise en place: citrus, garnishes and your own syrups.", wide: true }
+      ],
+      [
+        "For the coffee bar too",
+        "Baristas work with recipes just the same: house syrups, seasonal specials, chai and iced latte. Scale them in ml or oz, from one cup to a whole jug. For every milk drink Savour shows the allergens: cow’s milk is milk, oat milk gluten, soy milk soy and almond milk nuts. Gluten-free oat milk exists too, so check the label of your brand.",
+        { shot: '/assets/keuken/barista-siropen.jpg', alt: "Syrup bottles with pumps, oat milk and an iced latte", caption: "The coffee bar’s syrups and specials belong in your recipe book too.", wide: true }
       ],
       [
         'What does it cost?',
@@ -178,6 +188,11 @@ export const BAR_POST_DE = {
         { shot: '/assets/keuken/bar-mep.jpg', alt: "Mise en place an der Bar", caption: "Mise en place an der Bar: Zitrus, Garnituren und deine eigenen Sirupe.", wide: true }
       ],
       [
+        "Auch für die Kaffeebar",
+        "Baristas arbeiten genauso mit Rezepten: eigene Sirupe, Saison-Specials, Chai und Iced Latte. Rechne sie in ml oder oz um, von einer Tasse bis zur ganzen Kanne. Bei jedem Milchgetränk zeigt Savour die Allergene: Kuhmilch ist Milch, Hafermilch Gluten, Sojamilch Soja und Mandelmilch Nüsse. Es gibt auch glutenfreie Hafermilch, prüf also das Etikett deiner Marke.",
+        { shot: '/assets/keuken/barista-siropen.jpg', alt: "Sirupflaschen mit Pumpen, Hafermilch und ein Iced Latte", caption: "Sirupe und Specials der Kaffeebar gehören auch ins Rezeptbuch.", wide: true }
+      ],
+      [
         'Was kostet es?',
         'Kostenlos bis 100 Rezepte, mit dem Savour-Leser. [Savour Pro](/de/preise) kostet 2,99 € pro Monat oder 29 € pro Jahr: unbegrenzt Rezepte, Teams, KI für Fotos und Allergene. Neue Konten bekommen 7 Tage Pro gratis. Mehr über Savour hinter der Bar unter [Für Bartender](/de/fuer-bartender).'
       ]
@@ -237,6 +252,11 @@ export const BAR_POST_ES = {
         { shot: '/assets/keuken/bar-mep.jpg', alt: "Mise en place en la barra", caption: "Mise en place en la barra: cítricos, garnituras y tus propios siropes.", wide: true }
       ],
       [
+        "También para la barra de café",
+        "Los baristas también trabajan con recetas: siropes propios, especiales de temporada, chai e iced latte. Escálalos en ml u oz, de una taza a una jarra entera. En cada bebida con leche Savour muestra los alérgenos: la leche de vaca es leche, la de avena gluten, la de soja soja y la de almendra frutos de cáscara. También hay leche de avena sin gluten, así que revisa la etiqueta de tu marca.",
+        { shot: '/assets/keuken/barista-siropen.jpg', alt: "Botellas de sirope con dosificador, leche de avena y un iced latte", caption: "Los siropes y especiales del café también van en tu recetario.", wide: true }
+      ],
+      [
         '¿Cuánto cuesta?',
         'Gratis hasta 100 recetas, con el lector de Savour. [Savour Pro](/es/precios) cuesta 2,99 € al mes o 29 € al año: recetas ilimitadas, equipos, IA para fotos y alérgenos. Las cuentas nuevas tienen 7 días de Pro gratis. Lee más sobre Savour en la barra en [Para bartenders](/es/para-bartenders).'
       ]
@@ -294,6 +314,11 @@ export const BAR_POST_FR = {
         'Mise en place pour le bar',
         'Presser les agrumes, faire les sirops, couper les garnitures : mets-le dans une liste MEP et coche ce qui est prêt, avec ton équipe. Lis comment ça marche dans [Les listes MEP dans Savour](/fr/blog/listes-mep-dans-savour).',
         { shot: '/assets/keuken/bar-mep.jpg', alt: "Mise en place au bar", caption: "Mise en place au bar : agrumes, garnitures et tes propres sirops.", wide: true }
+      ],
+      [
+        "Aussi pour le bar à café",
+        "Les baristas travaillent aussi avec des recettes : sirops maison, spécialités de saison, chai et iced latte. Convertis-les en ml ou en oz, d’une tasse à un pichet entier. Pour chaque boisson lactée, Savour affiche les allergènes : le lait de vache, c’est le lait ; le lait d’avoine, le gluten ; le lait de soja, le soja ; le lait d’amande, les fruits à coque. Il existe aussi du lait d’avoine sans gluten : vérifie l’étiquette de ta marque.",
+        { shot: '/assets/keuken/barista-siropen.jpg', alt: "Bouteilles de sirop avec pompes, lait d’avoine et un iced latte", caption: "Les sirops et spécialités du bar à café ont aussi leur place dans ton livre de recettes.", wide: true }
       ],
       [
         'Combien ça coûte ?',

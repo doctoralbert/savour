@@ -38,7 +38,12 @@ const cases = [
   ['1 takje tijm', 3, '3 takjes tijm'],
   ['1 shallot', 2, '2 shallots'],
   ['1 bay leaf', 2, '2 bay leaves'],
-  ['1 grote ui', 2, '2 grote ui'],
+  ['1 grote ui', 2, '2 grote uien'],
+  ['1 rode paprika', 20, "20 rode paprika's"],
+  ['1 komkommer', 20, '20 komkommers'],
+  ['1 red pepper', 20, '20 red peppers'],
+  ['1 cucumber', 20, '20 cucumbers'],
+  ['1 zwarte peper', 2, '2 zwarte peper'],
   ['1 venkelknol', 2, '2 venkelknol'],
   ['½ citroen', 3, '1 ½ citroenen'],
   // Aan de bar (batchen)
