@@ -45,6 +45,7 @@ import { BLOG_RICH } from './site-blog-rich.mjs';
 import { FEATURE_RICH } from './site-feature-rich.mjs';
 import { ALLERGEN_FEATURE, ALLERGEN_FEATURE_RICH } from './site-allergenen-functie.mjs';
 import { MEP_FEATURE, MEP_FEATURE_RICH } from './site-mep-functie.mjs';
+import { BAR_AUDIENCE, BAR_RICH } from './site-bar.mjs';
 import { MEP_POST, MEP_POST_DE, MEP_POST_ES, MEP_POST_FR } from './site-blog-mep.mjs';
 import { PAPRIKA_PAGE } from './site-paprika.mjs';
 import { PAGE_RICH } from './site-page-rich.mjs';
@@ -285,6 +286,20 @@ const blogSlug = { nl: 'blog', en: 'en/blog' };
     P.features.mep = rest;
   }
   FEATURE_RICH.mep = MEP_FEATURE_RICH;
+}
+// Voor bartenders (tools/site-bar.mjs), 2026-11-19: na "Keukenbrigades".
+{
+  AUDIENCES.push({ id: 'bar', nl: BAR_AUDIENCE.nl, en: BAR_AUDIENCE.en });
+  for (const [l, P] of [
+    ['de', DE],
+    ['es', ES],
+    ['fr', FR]
+  ]) {
+    const { menu, short, ...rest } = BAR_AUDIENCE[l];
+    EXTRA_LANGS[l].items.bar = [menu, short];
+    P.audiences.bar = rest;
+  }
+  FEATURE_RICH.bar = BAR_RICH;
 }
 
 // Duits en Spaans: menu en startpagina uit tools/site-content-extra.mjs, alle andere pagina's uit
@@ -670,7 +685,8 @@ function kladje(lang, short = false) {
 // Functies onder een voor-wie-pagina: wat voor die lezer het meest telt, per pagina anders.
 const AUDIENCE_FEATURES = {
   chefs: ['digitise', 'scale', 'allergens', 'cloud', 'inladen'],
-  brigade: ['share', 'organise', 'allergens', 'print']
+  brigade: ['share', 'organise', 'allergens', 'print'],
+  bar: ['scale', 'digitise', 'share', 'allergens', 'mep']
 };
 // Blog en functie- en voor-wiepagina's verwijzen naar elkaar, beide kanten op: onder een functie- of voor-wiepagina
 // "Uit het blog" met deze artikelen (post-id's), onder een artikel de pagina's die ernaar verwijzen.
@@ -682,6 +698,7 @@ const PAGE_POSTS = {
   print: ['logo', 'messy'],
   allergens: ['allergenen', 'foodcost'],
   mep: ['mep'],
+  bar: ['mep'],
   cloud: ['database', 'offline'],
   inladen: ['overzetten', 'import'],
   roadmap: ['community', 'ai-horeca', 'foodcost', 'roadmap', 'allergenen'],
@@ -1339,7 +1356,7 @@ for (const lang of LANGS) {
       body: c =>
         pageTop(c, t.h1, t.lead, PAGE_PHOTO[a.nl.slug]) +
         featureBand(a.id, lang) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${photoDuo(lang, ...(a.nl.slug === 'voor-koks' ? ['wortels', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>${featureShow(a.id, lang)}${featureFaq(a.id, lang)}
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${a.id === 'bar' ? '' : photoDuo(lang, ...(a.nl.slug === 'voor-koks' ? ['wortels', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>${featureShow(a.id, lang)}${featureFaq(a.id, lang)}
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.features}</h2>${rows(
           FEATURES.filter(x => (AUDIENCE_FEATURES[a.id] || []).includes(x.id)),
           lang

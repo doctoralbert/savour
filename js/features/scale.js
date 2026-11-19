@@ -55,7 +55,7 @@ for (const [words, family, base, style] of UNIT_DEFS)
   for (const w of words.split(' ')) UNIT_INFO.set(w, { family, base, style, word: w });
 // Eenheden zonder omrekening (wel herkend, zodat de hoeveelheid vet staat): stuks, takjes, snufjes enzovoort.
 const COUNT_UNITS = new Set(
-  'st st. stuk stuks takje takjes tak takken teen teentjes tenen blad blaadje blaadjes bladeren bos bosje bosjes bossen plak plakken vel vellen blik blikken blikje blikjes pak pakken pakje pakjes zak zakken zakje zakjes pot potten potje potjes fles flessen flesje flesjes doos dozen doosje bol bollen krop kroppen stengel stengels steel stelen stokje stokjes schijf schijven schijfje schijfjes plaat platen druppel druppels lepel lepels snuf mespunt scheut piece pieces clove cloves sprig sprigs bunch bunches pinch pinches slice slices sheet sheets can cans tin tins pack packs leaf leaves stick sticks stück zehe zehen bund prise prisen scheibe scheiben blatt blätter dose dosen packung zweig zweige diente dientes pizca pizcas rama ramas hoja hojas lata latas rodaja rodajas manojo manojos gousse gousses pincée pincées branche branches feuille feuilles tranche tranches boîte boîtes botte bottes brin brins'.split(
+  'dash dashes barspoon barspoons bl drop drops scheutje scheutjes spritzer spritz spritzers chorrito chorritos trait traits st st. stuk stuks takje takjes tak takken teen teentjes tenen blad blaadje blaadjes bladeren bos bosje bosjes bossen plak plakken vel vellen blik blikken blikje blikjes pak pakken pakje pakjes zak zakken zakje zakjes pot potten potje potjes fles flessen flesje flesjes doos dozen doosje bol bollen krop kroppen stengel stengels steel stelen stokje stokjes schijf schijven schijfje schijfjes plaat platen druppel druppels lepel lepels snuf mespunt scheut piece pieces clove cloves sprig sprigs bunch bunches pinch pinches slice slices sheet sheets can cans tin tins pack packs leaf leaves stick sticks stück zehe zehen bund prise prisen scheibe scheiben blatt blätter dose dosen packung zweig zweige diente dientes pizca pizcas rama ramas hoja hojas lata latas rodaja rodajas manojo manojos gousse gousses pincée pincées branche branches feuille feuilles tranche tranches boîte boîtes botte bottes brin brins'.split(
     ' '
   )
 );
@@ -64,7 +64,16 @@ const QUANTITY_UNITS = new Set([...UNIT_INFO.keys(), ...COUNT_UNITS]);
 
 // Kwalitatieve hoeveelheden ("naar smaak", "snuf") worden bewust niet omgerekend.
 const QUALITATIVE_AMOUNT =
-  /naar smaak|naar behoefte|scheut|snuf|mespunt|eventueel|evt\.?|to taste|as needed|pinch|dash|nach geschmack|nach belieben|prise|al gusto|pizca|à volonté|selon le goût|pincée/i;
+  /naar smaak|naar behoefte|scheut|snuf|mespunt|eventueel|evt\.?|to taste|as needed|pinch|dash|nach geschmack|nach belieben|prise|al gusto|pizca|à volonté|selon le goût|pincée|top up|top with|aanvullen|auffüllen|completar|compléter/i;
+// Aan de bar tellen dashes, barspoons en druppels gewoon mee bij batchen ("2 dashes Angostura" × 10 = 20 dashes).
+const BAR_COUNT_UNITS = new Set(
+  'dash dashes barspoon barspoons bl drop drops druppel druppels scheutje scheutjes spritzer spritz spritzers chorrito chorritos trait traits'.split(
+    ' '
+  )
+);
+// Ounces bij een drank zijn vloeibare ounces: die worden nooit ponden ("16 oz gin" blijft 16 oz).
+const BAR_LIQUID =
+  /\b(gin|rum|rhum|ron|vodka|wodka|whisk(?:e)?y|bourbon|rye|scotch|tequila|mezcal|cognac|brandy|armagnac|calvados|pisco|cacha[cç]a|vermout|vermouth|wermut|likeur|liqueur|lik[öo]r|licor|amaro|aperol|campari|absint|absinthe|sherry|port|wijn|wine|wein|vino|vin|champagne|prosecco|cava|bier|beer|cider|sap|juice|saft|zumo|jus|siroop|syrup|sirup|sirope|sirop|tonic|soda|water|cola|ginger|bitters?|cream|room)\b/i;
 
 function parseAmount(text) {
   const t = String(text ?? '').trim();
@@ -298,7 +307,15 @@ const COUNT_WORD_PAIRS = [
   ['potato', 'potatoes'],
   ['clove', 'cloves'],
   ['sprig', 'sprigs'],
-  ['bay leaf', 'bay leaves']
+  ['bay leaf', 'bay leaves'],
+  ['dash', 'dashes'],
+  ['barspoon', 'barspoons'],
+  ['drop', 'drops'],
+  ['druppel', 'druppels'],
+  ['scheutje', 'scheutjes'],
+  ['spritzer', 'spritzers'],
+  ['chorrito', 'chorritos'],
+  ['trait', 'traits']
 ];
 const COUNT_WORDS = new Map(
   COUNT_WORD_PAIRS.flatMap(([one, many]) => [
@@ -329,7 +346,8 @@ function scaleIngredient(line, factor = 1) {
   if (!p) return { qty: '', rest: s, note: '' };
   const original = s.slice(0, s.length - p.rest.length).trim();
   if (factor === 1) return { qty: original, rest: p.rest.trim(), note: '' };
-  if (QUALITATIVE_AMOUNT.test(s)) return { qty: original, rest: p.rest.trim(), note: 'qualitative' };
+  const barCount = BAR_COUNT_UNITS.has(String(p.unitText).toLowerCase());
+  if (!barCount && QUALITATIVE_AMOUNT.test(s)) return { qty: original, rest: p.rest.trim(), note: 'qualitative' };
   const unitText = p.unitText;
   // Bereik ("2-3 el"): beide getallen omrekenen, eenheid laten staan.
   if (p.value2 != null && Number.isFinite(p.value2)) {
@@ -349,7 +367,12 @@ function scaleIngredient(line, factor = 1) {
     const rest = unitText ? p.rest.trim() : countWordFirst(p.rest.trim(), many);
     return { qty: `${formatFraction(scaled)}${word ? ' ' + word : ''}`, rest, note: '' };
   }
-  const pick = pickUnit(scaled * p.unit.base, p.unit, unitText);
+  // Ounces bij een drank: vloeibaar, dus geen ponden.
+  const unit =
+    p.unit.family === 'imperial' && /^(oz|ounces?)$/i.test(unitText) && BAR_LIQUID.test(p.rest)
+      ? { ...p.unit, family: 'flimperial' }
+      : p.unit;
+  const pick = pickUnit(scaled * unit.base, unit, unitText);
   const num = pick.fraction ? formatFraction(pick.value) : formatDecimal(pick.value);
   return { qty: `${num} ${pick.word}`, rest: p.rest.trim(), note: '' };
 }

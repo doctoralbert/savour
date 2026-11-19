@@ -578,7 +578,33 @@ const DEFAULT_CATEGORIES = [
       'kombucha',
       'punch',
       'sangria',
-      'lassi'
+      'lassi',
+      // Aan de bar (2026-11-19): bekende cocktails vallen zo vanzelf onder Dranken.
+      'negroni',
+      'martini',
+      'mojito',
+      'daiquiri',
+      'margarita',
+      'old fashioned',
+      'spritz',
+      'gin tonic',
+      'manhattan',
+      'collins',
+      'fizz',
+      'mule',
+      'julep',
+      'colada',
+      'cosmopolitan',
+      'highball',
+      'paloma',
+      'whiskey sour',
+      'pisco sour',
+      'amaretto sour',
+      'bellini',
+      'sazerac',
+      'gimlet',
+      'caipirinha',
+      'bloody mary'
     ]
   }
 ];
@@ -684,7 +710,24 @@ const DEFAULT_CATEGORY_I18N = {
     fr: ['Glaces et sorbets', ['glace', 'sorbet', 'parfait', 'granité']]
   },
   Dranken: {
-    en: ['Drinks', ['drink', 'cocktail', 'lemonade', 'syrup', 'smoothie']],
+    en: [
+      'Drinks',
+      [
+        'drink',
+        'cocktail',
+        'lemonade',
+        'syrup',
+        'smoothie',
+        'negroni',
+        'martini',
+        'mojito',
+        'daiquiri',
+        'margarita',
+        'old fashioned',
+        'spritz',
+        'whiskey sour'
+      ]
+    ],
     de: ['Getränke', ['getränk', 'cocktail', 'limonade', 'sirup']],
     es: ['Bebidas', ['bebida', 'cóctel', 'limonada', 'sirope']],
     fr: ['Boissons', ['boisson', 'cocktail', 'limonade', 'sirop']]
