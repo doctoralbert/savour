@@ -94,8 +94,8 @@ export const pages = {
       ["Couverts et quantités", "Indique à côté du nom de chaque carte le nombre de couverts ; Savour calcule combien il te faut de chaque élément (40 couverts × 60 g = 2,4 kg). Chaque jour, la liste commence vide. Avec ⋯ Vider la liste, tu enlèves les coches aussi en cours de journée."],
       ["Ensemble dans une équipe de cuisine", "Toute l’équipe voit une liste MEP d’une équipe de cuisine. Ce qu’un collègue coche apparaît aussitôt, avec nom et heure. Tout le monde peut cocher, même sans Savour Pro. Sans internet, ce que tu touches reste et part dès que tu as de nouveau une connexion."],
       ["Importer", "Tu as déjà ta liste dans Excel, Word ou sur papier ? Choisis Importer. Savour la classe et tu vérifies tout avant l’enregistrement. Une photo est lue par l’IA, avec Savour Pro."],
-      ["Imprimer", "Imprime une liste vierge sur un A4, comme ta liste Excel, ou avec les couverts et quantités du jour. Avec Savour Pro, le logo de ton restaurant y figure."],
-      ["Savour Pro", "Avec un compte gratuit, tu crées une liste MEP. Avec Savour Pro, tu crées et gères autant de listes que tu veux. Cocher et imprimer restent gratuits."]
+      ["Imprimer", "Imprime la liste sur un A4, en portrait ou en paysage, avec des cases à cocher, comme ta liste Excel. La date et les couverts n’y figurent pas, pour l’utiliser chaque jour. Avec Savour Pro, le logo de ton restaurant y figure."],
+      ["Savour Pro", "Créer et gérer des listes MEP se fait avec Savour Pro. Tout le monde dans l’équipe de cuisine peut cocher, même avec un compte gratuit. Si tu arrêtes Pro, tes listes sont conservées."]
     ]
   }
 };

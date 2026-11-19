@@ -357,8 +357,8 @@ export const pages = [
         ["Couverts en hoeveelheden", "Vul naast de naam van elke kaart het aantal couverts in; Savour rekent per onderdeel uit hoeveel je nodig hebt (40 couverts × 60 g = 2,4 kg). Elke dag begint de lijst leeg. Met ⋯ Lijst leegmaken haal je de vinkjes ook tussendoor weg."],
         ["Samen in een keukenteam", "Een MEP-lijst in een keukenteam ziet iedereen van het team. Wat een collega afvinkt, zie je meteen, met naam en tijd. Afvinken mag iedereen, ook zonder Savour Pro. Zonder internet blijft wat je aantikt staan en gaat het mee zodra je weer verbinding hebt."],
         ["Importeren", "Heb je je lijst al in Excel, Word of op papier? Kies Importeren. Savour deelt hem in en jij kijkt alles na voordat het wordt opgeslagen. Een foto leest de AI, met Savour Pro."],
-        ["Printen", "Print een lege lijst op één A4, zoals je Excel-lijst, of met de couverts en hoeveelheden van vandaag. Met Savour Pro staat het logo van je restaurant erop."],
-        ["Savour Pro", "Met een gratis account maak je één MEP-lijst. Met Savour Pro maak en beheer je zoveel lijsten als je wilt. Afvinken en printen blijft gratis."]
+        ["Printen", "Print de lijst op één A4, staand of liggend, met hokjes om af te vinken, net als je Excel-lijst. Datum en couverts staan er niet op, zodat je hem elke dag kunt gebruiken. Met Savour Pro staat het logo van je restaurant erop."],
+        ["Savour Pro", "MEP-lijsten maken en beheren kan met Savour Pro. Afvinken kan iedereen in het keukenteam, ook met een gratis account. Stop je met Pro, dan blijven je lijsten bewaard."]
       ]
     },
     en: {
@@ -374,8 +374,8 @@ export const pages = [
         ["Covers and quantities", "Fill in the number of covers next to the name of each menu; Savour works out how much you need of each item (40 covers × 60 g = 2.4 kg). Every day the list starts empty. With ⋯ Clear list you remove the ticks in between too."],
         ["Together in a kitchen team", "Everyone in the team sees a prep list in a kitchen team. What a colleague ticks off appears straight away, with name and time. Anyone can tick off, even without Savour Pro. Without internet what you tap stays and is sent as soon as you’re connected again."],
         ["Importing", "Already have your list in Excel, Word or on paper? Choose Import. Savour sorts it and you check everything before it is saved. A photo is read by the AI, with Savour Pro."],
-        ["Print", "Print an empty list on one A4, like your Excel list, or with today’s covers and quantities. With Savour Pro your restaurant’s logo is on it."],
-        ["Savour Pro", "With a free account you create one prep list. With Savour Pro you create and manage as many lists as you like. Ticking off and printing stay free."]
+        ["Print", "Print the list on one A4, portrait or landscape, with boxes to tick, just like your Excel list. The date and covers are left off, so you can use it every day. With Savour Pro your restaurant’s logo is on it."],
+        ["Savour Pro", "Creating and managing prep lists works with Savour Pro. Anyone in the kitchen team can tick off, even with a free account. If you stop Pro, your lists are kept."]
       ]
     }
   }

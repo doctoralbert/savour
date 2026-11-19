@@ -2,6 +2,14 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.de = {
   strings: {
+    'Je hebt alle recepten weggehaald. Er wordt niets opgeslagen.':
+      'Du hast alle Rezepte entfernt. Es wird nichts gespeichert.',
+    'In de proefweek leest de AI tot 15 imports.': 'In der Testwoche liest die KI bis zu 15 Importe.',
+    'MEP-lijsten maken en beheren': 'MEP-Listen erstellen und verwalten',
+    'Afvinken op een MEP-lijst in een keukenteam': 'Auf einer MEP-Liste im Küchenteam abhaken',
+    proefperiode: 'Testphase',
+    'Eerst leest de Savour-lezer alles, gratis. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee.':
+      'Zuerst liest der Savour-Leser alles, kostenlos. Nur wo er unsicher ist, liest die KI automatisch nach: nur das zählt.',
     'Met een account ga je akkoord met:': 'Mit einem Konto stimmst du zu:',
     'Savour vond alleen kopjes, geen onderdelen. Zet elk onderdeel op een eigen regel of in een eigen cel, bijvoorbeeld "gravlax 60 g", en probeer het opnieuw.':
       'Savour hat nur Überschriften gefunden, keine Posten. Setze jeden Posten in eine eigene Zeile oder Zelle, zum Beispiel "Gravlax 60 g", und versuche es noch einmal.',
@@ -97,10 +105,10 @@ window.SAVOUR_I18N.de = {
       'Eine MEP-Liste im Küchenteam sieht das ganze Team. Was ein Kollege abhakt, siehst du sofort, mit Name und Uhrzeit. Abhaken darf jeder, auch ohne Savour Pro. Ohne Internet bleibt, was du antippst, stehen und wird gesendet, sobald du wieder Verbindung hast.',
     'Heb je je lijst al in Excel, Word of op papier? Kies Importeren. Savour deelt hem in en jij kijkt alles na voordat het wordt opgeslagen. Een foto leest de AI, met Savour Pro.':
       'Hast du deine Liste schon in Excel, Word oder auf Papier? Wähle Importieren. Savour teilt sie auf und du prüfst alles, bevor es gespeichert wird. Ein Foto liest die KI, mit Savour Pro.',
-    'Print een lege lijst op één A4, zoals je Excel-lijst, of met de couverts en hoeveelheden van vandaag. Met Savour Pro staat het logo van je restaurant erop.':
-      'Druck eine leere Liste auf ein A4-Blatt, wie deine Excel-Liste, oder mit den Gedecken und Mengen von heute. Mit Savour Pro steht das Logo deines Restaurants darauf.',
-    'Met een gratis account maak je één MEP-lijst. Met Savour Pro maak en beheer je zoveel lijsten als je wilt. Afvinken en printen blijft gratis.':
-      'Mit einem kostenlosen Konto erstellst du eine MEP-Liste. Mit Savour Pro erstellst und verwaltest du so viele Listen, wie du willst. Abhaken und Drucken bleiben kostenlos.',
+    'Print de lijst op één A4, staand of liggend, met hokjes om af te vinken, net als je Excel-lijst. Datum en couverts staan er niet op, zodat je hem elke dag kunt gebruiken. Met Savour Pro staat het logo van je restaurant erop.':
+      'Druck die Liste auf ein A4-Blatt, hoch oder quer, mit Kästchen zum Abhaken, genau wie deine Excel-Liste. Datum und Gedecke stehen nicht darauf, so kannst du sie jeden Tag nutzen. Mit Savour Pro steht das Logo deines Restaurants darauf.',
+    'MEP-lijsten maken en beheren kan met Savour Pro. Afvinken kan iedereen in het keukenteam, ook met een gratis account. Stop je met Pro, dan blijven je lijsten bewaard.':
+      'MEP-Listen erstellen und verwalten geht mit Savour Pro. Abhaken kann jeder im Küchenteam, auch mit einem kostenlosen Konto. Hörst du mit Pro auf, bleiben deine Listen erhalten.',
     'MEP-lijsten worden nog ingericht. Probeer het straks opnieuw.':
       'MEP-Listen werden noch eingerichtet. Versuch es gleich noch einmal.',
     'Dit mag je in deze lijst niet aanpassen. Vraag de eigenaar van het keukenteam of kijk bij Savour Pro.':
@@ -2649,6 +2657,10 @@ window.SAVOUR_I18N.de = {
       'Allergene sehen in einem Küchenteam, dessen Inhaber Pro hat'
   },
   patterns: [
+    [
+      '^In de proefperiode bewaar je tot (\\d+) recepten \\(nog (\\d+)\\)\\.$',
+      'In der Testphase speicherst du bis zu $1 Rezepte (noch $2).'
+    ],
     ['^(\\d+) recepten staan al in je receptenboek$', '$1 Rezepte sind schon in deinem Rezeptbuch'],
     [
       '^(\\d+) recepten opgeslagen · (\\d+) overgeslagen \\(stond(?:en)? er al\\)$',

@@ -300,11 +300,12 @@ export const PAGE_RICH = {
         ['Misschien', 'Een eigen app voor iPhone en Android, als chefs dat willen.']
       ],
       showcase: [
+        shot('mep-lijst', "Een MEP-lijst in Savour op de telefoon", "Laatst gelanceerd: MEP-lijsten", "Sinds november 2026 maak je per post een MEP-lijst die je brigade live afvinkt en die de hoeveelheden uitrekent op je couverts. [Bekijk de functie](@feature:mep)."),
         {
           ...shot(
             'allergenen',
             'Het allergenenblok bij een recept in Savour',
-            'Laatst gelanceerd: allergenen',
+            'Eerder gelanceerd: allergenen',
             'Sinds november 2026 zie je bij elk recept de allergenen, ook via basisrecepten. [Bekijk de functie](@feature:allergens) of [lees hoe het werkt](@post:en/blog/allergens-in-savour).'
           )
         }
@@ -331,10 +332,11 @@ export const PAGE_RICH = {
         ['Maybe', 'An app of our own for iPhone and Android, if chefs want it.']
       ],
       showcase: [
+        shot('mep-lijst', "A prep list in Savour on a phone", "Latest launch: prep lists", "Since November 2026 you make a prep list per section that your brigade ticks off live and that works out the quantities from your covers. [See the feature](@feature:mep)."),
         shot(
           'allergenen',
           'The allergen block on a recipe in Savour',
-          'Latest launch: allergens',
+          'Earlier launch: allergens',
           'Since November 2026 every recipe shows its allergens, including through base recipes. [See the feature](@feature:allergens) or [read how it works](@post:en/blog/allergens-in-savour).'
         )
       ],
@@ -360,10 +362,11 @@ export const PAGE_RICH = {
         ['Vielleicht', 'Eine eigene App für iPhone und Android, wenn Köche das wollen.']
       ],
       showcase: [
+        shot('mep-lijst', "Eine MEP-Liste in Savour auf dem Handy", "Zuletzt gestartet: MEP-Listen", "Seit November 2026 erstellst du pro Posten eine MEP-Liste, die deine Brigade live abhakt und die die Mengen aus deinen Gedecken berechnet. [Zur Funktion](@feature:mep)."),
         shot(
           'allergenen',
           'Der Allergenblock bei einem Rezept in Savour',
-          'Zuletzt gestartet: Allergene',
+          'Davor gestartet: Allergene',
           'Seit November 2026 zeigt jedes Rezept seine Allergene, auch über Grundrezepte. [Zur Funktion](@feature:allergens) oder [lies, wie es funktioniert](@post:en/blog/allergens-in-savour).'
         )
       ],
@@ -389,10 +392,11 @@ export const PAGE_RICH = {
         ['Quizá', 'Una app propia para iPhone y Android, si los chefs la quieren.']
       ],
       showcase: [
+        shot('mep-lijst', "Una lista MEP en Savour en el móvil", "Último lanzamiento: listas MEP", "Desde noviembre de 2026 creas por partida una lista MEP que tu brigada marca en directo y que calcula las cantidades según tus cubiertos. [Ver la función](@feature:mep)."),
         shot(
           'allergenen',
           'El bloque de alérgenos en una receta de Savour',
-          'Último lanzamiento: alérgenos',
+          'Lanzamiento anterior: alérgenos',
           'Desde noviembre de 2026 cada receta muestra sus alérgenos, también a través de recetas base. [Ver la función](@feature:allergens) o [lee cómo funciona](@post:en/blog/allergens-in-savour).'
         )
       ],
@@ -418,10 +422,11 @@ export const PAGE_RICH = {
         ['Peut-être', 'Une application à nous pour iPhone et Android, si les chefs le veulent.']
       ],
       showcase: [
+        shot('mep-lijst', "Une liste MEP dans Savour sur un téléphone", "Dernier lancement : les listes MEP", "Depuis novembre 2026, tu crées par poste une liste MEP que ta brigade coche en direct et qui calcule les quantités selon tes couverts. [Voir la fonction](@feature:mep)."),
         shot(
           'allergenen',
           'Le bloc allergènes d’une recette dans Savour',
-          'Dernier lancement : les allergènes',
+          'Lancement précédent : les allergènes',
           'Depuis novembre 2026, chaque recette affiche ses allergènes, y compris via les recettes de base. [Voir la fonction](@feature:allergens) ou [lis comment ça marche](@post:en/blog/allergens-in-savour).'
         )
       ],

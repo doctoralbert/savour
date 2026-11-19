@@ -26,7 +26,7 @@ Een link naar een openbare receptenwebsite hoort er ook bij (bijv. een pannenkoe
 - naam "MEP Garde"; 2 kaarten: "À la carte" (door Savour toegevoegd, met uitleg) en "banqueting"
 - kopjes: "Voor 1 · Bietentartaar", "Voor 2 · Makreel", "Hoofd", "Voor · Zalm", "Hoofd · Kip" (5 kopjes, 16 onderdelen)
 - "biet tartaar" 60 g met opmerking "met sjalot en kappertjes" (uit de kolom ernaast); "rogge krokant" 2 st
-- geel om na te kijken (4): "radijs 3" (getal zonder eenheid), "aubergine" 80 g (ongeveer), "Brood uit vriezer"
+- geel om na te kijken (3): "radijs 3" (getal zonder eenheid), "aubergine" 80 g (ongeveer), "Brood uit vriezer"
   (kopje of onderdeel?), en geen andere
 - "kippendij" 1 stuk, "pommes fondant" 2 st, "Lamsrug" 120 g
 

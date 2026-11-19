@@ -612,7 +612,7 @@ async function odtToText(file) {
 function readRecipesLocally(text, extra = {}) {
   return splitRecipeText(text).map(r => ({
     ...r,
-    category: importCategory(r.title, ''),
+    category: importCategory(r.title, '', r.ingredients),
     _needsReview: r.readerConfidence !== 'high',
     ...extra
   }));
@@ -744,6 +744,8 @@ async function removeBatchDraft(index) {
     return;
   syncBatchDrafts();
   batchDrafts.splice(index, 1);
+  // Alles zelf weggehaald: een eigen melding (de vlag verdwijnt vanzelf met een nieuwe import, een nieuwe lijst).
+  if (!batchDrafts.length) batchDrafts.emptiedByCook = true;
   renderBatchDrafts();
   $('batchStatus').textContent = batchDrafts.length
     ? batchDrafts.length === 1
@@ -1024,11 +1026,32 @@ async function keepScreenAwake(on) {
 
 // Categorie van een geïmporteerd recept: eerst de trefwoorden van de chef, anders de keuze van de AI
 // (alleen als die in de eigen lijst staat). De chef ziet het resultaat altijd vóór opslaan.
-function importCategory(title, aiCategory) {
+function importCategory(title, aiCategory, ingredients = []) {
   const byKeyword = suggestCategory(title);
-  if (byKeyword) return byKeyword.category;
+  if (byKeyword) return importSoupCategory(byKeyword, ingredients) || byKeyword.category;
   const ai = String(aiCategory || '').trim();
   return categories.includes(ai) ? ai : 'Eigen recepten';
+}
+
+// "Bloemkoolcrème" kan een garnituur zijn of een soep. Alleen het woord crème in de naam, maar een halve liter of meer
+// bouillon, fond of melk erin: dan stelt Savour de soepcategorie van de chef voor (als die er is). Blijft een voorstel.
+function importSoupCategory(byKeyword, ingredients) {
+  if (!/^cr[eè]me$/i.test(normalizeForMatch(byKeyword.keyword).trim())) return '';
+  const liquid = (ingredients || []).some(line => {
+    const m = String(line).match(
+      /(\d+(?:[.,]\d+)?)\s*(ml|cl|dl|l|liter)\b.*(bouillon|fond|stock|broth|consomm|melk|milk|water)/i
+    );
+    if (!m) return false;
+    const ml =
+      parseFloat(m[1].replace(',', '.')) * { ml: 1, cl: 10, dl: 100, l: 1000, liter: 1000 }[m[2].toLowerCase()];
+    return ml >= 500;
+  });
+  if (!liquid) return '';
+  return (
+    categories.find(c =>
+      keywordsOf(c).some(k => /^(soep|soup|suppe|sopa|soupe)$/i.test(normalizeForMatch(k).trim()))
+    ) || ''
+  );
 }
 
 // "Twijfel" waarbij beide lezingen hetzelfde zeggen ("4. Forme den Teig … (of: Forme den Teig …)") is geen twijfel:
@@ -1141,7 +1164,7 @@ function normalizeAiRecipe(r, extra) {
     steps: tidy.steps,
     ...(tidy.description ? { description: tidy.description } : {}),
     yield: String(r.yield || '').trim(),
-    category: importCategory(title, r.category),
+    category: importCategory(title, r.category, tidy.ingredients),
     _needsReview: Boolean(r.needs_review),
     // Wat de AI niet zeker kon lezen: de chef controleert dit vóór opslaan.
     _unclear: withoutEmptyDoubts(Array.isArray(r.unclear) ? r.unclear.map(String).filter(Boolean) : []),
@@ -1388,7 +1411,7 @@ async function importSavourFile(file) {
         ingredients: lines(r.ingredients),
         steps: lines(r.steps),
         yield: text(r.yield),
-        category: importCategory(text(r.title), text(r.category)),
+        category: importCategory(text(r.title), text(r.category), lines(r.ingredients)),
         sourceFile: text(r.sourceFile) || file.name,
         photo,
         _fromPhoto: Boolean(photo),
@@ -1895,7 +1918,8 @@ function renderBatchDrafts() {
         (r, i) =>
           `<article class="batch-recipe" data-batch-card="${i}"><div class="batch-recipe-head"><div><span class="batch-chip">Recept ${i + 1}</span>${batchEmpty(r) ? ' <span class="batch-chip batch-chip-warn">Geen ingrediënten gevonden</span>' : ''}${r._maybeIncomplete ? ' <span class="batch-chip batch-chip-warn">Mogelijk onvolledig</span>' : r._withoutAi ? ' <span class="batch-chip batch-chip-warn">Zonder AI · controleren</span>' : r._needsReview || r._unclear?.length ? ' <span class="batch-chip batch-chip-warn">Controleren</span>' : ''}${r._byAi ? ' <span class="batch-chip">AI</span>' : ''}<h3>${esc(r.title)}</h3></div><button type="button" class="batch-remove-btn" title="Recept verwijderen" aria-label="Recept ${i + 1} verwijderen" onclick="removeBatchDraft(${i})">×</button></div>${r.photo ? `<img class="batch-photo" src="${esc(r.photo)}" alt=""><button type="button" class="btn small batch-rotate" onclick="rotateBatchPhoto(${i})">↻ Draai foto</button>` : ''}${r._unclear?.length ? `<div class="batch-unclear"><b>Niet goed leesbaar, controleer:</b><ul translate="no">${r._unclear.map(u => `<li>${esc(u)}</li>`).join('')}</ul></div>` : ''}${batchLineChecksHtml(r, i)}<small>${r.ingredients.length} ingrediënten · ${r.steps.length} stappen${r.sourceFile ? ` · ${esc(r.sourceFile)}` : ''}</small>${batchAllergenCodesHtml(r, i)}${r._stepOnly?.length ? `<small class="batch-fixes">${t('Staat alleen in de bereiding, niet bij de ingrediënten gezet:')} <span translate="no">${r._stepOnly.map(esc).join(' · ')}</span></small>` : ''}${r._fixes?.length ? `<small class="batch-fixes">Automatisch verbeterd: <span translate="no">${r._fixes.map(f => `${esc(f.from)} → ${esc(f.to)}`).join(' · ')}</span></small>` : ''}${r._transcription?.length ? `<details class="batch-transcript"><summary>Zo las de AI het</summary><pre translate="no">${esc(r._transcription.join('\n'))}</pre>${r._model ? `<small>Gelezen met <span translate="no">${esc(r._model)}</span></small>` : ''}</details>` : ''}<div class="field" style="margin-top:12px"><label>Titel</label><input data-batch-title="${i}" value="${esc(r.title)}"></div><div class="field" style="margin-top:10px"><label>Ingrediënten</label><textarea class="batch-text" rows="${batchRows(r.ingredients)}" data-batch-ingredients="${i}">${esc(r.ingredients.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Bereiding</label><textarea class="batch-text" rows="${batchRows(r.steps)}" data-batch-steps="${i}">${esc(r.steps.join('\n'))}</textarea></div><div class="field" style="margin-top:10px"><label>Opbrengst</label><input data-batch-yield="${i}" value="${esc(r.yield || '')}"></div><div class="field" style="margin-top:10px"><label>Categorie</label><select data-batch-category="${i}" onchange="batchDrafts[${i}]._categoryChosen=true">${catOptions.map(c => `<option value="${esc(c)}" ${String(r.category || 'Eigen recepten') === String(c) ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></div></article>`
       )
-      .join('') || `<div class="empty" style="grid-column:1/-1">Geen afzonderlijke recepten herkend.</div>`;
+      .join('') ||
+    `<div class="empty" style="grid-column:1/-1">${esc(batchDrafts.emptiedByCook ? t('Je hebt alle recepten weggehaald. Er wordt niets opgeslagen.') : t('Geen afzonderlijke recepten herkend.'))}</div>`;
 }
 
 // Rommelige ingrediëntregels (readerLineChecks): per regel een voorstel. Wat de chef laat staan, vraagt Savour niet

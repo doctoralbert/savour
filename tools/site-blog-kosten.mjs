@@ -5,7 +5,7 @@
 //     (8,8%), energie 2,9%, overige bedrijfskosten 10,5%, afschrijvingen 3,2%, bedrijfsresultaat 11,5%, resultaat voor
 //     belastingen 1.492 (11,5%). 2022: inkoop 32,5%, personeel 31,9%, huisvesting 9,1%, resultaat voor belastingen 8,8%.
 //     Fastfood e.d. (56102) 2024: inkoop 31,3%, personeel 23,2%, huisvesting 9,6%, resultaat voor belastingen 17,6%.
-//   CBS StatLine 81589NED, Bedrijven; bedrijfstak, 2026 KW4: restaurants (56101) 16.840, waarvan 3.955 met één werkzaam
+//   CBS StatLine 81589NED, Bedrijven; bedrijfstak, 2026 KW4 (stand op 1 oktober 2026): restaurants (56101) 16.840, waarvan 3.955 met één werkzaam
 //     persoon en 9.460 natuurlijke personen (eenmanszaak, vof); eet- en drinkgelegenheden (56) 69.820.
 //   CBS, faillissementen 2025 (12 januari 2026): horeca 347 in 2025, 377 in 2024.
 //   KHN, presentatie persconferentie Horecava (12 januari 2026), dia Schuldenlast: winstgevendheid afgelopen 12 maanden
@@ -110,7 +110,7 @@ export const COST_POST = {
       ],
       [
         'Hoeveel restaurants zijn er in Nederland?',
-        'Het CBS telde in het vierde kwartaal van 2026 16.840 restaurants. Daarvan bestonden er 3.955 uit één persoon. Tel je alle eet- en drinkgelegenheden mee, van snackbar tot café, dan kom je op 69.820 bedrijven. KHN telt op een andere manier, per locatie, en kwam eind 2025 op 43.606 horecalocaties. Meer daarover lees je in [Horeca in cijfers](/blog/horeca-in-cijfers).'
+        'Op 1 oktober 2026 telde het CBS 16.840 restaurants. Daarvan bestonden er 3.955 uit één persoon. Tel je alle eet- en drinkgelegenheden mee, van snackbar tot café, dan kom je op 69.820 bedrijven. KHN telt op een andere manier, per locatie, en kwam eind 2025 op 43.606 horecalocaties. Meer daarover lees je in [Horeca in cijfers](/blog/horeca-in-cijfers).'
       ],
       [
         'Faillissementen',
@@ -210,7 +210,7 @@ export const COST_POST = {
       ],
       [
         'How many restaurants are there in the Netherlands?',
-        'CBS counted 16,840 restaurants in the fourth quarter of 2026. Of those, 3,955 consisted of one person. Count every place to eat and drink, from snack bar to café, and you get 69,820 businesses. The Dutch hospitality association KHN counts per location and arrived at 43,606 hospitality locations at the end of 2025. More in [Dutch hospitality in numbers](/en/blog/hospitality-in-numbers).'
+        'On 1 October 2026, CBS counted 16,840 restaurants. Of those, 3,955 consisted of one person. Count every place to eat and drink, from snack bar to café, and you get 69,820 businesses. The Dutch hospitality association KHN counts per location and arrived at 43,606 hospitality locations at the end of 2025. More in [Dutch hospitality in numbers](/en/blog/hospitality-in-numbers).'
       ],
       [
         'Bankruptcies',
@@ -315,7 +315,7 @@ export const COST_POST_DE = {
       ],
       [
         'Wie viele Restaurants gibt es in den Niederlanden?',
-        'Das CBS zählte im vierten Quartal 2026 16.840 Restaurants. Davon bestanden 3.955 aus einer Person. Zählt man alle Gaststätten mit, vom Imbiss bis zum Café, kommt man auf 69.820 Betriebe. Der Branchenverband KHN zählt pro Standort und kam Ende 2025 auf 43.606 Gastronomiestandorte. Mehr dazu in [Gastronomie in Zahlen](/de/blog/gastronomie-in-zahlen).'
+        'Am 1. Oktober 2026 zählte das CBS 16.840 Restaurants. Davon bestanden 3.955 aus einer Person. Zählt man alle Gaststätten mit, vom Imbiss bis zum Café, kommt man auf 69.820 Betriebe. Der Branchenverband KHN zählt pro Standort und kam Ende 2025 auf 43.606 Gastronomiestandorte. Mehr dazu in [Gastronomie in Zahlen](/de/blog/gastronomie-in-zahlen).'
       ],
       [
         'Insolvenzen',
@@ -418,7 +418,7 @@ export const COST_POST_ES = {
       ],
       [
         '¿Cuántos restaurantes hay en los Países Bajos?',
-        'El CBS contó 16.840 restaurantes en el cuarto trimestre de 2026. De ellos, 3.955 eran de una sola persona. Si cuentas todos los locales de comida y bebida, del puesto de snacks al café, salen 69.820 empresas. La patronal KHN cuenta por local y llegó a 43.606 locales de hostelería a finales de 2025. Más en [La hostelería neerlandesa en cifras](/es/blog/hosteleria-en-cifras).'
+        'El 1 de octubre de 2026, el CBS contaba 16.840 restaurantes. De ellos, 3.955 eran de una sola persona. Si cuentas todos los locales de comida y bebida, del puesto de snacks al café, salen 69.820 empresas. La patronal KHN cuenta por local y llegó a 43.606 locales de hostelería a finales de 2025. Más en [La hostelería neerlandesa en cifras](/es/blog/hosteleria-en-cifras).'
       ],
       [
         'Quiebras',
@@ -521,7 +521,7 @@ export const COST_POST_FR = {
       ],
       [
         'Combien y a-t-il de restaurants aux Pays-Bas ?',
-        'Le CBS a compté 16 840 restaurants au quatrième trimestre 2026. Parmi eux, 3 955 comptaient une seule personne. Si l’on compte tous les établissements où l’on mange et boit, du snack au café, on arrive à 69 820 entreprises. L’organisation professionnelle KHN compte par établissement et arrivait à 43 606 établissements fin 2025. Plus de détails dans [La restauration néerlandaise en chiffres](/fr/blog/restauration-en-chiffres).'
+        'Au 1er octobre 2026, le CBS comptait 16 840 restaurants. Parmi eux, 3 955 comptaient une seule personne. Si l’on compte tous les établissements où l’on mange et boit, du snack au café, on arrive à 69 820 entreprises. L’organisation professionnelle KHN compte par établissement et arrivait à 43 606 établissements fin 2025. Plus de détails dans [La restauration néerlandaise en chiffres](/fr/blog/restauration-en-chiffres).'
       ],
       [
         'Faillites',

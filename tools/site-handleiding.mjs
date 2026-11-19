@@ -119,6 +119,12 @@ export const GUIDE = GUIDE_GROUPS.flatMap(gr =>
 const MOVING = g => g.app || g.id === 'overstappen' || g.id === 'import-pepperplate';
 export const GUIDE_CHAPTERS = GUIDE_GROUPS.flatMap(gr => {
   const pages = GUIDE.filter(g => g.group === gr.id);
+  // MEP-lijsten zijn een eigen functie (Tools), geen onderdeel van omrekenen: een eigen hoofdstuk.
+  if (gr.id === 'keuken')
+    return [
+      { id: gr.id, group: gr, pages: pages.filter(g => g.id !== 'mep-lijsten') },
+      { id: 'mep-lijsten', group: gr, pages: pages.filter(g => g.id === 'mep-lijsten'), own: true }
+    ];
   if (gr.id !== 'importeren') return [{ id: gr.id, group: gr, pages }];
   return [
     { id: gr.id, group: gr, pages: pages.filter(g => !MOVING(g)) },

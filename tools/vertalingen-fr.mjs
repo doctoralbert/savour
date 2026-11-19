@@ -1,6 +1,12 @@
 // Franse vertalingen, naast tools/vertalingen.mjs: Nederlandse brontekst → Frans.
 // Nieuwe interfacetekst? Zet hier ook de Franse regel; node tools/build-i18n.mjs meldt wat ontbreekt.
 export const stringsFr = {
+ "Je hebt alle recepten weggehaald. Er wordt niets opgeslagen.": "Tu as retiré toutes les recettes. Rien ne sera enregistré.",
+ "In de proefweek leest de AI tot 15 imports.": "Pendant la semaine d'essai, l'IA lit jusqu'à 15 imports.",
+ "MEP-lijsten maken en beheren": "Créer et gérer des listes MEP",
+ "Afvinken op een MEP-lijst in een keukenteam": "Cocher sur une liste MEP d'une équipe de cuisine",
+ "proefperiode": "période d'essai",
+ "Eerst leest de Savour-lezer alles, gratis. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee.": "D'abord le lecteur Savour lit tout, gratuitement. Là seulement où il hésite, l'IA relit automatiquement : seul cela compte.",
  "Met een account ga je akkoord met:": "En créant un compte, tu acceptes :",
  "Savour vond alleen kopjes, geen onderdelen. Zet elk onderdeel op een eigen regel of in een eigen cel, bijvoorbeeld \"gravlax 60 g\", en probeer het opnieuw.": "Savour n'a trouvé que des titres, aucun élément. Mets chaque élément sur sa propre ligne ou dans sa propre cellule, par exemple « gravlax 60 g », et réessaie.",
  "Overslaan": "Ignorer",
@@ -70,8 +76,8 @@ export const stringsFr = {
  "Samen in een keukenteam": "Ensemble dans une équipe de cuisine",
  "Een MEP-lijst in een keukenteam ziet iedereen van het team. Wat een collega afvinkt, zie je meteen, met naam en tijd. Afvinken mag iedereen, ook zonder Savour Pro. Zonder internet blijft wat je aantikt staan en gaat het mee zodra je weer verbinding hebt.": "Toute l’équipe voit une liste MEP d’une équipe de cuisine. Ce qu’un collègue coche apparaît aussitôt, avec nom et heure. Tout le monde peut cocher, même sans Savour Pro. Sans internet, ce que tu touches reste et part dès que tu as de nouveau une connexion.",
  "Heb je je lijst al in Excel, Word of op papier? Kies Importeren. Savour deelt hem in en jij kijkt alles na voordat het wordt opgeslagen. Een foto leest de AI, met Savour Pro.": "Tu as déjà ta liste dans Excel, Word ou sur papier ? Choisis Importer. Savour la classe et tu vérifies tout avant l’enregistrement. Une photo est lue par l’IA, avec Savour Pro.",
- "Print een lege lijst op één A4, zoals je Excel-lijst, of met de couverts en hoeveelheden van vandaag. Met Savour Pro staat het logo van je restaurant erop.": "Imprime une liste vierge sur un A4, comme ta liste Excel, ou avec les couverts et quantités du jour. Avec Savour Pro, le logo de ton restaurant y figure.",
- "Met een gratis account maak je één MEP-lijst. Met Savour Pro maak en beheer je zoveel lijsten als je wilt. Afvinken en printen blijft gratis.": "Avec un compte gratuit, tu crées une liste MEP. Avec Savour Pro, tu crées et gères autant de listes que tu veux. Cocher et imprimer restent gratuits.",
+ "Print de lijst op één A4, staand of liggend, met hokjes om af te vinken, net als je Excel-lijst. Datum en couverts staan er niet op, zodat je hem elke dag kunt gebruiken. Met Savour Pro staat het logo van je restaurant erop.": "Imprime la liste sur un A4, en portrait ou en paysage, avec des cases à cocher, comme ta liste Excel. La date et les couverts n’y figurent pas, pour l’utiliser chaque jour. Avec Savour Pro, le logo de ton restaurant y figure.",
+ "MEP-lijsten maken en beheren kan met Savour Pro. Afvinken kan iedereen in het keukenteam, ook met een gratis account. Stop je met Pro, dan blijven je lijsten bewaard.": "Créer et gérer des listes MEP se fait avec Savour Pro. Tout le monde dans l’équipe de cuisine peut cocher, même avec un compte gratuit. Si tu arrêtes Pro, tes listes sont conservées.",
  "MEP-lijsten worden nog ingericht. Probeer het straks opnieuw.": "Les listes MEP sont encore en préparation. Réessaie dans un instant.",
  "Dit mag je in deze lijst niet aanpassen. Vraag de eigenaar van het keukenteam of kijk bij Savour Pro.": "Tu ne peux pas modifier cette liste. Demande au propriétaire de l’équipe de cuisine ou regarde Savour Pro.",
  "Geen verbinding. Probeer het opnieuw zodra je weer online bent.": "Pas de connexion. Réessaie dès que tu es de nouveau en ligne.",
@@ -2115,6 +2121,8 @@ export const stringsFr = {
  "Allergenen zien in een keukenteam van een eigenaar met Pro": "Voir les allergènes dans une équipe dont le propriétaire a Pro",
 };
 export const patternsFr = {
+
+ "^In de proefperiode bewaar je tot (\\d+) recepten \\(nog (\\d+)\\)\\.$": "Pendant l'essai, tu gardes jusqu'à $1 recettes (encore $2).",
 
  "^(\\d+) recepten staan al in je receptenboek$": "$1 recettes sont déjà dans ton carnet de recettes",
  "^(\\d+) recepten opgeslagen · (\\d+) overgeslagen \\(stond(?:en)? er al\\)$": "$1 recettes enregistrées · $2 ignorées (déjà présentes)",

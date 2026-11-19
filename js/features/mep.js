@@ -1582,7 +1582,7 @@ function mepBandHtml(l, mode, can) {
   const back =
     mepReturnTeam && team
       ? `<button type="button" class="back kt-back mep-back-link" onclick="closeMepList()">← <span translate="no">${esc(team.name)}</span></button>`
-      : `<button type="button" class="back kt-back mep-back-link" onclick="closeMepList()"><span aria-hidden="true">←</span> <span>${esc(t('Alle MEP-lijsten'))}</span></button>`;
+      : `<button type="button" class="back kt-back mep-back-link" onclick="closeMepList()"><span aria-hidden="true">←</span>&nbsp;<span>${esc(t('Alle MEP-lijsten'))}</span></button>`;
   const menu = [
     mode === 'overzicht' && tick
       ? `<button type="button" onclick="clearMepTicks()">${icon('undo')}${esc(t('Lijst leegmaken'))}</button>`
@@ -1616,7 +1616,7 @@ function mepBandHtml(l, mode, can) {
     mode === 'overzicht'
       ? `<p class="muted mep-band-sub" id="mepPageMeta"></p>`
       : `<p class="muted mep-band-sub"><span id="mepSaved" aria-live="polite">${esc(mepSavedText())}</span></p>`;
-  return `${back}<div class="folder-detail-head mep-band" id="mepBand"><div class="mep-band-text"><div class="eyebrow"><span>${esc(t('MEP-lijst'))}</span>${team ? ` <span aria-hidden="true">·</span> <span translate="no">${esc(team.name)}</span>` : ''}${l.archived ? ` <span aria-hidden="true">·</span> <span>${esc(t('Gearchiveerd'))}</span>` : ''} ${helpButton('mep')}</div><h1 translate="no">${esc(l.name)}</h1>${sub}</div><div class="mep-band-actions">${modes}<div class="mep-band-tools">${tools}</div></div></div>`;
+  return `${back}<div class="folder-detail-head mep-band" id="mepBand"><div class="mep-band-text"><div class="eyebrow"><span>${esc(t('MEP-lijst'))}</span>${team ? `&nbsp;<span aria-hidden="true">·</span>&nbsp;<span translate="no">${esc(team.name)}</span>` : ''}${l.archived ? `&nbsp;<span aria-hidden="true">·</span>&nbsp;<span>${esc(t('Gearchiveerd'))}</span>` : ''} ${helpButton('mep')}</div><h1 translate="no">${esc(l.name)}</h1>${sub}</div><div class="mep-band-actions">${modes}<div class="mep-band-tools">${tools}</div></div></div>`;
 }
 
 async function renderMepList() {
@@ -1850,7 +1850,7 @@ async function renderTeamMep(m) {
       return `<button type="button" class="kt-folder kt-mep-list" onclick="openMepFromTeam('${escJs(l.id)}','${mid}')">${icon('list', { size: 24 })}<span><b translate="no">${esc(l.name)}</b><small><span>${done} ${esc(t('van'))} ${total} ${esc(t('klaar'))}</span> · <span>${esc(t('vandaag'))}</span></small></span></button>`;
     })
     .join('');
-  host.innerHTML = `<div class="kt-section-head"><h2>${esc(t('MEP-lijsten'))}</h2><div class="kt-section-links">${canNew ? `<button type="button" class="kt-link" onclick="newMepList('${mid}')"><span aria-hidden="true">＋</span> <span>${esc(t('Nieuwe MEP-lijst'))}</span></button>` : ''}</div></div>${
+  host.innerHTML = `<div class="kt-section-head"><h2>${esc(t('MEP-lijsten'))}</h2><div class="kt-section-links">${canNew ? `<button type="button" class="kt-link" onclick="newMepList('${mid}')"><span aria-hidden="true">＋</span>&nbsp;<span>${esc(t('Nieuwe MEP-lijst'))}</span></button>` : ''}</div></div>${
     rows
       ? `<div class="kt-folder-grid">${rows}</div>`
       : `<div class="kt-folder-grid"><button type="button" class="kt-folder is-new" onclick="newMepList('${mid}')"><span class="kt-plus" aria-hidden="true">＋</span><span><b>${esc(t('Nieuwe MEP-lijst'))}</b><small>${esc(t('De lijst van een post, voor het hele team'))}</small></span></button></div>`
