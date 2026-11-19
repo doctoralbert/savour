@@ -15,6 +15,8 @@ const shots = lang => ({
 export const MEP_POST = {
   id: 'mep',
   date: '2026-11-19',
+  // Foto bovenaan (PHOTOS in tools/build-seo.mjs).
+  photo: 'mepPass',
   rich: true,
   nl: {
     slug: 'blog/mep-lijsten-in-savour',

@@ -49,7 +49,11 @@ MEP-lijsten (Tools → MEP-lijsten, `js/features/mep.js`, `supabase/2026-11-17-m
 Lijst (fotoband met couverts per kaart, hokjes, live via Realtime, offline wachtrij, kookmodus, ⋯ Lijst leegmaken), Bewerken, printen op één A4.
 Ook als blok op het keukenteam-scherm (renderTeamMep). Maken en beheren alleen met Pro (`supabase/2026-11-17-mep-alleen-pro.sql`), afvinken voor iedereen. Importeren uit Excel/Word/tekst/foto via de MEP-lezer (`js/features/mep-reader.js`,
 test: `npm run test:mep`) en `js/features/mep-import.js`; de kok keurt alles goed in het controlescherm. Teksten die Savour opslaat via `mepTr`.
-Publieke pagina in vijf talen: `tools/site-mep-functie.mjs` (/mep-lijsten), met schermen `assets/app/[licht/]mep-*.jpg`; handleiding: eigen hoofdstuk.
+Publieke pagina in vijf talen: `tools/site-mep-functie.mjs` (/mep-lijsten), met schermen `assets/app/[licht/]mep-*.jpg`; handleiding: eigen hoofdstuk; blog `tools/site-blog-mep.mjs`.
+Doelgroepen (voor-wiepagina's + blog, vijf talen): koks, patissiers en banketbakkers (`tools/site-patisserie.mjs`),
+keukenbrigades, cateraars (`tools/site-catering.mjs`), bartenders en barista's. Opdracht en fotoprompts: `docs/opdracht-doelgroepen.md`.
+Bartenders en barista's: voor-wiepagina `tools/site-bar.mjs` (/voor-bartenders); omrekenen kent dashes, barspoons en oz bij een drank
+(blijft oz, `BAR_LIQUID` in `js/features/scale.js`); cocktails vallen onder Dranken; barproducten: `supabase/2026-11-19-ingredienten-bar.sql`.
 Community: forum voor alle ingelogde accounts (Mijn Savour → Community, `js/features/community.js`,
 `supabase/2026-11-10-community-forum.sql`); naam uit het profiel, nooit e-mail; beheerder verbergt, zet vast, sluit.
 Vercel bouwt alleen `main` en de testtak `savour-3` (`vercel.json` → `git.deploymentEnabled`): opslag en builds sparen.
@@ -73,6 +77,10 @@ Vercel bouwt alleen `main` en de testtak `savour-3` (`vercel.json` → `git.depl
   aangepast? Draai daarna `node tools/build-i18n.mjs && node tools/build-seo.mjs`. Verder: `robots.txt`, `llms.txt`,
   de kop van `index.html` (beschrijving, Open Graph, schema.org) en de deelafbeelding `assets/savour-og.png`
   (`tools/og-image.html`).
+- Eigen foto's (`assets/keuken`, `assets/kladjes`) hebben een keurmerkje rechtsonder (donker plaatje met woordmerk): nieuwe
+  foto erin zetten en `node tools/keurmerk.mjs` draaien. Waar de site een foto bijsnijdt (bovenaan een pagina, duo's)
+  staat hetzelfde keurmerkje als laag erop (`PHOTO_MARK` in `tools/build-seo.mjs`, `.photo-mark` in `css/site.css`). De originelen staan in `beelden-origineel/` (niet online, `.vercelignore`).
+  Prompts voor nieuwe sfeerfoto's: `docs/beelden-gemini.md`.
 - Nieuwe pagina's live gezet? Draai daarna `npm run indexnow`: dat meldt alleen nieuwe adressen uit `sitemap.xml` bij Bing aan.
 - Savour verwijdert nooit zelf gegevens zonder dat de gebruiker daarom vraagt (zie `js/data/duplicates.js`).
 - Links uit e-mails (bevestigen, wachtwoord herstellen) worden afgehandeld in `readAuthRedirect`/`handleAuthRedirect` (`js/features/auth.js`).

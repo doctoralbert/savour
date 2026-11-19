@@ -80,6 +80,43 @@ alles apart afwegen.`,
     ]
   },
   {
+    name: 'Cocktailkaart: cl, oz, dashes en barspoon, drie recepten zonder kopjes',
+    text: `Whiskey Sour
+Ingrediënten
+5 cl bourbon
+2,5 cl citroensap
+2 cl suikersiroop
+1 eiwit
+2 dashes Angostura bitters
+Bereiding
+Dry shake alle ingrediënten zonder ijs.
+Voeg ijs toe en shake opnieuw.
+
+Espresso Martini
+4 cl vodka
+2 cl koffielikeur
+3 cl espresso
+1 barspoon suikersiroop
+
+Shake hard met ijs en dubbel zeef in een coupe.
+
+Negroni
+1 oz gin
+1 oz Campari
+1 oz rode vermouth
+Roer op ijs en schenk in een tumbler.`,
+    expect: [
+      {
+        t: 'Whiskey Sour',
+        i: ['5 cl bourbon', '2,5 cl citroensap', '2 cl suikersiroop', '1 eiwit', '2 dashes Angostura bitters'],
+        s: 2,
+        c: 'high'
+      },
+      { t: 'Espresso Martini', i: ['4 cl vodka', '2 cl koffielikeur', '3 cl espresso', '1 barspoon suikersiroop'], s: 1, c: 'high' },
+      { t: 'Negroni', i: ['1 oz gin', '1 oz Campari', '1 oz rode vermouth'], s: 1, c: 'high' }
+    ]
+  },
+  {
     name: 'Kopjes Ingrediënten/Bereiding met opbrengst',
     text: `Beurre blanc
 Voor 4 personen

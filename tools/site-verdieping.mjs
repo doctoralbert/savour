@@ -54,12 +54,10 @@ export const VERDIEPING = {
   },
   chefs: {
     nl: [
-      ['Voor de chef die de kaart schrijft', 'Bij een kaartwissel wil je terugzoeken wat er vorig jaar stond en wat goed liep. Bewaar oude menukaarten in een archiefmap en zoek op ingrediënt, dan heb je zo je najaarsgerechten terug. Zet er een notitie bij met wat je de volgende keer anders zou doen.'],
-      ['Voor de patissier', 'Patisserie draait om exacte verhoudingen en grote series. Reken terug op het ingrediënt dat je hebt, bijvoorbeeld de hoeveelheid chocolade die nog ligt, en deel een recept op in onderdelen zoals deeg, vulling en glazuur. Stappen tellen per onderdeel, dus het blijft leesbaar op de werkbank.']
+      ['Voor de chef die de kaart schrijft', 'Bij een kaartwissel wil je terugzoeken wat er vorig jaar stond en wat goed liep. Bewaar oude menukaarten in een archiefmap en zoek op ingrediënt, dan heb je zo je najaarsgerechten terug. Zet er een notitie bij met wat je de volgende keer anders zou doen.']
     ],
     en: [
-      ['For the chef writing the menu', 'At a menu change you want to look back at what was on last year and what sold well. Keep old menus in an archive folder and search by ingredient, and your autumn dishes are back in no time. Add a note about what you would do differently next time.'],
-      ['For the pastry chef', 'Pastry is about exact ratios and large batches. Scale on the ingredient you have, such as the chocolate left on the shelf, and split a recipe into parts like dough, filling and glaze. Steps count per part, so it stays readable on the bench.']
+      ['For the chef writing the menu', 'At a menu change you want to look back at what was on last year and what sold well. Keep old menus in an archive folder and search by ingredient, and your autumn dishes are back in no time. Add a note about what you would do differently next time.']
     ]
   },
   brigade: {

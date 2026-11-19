@@ -146,14 +146,15 @@ export const FR = {
   audiences: {
     chefs: {
       slug: 'fr/pour-cuisiniers',
-      title: 'Application de recettes pour chefs, sous-chefs et pâtissiers | Savour',
-      desc: 'Savour est fait pour les cuisiniers professionnels : chefs de cuisine, sous-chefs et pâtissiers. Toutes tes recettes au même endroit, exactement comme tu les as écrites.',
+      title: 'Application de recettes pour chefs et sous-chefs | Savour',
+      desc: 'Savour est fait pour les cuisiniers professionnels : chefs de cuisine, sous-chefs et chefs de partie. Toutes tes recettes au même endroit, exactement comme tu les as écrites.',
       h1: 'Pour les cuisiniers',
-      lead: "Que tu diriges la cuisine, que tu fasses les sauces ou que tu sois en pâtisserie : tes recettes doivent être justes et faciles à retrouver.",
+      lead: "Que tu diriges la cuisine, que tu fasses les sauces ou que tu tiennes le garde-manger : tes recettes doivent être justes et faciles à retrouver.",
       sections: [
         ['Tes recettes, un seul endroit', "Menus de saison, menus dégustation, recettes de base d'il y a des années. Dans Savour, tout est dans un seul livre, rangé comme tu travailles."],
-        ['Précis, au gramme près', "En pâtisserie, une recette est une formule. Savour conserve tes recettes exactement comme tu les as écrites et n'invente jamais de quantités. Si le lecteur a un doute à l'importation, tu vérifies toi-même."],
-        ['Adapter aux couverts et aux pièces', "D'une dégustation pour 8 à un dîner pour 120, ou de 50 bonbons à 800. Savour convertit tout."],
+        ['Précis, au gramme près', "Une recette doit être juste, à chaque service. Savour conserve tes recettes exactement comme tu les as écrites et n'invente jamais de quantités. Si le lecteur a un doute à l'importation, tu vérifies toi-même."],
+        ['Adapter aux couverts et aux pièces', "D'une dégustation pour 8 à un dîner pour 120, ou de 2 litres de fond à 20. Savour convertit tout."],
+        ["Pâtissier ou boulanger ?", "La pâtisserie et la boulangerie ont leur propre page : [Savour pour pâtissiers et boulangers](/fr/pour-patissiers-et-boulangers)."],
         ['Ton savoir reste', "Ce que tu as construit pendant des années ne vit plus seulement dans un cahier ou dans ta tête. Il reste, même si tu changes de cuisine."]
       ]
     },

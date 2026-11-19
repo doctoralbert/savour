@@ -60,7 +60,7 @@ export const EXTRA_FR = {
     print: ['Imprimer ses recettes', 'Une recette ou tout un dossier en une fois, bien imprimé pour la cuisine.'],
     cloud: ['Base de données et archives', 'Toutes tes recettes en sécurité dans le cloud, en ligne et hors ligne sur tous les appareils.'],
     roadmap: ['Bientôt dans Savour', "Coût par recette, historique de chaque recette et plus."],
-    chefs: ['Cuisiniers', 'Pour les chefs, sous-chefs et pâtissiers qui veulent préserver leurs recettes.'],
+    chefs: ['Cuisiniers', 'Pour les chefs, sous-chefs et chefs de partie qui veulent préserver leurs recettes.'],
     brigade: ['Brigades de cuisine', "Pour toute l'équipe : chefs de partie, commis et stagiaires."]
   }
 };

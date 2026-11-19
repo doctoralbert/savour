@@ -239,10 +239,10 @@ export const DE = {
   audiences: {
     chefs: {
       slug: 'de/fuer-koeche',
-      title: 'Rezept-App für Köche, Sous-Chefs und Patissiers | Savour',
-      desc: 'Savour ist für Köche in der Profiküche gemacht: Küchenchefs, Sous-Chefs und Patissiers. Alle Rezepturen an einem Ort, genau so, wie du sie geschrieben hast.',
+      title: 'Rezept-App für Köche und Sous-Chefs | Savour',
+      desc: 'Savour ist für Köche in der Profiküche gemacht: Küchenchefs, Sous-Chefs und Chefs de Partie. Alle Rezepturen an einem Ort, genau so, wie du sie geschrieben hast.',
       h1: 'Für Köche',
-      lead: 'Ob du die Küche leitest, die Saucen machst oder in der Patisserie arbeitest: Deine Rezepte müssen stimmen und schnell zu finden sein.',
+      lead: 'Ob du die Küche leitest, die Saucen machst oder den Garde-Manger führst: Deine Rezepte müssen stimmen und schnell zu finden sein.',
       sections: [
         [
           'Deine Rezepte, ein Ort',
@@ -250,12 +250,13 @@ export const DE = {
         ],
         [
           'Genau, aufs Gramm',
-          'In der Patisserie ist ein Rezept eine Formel. Savour bewahrt deine Rezepte genau so, wie du sie geschrieben hast, und erfindet nie Mengen. Ist der Leser beim Import unsicher, prüfst du es selbst.'
+          'Eine Rezeptur muss stimmen, in jedem Service. Savour bewahrt deine Rezepte genau so, wie du sie geschrieben hast, und erfindet nie Mengen. Ist der Leser beim Import unsicher, prüfst du es selbst.'
         ],
         [
           'Hochrechnen nach Gedecken und Stück',
-          'Von einer Verkostung für 8 bis zum Dinner für 120, oder von 50 Pralinen auf 800. Savour rechnet alles um.'
+          'Von einer Verkostung für 8 bis zum Dinner für 120, oder von 2 Liter Fond auf 20. Savour rechnet alles um.'
         ],
+        ["Patissier oder Konditor?", "Für Patisserie und Konditorei gibt es eine eigene Seite: [Savour für Patissiers und Konditoren](/de/fuer-patissiers-und-konditoren)."],
         [
           'Dein Wissen bleibt',
           'Was du über Jahre aufgebaut hast, steht nicht mehr nur in einem Heft oder in deinem Kopf. Es bleibt, auch wenn du die Küche wechselst.'

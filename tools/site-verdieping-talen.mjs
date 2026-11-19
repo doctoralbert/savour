@@ -72,16 +72,13 @@ export const VERDIEPING_TALEN = {
   },
   chefs: {
     de: [
-      ['Für den Küchenchef, der die Karte schreibt', 'Beim Kartenwechsel willst du nachsehen, was im letzten Jahr auf der Karte stand und was gut lief. Bewahre alte Menüs in einem Archivordner auf und suche nach Zutaten, dann hast du deine Herbstgerichte schnell wieder. Notiere dazu, was du beim nächsten Mal anders machen würdest.'],
-      ['Für den Patissier', 'In der Patisserie geht es um genaue Verhältnisse und große Mengen. Rechne auf die Zutat um, die du hast, etwa die noch vorhandene Schokolade, und teile ein Rezept in Teile wie Teig, Füllung und Glasur. Die Schritte zählen pro Teil, so bleibt es auf der Arbeitsfläche gut lesbar.']
+      ['Für den Küchenchef, der die Karte schreibt', 'Beim Kartenwechsel willst du nachsehen, was im letzten Jahr auf der Karte stand und was gut lief. Bewahre alte Menüs in einem Archivordner auf und suche nach Zutaten, dann hast du deine Herbstgerichte schnell wieder. Notiere dazu, was du beim nächsten Mal anders machen würdest.']
     ],
     es: [
-      ['Para el chef que escribe la carta', 'En un cambio de carta quieres ver qué había el año pasado y qué funcionó. Guarda los menús antiguos en una carpeta de archivo y busca por ingrediente, y recuperarás enseguida tus platos de otoño. Añade una nota con lo que harías distinto la próxima vez.'],
-      ['Para el pastelero', 'La pastelería trata de proporciones exactas y grandes series. Escala según el ingrediente que tienes, como el chocolate que queda, y divide una receta en partes como masa, relleno y glaseado. Los pasos se cuentan por parte, así sigue siendo legible en la mesa de trabajo.']
+      ['Para el chef que escribe la carta', 'En un cambio de carta quieres ver qué había el año pasado y qué funcionó. Guarda los menús antiguos en una carpeta de archivo y busca por ingrediente, y recuperarás enseguida tus platos de otoño. Añade una nota con lo que harías distinto la próxima vez.']
     ],
     fr: [
-      ['Pour le chef qui écrit la carte', "Au changement de carte, tu veux retrouver ce qui figurait l'an dernier et ce qui a bien marché. Garde les anciens menus dans un dossier d'archives et cherche par ingrédient : tes plats d'automne reviennent aussitôt. Ajoute une note sur ce que tu ferais autrement la prochaine fois."],
-      ['Pour le pâtissier', "La pâtisserie repose sur des proportions exactes et de grandes séries. Adapte selon l'ingrédient que tu as, comme le chocolat restant, et divise une recette en parties comme pâte, garniture et glaçage. Les étapes se comptent par partie, ce qui reste lisible sur le plan de travail."]
+      ['Pour le chef qui écrit la carte', "Au changement de carte, tu veux retrouver ce qui figurait l'an dernier et ce qui a bien marché. Garde les anciens menus dans un dossier d'archives et cherche par ingrédient : tes plats d'automne reviennent aussitôt. Ajoute une note sur ce que tu ferais autrement la prochaine fois."]
     ]
   },
   brigade: {

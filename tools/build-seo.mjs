@@ -45,7 +45,13 @@ import { BLOG_RICH } from './site-blog-rich.mjs';
 import { FEATURE_RICH } from './site-feature-rich.mjs';
 import { ALLERGEN_FEATURE, ALLERGEN_FEATURE_RICH } from './site-allergenen-functie.mjs';
 import { MEP_FEATURE, MEP_FEATURE_RICH } from './site-mep-functie.mjs';
+import { BAR_AUDIENCE, BAR_RICH } from './site-bar.mjs';
+import { PATISSERIE_AUDIENCE, PATISSERIE_RICH } from './site-patisserie.mjs';
+import { CATERING_AUDIENCE, CATERING_RICH } from './site-catering.mjs';
 import { MEP_POST, MEP_POST_DE, MEP_POST_ES, MEP_POST_FR } from './site-blog-mep.mjs';
+import { BAR_POST, BAR_POST_DE, BAR_POST_ES, BAR_POST_FR } from './site-blog-bar.mjs';
+import { PATISSERIE_POST, PATISSERIE_POST_DE, PATISSERIE_POST_ES, PATISSERIE_POST_FR } from './site-blog-patisserie.mjs';
+import { CATERING_POST, CATERING_POST_DE, CATERING_POST_ES, CATERING_POST_FR } from './site-blog-catering.mjs';
 import { PAPRIKA_PAGE } from './site-paprika.mjs';
 import { PAGE_RICH } from './site-page-rich.mjs';
 import { HOME_NEXT } from './site-home.mjs';
@@ -90,6 +96,15 @@ Object.assign(FR.posts, COMMUNITY_POST_FR);
 Object.assign(DE.posts, MEP_POST_DE);
 Object.assign(ES.posts, MEP_POST_ES);
 Object.assign(FR.posts, MEP_POST_FR);
+Object.assign(DE.posts, BAR_POST_DE);
+Object.assign(ES.posts, BAR_POST_ES);
+Object.assign(FR.posts, BAR_POST_FR);
+for (const [P, a, b] of [
+  [DE, PATISSERIE_POST_DE, CATERING_POST_DE],
+  [ES, PATISSERIE_POST_ES, CATERING_POST_ES],
+  [FR, PATISSERIE_POST_FR, CATERING_POST_FR]
+])
+  Object.assign(P.posts, a, b);
 EXTRA_LANGS.fr = EXTRA_FR;
 APP_PAGE.fr = APP_PAGE_FR;
 DELIVER.fr = DELIVER_FR;
@@ -98,7 +113,7 @@ SERVICE.fr = SERVICE_FR;
 KLADJE_REAL.fr = KLADJE_FR;
 
 // Nieuwste blogartikelen eerst.
-POSTS.unshift(MEP_POST, FOODCOST_CALC_POST, COMMUNITY_POST, AI_POST, FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
+POSTS.unshift(CATERING_POST, PATISSERIE_POST, BAR_POST, MEP_POST, FOODCOST_CALC_POST, COMMUNITY_POST, AI_POST, FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
 // Achtergrondfoto achter de bovenkant van de homepage. Alleen als het bestand bestaat; zonder bestand is de
@@ -286,6 +301,38 @@ const blogSlug = { nl: 'blog', en: 'en/blog' };
   }
   FEATURE_RICH.mep = MEP_FEATURE_RICH;
 }
+// Voor bartenders (tools/site-bar.mjs), 2026-11-19: na "Keukenbrigades".
+{
+  AUDIENCES.push({ id: 'bar', nl: BAR_AUDIENCE.nl, en: BAR_AUDIENCE.en });
+  for (const [l, P] of [
+    ['de', DE],
+    ['es', ES],
+    ['fr', FR]
+  ]) {
+    const { menu, short, ...rest } = BAR_AUDIENCE[l];
+    EXTRA_LANGS[l].items.bar = [menu, short];
+    P.audiences.bar = rest;
+  }
+  FEATURE_RICH.bar = BAR_RICH;
+}
+// Patissiers en banketbakkers (na Koks) en cateraars (na Keukenbrigades), tools/site-patisserie.mjs en
+// tools/site-catering.mjs, 2026-11-20.
+for (const [id, after, A, R] of [
+  ['patisserie', 'chefs', PATISSERIE_AUDIENCE, PATISSERIE_RICH],
+  ['catering', 'brigade', CATERING_AUDIENCE, CATERING_RICH]
+]) {
+  AUDIENCES.splice(AUDIENCES.findIndex(a => a.id === after) + 1, 0, { id, nl: A.nl, en: A.en });
+  for (const [l, P] of [
+    ['de', DE],
+    ['es', ES],
+    ['fr', FR]
+  ]) {
+    const { menu, short, ...rest } = A[l];
+    EXTRA_LANGS[l].items[id] = [menu, short];
+    P.audiences[id] = rest;
+  }
+  FEATURE_RICH[id] = R;
+}
 
 // Duits en Spaans: menu en startpagina uit tools/site-content-extra.mjs, alle andere pagina's uit
 // tools/site-pages-de.mjs, -es.mjs en -fr.mjs. Ontbreekt er een vertaling, dan stopt het bouwen.
@@ -408,6 +455,62 @@ for (const [slug, langs] of Object.entries(BLOG_RICH)) {
 
 // Beschrijving van de keukenfoto's, voor zoekmachines en schermlezers.
 const PHOTO_ALT = {
+  patisserieWeegschaal: {
+    nl: "Bloem op de weegschaal tussen suiker, boter, eidooiers en vanille",
+    en: "Flour on the scale between sugar, butter, egg yolks and vanilla",
+    de: "Mehl auf der Waage zwischen Zucker, Butter, Eigelb und Vanille",
+    es: "Harina en la báscula entre azúcar, mantequilla, yemas y vainilla",
+    fr: "De la farine sur la balance entre sucre, beurre, jaunes d’œuf et vanille"
+  },
+  patisserieViennoiserie: {
+    nl: "Croissants en brioches op een bakplaat",
+    en: "Croissants and brioches on a baking tray",
+    de: "Croissants und Brioches auf einem Backblech",
+    es: "Cruasanes y brioches en una bandeja de horno",
+    fr: "Croissants et brioches sur une plaque de cuisson"
+  },
+  cateringBuffet: {
+    nl: "Gastronormbakken met groenten, vlees en granen voor een event",
+    en: "Gastronorm trays with vegetables, meat and grains for an event",
+    de: "Gastronormbehälter mit Gemüse, Fleisch und Getreide für ein Event",
+    es: "Bandejas gastronorm con verduras, carne y cereales para un evento",
+    fr: "Bacs gastronormes avec légumes, viande et céréales pour un événement"
+  },
+  cateringPass: {
+    nl: "Een kok vinkt een prep-lijst af bij de borden",
+    en: "A cook ticks off a prep list next to the plates",
+    de: "Ein Koch hakt eine MEP-Liste neben den Tellern ab",
+    es: "Un cocinero marca una lista MEP junto a los platos",
+    fr: "Un cuisinier coche une liste MEP à côté des assiettes"
+  },
+  baristaHero: {
+    nl: "Een barista schenkt latte-art in een cappuccino",
+    en: "A barista pours latte art into a cappuccino",
+    de: "Ein Barista gießt Latte Art in einen Cappuccino",
+    es: "Un barista vierte latte art en un capuchino",
+    fr: "Un barista verse un latte art dans un cappuccino"
+  },
+  baristaSiropen: {
+    nl: "Siroopflessen met pompjes, havermelk en een iced latte",
+    en: "Syrup bottles with pumps, oat milk and an iced latte",
+    de: "Sirupflaschen mit Pumpen, Hafermilch und ein Iced Latte",
+    es: "Botellas de sirope con dosificador, leche de avena y un iced latte",
+    fr: "Bouteilles de sirop avec pompes, lait d’avoine et un iced latte"
+  },
+  barBatch: {
+    nl: 'Een bartender schenkt een gebatchte cocktail in flessen',
+    en: 'A bartender pours a batched cocktail into bottles',
+    de: 'Ein Bartender füllt einen gebatchten Cocktail in Flaschen',
+    es: 'Un bartender vierte un cóctel en batch en botellas',
+    fr: 'Un bartender verse un cocktail en batch dans des bouteilles'
+  },
+  barMep: {
+    nl: 'Mise-en-place aan de bar: citrus, garnituren en siropen',
+    en: 'Bar mise en place: citrus, garnishes and syrups',
+    de: 'Mise en place an der Bar: Zitrus, Garnituren und Sirupe',
+    es: 'Mise en place en la barra: cítricos, garnituras y siropes',
+    fr: 'Mise en place au bar : agrumes, garnitures et sirops'
+  },
   wortels: {
     nl: 'Verse wortels op een werkbank in de keuken',
     en: 'Fresh carrots on a kitchen workbench',
@@ -598,7 +701,7 @@ function mobileMenu(lang, alt, inApp) {
 // inApp: de startpagina in index.html (knoppen openen inloggen/demo direct; taalknop wisselt zonder herladen).
 // Licht of donker voor de website (css/site.css, html.site-light). Staat ook bovenin index.html.
 const SITE_THEME_JS =
-  "<script>(function(){var N=['allergenen','allergenenkaart','mep-lijst','mep-bureau','bibliotheek','brigade','importeren','kookmodus','lijst','mappen','meer-omrekenen','omrekenen','recept'];function shots(){var l=document.documentElement.classList.contains('site-light');document.querySelectorAll('img[src*=\"/assets/app/\"]').forEach(function(i){var s=i.getAttribute('src'),k=s.indexOf('/assets/app/'),f=s.slice(k+12).replace('licht/','');if(N.indexOf(f.slice(0,f.lastIndexOf('-')))<0)return;i.setAttribute('src',s.slice(0,k)+'/assets/app/'+(l?'licht/':'')+f)})}try{if(localStorage.getItem('savour_site_theme')==='light')document.documentElement.classList.add('site-light')}catch(e){}window.savourSiteShots=shots;document.addEventListener('DOMContentLoaded',shots);window.savourSiteTheme=function(){var l=document.documentElement.classList.toggle('site-light');try{localStorage.setItem('savour_site_theme',l?'light':'dark')}catch(e){}shots()}})()</script>";
+  "<script>(function(){var N=['allergenen','allergenenkaart','mep-lijst','mep-bureau','bar-batch','bar-recept','patisserie-batch','patisserie-recept','catering-batch','bibliotheek','brigade','importeren','kookmodus','lijst','mappen','meer-omrekenen','omrekenen','recept'];function shots(){var l=document.documentElement.classList.contains('site-light');document.querySelectorAll('img[src*=\"/assets/app/\"]').forEach(function(i){var s=i.getAttribute('src'),k=s.indexOf('/assets/app/'),f=s.slice(k+12).replace('licht/','');if(N.indexOf(f.slice(0,f.lastIndexOf('-')))<0)return;i.setAttribute('src',s.slice(0,k)+'/assets/app/'+(l?'licht/':'')+f)})}try{if(localStorage.getItem('savour_site_theme')==='light')document.documentElement.classList.add('site-light')}catch(e){}window.savourSiteShots=shots;document.addEventListener('DOMContentLoaded',shots);window.savourSiteTheme=function(){var l=document.documentElement.classList.toggle('site-light');try{localStorage.setItem('savour_site_theme',l?'light':'dark')}catch(e){}shots()}})()</script>";
 const THEME_LABEL = {
   nl: 'Licht of donker',
   en: 'Light or dark',
@@ -668,9 +771,20 @@ function kladje(lang, short = false) {
 }
 
 // Functies onder een voor-wie-pagina: wat voor die lezer het meest telt, per pagina anders.
+// Twee foto's midden op een voor-wiepagina (PHOTOS hieronder); de bartenderpagina krijgt onderaan ook de barista's.
+const AUDIENCE_DUO = {
+  chefs: ['wortels', 'uien'],
+  brigade: ['wortels', 'eend'],
+  patisserie: ['patisserieWeegschaal', 'patisserieViennoiserie'],
+  catering: ['cateringBuffet', 'cateringPass'],
+  bar: ['barBatch', 'barMep']
+};
 const AUDIENCE_FEATURES = {
   chefs: ['digitise', 'scale', 'allergens', 'cloud', 'inladen'],
-  brigade: ['share', 'organise', 'allergens', 'print']
+  brigade: ['share', 'organise', 'allergens', 'print'],
+  bar: ['scale', 'digitise', 'share', 'allergens', 'mep'],
+  patisserie: ['scale', 'allergens', 'print', 'digitise', 'mep'],
+  catering: ['scale', 'mep', 'allergens', 'share', 'inladen']
 };
 // Blog en functie- en voor-wiepagina's verwijzen naar elkaar, beide kanten op: onder een functie- of voor-wiepagina
 // "Uit het blog" met deze artikelen (post-id's), onder een artikel de pagina's die ernaar verwijzen.
@@ -682,6 +796,9 @@ const PAGE_POSTS = {
   print: ['logo', 'messy'],
   allergens: ['allergenen', 'foodcost'],
   mep: ['mep'],
+  bar: ['bar', 'mep'],
+  patisserie: ['patisserie', 'allergenen'],
+  catering: ['catering', 'mep'],
   cloud: ['database', 'offline'],
   inladen: ['overzetten', 'import'],
   roadmap: ['community', 'ai-horeca', 'foodcost', 'roadmap', 'allergenen'],
@@ -1119,7 +1236,24 @@ const PHOTOS = {
   bloemen: ['bloemen.jpg', 'center 45%'],
   bloemenveld: ['bloemenveld.jpg', 'center 55%'],
   // Het bord staat midden in de foto: op de laptop ingezoomd en links uitgelijnd, zodat het rechts naast de tekst staat.
-  bord: ['bord-pass.jpg', 'center 55%', '160% auto', '0% 58%']
+  bord: ['bord-pass.jpg', 'center 55%', '160% auto', '0% 58%'],
+  // Bar en MEP (2026-11-19, gemaakt met Gemini in dezelfde stijl; prompts in docs/beelden-gemini.md).
+  barSour: ['bar-sour.jpg', 'center 50%'],
+  barBatch: ['bar-batch.jpg', 'center 45%'],
+  barMep: ['bar-mep.jpg', 'center 55%'],
+  barNegroni: ['bar-negroni.jpg', 'center 50%'],
+  barCoupes: ['bar-coupes.jpg', 'center 55%'],
+  mepPass: ['mep-pass.jpg', 'center 55%'],
+  // Patisserie, catering en barista (2026-11-20).
+  patisserieBlog: ['patisserie-blog.jpg', 'center 55%'],
+  patisserieWeegschaal: ['patisserie-weegschaal.jpg', 'center 55%'],
+  patisserieViennoiserie: ['patisserie-viennoiserie.jpg', 'center 60%'],
+  cateringHero: ['catering-hero.jpg', 'center 50%'],
+  cateringBuffet: ['catering-buffet.jpg', 'center 60%'],
+  cateringPass: ['catering-pass.jpg', 'center 45%'],
+  cateringBlog: ['catering-blog.jpg', 'center 55%'],
+  baristaHero: ['barista-hero.jpg', 'center 50%'],
+  baristaSiropen: ['barista-siropen.jpg', 'center 55%']
 };
 // De ingrediëntenlijst met de allergenen per taal (tools/build-ingredientenlijst.mjs): { code: [extra, nl, en, de, es, fr] }.
 const INGREDIENT_LIST = JSON.parse(fs.readFileSync(new URL('assets/data/ingredientenlijst.json', ROOT), 'utf8'));
@@ -1132,6 +1266,11 @@ const PAGE_PHOTO = {
   'recepten-opschalen': 'wortels',
   'recepten-printen': 'uien',
   'allergenen-per-recept': 'keuken',
+  'mep-lijsten': 'mepPass',
+  'voor-bartenders': 'barSour',
+  // Tot patisserie-hero.jpg er is: de foto met spuitzakken en crème pâtissière.
+  'voor-patissiers-en-banketbakkers': 'patisserieBlog',
+  'voor-cateraars': 'cateringHero',
   binnenkort: 'bloemen',
   'voor-koks': 'eend',
   'voor-keukenbrigades': 'brigade',
@@ -1188,7 +1327,7 @@ const featureShow = (id, lang) => {
     ? `<section class="feat-show"><div class="site-wrap">${r.showcase
         .map(
           (x, i) =>
-            `<div class="feat-row${i % 2 ? ' flip' : ''} reveal"><div><h2>${esc(x.title)}</h2><p>${proseText(x.text)}</p></div><figure><img src="${x.shot}" alt="${esc(x.alt)}" loading="lazy"></figure></div>`
+            `<div class="feat-row${i % 2 ? ' flip' : ''} reveal"><div><h2>${esc(x.title)}</h2><p>${proseText(x.text)}</p></div><figure><img src="${assetV(x.shot)}" alt="${esc(x.alt)}" loading="lazy"></figure></div>`
         )
         .join('')}</div></section>`
     : '';
@@ -1199,16 +1338,25 @@ const featureFaq = (id, lang) => {
     ? `<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(FAQ_TITLE[lang])}</h2><div class="site-faq">${r.faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${proseText(a)}</p></details>`).join('')}</div></div></section>`
     : '';
 };
+// Versienummer (bestandsgrootte) achter een eigen afbeelding: na een nieuwe versie laadt de browser die meteen.
+const assetV = src => {
+  if (!String(src).startsWith('/assets/') || String(src).includes('?')) return src;
+  const f = new URL(src.slice(1), ROOT);
+  return fs.existsSync(f) ? `${src}?v=${fs.statSync(f).size}` : src;
+};
+// Het keurmerk zit in elke eigen foto (tools/keurmerk.mjs). Waar de site een foto bijsnijdt (bovenaan een pagina en
+// de duo's), valt de hoek weg; daar staat hetzelfde keurmerkje als laag op de foto.
+const PHOTO_MARK = '<span class="photo-mark" aria-hidden="true" translate="no">SAVOUR</span>';
 const pageTop = (crumbHtml, h1, lead, photo) => {
   const p = photo && PHOTOS[photo];
   const style = p
     ? ` style="--page-photo:url('${photoFile(photo)}');--page-photo-pos:${p[1]}${p[2] ? `;--page-photo-size:${p[2]};--page-photo-pos-wide:${p[3]}` : ''}"`
     : '';
-  return `<section class="site-page-head${p ? ' has-photo' : ''}"${style}><div class="site-wrap site-narrow">${crumbHtml}<h1>${esc(h1)}</h1>${lead ? `<p class="site-lead">${esc(lead)}</p>` : ''}</div></section>`;
+  return `<section class="site-page-head${p ? ' has-photo' : ''}"${style}><div class="site-wrap site-narrow">${crumbHtml}<h1>${esc(h1)}</h1>${lead ? `<p class="site-lead">${esc(lead)}</p>` : ''}</div>${p ? PHOTO_MARK : ''}</section>`;
 };
 // Twee staande foto's naast elkaar midden in de tekst (Voor wie-pagina's).
 const photoDuo = (lang, a, b) =>
-  `<figure class="site-photo-duo reveal">${[a, b].map(k => `<img src="${photoFile(k)}" alt="${esc(PHOTO_ALT[k]?.[lang] || PHOTO_ALT[k]?.en || '')}" loading="lazy" style="object-position:${PHOTOS[k][1]}">`).join('')}</figure>`;
+  `<figure class="site-photo-duo reveal">${[a, b].map(k => `<span class="photo-mark-wrap"><img src="${photoFile(k)}" alt="${esc(PHOTO_ALT[k]?.[lang] || PHOTO_ALT[k]?.en || '')}" loading="lazy" style="object-position:${PHOTOS[k][1]}">${PHOTO_MARK}</span>`).join('')}</figure>`;
 // Een sectie is [kop, tekst] met eventueel als derde deel een opsomming (lijst met teksten) of een tabel
 // ({ head: [...], rows: [[...]] }). Tekst mag alinea's (witregel) en links ([tekst](https://… of /pad)) bevatten.
 const proseText = s =>
@@ -1230,10 +1378,10 @@ const postBlock = x => {
       return `<aside class="post-box${kind === 'warn' ? ' note' : ''}"><svg viewBox="0 0 24 24" aria-hidden="true">${BOX_ICON[kind]}</svg><div><b>${esc(x[kind][0])}</b><p>${proseText(x[kind][1])}</p></div></aside>`;
   if (x.quote) return `<p class="post-quote reveal">${esc(x.quote)}</p>`;
   if (x.shot)
-    return `<figure class="post-shot${x.wide ? ' wide' : ''} reveal"><img src="${x.shot}" alt="${esc(x.alt)}" loading="lazy"><figcaption>${esc(x.caption)}</figcaption></figure>`;
+    return `<figure class="post-shot${x.wide ? ' wide' : ''} reveal"><img src="${assetV(x.shot)}" alt="${esc(x.alt)}" loading="lazy"><figcaption>${esc(x.caption)}</figcaption></figure>`;
   // Twee beelden naast elkaar: { duo: [[pad, alt], [pad, alt]], caption }
   if (x.duo)
-    return `<figure class="post-duo reveal"><div>${x.duo.map(([src, alt]) => `<img src="${src}" alt="${esc(alt)}" loading="lazy">`).join('')}</div><figcaption>${esc(x.caption)}</figcaption></figure>`;
+    return `<figure class="post-duo reveal"><div>${x.duo.map(([src, alt]) => `<img src="${assetV(src)}" alt="${esc(alt)}" loading="lazy">`).join('')}</div><figcaption>${esc(x.caption)}</figcaption></figure>`;
   // Stappen: { steps: [[kop, tekst], ...] }
   if (x.steps)
     return `<ol class="post-steps">${x.steps.map(([h, d]) => `<li><b>${esc(h)}</b><span>${proseText(d)}</span></li>`).join('')}</ol>`;
@@ -1339,7 +1487,7 @@ for (const lang of LANGS) {
       body: c =>
         pageTop(c, t.h1, t.lead, PAGE_PHOTO[a.nl.slug]) +
         featureBand(a.id, lang) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${photoDuo(lang, ...(a.nl.slug === 'voor-koks' ? ['wortels', 'uien'] : ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}</div></article>${featureShow(a.id, lang)}${featureFaq(a.id, lang)}
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections.slice(0, 2))}${photoDuo(lang, ...(AUDIENCE_DUO[a.id] || ['wortels', 'eend']))}${sectionsHtml(t.sections.slice(2))}${a.id === 'bar' ? photoDuo(lang, 'baristaHero', 'baristaSiropen') : ''}</div></article>${featureShow(a.id, lang)}${featureFaq(a.id, lang)}
 <section class="site-related"><div class="site-wrap site-narrow"><h2>${u.features}</h2>${rows(
           FEATURES.filter(x => (AUDIENCE_FEATURES[a.id] || []).includes(x.id)),
           lang
@@ -1443,14 +1591,14 @@ for (const lang of LANGS) {
           description: t.desc,
           datePublished: p.date,
           inLanguage: lang,
-          image: SITE + (coverFile(p, lang) || photoFile(BLOG_PHOTOS[n % BLOG_PHOTOS.length])).replace(/\?.*/, ''),
+          image: SITE + (coverFile(p, lang) || photoFile(p.photo || BLOG_PHOTOS[n % BLOG_PHOTOS.length])).replace(/\?.*/, ''),
           author: ORG,
           publisher: ORG,
           mainEntityOfPage: url(t.slug)
         }
       ],
       body: c =>
-        pageTop(c, t.h1, t.lead, BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
+        pageTop(c, t.h1, t.lead, p.photo || BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>${postPages(p, lang)}`
     });
   }
