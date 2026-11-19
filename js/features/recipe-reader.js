@@ -80,7 +80,17 @@ const READER_QTY_LAST = new RegExp(
   `^(\\p{L}[^\\d½¼¾⅓⅔]*?)(?:\\s*[–—:-]\\s*|\\s+)(${READER_QTY}\\s*(?:${READER_UNIT}\\b\\.?)?)\\s*$`,
   'iu'
 );
-function readerQtyFirst(line) {
+// Duits herkennen aan gewone keukenwoorden die alleen in het Duits zo geschreven worden. In het Duits krijgt elk
+// zelfstandig naamwoord een hoofdletter, dus daar maken we "Milch 1850" niet tot "1850 milch" (2026-11-16).
+const READER_GERMAN_WORD =
+  /(?<!\p{L})(?:zucker|puderzucker|milch|sahne|schlagsahne|eigelb|eiweiß|eiweiss|vollei|mehl|salz|wasser|kuvertüre|zitronensaft|backen|aufkochen|kochen|unterrühren|rühren|verrühren|mischen|lassen|und|stück|prise|teig|füllung|zutaten|zubereitung|eier|kakaopulver|hefe|schokolade|mandeln|nüsse)(?!\p{L})/giu;
+function readerLooksGerman(lines) {
+  const text = (Array.isArray(lines) ? lines : []).map(l => String(l ?? '')).join(' ');
+  const found = new Set((text.match(READER_GERMAN_WORD) || []).map(w => w.toLowerCase()));
+  return found.size >= 2;
+}
+
+function readerQtyFirst(line, keepCase = false) {
   const x = String(line ?? '').trim();
   if (!x || READER_STARTS_WITH_QTY.test(x)) return x;
   const m = x.match(READER_QTY_LAST);
@@ -96,7 +106,8 @@ function readerQtyFirst(line) {
     return x;
   // Eerste letter klein zoals in een gewone ingrediëntregel, behalve bij een afkorting ("BH").
   // (Niet bij een eigennaam: "Granny Smith appel" blijft zo.)
-  if (/^\p{Lu}\p{Ll}/u.test(name) && !/\s\p{Lu}/u.test(name)) name = name[0].toLowerCase() + name.slice(1);
+  // Niet in het Duits: daar hoort de hoofdletter bij het woord ("1850 Milch").
+  if (!keepCase && /^\p{Lu}\p{Ll}/u.test(name) && !/\s\p{Lu}/u.test(name)) name = name[0].toLowerCase() + name.slice(1);
   return `${m[2].trim()} ${name}`;
 }
 
@@ -998,6 +1009,7 @@ function tidyRecipeLines(recipe, options = {}) {
     stepsIn = stepsIn.slice(methodAt);
     changed += methodAt;
   }
+  const keepCase = readerLooksGerman([recipe?.title, ...ingredientsIn, ...stepsIn]);
   const tidy = (list, isIngredients) => {
     const out = [];
     for (const raw of Array.isArray(list) ? list : []) {
@@ -1026,7 +1038,7 @@ function tidyRecipeLines(recipe, options = {}) {
       }
       // Stapnummers vooraan ("4. Forme den Teig", "(2) Mengen"): Savour nummert de stappen zelf.
       const pieces = isIngredients
-        ? readerSplitRunOn(x).map(readerQtyFirst)
+        ? readerSplitRunOn(x).map(p => readerQtyFirst(p, keepCase))
         : [x.replace(/^\(?\d{1,2}[.)]\)?\s+(?=\p{L})/u, '')];
       // Alleen spaties anders ("400g          Sahne")? Dan de regel laten zoals hij is: dat is geen opschonen.
       if (pieces.length === 1 && pieces[0] === line.replace(/\s+/g, ' ').trim()) {
