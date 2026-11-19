@@ -57,6 +57,68 @@ die erbij staat, in `assets/keuken/`, en laat Claude ze daarna koppelen.
 > mayonnaise, pickled red onion, a squeeze bottle of herb oil. A chef's hand (no face) holding a pen above the list.
 > Dark steel counter, warm light, copper pans out of focus in the background. + algemene stijl
 
+Nummers 1 t/m 6 staan op de site (2026-11-19). Nummers 7 t/m 16 zijn voor de nieuwe doelgroepen
+(opdracht: `docs/opdracht-doelgroepen.md`).
+
+---
+
+## Patissiers en banketbakkers
+
+### 7. `patisserie-hero.jpg` — bovenaan de pagina
+> A row of perfectly glazed small pastries on a dark marble pastry bench: glossy chocolate entremets, raspberry
+> tartlets with neat piping, a few golden financiers. A pastry chef's hands (no face) placing the last tartlet with
+> tweezers. Behind, out of focus, a copper pan and a stand mixer bowl. Subject on the right half so there is calm dark
+> space on the left for the page title. + algemene stijl
+
+### 8. `patisserie-weegschaal.jpg` — duo in het midden
+> Close-up of a digital pastry scale on a dark marble bench with a stainless bowl of sifted flour on it, the display
+> softly glowing but showing no readable numbers. Around it small bowls of sugar, cubed butter, egg yolks and vanilla
+> pods. Precise, clean and calm, like a professional pastry kitchen. + algemene stijl
+
+### 9. `patisserie-viennoiserie.jpg` — duo in het midden
+> Freshly baked croissants and brioches on a dark perforated baking tray, glossy and deep golden, a little steam
+> rising, a dusting of flour on the dark wooden bench beside them. Warm light from the side, copper and dark wood
+> in the background. + algemene stijl
+
+### 10. `patisserie-blog.jpg` — bovenaan de blog
+> Overhead three-quarter view of a pastry station during mise en place: piping bags filled with cream, a bowl of
+> crème pâtissière, sliced strawberries, tempered chocolate decorations on parchment, a palette knife. Dark marble,
+> warm low light, orderly and premium. + algemene stijl
+
+## Cateraars en eventbedrijven
+
+### 11. `catering-hero.jpg` — bovenaan de pagina
+> A long dark banquet kitchen pass with dozens of identical plated starters lined up in perfect rows, each with the
+> same neat garnish, warm heat lamps glowing above. Chefs' hands (no faces) placing the final garnish on the nearest
+> plates. Depth of field so the rows disappear softly into the dark. + algemene stijl
+
+### 12. `catering-buffet.jpg` — duo in het midden
+> Large stainless gastronorm trays on a dark steel counter, filled with neatly portioned food for an event: roasted
+> vegetables, sliced beef, grain salad, stacked in a mobile banquet trolley in the background. Warm light, calm and
+> organised, professional catering kitchen before service. + algemene stijl
+
+### 13. `catering-pass.jpg` — duo in het midden
+> A clipboard with a printed event prep list (writing blurred and unreadable, tick boxes) hanging at a busy catering
+> pass, next to stacks of clean white plates and insulated transport boxes. One hand (no face) ticking a box with a
+> pen. Dark steel, warm light, copper pans out of focus. + algemene stijl
+
+### 14. `catering-blog.jpg` — bovenaan de blog
+> Close-up of many small canapés on dark slate boards in perfect rows: blinis with cured salmon, mini tartlets,
+> skewers with herbs, each identical. A gloved hand (no face) placing a sprig of dill. Warm side light, deep dark
+> background. + algemene stijl
+
+## Barista's (bij de bartenderpagina en -blog)
+
+### 15. `barista-hero.jpg`
+> A barista's hands (no face) pouring steamed milk into a cappuccino in a dark ceramic cup, a fine latte-art leaf
+> forming, on a dark walnut counter beside a chrome espresso machine with soft reflections. Warm low light, a little
+> steam, shallow depth of field. + algemene stijl
+
+### 16. `barista-siropen.jpg`
+> A neat row of unlabelled glass syrup bottles with pumps in amber, caramel and pink tones on a dark wooden coffee bar,
+> next to a small jug of oat milk and a glass of iced latte with visible layers. Coffee beans scattered softly in the
+> foreground. Warm light, calm, premium coffee bar. + algemene stijl
+
 ---
 
 **Tip:** vind je een beeld te druk of te licht, vraag dan aan Gemini: "Make it darker and calmer, with more empty dark
