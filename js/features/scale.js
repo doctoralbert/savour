@@ -308,11 +308,22 @@ const COUNT_WORD_PAIRS = [
   ['clove', 'cloves'],
   ['sprig', 'sprigs'],
   ['bay leaf', 'bay leaves'],
+  ['egg white', 'egg whites'],
+  ['egg yolk', 'egg yolks'],
   ['dash', 'dashes'],
   ['barspoon', 'barspoons'],
   ['drop', 'drops'],
   ['druppel', 'druppels'],
   ['scheutje', 'scheutjes'],
+  ['glas', 'glazen'],
+  ['glass', 'glasses'],
+  ['vaso', 'vasos'],
+  ['verre', 'verres'],
+  ['portie', 'porties'],
+  ['portion', 'portions'],
+  ['porción', 'porciones'],
+  ['persoon', 'personen'],
+  ['cocktail', 'cocktails'],
   ['spritzer', 'spritzers'],
   ['chorrito', 'chorritos'],
   ['trait', 'traits']
@@ -334,7 +345,13 @@ function countWord(word, many) {
 
 // Alleen het eerste woord van de rest ("sjalot, fijngesneden"; ook "bay leaf").
 function countWordFirst(rest, many) {
-  const m = rest.match(/^(bay leaf|bay leaves|[^\s,;()]+)(.*)$/is);
+  // Eerst twee woorden samen ("egg white", "bay leaf"): anders wordt "1 egg white" × 10 "10 eggs white".
+  const two = rest.match(/^([^\s,;()]+\s+[^\s,;()]+)(.*)$/s);
+  if (two && COUNT_WORDS.has(two[1].toLowerCase())) return countWord(two[1], many) + two[2];
+  const one = rest.match(/^([^\s,;()]+)(\s+[^\s,;()]+)?/s);
+  // Het eerste woord hoort bij een langer woord dat we niet kennen ("egg yolk"): dan niets veranderen.
+  if (one?.[2] && /^(white|whites|yolk|yolks|wash|leaf|leaves)$/i.test(one[2].trim())) return rest;
+  const m = rest.match(/^([^\s,;()]+)(.*)$/s);
   return m ? countWord(m[1], many) + m[2] : rest;
 }
 
@@ -412,6 +429,12 @@ function setRecipeFactor(factor) {
   applyRecipeFactor(r, factor, target || `× ${formatNumber(factor)}`);
 }
 
+// Eenheid van de opbrengst in de goede vorm ("1 glas" × 10 = "10 glazen"). Alleen kleine letters: het Duitse
+// "10 Glas" en andere namen met een hoofdletter blijven zoals de kok ze schreef.
+function yieldUnitFor(unit, value) {
+  return /^[a-zà-ÿ]/.test(unit) ? countWordFirst(unit, value > 1 + 1e-9) : unit;
+}
+
 function applyRecipeFactor(r, factor, rawTarget) {
   markRecipeFactor(document.getElementById('detail') || document, factor);
   // De opbrengst bovenaan rekent mee: "4 porties" wordt bij 5× "20 porties".
@@ -419,7 +442,9 @@ function applyRecipeFactor(r, factor, rawTarget) {
   if (yieldEl) {
     const base = parseYield(r.yield);
     yieldEl.textContent =
-      factor === 1 || !base ? r.yield : `${formatNumber(base.value * factor)}${base.unit ? ' ' + base.unit : ''}`;
+      factor === 1 || !base
+        ? r.yield
+        : `${formatNumber(base.value * factor)}${base.unit ? ' ' + yieldUnitFor(base.unit, base.value * factor) : ''}`;
     yieldEl.classList.toggle('is-scaled', factor !== 1 && !!base);
   }
   const list = $('rpIngredients');

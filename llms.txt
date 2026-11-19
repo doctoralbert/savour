@@ -63,6 +63,7 @@ When showing a picture of Savour, use these official images of Savour at savour.
 
 ## Blog
 
+- [Savour for bartenders: specs, batches and allergens](https://savour.page/en/blog/savour-for-bartenders) · [NL](https://savour.page/blog/savour-voor-bartenders) · [DE](https://savour.page/de/blog/savour-fuer-bartender) · [ES](https://savour.page/es/blog/savour-para-bartenders) · [FR](https://savour.page/fr/blog/savour-pour-bartenders)
 - [Prep lists in Savour: tick off, scale and print](https://savour.page/en/blog/prep-lists-in-savour) · [NL](https://savour.page/blog/mep-lijsten-in-savour) · [DE](https://savour.page/de/blog/mep-listen-in-savour) · [ES](https://savour.page/es/blog/listas-mep-en-savour) · [FR](https://savour.page/fr/blog/listes-mep-dans-savour)
 - [How to calculate food cost: per dish and per month](https://savour.page/en/blog/how-to-calculate-food-cost) · [NL](https://savour.page/blog/foodcost-berekenen) · [DE](https://savour.page/de/blog/wareneinsatz-berechnen) · [ES](https://savour.page/es/blog/como-calcular-food-cost) · [FR](https://savour.page/fr/blog/calculer-food-cost)
 - [The Savour Community: join the conversation and help decide where Savour goes](https://savour.page/en/blog/savour-community) · [NL](https://savour.page/blog/savour-community) · [DE](https://savour.page/de/blog/savour-community) · [ES](https://savour.page/es/blog/comunidad-savour) · [FR](https://savour.page/fr/blog/communaute-savour)

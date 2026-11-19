@@ -47,6 +47,7 @@ import { ALLERGEN_FEATURE, ALLERGEN_FEATURE_RICH } from './site-allergenen-funct
 import { MEP_FEATURE, MEP_FEATURE_RICH } from './site-mep-functie.mjs';
 import { BAR_AUDIENCE, BAR_RICH } from './site-bar.mjs';
 import { MEP_POST, MEP_POST_DE, MEP_POST_ES, MEP_POST_FR } from './site-blog-mep.mjs';
+import { BAR_POST, BAR_POST_DE, BAR_POST_ES, BAR_POST_FR } from './site-blog-bar.mjs';
 import { PAPRIKA_PAGE } from './site-paprika.mjs';
 import { PAGE_RICH } from './site-page-rich.mjs';
 import { HOME_NEXT } from './site-home.mjs';
@@ -91,6 +92,9 @@ Object.assign(FR.posts, COMMUNITY_POST_FR);
 Object.assign(DE.posts, MEP_POST_DE);
 Object.assign(ES.posts, MEP_POST_ES);
 Object.assign(FR.posts, MEP_POST_FR);
+Object.assign(DE.posts, BAR_POST_DE);
+Object.assign(ES.posts, BAR_POST_ES);
+Object.assign(FR.posts, BAR_POST_FR);
 EXTRA_LANGS.fr = EXTRA_FR;
 APP_PAGE.fr = APP_PAGE_FR;
 DELIVER.fr = DELIVER_FR;
@@ -99,7 +103,7 @@ SERVICE.fr = SERVICE_FR;
 KLADJE_REAL.fr = KLADJE_FR;
 
 // Nieuwste blogartikelen eerst.
-POSTS.unshift(MEP_POST, FOODCOST_CALC_POST, COMMUNITY_POST, AI_POST, FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
+POSTS.unshift(BAR_POST, MEP_POST, FOODCOST_CALC_POST, COMMUNITY_POST, AI_POST, FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
 // Achtergrondfoto achter de bovenkant van de homepage. Alleen als het bestand bestaat; zonder bestand is de
@@ -613,7 +617,7 @@ function mobileMenu(lang, alt, inApp) {
 // inApp: de startpagina in index.html (knoppen openen inloggen/demo direct; taalknop wisselt zonder herladen).
 // Licht of donker voor de website (css/site.css, html.site-light). Staat ook bovenin index.html.
 const SITE_THEME_JS =
-  "<script>(function(){var N=['allergenen','allergenenkaart','mep-lijst','mep-bureau','bibliotheek','brigade','importeren','kookmodus','lijst','mappen','meer-omrekenen','omrekenen','recept'];function shots(){var l=document.documentElement.classList.contains('site-light');document.querySelectorAll('img[src*=\"/assets/app/\"]').forEach(function(i){var s=i.getAttribute('src'),k=s.indexOf('/assets/app/'),f=s.slice(k+12).replace('licht/','');if(N.indexOf(f.slice(0,f.lastIndexOf('-')))<0)return;i.setAttribute('src',s.slice(0,k)+'/assets/app/'+(l?'licht/':'')+f)})}try{if(localStorage.getItem('savour_site_theme')==='light')document.documentElement.classList.add('site-light')}catch(e){}window.savourSiteShots=shots;document.addEventListener('DOMContentLoaded',shots);window.savourSiteTheme=function(){var l=document.documentElement.classList.toggle('site-light');try{localStorage.setItem('savour_site_theme',l?'light':'dark')}catch(e){}shots()}})()</script>";
+  "<script>(function(){var N=['allergenen','allergenenkaart','mep-lijst','mep-bureau','bar-batch','bar-recept','bibliotheek','brigade','importeren','kookmodus','lijst','mappen','meer-omrekenen','omrekenen','recept'];function shots(){var l=document.documentElement.classList.contains('site-light');document.querySelectorAll('img[src*=\"/assets/app/\"]').forEach(function(i){var s=i.getAttribute('src'),k=s.indexOf('/assets/app/'),f=s.slice(k+12).replace('licht/','');if(N.indexOf(f.slice(0,f.lastIndexOf('-')))<0)return;i.setAttribute('src',s.slice(0,k)+'/assets/app/'+(l?'licht/':'')+f)})}try{if(localStorage.getItem('savour_site_theme')==='light')document.documentElement.classList.add('site-light')}catch(e){}window.savourSiteShots=shots;document.addEventListener('DOMContentLoaded',shots);window.savourSiteTheme=function(){var l=document.documentElement.classList.toggle('site-light');try{localStorage.setItem('savour_site_theme',l?'light':'dark')}catch(e){}shots()}})()</script>";
 const THEME_LABEL = {
   nl: 'Licht of donker',
   en: 'Light or dark',
@@ -698,7 +702,7 @@ const PAGE_POSTS = {
   print: ['logo', 'messy'],
   allergens: ['allergenen', 'foodcost'],
   mep: ['mep'],
-  bar: ['mep'],
+  bar: ['bar', 'mep'],
   cloud: ['database', 'offline'],
   inladen: ['overzetten', 'import'],
   roadmap: ['community', 'ai-horeca', 'foodcost', 'roadmap', 'allergenen'],

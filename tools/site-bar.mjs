@@ -3,7 +3,7 @@
 // een drank wordt nooit pond), de Savour-lezer leest cocktailspecs (test in tests/lezer.test.mjs), cocktails vallen
 // onder Dranken (js/data/default-categories.js) en de barproducten staan in de Savour-lijst
 // (supabase/2026-11-19-ingredienten-bar.sql). In de app heet een team nog "keukenteam"; dat zeggen we eerlijk.
-// Geen keukenfoto's en geen schermen: de demo heeft (nog) geen cocktails.
+// Geen keukenfoto's. Schermen: een Whiskey Sour, alleen voor de foto aan de demo toegevoegd (bar-batch, bar-recept).
 
 export const BAR_AUDIENCE = {
   nl: {
@@ -183,12 +183,18 @@ export const BAR_AUDIENCE = {
   }
 };
 
+const shot = (name, alt, title, text) => ({ shot: `/assets/app/${name}-{lang}.jpg`, alt, title, text });
+
 export const BAR_RICH = {
   nl: {
     benefits: [
       ['Batchen', 'Van één glas naar 40, in cl, oz en dashes.'],
       ['Eén bron', 'Specs, siropen en cordials voor de hele bar.'],
       ['Niets verzonnen', 'Je specs blijven precies zoals je ze schreef.']
+    ],
+    showcase: [
+      shot('bar-batch', "Een Whiskey Sour in Savour op de telefoon, tien keer omgerekend", "Van één glas naar een batch", "Tik op 10× en Savour rekent alles om: 50 cl bourbon, 10 eiwitten en 20 dashes Angostura. Het originele recept blijft staan."),
+      shot('bar-recept', "Een Whiskey Sour in Savour op de laptop, met het allergeen ei", "Allergenen per drank", "Het eiwit in de sour is meteen herkend: ei. Bij elke drank klap je de allergenen open, ook als ze uit je eigen siroop komen.")
     ],
     faq: [
       ['Werkt Savour met ounces?', 'Ja. Savour rekent oz, cl, ml, dashes en barspoons om. Ounces bij een drank blijven ounces.'],
@@ -202,6 +208,10 @@ export const BAR_RICH = {
       ['One source', 'Specs, syrups and cordials for the whole bar.'],
       ['Nothing invented', 'Your specs stay exactly as you wrote them.']
     ],
+    showcase: [
+      shot('bar-batch', "A Whiskey Sour in Savour on a phone, scaled ten times", "From one glass to a batch", "Tap 10× and Savour converts everything: 20 oz bourbon, 10 egg whites and 20 dashes of Angostura. The original recipe stays as it is."),
+      shot('bar-recept', "A Whiskey Sour in Savour on a laptop, with the allergen egg", "Allergens per drink", "The egg white in the sour is recognised straight away: egg. On every drink you fold open the allergens, even when they come from your own syrup.")
+    ],
     faq: [
       ['Does Savour work with ounces?', 'Yes. Savour converts oz, cl, ml, dashes and barspoons. Ounces in a drink stay ounces.'],
       ['Isn’t Savour just for cooks?', 'Savour was made in the kitchen, but a spec is a recipe too. In the app a team is called a kitchen team; for your bar it works exactly the same.'],
@@ -213,6 +223,10 @@ export const BAR_RICH = {
       ['Batchen', 'Von einem Glas auf 40, in cl, oz und Dashes.'],
       ['Eine Quelle', 'Specs, Sirupe und Cordials für die ganze Bar.'],
       ['Nichts erfunden', 'Deine Specs bleiben genau, wie du sie geschrieben hast.']
+    ],
+    showcase: [
+      shot('bar-batch', "Ein Whiskey Sour in Savour auf dem Handy, zehnfach umgerechnet", "Vom Glas zum Batch", "Tipp auf 10× und Savour rechnet alles um: 50 cl Bourbon, 10 Eiweiß und 20 Dashes Angostura. Das Originalrezept bleibt, wie es ist."),
+      shot('bar-recept', "Ein Whiskey Sour in Savour auf dem Laptop, mit dem Allergen Ei", "Allergene pro Drink", "Das Eiweiß im Sour wird sofort erkannt: Ei. Bei jedem Drink klappst du die Allergene auf, auch wenn sie aus deinem eigenen Sirup kommen.")
     ],
     faq: [
       ['Funktioniert Savour mit Unzen?', 'Ja. Savour rechnet oz, cl, ml, Dashes und Barspoons um. Unzen bei einem Drink bleiben Unzen.'],
@@ -226,6 +240,10 @@ export const BAR_RICH = {
       ['Una sola fuente', 'Specs, siropes y cordiales para toda la barra.'],
       ['Nada inventado', 'Tus specs quedan tal como las escribiste.']
     ],
+    showcase: [
+      shot('bar-batch', "Un Whiskey Sour en Savour en el móvil, multiplicado por diez", "De una copa a un batch", "Toca 10× y Savour lo convierte todo: 50 cl de bourbon, 10 claras y 20 dashes de Angostura. La receta original se queda como está."),
+      shot('bar-recept', "Un Whiskey Sour en Savour en el portátil, con el alérgeno huevo", "Alérgenos por bebida", "La clara del sour se reconoce al instante: huevo. En cada bebida despliegas los alérgenos, también si vienen de tu propio sirope.")
+    ],
     faq: [
       ['¿Savour funciona con onzas?', 'Sí. Savour convierte oz, cl, ml, dashes y barspoons. Las onzas en una bebida siguen siendo onzas.'],
       ['¿Savour no es solo para cocineros?', 'Savour nació en la cocina, pero una spec también es una receta. En la app un equipo se llama equipo de cocina; para tu barra funciona igual.'],
@@ -237,6 +255,10 @@ export const BAR_RICH = {
       ['Batches', 'D’un verre à 40, en cl, oz et dashes.'],
       ['Une seule source', 'Specs, sirops et cordials pour tout le bar.'],
       ['Rien d’inventé', 'Tes specs restent exactement comme tu les as écrites.']
+    ],
+    showcase: [
+      shot('bar-batch', "Un Whiskey Sour dans Savour sur un téléphone, multiplié par dix", "D’un verre à un batch", "Touche 10× et Savour convertit tout : 50 cl de bourbon, 10 blancs d’œuf et 20 dashes d’Angostura. La recette d’origine reste telle quelle."),
+      shot('bar-recept', "Un Whiskey Sour dans Savour sur un ordinateur, avec l’allergène œuf", "Allergènes par boisson", "Le blanc d’œuf du sour est reconnu aussitôt : œuf. Sur chaque boisson, tu déplies les allergènes, même s’ils viennent de ton propre sirop.")
     ],
     faq: [
       ['Savour fonctionne-t-il en onces ?', 'Oui. Savour convertit oz, cl, ml, dashes et barspoons. Les onces dans une boisson restent des onces.'],
