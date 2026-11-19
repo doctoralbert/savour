@@ -152,7 +152,7 @@ async function renderCommunityThread(id) {
   // Je eigen thread geopend: alle reacties gelezen, het getal bij Community gaat omlaag.
   if (th && th.author_id === currentUser?.id)
     supabaseClient.rpc('savour_forum_mark_read', { _thread: id }).then(() => refreshCommunityUnread());
-  const back = `<button type="button" class="btn cm-back" onclick="closeCommunityThread()"><span aria-hidden="true">←</span> <span>${esc(t('Alle threads'))}</span></button>`;
+  const back = `<button type="button" class="btn cm-back" onclick="closeCommunityThread()"><span aria-hidden="true">←</span>&nbsp;<span>${esc(t('Alle threads'))}</span></button>`;
   if (error || postError || !th) {
     host.innerHTML =
       back +

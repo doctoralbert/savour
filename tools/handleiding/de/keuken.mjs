@@ -94,8 +94,8 @@ export const pages = {
       ["Gedecke und Mengen", "Trag neben dem Namen jeder Karte die Anzahl Gedecke ein; Savour rechnet pro Posten aus, wie viel du brauchst (40 Gedecke × 60 g = 2,4 kg). Jeden Tag beginnt die Liste leer. Mit ⋯ Liste leeren entfernst du die Häkchen auch zwischendurch."],
       ["Gemeinsam im Küchenteam", "Eine MEP-Liste im Küchenteam sieht das ganze Team. Was ein Kollege abhakt, siehst du sofort, mit Name und Uhrzeit. Abhaken darf jeder, auch ohne Savour Pro. Ohne Internet bleibt, was du antippst, stehen und wird gesendet, sobald du wieder Verbindung hast."],
       ["Importieren", "Hast du deine Liste schon in Excel, Word oder auf Papier? Wähle Importieren. Savour teilt sie auf und du prüfst alles, bevor es gespeichert wird. Ein Foto liest die KI, mit Savour Pro."],
-      ["Drucken", "Druck eine leere Liste auf ein A4-Blatt, wie deine Excel-Liste, oder mit den Gedecken und Mengen von heute. Mit Savour Pro steht das Logo deines Restaurants darauf."],
-      ["Savour Pro", "Mit einem kostenlosen Konto erstellst du eine MEP-Liste. Mit Savour Pro erstellst und verwaltest du so viele Listen, wie du willst. Abhaken und Drucken bleiben kostenlos."]
+      ["Drucken", "Druck die Liste auf ein A4-Blatt, hoch oder quer, mit Kästchen zum Abhaken, genau wie deine Excel-Liste. Datum und Gedecke stehen nicht darauf, so kannst du sie jeden Tag nutzen. Mit Savour Pro steht das Logo deines Restaurants darauf."],
+      ["Savour Pro", "MEP-Listen erstellen und verwalten geht mit Savour Pro. Abhaken kann jeder im Küchenteam, auch mit einem kostenlosen Konto. Hörst du mit Pro auf, bleiben deine Listen erhalten."]
     ]
   }
 };

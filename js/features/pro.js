@@ -307,7 +307,7 @@ function renderProPage(host) {
   const loggedIn = typeof currentUser !== 'undefined' && !!currentUser;
   host.innerHTML =
     current +
-    `<p class="pro-trial-note"${loggedIn ? ' hidden' : ''}><strong>Nieuw bij Savour?</strong> Je probeert Savour Pro ${TRIAL_DAYS} dagen gratis, zonder betaalgegevens: AI-import en keukenteams, tot ${FREE_RECIPE_LIMIT} recepten. <span>Een keukenteam uit je proefperiode blijft bewaard, maar werkt daarna pas weer met Savour Pro.</span> <span>In de proefweek kan een keukenteam hooguit 10 recepten hebben.</span></p>
+    `<p class="pro-trial-note"${loggedIn ? ' hidden' : ''}><strong>Nieuw bij Savour?</strong> Je probeert Savour Pro ${TRIAL_DAYS} dagen gratis, zonder betaalgegevens: AI-import en keukenteams, tot ${FREE_RECIPE_LIMIT} recepten. <span>In de proefweek leest de AI tot 15 imports.</span> <span>Een keukenteam uit je proefperiode blijft bewaard, maar werkt daarna pas weer met Savour Pro.</span> <span>In de proefweek kan een keukenteam hooguit 10 recepten hebben.</span></p>
     <div class="pro-prices">${card('month', PRO_PRICES.month, 'per maand', 'Maandelijks opzegbaar.', false)}${card('year', PRO_PRICES.year, 'per jaar', `${yearSaving(PRO_PRICES.month, PRO_PRICES.year).pct}% goedkoper dan maandelijks: je bespaart ${yearSaving(PRO_PRICES.month, PRO_PRICES.year).saved} per jaar.`, true)}</div>
     <p class="pro-pay muted">Betalen met iDEAL, creditcard, Apple Pay, Google Pay of PayPal. Er wordt geen btw gerekend (kleineondernemersregeling). Opzeggen kan altijd; je houdt Pro tot het einde van de betaalde periode.</p>
     ${
@@ -333,6 +333,8 @@ function renderProPage(host) {
         <tr><td>AI leest foto's, handgeschreven en gescande recepten</td><td>–</td><td>✓</td></tr>
         <tr><td>De 14 allergenen bij je eigen recepten</td><td>–</td><td>✓</td></tr>
         <tr><td>Allergenen zien in een keukenteam van een eigenaar met Pro</td><td>✓</td><td>✓</td></tr>
+        <tr><td>MEP-lijsten maken en beheren</td><td>–</td><td>✓</td></tr>
+        <tr><td>Afvinken op een MEP-lijst in een keukenteam</td><td>✓</td><td>✓</td></tr>
         <tr><td>Printen met het logo van je restaurant</td><td>–</td><td>✓</td></tr>
         <tr><td>Een back-up van al je recepten downloaden</td><td>✓</td><td>✓</td></tr>
         <tr><td>Alle recepten downloaden naar Word</td><td>–</td><td>✓</td></tr>
@@ -560,7 +562,8 @@ function renderImportPlanNotice() {
   if (!host) return;
   const left = recipeRoomLeft();
   host.innerHTML = isPro()
-    ? `<div class="import-plan is-pro"><b>Savour Pro${savourPlan.source === 'trial' ? ' · proefperiode' : ''}</b><span>${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt ${aiUsagePeriod()}. Eerst leest de Savour-lezer alles, gratis. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee.${left === Infinity ? '' : ` In de proefperiode bewaar je tot ${savourPlan.recipeLimit} recepten (nog ${left}).`}</span></div>`
+    ? // Losse zinnen, zodat elke taal ze herkent (vertalen gaat per tekststuk).
+      `<div class="import-plan is-pro"><b><span translate="no">Savour Pro</span>${savourPlan.source === 'trial' ? `&nbsp;<span aria-hidden="true">·</span>&nbsp;<span>${esc(t('proefperiode'))}</span>` : ''}</b><span><span>${esc(`${savourPlan.used} van ${savourPlan.limit} AI-imports gebruikt ${aiUsagePeriod()}.`)}</span> <span>${esc(t('Eerst leest de Savour-lezer alles, gratis. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee.'))}</span>${left === Infinity ? '' : ` <span>${esc(`In de proefperiode bewaar je tot ${savourPlan.recipeLimit} recepten (nog ${left}).`)}</span>`}</span></div>`
     : `<div class="import-plan"><b>Je importeert met de Savour-lezer</b><span>Word, PDF en tekst lees je gratis in${left === Infinity ? '' : ` (nog ${left} van ${savourPlan.recipeLimit} recepten in je gratis account)`}. Foto's, handgeschreven en gescande recepten leest de AI: alleen in Savour Pro.</span><button class="btn small gold" onclick="openPublicInfo('pro')">Bekijk Savour Pro</button></div>`;
   document.querySelectorAll('[data-pro-only]').forEach(el => el.classList.toggle('is-locked', !isPro()));
 }

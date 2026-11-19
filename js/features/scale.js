@@ -251,6 +251,76 @@ function pickUnit(valueInBase, unit, unitText) {
   return { value: valueInBase / unit.base, word: unitText, fraction: true };
 }
 
+// Enkelvoud ↔ meervoud van stukswoorden en veelgebruikte ingrediënten (Nederlands en Engels). Alleen deze lijst:
+// een onbekend woord blijft precies zoals de kok het schreef.
+const COUNT_WORD_PAIRS = [
+  ['sjalot', 'sjalotten'],
+  ['ui', 'uien'],
+  ['ei', 'eieren'],
+  ['eidooier', 'eidooiers'],
+  ['eiwit', 'eiwitten'],
+  ['citroen', 'citroenen'],
+  ['limoen', 'limoenen'],
+  ['sinaasappel', 'sinaasappels'],
+  ['tomaat', 'tomaten'],
+  ['wortel', 'wortels'],
+  ['prei', 'preien'],
+  ['appel', 'appels'],
+  ['peer', 'peren'],
+  ['banaan', 'bananen'],
+  ['aardappel', 'aardappelen'],
+  ['courgette', 'courgettes'],
+  ['aubergine', 'aubergines'],
+  ['avocado', "avocado's"],
+  ['paprika', "paprika's"],
+  ['knoflookteen', 'knoflooktenen'],
+  ['laurierblad', 'laurierbladeren'],
+  ['vanillestokje', 'vanillestokjes'],
+  ['kruidnagel', 'kruidnagels'],
+  ['jeneverbes', 'jeneverbessen'],
+  ['teen', 'tenen'],
+  ['teentje', 'teentjes'],
+  ['takje', 'takjes'],
+  ['tak', 'takken'],
+  ['blaadje', 'blaadjes'],
+  ['bosje', 'bosjes'],
+  ['plak', 'plakken'],
+  ['plakje', 'plakjes'],
+  ['blik', 'blikken'],
+  ['blikje', 'blikjes'],
+  ['shallot', 'shallots'],
+  ['onion', 'onions'],
+  ['egg', 'eggs'],
+  ['lemon', 'lemons'],
+  ['lime', 'limes'],
+  ['tomato', 'tomatoes'],
+  ['carrot', 'carrots'],
+  ['potato', 'potatoes'],
+  ['clove', 'cloves'],
+  ['sprig', 'sprigs'],
+  ['bay leaf', 'bay leaves']
+];
+const COUNT_WORDS = new Map(
+  COUNT_WORD_PAIRS.flatMap(([one, many]) => [
+    [one, [one, many]],
+    [many, [one, many]]
+  ])
+);
+
+// Het woord in de goede vorm, met dezelfde hoofdletter als de kok schreef.
+function countWord(word, many) {
+  const pair = COUNT_WORDS.get(String(word).toLowerCase());
+  if (!pair) return word;
+  const out = pair[many ? 1 : 0];
+  return /^[A-ZÀ-Ý]/.test(word) ? out[0].toUpperCase() + out.slice(1) : out;
+}
+
+// Alleen het eerste woord van de rest ("sjalot, fijngesneden"; ook "bay leaf").
+function countWordFirst(rest, many) {
+  const m = rest.match(/^(bay leaf|bay leaves|[^\s,;()]+)(.*)$/is);
+  return m ? countWord(m[1], many) + m[2] : rest;
+}
+
 // Rekent één ingrediëntregel om. Geeft { qty, rest, note } terug: qty is de hoeveelheid met eenheid (voor vet),
 // rest de rest van de regel. Zonder hoeveelheid: qty ''. Kwalitatief ("naar smaak"): ongewijzigd met note.
 function scaleIngredient(line, factor = 1) {
@@ -272,8 +342,12 @@ function scaleIngredient(line, factor = 1) {
   }
   const scaled = p.value * factor;
   if (!p.unit) {
-    // Stuks of zonder eenheid ("3 eieren", "2 takjes tijm"): als breuk.
-    return { qty: `${formatFraction(scaled)}${unitText ? ' ' + unitText : ''}`, rest: p.rest.trim(), note: '' };
+    // Stuks of zonder eenheid ("3 eieren", "2 takjes tijm"): als breuk. Enkelvoud of meervoud volgt het nieuwe
+    // aantal ("1 sjalot" × 2 = "2 sjalotten"), alleen bij woorden die we zeker kennen; de rest blijft letterlijk.
+    const many = scaled > 1 + 1e-9;
+    const word = unitText ? countWord(unitText, many) : '';
+    const rest = unitText ? p.rest.trim() : countWordFirst(p.rest.trim(), many);
+    return { qty: `${formatFraction(scaled)}${word ? ' ' + word : ''}`, rest, note: '' };
   }
   const pick = pickUnit(scaled * p.unit.base, p.unit, unitText);
   const num = pick.fraction ? formatFraction(pick.value) : formatDecimal(pick.value);

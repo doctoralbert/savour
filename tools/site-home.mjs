@@ -28,7 +28,7 @@ export const HOME_NEXT = {
         per: 'per maand',
         note: 'of €29 per jaar: 19% goedkoper',
         featured: true,
-        points: ['Onbeperkt recepten', 'AI leest foto’s en kladjes', 'De 14 allergenen per recept', 'Je eigen keukenteams', 'Printen met je logo']
+        points: ['Onbeperkt recepten', 'AI leest foto’s en kladjes', 'De 14 allergenen per recept', 'Je eigen keukenteams', 'MEP-lijsten per post', 'Printen met je logo']
       },
       {
         name: 'Teamabonnement',
@@ -80,7 +80,7 @@ export const HOME_NEXT = {
         per: 'per month',
         note: 'or €29 per year: 19% cheaper',
         featured: true,
-        points: ['Unlimited recipes', 'AI reads photos and handwritten notes', 'The 14 allergens per recipe', 'Your own kitchen teams', 'Print with your logo']
+        points: ['Unlimited recipes', 'AI reads photos and handwritten notes', 'The 14 allergens per recipe', 'Your own kitchen teams', 'Prep lists per section', 'Print with your logo']
       },
       {
         name: 'Team plan',
@@ -132,7 +132,7 @@ export const HOME_NEXT = {
         per: 'pro Monat',
         note: 'oder 29 € pro Jahr: 19 % günstiger',
         featured: true,
-        points: ['Unbegrenzt Rezepte', 'KI liest Fotos und Notizen', 'Die 14 Allergene pro Rezept', 'Eigene Küchenteams', 'Drucken mit deinem Logo']
+        points: ['Unbegrenzt Rezepte', 'KI liest Fotos und Notizen', 'Die 14 Allergene pro Rezept', 'Eigene Küchenteams', 'MEP-Listen pro Posten', 'Drucken mit deinem Logo']
       },
       {
         name: 'Team-Abo',
@@ -184,7 +184,7 @@ export const HOME_NEXT = {
         per: 'al mes',
         note: 'o 29 € al año: un 19 % más barato',
         featured: true,
-        points: ['Recetas ilimitadas', 'La IA lee fotos y notas a mano', 'Los 14 alérgenos por receta', 'Tus propios equipos de cocina', 'Imprimir con tu logo']
+        points: ['Recetas ilimitadas', 'La IA lee fotos y notas a mano', 'Los 14 alérgenos por receta', 'Tus propios equipos de cocina', 'Listas MEP por partida', 'Imprimir con tu logo']
       },
       {
         name: 'Plan de equipo',
@@ -236,7 +236,7 @@ export const HOME_NEXT = {
         per: 'par mois',
         note: 'ou 29 € par an : 19 % moins cher',
         featured: true,
-        points: ['Recettes illimitées', 'L’IA lit photos et notes manuscrites', 'Les 14 allergènes par recette', 'Tes propres équipes de cuisine', 'Imprimer avec ton logo']
+        points: ['Recettes illimitées', 'L’IA lit photos et notes manuscrites', 'Les 14 allergènes par recette', 'Tes propres équipes de cuisine', 'Listes MEP par poste', 'Imprimer avec ton logo']
       },
       {
         name: 'Abonnement équipe',

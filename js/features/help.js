@@ -157,11 +157,11 @@ const HELP_TOPICS = {
       ],
       [
         'Printen',
-        'Print een lege lijst op één A4, zoals je Excel-lijst, of met de couverts en hoeveelheden van vandaag. Met Savour Pro staat het logo van je restaurant erop.'
+        'Print de lijst op één A4, staand of liggend, met hokjes om af te vinken, net als je Excel-lijst. Datum en couverts staan er niet op, zodat je hem elke dag kunt gebruiken. Met Savour Pro staat het logo van je restaurant erop.'
       ],
       [
         'Savour Pro',
-        'Met een gratis account maak je één MEP-lijst. Met Savour Pro maak en beheer je zoveel lijsten als je wilt. Afvinken en printen blijft gratis.'
+        'MEP-lijsten maken en beheren kan met Savour Pro. Afvinken kan iedereen in het keukenteam, ook met een gratis account. Stop je met Pro, dan blijven je lijsten bewaard.'
       ]
     ]
   },

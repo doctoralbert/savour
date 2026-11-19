@@ -44,6 +44,7 @@ import { VERDIEPING_TALEN } from './site-verdieping-talen.mjs';
 import { BLOG_RICH } from './site-blog-rich.mjs';
 import { FEATURE_RICH } from './site-feature-rich.mjs';
 import { ALLERGEN_FEATURE, ALLERGEN_FEATURE_RICH } from './site-allergenen-functie.mjs';
+import { MEP_FEATURE, MEP_FEATURE_RICH } from './site-mep-functie.mjs';
 import { PAPRIKA_PAGE } from './site-paprika.mjs';
 import { PAGE_RICH } from './site-page-rich.mjs';
 import { HOME_NEXT } from './site-home.mjs';
@@ -265,6 +266,21 @@ const blogSlug = { nl: 'blog', en: 'en/blog' };
     P.features.allergens = rest;
   }
   FEATURE_RICH.allergens = ALLERGEN_FEATURE_RICH;
+}
+// MEP-lijsten (tools/site-mep-functie.mjs), live sinds 2026-11-17: direct na "Allergenen per recept".
+{
+  const M = MEP_FEATURE;
+  FEATURES.splice(FEATURES.findIndex(f => f.id === 'allergens') + 1, 0, { id: 'mep', nl: M.nl, en: M.en });
+  for (const [l, P] of [
+    ['de', DE],
+    ['es', ES],
+    ['fr', FR]
+  ]) {
+    const { menu, short, ...rest } = M[l];
+    EXTRA_LANGS[l].items.mep = [menu, short];
+    P.features.mep = rest;
+  }
+  FEATURE_RICH.mep = MEP_FEATURE_RICH;
 }
 
 // Duits en Spaans: menu en startpagina uit tools/site-content-extra.mjs, alle andere pagina's uit
@@ -578,7 +594,7 @@ function mobileMenu(lang, alt, inApp) {
 // inApp: de startpagina in index.html (knoppen openen inloggen/demo direct; taalknop wisselt zonder herladen).
 // Licht of donker voor de website (css/site.css, html.site-light). Staat ook bovenin index.html.
 const SITE_THEME_JS =
-  "<script>(function(){var N=['allergenen','allergenenkaart','bibliotheek','brigade','importeren','kookmodus','lijst','mappen','meer-omrekenen','omrekenen','recept'];function shots(){var l=document.documentElement.classList.contains('site-light');document.querySelectorAll('img[src*=\"/assets/app/\"]').forEach(function(i){var s=i.getAttribute('src'),k=s.indexOf('/assets/app/'),f=s.slice(k+12).replace('licht/','');if(N.indexOf(f.slice(0,f.lastIndexOf('-')))<0)return;i.setAttribute('src',s.slice(0,k)+'/assets/app/'+(l?'licht/':'')+f)})}try{if(localStorage.getItem('savour_site_theme')==='light')document.documentElement.classList.add('site-light')}catch(e){}window.savourSiteShots=shots;document.addEventListener('DOMContentLoaded',shots);window.savourSiteTheme=function(){var l=document.documentElement.classList.toggle('site-light');try{localStorage.setItem('savour_site_theme',l?'light':'dark')}catch(e){}shots()}})()</script>";
+  "<script>(function(){var N=['allergenen','allergenenkaart','mep-lijst','mep-bureau','bibliotheek','brigade','importeren','kookmodus','lijst','mappen','meer-omrekenen','omrekenen','recept'];function shots(){var l=document.documentElement.classList.contains('site-light');document.querySelectorAll('img[src*=\"/assets/app/\"]').forEach(function(i){var s=i.getAttribute('src'),k=s.indexOf('/assets/app/'),f=s.slice(k+12).replace('licht/','');if(N.indexOf(f.slice(0,f.lastIndexOf('-')))<0)return;i.setAttribute('src',s.slice(0,k)+'/assets/app/'+(l?'licht/':'')+f)})}try{if(localStorage.getItem('savour_site_theme')==='light')document.documentElement.classList.add('site-light')}catch(e){}window.savourSiteShots=shots;document.addEventListener('DOMContentLoaded',shots);window.savourSiteTheme=function(){var l=document.documentElement.classList.toggle('site-light');try{localStorage.setItem('savour_site_theme',l?'light':'dark')}catch(e){}shots()}})()</script>";
 const THEME_LABEL = {
   nl: 'Licht of donker',
   en: 'Light or dark',
@@ -1388,7 +1404,10 @@ for (const lang of LANGS) {
     page({
       lang,
       slugs: pageSlugs(i),
-      title: i ? `${BLOG_TITLE[lang]} · ${BLOG_PAGER[lang].page} ${i + 1}` : BLOG_TITLE[lang],
+      // Paginanummer vóór "— Savour": wordt de titel ingekort, dan valt Savour weg en niet het nummer.
+      title: i
+        ? BLOG_TITLE[lang].replace(/(\s+[—–]\s+Savour)?$/, m => ` · ${BLOG_PAGER[lang].page} ${i + 1}${m}`)
+        : BLOG_TITLE[lang],
       desc: u.blogLead,
       crumbs: i ? [[u.blog, href(blogSlug[lang])], [`${BLOG_PAGER[lang].page} ${i + 1}`]] : [[u.blog]],
       body: c =>
@@ -1742,7 +1761,9 @@ function releaseList(list, lang, gu) {
   const file = new URL('vercel.json', ROOT);
   const config = JSON.parse(fs.readFileSync(file, 'utf8'));
   const sources = new Set(moves.map(m => m.source));
-  config.redirects = [...config.redirects.filter(r => !sources.has(r.source)), ...moves];
+  // Een hoofdstuk dat nu een eigen pagina is (bijv. MEP-lijsten), mag niet meer doorsturen.
+  const own = new Set(GUIDE_CHAPTERS.flatMap(ch => Object.keys(GUIDE_HOME).map(l => href(ch.pages[0][l].slug))));
+  config.redirects = [...config.redirects.filter(r => !sources.has(r.source) && !own.has(r.source)), ...moves];
   fs.writeFileSync(file, JSON.stringify(config, null, 2) + '\n', 'utf8');
   for (const m of moves) fs.rmSync(new URL(`site${m.source}/`, ROOT), { recursive: true, force: true });
 }

@@ -2413,8 +2413,11 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: false });
     }
   }
-  if (!ADMIN_EMAILS.includes(String(user.email || '').toLowerCase()))
+  if (!ADMIN_EMAILS.includes(String(user.email || '').toLowerCase())) {
+    // De app vraagt bij elk laden of dit account beheerder is: gewoon "nee", geen fout in de console.
+    if (req.body?.action === 'whoami') return res.status(200).json({ admin: false });
     return res.status(403).json({ error: 'Geen beheerdersrechten.' });
+  }
   const { action, user_id: userId, days, email, name, organization, own_visitor: ownVisitor } = req.body || {};
   // Elk apparaat waarop de beheerder is ingelogd telt als eigen apparaat en niet mee in de bezoekers.
   if (action === 'whoami') {

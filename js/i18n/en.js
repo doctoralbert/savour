@@ -2,6 +2,13 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.en = {
   strings: {
+    'Je hebt alle recepten weggehaald. Er wordt niets opgeslagen.': 'You removed all recipes. Nothing will be saved.',
+    'In de proefweek leest de AI tot 15 imports.': 'In the trial week the AI reads up to 15 imports.',
+    'MEP-lijsten maken en beheren': 'Create and manage prep lists',
+    'Afvinken op een MEP-lijst in een keukenteam': 'Tick off on a prep list in a kitchen team',
+    proefperiode: 'trial',
+    'Eerst leest de Savour-lezer alles, gratis. Alleen waar die twijfelt, leest de AI automatisch na: alleen dat telt mee.':
+      'First the Savour reader reads everything, for free. Only where it is unsure does the AI check automatically: only that counts.',
     'Met een account ga je akkoord met:': 'By creating an account you agree to:',
     'Savour vond alleen kopjes, geen onderdelen. Zet elk onderdeel op een eigen regel of in een eigen cel, bijvoorbeeld "gravlax 60 g", en probeer het opnieuw.':
       'Savour only found headings, no items. Put each item on its own line or in its own cell, for example "gravlax 60 g", and try again.',
@@ -95,10 +102,10 @@ window.SAVOUR_I18N.en = {
       'Everyone in the team sees a prep list in a kitchen team. What a colleague ticks off appears straight away, with name and time. Anyone can tick off, even without Savour Pro. Without internet what you tap stays and is sent as soon as you’re connected again.',
     'Heb je je lijst al in Excel, Word of op papier? Kies Importeren. Savour deelt hem in en jij kijkt alles na voordat het wordt opgeslagen. Een foto leest de AI, met Savour Pro.':
       'Already have your list in Excel, Word or on paper? Choose Import. Savour sorts it and you check everything before it is saved. A photo is read by the AI, with Savour Pro.',
-    'Print een lege lijst op één A4, zoals je Excel-lijst, of met de couverts en hoeveelheden van vandaag. Met Savour Pro staat het logo van je restaurant erop.':
-      'Print an empty list on one A4, like your Excel list, or with today’s covers and quantities. With Savour Pro your restaurant’s logo is on it.',
-    'Met een gratis account maak je één MEP-lijst. Met Savour Pro maak en beheer je zoveel lijsten als je wilt. Afvinken en printen blijft gratis.':
-      'With a free account you create one prep list. With Savour Pro you create and manage as many lists as you like. Ticking off and printing stay free.',
+    'Print de lijst op één A4, staand of liggend, met hokjes om af te vinken, net als je Excel-lijst. Datum en couverts staan er niet op, zodat je hem elke dag kunt gebruiken. Met Savour Pro staat het logo van je restaurant erop.':
+      'Print the list on one A4, portrait or landscape, with boxes to tick, just like your Excel list. The date and covers are left off, so you can use it every day. With Savour Pro your restaurant’s logo is on it.',
+    'MEP-lijsten maken en beheren kan met Savour Pro. Afvinken kan iedereen in het keukenteam, ook met een gratis account. Stop je met Pro, dan blijven je lijsten bewaard.':
+      'Creating and managing prep lists works with Savour Pro. Anyone in the kitchen team can tick off, even with a free account. If you stop Pro, your lists are kept.',
     'MEP-lijsten worden nog ingericht. Probeer het straks opnieuw.':
       'Prep lists are still being set up. Please try again shortly.',
     'Dit mag je in deze lijst niet aanpassen. Vraag de eigenaar van het keukenteam of kijk bij Savour Pro.':
@@ -2619,6 +2626,10 @@ window.SAVOUR_I18N.en = {
     'Allergenen zien in een keukenteam van een eigenaar met Pro': 'See allergens in a kitchen team whose owner has Pro'
   },
   patterns: [
+    [
+      '^In de proefperiode bewaar je tot (\\d+) recepten \\(nog (\\d+)\\)\\.$',
+      'During the trial you can keep up to $1 recipes ($2 left).'
+    ],
     ['^(\\d+) recepten staan al in je receptenboek$', '$1 recipes are already in your recipe book'],
     [
       '^(\\d+) recepten opgeslagen · (\\d+) overgeslagen \\(stond(?:en)? er al\\)$',

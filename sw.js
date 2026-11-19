@@ -3,7 +3,7 @@
 // opmaak altijd bij de pagina). Lettertypes, afbeeldingen en bibliotheken: meteen uit de cache en op de achtergrond
 // bijwerken. API-routes en de database gaan nooit via de cache.
 // Let op: een stylesheet of script krijgt nooit een pagina (HTML) als vervanging; dan zou de site zonder opmaak laden.
-const CACHE = 'savour-v4';
+const CACHE = 'savour-v5';
 
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -48,6 +48,33 @@ self.addEventListener('fetch', event => {
   if (req.mode === 'navigate') {
     // Offline en deze pagina nog nooit geopend: de app (index.html) opent met de bewaarde bibliotheek.
     event.respondWith(networkFirst(req, () => caches.match('/index.html').then(hit => hit || Response.error())));
+    return;
+  }
+  // Opmaak en scripts met een versienummer (?v=..., door tools/build-seo.mjs bij elke wijziging nieuw): die inhoud
+  // verandert nooit, dus meteen uit de cache. Scheelt bij elke start tientallen verzoeken over de keukenwifi.
+  // Bij een nieuwe versie gaat de oude van hetzelfde bestand uit de cache.
+  if (sameOrigin && /\.(css|js)$/.test(url.pathname) && url.searchParams.has('v')) {
+    event.respondWith(
+      caches.match(req).then(
+        hit =>
+          hit ||
+          fetch(req)
+            .then(res => {
+              if (res.ok) {
+                const copy = res.clone();
+                caches.open(CACHE).then(async c => {
+                  await c.put(req, copy);
+                  for (const key of await c.keys()) {
+                    const k = new URL(key.url);
+                    if (k.pathname === url.pathname && k.search !== url.search) c.delete(key);
+                  }
+                });
+              }
+              return res;
+            })
+            .catch(() => caches.match(req, { ignoreSearch: true }).then(old => old || Response.error()))
+      )
+    );
     return;
   }
   if (sameOrigin && /\.(css|js)$/.test(url.pathname)) {
