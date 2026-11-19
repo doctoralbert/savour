@@ -77,8 +77,9 @@ Vercel bouwt alleen `main` en de testtak `savour-3` (`vercel.json` → `git.depl
   aangepast? Draai daarna `node tools/build-i18n.mjs && node tools/build-seo.mjs`. Verder: `robots.txt`, `llms.txt`,
   de kop van `index.html` (beschrijving, Open Graph, schema.org) en de deelafbeelding `assets/savour-og.png`
   (`tools/og-image.html`).
-- Eigen foto's (`assets/keuken`, `assets/kladjes`) hebben een keurmerk rechtsonder: nieuwe foto erin zetten en
-  `node tools/keurmerk.mjs` draaien. De originelen staan in `beelden-origineel/` (niet online, `.vercelignore`).
+- Eigen foto's (`assets/keuken`, `assets/kladjes`) hebben een keurmerkje rechtsonder (donker plaatje met woordmerk): nieuwe
+  foto erin zetten en `node tools/keurmerk.mjs` draaien. Waar de site een foto bijsnijdt (bovenaan een pagina, duo's)
+  staat hetzelfde keurmerkje als laag erop (`PHOTO_MARK` in `tools/build-seo.mjs`, `.photo-mark` in `css/site.css`). De originelen staan in `beelden-origineel/` (niet online, `.vercelignore`).
   Prompts voor nieuwe sfeerfoto's: `docs/beelden-gemini.md`.
 - Nieuwe pagina's live gezet? Draai daarna `npm run indexnow`: dat meldt alleen nieuwe adressen uit `sitemap.xml` bij Bing aan.
 - Savour verwijdert nooit zelf gegevens zonder dat de gebruiker daarom vraagt (zie `js/data/duplicates.js`).

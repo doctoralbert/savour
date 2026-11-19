@@ -2928,6 +2928,34 @@
 .site-page-head.has-photo .site-crumbs a {
   color: rgba(238, 232, 220, 0.88);
 }
+/* Keurmerk als laag waar een foto wordt bijgesneden (tools/build-seo.mjs, PHOTO_MARK); zelfde stijl als in de foto. */
+.photo-mark {
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  z-index: 1;
+  padding: 5px 8px 5px 11px;
+  border-radius: 4px;
+  background: rgba(6, 10, 11, 0.5);
+  color: rgba(246, 242, 234, 0.85);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 11px;
+  letter-spacing: 0.34em;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+/* Bovenaan een pagina rechtsboven: de onderkant van die foto loopt uit in het donker (en daar zit het merk uit de
+   foto zelf, half bijgesneden). */
+.site-page-head.has-photo .photo-mark {
+  top: 18px;
+  bottom: auto;
+  right: max(16px, calc((100vw - 1180px) / 2));
+}
+.photo-mark-wrap {
+  position: relative;
+  display: block;
+}
 .site-photo-duo {
   display: grid;
   grid-template-columns: 1fr 1fr;

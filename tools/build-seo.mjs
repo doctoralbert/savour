@@ -1327,7 +1327,7 @@ const featureShow = (id, lang) => {
     ? `<section class="feat-show"><div class="site-wrap">${r.showcase
         .map(
           (x, i) =>
-            `<div class="feat-row${i % 2 ? ' flip' : ''} reveal"><div><h2>${esc(x.title)}</h2><p>${proseText(x.text)}</p></div><figure><img src="${x.shot}" alt="${esc(x.alt)}" loading="lazy"></figure></div>`
+            `<div class="feat-row${i % 2 ? ' flip' : ''} reveal"><div><h2>${esc(x.title)}</h2><p>${proseText(x.text)}</p></div><figure><img src="${assetV(x.shot)}" alt="${esc(x.alt)}" loading="lazy"></figure></div>`
         )
         .join('')}</div></section>`
     : '';
@@ -1338,16 +1338,25 @@ const featureFaq = (id, lang) => {
     ? `<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(FAQ_TITLE[lang])}</h2><div class="site-faq">${r.faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${proseText(a)}</p></details>`).join('')}</div></div></section>`
     : '';
 };
+// Versienummer (bestandsgrootte) achter een eigen afbeelding: na een nieuwe versie laadt de browser die meteen.
+const assetV = src => {
+  if (!String(src).startsWith('/assets/') || String(src).includes('?')) return src;
+  const f = new URL(src.slice(1), ROOT);
+  return fs.existsSync(f) ? `${src}?v=${fs.statSync(f).size}` : src;
+};
+// Het keurmerk zit in elke eigen foto (tools/keurmerk.mjs). Waar de site een foto bijsnijdt (bovenaan een pagina en
+// de duo's), valt de hoek weg; daar staat hetzelfde keurmerkje als laag op de foto.
+const PHOTO_MARK = '<span class="photo-mark" aria-hidden="true" translate="no">SAVOUR</span>';
 const pageTop = (crumbHtml, h1, lead, photo) => {
   const p = photo && PHOTOS[photo];
   const style = p
     ? ` style="--page-photo:url('${photoFile(photo)}');--page-photo-pos:${p[1]}${p[2] ? `;--page-photo-size:${p[2]};--page-photo-pos-wide:${p[3]}` : ''}"`
     : '';
-  return `<section class="site-page-head${p ? ' has-photo' : ''}"${style}><div class="site-wrap site-narrow">${crumbHtml}<h1>${esc(h1)}</h1>${lead ? `<p class="site-lead">${esc(lead)}</p>` : ''}</div></section>`;
+  return `<section class="site-page-head${p ? ' has-photo' : ''}"${style}><div class="site-wrap site-narrow">${crumbHtml}<h1>${esc(h1)}</h1>${lead ? `<p class="site-lead">${esc(lead)}</p>` : ''}</div>${p ? PHOTO_MARK : ''}</section>`;
 };
 // Twee staande foto's naast elkaar midden in de tekst (Voor wie-pagina's).
 const photoDuo = (lang, a, b) =>
-  `<figure class="site-photo-duo reveal">${[a, b].map(k => `<img src="${photoFile(k)}" alt="${esc(PHOTO_ALT[k]?.[lang] || PHOTO_ALT[k]?.en || '')}" loading="lazy" style="object-position:${PHOTOS[k][1]}">`).join('')}</figure>`;
+  `<figure class="site-photo-duo reveal">${[a, b].map(k => `<span class="photo-mark-wrap"><img src="${photoFile(k)}" alt="${esc(PHOTO_ALT[k]?.[lang] || PHOTO_ALT[k]?.en || '')}" loading="lazy" style="object-position:${PHOTOS[k][1]}">${PHOTO_MARK}</span>`).join('')}</figure>`;
 // Een sectie is [kop, tekst] met eventueel als derde deel een opsomming (lijst met teksten) of een tabel
 // ({ head: [...], rows: [[...]] }). Tekst mag alinea's (witregel) en links ([tekst](https://… of /pad)) bevatten.
 const proseText = s =>
@@ -1369,10 +1378,10 @@ const postBlock = x => {
       return `<aside class="post-box${kind === 'warn' ? ' note' : ''}"><svg viewBox="0 0 24 24" aria-hidden="true">${BOX_ICON[kind]}</svg><div><b>${esc(x[kind][0])}</b><p>${proseText(x[kind][1])}</p></div></aside>`;
   if (x.quote) return `<p class="post-quote reveal">${esc(x.quote)}</p>`;
   if (x.shot)
-    return `<figure class="post-shot${x.wide ? ' wide' : ''} reveal"><img src="${x.shot}" alt="${esc(x.alt)}" loading="lazy"><figcaption>${esc(x.caption)}</figcaption></figure>`;
+    return `<figure class="post-shot${x.wide ? ' wide' : ''} reveal"><img src="${assetV(x.shot)}" alt="${esc(x.alt)}" loading="lazy"><figcaption>${esc(x.caption)}</figcaption></figure>`;
   // Twee beelden naast elkaar: { duo: [[pad, alt], [pad, alt]], caption }
   if (x.duo)
-    return `<figure class="post-duo reveal"><div>${x.duo.map(([src, alt]) => `<img src="${src}" alt="${esc(alt)}" loading="lazy">`).join('')}</div><figcaption>${esc(x.caption)}</figcaption></figure>`;
+    return `<figure class="post-duo reveal"><div>${x.duo.map(([src, alt]) => `<img src="${assetV(src)}" alt="${esc(alt)}" loading="lazy">`).join('')}</div><figcaption>${esc(x.caption)}</figcaption></figure>`;
   // Stappen: { steps: [[kop, tekst], ...] }
   if (x.steps)
     return `<ol class="post-steps">${x.steps.map(([h, d]) => `<li><b>${esc(h)}</b><span>${proseText(d)}</span></li>`).join('')}</ol>`;
