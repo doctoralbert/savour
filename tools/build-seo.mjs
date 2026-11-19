@@ -1245,6 +1245,7 @@ const PHOTOS = {
   barCoupes: ['bar-coupes.jpg', 'center 55%'],
   mepPass: ['mep-pass.jpg', 'center 55%'],
   // Patisserie, catering en barista (2026-11-20).
+  patisserieHero: ['patisserie-hero.jpg', 'center 55%'],
   patisserieBlog: ['patisserie-blog.jpg', 'center 55%'],
   patisserieWeegschaal: ['patisserie-weegschaal.jpg', 'center 55%'],
   patisserieViennoiserie: ['patisserie-viennoiserie.jpg', 'center 60%'],
@@ -1268,8 +1269,7 @@ const PAGE_PHOTO = {
   'allergenen-per-recept': 'keuken',
   'mep-lijsten': 'mepPass',
   'voor-bartenders': 'barSour',
-  // Tot patisserie-hero.jpg er is: de foto met spuitzakken en crème pâtissière.
-  'voor-patissiers-en-banketbakkers': 'patisserieBlog',
+  'voor-patissiers-en-banketbakkers': 'patisserieHero',
   'voor-cateraars': 'cateringHero',
   binnenkort: 'bloemen',
   'voor-koks': 'eend',
