@@ -45,6 +45,7 @@ import { BLOG_RICH } from './site-blog-rich.mjs';
 import { FEATURE_RICH } from './site-feature-rich.mjs';
 import { ALLERGEN_FEATURE, ALLERGEN_FEATURE_RICH } from './site-allergenen-functie.mjs';
 import { MEP_FEATURE, MEP_FEATURE_RICH } from './site-mep-functie.mjs';
+import { MEP_POST, MEP_POST_DE, MEP_POST_ES, MEP_POST_FR } from './site-blog-mep.mjs';
 import { PAPRIKA_PAGE } from './site-paprika.mjs';
 import { PAGE_RICH } from './site-page-rich.mjs';
 import { HOME_NEXT } from './site-home.mjs';
@@ -86,6 +87,9 @@ Object.assign(FR.posts, AI_POST_FR);
 Object.assign(DE.posts, COMMUNITY_POST_DE);
 Object.assign(ES.posts, COMMUNITY_POST_ES);
 Object.assign(FR.posts, COMMUNITY_POST_FR);
+Object.assign(DE.posts, MEP_POST_DE);
+Object.assign(ES.posts, MEP_POST_ES);
+Object.assign(FR.posts, MEP_POST_FR);
 EXTRA_LANGS.fr = EXTRA_FR;
 APP_PAGE.fr = APP_PAGE_FR;
 DELIVER.fr = DELIVER_FR;
@@ -94,7 +98,7 @@ SERVICE.fr = SERVICE_FR;
 KLADJE_REAL.fr = KLADJE_FR;
 
 // Nieuwste blogartikelen eerst.
-POSTS.unshift(FOODCOST_CALC_POST, COMMUNITY_POST, AI_POST, FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
+POSTS.unshift(MEP_POST, FOODCOST_CALC_POST, COMMUNITY_POST, AI_POST, FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
 // Achtergrondfoto achter de bovenkant van de homepage. Alleen als het bestand bestaat; zonder bestand is de
@@ -677,6 +681,7 @@ const PAGE_POSTS = {
   scale: ['scaling', 'standard', 'kosten', 'kerntemperaturen'],
   print: ['logo', 'messy'],
   allergens: ['allergenen', 'foodcost'],
+  mep: ['mep'],
   cloud: ['database', 'offline'],
   inladen: ['overzetten', 'import'],
   roadmap: ['community', 'ai-horeca', 'foodcost', 'roadmap', 'allergenen'],
