@@ -1,6 +1,8 @@
 # Opdracht voor Claude: nieuwe doelgroepen (patissiers en banketbakkers, cateraars, barista's)
 
-Kopieer alles onder de streep naar Claude Code. Zet eerst de foto's uit `docs/beelden-gemini.md` (nummers 7 t/m 16)
+Kopieer alles onder de streep naar Claude Code. De foto's uit `docs/beelden-gemini.md` (nummers 8 t/m 16) staan al in
+`assets/keuken/`, met keurmerk (2026-11-20). Alleen `patisserie-hero.jpg` (nummer 7) ontbreekt nog; tot die er is,
+gebruikt Claude `patisserie-blog.jpg` bovenaan de patisseriepagina. Nieuwe foto: zet hem
 in `assets/keuken/` met precies de bestandsnamen die daar staan. Ontbreekt een foto, dan slaat Claude die plek over
 en meldt dat.
 
