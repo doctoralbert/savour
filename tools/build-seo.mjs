@@ -1757,6 +1757,11 @@ for (const lang of LANGS) {
     }
     body = body.replace('%%FORM%%', contactForm(lang));
     if (p.id === 'pro') body += serviceTeaser(lang);
+    // Links naar voor-wiepagina's (in pro.js Nederlands) naar het adres in de taal van de pagina.
+    body = body.replace(/href="\/(voor-[a-z-]+)"/g, (m, slug) => {
+      const a = AUDIENCES.find(x => x.nl.slug === slug);
+      return a?.[lang] ? `href="${href(a[lang].slug)}"` : m;
+    });
     // Vragenpagina: ook de vragen over de import service (komen zo ook in het FAQPage-schema).
     if (p.id === 'faq')
       body += [...HOME[lang].faq.filter(([q]) => !SERVICE[lang].faqs.some(([sq]) => sq === q)), ...SERVICE[lang].faqs]
