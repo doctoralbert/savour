@@ -58,7 +58,9 @@ export const pages = {
       ['Guardar', 'Elige «Guardar todas las recetas». Si una receta ya está exactamente igual en tu biblioteca o aparece dos veces en la importación, Savour la guarda una sola vez y te dice cuántos duplicados ha omitido. Con «Volver a importar» vuelves sin guardar.'],
       ['Con una cuenta gratuita', 'Si te queda espacio para menos recetas de las que importas, Savour pregunta si guarda las que caben. Las demás se quedan en la pantalla de revisión; con [Savour Pro](#gratis-en-pro) guardas recetas ilimitadas.'],
       ['Qué hacer después', 'Los números delante de los nombres de un recetario antiguo («12. Jugo de ternera») los quitas de una vez con [Limpiar](#opschonen). Después [ordenas las recetas](#ordenen) en categorías y carpetas.'],
-      ['En qué fijarte', 'Revisa sobre todo los números, las unidades y el rendimiento. Un 3 y un 8 o un 1 y un 7 se confunden fácilmente en una nota manchada. En una receta de una foto, abre después el original con «Ver la nota original».']
+      ['En qué fijarte', 'Revisa sobre todo los números, las unidades y el rendimiento. Un 3 y un 8 o un 1 y un 7 se confunden fácilmente en una nota manchada. En una receta de una foto, abre después el original con «Ver la nota original».'],
+      ["Recetas que ya están", "Si una receta ya está en tu recetario, Savour te lo muestra antes de guardar, con las recetas. Eliges «Omitir», «Guardar solo las modificadas» o «Guardar de todos modos». Después de guardar, Savour te dice qué se ha omitido. Nunca desaparece nada sin que tú lo elijas."],
+      ["Nada se pierde", "Cada archivo que importas y cada resultado de la IA se guarda. Si cierras Savour antes de guardar, o se corta la conexión, Savour te vuelve a ofrecer las recetas la próxima vez. Mientras Savour trabaja, tu navegador te avisa si cierras la página."]
     ]
   },
   'import-word': {
@@ -253,7 +255,8 @@ export const pages = {
       ['Cuándo ayuda la IA', 'Con [Savour Pro](#gratis-en-pro) la IA entra para:', ['Fotos de recetas manuscritas o escaneadas, y la cámara.', 'PDF escaneados sin texto.', 'Recetas sobre las que el lector de Savour duda: se vuelven a leer.']],
       ['Sin Pro', 'En una cuenta gratuita ves cuántas recetas se han leído con dudas. Van marcadas para que las revises en la [pantalla de revisión](#import-controleren). No se pierde nada.'],
       ['El límite', 'Savour Pro lee hasta 150 importaciones al mes con IA. Al llegar al límite, el lector de Savour toma el relevo, con las recetas marcadas para revisar.'],
-      ['Nunca inventado', 'La IA solo puede leer lo que pone. Si la preparación no está en la nota, tampoco estará en la receta. Por qué importa tanto: [Por qué la IA nunca debe inventar tu receta](/blog/ai-mag-je-recept-niet-verzinnen).']
+      ['Nunca inventado', 'La IA solo puede leer lo que pone. Si la preparación no está en la nota, tampoco estará en la receta. Por qué importa tanto: [Por qué la IA nunca debe inventar tu receta](/blog/ai-mag-je-recept-niet-verzinnen).'],
+      ["Savour aprende", "Si «Ayuda a mejorar el lector de Savour» está activado (Ajustes, activado por defecto), Savour guarda lo que leyó el lector o la IA y lo que tú guardaste al final. Cada noche revisamos esas diferencias y mejoramos el lector. El lector nunca cambia por sí solo y puedes desactivarlo cuando quieras."]
     ]
   },
   overstappen: {

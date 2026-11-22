@@ -3,7 +3,7 @@
 export const groups = {
   keuken: {
     name: 'En cuisine',
-    intro: 'Convertir vers n’importe quel rendement, le mode cuisine en gros caractères et tes recettes sans internet.'
+    intro: 'Convertir vers n’importe quel rendement, le mode cuisine en gros caractères, tes recettes sans internet, les listes MEP et les allergènes.'
   }
 };
 
@@ -96,6 +96,25 @@ export const pages = {
       ["Importer", "Tu as déjà ta liste dans Excel, Word ou sur papier ? Choisis Importer. Savour la classe et tu vérifies tout avant l’enregistrement. Une photo est lue par l’IA, avec Savour Pro."],
       ["Imprimer", "Imprime la liste sur un A4, en portrait ou en paysage, avec des cases à cocher, comme ta liste Excel. La date et les couverts n’y figurent pas, pour l’utiliser chaque jour. Avec Savour Pro, le logo de ton restaurant y figure."],
       ["Savour Pro", "Créer et gérer des listes MEP se fait avec Savour Pro. Tout le monde dans l’équipe de cuisine peut cocher, même avec un compte gratuit. Si tu arrêtes Pro, tes listes sont conservées."]
+    ]
+  },
+  allergenen: {
+    slug: "fr/manuel-allergenes",
+    menu: "Allergènes par recette",
+    h1: "Allergènes par recette",
+    title: "Allergènes par recette : Savour les remplit | Manuel Savour",
+    desc: "Comment marchent les allergènes dans Savour : Savour remplit lui-même les 14 allergènes, aussi via les recettes de base, avec À vérifier, la carte et l’impression.",
+    lead: "Savour remplit lui-même les allergènes. Tu complètes seulement ce que Savour ne connaît pas, et tu ajustes là où ta marque diffère.",
+    sections: [
+      ["Où", "Choisis dans le menu Outils → Allergènes. Sur chaque recette, les allergènes sont sous les ingrédients ; touche-les pour les déplier. Le menu Plus d’actions de la recette contient la Carte des allergènes."],
+      ["Savour les remplit", "Pour chaque ligne d’ingrédient, Savour cherche l’ingrédient dans la liste Savour, en cinq langues et aussi sous une forme dérivée (« zeste de citron vert » compte comme citron vert). Si tu utilises une recette de base, comme un fond ou une sauce, ses allergènes comptent aussi. Tu n’as donc rien à saisir."],
+      ["Ce que Savour ne connaît pas", "En haut de Outils → Allergènes, tu vois combien de recettes ont des allergènes complets. Si Savour ne connaît pas un ingrédient, la recette l’indique (« Savour ne connaît pas encore 2 ingrédients »). Sous À vérifier, tu les reçois un par un ; tu les remplis une fois et Savour les connaît pour toutes tes recettes."],
+      ["Selon la marque", "Pour les ingrédients qui varient selon la marque, comme le bouillon ou la sauce soja, Savour compte les allergènes habituels et ajoute : peut varier selon la marque. Si ta marque est différente, ouvre l’ingrédient sous Ingrédients et crée ta propre version ; elle passe avant la liste Savour."],
+      ["Toujours activés et à activer toi-même", "Sous l’onglet Allergènes figurent les 14 allergènes que la loi t’oblige à pouvoir citer ; ils sont toujours activés. En dessous, tu actives ce que les clients demandent souvent, comme le lactose, le porc, l’oignon et l’ail ou l’alcool."],
+      ["Carte des allergènes et impression", "La Carte des allergènes montre par ingrédient les allergènes qu’il contient et, en bas, la recette entière. Un point d’interrogation signifie que Savour ne connaît pas encore cet ingrédient. À l’impression, tu choisis avec « Avec allergènes » s’ils y figurent."],
+      ["Jamais « sans allergènes »", "Tant qu’un ingrédient est inconnu ou non vérifié, Savour ne dit jamais qu’une recette est exempte d’un allergène. En cas de doute, vérifie toujours l’étiquette de ta marque."],
+      ["Dans une équipe de cuisine", "Une équipe de cuisine a sa propre liste d’ingrédients. Le propriétaire et ceux qui peuvent modifier complètent et ajustent ; toute l’équipe voit les allergènes sur les recettes, tant que le propriétaire a Savour Pro."],
+      ["Savour Pro et Savour apprend", "Les allergènes par recette font partie de Savour Pro. Si « Aide à améliorer le lecteur Savour » est activé (Paramètres), nous regardons si la liste Savour peut être améliorée quand tu choisis d’autres allergènes. Rien ne change jamais tout seul."]
     ]
   }
 };

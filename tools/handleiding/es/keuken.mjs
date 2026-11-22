@@ -3,7 +3,7 @@
 export const groups = {
   keuken: {
     name: 'En la cocina',
-    intro: 'Escalar a cualquier rendimiento, el modo cocina con letra grande y tus recetas sin internet.'
+    intro: 'Escalar a cualquier rendimiento, el modo cocina con letra grande, tus recetas sin internet, listas MEP y alérgenos.'
   }
 };
 
@@ -96,6 +96,25 @@ export const pages = {
       ["Importar", "¿Ya tienes tu lista en Excel, Word o en papel? Elige Importar. Savour la organiza y tú lo revisas todo antes de guardarlo. Una foto la lee la IA, con Savour Pro."],
       ["Imprimir", "Imprime la lista en un A4, vertical u horizontal, con casillas para marcar, igual que tu lista de Excel. La fecha y los cubiertos no aparecen, así puedes usarla cada día. Con Savour Pro lleva el logo de tu restaurante."],
       ["Savour Pro", "Crear y gestionar listas MEP se hace con Savour Pro. Cualquiera del equipo de cocina puede marcar, también con una cuenta gratuita. Si dejas Pro, tus listas se conservan."]
+    ]
+  },
+  allergenen: {
+    slug: "es/manual-alergenos",
+    menu: "Alérgenos por receta",
+    h1: "Alérgenos por receta",
+    title: "Alérgenos por receta: así los rellena Savour | Manual de Savour",
+    desc: "Así funcionan los alérgenos en Savour: Savour rellena los 14 alérgenos por sí mismo, también vía recetas base, con Revisar, ingredientes propios, la carta e impresión.",
+    lead: "Savour rellena los alérgenos por sí mismo. Tú solo completas lo que Savour no conoce y ajustas donde tu marca es distinta.",
+    sections: [
+      ["Dónde", "Elige en el menú Herramientas → Alérgenos. En cada receta, los alérgenos están debajo de los ingredientes; tócalos para desplegarlos. En el menú Más acciones de la receta está la Carta de alérgenos."],
+      ["Savour los rellena", "En cada línea de ingrediente, Savour busca el ingrediente en la lista de Savour, en cinco idiomas y también en forma derivada («ralladura de lima» cuenta como lima). Si usas una receta base, como un fondo o una salsa, sus alérgenos también cuentan. Así que no tienes que introducir nada."],
+      ["Lo que Savour no conoce", "Arriba en Herramientas → Alérgenos ves cuántas recetas tienen los alérgenos completos. Si Savour no conoce un ingrediente, la receta lo indica («Savour aún no conoce 2 ingredientes»). En Revisar los recibes uno a uno; los rellenas una vez y Savour los conoce para todas tus recetas."],
+      ["Según la marca", "En ingredientes que cambian según la marca, como el caldo o la salsa de soja, Savour cuenta los alérgenos habituales y añade: puede variar según la marca. Si tu marca es distinta, abre el ingrediente en Ingredientes y crea tu propia versión; va antes que la lista de Savour."],
+      ["Siempre activos y activar tú mismo", "En la pestaña Alérgenos están los 14 alérgenos que por ley debes poder indicar; siempre están activos. Debajo activas tú lo que los clientes suelen preguntar, como lactosa, cerdo, cebolla y ajo o alcohol."],
+      ["Carta de alérgenos e impresión", "La Carta de alérgenos muestra por ingrediente qué alérgenos contiene y, abajo, la receta completa. Un signo de interrogación significa que Savour aún no conoce ese ingrediente. Al imprimir eliges con «Con alérgenos» si aparecen en la impresión."],
+      ["Nunca «sin alérgenos»", "Mientras un ingrediente sea desconocido o no esté revisado, Savour nunca dice que una receta está libre de un alérgeno. Ante la duda, revisa siempre la etiqueta de tu marca."],
+      ["En un equipo de cocina", "Un equipo de cocina tiene su propia lista de ingredientes. El propietario y quienes pueden editar completan y ajustan; todo el equipo ve los alérgenos en las recetas, mientras el propietario tenga Savour Pro."],
+      ["Savour Pro y Savour aprende", "Los alérgenos por receta forman parte de Savour Pro. Si «Ayuda a mejorar el lector de Savour» está activado (Ajustes), revisamos si la lista de Savour puede mejorar cuando eliges otros alérgenos. Nada cambia por sí solo."]
     ]
   }
 };

@@ -3,7 +3,7 @@
 export const groups = {
   keuken: {
     name: 'In der Küche',
-    intro: 'Auf jede Ausbeute umrechnen, der Kochmodus mit großer Schrift und deine Rezepte ohne Internet.'
+    intro: 'Auf jede Ausbeute umrechnen, der Kochmodus mit großer Schrift, deine Rezepte ohne Internet, MEP-Listen und Allergene.'
   }
 };
 
@@ -96,6 +96,25 @@ export const pages = {
       ["Importieren", "Hast du deine Liste schon in Excel, Word oder auf Papier? Wähle Importieren. Savour teilt sie auf und du prüfst alles, bevor es gespeichert wird. Ein Foto liest die KI, mit Savour Pro."],
       ["Drucken", "Druck die Liste auf ein A4-Blatt, hoch oder quer, mit Kästchen zum Abhaken, genau wie deine Excel-Liste. Datum und Gedecke stehen nicht darauf, so kannst du sie jeden Tag nutzen. Mit Savour Pro steht das Logo deines Restaurants darauf."],
       ["Savour Pro", "MEP-Listen erstellen und verwalten geht mit Savour Pro. Abhaken kann jeder im Küchenteam, auch mit einem kostenlosen Konto. Hörst du mit Pro auf, bleiben deine Listen erhalten."]
+    ]
+  },
+  allergenen: {
+    slug: "de/handbuch-allergene",
+    menu: "Allergene pro Rezept",
+    h1: "Allergene pro Rezept",
+    title: "Allergene pro Rezept: so füllt Savour sie aus | Handbuch Savour",
+    desc: "So funktionieren die Allergene in Savour: Savour füllt die 14 Allergene selbst aus, auch über Grundrezepte, mit Prüfen, eigenen Zutaten, Allergenkarte und Druck.",
+    lead: "Savour füllt die Allergene selbst aus. Du ergänzt nur, was Savour nicht kennt, und passt an, wo deine Marke anders ist.",
+    sections: [
+      ["Wo", "Wähle im Menü Werkzeuge → Allergene. Bei jedem Rezept stehen die Allergene unter den Zutaten; tippe darauf, um sie aufzuklappen. Im Menü Weitere Aktionen beim Rezept findest du die Allergenkarte."],
+      ["Savour füllt selbst aus", "Savour sucht bei jeder Zutatenzeile die Zutat in der Savour-Liste, in fünf Sprachen und auch in abgeleiteter Form („Limettenabrieb“ zählt als Limette). Nutzt du ein Grundrezept, etwa einen Fond oder eine Sauce, zählen dessen Allergene mit. Du musst also nichts eingeben."],
+      ["Was Savour nicht kennt", "Oben unter Werkzeuge → Allergene siehst du, wie viele Rezepte vollständige Allergene haben. Kennt Savour eine Zutat nicht, steht das beim Rezept („Savour kennt 2 Zutaten noch nicht“). Unter Prüfen bekommst du sie nacheinander; du trägst sie einmal ein, dann kennt Savour sie für alle deine Rezepte."],
+      ["Je Marke verschieden", "Bei Zutaten, die je Marke verschieden sind, etwa Brühe oder Sojasauce, zählt Savour die üblichen Allergene mit und schreibt dazu: kann je nach Marke abweichen. Ist es bei deiner Marke anders, öffne die Zutat unter Zutaten und leg deine eigene Version an; sie geht der Savour-Liste vor."],
+      ["Immer an und selbst einschalten", "Im Tab Allergene stehen die 14 Allergene, die du laut Gesetz nennen können musst; sie sind immer an. Darunter schaltest du selbst ein, wonach Gäste oft fragen, etwa Laktose, Schweinefleisch, Zwiebel und Knoblauch oder Alkohol."],
+      ["Allergenkarte und Drucken", "Die Allergenkarte zeigt pro Zutat, welche Allergene darin stecken, und unten das ganze Rezept. Ein Fragezeichen bedeutet, dass Savour diese Zutat noch nicht kennt. Beim Drucken wählst du mit „Mit Allergenen“, ob sie mit auf den Ausdruck kommen."],
+      ["Nie „allergenfrei“", "Solange eine Zutat unbekannt oder nicht geprüft ist, sagt Savour nie, dass ein Rezept frei von einem Allergen ist. Prüfe im Zweifel immer das Etikett deiner Marke."],
+      ["Im Küchenteam", "Ein Küchenteam hat eine eigene Zutatenliste. Der Eigentümer und alle, die bearbeiten dürfen, ergänzen und passen an; alle im Team sehen die Allergene bei den Rezepten, solange der Eigentümer Savour Pro hat."],
+      ["Savour Pro und Savour lernt", "Allergene pro Rezept gehören zu Savour Pro. Ist „Hilf, den Savour-Leser zu verbessern“ an (Einstellungen), prüfen wir, ob die Savour-Liste besser werden kann, wenn du andere Allergene wählst. Nichts ändert sich von selbst."]
     ]
   }
 };

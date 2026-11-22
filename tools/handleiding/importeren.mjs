@@ -234,7 +234,9 @@ export const pages = [
         [
           'Waar je op let',
           'Lees vooral de getallen, de eenheden en de opbrengst na. Een 3 en een 8 of een 1 en een 7 zijn op een vlekkerig kladje snel verwisseld. Bij een recept van een foto open je later het origineel met “Origineel kladje bekijken”.'
-        ]
+        ],
+        ["Recepten die er al staan", "Staat een recept al in je receptenboek, dan laat Savour dat vóór het opslaan zien, met de recepten erbij. Je kiest “Overslaan”, “Alleen de gewijzigde opslaan” of “Toch opslaan”. Na het opslaan zegt Savour wat er is overgeslagen. Er verdwijnt nooit iets zonder dat jij het kiest."],
+        ["Niets kwijt", "Elk bestand dat je importeert en elk resultaat van de AI wordt bewaard. Sluit je Savour voordat je hebt opgeslagen, of valt de verbinding weg, dan biedt Savour de recepten de volgende keer opnieuw aan. Zolang Savour bezig is, waarschuwt je browser als je de pagina sluit."]
       ]
     },
     en: {
@@ -276,7 +278,9 @@ export const pages = [
         [
           'What to look out for',
           'Check the numbers, units and yield in particular. A 3 and an 8 or a 1 and a 7 are easily mixed up on a stained note. For a recipe from a photo, open the original later with “View original note”.'
-        ]
+        ],
+        ["Recipes that are already there", "If a recipe is already in your recipe book, Savour shows this before saving, with the recipes listed. You choose “Skip”, “Only save the changed ones” or “Save anyway”. After saving, Savour tells you what was skipped. Nothing ever disappears unless you choose it."],
+        ["Nothing lost", "Every file you import and every AI result is kept. If you close Savour before saving, or the connection drops, Savour offers the recipes again next time. While Savour is busy, your browser warns you if you close the page."]
       ]
     }
   },
@@ -1007,7 +1011,8 @@ export const pages = [
         [
           'Nooit verzonnen',
           'De AI mag alleen lezen wat er staat. Staat de bereiding niet op het kladje, dan staat hij ook niet in het recept. Waarom dat zo belangrijk is, lees je in [Waarom AI je recept nooit mag verzinnen](/blog/ai-mag-je-recept-niet-verzinnen).'
-        ]
+        ],
+        ["Savour leert", "Staat “Help de Savour-lezer verbeteren” aan (Instellingen, standaard aan), dan bewaart Savour wat de lezer of de AI las en wat jij uiteindelijk opsloeg. Elke avond kijken we naar die verschillen en verbeteren we de lezer. De lezer verandert nooit vanzelf, en je kunt het altijd uitzetten."]
       ]
     },
     en: {
@@ -1041,7 +1046,8 @@ export const pages = [
         [
           'Never made up',
           'The AI may only read what is there. If the method is not on the note, it is not in the recipe. Why this matters: [Why AI should never invent your recipe](/en/blog/ai-should-never-invent-recipes).'
-        ]
+        ],
+        ["Savour learns", "When “Help improve the Savour reader” is on (Settings, on by default), Savour keeps what the reader or the AI read and what you finally saved. Every evening we look at those differences and improve the reader. The reader never changes by itself, and you can always switch it off."]
       ]
     }
   },

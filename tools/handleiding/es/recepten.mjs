@@ -126,7 +126,7 @@ export const pages = {
     lead: 'Del jugo al fondo con un toque, y vuelta.',
     sections: [
       ['Automático por nombre', 'Si usas una receta propia como ingrediente y el ingrediente se llama exactamente igual que esa receta, Savour los vincula solo.'],
-      ['Vincular tú', 'Si se llama distinto, abre la receta, elige ⋯ y «Vincular a receta». Elige qué ingrediente va con qué receta tuya.'],
+      ['Vincular tú', 'Si se llama distinto, abre la receta, elige ⋯ y «Vincular ingrediente a receta». Elige qué ingrediente va con qué receta tuya.'],
       ['En la receta', 'Junto al ingrediente vinculado pone «Receta». Un toque y estás en la receta base, con un botón para volver.'],
       ['Por qué recetas base', 'Un fondo, una masa base o una salsa que usas en muchas recetas se cambia así en un solo sitio. Todos en el [equipo de cocina](#keukenteams) trabajan con la misma versión.']
     ]
@@ -150,7 +150,7 @@ export const pages = {
         ]
       ],
       ['Escalar', 'Bajo el título está «Recalcular» con botones rápidos de ¼× a 10× y «Original» para volver. Ver [Escalar](#omrekenen).'],
-      ['El menú ⋯', 'En una receta tuya, tras ⋯ están «Más opciones de escala», «Vincular a receta», «Añadir a carpeta» y «Eliminar de la biblioteca». Si abres la receta desde una carpeta o un equipo, aparece «Quitar de la carpeta» o «Quitar del equipo de cocina».'],
+      ['El menú ⋯', 'En una receta tuya, tras ⋯ están «Más opciones de escala», «Vincular ingrediente a receta», «Añadir a carpeta» y «Eliminar de la biblioteca». Si abres la receta desde una carpeta o un equipo, aparece «Quitar de la carpeta» o «Quitar del equipo de cocina».'],
       ['Marcar', 'Toca un ingrediente o un paso para marcarlo. Tras una interrupción ves dónde ibas.'],
       ['Notas y el original', 'Bajo la receta están tus [notas](#recept-notities) y, en una receta de una foto, «Ver la nota original».'],
       ['Volver', 'Con «← Volver» regresas al mismo punto de la lista de donde venías.']

@@ -91,7 +91,8 @@ export const pages = {
     sections: [
       ['In der Zutatenliste', 'Schreib bei jedem Rezept Bestandteile mit Allergenen deutlich in die Zutatenliste, auch wenn sie aus einem anderen Grundrezept kommen.'],
       ['Grundrezepte', 'Nenne bei einem zusammengesetzten Gericht, welche Grundrezepte darin stecken. [Verknüpfe sie](#recept-koppelen), dann siehst du mit einem Tipp, was im Fond oder in der Sauce ist.'],
-      ['Notizen', 'Schreib feste Absprachen und Allergeninformationen in eine [Notiz](#recept-notities) zum Rezept, damit sie auch auf dem Ausdruck stehen.']
+      ['Notizen', 'Schreib feste Absprachen und Allergeninformationen in eine [Notiz](#recept-notities) zum Rezept, damit sie auch auf dem Ausdruck stehen.'],
+      ["Allergene in Savour", "Mit Savour Pro füllt Savour die Allergene bei jedem Rezept selbst aus. Wie das funktioniert, liest du unter [Allergene pro Rezept](#allergenen)."]
     ]
   },
   'probleem-inloggen': {

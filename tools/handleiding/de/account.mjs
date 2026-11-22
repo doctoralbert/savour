@@ -82,7 +82,8 @@ export const pages = {
       ['Profil', 'Unter Konto änderst du Name und Profilfoto. Ein Profilfoto schneidest du zu, damit dein Gesicht gut im Bild ist.'],
       ['Passwort', 'Wähle unter Konto ein neues Passwort. Weißt du dein Passwort nicht mehr, nutze „Passwort vergessen?“ beim [Anmelden](#inloggen).'],
       ['Weiter unter Konto', 'Hier [druckst oder lädst du alle Rezepte herunter](#downloaden), [lädst einen Kollegen ein](#collega-uitnodigen), [installierst die App](#app-installeren), meldest dich ab und [löschst dein Konto](#account-verwijderen).'],
-      ['Die anderen Tabs', '[Savour Pro](#abonnement-beheren), [Logo auf Ausdrucken](#printen-logo), [Darstellung](#weergave-en-taal), [Kategorien](#categorieen) und [Aufräumen](#opschonen).']
+      ['Die anderen Tabs', '[Savour Pro](#abonnement-beheren), [Logo auf Ausdrucken](#printen-logo), [Darstellung](#weergave-en-taal), [Kategorien](#categorieen) und [Aufräumen](#opschonen).'],
+      ["Hilf, den Savour-Leser zu verbessern", "Unter Konto steht „Hilf, den Savour-Leser zu verbessern“. Ist es an, hilft uns, was du bei einem Import, bei den Allergenen oder an einer MEP-Liste verbesserst, Savour besser zu machen; wir prüfen alles, und nichts ändert sich von selbst. Schalte es aus, wenn du das lieber nicht möchtest."]
     ]
   },
   'weergave-en-taal': {

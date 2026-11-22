@@ -274,7 +274,8 @@ export const pages = [
         [
           'De andere tabbladen',
           '[Savour Pro](#abonnement-beheren), [Logo op prints](#printen-logo), [Weergave](#weergave-en-taal), [Categorieën](#categorieen) en [Opschonen](#opschonen).'
-        ]
+        ],
+        ["Help de Savour-lezer verbeteren", "Onder Account staat “Help de Savour-lezer verbeteren”. Staat het aan, dan helpt wat je verbetert aan een import, aan allergenen of aan een MEP-lijst ons om Savour beter te maken; we kijken alles na en er verandert nooit iets vanzelf. Zet het uit als je dat liever niet hebt."]
       ]
     },
     en: {
@@ -303,7 +304,8 @@ export const pages = [
         [
           'The other tabs',
           '[Savour Pro](#abonnement-beheren), [Logo on prints](#printen-logo), [Appearance](#weergave-en-taal), [Categories](#categorieen) and [Clean up](#opschonen).'
-        ]
+        ],
+        ["Help improve the Savour reader", "Under Account you find “Help improve the Savour reader”. When it is on, what you correct in an import, the allergens or a prep list helps us make Savour better; we check everything and nothing ever changes by itself. Switch it off if you would rather not."]
       ]
     }
   },
