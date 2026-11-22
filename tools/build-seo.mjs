@@ -1273,7 +1273,17 @@ const PHOTOS = {
   pagePro: ['page-pro.jpg', 'center 55%'],
   pageCommunity: ['page-community.jpg', 'center 50%'],
   pageContact: ['page-contact.jpg', 'center 60%'],
-  pageFaq: ['page-faq.jpg', 'center 40%']
+  pageFaq: ['page-faq.jpg', 'center 40%'],
+  // Ronde B: een eigen foto per hoofdstuk van de handleiding (GUIDE_PHOTO).
+  gidsStart: ['gids-start.jpg', 'center 55%'],
+  gidsImporteren: ['gids-importeren.jpg', 'center 55%'],
+  gidsBewerken: ['gids-bewerken.jpg', 'center 55%']
+};
+// Foto per hoofdstuk van de handleiding (id uit tools/handleiding/*.mjs); zonder eigen foto de vaste rij.
+const GUIDE_PHOTO = {
+  'aan-de-slag': 'gidsStart',
+  importeren: 'gidsImporteren',
+  recepten: 'gidsBewerken'
 };
 // De ingrediëntenlijst met de allergenen per taal (tools/build-ingredientenlijst.mjs): { code: [extra, nl, en, de, es, fr] }.
 const INGREDIENT_LIST = JSON.parse(fs.readFileSync(new URL('assets/data/ingredientenlijst.json', ROOT), 'utf8'));
@@ -1872,7 +1882,7 @@ for (const lang of LANGS) {
           }
         ],
         body: c =>
-          pageTop(c, name, intro, BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
+          pageTop(c, name, intro, GUIDE_PHOTO[ch.id] || BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
           `<article class="site-article"><div class="site-wrap site-narrow site-prose">${onPage}${topics}${related}<nav class="site-guide-pager">${
             prev
               ? `<a href="${chapterHref(prev)}"><small>← ${esc(gu.prev)}</small>${esc(chapterName(prev))}</a>`
