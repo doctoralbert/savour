@@ -571,7 +571,7 @@ export const BLOG = [
     nl: {
       slug: "blog/recepten-zonder-wifi",
       title: "Recepten zonder wifi: offline werken in de keuken",
-      desc: "In de koelcel, de kelder of op een evenement valt de wifi vaak weg. Zo open je je recepten toch, ook zonder internet.",
+      desc: "In de koelcel, de kelder of op een evenement valt de wifi vaak weg. Zo open je je recepten en vink je je MEP-lijst af, ook zonder internet of bereik.",
       "h1": "Recepten zonder wifi: offline werken in de keuken",
       lead: "Keukens zijn slecht voor wifi: staal, koelcellen, kelders. En net als je een recept nodig hebt, laadt er niets.",
       sections: [
@@ -942,7 +942,7 @@ export const BLOG = [
     en: {
       slug: 'en/blog/onboarding-new-cooks',
       title: 'Onboarding a new cook with standard recipes',
-      desc: 'A new cook’s first weeks cost the whole brigade time. With standard, shared recipes onboarding is faster and calmer.',
+      desc: 'A new cook’s first weeks cost the whole brigade time. With standard, shared recipes and a prep list per section, onboarding is faster and calmer.',
       h1: 'Onboarding a new cook with standard recipes',
       lead: 'A new cook wants to get it right, but does not yet know how things work here. Every question during service costs someone else attention.',
       sections: [
@@ -960,7 +960,7 @@ export const BLOG = [
     nl: {
       slug: 'blog/recepten-opschalen-zonder-fouten',
       title: 'Recepten opschalen zonder rekenfouten',
-      desc: 'Van 8 naar 120 couverts, of van 50 naar 1.000 stuks. Waar het misgaat bij opschalen, en hoe je het betrouwbaar doet.',
+      desc: 'Van 8 naar 120 couverts, of van 50 naar 1.000 stuks. Waar het misgaat bij opschalen, en hoe je het betrouwbaar doet, met eenheden die meegaan.',
       h1: 'Recepten opschalen zonder rekenfouten',
       lead: 'Opschalen lijkt simpel: alles keer vijftien. Tot je om vijf uur ’s middags ontdekt dat de gelatine niet is meegerekend.',
       sections: [
@@ -974,7 +974,7 @@ export const BLOG = [
     en: {
       slug: 'en/blog/scaling-recipes-without-errors',
       title: 'Scaling recipes without calculation errors',
-      desc: 'From 8 to 120 covers, or from 50 to 1,000 pieces. Where scaling goes wrong, and how to do it reliably.',
+      desc: 'From 8 to 120 covers, or from 50 to 1,000 pieces. Where scaling goes wrong, and how to do it reliably, with units, plurals and the original kept intact.',
       h1: 'Scaling recipes without calculation errors',
       lead: 'Scaling looks simple: everything times fifteen. Until you find out at five in the afternoon that the gelatine was not included.',
       sections: [

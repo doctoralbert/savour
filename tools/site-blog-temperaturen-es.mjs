@@ -5,7 +5,7 @@ export const TEMP_POSTS_ES = {
   'en/blog/core-temperatures-meat-fish-shellfish': {
     slug: 'es/blog/temperaturas-internas-carne-pescado-marisco',
     title: 'Temperaturas internas de carne, aves, pescado y marisco',
-    desc: 'Temperaturas internas para la cocina profesional: pollo, cerdo, ternera, cordero, caza, pescado y marisco. Por qué el pollo no necesita 75 °C, con tablas de tiempo y temperatura y fuentes.',
+    desc: 'Temperaturas internas para la cocina profesional en un solo vistazo: pollo, cerdo, ternera, cordero, caza, pescado y marisco, de rosado a hecho. Por qué el pollo no necesita 75 °C, con tablas de tiempo y temperatura y fuentes.',
     h1: 'Temperaturas internas de carne, aves, pescado y marisco',
     lead: 'El pollo no tiene que llegar a 75 °C y el solomillo de cerdo puede quedar rosado. Lo que cuenta es la temperatura y el tiempo. Un resumen para la cocina profesional, con las fuentes.',
     sections: [

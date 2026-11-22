@@ -12,7 +12,7 @@ export const pages = {
     slug: 'es/manual-imprimir',
     menu: 'Imprimir una receta',
     title: 'Imprimir una receta, también escalada | Manual de Savour',
-    desc: 'Así imprimes una receta en Savour: el diseño de impresión con cantidades en negrita, imprimir escalado y en A4 o A5. También para quien abre una receta compartida.',
+    desc: 'Así imprimes una receta en Savour: el diseño de impresión con cantidades en negrita, imprimir escalado, con o sin alérgenos, y en formato A4 o A5. También para quien abre una receta compartida.',
     lead: 'Una receta suelta para la pared o la carpeta del pase.',
     sections: [
       ['Imprimir', 'Abre la receta y elige «Imprimir». Savour abre el diseño de impresión: nombre, rendimiento, ingredientes con cantidades en negrita y la preparación por pasos. Después elige la impresora o guárdala como PDF.'],

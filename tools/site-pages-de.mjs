@@ -37,7 +37,7 @@ export const DE = {
     terms: {
       slug: 'de/agb',
       title: 'Allgemeine Geschäftsbedingungen — Savour',
-      desc: 'Die AGB von Savour: kostenloses Konto, Savour Pro, Team-Abos, Kündigung und Widerrufsrecht.'
+      desc: 'Die AGB von Savour: was für das kostenlose Konto, Savour Pro und die Team-Abos gilt, wie du kündigst und wie das Widerrufsrecht funktioniert.'
     },
     privacy: {
       slug: 'de/datenschutz',
@@ -240,7 +240,7 @@ export const DE = {
     chefs: {
       slug: 'de/fuer-koeche',
       title: 'Rezept-App für Köche und Sous-Chefs | Savour',
-      desc: 'Savour ist für Köche in der Profiküche gemacht: Küchenchefs, Sous-Chefs und Chefs de Partie. Alle Rezepturen an einem Ort, genau so, wie du sie geschrieben hast.',
+      desc: 'Savour ist für Köche in der Profiküche gemacht: Küchenchefs, Sous-Chefs und Chefs de Partie. Rezepte digitalisieren, umrechnen, Allergene und MEP-Listen. Alle Rezepturen an einem Ort, genau so, wie du sie geschrieben hast.',
       h1: 'Für Köche',
       lead: 'Ob du die Küche leitest, die Saucen machst oder den Garde-Manger führst: Deine Rezepte müssen stimmen und schnell zu finden sein.',
       sections: [
@@ -766,7 +766,7 @@ export const DE = {
     'en/blog/scaling-recipes-without-errors': {
       slug: 'de/blog/rezepte-hochrechnen-ohne-fehler',
       title: 'Rezepte hochrechnen ohne Rechenfehler',
-      desc: 'Von 8 auf 120 Gedecke oder von 50 auf 1.000 Stück. Wo das Hochrechnen schiefgeht und wie du es zuverlässig machst.',
+      desc: 'Von 8 auf 120 Gedecke oder von 50 auf 1.000 Stück. Wo das Hochrechnen schiefgeht und wie du es zuverlässig machst, mit Einheiten, die mitgehen.',
       h1: 'Rezepte hochrechnen ohne Rechenfehler',
       lead: 'Hochrechnen sieht einfach aus: alles mal fünfzehn. Bis du um fünf Uhr nachmittags merkst, dass die Gelatine nicht mitgerechnet wurde.',
       sections: [

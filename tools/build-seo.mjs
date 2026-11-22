@@ -235,8 +235,8 @@ const LEGACY = [
     en: 'en/terms',
     title: ['Algemene voorwaarden — Savour', 'Terms and conditions — Savour'],
     desc: [
-      'De algemene voorwaarden van Savour: gratis account, Savour Pro, teamabonnementen, opzeggen en herroepingsrecht.',
-      'The terms and conditions of Savour: free account, Savour Pro, team plans, cancelling and the right of withdrawal.'
+      'De algemene voorwaarden van Savour: wat geldt voor het gratis account, Savour Pro en teamabonnementen, hoe opzeggen werkt en je herroepingsrecht.',
+      'The terms and conditions of Savour: what applies to the free account, Savour Pro and team plans, how cancelling works and your right of withdrawal.'
     ]
   },
   {
@@ -245,8 +245,8 @@ const LEGACY = [
     en: 'en/privacy',
     title: ['Privacybeleid — Savour', 'Privacy policy — Savour'],
     desc: [
-      'Hoe Savour met je gegevens en recepten omgaat: wat we bewaren, waarvoor, met wie we werken en welke rechten je hebt.',
-      'How Savour handles your data and recipes: what we keep, why, who we work with and what rights you have.'
+      'Hoe Savour met je gegevens en recepten omgaat: wat we bewaren, waarvoor, met wie we werken, hoe lang we bestanden bewaren en welke rechten je hebt.',
+      'How Savour handles your data and recipes: what we keep, why we keep it, who we work with, how long we store files and what rights you have as a user.'
     ]
   }
 ];
@@ -1080,7 +1080,7 @@ function homeBody(lang, inApp) {
 <section class="site-section tint" id="prijzen"><div class="site-wrap"><h2 class="reveal">${esc(n.priceTitle)}</h2><div class="home-plans">${n.plans.map(plan).join('')}</div><p class="home-plans-foot">${esc(n.priceFoot)} <a class="site-link" href="${href(legacy('pro')[lang])}">${esc(n.priceLink)}</a></p></div></section>
 ${serviceBand(lang)}
 <section class="site-section"><div class="site-wrap"><h2 class="reveal">${esc(n.trustTitle)}</h2><div class="home-trust">${n.trust.map(([t, d]) => `<div><b>${esc(t)}</b><span>${esc(d)}</span></div>`).join('')}</div></div></section>
-<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.faqTitle)}</h2><div class="site-faq">${n.faq.map(([qq, a]) => `<details><summary>${esc(qq)}</summary><p>${esc(a)}</p></details>`).join('')}</div></div></section>
+<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.faqTitle)}</h2><div class="site-faq">${n.faq.map(([qq, a]) => `<details><summary>${esc(qq)}</summary><p>${proseText(a)}</p></details>`).join('')}</div></div></section>
 ${ctaBlock(lang, inApp)}`;
 }
 
@@ -1599,7 +1599,8 @@ for (const lang of LANGS) {
       title: i
         ? BLOG_TITLE[lang].replace(/(\s+[—–]\s+Savour)?$/, m => ` · ${BLOG_PAGER[lang].page} ${i + 1}${m}`)
         : BLOG_TITLE[lang],
-      desc: u.blogLead,
+      // Vervolgpagina's een eigen beschrijving (zoekmachines melden anders dubbele beschrijvingen).
+      desc: i ? `${BLOG_PAGER[lang].page} ${i + 1}: ${u.blogLead}` : u.blogLead,
       crumbs: i ? [[u.blog, href(blogSlug[lang])], [`${BLOG_PAGER[lang].page} ${i + 1}`]] : [[u.blog]],
       body: c =>
         pageTop(c, name, u.blogLead, PAGE_PHOTO.blog) +
@@ -1918,7 +1919,7 @@ for (const lang of LANGS) {
         lang,
         slugs: rSlugs(i),
         title: i ? `${rp.title} · ${BLOG_PAGER[lang].page} ${i + 1}` : rp.title,
-        desc: rp.desc,
+        desc: i ? `${BLOG_PAGER[lang].page} ${i + 1}: ${rp.desc}` : rp.desc,
         crumbs: i ? [[rp.h1, href(rp.slug)], [`${BLOG_PAGER[lang].page} ${i + 1}`]] : [[rp.h1]],
         body: c =>
           pageTop(c, i ? `${rp.h1} · ${BLOG_PAGER[lang].page} ${i + 1}` : rp.h1, rp.lead, 'hout') +
@@ -2027,7 +2028,8 @@ const HOME_META = {
         mainEntity: HOME_NEXT[lang].faq.map(([q, a]) => ({
           '@type': 'Question',
           name: q,
-          acceptedAnswer: { '@type': 'Answer', text: a }
+          // Links als [tekst](/pad) horen niet in het schema: alleen de tekst.
+          acceptedAnswer: { '@type': 'Answer', text: a.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') }
         }))
       };
       const i = list.findIndex(x => x['@type'] === 'FAQPage');

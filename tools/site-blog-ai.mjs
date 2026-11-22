@@ -94,7 +94,7 @@ export const AI_POST = {
   en: {
     slug: 'en/blog/ai-in-hospitality',
     title: 'AI in hospitality: how to use it well, and how Savour does it',
-    desc: 'What can AI do in hospitality, where do you start and what should you keep doing yourself? A practical approach for kitchens, with how Savour uses AI for recipes, allergens and soon your purchase prices.',
+    desc: 'What can AI do in hospitality, where do you start and what should you keep doing yourself? From digitising recipes to what AI must never decide for you. A practical approach for kitchens, with how Savour uses AI for recipes, allergens and soon your purchase prices.',
     h1: 'AI in hospitality: how to use it well',
     lead: 'AI is not a robot that takes over your kitchen. It is a helper that does the dull work faster: retyping, sorting, calculating. The chef still decides. Here is how to bring it in, and how Savour does it.',
     brief: [
@@ -181,7 +181,7 @@ export const AI_POST_DE = {
   [KEY]: {
     slug: 'de/blog/ki-in-der-gastronomie',
     title: 'KI in der Gastronomie: so setzt du sie klug ein, und so macht es Savour',
-    desc: 'Was kann KI in der Gastronomie, wo fängst du an und was solltest du selbst machen? Ein praktischer Weg für Küchen, mit dem, wie Savour KI für Rezepte, Allergene und bald deine Einkaufspreise nutzt.',
+    desc: 'Was kann KI in der Gastronomie, wo fängst du an und was solltest du selbst machen? Von Rezepten digitalisieren bis zu dem, was nie die KI entscheiden darf. Ein praktischer Weg für Küchen, mit dem, wie Savour KI für Rezepte, Allergene und bald deine Einkaufspreise nutzt.',
     h1: 'KI in der Gastronomie: so setzt du sie klug ein',
     lead: 'KI ist kein Roboter, der deine Küche übernimmt. Sie ist eine Hilfe, die die lästige Arbeit schneller erledigt: abtippen, sortieren, rechnen. Entscheiden tut der Küchenchef. So führst du sie ein, und so macht es Savour.',
     brief: [
@@ -266,7 +266,7 @@ export const AI_POST_ES = {
   [KEY]: {
     slug: 'es/blog/ia-en-hosteleria',
     title: 'IA en hostelería: cómo usarla bien, y cómo lo hace Savour',
-    desc: '¿Qué puede hacer la IA en hostelería, por dónde empiezas y qué debes seguir haciendo tú? Un enfoque práctico para cocinas, con cómo Savour usa la IA para recetas, alérgenos y pronto tus precios de compra.',
+    desc: '¿Qué puede hacer la IA en hostelería, por dónde empiezas y qué debes seguir haciendo tú? De digitalizar recetas a lo que la IA nunca debe decidir. Un enfoque práctico para cocinas, con cómo Savour usa la IA para recetas, alérgenos y pronto tus precios de compra.',
     h1: 'IA en hostelería: cómo usarla bien',
     lead: 'La IA no es un robot que se queda con tu cocina. Es una ayuda que hace más rápido el trabajo pesado: pasar a limpio, ordenar, calcular. El chef sigue decidiendo. Así la introduces, y así lo hace Savour.',
     brief: [
@@ -351,7 +351,7 @@ export const AI_POST_FR = {
   [KEY]: {
     slug: 'fr/blog/ia-en-restauration',
     title: 'L’IA en restauration : bien l’utiliser, et comment Savour le fait',
-    desc: 'Que peut faire l’IA en restauration, par où commencer et que dois-tu continuer à faire toi-même ? Une approche pratique pour les cuisines, avec la façon dont Savour utilise l’IA pour les recettes, les allergènes et bientôt tes prix d’achat.',
+    desc: 'Que peut faire l’IA en restauration, par où commencer et que dois-tu faire toi-même ? De la numérisation des recettes à ce qu’elle ne doit jamais décider. Une approche pratique pour les cuisines, avec la façon dont Savour utilise l’IA pour les recettes, les allergènes et bientôt tes prix d’achat.',
     h1: 'L’IA en restauration : bien l’utiliser',
     lead: 'L’IA n’est pas un robot qui prend ta cuisine. C’est une aide qui fait plus vite le travail ennuyeux : recopier, trier, calculer. Le chef décide toujours. Voici comment l’introduire, et comment Savour le fait.',
     brief: [

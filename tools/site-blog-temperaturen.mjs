@@ -18,7 +18,7 @@ export const TEMP_POSTS = [
     nl: {
       slug: 'blog/kerntemperaturen-vlees-vis-schaaldieren',
       title: 'Kerntemperaturen voor vlees, gevogelte, vis en schaaldieren',
-      desc: 'Kerntemperaturen voor de professionele keuken: kip, varken, rund, lam, wild, vis en schaal- en schelpdieren. Waarom kip niet naar 75 °C hoeft, met tijd-temperatuurtabellen en bronnen.',
+      desc: 'Kerntemperaturen voor de professionele keuken in één overzicht: kip, varken, rund, lam, wild, vis en schaal- en schelpdieren, van rosé tot doorgegaard. Waarom kip niet naar 75 °C hoeft, met tijd-temperatuurtabellen en bronnen.',
       h1: 'Kerntemperaturen voor vlees, gevogelte, vis en schaaldieren',
       lead: 'Kip hoeft niet naar 75 °C en varkenshaas mag rosé. Wat telt is temperatuur én tijd. Een overzicht voor de professionele keuken, met de bronnen erbij.',
       sections: [
@@ -151,7 +151,7 @@ export const TEMP_POSTS = [
     en: {
       slug: 'en/blog/core-temperatures-meat-fish-shellfish',
       title: 'Core temperatures for meat, poultry, fish and shellfish',
-      desc: 'Core temperatures for professional kitchens: chicken, pork, beef, lamb, game, fish and shellfish. Why chicken doesn’t need 75 °C, with time-temperature tables and sources.',
+      desc: 'Core temperatures for professional kitchens at a glance: chicken, pork, beef, lamb, game, fish and shellfish, from pink to well done, in one overview. Why chicken doesn’t need 75 °C, with time-temperature tables and sources.',
       h1: 'Core temperatures for meat, poultry, fish and shellfish',
       lead: 'Chicken doesn’t need to reach 75 °C and pork tenderloin can be pink. What counts is temperature and time. An overview for professional kitchens, with sources.',
       sections: [

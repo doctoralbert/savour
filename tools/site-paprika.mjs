@@ -276,7 +276,7 @@ export const PAPRIKA_PAGE = {
   fr: {
     slug: 'fr/alternative-a-paprika',
     title: 'Alternative à Paprika pour les cuisiniers : passer à Savour | Savour',
-    desc: 'Tu cherches une alternative à Paprika Recipe Manager pour une cuisine professionnelle ? Savour a des équipes de cuisine, la conversion par couverts et l’impression avec ton logo. Tes recettes Paprika suivent en quelques minutes, avec les photos.',
+    desc: 'Tu cherches une alternative à Paprika Recipe Manager pour une cuisine professionnelle ? Ce que Savour fait autrement, et comment importer tes recettes. Savour a des équipes de cuisine, la conversion par couverts et l’impression avec ton logo. Tes recettes Paprika suivent en quelques minutes, avec les photos.',
     crumb: 'Alternative à Paprika',
     h1: 'L’alternative à Paprika pour la cuisine professionnelle',
     lead: 'Paprika est une belle app pour la maison. Si tu cuisines dans un restaurant, tu as besoin d’autre chose. Tes recettes suivent en quelques minutes.',

@@ -147,7 +147,7 @@ export const FR = {
     chefs: {
       slug: 'fr/pour-cuisiniers',
       title: 'Application de recettes pour chefs et sous-chefs | Savour',
-      desc: 'Savour est fait pour les cuisiniers professionnels : chefs de cuisine, sous-chefs et chefs de partie. Toutes tes recettes au même endroit, exactement comme tu les as écrites.',
+      desc: 'Savour est fait pour les cuisiniers professionnels : chefs de cuisine, sous-chefs et chefs de partie. Numériser, convertir, allergènes et listes MEP. Toutes tes recettes au même endroit, exactement comme tu les as écrites.',
       h1: 'Pour les cuisiniers',
       lead: "Que tu diriges la cuisine, que tu fasses les sauces ou que tu tiennes le garde-manger : tes recettes doivent être justes et faciles à retrouver.",
       sections: [
@@ -365,7 +365,7 @@ export const FR = {
     'en/blog/sharing-recipes-with-your-team': {
       slug: 'fr/blog/partager-recettes-avec-equipe',
       title: 'Partager ses recettes avec son équipe, sans photos de photos',
-      desc: 'Partager des recettes dans le groupe WhatsApp finit en photos floues et vieilles versions. Comment partager recettes et dossiers avec ton équipe, avec les bons droits.',
+      desc: 'Partager des recettes dans le groupe WhatsApp finit en photos floues et vieilles versions. Ainsi, ton équipe travaille toujours avec la bonne recette. Comment partager recettes et dossiers avec ton équipe, avec les bons droits.',
       h1: 'Partager ses recettes avec son équipe, sans photos de photos',
       lead: "La photo d'une recette, transférée dans le groupe, reprise en photo depuis un autre écran. Tu connais. Et personne ne sait quelle version est la bonne.",
       sections: [
@@ -414,7 +414,7 @@ export const FR = {
     'en/blog/onboarding-new-cooks': {
       slug: 'fr/blog/integrer-nouveaux-cuisiniers',
       title: 'Intégrer un nouveau cuisinier avec des recettes standard',
-      desc: "Les premières semaines d'un nouveau cuisinier coûtent du temps à toute la brigade. Avec des recettes standard partagées, l'intégration est plus rapide et plus calme.",
+      desc: "Les premières semaines d'un nouveau cuisinier coûtent du temps à toute la brigade. Avec des recettes fixes et partagées, l'intégration est plus rapide. Avec des recettes standard partagées, l'intégration est plus rapide et plus calme.",
       h1: 'Intégrer un nouveau cuisinier avec des recettes standard',
       lead: "Un nouveau cuisinier veut bien faire, mais ne sait pas encore comment ça marche ici. Chaque question pendant le service détourne l'attention d'un autre.",
       sections: [
@@ -428,7 +428,7 @@ export const FR = {
     'en/blog/scaling-recipes-without-errors': {
       slug: 'fr/blog/adapter-recettes-sans-erreur',
       title: 'Adapter ses recettes sans erreur de calcul',
-      desc: "De 8 à 120 couverts ou de 50 à 1 000 pièces. Où l'adaptation des quantités dérape et comment la faire de façon fiable.",
+      desc: "De 8 à 120 couverts ou de 50 à 1 000 pièces. Où l'adaptation des quantités dérape et comment la faire de façon fiable, unités comprises et original intact.",
       h1: 'Adapter ses recettes sans erreur de calcul',
       lead: "Adapter paraît simple : tout fois quinze. Jusqu'à ce que tu découvres à cinq heures que la gélatine n'a pas été multipliée.",
       sections: [
@@ -457,7 +457,7 @@ export const FR = {
     'en/blog/ai-should-never-invent-recipes': {
       slug: 'fr/blog/ia-ne-doit-pas-inventer-recettes',
       title: "Pourquoi l'IA ne doit jamais inventer tes recettes",
-      desc: "L'IA peut lire l'écriture manuscrite et ranger des documents en désordre. Mais une recette doit être juste. Pourquoi Savour s'arrête en cas de doute au lieu de deviner.",
+      desc: "L'IA peut lire l'écriture manuscrite et ranger des documents en désordre. Mais une recette doit être juste : voilà pourquoi l'IA ne doit rien inventer. Pourquoi Savour s'arrête en cas de doute au lieu de deviner.",
       h1: "Pourquoi l'IA ne doit jamais inventer tes recettes",
       lead: "L'IA sait très bien compléter ce qui est probablement écrit. En cuisine, « probablement » ne suffit pas.",
       sections: [
@@ -517,7 +517,7 @@ export const FR = {
     'en/blog/recipe-book-with-your-logo': {
       slug: 'fr/blog/livre-recettes-avec-logo',
       title: 'Imprime un livre de recettes au logo de ton restaurant',
-      desc: "Imprime recettes et dossiers entiers avec le logo et le nom de ton restaurant, en A4 ou A5, avec la date d'impression. Pour le classeur de la cuisine ou la formation.",
+      desc: "Imprime recettes et dossiers entiers avec le logo et le nom de ton restaurant, en A4 ou A5, avec la date d'impression, pour la cuisine et l'équipe. Pour le classeur de la cuisine ou la formation.",
       h1: 'Un livre de recettes au logo de ton restaurant',
       lead: "Même avec toutes les recettes sur le téléphone, le papier reste important dans beaucoup de cuisines. Autant qu'on voie qu'il vient de ton restaurant.",
       sections: [
