@@ -211,9 +211,9 @@ export const DE = {
     },
     roadmap: {
       slug: 'de/demnaechst',
-      short: 'Kosten pro Rezept, der Verlauf jedes Rezepts und mehr.',
-      title: 'Demnächst in Savour: Kalkulation, Rezeptverlauf und mehr',
-      desc: 'Woran wir arbeiten: Kosten pro Rezept, der Verlauf jedes Rezepts und eine App für iPhone und Android. Allergene pro Rezept sind inzwischen live.',
+      short: 'Foodcost-Rechner, Menu Engineering und der Verlauf jedes Rezepts.',
+      title: 'Demnächst in Savour: Foodcost-Rechner und Rezeptverlauf',
+      desc: 'Woran wir arbeiten: ein Foodcost-Rechner für Gericht, Portion und Menü, danach Menu Engineering, der Verlauf jedes Rezepts und vielleicht eine App.',
       h1: 'Woran wir arbeiten',
       lead: 'Savour wächst mit der Küche. Das steht auf der Roadmap. Fehlt dir etwas? Sag es uns.',
       sections: [

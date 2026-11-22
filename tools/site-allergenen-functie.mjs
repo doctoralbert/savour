@@ -207,7 +207,9 @@ export const ALLERGEN_FEATURE_RICH = {
     faq: [
       ['Kost het extra?', 'Allergenen horen bij Savour Pro, en werken ook in een keukenteam van een eigenaar met Pro. Nieuwe accounts krijgen 7 dagen Pro gratis.'],
       ["Moet ik alle ingrediënten zelf invoeren?", "Nee. Savour vult de allergenen zelf in uit de Savour-lijst. Alleen wat Savour niet kent of wat per merk verschilt, vul je zelf in of pas je aan. [Bekijk de lijst](@list)."],
-      ['Kan ik erop vertrouwen?', 'Savour zegt nooit dat iets allergeenvrij is zolang niet alles is nagekeken. Het etiket van je leverancier gaat altijd voor.']
+      ['Kan ik erop vertrouwen?', 'Savour zegt nooit dat iets allergeenvrij is zolang niet alles is nagekeken. Het etiket van je leverancier gaat altijd voor.'],
+      ["Herkent Savour ook recepten in een andere taal?", "Ja. De Savour-lijst bestaat in vijf talen. Bloem in Duitse, Franse, Spaanse en Italiaanse recepten (Mehl, farine, harina, farina) telt als gluten, en plantaardige melk zoals sojamelk telt niet als melk."],
+      ["Leert Savour van wat ik aanpas?", "Alleen als \"Help de Savour-lezer verbeteren\" aan staat (Instellingen). Kies je andere allergenen dan Savour invulde, dan kijken wij of de Savour-lijst beter kan. Er verandert nooit iets vanzelf."]
     ]
   },
   en: {
@@ -233,7 +235,9 @@ export const ALLERGEN_FEATURE_RICH = {
     faq: [
       ['Does it cost extra?', 'Allergens are part of Savour Pro, and also work in a kitchen team whose owner has Pro. New accounts get 7 days of Pro for free.'],
       ["Do I have to enter every ingredient?", "No. Savour fills in the allergens itself from the Savour list. Only what Savour does not know or what differs by brand you fill in or adjust yourself. [See the list](@list)."],
-      ['Can I rely on it?', 'Savour never says something is allergen-free while not everything is checked. Your supplier’s label always comes first.']
+      ['Can I rely on it?', 'Savour never says something is allergen-free while not everything is checked. Your supplier’s label always comes first.'],
+      ["Does Savour recognise recipes in another language?", "Yes. The Savour list exists in five languages. Flour in German, French, Spanish and Italian recipes (Mehl, farine, harina, farina) counts as gluten, and plant-based milk such as soy milk does not count as milk."],
+      ["Does Savour learn from what I adjust?", "Only when \"Help improve the Savour reader\" is on (Settings). If you choose different allergens than Savour filled in, we look at whether the Savour list can be improved. Nothing ever changes by itself."]
     ]
   },
   de: {
@@ -259,7 +263,9 @@ export const ALLERGEN_FEATURE_RICH = {
     faq: [
       ['Kostet es extra?', 'Allergene gehören zu Savour Pro und funktionieren auch in einem Küchenteam, dessen Eigentümer Pro hat. Neue Konten bekommen 7 Tage Pro gratis.'],
       ["Muss ich alle Zutaten selbst eingeben?", "Nein. Savour füllt die Allergene selbst aus der Savour-Liste aus. Nur was Savour nicht kennt oder was je Marke verschieden ist, trägst du selbst ein oder passt es an. [Zur Liste](@list)."],
-      ['Kann ich mich darauf verlassen?', 'Savour sagt nie, dass etwas allergenfrei ist, solange nicht alles geprüft ist. Das Etikett deines Lieferanten geht immer vor.']
+      ['Kann ich mich darauf verlassen?', 'Savour sagt nie, dass etwas allergenfrei ist, solange nicht alles geprüft ist. Das Etikett deines Lieferanten geht immer vor.'],
+      ["Erkennt Savour auch Rezepte in einer anderen Sprache?", "Ja. Die Savour-Liste gibt es in fünf Sprachen. Mehl in deutschen, französischen, spanischen und italienischen Rezepten (Mehl, farine, harina, farina) zählt als Gluten, und Pflanzenmilch wie Sojamilch zählt nicht als Milch."],
+      ["Lernt Savour aus dem, was ich anpasse?", "Nur wenn „Hilf, den Savour-Leser zu verbessern“ an ist (Einstellungen). Wählst du andere Allergene, als Savour ausgefüllt hat, prüfen wir, ob die Savour-Liste besser werden kann. Nichts ändert sich von selbst."]
     ]
   },
   es: {
@@ -285,7 +291,9 @@ export const ALLERGEN_FEATURE_RICH = {
     faq: [
       ['¿Cuesta más?', 'Los alérgenos forman parte de Savour Pro y también funcionan en un equipo de cocina cuyo propietario tiene Pro. Las cuentas nuevas reciben 7 días de Pro gratis.'],
       ["¿Tengo que introducir todos los ingredientes?", "No. Savour rellena por sí mismo los alérgenos desde la lista de Savour. Solo lo que Savour no conoce o lo que cambia según la marca lo rellenas o ajustas tú. [Ver la lista](@list)."],
-      ['¿Puedo fiarme?', 'Savour nunca dice que algo está libre de alérgenos mientras no esté todo revisado. La etiqueta de tu proveedor siempre manda.']
+      ['¿Puedo fiarme?', 'Savour nunca dice que algo está libre de alérgenos mientras no esté todo revisado. La etiqueta de tu proveedor siempre manda.'],
+      ["¿Reconoce Savour recetas en otro idioma?", "Sí. La lista de Savour existe en cinco idiomas. La harina en recetas alemanas, francesas, españolas e italianas (Mehl, farine, harina, farina) cuenta como gluten, y las bebidas vegetales como la de soja no cuentan como leche."],
+      ["¿Aprende Savour de lo que ajusto?", "Solo si «Ayuda a mejorar el lector de Savour» está activado (Ajustes). Si eliges alérgenos distintos de los que rellenó Savour, revisamos si la lista de Savour puede mejorar. Nada cambia por sí solo."]
     ]
   },
   fr: {
@@ -311,7 +319,9 @@ export const ALLERGEN_FEATURE_RICH = {
     faq: [
       ['Est-ce payant ?', 'Les allergènes font partie de Savour Pro et fonctionnent aussi dans une équipe de cuisine dont le propriétaire a Pro. Les nouveaux comptes reçoivent 7 jours de Pro gratuits.'],
       ["Dois-je saisir tous les ingrédients ?", "Non. Savour remplit lui-même les allergènes à partir de la liste Savour. Seul ce que Savour ne connaît pas ou ce qui varie selon la marque, tu le remplis ou l’ajustes toi-même. [Voir la liste](@list)."],
-      ['Puis-je m’y fier ?', 'Savour ne dit jamais qu’un plat est sans allergènes tant que tout n’est pas vérifié. L’étiquette de ton fournisseur prime toujours.']
+      ['Puis-je m’y fier ?', 'Savour ne dit jamais qu’un plat est sans allergènes tant que tout n’est pas vérifié. L’étiquette de ton fournisseur prime toujours.'],
+      ["Savour reconnaît-il les recettes dans une autre langue ?", "Oui. La liste Savour existe en cinq langues. La farine des recettes allemandes, françaises, espagnoles et italiennes (Mehl, farine, harina, farina) compte comme gluten, et les laits végétaux comme le lait de soja ne comptent pas comme lait."],
+      ["Savour apprend-il de ce que j’ajuste ?", "Seulement si « Aide à améliorer le lecteur Savour » est activé (Paramètres). Si tu choisis d’autres allergènes que ceux remplis par Savour, nous regardons si la liste Savour peut être améliorée. Rien ne change jamais tout seul."]
     ]
   }
 };

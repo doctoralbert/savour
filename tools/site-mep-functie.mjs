@@ -217,7 +217,8 @@ export const MEP_FEATURE_RICH = {
       [
         'Werkt het zonder internet?',
         'Afvinken wel: Savour onthoudt het en stuurt het zodra je weer verbinding hebt. Je collega’s zien het dan meteen.'
-      ]
+      ],
+      ["Wordt de MEP-lezer beter?", "Ja, als \"Help de Savour-lezer verbeteren\" aan staat (Instellingen): wat je in het controlescherm verbetert, helpt ons de MEP-lezer beter te maken. We kijken alles na; de lezer verandert nooit vanzelf."]
     ]
   },
   en: {
@@ -252,7 +253,8 @@ export const MEP_FEATURE_RICH = {
       [
         'Does it work without internet?',
         'Ticking off does: Savour remembers it and sends it as soon as you are back online. Your colleagues then see it straight away.'
-      ]
+      ],
+      ["Does the prep list reader get better?", "Yes, when \"Help improve the Savour reader\" is on (Settings): what you correct in the review screen helps us improve the prep list reader. We check everything; the reader never changes by itself."]
     ]
   },
   de: {
@@ -287,7 +289,8 @@ export const MEP_FEATURE_RICH = {
       [
         'Funktioniert es ohne Internet?',
         'Abhaken schon: Savour merkt es sich und schickt es, sobald du wieder online bist. Deine Kollegen sehen es dann sofort.'
-      ]
+      ],
+      ["Wird der MEP-Leser besser?", "Ja, wenn „Hilf, den Savour-Leser zu verbessern“ an ist (Einstellungen): Was du im Prüfbildschirm verbesserst, hilft uns, den MEP-Leser besser zu machen. Wir prüfen alles; der Leser ändert sich nie von selbst."]
     ]
   },
   es: {
@@ -322,7 +325,8 @@ export const MEP_FEATURE_RICH = {
       [
         '¿Funciona sin internet?',
         'Marcar sí: Savour lo recuerda y lo envía en cuanto vuelves a tener conexión. Tus compañeros lo ven enseguida.'
-      ]
+      ],
+      ["¿Mejora el lector de listas MEP?", "Sí, si «Ayuda a mejorar el lector de Savour» está activado (Ajustes): lo que corriges en la pantalla de revisión nos ayuda a mejorar el lector MEP. Lo revisamos todo; el lector nunca cambia por sí solo."]
     ]
   },
   fr: {
@@ -357,7 +361,8 @@ export const MEP_FEATURE_RICH = {
       [
         'Ça marche sans internet ?',
         'Cocher, oui : Savour s’en souvient et l’envoie dès que tu es reconnecté. Tes collègues le voient aussitôt.'
-      ]
+      ],
+      ["Le lecteur de listes MEP s’améliore-t-il ?", "Oui, si « Aide à améliorer le lecteur Savour » est activé (Paramètres) : ce que tu corriges dans l’écran de vérification nous aide à améliorer le lecteur MEP. Nous vérifions tout ; le lecteur ne change jamais tout seul."]
     ]
   }
 };
