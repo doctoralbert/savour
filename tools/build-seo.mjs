@@ -1265,7 +1265,15 @@ const PHOTOS = {
   pageAllergenen: ['page-allergenen.jpg', 'center 55%'],
   pageInladen: ['page-inladen.jpg', 'center 50%'],
   pageKoks: ['page-koks.jpg', 'center 60%'],
-  pageBrigade: ['page-brigade.jpg', 'center 50%']
+  pageBrigade: ['page-brigade.jpg', 'center 50%'],
+  pageApp: ['page-app.jpg', 'center 50%'],
+  pageFoodcost: ['page-foodcost.jpg', 'center 45%'],
+  pageBinnenkort: ['page-binnenkort.jpg', 'center 55%'],
+  pageOver: ['page-over.jpg', 'center 55%'],
+  pagePro: ['page-pro.jpg', 'center 55%'],
+  pageCommunity: ['page-community.jpg', 'center 50%'],
+  pageContact: ['page-contact.jpg', 'center 60%'],
+  pageFaq: ['page-faq.jpg', 'center 40%']
 };
 // De ingrediëntenlijst met de allergenen per taal (tools/build-ingredientenlijst.mjs): { code: [extra, nl, en, de, es, fr] }.
 const INGREDIENT_LIST = JSON.parse(fs.readFileSync(new URL('assets/data/ingredientenlijst.json', ROOT), 'utf8'));
@@ -1282,17 +1290,17 @@ const PAGE_PHOTO = {
   'voor-bartenders': 'barSour',
   'voor-patissiers-en-banketbakkers': 'patisserieHero',
   'voor-cateraars': 'cateringHero',
-  binnenkort: 'bloemen',
+  binnenkort: 'pageBinnenkort',
   'voor-koks': 'pageKoks',
   'voor-keukenbrigades': 'pageBrigade',
   'alternatief-voor-paprika': 'uien',
-  'over-savour': 'bord',
+  'over-savour': 'pageOver',
   blog: 'hout',
-  'app-downloaden': 'wortels',
-  'savour-pro': 'brigade',
-  'veelgestelde-vragen': 'keuken',
+  'app-downloaden': 'pageApp',
+  'savour-pro': 'pagePro',
+  'veelgestelde-vragen': 'pageFaq',
   gids: 'bloemenveld',
-  contact: 'eend'
+  contact: 'pageContact'
 };
 const BLOG_PHOTOS = ['wortels', 'uien', 'keuken', 'eend', 'brigade', 'hout'];
 // Coverafbeelding per blogartikel en taal (tools/blog-afbeeldingen.py): titel, onderwerp en het Savour-logo onderin.
