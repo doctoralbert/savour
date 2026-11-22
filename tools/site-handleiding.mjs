@@ -153,6 +153,72 @@ export const RELEASES_PAGE = {
 
 const RELEASES_NL_EN = [
   {
+    version: '3.11.0',
+    date: '2026-11-20',
+    nl: [
+      "Voor bartenders en barista’s: omrekenen kent dashes, barspoons en oz; oz bij een drank blijft oz. Cocktails vallen onder Dranken.",
+      "Omrekenen kent enkelvoud en meervoud: \"1 sjalot\" wordt \"2 sjalotten\", ook bij de opbrengst.",
+      "Gluten in bloem uit Duitse, Franse, Spaanse en Italiaanse recepten, zoals Mehl, farine, harina en farina.",
+      "Sojamelk, havermelk en andere plantaardige melk krijgen geen melk meer als allergeen.",
+      "Nieuwe pagina’s op de website voor patissiers en banketbakkers, cateraars, en bartenders en barista’s."
+    ],
+    en: [
+      "For bartenders and baristas: scaling knows dashes, barspoons and oz; oz in a drink stays oz. Cocktails go under Drinks.",
+      "Scaling knows singular and plural: \"1 shallot\" becomes \"2 shallots\", also in the yield.",
+      "Gluten in flour from German, French, Spanish and Italian recipes, such as Mehl, farine, harina and farina.",
+      "Soy milk, oat milk and other plant-based milks no longer get milk as an allergen.",
+      "New pages on the website for pastry chefs and bakers, caterers, and bartenders and baristas."
+    ]
+  },
+  {
+    version: '3.10.0',
+    date: '2026-11-19',
+    nl: [
+      "MEP-lijsten (Tools → MEP-lijsten): per post kaarten, kopjes en onderdelen, met couverts per kaart. De brigade vinkt live af, ook offline, en je print de lijst op één A4, staand of liggend. Maken en beheren met Pro, afvinken voor iedereen.",
+      "MEP-lijsten importeren uit Excel, Word, tekst of een foto; jij keurt alles goed voordat het wordt opgeslagen.",
+      "Allergenen vult Savour nu zelf in: wat Savour kent, telt meteen mee, ook in een andere taal of in een afgeleide vorm. Bij merkproducten staat \"kan per merk verschillen\". Onder Nakijken staat alleen nog wat Savour niet kent.",
+      "Dubbele recepten bij importeren: je ziet welke recepten er al staan en kiest overslaan, alleen de gewijzigde, of toch opslaan.",
+      "Savour leert van wat koks verbeteren, alleen als \"Help de Savour-lezer verbeteren\" aan staat. Er verandert niets vanzelf.",
+      "Allergeenletters achter ingrediënten (\"Eier C\") haalt Savour bij importeren weg; met \"Letters laten staan\" houd je ze. Een recept over twee foto’s wordt één recept.",
+      "Een kopie van een recept uit een keukenteam bewaren in je eigen receptenboek (Pro).",
+      "Bij het aanmaken van een account zie je de voorwaarden en het privacybeleid, en savour.page/demo opent meteen de demo.",
+      "Savour start sneller."
+    ],
+    en: [
+      "Prep lists (Tools → Prep lists): cards, headings and items per section, with covers per card. The brigade ticks off live, also offline, and you print the list on one A4 page, portrait or landscape. Creating and managing with Pro, ticking off for everyone.",
+      "Import prep lists from Excel, Word, text or a photo; you approve everything before it is saved.",
+      "Savour now fills in the allergens itself: whatever Savour knows counts right away, also in another language or in a derived form. Brand products show \"may differ by brand\". Under To check you only see what Savour does not know.",
+      "Duplicate recipes when importing: you see which recipes are already there and choose skip, only the changed ones, or save anyway.",
+      "Savour learns from what cooks correct, only when \"Help improve the Savour reader\" is on. Nothing changes by itself.",
+      "Allergen letters after ingredients (\"Eier C\") are removed when importing; with \"Keep the letters\" you keep them. A recipe across two photos becomes one recipe.",
+      "Save a copy of a recipe from a kitchen team in your own recipe book (Pro).",
+      "When creating an account you see the terms and the privacy policy, and savour.page/demo opens the demo right away.",
+      "Savour starts faster."
+    ]
+  },
+  {
+    version: '3.9.0',
+    date: '2026-11-11',
+    nl: [
+      "Community (Mijn Savour → Community): een forum voor elk account, met de naam uit je profiel, nooit je e-mail.",
+      "Importeren raakt nooit meer iets kwijt: elk bestand en elk AI-resultaat wordt bewaard, en wat nog niet is opgeslagen biedt Savour opnieuw aan.",
+      "De lezer begrijpt tekst in ChatGPT-opmaak, ook als alle ingrediënten op één regel staan.",
+      "De hoeveelheid komt vooraan: \"Boter 250 g\" wordt \"250 g boter\", zodat omrekenen werkt.",
+      "Keukenteams: meekijken, printen en omrekenen is gratis; toevoegen en bewerken vraagt Savour Pro.",
+      "Savour Pro: tot 150 AI-imports per maand.",
+      "Een melding als er een nieuwe versie van Savour klaarstaat."
+    ],
+    en: [
+      "Community (My Savour → Community): a forum for every account, with the name from your profile, never your email.",
+      "Importing never loses anything: every file and every AI result is kept, and whatever is not saved yet Savour offers again.",
+      "The reader understands text in ChatGPT formatting, also when all ingredients are on one line.",
+      "The quantity goes first: \"Butter 250 g\" becomes \"250 g butter\", so scaling works.",
+      "Kitchen teams: viewing, printing and scaling are free; adding and editing need Savour Pro.",
+      "Savour Pro: up to 150 AI imports per month.",
+      "A notice when a new version of Savour is ready."
+    ]
+  },
+  {
     version: '3.8.0',
     date: '2026-11-08',
     nl: [

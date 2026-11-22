@@ -163,6 +163,93 @@ export const TALEN = {
 
 // Release notes per versie in het Duits, Spaans en Frans (zelfde volgorde als RELEASES in site-handleiding.mjs).
 export const RELEASES_TALEN = {
+  '3.11.0': {
+    de: [
+      "Für Bartender und Baristas: Umrechnen kennt Dashes, Barlöffel und oz; oz bei einem Getränk bleibt oz. Cocktails stehen unter Getränke.",
+      "Umrechnen kennt Einzahl und Mehrzahl: „1 Schalotte“ wird „2 Schalotten“, auch bei der Ausbeute.",
+      "Gluten in Mehl aus deutschen, französischen, spanischen und italienischen Rezepten, etwa Mehl, farine, harina und farina.",
+      "Sojamilch, Hafermilch und andere Pflanzenmilch bekommen kein Milch-Allergen mehr.",
+      "Neue Seiten auf der Website für Patissiers und Bäcker, Caterer sowie Bartender und Baristas."
+    ],
+    es: [
+      "Para bartenders y baristas: escalar conoce dashes, cucharas de bar y oz; las oz de una bebida siguen en oz. Los cócteles van en Bebidas.",
+      "Escalar conoce singular y plural: «1 chalota» pasa a «2 chalotas», también en el rendimiento.",
+      "Gluten en la harina de recetas alemanas, francesas, españolas e italianas, como Mehl, farine, harina y farina.",
+      "La leche de soja, de avena y otras bebidas vegetales ya no reciben leche como alérgeno.",
+      "Nuevas páginas en la web para pasteleros y panaderos, empresas de catering, y bartenders y baristas."
+    ],
+    fr: [
+      "Pour les bartenders et baristas : la conversion connaît les dashes, les cuillères de bar et les oz ; les oz d’une boisson restent en oz. Les cocktails vont dans Boissons.",
+      "La conversion connaît le singulier et le pluriel : « 1 échalote » devient « 2 échalotes », aussi pour le rendement.",
+      "Le gluten dans la farine des recettes allemandes, françaises, espagnoles et italiennes, comme Mehl, farine, harina et farina.",
+      "Le lait de soja, le lait d’avoine et les autres laits végétaux ne reçoivent plus le lait comme allergène.",
+      "De nouvelles pages sur le site pour les pâtissiers et boulangers, les traiteurs, et les bartenders et baristas."
+    ]
+  },
+  '3.10.0': {
+    de: [
+      "MEP-Listen (Werkzeuge → MEP-Listen): Karten, Überschriften und Positionen pro Posten, mit Gedecken pro Karte. Die Brigade hakt live ab, auch offline, und du druckst die Liste auf einer A4-Seite, hoch oder quer. Anlegen und verwalten mit Pro, abhaken für alle.",
+      "MEP-Listen aus Excel, Word, Text oder einem Foto importieren; du gibst alles frei, bevor es gespeichert wird.",
+      "Die Allergene füllt Savour jetzt selbst aus: Was Savour kennt, zählt sofort mit, auch in einer anderen Sprache oder in einer abgeleiteten Form. Bei Markenprodukten steht „kann je nach Marke abweichen“. Unter Prüfen steht nur noch, was Savour nicht kennt.",
+      "Doppelte Rezepte beim Importieren: Du siehst, welche Rezepte schon da sind, und wählst überspringen, nur die geänderten oder trotzdem speichern.",
+      "Savour lernt aus dem, was Köche verbessern, nur wenn „Hilf, den Savour-Leser zu verbessern“ an ist. Nichts ändert sich von selbst.",
+      "Allergenbuchstaben hinter Zutaten („Eier C“) entfernt Savour beim Importieren; mit „Buchstaben behalten“ bleiben sie stehen. Ein Rezept über zwei Fotos wird ein Rezept.",
+      "Eine Kopie eines Rezepts aus einem Küchenteam in deinem eigenen Rezeptbuch speichern (Pro).",
+      "Beim Anlegen eines Kontos siehst du die AGB und die Datenschutzerklärung, und savour.page/demo öffnet sofort die Demo.",
+      "Savour startet schneller."
+    ],
+    es: [
+      "Listas MEP (Herramientas → Listas MEP): tarjetas, títulos y elementos por partida, con cubiertos por tarjeta. La brigada marca en directo, también sin conexión, y imprimes la lista en una sola hoja A4, vertical u horizontal. Crear y gestionar con Pro, marcar para todos.",
+      "Importa listas MEP desde Excel, Word, texto o una foto; tú lo apruebas todo antes de guardarlo.",
+      "Ahora Savour rellena por sí mismo los alérgenos: lo que Savour conoce cuenta enseguida, también en otro idioma o en una forma derivada. En productos de marca pone «puede variar según la marca». En Revisar solo queda lo que Savour no conoce.",
+      "Recetas duplicadas al importar: ves qué recetas ya están y eliges omitir, solo las modificadas o guardar igualmente.",
+      "Savour aprende de lo que corrigen los cocineros, solo si «Ayuda a mejorar el lector de Savour» está activado. Nada cambia por sí solo.",
+      "Las letras de alérgenos tras los ingredientes («Eier C») se quitan al importar; con «Mantener las letras» se quedan. Una receta en dos fotos pasa a ser una sola receta.",
+      "Guarda una copia de una receta de un equipo de cocina en tu propio recetario (Pro).",
+      "Al crear una cuenta ves los términos y la política de privacidad, y savour.page/demo abre la demo directamente.",
+      "Savour arranca más rápido."
+    ],
+    fr: [
+      "Listes MEP (Outils → Listes MEP) : cartes, intertitres et éléments par poste, avec couverts par carte. La brigade coche en direct, même hors ligne, et tu imprimes la liste sur une seule page A4, en portrait ou en paysage. Créer et gérer avec Pro, cocher pour tout le monde.",
+      "Importer des listes MEP depuis Excel, Word, du texte ou une photo ; tu valides tout avant l’enregistrement.",
+      "Savour remplit désormais lui-même les allergènes : ce que Savour connaît compte tout de suite, aussi dans une autre langue ou sous une forme dérivée. Pour les produits de marque, il est indiqué « peut varier selon la marque ». Sous À vérifier ne reste que ce que Savour ne connaît pas.",
+      "Recettes en double à l’import : tu vois quelles recettes existent déjà et tu choisis ignorer, seulement les modifiées, ou enregistrer quand même.",
+      "Savour apprend de ce que les cuisiniers corrigent, seulement si « Aide à améliorer le lecteur Savour » est activé. Rien ne change tout seul.",
+      "Les lettres d’allergènes après les ingrédients (« Eier C ») sont retirées à l’import ; avec « Garder les lettres », tu les gardes. Une recette sur deux photos devient une seule recette.",
+      "Garder une copie d’une recette d’une équipe de cuisine dans ton propre livre de recettes (Pro).",
+      "En créant un compte, tu vois les conditions et la politique de confidentialité, et savour.page/demo ouvre directement la démo.",
+      "Savour démarre plus vite."
+    ]
+  },
+  '3.9.0': {
+    de: [
+      "Community (Mein Savour → Community): ein Forum für jedes Konto, mit dem Namen aus deinem Profil, nie deiner E-Mail.",
+      "Beim Importieren geht nichts mehr verloren: Jede Datei und jedes KI-Ergebnis wird aufbewahrt, und was noch nicht gespeichert ist, bietet Savour erneut an.",
+      "Der Leser versteht Text im ChatGPT-Format, auch wenn alle Zutaten in einer Zeile stehen.",
+      "Die Menge kommt nach vorn: „Butter 250 g“ wird „250 g Butter“, damit das Umrechnen funktioniert.",
+      "Küchenteams: Ansehen, Drucken und Umrechnen sind kostenlos; Hinzufügen und Bearbeiten brauchen Savour Pro.",
+      "Savour Pro: bis zu 150 KI-Importe pro Monat.",
+      "Ein Hinweis, wenn eine neue Version von Savour bereitsteht."
+    ],
+    es: [
+      "Comunidad (Mi Savour → Comunidad): un foro para cada cuenta, con el nombre de tu perfil, nunca tu correo.",
+      "Importar ya no pierde nada: cada archivo y cada resultado de la IA se guarda, y lo que aún no está guardado Savour te lo vuelve a ofrecer.",
+      "El lector entiende texto con formato de ChatGPT, también cuando todos los ingredientes están en una línea.",
+      "La cantidad va delante: «Mantequilla 250 g» pasa a «250 g mantequilla», para que escalar funcione.",
+      "Equipos de cocina: ver, imprimir y escalar es gratis; añadir y editar requiere Savour Pro.",
+      "Savour Pro: hasta 150 importaciones con IA al mes.",
+      "Un aviso cuando hay una nueva versión de Savour lista."
+    ],
+    fr: [
+      "Communauté (Mon Savour → Communauté) : un forum pour chaque compte, avec le nom de ton profil, jamais ton e-mail.",
+      "L’import ne perd plus rien : chaque fichier et chaque résultat de l’IA est conservé, et ce qui n’est pas encore enregistré, Savour te le propose à nouveau.",
+      "Le lecteur comprend le texte au format ChatGPT, même quand tous les ingrédients sont sur une seule ligne.",
+      "La quantité passe devant : « Beurre 250 g » devient « 250 g beurre », pour que la conversion fonctionne.",
+      "Équipes de cuisine : consulter, imprimer et convertir est gratuit ; ajouter et modifier demande Savour Pro.",
+      "Savour Pro : jusqu’à 150 imports IA par mois.",
+      "Un avis quand une nouvelle version de Savour est prête."
+    ]
+  },
   '3.8.0': {
     de: [
       'Allergene pro Rezept, auch über Grundrezepte. Savour erkennt die Zutaten selbst anhand der Savour-Liste; du beantwortest nur die Fragen unter Prüfen.',

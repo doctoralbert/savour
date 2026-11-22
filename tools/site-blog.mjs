@@ -856,30 +856,68 @@ export const BLOG = [
     nl: {
       slug: 'blog/roadmap',
       title: 'Roadmap: waar we aan werken in Savour',
-      desc: 'Kostprijs per recept, allergenen, de geschiedenis van elk recept en mogelijk een app voor iPhone en Android: dit staat op de planning.',
+      desc: "Net live: allergenen die Savour zelf invult, MEP-lijsten en de community. Daarna: foodcost calculator, menu engineering en receptgeschiedenis.",
       h1: 'Roadmap: waar we aan werken',
       lead: 'Savour wordt gebouwd door een chef, voor chefs. Dat betekent ook dat we bouwen wat in de keuken echt nodig is, niet wat leuk klinkt in een presentatie.',
       sections: [
-        ['Kostprijs per recept', 'Zien wat een gerecht en een portie kost, en wat er gebeurt als de prijs van een product stijgt. Dit is de meest gevraagde functie en staat bovenaan.'],
-        ['Allergenen in één oogopslag', 'Per recept en per samengesteld gerecht, zodat je de vraag van een gast aan tafel direct kunt beantwoorden zonder de keuken in te lopen.'],
-        ['Geschiedenis van elk recept', 'Zie wie wat heeft aangepast in een gedeeld recept, en zet zo nodig een eerdere versie terug. Printen met je eigen logo is inmiddels klaar en onderdeel van Savour Pro.'],
-        ['Een app voor iPhone en Android', 'Savour werkt nu in de browser op computer, tablet en telefoon, zonder installeren. Een eigen app overwegen we. Of die de investering waard is, hangt af van wat chefs ervan vinden.'],
-        ['Hoe we kiezen', 'We kijken naar wat chefs ons vertellen en naar wat de meeste tijd scheelt in de keuken. Heb je een idee of mis je iets? Mail ons op contact@savour.page. We lezen alles.']
+        [
+          "Net live in Savour",
+          "Allergenen per recept, die Savour zelf invult uit de Savour-lijst, ook via basisrecepten. MEP-lijsten per post, die je brigade live afvinkt en die je op één A4 print. Een community waar koks vragen stellen en ideeën delen. En eigen pagina’s voor patissiers en banketbakkers, cateraars, en bartenders en barista’s. Savour leert bovendien van wat koks verbeteren, alleen als \"Help de Savour-lezer verbeteren\" aan staat; er verandert niets vanzelf."
+        ],
+        [
+          "Foodcost calculator",
+          "Zien wat een gerecht, een portie en je hele menu kost, met de prijzen van je leverancier, en wat er gebeurt als een prijs stijgt. Dit is de meest gevraagde functie en staat bovenaan."
+        ],
+        [
+          "Menu engineering",
+          "Welke gerechten verkopen goed én verdienen goed? Gekoppeld aan je recepten en allergenen."
+        ],
+        [
+          "Geschiedenis van elk recept",
+          "Zie wie wat heeft aangepast in een gedeeld recept, en zet zo nodig een eerdere versie terug."
+        ],
+        [
+          "Een eigen app",
+          "Savour werkt in de browser op computer, tablet en telefoon, ook offline en op je beginscherm. Een losse app voor iPhone en Android overwegen we. Of die de investering waard is, hangt af van wat chefs ervan vinden."
+        ],
+        [
+          "Hoe we kiezen",
+          "We kijken naar wat chefs ons vertellen en naar wat de meeste tijd scheelt in de keuken. Heb je een idee of mis je iets? Schrijf het in de community of mail ons op contact@savour.page. We lezen alles."
+        ]
       ],
       outro: 'Deze roadmap is een richting, geen belofte met datums. We houden hem hier bij.'
     },
     en: {
       slug: 'en/blog/roadmap',
       title: 'Roadmap: what we are working on in Savour',
-      desc: 'Cost per recipe, allergens, the history of every recipe and possibly an app for iPhone and Android. What is planned, and how we decide what comes first.',
+      desc: "Just launched: allergens Savour fills in itself, prep lists and the community. Next: food cost calculator, menu engineering and recipe history.",
       h1: 'Roadmap: what we are working on',
       lead: 'Savour is built by a chef, for chefs. That also means we build what the kitchen really needs, not what sounds good in a presentation.',
       sections: [
-        ['Cost per recipe', 'See what a dish and a portion cost, and what happens when the price of a product goes up. This is the most requested feature and sits at the top.'],
-        ['Allergens at a glance', 'Per recipe and per composed dish, so you can answer a guest’s question at the table without walking into the kitchen.'],
-        ['History of every recipe', 'See who changed what in a shared recipe, and restore an earlier version when needed. Printing with your own logo is already done and part of Savour Pro.'],
-        ['An app for iPhone and Android', 'Savour now works in the browser on computer, tablet and phone, without installing anything. We are considering a separate app. Whether it is worth the investment depends on what chefs think.'],
-        ['How we choose', 'We look at what chefs tell us and at what saves the most time in the kitchen. Have an idea or missing something? Email us at contact@savour.page. We read everything.']
+        [
+          "Just launched in Savour",
+          "Allergens per recipe, which Savour fills in itself from the Savour list, including through base recipes. Prep lists per section, which your brigade ticks off live and which you print on one A4 page. A community where cooks ask questions and share ideas. And pages of their own for pastry chefs and bakers, caterers, and bartenders and baristas. Savour also learns from what cooks correct, only when \"Help improve the Savour reader\" is on; nothing changes by itself."
+        ],
+        [
+          "Food cost calculator",
+          "See what a dish, a portion and your whole menu cost, with your supplier’s prices, and what happens when a price goes up. This is the most requested feature and sits at the top."
+        ],
+        [
+          "Menu engineering",
+          "Which dishes sell well and earn well? Linked to your recipes and allergens."
+        ],
+        [
+          "History of every recipe",
+          "See who changed what in a shared recipe, and restore an earlier version when needed."
+        ],
+        [
+          "An app of our own",
+          "Savour works in the browser on computer, tablet and phone, also offline and on your home screen. We are considering a separate app for iPhone and Android. Whether it is worth the investment depends on what chefs think."
+        ],
+        [
+          "How we choose",
+          "We look at what chefs tell us and at what saves the most time in the kitchen. Have an idea or missing something? Post it in the community or email us at contact@savour.page. We read everything."
+        ]
       ],
       outro: 'This roadmap is a direction, not a promise with dates. We keep it up to date here.'
     }

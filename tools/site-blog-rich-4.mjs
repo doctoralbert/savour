@@ -181,162 +181,72 @@ export const RICH_4 = {
   'en/blog/roadmap': {
     nl: {
       brief: [
-        'Update november 2026: allergenen per recept staan live. Bovenaan de lijst staat nu kostprijs per recept.',
-        'Daarna de geschiedenis van elk recept, en misschien een eigen app.',
-        'We bouwen wat in de keuken tijd scheelt. Mail je idee naar contact@savour.page.'
+        "Net live: allergenen die Savour zelf invult, MEP-lijsten en de community.",
+        "Bovenaan staat nu de foodcost calculator, daarna menu engineering en de geschiedenis van elk recept.",
+        "We bouwen wat in de keuken tijd scheelt. Deel je idee in de community of mail contact@savour.page."
       ],
       extra: {
-        1: [
-          {
-            see: [
-              'Allergenen: zo gaat het werken',
-              '@post:en/blog/allergens-in-savour',
-              'De uitleg van de allergenenfunctie, die nu live staat.'
-            ]
-          }
+        0: [
+          { check: ["Recepten importeren uit Word, PDF, tekst, webpagina’s en foto’s","Allergenen per recept, door Savour ingevuld (Pro)","MEP-lijsten per post, live afvinken en printen","Keukenteams met drie rollen","Omrekenen en de kookmodus","Printen, met je eigen logo (Pro)","Offline je recepten openen","De community","De import service: wij laden je map in"], title: "Wat er al is" },
+          { see: ["MEP-lijsten in Savour", '@post:en/blog/prep-lists-in-savour', "Wat er kan met MEP-lijsten, van afvinken tot printen."] }
         ],
-        4: [
-          {
-            check: [
-              'Recepten importeren uit Word, PDF, tekst en foto’s',
-              'Keukenteams met drie rollen',
-              'Omrekenen en de kookmodus',
-              'Printen, met je eigen logo (Pro)',
-              'Offline je recepten openen',
-              'Notities en koppelingen naar basisrecepten',
-              'De import service: wij laden je map in'
-            ],
-            title: 'Wat er al is'
-          }
-        ]
+        1: [{ see: ["Binnenkort: de foodcost calculator", '@post:en/blog/food-cost-calculator', "Wat de foodcost calculator gaat doen."] }]
       }
     },
     en: {
       brief: [
-        'Update November 2026: allergens per recipe are live. Cost per recipe is now at the top of the list.',
-        'After that the history of every recipe, and perhaps an app of our own.',
-        'We build what saves time in the kitchen. Email your idea to contact@savour.page.'
+        "Just launched: allergens Savour fills in itself, prep lists and the community.",
+        "At the top now: the food cost calculator, then menu engineering and the history of every recipe.",
+        "We build what saves time in the kitchen. Share your idea in the community or email contact@savour.page."
       ],
       extra: {
-        1: [
-          {
-            see: [
-              'Allergens: how it will work',
-              '@post:en/blog/allergens-in-savour',
-              'How the allergen feature works, now live in Savour.'
-            ]
-          }
+        0: [
+          { check: ["Importing recipes from Word, PDF, text, web pages and photos","Allergens per recipe, filled in by Savour (Pro)","Prep lists per section, ticked off live and printed","Kitchen teams with three roles","Converting and cooking mode","Printing, with your own logo (Pro)","Opening your recipes offline","The community","The import service: we load your folder in"], title: "What is already there" },
+          { see: ["Prep lists in Savour", '@post:en/blog/prep-lists-in-savour', "What you can do with prep lists, from ticking off to printing."] }
         ],
-        4: [
-          {
-            check: [
-              'Importing recipes from Word, PDF, text and photos',
-              'Kitchen teams with three roles',
-              'Converting and cooking mode',
-              'Printing, with your own logo (Pro)',
-              'Opening your recipes offline',
-              'Notes and links to base recipes',
-              'The import service: we load your folder in'
-            ],
-            title: 'What is already there'
-          }
-        ]
+        1: [{ see: ["Coming soon: the food cost calculator", '@post:en/blog/food-cost-calculator', "What the food cost calculator will do."] }]
       }
     },
     de: {
       brief: [
-        'Update November 2026: Allergene pro Rezept sind live. Ganz oben steht jetzt Kosten pro Rezept.',
-        'Danach die Geschichte jedes Rezepts und vielleicht eine eigene App.',
-        'Wir bauen, was in der Küche Zeit spart. Schick deine Idee an contact@savour.page.'
+        "Neu: Allergene, die Savour selbst ausfüllt, MEP-Listen und die Community.",
+        "Ganz oben steht jetzt der Foodcost-Rechner, danach Menu Engineering und der Verlauf jedes Rezepts.",
+        "Wir bauen, was in der Küche Zeit spart. Teile deine Idee in der Community oder schreib an contact@savour.page."
       ],
       extra: {
-        1: [
-          {
-            see: [
-              'Allergene: so wird es funktionieren',
-              '@post:en/blog/allergens-in-savour',
-              'Die Erklärung der Allergenfunktion, die jetzt live ist.'
-            ]
-          }
+        0: [
+          { check: ["Rezepte importieren aus Word, PDF, Text, Webseiten und Fotos","Allergene pro Rezept, von Savour ausgefüllt (Pro)","MEP-Listen pro Posten, live abhaken und drucken","Küchenteams mit drei Rollen","Umrechnen und der Kochmodus","Drucken, mit deinem eigenen Logo (Pro)","Rezepte offline öffnen","Die Community","Der Import-Service: Wir laden deinen Ordner ein"], title: "Was es schon gibt" },
+          { see: ["MEP-Listen in Savour", '@post:en/blog/prep-lists-in-savour', "Was mit MEP-Listen geht, vom Abhaken bis zum Drucken."] }
         ],
-        4: [
-          {
-            check: [
-              'Rezepte aus Word, PDF, Text und Fotos importieren',
-              'Küchenteams mit drei Rollen',
-              'Umrechnen und Kochmodus',
-              'Drucken, mit deinem eigenen Logo (Pro)',
-              'Rezepte offline öffnen',
-              'Notizen und Verknüpfungen zu Grundrezepten',
-              'Der Import-Service: Wir pflegen deinen Ordner ein'
-            ],
-            title: 'Was es schon gibt'
-          }
-        ]
+        1: [{ see: ["Bald: der Foodcost-Rechner", '@post:en/blog/food-cost-calculator', "Was der Foodcost-Rechner können wird."] }]
       }
     },
     es: {
       brief: [
-        'Actualización de noviembre de 2026: los alérgenos por receta ya están disponibles. Lo primero de la lista es ahora el coste por receta.',
-        'Después, el historial de cada receta y quizá una app propia.',
-        'Construimos lo que ahorra tiempo en la cocina. Envía tu idea a contact@savour.page.'
+        "Novedades: alérgenos que Savour rellena por sí mismo, listas MEP y la comunidad.",
+        "En primer lugar ahora: la calculadora de food cost, después menu engineering y el historial de cada receta.",
+        "Construimos lo que ahorra tiempo en la cocina. Comparte tu idea en la comunidad o escribe a contact@savour.page."
       ],
       extra: {
-        1: [
-          {
-            see: [
-              'Alérgenos: así funcionará',
-              '@post:en/blog/allergens-in-savour',
-              'La explicación de la función de alérgenos, ya disponible en Savour.'
-            ]
-          }
+        0: [
+          { check: ["Importar recetas de Word, PDF, texto, páginas web y fotos","Alérgenos por receta, rellenados por Savour (Pro)","Listas MEP por partida, marcar en directo e imprimir","Equipos de cocina con tres roles","Convertir y el modo cocina","Imprimir, con tu propio logo (Pro)","Abrir tus recetas sin conexión","La comunidad","El servicio de importación: cargamos tu carpeta"], title: "Lo que ya hay" },
+          { see: ["Listas MEP en Savour", '@post:en/blog/prep-lists-in-savour', "Qué puedes hacer con las listas MEP, de marcar a imprimir."] }
         ],
-        4: [
-          {
-            check: [
-              'Importar recetas de Word, PDF, texto y fotos',
-              'Equipos de cocina con tres roles',
-              'Recalcular y el modo cocina',
-              'Imprimir, con tu propio logotipo (Pro)',
-              'Abrir tus recetas sin conexión',
-              'Notas y enlaces a recetas base',
-              'El servicio de carga: cargamos tu carpeta'
-            ],
-            title: 'Lo que ya existe'
-          }
-        ]
+        1: [{ see: ["Próximamente: la calculadora de food cost", '@post:en/blog/food-cost-calculator', "Qué hará la calculadora de food cost."] }]
       }
     },
     fr: {
       brief: [
-        'Mise à jour de novembre 2026 : les allergènes par recette sont disponibles. En haut de la liste, il y a maintenant le coût par recette.',
-        'Ensuite l’historique de chaque recette, et peut-être une application à nous.',
-        'Nous construisons ce qui fait gagner du temps en cuisine. Envoie ton idée à contact@savour.page.'
+        "Nouveau : les allergènes que Savour remplit lui-même, les listes MEP et la communauté.",
+        "En tête maintenant : le calculateur de food cost, puis le menu engineering et l’historique de chaque recette.",
+        "Nous construisons ce qui fait gagner du temps en cuisine. Partage ton idée dans la communauté ou écris à contact@savour.page."
       ],
       extra: {
-        1: [
-          {
-            see: [
-              'Les allergènes : comment ça va marcher',
-              '@post:en/blog/allergens-in-savour',
-              'L’explication de la fonction allergènes, désormais disponible dans Savour.'
-            ]
-          }
+        0: [
+          { check: ["Importer des recettes depuis Word, PDF, texte, pages web et photos","Les allergènes par recette, remplis par Savour (Pro)","Des listes MEP par poste, cochées en direct et imprimées","Des équipes de cuisine avec trois rôles","Convertir et le mode cuisine","Imprimer, avec ton propre logo (Pro)","Ouvrir tes recettes hors ligne","La communauté","Le service d’import : nous chargeons ton dossier"], title: "Ce qui existe déjà" },
+          { see: ["Les listes MEP dans Savour", '@post:en/blog/prep-lists-in-savour', "Ce que tu peux faire avec les listes MEP, de cocher à imprimer."] }
         ],
-        4: [
-          {
-            check: [
-              'Importer des recettes depuis Word, PDF, texte et photos',
-              'Des équipes de cuisine avec trois rôles',
-              'La conversion et le mode cuisine',
-              'L’impression, avec ton propre logo (Pro)',
-              'Ouvrir tes recettes hors ligne',
-              'Des notes et des liens vers les recettes de base',
-              'Le service d’importation : nous chargeons ton classeur'
-            ],
-            title: 'Ce qui existe déjà'
-          }
-        ]
+        1: [{ see: ["Bientôt : le calculateur de food cost", '@post:en/blog/food-cost-calculator', "Ce que fera le calculateur de food cost."] }]
       }
     }
   },

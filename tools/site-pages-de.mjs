@@ -328,13 +328,14 @@ export const DE = {
         'Was Savour heute kann',
         [
           'Dein ganzes Rezeptbuch in wenigen Minuten importieren. Rezepte in Ordnern sortieren, zum Beispiel alle Eisrezepte, und diesen ganzen Ordner mit einem Knopfdruck drucken. Rezepte und Ordner mit Kollegen teilen, die selbst Rezepte hinzufügen können.',
-          'Und hochrechnen: Ein Rezept ergibt fünfzig Brownies und du brauchst tausend? Savour rechnet. Am Computer, auf dem Tablet und auf dem Handy in der Küche.'
+          'Und hochrechnen: Ein Rezept ergibt fünfzig Brownies und du brauchst tausend? Savour rechnet. Am Computer, auf dem Tablet und auf dem Handy in der Küche.',
+          'Inzwischen füllt Savour auch die Allergene pro Rezept selbst aus, auch über Grundrezepte. Jeder Posten hat eine MEP-Liste, die die Brigade live abhakt und die du auf einer A4-Seite druckst. Und in der Community stellen sich Köche gegenseitig Fragen. Savour ist da für Köche, Patissiers und Bäcker, Küchenbrigaden, Caterer sowie Bartender und Baristas.'
         ]
       ],
       [
         'Was wir noch bauen wollen',
         [
-          'Allergene pro Rezept sind seit November 2026 live; Kosten pro Rezept stehen ganz oben auf der Liste. Wenn Savour auf Computer, Tablet und Handy gut läuft, prüfen wir, ob sich eine eigene App für iPhone und Android lohnt.',
+          'Ganz oben steht jetzt der Foodcost-Rechner: sehen, was ein Gericht und dein ganzes Menü kosten. Danach Menu Engineering und der Verlauf jedes Rezepts. Wenn Savour auf Computer, Tablet und Handy gut läuft, prüfen wir, ob sich eine eigene App für iPhone und Android lohnt.',
           'Das entscheiden wir nicht am Schreibtisch, sondern gemeinsam mit den Köchen, die Savour nutzen. Fehlt dir etwas in deiner Küche? Sag es uns.'
         ]
       ]
@@ -705,29 +706,33 @@ export const DE = {
     'en/blog/roadmap': {
       slug: 'de/blog/roadmap',
       title: 'Roadmap: woran wir bei Savour arbeiten',
-      desc: 'Kosten pro Rezept, Allergene, der Verlauf jedes Rezepts und vielleicht eine App für iPhone und Android. Was geplant ist und wie wir entscheiden, was zuerst kommt.',
+      desc: "Neu in Savour: Allergene, die Savour selbst ausfüllt, MEP-Listen und die Community. Danach: Foodcost-Rechner, Menu Engineering und Rezeptverlauf.",
       h1: 'Roadmap: woran wir arbeiten',
       lead: 'Savour wird von einem Koch für Köche gebaut. Das heißt auch: Wir bauen, was die Küche wirklich braucht, nicht was in einer Präsentation gut klingt.',
       sections: [
         [
-          'Kosten pro Rezept',
-          'Sieh, was ein Gericht und eine Portion kosten und was passiert, wenn der Preis eines Produkts steigt. Das ist die meistgewünschte Funktion und steht ganz oben.'
+          "Neu in Savour",
+          "Allergene pro Rezept, die Savour selbst aus der Savour-Liste ausfüllt, auch über Grundrezepte. MEP-Listen pro Posten, die deine Brigade live abhakt und die du auf einer A4-Seite druckst. Eine Community, in der Köche Fragen stellen und Ideen teilen. Und eigene Seiten für Patissiers und Bäcker, Caterer sowie Bartender und Baristas. Außerdem lernt Savour aus dem, was Köche verbessern, nur wenn „Hilf, den Savour-Leser zu verbessern“ an ist; nichts ändert sich von selbst."
         ],
         [
-          'Allergene auf einen Blick',
-          'Pro Rezept und pro zusammengesetztem Gericht, damit du die Frage eines Gastes am Tisch beantworten kannst, ohne in die Küche zu laufen.'
+          "Foodcost-Rechner",
+          "Sieh, was ein Gericht, eine Portion und dein ganzes Menü kosten, mit den Preisen deines Lieferanten, und was passiert, wenn ein Preis steigt. Das ist die meistgewünschte Funktion und steht ganz oben."
         ],
         [
-          'Verlauf jedes Rezepts',
-          'Sieh, wer was in einem geteilten Rezept geändert hat, und stelle bei Bedarf eine frühere Version wieder her. Drucken mit eigenem Logo ist bereits fertig und Teil von Savour Pro.'
+          "Menu Engineering",
+          "Welche Gerichte verkaufen sich gut und bringen gut ein? Verknüpft mit deinen Rezepten und Allergenen."
         ],
         [
-          'Eine App für iPhone und Android',
-          'Savour läuft jetzt im Browser auf Computer, Tablet und Handy, ohne Installation. Eine eigene App ziehen wir in Betracht. Ob sich das lohnt, hängt davon ab, was Köche sagen.'
+          "Verlauf jedes Rezepts",
+          "Sieh, wer was in einem geteilten Rezept geändert hat, und stelle bei Bedarf eine frühere Version wieder her."
         ],
         [
-          'Wie wir entscheiden',
-          'Wir schauen, was Köche uns sagen und was in der Küche am meisten Zeit spart. Hast du eine Idee oder fehlt dir etwas? Schreib uns an contact@savour.page. Wir lesen alles.'
+          "Eine eigene App",
+          "Savour läuft im Browser auf Computer, Tablet und Handy, auch offline und auf deinem Startbildschirm. Eine eigene App für iPhone und Android ziehen wir in Betracht. Ob sich das lohnt, hängt davon ab, was Köche davon halten."
+        ],
+        [
+          "Wie wir entscheiden",
+          "Wir schauen, was Köche uns sagen und was in der Küche am meisten Zeit spart. Hast du eine Idee oder fehlt dir etwas? Schreib es in die Community oder an contact@savour.page. Wir lesen alles."
         ]
       ],
       outro: 'Diese Roadmap ist eine Richtung, kein Versprechen mit Terminen. Wir halten sie hier aktuell.'

@@ -198,8 +198,8 @@ export const ES = {
       ['Pulsar imprimir cincuenta veces', ['Como jefe de cocina pasas casi todas las recetas a tus cocineros. Cuando por fin todo estaba en archivos de Word separados, llegó el siguiente problema: sala tenía que imprimirlos uno a uno, porque no había forma de imprimir cincuenta a la vez.', 'En algún lugar entre esas pilas de papel surgió la pregunta con la que empezó Savour: ¿por qué no hay nada para esto que funcione sin más en una cocina de verdad?']],
       ['Construido después del servicio', ['No un desarrollador, sino un cocinero que sabe exactamente dónde duele. Savour se construyó paso a paso, durante meses, los fines de semana y después del servicio.', 'Cada función se probó con nuestras propias recetas, en nuestra propia cocina: importar cientos de recetas de Word a la vez, fotos de notas manchadas que por error estaban del revés y carpetas que todo el equipo puede abrir. Un cocinero importó así 1.400 recetas en unos dos minutos.']],
       ['Por qué Savour cuesta 2,99 €', ['Para los casos difíciles, como la foto de una nota escrita a mano, Savour usa IA. Eso cuesta dinero cada vez, y por eso existe Savour Pro.', 'Pero Savour tenía que seguir siendo asequible para cualquier cocinero, no solo para grandes grupos con grandes presupuestos. 2,99 € al mes es más o menos lo que cuesta esa IA. Lo que Savour puede leer por sí mismo, como Word y PDF, sigue siendo gratis, igual que guardar hasta 100 recetas.']],
-      ['Lo que Savour hace hoy', ['Importar todo tu recetario en unos minutos. Ordenar recetas en carpetas, por ejemplo todas tus recetas de helado, e imprimir esa carpeta entera con un solo botón. Compartir recetas y carpetas con compañeros, que pueden añadir recetas ellos mismos.', 'Y escalar: ¿una receta da cincuenta brownies y necesitas mil? Savour hace las cuentas. En el ordenador, la tableta y el móvil de la cocina.']],
-      ['Lo que aún queremos construir', ['Los alérgenos por receta están disponibles desde noviembre de 2026; el coste por receta encabeza la lista. Si Savour funciona bien en ordenador, tableta y móvil, veremos si merece la pena una app propia para iPhone y Android.', 'Eso no lo decidimos detrás de un escritorio, sino junto con los cocineros que usan Savour. ¿Echas algo en falta en tu cocina? Cuéntanoslo.']]
+      ['Lo que Savour hace hoy', ['Importar todo tu recetario en unos minutos. Ordenar recetas en carpetas, por ejemplo todas tus recetas de helado, e imprimir esa carpeta entera con un solo botón. Compartir recetas y carpetas con compañeros, que pueden añadir recetas ellos mismos.', 'Y escalar: ¿una receta da cincuenta brownies y necesitas mil? Savour hace las cuentas. En el ordenador, la tableta y el móvil de la cocina.', 'Ahora Savour también rellena por sí mismo los alérgenos de cada receta, también a través de recetas base. Cada partida tiene una lista MEP que la brigada marca en directo y que imprimes en una sola hoja A4. Y en la comunidad los cocineros se hacen preguntas. Savour es para cocineros, pasteleros y panaderos, brigadas de cocina, empresas de catering, y bartenders y baristas.']],
+      ['Lo que aún queremos construir', ['Ahora encabeza la lista la calculadora de food cost: ver lo que cuesta un plato y todo tu menú. Después, menu engineering y el historial de cada receta. Si Savour funciona bien en ordenador, tableta y móvil, veremos si merece la pena una app propia para iPhone y Android.', 'Eso no lo decidimos detrás de un escritorio, sino junto con los cocineros que usan Savour. ¿Echas algo en falta en tu cocina? Cuéntanoslo.']]
     ],
     notesCaption: 'Algunas de las notas con las que empezó Savour.',
     appCaption: 'El mismo tipo de receta, ahora en Savour.',
@@ -479,15 +479,34 @@ export const ES = {
     'en/blog/roadmap': {
       slug: 'es/blog/hoja-de-ruta',
       title: 'Hoja de ruta: en qué trabajamos en Savour',
-      desc: 'Coste por receta, alérgenos, el historial de cada receta y quizá una app para iPhone y Android. Qué está previsto y cómo decidimos qué va primero.',
+      desc: "Novedades: alérgenos que Savour rellena por sí mismo, listas MEP y la comunidad. Después: calculadora de food cost, menu engineering e historial.",
       h1: 'Hoja de ruta: en qué trabajamos',
       lead: 'Savour lo construye un cocinero para cocineros. Eso también significa que construimos lo que la cocina necesita de verdad, no lo que suena bien en una presentación.',
       sections: [
-        ['Coste por receta', 'Mira lo que cuesta un plato y una ración, y qué pasa cuando sube el precio de un producto. Es la función más pedida y está arriba del todo.'],
-        ['Alérgenos de un vistazo', 'Por receta y por plato compuesto, para responder en la mesa a la pregunta de un cliente sin ir a la cocina.'],
-        ['Historial de cada receta', 'Mira quién cambió qué en una receta compartida y recupera una versión anterior cuando haga falta. Imprimir con tu propio logo ya está listo y forma parte de Savour Pro.'],
-        ['Una app para iPhone y Android', 'Savour funciona ahora en el navegador del ordenador, la tableta y el móvil, sin instalar nada. Estamos valorando una app propia. Si merece la pena depende de lo que digan los cocineros.'],
-        ['Cómo decidimos', 'Miramos lo que nos cuentan los cocineros y lo que más tiempo ahorra en la cocina. ¿Tienes una idea o echas algo en falta? Escríbenos a contact@savour.page. Lo leemos todo.']
+        [
+          "Novedades en Savour",
+          "Alérgenos por receta, que Savour rellena por sí mismo desde la lista de Savour, también a través de recetas base. Listas MEP por partida, que tu brigada marca en directo y que imprimes en una sola hoja A4. Una comunidad donde los cocineros hacen preguntas y comparten ideas. Y páginas propias para pasteleros y panaderos, empresas de catering, y bartenders y baristas. Además, Savour aprende de lo que corrigen los cocineros, solo si «Ayuda a mejorar el lector de Savour» está activado; nada cambia por sí solo."
+        ],
+        [
+          "Calculadora de food cost",
+          "Ver lo que cuesta un plato, una ración y todo tu menú, con los precios de tu proveedor, y qué pasa cuando sube un precio. Es la función más pedida y va en primer lugar."
+        ],
+        [
+          "Menu engineering",
+          "¿Qué platos se venden bien y además dejan margen? Vinculado a tus recetas y alérgenos."
+        ],
+        [
+          "Historial de cada receta",
+          "Ve quién cambió qué en una receta compartida y restaura una versión anterior si hace falta."
+        ],
+        [
+          "Una app propia",
+          "Savour funciona en el navegador en ordenador, tableta y móvil, también sin conexión y en tu pantalla de inicio. Estamos valorando una app aparte para iPhone y Android. Si merece la inversión depende de lo que opinen los chefs."
+        ],
+        [
+          "Cómo decidimos",
+          "Miramos lo que nos cuentan los chefs y lo que más tiempo ahorra en la cocina. ¿Tienes una idea o echas algo en falta? Escríbelo en la comunidad o a contact@savour.page. Lo leemos todo."
+        ]
       ],
       outro: 'Esta hoja de ruta es una dirección, no una promesa con fechas. La mantenemos al día aquí.'
     },

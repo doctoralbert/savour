@@ -1,6 +1,6 @@
 // Blog: Savour voor cateraars (2026-11-20), in vijf talen. Klopt met js/features/scale.js (omrekenen naar elk aantal
 // gasten), js/features/mep.js (MEP-lijst per event met couverts per kaart, live, offline, A4), js/features/products.js
-// (allergenen via basisrecepten), keukenteams, organisatieabonnementen (js/features/pro.js) en de import service.
+// (allergenen via basisrecepten), keukenteams, teamabonnementen (js/features/pro.js) en de import service.
 // Schermen: gazpacho naar 120 personen en het A4-blad van de MEP-lijst. Foto's: assets/keuken/catering-*.jpg.
 
 const KEY = 'en/blog/savour-for-caterers';
@@ -56,7 +56,7 @@ export const CATERING_POST = {
       ],
       [
         'Eén receptenboek voor al je koks',
-        'Vaste koks, oproepkrachten en een tweede locatie werken uit dezelfde recepten. Maak een keukenteam per keuken of per event en nodig iedereen uit op het e-mailadres. Meekijken, printen en omrekenen kan met een gratis account; wie recepten toevoegt of bewerkt, heeft Savour Pro nodig. Met een organisatieabonnement voor 5, 10 of 25 personen (€8,99, €14,99 of €29,99 per maand) heeft je hele keuken Pro.'
+        'Vaste koks, oproepkrachten en een tweede locatie werken uit dezelfde recepten. Maak een keukenteam per keuken of per event en nodig iedereen uit op het e-mailadres. Meekijken, printen en omrekenen kan met een gratis account; wie recepten toevoegt of bewerkt, heeft Savour Pro nodig. Met een teamabonnement voor 5, 10 of 25 personen (€8,99, €14,99 of €29,99 per maand) heeft je hele keuken Pro.'
       ],
       [
         'Alles overzetten, of laten overzetten',
@@ -108,7 +108,7 @@ export const CATERING_POST = {
       ],
       [
         'One recipe book for all your cooks',
-        'Regular cooks, freelancers and a second location work from the same recipes. Create a kitchen team per kitchen or per event and invite everyone by email. Viewing, printing and scaling work with a free account; whoever adds or edits recipes needs Savour Pro. With an organisation plan for 5, 10 or 25 people (€8.99, €14.99 or €29.99 per month) your whole kitchen has Pro.'
+        'Regular cooks, freelancers and a second location work from the same recipes. Create a kitchen team per kitchen or per event and invite everyone by email. Viewing, printing and scaling work with a free account; whoever adds or edits recipes needs Savour Pro. With a team plan for 5, 10 or 25 people (€8.99, €14.99 or €29.99 per month) your whole kitchen has Pro.'
       ],
       [
         'Bring everything over, or have it done',
@@ -163,7 +163,7 @@ export const CATERING_POST_DE = {
       ],
       [
         'Ein Rezeptbuch für alle Köche',
-        'Feste Köche, Aushilfen und ein zweiter Standort arbeiten mit denselben Rezepten. Leg ein Küchenteam pro Küche oder pro Event an und lade alle per E-Mail ein. Ansehen, Drucken und Umrechnen geht mit einem kostenlosen Konto; wer Rezepte hinzufügt oder bearbeitet, braucht Savour Pro. Mit einem Organisations-Abo für 5, 10 oder 25 Personen (8,99 €, 14,99 € oder 29,99 € pro Monat) hat deine ganze Küche Pro.'
+        'Feste Köche, Aushilfen und ein zweiter Standort arbeiten mit denselben Rezepten. Leg ein Küchenteam pro Küche oder pro Event an und lade alle per E-Mail ein. Ansehen, Drucken und Umrechnen geht mit einem kostenlosen Konto; wer Rezepte hinzufügt oder bearbeitet, braucht Savour Pro. Mit einem Team-Abo für 5, 10 oder 25 Personen (8,99 €, 14,99 € oder 29,99 € pro Monat) hat deine ganze Küche Pro.'
       ],
       [
         'Alles übernehmen oder übernehmen lassen',
@@ -218,7 +218,7 @@ export const CATERING_POST_ES = {
       ],
       [
         'Un recetario para todos tus cocineros',
-        'Cocineros fijos, extras y un segundo local trabajan con las mismas recetas. Crea un equipo de cocina por cocina o por evento e invita a todos por correo. Ver, imprimir y convertir funciona con una cuenta gratuita; quien añade o edita recetas necesita Savour Pro. Con una suscripción de organización para 5, 10 o 25 personas (8,99 €, 14,99 € o 29,99 € al mes) toda tu cocina tiene Pro.'
+        'Cocineros fijos, extras y un segundo local trabajan con las mismas recetas. Crea un equipo de cocina por cocina o por evento e invita a todos por correo. Ver, imprimir y convertir funciona con una cuenta gratuita; quien añade o edita recetas necesita Savour Pro. Con un plan de equipo para 5, 10 o 25 personas (8,99 €, 14,99 € o 29,99 € al mes) toda tu cocina tiene Pro.'
       ],
       [
         'Pasarlo todo, o que lo hagan por ti',
@@ -273,7 +273,7 @@ export const CATERING_POST_FR = {
       ],
       [
         'Un livre de recettes pour tous tes cuisiniers',
-        'Cuisiniers fixes, extras et un deuxième site travaillent avec les mêmes recettes. Crée une équipe de cuisine par cuisine ou par événement et invite tout le monde par e-mail. Consulter, imprimer et convertir fonctionne avec un compte gratuit ; qui ajoute ou modifie des recettes a besoin de Savour Pro. Avec un abonnement organisation pour 5, 10 ou 25 personnes (8,99 €, 14,99 € ou 29,99 € par mois), toute ta cuisine a Pro.'
+        'Cuisiniers fixes, extras et un deuxième site travaillent avec les mêmes recettes. Crée une équipe de cuisine par cuisine ou par événement et invite tout le monde par e-mail. Consulter, imprimer et convertir fonctionne avec un compte gratuit ; qui ajoute ou modifie des recettes a besoin de Savour Pro. Avec un abonnement d’équipe pour 5, 10 ou 25 personnes (8,99 €, 14,99 € ou 29,99 € par mois), toute ta cuisine a Pro.'
       ],
       [
         'Tout reprendre, ou le faire faire',

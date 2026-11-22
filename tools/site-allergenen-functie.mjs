@@ -11,9 +11,9 @@ export const ALLERGEN_FEATURE = {
     menu: 'Allergenen per recept',
     short: 'De 14 allergenen bij elk recept, ook via basisrecepten.',
     title: 'Allergenen per recept bijhouden, ook via basisrecepten | Savour',
-    desc: 'Savour herkent de ingrediënten in je recepten en toont per recept de 14 allergenen, ook via basisrecepten. Jij bevestigt alleen wat Savour niet zeker weet. Met allergenenkaart en print.',
+    desc: "Savour vult bij elk recept zelf de 14 allergenen in, ook via basisrecepten. Jij hoeft niets te doen en kunt altijd aanpassen. Met allergenenkaart en print.",
     h1: 'Allergenen per recept',
-    lead: 'Welke allergenen zitten in de saus, ook via de fond en de beurre blanc? Savour zoekt het voor je uit. Jij beantwoordt alleen de vragen.',
+    lead: "Welke allergenen zitten in de saus, ook via de fond en de beurre blanc? Savour zoekt het zelf uit. Jij hoeft niets te doen; aanpassen mag altijd.",
     sections: [
       [
         'Savour leest je ingrediënten zelf',
@@ -24,8 +24,8 @@ export const ALLERGEN_FEATURE = {
         'Gebruik je een fond, een deeg of een saus uit je eigen recepten, dan tellen de allergenen van dat basisrecept mee. Zit er selderij in de fond, dan zie je selderij ook bij het gerecht dat de fond gebruikt.'
       ],
       [
-        'Eén vraag tegelijk',
-        'Wat Savour niet zeker weet, staat onder Nakijken: klopt dit voorstel, klopt het voor jouw merk, is dit je eigen recept, is dit wel een ingrediënt? Je antwoordt met één klik. Er verandert nooit iets in een recept zonder dat jij ja zegt.'
+        "Je hoeft niets te doen",
+        "Savour vult de allergenen zelf in, ook bij recepten die je net hebt geïmporteerd. Kent Savour een ingrediënt nog niet, dan staat er bij het recept \"Savour kent 2 ingrediënten nog niet\"; die vul je één keer in en dan weet Savour het voor al je recepten. Klopt iets niet voor jouw merk, dan pas je het aan. Er verandert nooit iets in een recept zelf."
       ],
       [
         'De 14 allergenen, en wat je zelf aanzet',
@@ -46,9 +46,9 @@ export const ALLERGEN_FEATURE = {
     menu: 'Allergens per recipe',
     short: 'The 14 allergens on every recipe, including through base recipes.',
     title: 'Track allergens per recipe, including base recipes | Savour',
-    desc: 'Savour recognises the ingredients in your recipes and shows the 14 allergens per recipe, including through base recipes. You only confirm what Savour is not sure about. With allergen chart and print.',
+    desc: "Savour fills in the 14 allergens on every recipe itself, including through base recipes. You have nothing to do and can always adjust. With allergen chart and print.",
     h1: 'Allergens per recipe',
-    lead: 'Which allergens are in the sauce, including through the stock and the beurre blanc? Savour works it out for you. You only answer the questions.',
+    lead: "Which allergens are in the sauce, including through the stock and the beurre blanc? Savour works it out itself. You have nothing to do; you can always adjust.",
     sections: [
       [
         'Savour reads your ingredients',
@@ -59,8 +59,8 @@ export const ALLERGEN_FEATURE = {
         'If you use a stock, a dough or a sauce from your own recipes, the allergens of that base recipe count too. If there is celery in the stock, you also see celery on the dish that uses it.'
       ],
       [
-        'One question at a time',
-        'Whatever Savour is not sure about is under To check: is this suggestion right, is it right for your brand, is this your own recipe, is this an ingredient at all? You answer with one click. Nothing in a recipe changes unless you say yes.'
+        "Nothing for you to do",
+        "Savour fills in the allergens itself, also on recipes you have just imported. If Savour does not know an ingredient yet, the recipe says \"Savour doesn’t know 2 ingredients yet\"; you fill those in once and Savour knows them for all your recipes. If something is different for your brand, you adjust it. Nothing ever changes in the recipe itself."
       ],
       [
         'The 14 allergens, and what you switch on',
@@ -81,9 +81,9 @@ export const ALLERGEN_FEATURE = {
     menu: 'Allergene pro Rezept',
     short: 'Die 14 Allergene bei jedem Rezept, auch über Grundrezepte.',
     title: 'Allergene pro Rezept erfassen, auch über Grundrezepte | Savour',
-    desc: 'Savour erkennt die Zutaten in deinen Rezepten und zeigt pro Rezept die 14 Allergene, auch über Grundrezepte. Du bestätigst nur, was Savour nicht sicher weiß. Mit Allergenkarte und Druck.',
+    desc: "Savour füllt bei jedem Rezept die 14 Allergene selbst aus, auch über Grundrezepte. Du musst nichts tun und kannst immer anpassen. Mit Allergenkarte und Druck.",
     h1: 'Allergene pro Rezept',
-    lead: 'Welche Allergene stecken in der Sauce, auch über den Fond und die Beurre blanc? Savour findet es für dich heraus. Du beantwortest nur die Fragen.',
+    lead: "Welche Allergene stecken in der Sauce, auch über den Fond und die Beurre blanc? Savour findet es selbst heraus. Du musst nichts tun; anpassen kannst du immer.",
     sections: [
       [
         'Savour liest deine Zutaten selbst',
@@ -94,8 +94,8 @@ export const ALLERGEN_FEATURE = {
         'Nutzt du einen Fond, einen Teig oder eine Sauce aus deinen eigenen Rezepten, zählen die Allergene dieses Grundrezepts mit. Ist Sellerie im Fond, siehst du Sellerie auch beim Gericht, das den Fond verwendet.'
       ],
       [
-        'Eine Frage nach der anderen',
-        'Was Savour nicht sicher weiß, steht unter Prüfen: Stimmt dieser Vorschlag, stimmt er für deine Marke, ist das dein eigenes Rezept, ist das überhaupt eine Zutat? Du antwortest mit einem Klick. In einem Rezept ändert sich nie etwas, ohne dass du Ja sagst.'
+        "Du musst nichts tun",
+        "Savour füllt die Allergene selbst aus, auch bei Rezepten, die du gerade importiert hast. Kennt Savour eine Zutat noch nicht, steht beim Rezept „Savour kennt 2 Zutaten noch nicht“; die trägst du einmal ein, dann kennt Savour sie für alle deine Rezepte. Ist etwas bei deiner Marke anders, passt du es an. Am Rezept selbst ändert sich nie etwas."
       ],
       [
         'Die 14 Allergene, und was du selbst einschaltest',
@@ -116,9 +116,9 @@ export const ALLERGEN_FEATURE = {
     menu: 'Alérgenos por receta',
     short: 'Los 14 alérgenos en cada receta, también a través de recetas base.',
     title: 'Controla los alérgenos por receta, también en recetas base | Savour',
-    desc: 'Savour reconoce los ingredientes de tus recetas y muestra los 14 alérgenos por receta, también a través de recetas base. Tú solo confirmas lo que Savour no sabe con seguridad. Con tabla de alérgenos e impresión.',
+    desc: "Savour rellena por sí mismo los 14 alérgenos de cada receta, también a través de recetas base. No tienes que hacer nada y siempre puedes ajustar. Con carta de alérgenos e impresión.",
     h1: 'Alérgenos por receta',
-    lead: '¿Qué alérgenos lleva la salsa, también a través del fondo y la beurre blanc? Savour lo averigua por ti. Tú solo respondes las preguntas.',
+    lead: "¿Qué alérgenos lleva la salsa, también a través del fondo y la beurre blanc? Savour lo averigua solo. No tienes que hacer nada; siempre puedes ajustarlo.",
     sections: [
       [
         'Savour lee tus ingredientes',
@@ -129,8 +129,8 @@ export const ALLERGEN_FEATURE = {
         'Si usas un fondo, una masa o una salsa de tus propias recetas, también cuentan los alérgenos de esa receta base. Si el fondo lleva apio, también ves apio en el plato que usa el fondo.'
       ],
       [
-        'Una pregunta cada vez',
-        'Lo que Savour no sabe con seguridad está en Revisar: ¿es correcta esta sugerencia, es correcta para tu marca, es tu propia receta, es siquiera un ingrediente? Respondes con un clic. Nada cambia en una receta sin que tú digas que sí.'
+        "No tienes que hacer nada",
+        "Savour rellena por sí mismo los alérgenos, también en recetas que acabas de importar. Si Savour aún no conoce un ingrediente, la receta indica «Savour aún no conoce 2 ingredientes»; los rellenas una vez y Savour los conoce para todas tus recetas. Si algo es distinto en tu marca, lo ajustas. En la receta misma nunca cambia nada."
       ],
       [
         'Los 14 alérgenos, y lo que activas tú',
@@ -151,9 +151,9 @@ export const ALLERGEN_FEATURE = {
     menu: 'Allergènes par recette',
     short: 'Les 14 allergènes sur chaque recette, y compris via les recettes de base.',
     title: 'Suivre les allergènes par recette, y compris les recettes de base | Savour',
-    desc: 'Savour reconnaît les ingrédients de tes recettes et affiche les 14 allergènes par recette, y compris via les recettes de base. Tu confirmes seulement ce dont Savour n’est pas sûr. Avec tableau des allergènes et impression.',
+    desc: "Savour remplit lui-même les 14 allergènes de chaque recette, y compris via les recettes de base. Tu n’as rien à faire et tu peux toujours ajuster. Avec tableau et impression.",
     h1: 'Allergènes par recette',
-    lead: 'Quels allergènes contient la sauce, y compris via le fond et le beurre blanc ? Savour le trouve pour toi. Tu réponds seulement aux questions.',
+    lead: "Quels allergènes contient la sauce, y compris via le fond et le beurre blanc ? Savour le trouve tout seul. Tu n’as rien à faire ; tu peux toujours ajuster.",
     sections: [
       [
         'Savour lit tes ingrédients',
@@ -164,8 +164,8 @@ export const ALLERGEN_FEATURE = {
         'Si tu utilises un fond, une pâte ou une sauce de tes propres recettes, les allergènes de cette recette de base comptent aussi. S’il y a du céleri dans le fond, tu vois aussi le céleri sur le plat qui utilise ce fond.'
       ],
       [
-        'Une question à la fois',
-        'Ce dont Savour n’est pas sûr se trouve sous À vérifier : cette suggestion est-elle juste, l’est-elle pour ta marque, est-ce ta propre recette, est-ce vraiment un ingrédient ? Tu réponds en un clic. Rien ne change dans une recette sans ton accord.'
+        "Tu n’as rien à faire",
+        "Savour remplit lui-même les allergènes, même sur les recettes que tu viens d’importer. Si Savour ne connaît pas encore un ingrédient, la recette indique « Savour ne connaît pas encore 2 ingrédients » ; tu les remplis une fois et Savour les connaît pour toutes tes recettes. Si quelque chose diffère pour ta marque, tu l’ajustes. Rien ne change jamais dans la recette elle-même."
       ],
       [
         'Les 14 allergènes, et ce que tu actives',
@@ -188,7 +188,7 @@ export const ALLERGEN_FEATURE_RICH = {
     benefits: [
       ['Vanzelf herkend', 'Savour zoekt de allergenen van je ingrediënten op.'],
       ['Ook via basisrecepten', 'De fond, het deeg en de saus tellen mee.'],
-      ['Jij beslist', 'Eén vraag tegelijk; niets verandert zonder jouw ja.']
+      ["Aanpassen mag altijd", "Savour vult in; jij past aan waar het voor jouw merk anders is."]
     ],
     showcase: [
       shot(
@@ -206,7 +206,7 @@ export const ALLERGEN_FEATURE_RICH = {
     ],
     faq: [
       ['Kost het extra?', 'Allergenen horen bij Savour Pro, en werken ook in een keukenteam van een eigenaar met Pro. Nieuwe accounts krijgen 7 dagen Pro gratis.'],
-      ['Moet ik alle ingrediënten zelf invoeren?', 'Nee. Wat in de Savour-lijst staat, telt meteen mee. Je bevestigt alleen wat per merk verschilt of wat Savour niet kent. [Bekijk de lijst](@list).'],
+      ["Moet ik alle ingrediënten zelf invoeren?", "Nee. Savour vult de allergenen zelf in uit de Savour-lijst. Alleen wat Savour niet kent of wat per merk verschilt, vul je zelf in of pas je aan. [Bekijk de lijst](@list)."],
       ['Kan ik erop vertrouwen?', 'Savour zegt nooit dat iets allergeenvrij is zolang niet alles is nagekeken. Het etiket van je leverancier gaat altijd voor.']
     ]
   },
@@ -214,7 +214,7 @@ export const ALLERGEN_FEATURE_RICH = {
     benefits: [
       ['Recognised for you', 'Savour looks up the allergens of your ingredients.'],
       ['Through base recipes', 'The stock, the dough and the sauce count too.'],
-      ['You decide', 'One question at a time; nothing changes without your yes.']
+      ["Adjust any time", "Savour fills in; you adjust where your brand is different."]
     ],
     showcase: [
       shot(
@@ -232,7 +232,7 @@ export const ALLERGEN_FEATURE_RICH = {
     ],
     faq: [
       ['Does it cost extra?', 'Allergens are part of Savour Pro, and also work in a kitchen team whose owner has Pro. New accounts get 7 days of Pro for free.'],
-      ['Do I have to enter every ingredient?', 'No. Whatever is on the Savour list counts straight away. You only confirm what differs by brand or what Savour does not know. [See the list](@list).'],
+      ["Do I have to enter every ingredient?", "No. Savour fills in the allergens itself from the Savour list. Only what Savour does not know or what differs by brand you fill in or adjust yourself. [See the list](@list)."],
       ['Can I rely on it?', 'Savour never says something is allergen-free while not everything is checked. Your supplier’s label always comes first.']
     ]
   },
@@ -240,7 +240,7 @@ export const ALLERGEN_FEATURE_RICH = {
     benefits: [
       ['Von selbst erkannt', 'Savour sucht die Allergene deiner Zutaten heraus.'],
       ['Auch über Grundrezepte', 'Fond, Teig und Sauce zählen mit.'],
-      ['Du entscheidest', 'Eine Frage nach der anderen; nichts ändert sich ohne dein Ja.']
+      ["Anpassen geht immer", "Savour füllt aus; du passt an, wo deine Marke anders ist."]
     ],
     showcase: [
       shot(
@@ -258,7 +258,7 @@ export const ALLERGEN_FEATURE_RICH = {
     ],
     faq: [
       ['Kostet es extra?', 'Allergene gehören zu Savour Pro und funktionieren auch in einem Küchenteam, dessen Eigentümer Pro hat. Neue Konten bekommen 7 Tage Pro gratis.'],
-      ['Muss ich alle Zutaten selbst eingeben?', 'Nein. Was auf der Savour-Liste steht, zählt sofort mit. Du bestätigst nur, was je Marke verschieden ist oder was Savour nicht kennt. [Zur Liste](@list).'],
+      ["Muss ich alle Zutaten selbst eingeben?", "Nein. Savour füllt die Allergene selbst aus der Savour-Liste aus. Nur was Savour nicht kennt oder was je Marke verschieden ist, trägst du selbst ein oder passt es an. [Zur Liste](@list)."],
       ['Kann ich mich darauf verlassen?', 'Savour sagt nie, dass etwas allergenfrei ist, solange nicht alles geprüft ist. Das Etikett deines Lieferanten geht immer vor.']
     ]
   },
@@ -266,7 +266,7 @@ export const ALLERGEN_FEATURE_RICH = {
     benefits: [
       ['Reconocido por ti', 'Savour busca los alérgenos de tus ingredientes.'],
       ['También en recetas base', 'El fondo, la masa y la salsa cuentan.'],
-      ['Tú decides', 'Una pregunta cada vez; nada cambia sin tu sí.']
+      ["Ajustar siempre", "Savour rellena; tú ajustas donde tu marca es distinta."]
     ],
     showcase: [
       shot(
@@ -284,7 +284,7 @@ export const ALLERGEN_FEATURE_RICH = {
     ],
     faq: [
       ['¿Cuesta más?', 'Los alérgenos forman parte de Savour Pro y también funcionan en un equipo de cocina cuyo propietario tiene Pro. Las cuentas nuevas reciben 7 días de Pro gratis.'],
-      ['¿Tengo que introducir todos los ingredientes?', 'No. Lo que está en la lista de Savour cuenta enseguida. Solo confirmas lo que cambia según la marca o lo que Savour no conoce. [Ver la lista](@list).'],
+      ["¿Tengo que introducir todos los ingredientes?", "No. Savour rellena por sí mismo los alérgenos desde la lista de Savour. Solo lo que Savour no conoce o lo que cambia según la marca lo rellenas o ajustas tú. [Ver la lista](@list)."],
       ['¿Puedo fiarme?', 'Savour nunca dice que algo está libre de alérgenos mientras no esté todo revisado. La etiqueta de tu proveedor siempre manda.']
     ]
   },
@@ -292,7 +292,7 @@ export const ALLERGEN_FEATURE_RICH = {
     benefits: [
       ['Reconnu pour toi', 'Savour cherche les allergènes de tes ingrédients.'],
       ['Via les recettes de base', 'Le fond, la pâte et la sauce comptent aussi.'],
-      ['Tu décides', 'Une question à la fois ; rien ne change sans ton accord.']
+      ["Ajuster à tout moment", "Savour remplit ; tu ajustes là où ta marque diffère."]
     ],
     showcase: [
       shot(
@@ -310,7 +310,7 @@ export const ALLERGEN_FEATURE_RICH = {
     ],
     faq: [
       ['Est-ce payant ?', 'Les allergènes font partie de Savour Pro et fonctionnent aussi dans une équipe de cuisine dont le propriétaire a Pro. Les nouveaux comptes reçoivent 7 jours de Pro gratuits.'],
-      ['Dois-je saisir tous les ingrédients ?', 'Non. Ce qui figure dans la liste Savour compte tout de suite. Tu confirmes seulement ce qui varie selon la marque ou ce que Savour ne connaît pas. [Voir la liste](@list).'],
+      ["Dois-je saisir tous les ingrédients ?", "Non. Savour remplit lui-même les allergènes à partir de la liste Savour. Seul ce que Savour ne connaît pas ou ce qui varie selon la marque, tu le remplis ou l’ajustes toi-même. [Voir la liste](@list)."],
       ['Puis-je m’y fier ?', 'Savour ne dit jamais qu’un plat est sans allergènes tant que tout n’est pas vérifié. L’étiquette de ton fournisseur prime toujours.']
     ]
   }

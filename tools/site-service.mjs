@@ -272,7 +272,7 @@ export const SERVICE = {
       "send": "Send request"
     },
     proTitle: 'Rather have us import your recipes?',
-    proText: 'With the import service, the chefs behind Savour personally move your whole recipe folder over and set everything up for your team. From €85 one-off, with an team plan of your choice.',
+    proText: 'With the import service, the chefs behind Savour personally move your whole recipe folder over and set everything up for your team. From €85 one-off, with a team plan of your choice.',
     requestOk: "Thank you! Your request has been sent. You will get a confirmation by email and hear from us as soon as possible.",
     faqs: [
       [
