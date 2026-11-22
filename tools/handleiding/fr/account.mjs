@@ -82,7 +82,8 @@ export const pages = {
       ['Profil', 'Sous Compte, tu modifies ton nom et ta photo de profil. Recadre la photo pour que ton visage soit bien cadré.'],
       ['Mot de passe', 'Choisis un nouveau mot de passe sous Compte. Si tu l’as oublié, utilise « Mot de passe oublié ? » à la [connexion](#inloggen).'],
       ['Aussi sous Compte', 'Tu peux y [imprimer ou télécharger toutes tes recettes](#downloaden), [inviter un collègue](#collega-uitnodigen), [installer l’application](#app-installeren), te déconnecter et [supprimer ton compte](#account-verwijderen).'],
-      ['Les autres onglets', '[Savour Pro](#abonnement-beheren), [Logo sur les impressions](#printen-logo), [Apparence](#weergave-en-taal), [Catégories](#categorieen) et [Nettoyer](#opschonen).']
+      ['Les autres onglets', '[Savour Pro](#abonnement-beheren), [Logo sur les impressions](#printen-logo), [Apparence](#weergave-en-taal), [Catégories](#categorieen) et [Nettoyer](#opschonen).'],
+      ["Aide à améliorer le lecteur Savour", "Sous Compte, tu trouves « Aide à améliorer le lecteur Savour ». S’il est activé, ce que tu corriges dans un import, les allergènes ou une liste MEP nous aide à améliorer Savour ; nous vérifions tout et rien ne change jamais tout seul. Désactive-le si tu préfères."]
     ]
   },
   'weergave-en-taal': {

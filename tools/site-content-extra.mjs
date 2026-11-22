@@ -51,7 +51,13 @@ export const EXTRA_LANGS = {
         [ "Funktioniert Savour auch offline?", "Ja. Öffne Savour einmal mit Internet und lege es auf deinen Startbildschirm; danach öffnest du deine Rezepte auch ohne Verbindung, zum Beispiel im Kühlhaus. Bearbeiten geht wieder, sobald du online bist." ],
         [ "Wo werden meine Rezepte gespeichert?", "In der Cloud, getrennt pro Konto. Du öffnest sie auf Computer, Tablet und Handy, und nur du und die Personen, die du in ein Küchenteam einlädst, können sie lesen." ],
         [ "Kann ich einen ganzen Rezeptordner auf einmal drucken?", "Ja. Drucke einzelne Rezepte oder einen kompletten Rezeptordner auf einmal, sauber gestaltet für den Küchenordner. Mit Savour Pro steht das Logo deines Restaurants darauf." ],
-        ['Ist Savour auch für Hobbyköche?', 'Das geht, aber Savour ist für die Profiküche gebaut: große Rezeptbücher, Teams und den Service.']
+        ['Ist Savour auch für Hobbyköche?', 'Das geht, aber Savour ist für die Profiküche gebaut: große Rezeptbücher, Teams und den Service.'],
+      ["Was sind MEP-Listen in Savour?", "Pro Posten eine Liste dessen, was bereitstehen muss: Karten, Überschriften und Positionen, mit Gedecken pro Karte. Die Brigade hakt live ab, auch ohne Internet, und du druckst die Liste auf einer A4-Seite. Anlegen und verwalten gehört zu Savour Pro; abhaken kann jeder im Küchenteam."],
+      ["Wie funktionieren die Allergene?", "Mit Savour Pro füllt Savour die 14 Allergene bei jedem Rezept selbst aus, auch über Grundrezepte. Bei Markenprodukten steht „kann je nach Marke abweichen“, und solange Savour eine Zutat nicht kennt, sagt Savour nie, dass etwas allergenfrei ist. Anpassen kannst du immer, und die Allergene können mit auf den Ausdruck."],
+      ["Für wen ist Savour?", "Für Köche, Patissiers und Bäcker, Küchenbrigaden, Caterer und Eventfirmen sowie Bartender und Baristas. Unter „Für wen“ gibt es für jeden eine eigene Seite."],
+      ["Was, wenn ich ein Rezept zweimal importiere?", "Dann zeigt Savour, welche Rezepte schon da sind. Du wählst: überspringen, nur die geänderten speichern oder trotzdem speichern. Es verschwindet nie etwas, ohne dass du es wählst."],
+      ["Kann beim Importieren etwas verloren gehen?", "Nein. Jede Datei und jedes KI-Ergebnis wird aufbewahrt. Schließt du Savour vor dem Speichern oder bricht die Verbindung ab, bietet Savour es beim nächsten Mal erneut an."],
+      ["Lernt Savour aus meinen Rezepten?", "Nur wenn „Hilf, den Savour-Leser zu verbessern“ an ist (Einstellungen). Was du bei einem Import, bei den Allergenen oder an einer MEP-Liste verbesserst, hilft uns, Savour besser zu machen. Wir prüfen alles, und nichts ändert sich von selbst. Du kannst es jederzeit ausschalten."]
       ]
     },
     items: {
@@ -118,7 +124,13 @@ export const EXTRA_LANGS = {
         [ "¿Savour funciona sin conexión?", "Sí. Abre Savour una vez con internet y añádelo a tu pantalla de inicio; después abres tus recetas sin conexión, por ejemplo en la cámara. Podrás editar de nuevo en cuanto estés en línea." ],
         [ "¿Dónde se guardan mis recetas?", "En la nube, separadas por cuenta. Las abres en ordenador, tableta y móvil, y solo tú y quienes invites a un equipo de cocina pueden leerlas." ],
         [ "¿Puedo imprimir una carpeta de recetas entera de una vez?", "Sí. Imprime recetas sueltas o una carpeta de recetas completa de una vez, bien maquetada para el archivador de la cocina. Con Savour Pro lleva el logo de tu restaurante." ],
-        ['¿Savour también es para cocineros caseros?', 'Puede servir, pero Savour está hecho para la cocina profesional: grandes recetarios, equipos y el servicio.']
+        ['¿Savour también es para cocineros caseros?', 'Puede servir, pero Savour está hecho para la cocina profesional: grandes recetarios, equipos y el servicio.'],
+      ["¿Qué son las listas MEP en Savour?", "Una lista por partida de lo que debe estar listo: tarjetas, títulos y elementos, con cubiertos por tarjeta. La brigada marca en directo, también sin internet, y imprimes la lista en una sola hoja A4. Crear y gestionar forma parte de Savour Pro; marcar puede todo el equipo de cocina."],
+      ["¿Cómo funcionan los alérgenos?", "Con Savour Pro, Savour rellena por sí mismo los 14 alérgenos de cada receta, también a través de recetas base. En productos de marca pone «puede variar según la marca», y mientras Savour no conozca un ingrediente nunca dice que algo está libre de alérgenos. Siempre puedes ajustarlo, y los alérgenos pueden ir en la impresión."],
+      ["¿Para quién es Savour?", "Para cocineros, pasteleros y panaderos, brigadas de cocina, empresas de catering y eventos, y bartenders y baristas. En «Para quién» hay una página para cada uno."],
+      ["¿Y si importo una receta dos veces?", "Entonces Savour te muestra qué recetas ya están. Tú eliges: omitir, guardar solo las modificadas o guardar igualmente. Nunca desaparece nada sin que tú lo elijas."],
+      ["¿Puedo perder algo al importar?", "No. Cada archivo y cada resultado de la IA se guarda. Si cierras Savour antes de guardar, o se corta la conexión, Savour te lo vuelve a ofrecer la próxima vez."],
+      ["¿Aprende Savour de mis recetas?", "Solo si «Ayuda a mejorar el lector de Savour» está activado (Ajustes). Lo que corriges en una importación, en los alérgenos o en una lista MEP nos ayuda a mejorar Savour. Lo revisamos todo y nada cambia por sí solo. Puedes desactivarlo cuando quieras."]
       ]
     },
     items: {

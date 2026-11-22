@@ -1416,8 +1416,8 @@ window.SAVOUR_I18N.en = {
     'Dit .doc-bestand kon niet worden gelezen. Sla het in Word op als .docx en probeer opnieuw.':
       'This .doc file could not be read. Save it in Word as .docx and try again.',
     'Recept kon niet worden verwijderd; probeer het opnieuw': 'Recipe could not be deleted; please try again',
-    'Bij elk recept van een collega in het keukenteam zie je “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie in je bibliotheek die je zelf kunt aanpassen; het origineel blijft van de maker.':
-      'On every colleague’s recipe in the kitchen team you see “Add to my recipes”. You get your own copy in your library that you can change; the original stays with its creator.',
+    'Bij een recept van een collega in het keukenteam kies je ⋯ → “Kopie naar mijn recepten” (Savour Pro). Je krijgt een eigen kopie in je bibliotheek die je zelf kunt aanpassen; het origineel blijft van de maker.':
+      'On a colleague’s recipe in the kitchen team, choose ⋯ → “Copy to my recipes” (Savour Pro). You get your own copy in your library that you can change; the original stays with its creator.',
     'Het blijft gewoon in de eigen recepten van de maker.': 'It simply stays in the creator’s own recipes.',
     'Recept uit keukenteam gehaald; de maker houdt het in de eigen recepten':
       'Recipe removed from the kitchen team; the creator keeps it in their own recipes',

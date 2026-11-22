@@ -120,7 +120,7 @@ export const pages = {
     desc: 'Así copias en Savour la receta de un compañero: «Añadir a mis recetas» te da una copia propia que puedes cambiar. El original sigue siendo del autor.',
     lead: 'Tu propia versión de la receta de un compañero, sin cambiar el original.',
     sections: [
-      ['En un equipo de cocina', 'En cada receta de un compañero del equipo ves «Añadir a mis recetas». Recibes una copia propia en tu biblioteca.'],
+      ['En un equipo de cocina', 'En una receta de un compañero del equipo, elige ⋯ → «Copiar a mis recetas». Recibes una copia propia en tu biblioteca. Forma parte de Savour Pro; sin Pro ves, imprimes y escalas las recetas gratis.'],
       ['Con un enlace compartido', 'Si el autor activó al [compartir](#delen-link) «Los destinatarios pueden copiar esta receta», puedes añadirla desde el enlace con tu cuenta.'],
       ['Tu copia', 'Tu copia es solo tuya: puedes [editarla](#recept-maken), ponerla en tus [carpetas](#mappen) y escalarla. El original sigue siendo del autor y no cambia.']
     ]

@@ -120,7 +120,7 @@ export const pages = {
     desc: 'So übernimmst du in Savour ein Rezept eines Kollegen: „Zu meinen Rezepten hinzufügen“ gibt dir eine eigene Kopie, die du ändern kannst. Das Original bleibt beim Ersteller.',
     lead: 'Eine eigene Version des Rezepts deines Kollegen, ohne das Original zu ändern.',
     sections: [
-      ['In einem Küchenteam', 'Bei jedem Rezept eines Kollegen im Küchenteam siehst du „Zu meinen Rezepten hinzufügen“. Du bekommst eine eigene Kopie in deiner Bibliothek.'],
+      ['In einem Küchenteam', 'Bei einem Rezept eines Kollegen im Küchenteam wählst du ⋯ → „In meine Rezepte kopieren“. Du bekommst eine eigene Kopie in deiner Bibliothek. Das gehört zu Savour Pro; ohne Pro siehst du die Rezepte kostenlos an, druckst und rechnest sie um.'],
       ['Über einen geteilten Link', 'Hat der Ersteller beim [Teilen](#delen-link) „Empfänger dürfen dieses Rezept übernehmen“ eingeschaltet, kannst du das Rezept mit Konto auch über den Link hinzufügen.'],
       ['Deine Kopie', 'Deine Kopie gehört ganz dir: Du kannst sie [bearbeiten](#recept-maken), in deine eigenen [Ordner](#mappen) legen und umrechnen. Das Original bleibt beim Ersteller und ändert sich nicht mit.']
     ]

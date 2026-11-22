@@ -64,7 +64,9 @@ export const pages = {
       ['Speichern', 'Wähle „Alle Rezepte speichern“. Steht ein Rezept schon genau so in deiner Bibliothek oder zweimal im Import, speichert Savour es nur einmal und meldet, wie viele doppelte Rezepte übersprungen wurden. Mit „Zurück zum Import“ gehst du zurück, ohne zu speichern.'],
       ['Bei einem kostenlosen Konto', 'Hast du Platz für weniger Rezepte, als du importierst, fragt Savour, ob es die speichern soll, die noch passen. Die anderen bleiben in der Prüfansicht; mit [Savour Pro](#gratis-en-pro) speicherst du unbegrenzt.'],
       ['Was du danach tust', 'Nummern vor Rezeptnamen aus einem alten Rezeptbuch („12. Kalbsjus“) entfernst du in einem Schritt mit [Aufräumen](#opschonen). Danach [ordnest du die Rezepte](#ordenen) in Kategorien und Ordnern.'],
-      ['Worauf du achtest', 'Prüfe vor allem die Zahlen, die Einheiten und die Ausbeute. Eine 3 und eine 8 oder eine 1 und eine 7 sind auf einer fleckigen Notiz schnell verwechselt. Bei einem Rezept von einem Foto öffnest du später das Original mit „Original-Notiz ansehen“.']
+      ['Worauf du achtest', 'Prüfe vor allem die Zahlen, die Einheiten und die Ausbeute. Eine 3 und eine 8 oder eine 1 und eine 7 sind auf einer fleckigen Notiz schnell verwechselt. Bei einem Rezept von einem Foto öffnest du später das Original mit „Original-Notiz ansehen“.'],
+      ["Rezepte, die schon da sind", "Ist ein Rezept schon in deinem Rezeptbuch, zeigt Savour das vor dem Speichern, mit den Rezepten dazu. Du wählst „Überspringen“, „Nur die geänderten speichern“ oder „Trotzdem speichern“. Nach dem Speichern sagt Savour, was übersprungen wurde. Es verschwindet nie etwas, ohne dass du es wählst."],
+      ["Nichts geht verloren", "Jede Datei, die du importierst, und jedes KI-Ergebnis wird aufbewahrt. Schließt du Savour vor dem Speichern oder bricht die Verbindung ab, bietet Savour die Rezepte beim nächsten Mal erneut an. Solange Savour arbeitet, warnt dich dein Browser, wenn du die Seite schließt."]
     ]
   },
   'import-word': {
@@ -263,7 +265,8 @@ export const pages = {
       ],
       ['Ohne Pro', 'Bei einem kostenlosen Konto siehst du, wie viele Rezepte mit Zweifeln gelesen wurden. Sie sind markiert, damit du sie selbst in der [Prüfansicht](#import-controleren) nachsehen kannst. Es geht nichts verloren.'],
       ['Das Limit', 'Savour Pro liest bis 150 Importe pro Monat mit KI. Ist das Limit erreicht, übernimmt der Savour-Leser, markiert zum Prüfen.'],
-      ['Nie erfunden', 'Die KI darf nur lesen, was dasteht. Steht die Zubereitung nicht auf der Notiz, steht sie auch nicht im Rezept. Warum das so wichtig ist, liest du in [Warum KI dein Rezept nie erfinden darf](/blog/ai-mag-je-recept-niet-verzinnen).']
+      ['Nie erfunden', 'Die KI darf nur lesen, was dasteht. Steht die Zubereitung nicht auf der Notiz, steht sie auch nicht im Rezept. Warum das so wichtig ist, liest du in [Warum KI dein Rezept nie erfinden darf](/blog/ai-mag-je-recept-niet-verzinnen).'],
+      ["Savour lernt", "Ist „Hilf, den Savour-Leser zu verbessern“ an (Einstellungen, standardmäßig an), bewahrt Savour auf, was der Leser oder die KI gelesen hat und was du am Ende gespeichert hast. Jeden Abend schauen wir uns diese Unterschiede an und verbessern den Leser. Der Leser ändert sich nie von selbst, und du kannst es jederzeit ausschalten."]
     ]
   },
   overstappen: {

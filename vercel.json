@@ -1426,6 +1426,31 @@
       "permanent": true
     },
     {
+      "source": "/handleiding-allergenen",
+      "destination": "/handleiding-omrekenen#allergenen",
+      "permanent": true
+    },
+    {
+      "source": "/en/guide-allergens",
+      "destination": "/en/guide-scale-recipes#allergenen",
+      "permanent": true
+    },
+    {
+      "source": "/de/handbuch-allergene",
+      "destination": "/de/handbuch-umrechnen#allergenen",
+      "permanent": true
+    },
+    {
+      "source": "/es/manual-alergenos",
+      "destination": "/es/manual-escalar#allergenen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/manuel-allergenes",
+      "destination": "/fr/manuel-convertir#allergenen",
+      "permanent": true
+    },
+    {
       "source": "/handleiding-receptenmap-printen",
       "destination": "/handleiding-printen#printen-map",
       "permanent": true

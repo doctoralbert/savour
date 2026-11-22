@@ -120,7 +120,7 @@ export const pages = {
     desc: 'Comment copier dans Savour la recette d’un collègue : « Ajouter à mes recettes » te donne une copie modifiable. L’original reste à son auteur.',
     lead: 'Ta propre version de la recette d’un collègue, sans toucher à l’original.',
     sections: [
-      ['Dans une équipe de cuisine', 'Pour chaque recette d’un collègue dans l’équipe, tu vois « Ajouter à mes recettes ». Tu obtiens ta propre copie dans ta bibliothèque.'],
+      ['Dans une équipe de cuisine', 'Sur la recette d’un collègue dans l’équipe, choisis ⋯ → « Copier dans mes recettes ». Tu obtiens ta propre copie dans ta bibliothèque. Cela fait partie de Savour Pro ; sans Pro, tu consultes, imprimes et convertis les recettes gratuitement.'],
       ['Via un lien partagé', 'Si l’auteur a activé « Les destinataires peuvent copier cette recette » au moment du [partage](#delen-link), tu peux l’ajouter depuis le lien avec ton compte.'],
       ['Ta copie', 'Ta copie est entièrement à toi : tu peux la [modifier](#recept-maken), la ranger dans tes [dossiers](#mappen) et la convertir. L’original reste à l’auteur et ne change pas.']
     ]

@@ -205,7 +205,7 @@ const HELP_TOPICS = {
       ],
       [
         'Recept overnemen',
-        'Bij elk recept van een collega in het keukenteam zie je “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie in je bibliotheek die je zelf kunt aanpassen; het origineel blijft van de maker.'
+        'Bij een recept van een collega in het keukenteam kies je ⋯ → “Kopie naar mijn recepten” (Savour Pro). Je krijgt een eigen kopie in je bibliotheek die je zelf kunt aanpassen; het origineel blijft van de maker.'
       ],
       [
         'Zonder internet',

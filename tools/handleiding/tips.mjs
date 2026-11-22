@@ -320,7 +320,8 @@ export const pages = [
         [
           'Notities',
           'Zet vaste afspraken en allergeneninformatie in een [notitie](#recept-notities) bij het recept, zodat ze ook op de print staan.'
-        ]
+        ],
+        ["Allergenen in Savour", "Met Savour Pro vult Savour de allergenen bij elk recept zelf in. Hoe dat werkt, lees je bij [Allergenen per recept](#allergenen)."]
       ]
     },
     en: {
@@ -341,7 +342,8 @@ export const pages = [
         [
           'Notes',
           'Put fixed agreements and allergen information in a [note](#recept-notities) on the recipe, so they appear on the print too.'
-        ]
+        ],
+        ["Allergens in Savour", "With Savour Pro, Savour fills in the allergens on every recipe itself. How that works is explained in [Allergens per recipe](#allergenen)."]
       ]
     }
   },

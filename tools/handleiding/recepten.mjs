@@ -487,7 +487,7 @@ export const pages = [
         ],
         [
           'Zelf koppelen',
-          'Heet het anders, open dan het recept, kies ⋯ en “Koppelen aan recept”. Kies welk ingrediënt bij welk eigen recept hoort.'
+          'Heet het anders, open dan het recept, kies ⋯ en “Ingrediënt koppelen aan recept”. Kies welk ingrediënt bij welk eigen recept hoort.'
         ],
         [
           'In het recept',
@@ -512,7 +512,7 @@ export const pages = [
         ],
         [
           'Linking yourself',
-          'If the name differs, open the recipe, choose ⋯ and “Link to recipe”. Pick which ingredient belongs to which of your recipes.'
+          'If the name differs, open the recipe, choose ⋯ and “Link ingredient to recipe”. Pick which ingredient belongs to which of your recipes.'
         ],
         [
           'In the recipe',
@@ -552,7 +552,7 @@ export const pages = [
         ],
         [
           'Het menu ⋯',
-          'Bij een eigen recept vind je achter ⋯ “Meer omrekenen”, “Koppelen aan recept”, “Toevoegen aan map” en “Verwijderen uit bibliotheek”. Open je het recept vanuit een map of keukenteam, dan staat er “Uit map halen” of “Uit keukenteam halen”.'
+          'Bij een eigen recept vind je achter ⋯ “Meer omrekenen”, “Ingrediënt koppelen aan recept”, “Toevoegen aan map” en “Verwijderen uit bibliotheek”. Open je het recept vanuit een map of keukenteam, dan staat er “Uit map halen” of “Uit keukenteam halen”.'
         ],
         [
           'Afvinken',
@@ -592,7 +592,7 @@ export const pages = [
         ],
         [
           'The ⋯ menu',
-          'For your own recipe, ⋯ holds “More scaling options”, “Link to recipe”, “Add to folder” and “Delete from library”. When you open the recipe from a folder or kitchen team, it says “Remove from folder” or “Remove from kitchen team”.'
+          'For your own recipe, ⋯ holds “More scaling options”, “Link ingredient to recipe”, “Add to folder” and “Delete from library”. When you open the recipe from a folder or kitchen team, it says “Remove from folder” or “Remove from kitchen team”.'
         ],
         [
           'Ticking off',

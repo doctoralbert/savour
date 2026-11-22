@@ -126,7 +126,7 @@ export const pages = {
     lead: 'Du jus au fond d’un seul geste, et retour.',
     sections: [
       ['Automatiquement par le nom', 'Si tu utilises une de tes recettes comme ingrédient et que l’ingrédient porte exactement le même nom, Savour les relie tout seul.'],
-      ['Relier toi-même', 'Si le nom diffère, ouvre la recette, choisis ⋯ puis « Lier à une recette ». Choisis quel ingrédient correspond à quelle recette.'],
+      ['Relier toi-même', 'Si le nom diffère, ouvre la recette, choisis ⋯ puis « Lier l’ingrédient à une recette ». Choisis quel ingrédient correspond à quelle recette.'],
       ['Dans la recette', 'À côté de l’ingrédient relié apparaît « Recette ». Un geste et tu es dans la recette de base, avec un bouton pour revenir.'],
       ['Pourquoi des recettes de base', 'Un fond, une pâte de base ou une sauce utilisés dans beaucoup de recettes se modifient ainsi à un seul endroit. Toute l’[équipe de cuisine](#keukenteams) travaille alors avec la même version.']
     ]
@@ -150,7 +150,7 @@ export const pages = {
         ]
       ],
       ['Convertir', 'Sous le titre se trouve « Convertir » avec des boutons rapides de ¼× à 10×, et « Original » pour revenir. Voir [Convertir](#omrekenen).'],
-      ['Le menu ⋯', 'Pour une de tes recettes, ⋯ contient « Plus d’options de conversion », « Lier à une recette », « Ajouter à un dossier » et « Supprimer de la bibliothèque ». Si tu ouvres la recette depuis un dossier ou une équipe, tu vois « Retirer du dossier » ou « Retirer de l’équipe de cuisine ».'],
+      ['Le menu ⋯', 'Pour une de tes recettes, ⋯ contient « Plus d’options de conversion », « Lier l’ingrédient à une recette », « Ajouter à un dossier » et « Supprimer de la bibliothèque ». Si tu ouvres la recette depuis un dossier ou une équipe, tu vois « Retirer du dossier » ou « Retirer de l’équipe de cuisine ».'],
       ['Cocher', 'Touche un ingrédient ou une étape pour le cocher. Après une interruption, tu vois où tu en étais.'],
       ['Notes et original', 'Sous la recette se trouvent tes [notes](#recept-notities) et, pour une recette issue d’une photo, « Voir la note d’origine ».'],
       ['Retour', '« ← Retour » te ramène au même endroit de la liste.']

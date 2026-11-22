@@ -433,7 +433,7 @@ export const pages = [
       sections: [
         [
           'In een keukenteam',
-          'Bij elk recept van een collega in het keukenteam zie je “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie in je bibliotheek.'
+          'Bij een recept van een collega in het keukenteam kies je ⋯ → “Kopie naar mijn recepten”. Je krijgt een eigen kopie in je bibliotheek. Dat hoort bij Savour Pro; zonder Pro bekijk, print en reken je de recepten gratis om.'
         ],
         [
           'Via een gedeelde link',
@@ -454,7 +454,7 @@ export const pages = [
       sections: [
         [
           'In a kitchen team',
-          'Every recipe from a colleague in the kitchen team shows “Add to my recipes”. You get your own copy in your library.'
+          'On a colleague’s recipe in the kitchen team, choose ⋯ → “Copy to my recipes”. You get your own copy in your library. This is part of Savour Pro; without Pro you view, print and scale the recipes for free.'
         ],
         [
           'Through a shared link',

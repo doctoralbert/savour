@@ -91,7 +91,8 @@ export const pages = {
     sections: [
       ['En la lista de ingredientes', 'En cada receta pon claramente en los ingredientes los componentes con alérgenos, también si vienen de otra receta base.'],
       ['Recetas base', 'En un plato compuesto, nombra las recetas base que lleva. [Vincúlalas](#recept-koppelen) y verás con un toque qué lleva el fondo o la salsa.'],
-      ['Notas', 'Pon los acuerdos fijos y la información de alérgenos en una [nota](#recept-notities) de la receta, para que también salgan en la impresión.']
+      ['Notas', 'Pon los acuerdos fijos y la información de alérgenos en una [nota](#recept-notities) de la receta, para que también salgan en la impresión.'],
+      ["Alérgenos en Savour", "Con Savour Pro, Savour rellena por sí mismo los alérgenos de cada receta. Cómo funciona lo lees en [Alérgenos por receta](#allergenen)."]
     ]
   },
   'probleem-inloggen': {

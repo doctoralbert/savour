@@ -4,11 +4,11 @@ export const group = {
   id: 'keuken',
   nl: {
     name: 'In de keuken',
-    intro: 'Omrekenen naar elke opbrengst, de kookmodus met grote letters en je recepten zonder internet.'
+    intro: 'Omrekenen naar elke opbrengst, de kookmodus met grote letters, je recepten zonder internet, MEP-lijsten en allergenen.'
   },
   en: {
     name: 'In the kitchen',
-    intro: 'Scaling to any yield, cook mode with large text and your recipes without internet.'
+    intro: 'Scaling to any yield, cook mode with large text, your recipes without internet, prep lists and allergens.'
   }
 };
 
@@ -376,6 +376,48 @@ export const pages = [
         ["Importing", "Already have your list in Excel, Word or on paper? Choose Import. Savour sorts it and you check everything before it is saved. A photo is read by the AI, with Savour Pro."],
         ["Print", "Print the list on one A4, portrait or landscape, with boxes to tick, just like your Excel list. The date and covers are left off, so you can use it every day. With Savour Pro your restaurant’s logo is on it."],
         ["Savour Pro", "Creating and managing prep lists works with Savour Pro. Anyone in the kitchen team can tick off, even with a free account. If you stop Pro, your lists are kept."]
+      ]
+    }
+  },
+  {
+    id: 'allergenen',
+    related: ['mep-lijsten', 'printen', 'recept-koppelen'],
+    nl: {
+      slug: "handleiding-allergenen",
+      menu: "Allergenen per recept",
+      h1: "Allergenen per recept",
+      title: "Allergenen per recept: zo vult Savour ze in | Handleiding Savour",
+      desc: "Zo werken de allergenen in Savour: Savour vult de 14 allergenen zelf in, ook via basisrecepten, met Nakijken, eigen ingrediënten, de allergenenkaart en printen.",
+      lead: "Savour vult de allergenen zelf in. Jij vult alleen aan wat Savour niet kent, en past aan waar jouw merk anders is.",
+      sections: [
+        ["Waar", "Kies in het menu Tools → Allergenen. Bij elk recept staan de allergenen onder de ingrediënten; tik erop om ze open te klappen. In het menu Meer acties bij het recept staat de Allergenenkaart."],
+        ["Savour vult zelf in", "Savour zoekt bij elke ingrediëntregel het ingrediënt op in de Savour-lijst, in vijf talen en ook in een afgeleide vorm (\"limoenrasp\" telt als limoen). Gebruik je een basisrecept, zoals een fond of een saus, dan tellen de allergenen daarvan mee. Je hoeft dus niets in te voeren."],
+        ["Wat Savour niet kent", "Bovenaan Tools → Allergenen zie je hoeveel recepten complete allergenen hebben. Kent Savour een ingrediënt niet, dan staat dat bij het recept (\"Savour kent 2 ingrediënten nog niet\"). Onder Nakijken krijg je die één voor één; je vult ze één keer in en dan weet Savour het voor al je recepten."],
+        ["Per merk verschillend", "Bij ingrediënten die per merk verschillen, zoals bouillon of sojasaus, telt Savour de gebruikelijke allergenen mee en staat erbij: kan per merk verschillen. Is het bij jouw merk anders, open het ingrediënt onder Ingrediënten en maak je eigen versie; die gaat voor de Savour-lijst."],
+        ["Altijd aan en zelf aanzetten", "Onder het tabblad Allergenen staan de 14 allergenen die je volgens de wet moet kunnen noemen; die staan altijd aan. Daaronder zet je zelf aan waar gasten vaak naar vragen, zoals lactose, varkensvlees, ui en knoflook of alcohol."],
+        ["Allergenenkaart en printen", "De Allergenenkaart toont per ingrediënt welke allergenen erin zitten en onderaan het hele recept. Een vraagteken betekent dat Savour dat ingrediënt nog niet kent. Bij printen kies je met \"Met allergenen\" of ze op de print komen."],
+        ["Nooit \"allergeenvrij\"", "Zolang een ingrediënt niet bekend of niet nagekeken is, zegt Savour nooit dat een recept vrij is van een allergeen. Controleer bij twijfel altijd het etiket van jouw merk."],
+        ["In een keukenteam", "Een keukenteam heeft een eigen ingrediëntenlijst. De eigenaar en wie mag bewerken vullen aan en passen aan; iedereen in het team ziet de allergenen bij de recepten, zolang de eigenaar Savour Pro heeft."],
+        ["Savour Pro en Savour leert", "Allergenen per recept horen bij Savour Pro. Staat \"Help de Savour-lezer verbeteren\" aan (Instellingen), dan kijken wij of de Savour-lijst beter kan als je andere allergenen kiest. Er verandert nooit iets vanzelf."]
+      ]
+    },
+    en: {
+      slug: "en/guide-allergens",
+      menu: "Allergens per recipe",
+      h1: "Allergens per recipe",
+      title: "Allergens per recipe: how Savour fills them in | Savour user guide",
+      desc: "How allergens work in Savour: Savour fills in the 14 allergens itself, including through base recipes, with To check, your own ingredients, the chart and printing.",
+      lead: "Savour fills in the allergens itself. You only add what Savour does not know, and adjust where your brand is different.",
+      sections: [
+        ["Where", "Choose Tools → Allergens in the menu. On every recipe the allergens are below the ingredients; tap to open them. The More actions menu on the recipe has the Allergen chart."],
+        ["Savour fills them in", "For every ingredient line Savour looks up the ingredient in the Savour list, in five languages and also in a derived form (\"lime zest\" counts as lime). If you use a base recipe, such as a stock or a sauce, its allergens count too. So you do not have to enter anything."],
+        ["What Savour does not know", "At the top of Tools → Allergens you see how many recipes have complete allergens. If Savour does not know an ingredient, the recipe says so (\"Savour doesn’t know 2 ingredients yet\"). Under To check you get them one by one; you fill them in once and Savour knows them for all your recipes."],
+        ["Different by brand", "For ingredients that differ by brand, such as stock or soy sauce, Savour counts the usual allergens and adds: may differ by brand. If your brand is different, open the ingredient under Ingredients and make your own version; it takes priority over the Savour list."],
+        ["Always on and turn on yourself", "Under the Allergens tab are the 14 allergens you are required by law to be able to name; they are always on. Below them you turn on what guests often ask about, such as lactose, pork, onion and garlic or alcohol."],
+        ["Allergen chart and printing", "The Allergen chart shows per ingredient which allergens it contains and, at the bottom, the whole recipe. A question mark means Savour does not know that ingredient yet. When printing you choose with \"With allergens\" whether they go on the print."],
+        ["Never \"allergen-free\"", "As long as an ingredient is unknown or not checked, Savour never says a recipe is free of an allergen. When in doubt, always check the label of your brand."],
+        ["In a kitchen team", "A kitchen team has its own ingredient list. The owner and those who can edit add and adjust; everyone in the team sees the allergens on the recipes, as long as the owner has Savour Pro."],
+        ["Savour Pro and Savour learns", "Allergens per recipe are part of Savour Pro. When \"Help improve the Savour reader\" is on (Settings), we look at whether the Savour list can be improved when you choose different allergens. Nothing ever changes by itself."]
       ]
     }
   }

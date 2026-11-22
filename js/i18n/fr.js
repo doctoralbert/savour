@@ -1433,8 +1433,8 @@ window.SAVOUR_I18N.fr = {
     'Dit .doc-bestand kon niet worden gelezen. Sla het in Word op als .docx en probeer opnieuw.':
       "Ce fichier .doc n'a pas pu être lu. Enregistre-le en .docx dans Word et réessaie.",
     'Recept kon niet worden verwijderd; probeer het opnieuw': "La recette n'a pas pu être supprimée ; réessaie",
-    'Bij elk recept van een collega in het keukenteam zie je “Toevoegen aan mijn recepten”. Je krijgt een eigen kopie in je bibliotheek die je zelf kunt aanpassen; het origineel blijft van de maker.':
-      "Sur chaque recette d'un collègue dans l'équipe de cuisine, tu vois « Ajouter à mes recettes ». Tu obtiens ta propre copie modifiable dans ta bibliothèque ; l'original reste à son auteur.",
+    'Bij een recept van een collega in het keukenteam kies je ⋯ → “Kopie naar mijn recepten” (Savour Pro). Je krijgt een eigen kopie in je bibliotheek die je zelf kunt aanpassen; het origineel blijft van de maker.':
+      'Sur la recette d’un collègue dans l’équipe de cuisine, choisis ⋯ → « Copier dans mes recettes » (Savour Pro). Tu obtiens ta propre copie modifiable dans ta bibliothèque ; l’original reste à son auteur.',
     'Het blijft gewoon in de eigen recepten van de maker.': 'Elle reste simplement dans les recettes de son auteur.',
     'Recept uit keukenteam gehaald; de maker houdt het in de eigen recepten':
       "Recette retirée de l'équipe de cuisine ; l'auteur la garde dans ses recettes",

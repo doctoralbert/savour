@@ -58,7 +58,9 @@ export const pages = {
       ['Enregistrer', 'Choisis « Enregistrer toutes les recettes ». Si une recette existe déjà exactement ainsi dans ta bibliothèque ou figure deux fois dans l’importation, Savour ne l’enregistre qu’une fois et indique combien de doublons ont été ignorés. « Retour à l’importation » revient sans enregistrer.'],
       ['Avec un compte gratuit', 'S’il te reste de la place pour moins de recettes que tu n’en importes, Savour demande s’il enregistre celles qui tiennent. Les autres restent dans l’écran de vérification ; avec [Savour Pro](#gratis-en-pro), tu conserves en illimité.'],
       ['Ensuite', 'Les numéros devant les noms issus d’un ancien livre de recettes (« 12. Jus de veau ») se retirent en une fois avec [Nettoyer](#opschonen). Ensuite, [classe tes recettes](#ordenen) en catégories et dossiers.'],
-      ['Points d’attention', 'Vérifie surtout les chiffres, les unités et le rendement. Un 3 et un 8 ou un 1 et un 7 se confondent vite sur une note tachée. Pour une recette issue d’une photo, ouvre plus tard l’original avec « Voir la note d’origine ».']
+      ['Points d’attention', 'Vérifie surtout les chiffres, les unités et le rendement. Un 3 et un 8 ou un 1 et un 7 se confondent vite sur une note tachée. Pour une recette issue d’une photo, ouvre plus tard l’original avec « Voir la note d’origine ».'],
+      ["Recettes déjà présentes", "Si une recette est déjà dans ton livre de recettes, Savour te le montre avant l’enregistrement, avec les recettes concernées. Tu choisis « Ignorer », « Enregistrer seulement les modifiées » ou « Enregistrer quand même ». Après l’enregistrement, Savour indique ce qui a été ignoré. Rien ne disparaît jamais sans ton choix."],
+      ["Rien ne se perd", "Chaque fichier importé et chaque résultat de l’IA est conservé. Si tu fermes Savour avant d’enregistrer, ou si la connexion coupe, Savour te propose à nouveau les recettes la fois suivante. Tant que Savour travaille, ton navigateur te prévient si tu fermes la page."]
     ]
   },
   'import-word': {
@@ -253,7 +255,8 @@ export const pages = {
       ['Quand l’IA aide', 'Avec [Savour Pro](#gratis-en-pro), l’IA intervient pour :', ['Les photos de recettes manuscrites ou scannées, et l’appareil photo.', 'Les PDF scannés sans texte.', 'Les recettes sur lesquelles le lecteur Savour a des doutes : elles sont relues.']],
       ['Sans Pro', 'Sur un compte gratuit, tu vois combien de recettes ont été lues avec des doutes. Elles sont marquées pour que tu les vérifies dans l’[écran de vérification](#import-controleren). Rien n’est perdu.'],
       ['La limite', 'Savour Pro lit jusqu’à 150 importations par mois avec l’IA. Une fois la limite atteinte, le lecteur Savour prend le relais, avec les recettes marquées à vérifier.'],
-      ['Jamais inventé', 'L’IA ne peut lire que ce qui est écrit. Si la préparation n’est pas sur la note, elle n’est pas non plus dans la recette. Pourquoi c’est si important : [Pourquoi l’IA ne doit jamais inventer ta recette](/blog/ai-mag-je-recept-niet-verzinnen).']
+      ['Jamais inventé', 'L’IA ne peut lire que ce qui est écrit. Si la préparation n’est pas sur la note, elle n’est pas non plus dans la recette. Pourquoi c’est si important : [Pourquoi l’IA ne doit jamais inventer ta recette](/blog/ai-mag-je-recept-niet-verzinnen).'],
+      ["Savour apprend", "Si « Aide à améliorer le lecteur Savour » est activé (Paramètres, activé par défaut), Savour garde ce que le lecteur ou l’IA a lu et ce que tu as finalement enregistré. Chaque soir, nous regardons ces différences et améliorons le lecteur. Le lecteur ne change jamais tout seul, et tu peux toujours le désactiver."]
     ]
   },
   overstappen: {

@@ -126,7 +126,7 @@ export const pages = {
     lead: 'Von der Jus zum Fond mit einem Tipp und wieder zurück.',
     sections: [
       ['Automatisch über den Namen', 'Nutzt du ein eigenes Rezept als Zutat und heißt die Zutat genau wie dieses Rezept, verknüpft Savour sie von selbst.'],
-      ['Selbst verknüpfen', 'Heißt sie anders, öffne das Rezept, wähle ⋯ und „Mit Rezept verknüpfen“. Wähle, welche Zutat zu welchem eigenen Rezept gehört.'],
+      ['Selbst verknüpfen', 'Heißt sie anders, öffne das Rezept, wähle ⋯ und „Zutat mit Rezept verknüpfen“. Wähle, welche Zutat zu welchem eigenen Rezept gehört.'],
       ['Im Rezept', 'Neben der verknüpften Zutat steht „Rezept“. Ein Tipp, und du bist im Grundrezept, mit einem Knopf zurück zum Rezept, von dem du kamst.'],
       ['Warum Grundrezepte', 'Einen Fond, Grundteig oder eine Sauce, die du in vielen Rezepten nutzt, änderst du so an einer Stelle. Alle im [Küchenteam](#keukenteams) arbeiten dann mit derselben Version.']
     ]
@@ -150,7 +150,7 @@ export const pages = {
         ]
       ],
       ['Umrechnen', 'Unter dem Titel steht „Umrechnen“ mit Schnellknöpfen von ¼× bis 10× und „Original“, um zurückzugehen. Siehe [Umrechnen](#omrekenen).'],
-      ['Das Menü ⋯', 'Bei einem eigenen Rezept findest du hinter ⋯ „Mehr umrechnen“, „Mit Rezept verknüpfen“, „Zu Ordner hinzufügen“ und „Aus Bibliothek löschen“. Öffnest du das Rezept aus einem Ordner oder Küchenteam, steht dort „Aus Ordner entfernen“ bzw. das Entfernen aus dem Küchenteam.'],
+      ['Das Menü ⋯', 'Bei einem eigenen Rezept findest du hinter ⋯ „Mehr umrechnen“, „Zutat mit Rezept verknüpfen“, „Zu Ordner hinzufügen“ und „Aus Bibliothek löschen“. Öffnest du das Rezept aus einem Ordner oder Küchenteam, steht dort „Aus Ordner entfernen“ bzw. das Entfernen aus dem Küchenteam.'],
       ['Abhaken', 'Tippe auf eine Zutat oder einen Schritt, um sie abzuhaken. So siehst du nach einer Unterbrechung, wo du warst.'],
       ['Notizen und das Original', 'Unter dem Rezept stehen deine [Notizen](#recept-notities) und bei einem Rezept von einem Foto „Original-Notiz ansehen“.'],
       ['Zurück', 'Mit „← Zurück“ kommst du an dieselbe Stelle in der Liste, von der du kamst.']

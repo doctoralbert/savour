@@ -82,7 +82,8 @@ export const pages = {
       ['Perfil', 'En Cuenta cambias tu nombre y tu foto de perfil. La foto de perfil se recorta para que tu cara quede bien encuadrada.'],
       ['Contraseña', 'Elige una contraseña nueva en Cuenta. Si ya no la recuerdas, usa «¿Has olvidado tu contraseña?» al [iniciar sesión](#inloggen).'],
       ['Más en Cuenta', 'Aquí [imprimes o descargas todas tus recetas](#downloaden), [invitas a un colega](#collega-uitnodigen), [instalas la app](#app-installeren), cierras sesión y [eliminas tu cuenta](#account-verwijderen).'],
-      ['Las demás pestañas', '[Savour Pro](#abonnement-beheren), [Logo en las impresiones](#printen-logo), [Apariencia](#weergave-en-taal), [Categorías](#categorieen) y [Limpiar](#opschonen).']
+      ['Las demás pestañas', '[Savour Pro](#abonnement-beheren), [Logo en las impresiones](#printen-logo), [Apariencia](#weergave-en-taal), [Categorías](#categorieen) y [Limpiar](#opschonen).'],
+      ["Ayuda a mejorar el lector de Savour", "En Cuenta está «Ayuda a mejorar el lector de Savour». Si está activado, lo que corriges en una importación, en los alérgenos o en una lista MEP nos ayuda a mejorar Savour; lo revisamos todo y nada cambia por sí solo. Desactívalo si lo prefieres."]
     ]
   },
   'weergave-en-taal': {
