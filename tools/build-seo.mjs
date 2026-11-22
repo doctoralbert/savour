@@ -1292,7 +1292,40 @@ const PHOTOS = {
   gidsPrinten: ['gids-printen.jpg', 'center 45%'],
   gidsDelen: ['gids-delen.jpg', 'center 45%'],
   gidsAccount: ['gids-account.jpg', 'center 55%'],
-  pageIngredientenlijst: ['page-ingredientenlijst.jpg', 'center 55%']
+  pageIngredientenlijst: ['page-ingredientenlijst.jpg', 'center 55%'],
+  gidsHoofd: ['gids-hoofd.jpg', '75% 55%'],
+  // Ronde C: een eigen foto per blog (BLOG_PHOTO).
+  blogAiHoreca: ['blog-ai-horeca.jpg', '75% 55%'],
+  blogAiNietVerzinnen: ['blog-ai-niet-verzinnen.jpg', '75% 55%'],
+  blogAllergenen: ['blog-allergenen.jpg', '75% 55%'],
+  blogFoodcostBerekenen: ['blog-foodcost-berekenen.jpg', '75% 55%'],
+  blogFoodcostCalculator: ['blog-foodcost-calculator.jpg', '75% 55%'],
+  blogGedeeldReceptenboek: ['blog-gedeeld-receptenboek.jpg', '75% 55%'],
+  blogKeukenteams: ['blog-keukenteams.jpg', '75% 55%'],
+  blogHorecaCijfers: ['blog-horeca-cijfers.jpg', '75% 55%'],
+  blogKerntemperaturen: ['blog-kerntemperaturen.jpg', '75% 55%'],
+  blogKostenMarges: ['blog-kosten-marges.jpg', '75% 55%'],
+  blogNieuweKok: ['blog-nieuwe-kok.jpg', '75% 55%'],
+  blogKladjes: ['blog-kladjes.jpg', '75% 55%'],
+  blogReceptbeheer: ['blog-receptbeheer.jpg', '75% 55%'],
+  blogAppKiezen: ['blog-app-kiezen.jpg', '75% 55%']
+};
+// Eigen foto per blog (Nederlands adres zonder blog/); anders `photo` in de blogdefinitie of de vaste rij.
+const BLOG_PHOTO = {
+  'ai-in-de-horeca': 'blogAiHoreca',
+  'ai-mag-je-recept-niet-verzinnen': 'blogAiNietVerzinnen',
+  'allergenen-in-savour': 'blogAllergenen',
+  'foodcost-berekenen': 'blogFoodcostBerekenen',
+  'foodcost-calculator': 'blogFoodcostCalculator',
+  'gedeeld-receptenboek-keukenteam': 'blogGedeeldReceptenboek',
+  'gedeelde-mappen-uitgelegd': 'blogKeukenteams',
+  'horeca-in-cijfers': 'blogHorecaCijfers',
+  'kerntemperaturen-vlees-vis-schaaldieren': 'blogKerntemperaturen',
+  'kosten-en-marges-restaurant': 'blogKostenMarges',
+  'nieuwe-kok-inwerken': 'blogNieuweKok',
+  'oude-kladjes-digitaliseren': 'blogKladjes',
+  'receptbeheer-in-de-horeca': 'blogReceptbeheer',
+  'recepten-app-kiezen-restaurant': 'blogAppKiezen'
 };
 // Foto per hoofdstuk van de handleiding (id uit tools/handleiding/*.mjs); zonder eigen foto de vaste rij.
 const GUIDE_PHOTO = {
@@ -1332,6 +1365,7 @@ const PAGE_PHOTO = {
   gids: 'bloemenveld',
   contact: 'pageContact'
 };
+const blogPhoto = (p, n) => p.photo || BLOG_PHOTO[p.nl.slug.replace(/^blog\//, '')] || BLOG_PHOTOS[n % BLOG_PHOTOS.length];
 const BLOG_PHOTOS = ['wortels', 'uien', 'keuken', 'eend', 'brigade', 'hout'];
 // Coverafbeelding per blogartikel en taal (tools/blog-afbeeldingen.py): titel, onderwerp en het Savour-logo onderin.
 // In het blogoverzicht en als deelafbeelding, niet bovenaan het artikel zelf. Zonder bestand: geen cover.
@@ -1641,14 +1675,14 @@ for (const lang of LANGS) {
           description: t.desc,
           datePublished: p.date,
           inLanguage: lang,
-          image: SITE + (coverFile(p, lang) || photoFile(p.photo || BLOG_PHOTOS[n % BLOG_PHOTOS.length])).replace(/\?.*/, ''),
+          image: SITE + (coverFile(p, lang) || photoFile(blogPhoto(p, n))).replace(/\?.*/, ''),
           author: ORG,
           publisher: ORG,
           mainEntityOfPage: url(t.slug)
         }
       ],
       body: c =>
-        pageTop(c, t.h1, t.lead, p.photo || BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
+        pageTop(c, t.h1, t.lead, blogPhoto(p, n)) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>${postPages(p, lang)}`
     });
   }
@@ -1826,7 +1860,7 @@ for (const lang of LANGS) {
       desc: home.desc,
       crumbs: [[home.h1]],
       body: c =>
-        pageTop(c, home.h1, home.lead, 'bloemenveld') +
+        pageTop(c, home.h1, home.lead, 'gidsHoofd') +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose site-guide-home"><nav class="site-guide-jump" aria-label="${esc(gu.chapters)}">${GUIDE_CHAPTERS.map(
           ch => `<a href="#${ch.id}">${esc(chapterName(ch))}</a>`
         ).join('')}</nav>${GUIDE_CHAPTERS.map(
