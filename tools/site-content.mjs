@@ -343,9 +343,9 @@ export const FEATURES = [
     nl: {
       slug: 'binnenkort',
       menu: 'Binnenkort in Savour',
-      short: 'Kostprijs per recept, de geschiedenis van elk recept en meer.',
-      title: 'Binnenkort in Savour: kostprijs, receptgeschiedenis en meer',
-      desc: 'Waar we aan werken: kostprijs per recept, de geschiedenis van elk recept en een app voor iPhone en Android. Allergenen per recept staan inmiddels live.',
+      short: 'Foodcost calculator, menu engineering en de geschiedenis van elk recept.',
+      title: 'Binnenkort in Savour: foodcost calculator en receptgeschiedenis',
+      desc: 'Waar we aan werken: een foodcost calculator voor gerecht, portie en menu, daarna menu engineering, de geschiedenis van elk recept en mogelijk een eigen app.',
       h1: 'Waar we aan werken',
       lead: 'Savour groeit met de keuken mee. Dit staat op de planning. Mis je iets? Laat het ons weten.',
       sections: [
@@ -358,9 +358,9 @@ export const FEATURES = [
     en: {
       slug: 'en/roadmap',
       menu: 'Coming soon',
-      short: 'Cost per recipe, the history of every recipe and more.',
-      title: 'Coming soon to Savour: costing, recipe history and more',
-      desc: 'What we are working on: cost per recipe, the history of every recipe and an app for iPhone and Android. Allergens per recipe are now live.',
+      short: 'Food cost calculator, menu engineering and the history of every recipe.',
+      title: 'Coming soon to Savour: food cost calculator and recipe history',
+      desc: 'What we are working on: a food cost calculator for dish, portion and menu, then menu engineering, the history of every recipe and possibly an app.',
       h1: 'What we are working on',
       lead: 'Savour grows with the kitchen. This is on the roadmap. Missing something? Let us know.',
       sections: [

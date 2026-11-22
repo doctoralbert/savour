@@ -130,9 +130,9 @@ export const FR = {
     },
     roadmap: {
       slug: 'fr/bientot',
-      short: "Coût par recette, historique de chaque recette et plus.",
-      title: 'Bientôt dans Savour : coût des recettes, historique et plus',
-      desc: "Ce sur quoi nous travaillons : le coût par recette, l'historique de chaque recette et une application pour iPhone et Android. Les allergènes par recette sont désormais disponibles.",
+      short: "Calculateur de food cost, menu engineering et historique de chaque recette.",
+      title: 'Bientôt dans Savour : calculateur de food cost et historique',
+      desc: "Ce sur quoi nous travaillons : un calculateur de food cost pour plat, portion et menu, puis menu engineering, historique des recettes et peut-être une appli.",
       h1: 'Ce sur quoi nous travaillons',
       lead: "Savour grandit avec la cuisine. Voici ce qui est prévu. Il te manque quelque chose ? Dis-le-nous.",
       sections: [

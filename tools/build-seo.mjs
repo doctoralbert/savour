@@ -780,8 +780,8 @@ const AUDIENCE_DUO = {
   bar: ['barBatch', 'barMep']
 };
 const AUDIENCE_FEATURES = {
-  chefs: ['digitise', 'scale', 'allergens', 'cloud', 'inladen'],
-  brigade: ['share', 'organise', 'allergens', 'print'],
+  chefs: ['digitise', 'scale', 'allergens', 'mep', 'cloud', 'inladen'],
+  brigade: ['share', 'mep', 'organise', 'allergens', 'print'],
   bar: ['scale', 'digitise', 'share', 'allergens', 'mep'],
   patisserie: ['scale', 'allergens', 'print', 'digitise', 'mep'],
   catering: ['scale', 'mep', 'allergens', 'share', 'inladen']
