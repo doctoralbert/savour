@@ -564,7 +564,13 @@ export const HOME = {
       [ "Werkt Savour ook offline?", "Ja. Open Savour één keer met internet en zet het op je beginscherm; daarna open je je recepten ook zonder verbinding, bijvoorbeeld in de koelcel. Aanpassen kan weer zodra je online bent." ],
       [ "Waar worden mijn recepten opgeslagen?", "In de cloud, afgeschermd per account. Je opent ze op computer, tablet en telefoon, en alleen jij en wie je uitnodigt in een keukenteam kunnen ze lezen." ],
       [ "Kan ik een hele receptenmap in één keer printen?", "Ja. Print losse recepten of een complete receptenmap in één keer, netjes opgemaakt voor de klapper in de keuken. Met Savour Pro staat het logo van je restaurant erop." ],
-      ['Is Savour ook voor thuiskoks?', 'Het kan, maar Savour is gebouwd voor de professionele keuken: grote receptenboeken, teams en de service.']
+      ['Is Savour ook voor thuiskoks?', 'Het kan, maar Savour is gebouwd voor de professionele keuken: grote receptenboeken, teams en de service.'],
+      ["Wat zijn MEP-lijsten in Savour?", "Per post een lijst van wat er klaar moet staan: kaarten, kopjes en onderdelen, met couverts per kaart. De brigade vinkt live af, ook zonder internet, en je print de lijst op één A4. Maken en beheren gaat met Savour Pro; afvinken kan iedereen in het keukenteam."],
+      ["Hoe werken de allergenen?", "Met Savour Pro vult Savour de 14 allergenen bij elk recept zelf in, ook via basisrecepten. Bij merkproducten staat \"kan per merk verschillen\", en zolang Savour een ingrediënt niet kent, zegt Savour nooit dat iets allergeenvrij is. Aanpassen mag altijd, en de allergenen kunnen mee op je print."],
+      ["Voor wie is Savour?", "Voor koks, patissiers en banketbakkers, keukenbrigades, cateraars en eventbedrijven, en bartenders en barista’s. Onder \"Voor wie\" staat voor elk een eigen pagina."],
+      ["Wat als ik een recept twee keer importeer?", "Dan laat Savour zien welke recepten er al staan. Je kiest: overslaan, alleen de gewijzigde opslaan, of toch opslaan. Er verdwijnt nooit iets zonder dat jij het kiest."],
+      ["Kan ik bij importeren iets kwijtraken?", "Nee. Elk bestand en elk resultaat van de AI wordt bewaard. Sluit je Savour voordat je hebt opgeslagen, of valt de verbinding weg, dan biedt Savour het de volgende keer opnieuw aan."],
+      ["Leert Savour van mijn recepten?", "Alleen als \"Help de Savour-lezer verbeteren\" aan staat (Instellingen). Wat je verbetert aan een import, aan allergenen of aan een MEP-lijst helpt ons Savour beter te maken. We kijken alles na en er verandert nooit iets vanzelf. Je kunt het altijd uitzetten."]
     ]
   },
   en: {
@@ -593,7 +599,13 @@ export const HOME = {
       [ "Does Savour work offline?", "Yes. Open Savour once with internet and add it to your home screen; after that you can open your recipes without a connection, for example in the walk-in. Editing works again as soon as you are online." ],
       [ "Where are my recipes stored?", "In the cloud, kept separate per account. You open them on computer, tablet and phone, and only you and the people you invite to a kitchen team can read them." ],
       [ "Can I print a whole recipe folder at once?", "Yes. Print single recipes or a complete recipe folder at once, neatly laid out for the binder in the kitchen. With Savour Pro your restaurant’s logo is on it." ],
-      ['Is Savour for home cooks too?', 'It can be, but Savour is built for the professional kitchen: big recipe books, teams and service.']
+      ['Is Savour for home cooks too?', 'It can be, but Savour is built for the professional kitchen: big recipe books, teams and service.'],
+      ["What are prep lists in Savour?", "A list per section of what needs to be ready: cards, headings and items, with covers per card. The brigade ticks off live, also without internet, and you print the list on one A4 page. Creating and managing is part of Savour Pro; everyone in the kitchen team can tick off."],
+      ["How do the allergens work?", "With Savour Pro, Savour fills in the 14 allergens on every recipe itself, including through base recipes. Brand products show \"may differ by brand\", and as long as Savour does not know an ingredient, it never says something is allergen-free. You can always adjust, and the allergens can go on your print."],
+      ["Who is Savour for?", "For cooks, pastry chefs and bakers, kitchen brigades, caterers and event companies, and bartenders and baristas. Under \"Who it’s for\" there is a page for each."],
+      ["What if I import a recipe twice?", "Then Savour shows which recipes are already there. You choose: skip, only save the changed ones, or save anyway. Nothing ever disappears unless you choose it."],
+      ["Can I lose anything while importing?", "No. Every file and every AI result is kept. If you close Savour before saving, or the connection drops, Savour offers it again next time."],
+      ["Does Savour learn from my recipes?", "Only when \"Help improve the Savour reader\" is on (Settings). What you correct in an import, the allergens or a prep list helps us make Savour better. We check everything and nothing ever changes by itself. You can switch it off at any time."]
     ]
   }
 };
