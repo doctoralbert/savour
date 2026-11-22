@@ -1286,13 +1286,24 @@ const PHOTOS = {
   // Ronde B: een eigen foto per hoofdstuk van de handleiding (GUIDE_PHOTO).
   gidsStart: ['gids-start.jpg', 'center 55%'],
   gidsImporteren: ['gids-importeren.jpg', 'center 55%'],
-  gidsBewerken: ['gids-bewerken.jpg', 'center 55%']
+  gidsBewerken: ['gids-bewerken.jpg', 'center 55%'],
+  gidsOrdenen: ['gids-ordenen.jpg', 'center 50%'],
+  gidsOmrekenen: ['gids-omrekenen.jpg', 'center 60%'],
+  gidsPrinten: ['gids-printen.jpg', 'center 45%'],
+  gidsDelen: ['gids-delen.jpg', 'center 45%'],
+  gidsAccount: ['gids-account.jpg', 'center 55%'],
+  pageIngredientenlijst: ['page-ingredientenlijst.jpg', 'center 55%']
 };
 // Foto per hoofdstuk van de handleiding (id uit tools/handleiding/*.mjs); zonder eigen foto de vaste rij.
 const GUIDE_PHOTO = {
   'aan-de-slag': 'gidsStart',
   importeren: 'gidsImporteren',
-  recepten: 'gidsBewerken'
+  recepten: 'gidsBewerken',
+  ordenen: 'gidsOrdenen',
+  keuken: 'gidsOmrekenen',
+  printen: 'gidsPrinten',
+  samenwerken: 'gidsDelen',
+  account: 'gidsAccount'
 };
 // De ingrediëntenlijst met de allergenen per taal (tools/build-ingredientenlijst.mjs): { code: [extra, nl, en, de, es, fr] }.
 const INGREDIENT_LIST = JSON.parse(fs.readFileSync(new URL('assets/data/ingredientenlijst.json', ROOT), 'utf8'));
@@ -1667,7 +1678,7 @@ for (const lang of LANGS) {
       desc: t.desc,
       crumbs: [[t.h1]],
       body: c =>
-        pageTop(c, t.h1, t.lead) +
+        pageTop(c, t.h1, t.lead, 'pageIngredientenlijst') +
         `<article class="site-article"><div class="site-wrap site-narrow"><div class="ing-list" data-ingredient-list data-src="/assets/data/ingredientenlijst.json?v=${INGREDIENT_LIST.count}" data-texts="${esc(JSON.stringify(texts))}"><div class="ing-tools"><input type="search" class="ing-search" placeholder="${esc(t.search)}" aria-label="${esc(t.search)}"><select class="ing-filter" aria-label="${esc(t.filter)}"></select></div><p class="ing-count" aria-live="polite">${esc(t.count(INGREDIENT_LIST.count.toLocaleString(LOCALE[lang])))}</p><ul class="ing-rows"><li class="ing-empty">${esc(t.loading)}</li></ul><button type="button" class="site-btn ing-more" hidden>${esc(t.more)}</button></div><div class="site-prose">${sectionsHtml(t.sections)}</div></div></article>`
     });
   }
