@@ -42,6 +42,7 @@ import { stringsFr, patternsFr } from './vertalingen-fr.mjs';
 import { VERDIEPING } from './site-verdieping.mjs';
 import { VERDIEPING_TALEN } from './site-verdieping-talen.mjs';
 import { BLOG_RICH } from './site-blog-rich.mjs';
+import { BLOG_NU } from './site-blog-nu.mjs';
 import { FEATURE_RICH } from './site-feature-rich.mjs';
 import { ALLERGEN_FEATURE, ALLERGEN_FEATURE_RICH } from './site-allergenen-functie.mjs';
 import { MEP_FEATURE, MEP_FEATURE_RICH } from './site-mep-functie.mjs';
@@ -424,6 +425,14 @@ for (const [slug, langs] of Object.entries(BLOG_RICH)) {
       richNeed(t.sections[i], `${slug} sectie ${i}`).push(...blocks);
     if (r.add) t.sections.push(...r.add);
   }
+}
+// Wat Savour nu ook kan (tools/site-blog-nu.mjs): één sectie achteraan, na de uitgebreide opmaak.
+for (const [slug, langs] of Object.entries(BLOG_NU)) {
+  const p = richNeed(
+    POSTS.find(q => q.en.slug === slug),
+    `blog ${slug} (tools/site-blog-nu.mjs)`
+  );
+  for (const [lang, sec] of Object.entries(langs)) richNeed(p[lang], `${slug} ${lang}`).sections.push(richMap(sec, lang));
 }
 // Afbeeldingen bij de artikelen (tools/blog-beelden/<artikel>.json, getekend met tools/blog-beelden.py): elke afbeelding
 // komt onder de sectie met de Nederlandse kop uit "after", in elke taal op dezelfde plek.
