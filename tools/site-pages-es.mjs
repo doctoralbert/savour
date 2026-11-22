@@ -42,7 +42,7 @@ export const ES = {
     privacy: {
       slug: 'es/privacidad',
       title: 'Política de privacidad — Savour',
-      desc: 'Cómo trata Savour tus datos y recetas: qué guardamos, para qué, con quién trabajamos y qué derechos tienes.'
+      desc: 'Cómo trata Savour tus datos y recetas: qué guardamos, para qué lo guardamos, con quién trabajamos, cuánto tiempo lo guardamos y qué derechos tienes.'
     }
   },
   features: {
@@ -162,7 +162,7 @@ export const ES = {
     chefs: {
       slug: 'es/para-cocineros',
       title: 'App de recetas para chefs y segundos de cocina | Savour',
-      desc: 'Savour está hecho para cocineros de cocina profesional: jefes de cocina, segundos y jefes de partida. Todas tus recetas en un sitio, exactamente como las escribiste.',
+      desc: 'Savour está hecho para cocineros de cocina profesional: jefes de cocina, segundos y jefes de partida. Digitalizar, escalar, alérgenos y listas MEP. Todas tus recetas en un sitio, exactamente como las escribiste.',
       h1: 'Para cocineros',
       lead: 'Tanto si diriges la cocina, haces las salsas o llevas el cuarto frío: tus recetas tienen que ser correctas y fáciles de encontrar.',
       sections: [
@@ -464,7 +464,7 @@ export const ES = {
     'en/blog/sharing-recipes-with-your-team': {
       slug: 'es/blog/compartir-recetas-con-tu-equipo',
       title: 'Compartir recetas con tu equipo, sin fotos de fotos',
-      desc: 'Compartir recetas en el grupo de WhatsApp acaba en fotos borrosas y versiones antiguas. Cómo compartir recetas y carpetas con tu equipo, con los permisos adecuados.',
+      desc: 'Compartir recetas en el grupo de WhatsApp acaba en fotos borrosas y versiones antiguas. Así tu equipo trabaja siempre con la misma receta correcta. Cómo compartir recetas y carpetas con tu equipo, con los permisos adecuados.',
       h1: 'Compartir recetas con tu equipo, sin fotos de fotos',
       lead: 'La foto de una receta, reenviada en el grupo, fotografiada otra vez desde otra pantalla. Te suena. Y nadie sabe qué versión es la buena.',
       sections: [
@@ -527,7 +527,7 @@ export const ES = {
     'en/blog/scaling-recipes-without-errors': {
       slug: 'es/blog/escalar-recetas-sin-errores',
       title: 'Escalar recetas sin errores de cálculo',
-      desc: 'De 8 a 120 cubiertos o de 50 a 1.000 piezas. Dónde falla el escalado y cómo hacerlo de forma fiable.',
+      desc: 'De 8 a 120 cubiertos o de 50 a 1.000 piezas. Dónde falla el escalado y cómo hacerlo de forma fiable, con unidades que se ajustan solas y el original intacto.',
       h1: 'Escalar recetas sin errores de cálculo',
       lead: 'Escalar parece fácil: todo por quince. Hasta que a las cinco de la tarde descubres que la gelatina no se multiplicó.',
       sections: [
@@ -556,7 +556,7 @@ export const ES = {
     'en/blog/ai-should-never-invent-recipes': {
       slug: 'es/blog/la-ia-no-debe-inventar-recetas',
       title: 'Por qué la IA nunca debe inventar tus recetas',
-      desc: 'La IA puede leer letra a mano y ordenar documentos desordenados. Pero una receta tiene que ser correcta. Por qué Savour se detiene ante la duda en lugar de adivinar.',
+      desc: 'La IA puede leer letra a mano y ordenar documentos desordenados. Pero una receta tiene que ser correcta: por eso la IA nunca debe inventar nada. Por qué Savour se detiene ante la duda en lugar de adivinar.',
       h1: 'Por qué la IA nunca debe inventar tus recetas',
       lead: 'La IA es buena rellenando lo que probablemente pone. En una cocina, «probablemente» no es suficiente.',
       sections: [

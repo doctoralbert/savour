@@ -12,7 +12,7 @@ export const COMMUNITY_POST = {
   nl: {
     slug: 'blog/savour-community',
     title: 'De Savour Community: praat mee en bepaal mee waar Savour naartoe gaat',
-    desc: 'In de Savour Community stel je vragen, deel je tips met andere koks en vertel je wat je mist in Savour. Zo werkt het, en zo bepaal je mee wat we als volgende bouwen.',
+    desc: 'In de Savour Community stel je vragen, deel je tips met andere koks en vertel je wat je mist in Savour. Voor elk account, met de naam uit je profiel. Zo werkt het, en zo bepaal je mee wat we als volgende bouwen.',
     h1: 'De Savour Community: bouw mee aan Savour',
     lead: 'Savour is gemaakt door koks, voor koks. Wat er als volgende gebouwd wordt, willen we bepalen met de mensen die er elke dag in de keuken mee werken. Daarom is er nu de Savour Community: een plek in de app waar je vragen stelt, tips deelt en vertelt wat je mist.',
     brief: [
@@ -74,7 +74,7 @@ export const COMMUNITY_POST = {
   en: {
     slug: 'en/blog/savour-community',
     title: 'The Savour Community: join the conversation and help decide where Savour goes',
-    desc: 'In the Savour Community you ask questions, share tips with other chefs and tell us what you miss in Savour. Here is how it works, and how you help decide what we build next.',
+    desc: 'In the Savour Community you ask questions, share tips with other chefs and tell us what you miss in Savour. Open to every account, with your profile name. Here is how it works, and how you help decide what we build next.',
     h1: 'The Savour Community: help build Savour',
     lead: 'Savour is made by chefs, for chefs. We want to decide what gets built next together with the people who use it in the kitchen every day. That is why there is now the Savour Community: a place in the app to ask questions, share tips and tell us what you miss.',
     brief: [
@@ -141,7 +141,7 @@ export const COMMUNITY_POST_DE = {
   [KEY]: {
     slug: 'de/blog/savour-community',
     title: 'Die Savour Community: rede mit und bestimme mit, wohin Savour geht',
-    desc: 'In der Savour Community stellst du Fragen, teilst Tipps mit anderen Köchen und sagst, was dir in Savour fehlt. So funktioniert es, und so bestimmst du mit, was wir als Nächstes bauen.',
+    desc: 'In der Savour Community stellst du Fragen, teilst Tipps mit anderen Köchen und sagst, was dir in Savour fehlt. Für jedes Konto, mit deinem Profilnamen. So funktioniert es, und so bestimmst du mit, was wir als Nächstes bauen.',
     h1: 'Die Savour Community: bau mit an Savour',
     lead: 'Savour ist von Köchen für Köche gemacht. Was als Nächstes gebaut wird, wollen wir mit den Menschen entscheiden, die jeden Tag in der Küche damit arbeiten. Deshalb gibt es jetzt die Savour Community: einen Ort in der App, an dem du Fragen stellst, Tipps teilst und sagst, was dir fehlt.',
     brief: [

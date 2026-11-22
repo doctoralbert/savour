@@ -42,6 +42,7 @@ import { stringsFr, patternsFr } from './vertalingen-fr.mjs';
 import { VERDIEPING } from './site-verdieping.mjs';
 import { VERDIEPING_TALEN } from './site-verdieping-talen.mjs';
 import { BLOG_RICH } from './site-blog-rich.mjs';
+import { BLOG_NU } from './site-blog-nu.mjs';
 import { FEATURE_RICH } from './site-feature-rich.mjs';
 import { ALLERGEN_FEATURE, ALLERGEN_FEATURE_RICH } from './site-allergenen-functie.mjs';
 import { MEP_FEATURE, MEP_FEATURE_RICH } from './site-mep-functie.mjs';
@@ -234,8 +235,8 @@ const LEGACY = [
     en: 'en/terms',
     title: ['Algemene voorwaarden — Savour', 'Terms and conditions — Savour'],
     desc: [
-      'De algemene voorwaarden van Savour: gratis account, Savour Pro, teamabonnementen, opzeggen en herroepingsrecht.',
-      'The terms and conditions of Savour: free account, Savour Pro, team plans, cancelling and the right of withdrawal.'
+      'De algemene voorwaarden van Savour: wat geldt voor het gratis account, Savour Pro en teamabonnementen, hoe opzeggen werkt en je herroepingsrecht.',
+      'The terms and conditions of Savour: what applies to the free account, Savour Pro and team plans, how cancelling works and your right of withdrawal.'
     ]
   },
   {
@@ -244,8 +245,8 @@ const LEGACY = [
     en: 'en/privacy',
     title: ['Privacybeleid — Savour', 'Privacy policy — Savour'],
     desc: [
-      'Hoe Savour met je gegevens en recepten omgaat: wat we bewaren, waarvoor, met wie we werken en welke rechten je hebt.',
-      'How Savour handles your data and recipes: what we keep, why, who we work with and what rights you have.'
+      'Hoe Savour met je gegevens en recepten omgaat: wat we bewaren, waarvoor, met wie we werken, hoe lang we bestanden bewaren en welke rechten je hebt.',
+      'How Savour handles your data and recipes: what we keep, why we keep it, who we work with, how long we store files and what rights you have as a user.'
     ]
   }
 ];
@@ -424,6 +425,14 @@ for (const [slug, langs] of Object.entries(BLOG_RICH)) {
       richNeed(t.sections[i], `${slug} sectie ${i}`).push(...blocks);
     if (r.add) t.sections.push(...r.add);
   }
+}
+// Wat Savour nu ook kan (tools/site-blog-nu.mjs): één sectie achteraan, na de uitgebreide opmaak.
+for (const [slug, langs] of Object.entries(BLOG_NU)) {
+  const p = richNeed(
+    POSTS.find(q => q.en.slug === slug),
+    `blog ${slug} (tools/site-blog-nu.mjs)`
+  );
+  for (const [lang, sec] of Object.entries(langs)) richNeed(p[lang], `${slug} ${lang}`).sections.push(richMap(sec, lang));
 }
 // Afbeeldingen bij de artikelen (tools/blog-beelden/<artikel>.json, getekend met tools/blog-beelden.py): elke afbeelding
 // komt onder de sectie met de Nederlandse kop uit "after", in elke taal op dezelfde plek.
@@ -1071,7 +1080,7 @@ function homeBody(lang, inApp) {
 <section class="site-section tint" id="prijzen"><div class="site-wrap"><h2 class="reveal">${esc(n.priceTitle)}</h2><div class="home-plans">${n.plans.map(plan).join('')}</div><p class="home-plans-foot">${esc(n.priceFoot)} <a class="site-link" href="${href(legacy('pro')[lang])}">${esc(n.priceLink)}</a></p></div></section>
 ${serviceBand(lang)}
 <section class="site-section"><div class="site-wrap"><h2 class="reveal">${esc(n.trustTitle)}</h2><div class="home-trust">${n.trust.map(([t, d]) => `<div><b>${esc(t)}</b><span>${esc(d)}</span></div>`).join('')}</div></div></section>
-<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.faqTitle)}</h2><div class="site-faq">${n.faq.map(([qq, a]) => `<details><summary>${esc(qq)}</summary><p>${esc(a)}</p></details>`).join('')}</div></div></section>
+<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(h.faqTitle)}</h2><div class="site-faq">${n.faq.map(([qq, a]) => `<details><summary>${esc(qq)}</summary><p>${proseText(a)}</p></details>`).join('')}</div></div></section>
 ${ctaBlock(lang, inApp)}`;
 }
 
@@ -1277,13 +1286,57 @@ const PHOTOS = {
   // Ronde B: een eigen foto per hoofdstuk van de handleiding (GUIDE_PHOTO).
   gidsStart: ['gids-start.jpg', 'center 55%'],
   gidsImporteren: ['gids-importeren.jpg', 'center 55%'],
-  gidsBewerken: ['gids-bewerken.jpg', 'center 55%']
+  gidsBewerken: ['gids-bewerken.jpg', 'center 55%'],
+  gidsOrdenen: ['gids-ordenen.jpg', 'center 50%'],
+  gidsOmrekenen: ['gids-omrekenen.jpg', 'center 60%'],
+  gidsPrinten: ['gids-printen.jpg', 'center 45%'],
+  gidsDelen: ['gids-delen.jpg', 'center 45%'],
+  gidsAccount: ['gids-account.jpg', 'center 55%'],
+  pageIngredientenlijst: ['page-ingredientenlijst.jpg', 'center 55%'],
+  gidsHoofd: ['gids-hoofd.jpg', '75% 55%'],
+  // Ronde C: een eigen foto per blog (BLOG_PHOTO).
+  blogAiHoreca: ['blog-ai-horeca.jpg', '75% 55%'],
+  blogAiNietVerzinnen: ['blog-ai-niet-verzinnen.jpg', '75% 55%'],
+  blogAllergenen: ['blog-allergenen.jpg', '75% 55%'],
+  blogFoodcostBerekenen: ['blog-foodcost-berekenen.jpg', '75% 55%'],
+  blogFoodcostCalculator: ['blog-foodcost-calculator.jpg', '75% 55%'],
+  blogGedeeldReceptenboek: ['blog-gedeeld-receptenboek.jpg', '75% 55%'],
+  blogKeukenteams: ['blog-keukenteams.jpg', '75% 55%'],
+  blogHorecaCijfers: ['blog-horeca-cijfers.jpg', '75% 55%'],
+  blogKerntemperaturen: ['blog-kerntemperaturen.jpg', '75% 55%'],
+  blogKostenMarges: ['blog-kosten-marges.jpg', '75% 55%'],
+  blogNieuweKok: ['blog-nieuwe-kok.jpg', '75% 55%'],
+  blogKladjes: ['blog-kladjes.jpg', '75% 55%'],
+  blogReceptbeheer: ['blog-receptbeheer.jpg', '75% 55%'],
+  blogAppKiezen: ['blog-app-kiezen.jpg', '75% 55%']
+};
+// Eigen foto per blog (Nederlands adres zonder blog/); anders `photo` in de blogdefinitie of de vaste rij.
+const BLOG_PHOTO = {
+  'ai-in-de-horeca': 'blogAiHoreca',
+  'ai-mag-je-recept-niet-verzinnen': 'blogAiNietVerzinnen',
+  'allergenen-in-savour': 'blogAllergenen',
+  'foodcost-berekenen': 'blogFoodcostBerekenen',
+  'foodcost-calculator': 'blogFoodcostCalculator',
+  'gedeeld-receptenboek-keukenteam': 'blogGedeeldReceptenboek',
+  'gedeelde-mappen-uitgelegd': 'blogKeukenteams',
+  'horeca-in-cijfers': 'blogHorecaCijfers',
+  'kerntemperaturen-vlees-vis-schaaldieren': 'blogKerntemperaturen',
+  'kosten-en-marges-restaurant': 'blogKostenMarges',
+  'nieuwe-kok-inwerken': 'blogNieuweKok',
+  'oude-kladjes-digitaliseren': 'blogKladjes',
+  'receptbeheer-in-de-horeca': 'blogReceptbeheer',
+  'recepten-app-kiezen-restaurant': 'blogAppKiezen'
 };
 // Foto per hoofdstuk van de handleiding (id uit tools/handleiding/*.mjs); zonder eigen foto de vaste rij.
 const GUIDE_PHOTO = {
   'aan-de-slag': 'gidsStart',
   importeren: 'gidsImporteren',
-  recepten: 'gidsBewerken'
+  recepten: 'gidsBewerken',
+  ordenen: 'gidsOrdenen',
+  keuken: 'gidsOmrekenen',
+  printen: 'gidsPrinten',
+  samenwerken: 'gidsDelen',
+  account: 'gidsAccount'
 };
 // De ingrediëntenlijst met de allergenen per taal (tools/build-ingredientenlijst.mjs): { code: [extra, nl, en, de, es, fr] }.
 const INGREDIENT_LIST = JSON.parse(fs.readFileSync(new URL('assets/data/ingredientenlijst.json', ROOT), 'utf8'));
@@ -1312,6 +1365,7 @@ const PAGE_PHOTO = {
   gids: 'bloemenveld',
   contact: 'pageContact'
 };
+const blogPhoto = (p, n) => p.photo || BLOG_PHOTO[p.nl.slug.replace(/^blog\//, '')] || BLOG_PHOTOS[n % BLOG_PHOTOS.length];
 const BLOG_PHOTOS = ['wortels', 'uien', 'keuken', 'eend', 'brigade', 'hout'];
 // Coverafbeelding per blogartikel en taal (tools/blog-afbeeldingen.py): titel, onderwerp en het Savour-logo onderin.
 // In het blogoverzicht en als deelafbeelding, niet bovenaan het artikel zelf. Zonder bestand: geen cover.
@@ -1590,7 +1644,8 @@ for (const lang of LANGS) {
       title: i
         ? BLOG_TITLE[lang].replace(/(\s+[—–]\s+Savour)?$/, m => ` · ${BLOG_PAGER[lang].page} ${i + 1}${m}`)
         : BLOG_TITLE[lang],
-      desc: u.blogLead,
+      // Vervolgpagina's een eigen beschrijving (zoekmachines melden anders dubbele beschrijvingen).
+      desc: i ? `${BLOG_PAGER[lang].page} ${i + 1}: ${u.blogLead}` : u.blogLead,
       crumbs: i ? [[u.blog, href(blogSlug[lang])], [`${BLOG_PAGER[lang].page} ${i + 1}`]] : [[u.blog]],
       body: c =>
         pageTop(c, name, u.blogLead, PAGE_PHOTO.blog) +
@@ -1620,14 +1675,14 @@ for (const lang of LANGS) {
           description: t.desc,
           datePublished: p.date,
           inLanguage: lang,
-          image: SITE + (coverFile(p, lang) || photoFile(p.photo || BLOG_PHOTOS[n % BLOG_PHOTOS.length])).replace(/\?.*/, ''),
+          image: SITE + (coverFile(p, lang) || photoFile(blogPhoto(p, n))).replace(/\?.*/, ''),
           author: ORG,
           publisher: ORG,
           mainEntityOfPage: url(t.slug)
         }
       ],
       body: c =>
-        pageTop(c, t.h1, t.lead, p.photo || BLOG_PHOTOS[n % BLOG_PHOTOS.length]) +
+        pageTop(c, t.h1, t.lead, blogPhoto(p, n)) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>${postPages(p, lang)}`
     });
   }
@@ -1657,7 +1712,7 @@ for (const lang of LANGS) {
       desc: t.desc,
       crumbs: [[t.h1]],
       body: c =>
-        pageTop(c, t.h1, t.lead) +
+        pageTop(c, t.h1, t.lead, 'pageIngredientenlijst') +
         `<article class="site-article"><div class="site-wrap site-narrow"><div class="ing-list" data-ingredient-list data-src="/assets/data/ingredientenlijst.json?v=${INGREDIENT_LIST.count}" data-texts="${esc(JSON.stringify(texts))}"><div class="ing-tools"><input type="search" class="ing-search" placeholder="${esc(t.search)}" aria-label="${esc(t.search)}"><select class="ing-filter" aria-label="${esc(t.filter)}"></select></div><p class="ing-count" aria-live="polite">${esc(t.count(INGREDIENT_LIST.count.toLocaleString(LOCALE[lang])))}</p><ul class="ing-rows"><li class="ing-empty">${esc(t.loading)}</li></ul><button type="button" class="site-btn ing-more" hidden>${esc(t.more)}</button></div><div class="site-prose">${sectionsHtml(t.sections)}</div></div></article>`
     });
   }
@@ -1702,6 +1757,11 @@ for (const lang of LANGS) {
     }
     body = body.replace('%%FORM%%', contactForm(lang));
     if (p.id === 'pro') body += serviceTeaser(lang);
+    // Links naar voor-wiepagina's (in pro.js Nederlands) naar het adres in de taal van de pagina.
+    body = body.replace(/href="\/(voor-[a-z-]+)"/g, (m, slug) => {
+      const a = AUDIENCES.find(x => x.nl.slug === slug);
+      return a?.[lang] ? `href="${href(a[lang].slug)}"` : m;
+    });
     // Vragenpagina: ook de vragen over de import service (komen zo ook in het FAQPage-schema).
     if (p.id === 'faq')
       body += [...HOME[lang].faq.filter(([q]) => !SERVICE[lang].faqs.some(([sq]) => sq === q)), ...SERVICE[lang].faqs]
@@ -1805,7 +1865,7 @@ for (const lang of LANGS) {
       desc: home.desc,
       crumbs: [[home.h1]],
       body: c =>
-        pageTop(c, home.h1, home.lead, 'bloemenveld') +
+        pageTop(c, home.h1, home.lead, 'gidsHoofd') +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose site-guide-home"><nav class="site-guide-jump" aria-label="${esc(gu.chapters)}">${GUIDE_CHAPTERS.map(
           ch => `<a href="#${ch.id}">${esc(chapterName(ch))}</a>`
         ).join('')}</nav>${GUIDE_CHAPTERS.map(
@@ -1909,7 +1969,7 @@ for (const lang of LANGS) {
         lang,
         slugs: rSlugs(i),
         title: i ? `${rp.title} · ${BLOG_PAGER[lang].page} ${i + 1}` : rp.title,
-        desc: rp.desc,
+        desc: i ? `${BLOG_PAGER[lang].page} ${i + 1}: ${rp.desc}` : rp.desc,
         crumbs: i ? [[rp.h1, href(rp.slug)], [`${BLOG_PAGER[lang].page} ${i + 1}`]] : [[rp.h1]],
         body: c =>
           pageTop(c, i ? `${rp.h1} · ${BLOG_PAGER[lang].page} ${i + 1}` : rp.h1, rp.lead, 'hout') +
@@ -2018,7 +2078,8 @@ const HOME_META = {
         mainEntity: HOME_NEXT[lang].faq.map(([q, a]) => ({
           '@type': 'Question',
           name: q,
-          acceptedAnswer: { '@type': 'Answer', text: a }
+          // Links als [tekst](/pad) horen niet in het schema: alleen de tekst.
+          acceptedAnswer: { '@type': 'Answer', text: a.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') }
         }))
       };
       const i = list.findIndex(x => x['@type'] === 'FAQPage');

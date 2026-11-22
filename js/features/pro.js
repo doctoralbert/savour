@@ -326,6 +326,7 @@ function renderProPage(host) {
         <tr><td>Recepten bewaren</td><td>tot ${FREE_RECIPE_LIMIT}</td><td>onbeperkt</td></tr>
         <tr><td>Mappen, categorieën, zoeken en favorieten</td><td>✓</td><td>✓</td></tr>
         <tr><td>Omrekenen, printen, kookmodus en delen</td><td>✓</td><td>✓</td></tr>
+        <tr><td>Je recepten openen zonder internet</td><td>✓</td><td>✓</td></tr>
         <tr><td>Importeren van Word, PDF en tekst met de Savour-lezer</td><td>✓</td><td>✓</td></tr>
         <tr><td>Lid zijn van een keukenteam van een ander</td><td>✓</td><td>✓</td></tr>
         <tr><td>Recepten toevoegen en bewerken in een keukenteam</td><td>–</td><td>✓</td></tr>
@@ -344,12 +345,16 @@ function renderProPage(host) {
     <h2>Hoe werkt importeren?</h2>
     <p>Iedereen gebruikt de <strong>Savour-lezer</strong>: die leest Word, PDF en tekst direct en gratis in. Met <strong>Savour Pro</strong> leest daarnaast de AI wat de lezer niet zeker weet: foto's, handgeschreven kladjes, gescande pagina's en documenten zonder duidelijke indeling. De AI verzint nooit hoeveelheden of stappen; je controleert elk recept voordat het wordt opgeslagen.</p>
     <h2>Vragen</h2>
-    <p><strong>Wat gebeurt er als ik stop met Pro?</strong><br>Je houdt al je recepten en keukenteams. Je kunt alleen geen nieuwe recepten meer toevoegen boven de ${FREE_RECIPE_LIMIT} en geen nieuwe keukenteams maken. <span>Een keukenteam blijft bewaard, maar is pas weer te gebruiken als de eigenaar Savour Pro heeft.</span></p>
-    <p><strong>Hoe krijgen mijn teamleden Pro?</strong><br>Je voegt ze toe via Mijn team in het menu, of op je telefoon via Mijn account → Savour Pro. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.</p>
-    <p><strong>Moeten mijn teamleden ook betalen?</strong><br>Nee. Lid zijn van een keukenteam is gratis. Wil je dat iedereen in je keuken Pro heeft, kies dan een teamabonnement. <span>Een keukenteam werkt zolang de eigenaar Savour Pro heeft.</span> <span>Met een gratis account kun je in een keukenteam de recepten bekijken, printen en omrekenen; recepten toevoegen en bewerken kan met Savour Pro.</span></p>
-    <p><strong>Wat telt als een AI-import?</strong><br>Elke foto, gescande pagina of elk deel van een bestand dat de AI leest (ongeveer 8 recepten per deel). Wat de Savour-lezer zelf zeker leest, telt niet mee.</p>
-    <p><strong>Wat als ik over de 150 heen ga?</strong><br>Dan leest de Savour-lezer verder en kun je de rest volgende maand met AI doen. Er komen nooit extra kosten bij.</p>
-    <p><strong>Hoe zeg ik op?</strong><br>In Mijn account → Savour Pro → Abonnement beheren. Daar wijzig je ook je betaalmethode en download je facturen.</p>`;
+    <div class="site-faq pro-faq">
+    <details><summary>Wat gebeurt er als ik stop met Pro?</summary><p>Je houdt al je recepten en keukenteams. Je kunt alleen geen nieuwe recepten meer toevoegen boven de ${FREE_RECIPE_LIMIT} en geen nieuwe keukenteams maken. <span>Een keukenteam blijft bewaard, maar is pas weer te gebruiken als de eigenaar Savour Pro heeft.</span></p></details>
+    <details><summary>Hoe krijgen mijn teamleden Pro?</summary><p>Je voegt ze toe via Mijn team in het menu, of op je telefoon via Mijn account → Savour Pro. Ze krijgen een uitnodiging per mail en hebben Savour Pro zodra ze inloggen of zich aanmelden met precies dat e-mailadres. Jij telt zelf als eerste plek mee.</p></details>
+    <details><summary>Moeten mijn teamleden ook betalen?</summary><p>Nee. Lid zijn van een keukenteam is gratis. Wil je dat iedereen in je keuken Pro heeft, kies dan een teamabonnement. <span>Een keukenteam werkt zolang de eigenaar Savour Pro heeft.</span> <span>Met een gratis account kun je in een keukenteam de recepten bekijken, printen en omrekenen; recepten toevoegen en bewerken kan met Savour Pro.</span></p></details>
+    <details><summary>Wat telt als een AI-import?</summary><p>Elke foto, gescande pagina of elk deel van een bestand dat de AI leest (ongeveer 8 recepten per deel). Wat de Savour-lezer zelf zeker leest, telt niet mee.</p></details>
+    <details><summary>Wat als ik over de 150 heen ga?</summary><p>Dan leest de Savour-lezer verder en kun je de rest volgende maand met AI doen. Er komen nooit extra kosten bij.</p></details>
+    <details><summary>Hoe zeg ik op?</summary><p>In Mijn account → Savour Pro → Abonnement beheren. Daar wijzig je ook je betaalmethode en download je facturen.</p></details>
+    <details><summary>Werkt Savour zonder internet?</summary><p>Ja, en dat is gratis. Recepten die je eenmaal hebt geopend, lees je ook in de koelcel of op locatie. Zet Savour op je beginscherm, dan opent het als een app. Wat je zonder verbinding afvinkt op een MEP-lijst, gaat mee zodra je weer online bent.</p></details>
+    <details><summary>Voor wie is Savour?</summary><p>Voor de professionele keuken, met dezelfde prijzen voor iedereen:</p><p><a href="/voor-koks">Koks</a> · <a href="/voor-patissiers-en-banketbakkers">Patissiers en banketbakkers</a> · <a href="/voor-keukenbrigades">Keukenbrigades</a> · <a href="/voor-cateraars">Cateraars en events</a> · <a href="/voor-bartenders">Bartenders en barista’s</a></p></details>
+    </div>`;
 }
 
 // ---- Zijbalk: "Savour Pro" (upgraden of je abonnement), en Admin voor beheerders ----

@@ -2623,7 +2623,19 @@ window.SAVOUR_I18N.en = {
     'Savour Pro voor iedereen in je keuken, zodat iedereen recepten kan toevoegen en bewerken. Voor 5, 10 of 25 personen.':
       'Savour Pro for everyone in your kitchen, so everyone can add and edit recipes. For 5, 10 or 25 people.',
     'De 14 allergenen bij je eigen recepten': 'The 14 allergens on your own recipes',
-    'Allergenen zien in een keukenteam van een eigenaar met Pro': 'See allergens in a kitchen team whose owner has Pro'
+    'Allergenen zien in een keukenteam van een eigenaar met Pro': 'See allergens in a kitchen team whose owner has Pro',
+    'Je recepten openen zonder internet': 'Open your recipes without internet',
+    'Werkt Savour zonder internet?': 'Does Savour work without internet?',
+    'Ja, en dat is gratis. Recepten die je eenmaal hebt geopend, lees je ook in de koelcel of op locatie. Zet Savour op je beginscherm, dan opent het als een app. Wat je zonder verbinding afvinkt op een MEP-lijst, gaat mee zodra je weer online bent.':
+      'Yes, and it is free. Recipes you have opened once can also be read in the cold room or on location. Add Savour to your home screen and it opens like an app. What you tick off on a prep list without a connection is sent as soon as you are back online.',
+    'Voor wie is Savour?': 'Who is Savour for?',
+    'Voor de professionele keuken, met dezelfde prijzen voor iedereen:':
+      'For the professional kitchen, with the same prices for everyone:',
+    Koks: 'Chefs',
+    'Patissiers en banketbakkers': 'Pastry chefs and bakers',
+    Keukenbrigades: 'Kitchen brigades',
+    'Cateraars en events': 'Caterers and events',
+    'Bartenders en barista’s': 'Bartenders and baristas'
   },
   patterns: [
     [

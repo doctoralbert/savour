@@ -5,7 +5,7 @@ export const TEMP_POSTS_DE = {
   'en/blog/core-temperatures-meat-fish-shellfish': {
     slug: 'de/blog/kerntemperaturen-fleisch-fisch-meeresfruechte',
     title: 'Kerntemperaturen: Fleisch, Geflügel, Fisch, Meeresfrüchte',
-    desc: 'Kerntemperaturen für die Profiküche: Hähnchen, Schwein, Rind, Lamm, Wild, Fisch, Krusten- und Schalentiere. Warum Hähnchen keine 75 °C braucht, mit Zeit-Temperatur-Tabellen und Quellen.',
+    desc: 'Kerntemperaturen für die Profiküche auf einen Blick: Hähnchen, Schwein, Rind, Lamm, Wild, Fisch, Krusten- und Schalentiere, von rosa bis durch. Warum Hähnchen keine 75 °C braucht, mit Zeit-Temperatur-Tabellen und Quellen.',
     h1: 'Kerntemperaturen für Fleisch, Geflügel, Fisch und Meeresfrüchte',
     lead: 'Hähnchen muss nicht auf 75 °C und Schweinefilet darf rosa sein. Entscheidend sind Temperatur und Zeit. Eine Übersicht für die Profiküche, mit Quellen.',
     sections: [

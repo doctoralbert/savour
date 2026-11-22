@@ -56,7 +56,7 @@ export const UI = {
     madeBy: 'Gemaakt door chefs, voor chefs.',
     soon: 'Binnenkort',
     readArticle: 'Lees het artikel',
-    blogLead: 'Praktische artikelen over recepten digitaliseren, receptenmappen indelen, je keukenteam en receptbeheer in de horeca.'
+    blogLead: 'Praktische artikelen voor de professionele keuken: recepten digitaliseren, mappen indelen, MEP-lijsten, allergenen, je keukenteam en receptbeheer.'
   },
   en: {
     home: '/en',
@@ -178,7 +178,7 @@ export const FEATURES = [
       menu: 'Delen met je brigade',
       short: 'Keukenteams met rechten: jij beheert, wie Pro heeft past aan, de rest kijkt gratis mee.',
       title: 'Recepturen delen met je keukenteam en brigade | Savour',
-      desc: 'Deel recepturen met je keukenteam via keukenteams op het receptenplatform, met rechten per persoon. Iedereen in je restaurant werkt met dezelfde versie in de app, van sous-chef tot stagiair.',
+      desc: 'Deel recepturen met je keukenteam in Savour, met rechten per persoon: jij beheert, wie Pro heeft past aan, de rest kijkt gratis mee, ook op de telefoon. Iedereen in je restaurant werkt met dezelfde versie in de app, van sous-chef tot stagiair.',
       h1: 'Recepturen delen met je brigade',
       lead: 'Iedereen in de keuken werkt met dezelfde versie. Geen foto’s van foto’s in de groepsapp meer.',
       sections: [
@@ -226,7 +226,7 @@ export const FEATURES = [
       menu: 'Scale recipes',
       short: 'From 8 covers to 120, without calculation errors.',
       title: 'Scale and convert recipes to any yield | Savour',
-      desc: 'Scale recipes up or down to any yield: from a tasting for 8 to a dinner for 120. Savour converts every quantity.',
+      desc: 'Scale recipes up or down to any yield: from a tasting for 8 to a dinner for 120. Savour converts every quantity and unit; the original never changes.',
       h1: 'Scale recipes to any yield',
       lead: 'From a tasting for 8 to a dinner for 120, without a calculator and without mistakes.',
       sections: [
@@ -382,7 +382,7 @@ export const AUDIENCES = [
       menu: 'Koks',
       short: 'Voor chefs, sous-chefs en chefs de partie die hun recepturen willen bewaren.',
       title: 'Receptenapp en receptenplatform voor koks en chefs | Savour',
-      desc: 'Savour is het culinaire platform voor koks in restaurants en de horeca: chefs, sous-chefs en chefs de partie. Al je recepturen georganiseerd op één plek, precies zoals je ze schreef.',
+      desc: 'Savour is het culinaire platform voor koks in restaurants en de horeca: chefs, sous-chefs en chefs de partie. Digitaliseren, omrekenen, allergenen en MEP. Al je recepturen georganiseerd op één plek, precies zoals je ze schreef.',
       h1: 'Voor koks',
       lead: 'Of je nu de keuken leidt, de sauzen maakt of de garde draait: je recepten moeten kloppen en vindbaar zijn.',
       sections: [

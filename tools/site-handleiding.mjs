@@ -144,7 +144,7 @@ export const RELEASES_PAGE = {
   en: {
     slug: 'en/release-notes',
     title: 'Release notes: what’s new in Savour',
-    desc: 'Every Savour version and what is new or improved in it: importing, scaling, kitchen teams, printing, sharing and more.',
+    desc: 'Every Savour version and what is new or improved in it: importing, scaling, allergens, prep lists, kitchen teams, printing, sharing and more.',
     h1: 'Release notes',
     lead: 'What’s new in each version of Savour. The latest version is at the top.'
   },

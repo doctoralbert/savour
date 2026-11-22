@@ -4313,6 +4313,16 @@ export const strings = [
   ["Savour Pro voor iedereen in je keuken, zodat iedereen recepten kan toevoegen en bewerken. Voor 5, 10 of 25 personen.", "Savour Pro for everyone in your kitchen, so everyone can add and edit recipes. For 5, 10 or 25 people.", "Savour Pro für alle in deiner Küche, damit alle Rezepte hinzufügen und bearbeiten können. Für 5, 10 oder 25 Personen.", "Savour Pro para todos en tu cocina, para que todos puedan añadir y editar recetas. Para 5, 10 o 25 personas."],
   ["De 14 allergenen bij je eigen recepten", "The 14 allergens on your own recipes", "Die 14 Allergene bei deinen eigenen Rezepten", "Los 14 alérgenos en tus propias recetas"],
   ["Allergenen zien in een keukenteam van een eigenaar met Pro", "See allergens in a kitchen team whose owner has Pro", "Allergene sehen in einem Küchenteam, dessen Inhaber Pro hat", "Ver alérgenos en un equipo cuyo propietario tiene Pro"],
+  ["Je recepten openen zonder internet", "Open your recipes without internet", "Rezepte ohne Internet öffnen", "Abrir tus recetas sin internet"],
+  ["Werkt Savour zonder internet?", "Does Savour work without internet?", "Funktioniert Savour ohne Internet?", "¿Funciona Savour sin internet?"],
+  ["Ja, en dat is gratis. Recepten die je eenmaal hebt geopend, lees je ook in de koelcel of op locatie. Zet Savour op je beginscherm, dan opent het als een app. Wat je zonder verbinding afvinkt op een MEP-lijst, gaat mee zodra je weer online bent.", "Yes, and it is free. Recipes you have opened once can also be read in the cold room or on location. Add Savour to your home screen and it opens like an app. What you tick off on a prep list without a connection is sent as soon as you are back online.", "Ja, und das ist kostenlos. Rezepte, die du einmal geöffnet hast, liest du auch im Kühlraum oder vor Ort. Leg Savour auf deinen Startbildschirm, dann öffnet es sich wie eine App. Was du ohne Verbindung auf einer MEP-Liste abhakst, geht mit, sobald du wieder online bist.", "Sí, y es gratis. Las recetas que has abierto una vez se leen también en la cámara frigorífica o en un evento. Pon Savour en tu pantalla de inicio y se abre como una app. Lo que marcas sin conexión en una lista MEP se envía en cuanto vuelves a estar en línea."],
+  ["Voor wie is Savour?", "Who is Savour for?", "Für wen ist Savour?", "¿Para quién es Savour?"],
+  ["Voor de professionele keuken, met dezelfde prijzen voor iedereen:", "For the professional kitchen, with the same prices for everyone:", "Für die Profiküche, mit denselben Preisen für alle:", "Para la cocina profesional, con los mismos precios para todos:"],
+  ["Koks", "Chefs", "Köche", "Cocineros"],
+  ["Patissiers en banketbakkers", "Pastry chefs and bakers", "Patissiers und Konditoren", "Pasteleros y reposteros"],
+  ["Keukenbrigades", "Kitchen brigades", "Küchenbrigaden", "Brigadas de cocina"],
+  ["Cateraars en events", "Caterers and events", "Caterer und Events", "Catering y eventos"],
+  ["Bartenders en barista’s", "Bartenders and baristas", "Bartender und Baristas", "Bartenders y baristas"]
 ];
 
 // Teksten met een variabel deel. [regex (Nederlands), Engels, Duits, Spaans]; $1, $2 = het variabele deel.
