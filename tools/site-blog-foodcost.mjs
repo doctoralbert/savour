@@ -5,6 +5,7 @@
 
 export const FOODCOST_POST = {
   id: 'foodcost',
+  photo: 'pageFoodcost',
   date: '2026-11-08',
   rich: true,
   nl: {

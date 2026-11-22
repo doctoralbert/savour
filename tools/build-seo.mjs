@@ -1245,6 +1245,7 @@ const PHOTOS = {
   barCoupes: ['bar-coupes.jpg', 'center 55%'],
   mepPass: ['mep-pass.jpg', 'center 55%'],
   // Patisserie, catering en barista (2026-11-20).
+  patisserieHero: ['patisserie-hero.jpg', 'center 55%'],
   patisserieBlog: ['patisserie-blog.jpg', 'center 55%'],
   patisserieWeegschaal: ['patisserie-weegschaal.jpg', 'center 55%'],
   patisserieViennoiserie: ['patisserie-viennoiserie.jpg', 'center 60%'],
@@ -1253,35 +1254,53 @@ const PHOTOS = {
   cateringPass: ['catering-pass.jpg', 'center 45%'],
   cateringBlog: ['catering-blog.jpg', 'center 55%'],
   baristaHero: ['barista-hero.jpg', 'center 50%'],
-  baristaSiropen: ['barista-siropen.jpg', 'center 55%']
+  baristaSiropen: ['barista-siropen.jpg', 'center 55%'],
+  // Ronde A: een eigen foto per functie- en voor-wiepagina (2026-11-22, docs/beelden-gemini-2.md).
+  pageDigitaliseren: ['page-digitaliseren.jpg', 'center 55%'],
+  pageOrganiseren: ['page-organiseren.jpg', 'center 50%'],
+  pageDatabase: ['page-database.jpg', 'center 55%'],
+  pageDelen: ['page-delen.jpg', 'center 45%'],
+  pageOpschalen: ['page-opschalen.jpg', 'center 55%'],
+  pagePrinten: ['page-printen.jpg', 'center 40%'],
+  pageAllergenen: ['page-allergenen.jpg', 'center 55%'],
+  pageInladen: ['page-inladen.jpg', 'center 50%'],
+  pageKoks: ['page-koks.jpg', 'center 60%'],
+  pageBrigade: ['page-brigade.jpg', 'center 50%'],
+  pageApp: ['page-app.jpg', 'center 50%'],
+  pageFoodcost: ['page-foodcost.jpg', 'center 45%'],
+  pageBinnenkort: ['page-binnenkort.jpg', 'center 55%'],
+  pageOver: ['page-over.jpg', 'center 55%'],
+  pagePro: ['page-pro.jpg', 'center 55%'],
+  pageCommunity: ['page-community.jpg', 'center 50%'],
+  pageContact: ['page-contact.jpg', 'center 60%'],
+  pageFaq: ['page-faq.jpg', 'center 40%']
 };
 // De ingrediëntenlijst met de allergenen per taal (tools/build-ingredientenlijst.mjs): { code: [extra, nl, en, de, es, fr] }.
 const INGREDIENT_LIST = JSON.parse(fs.readFileSync(new URL('assets/data/ingredientenlijst.json', ROOT), 'utf8'));
 const PAGE_PHOTO = {
-  'recepten-digitaliseren': 'hout',
-  'recepten-organiseren': 'keuken',
-  'recepten-database': 'brigade',
-  'recepten-laten-inladen': 'eend',
-  'recepten-delen': 'brigade',
-  'recepten-opschalen': 'wortels',
-  'recepten-printen': 'uien',
-  'allergenen-per-recept': 'keuken',
+  'recepten-digitaliseren': 'pageDigitaliseren',
+  'recepten-organiseren': 'pageOrganiseren',
+  'recepten-database': 'pageDatabase',
+  'recepten-laten-inladen': 'pageInladen',
+  'recepten-delen': 'pageDelen',
+  'recepten-opschalen': 'pageOpschalen',
+  'recepten-printen': 'pagePrinten',
+  'allergenen-per-recept': 'pageAllergenen',
   'mep-lijsten': 'mepPass',
   'voor-bartenders': 'barSour',
-  // Tot patisserie-hero.jpg er is: de foto met spuitzakken en crème pâtissière.
-  'voor-patissiers-en-banketbakkers': 'patisserieBlog',
+  'voor-patissiers-en-banketbakkers': 'patisserieHero',
   'voor-cateraars': 'cateringHero',
-  binnenkort: 'bloemen',
-  'voor-koks': 'eend',
-  'voor-keukenbrigades': 'brigade',
+  binnenkort: 'pageBinnenkort',
+  'voor-koks': 'pageKoks',
+  'voor-keukenbrigades': 'pageBrigade',
   'alternatief-voor-paprika': 'uien',
-  'over-savour': 'bord',
+  'over-savour': 'pageOver',
   blog: 'hout',
-  'app-downloaden': 'wortels',
-  'savour-pro': 'brigade',
-  'veelgestelde-vragen': 'keuken',
+  'app-downloaden': 'pageApp',
+  'savour-pro': 'pagePro',
+  'veelgestelde-vragen': 'pageFaq',
   gids: 'bloemenveld',
-  contact: 'eend'
+  contact: 'pageContact'
 };
 const BLOG_PHOTOS = ['wortels', 'uien', 'keuken', 'eend', 'brigade', 'hout'];
 // Coverafbeelding per blogartikel en taal (tools/blog-afbeeldingen.py): titel, onderwerp en het Savour-logo onderin.

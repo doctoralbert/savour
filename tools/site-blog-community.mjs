@@ -6,6 +6,7 @@
 
 export const COMMUNITY_POST = {
   id: 'community',
+  photo: 'pageCommunity',
   date: '2026-11-10',
   rich: true,
   nl: {

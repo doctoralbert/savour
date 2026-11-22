@@ -1,17 +1,101 @@
 [
  {
   "name": "de-volgorde",
-  "after": "Kostprijs per recept",
+  "after": "Net live in Savour",
   "type": "flow",
-  "title": ["Waar we aan werken", "What we are working on", "Woran wir arbeiten", "En qué trabajamos", "Ce sur quoi nous travaillons"],
-  "sub": ["Een richting, geen belofte met datums (november 2026)", "A direction, not a promise with dates (November 2026)", "Eine Richtung, kein Versprechen mit Daten (November 2026)", "Una dirección, no una promesa con fechas (noviembre de 2026)", "Une direction, pas une promesse datée (novembre 2026)"],
-  "steps": [
-   [["Live", "Live", "Live", "Disponible", "En ligne"], ["Allergenen per recept, en printen met je eigen logo.", "Allergens per recipe, and printing with your own logo.", "Allergene pro Rezept und Drucken mit eigenem Logo.", "Alérgenos por receta e impresión con tu logo.", "Allergènes par recette, et impression avec ton logo."]],
-   [["Nu bovenaan", "Top of the list", "Jetzt ganz oben", "Ahora lo primero", "En tête de liste"], ["Kostprijs per recept: de meest gevraagde functie.", "Cost per recipe: the most requested feature.", "Kosten pro Rezept: die meistgewünschte Funktion.", "Coste por receta: la función más pedida.", "Coût par recette : la fonction la plus demandée."]],
-   [["Daarna", "After that", "Danach", "Después", "Ensuite"], ["Geschiedenis van elk recept: wie wat aanpaste.", "History of every recipe: who changed what.", "Verlauf jedes Rezepts: wer was geändert hat.", "Historial de cada receta: quién cambió qué.", "Historique de chaque recette : qui a modifié quoi."]],
-   [["Misschien", "Maybe", "Vielleicht", "Quizá", "Peut-être"], ["Een eigen app voor iPhone en Android.", "Our own app for iPhone and Android.", "Eine eigene App für iPhone und Android.", "Una app propia para iPhone y Android.", "Une appli pour iPhone et Android."]]
+  "title": [
+   "Waar we aan werken",
+   "What we are working on",
+   "Woran wir arbeiten",
+   "En qué trabajamos",
+   "Ce sur quoi nous travaillons"
   ],
-  "alt": ["Roadmap in vier stappen: allergenen en printen met logo zijn live, kostprijs per recept staat bovenaan, daarna de geschiedenis van elk recept, misschien een eigen app", "Roadmap in four steps: allergens and logo printing are live, cost per recipe is at the top, then recipe history, maybe an app", "Roadmap in vier Schritten: Allergene und Logo-Druck sind live, Kosten pro Rezept stehen oben, danach der Rezeptverlauf, vielleicht eine App", "Hoja de ruta en cuatro pasos: alérgenos e impresión con logo ya están, el coste por receta va primero, luego el historial, quizá una app", "Feuille de route en quatre étapes : allergènes et impression avec logo en ligne, coût par recette en tête, puis l’historique, peut-être une appli"],
-  "caption": ["Mis je iets? Mail je idee naar contact@savour.page.", "Missing something? Email your idea to contact@savour.page.", "Fehlt dir etwas? Schick deine Idee an contact@savour.page.", "¿Echas algo en falta? Escribe a contact@savour.page.", "Il te manque quelque chose ? Écris à contact@savour.page."]
+  "sub": [
+   "Een richting, geen belofte met datums",
+   "A direction, not a promise with dates",
+   "Eine Richtung, kein Versprechen mit Daten",
+   "Una dirección, no una promesa con fechas",
+   "Une direction, pas une promesse datée"
+  ],
+  "steps": [
+   [
+    [
+     "Live",
+     "Live",
+     "Live",
+     "Disponible",
+     "En ligne"
+    ],
+    [
+     "Allergenen die Savour zelf invult, MEP-lijsten en de community.",
+     "Allergens Savour fills in itself, prep lists and the community.",
+     "Allergene, die Savour selbst ausfüllt, MEP-Listen und die Community.",
+     "Alérgenos que rellena Savour, listas MEP y la comunidad.",
+     "Allergènes remplis par Savour, listes MEP et la communauté."
+    ]
+   ],
+   [
+    [
+     "Nu bovenaan",
+     "Top of the list",
+     "Jetzt ganz oben",
+     "Ahora lo primero",
+     "En tête de liste"
+    ],
+    [
+     "Foodcost calculator: de meest gevraagde functie.",
+     "Food cost calculator: the most requested feature.",
+     "Foodcost-Rechner: die meistgewünschte Funktion.",
+     "Calculadora de food cost: la función más pedida.",
+     "Calculateur de food cost : la fonction la plus demandée."
+    ]
+   ],
+   [
+    [
+     "Daarna",
+     "After that",
+     "Danach",
+     "Después",
+     "Ensuite"
+    ],
+    [
+     "Menu engineering en de geschiedenis van elk recept.",
+     "Menu engineering and the history of every recipe.",
+     "Menu Engineering und der Verlauf jedes Rezepts.",
+     "Menu engineering y el historial de cada receta.",
+     "Menu engineering et l’historique de chaque recette."
+    ]
+   ],
+   [
+    [
+     "Misschien",
+     "Maybe",
+     "Vielleicht",
+     "Quizá",
+     "Peut-être"
+    ],
+    [
+     "Een eigen app voor iPhone en Android.",
+     "Our own app for iPhone and Android.",
+     "Eine eigene App für iPhone und Android.",
+     "Una app propia para iPhone y Android.",
+     "Une appli pour iPhone et Android."
+    ]
+   ]
+  ],
+  "alt": [
+   "Roadmap in vier stappen: allergenen, MEP-lijsten en de community zijn live, de foodcost calculator staat bovenaan, daarna menu engineering en receptgeschiedenis, misschien een eigen app",
+   "Roadmap in four steps: allergens, prep lists and the community are live, the food cost calculator is at the top, then menu engineering and recipe history, maybe an app",
+   "Roadmap in vier Schritten: Allergene, MEP-Listen und Community sind live, der Foodcost-Rechner steht oben, danach Menu Engineering und Rezeptverlauf, vielleicht eine App",
+   "Hoja de ruta en cuatro pasos: alérgenos, listas MEP y comunidad ya están, la calculadora de food cost va primero, luego menu engineering e historial, quizá una app",
+   "Feuille de route en quatre étapes : allergènes, listes MEP et communauté en ligne, calculateur de food cost en tête, puis menu engineering et historique, peut-être une appli"
+  ],
+  "caption": [
+   "Mis je iets? Schrijf het in de community of mail contact@savour.page.",
+   "Missing something? Post it in the community or email contact@savour.page.",
+   "Fehlt dir etwas? Schreib es in die Community oder an contact@savour.page.",
+   "¿Echas algo en falta? Escríbelo en la comunidad o a contact@savour.page.",
+   "Il te manque quelque chose ? Écris-le dans la communauté ou à contact@savour.page."
+  ]
  }
 ]

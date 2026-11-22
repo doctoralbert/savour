@@ -472,10 +472,11 @@ export const STORY = {
       ]],
       ['Wat Savour nu kan', [
         'Je hele receptenboek in een paar minuten importeren. Recepten ordenen in mappen, bijvoorbeeld al je ijsrecepten, en die hele map met één druk op de knop printen. Recepten en mappen delen met collega’s, die er zelf weer recepten aan kunnen toevoegen.',
-        'En opschalen: haal je vijftig brownies uit één recept en heb je er duizend nodig, dan rekent Savour het om. Op de computer, de tablet en de telefoon in de keuken.'
+        'En opschalen: haal je vijftig brownies uit één recept en heb je er duizend nodig, dan rekent Savour het om. Op de computer, de tablet en de telefoon in de keuken.',
+        'Inmiddels vult Savour ook de allergenen per recept zelf in, ook via basisrecepten. Elke post heeft een MEP-lijst die de brigade live afvinkt en die je op één A4 print. En in de community stellen koks elkaar vragen. Savour is er voor koks, patissiers en banketbakkers, keukenbrigades, cateraars, en bartenders en barista’s.'
       ]],
       ['Wat we nog willen bouwen', [
-        'Allergenen per recept staan sinds november 2026 live; kostprijs per recept staat nu bovenaan de lijst. Werkt Savour goed op computer, tablet en telefoon, dan kijken we of een eigen app voor iPhone en Android de investering waard is.',
+        'Bovenaan staat nu de foodcost calculator: zien wat een gerecht en je hele menu kost. Daarna menu engineering en de geschiedenis van elk recept. Werkt Savour goed op computer, tablet en telefoon, dan kijken we of een eigen app voor iPhone en Android de investering waard is.',
         'Dat bepalen we niet achter een bureau, maar samen met de chefs die Savour gebruiken. Mis je iets in je keuken? Laat het ons weten.'
       ]]
     ],
@@ -514,10 +515,11 @@ export const STORY = {
       ]],
       ['What Savour does today', [
         'Import your whole recipe book in a few minutes. Organise recipes in folders, for example all your ice cream recipes, and print that whole folder with one press of a button. Share recipes and folders with colleagues, who can add recipes to them themselves.',
-        'And scale: one recipe makes fifty brownies and you need a thousand? Savour does the maths. On the computer, the tablet and the phone in the kitchen.'
+        'And scale: one recipe makes fifty brownies and you need a thousand? Savour does the maths. On the computer, the tablet and the phone in the kitchen.',
+        'Savour now also fills in the allergens per recipe itself, including through base recipes. Every section has a prep list that the brigade ticks off live and that you print on one A4 page. And in the community, cooks ask each other questions. Savour is there for cooks, pastry chefs and bakers, kitchen brigades, caterers, and bartenders and baristas.'
       ]],
       ['What we still want to build', [
-        'Allergens per recipe have been live since November 2026; cost per recipe is now at the top of the list. If Savour works well on computer, tablet and phone, we will see whether a separate app for iPhone and Android is worth the investment.',
+        'At the top now is the food cost calculator: seeing what a dish and your whole menu cost. After that, menu engineering and the history of every recipe. If Savour works well on computer, tablet and phone, we will see whether a separate app for iPhone and Android is worth the investment.',
         'We do not decide that behind a desk, but together with the chefs who use Savour. Missing something in your kitchen? Let us know.'
       ]]
     ],

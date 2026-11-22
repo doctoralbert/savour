@@ -1,7 +1,7 @@
 // Voor-wiepagina "Cateraars en eventbedrijven" (2026-11-20), in vijf talen. tools/build-seo.mjs zet hem na
 // Keukenbrigades. Alles klopt met de app: omrekenen (js/features/scale.js), MEP-lijsten met couverts per kaart, live
 // afvinken, offline en printen op één A4 (js/features/mep.js), allergenen via basisrecepten (js/features/products.js),
-// keukenteams, organisatieabonnementen 5/10/25 plekken (prijzen in js/features/pro.js; groter: op aanvraag) en de
+// keukenteams, teamabonnementen 5/10/25 plekken (prijzen in js/features/pro.js; groter: op aanvraag) en de
 // import service (tools/site-service.mjs). Schermen: gazpacho naar 120 personen (catering-batch) en de MEP-schermen.
 
 const shot = (name, alt, title, text) => ({ shot: `/assets/app/${name}-{lang}.jpg`, alt, title, text });
@@ -33,7 +33,7 @@ export const CATERING_AUDIENCE = {
         'Vaste koks, oproepkrachten en een tweede locatie werken uit dezelfde recepten. Maak een keukenteam per keuken of per event en nodig iedereen uit op het e-mailadres; meekijken, printen en omrekenen kan met een gratis account. Wat jij aanpast, ziet het hele team meteen.'
       ],
       [
-        'Iedereen Pro met een organisatieabonnement',
+        'Iedereen Pro met een teamabonnement',
         'Moet iedereen in je keuken recepten kunnen toevoegen en bewerken? Kies een abonnement voor 5, 10 of 25 personen (€8,99, €14,99 of €29,99 per maand). Groter, of meerdere vestigingen? Dan maken we een prijs op maat.'
       ],
       [
@@ -68,7 +68,7 @@ export const CATERING_AUDIENCE = {
         'Regular cooks, freelancers and a second location work from the same recipes. Create a kitchen team per kitchen or per event and invite everyone by email; viewing, printing and scaling work with a free account. What you change, the whole team sees straight away.'
       ],
       [
-        'Everyone on Pro with an organisation plan',
+        'Everyone on Pro with a team plan',
         'Should everyone in your kitchen be able to add and edit recipes? Choose a plan for 5, 10 or 25 people (€8.99, €14.99 or €29.99 per month). Bigger, or several locations? Then we make a price to measure.'
       ],
       [
@@ -103,7 +103,7 @@ export const CATERING_AUDIENCE = {
         'Feste Köche, Aushilfen und ein zweiter Standort arbeiten mit denselben Rezepten. Leg ein Küchenteam pro Küche oder pro Event an und lade alle per E-Mail ein; ansehen, drucken und umrechnen geht mit einem kostenlosen Konto. Was du änderst, sieht das ganze Team sofort.'
       ],
       [
-        'Alle mit Pro dank Organisations-Abo',
+        'Alle mit Pro dank Team-Abo',
         'Sollen alle in deiner Küche Rezepte hinzufügen und bearbeiten können? Wähle ein Abo für 5, 10 oder 25 Personen (8,99 €, 14,99 € oder 29,99 € pro Monat). Größer oder mehrere Standorte? Dann machen wir einen Preis nach Maß.'
       ],
       [
@@ -138,7 +138,7 @@ export const CATERING_AUDIENCE = {
         'Cocineros fijos, extras y un segundo local trabajan con las mismas recetas. Crea un equipo de cocina por cocina o por evento e invita a todos por correo; ver, imprimir y convertir funciona con una cuenta gratuita. Lo que cambias, todo el equipo lo ve al instante.'
       ],
       [
-        'Todos con Pro gracias a una suscripción de organización',
+        'Todos con Pro gracias a un plan de equipo',
         '¿Todos en tu cocina deben poder añadir y editar recetas? Elige una suscripción para 5, 10 o 25 personas (8,99 €, 14,99 € o 29,99 € al mes). ¿Más grande o varios locales? Entonces hacemos un precio a medida.'
       ],
       [
@@ -173,7 +173,7 @@ export const CATERING_AUDIENCE = {
         'Cuisiniers fixes, extras et un deuxième site travaillent avec les mêmes recettes. Crée une équipe de cuisine par cuisine ou par événement et invite tout le monde par e-mail ; consulter, imprimer et convertir fonctionne avec un compte gratuit. Ce que tu modifies, toute l’équipe le voit aussitôt.'
       ],
       [
-        'Tout le monde en Pro avec un abonnement organisation',
+        'Tout le monde en Pro avec un abonnement d’équipe',
         'Tout le monde dans ta cuisine doit pouvoir ajouter et modifier des recettes ? Choisis un abonnement pour 5, 10 ou 25 personnes (8,99 €, 14,99 € ou 29,99 € par mois). Plus grand, ou plusieurs sites ? Alors nous faisons un prix sur mesure.'
       ],
       [
@@ -197,7 +197,7 @@ export const CATERING_RICH = {
     ],
     faq: [
       ['Werkt het op locatie zonder internet?', 'Afvinken op een MEP-lijst wel: Savour onthoudt het en stuurt het zodra er weer verbinding is. Recepten die je eerder opende, lees je ook offline.'],
-      ['Moeten oproepkrachten betalen?', 'Nee. Meekijken, printen en omrekenen in een keukenteam is gratis. Wie recepten toevoegt of bewerkt, heeft Savour Pro nodig, of je neemt een organisatieabonnement.'],
+      ['Moeten oproepkrachten betalen?', 'Nee. Meekijken, printen en omrekenen in een keukenteam is gratis. Wie recepten toevoegt of bewerkt, heeft Savour Pro nodig, of je neemt een teamabonnement.'],
       ['Kan Savour ook kostprijzen berekenen?', 'Nog niet. Een foodcost calculator staat op [Binnenkort](/binnenkort).']
     ]
   },
@@ -213,7 +213,7 @@ export const CATERING_RICH = {
     ],
     faq: [
       ['Does it work on location without internet?', 'Ticking off on a prep list does: Savour remembers it and sends it as soon as there is a connection again. Recipes you opened before can be read offline too.'],
-      ['Do freelancers have to pay?', 'No. Viewing, printing and scaling in a kitchen team is free. Whoever adds or edits recipes needs Savour Pro, or you take an organisation plan.'],
+      ['Do freelancers have to pay?', 'No. Viewing, printing and scaling in a kitchen team is free. Whoever adds or edits recipes needs Savour Pro, or you take a team plan.'],
       ['Can Savour calculate costs?', 'Not yet. A food cost calculator is on [Coming soon](/en/roadmap).']
     ]
   },
@@ -229,7 +229,7 @@ export const CATERING_RICH = {
     ],
     faq: [
       ['Funktioniert es vor Ort ohne Internet?', 'Abhaken auf einer MEP-Liste schon: Savour merkt es sich und schickt es, sobald wieder eine Verbindung da ist. Rezepte, die du vorher geöffnet hast, liest du auch offline.'],
-      ['Müssen Aushilfen bezahlen?', 'Nein. Ansehen, Drucken und Umrechnen in einem Küchenteam ist kostenlos. Wer Rezepte hinzufügt oder bearbeitet, braucht Savour Pro, oder du nimmst ein Organisations-Abo.'],
+      ['Müssen Aushilfen bezahlen?', 'Nein. Ansehen, Drucken und Umrechnen in einem Küchenteam ist kostenlos. Wer Rezepte hinzufügt oder bearbeitet, braucht Savour Pro, oder du nimmst ein Team-Abo.'],
       ['Kann Savour Kosten berechnen?', 'Noch nicht. Ein Foodcost-Rechner steht unter [Demnächst](/de/demnaechst).']
     ]
   },
@@ -245,7 +245,7 @@ export const CATERING_RICH = {
     ],
     faq: [
       ['¿Funciona en el lugar sin internet?', 'Marcar en una lista MEP sí: Savour lo recuerda y lo envía en cuanto vuelve la conexión. Las recetas que abriste antes también se leen sin conexión.'],
-      ['¿Tienen que pagar los extras?', 'No. Ver, imprimir y convertir en un equipo de cocina es gratis. Quien añade o edita recetas necesita Savour Pro, o eliges una suscripción de organización.'],
+      ['¿Tienen que pagar los extras?', 'No. Ver, imprimir y convertir en un equipo de cocina es gratis. Quien añade o edita recetas necesita Savour Pro, o eliges un plan de equipo.'],
       ['¿Savour calcula costes?', 'Todavía no. Una calculadora de food cost está en [Próximamente](/es/proximamente).']
     ]
   },
@@ -261,7 +261,7 @@ export const CATERING_RICH = {
     ],
     faq: [
       ['Ça marche sur place sans internet ?', 'Cocher sur une liste MEP, oui : Savour s’en souvient et l’envoie dès que la connexion revient. Les recettes ouvertes auparavant se lisent aussi hors ligne.'],
-      ['Les extras doivent-ils payer ?', 'Non. Consulter, imprimer et convertir dans une équipe de cuisine est gratuit. Qui ajoute ou modifie des recettes a besoin de Savour Pro, ou tu prends un abonnement organisation.'],
+      ['Les extras doivent-ils payer ?', 'Non. Consulter, imprimer et convertir dans une équipe de cuisine est gratuit. Qui ajoute ou modifie des recettes a besoin de Savour Pro, ou tu prends un abonnement d’équipe.'],
       ['Savour calcule-t-il les coûts ?', 'Pas encore. Un calculateur de food cost figure sur la [Bientôt](/fr/bientot).']
     ]
   }
