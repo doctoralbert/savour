@@ -1,0 +1,142 @@
+{
+  "allergenen-regels-horeca": {
+    "photo": "assets/keuken/blog-allergenen-regels.jpg",
+    "pos": "center 60%"
+  },
+  "receptuurblad-voorbeeld": {
+    "photo": "assets/keuken/blog-rezepturblatt.jpg",
+    "pos": "center 45%"
+  },
+  "savour-voor-cateraars": {
+    "photo": "assets/keuken/catering-blog.jpg",
+    "pos": "center 55%"
+  },
+  "savour-voor-patissiers-en-banketbakkers": {
+    "photo": "assets/keuken/patisserie-viennoiserie.jpg",
+    "pos": "center 60%"
+  },
+  "savour-voor-bartenders": {
+    "photo": "assets/keuken/bar-negroni.jpg",
+    "pos": "center 50%"
+  },
+  "mep-lijsten-in-savour": {
+    "photo": "assets/keuken/mep-pass.jpg",
+    "pos": "center 55%"
+  },
+  "foodcost-berekenen": {
+    "photo": "assets/keuken/blog-foodcost-berekenen.jpg",
+    "pos": "75% 55%"
+  },
+  "savour-community": {
+    "photo": "assets/keuken/page-community.jpg",
+    "pos": "center 50%"
+  },
+  "ai-in-de-horeca": {
+    "photo": "assets/keuken/blog-ai-horeca.jpg",
+    "pos": "75% 55%"
+  },
+  "foodcost-calculator": {
+    "photo": "assets/keuken/blog-foodcost-calculator.jpg",
+    "pos": "75% 55%"
+  },
+  "kosten-en-marges-restaurant": {
+    "photo": "assets/keuken/blog-kosten-marges.jpg",
+    "pos": "75% 55%"
+  },
+  "allergenen-in-savour": {
+    "photo": "assets/keuken/blog-allergenen.jpg",
+    "pos": "75% 55%"
+  },
+  "horeca-in-cijfers": {
+    "photo": "assets/keuken/blog-horeca-cijfers.jpg",
+    "pos": "75% 55%"
+  },
+  "kerntemperaturen-vlees-vis-schaaldieren": {
+    "photo": "assets/keuken/blog-kerntemperaturen.jpg",
+    "pos": "75% 55%"
+  },
+  "sous-vide-temperaturen-en-tijden": {
+    "photo": "assets/keuken/blog-sous-vide.jpg",
+    "pos": "75% 55%"
+  },
+  "savour-paprika-meez-galley-vergelijken": {
+    "photo": "assets/keuken/blog-vergelijken.jpg",
+    "pos": "75% 55%"
+  },
+  "receptenmap-laten-overzetten": {
+    "photo": "assets/keuken/blog-laten-overzetten.jpg",
+    "pos": "75% 55%"
+  },
+  "receptendatabase-in-de-cloud": {
+    "photo": "assets/keuken/blog-database.jpg",
+    "pos": "75% 55%"
+  },
+  "rommelige-receptenmap-ordenen": {
+    "photo": "assets/keuken/blog-ordenen-met-ai.jpg",
+    "pos": "75% 55%"
+  },
+  "gedeelde-mappen-uitgelegd": {
+    "photo": "assets/keuken/blog-keukenteams.jpg",
+    "pos": "75% 55%"
+  },
+  "standaardrecepturen-in-de-keuken": {
+    "photo": "assets/keuken/blog-standaardrecepturen.jpg",
+    "pos": "75% 55%"
+  },
+  "receptenboek-met-eigen-logo": {
+    "photo": "assets/keuken/blog-eigen-logo.jpg",
+    "pos": "75% 55%"
+  },
+  "recepten-zonder-wifi": {
+    "photo": "assets/keuken/blog-zonder-wifi.jpg",
+    "pos": "75% 55%"
+  },
+  "recepten-app-kiezen-restaurant": {
+    "photo": "assets/keuken/blog-app-kiezen.jpg",
+    "pos": "75% 55%"
+  },
+  "receptbeheer-in-de-horeca": {
+    "photo": "assets/keuken/blog-receptbeheer.jpg",
+    "pos": "75% 55%"
+  },
+  "gedeeld-receptenboek-keukenteam": {
+    "photo": "assets/keuken/blog-gedeeld-receptenboek.jpg",
+    "pos": "75% 55%"
+  },
+  "receptenmappen-indelen-voorbeelden": {
+    "photo": "assets/keuken/blog-mappen-indelen.jpg",
+    "pos": "75% 55%"
+  },
+  "recepten-delen-met-je-team": {
+    "photo": "assets/keuken/blog-recepten-delen.jpg",
+    "pos": "75% 55%"
+  },
+  "roadmap": {
+    "photo": "assets/keuken/blog-roadmap.jpg",
+    "pos": "75% 55%"
+  },
+  "nieuwe-kok-inwerken": {
+    "photo": "assets/keuken/blog-nieuwe-kok.jpg",
+    "pos": "75% 55%"
+  },
+  "recepten-opschalen-zonder-fouten": {
+    "photo": "assets/keuken/blog-opschalen.jpg",
+    "pos": "75% 55%"
+  },
+  "van-word-naar-receptenboek": {
+    "photo": "assets/keuken/blog-van-word.jpg",
+    "pos": "75% 55%"
+  },
+  "ai-mag-je-recept-niet-verzinnen": {
+    "photo": "assets/keuken/blog-ai-niet-verzinnen.jpg",
+    "pos": "75% 55%"
+  },
+  "oude-kladjes-digitaliseren": {
+    "photo": "assets/keuken/blog-kladjes.jpg",
+    "pos": "75% 55%"
+  },
+  "recepten-organiseren-in-de-keuken": {
+    "photo": "assets/keuken/blog-organiseren.jpg",
+    "pos": "75% 55%"
+  }
+}

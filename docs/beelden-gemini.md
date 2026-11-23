@@ -121,5 +121,47 @@ Nummers 1 t/m 6 staan op de site (2026-11-19). Nummers 7 t/m 16 zijn voor de nie
 
 ---
 
+## Blog: allergenen-regels en receptuurblad (2026-11-23)
+
+Deze twee komen bovenaan de nieuwe blogs en in een ronde uitsnede op de covers. Houd het onderwerp in het midden,
+zodat het ook in een cirkel goed staat.
+
+### 17.  — blog "Allergenen in de horeca: de regels"
+> A professional restaurant pass before service, seen at a low angle: a small printed allergen chart in a clear plastic
+> sleeve lies on a dark steel counter, the writing on it blurred and unreadable. Beside it, neatly arranged in small
+> dark ceramic bowls, the kind of ingredients that hide allergens: a stick of celery with leaves, a bowl of brown eggs,
+> sesame seeds, a few whole almonds, a little dish of mustard seeds and a glass of white wine. A chef's hand (no face)
+> resting a pen on the chart. Calm and orderly, a sense of care and precision. Subject in the centre. + algemene stijl
+
+### 18.  — blog "Receptuurblad / Rezepturblatt"
+> A printed recipe sheet on white A4 paper clipped to a dark wooden clipboard, hanging on a hook against a dark tiled
+> kitchen wall next to the pass. The text on the sheet is blurred and unreadable, but you can see a clear layout: a
+> title, two columns, ingredients on the left and numbered steps on the right. Below it, out of focus, a stainless
+> steel counter with a digital kitchen scale, a copper saucepan and a folded white kitchen towel. Warm light falling on
+> the paper, everything else in deep shadow. Subject in the centre. + algemene stijl
+
+---
+
+## Blog: allergenen-regels en receptuurblad (2026-11-23)
+
+Deze twee komen bovenaan de nieuwe blogs en in een ronde uitsnede op de covers. Houd het onderwerp in het midden,
+zodat het ook in een cirkel goed staat.
+
+### 17. `blog-allergenen-regels.jpg` — blog "Allergenen in de horeca: de regels"
+> A professional restaurant pass before service, seen at a low angle: a small printed allergen chart in a clear plastic
+> sleeve lies on a dark steel counter, the writing on it blurred and unreadable. Beside it, neatly arranged in small
+> dark ceramic bowls, the kind of ingredients that hide allergens: a stick of celery with leaves, a bowl of brown eggs,
+> sesame seeds, a few whole almonds, a little dish of mustard seeds and a glass of white wine. A chef's hand (no face)
+> resting a pen on the chart. Calm and orderly, a sense of care and precision. Subject in the centre. + algemene stijl
+
+### 18. `blog-rezepturblatt.jpg` — blog "Receptuurblad / Rezepturblatt"
+> A printed recipe sheet on white A4 paper clipped to a dark wooden clipboard, hanging on a hook against a dark tiled
+> kitchen wall next to the pass. The text on the sheet is blurred and unreadable, but you can see a clear layout: a
+> title, two columns, ingredients on the left and numbered steps on the right. Below it, out of focus, a stainless
+> steel counter with a digital kitchen scale, a copper saucepan and a folded white kitchen towel. Warm light falling on
+> the paper, everything else in deep shadow. Subject in the centre. + algemene stijl
+
+---
+
 **Tip:** vind je een beeld te druk of te licht, vraag dan aan Gemini: "Make it darker and calmer, with more empty dark
 space on the left, keep the same subject."

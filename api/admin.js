@@ -376,6 +376,63 @@ function staleBrowserIds(visits) {
   );
 }
 
+// Weergaven per pagina (/admin → Pagina's): elke geladen pagina is één weergave, bezoekers zijn unieke apparaten.
+// Zelfde uitsluitingen als bij de bezoekers: apparaten van de beheerder (elk apparaat waarmee /admin is geopend),
+// testbrowsers (ook die van Claude: Electron, headless) en robots tellen niet mee. days: 7, 30, 90 of 0 (alles); bij
+// een periode ook de weergaven van de periode ervoor, om te zien of een pagina stijgt.
+async function pageViews(user, ownVisitor, days) {
+  const own = new Set(await ownVisitorIds(user, ownVisitor));
+  const all = await allVisits();
+  const bots = crawlerIds(all);
+  for (const id of staleBrowserIds(all)) bots.add(id);
+  const real = all.filter(v => !own.has(v.visitor_id) && isVisitor(v.user_agent) && !bots.has(v.visitor_id));
+  const span = [7, 30, 90].includes(Number(days)) ? Number(days) : 0;
+  const from = span ? Date.now() - span * 86400000 : 0;
+  const prevFrom = span ? from - span * 86400000 : 0;
+  const norm = p => {
+    let x = String(p || '/')
+      .split('?')[0]
+      .split('#')[0];
+    if (x.length > 1) x = x.replace(/\/+$/, '');
+    return x === '/index.html' ? '/' : x;
+  };
+  const pages = new Map();
+  const people = new Set();
+  let views = 0;
+  for (const v of real) {
+    const path = norm(v.path);
+    if (path === '/admin') continue;
+    const at = Date.parse(v.visited_at);
+    if (!span || at >= from) {
+      views++;
+      people.add(v.visitor_id);
+    }
+    let p = pages.get(path);
+    if (!p) pages.set(path, (p = { path, views: 0, people: new Set(), prev: 0, total: 0, last: null }));
+    p.total++;
+    if (!span || at >= from) {
+      p.views++;
+      p.people.add(v.visitor_id);
+      if (!p.last || v.visited_at > p.last) p.last = v.visited_at;
+    } else if (at >= prevFrom) p.prev++;
+  }
+  return {
+    span,
+    since: all[0]?.visited_at || null,
+    own_devices: own.size,
+    views,
+    visitors: people.size,
+    pages: [...pages.values()].map(p => ({
+      path: p.path,
+      views: p.views,
+      visitors: p.people.size,
+      prev: span ? p.prev : null,
+      total: p.total,
+      last: p.last
+    }))
+  };
+}
+
 // Alles in unieke bezoekers (elk apparaat telt één keer): vandaag, deze week (7 dagen), deze maand, all time,
 // per platform en per dag (30 dagen). Plus de laatste unieke bezoekers met hun bezoeken en pagina's.
 async function visitorStats(ownIds = [], accountDevices = []) {
@@ -2436,6 +2493,7 @@ export default async function handler(req, res) {
   if (!hasServiceRole()) return res.status(503).json({ error: 'SUPABASE_SERVICE_ROLE_KEY ontbreekt in Vercel.' });
   try {
     if (action === 'overview') return res.status(200).json(await overview(user, ownVisitor));
+    if (action === 'pages') return res.status(200).json(await pageViews(user, ownVisitor, req.body?.days));
     if (action === 'gift' && userId) return res.status(200).json(await giftPro(userId, days));
     if (action === 'revoke_gift' && userId) return res.status(200).json(await revokeGift(userId));
     if (action === 'reader_learning') return res.status(200).json(await readerLearning());

@@ -5064,6 +5064,15 @@ body {
   pointer-events: none;
 }
 /* Zoekmachines in het beheer: periode en land op één regel boven de cijfers */
+/* Pagina's in /admin: stijgt of daalt t.o.v. de periode ervoor. */
+.admin-up {
+  color: #5fb37d;
+  font-weight: 600;
+}
+.admin-down {
+  color: #d98a6a;
+  font-weight: 600;
+}
 .search-controls {
   display: flex;
   flex-wrap: wrap;

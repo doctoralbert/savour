@@ -53,6 +53,18 @@ import { MEP_POST, MEP_POST_DE, MEP_POST_ES, MEP_POST_FR } from './site-blog-mep
 import { BAR_POST, BAR_POST_DE, BAR_POST_ES, BAR_POST_FR } from './site-blog-bar.mjs';
 import { PATISSERIE_POST, PATISSERIE_POST_DE, PATISSERIE_POST_ES, PATISSERIE_POST_FR } from './site-blog-patisserie.mjs';
 import { CATERING_POST, CATERING_POST_DE, CATERING_POST_ES, CATERING_POST_FR } from './site-blog-catering.mjs';
+import {
+  ALLERGEN_RULES_POST,
+  ALLERGEN_RULES_POST_DE,
+  ALLERGEN_RULES_POST_ES,
+  ALLERGEN_RULES_POST_FR
+} from './site-blog-allergenen-regels.mjs';
+import {
+  RECIPE_SHEET_POST,
+  RECIPE_SHEET_POST_DE,
+  RECIPE_SHEET_POST_ES,
+  RECIPE_SHEET_POST_FR
+} from './site-blog-rezepturblatt.mjs';
 import { PAPRIKA_PAGE } from './site-paprika.mjs';
 import { REZEPTUR_PAGE } from './site-rezeptur.mjs';
 import { PAGE_RICH } from './site-page-rich.mjs';
@@ -101,12 +113,12 @@ Object.assign(FR.posts, MEP_POST_FR);
 Object.assign(DE.posts, BAR_POST_DE);
 Object.assign(ES.posts, BAR_POST_ES);
 Object.assign(FR.posts, BAR_POST_FR);
-for (const [P, a, b] of [
-  [DE, PATISSERIE_POST_DE, CATERING_POST_DE],
-  [ES, PATISSERIE_POST_ES, CATERING_POST_ES],
-  [FR, PATISSERIE_POST_FR, CATERING_POST_FR]
+for (const [P, ...rest] of [
+  [DE, PATISSERIE_POST_DE, CATERING_POST_DE, ALLERGEN_RULES_POST_DE, RECIPE_SHEET_POST_DE],
+  [ES, PATISSERIE_POST_ES, CATERING_POST_ES, ALLERGEN_RULES_POST_ES, RECIPE_SHEET_POST_ES],
+  [FR, PATISSERIE_POST_FR, CATERING_POST_FR, ALLERGEN_RULES_POST_FR, RECIPE_SHEET_POST_FR]
 ])
-  Object.assign(P.posts, a, b);
+  Object.assign(P.posts, ...rest);
 EXTRA_LANGS.fr = EXTRA_FR;
 APP_PAGE.fr = APP_PAGE_FR;
 DELIVER.fr = DELIVER_FR;
@@ -115,9 +127,38 @@ SERVICE.fr = SERVICE_FR;
 KLADJE_REAL.fr = KLADJE_FR;
 
 // Nieuwste blogartikelen eerst.
-POSTS.unshift(CATERING_POST, PATISSERIE_POST, BAR_POST, MEP_POST, FOODCOST_CALC_POST, COMMUNITY_POST, AI_POST, FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
+POSTS.unshift(
+  ALLERGEN_RULES_POST,
+  RECIPE_SHEET_POST,
+  CATERING_POST, PATISSERIE_POST, BAR_POST, MEP_POST, FOODCOST_CALC_POST, COMMUNITY_POST, AI_POST, FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
+
+// Publicatiedatums van de blog (2026-11-23, op verzoek van de eigenaar): de artikelen stonden soms met drie op één
+// dag. Eenmalig gespreid tussen de echte eerste blogdag (22 oktober 2026) en 23 november 2026, in dezelfde volgorde
+// en nooit vóór de echte start. Vastgelegd in tools/blog-datums.json, zodat de datums niet opnieuw verschuiven als er
+// een artikel bijkomt. Nieuwe artikelen krijgen gewoon hun eigen datum (en komen op verschillende dagen online).
+{
+  const file = new URL('tools/blog-datums.json', ROOT);
+  let map = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : null;
+  if (!map) {
+    const start = Date.UTC(2026, 9, 22);
+    const end = Date.UTC(2026, 10, 23);
+    const days = (end - start) / 86400000;
+    const order = POSTS.map((p, i) => ({ p, i })).sort((a, b) => a.p.date.localeCompare(b.p.date) || b.i - a.i);
+    map = {};
+    // Gelijk verdeeld, maar nooit vroeger dan de echte datum van het artikel.
+    order.forEach(({ p }, k) => {
+      const day = Math.round((k * days) / (order.length - 1));
+      const spread = new Date(start + day * 86400000).toISOString().slice(0, 10);
+      map[p.en.slug] = spread < p.date ? p.date : spread;
+    });
+    fs.writeFileSync(file, JSON.stringify(map, null, 2) + '\n', 'utf8');
+  }
+  for (const p of POSTS) if (map[p.en.slug]) p.date = map[p.en.slug];
+  // Nieuwste eerst, zoals in het blogoverzicht.
+  POSTS.sort((a, b) => b.date.localeCompare(a.date));
+}
 // Achtergrondfoto achter de bovenkant van de homepage. Alleen als het bestand bestaat; zonder bestand is de
 // homepage zoals eerst (terugdraaien = assets/keuken/hero-keuken.jpg weghalen en opnieuw bouwen).
 const HERO_FILE = new URL('assets/keuken/hero-keuken.jpg', ROOT);
@@ -549,6 +590,9 @@ const slugsOf = item => Object.fromEntries(LANGS.map(l => [l, typeof item[l] ===
 const LOCALE = { nl: 'nl-NL', en: 'en-GB', de: 'de-DE', es: 'es-ES', fr: 'fr-FR' };
 // Blogarchief over meerdere bladzijden: zoveel artikelen per bladzijde, met deze woorden in het adres en de knoppen.
 const BLOG_PER_PAGE = 8;
+// Schrijver van de blogartikelen (op verzoek van de eigenaar, 2026-11-23): onder de titel en als author in schema.org.
+const BLOG_AUTHOR = 'Jop Schreurs';
+const BY_AUTHOR = { nl: 'door', en: 'by', de: 'von', es: 'por', fr: 'par' };
 const RELEASES_PER_PAGE = 4;
 const BLOG_PAGE_WORD = { nl: 'pagina', en: 'page', de: 'seite', es: 'pagina', fr: 'page' };
 const BLOG_PAGER = {
@@ -1172,6 +1216,8 @@ function writePage(slug, html) {
 }
 
 const sitemap = [];
+// Titel per pagina voor /admin → Pagina's (site/paginas.json): weergaven met een leesbare naam.
+const PAGE_TITLES = {};
 function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = false, image = '' }) {
   for (const l of LANGS) if (slugs[l]) PATH_INDEX.set(href(slugs[l]), slugs);
   const canonical = url(slugs[lang]);
@@ -1212,6 +1258,12 @@ function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = fa
     }) +
     `<div class="site">${header(lang, alt, false)}<main>${body(crumbHtml)}</main>${hidden ? '' : ctaBlock(lang, false)}${footer(lang, alt, false)}</div>\n</body>\n</html>\n`;
   writePage(slugs[lang], html);
+  // g: dezelfde pagina in alle talen (het Nederlandse adres), zodat /admin de taalversies kan samenvoegen.
+  PAGE_TITLES[href(slugs[lang])] = {
+    t: title.replace(/\s*[|—–]\s*Savour$/, ''),
+    l: lang,
+    g: href(slugs.nl || slugs.en || slugs[lang])
+  };
   if (!hidden) sitemap.push({ loc: canonical, alternates, file: `site/${slugs[lang]}/index.html` });
 }
 
@@ -1246,6 +1298,8 @@ function aboutChapters(s, lang) {
 // welke foto en welk deel van de foto in beeld blijft. Voorwaarden en privacy blijven rustig zonder foto.
 const PHOTOS = {
   brigade: ['brigade.jpg', 'center 35%'],
+  blogAllergenRegels: ['blog-allergenen-regels.jpg', 'center 60%'],
+  blogRezepturblatt: ['blog-rezepturblatt.jpg', 'center 45%'],
   keuken: ['ingredienten-keuken.jpg', 'center 60%'],
   hout: ['ingredienten-hout.jpg', 'center 55%'],
   eend: ['eend-vuur.jpg', 'center 50%'],
@@ -1472,12 +1526,12 @@ const assetV = src => {
 // Het keurmerk zit in elke eigen foto (tools/keurmerk.mjs). Waar de site een foto bijsnijdt (bovenaan een pagina en
 // de duo's), valt de hoek weg; daar staat hetzelfde keurmerkje als laag op de foto.
 const PHOTO_MARK = '<span class="photo-mark" aria-hidden="true" translate="no">SAVOUR</span>';
-const pageTop = (crumbHtml, h1, lead, photo) => {
+const pageTop = (crumbHtml, h1, lead, photo, wide = false) => {
   const p = photo && PHOTOS[photo];
   const style = p
     ? ` style="--page-photo:url('${photoFile(photo)}');--page-photo-pos:${p[1]}${p[2] ? `;--page-photo-size:${p[2]};--page-photo-pos-wide:${p[3]}` : ''}"`
     : '';
-  return `<section class="site-page-head${p ? ' has-photo' : ''}"${style}><div class="site-wrap site-narrow">${crumbHtml}<h1>${esc(h1)}</h1>${lead ? `<p class="site-lead">${esc(lead)}</p>` : ''}</div>${p ? PHOTO_MARK : ''}</section>`;
+  return `<section class="site-page-head${p ? ' has-photo' : ''}"${style}><div class="site-wrap${wide ? '' : ' site-narrow'}">${crumbHtml}<h1>${esc(h1)}</h1>${lead ? `<p class="site-lead">${esc(lead)}</p>` : ''}</div>${p ? PHOTO_MARK : ''}</section>`;
 };
 // Twee staande foto's naast elkaar midden in de tekst (Voor wie-pagina's).
 const photoDuo = (lang, a, b) =>
@@ -1503,7 +1557,7 @@ const postBlock = x => {
       return `<aside class="post-box${kind === 'warn' ? ' note' : ''}"><svg viewBox="0 0 24 24" aria-hidden="true">${BOX_ICON[kind]}</svg><div><b>${esc(x[kind][0])}</b><p>${proseText(x[kind][1])}</p></div></aside>`;
   if (x.quote) return `<p class="post-quote reveal">${esc(x.quote)}</p>`;
   if (x.shot)
-    return `<figure class="post-shot${x.wide ? ' wide' : ''} reveal"><img src="${assetV(x.shot)}" alt="${esc(x.alt)}" loading="lazy"><figcaption>${esc(x.caption)}</figcaption></figure>`;
+    return `<figure class="post-shot${x.wide ? ' wide' : ''} reveal">${x.zoom ? `<a href="${assetV(x.shot)}" target="_blank" rel="noopener" class="post-zoom">` : ''}<img src="${assetV(x.shot)}" alt="${esc(x.alt)}" loading="lazy">${x.zoom ? '</a>' : ''}<figcaption>${esc(x.caption)}</figcaption></figure>`;
   // Twee beelden naast elkaar: { duo: [[pad, alt], [pad, alt]], caption }
   if (x.duo)
     return `<figure class="post-duo reveal"><div>${x.duo.map(([src, alt]) => `<img src="${assetV(src)}" alt="${esc(alt)}" loading="lazy">`).join('')}</div><figcaption>${esc(x.caption)}</figcaption></figure>`;
@@ -1750,14 +1804,14 @@ for (const lang of LANGS) {
           datePublished: p.date,
           inLanguage: lang,
           image: SITE + (coverFile(p, lang) || photoFile(blogPhoto(p, n))).replace(/\?.*/, ''),
-          author: ORG,
+          author: { '@type': 'Person', name: BLOG_AUTHOR, url: url(STORY[lang].slug) },
           publisher: ORG,
           mainEntityOfPage: url(t.slug)
         }
       ],
       body: c =>
-        pageTop(c, t.h1, t.lead, blogPhoto(p, n)) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>${postPages(p, lang)}`
+        pageTop(c, t.h1, t.lead, blogPhoto(p, n), true) +
+        `<article class="site-article"><div class="site-wrap site-prose post-body"><p class="site-meta">${date} · ${BY_AUTHOR[lang]} ${BLOG_AUTHOR}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>${postPages(p, lang)}`
     });
   }
   // Ingrediëntenlijst met allergenen (tools/site-blog-allergenen.mjs); js/site.js laadt en doorzoekt de lijst.
@@ -2377,3 +2431,16 @@ for (const [lang, set] of Object.entries(missing))
     console.log(`\n${set.size} stukjes zonder vertaling in het ${lang.toUpperCase()} (blijven Nederlands):`);
     for (const m of set) console.log(' -', m.slice(0, 110));
   }
+
+// ---- Foto per blogartikel voor de covers (tools/blog-afbeeldingen.py zet hem in de cover) ----
+{
+  const covers = {};
+  for (const [n, p] of POSTS.entries()) {
+    const [file, pos] = PHOTOS[blogPhoto(p, n)];
+    covers[p.nl.slug.split('/').pop()] = { photo: `assets/keuken/${file}`, pos };
+  }
+  fs.writeFileSync(new URL('tools/blog-covers.json', ROOT), JSON.stringify(covers, null, 2) + '\n', 'utf8');
+}
+
+// ---- Paginatitels voor /admin → Pagina's (weergaven per pagina) ----
+fs.writeFileSync(new URL('site/paginas.json', ROOT), JSON.stringify(PAGE_TITLES) + '\n', 'utf8');
