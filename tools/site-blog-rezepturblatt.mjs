@@ -1,6 +1,7 @@
 // Blog: een receptuurblad / Rezepturblatt als voorbeeld (2026-11-23), in vijf talen. Geschreven voor vooral de Duitse
 // markt (zoekterm "Rezepturblatt Vorlage"). Het voorbeeld is een leeg sjabloon: geen verzonnen recept of hoeveelheden;
-// daaronder een echte print uit Savour (assets/app/print-<taal>.jpg, het demorecept).
+// daaronder hetzelfde demorecept als print, op de website in kookmodus en op de telefoon
+// (assets/blog/receptuurblad-voorbeeld/print-web-mobiel-<taal>.jpg).
 // Wat Savour print klopt met /recepten-printen en /handleiding-printen: naam, opbrengst, ingrediënten met vette
 // hoeveelheden, bereiding in stappen, delen, omgerekende hoeveelheden, A4 of A5, printdatum, logo (Pro), allergenen
 // optioneel, foto's en notities optioneel bij meerdere recepten, Word-bestanden met Pro.
@@ -64,7 +65,7 @@ export const RECIPE_SHEET_POST = {
             ]
           ]
         },
-        { whole: true, duo: [['/assets/app/print-nl.jpg', "Een receptuurblad zoals Savour het print"], ['/assets/app/recept-nl.jpg', "Hetzelfde recept online in Savour op een telefoon"]], caption: "Links de print voor de klapper, rechts hetzelfde recept online. Deel het met een link, ook met een collega zonder account, of zet het in je keukenteam: dan ziet iedereen altijd de laatste versie." }
+        { shot: '/assets/blog/receptuurblad-voorbeeld/print-web-mobiel-nl.jpg', alt: "Hetzelfde recept als print, op de website in kookmodus en op de telefoon", caption: "Eén recept, drie manieren: de print voor de klapper, de website in kookmodus met links de ingrediënten en rechts de bereiding in grote letters, en de telefoon aan de pass. Deel het met een link, ook met een collega zonder account, of in je keukenteam: dan ziet iedereen altijd de laatste versie.", wide: true }
       ],
       [
         'Hoeveelheden die iedereen hetzelfde leest',
@@ -149,7 +150,7 @@ export const RECIPE_SHEET_POST = {
             ]
           ]
         },
-        { whole: true, duo: [['/assets/app/print-en.jpg', "A recipe card as Savour prints it"], ['/assets/app/recept-en.jpg', "The same recipe online in Savour on a phone"]], caption: "Left, the print for the folder; right, the same recipe online. Share it with a link, even with a colleague without an account, or put it in your kitchen team: then everyone always sees the latest version." }
+        { shot: '/assets/blog/receptuurblad-voorbeeld/print-web-mobiel-en.jpg', alt: "The same recipe as a print, on the website in cook mode and on a phone", caption: "One recipe, three ways: the print for the folder, the website in cook mode with the ingredients on the left and the method on the right in large type, and the phone at the pass. Share it with a link, even with a colleague without an account, or in your kitchen team: then everyone always sees the latest version.", wide: true }
       ],
       [
         'Quantities everyone reads the same way',
@@ -237,7 +238,7 @@ export const RECIPE_SHEET_POST_DE = {
             ]
           ]
         },
-        { whole: true, duo: [['/assets/app/print-de.jpg', "Ein Rezepturblatt, wie Savour es druckt"], ['/assets/app/recept-de.jpg', "Dieselbe Rezeptur online in Savour auf dem Handy"]], caption: "Links der Ausdruck für den Ordner, rechts dieselbe Rezeptur online. Teile sie per Link, auch mit Kollegen ohne Konto, oder leg sie in dein Küchenteam: Dann sieht jeder immer die neueste Version." }
+        { shot: '/assets/blog/receptuurblad-voorbeeld/print-web-mobiel-de.jpg', alt: "Dieselbe Rezeptur als Ausdruck, auf der Website im Kochmodus und auf dem Handy", caption: "Eine Rezeptur, drei Wege: der Ausdruck für den Ordner, die Website im Kochmodus mit links den Zutaten und rechts der Zubereitung in großer Schrift, und das Handy am Pass. Teile sie per Link, auch mit Kollegen ohne Konto, oder im Küchenteam: Dann sieht jeder immer die neueste Version.", wide: true }
       ],
       [
         'Mengen, die jeder gleich liest',
@@ -325,7 +326,7 @@ export const RECIPE_SHEET_POST_ES = {
             ]
           ]
         },
-        { whole: true, duo: [['/assets/app/print-es.jpg', "Una hoja de receta tal como la imprime Savour"], ['/assets/app/recept-es.jpg', "La misma receta online en Savour en un móvil"]], caption: "A la izquierda, la copia impresa para el archivador; a la derecha, la misma receta online. Compártela con un enlace, también con un compañero sin cuenta, o ponla en tu equipo de cocina: así todos ven siempre la última versión." }
+        { shot: '/assets/blog/receptuurblad-voorbeeld/print-web-mobiel-es.jpg', alt: "La misma receta impresa, en la web en modo cocina y en el móvil", caption: "Una receta, tres formas: la copia impresa para el archivador, la web en modo cocina con los ingredientes a la izquierda y la elaboración a la derecha en letra grande, y el móvil en el pase. Compártela con un enlace, también con un compañero sin cuenta, o en tu equipo de cocina: así todos ven siempre la última versión.", wide: true }
       ],
       [
         'Cantidades que todos leen igual',
@@ -413,7 +414,7 @@ export const RECIPE_SHEET_POST_FR = {
             ]
           ]
         },
-        { whole: true, duo: [['/assets/app/print-fr.jpg', "Une fiche recette telle que Savour l’imprime"], ['/assets/app/recept-fr.jpg', "La même recette en ligne dans Savour sur un téléphone"]], caption: "À gauche, la fiche imprimée pour le classeur ; à droite, la même recette en ligne. Partage-la par un lien, même avec un collègue sans compte, ou mets-la dans ton équipe de cuisine : tout le monde voit toujours la dernière version." }
+        { shot: '/assets/blog/receptuurblad-voorbeeld/print-web-mobiel-fr.jpg', alt: "La même recette imprimée, sur le site en mode cuisine et sur le téléphone", caption: "Une recette, trois façons : la fiche imprimée pour le classeur, le site en mode cuisine avec les ingrédients à gauche et la préparation à droite en grands caractères, et le téléphone au passe. Partage-la par un lien, même avec un collègue sans compte, ou dans ton équipe de cuisine : tout le monde voit toujours la dernière version.", wide: true }
       ],
       [
         'Des quantités que tout le monde lit pareil',

@@ -1552,7 +1552,7 @@ const postBlock = x => {
     return `<figure class="post-shot${x.wide ? ' wide' : ''} reveal"><img src="${assetV(x.shot)}" alt="${esc(x.alt)}" loading="lazy"><figcaption>${esc(x.caption)}</figcaption></figure>`;
   // Twee beelden naast elkaar: { duo: [[pad, alt], [pad, alt]], caption }
   if (x.duo)
-    return `<figure class="post-duo${x.whole ? ' is-whole' : ''} reveal"><div>${x.duo.map(([src, alt]) => `<img src="${assetV(src)}" alt="${esc(alt)}" loading="lazy">`).join('')}</div><figcaption>${esc(x.caption)}</figcaption></figure>`;
+    return `<figure class="post-duo reveal"><div>${x.duo.map(([src, alt]) => `<img src="${assetV(src)}" alt="${esc(alt)}" loading="lazy">`).join('')}</div><figcaption>${esc(x.caption)}</figcaption></figure>`;
   // Stappen: { steps: [[kop, tekst], ...] }
   if (x.steps)
     return `<ol class="post-steps">${x.steps.map(([h, d]) => `<li><b>${esc(h)}</b><span>${proseText(d)}</span></li>`).join('')}</ol>`;
