@@ -1216,6 +1216,8 @@ function writePage(slug, html) {
 }
 
 const sitemap = [];
+// Titel per pagina voor /admin → Pagina's (site/paginas.json): weergaven met een leesbare naam.
+const PAGE_TITLES = {};
 function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = false, image = '' }) {
   for (const l of LANGS) if (slugs[l]) PATH_INDEX.set(href(slugs[l]), slugs);
   const canonical = url(slugs[lang]);
@@ -1256,6 +1258,12 @@ function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = fa
     }) +
     `<div class="site">${header(lang, alt, false)}<main>${body(crumbHtml)}</main>${hidden ? '' : ctaBlock(lang, false)}${footer(lang, alt, false)}</div>\n</body>\n</html>\n`;
   writePage(slugs[lang], html);
+  // g: dezelfde pagina in alle talen (het Nederlandse adres), zodat /admin de taalversies kan samenvoegen.
+  PAGE_TITLES[href(slugs[lang])] = {
+    t: title.replace(/\s*[|—–]\s*Savour$/, ''),
+    l: lang,
+    g: href(slugs.nl || slugs.en || slugs[lang])
+  };
   if (!hidden) sitemap.push({ loc: canonical, alternates, file: `site/${slugs[lang]}/index.html` });
 }
 
@@ -2433,3 +2441,6 @@ for (const [lang, set] of Object.entries(missing))
   }
   fs.writeFileSync(new URL('tools/blog-covers.json', ROOT), JSON.stringify(covers, null, 2) + '\n', 'utf8');
 }
+
+// ---- Paginatitels voor /admin → Pagina's (weergaven per pagina) ----
+fs.writeFileSync(new URL('site/paginas.json', ROOT), JSON.stringify(PAGE_TITLES) + '\n', 'utf8');

@@ -145,6 +145,7 @@ function showAdminTab(tab) {
   }
   if (tab === 'lezer') loadAdminReader();
   if (tab === 'zoekmachines') loadAdminSearch();
+  if (tab === 'paginas') loadAdminPages();
   try {
     sessionStorage.setItem('savour_admin_tab', tab);
   } catch (_) {}
@@ -3871,4 +3872,170 @@ function adminRenderCountries(countries) {
           )
           .join(' · ')}`
       : 'Alle bezoekers komen uit landen met een taal die Savour al heeft.';
+}
+
+// ---- Pagina's: weergaven per pagina van de hele site, blogartikelen apart (api/admin.js → pageViews). ----
+// Titels komen uit site/paginas.json (tools/build-seo.mjs). Eigen apparaten, testbrowsers en robots tellen niet mee.
+let adminPages = null;
+let adminPagesDays = 30;
+let adminPagesBlogByLang = false;
+let adminPageTitles = null;
+const ADMIN_PAGE_LANGS = ['nl', 'en', 'de', 'es', 'fr'];
+
+async function loadAdminPages() {
+  const host = $('adminPagesBody');
+  if (!host) return;
+  try {
+    const [data, titles] = await Promise.all([
+      adminApi('pages', { days: adminPagesDays, own_visitor: adminOwnVisitorId() }),
+      adminPageTitles ||
+        fetch('/site/paginas.json')
+          .then(r => (r.ok ? r.json() : {}))
+          .catch(() => ({}))
+    ]);
+    adminPages = data;
+    adminPageTitles = titles;
+    renderAdminPages();
+  } catch (error) {
+    if (!error.expired) host.innerHTML = `<p class="admin-note">${adminEscape(error.message)}</p>`;
+  }
+}
+
+function setPagesView(key, value) {
+  if (key === 'days') {
+    adminPagesDays = Number(value) || 0;
+    return loadAdminPages();
+  }
+  if (key === 'blog') adminPagesBlogByLang = value === 'lang';
+  renderAdminPages();
+}
+
+// Soort pagina, uit het adres: blogartikel, blogoverzicht, startpagina, app en gedeelde links, of overige.
+function adminPageKind(path) {
+  const p = path.replace(/^\/(en|de|es|fr)(?=\/|$)/, '') || '/';
+  if (/^\/blog\/(pagina|page|seite)-\d+$/.test(p) || p === '/blog') return 'bloglist';
+  if (/^\/blog\/[^/]+$/.test(p)) return 'blog';
+  if (p === '/' || /^\/(eng|english|deu|esp|fra|nld)$/.test(path)) return 'home';
+  if (/^\/(r|join)\//.test(path) || path === '/demo') return 'app';
+  return 'page';
+}
+
+function adminPageLang(path) {
+  return adminPageTitles?.[path]?.l || (path.match(/^\/(en|de|es|fr)(?=\/|$)/) || [])[1] || 'nl';
+}
+
+// Verschil met de periode ervoor, als korte tekst.
+function adminPagesTrend(now, prev) {
+  if (prev == null || (!now && !prev)) return '';
+  if (!prev) return '<span class="admin-up">nieuw</span>';
+  const pct = Math.round(((now - prev) / prev) * 100);
+  if (!pct) return '<span class="admin-muted">gelijk</span>';
+  return pct > 0 ? `<span class="admin-up">▲ ${pct}%</span>` : `<span class="admin-down">▼ ${Math.abs(pct)}%</span>`;
+}
+
+function adminPagesTable(
+  rows,
+  { kicker, title, note = '', empty = 'Nog geen weergaven in deze periode.', limit = 60 }
+) {
+  const body = rows.length
+    ? rows
+        .slice(0, limit)
+        .map(
+          r =>
+            `<tr><td><b>${adminEscape(r.title)}</b><small><a href="${adminEscape(r.href || r.path)}" target="_blank" rel="noopener">${adminEscape(r.path)}</a>${r.langs ? ` · ${adminEscape(r.langs)}` : ''}</small></td><td>${count0(r.views)}</td><td>${count0(r.visitors)}</td><td>${r.trend || ''}</td><td>${r.last ? adminFormatDate(r.last) : '—'}</td></tr>`
+        )
+        .join('')
+    : `<tr><td colspan="5" class="admin-muted">${adminEscape(empty)}</td></tr>`;
+  return `<section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">${adminEscape(kicker)}</div><h2>${adminEscape(title)}</h2></div></div>${note}<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Pagina</th><th>Weergaven</th><th>Bezoekers</th><th>Vs. ervoor</th><th>Laatste</th></tr></thead><tbody>${body}</tbody></table></div>${rows.length > limit ? `<p class="admin-footnote">De ${limit} meest bekeken van ${rows.length} pagina's.</p>` : ''}</section>`;
+}
+
+function renderAdminPages() {
+  const host = $('adminPagesBody');
+  const d = adminPages;
+  if (!host || !d) return;
+  const titles = adminPageTitles || {};
+  const span = d.span;
+  const byPath = new Map(d.pages.map(p => [p.path, p]));
+  // Alle blogartikelen uit de titellijst, ook zonder weergaven, zodat je ziet welke nog niet gelezen worden.
+  for (const path of Object.keys(titles))
+    if (adminPageKind(path) === 'blog' && !byPath.has(path))
+      byPath.set(path, { path, views: 0, visitors: 0, prev: span ? 0 : null, total: 0, last: null });
+  const rowOf = p => ({ ...p, title: titles[p.path]?.t || p.path, trend: adminPagesTrend(p.views, p.prev) });
+  const groups = { blog: [], bloglist: [], home: [], app: [], page: [] };
+  for (const p of byPath.values()) {
+    if (!p.views && adminPageKind(p.path) !== 'blog') continue;
+    groups[adminPageKind(p.path)].push(rowOf(p));
+  }
+  const byViews = (a, z) => z.views - a.views || z.total - a.total || a.title.localeCompare(z.title);
+  Object.values(groups).forEach(list => list.sort(byViews));
+
+  // Blog per artikel: de taalversies samen (sleutel g uit paginas.json), met per taal de weergaven.
+  const articles = new Map();
+  for (const r of groups.blog) {
+    const key = titles[r.path]?.g || r.path;
+    const a = articles.get(key) || {
+      path: key,
+      href: key,
+      title: '',
+      views: 0,
+      visitors: 0,
+      prev: span ? 0 : null,
+      total: 0,
+      last: null,
+      per: {}
+    };
+    a.views += r.views;
+    a.visitors += r.visitors;
+    a.total += r.total;
+    if (span) a.prev += r.prev || 0;
+    if (r.last && (!a.last || r.last > a.last)) a.last = r.last;
+    const lang = adminPageLang(r.path);
+    a.per[lang] = (a.per[lang] || 0) + r.views;
+    if (lang === 'nl' || !a.title) a.title = r.title;
+    articles.set(key, a);
+  }
+  const articleRows = [...articles.values()]
+    .map(a => ({
+      ...a,
+      trend: adminPagesTrend(a.views, a.prev),
+      langs: ADMIN_PAGE_LANGS.filter(l => a.per[l] != null)
+        .map(l => `${l.toUpperCase()} ${count0(a.per[l])}`)
+        .join(' · ')
+    }))
+    .sort(byViews);
+  const blogRows = adminPagesBlogByLang
+    ? groups.blog.map(r => ({ ...r, langs: adminPageLang(r.path).toUpperCase() }))
+    : articleRows;
+  const blogViews = groups.blog.reduce((s, r) => s + r.views, 0);
+  const unread = articleRows.filter(a => !a.views).length;
+
+  const btn = (key, value, label, on) =>
+    `<button type="button" class="${on ? 'is-on' : ''}" onclick="setPagesView('${key}','${value}')">${label}</button>`;
+  const periodLabel = span ? `de laatste ${span} dagen` : 'sinds de eerste meting';
+  host.innerHTML = `
+    <div class="search-controls">
+      <div class="fin-periods" role="group" aria-label="Periode">${btn('days', 7, '7 dagen', span === 7)}${btn('days', 30, '30 dagen', span === 30)}${btn('days', 90, '90 dagen', span === 90)}${btn('days', 0, 'Alles', !span)}</div>
+    </div>
+    <p class="admin-note">Weergaven = elke keer dat een pagina is geopend; bezoekers = verschillende apparaten. ${adminEscape(periodLabel[0].toUpperCase() + periodLabel.slice(1))}${span ? `, vergeleken met de ${span} dagen ervoor` : ''}.</p>
+    <div class="admin-stats-grid fin-hero">
+      ${finTile('Weergaven', count0(d.views), periodLabel)}
+      ${finTile('Bezoekers', count0(d.visitors), 'verschillende apparaten')}
+      ${finTile('Blog', count0(blogViews), d.views ? `${Math.round((blogViews / d.views) * 100)}% van alle weergaven` : '')}
+      ${finTile('Blogartikelen', count0(articleRows.length), unread ? `${unread} nog niet gelezen in deze periode` : 'allemaal gelezen in deze periode')}
+    </div>
+    ${adminPagesTable(blogRows, {
+      kicker: 'BLOG',
+      title: adminPagesBlogByLang ? 'Blogartikelen per taal' : 'Blogartikelen (alle talen samen)',
+      note: `<div class="fin-periods" role="group" aria-label="Weergave">${btn('blog', 'article', 'Per artikel', !adminPagesBlogByLang)}${btn('blog', 'lang', 'Per taal', adminPagesBlogByLang)}</div>`,
+      limit: 200
+    })}
+    ${adminPagesTable(groups.home, { kicker: 'STARTPAGINA', title: "Startpagina's per taal" })}
+    ${adminPagesTable(groups.page, {
+      kicker: 'WEBSITE',
+      title: "Overige pagina's",
+      note: '<p class="admin-footnote">Functies, voor wie, prijzen, handleiding, over Savour en de andere losse pagina\'s.</p>'
+    })}
+    ${adminPagesTable(groups.bloglist, { kicker: 'BLOG', title: 'Blogoverzicht' })}
+    ${adminPagesTable(groups.app, { kicker: 'APP', title: 'Demo, gedeelde recepten en uitnodigingen' })}
+    <p class="admin-footnote">Niet meegeteld: jouw apparaten (${count0(d.own_devices)}; elk apparaat waarmee je /admin opent), testbrowsers (ook die van Claude) en robots. Op een nieuw apparaat: open daar één keer /admin, of savour.page/?intern.${d.since ? ` Gemeten sinds ${adminFormatDate(d.since)}.` : ''}</p>`;
 }

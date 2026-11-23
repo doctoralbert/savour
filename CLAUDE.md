@@ -41,6 +41,8 @@ Wat de kok zelf verbetert is de belangrijkste les voor de lezer: per geïmportee
 ingrediëntnamen (cloud-routine "Savour: dagelijks rapport per mail"), schrijft een rapport met verbeterpunten en een kant-en-klare
 opdracht in `daily_reports` (`supabase/2026-11-17-dagrapport.sql`), en Savour mailt dat naar het contactadres
 (`api/_lib/onderhoud.js` → `sendDailyReports`, cron `/api/admin?taak=rapport`). Geen pull requests meer.
+Weergaven per pagina: /admin → Pagina's (`pageViews` in api/admin.js, uit `site_visits`; titels uit `site/paginas.json` van
+build-seo), blogartikelen apart. Eigen apparaten (elk apparaat dat /admin opent), testbrowsers en robots tellen niet mee.
 Blogdatums: de oude artikelen zijn eenmalig gespreid (`tools/blog-datums.json`, nooit vroeger dan de echte datum).
 Nieuwe artikelen gaan op verschillende dagen live, één per dag, niet in groepjes, en krijgen de echte datum van die dag.
 Blog: elk artikel heeft Jop Schreurs als schrijver (`BLOG_AUTHOR` in `tools/build-seo.mjs`, ook als author in schema.org).
