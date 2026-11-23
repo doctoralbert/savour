@@ -22,7 +22,7 @@ bedrijf gaat. Plaats geen nepreviews en vraag niemand om een review in ruil voor
 |---|---|
 | **Capterra / GetApp / Software Advice** (één aanmelding via Gartner Digital Markets) | Gedaan (23-11-2026): [Capterra](https://www.capterra.com/p/10274098/Savour/), [GetApp](https://www.getapp.com/all-software/a/savour/), [Software Advice](https://www.softwareadvice.com/product/781443-Savour/) |
 | **G2** | Gedaan: [G2](https://www.g2.com/products/savour/reviews) |
-| **AlternativeTo** (als alternatief voor Paprika, Meez en Galley) | wereldwijd; aanvraag loopt |
+| **AlternativeTo** (als alternatief voor Paprika, Meez en Galley) | Gedaan: [AlternativeTo](https://alternativeto.net/software/savour/) |
 | **SaaSHub** | wereldwijd |
 | **Product Hunt** (een lancering op één dag) | Gedaan: [Product Hunt](https://www.producthunt.com/products/savour) |
 
