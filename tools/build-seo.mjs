@@ -1131,8 +1131,8 @@ ${alternates.map(([l, h]) => `<link rel="alternate" hreflang="${l}" href="${h}">
 <meta property="og:locale" content="${{ nl: 'nl_NL', en: 'en_GB', de: 'de_DE', es: 'es_ES', fr: 'fr_FR' }[lang] || 'en_GB'}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0d1314">
-<link rel="icon" href="/favicon.ico?v=3" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/favicon-96.png?v=3"><link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/favicon-192.png?v=4">
-<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png?v=4">
+<link rel="icon" href="/favicon.ico?v=4" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/favicon-96.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/favicon-192.png?v=5">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png?v=5">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/site.css">
@@ -2184,10 +2184,10 @@ const HOME_META = {
       x = x.replace(re, () => to);
     };
     // Eigen icoon (donker op goud, tools/icon.html?stack&app&beheer) zodat hij naast Savour op het beginscherm opvalt.
-    swap(/<link rel="manifest" href="[^"]*">/, '<link rel="manifest" href="/admin.webmanifest?v=2">');
+    swap(/<link rel="manifest" href="[^"]*">/, '<link rel="manifest" href="/admin.webmanifest?v=3">');
     swap(
       /<link rel="apple-touch-icon" href="[^"]*">/,
-      '<link rel="apple-touch-icon" href="/assets/icons/beheer-apple-touch-icon.png?v=1">'
+      '<link rel="apple-touch-icon" href="/assets/icons/beheer-apple-touch-icon.png?v=2">'
     );
     swap(
       /<meta name="apple-mobile-web-app-capable" content="yes">/,

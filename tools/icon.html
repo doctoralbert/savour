@@ -1,33 +1,27 @@
 <!doctype html>
-<!-- Klein formaat (favicon, tabblad): ?stack toont het woordmerk in twee regels, SAV boven OUR, met het gouden
-     streepje ertussen, zodat het op 16 tot 48 pixels leesbaar blijft. -->
-<!-- Sinds 2026-11-08 (avond) gebruiken ook de app-iconen SAV/OUR (?stack&app); het woordmerk hieronder is de vorige versie. -->
-<!-- App-icoon en favicon (2026-11-08): het woordmerk SAVOUR van de site, zoals op het laadscherm, in plaats van de S.
-     Gemaakt als schermafdruk van 512 × 512 en verkleind naar assets/savour-icon.png, assets/icons/* en favicon.ico.
-     Het woord blijft binnen het midden (80%), zodat het ook als ronde of afgeronde app-icoon niet wordt afgesneden. -->
+<!-- App-icoon en favicon (sinds 2026-11-23): één S in Playfair Display (huisstijl) op zwart, met de gouden streep
+     eronder, zoals in het woordmerk. ?beheer: dezelfde S omgedraaid (zwart op goud) voor de beheer-app (/admin).
+     Gemaakt als schermafdruk van 512 × 512 (headless Chrome) en verkleind met sharp naar assets/savour-icon.png,
+     assets/icons/* en favicon.ico; voor Beheer naar assets/beheer-icon.png en assets/icons/beheer-*.
+     Het teken blijft binnen het midden (80%), zodat het ook als rond of afgerond app-icoon niet wordt afgesneden.
+     Vorige versies: het woordmerk SAVOUR en SAV/OUR (tot 2026-11-23). -->
 <html><head><meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=block" rel="stylesheet">
 <style>
-  html,body{margin:0;width:512px;height:512px;background:#070b0c;overflow:hidden}
-  .mark{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--gap)}
-  .word{font:500 var(--size)/1 'Playfair Display',Georgia,serif;letter-spacing:.34em;margin-right:-.34em;color:#f2eee4}
-  .line{width:var(--line);height:var(--thick);background:#e8ca8d}
-  .stack{display:none;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:28px}
-  .stack .word{font-size:150px;letter-spacing:.08em;margin-right:-.08em}
-  .stack .line{width:250px;height:16px}
-  body.is-stack .mark{display:none}
-  body.is-stack .stack{display:flex}
-  /* ?stack&app: app-icoon op het beginscherm, kleiner zodat het binnen het veilige midden van ronde iconen valt. */
-  body.is-app .stack{transform:scale(.7)}
-  /* ?stack&app&beheer: icoon van de beheer-app (/admin), omgekeerd (donker op goud) zodat hij naast Savour opvalt. */
-  body.is-beheer{background:#e8ca8d}
-  body.is-beheer .word{color:#070b0c}
-  body.is-beheer .line{background:#070b0c}
+  html,body{margin:0;width:512px;height:512px;overflow:hidden}
+  svg{display:block}
 </style></head>
-<body style="--size:64px;--gap:34px;--line:72px;--thick:4px">
-<div class="mark"><div class="word">SAVOUR</div><div class="line"></div></div>
-<div class="stack"><div class="word">SAV</div><div class="line"></div><div class="word">OUR</div></div>
-<script>if (/stack/.test(location.search)) document.body.classList.add('is-stack');
-  if (/app/.test(location.search)) document.body.classList.add('is-app');
-  if (/beheer/.test(location.search)) document.body.classList.add('is-beheer');</script>
+<body>
+<svg id="icon" width="512" height="512" viewBox="0 0 512 512">
+  <rect id="bg" width="512" height="512" fill="#000"/>
+  <text id="s" x="256" y="340" text-anchor="middle" font-family="Playfair Display" font-weight="500" font-size="300" fill="#f2eee4">S</text>
+  <rect id="bar" x="181" y="374" width="150" height="14" fill="#e8ca8d"/>
+</svg>
+<script>
+  if (/beheer/.test(location.search)) {
+    document.getElementById('bg').setAttribute('fill', '#e8ca8d');
+    document.getElementById('s').setAttribute('fill', '#000');
+    document.getElementById('bar').setAttribute('fill', '#000');
+  }
+</script>
 </body></html>
