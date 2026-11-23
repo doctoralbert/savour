@@ -874,13 +874,96 @@
     update();
   }
 
+  // Beelden in artikelen en op functiepagina's vergroten: klik erop en het beeld staat in zijn geheel over de pagina.
+  // Sluiten met Escape, een klik naast het beeld of het kruisje rechtsboven. Eén keer per pagina, via event delegation.
+  var BIG_SELECTOR = '.site-article figure img, .feat-show figure img';
+  function setupLightbox() {
+    if (window.__svLightbox) return;
+    window.__svLightbox = true;
+    var lang = (document.documentElement.lang || 'nl').slice(0, 2);
+    var closeLabel = { en: 'Close', de: 'Schließen', es: 'Cerrar', fr: 'Fermer' }[lang] || 'Sluiten';
+    var enlargeLabel =
+      { en: 'Enlarge image', de: 'Bild vergrößern', es: 'Ampliar imagen', fr: 'Agrandir l’image' }[lang] ||
+      'Afbeelding vergroten';
+    var box = null;
+    var lastFocus = null;
+    function close() {
+      if (!box) return;
+      box.remove();
+      box = null;
+      document.documentElement.classList.remove('sv-lightbox-open');
+      document.removeEventListener('keydown', onKey, true);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    function onKey(e) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopPropagation();
+        close();
+      }
+    }
+    function open(img) {
+      lastFocus = document.activeElement;
+      box = document.createElement('div');
+      box.className = 'sv-lightbox';
+      box.setAttribute('role', 'dialog');
+      box.setAttribute('aria-modal', 'true');
+      box.setAttribute('aria-label', img.alt || enlargeLabel);
+      var big = document.createElement('img');
+      big.src = img.currentSrc || img.src;
+      big.alt = img.alt || '';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'sv-lightbox-close';
+      btn.setAttribute('aria-label', closeLabel);
+      btn.title = closeLabel;
+      btn.innerHTML =
+        '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+      btn.addEventListener('click', close);
+      // Naast het beeld klikken sluit; op het beeld zelf klikken niet.
+      box.addEventListener('click', function (e) {
+        if (e.target !== big) close();
+      });
+      box.appendChild(big);
+      box.appendChild(btn);
+      document.body.appendChild(box);
+      document.documentElement.classList.add('sv-lightbox-open');
+      document.addEventListener('keydown', onKey, true);
+      btn.focus();
+    }
+    document.addEventListener(
+      'click',
+      function (e) {
+        var img = e.target && e.target.closest && e.target.closest(BIG_SELECTOR);
+        if (!img || e.button) return;
+        e.preventDefault();
+        open(img);
+      },
+      true
+    );
+    // Toetsenbord: Enter of spatie op een beeld opent het ook.
+    document.querySelectorAll(BIG_SELECTOR).forEach(function (img) {
+      img.setAttribute('tabindex', '0');
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', (img.alt ? img.alt + ' · ' : '') + enlargeLabel);
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          open(img);
+        }
+      });
+    });
+  }
+
   if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupLightbox);
     document.addEventListener('DOMContentLoaded', setupScrollTop);
     document.addEventListener('DOMContentLoaded', setup);
     document.addEventListener('DOMContentLoaded', setupDeliver);
     document.addEventListener('DOMContentLoaded', setupFigures);
     document.addEventListener('DOMContentLoaded', setupIngredientList);
   } else {
+    setupLightbox();
     setupScrollTop();
     setup();
     setupDeliver();

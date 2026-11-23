@@ -4626,6 +4626,67 @@ body.mobile-menu-open .sv-scroll-top {
   }
 }
 /* Beeld dat je groot kunt openen (bijv. drie versies van een recept naast elkaar). */
+/* Vergroten (js/site.js → setupLightbox): beelden in artikelen zijn klikbaar en openen over de hele pagina. */
+.site-article figure img,
+.feat-show figure img {
+  cursor: zoom-in;
+}
+html.sv-lightbox-open,
+html.sv-lightbox-open body {
+  overflow: hidden;
+}
+.sv-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 24px 24px;
+  background: rgba(4, 7, 8, 0.92);
+  cursor: zoom-out;
+  animation: sv-lightbox-in 0.18s ease-out;
+}
+.sv-lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+  cursor: default;
+}
+.sv-lightbox-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 202, 141, 0.45);
+  background: rgba(10, 14, 15, 0.85);
+  color: #f2eee4;
+  cursor: pointer;
+}
+.sv-lightbox-close:hover,
+.sv-lightbox-close:focus-visible {
+  border-color: #e8ca8d;
+  color: #e8ca8d;
+  outline: none;
+}
+@keyframes sv-lightbox-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sv-lightbox {
+    animation: none;
+  }
+}
 .post-zoom {
   display: block;
   cursor: zoom-in;
