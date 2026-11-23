@@ -12,6 +12,7 @@
 #
 # Draaien: python3 tools/blog-afbeeldingen.py   (nodig: Python 3 met Pillow)
 import html
+import json
 import os
 import re
 import sys
@@ -312,6 +313,12 @@ ONDERWERP = {
     'sous-vide-temperaturen-en-tijden': ('wave', ['Sous-vide', 'Sous vide', 'Sous-vide', 'Sous vide', 'Sous vide']),
     'standaardrecepturen-in-de-keuken': ('check', ['Standaardrecepturen', 'Standard recipes', 'Standardrezepturen', 'Fichas técnicas', 'Fiches techniques']),
     'van-word-naar-receptenboek': ('doc', ['Importeren', 'Importing', 'Importieren', 'Importar', 'Importer']),
+    'allergenen-regels-horeca': ('allergen', ['Regels', 'Rules', 'Vorschriften', 'Normativa', 'Réglementation']),
+    'receptuurblad-voorbeeld': ('doc', ['Receptuurblad', 'Recipe card', 'Rezepturblatt', 'Hoja de receta', 'Fiche recette']),
+    'mep-lijsten-in-savour': ('check', ['MEP-lijsten', 'Prep lists', 'MEP-Listen', 'Listas MEP', 'Listes MEP']),
+    'savour-voor-bartenders': ('wave', ['Bar', 'Bar', 'Bar', 'Bar', 'Bar']),
+    'savour-voor-cateraars': ('team', ['Catering', 'Catering', 'Catering', 'Catering', 'Traiteur']),
+    'savour-voor-patissiers-en-banketbakkers': ('scale', ['Patisserie', 'Pastry', 'Patisserie', 'Pastelería', 'Pâtisserie']),
 }
 
 
@@ -361,6 +368,31 @@ def cover_background(W, H):
     return _BG[(W, H)]
 
 
+COVER_PHOTOS_FILE = os.path.join(ROOT, 'tools', 'blog-covers.json')
+COVER_PHOTOS = json.load(open(COVER_PHOTOS_FILE, encoding='utf-8')) if os.path.exists(COVER_PHOTOS_FILE) else {}
+
+
+def round_photo(path, pos, r):
+    """Vierkante uitsnede van de foto rond het brandpunt (zoals object-position op de site), op cirkelmaat."""
+    src = Image.open(os.path.join(ROOT, path)).convert('RGB')
+    w, h = src.size
+    side = min(w, h)
+    m = re.search(r'(\d+)%', pos.split()[-1]) if pos else None
+    fy = int(m.group(1)) / 100 if m else 0.5
+    left = (w - side) // 2
+    top = int((h - side) * fy)
+    crop = src.crop((left, top, left + side, top + side))
+    # Iets donkerder, zodat de foto rustig naast de titel staat.
+    crop = Image.blend(crop, Image.new('RGB', crop.size, DEEP), 0.18)
+    return crop.resize((2 * r * S, 2 * r * S), Image.LANCZOS)
+
+
+def round_mask(r):
+    mask = Image.new('L', (2 * r * S, 2 * r * S), 0)
+    ImageDraw.Draw(mask).ellipse([0, 0, 2 * r * S - 1, 2 * r * S - 1], fill=255)
+    return mask
+
+
 def cover(key, lang, title):
     W, H = 1200, 630
     if key not in ONDERWERP:
@@ -381,11 +413,19 @@ def cover(key, lang, title):
     top = 318 - len(lines) * lh / 2  # midden tussen onderwerp en de lijn onderin
     for i, l in enumerate(lines):
         d.text((72 * S, (top + i * lh) * S), l, font=fnt, fill=CREAM, anchor='la')
-    # pictogram rechts in een ring
-    cx, cy = 905, 270
-    d.ellipse([(cx - 150) * S, (cy - 150) * S, (cx + 150) * S, (cy + 150) * S], outline=(60, 62, 52), width=2 * S)
-    d.ellipse([(cx - 118) * S, (cy - 118) * S, (cx + 118) * S, (cy + 118) * S], fill=(14, 20, 20), outline=GOLD_DARK, width=2 * S)
-    icon(d, kind, cx, cy, 70, GOLD)
+    # rechts de foto van het artikel in een gouden ring (tools/blog-covers.json, geschreven door build-seo.mjs),
+    # met het pictogram als klein embleem linksonder: zo heeft elke cover een eigen beeld.
+    cx, cy, r = 905, 262, 168
+    d.ellipse([(cx - r - 22) * S, (cy - r - 22) * S, (cx + r + 22) * S, (cy + r + 22) * S], outline=(60, 62, 52), width=2 * S)
+    photo = COVER_PHOTOS.get(key)
+    if photo:
+        im.paste(round_photo(photo['photo'], photo['pos'], r), ((cx - r) * S, (cy - r) * S), round_mask(r))
+    else:
+        d.ellipse([(cx - r) * S, (cy - r) * S, (cx + r) * S, (cy + r) * S], fill=(14, 20, 20))
+    d.ellipse([(cx - r) * S, (cy - r) * S, (cx + r) * S, (cy + r) * S], outline=GOLD, width=3 * S)
+    bx, by, br = cx - 122, cy + 122, 46
+    d.ellipse([(bx - br) * S, (by - br) * S, (bx + br) * S, (by + br) * S], fill=DEEP2, outline=GOLD, width=3 * S)
+    icon(d, kind, bx, by, 27, GOLD)
     # logo onderin
     d.line([72 * S, 528 * S, (W - 72) * S, 528 * S], fill=LINE_DARK, width=2 * S)
     logo(d, 72, 572, 26, CREAM, GOLD)

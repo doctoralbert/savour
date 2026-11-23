@@ -53,6 +53,18 @@ import { MEP_POST, MEP_POST_DE, MEP_POST_ES, MEP_POST_FR } from './site-blog-mep
 import { BAR_POST, BAR_POST_DE, BAR_POST_ES, BAR_POST_FR } from './site-blog-bar.mjs';
 import { PATISSERIE_POST, PATISSERIE_POST_DE, PATISSERIE_POST_ES, PATISSERIE_POST_FR } from './site-blog-patisserie.mjs';
 import { CATERING_POST, CATERING_POST_DE, CATERING_POST_ES, CATERING_POST_FR } from './site-blog-catering.mjs';
+import {
+  ALLERGEN_RULES_POST,
+  ALLERGEN_RULES_POST_DE,
+  ALLERGEN_RULES_POST_ES,
+  ALLERGEN_RULES_POST_FR
+} from './site-blog-allergenen-regels.mjs';
+import {
+  RECIPE_SHEET_POST,
+  RECIPE_SHEET_POST_DE,
+  RECIPE_SHEET_POST_ES,
+  RECIPE_SHEET_POST_FR
+} from './site-blog-rezepturblatt.mjs';
 import { PAPRIKA_PAGE } from './site-paprika.mjs';
 import { REZEPTUR_PAGE } from './site-rezeptur.mjs';
 import { PAGE_RICH } from './site-page-rich.mjs';
@@ -101,12 +113,12 @@ Object.assign(FR.posts, MEP_POST_FR);
 Object.assign(DE.posts, BAR_POST_DE);
 Object.assign(ES.posts, BAR_POST_ES);
 Object.assign(FR.posts, BAR_POST_FR);
-for (const [P, a, b] of [
-  [DE, PATISSERIE_POST_DE, CATERING_POST_DE],
-  [ES, PATISSERIE_POST_ES, CATERING_POST_ES],
-  [FR, PATISSERIE_POST_FR, CATERING_POST_FR]
+for (const [P, ...rest] of [
+  [DE, PATISSERIE_POST_DE, CATERING_POST_DE, ALLERGEN_RULES_POST_DE, RECIPE_SHEET_POST_DE],
+  [ES, PATISSERIE_POST_ES, CATERING_POST_ES, ALLERGEN_RULES_POST_ES, RECIPE_SHEET_POST_ES],
+  [FR, PATISSERIE_POST_FR, CATERING_POST_FR, ALLERGEN_RULES_POST_FR, RECIPE_SHEET_POST_FR]
 ])
-  Object.assign(P.posts, a, b);
+  Object.assign(P.posts, ...rest);
 EXTRA_LANGS.fr = EXTRA_FR;
 APP_PAGE.fr = APP_PAGE_FR;
 DELIVER.fr = DELIVER_FR;
@@ -115,7 +127,10 @@ SERVICE.fr = SERVICE_FR;
 KLADJE_REAL.fr = KLADJE_FR;
 
 // Nieuwste blogartikelen eerst.
-POSTS.unshift(CATERING_POST, PATISSERIE_POST, BAR_POST, MEP_POST, FOODCOST_CALC_POST, COMMUNITY_POST, AI_POST, FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
+POSTS.unshift(
+  ALLERGEN_RULES_POST,
+  RECIPE_SHEET_POST,
+  CATERING_POST, PATISSERIE_POST, BAR_POST, MEP_POST, FOODCOST_CALC_POST, COMMUNITY_POST, AI_POST, FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
 // Achtergrondfoto achter de bovenkant van de homepage. Alleen als het bestand bestaat; zonder bestand is de
@@ -549,6 +564,9 @@ const slugsOf = item => Object.fromEntries(LANGS.map(l => [l, typeof item[l] ===
 const LOCALE = { nl: 'nl-NL', en: 'en-GB', de: 'de-DE', es: 'es-ES', fr: 'fr-FR' };
 // Blogarchief over meerdere bladzijden: zoveel artikelen per bladzijde, met deze woorden in het adres en de knoppen.
 const BLOG_PER_PAGE = 8;
+// Schrijver van de blogartikelen (op verzoek van de eigenaar, 2026-11-23): onder de titel en als author in schema.org.
+const BLOG_AUTHOR = 'Jop Schreurs';
+const BY_AUTHOR = { nl: 'door', en: 'by', de: 'von', es: 'por', fr: 'par' };
 const RELEASES_PER_PAGE = 4;
 const BLOG_PAGE_WORD = { nl: 'pagina', en: 'page', de: 'seite', es: 'pagina', fr: 'page' };
 const BLOG_PAGER = {
@@ -1750,14 +1768,14 @@ for (const lang of LANGS) {
           datePublished: p.date,
           inLanguage: lang,
           image: SITE + (coverFile(p, lang) || photoFile(blogPhoto(p, n))).replace(/\?.*/, ''),
-          author: ORG,
+          author: { '@type': 'Person', name: BLOG_AUTHOR, url: url(STORY[lang].slug) },
           publisher: ORG,
           mainEntityOfPage: url(t.slug)
         }
       ],
       body: c =>
         pageTop(c, t.h1, t.lead, blogPhoto(p, n)) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>${postPages(p, lang)}`
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date} · ${BY_AUTHOR[lang]} ${BLOG_AUTHOR}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>${postPages(p, lang)}`
     });
   }
   // Ingrediëntenlijst met allergenen (tools/site-blog-allergenen.mjs); js/site.js laadt en doorzoekt de lijst.
@@ -2377,3 +2395,13 @@ for (const [lang, set] of Object.entries(missing))
     console.log(`\n${set.size} stukjes zonder vertaling in het ${lang.toUpperCase()} (blijven Nederlands):`);
     for (const m of set) console.log(' -', m.slice(0, 110));
   }
+
+// ---- Foto per blogartikel voor de covers (tools/blog-afbeeldingen.py zet hem in de cover) ----
+{
+  const covers = {};
+  for (const [n, p] of POSTS.entries()) {
+    const [file, pos] = PHOTOS[blogPhoto(p, n)];
+    covers[p.nl.slug.split('/').pop()] = { photo: `assets/keuken/${file}`, pos };
+  }
+  fs.writeFileSync(new URL('tools/blog-covers.json', ROOT), JSON.stringify(covers, null, 2) + '\n', 'utf8');
+}
