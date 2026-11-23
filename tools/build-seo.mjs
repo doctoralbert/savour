@@ -2183,7 +2183,12 @@ const HOME_META = {
       if (!re.test(x)) throw new Error(`admin: ${re} niet gevonden`);
       x = x.replace(re, () => to);
     };
-    swap(/<link rel="manifest" href="[^"]*">/, '<link rel="manifest" href="/admin.webmanifest?v=1">');
+    // Eigen icoon (donker op goud, tools/icon.html?stack&app&beheer) zodat hij naast Savour op het beginscherm opvalt.
+    swap(/<link rel="manifest" href="[^"]*">/, '<link rel="manifest" href="/admin.webmanifest?v=2">');
+    swap(
+      /<link rel="apple-touch-icon" href="[^"]*">/,
+      '<link rel="apple-touch-icon" href="/assets/icons/beheer-apple-touch-icon.png?v=1">'
+    );
     swap(
       /<meta name="apple-mobile-web-app-capable" content="yes">/,
       '<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Beheer"><meta name="robots" content="noindex,nofollow">'

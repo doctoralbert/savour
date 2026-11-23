@@ -19,10 +19,15 @@
   body.is-stack .stack{display:flex}
   /* ?stack&app: app-icoon op het beginscherm, kleiner zodat het binnen het veilige midden van ronde iconen valt. */
   body.is-app .stack{transform:scale(.7)}
+  /* ?stack&app&beheer: icoon van de beheer-app (/admin), omgekeerd (donker op goud) zodat hij naast Savour opvalt. */
+  body.is-beheer{background:#e8ca8d}
+  body.is-beheer .word{color:#070b0c}
+  body.is-beheer .line{background:#070b0c}
 </style></head>
 <body style="--size:64px;--gap:34px;--line:72px;--thick:4px">
 <div class="mark"><div class="word">SAVOUR</div><div class="line"></div></div>
 <div class="stack"><div class="word">SAV</div><div class="line"></div><div class="word">OUR</div></div>
 <script>if (/stack/.test(location.search)) document.body.classList.add('is-stack');
-  if (/app/.test(location.search)) document.body.classList.add('is-app');</script>
+  if (/app/.test(location.search)) document.body.classList.add('is-app');
+  if (/beheer/.test(location.search)) document.body.classList.add('is-beheer');</script>
 </body></html>
