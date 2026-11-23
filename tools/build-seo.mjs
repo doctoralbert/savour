@@ -1958,7 +1958,7 @@ for (const lang of LANGS) {
       page({
         lang,
         slugs: pair(l => ch.pages[0][l].slug),
-        title: `${name} | ${suffix}`,
+        title: ch.group[lang].title || `${name} | ${suffix}`,
         desc: first.desc,
         crumbs: [[home.h1, href(home.slug)], [name]],
         schema: [
@@ -2049,7 +2049,7 @@ function releaseList(list, lang, gu) {
 // vercel.json en local-server.mjs sturen /en, /de en /es daarheen. De app zelf is in alle kopieën gelijk.
 const HOME_META = {
   en: {
-    title: 'Savour — recipe app for chefs: organise and share recipes',
+    title: 'Savour — recipe management software for chefs and kitchens',
     desc: 'Organise all your recipes in one app: import from Word, PDF and handwritten notes, share with your kitchen team and print whole folders. Free to try.',
     ogTitle: 'Savour — recipe management for professional kitchens',
     ogDesc:
@@ -2065,7 +2065,7 @@ const HOME_META = {
     locale: 'de_DE'
   },
   es: {
-    title: 'Savour — app de recetas para chefs y equipos de cocina',
+    title: 'Savour — software de gestión de recetas para cocinas',
     desc: 'Organiza todas tus recetas en una app: importa de Word, PDF y notas a mano, compártelas con tu equipo de cocina e imprime carpetas enteras. Pruébalo gratis.',
     ogTitle: 'Savour — gestión de recetas para cocinas profesionales',
     ogDesc:
@@ -2073,7 +2073,7 @@ const HOME_META = {
     locale: 'es_ES'
   },
   fr: {
-    title: 'Savour — recettes pour chefs : organiser et partager',
+    title: 'Savour — logiciel de gestion de recettes pour chefs',
     desc: 'Organise toutes tes recettes dans une application : importe Word, PDF et notes manuscrites, partage-les avec ton équipe et imprime des dossiers entiers.',
     ogTitle: 'Savour — gestion des recettes pour cuisines professionnelles',
     ogDesc:

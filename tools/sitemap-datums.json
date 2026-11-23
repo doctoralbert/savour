@@ -1,31 +1,31 @@
 {
  "https://savour.page/": {
-  "hash": "5f080fe5f44f2b17",
-  "date": "2026-11-22"
+  "hash": "e7477a4a5383e21a",
+  "date": "2026-11-23"
  },
  "https://savour.page/en": {
-  "hash": "bbdbd72a1f6eb8f2",
-  "date": "2026-11-22"
+  "hash": "69f2f4736945e9c6",
+  "date": "2026-11-23"
  },
  "https://savour.page/de": {
   "hash": "5c4bab0ce8f21e51",
   "date": "2026-11-23"
  },
  "https://savour.page/es": {
-  "hash": "1568d9087d34857a",
-  "date": "2026-11-22"
+  "hash": "e99db65be1fd81d2",
+  "date": "2026-11-23"
  },
  "https://savour.page/fr": {
-  "hash": "ce3d8af5642d3741",
-  "date": "2026-11-22"
+  "hash": "710559e9013558e7",
+  "date": "2026-11-23"
  },
  "https://savour.page/recepten-digitaliseren": {
   "hash": "c3960da9be9cc2f3",
   "date": "2026-11-22"
  },
  "https://savour.page/recepten-organiseren": {
-  "hash": "c291344d4ee8afb0",
-  "date": "2026-11-22"
+  "hash": "c840447873b4bbc0",
+  "date": "2026-11-23"
  },
  "https://savour.page/recepten-delen": {
   "hash": "20e6668a1d4e99bd",
@@ -56,8 +56,8 @@
   "date": "2026-11-22"
  },
  "https://savour.page/voor-keukenbrigades": {
-  "hash": "aab06203338217fe",
-  "date": "2026-11-22"
+  "hash": "821ac405e91b7711",
+  "date": "2026-11-23"
  },
  "https://savour.page/over-savour": {
   "hash": "9ec9e8bf2c2327b1",
@@ -88,20 +88,20 @@
   "date": "2026-11-23"
  },
  "https://savour.page/blog/receptenboek-met-eigen-logo": {
-  "hash": "299572c2918bd388",
+  "hash": "85e97dea4c71d06e",
   "date": "2026-11-23"
  },
  "https://savour.page/blog/recepten-zonder-wifi": {
-  "hash": "b84261389ef21584",
+  "hash": "bcad0c49bcfc9785",
   "date": "2026-11-23"
  },
  "https://savour.page/blog/recepten-app-kiezen-restaurant": {
-  "hash": "1c7033c576981ea7",
-  "date": "2026-11-22"
+  "hash": "087c4d6e73957068",
+  "date": "2026-11-23"
  },
  "https://savour.page/blog/receptbeheer-in-de-horeca": {
-  "hash": "7b7beac8f72b55b6",
-  "date": "2026-11-22"
+  "hash": "f926b8efd82465f5",
+  "date": "2026-11-23"
  },
  "https://savour.page/blog/gedeeld-receptenboek-keukenteam": {
   "hash": "2f3c2d81d22436c1",
@@ -172,8 +172,8 @@
   "date": "2026-11-22"
  },
  "https://savour.page/en/organise-recipes": {
-  "hash": "4d8ed5615d0e530e",
-  "date": "2026-11-22"
+  "hash": "a19eeb291bde28f4",
+  "date": "2026-11-23"
  },
  "https://savour.page/en/share-recipes": {
   "hash": "354e09f2a33f552b",
@@ -204,8 +204,8 @@
   "date": "2026-11-22"
  },
  "https://savour.page/en/for-kitchen-brigades": {
-  "hash": "291f9d854772c918",
-  "date": "2026-11-22"
+  "hash": "af1963b8babf87c5",
+  "date": "2026-11-23"
  },
  "https://savour.page/en/about": {
   "hash": "9af47bd1fedf9f69",
@@ -236,20 +236,20 @@
   "date": "2026-11-23"
  },
  "https://savour.page/en/blog/recipe-book-with-your-logo": {
-  "hash": "4ad9ef0abb2a32ae",
+  "hash": "f28d22284c3ed918",
   "date": "2026-11-23"
  },
  "https://savour.page/en/blog/recipes-without-wifi": {
-  "hash": "eee946e96c40bb88",
+  "hash": "a21be1dce4ef747a",
   "date": "2026-11-23"
  },
  "https://savour.page/en/blog/choosing-a-recipe-app": {
-  "hash": "aeae7cb479690d44",
-  "date": "2026-11-22"
+  "hash": "8cd6243a1160612c",
+  "date": "2026-11-23"
  },
  "https://savour.page/en/blog/recipe-management-for-restaurants": {
-  "hash": "ceea49cbd4c698b4",
-  "date": "2026-11-22"
+  "hash": "a2753097bf62257b",
+  "date": "2026-11-23"
  },
  "https://savour.page/en/blog/shared-recipe-book-kitchen-team": {
   "hash": "317ae1d95af4255d",
@@ -468,8 +468,8 @@
   "date": "2026-11-22"
  },
  "https://savour.page/es/organizar-recetas": {
-  "hash": "52452d1efda460f8",
-  "date": "2026-11-22"
+  "hash": "0588d731061e0a83",
+  "date": "2026-11-23"
  },
  "https://savour.page/es/compartir-recetas": {
   "hash": "86c859787b62bf2f",
@@ -616,8 +616,8 @@
   "date": "2026-11-22"
  },
  "https://savour.page/fr/organiser-recettes": {
-  "hash": "0e37a8e513450c24",
-  "date": "2026-11-22"
+  "hash": "74a4833dead39d78",
+  "date": "2026-11-23"
  },
  "https://savour.page/fr/partager-recettes": {
   "hash": "6176c3798ad5aacf",
@@ -824,8 +824,8 @@
   "date": "2026-11-22"
  },
  "https://savour.page/en/guide-edit-recipes": {
-  "hash": "6b73d3feee4a3ad6",
-  "date": "2026-11-22"
+  "hash": "1f0f52265356c36f",
+  "date": "2026-11-23"
  },
  "https://savour.page/en/guide-organise-and-search": {
   "hash": "89cd57d11b967b34",
@@ -1124,7 +1124,7 @@
   "date": "2026-11-23"
  },
  "https://savour.page/blog/pagina-3": {
-  "hash": "04fd188ddf6689b5",
+  "hash": "281fd0a0c81b12c3",
   "date": "2026-11-23"
  },
  "https://savour.page/en/blog/page-2": {
@@ -1132,7 +1132,7 @@
   "date": "2026-11-23"
  },
  "https://savour.page/en/blog/page-3": {
-  "hash": "b5709153b38831c0",
+  "hash": "6870e68c0ce755d0",
   "date": "2026-11-23"
  },
  "https://savour.page/de/blog/seite-2": {
