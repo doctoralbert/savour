@@ -1308,7 +1308,19 @@ const PHOTOS = {
   blogNieuweKok: ['blog-nieuwe-kok.jpg', '75% 55%'],
   blogKladjes: ['blog-kladjes.jpg', '75% 55%'],
   blogReceptbeheer: ['blog-receptbeheer.jpg', '75% 55%'],
-  blogAppKiezen: ['blog-app-kiezen.jpg', '75% 55%']
+  blogAppKiezen: ['blog-app-kiezen.jpg', '75% 55%'],
+  blogReceptenDelen: ['blog-recepten-delen.jpg', '75% 55%'],
+  blogOpschalen: ['blog-opschalen.jpg', '75% 55%'],
+  blogOrganiseren: ['blog-organiseren.jpg', '75% 55%'],
+  blogZonderWifi: ['blog-zonder-wifi.jpg', '75% 55%'],
+  blogEigenLogo: ['blog-eigen-logo.jpg', '75% 55%'],
+  blogDatabase: ['blog-database.jpg', '75% 55%'],
+  blogLatenOverzetten: ['blog-laten-overzetten.jpg', '75% 55%'],
+  blogMappenIndelen: ['blog-mappen-indelen.jpg', '75% 55%'],
+  blogRoadmap: ['blog-roadmap.jpg', '75% 55%'],
+  blogOrdenenMetAi: ['blog-ordenen-met-ai.jpg', '75% 55%'],
+  blogVergelijken: ['blog-vergelijken.jpg', '75% 55%'],
+  blogStandaardrecepturen: ['blog-standaardrecepturen.jpg', '75% 55%']
 };
 // Eigen foto per blog (Nederlands adres zonder blog/); anders `photo` in de blogdefinitie of de vaste rij.
 const BLOG_PHOTO = {
@@ -1325,7 +1337,19 @@ const BLOG_PHOTO = {
   'nieuwe-kok-inwerken': 'blogNieuweKok',
   'oude-kladjes-digitaliseren': 'blogKladjes',
   'receptbeheer-in-de-horeca': 'blogReceptbeheer',
-  'recepten-app-kiezen-restaurant': 'blogAppKiezen'
+  'recepten-app-kiezen-restaurant': 'blogAppKiezen',
+  'recepten-delen-met-je-team': 'blogReceptenDelen',
+  'recepten-opschalen-zonder-fouten': 'blogOpschalen',
+  'recepten-organiseren-in-de-keuken': 'blogOrganiseren',
+  'recepten-zonder-wifi': 'blogZonderWifi',
+  'receptenboek-met-eigen-logo': 'blogEigenLogo',
+  'receptendatabase-in-de-cloud': 'blogDatabase',
+  'receptenmap-laten-overzetten': 'blogLatenOverzetten',
+  'receptenmappen-indelen-voorbeelden': 'blogMappenIndelen',
+  'roadmap': 'blogRoadmap',
+  'rommelige-receptenmap-ordenen': 'blogOrdenenMetAi',
+  'savour-paprika-meez-galley-vergelijken': 'blogVergelijken',
+  'standaardrecepturen-in-de-keuken': 'blogStandaardrecepturen'
 };
 // Foto per hoofdstuk van de handleiding (id uit tools/handleiding/*.mjs); zonder eigen foto de vaste rij.
 const GUIDE_PHOTO = {
