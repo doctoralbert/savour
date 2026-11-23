@@ -337,3 +337,21 @@ Na elke stap: `npm run format`, de regressietest, `npm run test:foodcost`, verta
 3. Mag de standaard voor het doelpercentage 30% zijn (Lightspeed/CBS-orde), door de kok aan te passen?
 4. Een lijst met gangbare opbrengsten als **voorstel** (de kok klikt hem zelf aan), of helemaal niet?
 5. De gratis calculator op de website: meenemen in deze opdracht (stap 9) of later?
+
+---
+
+## 5. Besluiten van de eigenaar (24-11-2026)
+
+1. **Prijzen zijn van jezelf.** Alleen jij ziet je inkoopprijzen, leveranciers, verkoopprijzen en marges, ook in
+   een keukenteam. Er is dus geen gedeelde prijslijst per team en geen keuze per team (4.3 en
+   `team_cost_settings` vervallen). Een teamrecept reken je uit met je eigen prijzen.
+2. **Alles is Pro.** Gratis gebruikers zien wat de calculator doet en de knop naar Pro.
+3. **Standaard doel 30%** (fine dining netjes; banqueting zit lager, bijv. 24%). De kok past het aan, per gerecht
+   of als standaard.
+4. **Gangbare opbrengsten als hint:** ja, alleen als hint met bron; de kok vult zelf het getal in.
+5. **Gratis calculator op de website:** nog niet gebouwd (uitleg in het eindverslag).
+
+Gevolg voor het datamodel: alle tabellen heten `cost_*` en hebben `user_id`; RLS is overal "alleen jijzelf",
+toevoegen en wijzigen met Pro, lezen en verwijderen altijd (`supabase/2026-11-24-foodcost.sql`). Een prijs hoort bij
+een eigen *kostproduct* (naam + schrijfwijzen), los van de producten voor allergenen, zodat teamgenoten nooit
+iets van je prijzen zien.

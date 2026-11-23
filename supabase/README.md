@@ -39,3 +39,4 @@ printen zonder logo, of het kladje als receptfoto). Pas na het uitvoeren werkt h
 
 Nieuw bestand toevoegen: `JJJJ-MM-DD-korte-naam.sql`, bovenaan in gewone taal waarom, en voeg een regel toe in
 deze tabel.
+| 2026-11-24-foodcost.sql | Foodcost calculator: eigen inkoopprijzen, leveranciers, kostprijs per recept en menu's (alleen jijzelf ziet ze) |

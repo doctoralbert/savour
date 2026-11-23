@@ -8,7 +8,8 @@
     "format": "prettier --write \"js/**/*.js\" \"css/*.css\" \"api/**/*.js\" local-server.mjs tests/*.js",
     "test:schaal": "node tests/schaal.test.mjs && node tests/allergenen-bloem.test.mjs",
     "test:mep": "node tests/mep-lezer.test.mjs",
-    "indexnow": "node tools/indexnow.mjs"
+    "indexnow": "node tools/indexnow.mjs",
+    "test:foodcost": "node tests/foodcost.test.mjs"
   },
   "devDependencies": {
     "prettier": "3.3.3"
