@@ -65,7 +65,7 @@ export const RECIPE_SHEET_POST = {
             ]
           ]
         },
-        { shot: '/assets/blog/receptuurblad-voorbeeld/print-web-mobiel-nl.jpg', alt: "Hetzelfde recept als print, op de website in kookmodus en op de telefoon", caption: "Eén recept, drie manieren: de print voor de klapper, de website in kookmodus met links de ingrediënten en rechts de bereiding in grote letters, en de telefoon aan de pass. Deel het met een link, ook met een collega zonder account, of in je keukenteam: dan ziet iedereen altijd de laatste versie.", wide: true }
+        { shot: '/assets/blog/receptuurblad-voorbeeld/print-web-mobiel-nl.jpg', alt: "Hetzelfde recept als print, op de website in kookmodus en op de telefoon", caption: "Eén recept, drie manieren: de print voor de klapper, de website in kookmodus met links de ingrediënten en rechts de bereiding in grote letters, en de telefoon aan de pass. Deel het met een link, ook met een collega zonder account, of in je keukenteam: dan ziet iedereen altijd de laatste versie. Klik om te vergroten.", wide: true, zoom: true }
       ],
       [
         'Hoeveelheden die iedereen hetzelfde leest',
@@ -150,7 +150,7 @@ export const RECIPE_SHEET_POST = {
             ]
           ]
         },
-        { shot: '/assets/blog/receptuurblad-voorbeeld/print-web-mobiel-en.jpg', alt: "The same recipe as a print, on the website in cook mode and on a phone", caption: "One recipe, three ways: the print for the folder, the website in cook mode with the ingredients on the left and the method on the right in large type, and the phone at the pass. Share it with a link, even with a colleague without an account, or in your kitchen team: then everyone always sees the latest version.", wide: true }
+        { shot: '/assets/blog/receptuurblad-voorbeeld/print-web-mobiel-en.jpg', alt: "The same recipe as a print, on the website in cook mode and on a phone", caption: "One recipe, three ways: the print for the folder, the website in cook mode with the ingredients on the left and the method on the right in large type, and the phone at the pass. Share it with a link, even with a colleague without an account, or in your kitchen team: then everyone always sees the latest version. Click to enlarge.", wide: true, zoom: true }
       ],
       [
         'Quantities everyone reads the same way',
@@ -238,7 +238,7 @@ export const RECIPE_SHEET_POST_DE = {
             ]
           ]
         },
-        { shot: '/assets/blog/receptuurblad-voorbeeld/print-web-mobiel-de.jpg', alt: "Dieselbe Rezeptur als Ausdruck, auf der Website im Kochmodus und auf dem Handy", caption: "Eine Rezeptur, drei Wege: der Ausdruck für den Ordner, die Website im Kochmodus mit links den Zutaten und rechts der Zubereitung in großer Schrift, und das Handy am Pass. Teile sie per Link, auch mit Kollegen ohne Konto, oder im Küchenteam: Dann sieht jeder immer die neueste Version.", wide: true }
+        { shot: '/assets/blog/receptuurblad-voorbeeld/print-web-mobiel-de.jpg', alt: "Dieselbe Rezeptur als Ausdruck, auf der Website im Kochmodus und auf dem Handy", caption: "Eine Rezeptur, drei Wege: der Ausdruck für den Ordner, die Website im Kochmodus mit links den Zutaten und rechts der Zubereitung in großer Schrift, und das Handy am Pass. Teile sie per Link, auch mit Kollegen ohne Konto, oder im Küchenteam: Dann sieht jeder immer die neueste Version. Zum Vergrößern klicken.", wide: true, zoom: true }
       ],
       [
         'Mengen, die jeder gleich liest',
@@ -326,7 +326,7 @@ export const RECIPE_SHEET_POST_ES = {
             ]
           ]
         },
-        { shot: '/assets/blog/receptuurblad-voorbeeld/print-web-mobiel-es.jpg', alt: "La misma receta impresa, en la web en modo cocina y en el móvil", caption: "Una receta, tres formas: la copia impresa para el archivador, la web en modo cocina con los ingredientes a la izquierda y la elaboración a la derecha en letra grande, y el móvil en el pase. Compártela con un enlace, también con un compañero sin cuenta, o en tu equipo de cocina: así todos ven siempre la última versión.", wide: true }
+        { shot: '/assets/blog/receptuurblad-voorbeeld/print-web-mobiel-es.jpg', alt: "La misma receta impresa, en la web en modo cocina y en el móvil", caption: "Una receta, tres formas: la copia impresa para el archivador, la web en modo cocina con los ingredientes a la izquierda y la elaboración a la derecha en letra grande, y el móvil en el pase. Compártela con un enlace, también con un compañero sin cuenta, o en tu equipo de cocina: así todos ven siempre la última versión. Haz clic para ampliar.", wide: true, zoom: true }
       ],
       [
         'Cantidades que todos leen igual',
@@ -414,7 +414,7 @@ export const RECIPE_SHEET_POST_FR = {
             ]
           ]
         },
-        { shot: '/assets/blog/receptuurblad-voorbeeld/print-web-mobiel-fr.jpg', alt: "La même recette imprimée, sur le site en mode cuisine et sur le téléphone", caption: "Une recette, trois façons : la fiche imprimée pour le classeur, le site en mode cuisine avec les ingrédients à gauche et la préparation à droite en grands caractères, et le téléphone au passe. Partage-la par un lien, même avec un collègue sans compte, ou dans ton équipe de cuisine : tout le monde voit toujours la dernière version.", wide: true }
+        { shot: '/assets/blog/receptuurblad-voorbeeld/print-web-mobiel-fr.jpg', alt: "La même recette imprimée, sur le site en mode cuisine et sur le téléphone", caption: "Une recette, trois façons : la fiche imprimée pour le classeur, le site en mode cuisine avec les ingrédients à gauche et la préparation à droite en grands caractères, et le téléphone au passe. Partage-la par un lien, même avec un collègue sans compte, ou dans ton équipe de cuisine : tout le monde voit toujours la dernière version. Clique pour agrandir.", wide: true, zoom: true }
       ],
       [
         'Des quantités que tout le monde lit pareil',

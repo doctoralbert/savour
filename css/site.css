@@ -4595,3 +4595,27 @@ body.mobile-menu-open .sv-scroll-top {
     overflow-wrap: break-word;
   }
 }
+
+/* ---- Blogartikelen (2026-11-23): dezelfde kadering als de startpagina (1120 breed, zelfde linkerrand). Beelden,
+   tabellen en blokken gebruiken de hele breedte; lopende tekst blijft rond de 85 tekens per regel, zoals hierboven. ---- */
+.post-body > p,
+.post-body > h2,
+.post-body > ul,
+.post-body > ol,
+.site-page-head .site-wrap:not(.site-narrow) .site-lead {
+  max-width: 760px;
+}
+@media (min-width: 1200px) {
+  .post-body > p,
+  .post-body > h2,
+  .post-body > ul,
+  .post-body > ol,
+  .site-page-head .site-wrap:not(.site-narrow) .site-lead {
+    max-width: 900px;
+  }
+}
+/* Beeld dat je groot kunt openen (bijv. drie versies van een recept naast elkaar). */
+.post-zoom {
+  display: block;
+  cursor: zoom-in;
+}

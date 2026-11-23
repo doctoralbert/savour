@@ -1518,12 +1518,12 @@ const assetV = src => {
 // Het keurmerk zit in elke eigen foto (tools/keurmerk.mjs). Waar de site een foto bijsnijdt (bovenaan een pagina en
 // de duo's), valt de hoek weg; daar staat hetzelfde keurmerkje als laag op de foto.
 const PHOTO_MARK = '<span class="photo-mark" aria-hidden="true" translate="no">SAVOUR</span>';
-const pageTop = (crumbHtml, h1, lead, photo) => {
+const pageTop = (crumbHtml, h1, lead, photo, wide = false) => {
   const p = photo && PHOTOS[photo];
   const style = p
     ? ` style="--page-photo:url('${photoFile(photo)}');--page-photo-pos:${p[1]}${p[2] ? `;--page-photo-size:${p[2]};--page-photo-pos-wide:${p[3]}` : ''}"`
     : '';
-  return `<section class="site-page-head${p ? ' has-photo' : ''}"${style}><div class="site-wrap site-narrow">${crumbHtml}<h1>${esc(h1)}</h1>${lead ? `<p class="site-lead">${esc(lead)}</p>` : ''}</div>${p ? PHOTO_MARK : ''}</section>`;
+  return `<section class="site-page-head${p ? ' has-photo' : ''}"${style}><div class="site-wrap${wide ? '' : ' site-narrow'}">${crumbHtml}<h1>${esc(h1)}</h1>${lead ? `<p class="site-lead">${esc(lead)}</p>` : ''}</div>${p ? PHOTO_MARK : ''}</section>`;
 };
 // Twee staande foto's naast elkaar midden in de tekst (Voor wie-pagina's).
 const photoDuo = (lang, a, b) =>
@@ -1549,7 +1549,7 @@ const postBlock = x => {
       return `<aside class="post-box${kind === 'warn' ? ' note' : ''}"><svg viewBox="0 0 24 24" aria-hidden="true">${BOX_ICON[kind]}</svg><div><b>${esc(x[kind][0])}</b><p>${proseText(x[kind][1])}</p></div></aside>`;
   if (x.quote) return `<p class="post-quote reveal">${esc(x.quote)}</p>`;
   if (x.shot)
-    return `<figure class="post-shot${x.wide ? ' wide' : ''} reveal"><img src="${assetV(x.shot)}" alt="${esc(x.alt)}" loading="lazy"><figcaption>${esc(x.caption)}</figcaption></figure>`;
+    return `<figure class="post-shot${x.wide ? ' wide' : ''} reveal">${x.zoom ? `<a href="${assetV(x.shot)}" target="_blank" rel="noopener" class="post-zoom">` : ''}<img src="${assetV(x.shot)}" alt="${esc(x.alt)}" loading="lazy">${x.zoom ? '</a>' : ''}<figcaption>${esc(x.caption)}</figcaption></figure>`;
   // Twee beelden naast elkaar: { duo: [[pad, alt], [pad, alt]], caption }
   if (x.duo)
     return `<figure class="post-duo reveal"><div>${x.duo.map(([src, alt]) => `<img src="${assetV(src)}" alt="${esc(alt)}" loading="lazy">`).join('')}</div><figcaption>${esc(x.caption)}</figcaption></figure>`;
@@ -1802,8 +1802,8 @@ for (const lang of LANGS) {
         }
       ],
       body: c =>
-        pageTop(c, t.h1, t.lead, blogPhoto(p, n)) +
-        `<article class="site-article"><div class="site-wrap site-narrow site-prose"><p class="site-meta">${date} · ${BY_AUTHOR[lang]} ${BLOG_AUTHOR}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>${postPages(p, lang)}`
+        pageTop(c, t.h1, t.lead, blogPhoto(p, n), true) +
+        `<article class="site-article"><div class="site-wrap site-prose post-body"><p class="site-meta">${date} · ${BY_AUTHOR[lang]} ${BLOG_AUTHOR}${p.rich ? ` · ${readMinutes(t)} ${READ_TIME[lang]}` : ''}</p>${t.brief ? `<section class="post-brief"><h2>${esc(BRIEF[lang])}</h2><ul>${t.brief.map(b => `<li>${proseText(b)}</li>`).join('')}</ul></section>` : ''}${sectionsHtml(t.sections)}<p><em>${esc(t.outro)}</em></p>${p.rich ? moreReading(n, lang) : ''}</div></article>${postPages(p, lang)}`
     });
   }
   // Ingrediëntenlijst met allergenen (tools/site-blog-allergenen.mjs); js/site.js laadt en doorzoekt de lijst.
