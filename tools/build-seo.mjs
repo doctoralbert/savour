@@ -1590,6 +1590,9 @@ const postBlock = x => {
   // Vragen en antwoorden: { faq: [[vraag, antwoord], ...] }
   if (x.faq)
     return `<div class="site-faq post-faq">${x.faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${proseText(a)}</p></details>`).join('')}</div>`;
+  // Gratis foodcost calculator (js/foodcost-calc.js, geladen door js/site.js): { calculator: 'foodcost', noscript: tekst }
+  if (x.calculator)
+    return `<div class="fc-calc" data-calc="${esc(x.calculator)}"><noscript><p>${esc(x.noscript || '')}</p></noscript></div>`;
   // Verwijzing naar een pagina of artikel: { see: [kop, pad, tekst] }
   if (x.see)
     return `<a class="post-see" href="${x.see[1]}"><b>${esc(x.see[0])}</b><span>${esc(x.see[2])}</span><i aria-hidden="true">→</i></a>`;

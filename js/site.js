@@ -955,7 +955,21 @@
     });
   }
 
+  // Gratis foodcost calculator (blog): het script alleen laden op een pagina met de calculator, met dezelfde versie
+  // als dit bestand (?v=...), zodat de browser altijd de juiste haalt.
+  function setupFoodcostCalc() {
+    if (!document.querySelector('.fc-calc') || window.__svFcLoaded) return;
+    window.__svFcLoaded = true;
+    var me = document.querySelector('script[src*="/js/site.js"]');
+    var v = me && (me.getAttribute('src').match(/\?v=[^"&]*/) || [''])[0];
+    var s = document.createElement('script');
+    s.src = '/js/foodcost-calc.js' + (v || '');
+    s.defer = true;
+    document.head.appendChild(s);
+  }
+
   if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupFoodcostCalc);
     document.addEventListener('DOMContentLoaded', setupLightbox);
     document.addEventListener('DOMContentLoaded', setupScrollTop);
     document.addEventListener('DOMContentLoaded', setup);
@@ -963,6 +977,7 @@
     document.addEventListener('DOMContentLoaded', setupFigures);
     document.addEventListener('DOMContentLoaded', setupIngredientList);
   } else {
+    setupFoodcostCalc();
     setupLightbox();
     setupScrollTop();
     setup();

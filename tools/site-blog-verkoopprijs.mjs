@@ -1,11 +1,12 @@
-// Blog: verkoopprijs van een gerecht berekenen, van bordkost naar menuprijs (gepland voor 2026-11-24), in vijf talen.
+// Blog: gratis foodcost calculator (gepland voor 2026-11-24), in vijf talen, met de calculator uit js/foodcost-calc.js
+// bovenaan. Eerst gepland als "Verkoopprijs berekenen"; op verzoek van de eigenaar een gratis calculator geworden.
 // Aanvulling op "Foodcost berekenen" (formules en opbrengst staan daar): dit artikel gaat over prijzen, marge in euro's
 // en wanneer je opnieuw rekent. Geïnspireerd door de onderwerpen van de foodcost-calculator van Apicbase, in eigen
 // woorden en eigen voorbeelden; geen cijfers van hen overgenomen. Alle bedragen zijn rekenvoorbeelden, geen gemiddelden.
 // Btw alleen voor Nederland (9% op eten); in de andere talen "de btw van je land" (niet nagekeken per land).
 // Savour heeft de foodcost calculator nog niet: alleen verwijzen naar het artikel "binnenkort".
 
-const KEY = 'en/blog/menu-price-from-plate-cost';
+const KEY = 'en/blog/free-food-cost-calculator';
 
 // Rekenvoorbeeld (zonder btw): A bordkost 6,40, doel 30% → 21,33, gekozen 21,50 → 29,8%, marge 15,10.
 // B bordkost 2,10, prijs 14,50 → 14,5%, marge 12,40.
@@ -16,17 +17,15 @@ export const PRICE_POST = {
   photo: 'blogVerkoopprijs',
   rich: true,
   nl: {
-    slug: 'blog/verkoopprijs-berekenen-horeca',
-    title: 'Verkoopprijs berekenen in de horeca: van bordkost naar menuprijs',
-    desc: 'Zo bereken je de verkoopprijs van een gerecht: vanuit de bordkost en je doel-foodcost, met btw, afronden en de marge in euro’s. Met rekenvoorbeeld en de vragen die koks het vaakst stellen.',
-    h1: 'Verkoopprijs berekenen: van bordkost naar menuprijs',
-    lead: 'Een goede kaartprijs is geen gevoel. Hij volgt uit wat het bord kost en wat je eraan wilt overhouden. Zo reken je hem uit, en daarom kijk je naar euro’s en niet alleen naar procenten.',
-    brief: [
-      'Verkoopprijs zonder btw = bordkost ÷ je doel-foodcost. Bij € 6,40 bordkost en 30% is dat € 21,33.',
-      'Daarna komt de btw erbij en rond je af naar een prijs die bij je kaart past; reken het percentage dan opnieuw na.',
-      'Stuur ook op de marge in euro’s: een duurder bord met een hoger percentage kan meer opleveren dan een goedkoop bord.'
-    ],
+    slug: 'blog/gratis-foodcost-calculator',
+    title: "Gratis foodcost calculator: kostprijs en verkoopprijs per gerecht",
+    desc: "Gratis foodcost calculator voor de horeca: reken de kostprijs per portie uit met opbrengst, kies je doel-foodcost en zie direct de adviesprijs, je foodcost en de marge per bord. Zonder account.",
+    h1: "Gratis foodcost calculator: kostprijs, foodcost en verkoopprijs",
+    lead: "Vul je ingrediënten in en zie meteen wat een portie kost, welke prijs bij je doel past en wat je per bord overhoudt. Gratis en zonder account. Daaronder lees je hoe je de uitkomst gebruikt.",
+    brief: ["De calculator rekent met de opbrengst: wat je wegsnijdt, betaal je ook.","Kies je doel-foodcost en zie de adviesprijs zonder en met btw.","Vul je eigen kaartprijs in en zie je foodcost en de marge per bord in euro’s."],
     sections: [
+      ["De calculator", "Begin met een gerecht en het aantal porties. Weet je niet waar je moet beginnen? Kies Voorbeeld laden.", { calculator: 'foodcost', noscript: "Zet JavaScript aan om de calculator te gebruiken." }],
+      ["Zo gebruik je hem", "In vier stappen van inkoopprijs naar kaartprijs.", { steps: [["Ingrediënten","Per ingrediënt de hoeveelheid per recept, de inkoopprijs en waar die prijs voor geldt (per kilo, liter of stuk)."],["Opbrengst","Het deel dat overblijft na schoonmaken of uitbenen. Haal je 850 gram uit een kilo, vul dan 85 in."],["Porties","Voor hoeveel porties het recept is. De calculator deelt de kosten daardoor."],["Doel en prijs","Schuif je doel-foodcost en lees de adviesprijs af, of vul je eigen kaartprijs in voor je foodcost en marge."]] }],
       [
         'Eerst de bordkost',
         'Alles begint bij wat één portie kost: elk ingrediënt met zijn hoeveelheid, de inkoopprijs en de opbrengst na schoonmaken, opgeteld. Hoe je dat precies uitrekent, met een volledig voorbeeld, staat in [Foodcost berekenen](/blog/foodcost-berekenen). Hier gaan we verder waar dat artikel ophoudt: wat vraag je voor dat bord?'
@@ -80,7 +79,7 @@ export const PRICE_POST = {
       ],
       [
         'Zo helpt Savour',
-        'Een goede prijs begint bij een recept dat klopt: vaste hoeveelheden, een vaste opbrengst en de juiste portie. Dat is wat Savour vandaag doet, met [standaardrecepturen](/blog/standaardrecepturen-in-de-keuken) die je omrekent naar elke hoeveelheid. Een foodcost calculator die de kostprijs en de verkoopprijs vanuit je eigen recepten uitrekent, komt eraan: [lees wat er komt](/blog/foodcost-calculator).'
+        'Een goede prijs begint bij een recept dat klopt: vaste hoeveelheden, een vaste opbrengst en de juiste portie. Dat is wat Savour vandaag doet, met [standaardrecepturen](/blog/standaardrecepturen-in-de-keuken) die je omrekent naar elke hoeveelheid. Deze gratis calculator rekent één gerecht tegelijk. In Savour komt een uitgebreide foodcost calculator die rekent vanuit je eigen recepten, met de prijslijst van je leverancier en je eigen korting, door basisrecepten heen: [lees wat er komt](/blog/foodcost-calculator).'
       ],
       [
         'Veelgestelde vragen',
@@ -99,16 +98,14 @@ export const PRICE_POST = {
   },
   en: {
     slug: KEY,
-    title: 'How to price a dish: from plate cost to menu price',
-    desc: 'How to calculate the selling price of a dish: from plate cost and your target food cost, with tax, rounding and the margin in money. With a worked example and the questions chefs ask most.',
-    h1: 'How to price a dish: from plate cost to menu price',
-    lead: 'A good menu price is not a feeling. It follows from what the plate costs and what you want to keep. This is how to work it out, and why you look at money and not only at percentages.',
-    brief: [
-      'Selling price before tax = plate cost ÷ your target food cost. At €6.40 plate cost and 30%, that is €21.33.',
-      'Then add the sales tax of your country and round to a price that fits your menu; check the percentage again afterwards.',
-      'Watch the margin in money too: a pricier plate with a higher percentage can earn more than a cheap one.'
-    ],
+    title: "Free food cost calculator: plate cost and menu price per dish",
+    desc: "Free food cost calculator for restaurants: work out the cost per portion with yield, choose your target food cost and see the suggested price, your food cost and the margin per plate. No account needed.",
+    h1: "Free food cost calculator: plate cost, food cost and menu price",
+    lead: "Enter your ingredients and see right away what a portion costs, which price fits your target and what you keep per plate. Free, no account. Below you read how to use the result.",
+    brief: ["The calculator works with yield: what you trim, you pay for too.","Choose your target food cost and see the suggested price before and with tax.","Enter your own menu price and see your food cost and the margin per plate in money."],
     sections: [
+      ["The calculator", "Start with a dish and the number of portions. Not sure where to start? Choose Load example.", { calculator: 'foodcost', noscript: "Turn on JavaScript to use the calculator." }],
+      ["How to use it", "From purchase price to menu price in four steps.", { steps: [["Ingredients","Per ingredient the quantity in the recipe, the purchase price and what that price is for (per kilo, litre or piece)."],["Yield","The share left after trimming or boning. If you get 850 grams from a kilo, enter 85."],["Portions","How many portions the recipe makes. The calculator divides the cost by it."],["Target and price","Slide your target food cost and read the suggested price, or enter your own menu price for your food cost and margin."]] }],
       [
         'Start with the plate cost',
         'It all starts with what one portion costs: every ingredient with its quantity, the purchase price and the yield after trimming, added up. How to work that out, with a full example, is in [How to calculate food cost](/en/blog/how-to-calculate-food-cost). Here we carry on where that article stops: what do you charge for that plate?'
@@ -162,7 +159,7 @@ export const PRICE_POST = {
       ],
       [
         'How Savour helps',
-        'A good price starts with a recipe that is right: fixed quantities, a fixed yield and the right portion. That is what Savour does today, with [standardised recipes](/en/blog/standardised-recipes) you scale to any quantity. A food cost calculator that works out cost and selling price from your own recipes is on its way: [read what is coming](/en/blog/food-cost-calculator).'
+        'A good price starts with a recipe that is right: fixed quantities, a fixed yield and the right portion. That is what Savour does today, with [standardised recipes](/en/blog/standardised-recipes) you scale to any quantity. This free calculator works out one dish at a time. Savour is getting a full food cost calculator that works from your own recipes, with your supplier’s price list and your own discount, through base recipes: [read what is coming](/en/blog/food-cost-calculator).'
       ],
       [
         'Frequently asked questions',
@@ -183,17 +180,15 @@ export const PRICE_POST = {
 
 export const PRICE_POST_DE = {
   [KEY]: {
-    slug: 'de/blog/verkaufspreis-berechnen-gastronomie',
-    title: 'Verkaufspreis berechnen in der Gastronomie: vom Wareneinsatz zum Kartenpreis',
-    desc: 'So berechnest du den Verkaufspreis eines Gerichts: aus dem Wareneinsatz pro Teller und deinem Ziel-Wareneinsatz, mit Mehrwertsteuer, Runden und dem Rohertrag in Euro. Mit Rechenbeispiel und häufigen Fragen.',
-    h1: 'Verkaufspreis berechnen: vom Wareneinsatz zum Kartenpreis',
-    lead: 'Ein guter Kartenpreis ist kein Bauchgefühl. Er ergibt sich aus dem, was der Teller kostet, und dem, was übrig bleiben soll. So rechnest du ihn aus, und darum schaust du auf Euro und nicht nur auf Prozente.',
-    brief: [
-      'Verkaufspreis netto = Wareneinsatz pro Teller ÷ Ziel-Wareneinsatz. Bei 6,40 € und 30 % sind das 21,33 €.',
-      'Dann kommt die Mehrwertsteuer deines Landes dazu und du rundest auf einen Preis, der zu deiner Karte passt; prüfe danach den Prozentsatz.',
-      'Achte auch auf den Rohertrag in Euro: Ein teurer Teller mit höherem Prozentsatz kann mehr bringen als ein günstiger.'
-    ],
+    slug: 'de/blog/wareneinsatz-rechner-kostenlos',
+    title: "Kostenloser Wareneinsatz-Rechner: Kosten und Verkaufspreis pro Gericht",
+    desc: "Kostenloser Wareneinsatz-Rechner für die Gastronomie: Kosten pro Portion mit Ausbeute berechnen, Ziel-Wareneinsatz wählen und sofort Preisvorschlag, Wareneinsatz und Rohertrag pro Teller sehen. Ohne Konto.",
+    h1: "Kostenloser Wareneinsatz-Rechner: Kosten, Wareneinsatz und Verkaufspreis",
+    lead: "Trag deine Zutaten ein und sieh sofort, was eine Portion kostet, welcher Preis zu deinem Ziel passt und was pro Teller übrig bleibt. Kostenlos und ohne Konto. Darunter liest du, wie du das Ergebnis nutzt.",
+    brief: ["Der Rechner rechnet mit der Ausbeute: Was du wegschneidest, bezahlst du auch.","Wähle deinen Ziel-Wareneinsatz und sieh den Preisvorschlag netto und brutto.","Trag deinen eigenen Kartenpreis ein und sieh deinen Wareneinsatz und den Rohertrag pro Teller in Euro."],
     sections: [
+      ["Der Rechner", "Beginne mit einem Gericht und der Zahl der Portionen. Unsicher, wo du anfangen sollst? Wähle Beispiel laden.", { calculator: 'foodcost', noscript: "Aktiviere JavaScript, um den Rechner zu nutzen." }],
+      ["So nutzt du ihn", "In vier Schritten vom Einkaufspreis zum Kartenpreis.", { steps: [["Zutaten","Pro Zutat die Menge in der Rezeptur, den Einkaufspreis und wofür dieser Preis gilt (pro Kilo, Liter oder Stück)."],["Ausbeute","Der Teil, der nach dem Putzen oder Auslösen übrig bleibt. Bekommst du 850 Gramm aus einem Kilo, trag 85 ein."],["Portionen","Für wie viele Portionen die Rezeptur ist. Der Rechner teilt die Kosten dadurch."],["Ziel und Preis","Schiebe deinen Ziel-Wareneinsatz und lies den Preisvorschlag ab, oder trag deinen eigenen Kartenpreis für Wareneinsatz und Rohertrag ein."]] }],
       [
         'Zuerst der Wareneinsatz pro Teller',
         'Alles beginnt mit dem, was eine Portion kostet: jede Zutat mit Menge, Einkaufspreis und Ausbeute nach dem Putzen, zusammengezählt. Wie du das genau berechnest, mit einem vollständigen Beispiel, steht in [Wareneinsatz berechnen](/de/blog/wareneinsatz-berechnen). Hier geht es dort weiter, wo dieser Artikel aufhört: Was verlangst du für den Teller?'
@@ -247,7 +242,7 @@ export const PRICE_POST_DE = {
       ],
       [
         'So hilft Savour',
-        'Ein guter Preis beginnt mit einer Rezeptur, die stimmt: feste Mengen, feste Ausbeute und die richtige Portion. Das macht Savour heute, mit [Standardrezepturen](/de/blog/standardrezepturen-gastronomie), die du auf jede Menge hochrechnest, und der [Rezepturverwaltung](/de/rezepturverwaltung). Ein Wareneinsatz-Rechner, der Kosten und Verkaufspreis aus deinen eigenen Rezepturen berechnet, ist in Arbeit: [lies, was kommt](/de/blog/wareneinsatz-rechner).'
+        'Ein guter Preis beginnt mit einer Rezeptur, die stimmt: feste Mengen, feste Ausbeute und die richtige Portion. Das macht Savour heute, mit [Standardrezepturen](/de/blog/standardrezepturen-gastronomie), die du auf jede Menge hochrechnest, und der [Rezepturverwaltung](/de/rezepturverwaltung). Dieser kostenlose Rechner rechnet ein Gericht nach dem anderen. In Savour kommt ein umfassender Wareneinsatz-Rechner, der aus deinen eigenen Rezepturen rechnet, mit der Preisliste deines Lieferanten und deinem eigenen Rabatt, auch über Grundrezepte: [lies, was kommt](/de/blog/wareneinsatz-rechner).'
       ],
       [
         'Häufige Fragen',
@@ -268,17 +263,15 @@ export const PRICE_POST_DE = {
 
 export const PRICE_POST_ES = {
   [KEY]: {
-    slug: 'es/blog/calcular-precio-de-venta-plato',
-    title: 'Cómo calcular el precio de venta de un plato: del coste al precio de carta',
-    desc: 'Cómo calcular el precio de venta de un plato: a partir del coste por ración y tu food cost objetivo, con IVA, redondeo y el margen en euros. Con ejemplo y las preguntas más frecuentes de los cocineros.',
-    h1: 'Precio de venta de un plato: del coste por ración al precio de carta',
-    lead: 'Un buen precio de carta no es una intuición. Sale de lo que cuesta el plato y de lo que quieres que quede. Así se calcula, y por eso miras los euros y no solo los porcentajes.',
-    brief: [
-      'Precio de venta sin IVA = coste por ración ÷ tu food cost objetivo. Con 6,40 € y un 30 %, son 21,33 €.',
-      'Después se suma el IVA de tu país y redondeas a un precio que encaje en tu carta; vuelve a comprobar el porcentaje.',
-      'Mira también el margen en euros: un plato más caro con un porcentaje más alto puede dejar más que uno barato.'
-    ],
+    slug: 'es/blog/calculadora-food-cost-gratis',
+    title: "Calculadora de food cost gratis: coste y precio de venta por plato",
+    desc: "Calculadora de food cost gratis para hostelería: calcula el coste por ración con rendimiento, elige tu food cost objetivo y ve al instante el precio sugerido, tu food cost y el margen por plato. Sin cuenta.",
+    h1: "Calculadora de food cost gratis: coste, food cost y precio de venta",
+    lead: "Introduce tus ingredientes y ve al momento lo que cuesta una ración, qué precio encaja con tu objetivo y cuánto te queda por plato. Gratis y sin cuenta. Debajo lees cómo usar el resultado.",
+    brief: ["La calculadora tiene en cuenta el rendimiento: lo que recortas, también lo pagas.","Elige tu food cost objetivo y ve el precio sugerido sin y con IVA.","Introduce tu propio precio de carta y ve tu food cost y el margen por plato en euros."],
     sections: [
+      ["La calculadora", "Empieza con un plato y el número de raciones. ¿No sabes por dónde empezar? Elige Cargar ejemplo.", { calculator: 'foodcost', noscript: "Activa JavaScript para usar la calculadora." }],
+      ["Cómo se usa", "Del precio de compra al precio de carta en cuatro pasos.", { steps: [["Ingredientes","Por ingrediente, la cantidad en la receta, el precio de compra y a qué se refiere ese precio (por kilo, litro o unidad)."],["Rendimiento","La parte que queda después de limpiar o deshuesar. Si sacas 850 gramos de un kilo, introduce 85."],["Raciones","Cuántas raciones da la receta. La calculadora divide el coste entre ellas."],["Objetivo y precio","Mueve tu food cost objetivo y lee el precio sugerido, o introduce tu propio precio de carta para ver tu food cost y margen."]] }],
       [
         'Primero el coste por ración',
         'Todo empieza por lo que cuesta una ración: cada ingrediente con su cantidad, su precio de compra y el rendimiento después de limpiar, sumados. Cómo se calcula, con un ejemplo completo, está en [Cómo calcular el food cost](/es/blog/como-calcular-food-cost). Aquí seguimos donde termina ese artículo: ¿cuánto cobras por ese plato?'
@@ -332,7 +325,7 @@ export const PRICE_POST_ES = {
       ],
       [
         'Cómo ayuda Savour',
-        'Un buen precio empieza con una receta correcta: cantidades fijas, un rendimiento fijo y la ración adecuada. Eso es lo que hace Savour hoy, con [fichas técnicas](/es/blog/fichas-tecnicas-de-cocina) que escalas a cualquier cantidad. Una calculadora de food cost que calcule el coste y el precio de venta a partir de tus propias recetas está en camino: [lee lo que viene](/es/blog/calculadora-food-cost).'
+        'Un buen precio empieza con una receta correcta: cantidades fijas, un rendimiento fijo y la ración adecuada. Eso es lo que hace Savour hoy, con [fichas técnicas](/es/blog/fichas-tecnicas-de-cocina) que escalas a cualquier cantidad. Esta calculadora gratuita calcula un plato cada vez. Savour tendrá una calculadora de food cost completa que calcula a partir de tus propias recetas, con la lista de precios de tu proveedor y tu propio descuento, también a través de las elaboraciones base: [lee lo que viene](/es/blog/calculadora-food-cost).'
       ],
       [
         'Preguntas frecuentes',
@@ -353,17 +346,15 @@ export const PRICE_POST_ES = {
 
 export const PRICE_POST_FR = {
   [KEY]: {
-    slug: 'fr/blog/calculer-prix-de-vente-plat',
-    title: 'Calculer le prix de vente d’un plat : du coût matière au prix carte',
-    desc: 'Comment calculer le prix de vente d’un plat : à partir du coût matière par assiette et de ton food cost cible, avec la TVA, l’arrondi et la marge en euros. Avec un exemple chiffré et les questions fréquentes.',
-    h1: 'Prix de vente d’un plat : du coût matière au prix carte',
-    lead: 'Un bon prix carte n’est pas une impression. Il découle de ce que coûte l’assiette et de ce que tu veux garder. Voici comment le calculer, et pourquoi tu regardes les euros et pas seulement les pourcentages.',
-    brief: [
-      'Prix de vente HT = coût matière par assiette ÷ ton food cost cible. Avec 6,40 € et 30 %, cela fait 21,33 €.',
-      'Ensuite, ajoute la TVA de ton pays et arrondis à un prix qui va avec ta carte ; vérifie ensuite le pourcentage.',
-      'Regarde aussi la marge en euros : une assiette plus chère avec un pourcentage plus élevé peut rapporter plus qu’une assiette bon marché.'
-    ],
+    slug: 'fr/blog/calculateur-food-cost-gratuit',
+    title: "Calculateur de food cost gratuit : coût et prix de vente par plat",
+    desc: "Calculateur de food cost gratuit pour la restauration : calcule le coût matière par portion avec le rendement, choisis ton food cost cible et vois aussitôt le prix conseillé, ton food cost et la marge par assiette. Sans compte.",
+    h1: "Calculateur de food cost gratuit : coût matière, food cost et prix de vente",
+    lead: "Saisis tes ingrédients et vois aussitôt ce que coûte une portion, quel prix correspond à ton objectif et ce qu’il te reste par assiette. Gratuit et sans compte. En dessous, tu lis comment utiliser le résultat.",
+    brief: ["Le calculateur tient compte du rendement : ce que tu pares, tu le paies aussi.","Choisis ton food cost cible et vois le prix conseillé HT et TTC.","Saisis ton propre prix carte et vois ton food cost et la marge par assiette en euros."],
     sections: [
+      ["Le calculateur", "Commence par un plat et le nombre de portions. Tu ne sais pas par où commencer ? Choisis Charger l’exemple.", { calculator: 'foodcost', noscript: "Active JavaScript pour utiliser le calculateur." }],
+      ["Comment l’utiliser", "Du prix d’achat au prix carte en quatre étapes.", { steps: [["Ingrédients","Pour chaque ingrédient, la quantité dans la recette, le prix d’achat et l’unité de ce prix (au kilo, au litre ou à la pièce)."],["Rendement","La part qui reste après parage ou désossage. Si tu obtiens 850 grammes d’un kilo, saisis 85."],["Portions","Le nombre de portions de la recette. Le calculateur divise le coût par ce nombre."],["Objectif et prix","Fais glisser ton food cost cible et lis le prix conseillé, ou saisis ton propre prix carte pour ton food cost et ta marge."]] }],
       [
         'D’abord le coût matière',
         'Tout commence par ce que coûte une portion : chaque ingrédient avec sa quantité, son prix d’achat et le rendement après parage, additionnés. Comment le calculer, avec un exemple complet : [Calculer le food cost](/fr/blog/calculer-food-cost). Ici, on reprend là où cet article s’arrête : combien demandes-tu pour cette assiette ?'
@@ -417,7 +408,7 @@ export const PRICE_POST_FR = {
       ],
       [
         'Comment Savour aide',
-        'Un bon prix commence par une recette juste : des quantités fixes, un rendement fixe et la bonne portion. C’est ce que fait Savour aujourd’hui, avec des [fiches techniques](/fr/blog/fiches-techniques-cuisine) que tu adaptes à toute quantité. Un calculateur de food cost qui calcule le coût et le prix de vente à partir de tes propres recettes est en préparation : [découvre ce qui arrive](/fr/blog/calculateur-food-cost).'
+        'Un bon prix commence par une recette juste : des quantités fixes, un rendement fixe et la bonne portion. C’est ce que fait Savour aujourd’hui, avec des [fiches techniques](/fr/blog/fiches-techniques-cuisine) que tu adaptes à toute quantité. Ce calculateur gratuit calcule un plat à la fois. Savour aura un calculateur de food cost complet qui part de tes propres recettes, avec la liste de prix de ton fournisseur et ta propre remise, y compris les préparations de base : [découvre ce qui arrive](/fr/blog/calculateur-food-cost).'
       ],
       [
         'Questions fréquentes',

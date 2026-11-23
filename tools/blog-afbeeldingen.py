@@ -314,7 +314,7 @@ ONDERWERP = {
     'standaardrecepturen-in-de-keuken': ('check', ['Standaardrecepturen', 'Standard recipes', 'Standardrezepturen', 'Fichas técnicas', 'Fiches techniques']),
     'van-word-naar-receptenboek': ('doc', ['Importeren', 'Importing', 'Importieren', 'Importar', 'Importer']),
     'allergenen-regels-horeca': ('allergen', ['Regels', 'Rules', 'Vorschriften', 'Normativa', 'Réglementation']),
-    'verkoopprijs-berekenen-horeca': ('euro', ['Verkoopprijs', 'Menu price', 'Verkaufspreis', 'Precio de venta', 'Prix de vente']),
+    'gratis-foodcost-calculator': ('calc', ['Gratis calculator', 'Free calculator', 'Kostenloser Rechner', 'Calculadora gratis', 'Calculateur gratuit']),
     'receptuurblad-voorbeeld': ('doc', ['Receptuurblad', 'Recipe card', 'Rezepturblatt', 'Hoja de receta', 'Fiche recette']),
     'mep-lijsten-in-savour': ('check', ['MEP-lijsten', 'Prep lists', 'MEP-Listen', 'Listas MEP', 'Listes MEP']),
     'savour-voor-bartenders': ('wave', ['Bar', 'Bar', 'Bar', 'Bar', 'Bar']),

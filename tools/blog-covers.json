@@ -1,4 +1,8 @@
 {
+  "gratis-foodcost-calculator": {
+    "photo": "assets/keuken/blog-verkoopprijs.jpg",
+    "pos": "center 60%"
+  },
   "allergenen-regels-horeca": {
     "photo": "assets/keuken/blog-allergenen-regels.jpg",
     "pos": "center 60%"
