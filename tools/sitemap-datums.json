@@ -8,7 +8,7 @@
   "date": "2026-11-23"
  },
  "https://savour.page/de": {
-  "hash": "eff10088c286e068",
+  "hash": "f01e777db5caa180",
   "date": "2026-11-23"
  },
  "https://savour.page/es": {
@@ -348,11 +348,11 @@
   "date": "2026-11-22"
  },
  "https://savour.page/de/fuer-koeche": {
-  "hash": "5c50c8f8902c7f20",
-  "date": "2026-11-22"
+  "hash": "afdaccffc13d9958",
+  "date": "2026-11-23"
  },
  "https://savour.page/de/fuer-kuechenbrigaden": {
-  "hash": "c797dabd25c2f166",
+  "hash": "efcf32837608ceda",
   "date": "2026-11-23"
  },
  "https://savour.page/de/ueber-savour": {
@@ -380,7 +380,7 @@
   "date": "2026-11-22"
  },
  "https://savour.page/de/blog/standardrezepturen-gastronomie": {
-  "hash": "ffe212987ca0d277",
+  "hash": "e30202e8a26f911a",
   "date": "2026-11-23"
  },
  "https://savour.page/de/blog/rezeptbuch-mit-eigenem-logo": {
@@ -396,7 +396,7 @@
   "date": "2026-11-23"
  },
  "https://savour.page/de/blog/rezeptverwaltung-gastronomie": {
-  "hash": "000a6751b2f8bbbf",
+  "hash": "5b632136b268f515",
   "date": "2026-11-23"
  },
  "https://savour.page/de/blog/gemeinsames-rezeptbuch-kuechenteam": {
@@ -1578,5 +1578,9 @@
  "https://savour.page/fr/blog/savour-pour-patissiers-et-boulangers": {
   "hash": "90102bf6e378a22a",
   "date": "2026-11-22"
+ },
+ "https://savour.page/de/rezepturverwaltung": {
+  "hash": "d098169b3333fd1e",
+  "date": "2026-11-23"
  }
 }

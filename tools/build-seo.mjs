@@ -54,6 +54,7 @@ import { BAR_POST, BAR_POST_DE, BAR_POST_ES, BAR_POST_FR } from './site-blog-bar
 import { PATISSERIE_POST, PATISSERIE_POST_DE, PATISSERIE_POST_ES, PATISSERIE_POST_FR } from './site-blog-patisserie.mjs';
 import { CATERING_POST, CATERING_POST_DE, CATERING_POST_ES, CATERING_POST_FR } from './site-blog-catering.mjs';
 import { PAPRIKA_PAGE } from './site-paprika.mjs';
+import { REZEPTUR_PAGE } from './site-rezeptur.mjs';
 import { PAGE_RICH } from './site-page-rich.mjs';
 import { HOME_NEXT } from './site-home.mjs';
 import { APP_PAGE } from './site-app.mjs';
@@ -1636,6 +1637,38 @@ for (const lang of LANGS) {
         `<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(FAQ_TITLE[lang])}</h2><div class="site-faq">${t.faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${proseText(a)}</p></details>`).join('')}</div></div></section>`
     });
   }
+  // Rezepturverwaltung (tools/site-rezeptur.mjs): alleen in het Duits, met schermen en vragen (ook als FAQPage).
+  if (REZEPTUR_PAGE[lang]) {
+    const t = REZEPTUR_PAGE[lang];
+    page({
+      lang,
+      slugs: { [lang]: t.slug },
+      title: t.title,
+      desc: t.desc,
+      crumbs: [[t.crumb]],
+      schema: [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: t.faq.map(([q, a]) => ({
+            '@type': 'Question',
+            name: q,
+            acceptedAnswer: { '@type': 'Answer', text: a.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') }
+          }))
+        }
+      ],
+      body: c =>
+        pageTop(c, t.h1, t.lead, 'pageDatabase') +
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections)}</div></article>` +
+        `<section class="feat-show"><div class="site-wrap">${t.showcase
+          .map(
+            (x, i) =>
+              `<div class="feat-row${i % 2 ? ' flip' : ''} reveal"><div><h2>${esc(x.title)}</h2><p>${proseText(x.text)}</p></div><figure><img src="${assetV(x.shot)}" alt="${esc(x.alt)}" loading="lazy"></figure></div>`
+          )
+          .join('')}</div></section>` +
+        `<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(FAQ_TITLE[lang])}</h2><div class="site-faq">${t.faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${proseText(a)}</p></details>`).join('')}</div></div></section>`
+    });
+  }
   // Over ons
   {
     const s = STORY[lang];
@@ -2058,7 +2091,7 @@ const HOME_META = {
   },
   de: {
     title: 'Savour — Rezeptverwaltung Software für Gastronomie und Küche',
-    desc: 'Professionelle Rezeptverwaltung Software für Restaurant, Gastronomie und Großküche: Rezepte aus Word, PDF und Notizen importieren, im Team teilen und drucken.',
+    desc: 'Rezeptverwaltung und Rezepturverwaltung für Gastronomie und Großküche: Rezepte und Rezepturen aus Word, PDF und Notizen importieren, teilen und drucken.',
     ogTitle: 'Savour — Rezeptverwaltung Software für Profiküchen',
     ogDesc:
       'Von der Notiz zum Rezept, das stimmt. Dein ganzes Rezeptbuch an einem Ort, auf Computer und Handy, geteilt mit deinem Küchenteam.',
