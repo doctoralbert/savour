@@ -1168,6 +1168,12 @@ body.cook-mode .rp-side-note-head button {
   font-size: 12px;
   line-height: 1.5;
 }
+/* Notitie op de print (print.js): even rustig als de allergenen, kop vet op een eigen regel. */
+.print-note {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
 @media (max-width: 760px) {
   .products-list li button {
     display: flex;

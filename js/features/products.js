@@ -2093,7 +2093,9 @@ function printAllergensHtml(r) {
   if (!productsVisible(scope)) return '';
   const info = recipeAllergenInfo(r, scope);
   if (info.lines.length === info.unknown.length) return '';
-  const names = codes => codes.map(a => esc(t(ALLERGEN_LABEL.get(a)))).join(', ');
+  // Elke naam een eigen <span>: de vertaling (js/core/i18n.js) vertaalt per tekstdeel, en "Melk, Sulfiet" als één
+  // tekst staat niet in het woordenboek (op een Franse print stond anders "Melk, Sulfiet").
+  const names = codes => codes.map(a => `<span>${esc(t(ALLERGEN_LABEL.get(a)))}</span>`).join(', ');
   const list = names(allergensEu(info.allergens));
   const extra = names(allergensExtra(info.allergens));
   const text = info.unknown.length

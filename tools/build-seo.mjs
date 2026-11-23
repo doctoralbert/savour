@@ -1310,6 +1310,7 @@ const PHOTOS = {
   brigade: ['brigade.jpg', 'center 35%'],
   blogAllergenRegels: ['blog-allergenen-regels.jpg', 'center 60%'],
   blogRezepturblatt: ['blog-rezepturblatt.jpg', 'center 45%'],
+  blogVerkoopprijs: ['blog-verkoopprijs.jpg', 'center 60%'],
   keuken: ['ingredienten-keuken.jpg', 'center 60%'],
   hout: ['ingredienten-hout.jpg', 'center 55%'],
   eend: ['eend-vuur.jpg', 'center 50%'],

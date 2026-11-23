@@ -111,6 +111,8 @@ function loadDemoData() {
       yield: t.yield,
       ingredients: t.ingredients.slice(),
       steps: t.steps.slice(),
+      // Notitie (bijv. de kritische punten bij de beurre blanc): zoals een kok die bij een recept zet.
+      notes: t.notes || '',
       photo: '',
       ...extra
     };

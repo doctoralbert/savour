@@ -13,6 +13,7 @@ const KEY = 'en/blog/menu-price-from-plate-cost';
 export const PRICE_POST = {
   id: 'verkoopprijs',
   date: '2026-11-24',
+  photo: 'blogVerkoopprijs',
   rich: true,
   nl: {
     slug: 'blog/verkoopprijs-berekenen-horeca',
