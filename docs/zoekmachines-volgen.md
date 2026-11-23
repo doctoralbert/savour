@@ -15,19 +15,28 @@ Voer `supabase/2026-11-23-zoekmachines.sql` uit in de SQL-editor van Supabase.
 ### 2. Google Search Console koppelen
 Dit gebruikt dezelfde Google-app als AdSense; je hoeft geen sleutel te plakken.
 
-1. Ga naar console.cloud.google.com, kies het project van de AdSense-koppeling.
-2. **API's en services → Bibliotheek**: zoek "Google Search Console API" en klik **Inschakelen**.
-3. **OAuth-toestemmingsscherm → Gegevenstoegang (Scopes)**: voeg `.../auth/webmasters.readonly` toe en sla op.
-   (Staat de app op "Testen", dan vervalt de koppeling na 7 dagen. Zet hem op "In productie" om dat te voorkomen;
-   als enige gebruiker kun je de waarschuwing "Google heeft deze app niet geverifieerd" gewoon doorklikken.)
-4. Open savour.page/admin → **Zoekmachines** → **Koppel Search Console**, log in met het Google-account dat
-   eigenaar is van savour.page in Search Console en geef toestemming.
-5. Savour haalt meteen de hele geschiedenis op die Google bewaart (16 maanden; zoektermen en pagina's 90 dagen).
+Menunamen in het Engels, zoals Google Cloud ze toont.
+
+1. Ga naar console.cloud.google.com en kies bovenin (naast het Google Cloud-logo) het project van de AdSense-koppeling.
+2. Menu ☰ → **APIs & Services → Library**: zoek "Google Search Console API", open hem en klik **Enable**.
+3. Menu ☰ → **APIs & Services → OAuth consent screen**. Daar opent **Google Auth Platform**; kies links
+   **Data Access** → **Add or remove scopes**. Zoek `webmasters.readonly`
+   (`https://www.googleapis.com/auth/webmasters.readonly`, "View Search Console data for your verified sites"),
+   vink hem aan → **Update** → onderaan **Save**.
+   Zie je hem niet in de lijst? Plak het volledige adres in het vak **Manually add scopes** → **Add to table** → **Update**.
+4. Links **Audience**: staat **Publishing status** op **Testing**, klik **Publish app** → **Confirm**
+   (anders vervalt de koppeling na 7 dagen). Bij het koppelen zegt Google dan mogelijk "Google hasn't verified this app":
+   klik **Advanced** → **Go to … (unsafe)**; dat is je eigen app.
+5. Open savour.page/admin → **Zoekmachines** → **Koppel Search Console**, log in met het Google-account dat
+   eigenaar is van savour.page in Search Console en klik **Continue** / **Allow**.
+6. Savour haalt meteen de hele geschiedenis op die Google bewaart (16 maanden; zoektermen en pagina's 90 dagen).
 
 ### 3. Bing Webmaster Tools
-1. Ga naar bing.com/webmasters → **Instellingen** (tandwiel) → **API-toegang** → **API-sleutel** → maak een sleutel.
-2. Zet die in Vercel → Project savour → Settings → Environment Variables als `BING_WEBMASTER_KEY`
-   (Production en Preview), en deploy opnieuw (of wacht op de volgende push).
+1. Ga naar bing.com/webmasters, kies savour.page, klik rechtsboven op het tandwiel **Settings** → **API Access** →
+   **API Key** → **Generate API Key** en kopieer de sleutel.
+2. Vercel → project savour → **Settings → Environment Variables** → **Add New**: Key `BING_WEBMASTER_KEY`, Value de
+   sleutel, Environments **Production** en **Preview** → **Save**. Daarna **Deployments** → bij de bovenste ⋯ →
+   **Redeploy** (of wacht op de volgende push).
 3. In /admin → Zoekmachines: **Nu ophalen**.
 
 Optioneel: staat de site in Bing onder een ander adres dan `https://savour.page/`, zet dat adres dan in
