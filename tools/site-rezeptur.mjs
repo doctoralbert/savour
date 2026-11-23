@@ -10,6 +10,7 @@ export const REZEPTUR_PAGE = {
     title: 'Rezepturverwaltung Software für Großküche | Savour',
     desc: 'Rezepturen und Rezepte digital verwalten: aus Word, PDF und Excel importieren, hochrechnen, 14 Allergene pro Rezeptur und im Küchenteam teilen.',
     crumb: 'Rezepturverwaltung',
+    homeLink: 'Alle Rezepturen und Standardrezepturen an einem Ort, für die ganze Küche.',
     h1: 'Rezeptur­verwaltung: jede Rezeptur genau so, wie sie gemeint ist',
     lead: 'Alle Rezepturen und Rezepte deiner Küche an einem Ort, auf Computer, Tablet und Handy. Für Großküche, Bäckerei, Konditorei, Catering und Restaurant.',
     sections: [

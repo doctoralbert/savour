@@ -758,7 +758,7 @@ function footer(lang, alt, inApp) {
   return `<footer class="site-foot"><div class="site-wrap">
 <div class="site-foot-top">
 <div class="site-foot-brand"><span translate="no">SAVOUR</span><p>${esc(u.footerTag)} ${esc(u.madeBy || (lang === 'nl' ? 'Gemaakt door chefs, voor chefs.' : 'Made by chefs, for chefs.'))}</p><a class="site-btn" href="${q}?auth=signup" data-auth="signup">${u.start}</a></div>
-<div><h4>${u.footerCols.features}</h4><ul>${FEATURES.map(f => li(href(f[lang].slug), f[lang].menu)).join('')}</ul></div>
+<div><h4>${u.footerCols.features}</h4><ul>${FEATURES.map(f => li(href(f[lang].slug), f[lang].menu)).join('')}${REZEPTUR_PAGE[lang] ? li(href(REZEPTUR_PAGE[lang].slug), REZEPTUR_PAGE[lang].crumb) : ''}</ul></div>
 <div><h4>${u.footerCols.audience}</h4><ul>${AUDIENCES.map(a => li(href(a[lang].slug), a[lang].menu)).join('')}</ul></div>
 <div><h4>${u.footerCols.company}</h4><ul>${li(href(STORY[lang].slug), u.about)}${li(href(legacy('pro')[lang]), u.pricing)}${li(href(blogSlug[lang]), u.blog)}${li(href(legacy('contact')[lang]), u.contact)}${li(guideHref(lang, RELEASES_PAGE), GUIDE_UI[lang].releases)}</ul></div>
 <div><h4>${u.footerCols.help}</h4><ul>${li(href(legacy('faq')[lang]), u.faq)}${GUIDE_HOME[lang] ? '' : li(href(legacy('guide')[lang]), u.guide)}${li(guideHref(lang, GUIDE_HOME), GUIDE_UI[lang].footer)}${li(href(APP_PAGE[lang].slug), APP_PAGE[lang].menu)}${li(`${q}?info=bug`, u.bug)}<li><a href="${q}?auth=login" data-auth="login">${u.login}</a></li></ul></div>
@@ -1076,7 +1076,7 @@ function homeBody(lang, inApp) {
 <div class="hero-shots"><div class="hero-laptop"><img src="/assets/app/bibliotheek-${lang}.jpg" alt="${esc(SHOT_ALT[lang][0])}" width="1440" height="900"></div><div class="hero-phone"><img src="/assets/app/recept-${lang}.jpg" alt="${esc(SHOT_ALT[lang][1])}" width="520" height="1125"></div></div>
 </div></section>
 <section class="site-section"><div class="site-wrap"><div class="site-two"><h2 class="reveal">${esc(KLADJE_REAL[lang].heading)}</h2><div>${h.story.map(p => `<p>${esc(p)}</p>`).join('')}<p><a class="site-link" href="${href(STORY[lang].slug)}">${esc(h.storyLink)}</a></p></div></div>${kladje(lang, true)}</div></section>
-<section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(h.featuresTitle)}</h2>${rows(homeFeatures, lang)}</div></section>
+<section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(h.featuresTitle)}</h2>${rows(REZEPTUR_PAGE[lang] ? [...homeFeatures, { [lang]: { slug: REZEPTUR_PAGE[lang].slug, menu: REZEPTUR_PAGE[lang].crumb, short: REZEPTUR_PAGE[lang].homeLink } }] : homeFeatures, lang)}</div></section>
 <section class="site-section"><div class="site-wrap"><h2 class="reveal">${esc(n.teamTitle)}</h2><ol class="home-steps">${n.team.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join('')}</ol></div></section>
 <section class="site-section tint" id="prijzen"><div class="site-wrap"><h2 class="reveal">${esc(n.priceTitle)}</h2><div class="home-plans">${n.plans.map(plan).join('')}</div><p class="home-plans-foot">${esc(n.priceFoot)} <a class="site-link" href="${href(legacy('pro')[lang])}">${esc(n.priceLink)}</a></p></div></section>
 ${serviceBand(lang)}
