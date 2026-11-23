@@ -16,8 +16,9 @@ const FRACTION_CHARS = {
   '⅞': 7 / 8
 };
 const FRACTION_RE = '[½⅓⅔¼¾⅛⅜⅝⅞]';
-// Eén getal: "1 1/2", "1/2", "1½", "1.000" (duizendtal), "1,5", "1.5", "½".
-const NUMBER_SRC = `(?:\\d+\\s+\\d+\\s*\\/\\s*\\d+|\\d+\\s*\\/\\s*\\d+|\\d+\\s*${FRACTION_RE}|\\d{1,3}(?:\\.\\d{3})+(?![\\d,])|\\d+(?:[.,]\\d+)?|${FRACTION_RE})`;
+// Eén getal: "1 1/2", "1/2", "1½", "1.000" (duizendtal), "1'260" (Zwitsers/Oostenrijks duizendtal, ook met ’),
+// "1,5", "1.5", "½".
+const NUMBER_SRC = `(?:\\d+\\s+\\d+\\s*\\/\\s*\\d+|\\d+\\s*\\/\\s*\\d+|\\d+\\s*${FRACTION_RE}|\\d{1,3}(?:['’]\\d{3})+(?![\\d,.])|\\d{1,3}(?:\\.\\d{3})+(?![\\d,])|\\d+(?:[.,]\\d+)?|${FRACTION_RE})`;
 const LEADING_AMOUNT = new RegExp(`^(\\s*)(${NUMBER_SRC})(?:\\s*(?:-|–|tot|to)\\s*(${NUMBER_SRC}))?`);
 
 // Eenheden: familie, omrekening naar de basis (ml of g) en stijl (voor de weergave na omrekenen).
@@ -85,6 +86,7 @@ function parseAmount(text) {
   m = t.match(new RegExp(`^(\\d*)\\s*(${FRACTION_RE})$`));
   if (m) return (+m[1] || 0) + FRACTION_CHARS[m[2]];
   if (/^\d{1,3}(\.\d{3})+$/.test(t)) return Number(t.replace(/\./g, ''));
+  if (/^\d{1,3}(['’]\d{3})+$/.test(t)) return Number(t.replace(/['’]/g, ''));
   return Number(t.replace(',', '.'));
 }
 

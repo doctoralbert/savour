@@ -62,6 +62,12 @@ const cases = [
   ['10.000 gram langoustine koppen', 0.5, '5000 gram langoustine koppen'],
   ['2-3 el water', 2, '4-6 el water'],
   ['250g boter', 2, '500 g boter'],
+  // Zwitsers/Oostenrijks duizendtal met apostrof (dagrapport 22-11-2026); getoond zonder apostrof.
+  ["1'260 g Milch", 2, '2520 g Milch'],
+  ["3'157 g Sahne", 0.5, '1579 g Sahne'],
+  ['1’000 g Zucker', 3, '3000 g Zucker'],
+  ['1.104 g Zucker', 2, '2208 g Zucker'],
+  ["crème d'amande", 2, "crème d'amande"],
   // Blijft staan
   ['zout naar smaak', 2, 'zout naar smaak'],
   ['1 snuf zout naar smaak', 3, '1 snuf zout naar smaak (niet omgerekend)'],

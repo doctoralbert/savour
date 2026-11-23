@@ -1807,7 +1807,6 @@ const tidyCases = [
         'Oven 180',
         'Salt – pinch',
         'zout naar smaak',
-        'Schokolade 70% 200g',
         'BH',
         'Eendenborsten à 200 gram',
         'Dragon, tijm 1-1',
@@ -1821,7 +1820,6 @@ const tidyCases = [
         'Oven 180',
         'Salt – pinch',
         'zout naar smaak',
-        'Schokolade 70% 200g',
         'BH',
         'Eendenborsten à 200 gram',
         'Dragon, tijm 1-1',
@@ -1929,6 +1927,34 @@ const tidyCases = [
       description: 'Klassieker'
     },
     changed: 0
+  },
+  {
+    // Dagrapport 22-11-2026: Zwitsers/Oostenrijks duizendtal met apostrof, en een percentage in de naam.
+    name: 'Hoeveelheid vooraan: duizendtal met apostrof en percentage in de naam',
+    from: {
+      ingredients: [
+        "Milch 3'157 g",
+        "1'260 g Eigelb",
+        "Sahne 35% 3'157 g",
+        'Schokolade 72% 208',
+        'weiße Schokolade 34% 730 g',
+        'Farina 2862 3'
+      ],
+      steps: ['Oven 180', 'Rusten 10 min']
+    },
+    to: {
+      ingredients: [
+        "3'157 g milch",
+        "1'260 g Eigelb",
+        "3'157 g sahne 35%",
+        '208 schokolade 72%',
+        '730 g weiße Schokolade 34%',
+        'Farina 2862 3'
+      ],
+      steps: ['Oven 180', 'Rusten 10 min'],
+      description: ''
+    },
+    changed: 4
   }
 ];
 for (const c of tidyCases) {

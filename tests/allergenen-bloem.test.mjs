@@ -57,6 +57,52 @@ const check = (name, want) => {
 metGluten.forEach(n => check(n, true));
 zonderGluten.forEach(n => check(n, false));
 vast.forEach(([n, want]) => check(n, want));
-const total = metGluten.length + zonderGluten.length + vast.length;
+
+// Dagrapport 22-11-2026: Duitse bessen zijn geen bier, butternut is geen boter, Duitse en Franse chocolade.
+// [naam, moet erin, mag er niet in]. Met merk: zoals savourAllergens bij een merkproduct (ook brandTypical).
+const withBrand = name =>
+  vm.runInContext(
+    `(k => withDerived(k, [...allergenKeywords(k), ...brandTypical(k)]))(productKey(${JSON.stringify(name)}))`,
+    ctx
+  );
+const allergenCases = [
+  ['Himbeeren', [], ['gluten', 'alcohol']],
+  ['Erdbeeren', [], ['gluten', 'alcohol']],
+  ['Heidelbeeren', [], ['gluten', 'alcohol']],
+  ['Johannisbeeren', [], ['gluten', 'alcohol']],
+  ['Brombeeren', [], ['gluten', 'alcohol']],
+  ['Himbeergeist', ['alcohol'], ['gluten']],
+  ['Erdbeerlikör', ['alcohol'], ['gluten']],
+  ['Bier', ['gluten', 'alcohol'], []],
+  ['beer', ['gluten', 'alcohol'], []],
+  ['Weizenbier', ['gluten', 'alcohol'], []],
+  ['Beerenauslese', ['gluten', 'alcohol'], []],
+  ['butternut squash', [], ['melk', 'lactose']],
+  ['Butternusskürbis', [], ['melk', 'lactose']],
+  ['butternutpompoen', [], ['melk', 'lactose']],
+  ['Butter', ['melk'], []],
+  ['beurre noisette', ['melk'], ['noten']],
+  ['weiße Schokolade', ['melk'], []],
+  ['Zartbitterschokolade', [], ['melk']],
+  ['chocolat noir', [], ['melk']],
+  ['chocolat au lait', ['melk'], []]
+];
+const brandCases = [
+  ['Milchschokolade', ['melk', 'soja'], []],
+  ['Zartbitterschokolade', ['soja'], ['melk']],
+  ['weiße Schokolade', ['melk', 'soja'], []],
+  ['chocolat noir', ['soja'], ['melk']],
+  ['pure chocolade', ['soja'], ['melk']]
+];
+const checkCodes = (label, codes, must, mustNot) => {
+  const bad = [...must.filter(c => !codes.includes(c)), ...mustNot.filter(c => codes.includes(c))];
+  if (bad.length) {
+    failed++;
+    console.log(`✗ ${label}: kreeg ${JSON.stringify(codes)} (fout bij ${bad.join(', ')})`);
+  } else console.log(`✓ ${label}: ${JSON.stringify(codes)}`);
+};
+allergenCases.forEach(([n, must, not]) => checkCodes(n, hints(n), must, not));
+brandCases.forEach(([n, must, not]) => checkCodes(`${n} (merk)`, withBrand(n), must, not));
+const total = metGluten.length + zonderGluten.length + vast.length + allergenCases.length + brandCases.length;
 console.log(`\n${total - failed} van ${total} geslaagd`);
 process.exit(failed ? 1 : 0);

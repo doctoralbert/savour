@@ -24,7 +24,9 @@ const READER_META_LINE =
 
 const READER_UNIT =
   '(?:g|gr|gm|gms|gram|grams|kg|kilo|mg|ml|cl|dl|l|ltr|liter|liters|deciliter|centiliter|milliliter|el|eetlepels?|tl|theelepels?|kl|koffielepels?|st|stuks?|stk|bosjes?|bos|takjes?|teentjes?|tenen|blaadjes?|blad|plakjes?|plakken|snufjes?|snuf|mespuntjes?|mespunt|scheutjes?|scheut|handjes?|handvol|blikjes?|blik|pakjes?|pak|zakjes?|kopjes?|kop|cups?|tbsp|tsp|oz|lb|stengels?|vellen|vel)';
-const READER_QTY = '(?:\\d+(?:[.,]\\d+)?(?:\\s*[-–/]\\s*\\d+(?:[.,]\\d+)?)?\\s*[½¼¾⅓⅔]?|[½¼¾⅓⅔])';
+// Ook een Zwitsers/Oostenrijks duizendtal met apostrof ("3'157", "1’260").
+const READER_QTY =
+  "(?:\\d{1,3}(?:['’]\\d{3})+|\\d+(?:[.,]\\d+)?(?:\\s*[-–/]\\s*\\d+(?:[.,]\\d+)?)?\\s*[½¼¾⅓⅔]?|[½¼¾⅓⅔])";
 const READER_STARTS_WITH_QTY = new RegExp(`^${READER_QTY}\\s*(?:${READER_UNIT}\\b\\.?)?\\s*\\S`, 'i');
 const READER_QUALITATIVE =
   /^(?:snufje|snuf|scheutje|scheut|mespunt(?:je)?|handje|handvol|beetje|wat|een paar|enkele|naar smaak|zout|peper|zout en peper|peper en zout|olie|olijfolie|boter|suiker|water|bloem)\b|\b(?:naar smaak|naar behoefte|eventueel|optioneel)\)?\.?$/i;
@@ -75,9 +77,10 @@ function readerNoteText(line) {
 
 // Hoeveelheid achteraan ("Boter zacht 250 gm", "Eiwit 6 stuks", "Coconut cream – 400 ml"): vooraan zetten, zoals
 // Savour en de omreken-tool het verwachten ("250 gm boter zacht"). Alleen als de regel eindigt op een hoeveelheid
-// (eventueel met eenheid) en de naam zelf geen getal bevat; de woorden blijven dezelfde.
+// (eventueel met eenheid) en de naam zelf geen getal bevat, behalve een percentage ("Sahne 35% 3'157 g"); de woorden
+// blijven dezelfde.
 const READER_QTY_LAST = new RegExp(
-  `^(\\p{L}[^\\d½¼¾⅓⅔]*?)(?:\\s*[–—:-]\\s*|\\s+)(${READER_QTY}\\s*(?:${READER_UNIT}\\b\\.?)?)\\s*$`,
+  `^(\\p{L}(?:[^\\d½¼¾⅓⅔]|\\d+(?:[.,]\\d+)?\\s?%)*?)(?:\\s*[–—:-]\\s*|\\s+)(${READER_QTY}\\s*(?:${READER_UNIT}\\b\\.?)?)\\s*$`,
   'iu'
 );
 function readerQtyFirst(line) {
