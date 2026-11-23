@@ -1320,7 +1320,10 @@ const PHOTOS = {
   blogRoadmap: ['blog-roadmap.jpg', '75% 55%'],
   blogOrdenenMetAi: ['blog-ordenen-met-ai.jpg', '75% 55%'],
   blogVergelijken: ['blog-vergelijken.jpg', '75% 55%'],
-  blogStandaardrecepturen: ['blog-standaardrecepturen.jpg', '75% 55%']
+  blogStandaardrecepturen: ['blog-standaardrecepturen.jpg', '75% 55%'],
+  blogSousVide: ['blog-sous-vide.jpg', '75% 55%'],
+  blogVanWord: ['blog-van-word.jpg', '75% 55%'],
+  gidsTips: ['gids-tips.jpg', '75% 55%']
 };
 // Eigen foto per blog (Nederlands adres zonder blog/); anders `photo` in de blogdefinitie of de vaste rij.
 const BLOG_PHOTO = {
@@ -1349,7 +1352,9 @@ const BLOG_PHOTO = {
   'roadmap': 'blogRoadmap',
   'rommelige-receptenmap-ordenen': 'blogOrdenenMetAi',
   'savour-paprika-meez-galley-vergelijken': 'blogVergelijken',
-  'standaardrecepturen-in-de-keuken': 'blogStandaardrecepturen'
+  'standaardrecepturen-in-de-keuken': 'blogStandaardrecepturen',
+  'sous-vide-temperaturen-en-tijden': 'blogSousVide',
+  'van-word-naar-receptenboek': 'blogVanWord'
 };
 // Foto per hoofdstuk van de handleiding (id uit tools/handleiding/*.mjs); zonder eigen foto de vaste rij.
 const GUIDE_PHOTO = {
@@ -1360,7 +1365,11 @@ const GUIDE_PHOTO = {
   keuken: 'gidsOmrekenen',
   printen: 'gidsPrinten',
   samenwerken: 'gidsDelen',
-  account: 'gidsAccount'
+  account: 'gidsAccount',
+  'mep-lijsten': 'mepPass',
+  overstappen: 'blogLatenOverzetten',
+  tips: 'gidsTips',
+  hulp: 'pageFaq'
 };
 // De ingrediëntenlijst met de allergenen per taal (tools/build-ingredientenlijst.mjs): { code: [extra, nl, en, de, es, fr] }.
 const INGREDIENT_LIST = JSON.parse(fs.readFileSync(new URL('assets/data/ingredientenlijst.json', ROOT), 'utf8'));
@@ -1380,9 +1389,9 @@ const PAGE_PHOTO = {
   binnenkort: 'pageBinnenkort',
   'voor-koks': 'pageKoks',
   'voor-keukenbrigades': 'pageBrigade',
-  'alternatief-voor-paprika': 'uien',
+  'alternatief-voor-paprika': 'blogVergelijken',
   'over-savour': 'pageOver',
-  blog: 'hout',
+  blog: 'blogKladjes',
   'app-downloaden': 'pageApp',
   'savour-pro': 'pagePro',
   'veelgestelde-vragen': 'pageFaq',
@@ -1996,7 +2005,7 @@ for (const lang of LANGS) {
         desc: i ? `${BLOG_PAGER[lang].page} ${i + 1}: ${rp.desc}` : rp.desc,
         crumbs: i ? [[rp.h1, href(rp.slug)], [`${BLOG_PAGER[lang].page} ${i + 1}`]] : [[rp.h1]],
         body: c =>
-          pageTop(c, i ? `${rp.h1} · ${BLOG_PAGER[lang].page} ${i + 1}` : rp.h1, rp.lead, 'hout') +
+          pageTop(c, i ? `${rp.h1} · ${BLOG_PAGER[lang].page} ${i + 1}` : rp.h1, rp.lead, 'blogRoadmap') +
           `<article class="site-article"><div class="site-wrap site-narrow site-prose site-releases">${releaseList(list, lang, gu)}${rPages > 1 ? pager : ''}</div></article>`
       });
     }
