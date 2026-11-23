@@ -64,7 +64,7 @@ export const RECIPE_SHEET_POST = {
             ]
           ]
         },
-        { shot: '/assets/app/print-nl.jpg', alt: "Een receptuurblad zoals Savour het print", caption: "Zo print Savour een recept: naam, opbrengst, ingrediënten met vette hoeveelheden naast de bereiding, en onderaan de printdatum." }
+        { whole: true, duo: [['/assets/app/print-nl.jpg', "Een receptuurblad zoals Savour het print"], ['/assets/app/recept-nl.jpg', "Hetzelfde recept online in Savour op een telefoon"]], caption: "Links de print voor de klapper, rechts hetzelfde recept online. Deel het met een link, ook met een collega zonder account, of zet het in je keukenteam: dan ziet iedereen altijd de laatste versie." }
       ],
       [
         'Hoeveelheden die iedereen hetzelfde leest',
@@ -149,7 +149,7 @@ export const RECIPE_SHEET_POST = {
             ]
           ]
         },
-        { shot: '/assets/app/print-en.jpg', alt: "A recipe card as Savour prints it", caption: "This is how Savour prints a recipe: name, yield, ingredients with bold quantities next to the method, and the print date at the bottom." }
+        { whole: true, duo: [['/assets/app/print-en.jpg', "A recipe card as Savour prints it"], ['/assets/app/recept-en.jpg', "The same recipe online in Savour on a phone"]], caption: "Left, the print for the folder; right, the same recipe online. Share it with a link, even with a colleague without an account, or put it in your kitchen team: then everyone always sees the latest version." }
       ],
       [
         'Quantities everyone reads the same way',
@@ -237,7 +237,7 @@ export const RECIPE_SHEET_POST_DE = {
             ]
           ]
         },
-        { shot: '/assets/app/print-de.jpg', alt: "Ein Rezepturblatt, wie Savour es druckt", caption: "So druckt Savour eine Rezeptur: Name, Ausbeute, Zutaten mit fetten Mengen neben der Zubereitung und unten das Druckdatum." }
+        { whole: true, duo: [['/assets/app/print-de.jpg', "Ein Rezepturblatt, wie Savour es druckt"], ['/assets/app/recept-de.jpg', "Dieselbe Rezeptur online in Savour auf dem Handy"]], caption: "Links der Ausdruck für den Ordner, rechts dieselbe Rezeptur online. Teile sie per Link, auch mit Kollegen ohne Konto, oder leg sie in dein Küchenteam: Dann sieht jeder immer die neueste Version." }
       ],
       [
         'Mengen, die jeder gleich liest',
@@ -325,7 +325,7 @@ export const RECIPE_SHEET_POST_ES = {
             ]
           ]
         },
-        { shot: '/assets/app/print-es.jpg', alt: "Una hoja de receta tal como la imprime Savour", caption: "Así imprime Savour una receta: nombre, rendimiento, ingredientes con las cantidades en negrita junto a la elaboración y, abajo, la fecha de impresión." }
+        { whole: true, duo: [['/assets/app/print-es.jpg', "Una hoja de receta tal como la imprime Savour"], ['/assets/app/recept-es.jpg', "La misma receta online en Savour en un móvil"]], caption: "A la izquierda, la copia impresa para el archivador; a la derecha, la misma receta online. Compártela con un enlace, también con un compañero sin cuenta, o ponla en tu equipo de cocina: así todos ven siempre la última versión." }
       ],
       [
         'Cantidades que todos leen igual',
@@ -413,7 +413,7 @@ export const RECIPE_SHEET_POST_FR = {
             ]
           ]
         },
-        { shot: '/assets/app/print-fr.jpg', alt: "Une fiche recette telle que Savour l’imprime", caption: "Voici comment Savour imprime une recette : nom, rendement, ingrédients avec les quantités en gras à côté de la préparation, et la date d’impression en bas." }
+        { whole: true, duo: [['/assets/app/print-fr.jpg', "Une fiche recette telle que Savour l’imprime"], ['/assets/app/recept-fr.jpg', "La même recette en ligne dans Savour sur un téléphone"]], caption: "À gauche, la fiche imprimée pour le classeur ; à droite, la même recette en ligne. Partage-la par un lien, même avec un collègue sans compte, ou mets-la dans ton équipe de cuisine : tout le monde voit toujours la dernière version." }
       ],
       [
         'Des quantités que tout le monde lit pareil',

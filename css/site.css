@@ -1394,6 +1394,17 @@
   border-radius: 12px;
   border: 1px solid var(--line);
 }
+/* Duo met twee schermen die heel in beeld moeten (print naast telefoon): niet bijsnijden, even hoog naast elkaar,
+   ook op de telefoon. De kolommen volgen de verhouding van A4 (0,71) en een telefoonscherm (0,46). */
+.post-duo.is-whole > div,
+.site-prose .post-duo.is-whole > div {
+  grid-template-columns: 1.53fr 1fr;
+  align-items: end;
+}
+.post-duo.is-whole img {
+  height: auto;
+  object-fit: contain;
+}
 .post-duo figcaption {
   font-size: 14px;
   color: var(--ink-3);
