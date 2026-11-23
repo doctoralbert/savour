@@ -1,5 +1,6 @@
 // Blog: een receptuurblad / Rezepturblatt als voorbeeld (2026-11-23), in vijf talen. Geschreven voor vooral de Duitse
-// markt (zoekterm "Rezepturblatt Vorlage"). Het voorbeeld is een leeg sjabloon: geen verzonnen recept of hoeveelheden.
+// markt (zoekterm "Rezepturblatt Vorlage"). Het voorbeeld is een leeg sjabloon: geen verzonnen recept of hoeveelheden;
+// daaronder een echte print uit Savour (assets/app/print-<taal>.jpg, het demorecept).
 // Wat Savour print klopt met /recepten-printen en /handleiding-printen: naam, opbrengst, ingrediënten met vette
 // hoeveelheden, bereiding in stappen, delen, omgerekende hoeveelheden, A4 of A5, printdatum, logo (Pro), allergenen
 // optioneel, foto's en notities optioneel bij meerdere recepten, Word-bestanden met Pro.
@@ -9,7 +10,7 @@ const KEY = 'en/blog/recipe-card-template';
 export const RECIPE_SHEET_POST = {
   id: 'rezepturblatt',
   date: '2026-11-23',
-  photo: 'pagePrinten',
+  photo: 'blogRezepturblatt',
   rich: true,
   nl: {
     slug: 'blog/receptuurblad-voorbeeld',
@@ -62,7 +63,8 @@ export const RECIPE_SHEET_POST = {
               '**Datum of versie:** …'
             ]
           ]
-        }
+        },
+        { shot: '/assets/app/print-nl.jpg', alt: "Een receptuurblad zoals Savour het print", caption: "Zo print Savour een recept: naam, opbrengst, ingrediënten met vette hoeveelheden naast de bereiding, en onderaan de printdatum." }
       ],
       [
         'Hoeveelheden die iedereen hetzelfde leest',
@@ -146,7 +148,8 @@ export const RECIPE_SHEET_POST = {
               '**Date or version:** …'
             ]
           ]
-        }
+        },
+        { shot: '/assets/app/print-en.jpg', alt: "A recipe card as Savour prints it", caption: "This is how Savour prints a recipe: name, yield, ingredients with bold quantities next to the method, and the print date at the bottom." }
       ],
       [
         'Quantities everyone reads the same way',
@@ -233,7 +236,8 @@ export const RECIPE_SHEET_POST_DE = {
               '**Datum oder Version:** …'
             ]
           ]
-        }
+        },
+        { shot: '/assets/app/print-de.jpg', alt: "Ein Rezepturblatt, wie Savour es druckt", caption: "So druckt Savour eine Rezeptur: Name, Ausbeute, Zutaten mit fetten Mengen neben der Zubereitung und unten das Druckdatum." }
       ],
       [
         'Mengen, die jeder gleich liest',
@@ -320,7 +324,8 @@ export const RECIPE_SHEET_POST_ES = {
               '**Fecha o versión:** …'
             ]
           ]
-        }
+        },
+        { shot: '/assets/app/print-es.jpg', alt: "Una hoja de receta tal como la imprime Savour", caption: "Así imprime Savour una receta: nombre, rendimiento, ingredientes con las cantidades en negrita junto a la elaboración y, abajo, la fecha de impresión." }
       ],
       [
         'Cantidades que todos leen igual',
@@ -407,7 +412,8 @@ export const RECIPE_SHEET_POST_FR = {
               '**Date ou version :** …'
             ]
           ]
-        }
+        },
+        { shot: '/assets/app/print-fr.jpg', alt: "Une fiche recette telle que Savour l’imprime", caption: "Voici comment Savour imprime une recette : nom, rendement, ingrédients avec les quantités en gras à côté de la préparation, et la date d’impression en bas." }
       ],
       [
         'Des quantités que tout le monde lit pareil',

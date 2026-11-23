@@ -15,7 +15,7 @@ const EU = 'https://eur-lex.europa.eu/eli/reg/2011/1169/oj';
 export const ALLERGEN_RULES_POST = {
   id: 'allergenregels',
   date: '2026-11-23',
-  photo: 'pageAllergenen',
+  photo: 'blogAllergenRegels',
   rich: true,
   nl: {
     slug: 'blog/allergenen-regels-horeca',

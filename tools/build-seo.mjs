@@ -1264,6 +1264,8 @@ function aboutChapters(s, lang) {
 // welke foto en welk deel van de foto in beeld blijft. Voorwaarden en privacy blijven rustig zonder foto.
 const PHOTOS = {
   brigade: ['brigade.jpg', 'center 35%'],
+  blogAllergenRegels: ['blog-allergenen-regels.jpg', 'center 60%'],
+  blogRezepturblatt: ['blog-rezepturblatt.jpg', 'center 45%'],
   keuken: ['ingredienten-keuken.jpg', 'center 60%'],
   hout: ['ingredienten-hout.jpg', 'center 55%'],
   eend: ['eend-vuur.jpg', 'center 50%'],

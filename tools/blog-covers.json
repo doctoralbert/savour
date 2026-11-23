@@ -1,11 +1,11 @@
 {
   "allergenen-regels-horeca": {
-    "photo": "assets/keuken/page-allergenen.jpg",
-    "pos": "center 55%"
+    "photo": "assets/keuken/blog-allergenen-regels.jpg",
+    "pos": "center 60%"
   },
   "receptuurblad-voorbeeld": {
-    "photo": "assets/keuken/page-printen.jpg",
-    "pos": "center 40%"
+    "photo": "assets/keuken/blog-rezepturblatt.jpg",
+    "pos": "center 45%"
   },
   "savour-voor-cateraars": {
     "photo": "assets/keuken/catering-blog.jpg",
