@@ -4692,85 +4692,121 @@ html.sv-lightbox-open body {
   cursor: zoom-in;
 }
 
-/* ---- Gratis foodcost calculator (js/foodcost-calc.js, blog 2026-11-24): Savour-stijl, licht en donker via de
-   variabelen van de site. Ingrediënten als rijen; op de telefoon per ingrediënt een klein blok. ---- */
+/* ---- Gratis foodcost calculator (js/foodcost-calc.js, blog 2026-11-24): strak, Savour-stijl, licht en donker via de
+   variabelen van de site. Links de invoer in compacte rijen, rechts het resultaat dat meeschuift. Printen: een net
+   blad op één liggend A4 (.fc-sheet). ---- */
 .fc-calc {
   margin: 28px 0 36px;
-  padding: 22px;
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: 14px;
   background: var(--paper-2);
   font-family: var(--sans);
+  overflow: visible;
+}
+.fc-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+}
+.fc-main {
+  padding: 18px 18px 14px;
+  min-width: 0;
+}
+.fc-side {
+  position: sticky;
+  top: 84px;
+  align-self: start;
+  padding: 18px;
+  border-left: 1px solid var(--line);
+  border-radius: 0 14px 14px 0;
+  background: var(--paper);
 }
 .fc-calc input,
 .fc-calc select {
   width: 100%;
   min-width: 0;
-  height: 40px;
-  padding: 0 10px;
+  height: 34px;
+  padding: 0 8px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 6px;
   background: var(--paper);
   color: var(--ink);
-  font: 15px var(--sans);
+  font: 14px var(--sans);
+}
+.fc-calc select {
+  padding-right: 4px;
 }
 .fc-calc input:focus,
 .fc-calc select:focus {
   outline: 2px solid var(--gold-soft);
-  outline-offset: 1px;
+  outline-offset: 0;
   border-color: var(--gold-soft);
 }
 .fc-head {
   display: grid;
-  grid-template-columns: 1fr 110px 110px;
-  gap: 12px;
-  margin-bottom: 18px;
+  grid-template-columns: 1fr 90px 90px;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 .fc-field {
   display: grid;
-  gap: 6px;
+  gap: 5px;
 }
 .fc-field > span,
 .fc-th > span,
-.fc-res > span {
-  font-size: 12px;
+.fc-kicker,
+.fc-cap {
+  font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
 .fc-table {
   display: grid;
-  gap: 8px;
+  gap: 6px;
 }
 .fc-row {
   display: grid;
-  grid-template-columns: minmax(140px, 2fr) 0.8fr 0.8fr 0.9fr 0.8fr 0.8fr 0.9fr 32px;
-  gap: 8px;
+  grid-template-columns: minmax(120px, 1.7fr) 68px 62px 78px 62px 76px 76px 24px;
+  gap: 6px;
   align-items: center;
 }
 .fc-th {
-  padding: 0 2px;
+  padding-bottom: 2px;
 }
-.fc-cost {
+.fc-cell {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.fc-cap {
+  display: none;
+}
+.fc-num {
   text-align: right;
   font-variant-numeric: tabular-nums;
+}
+.fc-cost {
   font-weight: 600;
+  font-size: 14px;
   color: var(--ink);
 }
-.fc-row.is-bad .fc-cost {
+.fc-row.is-bad .fc-cost,
+.fc-row.is-missing .fc-cost {
   color: #d98a6a;
 }
 .fc-row.is-bad select {
   border-color: #d98a6a;
 }
 .fc-del {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
   border: 0;
   border-radius: 50%;
   background: transparent;
   color: var(--ink-3);
-  font-size: 20px;
+  font-size: 18px;
+  line-height: 1;
   cursor: pointer;
 }
 .fc-del:hover {
@@ -4780,86 +4816,150 @@ html.sv-lightbox-open body {
 .fc-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 4px 14px;
   align-items: center;
-  margin: 14px 0 6px;
+  margin: 12px 0 4px;
 }
 .fc-spacer {
   flex: 1;
 }
 .fc-btn {
-  height: 38px;
+  height: 34px;
   padding: 0 14px;
   border: 1px solid var(--gold-soft);
-  border-radius: 8px;
+  border-radius: 6px;
   background: transparent;
   color: var(--ink);
-  font: 600 14px var(--sans);
+  font: 600 13px var(--sans);
   cursor: pointer;
 }
 .fc-btn:hover {
   background: var(--gold-soft);
   color: #111;
 }
-.fc-btn.quiet {
-  border-color: var(--line);
-  font-weight: 500;
+.fc-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-3);
+  font: 13px var(--sans);
+  cursor: pointer;
+}
+.fc-link:hover {
+  color: var(--ink);
+  text-decoration: underline;
 }
 .fc-note {
-  min-height: 1.4em;
-  margin: 6px 0 14px;
-  font-size: 14px;
+  min-height: 1.3em;
+  margin: 6px 0 0;
+  font-size: 13px;
   color: var(--ink-3);
 }
 .fc-note.is-warn {
   color: #d98a6a;
 }
-.fc-results {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+.fc-kicker {
+  color: var(--gold);
+  margin-bottom: 6px;
 }
-.fc-res {
-  display: grid;
-  gap: 6px;
-  align-content: start;
-  padding: 14px 16px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--paper);
+.fc-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--ink-2);
 }
-.fc-res > b {
-  font: 600 22px var(--serif);
+.fc-line b {
   color: var(--ink);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.fc-big {
+  display: grid;
+  gap: 2px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.fc-big span {
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.fc-big b {
+  font: 600 34px/1.1 var(--serif);
+  color: var(--gold-soft);
   font-variant-numeric: tabular-nums;
 }
-.fc-res.is-main {
-  border-color: var(--gold-soft);
-}
-.fc-res.is-main > b {
-  color: var(--gold-soft);
-}
-html.site-light .fc-res.is-main > b {
+html.site-light .fc-big b,
+html.site-light .fc-kicker {
   color: var(--gold);
 }
-.fc-target input[type='range'] {
-  height: 28px;
+.fc-target {
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+.fc-target .fc-line {
+  border: 0;
+  padding-bottom: 2px;
+}
+.fc-calc .fc-target input[type='range'] {
+  height: 24px;
   padding: 0;
   border: 0;
   background: transparent;
   accent-color: var(--gold-soft);
 }
-.fc-results.is-partial .fc-res > b {
-  opacity: 0.6;
+.fc-inline label {
+  white-space: nowrap;
+}
+.fc-vat {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: auto;
+  font-size: 13px;
+}
+.fc-calc .fc-vat input {
+  width: 54px;
+  height: 28px;
+  text-align: right;
+}
+.fc-sep {
+  height: 10px;
+}
+.fc-side .fc-field {
+  margin: 6px 0 2px;
+}
+.fc-print {
+  width: 100%;
+  margin-top: 14px;
 }
 .fc-small {
-  margin: 12px 0 0;
-  font-size: 12px;
+  margin: 10px 0 0;
+  font-size: 11px;
   color: var(--ink-3);
 }
+.fc-sheet {
+  display: none;
+}
+@media (max-width: 980px) {
+  .fc-grid {
+    grid-template-columns: 1fr;
+  }
+  .fc-side {
+    position: static;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0 0 14px 14px;
+  }
+}
 @media (max-width: 760px) {
-  .fc-calc {
-    padding: 16px;
+  .fc-main,
+  .fc-side {
+    padding: 14px;
   }
   .fc-head {
     grid-template-columns: 1fr 1fr;
@@ -4870,17 +4970,20 @@ html.site-light .fc-res.is-main > b {
   .fc-th {
     display: none;
   }
+  .fc-cap {
+    display: block;
+  }
   .fc-row {
     grid-template-columns: 1fr 1fr 1fr;
-    padding: 12px;
+    padding: 10px;
     border: 1px solid var(--line);
-    border-radius: 12px;
+    border-radius: 10px;
     background: var(--paper);
     position: relative;
   }
-  .fc-row > input[data-r='name'] {
+  .fc-row > .fc-name {
     grid-column: 1 / -1;
-    padding-right: 40px;
+    padding-right: 34px;
   }
   .fc-row .fc-cost {
     grid-column: 1 / -1;
@@ -4888,56 +4991,98 @@ html.site-light .fc-res.is-main > b {
   }
   .fc-del {
     position: absolute;
-    top: 14px;
+    top: 15px;
     right: 14px;
   }
-  .fc-results {
-    grid-template-columns: 1fr 1fr;
-  }
-  .fc-res.is-main,
-  .fc-target {
-    grid-column: 1 / -1;
-  }
 }
-/* Printen: alleen de calculator op papier. */
+/* Printen: alleen het blad, liggend A4 (de @page-regel zet js/foodcost-calc.js tijdens het printen). */
 @media print {
-  html.fc-printing body * {
-    visibility: hidden;
+  html.fc-printing body > *:not(.fc-sheet) {
+    display: none !important;
   }
-  html.fc-printing .fc-calc,
-  html.fc-printing .fc-calc * {
-    visibility: visible;
+  html.fc-printing,
+  html.fc-printing body {
+    background: #fff !important;
   }
-  html.fc-printing .fc-calc {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background: #fff;
-    color: #111;
-  }
-  html.fc-printing .fc-actions,
-  html.fc-printing .fc-del {
-    display: none;
-  }
-}
-.fc-row.is-missing .fc-cost {
-  color: #d98a6a;
-}
-.fc-cell {
-  display: grid;
-  gap: 4px;
-  min-width: 0;
-}
-.fc-cap {
-  display: none;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-@media (max-width: 760px) {
-  .fc-cap {
+  html.fc-printing .fc-sheet {
     display: block;
+    color: #111;
+    font:
+      10.5pt/1.4 'DM Sans',
+      system-ui,
+      sans-serif;
+    break-inside: avoid;
   }
+  .fc-sheet header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 6pt;
+    border-bottom: 1.5pt solid #e8ca8d;
+  }
+  .fc-sheet-logo {
+    font:
+      600 12pt 'Playfair Display',
+      Georgia,
+      serif;
+    letter-spacing: 0.3em;
+  }
+  .fc-sheet-date {
+    font-size: 9pt;
+    color: #666;
+  }
+  .fc-sheet h1 {
+    margin: 10pt 0 10pt;
+    font:
+      600 20pt 'Playfair Display',
+      Georgia,
+      serif;
+  }
+  .fc-sheet-body {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 10mm;
+    align-items: start;
+  }
+  .fc-sheet table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .fc-sheet th,
+  .fc-sheet td {
+    padding: 3.5pt 4pt;
+    border-bottom: 0.5pt solid #ddd;
+    text-align: left;
+  }
+  .fc-sheet thead th {
+    font-size: 8pt;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #666;
+    border-bottom: 1pt solid #999;
+  }
+  .fc-sheet .fc-num {
+    text-align: right;
+  }
+  .fc-sheet-res th {
+    font-weight: 400;
+    color: #333;
+  }
+  .fc-sheet-res tr.is-strong th,
+  .fc-sheet-res tr.is-strong td {
+    font-weight: 700;
+    font-size: 12.5pt;
+  }
+  .fc-sheet-warn {
+    margin-top: 8pt;
+    color: #b0562f;
+  }
+  .fc-sheet footer {
+    margin-top: 12pt;
+    font-size: 8pt;
+    color: #888;
+  }
+}
+.fc-th > span {
+  white-space: nowrap;
 }
