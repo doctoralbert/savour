@@ -43,12 +43,12 @@
     "photo": "assets/keuken/blog-kosten-marges.jpg",
     "pos": "75% 55%"
   },
-  "horeca-in-cijfers": {
-    "photo": "assets/keuken/blog-horeca-cijfers.jpg",
-    "pos": "75% 55%"
-  },
   "allergenen-in-savour": {
     "photo": "assets/keuken/blog-allergenen.jpg",
+    "pos": "75% 55%"
+  },
+  "horeca-in-cijfers": {
+    "photo": "assets/keuken/blog-horeca-cijfers.jpg",
     "pos": "75% 55%"
   },
   "kerntemperaturen-vlees-vis-schaaldieren": {

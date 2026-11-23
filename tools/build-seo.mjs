@@ -133,6 +133,32 @@ POSTS.unshift(
   CATERING_POST, PATISSERIE_POST, BAR_POST, MEP_POST, FOODCOST_CALC_POST, COMMUNITY_POST, AI_POST, FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
 
 const ROOT = new URL('../', import.meta.url);
+
+// Publicatiedatums van de blog (2026-11-23, op verzoek van de eigenaar): de artikelen stonden soms met drie op één
+// dag. Eenmalig gespreid tussen de echte eerste blogdag (22 oktober 2026) en 23 november 2026, in dezelfde volgorde
+// en nooit vóór de echte start. Vastgelegd in tools/blog-datums.json, zodat de datums niet opnieuw verschuiven als er
+// een artikel bijkomt. Nieuwe artikelen krijgen gewoon hun eigen datum (en komen op verschillende dagen online).
+{
+  const file = new URL('tools/blog-datums.json', ROOT);
+  let map = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : null;
+  if (!map) {
+    const start = Date.UTC(2026, 9, 22);
+    const end = Date.UTC(2026, 10, 23);
+    const days = (end - start) / 86400000;
+    const order = POSTS.map((p, i) => ({ p, i })).sort((a, b) => a.p.date.localeCompare(b.p.date) || b.i - a.i);
+    map = {};
+    // Gelijk verdeeld, maar nooit vroeger dan de echte datum van het artikel.
+    order.forEach(({ p }, k) => {
+      const day = Math.round((k * days) / (order.length - 1));
+      const spread = new Date(start + day * 86400000).toISOString().slice(0, 10);
+      map[p.en.slug] = spread < p.date ? p.date : spread;
+    });
+    fs.writeFileSync(file, JSON.stringify(map, null, 2) + '\n', 'utf8');
+  }
+  for (const p of POSTS) if (map[p.en.slug]) p.date = map[p.en.slug];
+  // Nieuwste eerst, zoals in het blogoverzicht.
+  POSTS.sort((a, b) => b.date.localeCompare(a.date));
+}
 // Achtergrondfoto achter de bovenkant van de homepage. Alleen als het bestand bestaat; zonder bestand is de
 // homepage zoals eerst (terugdraaien = assets/keuken/hero-keuken.jpg weghalen en opnieuw bouwen).
 const HERO_FILE = new URL('assets/keuken/hero-keuken.jpg', ROOT);
