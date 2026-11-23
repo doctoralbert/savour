@@ -15,7 +15,7 @@ bedrijf gaat. Plaats geen nepreviews en vraag niemand om een review in ruil voor
 | **Bing Places for Business** | Bedrijfsvermelding bij Bing en Microsoft | Past bij Bing Webmaster Tools, die je al gebruikt |
 | **Google Bedrijfsprofiel** | Alleen als Savour een adres of servicegebied mag tonen | Een online dienst zonder bezoekadres kan soms niet; nakijken |
 | **LinkedIn-bedrijfspagina** | Pagina "Savour", met link naar savour.page | Sterk signaal voor de merknaam |
-| **Wikidata** | Een item voor Savour (software), met website en land | Alleen feiten; helpt zoekmachines Savour te onderscheiden van andere "Savour"s |
+| **Wikidata** | Gedaan: [Q142262520](https://www.wikidata.org/wiki/Q142262520), als sameAs in schema.org (index.html) | Alleen feiten; nog aanvullen: website, land, talen, licentie, beschrijvingen de/es/fr |
 
 ## 2. Softwaregidsen en vergelijkers (kopers zoeken hier)
 | Plek | Taal / markt |
