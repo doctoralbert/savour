@@ -161,6 +161,13 @@ zodat het ook in een cirkel goed staat.
 > steel counter with a digital kitchen scale, a copper saucepan and a folded white kitchen towel. Warm light falling on
 > the paper, everything else in deep shadow. Subject in the centre. + algemene stijl
 
+### 19. `blog-verkoopprijs.jpg` — blog "Verkoopprijs berekenen: van bordkost naar menuprijs" (2026-11-24)
+> A finished plate of sliced entrecôte with a small portion of golden fries and a little dish of béarnaise on a dark
+> stone pass, seen from a low three-quarter angle. Next to the plate a small digital kitchen scale with a few raw
+> trimmings on it, a pencil and a folded menu card on dark linen paper, the printed text blurred and unreadable. Warm
+> light from the left on the plate, a copper pan and the line out of focus behind. Calm, precise, the feeling of
+> pricing a dish carefully. Subject in the centre. + algemene stijl
+
 ---
 
 **Tip:** vind je een beeld te druk of te licht, vraag dan aan Gemini: "Make it darker and calmer, with more empty dark
