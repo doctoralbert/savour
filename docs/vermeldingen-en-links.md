@@ -20,11 +20,13 @@ bedrijf gaat. Plaats geen nepreviews en vraag niemand om een review in ruil voor
 ## 2. Softwaregidsen en vergelijkers (kopers zoeken hier)
 | Plek | Taal / markt |
 |---|---|
-| **Capterra / GetApp / Software Advice** (één aanmelding via Gartner Digital Markets) | wereldwijd, ook NL en DE |
-| **G2** | wereldwijd |
-| **AlternativeTo** (als alternatief voor Paprika, Meez en Galley) | wereldwijd |
+| **Capterra / GetApp / Software Advice** (één aanmelding via Gartner Digital Markets) | Gedaan (23-11-2026): [Capterra](https://www.capterra.com/p/10274098/Savour/), [GetApp](https://www.getapp.com/all-software/a/savour/), [Software Advice](https://www.softwareadvice.com/product/781443-Savour/) |
+| **G2** | Gedaan: [G2](https://www.g2.com/products/savour/reviews) |
+| **AlternativeTo** (als alternatief voor Paprika, Meez en Galley) | wereldwijd; aanvraag loopt |
 | **SaaSHub** | wereldwijd |
-| **Product Hunt** (een lancering op één dag) | Engels, eenmalig |
+| **Product Hunt** (een lancering op één dag) | Gedaan: [Product Hunt](https://www.producthunt.com/products/savour) |
+
+De vermeldingen die gedaan zijn staan ook als `sameAs` bij SoftwareApplication in schema.org (kop van `index.html`).
 | **OMR Reviews** | Duits; groot in de DACH-regio |
 | **Capterra.de en GetApp.de** | Duits; volgt uit de Gartner-aanmelding |
 
