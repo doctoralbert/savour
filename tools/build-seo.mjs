@@ -704,7 +704,7 @@ function mobileMenu(lang, alt, inApp) {
     const target = inApp ? homePath(l) : alt?.[l] || homePath(l);
     return `<a href="${target}" hreflang="${l}" data-set-lang="${l}"${l === lang ? ' aria-current="true"' : ''}>${LANG_LABEL[l]}</a>`;
   }).join('');
-  return `<div class="site-mm" hidden><div class="site-mm-top"><span class="site-mm-logo" translate="no">SAVOUR</span><button type="button" class="site-mm-close" aria-label="${MENU_LABEL[lang][1]}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="site-wrap">${group(u.features, FEATURES, false)}${group(u.audience, AUDIENCES, false)}<ul class="site-mm-links">${link(href(legacy('pro')[lang]), u.pricing)}${link(href(STORY[lang].slug), u.about)}${link(href(blogSlug[lang]), u.blog)}${link(guideHref(lang, GUIDE_HOME), GUIDE_UI[lang].footer)}</ul><div class="site-mm-actions"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?auth=login" data-auth="login">${u.login}</a><a class="site-mm-demo" href="${q}?demo=1" data-demo>${u.demo}</a></div><div class="site-mm-lang" translate="no">${langs}</div></div></div>`;
+  return `<div class="site-mm" hidden><div class="site-mm-top"><span class="site-mm-logo" translate="no">SAVOUR</span><button type="button" class="site-mm-close" aria-label="${MENU_LABEL[lang][1]}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="site-wrap">${group(u.features, featureMenu(lang), false)}${group(u.audience, AUDIENCES, false)}<ul class="site-mm-links">${link(href(legacy('pro')[lang]), u.pricing)}${link(href(STORY[lang].slug), u.about)}${link(href(blogSlug[lang]), u.blog)}${link(guideHref(lang, GUIDE_HOME), GUIDE_UI[lang].footer)}</ul><div class="site-mm-actions"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?auth=login" data-auth="login">${u.login}</a><a class="site-mm-demo" href="${q}?demo=1" data-demo>${u.demo}</a></div><div class="site-mm-lang" translate="no">${langs}</div></div></div>`;
 }
 
 // ---- Onderdelen ----
@@ -736,7 +736,7 @@ function header(lang, alt, inApp) {
   return `<header class="site-header"><div class="site-wrap">
 <a class="site-logo" href="${u.home}" translate="no" title="Home">SAVOUR</a>
 <nav class="site-nav" aria-label="Savour">
-<div class="site-item"><button type="button" aria-haspopup="true">${u.features}</button>${card(u.features, u.featuresIntro, FEATURES)}</div>
+<div class="site-item"><button type="button" aria-haspopup="true">${u.features}</button>${card(u.features, u.featuresIntro, featureMenu(lang))}</div>
 <div class="site-item"><button type="button" aria-haspopup="true">${u.audience}</button>${card(u.audience, u.audienceIntro, AUDIENCES)}</div>
 <div class="site-item"><a href="${href(legacy('pro')[lang])}">${u.pricing}</a></div>
 <div class="site-item"><a href="${href(STORY[lang].slug)}">${u.about}</a></div>
@@ -845,6 +845,14 @@ const postPages = (p, lang) => {
     ? `<section class="site-related"><div class="site-wrap site-narrow"><h2>${POST_PAGES[lang]}</h2>${rows(list, lang)}</div></section>`
     : '';
 };
+// Functies in het menu. In het Duits staat Rezepturverwaltung (tools/site-rezeptur.mjs) erbij, vóór wat nog komt.
+function featureMenu(lang) {
+  const r = REZEPTUR_PAGE[lang];
+  if (!r) return FEATURES;
+  const item = { [lang]: { slug: r.slug, menu: r.crumb, short: r.homeLink } };
+  const at = FEATURES.findIndex(f => f.soon);
+  return at < 0 ? [...FEATURES, item] : [...FEATURES.slice(0, at), item, ...FEATURES.slice(at)];
+}
 const rows = (items, lang) =>
   `<ul class="site-rows">${items
     .map(x => {
