@@ -81,8 +81,8 @@ export const DE = {
     },
     organise: {
       slug: 'de/rezepte-organisieren',
-      title: 'Rezepte organisieren: Rezepturverwaltung für die Gastronomie | Savour',
-      desc: 'Rezepturverwaltung für Restaurants, Gastronomie und Großküche: alle Rezepturen in einem Rezeptbuch, mit eigenen Ordnern und Kategorien, Suche nach Zutat und Favoriten.',
+      title: 'Rezeptverwaltung Software für die Gastronomie | Savour',
+      desc: 'Rezeptverwaltung für Restaurants, Gastronomie und Großküche: alle Rezepturen in einer Software, mit Ordnern, Kategorien, Suche nach Zutat und Favoriten.',
       h1: 'Rezepte so organisieren, wie deine Küche arbeitet',
       lead: 'Ein Rezeptbuch für alles, was du je gekocht hast, geordnet nach deiner Art.',
       sections: [
@@ -265,7 +265,7 @@ export const DE = {
     },
     brigade: {
       slug: 'de/fuer-kuechenbrigaden',
-      title: 'Rezeptmanagement für Küchenbrigaden | Savour',
+      title: 'Rezeptverwaltung für Küchenbrigaden und Großküchen | Savour',
       desc: 'Savour für Küchenbrigaden: Chefs de Partie, Commis und Praktikanten arbeiten mit denselben Rezepten, auf dem eigenen Handy. Du bestimmst, wer was darf.',
       h1: 'Für Küchenbrigaden',
       lead: 'Vom Chef de Partie bis zum Praktikanten: Dein ganzes Küchenteam kocht nach demselben Rezept, in jedem Restaurant, das du führst.',
@@ -562,9 +562,9 @@ export const DE = {
     },
     'en/blog/recipe-management-for-restaurants': {
       slug: 'de/blog/rezeptverwaltung-gastronomie',
-      title: 'Rezepturverwaltung in Gastronomie und Großküche: wo du anfängst',
-      desc: 'Rezepturverwaltung für Restaurants, Hotels, Catering und Großküchen: wie du Rezepturen an einem Ort hältst, mit dem Küchenteam teilst und worauf du bei Software achtest.',
-      h1: 'Rezepturverwaltung in Gastronomie und Großküche: wo du anfängst',
+      title: 'Rezeptverwaltung Software für Gastronomie und Großküche',
+      desc: 'Rezeptverwaltung für Restaurants, Hotels, Catering und Großküchen: wie du Rezepturen an einem Ort hältst, im Team teilst und worauf du bei Software achtest.',
+      h1: 'Rezeptverwaltung in Gastronomie und Großküche: wo du anfängst',
       lead: 'In den meisten Küchen ist Rezepturverwaltung kein System, sondern eine Sammlung: Ordner, Dateien, Fotos und das, was der Küchenchef im Kopf hat. Das geht gut, bis jemand geht oder das Menü wechselt.',
       sections: [
         [

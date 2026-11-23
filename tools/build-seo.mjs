@@ -2057,9 +2057,9 @@ const HOME_META = {
     locale: 'en_GB'
   },
   de: {
-    title: 'Savour — Rezepturverwaltung für Köche und Küchenteams',
-    desc: 'Rezepturverwaltung für Restaurant und Großküche: Rezepte aus Word, PDF und Notizen importieren, mit dem Küchenteam teilen und drucken. Kostenlos testen.',
-    ogTitle: 'Savour — Rezeptverwaltung für Profiküchen',
+    title: 'Savour — Rezeptverwaltung Software für Gastronomie und Küche',
+    desc: 'Professionelle Rezeptverwaltung Software für Restaurant, Gastronomie und Großküche: Rezepte aus Word, PDF und Notizen importieren, im Team teilen und drucken.',
+    ogTitle: 'Savour — Rezeptverwaltung Software für Profiküchen',
     ogDesc:
       'Von der Notiz zum Rezept, das stimmt. Dein ganzes Rezeptbuch an einem Ort, auf Computer und Handy, geteilt mit deinem Küchenteam.',
     locale: 'de_DE'
