@@ -2,6 +2,13 @@
 // Alleen voor beheerders: het e-mailadres van de ingelogde gebruiker moet in ADMIN_EMAILS staan
 // (Vercel, komma-gescheiden). Wachtwoorden staan nooit in de code; inloggen gaat via Supabase.
 import { runMaintenance } from './_lib/onderhoud.js';
+import {
+  searchAuthUrl,
+  searchConnect,
+  searchDisconnect,
+  searchOverview,
+  fetchSearchStats
+} from './_lib/zoekmachines.js';
 import { getUserFromRequest } from './_lib/auth.js';
 import {
   select,
@@ -2475,6 +2482,12 @@ export default async function handler(req, res) {
     if (action === 'adsense_connect')
       return res.status(200).json(await adsenseConnect(req.body?.code, siteOrigin(req)));
     if (action === 'adsense_disconnect') return res.status(200).json(await adsenseDisconnect());
+    // Zoekmachines (Google Search Console en Bing): api/_lib/zoekmachines.js.
+    if (action === 'search') return res.status(200).json(await searchOverview(req.body || {}));
+    if (action === 'search_auth_url') return res.status(200).json(searchAuthUrl(siteOrigin(req), req.body?.state));
+    if (action === 'search_connect') return res.status(200).json(await searchConnect(req.body?.code, siteOrigin(req)));
+    if (action === 'search_disconnect') return res.status(200).json(await searchDisconnect());
+    if (action === 'search_fetch') return res.status(200).json(await fetchSearchStats());
     if (action === 'messages') return res.status(200).json(await contactMessages());
     if (action === 'referrals') return res.status(200).json(await referralOverview());
     if (action === 'ai_usage') return res.status(200).json(await aiUsageOverview());

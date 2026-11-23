@@ -5063,6 +5063,24 @@ body {
   font-size: var(--sv-fs-xs);
   pointer-events: none;
 }
+/* Zoekmachines in het beheer: periode en land op één regel boven de cijfers */
+.search-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.search-country {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: #c8c6bf;
+  font-size: var(--sv-fs-sm);
+}
+.admin-table tr.is-on td {
+  background: rgba(225, 195, 122, 0.08);
+}
 @media (max-width: 760px) {
   .fin-cats > div {
     grid-template-columns: 90px 1fr 76px;

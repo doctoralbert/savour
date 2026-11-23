@@ -144,6 +144,7 @@ function showAdminTab(tab) {
     loadAdminImports();
   }
   if (tab === 'lezer') loadAdminReader();
+  if (tab === 'zoekmachines') loadAdminSearch();
   try {
     sessionStorage.setItem('savour_admin_tab', tab);
   } catch (_) {}
@@ -155,6 +156,7 @@ async function startAdsenseConnect() {
   const state = crypto.randomUUID();
   try {
     sessionStorage.setItem('savour_adsense_state', state);
+    sessionStorage.setItem('savour_google_link', 'adsense');
     const { url } = await adminApi('adsense_auth_url', { state });
     location.href = url;
   } catch (error) {
@@ -162,23 +164,29 @@ async function startAdsenseConnect() {
   }
 }
 
-// Terug van Google op /admin?code=...: alleen met dezelfde controlecode als waarmee we vertrokken.
+// Terug van Google op /admin?code=...: alleen met dezelfde controlecode als waarmee we vertrokken. Dezelfde terugkeer
+// dient AdSense en Search Console; savour_google_link zegt welke koppeling het was.
 async function finishAdsenseConnect() {
   const q = new URLSearchParams(location.search);
   const state = q.get('state');
   if (!state) return;
   let expected = '';
+  let link = 'adsense';
   try {
     expected = sessionStorage.getItem('savour_adsense_state') || '';
+    link = sessionStorage.getItem('savour_google_link') || 'adsense';
     sessionStorage.removeItem('savour_adsense_state');
+    sessionStorage.removeItem('savour_google_link');
   } catch (_) {}
   history.replaceState(null, '', '/admin');
-  showAdminTab('advertenties');
+  const search = link === 'search';
+  showAdminTab(search ? 'zoekmachines' : 'advertenties');
   if (!q.get('code') || state !== expected) return;
   try {
-    await adminApi('adsense_connect', { code: q.get('code') });
+    await adminApi(search ? 'search_connect' : 'adsense_connect', { code: q.get('code') });
+    if (search) await fetchAdminSearchNow();
   } catch (error) {
-    console.error('AdSense koppelen mislukt', error);
+    console.error(search ? 'Search Console koppelen mislukt' : 'AdSense koppelen mislukt', error);
   }
 }
 
@@ -2281,6 +2289,367 @@ async function logSavourVisit(path) {
   } catch (e) {
     console.debug('Savour analytics unavailable', e);
   }
+}
+
+// ---- Zoekmachines: Google Search Console en Bing (api/_lib/zoekmachines.js). De server haalt de cijfers elke nacht op;
+// hier een grafiek per land, de belangrijkste cijfers tegen de periode ervoor, en zoektermen en pagina's. ----
+
+const SEARCH_GOOGLE = '#b28515';
+const SEARCH_BING = '#4a8fd9';
+const SEARCH_METRICS = {
+  impressions: 'Vertoningen',
+  clicks: 'Klikken',
+  ctr: 'Klikratio',
+  position: 'Gemiddelde positie'
+};
+let adminSearch = null;
+let adminSearchDays = 28;
+let adminSearchCountry = '';
+let adminSearchMetric = 'impressions';
+
+async function loadAdminSearch() {
+  const host = $('adminSearchBody');
+  if (!host) return;
+  try {
+    adminSearch = await adminApi('search', { days: adminSearchDays, country: adminSearchCountry });
+    renderAdminSearch();
+  } catch (error) {
+    if (!error.expired) host.innerHTML = `<p class="admin-note">${adminEscape(error.message)}</p>`;
+  }
+}
+
+function setSearchView(key, value) {
+  if (key === 'days') adminSearchDays = Number(value) || 28;
+  if (key === 'country') adminSearchCountry = String(value || '');
+  if (key === 'metric') {
+    adminSearchMetric = value;
+    return renderAdminSearch();
+  }
+  loadAdminSearch();
+}
+
+async function startSearchConnect() {
+  const state = crypto.randomUUID();
+  try {
+    sessionStorage.setItem('savour_adsense_state', state);
+    sessionStorage.setItem('savour_google_link', 'search');
+    const { url } = await adminApi('search_auth_url', { state });
+    location.href = url;
+  } catch (error) {
+    toast(error.message);
+  }
+}
+
+async function disconnectSearch() {
+  if (
+    !(await askConfirm(
+      'Search Console loskoppelen?\n\nDe bewaarde cijfers blijven staan; er komen alleen geen nieuwe meer bij.',
+      { confirmLabel: 'Loskoppelen', danger: true }
+    ))
+  )
+    return;
+  await adminApi('search_disconnect');
+  loadAdminSearch();
+}
+
+// Nu ophalen in plaats van vannacht (de eerste keer haalt Google de hele geschiedenis: even geduld).
+async function fetchAdminSearchNow() {
+  const button = $('adminSearchFetch');
+  if (button) {
+    button.disabled = true;
+    button.textContent = 'Ophalen…';
+  }
+  try {
+    const result = await adminApi('search_fetch');
+    const errors = ['google', 'bing'].filter(s => result[s]?.error).map(s => `${s}: ${result[s].error}`);
+    if (errors.length) alertAdmin(errors.join('\n'));
+  } catch (error) {
+    alertAdmin(error.message);
+  }
+  await loadAdminSearch();
+}
+
+const searchSum = rows => {
+  let clicks = 0,
+    impressions = 0,
+    weighted = 0,
+    weight = 0;
+  for (const r of rows) {
+    clicks += Number(r.clicks) || 0;
+    impressions += Number(r.impressions) || 0;
+    if (r.position != null) {
+      weighted += Number(r.position) * (Number(r.impressions) || 0);
+      weight += Number(r.impressions) || 0;
+    }
+  }
+  return {
+    clicks,
+    impressions,
+    ctr: impressions ? clicks / impressions : null,
+    position: weight ? weighted / weight : null
+  };
+};
+const searchDay = day => new Date(`${day}T12:00:00Z`);
+const searchAddDays = (day, n) => new Date(searchDay(day).getTime() + n * 86400000).toISOString().slice(0, 10);
+const searchDayLabel = (day, long) =>
+  searchDay(day).toLocaleDateString('nl-NL', { day: 'numeric', month: 'short', ...(long ? { year: 'numeric' } : {}) });
+function searchValue(metric, v) {
+  if (v == null) return '—';
+  if (metric === 'ctr') return `${(v * 100).toLocaleString('nl-NL', { maximumFractionDigits: 1 })}%`;
+  if (metric === 'position') return v.toLocaleString('nl-NL', { maximumFractionDigits: 1 });
+  return count0(v);
+}
+// Verschil met de periode ervoor. Bij positie is lager beter.
+function searchChange(metric, now, prev) {
+  if (now == null || prev == null) return '';
+  if (metric === 'position') {
+    const d = now - prev;
+    if (Math.abs(d) < 0.05) return 'gelijk';
+    return d < 0 ? '▲ beter' : '▼ lager';
+  }
+  if (!prev) return now ? 'nieuw' : '';
+  const p = Math.round(((now - prev) / prev) * 100);
+  if (!p) return 'gelijk';
+  return `${p >= 0 ? '▲' : '▼'} ${Math.abs(p)}%`;
+}
+
+// Rijen per dag voor één bron (en land), als lijst van alle dagen in de periode; ontbrekende dagen tellen als 0.
+function searchSeries(d, source, from, end) {
+  const rows = d.daily.filter(r => r.source === source && (!d.country || r.country === d.country));
+  const byDay = new Map();
+  for (const r of rows) byDay.set(r.day, [...(byDay.get(r.day) || []), r]);
+  const out = [];
+  for (let day = from; day <= end; day = searchAddDays(day, 1)) out.push({ day, ...searchSum(byDay.get(day) || []) });
+  return out;
+}
+
+// Langer dan vier maanden: per week, anders wordt de lijn onleesbaar.
+function searchBuckets(series, weekly) {
+  if (!weekly) return series.map(s => ({ label: s.day, rows: [s] }));
+  const out = [];
+  for (let i = series.length; i > 0; i -= 7) {
+    const part = series.slice(Math.max(0, i - 7), i);
+    out.unshift({ label: part[0].day, rows: part });
+  }
+  return out;
+}
+
+function searchChart(d, metric) {
+  const end = [d.periods.google?.end, d.periods.bing?.end].filter(Boolean).sort().pop();
+  if (!end) return '<p class="admin-note">Nog geen cijfers.</p>';
+  const from = searchAddDays(end, -(d.days - 1));
+  const weekly = d.days > 120;
+  const sources = [
+    { key: 'google', name: 'Google', color: SEARCH_GOOGLE },
+    // Bing geeft geen landen en geen positie per dag.
+    ...(!d.country && metric !== 'position' && d.periods.bing
+      ? [{ key: 'bing', name: 'Bing', color: SEARCH_BING }]
+      : [])
+  ].filter(s => d.periods[s.key]);
+  const lines = sources.map(s => ({
+    ...s,
+    points: searchBuckets(searchSeries(d, s.key, from, end), weekly).map(b => ({
+      label: b.label,
+      ...searchSum(b.rows)
+    }))
+  }));
+  const count = lines[0]?.points.length || 0;
+  if (!count) return '<p class="admin-note">Nog geen cijfers.</p>';
+  const values = lines.flatMap(l => l.points.map(p => p[metric])).filter(v => v != null);
+  const W = 720,
+    H = 240,
+    L = 56,
+    B = 26,
+    T = 12;
+  const invert = metric === 'position';
+  const top = invert ? Math.max(...values, 2) : Math.max(...values, metric === 'ctr' ? 0.01 : 1);
+  const low = invert ? Math.max(1, Math.min(...values)) : 0;
+  const span = top - low || 1;
+  // Positie: 1 bovenaan (beter), een hogere positie lager in beeld.
+  const y = v => (invert ? T + ((v - low) / span) * (H - T - B) : T + ((top - v) / span) * (H - T - B));
+  const x = i => L + ((W - L - 12) / Math.max(1, count - 1)) * i;
+  const grid = [0, 0.5, 1]
+    .map(f => low + span * f)
+    .map(
+      v =>
+        `<line x1="${L}" x2="${W}" y1="${y(v)}" y2="${y(v)}" class="fin-grid"></line><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end" class="fin-axis">${adminEscape(searchValue(metric, v))}</text>`
+    )
+    .join('');
+  const paths = lines
+    .map(l => {
+      let pen = 'M';
+      const dPath = l.points
+        .map((p, i) => {
+          if (p[metric] == null) {
+            pen = 'M';
+            return '';
+          }
+          const seg = `${pen}${x(i).toFixed(1)} ${y(p[metric]).toFixed(1)}`;
+          pen = 'L';
+          return seg;
+        })
+        .join(' ');
+      return `<path d="${dPath}" fill="none" stroke="${l.color}" stroke-width="2" stroke-linejoin="round"></path>`;
+    })
+    .join('');
+  const every = Math.max(1, Math.ceil(count / 7));
+  const hits = lines[0].points
+    .map((p, i) => {
+      const tip = `${weekly ? 'Week van ' : ''}${searchDayLabel(p.label, true)}: ${lines
+        .map(l => `${l.name} ${searchValue(metric, l.points[i][metric])}`)
+        .join(' · ')}`;
+      const label =
+        i % every === 0 || i === count - 1
+          ? `<text x="${x(i)}" y="${H - 8}" text-anchor="middle" class="fin-axis">${adminEscape(searchDayLabel(p.label))}</text>`
+          : '';
+      const band = (W - L) / count;
+      const dots = lines
+        .filter(l => l.points[i][metric] != null && count <= 60)
+        .map(l => `<circle cx="${x(i)}" cy="${y(l.points[i][metric])}" r="3" fill="${l.color}"></circle>`)
+        .join('');
+      return `<g class="fin-hit" data-tip="${adminEscape(tip)}"><rect x="${x(i) - band / 2}" y="0" width="${band}" height="${H - B}" fill="transparent"></rect>${dots}${label}</g>`;
+    })
+    .join('');
+  return `${lines.length > 1 ? finLegend(lines) : ''}<div class="fin-chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${adminEscape(SEARCH_METRICS[metric])} per ${weekly ? 'week' : 'dag'}">${grid}${paths}${hits}</svg></div>`;
+}
+
+function searchItemsTable(title, kicker, list, label) {
+  if (!list?.length) return '';
+  const rows = list
+    .slice(0, 15)
+    .map(
+      q =>
+        `<tr><td>${adminEscape(q.item)}</td><td>${count0(q.now.clicks)}</td><td>${count0(q.now.impressions)}</td><td>${searchValue('position', q.now.position)}</td><td>${adminEscape(searchChange('impressions', q.now.impressions, q.prev.impressions))}</td></tr>`
+    )
+    .join('');
+  return `<section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">${adminEscape(kicker)}</div><h2>${adminEscape(title)}</h2></div></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>${adminEscape(label)}</th><th>Klikken</th><th>Vertoningen</th><th>Positie</th><th>Vertoningen t.o.v. ervoor</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
+}
+
+function renderAdminSearch() {
+  const host = $('adminSearchBody');
+  const d = adminSearch;
+  if (!host || !d) return;
+  const st = d.status || {};
+  const setup = [];
+  if (d.sql === false) setup.push('Voer eerst <b>supabase/2026-11-23-zoekmachines.sql</b> uit in Supabase.');
+  if (st.google === 'setup') setup.push('Google: de Google-gegevens (zelfde als AdSense) ontbreken in Vercel.');
+  if (st.bing === 'setup')
+    setup.push('Bing: zet de API-sleutel als <b>BING_WEBMASTER_KEY</b> in Vercel (zie docs/zoekmachines-volgen.md).');
+  const connect =
+    st.google === 'connect'
+      ? '<button type="button" class="btn gold" onclick="startSearchConnect()">Koppel Search Console</button>'
+      : st.google === 'ok'
+        ? '<button type="button" class="btn-quiet" onclick="disconnectSearch()">Search Console loskoppelen</button>'
+        : '';
+  const head = `<section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">VINDBAARHEID</div><h2>Google en Bing</h2></div><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">${connect}<button type="button" id="adminSearchFetch" class="btn" onclick="fetchAdminSearchNow()">Nu ophalen</button></div></div><p class="admin-panel-note">Savour haalt de cijfers elke nacht op en bewaart ze, ook als Google (16 maanden) en Bing (6 maanden) ze al weggooien. Google loopt twee à drie dagen achter. ${
+    d.fetched_at ? `Laatst opgehaald: ${adminEscape(adminFormatDate(d.fetched_at))}.` : 'Nog niets opgehaald.'
+  }</p>${setup.map(s => `<p class="admin-note">${s}</p>`).join('')}</section>`;
+  if (!d.sql || !d.daily?.length) {
+    host.innerHTML = head;
+    return;
+  }
+
+  const g = d.periods.google;
+  const b = d.periods.bing;
+  const inPeriod = (rows, p, prev) =>
+    rows.filter(r => (prev ? r.day >= p.prevFrom && r.day < p.from : r.day >= p.from && r.day <= p.end));
+  const gRows = d.daily.filter(r => r.source === 'google');
+  const gSel = gRows.filter(r => !d.country || r.country === d.country);
+  const gNow = g ? searchSum(inPeriod(gSel, g)) : null;
+  const gPrev = g ? searchSum(inPeriod(gSel, g, true)) : null;
+  const bRows = d.daily.filter(r => r.source === 'bing');
+  const bNow = b ? searchSum(inPeriod(bRows, b)) : null;
+  const bPrev = b ? searchSum(inPeriod(bRows, b, true)) : null;
+
+  // Landen in deze periode, meeste vertoningen eerst (Google).
+  const countries = new Map();
+  if (g)
+    for (const r of gRows) {
+      if (r.day < g.prevFrom || r.day > g.end) continue;
+      const e = countries.get(r.country) || { now: [], prev: [] };
+      (r.day >= g.from ? e.now : e.prev).push(r);
+      countries.set(r.country, e);
+    }
+  const countryList = [...countries]
+    .map(([cc, e]) => ({ cc, now: searchSum(e.now), prev: searchSum(e.prev) }))
+    .filter(c => c.now.impressions || c.prev.impressions)
+    .sort((a, z) => z.now.impressions - a.now.impressions);
+  const countryName = cc => (cc === 'zz' ? 'Onbekend' : adminCountryNames?.of(cc.toUpperCase()) || cc.toUpperCase());
+  const options = [
+    `<option value="">Alle landen</option>`,
+    ...countryList
+      .filter(c => c.cc !== 'zz')
+      .map(
+        c =>
+          `<option value="${adminEscape(c.cc)}" ${c.cc === d.country ? 'selected' : ''}>${adminEscape(countryName(c.cc))}</option>`
+      )
+  ].join('');
+  // Een gekozen land zonder cijfers in deze periode blijft kiesbaar.
+  const extra =
+    d.country && !countryList.some(c => c.cc === d.country)
+      ? `<option value="${adminEscape(d.country)}" selected>${adminEscape(countryName(d.country))}</option>`
+      : '';
+  const btn = (key, value, label, on) =>
+    `<button type="button" class="${on ? 'is-on' : ''}" onclick="setSearchView('${key}','${value}')">${label}</button>`;
+  const tile = (metric, label) =>
+    finTile(
+      label,
+      searchValue(metric, gNow?.[metric]),
+      gPrev
+        ? `${searchChange(metric, gNow?.[metric], gPrev?.[metric]) || '—'} · was ${searchValue(metric, gPrev[metric])}`
+        : ''
+    );
+  const periodText = p => (p ? `${searchDayLabel(p.from)} t/m ${searchDayLabel(p.end, true)}` : '');
+  const items = d.items || {};
+
+  host.innerHTML = `${head}
+    <div class="search-controls">
+      <div class="fin-periods" role="group" aria-label="Periode">${btn('days', 28, '28 dagen', d.days === 28)}${btn('days', 90, '3 maanden', d.days === 90)}${btn('days', 365, '12 maanden', d.days === 365)}${btn('days', 480, '16 maanden', d.days === 480)}</div>
+      <label class="search-country">Land <select class="admin-select" onchange="setSearchView('country', this.value)">${options}${extra}</select></label>
+    </div>
+    <p class="admin-note">Google${d.country ? ` · ${adminEscape(countryName(d.country))}` : ''}: ${adminEscape(periodText(g))}, vergeleken met de ${d.days} dagen ervoor.</p>
+    <div class="admin-stats-grid fin-hero">
+      ${tile('clicks', 'Klikken')}${tile('impressions', 'Vertoningen')}${tile('ctr', 'Klikratio')}${tile('position', 'Gemiddelde positie')}
+      ${!d.country && bNow ? finTile('Bing', `${count0(bNow.clicks)} klikken`, `${count0(bNow.impressions)} vertoningen · ${searchChange('impressions', bNow.impressions, bPrev?.impressions) || '—'}`) : ''}
+    </div>
+    <section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">ONTWIKKELING</div><h2>${adminEscape(SEARCH_METRICS[adminSearchMetric])} per ${d.days > 120 ? 'week' : 'dag'}</h2></div></div>
+      <div class="fin-periods" role="group" aria-label="Cijfer">${Object.entries(SEARCH_METRICS)
+        .map(([k, v]) => btn('metric', k, v, adminSearchMetric === k))
+        .join('')}</div>
+      ${searchChart(d, adminSearchMetric)}
+      ${d.country ? '<p class="admin-footnote">Bing geeft geen cijfers per land; met een land gekozen staat alleen Google in de grafiek.</p>' : ''}
+      ${adminSearchMetric === 'position' ? '<p class="admin-footnote">Positie 1 is bovenaan in Google; hoe hoger de lijn, hoe beter.</p>' : ''}
+    </section>
+    ${
+      countryList.length
+        ? `<section class="admin-panel"><div class="admin-panel-head"><div><div class="admin-kicker">LANDEN</div><h2>Google per land</h2></div></div><div class="admin-table-wrap" style="max-height:420px;overflow-y:auto"><table class="admin-table"><thead><tr><th>Land</th><th>Klikken</th><th>Vertoningen</th><th>Positie</th><th>Vertoningen t.o.v. ervoor</th></tr></thead><tbody>${countryList
+            .slice(0, 40)
+            .map(
+              c =>
+                `<tr class="${c.cc === d.country ? 'is-on' : ''}" ${c.cc === 'zz' ? '' : `style="cursor:pointer" onclick="setSearchView('country','${adminEscape(c.cc)}')"`}><td>${c.cc === 'zz' ? adminFlag('') : adminFlag(c.cc)} ${adminEscape(countryName(c.cc))}</td><td>${count0(c.now.clicks)}</td><td>${count0(c.now.impressions)}</td><td>${searchValue('position', c.now.position)}</td><td>${adminEscape(searchChange('impressions', c.now.impressions, c.prev.impressions))}</td></tr>`
+            )
+            .join(
+              ''
+            )}</tbody></table></div><p class="admin-footnote">Klik op een land om de grafiek en de zoektermen voor dat land te zien.</p></section>`
+        : ''
+    }
+    ${searchItemsTable('Zoektermen in Google', 'ZOEKTERMEN', items.google?.query, 'Zoekterm')}
+    ${searchItemsTable("Pagina's in Google", "PAGINA'S", items.google?.page, 'Pagina')}
+    ${!d.country ? searchItemsTable('Zoektermen in Bing', 'BING', items.bing?.query, 'Zoekterm') : ''}
+    ${!d.country ? searchItemsTable("Pagina's in Bing", 'BING', items.bing?.page, 'Pagina') : ''}
+    ${items.bing?.query?.length && !d.country ? '<p class="admin-footnote">Bing geeft zoektermen en pagina\'s per week; de positie is zoals Bing hem doorgeeft.</p>' : ''}
+    <div id="searchTip" class="fin-tip" hidden></div>`;
+
+  const tip = $('searchTip');
+  host.querySelectorAll('.fin-hit').forEach(el => {
+    el.addEventListener('mousemove', e => {
+      tip.textContent = el.dataset.tip;
+      tip.hidden = false;
+      tip.style.left = `${Math.min(innerWidth - 300, e.clientX + 14)}px`;
+      tip.style.top = `${e.clientY + 14}px`;
+    });
+    el.addEventListener('mouseleave', () => (tip.hidden = true));
+  });
 }
 
 // ---- Financiën: omzet, kosten, winst en uren (api/admin.js). Cijfers zijn een hulpmiddel, geen boekhouding. ----

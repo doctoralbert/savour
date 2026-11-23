@@ -41,6 +41,9 @@ Wat de kok zelf verbetert is de belangrijkste les voor de lezer: per geïmportee
 ingrediëntnamen (cloud-routine "Savour: dagelijks rapport per mail"), schrijft een rapport met verbeterpunten en een kant-en-klare
 opdracht in `daily_reports` (`supabase/2026-11-17-dagrapport.sql`), en Savour mailt dat naar het contactadres
 (`api/_lib/onderhoud.js` → `sendDailyReports`, cron `/api/admin?taak=rapport`). Geen pull requests meer.
+Vindbaarheid: het nachtelijk onderhoud haalt Google Search Console en Bing op (`api/_lib/zoekmachines.js`, tabellen
+`seo_daily`/`seo_items`, `supabase/2026-11-23-zoekmachines.sql`); /admin → Zoekmachines (grafiek per land) en een trend
+onder elk dagrapport. Instellen: `docs/zoekmachines-volgen.md`.
 Opslag: originele kladjes staan in de privé-bucket `recipe-sources` (`recipe_sources.image_path`; oude in `image` verhuizen 's nachts),
 geïmporteerde bestanden blijven 60 dagen. Nachtelijk onderhoud: `api/_lib/onderhoud.js` (Vercel Cron, `CRON_SECRET`), met de opruimlijst
 `storage_cleanup_queue` voor bestanden van verwijderde recepten en accounts (`supabase/2026-11-11-opslag-ontlasten.sql`).
