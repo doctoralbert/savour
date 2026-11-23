@@ -54,6 +54,7 @@ import { BAR_POST, BAR_POST_DE, BAR_POST_ES, BAR_POST_FR } from './site-blog-bar
 import { PATISSERIE_POST, PATISSERIE_POST_DE, PATISSERIE_POST_ES, PATISSERIE_POST_FR } from './site-blog-patisserie.mjs';
 import { CATERING_POST, CATERING_POST_DE, CATERING_POST_ES, CATERING_POST_FR } from './site-blog-catering.mjs';
 import { PAPRIKA_PAGE } from './site-paprika.mjs';
+import { REZEPTUR_PAGE } from './site-rezeptur.mjs';
 import { PAGE_RICH } from './site-page-rich.mjs';
 import { HOME_NEXT } from './site-home.mjs';
 import { APP_PAGE } from './site-app.mjs';
@@ -703,7 +704,7 @@ function mobileMenu(lang, alt, inApp) {
     const target = inApp ? homePath(l) : alt?.[l] || homePath(l);
     return `<a href="${target}" hreflang="${l}" data-set-lang="${l}"${l === lang ? ' aria-current="true"' : ''}>${LANG_LABEL[l]}</a>`;
   }).join('');
-  return `<div class="site-mm" hidden><div class="site-mm-top"><span class="site-mm-logo" translate="no">SAVOUR</span><button type="button" class="site-mm-close" aria-label="${MENU_LABEL[lang][1]}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="site-wrap">${group(u.features, FEATURES, false)}${group(u.audience, AUDIENCES, false)}<ul class="site-mm-links">${link(href(legacy('pro')[lang]), u.pricing)}${link(href(STORY[lang].slug), u.about)}${link(href(blogSlug[lang]), u.blog)}${link(guideHref(lang, GUIDE_HOME), GUIDE_UI[lang].footer)}</ul><div class="site-mm-actions"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?auth=login" data-auth="login">${u.login}</a><a class="site-mm-demo" href="${q}?demo=1" data-demo>${u.demo}</a></div><div class="site-mm-lang" translate="no">${langs}</div></div></div>`;
+  return `<div class="site-mm" hidden><div class="site-mm-top"><span class="site-mm-logo" translate="no">SAVOUR</span><button type="button" class="site-mm-close" aria-label="${MENU_LABEL[lang][1]}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="site-wrap">${group(u.features, featureMenu(lang), false)}${group(u.audience, AUDIENCES, false)}<ul class="site-mm-links">${link(href(legacy('pro')[lang]), u.pricing)}${link(href(STORY[lang].slug), u.about)}${link(href(blogSlug[lang]), u.blog)}${link(guideHref(lang, GUIDE_HOME), GUIDE_UI[lang].footer)}</ul><div class="site-mm-actions"><a class="site-btn solid" href="${q}?auth=signup" data-auth="signup">${u.start}</a><a class="site-btn" href="${q}?auth=login" data-auth="login">${u.login}</a><a class="site-mm-demo" href="${q}?demo=1" data-demo>${u.demo}</a></div><div class="site-mm-lang" translate="no">${langs}</div></div></div>`;
 }
 
 // ---- Onderdelen ----
@@ -735,7 +736,7 @@ function header(lang, alt, inApp) {
   return `<header class="site-header"><div class="site-wrap">
 <a class="site-logo" href="${u.home}" translate="no" title="Home">SAVOUR</a>
 <nav class="site-nav" aria-label="Savour">
-<div class="site-item"><button type="button" aria-haspopup="true">${u.features}</button>${card(u.features, u.featuresIntro, FEATURES)}</div>
+<div class="site-item"><button type="button" aria-haspopup="true">${u.features}</button>${card(u.features, u.featuresIntro, featureMenu(lang))}</div>
 <div class="site-item"><button type="button" aria-haspopup="true">${u.audience}</button>${card(u.audience, u.audienceIntro, AUDIENCES)}</div>
 <div class="site-item"><a href="${href(legacy('pro')[lang])}">${u.pricing}</a></div>
 <div class="site-item"><a href="${href(STORY[lang].slug)}">${u.about}</a></div>
@@ -757,7 +758,7 @@ function footer(lang, alt, inApp) {
   return `<footer class="site-foot"><div class="site-wrap">
 <div class="site-foot-top">
 <div class="site-foot-brand"><span translate="no">SAVOUR</span><p>${esc(u.footerTag)} ${esc(u.madeBy || (lang === 'nl' ? 'Gemaakt door chefs, voor chefs.' : 'Made by chefs, for chefs.'))}</p><a class="site-btn" href="${q}?auth=signup" data-auth="signup">${u.start}</a></div>
-<div><h4>${u.footerCols.features}</h4><ul>${FEATURES.map(f => li(href(f[lang].slug), f[lang].menu)).join('')}</ul></div>
+<div><h4>${u.footerCols.features}</h4><ul>${FEATURES.map(f => li(href(f[lang].slug), f[lang].menu)).join('')}${REZEPTUR_PAGE[lang] ? li(href(REZEPTUR_PAGE[lang].slug), REZEPTUR_PAGE[lang].crumb) : ''}</ul></div>
 <div><h4>${u.footerCols.audience}</h4><ul>${AUDIENCES.map(a => li(href(a[lang].slug), a[lang].menu)).join('')}</ul></div>
 <div><h4>${u.footerCols.company}</h4><ul>${li(href(STORY[lang].slug), u.about)}${li(href(legacy('pro')[lang]), u.pricing)}${li(href(blogSlug[lang]), u.blog)}${li(href(legacy('contact')[lang]), u.contact)}${li(guideHref(lang, RELEASES_PAGE), GUIDE_UI[lang].releases)}</ul></div>
 <div><h4>${u.footerCols.help}</h4><ul>${li(href(legacy('faq')[lang]), u.faq)}${GUIDE_HOME[lang] ? '' : li(href(legacy('guide')[lang]), u.guide)}${li(guideHref(lang, GUIDE_HOME), GUIDE_UI[lang].footer)}${li(href(APP_PAGE[lang].slug), APP_PAGE[lang].menu)}${li(`${q}?info=bug`, u.bug)}<li><a href="${q}?auth=login" data-auth="login">${u.login}</a></li></ul></div>
@@ -844,6 +845,14 @@ const postPages = (p, lang) => {
     ? `<section class="site-related"><div class="site-wrap site-narrow"><h2>${POST_PAGES[lang]}</h2>${rows(list, lang)}</div></section>`
     : '';
 };
+// Functies in het menu. In het Duits staat Rezepturverwaltung (tools/site-rezeptur.mjs) erbij, vóór wat nog komt.
+function featureMenu(lang) {
+  const r = REZEPTUR_PAGE[lang];
+  if (!r) return FEATURES;
+  const item = { [lang]: { slug: r.slug, menu: r.crumb, short: r.homeLink } };
+  const at = FEATURES.findIndex(f => f.soon);
+  return at < 0 ? [...FEATURES, item] : [...FEATURES.slice(0, at), item, ...FEATURES.slice(at)];
+}
 const rows = (items, lang) =>
   `<ul class="site-rows">${items
     .map(x => {
@@ -1075,7 +1084,7 @@ function homeBody(lang, inApp) {
 <div class="hero-shots"><div class="hero-laptop"><img src="/assets/app/bibliotheek-${lang}.jpg" alt="${esc(SHOT_ALT[lang][0])}" width="1440" height="900"></div><div class="hero-phone"><img src="/assets/app/recept-${lang}.jpg" alt="${esc(SHOT_ALT[lang][1])}" width="520" height="1125"></div></div>
 </div></section>
 <section class="site-section"><div class="site-wrap"><div class="site-two"><h2 class="reveal">${esc(KLADJE_REAL[lang].heading)}</h2><div>${h.story.map(p => `<p>${esc(p)}</p>`).join('')}<p><a class="site-link" href="${href(STORY[lang].slug)}">${esc(h.storyLink)}</a></p></div></div>${kladje(lang, true)}</div></section>
-<section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(h.featuresTitle)}</h2>${rows(homeFeatures, lang)}</div></section>
+<section class="site-section tint"><div class="site-wrap"><h2 class="reveal">${esc(h.featuresTitle)}</h2>${rows(REZEPTUR_PAGE[lang] ? [...homeFeatures, { [lang]: { slug: REZEPTUR_PAGE[lang].slug, menu: REZEPTUR_PAGE[lang].crumb, short: REZEPTUR_PAGE[lang].homeLink } }] : homeFeatures, lang)}</div></section>
 <section class="site-section"><div class="site-wrap"><h2 class="reveal">${esc(n.teamTitle)}</h2><ol class="home-steps">${n.team.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join('')}</ol></div></section>
 <section class="site-section tint" id="prijzen"><div class="site-wrap"><h2 class="reveal">${esc(n.priceTitle)}</h2><div class="home-plans">${n.plans.map(plan).join('')}</div><p class="home-plans-foot">${esc(n.priceFoot)} <a class="site-link" href="${href(legacy('pro')[lang])}">${esc(n.priceLink)}</a></p></div></section>
 ${serviceBand(lang)}
@@ -1131,8 +1140,8 @@ ${alternates.map(([l, h]) => `<link rel="alternate" hreflang="${l}" href="${h}">
 <meta property="og:locale" content="${{ nl: 'nl_NL', en: 'en_GB', de: 'de_DE', es: 'es_ES', fr: 'fr_FR' }[lang] || 'en_GB'}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0d1314">
-<link rel="icon" href="/favicon.ico?v=3" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/favicon-96.png?v=3"><link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/favicon-192.png?v=4">
-<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png?v=4">
+<link rel="icon" href="/favicon.ico?v=4" sizes="48x48"><link rel="icon" type="image/png" sizes="96x96" href="/assets/icons/favicon-96.png?v=4"><link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/favicon-192.png?v=5">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png?v=5">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/site.css">
@@ -1308,7 +1317,22 @@ const PHOTOS = {
   blogNieuweKok: ['blog-nieuwe-kok.jpg', '75% 55%'],
   blogKladjes: ['blog-kladjes.jpg', '75% 55%'],
   blogReceptbeheer: ['blog-receptbeheer.jpg', '75% 55%'],
-  blogAppKiezen: ['blog-app-kiezen.jpg', '75% 55%']
+  blogAppKiezen: ['blog-app-kiezen.jpg', '75% 55%'],
+  blogReceptenDelen: ['blog-recepten-delen.jpg', '75% 55%'],
+  blogOpschalen: ['blog-opschalen.jpg', '75% 55%'],
+  blogOrganiseren: ['blog-organiseren.jpg', '75% 55%'],
+  blogZonderWifi: ['blog-zonder-wifi.jpg', '75% 55%'],
+  blogEigenLogo: ['blog-eigen-logo.jpg', '75% 55%'],
+  blogDatabase: ['blog-database.jpg', '75% 55%'],
+  blogLatenOverzetten: ['blog-laten-overzetten.jpg', '75% 55%'],
+  blogMappenIndelen: ['blog-mappen-indelen.jpg', '75% 55%'],
+  blogRoadmap: ['blog-roadmap.jpg', '75% 55%'],
+  blogOrdenenMetAi: ['blog-ordenen-met-ai.jpg', '75% 55%'],
+  blogVergelijken: ['blog-vergelijken.jpg', '75% 55%'],
+  blogStandaardrecepturen: ['blog-standaardrecepturen.jpg', '75% 55%'],
+  blogSousVide: ['blog-sous-vide.jpg', '75% 55%'],
+  blogVanWord: ['blog-van-word.jpg', '75% 55%'],
+  gidsTips: ['gids-tips.jpg', '75% 55%']
 };
 // Eigen foto per blog (Nederlands adres zonder blog/); anders `photo` in de blogdefinitie of de vaste rij.
 const BLOG_PHOTO = {
@@ -1325,7 +1349,21 @@ const BLOG_PHOTO = {
   'nieuwe-kok-inwerken': 'blogNieuweKok',
   'oude-kladjes-digitaliseren': 'blogKladjes',
   'receptbeheer-in-de-horeca': 'blogReceptbeheer',
-  'recepten-app-kiezen-restaurant': 'blogAppKiezen'
+  'recepten-app-kiezen-restaurant': 'blogAppKiezen',
+  'recepten-delen-met-je-team': 'blogReceptenDelen',
+  'recepten-opschalen-zonder-fouten': 'blogOpschalen',
+  'recepten-organiseren-in-de-keuken': 'blogOrganiseren',
+  'recepten-zonder-wifi': 'blogZonderWifi',
+  'receptenboek-met-eigen-logo': 'blogEigenLogo',
+  'receptendatabase-in-de-cloud': 'blogDatabase',
+  'receptenmap-laten-overzetten': 'blogLatenOverzetten',
+  'receptenmappen-indelen-voorbeelden': 'blogMappenIndelen',
+  'roadmap': 'blogRoadmap',
+  'rommelige-receptenmap-ordenen': 'blogOrdenenMetAi',
+  'savour-paprika-meez-galley-vergelijken': 'blogVergelijken',
+  'standaardrecepturen-in-de-keuken': 'blogStandaardrecepturen',
+  'sous-vide-temperaturen-en-tijden': 'blogSousVide',
+  'van-word-naar-receptenboek': 'blogVanWord'
 };
 // Foto per hoofdstuk van de handleiding (id uit tools/handleiding/*.mjs); zonder eigen foto de vaste rij.
 const GUIDE_PHOTO = {
@@ -1336,7 +1374,11 @@ const GUIDE_PHOTO = {
   keuken: 'gidsOmrekenen',
   printen: 'gidsPrinten',
   samenwerken: 'gidsDelen',
-  account: 'gidsAccount'
+  account: 'gidsAccount',
+  'mep-lijsten': 'mepPass',
+  overstappen: 'blogLatenOverzetten',
+  tips: 'gidsTips',
+  hulp: 'pageFaq'
 };
 // De ingrediëntenlijst met de allergenen per taal (tools/build-ingredientenlijst.mjs): { code: [extra, nl, en, de, es, fr] }.
 const INGREDIENT_LIST = JSON.parse(fs.readFileSync(new URL('assets/data/ingredientenlijst.json', ROOT), 'utf8'));
@@ -1356,9 +1398,9 @@ const PAGE_PHOTO = {
   binnenkort: 'pageBinnenkort',
   'voor-koks': 'pageKoks',
   'voor-keukenbrigades': 'pageBrigade',
-  'alternatief-voor-paprika': 'uien',
+  'alternatief-voor-paprika': 'blogVergelijken',
   'over-savour': 'pageOver',
-  blog: 'hout',
+  blog: 'blogKladjes',
   'app-downloaden': 'pageApp',
   'savour-pro': 'pagePro',
   'veelgestelde-vragen': 'pageFaq',
@@ -1600,6 +1642,38 @@ for (const lang of LANGS) {
       body: c =>
         pageTop(c, t.h1, t.lead, PAGE_PHOTO[PAPRIKA_PAGE.nl.slug]) +
         `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections)}</div></article>` +
+        `<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(FAQ_TITLE[lang])}</h2><div class="site-faq">${t.faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${proseText(a)}</p></details>`).join('')}</div></div></section>`
+    });
+  }
+  // Rezepturverwaltung (tools/site-rezeptur.mjs): alleen in het Duits, met schermen en vragen (ook als FAQPage).
+  if (REZEPTUR_PAGE[lang]) {
+    const t = REZEPTUR_PAGE[lang];
+    page({
+      lang,
+      slugs: { [lang]: t.slug },
+      title: t.title,
+      desc: t.desc,
+      crumbs: [[t.crumb]],
+      schema: [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: t.faq.map(([q, a]) => ({
+            '@type': 'Question',
+            name: q,
+            acceptedAnswer: { '@type': 'Answer', text: a.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') }
+          }))
+        }
+      ],
+      body: c =>
+        pageTop(c, t.h1, t.lead, 'pageDatabase') +
+        `<article class="site-article"><div class="site-wrap site-narrow site-prose">${sectionsHtml(t.sections)}</div></article>` +
+        `<section class="feat-show"><div class="site-wrap">${t.showcase
+          .map(
+            (x, i) =>
+              `<div class="feat-row${i % 2 ? ' flip' : ''} reveal"><div><h2>${esc(x.title)}</h2><p>${proseText(x.text)}</p></div><figure><img src="${assetV(x.shot)}" alt="${esc(x.alt)}" loading="lazy"></figure></div>`
+          )
+          .join('')}</div></section>` +
         `<section class="site-section tint"><div class="site-wrap site-two"><h2 class="reveal">${esc(FAQ_TITLE[lang])}</h2><div class="site-faq">${t.faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${proseText(a)}</p></details>`).join('')}</div></div></section>`
     });
   }
@@ -1925,7 +1999,7 @@ for (const lang of LANGS) {
       page({
         lang,
         slugs: pair(l => ch.pages[0][l].slug),
-        title: `${name} | ${suffix}`,
+        title: ch.group[lang].title || `${name} | ${suffix}`,
         desc: first.desc,
         crumbs: [[home.h1, href(home.slug)], [name]],
         schema: [
@@ -1972,7 +2046,7 @@ for (const lang of LANGS) {
         desc: i ? `${BLOG_PAGER[lang].page} ${i + 1}: ${rp.desc}` : rp.desc,
         crumbs: i ? [[rp.h1, href(rp.slug)], [`${BLOG_PAGER[lang].page} ${i + 1}`]] : [[rp.h1]],
         body: c =>
-          pageTop(c, i ? `${rp.h1} · ${BLOG_PAGER[lang].page} ${i + 1}` : rp.h1, rp.lead, 'hout') +
+          pageTop(c, i ? `${rp.h1} · ${BLOG_PAGER[lang].page} ${i + 1}` : rp.h1, rp.lead, 'blogRoadmap') +
           `<article class="site-article"><div class="site-wrap site-narrow site-prose site-releases">${releaseList(list, lang, gu)}${rPages > 1 ? pager : ''}</div></article>`
       });
     }
@@ -2016,7 +2090,7 @@ function releaseList(list, lang, gu) {
 // vercel.json en local-server.mjs sturen /en, /de en /es daarheen. De app zelf is in alle kopieën gelijk.
 const HOME_META = {
   en: {
-    title: 'Savour — recipe app for chefs: organise and share recipes',
+    title: 'Savour — recipe management software for chefs and kitchens',
     desc: 'Organise all your recipes in one app: import from Word, PDF and handwritten notes, share with your kitchen team and print whole folders. Free to try.',
     ogTitle: 'Savour — recipe management for professional kitchens',
     ogDesc:
@@ -2024,15 +2098,15 @@ const HOME_META = {
     locale: 'en_GB'
   },
   de: {
-    title: 'Savour — Rezepturverwaltung für Köche und Küchenteams',
-    desc: 'Rezepturverwaltung für Restaurant und Großküche: Rezepte aus Word, PDF und Notizen importieren, mit dem Küchenteam teilen und drucken. Kostenlos testen.',
-    ogTitle: 'Savour — Rezeptverwaltung für Profiküchen',
+    title: 'Savour — Rezeptverwaltung Software für Gastronomie und Küche',
+    desc: 'Rezeptverwaltung und Rezepturverwaltung für Gastronomie und Großküche: Rezepte und Rezepturen aus Word, PDF und Notizen importieren, teilen und drucken.',
+    ogTitle: 'Savour — Rezeptverwaltung Software für Profiküchen',
     ogDesc:
       'Von der Notiz zum Rezept, das stimmt. Dein ganzes Rezeptbuch an einem Ort, auf Computer und Handy, geteilt mit deinem Küchenteam.',
     locale: 'de_DE'
   },
   es: {
-    title: 'Savour — app de recetas para chefs y equipos de cocina',
+    title: 'Savour — software de gestión de recetas para cocinas',
     desc: 'Organiza todas tus recetas en una app: importa de Word, PDF y notas a mano, compártelas con tu equipo de cocina e imprime carpetas enteras. Pruébalo gratis.',
     ogTitle: 'Savour — gestión de recetas para cocinas profesionales',
     ogDesc:
@@ -2040,7 +2114,7 @@ const HOME_META = {
     locale: 'es_ES'
   },
   fr: {
-    title: 'Savour — recettes pour chefs : organiser et partager',
+    title: 'Savour — logiciel de gestion de recettes pour chefs',
     desc: 'Organise toutes tes recettes dans une application : importe Word, PDF et notes manuscrites, partage-les avec ton équipe et imprime des dossiers entiers.',
     ogTitle: 'Savour — gestion des recettes pour cuisines professionnelles',
     ogDesc:
@@ -2141,6 +2215,33 @@ const HOME_META = {
       `<!doctype html>\n<!-- Gemaakt door tools/build-seo.mjs uit index.html: startpagina in het ${lang.toUpperCase()}. Niet met de hand aanpassen. -->`
     );
     fs.writeFileSync(new URL(`site/index-${lang}.html`, ROOT), x, 'utf8');
+  }
+  // /admin als eigen app op de telefoon ("Savour Beheer"): een kopie van index.html met het eigen manifest er vast
+  // in. Telefoons lezen het manifest bij het laden; later omwisselen met JavaScript werkt daar niet.
+  {
+    let x = h;
+    const swap = (re, to) => {
+      if (!re.test(x)) throw new Error(`admin: ${re} niet gevonden`);
+      x = x.replace(re, () => to);
+    };
+    // Eigen icoon (donker op goud, tools/icon.html?stack&app&beheer) zodat hij naast Savour op het beginscherm opvalt.
+    swap(/<link rel="manifest" href="[^"]*">/, '<link rel="manifest" href="/admin.webmanifest?v=3">');
+    swap(
+      /<link rel="apple-touch-icon" href="[^"]*">/,
+      '<link rel="apple-touch-icon" href="/assets/icons/beheer-apple-touch-icon.png?v=2">'
+    );
+    swap(
+      /<meta name="apple-mobile-web-app-capable" content="yes">/,
+      '<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Beheer"><meta name="robots" content="noindex,nofollow">'
+    );
+    swap(/<title>[^<]*<\/title>/, '<title>Savour Beheer</title>');
+    swap(/<link rel="canonical" href="[^"]*">/, '<link rel="canonical" href="https://savour.page/admin">');
+    x = x.replace(
+      '<!doctype html>',
+      '<!doctype html>\n<!-- Gemaakt door tools/build-seo.mjs uit index.html: /admin als eigen app. Niet met de hand aanpassen. -->'
+    );
+    fs.mkdirSync(new URL('site/admin/', ROOT), { recursive: true });
+    fs.writeFileSync(new URL('site/admin/index.html', ROOT), x, 'utf8');
   }
 }
 

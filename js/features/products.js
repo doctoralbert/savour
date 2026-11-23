@@ -90,7 +90,7 @@ const ALLERGEN_HINTS = [
   [/havermelk|haverdrink/, ['gluten']],
   [/sojamelk|sojadrink|sojaroom/, ['soja']],
   [
-    /melk|room|boter|beurre|kaas|pesto|yoghurt|kwark|crème fraîche|creme fraiche|mascarpone|ricotta|mozzarella|parmezaan|parmigiano|zuivel|ghee|milk|cream|butter|cheese|yogurt|yoghurt|burrata|brie|gruyère|gruyere|comté|comte|feta|chocolade|chocolate|(^|[^a-zà-ÿ])choco($|[^a-zà-ÿ])|hangop|custard|bailey|bearnaise|béarnaise|hollandaise|rommedou|rommedoe|limburger|manchego|mimolette/,
+    /melk|room|boter|beurre|kaas|pesto|yoghurt|kwark|crème fraîche|creme fraiche|mascarpone|ricotta|mozzarella|parmezaan|parmigiano|zuivel|ghee|milk|cream|butter|cheese|yogurt|yoghurt|burrata|brie|gruyère|gruyere|comté|comte|feta|chocolade|chocolat|schokolade|(^|[^a-zà-ÿ])choco($|[^a-zà-ÿ])|hangop|custard|bailey|bearnaise|béarnaise|hollandaise|rommedou|rommedoe|limburger|manchego|mimolette/,
     ['melk']
   ],
   // Advocaat, bearnaise, hollandaise en custard: eieren.
@@ -150,7 +150,7 @@ const ALLERGEN_HINTS = [
     ['rundvlees']
   ],
   [
-    /wijn|bier|(^|[^a-zà-ÿ])port($|[^a-zà-ÿ])|sherry|cognac|armagnac|(^|[^a-zà-ÿ])rum|likeur|amaretto|vodka|(^|[^a-zà-ÿ])gin($|[^a-zà-ÿ])|whisky|calvados|madeira|(^|[^a-zà-ÿ])sake|mirin|marnier|cointreau|kirsch|advocaat|marsala|noilly|nouilly|nolly|pernod|pastis|champagne|prosecco|(^|[^a-zà-ÿ])cava($|[^a-zà-ÿ])|wine|beer|brandy|bailey|triple sec|strega|kahl?ua|kahula|grand ma|malibu|pisang ambon|limoncello|sambuca|ouzo|campari|aperol|(^|[^a-zà-ÿ])vermout|martini|vieux|malaga|sauternes|wodka|eau de vie|napoleon|cr[eè]me de (menthe|mint|cassis|cacao|p[eê]che|m[uû]re|framboise)|(^|[^a-zà-ÿ])px($|[^a-zà-ÿ])|pedro xim|liquor|liqueur/,
+    /wijn|bier|(^|[^a-zà-ÿ])port($|[^a-zà-ÿ])|sherry|cognac|armagnac|(^|[^a-zà-ÿ])rum|likeur|amaretto|vodka|(^|[^a-zà-ÿ])gin($|[^a-zà-ÿ])|whisky|calvados|madeira|(^|[^a-zà-ÿ])sake|mirin|marnier|cointreau|kirsch|advocaat|marsala|noilly|nouilly|nolly|pernod|pastis|champagne|prosecco|(^|[^a-zà-ÿ])cava($|[^a-zà-ÿ])|wine|beer|brandy|bailey|triple sec|strega|kahl?ua|kahula|grand ma|malibu|pisang ambon|limoncello|sambuca|ouzo|campari|aperol|(^|[^a-zà-ÿ])vermout|martini|vieux|malaga|sauternes|wodka|eau de vie|napoleon|cr[eè]me de (menthe|mint|cassis|cacao|p[eê]che|m[uû]re|framboise)|(^|[^a-zà-ÿ])px($|[^a-zà-ÿ])|pedro xim|liquor|liqueur|lik[öo]r|geist($|[^a-zà-ÿ])/,
     ['alcohol']
   ],
   [
@@ -207,7 +207,7 @@ const ALLERGEN_HINTS = [
 const PASTE_NOT_NOODLE =
   /^(?!(verse|droge|gedroogde|gekookte|volkoren|glutenvrije|zelfgemaakte|italiaanse|witte|bruine)\s?pasta$)[a-zà-ÿ].*[a-zà-ÿ][\s-]?pasta$/;
 const PLANT_NOT_DAIRY =
-  /pindakaas|roomse|(pure|puur)\s?choc|choc\w*\s(puur|pure)|(amandel|haver|soja|soy|soya|rijst|rice|kokos|coconut|cashew|cashewnoot|noten|hazelnoot|erwten|oat|almond|hafer|mandel|reis)\s?(melk|drink|room|milk|yoghurt|milch|joghurt|sahne)|cacao\s?boter|cocoa butter|cacao butter|shea\s?(boter|butter)|boter(blad|sla|boon|bonen)|alpro|plantaardige|vegan/;
+  /pindakaas|roomse|(pure|puur)\s?choc|choc\w*\s(puur|pure)|zartbitter|chocolat noir|(amandel|haver|soja|soy|soya|rijst|rice|kokos|coconut|cashew|cashewnoot|noten|hazelnoot|erwten|oat|almond|hafer|mandel|reis)\s?(melk|drink|room|milk|yoghurt|milch|joghurt|sahne)|cacao\s?boter|cocoa butter|cacao butter|shea\s?(boter|butter)|boter(blad|sla|boon|bonen)|alpro|plantaardige|vegan/;
 // Vegetarisch en vegan: geen vlees, ook als de naam van een vleeswaar erin staat ("boterhamworst vegetarisch").
 const NO_MEAT = /vegetari|vegan|plantaardig|vleesvervanger/;
 // Waar een trefwoord misleidt: azijn bevat geen alcohol meer, koffie- en vanillebonen zijn geen peulvruchten,
@@ -249,6 +249,15 @@ const ALLERGEN_HINT_NOT = [
   [/preiselbeer/, 'gluten'],
   [/preiselbeer/, 'alcohol'],
   [/preiselbeer/, 'ui'],
+  // Duitse bessen zijn geen bier: Himbeeren, Erdbeeren, Heidelbeeren. Himbeergeist en Erdbeerlikör blijven drank.
+  [/(him|erd|heidel|brom|johannis|stachel|holunder|blau|wacholder|maul|aronia|goji)beer/, 'gluten'],
+  [
+    /^(?!.*(geist|lik[öo]r)).*(him|erd|heidel|brom|johannis|stachel|holunder|blau|wacholder|maul|aronia|goji)beer/,
+    'alcohol'
+  ],
+  // Butternut (pompoen) is geen boter.
+  [/butternu(t|ss)/, 'melk'],
+  [/butternu(t|ss)/, 'lactose'],
   [/(kippen|kalfs|varkens)oester/, 'weekdieren'],
   [/sake-?rijst/, 'alcohol'],
   [/pastasaus/, 'gluten'],
@@ -318,7 +327,7 @@ let centralForeign = new Map();
 // De hele Savour-lijst in de taal van de kok, om door te bladeren (Allergenen → Ingrediënten → Hele Savour-lijst).
 let centralRows = [];
 const BRAND_DEPENDENT =
-  /gelatine|galatine|soja\s?saus|sojasaus|soy sauce|ketjap|kecap|chocolade|couverture|bouillon|fond($|\s)|worst|vleeswaren|pesto|mayonaise|mayo($|\s)|paneermeel|panko|curry\s?pasta|kerriepasta|oestersaus|vissaus|fish sauce|worcester/;
+  /gelatine|galatine|soja\s?saus|sojasaus|soy sauce|ketjap|kecap|chocolade|chocolat|schokolade|couverture|bouillon|fond($|\s)|worst|vleeswaren|pesto|mayonaise|mayo($|\s)|paneermeel|panko|curry\s?pasta|kerriepasta|oestersaus|vissaus|fish sauce|worcester/;
 function setCentralList(rows) {
   centralIndex = new Map();
   centralForeign = new Map();
@@ -1075,7 +1084,7 @@ function partOfRecipe(r, key) {
 const BRAND_TYPICAL = [
   [/bouillon|fond($|\s)|fumet|consomm/, ['selderij', 'gluten']],
   [/soja\s?saus|sojasaus|soy sauce|ketjap|kecap/, ['soja', 'gluten']],
-  [/chocolade|couverture/, ['melk', 'soja']],
+  [/chocolade|chocolat|schokolade|couverture/, ['melk', 'soja']],
   [/pesto/, ['noten', 'melk']],
   [/mayonaise|mayo($|\s)/, ['ei', 'mosterd']],
   [/paneermeel|panko/, ['gluten']],

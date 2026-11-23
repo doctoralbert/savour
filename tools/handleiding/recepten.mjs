@@ -8,6 +8,7 @@ export const group = {
   },
   en: {
     name: 'Creating and editing recipes',
+    title: 'Recipe editor: creating and editing recipes | Savour',
     intro: 'Enter a recipe so that scaling, printing and sharing work well: ingredients, method, parts, yield, photos, notes and base recipes.'
   }
 };

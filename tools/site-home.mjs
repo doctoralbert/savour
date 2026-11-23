@@ -111,7 +111,7 @@ export const HOME_NEXT = {
     ]
   },
   de: {
-    lead: 'Savour ist die Rezept-App für die Profiküche. Deine Word-Dateien, PDFs und handschriftlichen Notizen werden ein geordnetes Rezeptbuch, für dich und deine ganze Brigade.',
+    lead: 'Savour ist die Rezept-App und Rezepturverwaltung für die Profiküche. Deine Word-Dateien, PDFs und handschriftlichen Notizen werden ein geordnetes Rezeptbuch mit festen Rezepturen, für dich und deine ganze Brigade.',
     kladjeMore: 'Das ganze Rezept in der Demo ansehen',
     teamTitle: 'Gemeinsam kochen mit deinem Küchenteam',
     team: [
@@ -155,7 +155,7 @@ export const HOME_NEXT = {
     ],
     faq: [
       ['Was kostet Savour?', 'Bis zu 100 Rezepte sind kostenlos. Savour Pro kostet 2,99 € pro Monat oder 29 € pro Jahr. Neue Konten bekommen 7 Tage Pro kostenlos, ohne Zahlungsdaten.'],
-      ['Kann ich meine Rezepte aus Word, PDF oder Notizen übernehmen?', 'Ja. Der Savour-Leser liest Word, PDF und Text kostenlos, auch Dateien mit Hunderten Rezepten. Fotos und handschriftliche Notizen liest die KI mit Savour Pro. Du prüfst jedes Rezept, bevor es gespeichert wird.'],
+      ['Kann ich meine Rezepte und Rezepturen aus Word, PDF oder Notizen übernehmen?', 'Ja. Der Savour-Leser liest Word, PDF und Text kostenlos, auch Dateien mit Hunderten Rezepten und Rezepturen. Fotos und handschriftliche Notizen liest die KI mit Savour Pro. Du prüfst jedes Rezept, bevor es gespeichert wird.'],
       ['Muss mein ganzes Team bezahlen?', 'Nein. Ansehen, drucken und umrechnen im Küchenteam ist kostenlos. Wer Rezepte hinzufügt oder bearbeitet, braucht Savour Pro, oder du nimmst ein Team-Abo für die ganze Küche.'],
       ['Gehören meine Rezepte mir?', 'Ja. Deine Rezepte sind pro Konto geschützt und nur für dich und die Personen sichtbar, die du einlädst. Ein Backup lädst du herunter, wann du willst.'],
       ['Was passiert, wenn ich Pro beende?', 'Alles bleibt erhalten. Du kannst nur keine neuen Rezepte über 100 hinzufügen, und dein Küchenteam ist gesperrt, bis du wieder Pro hast.'],

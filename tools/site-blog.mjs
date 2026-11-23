@@ -715,8 +715,8 @@ export const BLOG = [
     date: '2026-10-23',
     nl: {
       slug: 'blog/receptbeheer-in-de-horeca',
-      title: 'Receptbeheer in de horeca: waar begin je?',
-      desc: 'Recepten management voor restaurants, hotels en catering: hoe je recepturen centraal beheert, deelt met je keukenteam en actueel houdt.',
+      title: 'Receptbeheer in de horeca: software en waar je begint',
+      desc: 'Receptbeheer-software voor restaurants, hotels en catering: hoe je recepturen centraal beheert, deelt met je keukenteam en actueel houdt.',
       h1: 'Receptbeheer in de horeca: waar begin je?',
       lead: 'In de meeste restaurants is receptbeheer geen systeem, maar een verzameling: mappen, bestanden, foto’s en wat de chef onthoudt. Dat werkt, tot iemand vertrekt of het menu wisselt.',
       sections: [
@@ -731,7 +731,7 @@ export const BLOG = [
     },
     en: {
       slug: 'en/blog/recipe-management-for-restaurants',
-      title: 'Recipe management for restaurants: where to start',
+      title: 'Recipe management software for restaurants: where to start',
       desc: 'Recipe management for restaurants, hotels and catering: how to keep recipes in one place, share them with your kitchen team and keep them up to date.',
       h1: 'Recipe management for restaurants: where to start',
       lead: 'In most restaurants recipe management is not a system but a collection: binders, files, photos and whatever the chef remembers. That works, until someone leaves or the menu changes.',

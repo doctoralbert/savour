@@ -81,8 +81,8 @@ export const DE = {
     },
     organise: {
       slug: 'de/rezepte-organisieren',
-      title: 'Rezepte organisieren: Rezepturverwaltung für die Gastronomie | Savour',
-      desc: 'Rezepturverwaltung für Restaurants, Gastronomie und Großküche: alle Rezepturen in einem Rezeptbuch, mit eigenen Ordnern und Kategorien, Suche nach Zutat und Favoriten.',
+      title: 'Rezeptverwaltung Software für die Gastronomie | Savour',
+      desc: 'Rezeptverwaltung für Restaurants, Gastronomie und Großküche: alle Rezepturen in einer Software, mit Ordnern, Kategorien, Suche nach Zutat und Favoriten.',
       h1: 'Rezepte so organisieren, wie deine Küche arbeitet',
       lead: 'Ein Rezeptbuch für alles, was du je gekocht hast, geordnet nach deiner Art.',
       sections: [
@@ -250,7 +250,7 @@ export const DE = {
         ],
         [
           'Genau, aufs Gramm',
-          'Eine Rezeptur muss stimmen, in jedem Service. Savour bewahrt deine Rezepte genau so, wie du sie geschrieben hast, und erfindet nie Mengen. Ist der Leser beim Import unsicher, prüfst du es selbst.'
+          'Eine Rezeptur muss stimmen, in jedem Service. Savour bewahrt deine Rezepte und Rezepturen genau so, wie du sie geschrieben hast, und erfindet nie Mengen. Ist der Leser beim Import unsicher, prüfst du es selbst. Mehr dazu: [Rezepturverwaltung](/de/rezepturverwaltung).'
         ],
         [
           'Hochrechnen nach Gedecken und Stück',
@@ -265,14 +265,14 @@ export const DE = {
     },
     brigade: {
       slug: 'de/fuer-kuechenbrigaden',
-      title: 'Rezeptmanagement für Küchenbrigaden | Savour',
+      title: 'Rezeptverwaltung für Küchenbrigaden und Großküchen | Savour',
       desc: 'Savour für Küchenbrigaden: Chefs de Partie, Commis und Praktikanten arbeiten mit denselben Rezepten, auf dem eigenen Handy. Du bestimmst, wer was darf.',
       h1: 'Für Küchenbrigaden',
       lead: 'Vom Chef de Partie bis zum Praktikanten: Dein ganzes Küchenteam kocht nach demselben Rezept, in jedem Restaurant, das du führst.',
       sections: [
         [
           'Eine Version für alle',
-          'Passe eine Sauce für das neue Menü an, und alle im Küchenteam arbeiten sofort mit der neuen Version.'
+          'Passe eine Rezeptur für das neue Menü an, und alle im Küchenteam arbeiten sofort mit der neuen Version. So wird aus einem Rezept eine Standardrezeptur, nach der die ganze Brigade arbeitet: [Rezepturverwaltung](/de/rezepturverwaltung).'
         ],
         [
           'Drei Rollen, wie in der Küche',
@@ -562,9 +562,9 @@ export const DE = {
     },
     'en/blog/recipe-management-for-restaurants': {
       slug: 'de/blog/rezeptverwaltung-gastronomie',
-      title: 'Rezepturverwaltung in Gastronomie und Großküche: wo du anfängst',
-      desc: 'Rezepturverwaltung für Restaurants, Hotels, Catering und Großküchen: wie du Rezepturen an einem Ort hältst, mit dem Küchenteam teilst und worauf du bei Software achtest.',
-      h1: 'Rezepturverwaltung in Gastronomie und Großküche: wo du anfängst',
+      title: 'Rezeptverwaltung Software für Gastronomie und Großküche',
+      desc: 'Rezeptverwaltung für Restaurants, Hotels, Catering und Großküchen: wie du Rezepturen an einem Ort hältst, im Team teilst und worauf du bei Software achtest.',
+      h1: 'Rezeptverwaltung in Gastronomie und Großküche: wo du anfängst',
       lead: 'In den meisten Küchen ist Rezepturverwaltung kein System, sondern eine Sammlung: Ordner, Dateien, Fotos und das, was der Küchenchef im Kopf hat. Das geht gut, bis jemand geht oder das Menü wechselt.',
       sections: [
         [
@@ -597,7 +597,7 @@ export const DE = {
         ],
         [
           'Worauf du bei Software achtest',
-          'Prüfe vor allem, wie deine bestehenden Rezepturen hineinkommen: Eine Software, die Word-Dateien, PDFs und Fotos von Notizen selbst liest, spart Wochen. Prüfe außerdem, ob das Team Rollen bekommt (wer ändert, wer nur liest), ob Rezepte auf dem Handy in der Küche gut lesbar sind, auch ohne WLAN, und ob du ganze Ordner auf einmal drucken kannst. Und frag nach, was mit deinen Rezepturen passiert, wenn du kündigst: Sie gehören dir.'
+          'Prüfe vor allem, wie deine bestehenden Rezepturen hineinkommen: Eine Software, die Word-Dateien, PDFs und Fotos von Notizen selbst liest, spart Wochen. Prüfe außerdem, ob das Team Rollen bekommt (wer ändert, wer nur liest), ob Rezepte auf dem Handy in der Küche gut lesbar sind, auch ohne WLAN, und ob du ganze Ordner auf einmal drucken kannst. Und frag nach, was mit deinen Rezepturen passiert, wenn du kündigst: Sie gehören dir. Wie Savour das löst: [Rezepturverwaltung mit Savour](/de/rezepturverwaltung).'
         ],
         [
           'Was Savour (noch) nicht macht',
@@ -605,7 +605,7 @@ export const DE = {
         ]
       ],
       outro:
-        'Savour ist für die Rezepturverwaltung in Profiküchen gebaut: importieren, ordnen, mit dem Küchenteam teilen und drucken. Kostenlos bis 100 Rezepte.'
+        'Savour ist für die Rezepturverwaltung in Profiküchen gebaut: Rezepte und Rezepturen importieren, ordnen, mit dem Küchenteam teilen und drucken. Kostenlos bis 100 Rezepte.'
     },
     'en/blog/shared-recipe-book-kitchen-team': {
       slug: 'de/blog/gemeinsames-rezeptbuch-kuechenteam',
@@ -937,11 +937,11 @@ export const DE = {
         ],
         [
           'So fängst du an',
-          'Fang mit den Grundrezepten an, die täglich gemacht werden: Fonds, Saucen, Teige. Lege sie in einem festen Format an, an einem Ort, den alle öffnen können, und vereinbare, wer sie ändern darf.'
+          'Fang mit den Grundrezepten an, die täglich gemacht werden: Fonds, Saucen, Teige. Lege sie in einem festen Format an, an einem Ort, den alle öffnen können, und vereinbare, wer sie ändern darf. Wie das mit Savour geht: [Rezepturverwaltung](/de/rezepturverwaltung).'
         ]
       ],
       outro:
-        'In Savour hat jedes Rezept dieselbe Form: Titel, Ausbeute, Zutaten und Zubereitung. Teile deine Rezepturen mit dem Team in einem Küchenteam.'
+        'In Savour hat jedes Rezept und jede Rezeptur dieselbe Form: Titel, Ausbeute, Zutaten und Zubereitung. Teile deine Standardrezepturen mit dem Team in einem Küchenteam.'
     },
     'en/blog/recipe-book-with-your-logo': {
       slug: 'de/blog/rezeptbuch-mit-eigenem-logo',

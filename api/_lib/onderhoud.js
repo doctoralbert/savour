@@ -6,10 +6,13 @@
 // 2. Geïmporteerde bestanden ouder dan 60 dagen gaan uit de opslag (de rij in import_uploads blijft).
 // 3. Bestanden op de opruimlijst (storage_cleanup_queue: verwijderde recepten, kladjes en accounts) gaan weg.
 // 4. Het dagrapport van Claude (daily_reports) per mail naar het contactadres van Savour. Ook als losse taak
-//    (/api/admin?taak=rapport, 's avonds), zodat het rapport dezelfde avond binnenkomt.
+//    (/api/admin?taak=rapport, 's avonds), zodat het rapport dezelfde avond binnenkomt. Onder elk rapport staat de
+//    trend van Google en Bing (api/_lib/zoekmachines.js).
+// 5. De cijfers van Google Search Console en Bing Webmaster Tools ophalen en bewaren (seo_daily, seo_items).
 // Alleen te starten door Vercel Cron of met de geheime sleutel (CRON_SECRET), nooit door gewone bezoekers.
 import { hasServiceRole, select, update, remove, storageUpload, storageRemove } from './supabase-admin.js';
 import { sendMail, SAVOUR_CONTACT } from './mail.js';
+import { fetchSearchStats, searchTrendText } from './zoekmachines.js';
 
 // Het rapport gaat naar het eigen contactadres van Savour (mail.js).
 const REPORT_TO = SAVOUR_CONTACT;
@@ -130,13 +133,18 @@ async function sendDailyReports() {
       throw e;
     })) || [];
   let sent = 0;
+  // Vindbaarheid (Google en Bing): dezelfde korte trend onder elk rapport, als er cijfers zijn.
+  const trend = rows.length ? await searchTrendText().catch(() => '') : '';
   for (const r of rows) {
-    const html = `<div style="font-family:Arial,sans-serif;font-size:15px;color:#1d2422;max-width:720px"><h3 style="font-family:Georgia,serif;font-weight:500;margin:4px 0 8px">Wat er geconstateerd is</h3><div style="white-space:pre-wrap;line-height:1.6">${escHtml(r.body)}</div>${
+    const trendHtml = trend
+      ? `<h3 style="font-family:Georgia,serif;font-weight:500;margin:26px 0 8px">Vindbaarheid (Google en Bing)</h3><div style="white-space:pre-wrap;line-height:1.6">${escHtml(trend)}</div><p style="margin:8px 0 0;color:#5d6662;font-size:13px">Grafiek per land: savour.page/admin → Zoekmachines.</p>`
+      : '';
+    const html = `<div style="font-family:Arial,sans-serif;font-size:15px;color:#1d2422;max-width:720px"><h3 style="font-family:Georgia,serif;font-weight:500;margin:4px 0 8px">Wat er geconstateerd is</h3><div style="white-space:pre-wrap;line-height:1.6">${escHtml(r.body)}</div>${trendHtml}${
       r.prompt
         ? `<h3 style="font-family:Georgia,serif;font-weight:500;margin:26px 0 8px">Opdracht voor Claude</h3><p style="margin:0 0 8px;color:#5d6662">Kopieer dit blok en stuur het naar Claude (telefoon of computer) om het aan te pakken.</p><pre style="white-space:pre-wrap;background:#f4f1ea;border:1px solid #e2dccf;border-radius:8px;padding:14px;font-size:13px;line-height:1.5">${escHtml(r.prompt)}</pre>`
         : ''
     }</div>`;
-    const text = `Wat er geconstateerd is\n\n${r.body}${r.prompt ? `\n\nOpdracht voor Claude (kopieer en stuur naar Claude):\n\n${r.prompt}` : ''}`;
+    const text = `Wat er geconstateerd is\n\n${r.body}${trend ? `\n\nVindbaarheid (Google en Bing)\n\n${trend}` : ''}${r.prompt ? `\n\nOpdracht voor Claude (kopieer en stuur naar Claude):\n\n${r.prompt}` : ''}`;
     await sendMail({ to: REPORT_TO, subject: r.subject, html, text });
     await update('daily_reports', `id=eq.${r.id}`, { sent_at: new Date().toISOString() });
     sent++;
@@ -156,6 +164,7 @@ export async function runMaintenance(req, res) {
           ['opruimlijst', () => emptyCleanupQueue()],
           ['importbestanden', () => expireUploads()],
           ['kladjes', () => moveRecipeSources(deadline)],
+          ['zoekmachines', () => fetchSearchStats()],
           // Wat 's avonds niet verstuurd kon worden, gaat 's nachts alsnog.
           ['dagrapport', () => sendDailyReports()]
         ];

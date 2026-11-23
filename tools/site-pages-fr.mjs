@@ -63,8 +63,8 @@ export const FR = {
     },
     organise: {
       slug: 'fr/organiser-recettes',
-      title: 'Organiser ses recettes : gestion des recettes pour restaurants | Savour',
-      desc: 'Gestion des recettes pour les restaurants et la restauration : toutes tes recettes dans un seul livre, avec tes dossiers et catégories, recherche par ingrédient et favoris.',
+      title: 'Logiciel de gestion des recettes pour restaurants | Savour',
+      desc: "Logiciel de gestion des recettes pour restaurants et traiteurs : toutes tes recettes dans un seul livre, avec dossiers, catégories et recherche par ingrédient.",
       h1: 'Organise tes recettes comme ta cuisine travaille',
       lead: "Un seul livre pour tout ce que tu as cuisiné, rangé à ta façon.",
       sections: [

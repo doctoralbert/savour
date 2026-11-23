@@ -2091,7 +2091,7 @@
     },
     {
       "source": "/admin",
-      "destination": "/index.html"
+      "destination": "/site/admin/index.html"
     },
     {
       "source": "/nl",
