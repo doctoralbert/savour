@@ -12,12 +12,6 @@ if (!IS_ADMIN_PATH) logSavourVisit();
 
 // Beheeromgeving op /admin.
 if (IS_ADMIN_PATH) {
-  // Eigen app op de telefoon ("Savour Beheer"): op het beginscherm gezet opent hij meteen /admin.
-  document.querySelector('link[rel="manifest"]')?.setAttribute('href', '/admin.webmanifest?v=1');
-  const appTitle = document.createElement('meta');
-  appTitle.name = 'apple-mobile-web-app-title';
-  appTitle.content = 'Beheer';
-  document.head.appendChild(appTitle);
   setTimeout(async () => {
     adminRenderLogin();
     const {

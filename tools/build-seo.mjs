@@ -2175,6 +2175,28 @@ const HOME_META = {
     );
     fs.writeFileSync(new URL(`site/index-${lang}.html`, ROOT), x, 'utf8');
   }
+  // /admin als eigen app op de telefoon ("Savour Beheer"): een kopie van index.html met het eigen manifest er vast
+  // in. Telefoons lezen het manifest bij het laden; later omwisselen met JavaScript werkt daar niet.
+  {
+    let x = h;
+    const swap = (re, to) => {
+      if (!re.test(x)) throw new Error(`admin: ${re} niet gevonden`);
+      x = x.replace(re, () => to);
+    };
+    swap(/<link rel="manifest" href="[^"]*">/, '<link rel="manifest" href="/admin.webmanifest?v=1">');
+    swap(
+      /<meta name="apple-mobile-web-app-capable" content="yes">/,
+      '<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Beheer"><meta name="robots" content="noindex,nofollow">'
+    );
+    swap(/<title>[^<]*<\/title>/, '<title>Savour Beheer</title>');
+    swap(/<link rel="canonical" href="[^"]*">/, '<link rel="canonical" href="https://savour.page/admin">');
+    x = x.replace(
+      '<!doctype html>',
+      '<!doctype html>\n<!-- Gemaakt door tools/build-seo.mjs uit index.html: /admin als eigen app. Niet met de hand aanpassen. -->'
+    );
+    fs.mkdirSync(new URL('site/admin/', ROOT), { recursive: true });
+    fs.writeFileSync(new URL('site/admin/index.html', ROOT), x, 'utf8');
+  }
 }
 
 // ---- Versienummer op CSS en JS ----
