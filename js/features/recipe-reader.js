@@ -7,18 +7,27 @@
 
 // Ook "Ingrediënten (4 personen)" en "Ingrediënten voor 4 personen": de opbrengst staat dan in groep 1 of 2.
 const READER_INGREDIENTS_HEADING =
-  /^(?:ingredi[eë]nten|ingredients?|benodigdheden|benodigd|nodig|wat heb je nodig\??|boodschappen(?:lijst)?)\s*(?:\(([^)]*)\)|\s(voor\s+\d[^:]*))?\s*[:=-]?\s*$/i;
+  /^(?:ingredi[eë]nten|ingredients?|zutaten(?:\s+(?:und\s+)?allergene)?|benodigdheden|benodigd|nodig|wat heb je nodig\??|boodschappen(?:lijst)?)\s*(?:\(([^)]*)\)|\s(voor\s+\d[^:]*))?\s*[:=-]?\s*$/i;
 // "Bereiding: Meng alles." of "Ingrediënten: 200 g boter" op één regel.
 const READER_INLINE_HEADING =
-  /^(ingredi[eë]nten|ingredients?|benodigdheden|bereiding(?:swijze)?|werkwijze|methode|method|instructies)\s*:\s*(\S.*)$/i;
+  /^(ingredi[eë]nten|ingredients?|zutaten|benodigdheden|bereiding(?:swijze)?|werkwijze|methode|method|instructies|zubereitung)\s*:\s*(\S.*)$/i;
 const READER_STEPS_HEADING =
-  /^(?:bereiding(?:swijze)?|werkwijze|methode|method|instructies|instructions|directions|preparation|zo maak je het|aan de slag|stappen(?:plan)?|steps?)\s*[:=-]?\s*$/i;
+  /^(?:bereiding(?:swijze)?|werkwijze|methode|method|instructies|instructions|directions|preparation|zo maak je het|aan de slag|stappen(?:plan)?|steps?|zubereitung(?:sschritte|sweise)?|arbeitsschritte)\s*[:=-]?\s*$/i;
 // Ook in het Engels, Duits, Spaans en Frans: "serves 4", "for 10 covers", "für 6 Personen", "para 4 personas",
 // "pour 8 couverts". Een getal is altijd nodig: "For the sauce" is geen opbrengst.
 const READER_YIELD_LABEL =
-  /^(?:opbrengst|yield|porties?|personen|couverts|aantal(?: personen| porties| stuks)?|serves|makes|recept (?:is )?voor|hoeveelheid|voor|for|ergibt|für|rendimiento|para|raciones|rendement|pour)\s*[:=-]?\s*(.+)$/i;
+  /^(?:opbrengst|yield|porties?|personen|couverts|aantal(?: personen| porties| stuks)?|serves|makes|recept (?:is )?voor|hoeveelheid|menge|voor|for|ergibt|für|rendimiento|para|raciones|rendement|pour)\s*[:=-]?\s*(.+)$/i;
 const READER_YIELD_PLAIN =
-  /^\(?\s*(?:voor|for|serves|makes|für|para|pour)?\s*\d+(?:[.,-]\d+)?\s*(?:personen|persoon|pers\.?|porties?|couverts|covers|cover|people|persons|portions?|portionen|servings?|stück|stuks|st\.?|pieces|personas|raciones|porciones|comensales|personnes|parts|liter|l|kg|gram|g)\s*\)?\.?$/i;
+  /^\(?\s*(?:voor|for|serves|makes|für|para|pour)?\s*\d+(?:[.,-]\d+)?\s*(?:personen|persoon|pers\.?|porties?|couverts|covers|cover|people|persons|portions?|servings?|stück|stuks|st\.?|pieces|personas|raciones|porciones|comensales|personnes|parts|portionen|pax|liter|l|kg|gram|g)\s*\)?\.?$/i;
+// Twee maten in één opbrengst, zoals op een receptformulier: "1 Blech / 72 Personen", "2 GN, 40 Portionen".
+// Alleen als het laatste deel personen of porties zijn: "1 blik / 400 g" blijft een ingrediënt.
+const READER_YIELD_COMBINED =
+  /^\d+(?:[.,]\d+)?\s*\p{L}+\.?\s*[/,]\s*\d+\s*(?:personen|portionen|porties|pax|couverts|covers|portions|servings|personas|personnes)\.?$/iu;
+// Receptnaam achter een label, zoals op een (Oostenrijks) receptformulier: "Menübezeichnung: Kalbsgulasch".
+const READER_TITLE_LABEL =
+  /^(?:menübezeichnung|menuebezeichnung|rezeptname|rezeptbezeichnung|bezeichnung|gerichtname|receptnaam|naam gerecht|recipe name|dish name)\s*:\s*(\S.*)$/i;
+// Kolomkoppen achter de opbrengst op één regel (een tabelrij uit Word): "Menge 10 PAX Zutaten Allergene".
+const READER_COLUMN_HEADS = /^(.*\S)\s+(zutaten(?:\s+(?:und\s+)?allergene)?)$/i;
 const READER_META_LINE =
   /^(?:bereidingstijd|voorbereidingstijd|kooktijd|baktijd|oventijd|wachttijd|rusttijd|tijd|oven(?:temperatuur)?|temperatuur|moeilijkheid(?:sgraad)?|allergenen|houdbaarheid|bewaren|tip|tips|opmerking(?:en)?|let op|notitie|note)s?\s*[:=-]/i;
 
@@ -31,7 +40,7 @@ const READER_STARTS_WITH_QTY = new RegExp(`^${READER_QTY}\\s*(?:${READER_UNIT}\\
 const READER_QUALITATIVE =
   /^(?:snufje|snuf|scheutje|scheut|mespunt(?:je)?|handje|handvol|beetje|wat|een paar|enkele|naar smaak|zout|peper|zout en peper|peper en zout|olie|olijfolie|boter|suiker|water|bloem)\b|\b(?:naar smaak|naar behoefte|eventueel|optioneel)\)?\.?$/i;
 const READER_BULLET = /^[-–•*·▪◦●]\s*/;
-const READER_STEP_NUMBER = /^(?:stap\s*\d+\s*[:.)-]?|\d+\s*[.)]\s+(?=\D))\s*/i;
+const READER_STEP_NUMBER = /^(?:(?:stap|schritt)\s*\d+\s*[:.)-]?|\d+\s*[.)]\s+(?=\D)|\(\d{1,2}\)\s+(?=\D))\s*/i;
 const READER_STARTS_WITH_TIME =
   /^\d+(?:[.,]\d+)?\s*(?:minuten|minuut|min\.?|uur|uren|seconden|sec\.?|dagen|dag|nachten|nacht|weken|graden)\b/i;
 // Genummerde receptnaam zonder spatie, zoals koks die in een receptenboek zetten: "211.Aardappel crème",
@@ -196,6 +205,9 @@ function readerLines(text) {
       if (readerIsHeading(rest) || READER_INLINE_HEADING.test(rest) || readerYieldFrom(rest)) l = rest;
       else if (/^#{4,6}\s/.test(l)) l = `### ${rest}`;
     }
+    // "Menge 10 PAX Zutaten Allergene": opbrengst en kopje "Zutaten" uit één tabelrij, elk op een eigen regel.
+    const cols = l.match(READER_COLUMN_HEADS);
+    if (cols && readerYieldFrom(cols[1])) return [cols[1], cols[2]];
     const m = l.match(READER_INLINE_HEADING);
     if (m) return [m[1], ...readerSplitRunOn(m[2].trim())];
     return readerSplitRunOn(l);
@@ -214,8 +226,12 @@ function readerIsHeading(line) {
 }
 
 // Stapnummer of opsommingsteken weg: Savour nummert de stappen zelf.
+// "(4) 2 Stunden rasten": een nummer tussen haakjes vooraan is altijd een stapnummer, ook als er een getal volgt.
 function readerCleanStep(line) {
-  return line.replace(READER_BULLET, '').replace(READER_STEP_NUMBER, '');
+  return line
+    .replace(READER_BULLET, '')
+    .replace(READER_STEP_NUMBER, '')
+    .replace(/^\(\d{1,2}\)\s+(?=\d)/, '');
 }
 
 // Een zin (stap) eindigt op een punt, bevat twee zinnen ("Opkoken, rest erin oplossen. 50 gram per glas")
@@ -318,6 +334,7 @@ const READER_PART_MARK = /^#part\s+/;
 
 function readerYieldFrom(line) {
   if (READER_YIELD_PLAIN.test(line)) return line.replace(/^\(|\)\.?$/g, '').trim();
+  if (READER_YIELD_COMBINED.test(line)) return line.replace(/\.$/, '').trim();
   const m = line.match(READER_YIELD_LABEL);
   if (m && /\d/.test(m[1]) && line.length <= 60) {
     // "Voor de saus" is geen opbrengst; "Voor 4 personen" wel. Zo ook "for", "für", "para" en "pour".
@@ -433,7 +450,14 @@ function parseRecipeBlock(block) {
   if (all.some(l => READER_PART_MARK.test(l))) return parseCompositeBlock(all);
   // Notities over de bron ("(Source: …)", "(No method provided.)") zijn geen ingrediënt of stap.
   const notes = all.slice(1).filter(readerIsNote).map(readerNoteText);
-  const lines = [all[0], ...all.slice(1).filter(l => !readerIsNote(l))];
+  let lines = [all[0], ...all.slice(1).filter(l => !readerIsNote(l))];
+  // Receptformulier: "Woche Tag Hauptgang" + "Menübezeichnung: Kalbsgulasch". De naam staat achter het label; de
+  // kopregel(s) ervoor gaan naar de beschrijving, zodat er niets verloren gaat.
+  const labelAt = lines.slice(0, 3).findIndex(l => READER_TITLE_LABEL.test(l));
+  if (labelAt >= 0 && lines.slice(0, labelAt).every(l => !readerIsIngredientLine(l) && !readerYieldFrom(l))) {
+    notes.unshift(...lines.slice(0, labelAt));
+    lines = [lines[labelAt].match(READER_TITLE_LABEL)[1], ...lines.slice(labelAt + 1)];
+  }
   let title = cleanBatchTitle(lines[0]);
   let yieldText = '';
   // "Beurre blanc (voor 4 personen)", "Cacaosorbetijs (5 potten)": opbrengst tussen haakjes in de titel.
@@ -493,6 +517,14 @@ function parseRecipeBlock(block) {
       steps.length = 0;
       headingsLookWrong = false;
     }
+    // Receptformulier met onderdelen zonder dubbele punt ("Streusel" boven "200 g Mehl"): een onderdeel of een
+    // ingrediënt zonder hoeveelheid ("Zimt")? Dat weet de lezer niet zeker, dus twijfel (de regels blijven staan).
+    const possiblePart = (l, i) =>
+      !/[:\d]/.test(l) &&
+      !readerIsIngredientLine(l) &&
+      l.split(/\s+/).length <= 3 &&
+      READER_STARTS_WITH_QTY.test(ingredients[i + 1] || '');
+    if (labelAt >= 0 && ingredients.some(possiblePart)) headingsLookWrong = true;
   } else {
     // Zonder kopjes: alles tot en met het laatste duidelijke ingrediënt hoort bij de ingrediënten
     // (zinnen daartussen zijn een inleiding), alles daarna is bereiding.
@@ -875,6 +907,16 @@ function splitRecipeText(text) {
       READER_NUMBERED_TITLE.test(l) &&
       readerLooksLikeTitle(l) &&
       (readerIsIngredientLine(next) || READER_INGREDIENTS_HEADING.test(next) || (hasContent && parseInt(l, 10) >= 10));
+    // Receptformulier: een nieuwe "Menübezeichnung:" na een recept met inhoud begint een nieuw recept. Staat de
+    // kopregel van het formulier ("Woche Tag Suppe") er nog vlak voor, dan gaat die mee naar het nieuwe recept.
+    if (current.length > 2 && hasContent && READER_TITLE_LABEL.test(l)) {
+      const header = current[current.length - 1] === current[0] ? current.pop() : '';
+      start();
+      if (header) current.push(header);
+      current.push(l);
+      blankBefore = false;
+      continue;
+    }
     // Zonder inhoud (bijv. receptnaam + ondertitel vóór "Ingrediënten") splitsen we niet: de eerste regel blijft de naam.
     if (
       current.length &&
