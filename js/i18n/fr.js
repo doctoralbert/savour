@@ -2,6 +2,17 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.fr = {
   strings: {
+    'Staat dit ingrediënt al in je prijslijst, bijvoorbeeld uit een ingeladen lijst van je leverancier? Kies het daar; Savour onthoudt dat deze naam bij dat product hoort.':
+      'Cet ingrédient est-il déjà dans ta liste de prix, par exemple une liste fournisseur chargée ? Choisis-le là ; Savour retient que ce nom correspond à ce produit.',
+    'Kies uit je prijslijst': 'Choisir dans ta liste de prix',
+    'of vul een nieuwe prijs in:': 'ou saisis un nouveau prix :',
+    'Kies het product uit je prijslijst dat bij dit ingrediënt hoort.':
+      'Choisis le produit de ta liste de prix qui correspond à cet ingrédient.',
+    'Zoek in je prijslijst': 'Chercher dans ta liste de prix',
+    'Niets gevonden. Probeer een ander woord.': 'Rien trouvé. Essaie un autre mot.',
+    Gekoppeld: 'Lié',
+    'Alleen de eerste 2000 regels van het bestand staan hier; de rest is niet ingelezen.':
+      'Seules les 2000 premières lignes du fichier figurent ici ; le reste n’a pas été lu.',
     'Nog geen prijzen. Begin bij Ingrediënten: daar staan de ingrediënten die het vaakst in je recepten voorkomen. Of open een recept en kies in het menu ⋯ Kostprijs.':
       'Pas encore de prix. Commence par Ingrédients : on y trouve les ingrédients les plus utilisés dans tes recettes. Ou ouvre une recette et choisis Coût de revient dans le menu ⋯.',
     'Gerecht maken': 'Créer un plat',

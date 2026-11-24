@@ -1,6 +1,14 @@
 // Franse vertalingen, naast tools/vertalingen.mjs: Nederlandse brontekst → Frans.
 // Nieuwe interfacetekst? Zet hier ook de Franse regel; node tools/build-i18n.mjs meldt wat ontbreekt.
 export const stringsFr = {
+ "Staat dit ingrediënt al in je prijslijst, bijvoorbeeld uit een ingeladen lijst van je leverancier? Kies het daar; Savour onthoudt dat deze naam bij dat product hoort.": "Cet ingrédient est-il déjà dans ta liste de prix, par exemple une liste fournisseur chargée ? Choisis-le là ; Savour retient que ce nom correspond à ce produit.",
+ "Kies uit je prijslijst": "Choisir dans ta liste de prix",
+ "of vul een nieuwe prijs in:": "ou saisis un nouveau prix :",
+ "Kies het product uit je prijslijst dat bij dit ingrediënt hoort.": "Choisis le produit de ta liste de prix qui correspond à cet ingrédient.",
+ "Zoek in je prijslijst": "Chercher dans ta liste de prix",
+ "Niets gevonden. Probeer een ander woord.": "Rien trouvé. Essaie un autre mot.",
+ "Gekoppeld": "Lié",
+ "Alleen de eerste 2000 regels van het bestand staan hier; de rest is niet ingelezen.": "Seules les 2000 premières lignes du fichier figurent ici ; le reste n’a pas été lu.",
  "Nog geen prijzen. Begin bij Ingrediënten: daar staan de ingrediënten die het vaakst in je recepten voorkomen. Of open een recept en kies in het menu ⋯ Kostprijs.": "Pas encore de prix. Commence par Ingrédients : on y trouve les ingrédients les plus utilisés dans tes recettes. Ou ouvre une recette et choisis Coût de revient dans le menu ⋯.",
  "Gerecht maken": "Créer un plat",
  "Een gerecht is een bord zoals het op de kaart staat: porties van je recepten en losse ingrediënten, met een verkoopprijs. Bijvoorbeeld 160 g kabeljauw, 1 portie beurre blanc en 1 portie bloemkoolcrème.": "Un plat est une assiette telle qu’elle figure à la carte : des portions de tes recettes et des ingrédients seuls, avec un prix de vente. Par exemple 160 g de cabillaud, 1 portion de beurre blanc et 1 portion de crème de chou-fleur.",

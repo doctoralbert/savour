@@ -1,5 +1,14 @@
 // Brontabel voor de vertalingen: [Nederlands, Engels, Duits, Spaans].
 export const strings = [
+  // ---- Foodcost calculator (2026-11-24, js/features/foodcost-screens.js) ----
+  ["Staat dit ingrediënt al in je prijslijst, bijvoorbeeld uit een ingeladen lijst van je leverancier? Kies het daar; Savour onthoudt dat deze naam bij dat product hoort.","Is this ingredient already in your price list, for example from a supplier list you loaded? Choose it there; Savour remembers that this name belongs to that product.","Steht diese Zutat schon in deiner Preisliste, zum Beispiel aus einer geladenen Lieferantenliste? Wähle sie dort; Savour merkt sich, dass dieser Name zu dem Produkt gehört.","¿Este ingrediente ya está en tu lista de precios, por ejemplo de una lista de proveedor que cargaste? Elígelo ahí; Savour recuerda que este nombre corresponde a ese producto."],
+  ["Kies uit je prijslijst","Choose from your price list","Aus deiner Preisliste wählen","Elegir de tu lista de precios"],
+  ["of vul een nieuwe prijs in:","or enter a new price:","oder trag einen neuen Preis ein:","o introduce un precio nuevo:"],
+  ["Kies het product uit je prijslijst dat bij dit ingrediënt hoort.","Choose the product from your price list that belongs to this ingredient.","Wähle das Produkt aus deiner Preisliste, das zu dieser Zutat gehört.","Elige el producto de tu lista de precios que corresponde a este ingrediente."],
+  ["Zoek in je prijslijst","Search your price list","In deiner Preisliste suchen","Buscar en tu lista de precios"],
+  ["Niets gevonden. Probeer een ander woord.","Nothing found. Try another word.","Nichts gefunden. Versuch ein anderes Wort.","No se encontró nada. Prueba otra palabra."],
+  ["Gekoppeld","Linked","Verknüpft","Vinculado"],
+  ["Alleen de eerste 2000 regels van het bestand staan hier; de rest is niet ingelezen.","Only the first 2000 lines of the file are shown here; the rest was not read.","Hier stehen nur die ersten 2000 Zeilen der Datei; der Rest wurde nicht eingelesen.","Aquí solo aparecen las primeras 2000 líneas del archivo; el resto no se ha leído."],
   // ---- Foodcost: gerechten (2026-11-24) ----
   ["Nog geen prijzen. Begin bij Ingrediënten: daar staan de ingrediënten die het vaakst in je recepten voorkomen. Of open een recept en kies in het menu ⋯ Kostprijs.","No prices yet. Start at Ingredients: it lists the ingredients used most often in your recipes. Or open a recipe and choose Cost price in the ⋯ menu.","Noch keine Preise. Fang bei Zutaten an: Dort stehen die Zutaten, die am häufigsten in deinen Rezepten vorkommen. Oder öffne ein Rezept und wähle im Menü ⋯ Wareneinsatz.","Aún no hay precios. Empieza en Ingredientes: ahí están los ingredientes que más aparecen en tus recetas. O abre una receta y elige Coste en el menú ⋯."],
   ["Gerecht maken","Create dish","Gericht erstellen","Crear plato"],

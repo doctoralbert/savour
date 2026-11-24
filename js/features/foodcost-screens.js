@@ -396,6 +396,7 @@ async function openCostProductEditor({ id = '', key = '', line = '', recipeId = 
     : '';
   const el = costDialog(
     `<h2 class="sv-dialog-title">${esc(t(cp ? 'Prijs en product' : 'Prijs invullen'))}</h2>
+    ${!cp && key && costData.products.length ? `<div class="kp-pick"><p class="kp-why">${esc(t('Staat dit ingrediënt al in je prijslijst, bijvoorbeeld uit een ingeladen lijst van je leverancier? Kies het daar; Savour onthoudt dat deze naam bij dat product hoort.'))}</p><button type="button" class="btn gold" onclick="pickCostProductFor('${escJs(key)}', '${escJs(line)}', '${escJs(recipeId)}')">${esc(t('Kies uit je prijslijst'))}</button><p class="kp-or">${esc(t('of vul een nieuwe prijs in:'))}</p></div>` : ''}
     <form class="kp-form" novalidate onsubmit="event.preventDefault();saveCostProductForm()">
       <input type="hidden" name="id" value="${esc(p.id)}">
       <label class="product-field"><span>${t('Product')}</span><input class="sv-dialog-input" name="name" value="${esc(p.name)}" required translate="no"></label>
@@ -430,6 +431,48 @@ async function openCostProductEditor({ id = '', key = '', line = '', recipeId = 
     e.target.value = s.id;
   });
   if (!current) el.querySelector('input[name=pack]').focus();
+}
+
+// Zoekvenster met je kostproducten (bijv. de ingeladen Hanos-lijst). Kiezen voegt de naam uit het recept toe als
+// schrijfwijze van dat product: daarna telt die regel (en elke andere met dezelfde naam) met die prijs.
+function pickCostProductFor(key, line, recipeId) {
+  const list = [...costData.products].sort((a, b) => a.name.localeCompare(b.name, 'nl'));
+  const words = productKey(ingredientNameOf(line) || key)
+    .split(' ')
+    .filter(w => w.length > 2);
+  costDialog(
+    `<h2 class="sv-dialog-title" translate="no">${esc(ingredientNameOf(line) || key)}</h2><p class="kp-why">${esc(t('Kies het product uit je prijslijst dat bij dit ingrediënt hoort.'))}</p><input class="sv-dialog-input" type="search" id="kpPickSearch" autocomplete="off" placeholder="${esc(t('Zoek in je prijslijst'))}" value="${esc(words[words.length - 1] || '')}"><div class="sv-dialog-choices kp-pick-results" id="kpPickResults"></div><div class="kp-actions"><button type="button" class="btn-quiet" onclick="openCostProductEditor({ key: '${escJs(key)}', line: '${escJs(line)}', recipeId: '${escJs(recipeId)}' })">← ${esc(t('Terug'))}</button></div>`,
+    'kp-picker'
+  );
+  const input = $('kpPickSearch');
+  const show = () => {
+    const q = productKey(input.value);
+    const found = list.filter(cp => !q || [cp.name, ...cp.aliases].some(n => productKey(n).includes(q)));
+    $('kpPickResults').innerHTML =
+      found
+        .slice(0, 60)
+        .map(cp => {
+          const cur = costCurrentPrice(cp);
+          const price = cur
+            ? `${fcMoney(Number(cur.price.price))} · ${cur.price.pack_text || fcQty(Number(cur.price.pack_qty), cur.price.pack_unit)}`
+            : t('geen prijs');
+          return `<button type="button" class="sv-dialog-choice" onclick="linkCostProduct('${escJs(cp.id)}', '${escJs(key)}')"><span translate="no">${esc(cp.name)}</span><small translate="no">${esc(price)}</small></button>`;
+        })
+        .join('') || `<p class="muted">${esc(t('Niets gevonden. Probeer een ander woord.'))}</p>`;
+  };
+  input.addEventListener('input', show);
+  show();
+  input.focus();
+}
+
+async function linkCostProduct(id, key) {
+  const cp = costData.products.find(p => p.id === String(id));
+  if (!cp || !key) return;
+  const saved = await saveCostProduct({ ...cp, aliases: [...cp.aliases, key] });
+  if (!saved) return;
+  closeCostDialog();
+  toast(t('Gekoppeld'));
+  costRefresh();
 }
 
 // Een verpakking zoals de kok hem leest: 6000 g → 6 kg.
@@ -1318,6 +1361,8 @@ function startCostImportReview(grid) {
   renderCostImportReview();
 }
 
+// Elke regel die opgeslagen kan worden, staat ook in beeld: de kok keurt alles zelf goed.
+const COST_IMPORT_MAX = 2000;
 function costImportRows() {
   const { grid, cols, hasHead, vat } = costImport;
   const index = costProductIndex();
@@ -1349,7 +1394,8 @@ function costImportRows() {
         use: !!match && !!pack
       };
     })
-    .filter(Boolean);
+    .filter(Boolean)
+    .slice(0, COST_IMPORT_MAX);
 }
 
 function renderCostImportReview() {
@@ -1359,7 +1405,6 @@ function renderCostImportReview() {
     `<label class="product-field"><span>${esc(t(label))}</span><select class="sv-dialog-input" onchange="setCostImportCol('${field}', this.value)"><option value="-1">–</option>${header.map((h, i) => `<option value="${i}"${ci.cols[field] === i ? ' selected' : ''}>${esc(ci.hasHead ? h : `${t('Kolom')} ${i + 1}: ${h}`)}</option>`).join('')}</select></label>`;
   const chosen = ci.rows.filter(r => r.use).length;
   const rows = ci.rows
-    .slice(0, 400)
     .map(
       (r, i) =>
         `<li class="${r.use ? 'is-on' : ''}"><label><input type="checkbox" ${r.use ? 'checked' : ''} ${r.pack ? '' : 'disabled'} onchange="costImport.rows[${i}].use=this.checked;renderCostImportReview()"><span class="kp-imp-name" translate="no">${esc(r.name)}</span></label><span translate="no">${r.pack ? esc(fcQty(r.pack.qty, r.pack.unit)) : `<span class="kp-chip">${esc(t('verpakking?'))}</span>`}</span><b>${fcMoney(r.price)}</b><span class="kp-imp-match">${r.match ? `→ <span translate="no">${esc(r.match.name)}</span>` : `<small>${esc(t('nieuw product'))}</small>`}</span></li>`
@@ -1375,7 +1420,7 @@ function renderCostImportReview() {
       )
       .join(
         ''
-      )}</select></label><div class="kp-imp-tools"><button type="button" class="btn-quiet" onclick="costImport.rows.forEach(r=>r.use=!!r.pack);renderCostImportReview()">${esc(t('Alles met verpakking aanvinken'))}</button><button type="button" class="btn-quiet" onclick="costImport.rows.forEach(r=>r.use=false);renderCostImportReview()">${esc(t('Niets aanvinken'))}</button></div><ul class="kp-imp-rows">${rows}</ul>${ci.rows.length > 400 ? `<p class="kp-note">${esc(t('Alleen de eerste 400 regels staan hier.'))}</p>` : ''}<div class="kp-actions"><button type="button" class="btn gold" onclick="saveCostImport()" ${chosen ? '' : 'disabled'}><span class="kp-n">${chosen}</span> <span>${esc(t(chosen === 1 ? 'prijs opslaan' : 'prijzen opslaan'))}</span></button></div>`,
+      )}</select></label><div class="kp-imp-tools"><button type="button" class="btn-quiet" onclick="costImport.rows.forEach(r=>r.use=!!r.pack);renderCostImportReview()">${esc(t('Alles met verpakking aanvinken'))}</button><button type="button" class="btn-quiet" onclick="costImport.rows.forEach(r=>r.use=false);renderCostImportReview()">${esc(t('Niets aanvinken'))}</button></div><ul class="kp-imp-rows">${rows}</ul>${ci.rows.length >= COST_IMPORT_MAX ? `<p class="kp-note">${esc(t('Alleen de eerste 2000 regels van het bestand staan hier; de rest is niet ingelezen.'))}</p>` : ''}<div class="kp-actions"><button type="button" class="btn gold" onclick="saveCostImport()" ${chosen ? '' : 'disabled'}><span class="kp-n">${chosen}</span> <span>${esc(t(chosen === 1 ? 'prijs opslaan' : 'prijzen opslaan'))}</span></button></div>`,
     'kp-import'
   );
 }

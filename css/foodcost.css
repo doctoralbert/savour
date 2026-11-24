@@ -730,3 +730,32 @@ button.kp-trow:hover {
 .kp-recipes .kp-trow {
   grid-template-columns: minmax(0, 2.2fr) repeat(3, minmax(0, 1fr)) minmax(0, 0.8fr);
 }
+
+/* ---- Kiezen uit je prijslijst ---- */
+.kp-pick {
+  margin-bottom: var(--sv-space-3);
+  padding-bottom: var(--sv-space-3);
+  border-bottom: 1px solid var(--sv-line);
+}
+.kp-or {
+  margin: var(--sv-space-3) 0 0;
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-sm);
+}
+.kp-pick-results {
+  display: grid;
+  gap: 4px;
+  max-height: 50vh;
+  margin-top: var(--sv-space-2);
+  overflow: auto;
+}
+.kp-pick-results .sv-dialog-choice {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+}
+.kp-pick-results small {
+  color: var(--sv-text-3);
+  white-space: nowrap;
+}
