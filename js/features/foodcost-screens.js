@@ -107,7 +107,7 @@ function renderRecipeCost(r) {
 
 function costBlockOpen() {
   try {
-    return localStorage.getItem('savour_cost_open') === '1';
+    return localStorage.getItem('savour_cost_open') !== '0'; // standaard open, dicht als de kok het dichtklapte
   } catch (e) {
     return false;
   }
