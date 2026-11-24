@@ -163,6 +163,14 @@ c = run('W.cost(R5)');
 check('overslaan en vast', c.complete && near(c.total, 3.55), c.total);
 check('porties van de kok', c.portions.value === 5 && c.portions.source === 'kok');
 
+// ---- Gerecht: een bord uit recepten en ingrediënten (1 portie van een recept voor 4 personen = een kwart) ----
+ctx.W.recipes['portie saus'] = { id: 'saus', yield: '4 personen', ingredients: ['250 g boter'] };
+ctx.W.recipes['koekje'] = { id: 'koek', yield: '24 stuks', ingredients: ['3 ei'] };
+ctx.DISH = { id: 'bord', yield: '1 portie', ingredients: ['1 portie saus', '1 stuk koekje', '200 g ossenhaas'] };
+c = run('W.cost(DISH)');
+check('gerecht: portie, stuk en ingrediënt', c.complete && near(c.total, 1.8144 / 4 + 1.05 / 24 + 11.2), c.total);
+check('gerecht: 1 bord', c.portions?.value === 1);
+
 // ---- Prijs en marge ----
 check('voorgestelde prijs', near(run('fcSuggestedPrice(6.06, 28)'), 21.642857142857142));
 check('foodcost %', near(run('fcFoodcostPct(6, 24)'), 25));

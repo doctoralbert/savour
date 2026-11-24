@@ -110,6 +110,11 @@ function openRecipe(id, context = 'library') {
     ingredients.length &&
       productsVisible(productScopeOf(r)) &&
       `<button type="button" onclick="openAllergenCard()">${icon('alert')}Allergenenkaart</button>`,
+    // Kostprijs (js/features/foodcost-screens.js): alleen via dit menu, nooit zichtbaar op de receptpagina zelf.
+    ingredients.length &&
+      !r.example &&
+      costVisible() &&
+      `<button type="button" onclick="openRecipeCostDialog('${rid}')">${icon('chart')}Kostprijs</button>`,
     removeAction &&
       `<button type="button" class="rp-menu-danger" onclick="${removeAction.fn}">${icon('trash')}${removeAction.label}</button>`
   ].filter(Boolean);
@@ -166,14 +171,12 @@ function openRecipe(id, context = 'library') {
            onder de ingrediënten (css/recipe-page.css, .rp-extra). -->
       <section class="rp-section rp-extra">
         <div id="rpAllergens"></div>
-        <div id="rpCost"></div>
         <div id="rpSideNote"></div>
       </section>
     </div>
   </article>`;
   renderIngredientLinks(r);
   renderRecipeAllergens(r);
-  renderRecipeCost(r);
   renderRecipeNote(r);
   go('detail');
 }

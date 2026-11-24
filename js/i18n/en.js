@@ -2,6 +2,34 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.en = {
   strings: {
+    'Nog geen prijzen. Begin bij Ingrediënten: daar staan de ingrediënten die het vaakst in je recepten voorkomen. Of open een recept en kies in het menu ⋯ Kostprijs.':
+      'No prices yet. Start at Ingredients: it lists the ingredients used most often in your recipes. Or open a recipe and choose Cost price in the ⋯ menu.',
+    'Gerecht maken': 'Create dish',
+    'Een gerecht is een bord zoals het op de kaart staat: porties van je recepten en losse ingrediënten, met een verkoopprijs. Bijvoorbeeld 160 g kabeljauw, 1 portie beurre blanc en 1 portie bloemkoolcrème.':
+      'A dish is a plate as it appears on the menu: portions of your recipes and single ingredients, with a selling price. For example 160 g cod, 1 portion of beurre blanc and 1 portion of cauliflower cream.',
+    'Naam van het gerecht, zoals op de kaart': 'Name of the dish, as on the menu',
+    'Kostprijs per bord': 'Cost per plate',
+    'Nog geen onderdelen. Voeg een recept toe (bijvoorbeeld 1 portie beurre blanc) of een ingrediënt (bijvoorbeeld 160 g kabeljauwfilet).':
+      'No components yet. Add a recipe (for example 1 portion of beurre blanc) or an ingredient (for example 160 g cod fillet).',
+    'Onderdelen per bord': 'Components per plate',
+    'Ingrediënt toevoegen': 'Add ingredient',
+    'Gerecht verwijderen': 'Delete dish',
+    '^Hoeveel gaat er op één bord\\? Bijvoorbeeld 1 portie, 40 ml of 120 g\\. Het recept levert: (.*)$':
+      'How much goes on one plate? For example 1 portion, 40 ml or 120 g. The recipe makes: $1',
+    'Begin met een hoeveelheid, bijvoorbeeld 1 portie of 40 ml.':
+      'Start with a quantity, for example 1 portion or 40 ml.',
+    'Ingrediënt met de hoeveelheid per bord, bijvoorbeeld 160 g kabeljauwfilet of 3 blaadjes shiso.':
+      'Ingredient with the quantity per plate, for example 160 g cod fillet or 3 shiso leaves.',
+    'Begin met een hoeveelheid, bijvoorbeeld 160 g kabeljauwfilet.':
+      'Start with a quantity, for example 160 g cod fillet.',
+    'Dit gerecht verwijderen? Het gaat ook uit je menu’s. Je recepten veranderen niet.':
+      'Delete this dish? It is also removed from your menus. Your recipes don’t change.',
+    'Maak eerst een gerecht: een bord uit je recepten en ingrediënten.':
+      'First create a dish: a plate made from your recipes and ingredients.',
+    'Welk gerecht?': 'Which dish?',
+    'Per liter': 'Per litre',
+    'Per kilo': 'Per kilo',
+    portie: 'portion',
     'Foodcost %': 'Food cost %',
     Foodcost: 'Food cost',
     'Kostprijs per gerecht en per menu.': 'Cost per dish and per menu.',

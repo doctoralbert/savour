@@ -475,8 +475,6 @@ function applyRecipeFactor(r, factor, rawTarget) {
           format: formatNumber,
           scaleLine: l => scaleIngredientLine(l, factor)
         };
-  // De kostprijs rekent mee (js/features/foodcost-screens.js; niet in de losse test van scale.js).
-  if (typeof renderRecipeCost === 'function') renderRecipeCost(r);
 }
 
 function resetRecipeYield() {

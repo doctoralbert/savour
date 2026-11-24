@@ -19,6 +19,8 @@ function emptyCostData() {
     prices: [],
     suppliers: [],
     recipes: new Map(), // recipe_id → instellingen
+    dishes: [], // gerechten: een bord uit recepten en ingrediënten (cost_dishes)
+    dishesMissing: false, // tabel cost_dishes bestaat nog niet (herstel-SQL nog niet uitgevoerd)
     menus: [],
     menuItems: [],
     imports: [],
@@ -61,7 +63,7 @@ async function loadFoodcost(uid) {
     return;
   }
   const q = t => supabaseClient.from(t).select('*');
-  const [products, prices, suppliers, recipesRes, menus, items, settings, imports] = await Promise.all([
+  const [products, prices, suppliers, recipesRes, menus, items, settings, imports, dishes] = await Promise.all([
     q('cost_products').order('name'),
     q('cost_prices').order('valid_from', { ascending: false }).order('created_at', { ascending: false }),
     q('cost_suppliers').order('name'),
@@ -73,7 +75,8 @@ async function loadFoodcost(uid) {
       .from('cost_imports')
       .select('id,supplier_id,file_name,approved,created_at')
       .order('created_at', { ascending: false })
-      .limit(20)
+      .limit(20),
+    q('cost_dishes').order('name')
   ]);
   if (products.error) {
     // Tabel bestaat nog niet: de SQL is nog niet uitgevoerd. Niets tonen dat niet kan werken.
@@ -89,6 +92,8 @@ async function loadFoodcost(uid) {
   next.menus = menus.data || [];
   next.menuItems = items.data || [];
   next.imports = imports.data || [];
+  next.dishes = (dishes.data || []).map(costDishFromRow);
+  next.dishesMissing = !!dishes.error;
   if (settings.data) next.settings = settings.data;
   next.ready = true;
   costData = next;
@@ -139,8 +144,72 @@ function costSupplier(id) {
   return id ? costData.suppliers.find(s => String(s.id) === String(id)) || null : null;
 }
 
+// Instellingen bij een recept, of bij een gerecht: een gerecht is altijd 1 bord, met zijn eigen keuzes per onderdeel.
 function costRecipeSettings(id) {
+  const dish = costDish(id);
+  if (dish)
+    return { portions: 1, choices: dish.choices || {}, sell_price: dish.sell_price, target_pct: dish.target_pct };
   return costData.recipes.get(String(id)) || null;
+}
+
+// ---- Gerechten ----
+// Een gerecht op de kaart is een bord uit onderdelen: "1 portie Beurre blanc" (een recept) of "160 g kabeljauwfilet"
+// (een ingrediënt). Savour rekent het uit als een recept van 1 portie met die regels; een onderdeel met een recept
+// wijst daar via links naar, net als een basisrecept in een recept.
+function costDishFromRow(row) {
+  return {
+    ...row,
+    id: String(row.id),
+    components: Array.isArray(row.components) ? row.components : [],
+    choices: row.choices && typeof row.choices === 'object' ? row.choices : {}
+  };
+}
+function costDish(id) {
+  return costData.dishes.find(d => d.id === String(id)) || null;
+}
+function costDishAsRecipe(d) {
+  const links = {};
+  d.components.forEach(x => {
+    // Een ingrediënt hoort nooit vanzelf bij een recept met dezelfde naam: '' is "bewust geen recept".
+    links[ingredientNameOf(x.line).toLowerCase()] = x.recipe_id ? String(x.recipe_id) : '';
+  });
+  return { id: d.id, title: d.name, yield: '1 portie', ingredients: d.components.map(x => x.line), links, dish: true };
+}
+// Recept of gerecht met dit id, zoals de rekenkern het nodig heeft.
+function costFindRecipe(id) {
+  const d = costDish(id);
+  return d ? costDishAsRecipe(d) : findRecipe(id);
+}
+function costOfDish(d) {
+  const r = costDishAsRecipe(d);
+  const c = fcRecipeCost(r, costWorld(r));
+  const sell = Number(d.sell_price) > 0 ? Number(d.sell_price) : null;
+  const target = Number(d.target_pct) || Number(costData.settings.target_pct) || 30;
+  const pct = sell ? fcFoodcostPct(c.total, sell) : null;
+  return {
+    r,
+    c,
+    sell,
+    target,
+    pct,
+    over: pct != null && pct > target,
+    margin: sell != null && c.complete ? sell - c.total : null
+  };
+}
+
+async function saveCostDish(d, changes) {
+  const row = { ...changes };
+  if (!d.id) {
+    row.name = row.name || d.name;
+    if (!demoMode) row.user_id = currentUser.id;
+  }
+  const saved = await costWrite('cost_dishes', row, { id: d.id && !demoMode ? d.id : null });
+  if (!saved) return null;
+  const next = costDishFromRow({ ...d, ...changes, ...(d.id ? {} : saved), id: d.id || saved.id });
+  costData.dishes = [...costData.dishes.filter(x => x.id !== next.id), next].sort((a, b) =>
+    a.name.localeCompare(b.name, 'nl')
+  );
+  return next;
 }
 
 // De wereld voor de rekenkern (fcRecipeCost) bij dit recept: dezelfde koppelingen als de allergenen.
@@ -262,6 +331,8 @@ async function saveCostSupplier(s) {
 }
 
 async function saveCostRecipe(recipeId, changes) {
+  const dish = costDish(recipeId);
+  if (dish) return saveCostDish(dish, 'choices' in changes ? { choices: changes.choices } : {});
   const now = costRecipeSettings(recipeId) || {};
   const row = {
     recipe_id: recipeId,
@@ -390,11 +461,80 @@ const DEMO_COST_RECIPES = {
 };
 // Een voorbeeldkaart met verkoopcijfers, zodat je de menu engineering ziet. De bloemkoolcrème is nog niet compleet
 // en telt daarom (zichtbaar) niet mee.
-const DEMO_COST_MENU = [
-  ['mousse', 120],
-  ['beurre', 40],
-  ['bloemkool', 35]
+// Gerechten in de demo: een bord uit recepten (een portie) en losse ingrediënten. Namen in de taal van de demo.
+// De eend is bewust niet compleet (de eendenjus mist het gewicht per teen knoflook).
+const DEMO_DISH_WORDS = {
+  nl: {
+    portion: 'portie',
+    piece: 'stuk',
+    cod: 'kabeljauwfilet',
+    duck: 'eendenborst',
+    names: ['Kabeljauw, beurre blanc, kruidenolie', 'Chocolademousse met slagroom', 'Eendenborst met jus']
+  },
+  en: {
+    portion: 'portion',
+    piece: 'piece',
+    cod: 'cod fillet',
+    duck: 'duck breast',
+    names: ['Cod, beurre blanc, herb oil', 'Chocolate mousse with cream', 'Duck breast with jus']
+  },
+  de: {
+    portion: 'Portion',
+    piece: 'Stück',
+    cod: 'Kabeljaufilet',
+    duck: 'Entenbrust',
+    names: ['Kabeljau, Beurre blanc, Kräuteröl', 'Schokoladenmousse mit Sahne', 'Entenbrust mit Jus']
+  },
+  es: {
+    portion: 'ración',
+    piece: 'unidad',
+    cod: 'lomo de bacalao',
+    duck: 'magret de pato',
+    names: ['Bacalao, beurre blanc, aceite de hierbas', 'Mousse de chocolate con nata', 'Magret de pato con jugo']
+  },
+  fr: {
+    portion: 'portion',
+    piece: 'pièce',
+    cod: 'filet de cabillaud',
+    duck: 'magret de canard',
+    names: ['Cabillaud, beurre blanc, huile d’herbes', 'Mousse au chocolat et crème', 'Magret de canard, jus']
+  }
+};
+// [naam, onderdelen, verkoopprijs, verkocht]. Een onderdeel is [recept, 'portion' of hoeveelheid], [ingrediënt, gram]
+// of ['regel', recept, regelnummer, hoeveelheid]: een ingrediënt met de naam zoals in dat demorecept (elke taal).
+// Kabeljauw en mousse zijn compleet (zo zie je de menu engineering); de eend niet.
+const DEMO_DISHES = [
+  [
+    0,
+    [
+      ['cod', 160],
+      ['beurre', 'portion'],
+      ['kruidenolie', '10 ml']
+    ],
+    24.5,
+    120
+  ],
+  [
+    1,
+    [
+      ['mousse', 'portion'],
+      ['regel', 'mousse', 4, '30 ml']
+    ],
+    9.5,
+    60
+  ],
+  [
+    2,
+    [
+      ['duck', 180],
+      ['eendenjus', '50 ml']
+    ],
+    27,
+    25
+  ]
 ];
+// Prijzen voor de losse ingrediënten van de demogerechten (per kg, opbrengst na schoonmaken).
+const DEMO_DISH_PRODUCTS = { cod: [22, 95], duck: [19, 100] };
 
 function fillDemoFoodcost(d) {
   d.suppliers = [{ id: 'demo-s-0', name: 'Groothandel', discount_pct: 4, note: '' }];
@@ -453,11 +593,54 @@ function fillDemoFoodcost(d) {
     rc.choices = { ...rc.choices, [ingredientKey(l)]: choice };
     d.recipes.set('demo-' + k, rc);
   });
+  const w = DEMO_DISH_WORDS[currentLanguage] || DEMO_DISH_WORDS.en;
+  Object.entries(DEMO_DISH_PRODUCTS).forEach(([k, [price, yieldPct]]) => {
+    const id = 'demo-c-' + k;
+    d.products.push({
+      id,
+      name: w[k].charAt(0).toLocaleUpperCase() + w[k].slice(1),
+      aliases: [ingredientKey('1 g ' + w[k])],
+      yield_pct: yieldPct < 100 ? yieldPct : null,
+      density: null,
+      units: {},
+      preferred_supplier_id: null,
+      note: ''
+    });
+    d.prices.push({
+      id: 'demo-pr-' + k,
+      product_id: id,
+      supplier_id: 'demo-s-0',
+      pack_text: '',
+      pack_qty: 1000,
+      pack_unit: 'g',
+      price,
+      valid_from: new Date().toISOString().slice(0, 10),
+      source: 'hand',
+      created_at: new Date().toISOString()
+    });
+  });
+  d.dishes = DEMO_DISHES.map(([n, parts, sell], i) => ({
+    id: 'demo-d-' + i,
+    name: w.names[n],
+    components: parts.map(([k, amount, index, partQty]) => {
+      if (DEMO_DISH_PRODUCTS[k]) return { line: `${amount} g ${w[k]}` };
+      if (k === 'regel')
+        return { line: `${partQty} ${ingredientNameOf(findRecipe('demo-' + amount)?.ingredients[index] || '')}` };
+      const r = findRecipe('demo-' + k);
+      const qty = amount === 'portion' ? '1 ' + w.portion : amount === 'piece' ? '1 ' + w.piece : amount;
+      return { line: `${qty} ${r?.title || k}`, recipe_id: 'demo-' + k };
+    }),
+    choices: {},
+    sell_price: sell,
+    target_pct: null,
+    note: '',
+    archived: false
+  }));
   d.menus = [{ id: 'demo-m-0', name: 'Kaart (voorbeeld)', kind: 'kaart', price: null, period: '', archived: false }];
-  d.menuItems = DEMO_COST_MENU.map(([k, sold], i) => ({
+  d.menuItems = DEMO_DISHES.map(([, , , sold], i) => ({
     id: 'demo-mi-' + i,
     menu_id: 'demo-m-0',
-    recipe_id: 'demo-' + k,
+    dish_id: 'demo-d-' + i,
     sold,
     position: i
   }));

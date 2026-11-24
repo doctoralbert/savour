@@ -1,5 +1,25 @@
 // Brontabel voor de vertalingen: [Nederlands, Engels, Duits, Spaans].
 export const strings = [
+  // ---- Foodcost: gerechten (2026-11-24) ----
+  ["Nog geen prijzen. Begin bij Ingrediënten: daar staan de ingrediënten die het vaakst in je recepten voorkomen. Of open een recept en kies in het menu ⋯ Kostprijs.","No prices yet. Start at Ingredients: it lists the ingredients used most often in your recipes. Or open a recipe and choose Cost price in the ⋯ menu.","Noch keine Preise. Fang bei Zutaten an: Dort stehen die Zutaten, die am häufigsten in deinen Rezepten vorkommen. Oder öffne ein Rezept und wähle im Menü ⋯ Wareneinsatz.","Aún no hay precios. Empieza en Ingredientes: ahí están los ingredientes que más aparecen en tus recetas. O abre una receta y elige Coste en el menú ⋯."],
+  ["Gerecht maken","Create dish","Gericht erstellen","Crear plato"],
+  ["Een gerecht is een bord zoals het op de kaart staat: porties van je recepten en losse ingrediënten, met een verkoopprijs. Bijvoorbeeld 160 g kabeljauw, 1 portie beurre blanc en 1 portie bloemkoolcrème.","A dish is a plate as it appears on the menu: portions of your recipes and single ingredients, with a selling price. For example 160 g cod, 1 portion of beurre blanc and 1 portion of cauliflower cream.","Ein Gericht ist ein Teller, wie er auf der Karte steht: Portionen deiner Rezepte und einzelne Zutaten, mit einem Verkaufspreis. Zum Beispiel 160 g Kabeljau, 1 Portion Beurre blanc und 1 Portion Blumenkohlcreme.","Un plato es un pase tal como figura en la carta: raciones de tus recetas e ingredientes sueltos, con un precio de venta. Por ejemplo 160 g de bacalao, 1 ración de beurre blanc y 1 ración de crema de coliflor."],
+  ["Naam van het gerecht, zoals op de kaart","Name of the dish, as on the menu","Name des Gerichts, wie auf der Karte","Nombre del plato, como en la carta"],
+  ["Kostprijs per bord","Cost per plate","Wareneinsatz pro Teller","Coste por plato"],
+  ["Nog geen onderdelen. Voeg een recept toe (bijvoorbeeld 1 portie beurre blanc) of een ingrediënt (bijvoorbeeld 160 g kabeljauwfilet).","No components yet. Add a recipe (for example 1 portion of beurre blanc) or an ingredient (for example 160 g cod fillet).","Noch keine Bestandteile. Füge ein Rezept hinzu (zum Beispiel 1 Portion Beurre blanc) oder eine Zutat (zum Beispiel 160 g Kabeljaufilet).","Aún no hay componentes. Añade una receta (por ejemplo 1 ración de beurre blanc) o un ingrediente (por ejemplo 160 g de lomo de bacalao)."],
+  ["Onderdelen per bord","Components per plate","Bestandteile pro Teller","Componentes por plato"],
+  ["Ingrediënt toevoegen","Add ingredient","Zutat hinzufügen","Añadir ingrediente"],
+  ["Gerecht verwijderen","Delete dish","Gericht löschen","Eliminar plato"],
+  ["^Hoeveel gaat er op één bord\\? Bijvoorbeeld 1 portie, 40 ml of 120 g\\. Het recept levert: (.*)$","How much goes on one plate? For example 1 portion, 40 ml or 120 g. The recipe makes: $1","Wie viel kommt auf einen Teller? Zum Beispiel 1 Portion, 40 ml oder 120 g. Das Rezept ergibt: $1","¿Cuánto va en un plato? Por ejemplo 1 ración, 40 ml o 120 g. La receta da: $1"],
+  ["Begin met een hoeveelheid, bijvoorbeeld 1 portie of 40 ml.","Start with a quantity, for example 1 portion or 40 ml.","Beginne mit einer Menge, zum Beispiel 1 Portion oder 40 ml.","Empieza con una cantidad, por ejemplo 1 ración o 40 ml."],
+  ["Ingrediënt met de hoeveelheid per bord, bijvoorbeeld 160 g kabeljauwfilet of 3 blaadjes shiso.","Ingredient with the quantity per plate, for example 160 g cod fillet or 3 shiso leaves.","Zutat mit der Menge pro Teller, zum Beispiel 160 g Kabeljaufilet oder 3 Blätter Shiso.","Ingrediente con la cantidad por plato, por ejemplo 160 g de lomo de bacalao o 3 hojas de shiso."],
+  ["Begin met een hoeveelheid, bijvoorbeeld 160 g kabeljauwfilet.","Start with a quantity, for example 160 g cod fillet.","Beginne mit einer Menge, zum Beispiel 160 g Kabeljaufilet.","Empieza con una cantidad, por ejemplo 160 g de lomo de bacalao."],
+  ["Dit gerecht verwijderen? Het gaat ook uit je menu’s. Je recepten veranderen niet.","Delete this dish? It is also removed from your menus. Your recipes don’t change.","Dieses Gericht löschen? Es verschwindet auch aus deinen Menüs. Deine Rezepte ändern sich nicht.","¿Eliminar este plato? También sale de tus menús. Tus recetas no cambian."],
+  ["Maak eerst een gerecht: een bord uit je recepten en ingrediënten.","First create a dish: a plate made from your recipes and ingredients.","Erstelle zuerst ein Gericht: einen Teller aus deinen Rezepten und Zutaten.","Primero crea un plato: un pase con tus recetas e ingredientes."],
+  ["Welk gerecht?","Which dish?","Welches Gericht?","¿Qué plato?"],
+  ["Per liter","Per litre","Pro Liter","Por litro"],
+  ["Per kilo","Per kilo","Pro Kilo","Por kilo"],
+  ["portie","portion","Portion","ración"],
   // ---- Foodcost calculator (2026-11-24, js/features/foodcost-screens.js) ----
   ["Foodcost %","Food cost %","Wareneinsatzquote","% de coste"],
   ["Foodcost","Food cost","Wareneinsatz","Escandallo"],

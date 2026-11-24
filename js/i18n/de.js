@@ -2,6 +2,34 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.de = {
   strings: {
+    'Nog geen prijzen. Begin bij Ingrediënten: daar staan de ingrediënten die het vaakst in je recepten voorkomen. Of open een recept en kies in het menu ⋯ Kostprijs.':
+      'Noch keine Preise. Fang bei Zutaten an: Dort stehen die Zutaten, die am häufigsten in deinen Rezepten vorkommen. Oder öffne ein Rezept und wähle im Menü ⋯ Wareneinsatz.',
+    'Gerecht maken': 'Gericht erstellen',
+    'Een gerecht is een bord zoals het op de kaart staat: porties van je recepten en losse ingrediënten, met een verkoopprijs. Bijvoorbeeld 160 g kabeljauw, 1 portie beurre blanc en 1 portie bloemkoolcrème.':
+      'Ein Gericht ist ein Teller, wie er auf der Karte steht: Portionen deiner Rezepte und einzelne Zutaten, mit einem Verkaufspreis. Zum Beispiel 160 g Kabeljau, 1 Portion Beurre blanc und 1 Portion Blumenkohlcreme.',
+    'Naam van het gerecht, zoals op de kaart': 'Name des Gerichts, wie auf der Karte',
+    'Kostprijs per bord': 'Wareneinsatz pro Teller',
+    'Nog geen onderdelen. Voeg een recept toe (bijvoorbeeld 1 portie beurre blanc) of een ingrediënt (bijvoorbeeld 160 g kabeljauwfilet).':
+      'Noch keine Bestandteile. Füge ein Rezept hinzu (zum Beispiel 1 Portion Beurre blanc) oder eine Zutat (zum Beispiel 160 g Kabeljaufilet).',
+    'Onderdelen per bord': 'Bestandteile pro Teller',
+    'Ingrediënt toevoegen': 'Zutat hinzufügen',
+    'Gerecht verwijderen': 'Gericht löschen',
+    '^Hoeveel gaat er op één bord\\? Bijvoorbeeld 1 portie, 40 ml of 120 g\\. Het recept levert: (.*)$':
+      'Wie viel kommt auf einen Teller? Zum Beispiel 1 Portion, 40 ml oder 120 g. Das Rezept ergibt: $1',
+    'Begin met een hoeveelheid, bijvoorbeeld 1 portie of 40 ml.':
+      'Beginne mit einer Menge, zum Beispiel 1 Portion oder 40 ml.',
+    'Ingrediënt met de hoeveelheid per bord, bijvoorbeeld 160 g kabeljauwfilet of 3 blaadjes shiso.':
+      'Zutat mit der Menge pro Teller, zum Beispiel 160 g Kabeljaufilet oder 3 Blätter Shiso.',
+    'Begin met een hoeveelheid, bijvoorbeeld 160 g kabeljauwfilet.':
+      'Beginne mit einer Menge, zum Beispiel 160 g Kabeljaufilet.',
+    'Dit gerecht verwijderen? Het gaat ook uit je menu’s. Je recepten veranderen niet.':
+      'Dieses Gericht löschen? Es verschwindet auch aus deinen Menüs. Deine Rezepte ändern sich nicht.',
+    'Maak eerst een gerecht: een bord uit je recepten en ingrediënten.':
+      'Erstelle zuerst ein Gericht: einen Teller aus deinen Rezepten und Zutaten.',
+    'Welk gerecht?': 'Welches Gericht?',
+    'Per liter': 'Pro Liter',
+    'Per kilo': 'Pro Kilo',
+    portie: 'Portion',
     'Foodcost %': 'Wareneinsatzquote',
     Foodcost: 'Wareneinsatz',
     'Kostprijs per gerecht en per menu.': 'Wareneinsatz pro Gericht und pro Menü.',

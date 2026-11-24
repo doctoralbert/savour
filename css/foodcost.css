@@ -1,12 +1,9 @@
 /* Foodcost calculator (2026-11-24): blok in het recept, Tools → Foodcost, vensters en de MEP-kosten.
    Alleen de tokens uit css/tokens.css, zodat licht en donker thema vanzelf kloppen. */
 
-/* ---- Blok Kostprijs in het recept (bouwt op .rp-allergens) ---- */
-#rpCost:empty {
-  display: none;
-}
-.rp-cost.is-fold {
-  margin-top: var(--sv-space-3);
+/* ---- Kostprijs van een recept (venster onder het ⋯-menu) ---- */
+.sv-dialog-box.kp-dialog.kp-recipe {
+  width: min(640px, 100%);
 }
 .kp-figures {
   display: grid;
@@ -690,4 +687,46 @@ button.kp-trow:hover {
   .kp-history li > span:nth-child(4) {
     display: none;
   }
+}
+
+/* ---- Gerecht: een bord uit recepten en ingrediënten ---- */
+.sv-dialog-box.kp-dialog.kp-dish {
+  width: min(680px, 100%);
+}
+.kp-sub {
+  margin: var(--sv-space-4) 0 0;
+  font-family: var(--sv-font-display);
+  font-size: var(--sv-fs-lg);
+  font-weight: 600;
+}
+.kp-dish-allergens {
+  margin: 0 0 var(--sv-space-2);
+}
+.kp-lines li:has(.kp-line-x) {
+  display: flex;
+  align-items: stretch;
+}
+.kp-lines li:has(.kp-line-x) > button:first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.kp-lines li button.kp-line-x {
+  flex: 0 0 auto;
+  width: auto;
+  min-height: 0;
+  align-items: center;
+  padding: 0 12px;
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-lg);
+  line-height: 1;
+}
+.kp-lines li button.kp-line-x:hover {
+  color: var(--sv-danger);
+}
+.kp-spacer {
+  flex: 1 1 auto;
+}
+.kp-recipes .kp-thead,
+.kp-recipes .kp-trow {
+  grid-template-columns: minmax(0, 2.2fr) repeat(3, minmax(0, 1fr)) minmax(0, 0.8fr);
 }

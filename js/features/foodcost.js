@@ -16,7 +16,7 @@ const FC_PIECE_WORDS = new Set(
 );
 // Woorden in een opbrengst die porties betekenen: "10 porties", "12 stuks", "8 personen".
 const FC_PORTION_WORDS = new Set(
-  'portie porties portion portions personen persoon pers pers. couvert couverts cover covers serving servings serves bord borden stuk stuks st pieces piece portionen person personen stück porción porciones ración raciones persona personas part parts personne personnes assiette assiettes'.split(
+  'portie porties portion portions people pax personen persoon pers pers. couvert couverts cover covers serving servings serves bord borden stuk stuks st pieces piece portionen person personen stück porción porciones ración raciones persona personas part parts personne personnes assiette assiettes'.split(
     ' '
   )
 );
