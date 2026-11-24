@@ -101,7 +101,7 @@ function renderRecipeCost(r) {
   const shown = per ?? c.total;
   const summary = !c.lines.some(x => FC_DONE.has(x.status) && x.status !== 'overgeslagen')
     ? `<small class="is-open">${t('nog geen prijzen')}</small>`
-    : `<small${c.complete ? '' : ' class="is-open"'}>${c.complete ? '' : `<span>${esc(t('minstens'))}</span> `}<span class="fc-n">${fcMoney(shown)}</span>${per != null ? ` <span>${esc(t('per portie'))}</span>` : ''}</small>`;
+    : `<small${c.complete ? '' : ' class="is-open"'}>${c.complete ? '' : `<span>${esc(t('minstens'))}</span> `}<span class="kp-n">${fcMoney(shown)}</span>${per != null ? ` <span>${esc(t('per portie'))}</span>` : ''}</small>`;
   host.innerHTML = `<aside class="rp-allergens rp-cost is-fold${expanded ? ' is-expanded' : ''}"><button type="button" class="rp-allergens-toggle" aria-expanded="${expanded}" onclick="toggleRecipeCost()"><span>${t('Kostprijs')}</span>${summary}<i aria-hidden="true">${expanded ? '−' : '+'}</i></button><div class="rp-allergens-body"${expanded ? '' : ' hidden'}>${expanded ? recipeCostBody(r, c, rc) : ''}</div></aside>`;
 }
 
@@ -130,43 +130,43 @@ function recipeCostBody(r, c, rc) {
   const pct = per != null && sell ? fcFoodcostPct(per, sell) : null;
   const over = pct != null && pct > target;
   const figures = [
-    `<div class="fc-fig"><span>${per != null ? t('Per portie') : t('Totaal')}</span><b>${min}${fcMoney(per ?? c.total)}</b>${per != null ? `<small><span>${esc(t('totaal'))}</span> <span class="fc-n">${fcMoney(c.total)}</span> · <span class="fc-n">${formatNumber(c.portions.value)}</span> <span>${esc(t('porties'))}</span></small>` : ''}</div>`,
-    `<div class="fc-fig${over ? ' is-over' : ''}"><span>${t('Foodcost %')}</span><b>${pct != null ? (c.complete ? '' : '≥ ') + fcPct(pct) : '–'}</b><small><span>${esc(t('doel'))}</span> <span class="fc-n">${fcPct(target)}</span></small></div>`,
-    `<div class="fc-fig"><span>${t('Marge per bord')}</span><b>${per != null && sell ? (c.complete ? '' : '≤ ') + fcMoney(sell - per) : '–'}</b>${per != null && sell ? `<small><span>${esc(t('factor'))}</span> <span class="fc-n">${formatNumber(Math.round((sell / per) * 10) / 10)}</span></small>` : ''}</div>`
+    `<div class="kp-fig"><span>${per != null ? t('Per portie') : t('Totaal')}</span><b>${min}${fcMoney(per ?? c.total)}</b>${per != null ? `<small><span>${esc(t('totaal'))}</span> <span class="kp-n">${fcMoney(c.total)}</span> · <span class="kp-n">${formatNumber(c.portions.value)}</span> <span>${esc(t('porties'))}</span></small>` : ''}</div>`,
+    `<div class="kp-fig${over ? ' is-over' : ''}"><span>${t('Foodcost %')}</span><b>${pct != null ? (c.complete ? '' : '≥ ') + fcPct(pct) : '–'}</b><small><span>${esc(t('doel'))}</span> <span class="kp-n">${fcPct(target)}</span></small></div>`,
+    `<div class="kp-fig"><span>${t('Marge per bord')}</span><b>${per != null && sell ? (c.complete ? '' : '≤ ') + fcMoney(sell - per) : '–'}</b>${per != null && sell ? `<small><span>${esc(t('factor'))}</span> <span class="kp-n">${formatNumber(Math.round((sell / per) * 10) / 10)}</span></small>` : ''}</div>`
   ].join('');
   const portionsAsk =
     per == null
-      ? `<p class="fc-ask">${icon('alert', { size: 14 })}<span>${esc(t('Hoeveel porties levert dit recept? Dan rekent Savour de prijs per portie uit.'))}</span>${edit ? `<button type="button" class="btn-quiet" onclick="askCostPortions('${rid}')">${t('Porties invullen')}</button>` : ''}</p>`
+      ? `<p class="kp-ask">${icon('alert', { size: 14 })}<span>${esc(t('Hoeveel porties levert dit recept? Dan rekent Savour de prijs per portie uit.'))}</span>${edit ? `<button type="button" class="btn-quiet" onclick="askCostPortions('${rid}')">${t('Porties invullen')}</button>` : ''}</p>`
       : c.portions.source === 'kok' && edit
-        ? `<p class="fc-note">${esc(t('Porties door jou ingevuld bij de kostprijs.'))} <button type="button" class="btn-quiet" onclick="askCostPortions('${rid}')">${t('Aanpassen')}</button></p>`
+        ? `<p class="kp-note">${esc(t('Porties door jou ingevuld bij de kostprijs.'))} <button type="button" class="btn-quiet" onclick="askCostPortions('${rid}')">${t('Aanpassen')}</button></p>`
         : '';
   const suggest = per != null ? fcSuggestedPrice(per, target) : null;
   const price =
     per != null
-      ? `<div class="fc-price"><label><span>${t('Verkoopprijs per portie')} <small>(${t('zonder btw')})</small></span><input inputmode="decimal" value="${esc(fcNum(sell ?? ''))}" placeholder="${esc(suggest ? fcNum(Math.round(suggest * 100) / 100) : '')}" onchange="setCostSell('${rid}', this.value)" ${edit ? '' : 'readonly'}></label><label><span>${t('Doel foodcost')} (%)</span><input inputmode="decimal" value="${esc(fcNum(rc?.target_pct ?? ''))}" placeholder="${esc(fcNum(target))}" onchange="setCostTarget('${rid}', this.value)" ${edit ? '' : 'readonly'}></label><p class="fc-suggest"><span>${esc(t('Voorgestelde prijs bij'))}</span> <span class="fc-n">${fcPct(target)}</span>: <b>${fcMoney(suggest)}</b> <span>${esc(t('zonder btw'))}</span> (<span class="fc-n">${fcMoney(fcWithVat(suggest, vat))}</span> <span>${esc(t('met btw'))}</span>)${c.complete ? '' : ` <em>${esc(t('of meer: nog niet compleet'))}</em>`}</p>${sell ? `<p class="fc-note"><span>${esc(t('Op de kaart'))}</span>: <span class="fc-n">${fcMoney(fcWithVat(sell, vat))}</span> <span>${esc(t('met btw'))}</span></p>` : ''}${over ? `<p class="fc-alert">${icon('alert', { size: 14 })}<span>${esc(t('Boven je doel: deze prijs geeft meer foodcost dan je wilt.'))}</span></p>` : ''}</div>`
+      ? `<div class="kp-price"><label><span>${t('Verkoopprijs per portie')} <small>(${t('zonder btw')})</small></span><input inputmode="decimal" value="${esc(fcNum(sell ?? ''))}" placeholder="${esc(suggest ? fcNum(Math.round(suggest * 100) / 100) : '')}" onchange="setCostSell('${rid}', this.value)" ${edit ? '' : 'readonly'}></label><label><span>${t('Doel foodcost')} (%)</span><input inputmode="decimal" value="${esc(fcNum(rc?.target_pct ?? ''))}" placeholder="${esc(fcNum(target))}" onchange="setCostTarget('${rid}', this.value)" ${edit ? '' : 'readonly'}></label><p class="kp-suggest"><span>${esc(t('Voorgestelde prijs bij'))}</span> <span class="kp-n">${fcPct(target)}</span>: <b>${fcMoney(suggest)}</b> <span>${esc(t('zonder btw'))}</span> (<span class="kp-n">${fcMoney(fcWithVat(suggest, vat))}</span> <span>${esc(t('met btw'))}</span>)${c.complete ? '' : ` <em>${esc(t('of meer: nog niet compleet'))}</em>`}</p>${sell ? `<p class="kp-note"><span>${esc(t('Op de kaart'))}</span>: <span class="kp-n">${fcMoney(fcWithVat(sell, vat))}</span> <span>${esc(t('met btw'))}</span></p>` : ''}${over ? `<p class="kp-alert">${icon('alert', { size: 14 })}<span>${esc(t('Boven je doel: deze prijs geeft meer foodcost dan je wilt.'))}</span></p>` : ''}</div>`
       : '';
   const scaled = window._savourScaled?.recipe?.id === r.id ? window._savourScaled.factor : 1;
   const scaledNote =
     scaled !== 1
-      ? `<p class="fc-note fc-scaled"><span>${esc(t('Omgerekend'))}</span> × <span class="fc-n">${formatNumber(scaled)}</span>: <b>${c.complete ? '' : `<span>${esc(t('minstens'))}</span> `}<span class="fc-n">${fcMoney(c.total * scaled)}</span></b></p>`
+      ? `<p class="kp-note kp-scaled"><span>${esc(t('Omgerekend'))}</span> × <span class="kp-n">${formatNumber(scaled)}</span>: <b>${c.complete ? '' : `<span>${esc(t('minstens'))}</span> `}<span class="kp-n">${fcMoney(c.total * scaled)}</span></b></p>`
       : '';
   const open = c.lines.filter(x => !FC_DONE.has(x.status)).length;
   const openNote = open
     ? `<p class="rp-allergens-open">${icon('alert', { size: 14 })}<span><span>${esc(t('Nog niet compleet'))}</span>: <b>${open}</b> <span>${esc(t(open === 1 ? 'regel' : 'regels'))}</span>. <span>${esc(t('Het totaal is daarom een ondergrens; Savour telt nooit een ontbrekende prijs als € 0.'))}</span></span></p>`
     : '';
-  const lines = `<ul class="fc-lines">${c.lines
+  const lines = `<ul class="kp-lines">${c.lines
     .map(x => {
       const i = r.ingredients.indexOf(x.line);
       const done = FC_DONE.has(x.status);
       const amount =
         done && x.status !== 'overgeslagen'
           ? `<b>${fcMoney(x.cost * scaled)}</b>`
-          : `<span class="${done ? 'fc-chip-quiet' : 'fc-chip'}">${esc(t(costStatusText(x)))}</span>`;
+          : `<span class="${done ? 'kp-chip-quiet' : 'kp-chip'}">${esc(t(costStatusText(x)))}</span>`;
       const extra = x.status === 'vast' ? `<small>${esc(t('vast bedrag'))}</small>` : '';
-      return `<li><button type="button" onclick="openCostLine('${rid}', ${i})"><span class="fc-line-name" translate="no">${esc(x.line)}</span>${extra}${amount}</button></li>`;
+      return `<li><button type="button" onclick="openCostLine('${rid}', ${i})"><span class="kp-line-name" translate="no">${esc(x.line)}</span>${extra}${amount}</button></li>`;
     })
     .join('')}</ul>`;
-  return `<div class="fc-figures">${figures}</div>${portionsAsk}${price}${scaledNote}${openNote}${lines}<p class="rp-allergens-source">${esc(t('Prijzen zonder btw. Alleen jij ziet je prijzen, ook in een keukenteam.'))}</p><p class="rp-allergens-links"><button type="button" class="btn-quiet" onclick="go('foodcost')">${t('Alle prijzen')}</button></p>`;
+  return `<div class="kp-figures">${figures}</div>${portionsAsk}${price}${scaledNote}${openNote}${lines}<p class="rp-allergens-source">${esc(t('Prijzen zonder btw. Alleen jij ziet je prijzen, ook in een keukenteam.'))}</p><p class="rp-allergens-links"><button type="button" class="btn-quiet" onclick="go('foodcost')">${t('Alle prijzen')}</button></p>`;
 }
 
 async function setCostSell(id, value) {
@@ -220,7 +220,7 @@ function openCostLine(recipeId, index) {
   const key = escJs(x.key);
   const rows = [];
   const row = (label, value) =>
-    rows.push(`<div class="fc-trace-row"><span>${esc(t(label))}</span><span>${value}</span></div>`);
+    rows.push(`<div class="kp-trace-row"><span>${esc(t(label))}</span><span>${value}</span></div>`);
   if (s.recipe) {
     row(
       'Basisrecept',
@@ -236,7 +236,7 @@ function openCostLine(recipeId, index) {
       const sup = s.supplier ? ` · <span translate="no">${esc(s.supplier.name)}</span>` : '';
       row(
         'Inkoopprijs',
-        `<span class="fc-n">${fcMoney(Number(s.price.price))}</span> <span>${esc(t('voor'))}</span> <span translate="no">${esc(s.price.pack_text || fcQty(Number(s.price.pack_qty), s.price.pack_unit))}</span>${sup} <small>${esc(costDate(s.price.valid_from))}</small>`
+        `<span class="kp-n">${fcMoney(Number(s.price.price))}</span> <span>${esc(t('voor'))}</span> <span translate="no">${esc(s.price.pack_text || fcQty(Number(s.price.pack_qty), s.price.pack_unit))}</span>${sup} <small>${esc(costDate(s.price.valid_from))}</small>`
       );
     }
     if (s.unitPrice) {
@@ -245,8 +245,8 @@ function openCostLine(recipeId, index) {
       row(
         'Prijs per eenheid',
         u === 'stuk'
-          ? `<span class="fc-n">${fcUnitMoney(s.unitPrice.perUnit)}</span> <span>${esc(t('per stuk'))}</span>`
-          : `<span class="fc-n">${fcMoney(s.unitPrice.perUnit * 1000)}</span> <span>${esc(t(u === 'g' ? 'per kg' : 'per liter'))}</span> <small>(${fcUnitMoney(s.unitPrice.perUnit)}/${u})</small>`
+          ? `<span class="kp-n">${fcUnitMoney(s.unitPrice.perUnit)}</span> <span>${esc(t('per stuk'))}</span>`
+          : `<span class="kp-n">${fcMoney(s.unitPrice.perUnit * 1000)}</span> <span>${esc(t(u === 'g' ? 'per kg' : 'per liter'))}</span> <small>(${fcUnitMoney(s.unitPrice.perUnit)}/${u})</small>`
       );
     }
     if (s.amount)
@@ -259,13 +259,13 @@ function openCostLine(recipeId, index) {
       row(
         'Opbrengst na schoonmaken',
         s.yieldPct
-          ? `<span class="fc-n">${fcPct(s.yieldPct)}</span> → <span>${esc(t('inkoop'))}</span> <span class="fc-n">${fcQty(s.bought, s.unitPrice.unit)}</span>`
+          ? `<span class="kp-n">${fcPct(s.yieldPct)}</span> → <span>${esc(t('inkoop'))}</span> <span class="kp-n">${fcQty(s.bought, s.unitPrice.unit)}</span>`
           : `<small>${esc(t('niet ingevuld, gerekend met 100%'))}</small>`
       );
   }
   const total = FC_DONE.has(x.status)
-    ? `<div class="fc-trace-total"><span>${esc(t(x.status === 'overgeslagen' ? 'Telt bewust niet mee' : 'Kosten van deze regel'))}</span><b>${x.status === 'overgeslagen' ? '' : fcMoney(x.cost)}</b></div>`
-    : `<div class="fc-trace-total is-open"><span>${esc(t('Nog niet compleet'))}</span><b>${esc(t(costStatusText(x)))}</b></div>`;
+    ? `<div class="kp-trace-total"><span>${esc(t(x.status === 'overgeslagen' ? 'Telt bewust niet mee' : 'Kosten van deze regel'))}</span><b>${x.status === 'overgeslagen' ? '' : fcMoney(x.cost)}</b></div>`
+    : `<div class="kp-trace-total is-open"><span>${esc(t('Nog niet compleet'))}</span><b>${esc(t(costStatusText(x)))}</b></div>`;
   const why = {
     'geen-product': 'Savour weet nog niet wat je hiervoor betaalt. Vul de prijs in zoals op je factuur.',
     'geen-prijs': 'Er staat nog geen prijs bij dit product.',
@@ -308,7 +308,7 @@ function openCostLine(recipeId, index) {
     }
   }
   costDialog(
-    `<h2 class="sv-dialog-title" translate="no">${esc(line)}</h2>${why && !FC_DONE.has(x.status) ? `<p class="fc-why">${esc(t(why))}</p>` : ''}<div class="fc-trace">${rows.join('')}</div>${total}${actions.length ? `<div class="fc-actions">${actions.join('')}</div>` : ''}`
+    `<h2 class="sv-dialog-title" translate="no">${esc(line)}</h2>${why && !FC_DONE.has(x.status) ? `<p class="kp-why">${esc(t(why))}</p>` : ''}<div class="kp-trace">${rows.join('')}</div>${total}${actions.length ? `<div class="kp-actions">${actions.join('')}</div>` : ''}`
   );
 }
 
@@ -324,7 +324,7 @@ function costDialog(html, cls = '') {
   closeCostDialog();
   document.body.insertAdjacentHTML(
     'beforeend',
-    `<div class="modal sv-dialog open" id="costDialog" role="dialog" aria-modal="true"><div class="sv-dialog-box fc-dialog ${cls}">${modalCloseHtml()}${html}</div></div>`
+    `<div class="modal sv-dialog open" id="costDialog" role="dialog" aria-modal="true"><div class="sv-dialog-box kp-dialog ${cls}">${modalCloseHtml()}${html}</div></div>`
   );
   const el = $('costDialog');
   closableModal(el, closeCostDialog);
@@ -408,7 +408,7 @@ async function openCostProductEditor({ id = '', key = '', line = '', recipeId = 
     .concat(`<option value="new">${esc(t('Nieuwe leverancier…'))}</option>`)
     .join('');
   const hist = history.length
-    ? `<details class="fc-history"${history.length > 1 ? '' : ''}><summary><span>${esc(t('Prijshistorie'))}</span> <span class="fc-n">${history.length}</span></summary><ul>${history
+    ? `<details class="kp-history"${history.length > 1 ? '' : ''}><summary><span>${esc(t('Prijshistorie'))}</span> <span class="kp-n">${history.length}</span></summary><ul>${history
         .map(
           h =>
             `<li><span>${esc(costDate(h.valid_from))}</span><span translate="no">${esc(h.pack_text || fcQty(Number(h.pack_qty), h.pack_unit))}</span><b>${fcMoney(Number(h.price))}</b><span translate="no">${esc(costSupplier(h.supplier_id)?.name || '')}</span><button type="button" class="btn-quiet" onclick="removeCostPriceAsk('${escJs(h.id)}', '${escJs(p.id)}')" aria-label="${esc(t('Verwijderen'))}">×</button></li>`
@@ -417,27 +417,27 @@ async function openCostProductEditor({ id = '', key = '', line = '', recipeId = 
     : '';
   const el = costDialog(
     `<h2 class="sv-dialog-title">${esc(t(cp ? 'Prijs en product' : 'Prijs invullen'))}</h2>
-    <form class="fc-form" novalidate onsubmit="event.preventDefault();saveCostProductForm()">
+    <form class="kp-form" novalidate onsubmit="event.preventDefault();saveCostProductForm()">
       <input type="hidden" name="id" value="${esc(p.id)}">
       <label class="product-field"><span>${t('Product')}</span><input class="sv-dialog-input" name="name" value="${esc(p.name)}" required translate="no"></label>
       <label class="product-field"><span>${t('Ook in recepten als')}</span><input class="sv-dialog-input" name="aliases" value="${esc(p.aliases.join(', '))}" translate="no"><small class="muted">${esc(t('Gescheiden door komma’s. Elke naam koppelt de ingrediëntregels met die naam aan deze prijs.'))}</small></label>
-      <fieldset class="fc-fieldset"><legend>${t(current ? 'Nieuwe prijs (de oude blijft bewaard)' : 'Prijs')}</legend>
+      <fieldset class="kp-fieldset"><legend>${t(current ? 'Nieuwe prijs (de oude blijft bewaard)' : 'Prijs')}</legend>
         <label class="product-field"><span>${t('Leverancier')}</span><select class="sv-dialog-input" name="supplier">${supplierOptions}</select></label>
         <label class="product-field"><span>${t('Verpakking zoals op de factuur')}</span><input class="sv-dialog-input" name="pack" value="${esc(current?.price?.pack_text || '')}" placeholder="${esc(t('Bijv. doos 6 × 1 kg, fles 0,75 l, per stuk'))}" oninput="costPackPreview()" translate="no"></label>
-        <div class="fc-row"><label class="product-field"><span>${t('Inhoud')}</span><input class="sv-dialog-input" name="qty" inputmode="decimal" value="${esc(current ? fcNum(costPackShown(current.price).qty) : '')}"></label><label class="product-field"><span>${t('Eenheid')}</span><select class="sv-dialog-input" name="unit">${['kg', 'g', 'l', 'ml', 'stuk'].map(u => `<option value="${u}"${current && costPackShown(current.price).unit === u ? ' selected' : ''}>${esc(t(u === 'stuk' ? 'stuks' : u))}</option>`).join('')}</select></label><label class="product-field"><span>${t('Prijs zonder btw')} (€)</span><input class="sv-dialog-input" name="price" inputmode="decimal" placeholder="${esc(current ? fcNum(Number(current.price.price)) : '')}"></label></div>
-        <small class="muted" id="costPackNote">${current ? `<span>${esc(t('Nu'))}</span>: <span class="fc-n">${fcMoney(Number(current.price.price))}</span> · <span class="fc-n">${esc(costDate(current.price.valid_from))}</span>. <span>${esc(t('Laat de prijs leeg om niets te veranderen.'))}</span>` : ''}</small>
-        <label class="product-field fc-date"><span>${t('Geldig vanaf')}</span><input class="sv-dialog-input" type="date" name="from" value="${new Date().toISOString().slice(0, 10)}"></label>
+        <div class="kp-row"><label class="product-field"><span>${t('Inhoud')}</span><input class="sv-dialog-input" name="qty" inputmode="decimal" value="${esc(current ? fcNum(costPackShown(current.price).qty) : '')}"></label><label class="product-field"><span>${t('Eenheid')}</span><select class="sv-dialog-input" name="unit">${['kg', 'g', 'l', 'ml', 'stuk'].map(u => `<option value="${u}"${current && costPackShown(current.price).unit === u ? ' selected' : ''}>${esc(t(u === 'stuk' ? 'stuks' : u))}</option>`).join('')}</select></label><label class="product-field"><span>${t('Prijs zonder btw')} (€)</span><input class="sv-dialog-input" name="price" inputmode="decimal" placeholder="${esc(current ? fcNum(Number(current.price.price)) : '')}"></label></div>
+        <small class="muted" id="costPackNote">${current ? `<span>${esc(t('Nu'))}</span>: <span class="kp-n">${fcMoney(Number(current.price.price))}</span> · <span class="kp-n">${esc(costDate(current.price.valid_from))}</span>. <span>${esc(t('Laat de prijs leeg om niets te veranderen.'))}</span>` : ''}</small>
+        <label class="product-field kp-date"><span>${t('Geldig vanaf')}</span><input class="sv-dialog-input" type="date" name="from" value="${new Date().toISOString().slice(0, 10)}"></label>
       </fieldset>
-      <fieldset class="fc-fieldset"><legend>${t('Omrekenen')}</legend>
-        <label class="product-field"><span>${t('Opbrengst na schoonmaken')} (%)</span><input class="sv-dialog-input" name="yield" inputmode="decimal" value="${esc(fcNum(p.yield_pct ?? ''))}" placeholder="100"><small class="muted"><span>${esc(t('Leeg: Savour rekent met 100% en zegt dat erbij.'))}</span>${hint ? ` <span>${esc(t('Gangbaar'))}</span>: <span class="fc-n">${esc(hint)}</span> (Apicbase).` : ''}</small></label>
-        <div class="fc-row"><label class="product-field"><span>${t('1 stuk weegt')} (g)</span><input class="sv-dialog-input" name="piece" inputmode="decimal" value="${esc(fcNum(p.units?.stuk ?? ''))}"></label><label class="product-field"><span>${t('1 liter weegt')} (kg)</span><input class="sv-dialog-input" name="density" inputmode="decimal" value="${esc(fcNum(p.density ?? ''))}"></label></div>
+      <fieldset class="kp-fieldset"><legend>${t('Omrekenen')}</legend>
+        <label class="product-field"><span>${t('Opbrengst na schoonmaken')} (%)</span><input class="sv-dialog-input" name="yield" inputmode="decimal" value="${esc(fcNum(p.yield_pct ?? ''))}" placeholder="100"><small class="muted"><span>${esc(t('Leeg: Savour rekent met 100% en zegt dat erbij.'))}</span>${hint ? ` <span>${esc(t('Gangbaar'))}</span>: <span class="kp-n">${esc(hint)}</span> (Apicbase).` : ''}</small></label>
+        <div class="kp-row"><label class="product-field"><span>${t('1 stuk weegt')} (g)</span><input class="sv-dialog-input" name="piece" inputmode="decimal" value="${esc(fcNum(p.units?.stuk ?? ''))}"></label><label class="product-field"><span>${t('1 liter weegt')} (kg)</span><input class="sv-dialog-input" name="density" inputmode="decimal" value="${esc(fcNum(p.density ?? ''))}"></label></div>
         ${words.map(w => `<label class="product-field"><span>1 <span translate="no">${esc(w)}</span> ${t('weegt')} (g)</span><input class="sv-dialog-input" name="word:${esc(w)}" inputmode="decimal" value="${esc(fcNum(p.units?.[w] ?? ''))}"></label>`).join('')}
         <small class="muted">${esc(t('Alleen nodig als het recept in stuks of lepels rekent en de prijs in kilo’s (of andersom). Savour vult dit nooit zelf in.'))}</small>
       </fieldset>
       ${hist}
-      <div class="fc-actions"><button type="submit" class="btn gold">${t('Opslaan')}</button>${cp ? `<button type="button" class="btn-quiet fc-danger" onclick="removeCostProductAsk('${escJs(cp.id)}')">${t('Product verwijderen')}</button>` : ''}</div>
+      <div class="kp-actions"><button type="submit" class="btn gold">${t('Opslaan')}</button>${cp ? `<button type="button" class="btn-quiet kp-danger" onclick="removeCostProductAsk('${escJs(cp.id)}')">${t('Product verwijderen')}</button>` : ''}</div>
     </form>`,
-    'fc-editor'
+    'kp-editor'
   );
   el.dataset.recipe = recipeId;
   el.querySelector('select[name=supplier]').addEventListener('change', async e => {
@@ -463,7 +463,7 @@ function costPackShown(price) {
 
 // Verpakking typen → inhoud en eenheid vanzelf invullen (en zichtbaar, zodat de kok het kan controleren).
 function costPackPreview() {
-  const form = document.querySelector('#costDialog .fc-form');
+  const form = document.querySelector('#costDialog .kp-form');
   if (!form) return;
   const parsed = fcParsePack(form.pack.value);
   if (!parsed) return;
@@ -473,7 +473,7 @@ function costPackPreview() {
 }
 
 async function saveCostProductForm() {
-  const form = document.querySelector('#costDialog .fc-form');
+  const form = document.querySelector('#costDialog .kp-form');
   if (!form) return;
   const id = form.id.value;
   const before = id ? costData.products.find(p => p.id === id) : null;
@@ -620,7 +620,7 @@ function renderFoodcost() {
           : costTab === 'settings'
             ? costSettingsHtml()
             : costDishesHtml();
-  host.innerHTML = `<div class="fc-tabs" role="tablist">${tabs.map(([id, label]) => `<button type="button" role="tab" aria-selected="${costTab === id}" class="${costTab === id ? 'is-on' : ''}" onclick="setCostTab('${id}')">${esc(t(label))}</button>`).join('')}</div>${body}`;
+  host.innerHTML = `<div class="kp-tabs" role="tablist">${tabs.map(([id, label]) => `<button type="button" role="tab" aria-selected="${costTab === id}" class="${costTab === id ? 'is-on' : ''}" onclick="setCostTab('${id}')">${esc(t(label))}</button>`).join('')}</div>${body}`;
 }
 function setCostTab(tab) {
   costTab = tab;
@@ -670,13 +670,13 @@ function costDishesHtml() {
           : started;
   const intro = started.length
     ? ''
-    : `<div class="fc-empty"><p>${esc(t('Nog geen prijzen. Begin bij Ingrediënten: daar staan de ingrediënten die het vaakst in je recepten voorkomen. Of open een recept en klik bij Kostprijs op een regel.'))}</p><button type="button" class="btn gold" onclick="setCostTab('ingredients')">${esc(t('Naar ingrediënten'))}</button></div>`;
-  return `${intro}<div class="fc-filters">${filters.map(([id, label, n]) => `<button type="button" class="fc-filter${costFilter === id ? ' is-on' : ''}" onclick="costFilter='${id}';renderFoodcost()">${esc(t(label))} <small>${n}</small></button>`).join('')}</div><div class="fc-table fc-dishes"><div class="fc-thead"><span>${t('Recept')}</span><span>${t('Per portie')}</span><span>${t('Verkoopprijs')}</span><span>Foodcost</span><span></span></div>${list
+    : `<div class="kp-empty"><p>${esc(t('Nog geen prijzen. Begin bij Ingrediënten: daar staan de ingrediënten die het vaakst in je recepten voorkomen. Of open een recept en klik bij Kostprijs op een regel.'))}</p><button type="button" class="btn gold" onclick="setCostTab('ingredients')">${esc(t('Naar ingrediënten'))}</button></div>`;
+  return `${intro}<div class="kp-filters">${filters.map(([id, label, n]) => `<button type="button" class="kp-filter${costFilter === id ? ' is-on' : ''}" onclick="costFilter='${id}';renderFoodcost()">${esc(t(label))} <small>${n}</small></button>`).join('')}</div><div class="kp-table kp-dishes"><div class="kp-thead"><span>${t('Recept')}</span><span>${t('Per portie')}</span><span>${t('Verkoopprijs')}</span><span>Foodcost</span><span></span></div>${list
     .map(
       x =>
-        `<button type="button" class="fc-trow${x.over ? ' is-over' : ''}" onclick="openRecipe('${escJs(x.r.id)}')"><span class="fc-name" translate="no">${esc(x.r.title)}</span><span data-label="${esc(fcT('Per portie'))}">${x.priced ? (x.c.complete ? '' : '≥ ') + (x.c.perPortion != null ? fcMoney(x.c.perPortion) : `<small>${esc(t('totaal'))}</small> ${fcMoney(x.c.total)}`) : '–'}</span><span data-label="${esc(fcT('Verkoopprijs'))}">${x.sell ? fcMoney(x.sell) : '–'}</span><span data-label="Foodcost">${x.pct != null ? (x.c.complete ? '' : '≥ ') + fcPct(x.pct) : '–'}</span><span>${x.priced && !x.c.complete ? `<span class="fc-chip">${x.c.open} ${esc(t('open'))}</span>` : x.over ? `<span class="fc-chip is-over">${esc(t('boven doel'))}</span>` : ''}</span></button>`
+        `<button type="button" class="kp-trow${x.over ? ' is-over' : ''}" onclick="openRecipe('${escJs(x.r.id)}')"><span class="kp-name" translate="no">${esc(x.r.title)}</span><span data-label="${esc(fcT('Per portie'))}">${x.priced ? (x.c.complete ? '' : '≥ ') + (x.c.perPortion != null ? fcMoney(x.c.perPortion) : `<small>${esc(t('totaal'))}</small> ${fcMoney(x.c.total)}`) : '–'}</span><span data-label="${esc(fcT('Verkoopprijs'))}">${x.sell ? fcMoney(x.sell) : '–'}</span><span data-label="Foodcost">${x.pct != null ? (x.c.complete ? '' : '≥ ') + fcPct(x.pct) : '–'}</span><span>${x.priced && !x.c.complete ? `<span class="kp-chip">${x.c.open} ${esc(t('open'))}</span>` : x.over ? `<span class="kp-chip is-over">${esc(t('boven doel'))}</span>` : ''}</span></button>`
     )
-    .join('')}${list.length ? '' : `<p class="muted fc-none">${esc(t('Geen recepten in deze lijst.'))}</p>`}</div>`;
+    .join('')}${list.length ? '' : `<p class="muted kp-none">${esc(t('Geen recepten in deze lijst.'))}</p>`}</div>`;
 }
 
 // Welke ingrediënten missen een prijs, het vaakst gebruikt eerst: daar begint de kok.
@@ -706,18 +706,18 @@ function costIngredientsHtml() {
   const missing = costMissingIngredients();
   const edit = costCanEdit();
   const todo = missing.length
-    ? `<section class="fc-section"><h3>${esc(t('Nog in te vullen'))} <small>${missing.length}</small></h3><p class="muted">${esc(t('Het vaakst gebruikt bovenaan: daar levert een prijs het meeste op.'))}</p><ul class="fc-todo">${missing
+    ? `<section class="kp-section"><h3>${esc(t('Nog in te vullen'))} <small>${missing.length}</small></h3><p class="muted">${esc(t('Het vaakst gebruikt bovenaan: daar levert een prijs het meeste op.'))}</p><ul class="kp-todo">${missing
         .slice(0, 60)
         .map(
           m =>
-            `<li><span translate="no">${esc(m.product?.name || m.key)}</span><small><span class="fc-n">${m.count}</span> <span>${esc(t(m.count === 1 ? 'recept' : 'recepten'))}</span> · <span>${esc(t(costStatusText({ status: m.status, steps: { need: m.need } })))}</span></small>${edit ? `<button type="button" class="btn btn-sm" onclick="openCostProductEditor({ id: '${escJs(m.product?.id || '')}', key: '${escJs(m.key)}', line: '${escJs(m.line)}', recipeId: '${escJs(m.recipeId)}' })">${esc(t(m.product ? 'Aanvullen' : 'Prijs invullen'))}</button>` : ''}</li>`
+            `<li><span translate="no">${esc(m.product?.name || m.key)}</span><small><span class="kp-n">${m.count}</span> <span>${esc(t(m.count === 1 ? 'recept' : 'recepten'))}</span> · <span>${esc(t(costStatusText({ status: m.status, steps: { need: m.need } })))}</span></small>${edit ? `<button type="button" class="btn btn-sm" onclick="openCostProductEditor({ id: '${escJs(m.product?.id || '')}', key: '${escJs(m.key)}', line: '${escJs(m.line)}', recipeId: '${escJs(m.recipeId)}' })">${esc(t(m.product ? 'Aanvullen' : 'Prijs invullen'))}</button>` : ''}</li>`
         )
         .join('')}</ul></section>`
     : '';
   const products = costData.products;
-  const list = `<section class="fc-section"><div class="fc-section-head"><h3>${esc(t('Je prijzen'))} <small>${products.length}</small></h3>${edit ? `<div class="fc-head-actions"><button type="button" class="btn btn-sm" onclick="openCostImport()">${esc(t('Prijslijst inladen'))}</button><button type="button" class="btn btn-sm" onclick="openCostProductEditor({})">${esc(t('Product toevoegen'))}</button></div>` : ''}</div>${
+  const list = `<section class="kp-section"><div class="kp-section-head"><h3>${esc(t('Je prijzen'))} <small>${products.length}</small></h3>${edit ? `<div class="kp-head-actions"><button type="button" class="btn btn-sm" onclick="openCostImport()">${esc(t('Prijslijst inladen'))}</button><button type="button" class="btn btn-sm" onclick="openCostProductEditor({})">${esc(t('Product toevoegen'))}</button></div>` : ''}</div>${
     products.length
-      ? `<div class="fc-table fc-products"><div class="fc-thead"><span>${t('Product')}</span><span>${t('Inkoop')}</span><span>${t('Per eenheid')}</span><span>${t('Leverancier')}</span><span>${t('Opbrengst')}</span></div>${products
+      ? `<div class="kp-table kp-products"><div class="kp-thead"><span>${t('Product')}</span><span>${t('Inkoop')}</span><span>${t('Per eenheid')}</span><span>${t('Leverancier')}</span><span>${t('Opbrengst')}</span></div>${products
           .map(cp => {
             const cur = costCurrentPrice(cp);
             const unit = cur ? fcUnitPrice(cur.price, cur.supplier) : null;
@@ -729,7 +729,7 @@ function costIngredientsHtml() {
                   ? t('per kg')
                   : t('per liter')
               : '';
-            return `<button type="button" class="fc-trow" onclick="openCostProductEditor({ id: '${escJs(cp.id)}' })"><span class="fc-name" translate="no">${esc(cp.name)}</span><span data-label="${esc(fcT('Inkoop'))}">${cur ? `${fcMoney(Number(cur.price.price))} <small translate="no">${esc(cur.price.pack_text || fcQty(Number(cur.price.pack_qty), cur.price.pack_unit))}</small>` : `<span class="fc-chip">${esc(t('geen prijs'))}</span>`}</span><span data-label="${esc(fcT('Per eenheid'))}">${per != null ? `${fcUnitMoney(per)} <small>${esc(perLabel)}</small>` : '–'}</span><span data-label="${esc(fcT('Leverancier'))}" translate="no">${esc(cur?.supplier?.name || '')}</span><span data-label="${esc(fcT('Opbrengst'))}">${cp.yield_pct ? fcPct(Number(cp.yield_pct)) : '–'}</span></button>`;
+            return `<button type="button" class="kp-trow" onclick="openCostProductEditor({ id: '${escJs(cp.id)}' })"><span class="kp-name" translate="no">${esc(cp.name)}</span><span data-label="${esc(fcT('Inkoop'))}">${cur ? `${fcMoney(Number(cur.price.price))} <small translate="no">${esc(cur.price.pack_text || fcQty(Number(cur.price.pack_qty), cur.price.pack_unit))}</small>` : `<span class="kp-chip">${esc(t('geen prijs'))}</span>`}</span><span data-label="${esc(fcT('Per eenheid'))}">${per != null ? `${fcUnitMoney(per)} <small>${esc(perLabel)}</small>` : '–'}</span><span data-label="${esc(fcT('Leverancier'))}" translate="no">${esc(cur?.supplier?.name || '')}</span><span data-label="${esc(fcT('Opbrengst'))}">${cp.yield_pct ? fcPct(Number(cp.yield_pct)) : '–'}</span></button>`;
           })
           .join('')}</div>`
       : `<p class="muted">${esc(t('Nog geen prijzen.'))}</p>`
@@ -739,12 +739,12 @@ function costIngredientsHtml() {
 
 function costSuppliersHtml() {
   const edit = costCanEdit();
-  return `<section class="fc-section"><div class="fc-section-head"><h3>${esc(t('Leveranciers'))}</h3>${edit ? `<div class="fc-head-actions"><button type="button" class="btn btn-sm" onclick="addCostSupplierFromList()">${esc(t('Leverancier toevoegen'))}</button></div>` : ''}</div><p class="muted">${esc(t('De korting die je met een leverancier hebt afgesproken, telt bij elke prijs van die leverancier. De lijstprijs blijft zo herkenbaar.'))}</p>${
+  return `<section class="kp-section"><div class="kp-section-head"><h3>${esc(t('Leveranciers'))}</h3>${edit ? `<div class="kp-head-actions"><button type="button" class="btn btn-sm" onclick="addCostSupplierFromList()">${esc(t('Leverancier toevoegen'))}</button></div>` : ''}</div><p class="muted">${esc(t('De korting die je met een leverancier hebt afgesproken, telt bij elke prijs van die leverancier. De lijstprijs blijft zo herkenbaar.'))}</p>${
     costData.suppliers.length
-      ? `<ul class="fc-suppliers">${costData.suppliers
+      ? `<ul class="kp-suppliers">${costData.suppliers
           .map(s => {
             const n = costData.prices.filter(p => String(p.supplier_id) === String(s.id)).length;
-            return `<li><b translate="no">${esc(s.name)}</b><span>${Number(s.discount_pct) ? `<span>${esc(t('korting'))}</span> <span class="fc-n">${fcPct(Number(s.discount_pct))}</span>` : esc(t('geen korting'))}</span><small><span class="fc-n">${n}</span> <span>${esc(t(n === 1 ? 'prijs' : 'prijzen'))}</span></small>${edit ? `<span class="fc-row-actions"><button type="button" class="btn btn-sm" onclick="openCostImport('${escJs(s.id)}')">${esc(t('Prijslijst inladen'))}</button><button type="button" class="btn-quiet" onclick="editCostSupplier('${escJs(s.id)}')">${esc(t('Aanpassen'))}</button></span>` : ''}</li>`;
+            return `<li><b translate="no">${esc(s.name)}</b><span>${Number(s.discount_pct) ? `<span>${esc(t('korting'))}</span> <span class="kp-n">${fcPct(Number(s.discount_pct))}</span>` : esc(t('geen korting'))}</span><small><span class="kp-n">${n}</span> <span>${esc(t(n === 1 ? 'prijs' : 'prijzen'))}</span></small>${edit ? `<span class="kp-row-actions"><button type="button" class="btn btn-sm" onclick="openCostImport('${escJs(s.id)}')">${esc(t('Prijslijst inladen'))}</button><button type="button" class="btn-quiet" onclick="editCostSupplier('${escJs(s.id)}')">${esc(t('Aanpassen'))}</button></span>` : ''}</li>`;
           })
           .join('')}</ul>`
       : `<p class="muted">${esc(t('Nog geen leveranciers.'))}</p>`
@@ -761,7 +761,7 @@ async function editCostSupplier(id) {
 function costSettingsHtml() {
   const s = costData.settings;
   const edit = costCanEdit();
-  return `<section class="fc-section fc-settings"><h3>${esc(t('Standaard voor al je gerechten'))}</h3><label class="product-field"><span>${t('Doel foodcost')} (%)</span><input class="sv-dialog-input" inputmode="decimal" value="${esc(fcNum(s.target_pct))}" onchange="setCostSetting('target_pct', this.value)" ${edit ? '' : 'readonly'}><small class="muted">${esc(t('30% is netjes voor fine dining; banqueting en grote aantallen zitten vaak lager. Per gerecht kun je een ander doel kiezen.'))}</small></label><label class="product-field"><span>${t('Btw op eten')} (%)</span><input class="sv-dialog-input" inputmode="decimal" value="${esc(fcNum(s.vat_pct))}" onchange="setCostSetting('vat_pct', this.value)" ${edit ? '' : 'readonly'}><small class="muted">${esc(t('Savour rekent altijd zonder btw. De btw gebruikt het alleen om de prijs op de kaart te tonen.'))}</small></label></section>`;
+  return `<section class="kp-section kp-settings"><h3>${esc(t('Standaard voor al je gerechten'))}</h3><label class="product-field"><span>${t('Doel foodcost')} (%)</span><input class="sv-dialog-input" inputmode="decimal" value="${esc(fcNum(s.target_pct))}" onchange="setCostSetting('target_pct', this.value)" ${edit ? '' : 'readonly'}><small class="muted">${esc(t('30% is netjes voor fine dining; banqueting en grote aantallen zitten vaak lager. Per gerecht kun je een ander doel kiezen.'))}</small></label><label class="product-field"><span>${t('Btw op eten')} (%)</span><input class="sv-dialog-input" inputmode="decimal" value="${esc(fcNum(s.vat_pct))}" onchange="setCostSetting('vat_pct', this.value)" ${edit ? '' : 'readonly'}><small class="muted">${esc(t('Savour rekent altijd zonder btw. De btw gebruikt het alleen om de prijs op de kaart te tonen.'))}</small></label></section>`;
 }
 async function setCostSetting(field, value) {
   if (!costCanEdit()) return costProNotice();
@@ -776,12 +776,12 @@ function costMenusHtml() {
   if (costMenuOpen) return costMenuHtml(costMenuOpen);
   const edit = costCanEdit();
   const menus = costData.menus.filter(m => !m.archived);
-  return `<section class="fc-section"><div class="fc-section-head"><h3>${esc(t('Menu’s en kaarten'))}</h3>${edit ? `<div class="fc-head-actions"><button type="button" class="btn btn-sm" onclick="newCostMenu()">${esc(t('Menu maken'))}</button></div>` : ''}</div><p class="muted">${esc(t('Een kaart: losse gerechten met hun verkoopprijs, en met je verkoopcijfers de menu engineering. Een arrangement: een vaste prijs voor alle gangen samen.'))}</p>${
+  return `<section class="kp-section"><div class="kp-section-head"><h3>${esc(t('Menu’s en kaarten'))}</h3>${edit ? `<div class="kp-head-actions"><button type="button" class="btn btn-sm" onclick="newCostMenu()">${esc(t('Menu maken'))}</button></div>` : ''}</div><p class="muted">${esc(t('Een kaart: losse gerechten met hun verkoopprijs, en met je verkoopcijfers de menu engineering. Een arrangement: een vaste prijs voor alle gangen samen.'))}</p>${
     menus.length
-      ? `<ul class="fc-menus">${menus
+      ? `<ul class="kp-menus">${menus
           .map(m => {
             const n = costData.menuItems.filter(i => String(i.menu_id) === String(m.id)).length;
-            return `<li><button type="button" onclick="costMenuOpen='${escJs(m.id)}';renderFoodcost()"><b translate="no">${esc(m.name)}</b><small><span>${esc(t(m.kind === 'arrangement' ? 'Arrangement' : 'Kaart'))}</span> · <span class="fc-n">${n}</span> <span>${esc(t(n === 1 ? 'gerecht' : 'gerechten'))}</span>${m.period ? ` · <span translate="no">${esc(m.period)}</span>` : ''}</small></button></li>`;
+            return `<li><button type="button" onclick="costMenuOpen='${escJs(m.id)}';renderFoodcost()"><b translate="no">${esc(m.name)}</b><small><span>${esc(t(m.kind === 'arrangement' ? 'Arrangement' : 'Kaart'))}</span> · <span class="kp-n">${n}</span> <span>${esc(t(n === 1 ? 'gerecht' : 'gerechten'))}</span>${m.period ? ` · <span translate="no">${esc(m.period)}</span>` : ''}</small></button></li>`;
           })
           .join('')}</ul>`
       : `<p class="muted">${esc(t('Nog geen menu’s.'))}</p>`
@@ -830,8 +830,8 @@ function costMenuHtml(menuId) {
   }
   const edit = costCanEdit();
   const items = costMenuItems(menuId);
-  const back = `<button type="button" class="btn-quiet fc-back" onclick="costMenuOpen=null;renderFoodcost()">← ${esc(t('Menu’s'))}</button>`;
-  const head = `<div class="fc-section-head"><h3 translate="no">${esc(m.name)}</h3>${edit ? `<div class="fc-head-actions"><button type="button" class="btn btn-sm" onclick="addCostMenuItem('${escJs(m.id)}')">${esc(t('Gerecht toevoegen'))}</button><button type="button" class="btn-quiet" onclick="editCostMenu('${escJs(m.id)}')">${esc(t('Aanpassen'))}</button></div>` : ''}</div>`;
+  const back = `<button type="button" class="btn-quiet kp-back" onclick="costMenuOpen=null;renderFoodcost()">← ${esc(t('Menu’s'))}</button>`;
+  const head = `<div class="kp-section-head"><h3 translate="no">${esc(m.name)}</h3>${edit ? `<div class="kp-head-actions"><button type="button" class="btn btn-sm" onclick="addCostMenuItem('${escJs(m.id)}')">${esc(t('Gerecht toevoegen'))}</button><button type="button" class="btn-quiet" onclick="editCostMenu('${escJs(m.id)}')">${esc(t('Aanpassen'))}</button></div>` : ''}</div>`;
   const allergenCodes = r => {
     try {
       return productsVisible(productScopeOf(r)) ? recipeAllergenInfo(r).allergens : [];
@@ -848,10 +848,10 @@ function costMenuHtml(menuId) {
     const rows = items
       .map(
         x =>
-          `<div class="fc-trow"><span class="fc-name" translate="no">${esc(x.r.title)}</span><span data-label="${esc(fcT('Per portie'))}">${x.per != null ? (x.c.complete ? '' : '≥ ') + fcMoney(x.per) : `<span class="fc-chip">${esc(t('porties?'))}</span>`}</span><span class="fc-allergens">${allergenChips(allergenCodes(x.r), 'is-small')}</span>${edit ? `<button type="button" class="btn-quiet" onclick="removeCostMenuItem('${escJs(x.i.id)}')" aria-label="${esc(t('Verwijderen'))}">×</button>` : '<span></span>'}</div>`
+          `<div class="kp-trow"><span class="kp-name" translate="no">${esc(x.r.title)}</span><span data-label="${esc(fcT('Per portie'))}">${x.per != null ? (x.c.complete ? '' : '≥ ') + fcMoney(x.per) : `<span class="kp-chip">${esc(t('porties?'))}</span>`}</span><span class="kp-allergens">${allergenChips(allergenCodes(x.r), 'is-small')}</span>${edit ? `<button type="button" class="btn-quiet" onclick="removeCostMenuItem('${escJs(x.i.id)}')" aria-label="${esc(t('Verwijderen'))}">×</button>` : '<span></span>'}</div>`
       )
       .join('');
-    return `${back}<section class="fc-section">${head}<div class="fc-figures"><div class="fc-fig"><span>${t('Kostprijs arrangement')}</span><b>${allIn ? '' : `<em>${t('minstens')}</em>`}${fcMoney(total)}</b></div><div class="fc-fig${pct != null && pct > target ? ' is-over' : ''}"><span>${t('Foodcost %')}</span><b>${pct != null ? (allIn ? '' : '≥ ') + fcPct(pct) : '–'}</b><small><span>${esc(t('doel'))}</span> <span class="fc-n">${fcPct(target)}</span></small></div><div class="fc-fig"><span>${t('Prijs zonder btw')}</span><b>${price ? fcMoney(price) : '–'}</b>${edit ? `<small><button type="button" class="btn-quiet" onclick="setCostMenuPrice('${escJs(m.id)}')">${esc(t(price ? 'Aanpassen' : 'Invullen'))}</button></small>` : ''}</div></div><div class="fc-table fc-menu">${rows || `<p class="muted fc-none">${esc(t('Voeg de gangen toe.'))}</p>`}</div></section>`;
+    return `${back}<section class="kp-section">${head}<div class="kp-figures"><div class="kp-fig"><span>${t('Kostprijs arrangement')}</span><b>${allIn ? '' : `<em>${t('minstens')}</em>`}${fcMoney(total)}</b></div><div class="kp-fig${pct != null && pct > target ? ' is-over' : ''}"><span>${t('Foodcost %')}</span><b>${pct != null ? (allIn ? '' : '≥ ') + fcPct(pct) : '–'}</b><small><span>${esc(t('doel'))}</span> <span class="kp-n">${fcPct(target)}</span></small></div><div class="kp-fig"><span>${t('Prijs zonder btw')}</span><b>${price ? fcMoney(price) : '–'}</b>${edit ? `<small><button type="button" class="btn-quiet" onclick="setCostMenuPrice('${escJs(m.id)}')">${esc(t(price ? 'Aanpassen' : 'Invullen'))}</button></small>` : ''}</div></div><div class="kp-table kp-menu">${rows || `<p class="muted kp-none">${esc(t('Voeg de gangen toe.'))}</p>`}</div></section>`;
   }
   // Kaart: per gerecht marge en verkocht; menu engineering zodra er verkoopcijfers zijn.
   const me = fcMenuEngineering(
@@ -864,15 +864,15 @@ function costMenuHtml(menuId) {
     .map(x => {
       const cls = me.classes[String(x.i.id)];
       const pct = x.per != null && x.sell ? fcFoodcostPct(x.per, x.sell) : null;
-      return `<div class="fc-trow"><span class="fc-name"><button type="button" class="btn-quiet" onclick="openRecipe('${escJs(x.r.id)}')" translate="no">${esc(x.r.title)}</button><span class="fc-allergens">${allergenChips(allergenCodes(x.r), 'is-small')}</span></span><span data-label="${esc(fcT('Per portie'))}">${x.per != null ? (x.c.complete ? '' : '≥ ') + fcMoney(x.per) : '–'}</span><span data-label="${esc(fcT('Verkoopprijs'))}">${x.sell ? fcMoney(x.sell) : `<span class="fc-chip">${esc(t('prijs?'))}</span>`}</span><span data-label="Foodcost">${pct != null ? (x.c.complete ? '' : '≥ ') + fcPct(pct) : '–'}</span><span data-label="${esc(fcT('Marge'))}">${x.margin != null ? fcMoney(x.margin) : '–'}</span><span data-label="${esc(fcT('Verkocht'))}"><input class="fc-sold" inputmode="numeric" value="${x.i.sold ?? ''}" placeholder="0" onchange="setCostSold('${escJs(x.i.id)}', this.value)" ${edit ? '' : 'readonly'} aria-label="${esc(t('Verkocht'))}"></span><span>${cls ? `<span class="fc-class fc-${cls}">${label[cls]}</span>` : ''}</span>${edit ? `<button type="button" class="btn-quiet" onclick="removeCostMenuItem('${escJs(x.i.id)}')" aria-label="${esc(t('Verwijderen'))}">×</button>` : '<span></span>'}</div>`;
+      return `<div class="kp-trow"><span class="kp-name"><button type="button" class="btn-quiet" onclick="openRecipe('${escJs(x.r.id)}')" translate="no">${esc(x.r.title)}</button><span class="kp-allergens">${allergenChips(allergenCodes(x.r), 'is-small')}</span></span><span data-label="${esc(fcT('Per portie'))}">${x.per != null ? (x.c.complete ? '' : '≥ ') + fcMoney(x.per) : '–'}</span><span data-label="${esc(fcT('Verkoopprijs'))}">${x.sell ? fcMoney(x.sell) : `<span class="kp-chip">${esc(t('prijs?'))}</span>`}</span><span data-label="Foodcost">${pct != null ? (x.c.complete ? '' : '≥ ') + fcPct(pct) : '–'}</span><span data-label="${esc(fcT('Marge'))}">${x.margin != null ? fcMoney(x.margin) : '–'}</span><span data-label="${esc(fcT('Verkocht'))}"><input class="kp-sold" inputmode="numeric" value="${x.i.sold ?? ''}" placeholder="0" onchange="setCostSold('${escJs(x.i.id)}', this.value)" ${edit ? '' : 'readonly'} aria-label="${esc(t('Verkocht'))}"></span><span>${cls ? `<span class="kp-class kp-${cls}">${label[cls]}</span>` : ''}</span>${edit ? `<button type="button" class="btn-quiet" onclick="removeCostMenuItem('${escJs(x.i.id)}')" aria-label="${esc(t('Verwijderen'))}">×</button>` : '<span></span>'}</div>`;
     })
     .join('');
   const notReady = items.filter(x => x.margin == null).length;
   const meText =
     me.avgMargin != null
-      ? `<div class="fc-me"><p><span>${esc(t('Menu engineering volgens Kasavana en Smith: populair is minstens 70% van een gelijk aandeel'))}</span> (<span class="fc-n">${fcPct(me.popularShare * 100)}</span> <span>${esc(t('van de verkoop'))}</span>); <span>${esc(t('winstgevend is een marge van minstens het gewogen gemiddelde'))}</span> (<span class="fc-n">${fcMoney(me.avgMargin)}</span>).</p><ul class="fc-me-legend"><li><span class="fc-class fc-star">Star</span>${esc(t('populair en winstgevend: zo laten'))}</li><li><span class="fc-class fc-plowhorse">Plowhorse</span>${esc(t('populair, weinig marge: kijk naar portie of prijs'))}</li><li><span class="fc-class fc-puzzle">Puzzle</span>${esc(t('winstgevend, weinig verkocht: betere plek of beschrijving'))}</li><li><span class="fc-class fc-dog">Dog</span>${esc(t('weinig verkocht en weinig marge: vervangen?'))}</li></ul>${notReady ? `<p class="fc-note"><span class="fc-n">${notReady}</span> ${esc(t(notReady === 1 ? 'gerecht telt nog niet mee: kostprijs niet compleet of geen verkoopprijs.' : 'gerechten tellen nog niet mee: kostprijs niet compleet of geen verkoopprijs.'))}</p>` : ''}</div>`
-      : `<p class="fc-note">${esc(t('Vul per gerecht in hoe vaak het verkocht is (bijvoorbeeld uit je kassa over een maand). Dan deelt Savour je kaart in: Stars, Plowhorses, Puzzles en Dogs.'))}</p>`;
-  return `${back}<section class="fc-section">${head}<div class="fc-table fc-menu fc-card"><div class="fc-thead"><span>${t('Gerecht')}</span><span>${t('Per portie')}</span><span>${t('Verkoopprijs')}</span><span>Foodcost</span><span>${t('Marge')}</span><span>${t('Verkocht')}</span><span></span><span></span></div>${rows || `<p class="muted fc-none">${esc(t('Voeg gerechten toe.'))}</p>`}</div>${items.length ? meText : ''}</section>`;
+      ? `<div class="kp-me"><p><span>${esc(t('Menu engineering volgens Kasavana en Smith: populair is minstens 70% van een gelijk aandeel'))}</span> (<span class="kp-n">${fcPct(me.popularShare * 100)}</span> <span>${esc(t('van de verkoop'))}</span>); <span>${esc(t('winstgevend is een marge van minstens het gewogen gemiddelde'))}</span> (<span class="kp-n">${fcMoney(me.avgMargin)}</span>).</p><ul class="kp-me-legend"><li><span class="kp-class kp-star">Star</span>${esc(t('populair en winstgevend: zo laten'))}</li><li><span class="kp-class kp-plowhorse">Plowhorse</span>${esc(t('populair, weinig marge: kijk naar portie of prijs'))}</li><li><span class="kp-class kp-puzzle">Puzzle</span>${esc(t('winstgevend, weinig verkocht: betere plek of beschrijving'))}</li><li><span class="kp-class kp-dog">Dog</span>${esc(t('weinig verkocht en weinig marge: vervangen?'))}</li></ul>${notReady ? `<p class="kp-note"><span class="kp-n">${notReady}</span> ${esc(t(notReady === 1 ? 'gerecht telt nog niet mee: kostprijs niet compleet of geen verkoopprijs.' : 'gerechten tellen nog niet mee: kostprijs niet compleet of geen verkoopprijs.'))}</p>` : ''}</div>`
+      : `<p class="kp-note">${esc(t('Vul per gerecht in hoe vaak het verkocht is (bijvoorbeeld uit je kassa over een maand). Dan deelt Savour je kaart in: Stars, Plowhorses, Puzzles en Dogs.'))}</p>`;
+  return `${back}<section class="kp-section">${head}<div class="kp-table kp-menu kp-card"><div class="kp-thead"><span>${t('Gerecht')}</span><span>${t('Per portie')}</span><span>${t('Verkoopprijs')}</span><span>Foodcost</span><span>${t('Marge')}</span><span>${t('Verkocht')}</span><span></span><span></span></div>${rows || `<p class="muted kp-none">${esc(t('Voeg gerechten toe.'))}</p>`}</div>${items.length ? meText : ''}</section>`;
 }
 
 async function addCostMenuItem(menuId) {
@@ -1013,18 +1013,18 @@ function renderMepCost() {
   // Nooit € 0 tonen: zonder een enkele bekende prijs zegt Savour dat er nog geen prijzen zijn.
   const sum =
     s.total > 0 ? `${s.complete ? '' : esc(t('minstens')) + ' '}${fcMoney(s.total)}` : esc(t('nog geen prijzen'));
-  host.innerHTML = `<details class="fc-mep"><summary><span>${esc(t('Grondstoffen vandaag'))}</span><b>${sum}</b></summary>`;
+  host.innerHTML = `<details class="kp-mep"><summary><span>${esc(t('Grondstoffen vandaag'))}</span><b>${sum}</b></summary>`;
   host.querySelector('details').insertAdjacentHTML(
     'beforeend',
     `<ul>${s.perCard
       .filter(x => x.covers)
       .map(
         x =>
-          `<li><span translate="no">${esc(x.card.name)}</span><small><span class="fc-n">${x.covers}</span> <span>${esc(t('couverts'))}</span></small><b>${x.sum > 0 ? fcMoney(x.sum) : '–'}</b></li>`
+          `<li><span translate="no">${esc(x.card.name)}</span><small><span class="kp-n">${x.covers}</span> <span>${esc(t('couverts'))}</span></small><b>${x.sum > 0 ? fcMoney(x.sum) : '–'}</b></li>`
       )
       .join(
         ''
-      )}</ul><p class="fc-note"><span>${esc(t('Alleen onderdelen met een gekoppeld recept en een portie per couvert tellen mee.'))}</span>${s.skipped ? ` <span class="fc-n">${s.skipped}</span> <span>${esc(t(s.skipped === 1 ? 'onderdeel telt niet mee.' : 'onderdelen tellen niet mee.'))}</span>` : ''}${s.open ? ` <span class="fc-n">${s.open}</span> <span>${esc(t(s.open === 1 ? 'recept is nog niet compleet.' : 'recepten zijn nog niet compleet.'))}</span>` : ''} <span>${esc(t('Alleen jij ziet deze bedragen.'))}</span></p>`
+      )}</ul><p class="kp-note"><span>${esc(t('Alleen onderdelen met een gekoppeld recept en een portie per couvert tellen mee.'))}</span>${s.skipped ? ` <span class="kp-n">${s.skipped}</span> <span>${esc(t(s.skipped === 1 ? 'onderdeel telt niet mee.' : 'onderdelen tellen niet mee.'))}</span>` : ''}${s.open ? ` <span class="kp-n">${s.open}</span> <span>${esc(t(s.open === 1 ? 'recept is nog niet compleet.' : 'recepten zijn nog niet compleet.'))}</span>` : ''} <span>${esc(t('Alleen jij ziet deze bedragen.'))}</span></p>`
   );
 }
 
@@ -1041,8 +1041,8 @@ function openCostImport(supplierId = '') {
     )
     .join('');
   costDialog(
-    `<h2 class="sv-dialog-title">${esc(t('Prijslijst inladen'))}</h2><p class="fc-why">${esc(t('Een prijslijst van je leverancier als Excel (.xlsx) of CSV, of geplakt uit een e-mail. Savour leest de kolommen; daarna keur je elke regel zelf goed. Er wordt niets opgeslagen voordat jij dat doet.'))}</p><label class="product-field"><span>${esc(t('Leverancier'))}</span><select class="sv-dialog-input" id="costImportSupplier"><option value="">${esc(t('Geen leverancier'))}</option>${suppliers}</select></label><div class="fc-actions"><label class="btn gold">${esc(t('Bestand kiezen'))}<input type="file" accept=".xlsx,.csv,.txt" hidden onchange="readCostImportFile(this.files[0]);this.value=''"></label></div><label class="product-field"><span>${esc(t('Of plak de lijst hier'))}</span><textarea class="sv-dialog-input" id="costImportText" rows="6" placeholder="Roomboter;doos 10 x 250 g;18,90"></textarea></label><div class="fc-actions"><button type="button" class="btn" onclick="readCostImportText()">${esc(t('Lezen'))}</button></div>`,
-    'fc-import'
+    `<h2 class="sv-dialog-title">${esc(t('Prijslijst inladen'))}</h2><p class="kp-why">${esc(t('Een prijslijst van je leverancier als Excel (.xlsx) of CSV, of geplakt uit een e-mail. Savour leest de kolommen; daarna keur je elke regel zelf goed. Er wordt niets opgeslagen voordat jij dat doet.'))}</p><label class="product-field"><span>${esc(t('Leverancier'))}</span><select class="sv-dialog-input" id="costImportSupplier"><option value="">${esc(t('Geen leverancier'))}</option>${suppliers}</select></label><div class="kp-actions"><label class="btn gold">${esc(t('Bestand kiezen'))}<input type="file" accept=".xlsx,.csv,.txt" hidden onchange="readCostImportFile(this.files[0]);this.value=''"></label></div><label class="product-field"><span>${esc(t('Of plak de lijst hier'))}</span><textarea class="sv-dialog-input" id="costImportText" rows="6" placeholder="Roomboter;doos 10 x 250 g;18,90"></textarea></label><div class="kp-actions"><button type="button" class="btn" onclick="readCostImportText()">${esc(t('Lezen'))}</button></div>`,
+    'kp-import'
   );
 }
 
@@ -1228,11 +1228,11 @@ function renderCostImportReview() {
     .slice(0, 400)
     .map(
       (r, i) =>
-        `<li class="${r.use ? 'is-on' : ''}"><label><input type="checkbox" ${r.use ? 'checked' : ''} ${r.pack ? '' : 'disabled'} onchange="costImport.rows[${i}].use=this.checked;renderCostImportReview()"><span class="fc-imp-name" translate="no">${esc(r.name)}</span></label><span translate="no">${r.pack ? esc(fcQty(r.pack.qty, r.pack.unit)) : `<span class="fc-chip">${esc(t('verpakking?'))}</span>`}</span><b>${fcMoney(r.price)}</b><span class="fc-imp-match">${r.match ? `→ <span translate="no">${esc(r.match.name)}</span>` : `<small>${esc(t('nieuw product'))}</small>`}</span></li>`
+        `<li class="${r.use ? 'is-on' : ''}"><label><input type="checkbox" ${r.use ? 'checked' : ''} ${r.pack ? '' : 'disabled'} onchange="costImport.rows[${i}].use=this.checked;renderCostImportReview()"><span class="kp-imp-name" translate="no">${esc(r.name)}</span></label><span translate="no">${r.pack ? esc(fcQty(r.pack.qty, r.pack.unit)) : `<span class="kp-chip">${esc(t('verpakking?'))}</span>`}</span><b>${fcMoney(r.price)}</b><span class="kp-imp-match">${r.match ? `→ <span translate="no">${esc(r.match.name)}</span>` : `<small>${esc(t('nieuw product'))}</small>`}</span></li>`
     )
     .join('');
   costDialog(
-    `<h2 class="sv-dialog-title">${esc(t('Prijslijst controleren'))}</h2><p class="fc-why">${esc(t('Kijk na wat Savour las. Aangevinkt wordt opgeslagen als nieuwe prijs; de oude prijzen blijven bewaard. Vink alleen aan wat klopt. Een regel zonder leesbare verpakking kan niet: vul die prijs met de hand in.'))}</p><div class="fc-row">${colSelect('name', 'Naam')}${colSelect('pack', 'Verpakking')}${colSelect('price', 'Prijs')}</div><label class="product-field"><span>${esc(t('Prijzen in deze lijst'))}</span><select class="sv-dialog-input" onchange="setCostImportVat(this.value)">${[
+    `<h2 class="sv-dialog-title">${esc(t('Prijslijst controleren'))}</h2><p class="kp-why">${esc(t('Kijk na wat Savour las. Aangevinkt wordt opgeslagen als nieuwe prijs; de oude prijzen blijven bewaard. Vink alleen aan wat klopt. Een regel zonder leesbare verpakking kan niet: vul die prijs met de hand in.'))}</p><div class="kp-row">${colSelect('name', 'Naam')}${colSelect('pack', 'Verpakking')}${colSelect('price', 'Prijs')}</div><label class="product-field"><span>${esc(t('Prijzen in deze lijst'))}</span><select class="sv-dialog-input" onchange="setCostImportVat(this.value)">${[
       0, 9, 21, 7, 19, 10, 5.5
     ]
       .map(
@@ -1241,8 +1241,8 @@ function renderCostImportReview() {
       )
       .join(
         ''
-      )}</select></label><div class="fc-imp-tools"><button type="button" class="btn-quiet" onclick="costImport.rows.forEach(r=>r.use=!!r.pack);renderCostImportReview()">${esc(t('Alles met verpakking aanvinken'))}</button><button type="button" class="btn-quiet" onclick="costImport.rows.forEach(r=>r.use=false);renderCostImportReview()">${esc(t('Niets aanvinken'))}</button></div><ul class="fc-imp-rows">${rows}</ul>${ci.rows.length > 400 ? `<p class="fc-note">${esc(t('Alleen de eerste 400 regels staan hier.'))}</p>` : ''}<div class="fc-actions"><button type="button" class="btn gold" onclick="saveCostImport()" ${chosen ? '' : 'disabled'}><span class="fc-n">${chosen}</span> <span>${esc(t(chosen === 1 ? 'prijs opslaan' : 'prijzen opslaan'))}</span></button></div>`,
-    'fc-import'
+      )}</select></label><div class="kp-imp-tools"><button type="button" class="btn-quiet" onclick="costImport.rows.forEach(r=>r.use=!!r.pack);renderCostImportReview()">${esc(t('Alles met verpakking aanvinken'))}</button><button type="button" class="btn-quiet" onclick="costImport.rows.forEach(r=>r.use=false);renderCostImportReview()">${esc(t('Niets aanvinken'))}</button></div><ul class="kp-imp-rows">${rows}</ul>${ci.rows.length > 400 ? `<p class="kp-note">${esc(t('Alleen de eerste 400 regels staan hier.'))}</p>` : ''}<div class="kp-actions"><button type="button" class="btn gold" onclick="saveCostImport()" ${chosen ? '' : 'disabled'}><span class="kp-n">${chosen}</span> <span>${esc(t(chosen === 1 ? 'prijs opslaan' : 'prijzen opslaan'))}</span></button></div>`,
+    'kp-import'
   );
 }
 function setCostImportCol(field, value) {
@@ -1314,11 +1314,11 @@ async function saveCostImport() {
 
 function costImportsHtml() {
   if (!costData.imports.length) return '';
-  return `<section class="fc-section"><h3>${esc(t('Ingeladen prijslijsten'))}</h3><ul class="fc-suppliers">${costData.imports
+  return `<section class="kp-section"><h3>${esc(t('Ingeladen prijslijsten'))}</h3><ul class="kp-suppliers">${costData.imports
     .slice(0, 20)
     .map(
       i =>
-        `<li><span translate="no">${esc(i.file_name || '')}</span><span translate="no">${esc(costSupplier(i.supplier_id)?.name || '')}</span><small><span class="fc-n">${esc(costDate(i.created_at))}</span> · <span class="fc-n">${i.approved}</span> <span>${esc(t(i.approved === 1 ? 'prijs' : 'prijzen'))}</span></small></li>`
+        `<li><span translate="no">${esc(i.file_name || '')}</span><span translate="no">${esc(costSupplier(i.supplier_id)?.name || '')}</span><small><span class="kp-n">${esc(costDate(i.created_at))}</span> · <span class="kp-n">${i.approved}</span> <span>${esc(t(i.approved === 1 ? 'prijs' : 'prijzen'))}</span></small></li>`
     )
     .join('')}</ul></section>`;
 }
