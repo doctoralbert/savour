@@ -771,3 +771,31 @@ button.kp-trow:hover {
   justify-self: start;
   margin-top: var(--sv-space-2);
 }
+
+/* ---- Voorstellen uit je prijslijst ---- */
+.kp-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  flex-basis: 100%;
+}
+.kp-suggestions small {
+  color: var(--sv-text-3);
+}
+.kp-pick .kp-suggestions {
+  margin-bottom: var(--sv-space-2);
+}
+.kp-suggestion {
+  padding: 3px 10px;
+  border: 1px solid var(--sv-gold);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sv-gold);
+  font-size: var(--sv-fs-xs);
+  cursor: pointer;
+}
+.kp-suggestion:hover {
+  background: var(--sv-gold);
+  color: var(--sv-on-gold);
+}

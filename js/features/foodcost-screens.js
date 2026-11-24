@@ -399,7 +399,7 @@ async function openCostProductEditor({ id = '', key = '', line = '', recipeId = 
     : '';
   const el = costDialog(
     `<h2 class="sv-dialog-title">${esc(t(cp ? 'Prijs en product' : 'Prijs invullen'))}</h2>
-    ${!cp && key && costData.products.length ? `<div class="kp-pick"><p class="kp-why">${esc(t('Staat dit ingrediënt al in je prijslijst, bijvoorbeeld uit een ingeladen lijst van je leverancier? Kies het daar; Savour onthoudt dat deze naam bij dat product hoort.'))}</p><button type="button" class="btn gold" onclick="pickCostProductFor('${escJs(key)}', '${escJs(line)}', '${escJs(recipeId)}')">${esc(t('Kies uit je prijslijst'))}</button><p class="kp-or">${esc(t('of vul een nieuwe prijs in:'))}</p></div>` : ''}
+    ${!cp && key && costData.products.length ? `<div class="kp-pick"><p class="kp-why">${esc(t('Staat dit ingrediënt al in je prijslijst, bijvoorbeeld uit een ingeladen lijst van je leverancier? Kies het daar; Savour onthoudt dat deze naam bij dat product hoort.'))}</p>${costSuggestionsHtml(key)}<button type="button" class="btn gold" onclick="pickCostProductFor('${escJs(key)}', '${escJs(line)}', '${escJs(recipeId)}')">${esc(t('Kies uit je prijslijst'))}</button><p class="kp-or">${esc(t('of vul een nieuwe prijs in:'))}</p></div>` : ''}
     <form class="kp-form" novalidate onsubmit="event.preventDefault();saveCostProductForm()">
       <input type="hidden" name="id" value="${esc(p.id)}">
       <label class="product-field"><span>${t('Product')}</span><input class="sv-dialog-input" name="name" value="${esc(p.name)}" required translate="no"></label>
@@ -497,9 +497,22 @@ function costPackPreview() {
   form.unit.value = shown.unit;
 }
 
+// Niet twee keer tegelijk: een dubbele klik op Opslaan geeft anders twee producten.
+let costFormSaving = false;
 async function saveCostProductForm() {
   const form = document.querySelector('#costDialog .kp-form');
-  if (!form) return;
+  if (!form || costFormSaving) return;
+  costFormSaving = true;
+  const btn = form.querySelector('button[type=submit]');
+  if (btn) btn.disabled = true;
+  try {
+    await saveCostProductFormNow(form);
+  } finally {
+    costFormSaving = false;
+    if (btn) btn.disabled = false;
+  }
+}
+async function saveCostProductFormNow(form) {
   const id = form.id.value;
   const before = id ? costData.products.find(p => p.id === id) : null;
   const name = form.name.value.trim();
@@ -904,6 +917,18 @@ function costMissingIngredients() {
   return [...map.values()].sort((a, b) => b.count - a.count || a.key.localeCompare(b.key, 'nl'));
 }
 
+// Knopjes "Lijkt op: …" bij een ingrediënt zonder prijs: één klik koppelt het aan dat product uit je prijslijst.
+function costSuggestionsHtml(key) {
+  const list = costSuggestions(key, 3);
+  if (!list.length) return '';
+  return `<span class="kp-suggestions"><small>${esc(t('Lijkt op'))}:</small>${list
+    .map(cp => {
+      const cur = costCurrentPrice(cp);
+      return `<button type="button" class="kp-suggestion" onclick="linkCostProduct('${escJs(cp.id)}', '${escJs(key)}')" title="${esc(cur ? fcMoney(Number(cur.price.price)) + ' · ' + (cur.price.pack_text || '') : '')}"><span translate="no">${esc(cp.name)}</span></button>`;
+    })
+    .join('')}</span>`;
+}
+
 function costIngredientsHtml() {
   const missing = costMissingIngredients();
   const edit = costCanEdit();
@@ -912,7 +937,7 @@ function costIngredientsHtml() {
         .slice(0, 60)
         .map(
           m =>
-            `<li><span translate="no">${esc(m.product?.name || m.key)}</span><small><span class="kp-n">${m.count}</span> <span>${esc(t(m.count === 1 ? 'recept' : 'recepten'))}</span> · <span>${esc(t(costStatusText({ status: m.status, steps: { need: m.need } })))}</span></small>${edit ? `<button type="button" class="btn btn-sm" onclick="openCostProductEditor({ id: '${escJs(m.product?.id || '')}', key: '${escJs(m.key)}', line: '${escJs(m.line)}', recipeId: '${escJs(m.recipeId)}' })">${esc(t(m.product ? 'Aanvullen' : 'Prijs invullen'))}</button>` : ''}</li>`
+            `<li><span translate="no">${esc(m.product?.name || m.key)}</span><small><span class="kp-n">${m.count}</span> <span>${esc(t(m.count === 1 ? 'recept' : 'recepten'))}</span> · <span>${esc(t(costStatusText({ status: m.status, steps: { need: m.need } })))}</span></small>${edit ? `<button type="button" class="btn btn-sm" onclick="openCostProductEditor({ id: '${escJs(m.product?.id || '')}', key: '${escJs(m.key)}', line: '${escJs(m.line)}', recipeId: '${escJs(m.recipeId)}' })">${esc(t(m.product ? 'Aanvullen' : 'Prijs invullen'))}</button>` : ''}${edit && !m.product ? costSuggestionsHtml(m.key) : ''}</li>`
         )
         .join('')}</ul></section>`
     : '';
@@ -1407,6 +1432,9 @@ const COST_IMPORT_MAX = 2000;
 function costImportRows() {
   const { grid, cols, hasHead, vat } = costImport;
   const index = costProductIndex();
+  const byCode = costCodeIndex(costImport.supplierId);
+  // Een product met een artikelnummer van deze leverancier is een ander artikel: dan niet op naam koppelen.
+  const hasCode = new Set([...byCode.values()].map(cp => cp.id));
   return grid
     .slice(hasHead ? 1 : 0)
     .map((cells, n) => {
@@ -1421,11 +1449,13 @@ function costImportRows() {
           name.match(/(\d+\s*[x×]\s*)?\d+(?:[.,]\d+)?\s*(kg|g|gr|l|ltr|liter|ml|cl|dl|stuks?|st)\b/i)?.[0] || ''
         );
       const price = vat ? fcWithoutVat(rawPrice, vat) : rawPrice;
-      const match = index.get(productKey(name)) || null;
+      const code = cols.code >= 0 ? String(cells[cols.code] ?? '').trim() : '';
+      const byName = index.get(productKey(name)) || null;
+      const match = (code && byCode.get(code)) || (byName && !(code && hasCode.has(byName.id)) ? byName : null);
       return {
         n,
         name,
-        code: cols.code >= 0 ? String(cells[cols.code] ?? '').trim() : '',
+        code,
         packText: packText || '',
         pack,
         rawPrice,
@@ -1480,7 +1510,22 @@ function setCostImportVat(value) {
 async function saveCostImport() {
   const ci = costImport;
   const chosen = ci.rows.filter(r => r.use && r.pack);
-  if (!chosen.length) return;
+  if (!chosen.length || ci.saving) return;
+  // Bezig: de knop gaat uit, zodat een tweede klik niet alles nog een keer opslaat.
+  ci.saving = true;
+  const btn = document.querySelector('#costDialog .kp-import .btn.gold, #costDialog .btn.gold');
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = t('Bezig met opslaan…');
+  }
+  try {
+    await saveCostImportRows(ci, chosen);
+  } finally {
+    ci.saving = false;
+  }
+}
+
+async function saveCostImportRows(ci, chosen) {
   // Gerechten voor en na deze lijst: welke zijn duurder geworden, welke komen boven hun doel.
   const dishState = () => new Map(costData.dishes.filter(d => !d.archived).map(d => [d.id, costOfDish(d)]));
   const before = dishState();
@@ -1495,14 +1540,17 @@ async function saveCostImport() {
   if (!demoMode) record.user_id = currentUser.id;
   const saved = await costWrite('cost_imports', record);
   if (!saved) return;
-  importId = demoMode ? null : saved.id;
+  importId = saved.id;
   costData.imports = [saved, ...costData.imports];
   let ok = 0;
+  // Twee regels met hetzelfde artikelnummer in één lijst: één product.
+  const made = new Map();
   for (const r of chosen) {
-    let cp = r.match;
+    let cp = r.match || (r.code && made.get(r.code)) || null;
     if (!cp)
       cp = await saveCostProduct({ id: '', name: r.name, aliases: [productKey(r.name)].filter(Boolean), units: {} });
     if (!cp) break;
+    if (r.code) made.set(r.code, cp);
     const price = await addCostPrice({
       product_id: cp.id,
       supplier_id: ci.supplierId || null,
@@ -1531,13 +1579,32 @@ async function saveCostImport() {
   );
 }
 
+function costTime(d) {
+  const x = new Date(d);
+  return Number.isNaN(x.getTime()) ? '' : x.toLocaleTimeString(fcLocale(), { hour: '2-digit', minute: '2-digit' });
+}
+
+async function undoCostImportAsk(id) {
+  const imp = costData.imports.find(i => String(i.id) === String(id));
+  if (!imp) return;
+  const f = costImportFootprint(id);
+  const msg = `${imp.file_name || t('Prijslijst')}: ${f.prices.length} ${t('prijzen')}, ${f.products.length} ${t('producten')}
+
+${t('Deze prijslijst ongedaan maken? De prijzen uit deze lijst en de producten die alleen uit deze lijst komen, worden verwijderd. Producten die je zelf hebt gekoppeld of die nog een andere prijs hebben, blijven staan. Je recepten veranderen niet.')}`;
+  if (!(await askConfirm(msg, { danger: true, confirmLabel: t('Ongedaan maken') }))) return;
+  if (await undoCostImport(id)) {
+    toast(t('Prijslijst ongedaan gemaakt'));
+    costRefresh();
+  }
+}
+
 function costImportsHtml() {
   if (!costData.imports.length) return '';
   return `<section class="kp-section"><h3>${esc(t('Ingeladen prijslijsten'))}</h3><ul class="kp-suppliers">${costData.imports
     .slice(0, 20)
     .map(
       i =>
-        `<li><span translate="no">${esc(i.file_name || '')}</span><span translate="no">${esc(costSupplier(i.supplier_id)?.name || '')}</span><small><span class="kp-n">${esc(costDate(i.created_at))}</span> · <span class="kp-n">${i.approved}</span> <span>${esc(t(i.approved === 1 ? 'prijs' : 'prijzen'))}</span></small></li>`
+        `<li><span translate="no">${esc(i.file_name || '')}</span><span translate="no">${esc(costSupplier(i.supplier_id)?.name || '')}</span><small><span class="kp-n">${esc(costDate(i.created_at))} ${esc(costTime(i.created_at))}</span> · <span class="kp-n">${i.approved}</span> <span>${esc(t(i.approved === 1 ? 'prijs' : 'prijzen'))}</span></small>${costCanEdit() ? `<span class="kp-row-actions"><button type="button" class="btn-quiet kp-danger" onclick="undoCostImportAsk('${escJs(i.id)}')">${esc(t('Ongedaan maken'))}</button></span>` : ''}</li>`
     )
     .join('')}</ul></section>`;
 }

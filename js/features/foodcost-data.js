@@ -357,7 +357,26 @@ async function saveCostProduct(cp) {
   return next;
 }
 
+// Een prijs die al precies zo bestaat (zelfde product, leverancier, verpakking, bedrag en datum), wordt niet nog een
+// keer opgeslagen: twee keer op Opslaan drukken of dezelfde lijst opnieuw inladen geeft geen dubbele prijzen.
+function costSamePrice(price) {
+  const day = price.valid_from || new Date().toISOString().slice(0, 10);
+  return (
+    costData.prices.find(
+      p =>
+        String(p.product_id) === String(price.product_id) &&
+        String(p.supplier_id || '') === String(price.supplier_id || '') &&
+        Number(p.pack_qty) === Number(price.pack_qty) &&
+        p.pack_unit === price.pack_unit &&
+        Math.abs(Number(p.price) - Number(price.price)) < 0.00005 &&
+        String(p.valid_from).slice(0, 10) === day
+    ) || null
+  );
+}
+
 async function addCostPrice(price) {
+  const same = costSamePrice(price);
+  if (same) return same;
   const row = {
     product_id: price.product_id,
     supplier_id: price.supplier_id || null,
@@ -375,6 +394,123 @@ async function addCostPrice(price) {
   if (!saved) return null;
   costData.prices = [saved, ...costData.prices];
   return saved;
+}
+
+// Product bij een artikelnummer van deze leverancier (uit een eerder ingeladen lijst). Zo herkent Savour een product
+// bij een volgende lijst, ook als de leverancier de naam iets anders schrijft.
+function costCodeIndex(supplierId) {
+  const map = new Map();
+  costData.prices.forEach(p => {
+    if (!p.code || String(p.supplier_id || '') !== String(supplierId || '')) return;
+    const cp = costData.products.find(x => x.id === String(p.product_id));
+    if (cp && !map.has(String(p.code))) map.set(String(p.code), cp);
+  });
+  return map;
+}
+
+// Een ingeladen prijslijst ongedaan maken: de prijzen uit die lijst weg, en de producten die alleen door die lijst
+// bestaan (geen andere prijs, geen eigen schrijfwijzen). Alleen als de kok daarom vraagt.
+function costImportFootprint(importId) {
+  const prices = costData.prices.filter(p => String(p.import_id) === String(importId));
+  const ids = new Set(prices.map(p => String(p.product_id)));
+  const products = costData.products.filter(cp => {
+    if (!ids.has(cp.id)) return false;
+    const others = costData.prices.some(
+      p => String(p.product_id) === cp.id && String(p.import_id) !== String(importId)
+    );
+    const ownNames = cp.aliases.some(a => productKey(a) !== productKey(cp.name));
+    return !others && !ownNames;
+  });
+  return { prices, products, kept: ids.size - products.length };
+}
+
+async function undoCostImport(importId) {
+  const { prices, products } = costImportFootprint(importId);
+  if (!demoMode) {
+    const del = await supabaseClient.from('cost_prices').delete().eq('import_id', importId);
+    if (del.error) {
+      toast(t('Verwijderen lukte niet. Probeer het opnieuw.'));
+      return false;
+    }
+    for (let i = 0; i < products.length; i += 200) {
+      const chunk = products.slice(i, i + 200).map(cp => cp.id);
+      const res = await supabaseClient.from('cost_products').delete().in('id', chunk);
+      if (res.error) {
+        toast(t('Verwijderen lukte niet. Probeer het opnieuw.'));
+        return false;
+      }
+    }
+    const imp = await supabaseClient.from('cost_imports').delete().eq('id', importId);
+    if (imp.error) console.warn(imp.error);
+  }
+  const gone = new Set(products.map(cp => cp.id));
+  const goneP = new Set(prices.map(p => String(p.id)));
+  costData.prices = costData.prices.filter(p => !goneP.has(String(p.id)));
+  costData.products = costData.products.filter(cp => !gone.has(cp.id));
+  costData.imports = costData.imports.filter(i => String(i.id) !== String(importId));
+  costBump();
+  return true;
+}
+
+// Voorstellen uit je prijslijst bij een ingrediënt uit een recept: "suiker" → Automatensuiker, Suiker - Wikkel;
+// "bloem" → Patisseriebloem; "sherry" → Osborne Sherry Manzanilla. Op hele woorden, of een samengesteld woord dat op
+// het ingrediënt eindigt. Alleen een voorstel: de kok kiest, Savour koppelt nooit vanzelf.
+function costSuggestions(key, max = 4) {
+  const words = productKey(key)
+    .split(' ')
+    .filter(w => w.length >= 3);
+  if (!words.length) return [];
+  // Een woord na "zonder", "met" enz. beschrijft het product, het ís het niet ("slagroom zonder suiker").
+  const LINK = new Set([
+    'zonder',
+    'met',
+    'm',
+    'in',
+    'op',
+    'en',
+    'van',
+    'of',
+    'with',
+    'without',
+    'and',
+    'mit',
+    'ohne',
+    'con',
+    'sin',
+    'avec',
+    'sans'
+  ]);
+  const scored = [];
+  costData.products.forEach(cp => {
+    const name = productKey(cp.name);
+    const nameWords = name.split(/[\s-]+/).filter(Boolean);
+    let score = 0;
+    for (const w of words) {
+      let best = 0;
+      nameWords.forEach((n, i) => {
+        if (i > 0 && LINK.has(nameWords[i - 1])) return;
+        const front = i === 0 ? 8 : 0; // vooraan staat meestal wat het product is: "Suiker - Wikkel", "Zeezout fijn"
+        if (n === w) best = Math.max(best, 10 + front);
+        // Enkelvoud en meervoud (citroen/citroenen, sjalot/sjalotten), niet citroen/citroensap.
+        else if (
+          [w + 's', w + 'en', w + 'n', w + "'s", w + w.slice(-1) + 'en'].includes(n) ||
+          [n + 's', n + 'en', n + 'n', n + n.slice(-1) + 'en'].includes(w)
+        )
+          best = Math.max(best, 8 + front);
+        // Samengesteld woord dat op het ingrediënt eindigt: Automatensuiker, Patisseriebloem, Zeezout.
+        else if (w.length >= 4 && n.length > w.length && n.endsWith(w)) best = Math.max(best, 7 + front);
+      });
+      if (!best) return; // elk woord van het ingrediënt moet terugkomen
+      score += best;
+    }
+    if (name === productKey(key)) score += 20;
+    score -= nameWords.length * 0.5; // korter is waarschijnlijker het basisproduct
+    scored.push({ cp, score });
+  });
+  return scored
+    .sort((a, b) => b.score - a.score || a.cp.name.localeCompare(b.cp.name, 'nl'))
+    .slice(0, max)
+    .map(x => x.cp);
 }
 
 async function removeCostPrice(id) {

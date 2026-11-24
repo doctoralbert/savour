@@ -2,6 +2,14 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.en = {
   strings: {
+    'Bezig met opslaan…': 'Saving…',
+    'Ongedaan maken': 'Undo',
+    Prijslijst: 'Price list',
+    '^(.+): (\\d+) prijzen, (\\d+) producten$': '$1: $2 prices, $3 products',
+    'Deze prijslijst ongedaan maken? De prijzen uit deze lijst en de producten die alleen uit deze lijst komen, worden verwijderd. Producten die je zelf hebt gekoppeld of die nog een andere prijs hebben, blijven staan. Je recepten veranderen niet.':
+      'Undo this price list? The prices from this list and the products that only come from this list are deleted. Products you linked yourself or that have another price stay. Your recipes don’t change.',
+    'Prijslijst ongedaan gemaakt': 'Price list undone',
+    'Lijkt op': 'Looks like',
     'Toon alle': 'Show all',
     'Staat dit ingrediënt al in je prijslijst, bijvoorbeeld uit een ingeladen lijst van je leverancier? Kies het daar; Savour onthoudt dat deze naam bij dat product hoort.':
       'Is this ingredient already in your price list, for example from a supplier list you loaded? Choose it there; Savour remembers that this name belongs to that product.',

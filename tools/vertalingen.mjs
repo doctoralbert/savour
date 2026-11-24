@@ -1,6 +1,14 @@
 // Brontabel voor de vertalingen: [Nederlands, Engels, Duits, Spaans].
 export const strings = [
   // ---- Foodcost calculator (2026-11-24, js/features/foodcost-screens.js) ----
+  ["Bezig met opslaan…","Saving…","Wird gespeichert…","Guardando…"],
+  ["Ongedaan maken","Undo","Rückgängig machen","Deshacer"],
+  ["Prijslijst","Price list","Preisliste","Lista de precios"],
+  ["^(.+): (\\d+) prijzen, (\\d+) producten$","$1: $2 prices, $3 products","$1: $2 Preise, $3 Produkte","$1: $2 precios, $3 productos"],
+  ["Deze prijslijst ongedaan maken? De prijzen uit deze lijst en de producten die alleen uit deze lijst komen, worden verwijderd. Producten die je zelf hebt gekoppeld of die nog een andere prijs hebben, blijven staan. Je recepten veranderen niet.","Undo this price list? The prices from this list and the products that only come from this list are deleted. Products you linked yourself or that have another price stay. Your recipes don’t change.","Diese Preisliste rückgängig machen? Die Preise aus dieser Liste und die Produkte, die nur aus dieser Liste stammen, werden gelöscht. Produkte, die du selbst verknüpft hast oder die noch einen anderen Preis haben, bleiben. Deine Rezepte ändern sich nicht.","¿Deshacer esta lista de precios? Se eliminan los precios de esta lista y los productos que solo vienen de ella. Los productos que vinculaste tú o que tienen otro precio se quedan. Tus recetas no cambian."],
+  ["Prijslijst ongedaan gemaakt","Price list undone","Preisliste rückgängig gemacht","Lista de precios deshecha"],
+  ["Lijkt op","Looks like","Ähnlich wie","Se parece a"],
+  // ---- Foodcost calculator (2026-11-24, js/features/foodcost-screens.js) ----
   ["Toon alle","Show all","Alle anzeigen","Mostrar todo"],
   // ---- Foodcost calculator (2026-11-24, js/features/foodcost-screens.js) ----
   ["Staat dit ingrediënt al in je prijslijst, bijvoorbeeld uit een ingeladen lijst van je leverancier? Kies het daar; Savour onthoudt dat deze naam bij dat product hoort.","Is this ingredient already in your price list, for example from a supplier list you loaded? Choose it there; Savour remembers that this name belongs to that product.","Steht diese Zutat schon in deiner Preisliste, zum Beispiel aus einer geladenen Lieferantenliste? Wähle sie dort; Savour merkt sich, dass dieser Name zu dem Produkt gehört.","¿Este ingrediente ya está en tu lista de precios, por ejemplo de una lista de proveedor que cargaste? Elígelo ahí; Savour recuerda que este nombre corresponde a ese producto."],
