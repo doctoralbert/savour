@@ -51,6 +51,7 @@
   body:not(.story) .badge { display: none; }
   .story .badge { bottom: 40px; }
   .list { margin-top: 24px; display: grid; gap: 12px; font-size: 30px; color: #cfcabe; }
+  .no-list .list { display: none; }
   .list li { list-style: none; padding-left: 40px; position: relative; }
   .list li::before { content: ''; position: absolute; left: 0; top: 16px; width: 20px; height: 3px; background: #e8ca8d; }
 </style></head>
@@ -78,6 +79,29 @@
       '<div class="badge"><span>kostprijs per portie</span><b>€ 4,10</b></div></div>' +
       '<div class="cta"><span class="btn">Reken het gratis uit</span><span class="small"><b>savour.page</b><br>Gratis, zonder account</span></div>'
   };
+  // Engelse versie: &lang=en (schermen uit de Engelse demo en calculator)
+  if (/lang=en/.test(location.search)) {
+    document.documentElement.lang = 'en';
+    // Feed B: de Engelse kop is twee regels; het lijstje valt dan weg (de calculator laat hetzelfde zien).
+    if (v === 'b-feed') document.body.classList.add('no-list');
+    html = {
+      a:
+        brand +
+        '<h1>From scribbled notes to recipes. <em>In one go.</em></h1>' +
+        '<p class="sub">Your notes, Word files and PDFs become one recipe book. On every phone in the kitchen, for your whole brigade.</p>' +
+        '<div class="visual"><div class="note"><img src="kladje.jpg" alt=""><p>your notes</p></div>' + arrow +
+        '<div class="phone"><div class="screen"><img src="telefoon-marshmallow-en.png" alt=""></div></div></div>' +
+        '<div class="cta"><span class="btn">Start for free</span><span class="small"><b>savour.page</b><br>Free up to 100 recipes</span></div>',
+      b:
+        brand +
+        '<h1>What does your plate <em>really</em> cost?</h1>' +
+        '<p class="sub">Free food cost calculator for professional kitchens. No account needed.</p>' +
+        '<ul class="list"><li>Cost per portion, including yield</li><li>Suggested price at your target food cost</li><li>Your margin per plate</li></ul>' +
+        '<div class="visual"><div class="calc"><img src="calculator-en.png" alt=""></div>' +
+        '<div class="badge"><span>cost per portion</span><b>€4.10</b></div></div>' +
+        '<div class="cta"><span class="btn">Calculate it free</span><span class="small"><b>savour.page</b><br>Free, no account needed</span></div>'
+    };
+  }
   document.getElementById('ad').innerHTML = html[v[0]];
 </script>
 </body></html>

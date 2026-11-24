@@ -108,3 +108,21 @@ Savour shows the 14 allergens per recipe in one overview, per ingredient. Handy 
 
 Link in bio.
 #allergens #chef #chefslife #kitchen #foodsafety #hospitality #savour
+
+## English ads (`en/savour-{a,b}-{feed,story}.png`)
+
+Gemaakt met `bron/advertentie.html?v=a-feed&lang=en` enz. In de Engelse feedversie van B valt het lijstje weg (kop is twee regels).
+
+**Concept A – From scribbled notes to recipes**
+- Primary text: Still keeping recipes on scraps of paper, in Word files and loose PDFs? Savour reads them in and turns them into one recipe book, on every phone in the kitchen. Scale to any number of covers, allergens per recipe, share with your brigade. Free up to 100 recipes.
+- Headline: From notes to recipes
+- Description: Recipe management for professional chefs
+- Button: Sign up (or: Learn more)
+- Link: `https://savour.page/en?bron=ig-ad-a`
+
+**Concept B – Free food cost calculator**
+- Primary text: Do you know what your plate really costs? Enter your ingredients with purchase price and yield, and instantly see your cost per portion, the suggested price at your target food cost and your margin per plate. Free, no account needed.
+- Headline: Free food cost calculator
+- Description: Cost per portion in a minute
+- Button: Learn more
+- Link: `https://savour.page/en/blog/free-food-cost-calculator?bron=ig-ad-b`
