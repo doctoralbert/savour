@@ -4626,7 +4626,463 @@ body.mobile-menu-open .sv-scroll-top {
   }
 }
 /* Beeld dat je groot kunt openen (bijv. drie versies van een recept naast elkaar). */
+/* Vergroten (js/site.js → setupLightbox): beelden in artikelen zijn klikbaar en openen over de hele pagina. */
+.site-article figure img,
+.feat-show figure img {
+  cursor: zoom-in;
+}
+html.sv-lightbox-open,
+html.sv-lightbox-open body {
+  overflow: hidden;
+}
+.sv-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 24px 24px;
+  background: rgba(4, 7, 8, 0.92);
+  cursor: zoom-out;
+  animation: sv-lightbox-in 0.18s ease-out;
+}
+.sv-lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+  cursor: default;
+}
+.sv-lightbox-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 202, 141, 0.45);
+  background: rgba(10, 14, 15, 0.85);
+  color: #f2eee4;
+  cursor: pointer;
+}
+.sv-lightbox-close:hover,
+.sv-lightbox-close:focus-visible {
+  border-color: #e8ca8d;
+  color: #e8ca8d;
+  outline: none;
+}
+@keyframes sv-lightbox-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sv-lightbox {
+    animation: none;
+  }
+}
 .post-zoom {
   display: block;
   cursor: zoom-in;
+}
+
+/* ---- Gratis foodcost calculator (js/foodcost-calc.js, blog 2026-11-24): strak, Savour-stijl, licht en donker via de
+   variabelen van de site. Links de invoer in compacte rijen, rechts het resultaat dat meeschuift. Printen: een net
+   blad op één liggend A4 (.fc-sheet). ---- */
+.fc-calc {
+  margin: 28px 0 36px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper-2);
+  font-family: var(--sans);
+  overflow: visible;
+}
+.fc-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+}
+.fc-main {
+  padding: 18px 18px 14px;
+  min-width: 0;
+}
+.fc-side {
+  position: sticky;
+  top: 84px;
+  align-self: start;
+  padding: 18px;
+  border-left: 1px solid var(--line);
+  border-radius: 0 14px 14px 0;
+  background: var(--paper);
+}
+.fc-calc input,
+.fc-calc select {
+  width: 100%;
+  min-width: 0;
+  height: 34px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 14px var(--sans);
+}
+.fc-calc select {
+  padding-right: 4px;
+}
+.fc-calc input:focus,
+.fc-calc select:focus {
+  outline: 2px solid var(--gold-soft);
+  outline-offset: 0;
+  border-color: var(--gold-soft);
+}
+.fc-head {
+  display: grid;
+  grid-template-columns: 1fr 90px 90px;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.fc-field {
+  display: grid;
+  gap: 5px;
+}
+.fc-field > span,
+.fc-th > span,
+.fc-kicker,
+.fc-cap {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.fc-table {
+  display: grid;
+  gap: 6px;
+}
+.fc-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 1.7fr) 68px 62px 78px 62px 76px 76px 24px;
+  gap: 6px;
+  align-items: center;
+}
+.fc-th {
+  padding-bottom: 2px;
+}
+.fc-cell {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.fc-cap {
+  display: none;
+}
+.fc-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.fc-cost {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink);
+}
+.fc-row.is-bad .fc-cost,
+.fc-row.is-missing .fc-cost {
+  color: #d98a6a;
+}
+.fc-row.is-bad select {
+  border-color: #d98a6a;
+}
+.fc-del {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink-3);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+.fc-del:hover {
+  color: var(--ink);
+  background: var(--paper);
+}
+.fc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  align-items: center;
+  margin: 12px 0 4px;
+}
+.fc-spacer {
+  flex: 1;
+}
+.fc-btn {
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid var(--gold-soft);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink);
+  font: 600 13px var(--sans);
+  cursor: pointer;
+}
+.fc-btn:hover {
+  background: var(--gold-soft);
+  color: #111;
+}
+.fc-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-3);
+  font: 13px var(--sans);
+  cursor: pointer;
+}
+.fc-link:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+.fc-note {
+  min-height: 1.3em;
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--ink-3);
+}
+.fc-note.is-warn {
+  color: #d98a6a;
+}
+.fc-kicker {
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.fc-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.fc-line b {
+  color: var(--ink);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.fc-big {
+  display: grid;
+  gap: 2px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.fc-big span {
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.fc-big b {
+  font: 600 34px/1.1 var(--serif);
+  color: var(--gold-soft);
+  font-variant-numeric: tabular-nums;
+}
+html.site-light .fc-big b,
+html.site-light .fc-kicker {
+  color: var(--gold);
+}
+.fc-target {
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+.fc-target .fc-line {
+  border: 0;
+  padding-bottom: 2px;
+}
+.fc-calc .fc-target input[type='range'] {
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  accent-color: var(--gold-soft);
+}
+.fc-inline label {
+  white-space: nowrap;
+}
+.fc-vat {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: auto;
+  font-size: 13px;
+}
+.fc-calc .fc-vat input {
+  width: 54px;
+  height: 28px;
+  text-align: right;
+}
+.fc-sep {
+  height: 10px;
+}
+.fc-side .fc-field {
+  margin: 6px 0 2px;
+}
+.fc-print {
+  width: 100%;
+  margin-top: 14px;
+}
+.fc-small {
+  margin: 10px 0 0;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.fc-sheet {
+  display: none;
+}
+@media (max-width: 980px) {
+  .fc-grid {
+    grid-template-columns: 1fr;
+  }
+  .fc-side {
+    position: static;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0 0 14px 14px;
+  }
+}
+@media (max-width: 760px) {
+  .fc-main,
+  .fc-side {
+    padding: 14px;
+  }
+  .fc-head {
+    grid-template-columns: 1fr 1fr;
+  }
+  .fc-head .fc-dish {
+    grid-column: 1 / -1;
+  }
+  .fc-th {
+    display: none;
+  }
+  .fc-cap {
+    display: block;
+  }
+  .fc-row {
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper);
+    position: relative;
+  }
+  .fc-row > .fc-name {
+    grid-column: 1 / -1;
+    padding-right: 34px;
+  }
+  .fc-row .fc-cost {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+  .fc-del {
+    position: absolute;
+    top: 15px;
+    right: 14px;
+  }
+}
+/* Printen: alleen het blad, liggend A4 (de @page-regel zet js/foodcost-calc.js tijdens het printen). */
+@media print {
+  html.fc-printing body > *:not(.fc-sheet) {
+    display: none !important;
+  }
+  html.fc-printing,
+  html.fc-printing body {
+    background: #fff !important;
+  }
+  html.fc-printing .fc-sheet {
+    display: block;
+    color: #111;
+    font:
+      10.5pt/1.4 'DM Sans',
+      system-ui,
+      sans-serif;
+    break-inside: avoid;
+  }
+  .fc-sheet header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 6pt;
+    border-bottom: 1.5pt solid #e8ca8d;
+  }
+  .fc-sheet-logo {
+    font:
+      600 12pt 'Playfair Display',
+      Georgia,
+      serif;
+    letter-spacing: 0.3em;
+  }
+  .fc-sheet-date {
+    font-size: 9pt;
+    color: #666;
+  }
+  .fc-sheet h1 {
+    margin: 10pt 0 10pt;
+    font:
+      600 20pt 'Playfair Display',
+      Georgia,
+      serif;
+  }
+  .fc-sheet-body {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 10mm;
+    align-items: start;
+  }
+  .fc-sheet table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .fc-sheet th,
+  .fc-sheet td {
+    padding: 3.5pt 4pt;
+    border-bottom: 0.5pt solid #ddd;
+    text-align: left;
+  }
+  .fc-sheet thead th {
+    font-size: 8pt;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #666;
+    border-bottom: 1pt solid #999;
+  }
+  .fc-sheet .fc-num {
+    text-align: right;
+  }
+  .fc-sheet-res th {
+    font-weight: 400;
+    color: #333;
+  }
+  .fc-sheet-res tr.is-strong th,
+  .fc-sheet-res tr.is-strong td {
+    font-weight: 700;
+    font-size: 12.5pt;
+  }
+  .fc-sheet-warn {
+    margin-top: 8pt;
+    color: #b0562f;
+  }
+  .fc-sheet footer {
+    margin-top: 12pt;
+    font-size: 8pt;
+    color: #888;
+  }
+}
+.fc-th > span {
+  white-space: nowrap;
 }

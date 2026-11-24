@@ -398,6 +398,8 @@ const DEMO_RECIPES = [
     folder: 'demo-rot',
     nl: {
       title: 'Beurre blanc',
+      notes:
+        'Kritisch: na de boter niet meer laten koken, anders schift de saus. Maximaal een uur warm houden au bain-marie.',
       yield: '4 personen',
       ingredients: [
         '2 sjalotten, fijngesnipperd',
@@ -416,6 +418,8 @@ const DEMO_RECIPES = [
     },
     en: {
       title: 'Beurre blanc',
+      notes:
+        'Critical: do not let the sauce boil once the butter is in, or it will split. Keep warm in a bain-marie for up to an hour.',
       yield: '4 portions',
       ingredients: [
         '2 shallots, finely chopped',
@@ -434,6 +438,8 @@ const DEMO_RECIPES = [
     },
     de: {
       title: 'Beurre blanc',
+      notes:
+        'Kritisch: Nach der Butter nicht mehr kochen lassen, sonst trennt sich die Sauce. Höchstens eine Stunde im Wasserbad warm halten.',
       yield: '4 Personen',
       ingredients: [
         '2 Schalotten, fein gewürfelt',
@@ -452,6 +458,8 @@ const DEMO_RECIPES = [
     },
     es: {
       title: 'Beurre blanc',
+      notes:
+        'Punto crítico: una vez montada la mantequilla, no dejes que hierva o se cortará. Mantén al baño maría como máximo una hora.',
       yield: '4 personas',
       ingredients: [
         '2 chalotas, picadas finas',
@@ -470,6 +478,8 @@ const DEMO_RECIPES = [
     },
     fr: {
       title: 'Beurre blanc',
+      notes:
+        'Point critique : une fois le beurre monté, ne plus faire bouillir, sinon la sauce tranche. Garder au bain-marie une heure au maximum.',
       yield: '4 personnes',
       ingredients: [
         '2 échalotes, finement ciselées',

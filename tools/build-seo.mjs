@@ -65,6 +65,7 @@ import {
   RECIPE_SHEET_POST_ES,
   RECIPE_SHEET_POST_FR
 } from './site-blog-rezepturblatt.mjs';
+import { PRICE_POST, PRICE_POST_DE, PRICE_POST_ES, PRICE_POST_FR } from './site-blog-verkoopprijs.mjs';
 import { PAPRIKA_PAGE } from './site-paprika.mjs';
 import { REZEPTUR_PAGE } from './site-rezeptur.mjs';
 import { PAGE_RICH } from './site-page-rich.mjs';
@@ -114,9 +115,9 @@ Object.assign(DE.posts, BAR_POST_DE);
 Object.assign(ES.posts, BAR_POST_ES);
 Object.assign(FR.posts, BAR_POST_FR);
 for (const [P, ...rest] of [
-  [DE, PATISSERIE_POST_DE, CATERING_POST_DE, ALLERGEN_RULES_POST_DE, RECIPE_SHEET_POST_DE],
-  [ES, PATISSERIE_POST_ES, CATERING_POST_ES, ALLERGEN_RULES_POST_ES, RECIPE_SHEET_POST_ES],
-  [FR, PATISSERIE_POST_FR, CATERING_POST_FR, ALLERGEN_RULES_POST_FR, RECIPE_SHEET_POST_FR]
+  [DE, PATISSERIE_POST_DE, CATERING_POST_DE, ALLERGEN_RULES_POST_DE, RECIPE_SHEET_POST_DE, PRICE_POST_DE],
+  [ES, PATISSERIE_POST_ES, CATERING_POST_ES, ALLERGEN_RULES_POST_ES, RECIPE_SHEET_POST_ES, PRICE_POST_ES],
+  [FR, PATISSERIE_POST_FR, CATERING_POST_FR, ALLERGEN_RULES_POST_FR, RECIPE_SHEET_POST_FR, PRICE_POST_FR]
 ])
   Object.assign(P.posts, ...rest);
 EXTRA_LANGS.fr = EXTRA_FR;
@@ -128,6 +129,7 @@ KLADJE_REAL.fr = KLADJE_FR;
 
 // Nieuwste blogartikelen eerst.
 POSTS.unshift(
+  PRICE_POST,
   ALLERGEN_RULES_POST,
   RECIPE_SHEET_POST,
   CATERING_POST, PATISSERIE_POST, BAR_POST, MEP_POST, FOODCOST_CALC_POST, COMMUNITY_POST, AI_POST, FOODCOST_POST, COST_POST, NUMBERS_POST, ALLERGEN_POST, ...BLOG);
@@ -156,6 +158,14 @@ const ROOT = new URL('../', import.meta.url);
     fs.writeFileSync(file, JSON.stringify(map, null, 2) + '\n', 'utf8');
   }
   for (const p of POSTS) if (map[p.en.slug]) p.date = map[p.en.slug];
+  // Ingepland: een artikel met een datum na vandaag (Amsterdam) komt nog niet op de site. Testen of covers maken vóór
+  // die dag: BLOG_TODAY=2026-11-24 node tools/build-seo.mjs (daarna gewoon opnieuw bouwen zonder BLOG_TODAY).
+  const today = process.env.BLOG_TODAY || new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Amsterdam' }).format(new Date());
+  for (let i = POSTS.length - 1; i >= 0; i--)
+    if (POSTS[i].date > today) {
+      console.log(`Ingepland, nog niet gepubliceerd: ${POSTS[i].nl.slug} (${POSTS[i].date})`);
+      POSTS.splice(i, 1);
+    }
   // Nieuwste eerst, zoals in het blogoverzicht.
   POSTS.sort((a, b) => b.date.localeCompare(a.date));
 }
@@ -1300,6 +1310,7 @@ const PHOTOS = {
   brigade: ['brigade.jpg', 'center 35%'],
   blogAllergenRegels: ['blog-allergenen-regels.jpg', 'center 60%'],
   blogRezepturblatt: ['blog-rezepturblatt.jpg', 'center 45%'],
+  blogVerkoopprijs: ['blog-verkoopprijs.jpg', 'center 60%'],
   keuken: ['ingredienten-keuken.jpg', 'center 60%'],
   hout: ['ingredienten-hout.jpg', 'center 55%'],
   eend: ['eend-vuur.jpg', 'center 50%'],
@@ -1579,6 +1590,9 @@ const postBlock = x => {
   // Vragen en antwoorden: { faq: [[vraag, antwoord], ...] }
   if (x.faq)
     return `<div class="site-faq post-faq">${x.faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${proseText(a)}</p></details>`).join('')}</div>`;
+  // Gratis foodcost calculator (js/foodcost-calc.js, geladen door js/site.js): { calculator: 'foodcost', noscript: tekst }
+  if (x.calculator)
+    return `<div class="fc-calc" data-calc="${esc(x.calculator)}"><noscript><p>${esc(x.noscript || '')}</p></noscript></div>`;
   // Verwijzing naar een pagina of artikel: { see: [kop, pad, tekst] }
   if (x.see)
     return `<a class="post-see" href="${x.see[1]}"><b>${esc(x.see[0])}</b><span>${esc(x.see[2])}</span><i aria-hidden="true">→</i></a>`;
