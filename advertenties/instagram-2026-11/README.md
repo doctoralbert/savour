@@ -67,3 +67,44 @@ De MEP-lijst die met je meedenkt. Vul de couverts in en Savour rekent per onderd
 **Post 4 – Allergenen**
 Welk ingrediënt bevat welk allergeen? Savour zet de 14 allergenen per recept in één overzicht, per ingrediënt. Handig voor de bediening en klaar om te printen. Link in bio.
 #allergenen #chef #keuken #horeca #voedselveiligheid
+
+## English posts (`en/post-1.png` t/m `en/post-4.png`)
+
+Gemaakt met `bron/posts.html?p=1&lang=en` (schermen uit de Engelse demo). Link in bio: `https://savour.page/en?bron=ig-bio`.
+
+**Post 1 – Introduction**
+Your recipes on scraps of paper, in Word, in PDFs and in your head? Savour puts them in one place.
+
+Built for professional chefs:
+— import your notes and files
+— scale to any number of covers
+— allergens per recipe
+— prep lists for the whole brigade
+— work together in your kitchen team
+
+Free up to 100 recipes. Link in bio.
+#chef #chefslife #professionalchef #kitchen #recipes #hospitality #pastrychef #savour
+
+**Post 2 – Scaling**
+16 covers tonight instead of 8? One tap on 2× and every quantity scales along.
+
+Also ½×, 5×, 10× or your own number. You can always go back to the original, your recipe stays exactly as it was.
+
+Try it free, link in bio.
+#chef #chefslife #kitchen #recipes #hospitality #savour
+
+**Post 3 – Prep lists**
+The prep list that thinks along.
+
+Enter the covers and Savour works out how much you need of each item. Tick something off and the whole brigade sees it instantly, on any phone. Print it on a single A4 too.
+
+Link in bio.
+#prep #miseenplace #chef #chefslife #brigade #kitchen #savour
+
+**Post 4 – Allergens**
+Which ingredient contains which allergen?
+
+Savour shows the 14 allergens per recipe in one overview, per ingredient. Handy for front of house, and ready to print.
+
+Link in bio.
+#allergens #chef #chefslife #kitchen #foodsafety #hospitality #savour

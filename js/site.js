@@ -555,7 +555,7 @@
       var visit = {
         visitor_id: vid,
         path: location.pathname + visitSourceQuery(),
-        referrer: document.referrer || null,
+        referrer: firstReferrer() || null,
         user_agent: navigator.userAgent || null,
         country: window.savourCountry ? window.savourCountry() : null
       };
@@ -586,6 +586,17 @@
         window.addEventListener(e, human, { capture: true, passive: true });
       });
     } catch (_) {}
+  }
+  // Verwijzer van vóór het doorsturen naar de taal van de browser (langRedirect in index.html), anders de gewone.
+  function firstReferrer() {
+    try {
+      var r = sessionStorage.getItem('savour_ref');
+      if (r) {
+        sessionStorage.removeItem('savour_ref');
+        return r;
+      }
+    } catch (_) {}
+    return document.referrer;
   }
   // Zelfde als savourVisitSourceQuery in js/features/admin.js: alleen de herkomst uit de link, nooit iets persoonlijks.
   function visitSourceQuery() {

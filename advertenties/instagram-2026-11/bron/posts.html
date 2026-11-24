@@ -77,6 +77,38 @@
       '<div class="card"><img src="allergenenkaart.png" alt=""></div>' +
       foot
   };
+  // Engelse versie: ?p=1&lang=en (schermen uit de Engelse demo)
+  if (/lang=en/.test(location.search)) {
+    document.documentElement.lang = 'en';
+    var footEn = '<div class="foot"><span><b>savour.page</b></span><span>Free up to 100 recipes</span></div>';
+    html = {
+      1:
+        '<div class="logo"><b>S</b><i></i></div>' +
+        '<h1>Your recipes. <em>Finally in one place.</em></h1>' +
+        '<p class="sub">Recipe management for professional chefs. On every phone in the kitchen, for your whole brigade.</p>' +
+        '<ul><li>Import notes</li><li>Scaling</li><li>Allergens</li><li>Prep lists</li><li>Kitchen teams</li></ul>' +
+        '<div class="foot"><span><b>savour.page</b></span></div>',
+      2:
+        brand +
+        '<p class="kicker">Scaling</p>' +
+        '<h1>From 8 to 16 covers. <em>One tap.</em></h1>' +
+        '<p class="sub">Every quantity scales along. You can always go back to the original.</p>' +
+        phone('omrekenen-en.jpg'),
+      3:
+        brand +
+        '<p class="kicker">Prep lists</p>' +
+        '<h1>Your prep list. <em>Live for the whole brigade.</em></h1>' +
+        '<p class="sub">Enter the covers and Savour works out what each item needs. Tick something off and everyone sees it instantly.</p>' +
+        phone('mep-lijst-en.jpg'),
+      4:
+        brand +
+        '<p class="kicker">Allergens</p>' +
+        '<h1>The 14 allergens. <em>Per ingredient.</em></h1>' +
+        '<p class="sub">See at a glance which ingredient contains which allergen. Ready to print for front of house.</p>' +
+        '<div class="card"><img src="allergenenkaart-en.png" alt=""></div>' +
+        footEn
+    };
+  }
   var el = document.getElementById('post');
   if (p === '1') el.classList.add('intro');
   el.innerHTML = html[p];
