@@ -126,3 +126,25 @@ Gemaakt met `bron/advertentie.html?v=a-feed&lang=en` enz. In de Engelse feedvers
 - Description: Cost per portion in a minute
 - Button: Learn more
 - Link: `https://savour.page/en/blog/free-food-cost-calculator?bron=ig-ad-b`
+
+## Hoofddoel: kladjes, hele map, bibliotheek (Engels, `en/{notes,folder,library}-{post,feed,story}.png`)
+
+Gemaakt met `bron/kern.html?c=notes|folder|library&f=post|feed|story`. Schermen uit de Engelse demo; de bestandsnamen
+zijn recepten uit die demo en "shallot" vindt daar echt Beurre blanc, Duck jus en Mussels in white wine.
+
+**Notes – post**
+Recipes on scraps of paper, stained and folded in your apron pocket? Take a photo and Savour turns it into a clean recipe. You check it before it is saved, nothing is made up. Photos are read with Savour Pro, and every new account gets 7 days of Pro free. Link in bio.
+#chef #chefslife #recipes #kitchen #handwritten #pastrychef #savour
+
+**Folder – post**
+Years of recipes in a folder full of Word files, PDFs and photos? Choose the whole folder and Savour turns every recipe into one recipe book. You review them before anything is saved. Link in bio.
+#chef #chefslife #recipes #kitchen #recipebook #savour
+
+**Library – post**
+Every recipe, one search away. Search by name or by ingredient, sort A–Z, by category or by folder. Your whole kitchen's recipe book in one place, on every phone. Link in bio.
+#chef #chefslife #recipes #kitchen #recipebook #savour
+
+**Advertenties** (zelfde beelden als feed/story; knop: Sign up)
+- Notes: primary text = notes-post zonder hashtags · headline "Your notes, clean recipes" · link `https://savour.page/en?bron=ig-ad-notes`
+- Folder: primary text = folder-post · headline "Your whole recipe folder in one go" · link `https://savour.page/en?bron=ig-ad-folder`
+- Library: primary text = library-post · headline "Every recipe, one search away" · link `https://savour.page/en?bron=ig-ad-library`
