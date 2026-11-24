@@ -171,6 +171,26 @@ c = run('W.cost(DISH)');
 check('gerecht: portie, stuk en ingrediënt', c.complete && near(c.total, 1.8144 / 4 + 1.05 / 24 + 11.2), c.total);
 check('gerecht: 1 bord', c.portions?.value === 1);
 
+// ---- Savour-indicatie: alleen zonder eigen prijs, en altijd als indicatie herkenbaar ----
+ctx.W.indications = {
+  kaviaar: [{ unit: 'g', per_unit: 0.9, kitchens: 6 }],
+  truffel: [{ unit: 'g', per_unit: 2, kitchens: 7 }],
+  ei: [{ unit: 'stuk', per_unit: 99, kitchens: 9 }]
+};
+run('W.world.indicationsFor = key => W.indications[key] || []');
+x = line('20 g kaviaar');
+check('indicatie zonder product', x.status === 'indicatie' && near(x.cost, 18), x);
+x = line('20 g truffel');
+check('indicatie bij product zonder prijs', x.status === 'indicatie' && near(x.cost, 40), x.status);
+x = line('3 ei');
+check('eigen prijs gaat voor indicatie', x.status === 'ok' && near(x.cost, 1.05), x.cost);
+x = line('2 el kaviaar');
+check('indicatie in gram, recept in lepels: niet omrekenen', x.status === 'geen-product', x.status);
+ctx.R6 = { id: 'r6', yield: '2 porties', ingredients: ['20 g kaviaar', '3 ei'] };
+c = run('W.cost(R6)');
+check('recept met indicatie: compleet maar gemarkeerd', c.complete && c.indicated === 1 && near(c.total, 19.05), c);
+run('delete W.world.indicationsFor');
+
 // ---- Prijs en marge ----
 check('voorgestelde prijs', near(run('fcSuggestedPrice(6.06, 28)'), 21.642857142857142));
 check('foodcost %', near(run('fcFoodcostPct(6, 24)'), 25));

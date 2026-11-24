@@ -2,6 +2,26 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.de = {
   strings: {
+    indicatie: 'Richtwert',
+    'Savour-indicatie': 'Savour-Richtwert',
+    'mediaan van': 'Median von',
+    keukens: 'Küchen',
+    'Indicatie voor deze regel': 'Richtwert für diese Zeile',
+    'Je hebt hier zelf nog geen prijs voor. Savour gebruikt de mediaan van keukens die hun prijzen anoniem delen. Vul je eigen inkoopprijs in voor een exacte kostprijs.':
+      'Du hast hierfür noch keinen eigenen Preis. Savour nutzt den Median von Küchen, die ihre Preise anonym teilen. Trag deinen eigenen Einkaufspreis ein für einen genauen Wareneinsatz.',
+    'regel rust op een Savour-indicatie: de mediaanprijs van keukens die hun prijzen anoniem delen, geen eigen inkoopprijs.':
+      'Zeile beruht auf einem Savour-Richtwert: dem Medianpreis von Küchen, die ihre Preise anonym teilen, nicht deinem eigenen Einkaufspreis.',
+    'regels rusten op een Savour-indicatie: de mediaanprijs van keukens die hun prijzen anoniem delen, geen eigen inkoopprijs.':
+      'Zeilen beruhen auf einem Savour-Richtwert: dem Medianpreis von Küchen, die ihre Preise anonym teilen, nicht deinem eigenen Einkaufspreis.',
+    'Voor ingrediënten waar je zelf nog geen prijs voor hebt: de mediaanprijs van keukens die hun prijzen anoniem delen. Alleen als minstens 5 keukens meedoen, alleen prijzen van de laatste 90 dagen. Niemand ziet ooit jouw prijzen of wie wat betaalt.':
+      'Für Zutaten, für die du noch keinen Preis hast: der Medianpreis von Küchen, die ihre Preise anonym teilen. Nur wenn mindestens 5 Küchen mitmachen, nur Preise der letzten 90 Tage. Niemand sieht je deine Preise oder wer was bezahlt.',
+    'Indicaties gebruiken als ik zelf geen prijs heb': 'Richtwerte nutzen, wenn ich selbst keinen Preis habe',
+    'Altijd zichtbaar als indicatie (≈). Je eigen prijs gaat altijd voor.':
+      'Immer als Richtwert sichtbar (≈). Dein eigener Preis hat immer Vorrang.',
+    'ingrediënten met een indicatie.': 'Zutaten mit Richtwert.',
+    'Mijn prijzen anoniem delen voor de Savour-indicatie': 'Meine Preise anonym für den Savour-Richtwert teilen',
+    'Savour gebruikt je prijzen alleen samen met die van minstens 4 andere keukens, als mediaan. Je naam, leveranciers en losse prijzen worden nooit getoond. Zet je dit uit, dan telt je volgende berekening niet meer mee.':
+      'Savour nutzt deine Preise nur zusammen mit denen von mindestens 4 anderen Küchen, als Median. Dein Name, deine Lieferanten und einzelne Preise werden nie gezeigt. Schaltest du das aus, zählst du ab der nächsten Berechnung nicht mehr mit.',
     'Snel rekenen': 'Schnell rechnen',
     'Reken snel een gerecht door zonder recept in Savour: vul de ingrediënten met hun inkoopprijs in. Dit blijft alleen in deze browser staan. Voor je eigen recepten, prijslijsten en menu’s gebruik je de andere tabbladen.':
       'Rechne schnell ein Gericht ohne Rezept in Savour durch: Trag die Zutaten mit ihrem Einkaufspreis ein. Das bleibt nur in diesem Browser. Für deine eigenen Rezepte, Preislisten und Menüs nutzt du die anderen Reiter.',

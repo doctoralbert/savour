@@ -41,3 +41,4 @@ Nieuw bestand toevoegen: `JJJJ-MM-DD-korte-naam.sql`, bovenaan in gewone taal wa
 deze tabel.
 | 2026-11-24-foodcost.sql | Foodcost calculator: eigen inkoopprijzen, leveranciers, kostprijs per recept en menu's (alleen jijzelf ziet ze) |
 | 2026-11-24-foodcost-herstel.sql | Foodcost: opslaan van producten, prijzen en menu's herstellen; gerechten (een bord uit recepten en ingrediënten) |
+| 2026-11-24-foodcost-indicatie.sql | Savour-indicatie: anoniem prijzen delen (standaard uit) en mediaanprijzen bij minstens 5 keukens |

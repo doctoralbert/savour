@@ -887,3 +887,45 @@ body.savour-light .kp-quick {
 .kp-quick .fc-calc {
   margin-top: 0;
 }
+
+/* ---- Savour-indicatie ---- */
+.kp-ind {
+  flex: 0 0 auto;
+  padding: 1px 7px;
+  border: 1px dashed var(--sv-gold);
+  border-radius: 999px;
+  color: var(--sv-gold);
+  font-size: var(--sv-fs-xs);
+}
+.kp-ind-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0 0 var(--sv-space-2);
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-xs);
+  line-height: 1.5;
+}
+.kp-ind-note .sv-icon {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--sv-gold);
+}
+.kp-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+.kp-check input {
+  margin-top: 4px;
+}
+.kp-check > span {
+  display: grid;
+  gap: 2px;
+}
+.kp-check small {
+  color: var(--sv-text-2);
+  font-size: var(--sv-fs-xs);
+  line-height: 1.5;
+}

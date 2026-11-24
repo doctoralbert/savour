@@ -137,11 +137,26 @@ function fcLineCost(r, line, world, seen) {
   }
   if (!amount) return { ...base, status: 'geen-hoeveelheid' };
   const cp = world.costProductFor(key, line);
-  if (!cp) return { ...base, status: 'geen-product', steps: { amount } };
+  // Geen eigen prijs: dan eventueel de Savour-indicatie (mediaan van keukens die meedoen, zie
+  // supabase/2026-11-24-foodcost-indicatie.sql). Altijd zichtbaar als "indicatie", nooit als eigen prijs.
+  const indicated = () => {
+    for (const ind of world.indicationsFor?.(key, cp) || []) {
+      const conv = fcConvert(amount, ind.unit, cp || null);
+      if (conv.need) continue;
+      return {
+        ...base,
+        status: 'indicatie',
+        cost: conv.value * Number(ind.per_unit),
+        steps: { amount, product: cp || null, indication: ind, used: conv.value }
+      };
+    }
+    return null;
+  };
+  if (!cp) return indicated() || { ...base, status: 'geen-product', steps: { amount } };
   const chosen = world.priceFor(cp);
-  if (!chosen) return { ...base, status: 'geen-prijs', steps: { amount, product: cp } };
+  if (!chosen) return indicated() || { ...base, status: 'geen-prijs', steps: { amount, product: cp } };
   const unitPrice = fcUnitPrice(chosen.price, chosen.supplier);
-  if (!unitPrice) return { ...base, status: 'geen-prijs', steps: { amount, product: cp } };
+  if (!unitPrice) return indicated() || { ...base, status: 'geen-prijs', steps: { amount, product: cp } };
   const conv = fcConvert(amount, unitPrice.unit, cp);
   const steps = { amount, product: cp, price: chosen.price, supplier: chosen.supplier || null, unitPrice };
   if (conv.need) return { ...base, status: 'eenheid', steps: { ...steps, need: conv.need } };
@@ -182,7 +197,8 @@ function fcSameWord(a, b) {
   return short.length >= 3 && long.startsWith(short) && long.length - short.length <= 3;
 }
 
-const FC_DONE = new Set(['ok', 'vast', 'overgeslagen', 'basisrecept']);
+// 'indicatie' telt als uitgerekend, maar het recept laat zien hoeveel regels op een indicatie rusten (indicated).
+const FC_DONE = new Set(['ok', 'vast', 'overgeslagen', 'basisrecept', 'indicatie']);
 
 // Kostprijs van een recept.
 // world: {
@@ -201,10 +217,13 @@ function fcRecipeCost(r, world, seen = new Set()) {
   const total = lines.reduce((s, x) => s + (Number.isFinite(x.cost) ? x.cost : 0), 0);
   const open = lines.filter(x => !FC_DONE.has(x.status));
   const portions = fcPortions(r, rc);
+  // Regels die (ook via een basisrecept) op een Savour-indicatie rusten in plaats van op een eigen prijs.
+  const indicated = lines.filter(x => x.status === 'indicatie' || x.steps?.sub?.indicated > 0).length;
   return {
     total,
     complete: open.length === 0 && lines.length > 0,
     open: open.length,
+    indicated,
     lines,
     portions,
     perPortion: portions ? total / portions.value : null

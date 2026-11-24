@@ -75,6 +75,7 @@ function costStatusText(x) {
               ? 'omrekening?'
               : 'gewicht per ' + x.steps?.need + '?',
       'basisrecept-open': 'basisrecept niet compleet',
+      indicatie: 'indicatie',
       'geen-opbrengst': 'opbrengst basisrecept?',
       kring: 'kring',
       overgeslagen: 'telt niet mee',
@@ -142,14 +143,19 @@ function costLinesHtml(r, c, scaled = 1, removable = false) {
   const openNote = open
     ? `<p class="rp-allergens-open">${icon('alert', { size: 14 })}<span><span>${esc(t('Nog niet compleet'))}</span>: <b>${open}</b> <span>${esc(t(open === 1 ? 'regel' : 'regels'))}</span>. <span>${esc(t('Het totaal is daarom een ondergrens; Savour telt nooit een ontbrekende prijs als € 0.'))}</span></span></p>`
     : '';
-  return `${openNote}<ul class="kp-lines">${c.lines
+  const indNote = c.indicated
+    ? `<p class="kp-ind-note">${icon('info', { size: 14 })}<span><span class="kp-n">${c.indicated}</span> <span>${esc(t(c.indicated === 1 ? 'regel rust op een Savour-indicatie: de mediaanprijs van keukens die hun prijzen anoniem delen, geen eigen inkoopprijs.' : 'regels rusten op een Savour-indicatie: de mediaanprijs van keukens die hun prijzen anoniem delen, geen eigen inkoopprijs.'))}</span></span></p>`
+    : '';
+  return `${openNote}${indNote}<ul class="kp-lines">${c.lines
     .map(x => {
       const i = r.ingredients.indexOf(x.line);
       const done = FC_DONE.has(x.status);
       const amount =
-        done && x.status !== 'overgeslagen'
-          ? `<b>${fcMoney(x.cost * scaled)}</b>`
-          : `<span class="${done ? 'kp-chip-quiet' : 'kp-chip'}">${esc(t(costStatusText(x)))}</span>`;
+        x.status === 'indicatie' || x.steps?.sub?.indicated
+          ? `<span class="kp-ind">${esc(t('indicatie'))}</span><b>≈ ${fcMoney(x.cost * scaled)}</b>`
+          : done && x.status !== 'overgeslagen'
+            ? `<b>${fcMoney(x.cost * scaled)}</b>`
+            : `<span class="${done ? 'kp-chip-quiet' : 'kp-chip'}">${esc(t(costStatusText(x)))}</span>`;
       const extra = x.status === 'vast' ? `<small>${esc(t('vast bedrag'))}</small>` : '';
       return `<li><button type="button" onclick="openCostLine('${rid}', ${i})"><span class="kp-line-name" translate="no">${esc(x.line)}</span>${extra}${amount}</button>${removable ? `<button type="button" class="btn-quiet kp-line-x" onclick="removeDishPart('${rid}', ${i})" aria-label="${esc(t('Verwijderen'))}">×</button>` : ''}</li>`;
     })
@@ -233,6 +239,15 @@ function openCostLine(recipeId, index) {
         `<span translate="no">${esc(s.amount.text)}</span>${s.amount.range ? ` <small>${esc(t('(hoogste waarde)'))}</small>` : ''}`
       );
     if (s.used != null && s.unitPrice) row('Omgerekend', fcQty(s.used, s.unitPrice.unit));
+    if (s.indication) {
+      const u = s.indication.unit;
+      const per = u === 'stuk' ? s.indication.per_unit : s.indication.per_unit * 1000;
+      row(
+        'Savour-indicatie',
+        `<span class="kp-n">${fcMoney(per)}</span> <span>${esc(t(u === 'g' ? 'per kg' : u === 'ml' ? 'per liter' : 'per stuk'))}</span> · <span>${esc(t('mediaan van'))}</span> <span class="kp-n">${s.indication.kitchens}</span> <span>${esc(t('keukens'))}</span>${s.indication.newest ? ` · <small>${esc(costDate(s.indication.newest))}</small>` : ''}`
+      );
+      if (s.used != null) row('Omgerekend', fcQty(s.used, u));
+    }
     if (x.status === 'ok')
       row(
         'Opbrengst na schoonmaken',
@@ -242,7 +257,7 @@ function openCostLine(recipeId, index) {
       );
   }
   const total = FC_DONE.has(x.status)
-    ? `<div class="kp-trace-total"><span>${esc(t(x.status === 'overgeslagen' ? 'Telt bewust niet mee' : 'Kosten van deze regel'))}</span><b>${x.status === 'overgeslagen' ? '' : fcMoney(x.cost)}</b></div>`
+    ? `<div class="kp-trace-total"><span>${esc(t(x.status === 'overgeslagen' ? 'Telt bewust niet mee' : x.status === 'indicatie' ? 'Indicatie voor deze regel' : 'Kosten van deze regel'))}</span><b>${x.status === 'overgeslagen' ? '' : (x.status === 'indicatie' ? '≈ ' : '') + fcMoney(x.cost)}</b></div>${x.status === 'indicatie' ? `<p class="kp-why">${esc(t('Je hebt hier zelf nog geen prijs voor. Savour gebruikt de mediaan van keukens die hun prijzen anoniem delen. Vul je eigen inkoopprijs in voor een exacte kostprijs.'))}</p>` : ''}`
     : `<div class="kp-trace-total is-open"><span>${esc(t('Nog niet compleet'))}</span><b>${esc(t(costStatusText(x)))}</b></div>`;
   const why = {
     'geen-product': 'Savour weet nog niet wat je hiervoor betaalt. Vul de prijs in zoals op je factuur.',
@@ -782,7 +797,7 @@ function costDishesHtml() {
   return `<section class="kp-section">${head}<div class="kp-table kp-dishes"><div class="kp-thead"><span>${t('Gerecht')}</span><span>${t('Kostprijs')}</span><span>${t('Verkoopprijs')}</span><span>${t('Foodcost %')}</span><span>${t('Marge')}</span></div>${dishes
     .map(
       x =>
-        `<button type="button" class="kp-trow${x.over ? ' is-over' : ''}" onclick="openDishEditor('${escJs(x.d.id)}')"><span class="kp-name" translate="no">${esc(x.d.name)}</span><span data-label="${esc(fcT('Kostprijs'))}">${(x.c.complete ? '' : '≥ ') + fcMoney(x.c.total)}${x.c.complete ? '' : ` <span class="kp-chip">${x.c.open} ${esc(t('open'))}</span>`}</span><span data-label="${esc(fcT('Verkoopprijs'))}">${x.sell ? fcMoney(x.sell) : '–'}</span><span data-label="${esc(fcT('Foodcost %'))}">${x.pct != null ? (x.c.complete ? '' : '≥ ') + fcPct(x.pct) : '–'}</span><span data-label="${esc(fcT('Marge'))}">${x.margin != null ? fcMoney(x.margin) : '–'}</span></button>`
+        `<button type="button" class="kp-trow${x.over ? ' is-over' : ''}" onclick="openDishEditor('${escJs(x.d.id)}')"><span class="kp-name" translate="no">${esc(x.d.name)}</span><span data-label="${esc(fcT('Kostprijs'))}">${(x.c.complete ? (x.c.indicated ? '≈ ' : '') : '≥ ') + fcMoney(x.c.total)}${x.c.complete ? '' : ` <span class="kp-chip">${x.c.open} ${esc(t('open'))}</span>`}</span><span data-label="${esc(fcT('Verkoopprijs'))}">${x.sell ? fcMoney(x.sell) : '–'}</span><span data-label="${esc(fcT('Foodcost %'))}">${x.pct != null ? (x.c.complete ? '' : '≥ ') + fcPct(x.pct) : '–'}</span><span data-label="${esc(fcT('Marge'))}">${x.margin != null ? fcMoney(x.margin) : '–'}</span></button>`
     )
     .join('')}</div></section>`;
 }
@@ -1147,7 +1162,23 @@ async function editCostSupplier(id) {
 function costSettingsHtml() {
   const s = costData.settings;
   const edit = costCanEdit();
-  return `<section class="kp-section kp-settings"><h3>${esc(t('Standaard voor al je gerechten'))}</h3><label class="product-field"><span>${t('Doel foodcost')} (%)</span><input class="sv-dialog-input" inputmode="decimal" value="${esc(fcNum(s.target_pct))}" onchange="setCostSetting('target_pct', this.value)" ${edit ? '' : 'readonly'}><small class="muted">${esc(t('30% is netjes voor fine dining; banqueting en grote aantallen zitten vaak lager. Per gerecht kun je een ander doel kiezen.'))}</small></label><label class="product-field"><span>${t('Btw op eten')} (%)</span><input class="sv-dialog-input" inputmode="decimal" value="${esc(fcNum(s.vat_pct))}" onchange="setCostSetting('vat_pct', this.value)" ${edit ? '' : 'readonly'}><small class="muted">${esc(t('Savour rekent altijd zonder btw. De btw gebruikt het alleen om de prijs op de kaart te tonen.'))}</small></label></section>`;
+  return `<section class="kp-section kp-settings"><h3>${esc(t('Standaard voor al je gerechten'))}</h3><label class="product-field"><span>${t('Doel foodcost')} (%)</span><input class="sv-dialog-input" inputmode="decimal" value="${esc(fcNum(s.target_pct))}" onchange="setCostSetting('target_pct', this.value)" ${edit ? '' : 'readonly'}><small class="muted">${esc(t('30% is netjes voor fine dining; banqueting en grote aantallen zitten vaak lager. Per gerecht kun je een ander doel kiezen.'))}</small></label><label class="product-field"><span>${t('Btw op eten')} (%)</span><input class="sv-dialog-input" inputmode="decimal" value="${esc(fcNum(s.vat_pct))}" onchange="setCostSetting('vat_pct', this.value)" ${edit ? '' : 'readonly'}><small class="muted">${esc(t('Savour rekent altijd zonder btw. De btw gebruikt het alleen om de prijs op de kaart te tonen.'))}</small></label></section>${costIndicationSettingsHtml()}`;
+}
+
+// ---- Savour-indicatie: meedoen en gebruiken ----
+function costIndicationSettingsHtml() {
+  if (!costData.indicationsReady) return '';
+  const s = costData.settings;
+  const edit = costCanEdit();
+  const n = costData.indications.size;
+  return `<section class="kp-section kp-settings"><h3>${esc(t('Savour-indicatie'))}</h3><p class="muted">${esc(t('Voor ingrediënten waar je zelf nog geen prijs voor hebt: de mediaanprijs van keukens die hun prijzen anoniem delen. Alleen als minstens 5 keukens meedoen, alleen prijzen van de laatste 90 dagen. Niemand ziet ooit jouw prijzen of wie wat betaalt.'))}</p><label class="kp-check"><input type="checkbox" ${s.use_indications === false ? '' : 'checked'} onchange="setCostToggle('use_indications', this.checked)" ${edit ? '' : 'disabled'}><span><b>${esc(t('Indicaties gebruiken als ik zelf geen prijs heb'))}</b><small>${esc(t('Altijd zichtbaar als indicatie (≈). Je eigen prijs gaat altijd voor.'))} <span class="kp-n">${n}</span> <span>${esc(t('ingrediënten met een indicatie.'))}</span></small></span></label><label class="kp-check"><input type="checkbox" ${s.share_prices ? 'checked' : ''} onchange="setCostToggle('share_prices', this.checked)" ${edit ? '' : 'disabled'}><span><b>${esc(t('Mijn prijzen anoniem delen voor de Savour-indicatie'))}</b><small>${esc(t('Savour gebruikt je prijzen alleen samen met die van minstens 4 andere keukens, als mediaan. Je naam, leveranciers en losse prijzen worden nooit getoond. Zet je dit uit, dan telt je volgende berekening niet meer mee.'))}</small></span></label></section>`;
+}
+async function setCostToggle(field, on) {
+  if (!costCanEdit()) return costProNotice();
+  if (await saveCostSettings({ [field]: !!on })) {
+    toast(t('Opgeslagen'));
+    costRefresh();
+  }
 }
 async function setCostSetting(field, value) {
   if (!costCanEdit()) return costProNotice();

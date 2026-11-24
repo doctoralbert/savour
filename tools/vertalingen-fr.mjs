@@ -1,6 +1,20 @@
 // Franse vertalingen, naast tools/vertalingen.mjs: Nederlandse brontekst → Frans.
 // Nieuwe interfacetekst? Zet hier ook de Franse regel; node tools/build-i18n.mjs meldt wat ontbreekt.
 export const stringsFr = {
+ "indicatie": "indicatif",
+ "Savour-indicatie": "Prix indicatif Savour",
+ "mediaan van": "médiane de",
+ "keukens": "cuisines",
+ "Indicatie voor deze regel": "Estimation pour cette ligne",
+ "Je hebt hier zelf nog geen prijs voor. Savour gebruikt de mediaan van keukens die hun prijzen anoniem delen. Vul je eigen inkoopprijs in voor een exacte kostprijs.": "Tu n’as pas encore ton propre prix pour cela. Savour utilise la médiane des cuisines qui partagent leurs prix anonymement. Saisis ton prix d’achat pour un coût exact.",
+ "regel rust op een Savour-indicatie: de mediaanprijs van keukens die hun prijzen anoniem delen, geen eigen inkoopprijs.": "ligne repose sur un prix indicatif Savour : la médiane des cuisines qui partagent leurs prix anonymement, pas ton propre prix d’achat.",
+ "regels rusten op een Savour-indicatie: de mediaanprijs van keukens die hun prijzen anoniem delen, geen eigen inkoopprijs.": "lignes reposent sur un prix indicatif Savour : la médiane des cuisines qui partagent leurs prix anonymement, pas ton propre prix d’achat.",
+ "Voor ingrediënten waar je zelf nog geen prijs voor hebt: de mediaanprijs van keukens die hun prijzen anoniem delen. Alleen als minstens 5 keukens meedoen, alleen prijzen van de laatste 90 dagen. Niemand ziet ooit jouw prijzen of wie wat betaalt.": "Pour les ingrédients dont tu n’as pas encore le prix : la médiane des cuisines qui partagent leurs prix anonymement. Seulement si au moins 5 cuisines participent, seulement les prix des 90 derniers jours. Personne ne voit jamais tes prix ni qui paie quoi.",
+ "Indicaties gebruiken als ik zelf geen prijs heb": "Utiliser les prix indicatifs quand je n’ai pas de prix",
+ "Altijd zichtbaar als indicatie (≈). Je eigen prijs gaat altijd voor.": "Toujours affiché comme indicatif (≈). Ton propre prix passe toujours en premier.",
+ "ingrediënten met een indicatie.": "ingrédients avec un prix indicatif.",
+ "Mijn prijzen anoniem delen voor de Savour-indicatie": "Partager mes prix anonymement pour le prix indicatif Savour",
+ "Savour gebruikt je prijzen alleen samen met die van minstens 4 andere keukens, als mediaan. Je naam, leveranciers en losse prijzen worden nooit getoond. Zet je dit uit, dan telt je volgende berekening niet meer mee.": "Savour n’utilise tes prix qu’avec ceux d’au moins 4 autres cuisines, sous forme de médiane. Ton nom, tes fournisseurs et tes prix individuels ne sont jamais affichés. Si tu désactives, tu ne comptes plus dès le prochain calcul.",
  "Snel rekenen": "Calcul rapide",
  "Reken snel een gerecht door zonder recept in Savour: vul de ingrediënten met hun inkoopprijs in. Dit blijft alleen in deze browser staan. Voor je eigen recepten, prijslijsten en menu’s gebruik je de andere tabbladen.": "Calcule vite un plat sans recette dans Savour : saisis les ingrédients avec leur prix d’achat. Cela reste uniquement dans ce navigateur. Pour tes recettes, listes de prix et menus, utilise les autres onglets.",
  "Alles in één keer koppelen": "Tout lier en une fois",

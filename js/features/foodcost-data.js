@@ -21,6 +21,8 @@ function emptyCostData() {
     recipes: new Map(), // recipe_id → instellingen
     dishes: [], // gerechten: een bord uit recepten en ingrediënten (cost_dishes)
     dishesMissing: false, // tabel cost_dishes bestaat nog niet (herstel-SQL nog niet uitgevoerd)
+    indications: new Map(), // Savour-indicatie: sleutel → [{ unit, per_unit, kitchens, newest }]
+    indicationsReady: false, // supabase/2026-11-24-foodcost-indicatie.sql is uitgevoerd
     menus: [],
     menuItems: [],
     imports: [],
@@ -63,21 +65,23 @@ async function loadFoodcost(uid) {
     return;
   }
   const q = t => supabaseClient.from(t).select('*');
-  const [products, prices, suppliers, recipesRes, menus, items, settings, imports, dishes] = await Promise.all([
-    q('cost_products').order('name'),
-    q('cost_prices').order('valid_from', { ascending: false }).order('created_at', { ascending: false }),
-    q('cost_suppliers').order('name'),
-    q('cost_recipes'),
-    q('cost_menus').order('created_at'),
-    q('cost_menu_items').order('position'),
-    q('cost_settings').maybeSingle(),
-    supabaseClient
-      .from('cost_imports')
-      .select('id,supplier_id,file_name,approved,created_at')
-      .order('created_at', { ascending: false })
-      .limit(20),
-    q('cost_dishes').order('name')
-  ]);
+  const [products, prices, suppliers, recipesRes, menus, items, settings, imports, dishes, indications] =
+    await Promise.all([
+      q('cost_products').order('name'),
+      q('cost_prices').order('valid_from', { ascending: false }).order('created_at', { ascending: false }),
+      q('cost_suppliers').order('name'),
+      q('cost_recipes'),
+      q('cost_menus').order('created_at'),
+      q('cost_menu_items').order('position'),
+      q('cost_settings').maybeSingle(),
+      supabaseClient
+        .from('cost_imports')
+        .select('id,supplier_id,file_name,approved,created_at')
+        .order('created_at', { ascending: false })
+        .limit(20),
+      q('cost_dishes').order('name'),
+      supabaseClient.rpc('savour_cost_indications')
+    ]);
   if (products.error) {
     // Tabel bestaat nog niet: de SQL is nog niet uitgevoerd. Niets tonen dat niet kan werken.
     next.missing = /cost_products|does not exist|schema cache/i.test(products.error.message || '');
@@ -94,6 +98,8 @@ async function loadFoodcost(uid) {
   next.imports = imports.data || [];
   next.dishes = (dishes.data || []).map(costDishFromRow);
   next.dishesMissing = !!dishes.error;
+  next.indicationsReady = !indications.error;
+  costSetIndications(next, indications.data || []);
   if (settings.data) next.settings = settings.data;
   next.ready = true;
   costData = next;
@@ -106,6 +112,29 @@ function costProductFromRow(row) {
     aliases: Array.isArray(row.aliases) ? row.aliases : [],
     units: row.units && typeof row.units === 'object' ? row.units : {}
   };
+}
+
+// Rijen uit savour_cost_indications() (of de demo) per sleutel.
+function costSetIndications(d, rows) {
+  d.indications = new Map();
+  rows.forEach(row => {
+    const k = String(row.key || '').trim();
+    if (!k || !(Number(row.per_unit) > 0)) return;
+    if (!d.indications.has(k)) d.indications.set(k, []);
+    d.indications.get(k).push({ ...row, per_unit: Number(row.per_unit) });
+  });
+}
+
+// Indicaties bij een ingrediënt: op de sleutel uit het recept, op de namen van het eigen product (zonder prijs) en
+// op het product voor de allergenen ("koude roomboter" → roomboter). Alleen als de kok indicaties gebruikt.
+function costIndicationsFor(key, cp, scope) {
+  if (costData.settings.use_indications === false || !costData.indications.size) return [];
+  const keys = [key];
+  if (cp) keys.push(...[cp.name, ...cp.aliases].map(n => productKey(n)));
+  const allergen = costAllergenProduct(key, scope);
+  if (allergen) keys.push(...[allergen.name, ...allergen.aliases].map(n => productKey(n)));
+  for (const k of keys) if (costData.indications.has(k)) return costData.indications.get(k);
+  return [];
 }
 
 // ---- Opzoeken ----
@@ -288,6 +317,7 @@ function costWorld(r) {
       return null;
     },
     priceFor: costCurrentPrice,
+    indicationsFor: (key, cp) => costIndicationsFor(key, cp, scope),
     settingsFor: rr => costRecipeSettings(rr.id),
     // Een basisrecept dat in veel recepten zit, wordt één keer uitgerekend.
     subCost: (target, seen) => costMemo(target, () => fcRecipeCost(target, world, new Set(seen)))
@@ -625,6 +655,7 @@ async function saveCostSettings(changes) {
   const saved = demoMode ? row : await costWrite('cost_settings', row, { key: 'user_id' });
   if (!saved) return null;
   costData.settings = saved;
+  costBump(); // indicaties aan/uit verandert de uitkomst
   return saved;
 }
 
@@ -799,6 +830,16 @@ const DEMO_DISHES = [
 // Prijzen voor de losse ingrediënten van de demogerechten (per kg, opbrengst na schoonmaken).
 const DEMO_DISH_PRODUCTS = { cod: [22, 95], duck: [19, 100] };
 
+// Savour-indicaties in de demo: zelfbedachte medianen, zodat je ziet hoe het werkt bij ingrediënten zonder eigen
+// prijs. [recept, regelnummer, eenheid, prijs per eenheid, aantal keukens]. De sleutel komt uit de regel (elke taal).
+const DEMO_INDICATIONS = [
+  ['gazpacho', 6, 'ml', 0.0089, 14],
+  ['brioche', 0, 'g', 0.0011, 23],
+  ['brioche', 3, 'g', 0.0062, 8],
+  ['bloemkool', 0, 'stuk', 1.85, 11],
+  ['gravlax', 0, 'g', 0.0245, 9]
+];
+
 function fillDemoFoodcost(d) {
   d.suppliers = [{ id: 'demo-s-0', name: 'Groothandel', discount_pct: 4, note: '' }];
   const line = (key, i) => findRecipe('demo-' + key)?.ingredients[i] || '';
@@ -899,6 +940,18 @@ function fillDemoFoodcost(d) {
     note: '',
     archived: false
   }));
+  d.indicationsReady = true;
+  costSetIndications(
+    d,
+    DEMO_INDICATIONS.map(([k, i, unit, per_unit, kitchens]) => ({
+      key: ingredientKey(line(k, i)),
+      unit,
+      per_unit,
+      kitchens,
+      newest: new Date().toISOString().slice(0, 10)
+    }))
+  );
+  d.settings = { ...d.settings, share_prices: false, use_indications: true };
   d.menus = [{ id: 'demo-m-0', name: 'Kaart (voorbeeld)', kind: 'kaart', price: null, period: '', archived: false }];
   d.menuItems = DEMO_DISHES.map(([, , , sold], i) => ({
     id: 'demo-mi-' + i,
