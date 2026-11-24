@@ -67,14 +67,16 @@ function appMenuData() {
       ]
     },
     {
-      // Tools voor in de keuken: MEP-lijsten (js/features/mep.js) en Allergenen (js/features/products.js).
+      // Tools voor in de keuken: MEP-lijsten (js/features/mep.js), Allergenen (js/features/products.js) en
+      // Foodcost (js/features/foodcost-screens.js).
       id: 'tools',
       title: t('Tools'),
       intro: t('Hulpmiddelen voor in de keuken.'),
-      on: ['products', 'mep'].includes(active),
+      on: ['products', 'mep', 'foodcost'].includes(active),
       items: [
         item("go('mep')", t('MEP-lijsten'), t('Per post, met couverts en afvinken.'), active === 'mep', 'list'),
-        item("go('products')", t('Allergenen'), t('De 14 allergenen bij elk recept.'), active === 'products', 'leaf')
+        item("go('products')", t('Allergenen'), t('De 14 allergenen bij elk recept.'), active === 'products', 'leaf'),
+        item("go('foodcost')", t('Foodcost'), t('Kostprijs per gerecht en per menu.'), active === 'foodcost', 'chart')
       ]
     },
     {

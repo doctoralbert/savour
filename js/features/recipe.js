@@ -166,12 +166,14 @@ function openRecipe(id, context = 'library') {
            onder de ingrediënten (css/recipe-page.css, .rp-extra). -->
       <section class="rp-section rp-extra">
         <div id="rpAllergens"></div>
+        <div id="rpCost"></div>
         <div id="rpSideNote"></div>
       </section>
     </div>
   </article>`;
   renderIngredientLinks(r);
   renderRecipeAllergens(r);
+  renderRecipeCost(r);
   renderRecipeNote(r);
   go('detail');
 }

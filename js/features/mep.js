@@ -1643,7 +1643,7 @@ async function renderMepList() {
       mepReadOnlyNote(l) +
       (empty
         ? `<div class="mep-empty"><p>${esc(t('Deze lijst heeft nog geen onderdelen.'))}</p>${can ? `<button type="button" class="btn" onclick="setMepMode('bewerken')">${icon('edit')}${esc(t('Lijst bewerken'))}</button>` : ''}</div>`
-        : `<article class="mep-page" id="mepPage"><div class="mep-page-bar"><div class="mep-modes mep-filter" role="group" aria-label="${esc(t('Tonen'))}"><button type="button" id="mepFilterAll" onclick="setMepTodoOnly(false)">${esc(t('Alles'))}</button><button type="button" id="mepFilterTodo" onclick="setMepTodoOnly(true)">${esc(t('Alleen wat nog moet'))}</button></div><span id="mepLive" class="mep-live" role="status"></span></div><div class="mep-page-body" id="mepPageBody"></div></article>`);
+        : `<article class="mep-page" id="mepPage"><div class="mep-page-bar"><div class="mep-modes mep-filter" role="group" aria-label="${esc(t('Tonen'))}"><button type="button" id="mepFilterAll" onclick="setMepTodoOnly(false)">${esc(t('Alles'))}</button><button type="button" id="mepFilterTodo" onclick="setMepTodoOnly(true)">${esc(t('Alleen wat nog moet'))}</button></div><span id="mepLive" class="mep-live" role="status"></span></div><div id="mepCost"></div><div class="mep-page-body" id="mepPageBody"></div></article>`);
     setViewPhoto($('mepBand'), 'mep:' + l.id, team?.photo);
     renderMepPageBody();
     mepStartLive(l.id);
@@ -1741,6 +1741,8 @@ function renderMepPageBody(flashId) {
     }
   }
   mepShowLive();
+  // Grondstofkosten van vandaag (js/features/foodcost-screens.js): alleen met eigen prijzen, alleen voor jou.
+  renderMepCost();
 }
 
 // Eén onderdeel: hokje, naam, hoeveelheid (couverts × portie) en de portie zelf; afgevinkt met wie en hoe laat.

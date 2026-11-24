@@ -140,6 +140,7 @@ function go(id) {
   if (id === 'settings') renderSettings();
   if (id === 'community') renderCommunity();
   if (id === 'mep') renderMep();
+  if (id === 'foodcost') renderFoodcost();
   if (id === 'pro') renderProPage($('proBody'));
   if (id === 'import') renderImportPlanNotice();
 }

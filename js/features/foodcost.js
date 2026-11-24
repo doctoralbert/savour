@@ -77,7 +77,10 @@ function fcGramsPer(kind, word, cp) {
   if (kind === 'g') return 1;
   if (kind === 'ml') return cp?.density > 0 ? Number(cp.density) : null; // kg per liter = g per ml
   if (kind === 'stuk') return cp?.units?.stuk > 0 ? Number(cp.units.stuk) : null;
-  const g = cp?.units?.[word];
+  // "takje" en "takjes" zijn hetzelfde woord.
+  const units = cp?.units || {};
+  const k = word in units ? word : Object.keys(units).find(x => x !== 'stuk' && fcSameWord(x, word));
+  const g = k ? units[k] : null;
   return g > 0 ? Number(g) : null;
 }
 
@@ -125,17 +128,7 @@ function fcLineCost(r, line, world, seen) {
     const steps = { recipe: target, sub, amount, yieldAmount: y };
     if (!amount) return { ...base, status: 'geen-hoeveelheid', steps };
     if (!y) return { ...base, status: 'geen-opbrengst', steps };
-    let share = null;
-    if (amount.kind === y.kind && (amount.kind !== 'woord' || fcSameWord(amount.word, y.word)))
-      share = amount.value / y.value;
-    else if (amount.kind === 'stuk' && y.kind === 'woord' && y.portion) share = amount.value / y.value;
-    else if (amount.kind === 'woord' && y.kind === 'stuk') share = amount.value / y.value;
-    else {
-      // Gram tegenover liter: alleen met "1 l = … kg" die de kok bij het basisrecept invulde.
-      const d = Number(world.recipeSettings?.(target)?.density);
-      if (d > 0 && amount.kind === 'g' && y.kind === 'ml') share = amount.value / d / y.value;
-      if (d > 0 && amount.kind === 'ml' && y.kind === 'g') share = (amount.value * d) / y.value;
-    }
+    const share = fcShareOf(amount, y, world.recipeSettings?.(target));
     if (share === null) return { ...base, status: 'eenheid', steps: { ...steps, need: 'opbrengst' } };
     steps.share = share;
     const cost = sub.total * share;
@@ -159,6 +152,23 @@ function fcLineCost(r, line, world, seen) {
     cost: bought * unitPrice.perUnit,
     steps: { ...steps, used: conv.value, bought, yieldPct }
   };
+}
+
+// Welk deel van een basisrecept is deze hoeveelheid? 150 ml van "2 liter" = 0,075. Gram tegenover liter alleen
+// met "1 l = … kg" die de kok bij het basisrecept invulde (settings.density). null als het niet te zeggen is.
+function fcShareOf(amount, y, settings) {
+  if (!amount || !y || !(y.value > 0)) return null;
+  if (amount.kind === y.kind && (amount.kind !== 'woord' || fcSameWord(amount.word, y.word)))
+    return amount.value / y.value;
+  if (amount.kind === 'stuk' && y.kind === 'woord' && y.portion) return amount.value / y.value;
+  if (amount.kind === 'woord' && y.kind === 'stuk') return amount.value / y.value;
+  // Een portie per couvert ("40 portie") tegenover een opbrengst in porties.
+  if (amount.kind === 'woord' && y.kind === 'woord' && y.portion && FC_PORTION_WORDS.has(amount.word))
+    return amount.value / y.value;
+  const d = Number(settings?.density);
+  if (d > 0 && amount.kind === 'g' && y.kind === 'ml') return amount.value / d / y.value;
+  if (d > 0 && amount.kind === 'ml' && y.kind === 'g') return (amount.value * d) / y.value;
+  return null;
 }
 
 // "portie" en "porties", "liter" en "liters": hetzelfde woord.

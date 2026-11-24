@@ -10,6 +10,8 @@ const ICON_PATHS = {
   moon: '<path d="M20 14.5A8 8 0 019.5 4 7 7 0 1020 14.5z"/>',
   list: '<path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1.2 1.2L7 5M3.5 12l1.2 1.2L7 11"/><circle cx="5" cy="18" r="1.3"/>',
   leaf: '<path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14z"/><path d="M5 19l7-7"/>',
+  // Foodcost (2026-11-24): staafjes van een grafiek.
+  chart: '<path d="M4 20h16"/><path d="M7 16v-5M12 16V7M17 16v-8"/>',
   userPlus: '<circle cx="10" cy="8.5" r="3.4"/><path d="M3.5 20a6.5 6.5 0 0113 0"/><path d="M19 8v6M16 11h6"/>',
   shield: '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/>',
   back: '<path d="M15 18l-6-6 6-6"/>',
