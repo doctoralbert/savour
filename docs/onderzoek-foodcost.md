@@ -355,3 +355,50 @@ Gevolg voor het datamodel: alle tabellen heten `cost_*` en hebben `user_id`; RLS
 toevoegen en wijzigen met Pro, lezen en verwijderen altijd (`supabase/2026-11-24-foodcost.sql`). Een prijs hoort bij
 een eigen *kostproduct* (naam + schrijfwijzen), los van de producten voor allergenen, zodat teamgenoten nooit
 iets van je prijzen zien.
+
+---
+
+## 6. Hoe komen prijzen binnen bij anderen? (onderzoek 24-11-2026)
+
+Vraag van de eigenaar: kunnen koks zonder groothandelslijst ook beginnen, bijvoorbeeld met een indicatieprijslijst?
+Eerst nagegaan hoe de bekende pakketten dit doen. Alles hieronder komt van hun eigen pagina's, gelezen op 24-11-2026.
+
+| Partij | Hoe prijzen binnenkomen | Standaard- of marktprijzen voor wie niets heeft? |
+|---|---|---|
+| **Apicbase** | Koppelingen met groothandels die het assortiment **met de prijzen van die klant** doorsturen (Hanos, Sligro, Bidfood, VHC Jongens, Van Gelder, Driessen e.a.; via EDI of API). Instellen samen met hun Customer Success Manager; bij Hanos zet de accountmanager van de klant de gegevensexport aan. Daarnaast facturen inlezen (OCR, UBL/Peppol) om prijzen te controleren, en handmatig. | **Nee.** Niets gevonden. [support.apicbase.com/help/supplier-integrations](https://support.apicbase.com/help/supplier-integrations), [/help/procurement](https://support.apicbase.com/help/procurement), [/help/information-hanos-x-apicbase-integration](https://support.apicbase.com/help/information-hanos-x-apicbase-integration), [factuurcontrole](https://get.apicbase.com/nl/invoice-matching-software-horeca/) |
+| **meez** (VS) | Koppeling met hun back-office, een sjabloon uploaden, facturen mailen (meez verwerkt ze; pas vanaf Premium $179 p/m) of zelf invullen. Hun database van 2.500+ ingrediënten bevat opbrengst en omrekening, **geen prijzen**. | **Nee.** [getmeez.com/recipe-costing](https://www.getmeez.com/recipe-costing), [getmeez.com/pricing](https://www.getmeez.com/pricing) |
+| **Galley** (VS) | Facturen en EDI ("Invoice Manager"). Verder niet te controleren op hun site. | Niet gevonden. |
+| **Exact Horeko** (NL) | "Automatische kostprijsberekening via 100+ leverancierskoppelingen"; noemt o.a. Sligro, Bidfood, Makro, Hanos. Afgesproken prijzen komen mee (bijv. via Order XL). | **Nee.** [exact.com/nl/producten/exact-horeko](https://www.exact.com/nl/producten/exact-horeko), [koppelingen](https://www.exact.com/nl/bedrijven/exact-horeko/koppelingen) |
+| **Kitchennmbrs** (NL) | Handmatig; één partner (AGF-groothandel) zonder beschreven koppeling. | **Nee.** [kitchennmbrs.app/en/partners](https://kitchennmbrs.app/en/partners) |
+| **MarginEdge** (VS) | Facturen van de klant. | **Ja, als enige:** "Product Price Checker" en "Price Index": **medianen uit geanonimiseerde gegevens van 11.500+ restaurants**, met de kanttekening dat het trends zijn en geen exacte leveranciersprijzen. [marginedge.com/product-price-search](https://www.marginedge.com/product-price-search), [product-price-about](https://www.marginedge.com/product-price-about) |
+| **Open Prices** (Open Food Facts) | Open database van consumentenprijzen (ODbL). Gemeten via hun API: 349.276 prijzen wereldwijd, **291 uit Nederlandse winkels**, 0 van Nederlandse webwinkels. | Te weinig voor Nederland. [openfoodfacts.github.io/open-prices](https://openfoodfacts.github.io/open-prices/guides/data/) |
+
+Ook gezien: Hanos heeft een OCI-koppeling voor bestelsoftware (AFAS); die wordt ingesteld via de leverancier
+([help.afas.nl](https://help.afas.nl/help/NL/se/Ord_Purch_Config_Req_OCI_HANOS.htm)). PS in foodservice levert
+productgegevens van fabrikanten, geen prijzen ([psinfoodservice.com](https://www.psinfoodservice.com/)). Niet
+gevonden: een eigen pagina van Sligro, Hanos of Bidfood over prijsfeeds voor software (Bidfood en Makro weigerden
+de geautomatiseerde aanvraag).
+
+### Wat dit betekent
+
+1. **Geen enkele Nederlandse partij biedt indicatieprijzen.** De marktleiders werken met de echte prijzen van de klant,
+   via een koppeling met de groothandel. Die koppeling loopt via de groothandel zelf (accountmanager, technische
+   export) en met toestemming van de klant.
+2. **Supermarktprijzen gebruikt niemand.** Logisch: consumentenprijzen met btw en acties passen niet bij inkoop.
+3. **Het enige bewezen model voor wie geen prijzen heeft** is dat van MarginEdge: medianen uit de geanonimiseerde
+   prijzen van de eigen gebruikers, duidelijk gepresenteerd als indicatie.
+
+### Advies (ter beslissing door de eigenaar)
+
+1. **Nu al werkend:** prijslijst inladen, "Alles in één keer koppelen", Snel rekenen. Wie een groothandelsaccount
+   heeft, kan vandaag beginnen.
+2. **Groothandelskoppelingen (zoals Apicbase en Exact Horeko).** De eigenaar vraagt Hanos en Sligro (daarna Bidfood)
+   naar een koppeling: het assortiment met de prijzen van die klant, alleen met toestemming van de klant. Dit is de
+   enige schaalbare manier aan echte inkoopprijzen te komen. Savour bouwt de ontvangst; de groothandel levert.
+3. **Savour-indicatie (model MarginEdge).** Pro-keukens die meedoen (vinkje, uit te zetten) delen hun prijzen
+   anoniem; Savour toont per ingrediënt (via de Savour-lijst met 14.734 namen) de mediaan per kilo, liter of stuk,
+   alleen bij minstens 5 keukens en prijzen van de laatste 90 dagen, met "indicatie, mediaan van N keukens". Nooit
+   een losse prijs. Begint klein en wordt vanzelf beter. Tekst van het vinkje laten nakijken (afgesproken
+   groothandelsvoorwaarden).
+4. **Niet doen:** supermarktwebsites scrapen (juridisch risico na Ryanair/PR Aviation, HvJ 2015; consumentenprijzen)
+   en Open Prices (te weinig Nederlandse gegevens).
