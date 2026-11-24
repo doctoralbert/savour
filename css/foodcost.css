@@ -853,3 +853,37 @@ button.kp-trow:hover {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---- Snel rekenen: de gratis calculator van de website (css/site.css, .fc-calc) met dezelfde kleuren als daar.
+   De website zet die kleuren op .site; in de app geven we ze hier mee, donker en licht. ---- */
+.kp-quick {
+  --paper: #0a0f10;
+  --paper-2: #101819;
+  --ink: #eee8dc;
+  --ink-2: #b9beb7;
+  --ink-3: #87918b;
+  --line: #243031;
+  --gold: #e8ca8d;
+  --gold-soft: #e8ca8d;
+  --night: #050809;
+  --night-2: #1d2320;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.7;
+}
+body.savour-light .kp-quick {
+  --paper: #f6f2ea;
+  --paper-2: #efe8db;
+  --ink: #1d201e;
+  --ink-2: #4f534d;
+  --ink-3: #6f716a;
+  --line: #ddd4c3;
+  --gold: #8a6a2e;
+  --gold-soft: #e8ca8d;
+}
+.kp-quick .fc-calc {
+  margin-top: 0;
+}

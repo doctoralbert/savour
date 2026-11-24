@@ -743,7 +743,7 @@ function costRecipesHtml() {
 // ---- Snel rekenen: het handmatige formulier van de website (js/foodcost-calc.js), zonder iets op te slaan in je
 // account. Handig om snel een gerecht door te rekenen dat nog niet in Savour staat. ----
 function costQuickHtml() {
-  return `<section class="kp-section"><p class="muted">${esc(t('Reken snel een gerecht door zonder recept in Savour: vul de ingrediënten met hun inkoopprijs in. Dit blijft alleen in deze browser staan. Voor je eigen recepten, prijslijsten en menu’s gebruik je de andere tabbladen.'))}</p><div class="fc-calc" translate="no"></div></section>`;
+  return `<section class="kp-section"><p class="muted">${esc(t('Reken snel een gerecht door zonder recept in Savour: vul de ingrediënten met hun inkoopprijs in. Dit blijft alleen in deze browser staan. Voor je eigen recepten, prijslijsten en menu’s gebruik je de andere tabbladen.'))}</p><div class="kp-quick"><div class="fc-calc" translate="no"></div></div></section>`;
 }
 function startCostQuick() {
   if (window.savourFoodcostCalc) return window.savourFoodcostCalc();
