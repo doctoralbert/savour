@@ -905,6 +905,7 @@ function costMissingIngredients() {
         key: x.key,
         line: x.line,
         recipeId: r.id,
+        group: x.status === 'geen-product' ? costAllergenProduct(x.key, productScopeOf(r)) : null,
         count: 0,
         status: x.status,
         product: x.steps?.product || null,
@@ -915,6 +916,130 @@ function costMissingIngredients() {
     });
   });
   return [...map.values()].sort((a, b) => b.count - a.count || a.key.localeCompare(b.key, 'nl'));
+}
+
+// ---- Alles in één keer koppelen ----
+// Duizenden ingrediëntregels één voor één koppelen is niet te doen. Savour groepeert de schrijfwijzen via het product
+// voor de allergenen ("koude roomboter", "boter, zacht" → Roomboter), zoekt per groep het beste voorstel uit je
+// prijslijst en zet alles in één overzicht. Zekere voorstellen staan aangevinkt, de rest kies je; pas na "Koppelen"
+// wordt er iets opgeslagen. Wat niet klopt vink je uit; later aanpassen kan altijd bij het product.
+let costBulk = null;
+
+function openCostBulkLink() {
+  if (!costCanEdit()) return costProNotice();
+  const groups = new Map();
+  costMissingIngredients()
+    .filter(m => m.status === 'geen-product')
+    .forEach(m => {
+      const id = m.group ? 'p:' + m.group.id : 'k:' + m.key;
+      const g = groups.get(id) || {
+        id,
+        name: m.group ? m.group.name : m.key,
+        linkKey: m.group ? productKey(m.group.name) : m.key,
+        keys: [],
+        count: 0
+      };
+      g.keys.push(m.key);
+      g.count += m.count;
+      groups.set(id, g);
+    });
+  const rows = [...groups.values()].map(g => {
+    let options = costSuggestionsScored(g.name, 5);
+    if (!options.length) for (const k of g.keys) if ((options = costSuggestionsScored(k, 5)).length) break;
+    // Alleen aangevinkt als er precies één duidelijke kandidaat is; bij twee slagrooms kiest de kok zelf.
+    const sure = !!options[0]?.sure && options.filter(o => o.sure).length === 1;
+    return { ...g, options, choice: options[0]?.cp.id || '', use: sure, sure };
+  });
+  rows.sort((a, b) => b.options.length - a.options.length || b.count - a.count);
+  costBulk = { rows, saving: false };
+  renderCostBulkLink();
+}
+
+function renderCostBulkLink() {
+  const rows = costBulk.rows.filter(r => r.options.length);
+  const none = costBulk.rows.length - rows.length;
+  const chosen = rows.filter(r => r.use && r.choice).length;
+  const option = (r, o) => {
+    const cur = costCurrentPrice(o.cp);
+    const price = cur
+      ? ` · ${fcMoney(Number(cur.price.price))} ${cur.price.pack_text || fcQty(Number(cur.price.pack_qty), cur.price.pack_unit)}`
+      : '';
+    return `<option value="${esc(o.cp.id)}"${r.choice === o.cp.id ? ' selected' : ''}>${esc(o.cp.name + price)}</option>`;
+  };
+  const list = rows
+    .map((r, i) => {
+      const idx = costBulk.rows.indexOf(r);
+      const variants =
+        r.keys.length > 1
+          ? `<small class="kp-bulk-keys" translate="no">${esc(r.keys.slice(0, 4).join(', '))}${r.keys.length > 4 ? ' …' : ''}</small>`
+          : '';
+      return `<li class="${r.use ? 'is-on' : ''}"><label><input type="checkbox" ${r.use ? 'checked' : ''} onchange="costBulk.rows[${idx}].use=this.checked;renderCostBulkLink()"><span><b translate="no">${esc(r.name)}</b><small><span class="kp-n">${r.count}</span> <span>${esc(t(r.count === 1 ? 'regel' : 'regels'))}</span>${r.sure ? '' : ` · <span>${esc(t('controleer'))}</span>`}</small>${variants}</span></label><select class="sv-dialog-input" onchange="costBulk.rows[${idx}].choice=this.value;costBulk.rows[${idx}].use=!!this.value;renderCostBulkLink()" translate="no"><option value="">– ${esc(t('niet koppelen'))}</option>${r.options.map(o => option(r, o)).join('')}</select></li>`;
+    })
+    .join('');
+  const scroll = document.querySelector('#costDialog .kp-bulk-rows')?.scrollTop || 0;
+  costDialog(
+    `<h2 class="sv-dialog-title">${esc(t('Alles in één keer koppelen'))}</h2><p class="kp-why">${esc(t('Per ingrediënt uit je recepten het beste voorstel uit je prijslijst. Schrijfwijzen van hetzelfde product staan samen. Zekere voorstellen staan aangevinkt; kijk de rest na en kies zo nodig een ander product. Er wordt niets gekoppeld voordat je op Koppelen drukt.'))}</p><div class="kp-imp-tools"><button type="button" class="btn-quiet" onclick="costBulk.rows.forEach(r=>r.use=r.sure&&!!r.choice);renderCostBulkLink()">${esc(t('Alleen zekere aanvinken'))}</button><button type="button" class="btn-quiet" onclick="costBulk.rows.forEach(r=>r.use=!!r.choice);renderCostBulkLink()">${esc(t('Alles met een voorstel aanvinken'))}</button><button type="button" class="btn-quiet" onclick="costBulk.rows.forEach(r=>r.use=false);renderCostBulkLink()">${esc(t('Niets aanvinken'))}</button></div><ul class="kp-bulk-rows">${list || `<li class="muted">${esc(t('Geen voorstellen gevonden.'))}</li>`}</ul>${none ? `<p class="kp-note"><span class="kp-n">${none}</span> <span>${esc(t(none === 1 ? 'ingrediënt zonder voorstel: dat vul je later zelf in.' : 'ingrediënten zonder voorstel: die vul je later zelf in.'))}</span></p>` : ''}<div class="kp-actions"><button type="button" class="btn gold" onclick="saveCostBulkLink()" ${chosen && !costBulk.saving ? '' : 'disabled'}><span class="kp-n">${chosen}</span> <span>${esc(t(chosen === 1 ? 'ingrediënt koppelen' : 'ingrediënten koppelen'))}</span></button></div>`,
+    'kp-import kp-bulk'
+  );
+  const box = document.querySelector('#costDialog .kp-bulk-rows');
+  if (box) box.scrollTop = scroll;
+}
+
+async function saveCostBulkLink() {
+  if (!costBulk || costBulk.saving) return;
+  const chosen = costBulk.rows.filter(r => r.use && r.choice);
+  if (!chosen.length) return;
+  costBulk.saving = true;
+  renderCostBulkLink();
+  // Per product één keer opslaan, met alle namen die erbij horen.
+  const byProduct = new Map();
+  chosen.forEach(r => {
+    if (!byProduct.has(r.choice)) byProduct.set(r.choice, []);
+    byProduct.get(r.choice).push(r.linkKey);
+  });
+  let linked = 0;
+  let full = 0;
+  try {
+    for (const [id, keys] of byProduct) {
+      const cp = costData.products.find(x => x.id === id);
+      if (!cp) continue;
+      const names = [...new Set([...cp.aliases, ...keys])];
+      if (names.length > 80) full += names.length - 80;
+      const saved = await saveCostProduct({ ...cp, aliases: names.slice(0, 80) });
+      if (!saved) break;
+      linked += keys.length;
+    }
+  } finally {
+    costBulk.saving = false;
+  }
+  closeCostDialog();
+  toast(`${linked} ${t(linked === 1 ? 'ingrediënt gekoppeld' : 'ingrediënten gekoppeld')}`);
+  if (full) toast(t('Een product heeft het maximum van 80 schrijfwijzen bereikt; de rest is niet gekoppeld.'));
+  costRefresh();
+}
+
+// Melding bij producten zonder prijs die dezelfde naam hebben als een product met prijs.
+function costMergeNoticeHtml() {
+  const pairs = costMergeCandidates();
+  if (!pairs.length || !costCanEdit()) return '';
+  return `<div class="kp-empty kp-merge"><p><span class="kp-n">${pairs.length}</span> <span>${esc(t(pairs.length === 1 ? 'product zonder prijs heeft dezelfde naam als een product met prijs:' : 'producten zonder prijs hebben dezelfde naam als een product met prijs:'))}</span> <span translate="no">${esc(pairs.map(x => x.from.name).join(', '))}</span>. <span>${esc(t('Samenvoegen zet je koppelingen over naar het product met prijs.'))}</span></p><button type="button" class="btn gold" onclick="mergeCostProductsAsk()">${esc(t('Samenvoegen'))}</button></div>`;
+}
+
+async function mergeCostProductsAsk() {
+  const pairs = costMergeCandidates();
+  if (!pairs.length) return;
+  if (
+    !(await askConfirm(
+      t(
+        'Samenvoegen? De namen waaronder deze producten in je recepten staan gaan naar het product met prijs; het product zonder prijs verdwijnt. Je recepten veranderen niet.'
+      ),
+      { confirmLabel: t('Samenvoegen') }
+    ))
+  )
+    return;
+  const n = await mergeCostProducts(pairs);
+  toast(`${n} ${t(n === 1 ? 'product samengevoegd' : 'producten samengevoegd')}`);
+  costRefresh();
 }
 
 // Knopjes "Lijkt op: …" bij een ingrediënt zonder prijs: één klik koppelt het aan dat product uit je prijslijst.
@@ -933,7 +1058,7 @@ function costIngredientsHtml() {
   const missing = costMissingIngredients();
   const edit = costCanEdit();
   const todo = missing.length
-    ? `<section class="kp-section"><h3>${esc(t('Nog in te vullen'))} <small>${missing.length}</small></h3><p class="muted">${esc(t('Het vaakst gebruikt bovenaan: daar levert een prijs het meeste op.'))}</p><ul class="kp-todo">${missing
+    ? `${costMergeNoticeHtml()}<section class="kp-section"><div class="kp-section-head"><h3>${esc(t('Nog in te vullen'))} <small>${missing.length}</small></h3>${edit && costData.products.length && missing.some(m => m.status === 'geen-product') ? `<div class="kp-head-actions"><button type="button" class="btn btn-sm gold" onclick="openCostBulkLink()">${esc(t('Alles in één keer koppelen'))}</button></div>` : ''}</div><p class="muted">${esc(t('Het vaakst gebruikt bovenaan: daar levert een prijs het meeste op.'))}</p><ul class="kp-todo">${missing
         .slice(0, 60)
         .map(
           m =>
@@ -1547,8 +1672,7 @@ async function saveCostImportRows(ci, chosen) {
   const made = new Map();
   for (const r of chosen) {
     let cp = r.match || (r.code && made.get(r.code)) || null;
-    if (!cp)
-      cp = await saveCostProduct({ id: '', name: r.name, aliases: [productKey(r.name)].filter(Boolean), units: {} });
+    if (!cp) cp = await saveCostProduct({ id: '', name: r.name, aliases: [], units: {} });
     if (!cp) break;
     if (r.code) made.set(r.code, cp);
     const price = await addCostPrice({

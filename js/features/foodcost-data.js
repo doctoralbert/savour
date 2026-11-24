@@ -166,12 +166,20 @@ function costProductIndex() {
 }
 function costProductIndexBuild() {
   const map = new Map();
-  costData.products.forEach(cp =>
-    [cp.name, ...cp.aliases].forEach(n => {
+  // Producten uit een ingeladen prijslijst ("Sjalotten blokjes 5mm") koppelen niet vanzelf op hun naam: het
+  // opzoeken haalt "blokjes" weg en dan zou het stil aan "sjalotten" in een recept vastzitten. Alleen een naam die
+  // al precies een ingrediënt is ("Basilicum", "Prei") telt; de rest koppelt de kok zelf (voorstellen, één klik).
+  const fromList = new Set(costData.prices.filter(pr => pr.source === 'lijst').map(pr => String(pr.product_id)));
+  costData.products.forEach(cp => {
+    const own = productKey(cp.name);
+    const clean = own === String(cp.name).toLocaleLowerCase('nl-NL').trim();
+    const names =
+      fromList.has(cp.id) && !clean ? cp.aliases.filter(a => productKey(a) !== own) : [cp.name, ...cp.aliases];
+    names.forEach(n => {
       const k = productKey(n);
       if (k && !map.has(k)) map.set(k, cp);
-    })
-  );
+    });
+  });
   return map;
 }
 
@@ -456,6 +464,12 @@ async function undoCostImport(importId) {
 // "bloem" → Patisseriebloem; "sherry" → Osborne Sherry Manzanilla. Op hele woorden, of een samengesteld woord dat op
 // het ingrediënt eindigt. Alleen een voorstel: de kok kiest, Savour koppelt nooit vanzelf.
 function costSuggestions(key, max = 4) {
+  return costSuggestionsScored(key, max).map(x => x.cp);
+}
+
+// Zelfde voorstellen met een score en "zeker": het eerste woord van het product is precies het ingrediënt (of het
+// meervoud), zoals "Suiker - Wikkel" bij suiker. Alleen producten met een prijs.
+function costSuggestionsScored(key, max = 4) {
   const words = productKey(key)
     .split(' ')
     .filter(w => w.length >= 3);
@@ -482,6 +496,8 @@ function costSuggestions(key, max = 4) {
   ]);
   const scored = [];
   costData.products.forEach(cp => {
+    if (!costPricesOf(cp).length) return;
+    let sure = false;
     const name = productKey(cp.name);
     const nameWords = name.split(/[\s-]+/).filter(Boolean);
     let score = 0;
@@ -490,13 +506,18 @@ function costSuggestions(key, max = 4) {
       nameWords.forEach((n, i) => {
         if (i > 0 && LINK.has(nameWords[i - 1])) return;
         const front = i === 0 ? 8 : 0; // vooraan staat meestal wat het product is: "Suiker - Wikkel", "Zeezout fijn"
-        if (n === w) best = Math.max(best, 10 + front);
+        if (n === w) {
+          best = Math.max(best, 10 + front);
+          if (i === 0 && w === words[0]) sure = true;
+        }
         // Enkelvoud en meervoud (citroen/citroenen, sjalot/sjalotten), niet citroen/citroensap.
         else if (
           [w + 's', w + 'en', w + 'n', w + "'s", w + w.slice(-1) + 'en'].includes(n) ||
           [n + 's', n + 'en', n + 'n', n + n.slice(-1) + 'en'].includes(w)
-        )
+        ) {
           best = Math.max(best, 8 + front);
+          if (i === 0 && w === words[0]) sure = true;
+        }
         // Samengesteld woord dat op het ingrediënt eindigt: Automatensuiker, Patisseriebloem, Zeezout.
         else if (w.length >= 4 && n.length > w.length && n.endsWith(w)) best = Math.max(best, 7 + front);
       });
@@ -504,13 +525,54 @@ function costSuggestions(key, max = 4) {
       score += best;
     }
     if (name === productKey(key)) score += 20;
-    score -= nameWords.length * 0.5; // korter is waarschijnlijker het basisproduct
-    scored.push({ cp, score });
+    // Korter is waarschijnlijker het basisproduct; tel de echte naam, dus ook "blokjes" en "5mm".
+    score -= String(cp.name).trim().split(/\s+/).length * 0.5;
+    scored.push({ cp, score, sure });
   });
-  return scored
-    .sort((a, b) => b.score - a.score || a.cp.name.localeCompare(b.cp.name, 'nl'))
-    .slice(0, max)
-    .map(x => x.cp);
+  return scored.sort((a, b) => b.score - a.score || a.cp.name.localeCompare(b.cp.name, 'nl')).slice(0, max);
+}
+
+// Product voor de allergenen bij een ingrediënt: daarmee horen "koude roomboter", "boter, zacht" en "roomboter"
+// bij elkaar. Eén koppeling op die naam geldt dan voor alle schrijfwijzen (costWorld zoekt via dit product).
+function costAllergenProduct(key, scope) {
+  const cache = costCache();
+  if (!cache.allergen.has(scope)) cache.allergen.set(scope, productsReady ? productIndex(scope) : new Map());
+  return cache.allergen.get(scope).get(key) || null;
+}
+
+// Producten zonder prijs met dezelfde naam als een product mét prijs (bijv. na het ongedaan maken van een dubbele
+// lijst, terwijl je er al iets aan had gekoppeld). Samenvoegen: de schrijfwijzen gaan naar het product met prijs.
+function costMergeCandidates() {
+  const priced = new Map();
+  costData.products.forEach(cp => {
+    if (costPricesOf(cp).length && !priced.has(productKey(cp.name))) priced.set(productKey(cp.name), cp);
+  });
+  return costData.products
+    .filter(cp => !costPricesOf(cp).length && priced.has(productKey(cp.name)))
+    .map(cp => ({ from: cp, to: priced.get(productKey(cp.name)) }));
+}
+
+async function mergeCostProducts(pairs) {
+  let done = 0;
+  for (const { from, to } of pairs) {
+    const current = costData.products.find(cp => cp.id === to.id) || to;
+    const aliases = [
+      ...new Set([...current.aliases, ...from.aliases].map(a => String(a).trim()).filter(Boolean))
+    ].slice(0, 80);
+    const saved = await saveCostProduct({
+      ...current,
+      aliases,
+      units: { ...(from.units || {}), ...(current.units || {}) },
+      yield_pct: current.yield_pct ?? from.yield_pct ?? null,
+      density: current.density ?? from.density ?? null
+    });
+    if (!saved) break;
+    if (!(await costDelete('cost_products', from.id))) break;
+    costData.products = costData.products.filter(cp => cp.id !== from.id);
+    done++;
+  }
+  costBump();
+  return done;
 }
 
 async function removeCostPrice(id) {

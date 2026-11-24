@@ -2,6 +2,33 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.en = {
   strings: {
+    'Alles in één keer koppelen': 'Link everything at once',
+    'Per ingrediënt uit je recepten het beste voorstel uit je prijslijst. Schrijfwijzen van hetzelfde product staan samen. Zekere voorstellen staan aangevinkt; kijk de rest na en kies zo nodig een ander product. Er wordt niets gekoppeld voordat je op Koppelen drukt.':
+      'For each ingredient in your recipes, the best match from your price list. Spellings of the same product are grouped. Certain matches are ticked; check the rest and choose another product if needed. Nothing is linked until you press Link.',
+    'Alleen zekere aanvinken': 'Tick only certain ones',
+    'Alles met een voorstel aanvinken': 'Tick all with a suggestion',
+    'Geen voorstellen gevonden.': 'No suggestions found.',
+    'niet koppelen': 'don’t link',
+    controleer: 'check',
+    'ingrediënt zonder voorstel: dat vul je later zelf in.':
+      'ingredient without a suggestion: fill it in yourself later.',
+    'ingrediënten zonder voorstel: die vul je later zelf in.':
+      'ingredients without a suggestion: fill them in yourself later.',
+    'ingrediënt koppelen': 'link ingredient',
+    'ingrediënten koppelen': 'link ingredients',
+    '^(\\d+) ingrediënt(?:en)? gekoppeld$': '$1 ingredient(s) linked',
+    'Een product heeft het maximum van 80 schrijfwijzen bereikt; de rest is niet gekoppeld.':
+      'A product has reached the maximum of 80 spellings; the rest was not linked.',
+    'product zonder prijs heeft dezelfde naam als een product met prijs:':
+      'product without a price has the same name as a product with a price:',
+    'producten zonder prijs hebben dezelfde naam als een product met prijs:':
+      'products without a price have the same name as a product with a price:',
+    'Samenvoegen zet je koppelingen over naar het product met prijs.':
+      'Merging moves your links to the product with a price.',
+    Samenvoegen: 'Merge',
+    'Samenvoegen? De namen waaronder deze producten in je recepten staan gaan naar het product met prijs; het product zonder prijs verdwijnt. Je recepten veranderen niet.':
+      'Merge? The names these products have in your recipes move to the product with a price; the product without a price disappears. Your recipes don’t change.',
+    '^(\\d+) product(?:en)? samengevoegd$': '$1 product(s) merged',
     'Bezig met opslaan…': 'Saving…',
     'Ongedaan maken': 'Undo',
     Prijslijst: 'Price list',

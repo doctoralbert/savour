@@ -2,6 +2,31 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.de = {
   strings: {
+    'Alles in één keer koppelen': 'Alles auf einmal verknüpfen',
+    'Per ingrediënt uit je recepten het beste voorstel uit je prijslijst. Schrijfwijzen van hetzelfde product staan samen. Zekere voorstellen staan aangevinkt; kijk de rest na en kies zo nodig een ander product. Er wordt niets gekoppeld voordat je op Koppelen drukt.':
+      'Für jede Zutat aus deinen Rezepten der beste Vorschlag aus deiner Preisliste. Schreibweisen desselben Produkts stehen zusammen. Sichere Vorschläge sind angehakt; prüfe den Rest und wähle bei Bedarf ein anderes Produkt. Nichts wird verknüpft, bevor du auf Verknüpfen drückst.',
+    'Alleen zekere aanvinken': 'Nur sichere anhaken',
+    'Alles met een voorstel aanvinken': 'Alle mit Vorschlag anhaken',
+    'Geen voorstellen gevonden.': 'Keine Vorschläge gefunden.',
+    'niet koppelen': 'nicht verknüpfen',
+    controleer: 'prüfen',
+    'ingrediënt zonder voorstel: dat vul je later zelf in.': 'Zutat ohne Vorschlag: trag sie später selbst ein.',
+    'ingrediënten zonder voorstel: die vul je later zelf in.': 'Zutaten ohne Vorschlag: trag sie später selbst ein.',
+    'ingrediënt koppelen': 'Zutat verknüpfen',
+    'ingrediënten koppelen': 'Zutaten verknüpfen',
+    '^(\\d+) ingrediënt(?:en)? gekoppeld$': '$1 Zutat(en) verknüpft',
+    'Een product heeft het maximum van 80 schrijfwijzen bereikt; de rest is niet gekoppeld.':
+      'Ein Produkt hat das Maximum von 80 Schreibweisen erreicht; der Rest wurde nicht verknüpft.',
+    'product zonder prijs heeft dezelfde naam als een product met prijs:':
+      'Produkt ohne Preis hat denselben Namen wie ein Produkt mit Preis:',
+    'producten zonder prijs hebben dezelfde naam als een product met prijs:':
+      'Produkte ohne Preis haben denselben Namen wie ein Produkt mit Preis:',
+    'Samenvoegen zet je koppelingen over naar het product met prijs.':
+      'Zusammenführen verschiebt deine Verknüpfungen zum Produkt mit Preis.',
+    Samenvoegen: 'Zusammenführen',
+    'Samenvoegen? De namen waaronder deze producten in je recepten staan gaan naar het product met prijs; het product zonder prijs verdwijnt. Je recepten veranderen niet.':
+      'Zusammenführen? Die Namen, unter denen diese Produkte in deinen Rezepten stehen, gehen zum Produkt mit Preis; das Produkt ohne Preis verschwindet. Deine Rezepte ändern sich nicht.',
+    '^(\\d+) product(?:en)? samengevoegd$': '$1 Produkt(e) zusammengeführt',
     'Bezig met opslaan…': 'Wird gespeichert…',
     'Ongedaan maken': 'Rückgängig machen',
     Prijslijst: 'Preisliste',

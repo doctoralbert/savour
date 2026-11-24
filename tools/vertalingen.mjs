@@ -1,6 +1,26 @@
 // Brontabel voor de vertalingen: [Nederlands, Engels, Duits, Spaans].
 export const strings = [
   // ---- Foodcost calculator (2026-11-24, js/features/foodcost-screens.js) ----
+  ["Alles in één keer koppelen","Link everything at once","Alles auf einmal verknüpfen","Vincular todo de una vez"],
+  ["Per ingrediënt uit je recepten het beste voorstel uit je prijslijst. Schrijfwijzen van hetzelfde product staan samen. Zekere voorstellen staan aangevinkt; kijk de rest na en kies zo nodig een ander product. Er wordt niets gekoppeld voordat je op Koppelen drukt.","For each ingredient in your recipes, the best match from your price list. Spellings of the same product are grouped. Certain matches are ticked; check the rest and choose another product if needed. Nothing is linked until you press Link.","Für jede Zutat aus deinen Rezepten der beste Vorschlag aus deiner Preisliste. Schreibweisen desselben Produkts stehen zusammen. Sichere Vorschläge sind angehakt; prüfe den Rest und wähle bei Bedarf ein anderes Produkt. Nichts wird verknüpft, bevor du auf Verknüpfen drückst.","Para cada ingrediente de tus recetas, la mejor propuesta de tu lista de precios. Las formas de escribir el mismo producto van juntas. Las propuestas seguras están marcadas; revisa el resto y elige otro producto si hace falta. No se vincula nada hasta que pulses Vincular."],
+  ["Alleen zekere aanvinken","Tick only certain ones","Nur sichere anhaken","Marcar solo las seguras"],
+  ["Alles met een voorstel aanvinken","Tick all with a suggestion","Alle mit Vorschlag anhaken","Marcar todo con propuesta"],
+  ["Geen voorstellen gevonden.","No suggestions found.","Keine Vorschläge gefunden.","No se encontraron propuestas."],
+  ["niet koppelen","don’t link","nicht verknüpfen","no vincular"],
+  ["controleer","check","prüfen","revisar"],
+  ["ingrediënt zonder voorstel: dat vul je later zelf in.","ingredient without a suggestion: fill it in yourself later.","Zutat ohne Vorschlag: trag sie später selbst ein.","ingrediente sin propuesta: lo completas tú más tarde."],
+  ["ingrediënten zonder voorstel: die vul je later zelf in.","ingredients without a suggestion: fill them in yourself later.","Zutaten ohne Vorschlag: trag sie später selbst ein.","ingredientes sin propuesta: los completas tú más tarde."],
+  ["ingrediënt koppelen","link ingredient","Zutat verknüpfen","vincular ingrediente"],
+  ["ingrediënten koppelen","link ingredients","Zutaten verknüpfen","vincular ingredientes"],
+  ["^(\\d+) ingrediënt(?:en)? gekoppeld$","$1 ingredient(s) linked","$1 Zutat(en) verknüpft","$1 ingrediente(s) vinculado(s)"],
+  ["Een product heeft het maximum van 80 schrijfwijzen bereikt; de rest is niet gekoppeld.","A product has reached the maximum of 80 spellings; the rest was not linked.","Ein Produkt hat das Maximum von 80 Schreibweisen erreicht; der Rest wurde nicht verknüpft.","Un producto ha alcanzado el máximo de 80 formas de escribirlo; el resto no se ha vinculado."],
+  ["product zonder prijs heeft dezelfde naam als een product met prijs:","product without a price has the same name as a product with a price:","Produkt ohne Preis hat denselben Namen wie ein Produkt mit Preis:","producto sin precio tiene el mismo nombre que un producto con precio:"],
+  ["producten zonder prijs hebben dezelfde naam als een product met prijs:","products without a price have the same name as a product with a price:","Produkte ohne Preis haben denselben Namen wie ein Produkt mit Preis:","productos sin precio tienen el mismo nombre que un producto con precio:"],
+  ["Samenvoegen zet je koppelingen over naar het product met prijs.","Merging moves your links to the product with a price.","Zusammenführen verschiebt deine Verknüpfungen zum Produkt mit Preis.","Al combinar, tus vínculos pasan al producto con precio."],
+  ["Samenvoegen","Merge","Zusammenführen","Combinar"],
+  ["Samenvoegen? De namen waaronder deze producten in je recepten staan gaan naar het product met prijs; het product zonder prijs verdwijnt. Je recepten veranderen niet.","Merge? The names these products have in your recipes move to the product with a price; the product without a price disappears. Your recipes don’t change.","Zusammenführen? Die Namen, unter denen diese Produkte in deinen Rezepten stehen, gehen zum Produkt mit Preis; das Produkt ohne Preis verschwindet. Deine Rezepte ändern sich nicht.","¿Combinar? Los nombres con los que estos productos aparecen en tus recetas pasan al producto con precio; el producto sin precio desaparece. Tus recetas no cambian."],
+  ["^(\\d+) product(?:en)? samengevoegd$","$1 product(s) merged","$1 Produkt(e) zusammengeführt","$1 producto(s) combinado(s)"],
+  // ---- Foodcost calculator (2026-11-24, js/features/foodcost-screens.js) ----
   ["Bezig met opslaan…","Saving…","Wird gespeichert…","Guardando…"],
   ["Ongedaan maken","Undo","Rückgängig machen","Deshacer"],
   ["Prijslijst","Price list","Preisliste","Lista de precios"],

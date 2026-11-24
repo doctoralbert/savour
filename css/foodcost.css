@@ -799,3 +799,57 @@ button.kp-trow:hover {
   background: var(--sv-gold);
   color: var(--sv-on-gold);
 }
+
+/* ---- Alles in één keer koppelen ---- */
+.kp-bulk-rows {
+  display: grid;
+  max-height: 55vh;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+  border-top: 1px solid var(--sv-line);
+}
+.kp-bulk-rows li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: 10px;
+  padding: 7px 4px;
+  border-bottom: 1px solid var(--sv-line);
+  color: var(--sv-text-3);
+  font-size: var(--sv-fs-sm);
+}
+.kp-bulk-rows li.is-on {
+  color: var(--sv-text);
+}
+.kp-bulk-rows label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+.kp-bulk-rows label > span {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+.kp-bulk-rows small {
+  color: var(--sv-text-3);
+}
+.kp-bulk-keys {
+  overflow-wrap: anywhere;
+}
+.kp-bulk-rows select {
+  min-height: 36px;
+  font-size: var(--sv-fs-sm);
+}
+.kp-merge {
+  margin-bottom: var(--sv-space-3);
+  border-color: var(--sv-gold);
+}
+@media (max-width: 720px) {
+  .kp-bulk-rows li {
+    grid-template-columns: 1fr;
+  }
+}
