@@ -773,6 +773,9 @@
       setup(root);
     });
   }
+  // Ook in de app (Tools → Foodcost → Snel rekenen): daar komt het blok pas later op het scherm; dan roept
+  // js/features/foodcost-screens.js deze functie aan.
+  window.savourFoodcostCalc = init;
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();

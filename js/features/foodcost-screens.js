@@ -8,7 +8,7 @@
 // Betrouwbaar: een regel zonder prijs, opbrengst of omrekening is "nog niet compleet" en het totaal heet dan
 // "minstens". Savour vult nooit zelf een prijs of hoeveelheid in; het recept verandert nooit door de calculator.
 
-let costTab = 'dishes';
+let costTab = null; // null: kies bij openen (zonder prijzen eerst Snel rekenen)
 let costFilter = 'all';
 let costMenuOpen = null;
 let costSearch = ''; // zoeken in het tabblad Recepten
@@ -648,7 +648,10 @@ function renderFoodcost() {
     host.innerHTML = `<div class="panel products-pro"><h3>${t('Foodcost per gerecht')} <span class="pro-tag">Pro</span></h3><p class="muted">${esc(t('Savour rekent de kostprijs van je gerechten uit met de recepten die er al staan: per portie, door basisrecepten heen, met je eigen inkoopprijzen en korting. Een ontbrekende prijs telt nooit als € 0. Alleen jij ziet je prijzen.'))}</p><button class="btn gold" onclick="openProNav()">${t('Savour Pro bekijken')}</button></div>`;
     return;
   }
+  // Nog geen prijzen: begin met het handmatige formulier (dezelfde gratis calculator als op de website).
+  if (costTab === null) costTab = costData.products.length ? 'dishes' : 'quick';
   const tabs = [
+    ['quick', 'Snel rekenen'],
     ['dishes', 'Gerechten'],
     ['recipes', 'Recepten'],
     ['ingredients', 'Ingrediënten'],
@@ -667,8 +670,11 @@ function renderFoodcost() {
             ? costSettingsHtml()
             : costTab === 'recipes'
               ? costRecipesHtml()
-              : costDishesHtml();
+              : costTab === 'quick'
+                ? costQuickHtml()
+                : costDishesHtml();
   host.innerHTML = `<div class="kp-tabs" role="tablist">${tabs.map(([id, label]) => `<button type="button" role="tab" aria-selected="${costTab === id}" class="${costTab === id ? 'is-on' : ''}" onclick="setCostTab('${id}')">${esc(t(label))}</button>`).join('')}</div>${body}`;
+  if (costTab === 'quick') startCostQuick();
 }
 function setCostTab(tab) {
   costTab = tab;
@@ -732,6 +738,24 @@ function costRecipesHtml() {
     .join(
       ''
     )}${list.length ? '' : `<p class="muted kp-none">${esc(t('Geen recepten in deze lijst.'))}</p>`}</div>${more}`;
+}
+
+// ---- Snel rekenen: het handmatige formulier van de website (js/foodcost-calc.js), zonder iets op te slaan in je
+// account. Handig om snel een gerecht door te rekenen dat nog niet in Savour staat. ----
+function costQuickHtml() {
+  return `<section class="kp-section"><p class="muted">${esc(t('Reken snel een gerecht door zonder recept in Savour: vul de ingrediënten met hun inkoopprijs in. Dit blijft alleen in deze browser staan. Voor je eigen recepten, prijslijsten en menu’s gebruik je de andere tabbladen.'))}</p><div class="fc-calc" translate="no"></div></section>`;
+}
+function startCostQuick() {
+  if (window.savourFoodcostCalc) return window.savourFoodcostCalc();
+  if (window.__svFcLoaded) return; // het script laadt al; het vindt het blok zelf
+  window.__svFcLoaded = true;
+  const v = (document
+    .querySelector('script[src*="/js/main.js"]')
+    ?.getAttribute('src')
+    .match(/\?v=[^"&]*/) || [''])[0];
+  const script = document.createElement('script');
+  script.src = '/js/foodcost-calc.js' + v;
+  document.head.appendChild(script);
 }
 
 let costSearchTimer = null;

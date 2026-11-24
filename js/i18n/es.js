@@ -2,6 +2,9 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.es = {
   strings: {
+    'Snel rekenen': 'Cálculo rápido',
+    'Reken snel een gerecht door zonder recept in Savour: vul de ingrediënten met hun inkoopprijs in. Dit blijft alleen in deze browser staan. Voor je eigen recepten, prijslijsten en menu’s gebruik je de andere tabbladen.':
+      'Calcula rápido un plato sin receta en Savour: introduce los ingredientes con su precio de compra. Esto solo se queda en este navegador. Para tus recetas, listas de precios y menús, usa las otras pestañas.',
     'Alles in één keer koppelen': 'Vincular todo de una vez',
     'Per ingrediënt uit je recepten het beste voorstel uit je prijslijst. Schrijfwijzen van hetzelfde product staan samen. Zekere voorstellen staan aangevinkt; kijk de rest na en kies zo nodig een ander product. Er wordt niets gekoppeld voordat je op Koppelen drukt.':
       'Para cada ingrediente de tus recetas, la mejor propuesta de tu lista de precios. Las formas de escribir el mismo producto van juntas. Las propuestas seguras están marcadas; revisa el resto y elige otro producto si hace falta. No se vincula nada hasta que pulses Vincular.',
