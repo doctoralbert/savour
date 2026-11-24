@@ -110,8 +110,61 @@ function costProductFromRow(row) {
 
 // ---- Opzoeken ----
 
+// ---- Snelheid ----
+// Met duizenden recepten en producten is het duur om voor elk recept opnieuw alle titels, producten en prijzen op
+// te zoeken. Die zoeklijsten en de uitkomst per recept worden één keer opgebouwd en hergebruikt, tot er iets
+// verandert: elke opslag of verwijdering (costBump) of na een paar seconden (recepten kunnen buiten de calculator
+// veranderen). De uitkomst blijft precies gelijk; alleen het rekenwerk wordt niet herhaald.
+let costCacheVersion = 0;
+let costCacheData = null;
+function costBump() {
+  costCacheVersion++;
+  costCacheData = null;
+}
+function costCache() {
+  const c = costCacheData;
+  if (
+    c &&
+    c.version === costCacheVersion &&
+    c.data === costData &&
+    c.recipes === recipes &&
+    c.products === products &&
+    Date.now() - c.at < 3000
+  )
+    return c;
+  const prices = new Map();
+  costData.prices.forEach(pr => {
+    const k = String(pr.product_id);
+    if (!prices.has(k)) prices.set(k, []);
+    prices.get(k).push(pr);
+  });
+  prices.forEach(list =>
+    list.sort(
+      (a, b) =>
+        String(b.valid_from).localeCompare(String(a.valid_from)) ||
+        String(b.created_at).localeCompare(String(a.created_at))
+    )
+  );
+  costCacheData = {
+    version: costCacheVersion,
+    data: costData,
+    recipes,
+    products,
+    at: Date.now(),
+    byTitle: recipesByTitle({ id: '' }),
+    costIndex: costProductIndexBuild(),
+    allergen: new Map(),
+    prices,
+    costs: new Map()
+  };
+  return costCacheData;
+}
+
 // Sleutel → kostproduct, op naam en schrijfwijzen.
 function costProductIndex() {
+  return costCache().costIndex;
+}
+function costProductIndexBuild() {
   const map = new Map();
   costData.products.forEach(cp =>
     [cp.name, ...cp.aliases].forEach(n => {
@@ -131,13 +184,7 @@ function costCurrentPrice(cp) {
 }
 
 function costPricesOf(cp) {
-  return costData.prices
-    .filter(p => String(p.product_id) === String(cp.id))
-    .sort(
-      (a, b) =>
-        String(b.valid_from).localeCompare(String(a.valid_from)) ||
-        String(b.created_at).localeCompare(String(a.created_at))
-    );
+  return costCache().prices.get(String(cp.id)) || [];
 }
 
 function costSupplier(id) {
@@ -214,11 +261,14 @@ async function saveCostDish(d, changes) {
 
 // De wereld voor de rekenkern (fcRecipeCost) bij dit recept: dezelfde koppelingen als de allergenen.
 function costWorld(r) {
-  const byTitle = recipesByTitle(r);
-  const index = costProductIndex();
+  const cache = costCache();
+  // Een voorbeeldrecept mag ook naar andere voorbeelden wijzen; dan de gewone (tragere) opzoeklijst.
+  const byTitle = r.example ? recipesByTitle(r) : cache.byTitle;
+  const index = cache.costIndex;
   const scope = productScopeOf(r);
-  const allergenIndex = productsReady ? productIndex(scope) : new Map();
-  return {
+  if (!cache.allergen.has(scope)) cache.allergen.set(scope, productsReady ? productIndex(scope) : new Map());
+  const allergenIndex = cache.allergen.get(scope);
+  const world = {
     keyOf: ingredientKey,
     recipeFor: (rr, line) => ingredientLinkTarget(rr, line, byTitle),
     costProductFor: key => {
@@ -230,12 +280,23 @@ function costWorld(r) {
       return null;
     },
     priceFor: costCurrentPrice,
-    settingsFor: rr => costRecipeSettings(rr.id)
+    settingsFor: rr => costRecipeSettings(rr.id),
+    // Een basisrecept dat in veel recepten zit, wordt één keer uitgerekend.
+    subCost: (target, seen) => costMemo(target, () => fcRecipeCost(target, world, new Set(seen)))
   };
+  return world;
+}
+
+function costMemo(r, compute) {
+  if (r.example || r.dish) return compute();
+  const costs = costCache().costs;
+  const k = String(r.id);
+  if (!costs.has(k)) costs.set(k, compute());
+  return costs.get(k);
 }
 
 function costOfRecipe(r) {
-  return fcRecipeCost(r, costWorld(r));
+  return costMemo(r, () => fcRecipeCost(r, costWorld(r)));
 }
 
 // ---- Opslaan ----
@@ -246,6 +307,7 @@ function costRowId() {
 }
 
 async function costWrite(table, row, { id = null, key = null } = {}) {
+  if (demoMode) costBump();
   if (demoMode) return { ...row, id: id || row.id || costRowId(), created_at: new Date().toISOString() };
   let res;
   if (id) res = await supabaseClient.from(table).update(row).eq('id', id).select().single();
@@ -260,10 +322,12 @@ async function costWrite(table, row, { id = null, key = null } = {}) {
     );
     return null;
   }
+  costBump();
   return res.data;
 }
 
 async function costDelete(table, id) {
+  costBump();
   if (demoMode) return true;
   const { error } = await supabaseClient.from(table).delete().eq('id', id);
   if (error) {
@@ -352,6 +416,7 @@ async function saveCostRecipe(recipeId, changes) {
       : await costWrite('cost_recipes', row, { key: 'user_id,recipe_id' });
   if (!saved) return null;
   costData.recipes.set(String(recipeId), saved);
+  costBump();
   return saved;
 }
 

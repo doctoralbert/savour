@@ -759,3 +759,15 @@ button.kp-trow:hover {
   color: var(--sv-text-3);
   white-space: nowrap;
 }
+
+/* ---- Recepten: zoeken en meer tonen ---- */
+.kp-filters .kp-search {
+  flex: 1 1 220px;
+  max-width: 320px;
+  min-height: 34px;
+  margin-left: auto;
+}
+.kp-more {
+  justify-self: start;
+  margin-top: var(--sv-space-2);
+}

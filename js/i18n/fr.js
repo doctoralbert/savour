@@ -2,6 +2,7 @@
 window.SAVOUR_I18N = window.SAVOUR_I18N || {};
 window.SAVOUR_I18N.fr = {
   strings: {
+    'Toon alle': 'Tout afficher',
     'Staat dit ingrediënt al in je prijslijst, bijvoorbeeld uit een ingeladen lijst van je leverancier? Kies het daar; Savour onthoudt dat deze naam bij dat product hoort.':
       'Cet ingrédient est-il déjà dans ta liste de prix, par exemple une liste fournisseur chargée ? Choisis-le là ; Savour retient que ce nom correspond à ce produit.',
     'Kies uit je prijslijst': 'Choisir dans ta liste de prix',

@@ -1,6 +1,8 @@
 // Brontabel voor de vertalingen: [Nederlands, Engels, Duits, Spaans].
 export const strings = [
   // ---- Foodcost calculator (2026-11-24, js/features/foodcost-screens.js) ----
+  ["Toon alle","Show all","Alle anzeigen","Mostrar todo"],
+  // ---- Foodcost calculator (2026-11-24, js/features/foodcost-screens.js) ----
   ["Staat dit ingrediënt al in je prijslijst, bijvoorbeeld uit een ingeladen lijst van je leverancier? Kies het daar; Savour onthoudt dat deze naam bij dat product hoort.","Is this ingredient already in your price list, for example from a supplier list you loaded? Choose it there; Savour remembers that this name belongs to that product.","Steht diese Zutat schon in deiner Preisliste, zum Beispiel aus einer geladenen Lieferantenliste? Wähle sie dort; Savour merkt sich, dass dieser Name zu dem Produkt gehört.","¿Este ingrediente ya está en tu lista de precios, por ejemplo de una lista de proveedor que cargaste? Elígelo ahí; Savour recuerda que este nombre corresponde a ese producto."],
   ["Kies uit je prijslijst","Choose from your price list","Aus deiner Preisliste wählen","Elegir de tu lista de precios"],
   ["of vul een nieuwe prijs in:","or enter a new price:","oder trag einen neuen Preis ein:","o introduce un precio nuevo:"],

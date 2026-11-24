@@ -11,6 +11,9 @@
 let costTab = 'dishes';
 let costFilter = 'all';
 let costMenuOpen = null;
+let costSearch = ''; // zoeken in het tabblad Recepten
+let costShowAll = false;
+const COST_LIST_STEP = 150;
 
 // Tekst voor een attribuut dat de vertaler niet vanzelf vertaalt (data-label op de telefoon).
 const fcT = s => (typeof translateText === 'function' && translateText(s)) || s;
@@ -656,6 +659,8 @@ function renderFoodcost() {
 }
 function setCostTab(tab) {
   costTab = tab;
+  costShowAll = false;
+  costSearch = '';
   costMenuOpen = null;
   renderFoodcost();
 }
@@ -688,21 +693,47 @@ function costRecipesHtml() {
     ['open', 'Niet compleet', started.filter(x => !x.c.complete).length],
     ['none', 'Nog zonder prijzen', rows.length - started.length]
   ];
-  const list =
+  const q = productKey(costSearch);
+  const all = (
     costFilter === 'open'
       ? started.filter(x => !x.c.complete)
       : costFilter === 'none'
         ? rows.filter(x => !x.priced)
-        : started;
+        : started
+  ).filter(x => !q || productKey(x.r.title).includes(q));
+  // Duizenden regels tekenen is traag: eerst een deel, de rest met "Toon alle" of via zoeken.
+  const list = costShowAll ? all : all.slice(0, COST_LIST_STEP);
+  const more =
+    all.length > list.length
+      ? `<button type="button" class="btn-quiet kp-more" onclick="costShowAll=true;renderFoodcost()"><span>${esc(t('Toon alle'))}</span> <span class="kp-n">${all.length}</span></button>`
+      : '';
+  const search = `<input class="sv-dialog-input kp-search" id="kpSearch" type="search" autocomplete="off" placeholder="${esc(fcT('Zoek een recept'))}" value="${esc(costSearch)}" oninput="setCostSearch(this.value)">`;
   const intro = started.length
     ? ''
     : `<div class="kp-empty"><p>${esc(t('Nog geen prijzen. Begin bij Ingrediënten: daar staan de ingrediënten die het vaakst in je recepten voorkomen. Of open een recept en kies in het menu ⋯ Kostprijs.'))}</p><button type="button" class="btn gold" onclick="setCostTab('ingredients')">${esc(t('Naar ingrediënten'))}</button></div>`;
-  return `${intro}<div class="kp-filters">${filters.map(([id, label, n]) => `<button type="button" class="kp-filter${costFilter === id ? ' is-on' : ''}" onclick="costFilter='${id}';renderFoodcost()">${esc(t(label))} <small>${n}</small></button>`).join('')}</div><div class="kp-table kp-recipes"><div class="kp-thead"><span>${t('Recept')}</span><span>${t('Per portie')}</span><span>${t('Totaal')}</span><span>${t('Opbrengst')}</span><span></span></div>${list
+  return `${intro}<div class="kp-filters">${filters.map(([id, label, n]) => `<button type="button" class="kp-filter${costFilter === id ? ' is-on' : ''}" onclick="costFilter='${id}';costShowAll=false;renderFoodcost()">${esc(t(label))} <small>${n}</small></button>`).join('')}${search}</div><div class="kp-table kp-recipes"><div class="kp-thead"><span>${t('Recept')}</span><span>${t('Per portie')}</span><span>${t('Totaal')}</span><span>${t('Opbrengst')}</span><span></span></div>${list
     .map(
       x =>
         `<button type="button" class="kp-trow" onclick="openRecipeCostDialog('${escJs(x.r.id)}')"><span class="kp-name" translate="no">${esc(x.r.title)}</span><span data-label="${esc(fcT('Per portie'))}">${x.priced && x.c.perPortion != null ? (x.c.complete ? '' : '≥ ') + fcMoney(x.c.perPortion) : '–'}</span><span data-label="${esc(fcT('Totaal'))}">${x.priced ? (x.c.complete ? '' : '≥ ') + fcMoney(x.c.total) : '–'}</span><span data-label="${esc(fcT('Opbrengst'))}" translate="no">${esc(x.r.yield || '')}</span><span>${x.priced && !x.c.complete ? `<span class="kp-chip">${x.c.open} ${esc(t('open'))}</span>` : ''}</span></button>`
     )
-    .join('')}${list.length ? '' : `<p class="muted kp-none">${esc(t('Geen recepten in deze lijst.'))}</p>`}</div>`;
+    .join(
+      ''
+    )}${list.length ? '' : `<p class="muted kp-none">${esc(t('Geen recepten in deze lijst.'))}</p>`}</div>${more}`;
+}
+
+let costSearchTimer = null;
+function setCostSearch(value) {
+  costSearch = value;
+  costShowAll = false;
+  clearTimeout(costSearchTimer);
+  costSearchTimer = setTimeout(() => {
+    renderFoodcost();
+    const input = $('kpSearch');
+    if (input) {
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
+    }
+  }, 180);
 }
 
 // ---- Gerechten: een bord uit recepten en ingrediënten ----
@@ -885,8 +916,18 @@ function costIngredientsHtml() {
         )
         .join('')}</ul></section>`
     : '';
-  const products = costData.products;
-  const list = `<section class="kp-section"><div class="kp-section-head"><h3>${esc(t('Je prijzen'))} <small>${products.length}</small></h3>${edit ? `<div class="kp-head-actions"><button type="button" class="btn btn-sm" onclick="openCostImport()">${esc(t('Prijslijst inladen'))}</button><button type="button" class="btn btn-sm" onclick="openCostProductEditor({})">${esc(t('Product toevoegen'))}</button></div>` : ''}</div>${
+  const q = productKey(costSearch);
+  const found = costData.products.filter(cp => !q || [cp.name, ...cp.aliases].some(n => productKey(n).includes(q)));
+  const products = costShowAll ? found : found.slice(0, COST_LIST_STEP);
+  const more =
+    found.length > products.length
+      ? `<button type="button" class="btn-quiet kp-more" onclick="costShowAll=true;renderFoodcost()"><span>${esc(t('Toon alle'))}</span> <span class="kp-n">${found.length}</span></button>`
+      : '';
+  const search =
+    costData.products.length > 20
+      ? `<input class="sv-dialog-input kp-search" id="kpSearch" type="search" autocomplete="off" placeholder="${esc(fcT('Zoek in je prijslijst'))}" value="${esc(costSearch)}" oninput="setCostSearch(this.value)">`
+      : '';
+  const list = `<section class="kp-section"><div class="kp-section-head"><h3>${esc(t('Je prijzen'))} <small>${costData.products.length}</small></h3>${search}${edit ? `<div class="kp-head-actions"><button type="button" class="btn btn-sm" onclick="openCostImport()">${esc(t('Prijslijst inladen'))}</button><button type="button" class="btn btn-sm" onclick="openCostProductEditor({})">${esc(t('Product toevoegen'))}</button></div>` : ''}</div>${
     products.length
       ? `<div class="kp-table kp-products"><div class="kp-thead"><span>${t('Product')}</span><span>${t('Inkoop')}</span><span>${t('Per eenheid')}</span><span>${t('Leverancier')}</span><span>${t('Opbrengst')}</span></div>${products
           .map(cp => {
@@ -902,7 +943,7 @@ function costIngredientsHtml() {
               : '';
             return `<button type="button" class="kp-trow" onclick="openCostProductEditor({ id: '${escJs(cp.id)}' })"><span class="kp-name" translate="no">${esc(cp.name)}</span><span data-label="${esc(fcT('Inkoop'))}">${cur ? `${fcMoney(Number(cur.price.price))} <small translate="no">${esc(cur.price.pack_text || fcQty(Number(cur.price.pack_qty), cur.price.pack_unit))}</small>` : `<span class="kp-chip">${esc(t('geen prijs'))}</span>`}</span><span data-label="${esc(fcT('Per eenheid'))}">${per != null ? `${fcUnitMoney(per)} <small>${esc(perLabel)}</small>` : '–'}</span><span data-label="${esc(fcT('Leverancier'))}" translate="no">${esc(cur?.supplier?.name || '')}</span><span data-label="${esc(fcT('Opbrengst'))}">${cp.yield_pct ? fcPct(Number(cp.yield_pct)) : '–'}</span></button>`;
           })
-          .join('')}</div>`
+          .join('')}</div>${more}`
       : `<p class="muted">${esc(t('Nog geen prijzen.'))}</p>`
   }</section>`;
   return todo + list;

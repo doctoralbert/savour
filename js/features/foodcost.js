@@ -123,7 +123,8 @@ function fcLineCost(r, line, world, seen) {
   const target = world.recipeFor(r, line);
   if (target) {
     if (seen.has(String(target.id))) return { ...base, status: 'kring', steps: { recipe: target } };
-    const sub = fcRecipeCost(target, world, new Set(seen));
+    // world.subCost: hergebruik een uitkomst die al bekend is (zie costWorld); anders gewoon uitrekenen.
+    const sub = world.subCost ? world.subCost(target, seen) : fcRecipeCost(target, world, new Set(seen));
     const y = fcYieldAmount(target.yield);
     const steps = { recipe: target, sub, amount, yieldAmount: y };
     if (!amount) return { ...base, status: 'geen-hoeveelheid', steps };

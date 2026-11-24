@@ -1,6 +1,7 @@
 // Franse vertalingen, naast tools/vertalingen.mjs: Nederlandse brontekst → Frans.
 // Nieuwe interfacetekst? Zet hier ook de Franse regel; node tools/build-i18n.mjs meldt wat ontbreekt.
 export const stringsFr = {
+ "Toon alle": "Tout afficher",
  "Staat dit ingrediënt al in je prijslijst, bijvoorbeeld uit een ingeladen lijst van je leverancier? Kies het daar; Savour onthoudt dat deze naam bij dat product hoort.": "Cet ingrédient est-il déjà dans ta liste de prix, par exemple une liste fournisseur chargée ? Choisis-le là ; Savour retient que ce nom correspond à ce produit.",
  "Kies uit je prijslijst": "Choisir dans ta liste de prix",
  "of vul een nieuwe prijs in:": "ou saisis un nouveau prix :",
