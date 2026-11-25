@@ -1915,6 +1915,37 @@ const tidyCases = [
     changed: 2
   },
   {
+    // 2026-11-16: Duitse receptbladen met de hoeveelheid achter het product ("Milch 1850"). Hoeveelheid naar voren
+    // mag, maar een Duits zelfstandig naamwoord houdt zijn hoofdletter ("1850 Milch", niet "1850 milch").
+    name: 'Duits recept: hoeveelheid naar voren, hoofdletter blijft',
+    from: {
+      ingredients: ['Mehl 400', 'Zucker 120', 'Eigelb 80', 'Pektin NH 12', 'Vanilleschote 2 St.'],
+      steps: ['Alles zusammen aufkochen und abkühlen lassen.']
+    },
+    to: {
+      ingredients: ['400 Mehl', '120 Zucker', '80 Eigelb', '12 Pektin NH', '2 St. Vanilleschote'],
+      steps: ['Alles zusammen aufkochen und abkühlen lassen.'],
+      description: ''
+    },
+    changed: 5
+  },
+  {
+    name: 'Duits recept zonder bereiding: de ingrediënten zelf zeggen dat het Duits is',
+    from: { ingredients: ['Sahne 500', 'Wasser 200', 'Salz 5'], steps: [] },
+    to: { ingredients: ['500 Sahne', '200 Wasser', '5 Salz'], steps: [], description: '' },
+    changed: 3
+  },
+  {
+    name: 'Nederlands recept: eerste letter blijft klein zoals altijd',
+    from: { ingredients: ['Boter 250 g', 'Suiker 100 g'], steps: ['Boter smelten en mengen met de suiker.'] },
+    to: {
+      ingredients: ['250 g boter', '100 g suiker'],
+      steps: ['Boter smelten en mengen met de suiker.'],
+      description: ''
+    },
+    changed: 2
+  },
+  {
     name: 'Een net recept blijft precies zoals het is',
     from: {
       ingredients: ['Voor de saus:', '250 g boter', '2 eieren', 'zout naar smaak'],
@@ -1944,10 +1975,11 @@ const tidyCases = [
     },
     to: {
       ingredients: [
-        "3'157 g milch",
+        // Duits: hoofdletter blijft (readerLooksGerman, voorstel 16-11).
+        "3'157 g Milch",
         "1'260 g Eigelb",
-        "3'157 g sahne 35%",
-        '208 schokolade 72%',
+        "3'157 g Sahne 35%",
+        '208 Schokolade 72%',
         '730 g weiße Schokolade 34%',
         'Farina 2862 3'
       ],
