@@ -4773,6 +4773,9 @@ html.sv-lightbox-open body {
 .fc-th {
   padding-bottom: 2px;
 }
+.fc-th .fc-th-price {
+  grid-column: span 2;
+}
 .fc-cell {
   display: grid;
   gap: 4px;

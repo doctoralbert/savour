@@ -1232,7 +1232,8 @@ function page({ lang, slugs, title, desc, crumbs, body, schema = [], hidden = fa
   for (const l of LANGS) if (slugs[l]) PATH_INDEX.set(href(slugs[l]), slugs);
   const canonical = url(slugs[lang]);
   const alternates = LANGS.filter(l => slugs[l]).map(l => [l, url(slugs[l])]);
-  if (slugs.nl) alternates.push(['x-default', url(slugs.nl)]);
+  // x-default: Engels (internationaal), anders Nederlands.
+  if (slugs.en || slugs.nl) alternates.push(['x-default', url(slugs.en || slugs.nl)]);
   const alt = Object.fromEntries(LANGS.map(l => [l, slugs[l] ? href(slugs[l]) : homePath(l)]));
   const crumbHtml = crumbs?.length
     ? `<div class="site-crumbs"><a href="${UI[lang].home}">Home</a>${crumbs.map(c => ` / ${c[1] ? `<a href="${c[1]}">${esc(c[0])}</a>` : esc(c[0])}`).join('')}</div>`
@@ -2395,7 +2396,7 @@ const homeAlts = [
   ['de', SITE + '/de'],
   ['es', SITE + '/es'],
   ['fr', SITE + '/fr'],
-  ['x-default', SITE + '/']
+  ['x-default', SITE + '/en']
 ];
 // Afbeeldingen bij een adres (image-sitemap): zo koppelen zoekmachines de echte schermafbeeldingen aan Savour.
 const SITEMAP_SHOTS = ['bibliotheek', 'recept', 'importeren', 'brigade', 'kookmodus'];

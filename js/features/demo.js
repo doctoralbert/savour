@@ -88,7 +88,8 @@ function startDemo(recipeId) {
   // In de bovenbalk, zodat het op de telefoon als smalle regel onder het logo staat (niet over de inhoud).
   (document.querySelector('#appShell .topbar') || document.body).insertAdjacentHTML(
     'beforeend',
-    `<div id="demoBadge" class="demo-mode-badge">${esc(t('Demo account · niets wordt opgeslagen'))} · <a href="/?auth=signup">${esc(t('Gratis account maken'))}</a></div>`
+    // Tekst in een eigen <span>: de vertaling werkt per tekstknoop, met " · " erachter vindt hij hem niet.
+    `<div id="demoBadge" class="demo-mode-badge"><span>${esc(t('Demo account · niets wordt opgeslagen'))}</span> · <a href="/?auth=signup">${esc(t('Gratis account maken'))}</a></div>`
   );
   toast(t('Demo geladen · open een recept en probeer omrekenen of de kookmodus'));
   if (recipeId && recipes.some(r => r.id === recipeId)) openRecipe(recipeId);

@@ -44,6 +44,7 @@
       mismatch: 'Eenheid past niet bij de prijs',
       empty: 'Vul links je ingrediënten in.',
       piece: 'stuk',
+      pieceShort: 'st',
       exampleNote: 'Voorbeeld met verzonnen inkoopprijzen, uit het artikel Foodcost berekenen.',
       saved: 'Wordt alleen in deze browser bewaard.',
       ingPh: 'Bijv. boter',
@@ -88,6 +89,7 @@
       mismatch: 'Unit does not match the price',
       empty: 'Enter your ingredients on the left.',
       piece: 'piece',
+      pieceShort: 'pc',
       exampleNote: 'Example with made-up purchase prices, from the article How to calculate food cost.',
       saved: 'Only saved in this browser.',
       ingPh: 'E.g. butter',
@@ -132,6 +134,7 @@
       mismatch: 'Einheit passt nicht zum Preis',
       empty: 'Trag links deine Zutaten ein.',
       piece: 'Stück',
+      pieceShort: 'Stk',
       exampleNote: 'Beispiel mit ausgedachten Einkaufspreisen, aus dem Artikel Wareneinsatz berechnen.',
       saved: 'Wird nur in diesem Browser gespeichert.',
       ingPh: 'Z. B. Butter',
@@ -176,6 +179,7 @@
       mismatch: 'La unidad no encaja con el precio',
       empty: 'Introduce tus ingredientes a la izquierda.',
       piece: 'unidad',
+      pieceShort: 'ud',
       exampleNote: 'Ejemplo con precios de compra inventados, del artículo Cómo calcular el food cost.',
       saved: 'Solo se guarda en este navegador.',
       ingPh: 'P. ej. mantequilla',
@@ -220,6 +224,7 @@
       mismatch: 'L’unité ne correspond pas au prix',
       empty: 'Saisis tes ingrédients à gauche.',
       piece: 'pièce',
+      pieceShort: 'pce',
       exampleNote: 'Exemple avec des prix d’achat inventés, tiré de l’article Calculer le food cost.',
       saved: 'Enregistré seulement dans ce navigateur.',
       ingPh: 'Ex. beurre',
@@ -360,6 +365,10 @@
     function unitLabel(u) {
       return u === 'st' ? t.piece : u;
     }
+    // Kort, voor de smalle keuzelijst (pc, Stk, ...); het hele woord staat op de print.
+    function unitShort(u) {
+      return u === 'st' ? t.pieceShort : u;
+    }
     // Kosten van één regel, of null als er iets ontbreekt; 'x' als eenheid en prijs niet bij elkaar passen.
     function lineCost(r) {
       var q = num(r.qty);
@@ -414,7 +423,7 @@
     function options(sel, list) {
       return list
         .map(function (u) {
-          return '<option value="' + u + '"' + (u === sel ? ' selected' : '') + '>' + esc(unitLabel(u)) + '</option>';
+          return '<option value="' + u + '"' + (u === sel ? ' selected' : '') + '>' + esc(unitShort(u)) + '</option>';
         })
         .join('');
     }
@@ -451,10 +460,11 @@
         esc(t.ing) +
         '</span><span>' +
         esc(t.qty) +
-        '</span><span></span><span>' +
+        // Inkoopprijs en "per" als één kop over twee kolommen: lange woorden (Purchase price) lopen anders over elkaar.
+        '</span><span></span><span class="fc-th-price">' +
         esc(t.price) +
-        '</span><span>' +
-        esc(t.per) +
+        ' ' +
+        esc(t.per.toLowerCase()) +
         '</span><span>' +
         esc(t.yield) +
         ' %</span><span class="fc-num">' +

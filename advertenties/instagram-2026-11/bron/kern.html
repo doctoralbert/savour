@@ -1,0 +1,119 @@
+<!doctype html>
+<!-- Engelse posts en advertenties over het hoofddoel van Savour (2026-11-24): kladjes, een hele map en de receptenbibliotheek.
+     ?c=notes|folder|library & f=post|feed|story. Post en feed 1080 × 1350, story 1080 × 1920 (zie ../README.md).
+     Alleen echte schermen uit de Engelse demo; de bestandsnamen zijn recepten uit die demo. -->
+<html lang="en"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; }
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif; color: #f2eee4; position: relative;
+    background: radial-gradient(1100px 700px at 75% 35%, rgba(232, 202, 141, 0.10), transparent 60%), linear-gradient(180deg, #0d1314, #050808);
+  }
+  body.story, html.story { height: 1920px; }
+  .ad { position: absolute; inset: 0; padding: 84px 84px 80px; display: flex; flex-direction: column; }
+  .story .ad { padding: 230px 84px 330px; }
+  .brand { display: flex; align-items: center; gap: 18px; }
+  .brand .s { width: 64px; height: 64px; background: #000; display: grid; place-items: center; border-radius: 12px; position: relative; }
+  .brand .s b { font: 500 46px/1 'Playfair Display', serif; color: #f2eee4; margin-top: -6px; }
+  .brand .s i { position: absolute; bottom: 12px; width: 22px; height: 3px; background: #e8ca8d; }
+  .brand span { font: 500 28px 'Playfair Display', serif; letter-spacing: 0.42em; }
+  .kicker { margin-top: 48px; font: 600 24px 'DM Sans'; letter-spacing: 0.2em; color: #e8ca8d; text-transform: uppercase; }
+  h1 { margin-top: 16px; font: 600 80px/1.05 'Playfair Display', serif; letter-spacing: -0.01em; }
+  h1 em { font-style: italic; color: #e8ca8d; font-weight: 500; }
+  .sub { margin-top: 22px; font-size: 30px; line-height: 1.4; color: #cfcabe; max-width: 900px; }
+  .visual { flex: 1; position: relative; margin: 36px 0 30px; }
+  .cta { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .btn { background: #e8ca8d; color: #0b0f10; font: 600 34px 'DM Sans', sans-serif; padding: 26px 44px; border-radius: 14px; }
+  .small { font-size: 26px; color: #a9a497; text-align: right; line-height: 1.35; }
+  .small b { color: #f2eee4; font-weight: 600; }
+  .post .cta .btn { display: none; }
+  .post .cta { justify-content: flex-start; }
+  .post .small { text-align: left; }
+  .fine { position: absolute; left: 0; bottom: -6px; font-size: 21px; color: #8e897e; }
+  /* telefoon */
+  .phone { position: absolute; right: 10px; top: 0; width: 420px; height: 100%; border-radius: 54px; padding: 14px;
+    background: #121718; border: 2px solid #2a3233; box-shadow: 0 40px 90px rgba(0,0,0,0.7), 0 0 0 1px rgba(232,202,141,0.15); }
+  .phone .screen { width: 100%; height: 100%; border-radius: 42px; overflow: hidden; background: #0b0f10; }
+  .phone .screen img { width: 100%; display: block; }
+  .arrow { position: absolute; width: 150px; height: 80px; }
+  /* kladje */
+  .note { position: absolute; left: 0; top: 30px; width: 500px; padding: 18px 18px 64px; background: #fbf8f1; border-radius: 6px;
+    transform: rotate(-5deg); box-shadow: 0 30px 70px rgba(0,0,0,0.6); }
+  .note img { width: 100%; display: block; border-radius: 2px; }
+  .note p { position: absolute; left: 0; right: 0; bottom: 16px; text-align: center; font: italic 500 30px 'Playfair Display', serif; color: #3a3328; }
+  /* bestanden */
+  .files { position: absolute; left: 0; top: 0; width: 470px; display: grid; gap: 10px; }
+  .file { display: flex; align-items: center; gap: 18px; background: #111718; border: 1px solid #2a3233; border-radius: 16px; padding: 12px 18px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45); font-size: 27px; color: #e9e4d8; }
+  .file:nth-child(2n) { margin-left: 34px; }
+  .file .ext { width: 70px; height: 52px; border-radius: 9px; display: grid; place-items: center; font: 600 17px 'DM Sans'; letter-spacing: 0.06em; color: #0b0f10; flex: none; }
+  .ext.docx { background: #9db7e8; } .ext.pdf { background: #e8a49d; } .ext.jpg { background: #e8ca8d; }
+  .folder-tag { display: inline-flex; align-items: center; gap: 12px; font-size: 24px; color: #a9a497; margin-bottom: 4px; }
+  .folder-tag svg { width: 34px; height: 28px; }
+  /* bibliotheek: breed scherm */
+  .wide { position: absolute; left: -20px; right: 150px; top: 10px; border-radius: 18px; overflow: hidden;
+    border: 1px solid rgba(232,202,141,0.3); box-shadow: 0 40px 90px rgba(0,0,0,0.7); }
+  .wide img { width: 100%; display: block; }
+  .search { position: absolute; left: 0; top: 300px; width: 500px; background: #0b0f10; border: 2px solid #e8ca8d; border-radius: 18px;
+    padding: 22px 26px; font-size: 30px; color: #f2eee4; box-shadow: 0 30px 70px rgba(0,0,0,0.7); display: flex; gap: 16px; align-items: center; }
+  .search i { width: 2px; height: 34px; background: #e8ca8d; display: inline-block; margin-left: -10px; }
+  .search small { display: block; font-size: 19px; color: #a9a497; margin-top: 4px; }
+  .lib .phone { width: 360px; top: 150px; height: calc(100% - 150px); }
+  /* story */
+  .story .note { width: 520px; top: 0; }
+  .story .phone { width: 440px; top: 200px; height: calc(100% - 200px); }
+  .story .files { width: 520px; }
+  .story .wide { right: 60px; }
+  .story .lib .phone { width: 400px; top: 380px; height: calc(100% - 380px); }
+  .story .search { top: 470px; width: 480px; }
+</style></head>
+<body>
+<div class="ad" id="ad"></div>
+<script>
+  var q = location.search;
+  var c = (q.match(/c=([a-z]+)/) || [])[1] || 'notes';
+  var f = (q.match(/f=([a-z]+)/) || [])[1] || 'post';
+  document.body.classList.add(f);
+  if (f === 'story') document.documentElement.classList.add('story');
+  var brand = '<div class="brand"><div class="s"><b>S</b><i></i></div><span>SAVOUR</span></div>';
+  var arrow = function (style) {
+    return '<svg class="arrow" style="' + style + '" viewBox="0 0 150 80" fill="none" stroke="#e8ca8d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 60 C 50 10, 100 10, 138 34"/><path d="M118 18 L 140 35 L 116 46"/></svg>';
+  };
+  var phone = function (src, cls) { return '<div class="phone ' + (cls || '') + '"><div class="screen"><img src="' + src + '" alt=""></div></div>'; };
+  var cta = function (btn, small) { return '<div class="cta"><span class="btn">' + btn + '</span><span class="small"><b>savour.page</b><br>' + small + '</span></div>'; };
+  var file = function (ext, name) { return '<div class="file"><span class="ext ' + ext + '">' + ext.toUpperCase() + '</span>' + name + '</div>'; };
+  var folderIcon = '<svg viewBox="0 0 34 28" fill="none" stroke="#e8ca8d" stroke-width="2.5"><path d="M2 5h11l3 4h16v17H2z"/></svg>';
+  var html = {
+    notes:
+      brand +
+      '<p class="kicker">Handwritten notes</p>' +
+      '<h1>Your scribbled notes. <em>Clean recipes.</em></h1>' +
+      '<p class="sub">Take a photo of a handwritten recipe. Savour reads it, and you check it before it is saved. Nothing is made up.</p>' +
+      '<div class="visual"><div class="note"><img src="kladje.jpg" alt=""><p>your notes</p></div>' + arrow('left:440px;top:280px') +
+      phone('telefoon-marshmallow-en.png') + '<p class="fine">Photos are read with Savour Pro · 7 days free</p></div>' +
+      cta('Start for free', 'Free up to 100 recipes'),
+    folder:
+      brand +
+      '<p class="kicker">Import</p>' +
+      '<h1>Your whole recipe folder. <em>Uploaded in one go.</em></h1>' +
+      '<p class="sub">Choose a folder with Word files, PDFs and photos. Savour turns every recipe into one recipe book, and you review them before saving.</p>' +
+      '<div class="visual"><div class="files"><div class="folder-tag">' + folderIcon + 'Recipes kitchen</div>' +
+      file('docx', 'Beurre blanc.docx') + file('pdf', 'Brioche.pdf') + file('docx', 'Duck jus.docx') +
+      file('jpg', 'Financiers.jpg') + file('pdf', 'Hollandaise.pdf') + '</div>' +
+      arrow('left:450px;top:420px;transform:rotate(-10deg)') + phone('phone-library-en.png') + '</div>' +
+      cta('Start for free', 'Free up to 100 recipes'),
+    library:
+      brand +
+      '<p class="kicker">Recipe library</p>' +
+      '<h1>Every recipe. <em>One search away.</em></h1>' +
+      '<p class="sub">Search by name or ingredient. Sort A–Z, by category or by folder. Your whole kitchen’s recipe book in one place.</p>' +
+      '<div class="visual lib"><div class="wide"><img src="../../../assets/app/bibliotheek-en.jpg" alt=""></div>' +
+      '<div class="search"><span>⌕</span><span>shallot<i></i><small>Beurre blanc · Duck jus · Mussels in white wine</small></span></div>' +
+      phone('phone-library-en.png') + '</div>' +
+      cta('Start for free', 'Free up to 100 recipes')
+  };
+  document.getElementById('ad').innerHTML = html[c];
+</script>
+</body></html>

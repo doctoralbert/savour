@@ -1,0 +1,107 @@
+<!doctype html>
+<!-- Instagram-advertenties Savour (2026-11-24). Openen met ?v=a-feed, a-story, b-feed of b-story; headless Chrome maakt
+     er een PNG van (zie README.md in deze map). Alleen echte schermen uit de demo en de gratis calculator. -->
+<html lang="nl"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; background: #070b0c; }
+  body.story, body.story html { height: 1920px; }
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif; color: #f2eee4;
+    background: radial-gradient(1100px 700px at 75% 35%, rgba(232, 202, 141, 0.10), transparent 60%), linear-gradient(180deg, #0d1314, #050808);
+    position: relative;
+  }
+  .ad { position: absolute; inset: 0; padding: 84px 84px 80px; display: flex; flex-direction: column; }
+  .story .ad { padding: 230px 84px 330px; }
+  .brand { display: flex; align-items: center; gap: 18px; }
+  .brand .s { width: 64px; height: 64px; background: #000; display: grid; place-items: center; border-radius: 12px; position: relative; }
+  .brand .s b { font: 500 46px/1 'Playfair Display', serif; color: #f2eee4; margin-top: -6px; }
+  .brand .s i { position: absolute; bottom: 12px; width: 22px; height: 3px; background: #e8ca8d; }
+  .brand span { font: 500 28px 'Playfair Display', serif; letter-spacing: 0.42em; }
+  h1 { margin-top: 56px; font: 600 86px/1.04 'Playfair Display', serif; letter-spacing: -0.01em; }
+  h1 em { font-style: italic; color: #e8ca8d; font-weight: 500; }
+  .sub { margin-top: 26px; font-size: 32px; line-height: 1.4; color: #cfcabe; max-width: 860px; }
+  .visual { flex: 1; position: relative; margin: 40px 0 36px; }
+  .cta { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .btn { background: #e8ca8d; color: #0b0f10; font: 600 34px 'DM Sans', sans-serif; padding: 26px 44px; border-radius: 14px; }
+  .small { font-size: 26px; color: #a9a497; text-align: right; line-height: 1.35; }
+  .small b { color: #f2eee4; font-weight: 600; }
+  /* A: kladje naast hetzelfde recept in Savour */
+  .note { position: absolute; left: 0; top: 30px; width: 520px; padding: 18px 18px 64px; background: #fbf8f1; border-radius: 6px;
+    transform: rotate(-5deg); box-shadow: 0 30px 70px rgba(0,0,0,0.6); }
+  .note img { width: 100%; display: block; border-radius: 2px; }
+  .note p { position: absolute; left: 0; right: 0; bottom: 16px; text-align: center; font: italic 500 30px 'Playfair Display', serif; color: #3a3328; }
+  .phone { position: absolute; right: 10px; top: 0; width: 400px; height: 100%; max-height: 820px; border-radius: 52px; padding: 14px;
+    background: #121718; border: 2px solid #2a3233; box-shadow: 0 40px 90px rgba(0,0,0,0.7), 0 0 0 1px rgba(232,202,141,0.15); }
+  .phone .screen { width: 100%; height: 100%; border-radius: 40px; overflow: hidden; background: #0b0f10; }
+  .phone .screen img { width: 100%; display: block; }
+  .arrow { position: absolute; left: 470px; top: 300px; width: 150px; height: 80px; }
+  .story .note { top: 0; width: 500px; }
+  .story .phone { width: 420px; top: 110px; height: calc(100% - 110px); max-height: none; }
+  .story .arrow { top: 300px; left: 420px; transform: rotate(20deg); }
+  /* B: de calculator */
+  .calc { position: absolute; left: -10px; right: -10px; top: 20px; border-radius: 18px; overflow: hidden;
+    border: 1px solid rgba(232,202,141,0.35); box-shadow: 0 40px 90px rgba(0,0,0,0.7); }
+  .calc img { width: 100%; display: block; }
+  .badge { position: absolute; right: 30px; bottom: 6px; background: #0b0f10; border: 2px solid #e8ca8d; border-radius: 22px; padding: 22px 30px; text-align: right; box-shadow: 0 30px 60px rgba(0,0,0,0.6); }
+  .badge span { display: block; font-size: 24px; color: #a9a497; }
+  .badge b { font: 600 72px/1.05 'Playfair Display', serif; color: #e8ca8d; }
+  .story .calc { top: 40px; }
+  body:not(.story) .badge { display: none; }
+  .story .badge { bottom: 40px; }
+  .list { margin-top: 24px; display: grid; gap: 12px; font-size: 30px; color: #cfcabe; }
+  .no-list .list { display: none; }
+  .list li { list-style: none; padding-left: 40px; position: relative; }
+  .list li::before { content: ''; position: absolute; left: 0; top: 16px; width: 20px; height: 3px; background: #e8ca8d; }
+</style></head>
+<body>
+<div class="ad" id="ad"></div>
+<script>
+  var v = (location.search.match(/v=([a-z-]+)/) || [])[1] || 'a-feed';
+  if (/story/.test(v)) { document.body.classList.add('story'); document.documentElement.style.height = '1920px'; }
+  var brand = '<div class="brand"><div class="s"><b>S</b><i></i></div><span>SAVOUR</span></div>';
+  var arrow = '<svg class="arrow" viewBox="0 0 150 80" fill="none" stroke="#e8ca8d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 60 C 50 10, 100 10, 138 34"/><path d="M118 18 L 140 35 L 116 46"/></svg>';
+  var html = {
+    a:
+      brand +
+      '<h1>Van kladje naar recept. <em>In één keer.</em></h1>' +
+      '<p class="sub">Je kladjes, Word-bestanden en PDF’s worden één receptenboek. Op elke telefoon in de keuken, voor je hele brigade.</p>' +
+      '<div class="visual"><div class="note"><img src="kladje.jpg" alt=""><p>je kladje</p></div>' + arrow +
+      '<div class="phone"><div class="screen"><img src="telefoon-marshmallow.png" alt=""></div></div></div>' +
+      '<div class="cta"><span class="btn">Gratis beginnen</span><span class="small"><b>savour.page</b><br>Gratis tot 100 recepten</span></div>',
+    b:
+      brand +
+      '<h1>Wat kost je bord <em>écht?</em></h1>' +
+      '<p class="sub">Gratis foodcost calculator voor de keuken. Zonder account.</p>' +
+      '<ul class="list"><li>Kostprijs per portie, mét opbrengst</li><li>Adviesprijs bij je doel-foodcost</li><li>Je marge per bord in euro’s</li></ul>' +
+      '<div class="visual"><div class="calc"><img src="calculator.png" alt=""></div>' +
+      '<div class="badge"><span>kostprijs per portie</span><b>€ 4,10</b></div></div>' +
+      '<div class="cta"><span class="btn">Reken het gratis uit</span><span class="small"><b>savour.page</b><br>Gratis, zonder account</span></div>'
+  };
+  // Engelse versie: &lang=en (schermen uit de Engelse demo en calculator)
+  if (/lang=en/.test(location.search)) {
+    document.documentElement.lang = 'en';
+    // Feed B: de Engelse kop is twee regels; het lijstje valt dan weg (de calculator laat hetzelfde zien).
+    if (v === 'b-feed') document.body.classList.add('no-list');
+    html = {
+      a:
+        brand +
+        '<h1>From scribbled notes to recipes. <em>In one go.</em></h1>' +
+        '<p class="sub">Your notes, Word files and PDFs become one recipe book. On every phone in the kitchen, for your whole brigade.</p>' +
+        '<div class="visual"><div class="note"><img src="kladje.jpg" alt=""><p>your notes</p></div>' + arrow +
+        '<div class="phone"><div class="screen"><img src="telefoon-marshmallow-en.png" alt=""></div></div></div>' +
+        '<div class="cta"><span class="btn">Start for free</span><span class="small"><b>savour.page</b><br>Free up to 100 recipes</span></div>',
+      b:
+        brand +
+        '<h1>What does your plate <em>really</em> cost?</h1>' +
+        '<p class="sub">Free food cost calculator for professional kitchens. No account needed.</p>' +
+        '<ul class="list"><li>Cost per portion, including yield</li><li>Suggested price at your target food cost</li><li>Your margin per plate</li></ul>' +
+        '<div class="visual"><div class="calc"><img src="calculator-en.png" alt=""></div>' +
+        '<div class="badge"><span>cost per portion</span><b>€4.10</b></div></div>' +
+        '<div class="cta"><span class="btn">Calculate it free</span><span class="small"><b>savour.page</b><br>Free, no account needed</span></div>'
+    };
+  }
+  document.getElementById('ad').innerHTML = html[v[0]];
+</script>
+</body></html>
